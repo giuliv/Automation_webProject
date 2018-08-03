@@ -1,0 +1,17 @@
+    {
+        "deviceType" : "sauceweb",
+        "deviceClass" : "browser",
+        "manufacturer":"Apple",
+        "osVersion" : "10.11",
+        "os" : "macOS",
+        "deviceName" : "Firefox 54 on macOS 10.11",
+        "driverProvider" : "SAUCE_LABS",
+        "factoryConfigKey" : "WEBDESKTOP",
+        "hubUrl" : "http://%s:%s@ondemand.saucelabs.com:80/wd/hub", 
+        "caps" : {
+        	"browserName" : "firefox",
+        	"version" : "54.0",
+        	"platform" : "OS X 10.11",
+        	"acceptSSLAlerts" : "true"
+    	}
+    }

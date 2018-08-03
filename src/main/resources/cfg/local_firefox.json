@@ -1,0 +1,15 @@
+    {
+    	"deviceType" : "localweb",
+        "deviceClass" : "firefox",
+        "manufacturer":"Apple",
+        "osVersion" : "10.12",
+        "os" : "OS X",
+        "deviceName" : "Firefox on macOS",
+        "driverProvider" : "LOCAL_WEB",
+        "factoryConfigKey" : "WEBDESKTOP",
+        "hubUrl" : "local",
+        "caps" : {
+        	"browserName" : "firefox",
+        	"acceptSSLAlerts" : "true"
+    	}
+    }

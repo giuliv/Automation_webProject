@@ -1,0 +1,18 @@
+    {
+    	"deviceType" : "localmobileweb",
+        "deviceClass" : "iphone",
+        "manufacturer":"Apple",
+        "osVersion" : "10.2",
+        "os" : "iOS",
+        "deviceName" : "iPhone 5 Simulator",
+        "driverProvider" : "LOCAL_IOS_MW",
+        "factoryConfigKey" : "WEBPHONE",
+        "caps" : {
+          "platformName" : "iOS",
+          "platformVersion" : "10.2",
+          "deviceName" : "iPhone 5",
+          "automationName" : "XCUITest",
+          "browserName" : "Safari",
+          "autoAcceptAlerts" : "true"
+    	}
+    }

@@ -1,0 +1,17 @@
+    {
+        "deviceType" : "sauceweb",
+        "deviceClass" : "browser",
+        "manufacturer":"Microsoft",
+        "osVersion" : "10",
+        "os" : "Windows",
+        "deviceName" : "Firefox 54 on Windows 10",
+        "driverProvider" : "SAUCE_LABS",
+        "factoryConfigKey" : "WEBDESKTOP",
+        "hubUrl" : "http://%s:%s@ondemand.saucelabs.com:80/wd/hub", 
+        "caps" : {
+        	"browserName" : "firefox",
+        	"version" : "54.0",
+        	"platform" : "Windows 10",
+        	"acceptSSLAlerts" : "true"
+    	}
+    }

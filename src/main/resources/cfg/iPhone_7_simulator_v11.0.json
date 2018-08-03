@@ -1,0 +1,19 @@
+{
+	"deviceType": "saucemobileweb",
+	"deviceClass": "iphone",
+	"manufacturer": "Apple",
+	"osVersion": "11.0",
+	"os": "iOS",
+	"deviceName": "iPhone 7 Simulator",
+	"driverProvider": "SAUCE_LABS_MW",
+	"factoryConfigKey": "WEBPHONE",
+	"hubUrl": "http://%s:%s@ondemand.saucelabs.com:80/wd/hub",
+	"caps": {
+		"appiumVersion": "1.7.1",
+		"newCommandTimeout": "300",
+		"platformName": "iOS",
+		"platformVersion": "11.0",
+		"deviceName": "iPhone 7 Simulator",
+		"browserName": "Safari"
+	}
+}

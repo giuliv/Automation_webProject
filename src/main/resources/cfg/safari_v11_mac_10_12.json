@@ -1,0 +1,17 @@
+    {
+        "deviceType" : "sauceweb",
+        "deviceClass" : "browser",
+        "manufacturer":"Apple",
+        "osVersion" : "10.12",
+        "os" : "macOS",
+        "deviceName" : "Safari 10 on Mac 10.12",
+        "driverProvider" : "SAUCE_LABS",
+        "factoryConfigKey" : "WEBDESKTOP",
+        "hubUrl" : "http://%s:%s@ondemand.saucelabs.com:80/wd/hub", 
+        "caps" : {
+        	"browserName" : "safari",
+        	"version" : "11.0",
+        	"platform" : "macOS 10.12",
+        	"acceptSSLAlerts" : "true",
+    	}
+    }

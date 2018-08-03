@@ -1,0 +1,17 @@
+{
+	"deviceType" : "localmobileweb",
+    "deviceClass" : "androidtablet",
+    "manufacturer":"Google",
+    "osVersion" : "7.0.0",
+    "os" : "Android",
+    "deviceName" : "Google Nexus 9",
+    "driverProvider" : "LOCAL_ANDROID_MW",
+    "factoryConfigKey" : "WEBTABLET",
+    "caps" : {
+      "newCommandTimeout" : "300",
+      "platformName" : "Android",
+      "platformVersion" : "7.0",
+      "deviceName" : "Google Nexus 9 - 7.0.0 - API 24 - 1536x2048",
+      "browserName" : "Chrome"
+	}
+}

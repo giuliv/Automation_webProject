@@ -1,0 +1,14 @@
+{
+  "deviceType" : "localweb",
+    "deviceClass" : "internet explorer",
+    "manufacturer":"Microsoft",
+    "osVersion" : "10",
+    "os" : "Windows",
+    "deviceName" : "Internt Explorer on Windows",
+    "driverProvider" : "LOCAL_WEB",
+    "factoryConfigKey" : "WEBDESKTOP",
+    "caps" : {
+      "browserName" : "internet explorer",
+      "acceptSSLAlerts" : "true"
+  }
+}

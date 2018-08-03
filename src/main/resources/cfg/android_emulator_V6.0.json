@@ -1,0 +1,19 @@
+{
+	"deviceType": "saucemobileweb",
+	"deviceClass": "androidphone",
+	"manufacturer": "Google",
+	"osVersion": "6.0",
+	"os": "Android",
+	"deviceName": "Android Emulator",
+	"driverProvider": "SAUCE_LABS_MW",
+	"factoryConfigKey": "WEBPHONE",
+	"hubUrl": "http://%s:%s@ondemand.saucelabs.com:80/wd/hub",
+	"caps": {
+		"appiumVersion": "1.7.1",
+		"newCommandTimeout": "300",
+		"platformName": "Android",
+		"platformVersion": "6.0",
+		"deviceName": "Android Emulator",
+		"browserName": "Chrome"
+	}
+}

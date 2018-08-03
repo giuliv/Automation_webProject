@@ -1,0 +1,17 @@
+    {
+        "deviceType" : "sauceweb",
+        "deviceClass" : "browser",
+        "manufacturer":"Microsoft",
+        "osVersion" : "10",
+        "os" : "Windows",
+        "deviceName" : "Internet Explorer 11 on Windows 10",
+        "driverProvider" : "SAUCE_LABS",
+        "factoryConfigKey" : "WEBDESKTOP",
+        "hubUrl" : "http://%s:%s@ondemand.saucelabs.com:80/wd/hub", 
+        "caps" : {
+        	"browserName" : "internet explorer",
+        	"version" : "11.103",
+        	"platform" : "Windows 10",
+        	"acceptSSLAlerts" : "true"
+    	}
+    }
