@@ -6,7 +6,6 @@ import org.openqa.selenium.NoSuchElementException;
 
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.PageFactory;
 import com.applause.auto.framework.pageframework.web.WebElementLocator;
 import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
 import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
@@ -14,10 +13,10 @@ import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementa
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 
-@WebDesktopImplementation(LandingPage.class)
-@WebTabletImplementation(LandingPage.class)
-@WebPhoneImplementation(LandingPage.class)
-public class LandingPage extends AbstractPage {
+@WebDesktopImplementation(MyAccountPage.class)
+@WebTabletImplementation(MyAccountPage.class)
+@WebPhoneImplementation(MyAccountPage.class)
+public class MyAccountPage extends AbstractPage {
 
 	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
 
@@ -32,28 +31,21 @@ public class LandingPage extends AbstractPage {
 	 */
 
 	/**
-	 * Taps the sign in button.
+	 * Clicks on LoginMenu
 	 * 
-	 * @return a Login
+	 * @return LoginPage
 	 */
-	public SignInPage clickSignInButton() {
-		getSignInButton().click();
-		LOGGER.info("Tap on Signin Button");
-		return PageFactory.create(SignInPage.class);
+	public String getWelcomeMessage() {
+		LOGGER.info("Getting welcome message for verification");
+		return getViewSignature().getText();
 	}
-
 	/*
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "header .logo")
+	@WebElementLocator(webDesktop = ".welcome-msg .title")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
-	}
-
-	@WebElementLocator(webDesktop = ".account-link")
-	protected Button getSignInButton() {
-		return new Button(this, getLocator(this, "getSignInButton"));
 	}
 
 	@WebElementLocator(webDesktop = ".close-button")

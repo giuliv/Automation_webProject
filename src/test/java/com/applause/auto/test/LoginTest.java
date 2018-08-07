@@ -3,19 +3,19 @@ package com.applause.auto.test;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.applause.auto.pageframework.Chunks.AccountChunk;
 import com.applause.auto.pageframework.pages.LandingPage;
-import com.applause.auto.pageframework.pages.SchedulePage;
-import com.applause.auto.pageframework.testdata.TestConstants.TestData;
+import com.applause.auto.pageframework.pages.MyAccountPage;
+import com.applause.auto.pageframework.pages.SignInPage;
+import com.applause.auto.pageframework.testdata.TestConstants;
 import com.applause.auto.pageframework.testdata.TestConstants.TestNGGroups;
 
 public class LoginTest extends BaseTest {
 
 	private LandingPage landingPage;
-	private SchedulePage schedule;
-	private AccountChunk menuchunk;
+	private MyAccountPage myAccountPage;
+	private SignInPage signInPage;
 
-	@Test(groups = { TestNGGroups.LOGIN }, description = "3589")
+	@Test(groups = { TestNGGroups.LOGIN }, description = "10351")
 	public void loginTest() {
 
 		LOGGER.info("1. Navigate to landing page");
@@ -24,18 +24,17 @@ public class LoginTest extends BaseTest {
 		// Assertions
 		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
 
-		LOGGER.info("2. Click on Skip");
-		schedule = landingPage.tapSkipButton();
+		LOGGER.info("2. Click on Sign In");
+		signInPage = landingPage.clickSignInButton();
 
-		LOGGER.info("3. Click on Login and enter test data");
-		schedule = templateTestHelper.logIntoAccount(TestData.USERNAME, TestData.PASSWORD, schedule);
+		LOGGER.info("3. Enter username and password");
+		signInPage.enterEmail(TestConstants.TestData.USERNAME);
+		signInPage.enterPassword(TestConstants.TestData.PASSWORD);
+		myAccountPage = signInPage.clickonSignInButton();
 
-		LOGGER.info("4. Click on Account Menu");
-		menuchunk = schedule.clickonAccountMenu();
-
-		LOGGER.info("5. Verify the login user name with test data");
-		Assert.assertEquals(menuchunk.getUsernameText(), TestData.USERNAME);
-		LOGGER.info("Login test Pass");
+		LOGGER.info("Verify user is signed in");
+		Assert.assertTrue(myAccountPage.getWelcomeMessage().contains("Applause"),
+				"User is not signed in or welcome name is wrong");
 
 	}
 }

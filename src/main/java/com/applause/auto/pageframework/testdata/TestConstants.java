@@ -16,9 +16,9 @@ public class TestConstants {
 	 */
 	public static final class TestData {
 
-		public static final String LANDING_PAGE_URL = "http://ionic-conference.s3-website-us-east-1.amazonaws.com/";
+		public static final String LANDING_PAGE_URL = "https://www.peets.com/";
 
-		public static final String USERNAME = "test";
-		public static final String PASSWORD = "test";
+		public static final String USERNAME = "appautosvc+peetscoffee@applause.com";
+		public static final String PASSWORD = "password123";
 	}
 }
