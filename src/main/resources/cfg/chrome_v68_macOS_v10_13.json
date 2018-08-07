@@ -11,7 +11,7 @@
         "caps" : {
         	"browserName" : "chrome",
         	"version" : "68.0",
-        	"platform" : "macOS 10.13",
+        	"platform" : "macOS 10.12",
         	"acceptSSLAlerts" : "true",
     	}
     }
