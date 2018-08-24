@@ -42,6 +42,17 @@ public class LandingPage extends AbstractPage {
 		return PageFactory.create(SignInPage.class);
 	}
 
+	/**
+	 * Click Shop Coffee Button
+	 *
+	 * @return a Shop Coffee Page
+	 */
+	public ShopCoffeePage clickShopCoffeeButton() {
+		LOGGER.info("Tap on Shop Coffee Button");
+		getShopCoffeeButton().click();
+		return PageFactory.create(ShopCoffeePage.class);
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -59,6 +70,11 @@ public class LandingPage extends AbstractPage {
 	@WebElementLocator(webDesktop = ".close-button")
 	protected Button getDismissPopupButton() {
 		return new Button(this, getLocator(this, "getDismissPopupButton"));
+	}
+
+	@WebElementLocator(webDesktop = "//div[@id='shop-peets']//a[contains(.,'Shop Coffee')]")
+	protected Button getShopCoffeeButton() {
+		return new Button(this, getLocator(this, "getShopCoffeeButton"));
 	}
 
 	private void dismissPopup() {
