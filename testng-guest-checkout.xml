@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Guest Checkout Test Suite" verbose="1" parallel="classes"
+	thread-count="1">
+	<test name="guest-checkout" preserve-order="true">
+		<groups>
+			<run>
+				<include name="guest-checkout"/>
+			</run>
+		</groups>
+		<packages>
+			<package name="com.applause.auto.test" />
+		</packages>
+	</test>
+</suite>
