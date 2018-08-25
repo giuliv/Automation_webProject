@@ -1,0 +1,65 @@
+package com.applause.auto.pageframework.chunks;
+
+import java.lang.invoke.MethodHandles;
+
+import com.applause.auto.framework.pageframework.UIData;
+import com.applause.auto.framework.pageframework.util.logger.LogController;
+import com.applause.auto.framework.pageframework.web.AbstractPageChunk;
+import com.applause.auto.framework.pageframework.web.PageFactory;
+import com.applause.auto.framework.pageframework.web.WebElementLocator;
+import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
+import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
+import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
+import com.applause.auto.framework.pageframework.webcontrols.Button;
+import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageframework.pages.CheckoutPage;
+
+@WebDesktopImplementation(MiniCartContainerChunk.class)
+@WebTabletImplementation(MiniCartContainerChunk.class)
+@WebPhoneImplementation(MiniCartContainerChunk.class)
+public class MiniCartContainerChunk extends AbstractPageChunk {
+	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+
+	/**
+	 * Constructor.
+	 *
+	 * @param selector
+	 *            the selector of the chunk
+	 */
+	public MiniCartContainerChunk(UIData parent, String selector) {
+		super(parent, selector);
+	}
+
+	@Override
+	protected void waitUntilVisible() {
+		syncHelper.waitForElementToAppear(getViewSignature());
+	}
+
+	/*
+	 * Public actions
+	 */
+
+	/**
+	 * Click Checkout Button
+	 *
+	 * @return CheckoutPage
+	 */
+	public CheckoutPage clickCheckout() {
+		LOGGER.info("Clicking Checkout Button");
+		getCheckoutButton().click();
+		return PageFactory.create(CheckoutPage.class);
+	}
+
+	/*
+	 * Protected Getters
+	 */
+	@WebElementLocator(webDesktop = "#minicart-container")
+	protected Text getViewSignature() {
+		return new Text(this, getLocator(this, "getViewSignature"));
+	}
+
+	@WebElementLocator(webDesktop = "a[title='Checkout']")
+	protected Button getCheckoutButton() {
+		return new Button(this, getLocator(this, "getCheckoutButton"));
+	}
+}
