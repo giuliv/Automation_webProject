@@ -36,7 +36,7 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	 */
 
 	/**
-	 * Continue after entering Peets Card info
+	 * <<<<<<< HEAD Continue after entering Peets Card info
 	 *
 	 */
 	public CheckoutPlaceOrderPage continueAfterFillingPeetsCardInfo() {
@@ -80,6 +80,9 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	/**
 	 * Continue after entering required Billing info
 	 *
+	 * ======= Continue after entering required Billing info
+	 * 
+	 * >>>>>>> master
 	 */
 	public CheckoutPlaceOrderPage continueAfterFillingRequiredBillingInfo() {
 		LOGGER.info("Clicking Continue after filling Billing info");
@@ -90,8 +93,11 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	}
 
 	/**
-	 * Select Debit/Credit Card as payment option
+	 * Select Debit/Credit Card as payment option <<<<<<< HEAD
 	 *
+	 * =======
+	 * 
+	 * >>>>>>> master
 	 */
 	public void selectDebitCreditCardOption() {
 		LOGGER.info("Selecting the Debit/Credit card Checkbox");
@@ -101,8 +107,11 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	}
 
 	/**
-	 * Fill Required Fields for Billing Info
+	 * Fill Required Fields for Billing Info <<<<<<< HEAD
 	 *
+	 * =======
+	 * 
+	 * >>>>>>> master
 	 */
 	public void fillBillingInfo() {
 		LOGGER.info("Filling Billing info");
@@ -118,8 +127,11 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	}
 
 	/**
-	 * Select Billing Address same as Shipping Address
+	 * Select Billing Address same as Shipping Address <<<<<<< HEAD
 	 *
+	 * =======
+	 * 
+	 * >>>>>>> master
 	 */
 	public void selectBilligShippingAddress() {
 		LOGGER.info("Select Billing Address Same as Shipping Address");
@@ -131,7 +143,7 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 
 	/**
 	 * Click continue after billing info section
-	 *
+	 * 
 	 */
 	public void continueAfterBillingInfo() {
 		LOGGER.info("Click Continue on billing section");

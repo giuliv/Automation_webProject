@@ -106,4 +106,5 @@ public class GuestCheckoutTest extends BaseTest {
 
 		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
 	}
+
 }

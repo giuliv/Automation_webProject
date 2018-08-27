@@ -18,6 +18,7 @@ public class TestConstants {
 	public static final class TestData {
 
 		public static final String LANDING_PAGE_URL = "https://uat.aws.peets.com/";
+
 		public static final String SHOP_TEA_PAGE_URL = "https://uat.aws.peets.com/mighty-leaf-tea";
 
 		public static final String USERNAME = "appautosvc+peetscoffee@applause.com";
