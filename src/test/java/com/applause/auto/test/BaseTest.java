@@ -17,6 +17,7 @@ import com.applause.auto.framework.pageframework.util.synchronization.WebSyncHel
 import com.applause.auto.framework.pageframework.web.PageFactory;
 import com.applause.auto.pageframework.helpers.TemplateTestHelper;
 import com.applause.auto.pageframework.pages.LandingPage;
+import com.applause.auto.pageframework.pages.ShopTeaPage;
 import com.applause.auto.pageframework.testdata.CustomerConfig;
 import com.applause.auto.pageframework.testdata.TestConstants.TestData;
 import com.applause.auto.pageframework.testrail.TemplateWebTestListener;
@@ -83,5 +84,11 @@ public class BaseTest {
 		LOGGER.info(String.format("Navigating to the landing page '%s'", TestData.LANDING_PAGE_URL));
 		driver.navigate().to(TestData.LANDING_PAGE_URL);
 		return PageFactory.create(LandingPage.class);
+	}
+
+	protected ShopTeaPage navigateToShopTeaPage() {
+		LOGGER.info(String.format("Navigating to the Shop Tea page '%s'", TestData.SHOP_TEA_PAGE_URL));
+		driver.navigate().to(TestData.SHOP_TEA_PAGE_URL);
+		return PageFactory.create(ShopTeaPage.class);
 	}
 }

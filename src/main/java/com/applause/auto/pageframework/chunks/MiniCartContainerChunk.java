@@ -11,8 +11,10 @@ import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplement
 import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
 import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
 import com.applause.auto.framework.pageframework.webcontrols.Button;
+import com.applause.auto.framework.pageframework.webcontrols.Link;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.pages.CheckoutPage;
+import com.applause.auto.pageframework.pages.ShoppingCartPage;
 
 @WebDesktopImplementation(MiniCartContainerChunk.class)
 @WebTabletImplementation(MiniCartContainerChunk.class)
@@ -50,6 +52,17 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 		return PageFactory.create(CheckoutPage.class);
 	}
 
+	/**
+	 * Click Edit Cart link
+	 *
+	 * @return ShoppingCartPage
+	 */
+	public ShoppingCartPage clickEditCart() {
+		LOGGER.info("Clicking Edit Button");
+		getEditCartLink().click();
+		return PageFactory.create(ShoppingCartPage.class);
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -58,8 +71,14 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
+	@WebElementLocator(webDesktop = ".minicart-wrapper .cart-link")
+	protected Link getEditCartLink() {
+		return new Link(this, getLocator(this, "getEditCartLink"));
+	}
+
 	@WebElementLocator(webDesktop = "a[title='Checkout']")
 	protected Button getCheckoutButton() {
 		return new Button(this, getLocator(this, "getCheckoutButton"));
 	}
+
 }
