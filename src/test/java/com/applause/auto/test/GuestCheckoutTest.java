@@ -13,6 +13,9 @@ import com.applause.auto.pageframework.pages.CheckoutShippingInfoPage;
 import com.applause.auto.pageframework.pages.CoffeeProductPage;
 import com.applause.auto.pageframework.pages.LandingPage;
 import com.applause.auto.pageframework.pages.ShopCoffeePage;
+import com.applause.auto.pageframework.pages.ShopTeaPage;
+import com.applause.auto.pageframework.pages.ShoppingCartPage;
+import com.applause.auto.pageframework.pages.TeaProductPage;
 import com.applause.auto.pageframework.testdata.TestConstants;
 import com.applause.auto.pageframework.testdata.TestConstants.TestNGGroups;
 
@@ -48,6 +51,53 @@ public class GuestCheckoutTest extends BaseTest {
 		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterFillingRequiredBillingInfo();
 
 		LOGGER.info("7. Click 'Place Order'");
+		CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
+
+		LOGGER.info("Verify Confirmation page is displayed");
+		Assert.assertTrue(confirmationPage.getConfirmationMessage().contains("THANK YOU FOR YOUR PURCHASE!"),
+				"Order was not placed");
+
+		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
+	}
+
+	@Test(groups = { TestNGGroups.GUEST_CHECKOUT }, description = "19501")
+	public void guestCheckoutTeaTest() {
+
+		LOGGER.info("1. Navigate to landing page");
+		LandingPage landingPage = navigateToLandingPage();
+		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+
+		LOGGER.info("2. Select a tea from grid view and add to cart");
+		ShopTeaPage shopTeaPage = navigateToShopTeaPage();
+		TeaProductPage teaProductPage = shopTeaPage.clickProductName(TestConstants.TestData.TEA_NAME);
+		MiniCartContainerChunk miniCartContainer = teaProductPage.clickAddToCart();
+
+		LOGGER.info("3. Select 'Edit Cart' from mini-cart");
+		ShoppingCartPage shoppingCart = miniCartContainer.clickEditCart();
+
+		LOGGER.info("4. Add gift message to product");
+		shoppingCart.selectOrderAsGift();
+		shoppingCart.enterGiftMessage(TestConstants.TestData.GIFT_MESSAGE);
+
+		LOGGER.info("5. Select 'Proceed to Checkout'");
+		CheckoutPage checkoutPage = shoppingCart.clickProceedToCheckout();
+		CheckoutShippingInfoPage shippingInfoPage = checkoutPage.clickContinueAsGuest();
+
+		LOGGER.info("6. Complete Contact Information");
+		VerifyYourAddressDetailsChunk verifyAddressChunk = shippingInfoPage.continueAfterFillingRequiredContactInfo();
+		shippingInfoPage = verifyAddressChunk.clickEnteredAddressButton();
+
+		LOGGER.info("7. Select ground shipping");
+		Assert.assertEquals(shippingInfoPage.getGiftMessage(), TestConstants.TestData.GIFT_MESSAGE,
+				"Gift message entered previously was not fetched correctly");
+		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
+				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
+
+		LOGGER.info("8. Use credit card for payment");
+		// Cant use Peets Card as it is limited to $50 so wont be a stable test
+		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterFillingRequiredBillingInfo();
+
+		LOGGER.info("9. Click 'Place Order'");
 		CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
 
 		LOGGER.info("Verify Confirmation page is displayed");

@@ -6,6 +6,7 @@ import org.openqa.selenium.NoSuchElementException;
 
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
+import com.applause.auto.framework.pageframework.web.ChunkFactory;
 import com.applause.auto.framework.pageframework.web.PageFactory;
 import com.applause.auto.framework.pageframework.web.WebElementLocator;
 import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
@@ -13,6 +14,7 @@ import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementat
 import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageframework.chunks.MainMenuChunk;
 
 @WebDesktopImplementation(LandingPage.class)
 @WebTabletImplementation(LandingPage.class)
@@ -51,6 +53,27 @@ public class LandingPage extends AbstractPage {
 		LOGGER.info("Tap on Shop Coffee Button");
 		getShopCoffeeButton().click();
 		return PageFactory.create(ShopCoffeePage.class);
+	}
+
+	/**
+	 * Click Shop Tea Button
+	 *
+	 * @return a Shop Tea Page
+	 */
+	public ShopTeaPage clickTeaCoffeeButton() {
+		LOGGER.info("Tap on Shop Tea Button");
+		getShopCoffeeButton().click();
+		return PageFactory.create(ShopTeaPage.class);
+	}
+
+	/**
+	 * Gets Main Menu
+	 *
+	 * @return MainMenuChunk
+	 */
+	public MainMenuChunk getMainMenu() {
+		LOGGER.info("Getting Main Menu");
+		return ChunkFactory.create(MainMenuChunk.class, this, "");
 	}
 
 	/*
