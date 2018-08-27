@@ -98,6 +98,16 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 		getShippingInfoContinueButton().click();
 	}
 
+	/**
+	 * Get Gift Order Message
+	 *
+	 * @return String
+	 */
+	public String getGiftMessage() {
+		LOGGER.info("Getting gift Message");
+		return getGiftMessageEditField().getText();
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -155,6 +165,11 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	@WebElementLocator(webDesktop = "//strong[@class='shipping-method-name' and contains(.,'%s')]")
 	protected Button getShippingMethodButton(String shippingMethod) {
 		return new Button(this, String.format(getLocator(this, "getShippingMethodButton"), shippingMethod));
+	}
+
+	@WebElementLocator(webDesktop = "#gift-message-whole-message")
+	protected EditField getGiftMessageEditField() {
+		return new EditField(this, getLocator(this, "getGiftMessageEditField"));
 	}
 
 	@WebElementLocator(webDesktop = "#co-shipping-method-form button")

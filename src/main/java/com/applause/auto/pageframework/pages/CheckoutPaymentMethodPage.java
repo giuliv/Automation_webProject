@@ -36,6 +36,48 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	 */
 
 	/**
+	 * Continue after entering Peets Card info
+	 *
+	 */
+	public CheckoutPlaceOrderPage continueAfterFillingPeetsCardInfo() {
+		LOGGER.info("Clicking Continue after filling Peets Card info");
+		selectPeetsCardOption();
+		fillPeetsCardInfo();
+		continueAfterBillingInfo();
+		return PageFactory.create(CheckoutPlaceOrderPage.class);
+	}
+
+	/**
+	 * Select Peets Card as payment option
+	 *
+	 */
+	public void selectPeetsCardOption() {
+		LOGGER.info("Selecting the Peets card Checkbox");
+		if (!getPeetsCardCheckbox().isSelected()) {
+			getPeetsCardCheckbox().check();
+		}
+	}
+
+	/**
+	 * Fill Peets Card Billing Info
+	 *
+	 */
+	public void fillPeetsCardInfo() {
+		LOGGER.info("Filling Peets Card info");
+		getPeetsCardNumberEditField().setText(TestConstants.TestData.PEETS_CARD_NUMBER);
+		getPeetsCardPinEditField().setText(TestConstants.TestData.PEETS_CARD_PIN);
+
+		// Peets card loads its balance after clicking outside the Peets Card fields
+		getEmailEditField().click();
+		syncHelper.waitForElementToAppear(getLocator(this, "getPeetsCardLoadingSpinner"));
+		syncHelper.waitForElementToDisappear(getLocator(this, "getPeetsCardLoadingSpinner"));
+
+		long timeStamp = System.currentTimeMillis();
+		String email = String.format(TestConstants.TestData.EMAIL, timeStamp);
+		getEmailEditField().setText(email);
+	}
+
+	/**
 	 * Continue after entering required Billing info
 	 * 
 	 */
@@ -49,7 +91,7 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 
 	/**
 	 * Select Debit/Credit Card as payment option
-	 * 
+	 *
 	 */
 	public void selectDebitCreditCardOption() {
 		LOGGER.info("Selecting the Debit/Credit card Checkbox");
@@ -105,6 +147,21 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
+	@WebElementLocator(webDesktop = "#pc-title input")
+	protected Checkbox getPeetsCardCheckbox() {
+		return new Checkbox(this, getLocator(this, "getPeetsCardCheckbox"));
+	}
+
+	@WebElementLocator(webDesktop = "#custompayment_pc_number")
+	protected EditField getPeetsCardNumberEditField() {
+		return new EditField(this, getLocator(this, "getPeetsCardNumberEditField"));
+	}
+
+	@WebElementLocator(webDesktop = "#custompayment_pc_pin")
+	protected EditField getPeetsCardPinEditField() {
+		return new EditField(this, getLocator(this, "getPeetsCardPinEditField"));
+	}
+
 	@WebElementLocator(webDesktop = "#cc_checkbox")
 	protected Checkbox getDebitCreditCardCheckbox() {
 		return new Checkbox(this, getLocator(this, "getDebitCreditCardCheckbox"));
@@ -153,6 +210,11 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	@WebElementLocator(webDesktop = "opc-please-wait")
 	protected BaseHtmlElement getBillingLoadingSpinner() {
 		return new BaseHtmlElement(this, getLocator(this, "getBillingLoadingSpinner"));
+	}
+
+	@WebElementLocator(webDesktop = "peets-card-please-wait")
+	protected BaseHtmlElement getPeetsCardLoadingSpinner() {
+		return new BaseHtmlElement(this, getLocator(this, "getPeetsCardLoadingSpinner"));
 	}
 
 }

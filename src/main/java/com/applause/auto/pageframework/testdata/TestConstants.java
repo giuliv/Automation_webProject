@@ -19,11 +19,17 @@ public class TestConstants {
 
 		public static final String LANDING_PAGE_URL = "https://uat.aws.peets.com/";
 
+		public static final String SHOP_TEA_PAGE_URL = "https://uat.aws.peets.com/mighty-leaf-tea";
+
 		public static final String USERNAME = "appautosvc+peetscoffee@applause.com";
 		public static final String PASSWORD = "password123";
 
 		public static final String COFFEE_BRAND_NAME = "House Blend";
 		public static final String GRIND = "Commercial Brewer";
+
+		public static final String TEA_NAME = "Chamomile Citrus Loose Leaf";
+
+		public static final String GIFT_MESSAGE = "This is a test message for the gift-message field";
 
 		public static final String SHIPPING_METHOD_GROUND = "Ground";
 
@@ -36,12 +42,24 @@ public class TestConstants {
 		public static final String STATE = "New York";
 		public static final String EMAIL = "peets+%s@qa.utest.com";
 
+		public static final String PEETS_CARD_NUMBER = "81001000000747";
+		public static final String PEETS_CARD_PIN = "3396";
+
 		public static final String VISA_CC_NUMBER = "4111111111111111";
 		public static final String VISA_CC_SECURITY_CODE = "111";
 		public static final String VISA_CC_MONTH = "12";
 		public static final String VISA_CC_YEAR = "2020";
 		public static final String VISA_CC_NAME = "QA Test Applause Auto";
 		public static final String VISA_CC_ZIP = "90404";
+
+	}
+
+	public static final class TestMainMenu {
+
+		public static final String NAV_CATEGORY_SHOP = "Shop";
+
+		public static final String NAV_SUBMENU_COFFEE = "Coffee";
+		public static final String NAV_SUBMENU_TEA = "Tea";
 
 	}
 }

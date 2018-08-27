@@ -12,10 +12,10 @@ import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementa
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 
-@WebDesktopImplementation(CheckoutPage.class)
-@WebTabletImplementation(CheckoutPage.class)
-@WebPhoneImplementation(CheckoutPage.class)
-public class CheckoutPage extends AbstractPage {
+@WebDesktopImplementation(ShopTeaPage.class)
+@WebTabletImplementation(ShopTeaPage.class)
+@WebPhoneImplementation(ShopTeaPage.class)
+public class ShopTeaPage extends AbstractPage {
 
 	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
 
@@ -29,28 +29,27 @@ public class CheckoutPage extends AbstractPage {
 	 */
 
 	/**
-	 * Click continue as Guest
+	 * Clicks a product name under the Tea Page
 	 * 
-	 * @return CheckoutShippingInfoPage
+	 * @return a Tea Product Page
 	 */
-	public CheckoutShippingInfoPage clickContinueAsGuest() {
-		LOGGER.info("Click Continue as Guest");
-		getClickContinueAsGuestButton().click();
-		return PageFactory.create(CheckoutShippingInfoPage.class);
+	public TeaProductPage clickProductName(String productName) {
+		LOGGER.info(String.format("Tap on Product Name: %s", productName));
+		productNameButton(productName).click();
+		return PageFactory.create(TeaProductPage.class);
 	}
 
 	/*
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "//div[@class='page-title']/h1[contains(.,'Checkout')]")
+	@WebElementLocator(webDesktop = "//div[@class='top-banner hero']//div[@class='text-content']/h1[contains(.,'Tea')]")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
-	@WebElementLocator(webDesktop = "//button[contains(.,'Continue as Guest')]")
-	protected Button getClickContinueAsGuestButton() {
-		return new Button(this, getLocator(this, "getClickContinueAsGuestButton"));
+	@WebElementLocator(webDesktop = "//ul[@class='prod-list']//li[strong[@class='product-name' and contains(.,'%s')]]")
+	protected Button productNameButton(String productName) {
+		return new Button(this, String.format(getLocator(this, "productNameButton"), productName));
 	}
-
 }
