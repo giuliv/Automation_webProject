@@ -22,7 +22,7 @@ public class PaymentMethodsPage extends AbstractPage {
 
     @Override
     protected void waitUntilVisible() {
-        syncHelper.waitForElementToAppear(getViewSignature());
+//        syncHelper.waitForElementToAppear(getViewSignature());
     }
 
     // Public actions
