@@ -12,6 +12,7 @@ import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementat
 import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageframework.pages.ShopEquipmentPage;
 import com.applause.auto.pageframework.pages.ShopTeaPage;
 import com.applause.auto.pageframework.testdata.TestConstants;
 
@@ -67,6 +68,17 @@ public class MainMenuChunk extends AbstractPageChunk {
 		LOGGER.info("Accessing Shop-Tea");
 		clickCategorySubmenu(TestConstants.TestMainMenu.NAV_CATEGORY_SHOP, TestConstants.TestMainMenu.NAV_SUBMENU_TEA);
 		return PageFactory.create(ShopTeaPage.class);
+	}
+
+	/**
+	 * Access Sub-Menu Equipment under Category Shop from main menu
+	 *
+	 */
+	public ShopEquipmentPage accessShopEquipment() {
+		LOGGER.info("Accessing Shop-Equipment");
+		clickCategorySubmenu(TestConstants.TestMainMenu.NAV_CATEGORY_SHOP,
+				TestConstants.TestMainMenu.NAV_SUBMENU_EQUIPMENT);
+		return PageFactory.create(ShopEquipmentPage.class);
 	}
 
 	/*
