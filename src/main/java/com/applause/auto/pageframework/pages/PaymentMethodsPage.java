@@ -105,7 +105,6 @@ public class PaymentMethodsPage extends AbstractPage {
         syncHelper.suspend(3000);
         getDeletePeetsCardButton().click();
         syncHelper.suspend(3000);
-        snapshotManager.takeScreenshot("After button click");
         Alert alert = getDriver().switchTo().alert();
         alert.accept();
     }
@@ -141,7 +140,7 @@ public class PaymentMethodsPage extends AbstractPage {
     @WebElementLocator(webDesktop = "div.payment-card-holder.account-container > div.main-section > ol > li:nth-child(1) > div.info-col > p:nth-child(4)")
     protected Text getNameOnCreditCardText() { return new Text(this, getLocator(this, "getNameOnCreditCardText")); }
 
-    @WebElementLocator(webDesktop = "div.payment-card-holder.account-container > div.main-section > ol > li:nth-child(2) > div.actions-col > ul > li:nth-child(2) > a")
+    @WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.payment-card-holder.account-container > div.main-section > ol > li:nth-child(2) > div.actions-col > ul > li:nth-child(2) > a")
     protected Button getDeletePeetsCardButton() { return new Button(this, getLocator(this, "getDeletePeetsCardButton")); }
 
     @WebElementLocator(webDesktop = "div.payment-card-holder.account-container > div.main-section > ol > li:nth-child(2) > div.info-col > div > span.left")
