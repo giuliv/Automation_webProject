@@ -49,6 +49,9 @@ public class TestConstants {
 		public static final String PEETS_CARD_PIN = "3396";
 		public static final String PEETS_CARD_LOWEST_AMOUNT = "1";
 
+		public static final String PEETS_CARD_NUMBER_2 = "81001000000748";
+		public static final String PEETS_CARD_PIN_2 = "1342";
+
 		public static final String VISA_CC_NUMBER = "4111111111111111";
 		public static final String VISA_CC_SECURITY_CODE = "111";
 		public static final String VISA_CC_MONTH = "12";
