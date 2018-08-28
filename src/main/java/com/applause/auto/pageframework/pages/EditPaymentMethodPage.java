@@ -52,7 +52,7 @@ public class EditPaymentMethodPage extends AbstractPage {
     }
 
     // Protected getters
-    @WebElementLocator(webDesktop = "//h1[text()='Edit a Payment Method']")
+    @WebElementLocator(webDesktop = "div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1")
     protected Text getViewSignature() { return new Text(this, getLocator(this, "getViewSignature")); }
 
     @WebElementLocator(webDesktop = "#NameOnCard")
