@@ -21,6 +21,7 @@ public class TestConstants {
 		public static final String LANDING_PAGE_URL = "https://uat.aws.peets.com/";
 		public static final String SHOP_TEA_PAGE_URL = "https://uat.aws.peets.com/mighty-leaf-tea";
 		public static final String SHOP_EQUIPMENT_PAGE_URL = "https://uat.aws.peets.com/equipment";
+		public static final String SHOP_PEETS_CARD_PAGE_URL = "https://uat.aws.peets.com/peets-card";
 
 		public static final String USERNAME = "appautosvc+peetscoffee@applause.com";
 		public static final String PASSWORD = "password123";
@@ -48,6 +49,7 @@ public class TestConstants {
 		public static final String PEETS_CARD_NUMBER = "81001000000747";
 		public static final String PEETS_CARD_PIN = "3396";
 		public static final String PEETS_CARD_LOWEST_AMOUNT = "1";
+		public static final String PEETS_CARD_BUY_AMOUNT = "Card +$10.00";
 
 		public static final String PEETS_CARD_NUMBER_2 = "81001000000748";
 		public static final String PEETS_CARD_PIN_2 = "1342";
@@ -68,6 +70,8 @@ public class TestConstants {
 		public static final String NAV_SUBMENU_COFFEE = "Coffee";
 		public static final String NAV_SUBMENU_TEA = "Tea";
 		public static final String NAV_SUBMENU_EQUIPMENT = "Equipment";
+
+		public static final String NAV_OPTION_CARDS_BY_MAIL = "Gift Cards by Mail";
 
 	}
 
