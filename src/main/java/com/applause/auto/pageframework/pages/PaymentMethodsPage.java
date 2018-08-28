@@ -102,7 +102,9 @@ public class PaymentMethodsPage extends AbstractPage {
      */
     public void clickDeletePeetsCard() {
         LOGGER.info("Clicking Delete Credit Card");
+        syncHelper.suspend(3000);
         getDeletePeetsCardButton().click();
+        syncHelper.suspend(3000);
         Alert alert = getDriver().switchTo().alert();
         alert.accept();
     }
