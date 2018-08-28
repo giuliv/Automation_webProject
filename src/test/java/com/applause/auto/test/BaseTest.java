@@ -17,6 +17,7 @@ import com.applause.auto.framework.pageframework.util.synchronization.WebSyncHel
 import com.applause.auto.framework.pageframework.web.PageFactory;
 import com.applause.auto.pageframework.helpers.TemplateTestHelper;
 import com.applause.auto.pageframework.pages.LandingPage;
+import com.applause.auto.pageframework.pages.PeetsCardProductPage;
 import com.applause.auto.pageframework.pages.ShopEquipmentPage;
 import com.applause.auto.pageframework.pages.ShopTeaPage;
 import com.applause.auto.pageframework.testdata.CustomerConfig;
@@ -97,5 +98,11 @@ public class BaseTest {
 		LOGGER.info(String.format("Navigating to the Shop Equipment page '%s'", TestData.SHOP_EQUIPMENT_PAGE_URL));
 		driver.navigate().to(TestData.SHOP_EQUIPMENT_PAGE_URL);
 		return PageFactory.create(ShopEquipmentPage.class);
+	}
+
+	protected PeetsCardProductPage navigateToShopPeetsCardPage() {
+		LOGGER.info(String.format("Navigating to the Shop Peets Card page '%s'", TestData.SHOP_PEETS_CARD_PAGE_URL));
+		driver.navigate().to(TestData.SHOP_PEETS_CARD_PAGE_URL);
+		return PageFactory.create(PeetsCardProductPage.class);
 	}
 }

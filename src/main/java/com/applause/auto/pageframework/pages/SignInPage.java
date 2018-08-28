@@ -57,6 +57,17 @@ public class SignInPage extends AbstractPage {
 		return PageFactory.create(MyAccountPage.class);
 	}
 
+	/**
+	 * Click on Create Account Button on Login Page
+	 *
+	 * @return SignUppage
+	 */
+	public SignUpPage clickonCreateAccountButton() {
+		LOGGER.info("Click on Create Account button");
+		getCreateAccountButton().click();
+		return PageFactory.create(SignUpPage.class);
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -76,4 +87,8 @@ public class SignInPage extends AbstractPage {
 		return new Button(this, getLocator(this, "getSignInButton"));
 	}
 
+	@WebElementLocator(webDesktop = ".new-users button")
+	protected Button getCreateAccountButton() {
+		return new Button(this, getLocator(this, "getCreateAccountButton"));
+	}
 }
