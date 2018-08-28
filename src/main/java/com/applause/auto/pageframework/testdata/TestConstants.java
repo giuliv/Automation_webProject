@@ -10,6 +10,7 @@ public class TestConstants {
 		public static final String DEBUG = "debug";
 		public static final String LOGIN = "login";
 		public static final String GUEST_CHECKOUT = "guest-checkout";
+		public static final String MY_ACCOUNT = "my-account";
 	}
 
 	/**
@@ -65,5 +66,11 @@ public class TestConstants {
 		public static final String NAV_SUBMENU_TEA = "Tea";
 		public static final String NAV_SUBMENU_EQUIPMENT = "Equipment";
 
+	}
+
+	public static final class MyAccountTestData {
+
+		public static final String EMAIL = "peets+testaccount@qa.utest.com";
+		public static final String PASSWORD = "p@ssword123";
 	}
 }
