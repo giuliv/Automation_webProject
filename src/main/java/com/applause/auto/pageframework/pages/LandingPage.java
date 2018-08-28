@@ -60,10 +60,21 @@ public class LandingPage extends AbstractPage {
 	 *
 	 * @return a Shop Tea Page
 	 */
-	public ShopTeaPage clickTeaCoffeeButton() {
+	public ShopTeaPage clickShopTeaButton() {
 		LOGGER.info("Tap on Shop Tea Button");
-		getShopCoffeeButton().click();
+		getShopTeaButton().click();
 		return PageFactory.create(ShopTeaPage.class);
+	}
+
+	/**
+	 * Click Shop Equipment Button
+	 *
+	 * @return a Shop Equipment Page
+	 */
+	public ShopEquipmentPage clickShopEquipmentButton() {
+		LOGGER.info("Tap on Shop Equipment Button");
+		getShopEquipmentButton().click();
+		return PageFactory.create(ShopEquipmentPage.class);
 	}
 
 	/**
@@ -98,6 +109,16 @@ public class LandingPage extends AbstractPage {
 	@WebElementLocator(webDesktop = "//div[@id='shop-peets']//a[contains(.,'Shop Coffee')]")
 	protected Button getShopCoffeeButton() {
 		return new Button(this, getLocator(this, "getShopCoffeeButton"));
+	}
+
+	@WebElementLocator(webDesktop = "//div[@id='shop-peets']//a[contains(.,'Shop Tea')]")
+	protected Button getShopTeaButton() {
+		return new Button(this, getLocator(this, "getShopTeaButton"));
+	}
+
+	@WebElementLocator(webDesktop = "//div[@id='shop-peets']//a[contains(.,'Shop Equipment')]")
+	protected Button getShopEquipmentButton() {
+		return new Button(this, getLocator(this, "getShopEquipmentButton"));
 	}
 
 	private void dismissPopup() {

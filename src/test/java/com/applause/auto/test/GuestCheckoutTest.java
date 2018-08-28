@@ -11,8 +11,10 @@ import com.applause.auto.pageframework.pages.CheckoutPaymentMethodPage;
 import com.applause.auto.pageframework.pages.CheckoutPlaceOrderPage;
 import com.applause.auto.pageframework.pages.CheckoutShippingInfoPage;
 import com.applause.auto.pageframework.pages.CoffeeProductPage;
+import com.applause.auto.pageframework.pages.EquipmentProductPage;
 import com.applause.auto.pageframework.pages.LandingPage;
 import com.applause.auto.pageframework.pages.ShopCoffeePage;
+import com.applause.auto.pageframework.pages.ShopEquipmentPage;
 import com.applause.auto.pageframework.pages.ShopTeaPage;
 import com.applause.auto.pageframework.pages.ShoppingCartPage;
 import com.applause.auto.pageframework.pages.TeaProductPage;
@@ -107,4 +109,41 @@ public class GuestCheckoutTest extends BaseTest {
 		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
 	}
 
+	@Test(groups = { TestNGGroups.GUEST_CHECKOUT }, description = "19502")
+	public void guestCheckoutEquipmentTest() {
+
+		LOGGER.info("1. Navigate to landing page");
+		LandingPage landingPage = navigateToLandingPage();
+		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+
+		LOGGER.info("2. Select a equipment from grid view and add to cart");
+		ShopEquipmentPage shopEquipmentPage = navigateToShopEquipmentPage();
+		EquipmentProductPage equipmentProductPage = shopEquipmentPage
+				.clickProductName(TestConstants.TestData.EQUIPMENT_NAME);
+		MiniCartContainerChunk miniCartContainer = equipmentProductPage.clickAddToCart();
+
+		LOGGER.info("3. Select 'Proceed to Checkout'");
+		CheckoutPage checkoutPage = miniCartContainer.clickCheckout();
+		CheckoutShippingInfoPage shippingInfoPage = checkoutPage.clickContinueAsGuest();
+
+		LOGGER.info("4. Complete Contact Information");
+		VerifyYourAddressDetailsChunk verifyAddressChunk = shippingInfoPage.continueAfterFillingRequiredContactInfo();
+		shippingInfoPage = verifyAddressChunk.clickEnteredAddressButton();
+
+		LOGGER.info("5. Select ground shipping");
+		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
+				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
+
+		LOGGER.info("6. Use credit card for payment");
+		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterFillingPeetsAndCreditInfo();
+
+		LOGGER.info("7. Click 'Place Order'");
+		CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
+
+		LOGGER.info("Verify Confirmation page is displayed");
+		Assert.assertTrue(confirmationPage.getConfirmationMessage().contains("THANK YOU FOR YOUR PURCHASE!"),
+				"Order was not placed");
+
+		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
+	}
 }
