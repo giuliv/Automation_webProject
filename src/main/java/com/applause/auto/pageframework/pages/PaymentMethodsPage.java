@@ -10,6 +10,7 @@ import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementa
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.JavascriptExecutor;
 
 import java.lang.invoke.MethodHandles;
 
@@ -102,9 +103,9 @@ public class PaymentMethodsPage extends AbstractPage {
      */
     public void clickDeletePeetsCard() {
         LOGGER.info("Clicking Delete Credit Card");
-        syncHelper.suspend(3000);
+        JavascriptExecutor jse = (JavascriptExecutor)getDriver();
+        jse.executeScript("scroll(0,250)", "");
         getDeletePeetsCardButton().click();
-        syncHelper.suspend(3000);
         Alert alert = getDriver().switchTo().alert();
         alert.accept();
     }
