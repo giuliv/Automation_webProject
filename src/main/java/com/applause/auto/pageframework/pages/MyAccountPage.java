@@ -2,6 +2,7 @@ package com.applause.auto.pageframework.pages;
 
 import java.lang.invoke.MethodHandles;
 
+import com.applause.auto.framework.pageframework.web.PageFactory;
 import com.applause.auto.framework.pageframework.webcontrols.Image;
 import com.applause.auto.framework.pageframework.webcontrols.Link;
 import org.openqa.selenium.NoSuchElementException;
@@ -41,6 +42,17 @@ public class MyAccountPage extends AbstractPage {
 		LOGGER.info("Getting welcome message for verification");
 		return getViewSignature().getText();
 	}
+
+    /**
+     * Click Payment Button
+     *
+     * @return PaymentMethodsPage
+     */
+	public PaymentMethodsPage clickPayment() {
+	    LOGGER.info("Clicking Payment button");
+	    getPaymentButton().click();
+	    return PageFactory.create(PaymentMethodsPage.class);
+    }
 
 	/**
 	 * Verify My Subscription Section is Displayed
@@ -210,6 +222,9 @@ public class MyAccountPage extends AbstractPage {
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
+
+	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(4) > a")
+    protected Button getPaymentButton() { return new Button(this, getLocator(this, "getPaymentButton")); }
 
 	@WebElementLocator(webDesktop = ".close-button")
 	protected Button getDismissPopupButton() {

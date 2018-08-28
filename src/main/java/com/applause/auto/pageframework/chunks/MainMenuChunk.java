@@ -12,6 +12,7 @@ import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementat
 import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageframework.pages.LandingPage;
 import com.applause.auto.pageframework.pages.ShopEquipmentPage;
 import com.applause.auto.pageframework.pages.ShopTeaPage;
 import com.applause.auto.pageframework.testdata.TestConstants;
@@ -81,10 +82,22 @@ public class MainMenuChunk extends AbstractPageChunk {
 		return PageFactory.create(ShopEquipmentPage.class);
 	}
 
+	/**
+	 * Click Peets Coffee logo
+	 *
+	 * @return LandingPage
+	 */
+	public LandingPage clickHeaderLogo() {
+		LOGGER.info("Click Peets Coffee logo");
+		getHeaderLogo().click();
+		return PageFactory.create(LandingPage.class);
+	}
+
 	/*
 	 * Protected Getters
 	 */
-	@WebElementLocator(webDesktop = "#header-nav")
+
+	@WebElementLocator(webDesktop = ".page-header-container")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
@@ -98,4 +111,10 @@ public class MainMenuChunk extends AbstractPageChunk {
 	protected Button getCategorySubmenuButton(String subMenu) {
 		return new Button(this, String.format(getLocator(this, "getCategorySubmenuButton"), subMenu));
 	}
+
+	@WebElementLocator(webDesktop = ".logo")
+	protected Button getHeaderLogo() {
+		return new Button(this, getLocator(this, "getHeaderLogo"));
+	}
+
 }

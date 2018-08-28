@@ -11,6 +11,7 @@ public class TestConstants {
 		public static final String LOGIN = "login";
 		public static final String GUEST_CHECKOUT = "guest-checkout";
 		public static final String MY_ACCOUNT = "my-account";
+		public static final String EXISTING_USER_CHECKOUT = "existing-user-checkout";
 	}
 
 	/**
@@ -36,8 +37,8 @@ public class TestConstants {
 
 		public static final String SHIPPING_METHOD_GROUND = "Ground";
 
-		public static final String FIRST_NAME = "QA Test";
-		public static final String LAST_NAME = "Applause Auto";
+		public static final String FIRST_NAME = "Applause";
+		public static final String LAST_NAME = "QA Test";
 		public static final String PHONE = "646-759-4933";
 		public static final String ADDRESS = "133 Water St";
 		public static final String ZIP_CODE = "11201";
@@ -48,6 +49,9 @@ public class TestConstants {
 		public static final String PEETS_CARD_NUMBER = "81001000000747";
 		public static final String PEETS_CARD_PIN = "3396";
 		public static final String PEETS_CARD_LOWEST_AMOUNT = "1";
+
+		public static final String PEETS_CARD_NUMBER_2 = "81001000000748";
+		public static final String PEETS_CARD_PIN_2 = "1342";
 
 		public static final String VISA_CC_NUMBER = "4111111111111111";
 		public static final String VISA_CC_SECURITY_CODE = "111";

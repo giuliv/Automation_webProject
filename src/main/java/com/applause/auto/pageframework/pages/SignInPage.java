@@ -9,6 +9,7 @@ import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementat
 import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
+import com.applause.auto.pageframework.testdata.TestConstants;
 
 @WebDesktopImplementation(SignInPage.class)
 @WebTabletImplementation(SignInPage.class)
@@ -53,6 +54,19 @@ public class SignInPage extends AbstractPage {
 	 */
 	public MyAccountPage clickonSignInButton() {
 		LOGGER.info("Click on sign in button");
+		getSignInButton().click();
+		return PageFactory.create(MyAccountPage.class);
+	}
+
+	/**
+	 * User Login
+	 *
+	 * @return MyAccountPage
+	 */
+	public MyAccountPage mainUserLogin() {
+		LOGGER.info("Login with main user");
+		enterEmail(TestConstants.TestData.USERNAME);
+		enterPassword(TestConstants.TestData.PASSWORD);
 		getSignInButton().click();
 		return PageFactory.create(MyAccountPage.class);
 	}
