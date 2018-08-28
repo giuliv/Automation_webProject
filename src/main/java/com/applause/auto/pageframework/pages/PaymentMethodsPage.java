@@ -105,6 +105,7 @@ public class PaymentMethodsPage extends AbstractPage {
         syncHelper.suspend(3000);
         getDeletePeetsCardButton().click();
         syncHelper.suspend(3000);
+        snapshotManager.takeScreenshot("After button click");
         Alert alert = getDriver().switchTo().alert();
         alert.accept();
     }
