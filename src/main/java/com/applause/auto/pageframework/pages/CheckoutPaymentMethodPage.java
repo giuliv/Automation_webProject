@@ -39,10 +39,11 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	 * Continue after entering Peets Card info
 	 *
 	 */
-	public CheckoutPlaceOrderPage continueAfterFillingPeetsCardInfo() {
+	public CheckoutPlaceOrderPage continueAfterFillingPeetsCardInfo(String amount) {
 		LOGGER.info("Clicking Continue after filling Peets Card info");
 		selectPeetsCardOption();
-		fillPeetsCardInfo();
+		fillPeetsCardInfo(amount);
+		fillEmailField();
 		continueAfterBillingInfo();
 		return PageFactory.create(CheckoutPlaceOrderPage.class);
 	}
@@ -62,19 +63,14 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	 * Fill Peets Card Billing Info
 	 *
 	 */
-	public void fillPeetsCardInfo() {
+	public void fillPeetsCardInfo(String amount) {
 		LOGGER.info("Filling Peets Card info");
 		getPeetsCardNumberEditField().setText(TestConstants.TestData.PEETS_CARD_NUMBER);
 		getPeetsCardPinEditField().setText(TestConstants.TestData.PEETS_CARD_PIN);
-
 		// Peets card loads its balance after clicking outside the Peets Card fields
-		getEmailEditField().click();
-		syncHelper.waitForElementToAppear(getLocator(this, "getPeetsCardLoadingSpinner"));
-		syncHelper.waitForElementToDisappear(getLocator(this, "getPeetsCardLoadingSpinner"));
-
-		long timeStamp = System.currentTimeMillis();
-		String email = String.format(TestConstants.TestData.EMAIL, timeStamp);
-		getEmailEditField().setText(email);
+		getPeetsCardNumberEditField().click();
+		syncHelper.waitForElementToAppear(getLocator(this, "getPeetsCardAmountEditField"));
+		getPeetsCardAmountEditField().setText(amount);
 	}
 
 	/**
@@ -85,8 +81,19 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 		LOGGER.info("Clicking Continue after filling Billing info");
 		selectDebitCreditCardOption();
 		fillBillingInfo();
+		fillEmailField();
 		continueAfterBillingInfo();
 		return PageFactory.create(CheckoutPlaceOrderPage.class);
+	}
+
+	/**
+	 * Enter an email-alias based on email seed
+	 *
+	 */
+	public void fillEmailField() {
+		long timeStamp = System.currentTimeMillis();
+		String email = String.format(TestConstants.TestData.EMAIL, timeStamp);
+		getEmailEditField().setText(email);
 	}
 
 	/**
@@ -102,7 +109,7 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 
 	/**
 	 * Fill Required Fields for Billing Info
-	 * 
+	 *
 	 */
 	public void fillBillingInfo() {
 		LOGGER.info("Filling Billing info");
@@ -112,26 +119,37 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 		new Select(getCardExpMonthDropdown().getWebElement()).selectByValue(TestConstants.TestData.VISA_CC_MONTH);
 		getCardExpYearDropdown().select(TestConstants.TestData.VISA_CC_YEAR);
 		getNameOnCardEditField().setText(TestConstants.TestData.VISA_CC_NAME);
-		long timeStamp = System.currentTimeMillis();
-		String email = String.format(TestConstants.TestData.EMAIL, timeStamp);
-		getEmailEditField().setText(email);
 	}
 
 	/**
 	 * Select Billing Address same as Shipping Address
-	 * 
+	 *
 	 */
 	public void selectBilligShippingAddress() {
 		LOGGER.info("Select Billing Address Same as Shipping Address");
 		if (!getBillShippingAddressCheckbox().isSelected()) {
-			LOGGER.info("Clickng??");
 			getBillShippingAddressCheckbox().check();
 		}
 	}
 
 	/**
+	 * Continue after entering Peets and Credit Card Billing Info
+	 *
+	 */
+	public CheckoutPlaceOrderPage continueAfterFillingPeetsAndCreditInfo() {
+		LOGGER.info("Clicking Continue after filling Peets Card and Credit Card info");
+		selectPeetsCardOption();
+		fillPeetsCardInfo(TestConstants.TestData.PEETS_CARD_LOWEST_AMOUNT);
+		selectDebitCreditCardOption();
+		fillBillingInfo();
+		fillEmailField();
+		continueAfterBillingInfo();
+		return PageFactory.create(CheckoutPlaceOrderPage.class);
+	}
+
+	/**
 	 * Click continue after billing info section
-	 * 
+	 *
 	 */
 	public void continueAfterBillingInfo() {
 		LOGGER.info("Click Continue on billing section");
@@ -160,6 +178,11 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	@WebElementLocator(webDesktop = "#custompayment_pc_pin")
 	protected EditField getPeetsCardPinEditField() {
 		return new EditField(this, getLocator(this, "getPeetsCardPinEditField"));
+	}
+
+	@WebElementLocator(webDesktop = "#custompayment_pc_amount")
+	protected EditField getPeetsCardAmountEditField() {
+		return new EditField(this, getLocator(this, "getPeetsCardAmountEditField"));
 	}
 
 	@WebElementLocator(webDesktop = "#cc_checkbox")
