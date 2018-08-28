@@ -58,7 +58,7 @@ public class AssociateNewCardPage extends AbstractPage {
     }
 
     // Protected getters
-    @WebElementLocator(webDesktop = "//h1[text()='Associate a new Card']")
+    @WebElementLocator(webDesktop = "div.main-container.col2-left-layout > div > div.col-main > div > div.page-title.title-buttons > h1")
     protected Text getViewSignature() { return new Text(this, getLocator(this, "getViewSignature")); }
 
     @WebElementLocator(webDesktop = "#card_number")
