@@ -22,7 +22,7 @@ public class PaymentMethodsPage extends AbstractPage {
 
     @Override
     protected void waitUntilVisible() {
-//        syncHelper.waitForElementToAppear(getViewSignature());
+        syncHelper.waitForElementToAppear(getViewSignature());
     }
 
     // Public actions
@@ -132,7 +132,7 @@ public class PaymentMethodsPage extends AbstractPage {
     }
 
     // Protected getters
-    @WebElementLocator(webDesktop = "//h1[text()='Payment Methods']")
+    @WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1")
     protected Text getViewSignature() { return new Text(this, getLocator(this, "getViewSignature")); }
 
     @WebElementLocator(webDesktop = "div.primary.input-checked-parent")
