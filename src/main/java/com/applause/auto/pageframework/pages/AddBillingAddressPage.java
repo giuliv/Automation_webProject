@@ -103,7 +103,8 @@ public class AddBillingAddressPage extends AbstractPage {
     public AddressBookPage clickSaveAddress() {
         LOGGER.info("Clicking Save Address");
         getSaveAddressButton().click();
-        if (getUseAddressAsEnteredButton().exists()) {
+        syncHelper.suspend(5000);
+        if (getUseAddressAsEnteredButton().visible()) {
             getUseAddressAsEnteredButton().click();
         }
         return PageFactory.create(AddressBookPage.class);
