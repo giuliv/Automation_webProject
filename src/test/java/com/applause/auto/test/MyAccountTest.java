@@ -1,6 +1,9 @@
 package com.applause.auto.test;
 
+import com.applause.auto.pageframework.pages.AddBillingAddressPage;
+import com.applause.auto.pageframework.pages.AddressBookPage;
 import com.applause.auto.pageframework.pages.AssociateNewCardPage;
+import com.applause.auto.pageframework.pages.EditBillingAddressPage;
 import com.applause.auto.pageframework.pages.EditPaymentMethodPage;
 import com.applause.auto.pageframework.pages.LandingPage;
 import com.applause.auto.pageframework.pages.MyAccountPage;
@@ -98,5 +101,46 @@ public class MyAccountTest extends BaseTest {
 
         LOGGER.info("8. Verify New Payment Method");
         Assert.assertTrue(paymentMethodsPage.isPeetsCardDisplayed(), "Peets Card is not displayed");
+    }
+
+    @Test(groups = {TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133898")
+    public void myAccountBillingAddress() {
+
+        LOGGER.info("1. Navigate to landing page");
+        LandingPage landingPage = navigateToLandingPage();
+
+        LOGGER.info("2. Log In");
+        SignInPage signInPage = landingPage.clickSignInButton();
+        signInPage.enterEmail(TestConstants.MyAccountTestData.EMAIL);
+        signInPage.enterPassword(TestConstants.MyAccountTestData.PASSWORD);
+        MyAccountPage myAccountPage = signInPage.clickonSignInButton();
+        Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
+
+        LOGGER.info("3. Edit Billing Address");
+        EditBillingAddressPage editBillingAddressPage = myAccountPage.clickEditBillingAddress();
+        Assert.assertNotNull(editBillingAddressPage, "Edit Billing Address page is not displayed");
+        String address = editBillingAddressPage.enterAddress(TestConstants.TestData.ADDRESS, TestConstants.MyAccountTestData.ADDRESS_LINE_2);
+        AddressBookPage addressBookPage = editBillingAddressPage.clickSaveAddress();
+
+        LOGGER.info("4. Verify Billing Address Change");
+        Assert.assertTrue(addressBookPage.isAddressSavedTextDisplayed(), "Address Saved text is not displayed");
+        Assert.assertTrue(addressBookPage.getBillingAddress().contains(address));
+
+        LOGGER.info("5. Delete Billing Address");
+        addressBookPage.deleteBillingAddress();
+        Assert.assertTrue(addressBookPage.isBillingAddressDeleted(), "Billing Address was not deleted");
+
+        LOGGER.info("6. Add New Billing Address");
+        AddBillingAddressPage addBillingAddressPage = addressBookPage.clickAddNewBillingAddress();
+        addBillingAddressPage.enterAddressLine1(TestConstants.TestData.ADDRESS);
+        addBillingAddressPage.enterZipCode(TestConstants.TestData.ZIP_CODE);
+        addBillingAddressPage.selectState(TestConstants.TestData.STATE);
+        addBillingAddressPage.enterCity(TestConstants.TestData.CITY);
+        addBillingAddressPage.enterPhoneNumber(TestConstants.TestData.PHONE);
+        addressBookPage = addBillingAddressPage.clickSaveAddress();
+
+        LOGGER.info("7. Verify Address is Added");
+        Assert.assertTrue(addressBookPage.getBillingAddress().contains(TestConstants.TestData.ADDRESS));
+
     }
 }

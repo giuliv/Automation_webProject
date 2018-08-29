@@ -79,5 +79,6 @@ public class TestConstants {
 
 		public static final String EMAIL = "peets+testaccount@qa.utest.com";
 		public static final String PASSWORD = "p@ssword123";
+		public static final String ADDRESS_LINE_2 = "APT. 123";
 	}
 }
