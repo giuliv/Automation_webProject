@@ -64,6 +64,21 @@ public class ShoppingCartPage extends AbstractPage {
 		return PageFactory.create(CheckoutPage.class);
 	}
 
+	/**
+	 * Click Proceed to Checkout button for a signed user
+	 * 
+	 * @return PlaceOrderPage
+	 */
+	public CheckoutPlaceOrderPage checkoutSignedUser() {
+		LOGGER.info("Click Proceed to Checkout button");
+		getProceedToCheckoutButton().hover();
+		syncHelper.suspend(1000);
+		getProceedToCheckoutButton().click();
+		syncHelper.suspend(1000);
+		getProceedToCheckoutButton().click();
+		return PageFactory.create(CheckoutPlaceOrderPage.class);
+	}
+
 	/*
 	 * Protected Getters
 	 */

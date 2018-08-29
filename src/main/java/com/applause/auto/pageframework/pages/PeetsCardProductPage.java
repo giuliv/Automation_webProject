@@ -15,10 +15,10 @@ import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.chunks.MiniCartContainerChunk;
 
-@WebDesktopImplementation(EquipmentProductPage.class)
-@WebTabletImplementation(EquipmentProductPage.class)
-@WebPhoneImplementation(EquipmentProductPage.class)
-public class EquipmentProductPage extends AbstractPage {
+@WebDesktopImplementation(PeetsCardProductPage.class)
+@WebTabletImplementation(PeetsCardProductPage.class)
+@WebPhoneImplementation(PeetsCardProductPage.class)
+public class PeetsCardProductPage extends AbstractPage {
 
 	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
 
@@ -32,12 +32,12 @@ public class EquipmentProductPage extends AbstractPage {
 	 */
 
 	/**
-	 * Select a Grind
+	 * Select an Amount for the Card
 	 * 
 	 */
-	public void selectAGrind(String grind) {
-		LOGGER.info(String.format("Selecting a Grind: %s", grind));
-		getSelectGrindDropdown().select(grind);
+	public void selectCardAmount(String amount) {
+		LOGGER.info(String.format("Selecting a Grind: %s", amount));
+		getSelectCardAmountDropdown().select(amount);
 	}
 
 	/**
@@ -53,11 +53,11 @@ public class EquipmentProductPage extends AbstractPage {
 	}
 
 	/**
-	 * Wait for load spinner
+	 * Click Add to Cart Button
 	 * 
 	 */
 	public void waitForAddingToCartSpinner() {
-		LOGGER.info("Checkout loading-spinner...");
+		LOGGER.info("Adding item to Shopping Cart...");
 		syncHelper.waitForElementToAppear(getLocator(this, "getAddingToCartSpinner"));
 		syncHelper.waitForElementToDisappear(getLocator(this, "getAddingToCartSpinner"));
 	}
@@ -66,12 +66,12 @@ public class EquipmentProductPage extends AbstractPage {
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = ".product-shop-holder .product-name")
+	@WebElementLocator(webDesktop = ".product-shop .product-name")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
-	@WebElementLocator(webDesktop = ".product-shop-holder .add-to-cart button")
+	@WebElementLocator(webDesktop = ".product-shop .add-to-cart button")
 	protected Button getAddToCartButton() {
 		return new Button(this, getLocator(this, "getAddToCartButton"));
 	}
@@ -81,9 +81,9 @@ public class EquipmentProductPage extends AbstractPage {
 		return new BaseHtmlElement(this, getLocator(this, "getAddingToCartSpinner"));
 	}
 
-	@WebElementLocator(webDesktop = "#attribute198")
-	protected Dropdown getSelectGrindDropdown() {
-		return new Dropdown(this, getLocator(this, "getSelectGrindDropdown"));
+	@WebElementLocator(webDesktop = "#select_1")
+	protected Dropdown getSelectCardAmountDropdown() {
+		return new Dropdown(this, getLocator(this, "getSelectCardAmountDropdown"));
 	}
 
 }
