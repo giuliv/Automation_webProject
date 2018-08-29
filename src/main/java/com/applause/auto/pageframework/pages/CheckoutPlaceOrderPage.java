@@ -10,6 +10,7 @@ import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplement
 import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
 import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
 import com.applause.auto.framework.pageframework.webcontrols.Button;
+import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 
 @WebDesktopImplementation(CheckoutPlaceOrderPage.class)
@@ -39,6 +40,16 @@ public class CheckoutPlaceOrderPage extends AbstractPage {
 		return PageFactory.create(CheckoutConfirmationPage.class);
 	}
 
+	/**
+	 * Get Gift Order Message
+	 *
+	 * @return String
+	 */
+	public String getGiftMessage() {
+		LOGGER.info("Getting gift Message");
+		return getGiftMessageEditField().getText();
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -51,6 +62,11 @@ public class CheckoutPlaceOrderPage extends AbstractPage {
 	@WebElementLocator(webDesktop = "#checkout-bottom-button-load button")
 	protected Button getPlaceOrderButton() {
 		return new Button(this, getLocator(this, "getPlaceOrderButton"));
+	}
+
+	@WebElementLocator(webDesktop = "#gift-message-whole-message")
+	protected EditField getGiftMessageEditField() {
+		return new EditField(this, getLocator(this, "getGiftMessageEditField"));
 	}
 
 }

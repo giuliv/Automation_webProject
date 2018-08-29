@@ -15,7 +15,9 @@ import com.applause.auto.framework.pageframework.webcontrols.Link;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.pages.CheckoutPage;
 import com.applause.auto.pageframework.pages.CheckoutPlaceOrderPage;
+import com.applause.auto.pageframework.pages.CheckoutShippingInfoPage;
 import com.applause.auto.pageframework.pages.ShoppingCartPage;
+import com.applause.auto.pageframework.pages.SignInPage;
 
 @WebDesktopImplementation(MiniCartContainerChunk.class)
 @WebTabletImplementation(MiniCartContainerChunk.class)
@@ -62,6 +64,28 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 		LOGGER.info("Clicking Checkout Button");
 		getCheckoutButton().click();
 		return PageFactory.create(CheckoutPlaceOrderPage.class);
+	}
+
+	/**
+	 * Click Checkout Button after user signed
+	 *
+	 * @return CheckoutShippingInfoPage
+	 */
+	public CheckoutShippingInfoPage clickSignedInCheckout() {
+		LOGGER.info("Clicking Checkout Button");
+		getCheckoutButton().click();
+		return PageFactory.create(CheckoutShippingInfoPage.class);
+	}
+
+	/**
+	 * Click Checkout Peets Card Button
+	 *
+	 * @return SignInPage
+	 */
+	public SignInPage checkoutPeetsCard() {
+		LOGGER.info("Clicking Checkout Button on Peets Card Page");
+		getCheckoutButton().click();
+		return PageFactory.create(SignInPage.class);
 	}
 
 	/**

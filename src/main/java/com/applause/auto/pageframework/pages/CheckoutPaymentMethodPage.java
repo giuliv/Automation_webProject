@@ -87,6 +87,18 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	}
 
 	/**
+	 * Continue after entering Credit Card Billing info
+	 *
+	 */
+	public CheckoutPlaceOrderPage continueAfterCrediCardBillingInfo() {
+		LOGGER.info("Clicking Continue after filling Credit Card Billing info");
+		selectDebitCreditCardOption();
+		fillBillingInfo();
+		getContinuePaymentButton().click();
+		return PageFactory.create(CheckoutPlaceOrderPage.class);
+	}
+
+	/**
 	 * Enter an email-alias based on email seed
 	 *
 	 */
@@ -228,6 +240,11 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	@WebElementLocator(webDesktop = "#billing-container button")
 	protected Button getContinueButton() {
 		return new Button(this, getLocator(this, "getContinueButton"));
+	}
+
+	@WebElementLocator(webDesktop = "#payment-button-continue")
+	protected Button getContinuePaymentButton() {
+		return new Button(this, getLocator(this, "getContinuePaymentButton"));
 	}
 
 	@WebElementLocator(webDesktop = "opc-please-wait")
