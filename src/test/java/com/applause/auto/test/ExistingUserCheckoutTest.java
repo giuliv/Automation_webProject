@@ -59,7 +59,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
 	}
 
-	@Test(groups = { TestNGGroups.GUEST_CHECKOUT }, description = "133889")
+	@Test(groups = { TestNGGroups.EXISTING_USER_CHECKOUT }, description = "133889")
 	public void userCheckoutTeaTest() {
 
 		LOGGER.info("1. Navigate to landing page");
@@ -103,7 +103,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
 	}
 
-	@Test(groups = { TestNGGroups.GUEST_CHECKOUT }, description = "133890")
+	@Test(groups = { TestNGGroups.EXISTING_USER_CHECKOUT }, description = "133890")
 	public void userCheckoutEquipmentTest() {
 
 		LOGGER.info("1. Navigate to landing page");
@@ -137,7 +137,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
 	}
 
-	@Test(groups = { TestNGGroups.GUEST_CHECKOUT }, description = "133892")
+	@Test(groups = { TestNGGroups.EXISTING_USER_CHECKOUT }, description = "133892")
 	public void userCheckoutPeetsCardTest() {
 
 		LOGGER.info("1. Navigate to landing page");
