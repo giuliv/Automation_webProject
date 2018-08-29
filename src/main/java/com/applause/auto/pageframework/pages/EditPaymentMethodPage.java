@@ -10,15 +10,17 @@ import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementa
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageframework.helpers.WebHelper;
 
 import java.lang.invoke.MethodHandles;
-import java.util.Date;
 
 @WebDesktopImplementation(EditPaymentMethodPage.class)
 @WebTabletImplementation(EditPaymentMethodPage.class)
 @WebPhoneImplementation(EditPaymentMethodPage.class)
 public class EditPaymentMethodPage extends AbstractPage {
     protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+
+    WebHelper webHelper = new WebHelper();
 
     @Override
     protected void waitUntilVisible() {
@@ -35,7 +37,7 @@ public class EditPaymentMethodPage extends AbstractPage {
      */
     public String enterNameOnCard(String name) {
         LOGGER.info("Entering Name on Card");
-        name = getTimestamp(name);
+        name = webHelper.getTimestamp(name);
         getNameOnCardField().setText(name);
         return name;
     }
@@ -61,9 +63,4 @@ public class EditPaymentMethodPage extends AbstractPage {
     @WebElementLocator(webDesktop = "#send2")
     protected Button getSavePaymentMethodButton() { return new Button(this, getLocator(this, "getSavePaymentMethodButton")); }
 
-    private String getTimestamp(String name) {
-        Date date = new Date();
-        String time = Long.toString(date.getTime());
-        return name + time;
-    }
 }
