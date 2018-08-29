@@ -2,7 +2,7 @@
         "deviceType" : "sauceweb",
         "deviceClass" : "safari",
         "manufacturer":"Apple",
-        "osVersion" : "10.13",
+        "osVersion" : "10.12",
         "os" : "macOS",
         "deviceName" : "Safari 10 on Mac 10.12",
         "driverProvider" : "SAUCE_LABS",
@@ -11,7 +11,7 @@
         "caps" : {
         	"browserName" : "safari",
         	"version" : "11.1",
-        	"platform" : "macOS 10.13",
+        	"platform" : "macOS 10.12",
         	"acceptSSLAlerts" : "true",
             "maxDuration" : "3600",
             "idleTimeout" : "120",
