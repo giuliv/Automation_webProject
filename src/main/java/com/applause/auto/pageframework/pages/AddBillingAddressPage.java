@@ -70,9 +70,7 @@ public class AddBillingAddressPage extends AbstractPage {
     public void selectState(String state) {
         LOGGER.info("Selecting State");
         if (env.getBrowserType() == BrowserType.SAFARI) {
-            webHelper.jsClick(getStateDropdown().getWebElement());
-            getStateDropdown().setText(state);
-//            getStateDropdown().getWebElement().sendKeys(Keys.TAB);
+            webHelper.jsSelect(getStateDropdown().getWebElement(), "New York");
         }
 //        getStateDropdown().select(state);
     }
