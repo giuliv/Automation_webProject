@@ -205,6 +205,17 @@ public class MyAccountPage extends AbstractPage {
 	}
 
 	/**
+	 * Click Edit Billing Address
+	 *
+	 * @return EditBillingAddressPage
+	 */
+	public EditBillingAddressPage clickEditBillingAddress() {
+		LOGGER.info("Clicking Edit Billing Address");
+		getBillingAddressEditLink().click();
+		return PageFactory.create(EditBillingAddressPage.class);
+	}
+
+	/**
 	 * Verify Shipping Address Section is Displayed
 	 *
 	 * @return boolean
