@@ -2,8 +2,6 @@ package com.applause.auto.pageframework.pages;
 
 import java.lang.invoke.MethodHandles;
 
-import org.openqa.selenium.NoSuchElementException;
-
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
 import com.applause.auto.framework.pageframework.web.ChunkFactory;
@@ -124,9 +122,9 @@ public class LandingPage extends AbstractPage {
 	private void dismissPopup() {
 		try {
 			LOGGER.info("Attempting to dismiss popup");
-			syncHelper.waitForElementToAppear(getDismissPopupButton());
+			syncHelper.waitForElementToAppear(getLocator(this, "getDismissPopupButton"));
 			getDismissPopupButton().click();
-		} catch (NoSuchElementException e) {
+		} catch (Exception e) {
 			LOGGER.info("Popup not found, moving on");
 		}
 	}
