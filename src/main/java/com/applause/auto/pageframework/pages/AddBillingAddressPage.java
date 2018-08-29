@@ -71,9 +71,10 @@ public class AddBillingAddressPage extends AbstractPage {
         LOGGER.info("Selecting State");
         if (env.getBrowserType() == BrowserType.SAFARI) {
             webHelper.jsClick(getStateDropdown().getWebElement());
+            getStateDropdown().setText(state);
 //            getStateDropdown().getWebElement().sendKeys(Keys.TAB);
         }
-        getStateDropdown().select(state);
+//        getStateDropdown().select(state);
     }
 
     /**
@@ -124,7 +125,7 @@ public class AddBillingAddressPage extends AbstractPage {
     protected EditField getZipcodeField() { return new EditField(this, getLocator(this, "getZipcodeField")); }
 
     @WebElementLocator(webDesktop = "#region_id")
-    protected Dropdown getStateDropdown() { return new Dropdown(this, getLocator(this, "getStateDropdown")); }
+    protected EditField getStateDropdown() { return new EditField(this, getLocator(this, "getStateDropdown")); }
 
     @WebElementLocator(webDesktop = "#city")
     protected EditField getCityField() { return new EditField(this, getLocator(this, "getCityField")); }
