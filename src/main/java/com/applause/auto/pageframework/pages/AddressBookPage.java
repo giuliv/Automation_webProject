@@ -53,7 +53,7 @@ public class AddressBookPage extends AbstractPage {
     public void deleteBillingAddress() {
         LOGGER.info("Deleting Billing Address");
         JavascriptExecutor jse = (JavascriptExecutor)getDriver();
-        jse.executeScript("scroll(0,250)", "");
+        jse.executeScript("scroll(0,450)", "");
         getDeleteBillingAddressButton().click();
         Alert alert = getDriver().switchTo().alert();
         alert.accept();
