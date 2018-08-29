@@ -13,6 +13,7 @@ import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.helpers.WebHelper;
+import com.applause.auto.pageframework.testdata.TestConstants;
 import org.openqa.selenium.Keys;
 
 import java.lang.invoke.MethodHandles;
@@ -70,7 +71,7 @@ public class AddBillingAddressPage extends AbstractPage {
     public void selectState(String state) {
         LOGGER.info("Selecting State");
         if (env.getBrowserType() == BrowserType.SAFARI) {
-            webHelper.jsSelect(getStateDropdown().getWebElement(), "New York");
+            webHelper.jsSelect(getStateDropdown().getWebElement(), TestConstants.TestData.STATE);
         } else {
             getStateDropdown().select(state);
         }
