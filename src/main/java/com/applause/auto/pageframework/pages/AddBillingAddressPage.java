@@ -71,8 +71,9 @@ public class AddBillingAddressPage extends AbstractPage {
         LOGGER.info("Selecting State");
         if (env.getBrowserType() == BrowserType.SAFARI) {
             webHelper.jsSelect(getStateDropdown().getWebElement(), "New York");
+        } else {
+            getStateDropdown().select(state);
         }
-//        getStateDropdown().select(state);
     }
 
     /**
@@ -103,7 +104,6 @@ public class AddBillingAddressPage extends AbstractPage {
     public AddressBookPage clickSaveAddress() {
         LOGGER.info("Clicking Save Address");
         getSaveAddressButton().click();
-        syncHelper.suspend(5000);
         if (getUseAddressAsEnteredButton().visible()) {
             getUseAddressAsEnteredButton().click();
         }
@@ -124,7 +124,7 @@ public class AddBillingAddressPage extends AbstractPage {
     protected EditField getZipcodeField() { return new EditField(this, getLocator(this, "getZipcodeField")); }
 
     @WebElementLocator(webDesktop = "#region_id")
-    protected EditField getStateDropdown() { return new EditField(this, getLocator(this, "getStateDropdown")); }
+    protected Dropdown getStateDropdown() { return new Dropdown(this, getLocator(this, "getStateDropdown")); }
 
     @WebElementLocator(webDesktop = "#city")
     protected EditField getCityField() { return new EditField(this, getLocator(this, "getCityField")); }
