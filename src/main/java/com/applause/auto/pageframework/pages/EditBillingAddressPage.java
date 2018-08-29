@@ -52,7 +52,7 @@ public class EditBillingAddressPage extends AbstractPage {
         LOGGER.info("Clicking Save Address");
         getSaveAddressButton().click();
         syncHelper.suspend(5000);
-        getUseAddressAsEnteredButton();
+        getUseAddressAsEnteredButton().click();
         return PageFactory.create(AddressBookPage.class);
     }
 
