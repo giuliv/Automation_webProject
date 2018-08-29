@@ -93,7 +93,7 @@ public class AddressBookPage extends AbstractPage {
     @WebElementLocator(webDesktop = "#billing_form > ol > li > div.actions-col > ul > li:nth-child(2) > a")
     protected Button getDeleteBillingAddressButton() { return new Button(this, getLocator(this, "getDeleteBillingAddressButton")); }
 
-    @WebElementLocator(webDesktop = "//div[contains(.,'No shipping address is associated with this account.')]")
+    @WebElementLocator(webDesktop = "div.account-container.account-inner-section > div.addresses-list > div:nth-child(2) > div.main-section > div")
     protected Text getNoBillingAddressText() { return new Text(this, getLocator(this, "getNoBillingAddressText")); }
 
     @WebElementLocator(webDesktop = "div.account-container.account-inner-section > div.addresses-list > div:nth-child(2) > div.account-inner-title > div.right > a")
