@@ -3,13 +3,10 @@ package com.applause.auto.test;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.applause.auto.pageframework.chunks.MainMenuChunk;
 import com.applause.auto.pageframework.chunks.MiniCartContainerChunk;
-import com.applause.auto.pageframework.chunks.VerifyYourAddressDetailsChunk;
 import com.applause.auto.pageframework.pages.CheckoutConfirmationPage;
-import com.applause.auto.pageframework.pages.CheckoutPage;
-import com.applause.auto.pageframework.pages.CheckoutPaymentMethodPage;
 import com.applause.auto.pageframework.pages.CheckoutPlaceOrderPage;
-import com.applause.auto.pageframework.pages.CheckoutShippingInfoPage;
 import com.applause.auto.pageframework.pages.CoffeeProductPage;
 import com.applause.auto.pageframework.pages.LandingPage;
 import com.applause.auto.pageframework.pages.MyAccountPage;
@@ -34,6 +31,8 @@ public class ExistingUserCheckoutTest extends BaseTest {
 				"User is not signed in or welcome name is wrong");
 
 		LOGGER.info("2. Select a coffee from grid view and add to cart");
+		MainMenuChunk mainMenu = myAccountPage.getMainMenu();
+		landingPage = mainMenu.clickHeaderLogo();
 		ShopCoffeePage shopCoffeePage = landingPage.clickShopCoffeeButton();
 		CoffeeProductPage coffeeProductPage = shopCoffeePage.clickProductName(TestConstants.TestData.COFFEE_BRAND_NAME);
 		coffeeProductPage.selectAGrind(TestConstants.TestData.GRIND);
@@ -41,21 +40,9 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
 		LOGGER.info("3. Select 'Proceed to Checkout'");
 		// TODO: Implement step 3 and 4 from test case to edit cart and add a promo card
-		CheckoutPage checkoutPage = miniCartContainer.clickCheckout();
-		CheckoutShippingInfoPage shippingInfoPage = checkoutPage.clickContinueAsGuest();
+		CheckoutPlaceOrderPage placeOrderPage = miniCartContainer.checkoutSignedInUser();
 
-		LOGGER.info("4. Complete Contact Information");
-		VerifyYourAddressDetailsChunk verifyAddressChunk = shippingInfoPage.continueAfterFillingRequiredContactInfo();
-		shippingInfoPage = verifyAddressChunk.clickEnteredAddressButton();
-
-		LOGGER.info("5. Select ground shipping");
-		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
-				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
-
-		LOGGER.info("6. Use credit card for payment");
-		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterFillingRequiredBillingInfo();
-
-		LOGGER.info("7. Click 'Place Order'");
+		LOGGER.info("4. Click 'Place Order'");
 		CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
 
 		LOGGER.info("Verify Confirmation page is displayed");
