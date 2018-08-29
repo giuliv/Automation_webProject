@@ -1,5 +1,6 @@
 package com.applause.auto.pageframework.pages;
 
+import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
 import com.applause.auto.framework.pageframework.web.PageFactory;
@@ -11,6 +12,8 @@ import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageframework.helpers.WebHelper;
+import org.openqa.selenium.Keys;
 
 import java.lang.invoke.MethodHandles;
 
@@ -19,6 +22,8 @@ import java.lang.invoke.MethodHandles;
 @WebPhoneImplementation(AddBillingAddressPage.class)
 public class AddBillingAddressPage extends AbstractPage {
     protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+
+    WebHelper webHelper = new WebHelper();
 
     @Override
     protected void waitUntilVisible() {
@@ -64,8 +69,10 @@ public class AddBillingAddressPage extends AbstractPage {
      */
     public void selectState(String state) {
         LOGGER.info("Selecting State");
-//        getStateDropdown().setText(state);
-        getStateDropdown().click();
+        if (env.getBrowserType() == BrowserType.SAFARI) {
+            webHelper.jsClick(getStateDropdown().getWebElement());
+            getStateDropdown().getWebElement().sendKeys(Keys.TAB);
+        }
         getStateDropdown().select(state);
     }
 
