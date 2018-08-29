@@ -51,6 +51,7 @@ public class EditBillingAddressPage extends AbstractPage {
     public AddressBookPage clickSaveAddress() {
         LOGGER.info("Clicking Save Address");
         getSaveAddressButton().click();
+        syncHelper.suspend(3000);
         if (getUseAddressAsEnteredButton().visible()) {
             getUseAddressAsEnteredButton().click();
         }
