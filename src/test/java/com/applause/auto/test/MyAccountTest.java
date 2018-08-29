@@ -23,8 +23,8 @@ public class MyAccountTest extends BaseTest {
 
         LOGGER.info("2. Log In");
         SignInPage signInPage = landingPage.clickSignInButton();
-        signInPage.enterEmail(TestConstants.MyAccountTestData.EMAIL);
-        signInPage.enterPassword(TestConstants.MyAccountTestData.PASSWORD);
+        signInPage.enterEmail(TestConstants.TestData.USERNAME);
+        signInPage.enterPassword(TestConstants.TestData.PASSWORD);
         MyAccountPage myAccountPage = signInPage.clickonSignInButton();
         Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
