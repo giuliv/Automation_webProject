@@ -26,4 +26,11 @@ public class WebHelper {
         final JavascriptExecutor executor = (JavascriptExecutor) getDriver();
         executor.executeScript("arguments[0].click();", webElement);
     }
+
+    public void jsSelect(WebElement element, String item) {
+        JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+        executor.executeScript("const textToFind = '" + item + "';" +
+                "const dd = arguments[0];" +
+                "dd.selectedIndex = [...dd.options].findIndex (option => option.text === textToFind);", element);
+    }
 }
