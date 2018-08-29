@@ -71,10 +71,8 @@ public class ShoppingCartPage extends AbstractPage {
 	 */
 	public CheckoutPlaceOrderPage checkoutSignedUser() {
 		LOGGER.info("Click Proceed to Checkout button");
-		getProceedToCheckoutButton().hover();
-		syncHelper.suspend(1000);
 		getProceedToCheckoutButton().click();
-		syncHelper.suspend(1000);
+		syncHelper.suspend(2000);
 		getProceedToCheckoutButton().click();
 		return PageFactory.create(CheckoutPlaceOrderPage.class);
 	}
