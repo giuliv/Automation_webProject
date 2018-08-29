@@ -64,8 +64,9 @@ public class AddBillingAddressPage extends AbstractPage {
      */
     public void selectState(String state) {
         LOGGER.info("Selecting State");
-        getStateDropdown().setText(state);
-//        getStateDropdown().select(state);
+//        getStateDropdown().setText(state);
+        getStateDropdown().click();
+        getStateDropdown().select(state);
     }
 
     /**
@@ -116,7 +117,7 @@ public class AddBillingAddressPage extends AbstractPage {
     protected EditField getZipcodeField() { return new EditField(this, getLocator(this, "getZipcodeField")); }
 
     @WebElementLocator(webDesktop = "#region_id")
-    protected EditField getStateDropdown() { return new EditField(this, getLocator(this, "getStateDropdown")); }
+    protected Dropdown getStateDropdown() { return new Dropdown(this, getLocator(this, "getStateDropdown")); }
 
     @WebElementLocator(webDesktop = "#city")
     protected EditField getCityField() { return new EditField(this, getLocator(this, "getCityField")); }
