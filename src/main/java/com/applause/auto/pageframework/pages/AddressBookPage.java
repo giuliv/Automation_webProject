@@ -10,6 +10,7 @@ import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementa
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.JavascriptExecutor;
 
 import java.lang.invoke.MethodHandles;
 
@@ -51,6 +52,8 @@ public class AddressBookPage extends AbstractPage {
      */
     public void deleteBillingAddress() {
         LOGGER.info("Deleting Billing Address");
+        JavascriptExecutor jse = (JavascriptExecutor)getDriver();
+        jse.executeScript("scroll(0,250)", "");
         getDeleteBillingAddressButton().click();
         Alert alert = getDriver().switchTo().alert();
         alert.accept();
