@@ -71,7 +71,7 @@ public class AddBillingAddressPage extends AbstractPage {
         LOGGER.info("Selecting State");
         if (env.getBrowserType() == BrowserType.SAFARI) {
             webHelper.jsClick(getStateDropdown().getWebElement());
-            getStateDropdown().getWebElement().sendKeys(Keys.TAB);
+//            getStateDropdown().getWebElement().sendKeys(Keys.TAB);
         }
         getStateDropdown().select(state);
     }
