@@ -237,6 +237,17 @@ public class MyAccountPage extends AbstractPage {
 		return ChunkFactory.create(MainMenuChunk.class, this, "");
 	}
 
+	/**
+	 * Click Peets Card Tab
+	 *
+	 * @return MyAccountPeetsCardPage
+	 */
+	public MyAccountPeetsCardPage clickPeetsCardsTab() {
+		LOGGER.info("Clicking Peet's Cards button");
+		getPeetsCardButton().click();
+		return PageFactory.create(MyAccountPeetsCardPage.class);
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -334,6 +345,11 @@ public class MyAccountPage extends AbstractPage {
 	@WebElementLocator(webDesktop = "#customer-dashboard-settings > div.box-content > div > div:nth-child(3)")
 	protected Text getShippingAddressSection() {
 		return new Text(this, getLocator(this, "getShippingAddressSection"));
+	}
+
+	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(5) > a")
+	protected Button getPeetsCardButton() {
+		return new Button(this, getLocator(this, "getPeetsCardButton"));
 	}
 
 	private void dismissPopup() {
