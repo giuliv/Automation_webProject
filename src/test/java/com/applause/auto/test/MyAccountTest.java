@@ -7,9 +7,11 @@ import com.applause.auto.pageframework.pages.EditBillingAddressPage;
 import com.applause.auto.pageframework.pages.EditPaymentMethodPage;
 import com.applause.auto.pageframework.pages.LandingPage;
 import com.applause.auto.pageframework.pages.MyAccountPage;
+import com.applause.auto.pageframework.pages.MyAccountPeetsCardPage;
 import com.applause.auto.pageframework.pages.PaymentMethodsPage;
 import com.applause.auto.pageframework.pages.SignInPage;
 import com.applause.auto.pageframework.testdata.TestConstants;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -143,4 +145,41 @@ public class MyAccountTest extends BaseTest {
         Assert.assertTrue(addressBookPage.getBillingAddress().contains(TestConstants.TestData.ADDRESS));
 
     }
+
+	@Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133901")
+	public void myAccountPeetsCards() {
+
+		LOGGER.info("1. Navigate to landing page");
+		LandingPage landingPage = navigateToLandingPage();
+
+		LOGGER.info("2. Log In");
+		SignInPage signInPage = landingPage.clickSignInButton();
+		MyAccountPage myAccountPage = signInPage.mainUserLogin();
+		Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
+
+		LOGGER.info("3. Select 'Peets Cards' from Dashboard navigation bar");
+		MyAccountPeetsCardPage peetsCardsPage = myAccountPage.clickPeetsCardsTab();
+		Assert.assertNotNull(peetsCardsPage, "Peets Cards page did not display");
+
+		LOGGER.info("4. Verify Peets Cards sections, Buy Peet's Card");
+		Assert.assertTrue(peetsCardsPage.isBuyPeetsCardSectionDisplayed(), "Buy Peet's Card Section is not displayed");
+		Assert.assertTrue(peetsCardsPage.isBuyPeetsCardDescriptionDisplayed(), "Buy Peet's Card Description is not displayed");
+		Assert.assertTrue(peetsCardsPage.isBuyPeetsCardLinkDisplayed(),"Buy Peet's Card Link is not displayed");
+		Assert.assertTrue(peetsCardsPage.isBuyPeetsCardImageDisplayed(),"Buy Peet's Card Image is not displayed");
+
+		LOGGER.info("5. Verify Peets Cards sections, Check Balance");
+		Assert.assertTrue(peetsCardsPage.isCheckBalanceSectionDisplayed(), "Check Balance Section is not displayed");
+		Assert.assertTrue(peetsCardsPage.isCheckBalanceCardNumberDisplayed(), "Check Balance Card Number is not displayed");
+		Assert.assertTrue(peetsCardsPage.isCheckBalancePinNumberDisplayed(), "Check Balance Pin Number is not displayed");
+		Assert.assertTrue(peetsCardsPage.isCheckBalanceButtonDisplayed(), "Check Balance Button is not displayed");
+
+
+		LOGGER.info("6. Verify Peets Cards sections, Register Peet's Card");
+		Assert.assertTrue(peetsCardsPage.isRegisterPeetsCardSectionDisplayed(), "Register Peet's Card Section is not displayed");
+		Assert.assertTrue(peetsCardsPage.isRegisterPeetsCardDescriptionDisplayed(), "Register Peet's Card Description is not displayed");
+		Assert.assertTrue(peetsCardsPage.isRegisterPeetsCardLinkDisplayed(),"Register Peet's Card Link is not displayed");
+
+		LOGGER.info("6. Verify Peets Cards sections, FAQ");
+		Assert.assertTrue(peetsCardsPage.isFAQLinkDisplayed(), "FAQ Link is not displayed");
+	}
 }
