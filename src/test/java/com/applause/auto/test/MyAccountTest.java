@@ -6,10 +6,13 @@ import com.applause.auto.pageframework.pages.AssociateNewCardPage;
 import com.applause.auto.pageframework.pages.EditBillingAddressPage;
 import com.applause.auto.pageframework.pages.EditPaymentMethodPage;
 import com.applause.auto.pageframework.pages.LandingPage;
+import com.applause.auto.pageframework.pages.MyAccountManageSubscriptionPage;
+import com.applause.auto.pageframework.pages.MyAccountMySuscriptionsPage;
 import com.applause.auto.pageframework.pages.MyAccountPage;
 import com.applause.auto.pageframework.pages.PaymentMethodsPage;
 import com.applause.auto.pageframework.pages.SignInPage;
 import com.applause.auto.pageframework.testdata.TestConstants;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -142,5 +145,33 @@ public class MyAccountTest extends BaseTest {
         LOGGER.info("7. Verify Address is Added");
         Assert.assertTrue(addressBookPage.getBillingAddress().contains(TestConstants.TestData.ADDRESS));
 
+    }
+
+    @Test(groups = {TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133896")
+    public void myAccountSubscriptionsTest() {
+
+        LOGGER.info("1. Navigate to landing page");
+        LandingPage landingPage = navigateToLandingPage();
+
+        LOGGER.info("2. Log In");
+        SignInPage signInPage = landingPage.clickSignInButton();
+        MyAccountPage myAccountPage = signInPage.mainUserLogin();
+        Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
+
+        LOGGER.info("3. My Subscriptions");
+        MyAccountMySuscriptionsPage mySuscriptionsPage = myAccountPage.clickMySuscriptions();
+        Assert.assertTrue(mySuscriptionsPage.isSubscriptionNameDisplayed(), "Subscription Name is not displayed");
+        Assert.assertTrue(mySuscriptionsPage.isNextShipmentDateDisplayed(), "Next Shipment Date is not displayed");
+        Assert.assertTrue(mySuscriptionsPage.isSubscriptionFrequencyDateDisplayed(), "Subscription Frequency Date is not displayed");
+        Assert.assertTrue(mySuscriptionsPage.isManageSubscriptionButtonDisplayed(), "Manage Subscription button is not displayed");
+        Assert.assertTrue(mySuscriptionsPage.isShippingAddressDisplayed(), "Shipping Address is not displayed");
+        Assert.assertTrue(mySuscriptionsPage.isShippingMethodDisplayed(), "Shipping Method is not displayed");
+        Assert.assertTrue(mySuscriptionsPage.isSubscribedProductDisplayed(), "Subscribed Product is not displayed");
+
+        LOGGER.info("5. My Subscriptions Details");
+        MyAccountManageSubscriptionPage suscriptionsDetailPage = mySuscriptionsPage.clickManageSubscription();
+        Assert.assertTrue(suscriptionsDetailPage.isPauseCancelSubscriptionButtonDisplayed(), "Pause/Cancel Subscription button is not displayed");
+        Assert.assertTrue(suscriptionsDetailPage.isManageShipmentButtonDisplayed(), "PManage Shipment button is not displayed");
+        Assert.assertTrue(suscriptionsDetailPage.isBillingAddressDisplayed(), "Billing Address is not displayed");
     }
 }

@@ -237,6 +237,17 @@ public class MyAccountPage extends AbstractPage {
 		return ChunkFactory.create(MainMenuChunk.class, this, "");
 	}
 
+	/**
+	 * Click My Suscriptions
+	 *
+	 * @return MyAccountMySuscriptionsPage
+	 */
+	public MyAccountMySuscriptionsPage clickMySuscriptions() {
+		LOGGER.info("Clicking My Suscriptions");
+		getMySuscriptionsLink().click();
+		return PageFactory.create(MyAccountMySuscriptionsPage.class);
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -334,6 +345,11 @@ public class MyAccountPage extends AbstractPage {
 	@WebElementLocator(webDesktop = "#customer-dashboard-settings > div.box-content > div > div:nth-child(3)")
 	protected Text getShippingAddressSection() {
 		return new Text(this, getLocator(this, "getShippingAddressSection"));
+	}
+
+	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(2) > a")
+	protected Link getMySuscriptionsLink() {
+		return new Link(this, getLocator(this, "getMySuscriptionsLink"));
 	}
 
 	private void dismissPopup() {
