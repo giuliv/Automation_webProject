@@ -247,6 +247,17 @@ public class MyAccountPage extends AbstractPage {
 		getMySuscriptionsLink().click();
 		return PageFactory.create(MyAccountMySuscriptionsPage.class);
 	}
+	
+	/**
+	 * Click Peets Card Tab
+	 *
+	 * @return MyAccountPeetsCardPage
+	 */
+	public MyAccountPeetsCardPage clickPeetsCardsTab() {
+		LOGGER.info("Clicking Peet's Cards button");
+		getPeetsCardButton().click();
+		return PageFactory.create(MyAccountPeetsCardPage.class);
+	}
 
 	/*
 	 * Protected Getters
@@ -350,6 +361,11 @@ public class MyAccountPage extends AbstractPage {
 	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(2) > a")
 	protected Link getMySuscriptionsLink() {
 		return new Link(this, getLocator(this, "getMySuscriptionsLink"));
+	}
+	
+	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(5) > a")
+	protected Button getPeetsCardButton() {
+		return new Button(this, getLocator(this, "getPeetsCardButton"));
 	}
 
 	private void dismissPopup() {
