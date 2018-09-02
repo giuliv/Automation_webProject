@@ -6,6 +6,8 @@ import com.applause.auto.pageframework.pages.AssociateNewCardPage;
 import com.applause.auto.pageframework.pages.EditBillingAddressPage;
 import com.applause.auto.pageframework.pages.EditPaymentMethodPage;
 import com.applause.auto.pageframework.pages.LandingPage;
+import com.applause.auto.pageframework.pages.MyAccountMyOrdersPage;
+import com.applause.auto.pageframework.pages.MyAccountOrderDetailPage;
 import com.applause.auto.pageframework.pages.MyAccountPage;
 import com.applause.auto.pageframework.pages.MyAccountPeetsCardPage;
 import com.applause.auto.pageframework.pages.PaymentMethodsPage;
@@ -181,5 +183,43 @@ public class MyAccountTest extends BaseTest {
 
 		LOGGER.info("6. Verify Peets Cards sections, FAQ");
 		Assert.assertTrue(peetsCardsPage.isFAQLinkDisplayed(), "FAQ Link is not displayed");
+	}
+
+	@Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133895")
+	public void myAccountMyOrdersTest() {
+
+		LOGGER.info("1. Navigate to landing page");
+		LandingPage landingPage = navigateToLandingPage();
+
+		LOGGER.info("2. Log In");
+		SignInPage signInPage = landingPage.clickSignInButton();
+		MyAccountPage myAccountPage = signInPage.mainUserLogin();
+		Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
+
+		LOGGER.info("3. Select 'My Orders' from Dashboard navigation bar");
+		MyAccountMyOrdersPage myOrdersPage = myAccountPage.clickMyOrdersTab();
+		Assert.assertNotNull(myOrdersPage, "My Orders page did not display");
+
+		LOGGER.info("4. Verify My Orders section, First Order");
+		Assert.assertTrue(myOrdersPage.isOrdersPlacedSectionDisplayed(), "Orders Placed Section is not displayed");
+		Assert.assertTrue(myOrdersPage.isOrdersDateDisplayed(), "Order's Date is not displayed");
+		Assert.assertTrue(myOrdersPage.isOrdersNumberDisplayed(), "Order's Number is not displayed");
+		Assert.assertTrue(myOrdersPage.isOrdersItemDisplayed(), "Order's Item is not displayed");
+		Assert.assertTrue(myOrdersPage.isOrdersTotalDisplayed(), "Order's Total is not displayed");
+		Assert.assertTrue(myOrdersPage.isOrdersStatusDisplayed(), "Order's Status is not displayed");
+		Assert.assertTrue(myOrdersPage.isViewButtonDisplayed(), "Order's View button is not displayed");
+		Assert.assertTrue(myOrdersPage.isReorderButtonDisplayed(), "Order's View button is not displayed");
+
+		LOGGER.info("5. Access first Oder and Verify Detail");
+		MyAccountOrderDetailPage ordersDetailPage = myOrdersPage.clickOrderNumber();
+		Assert.assertTrue(ordersDetailPage.isProductDisplayed(), "Product on Order Detail is not displayed");
+		Assert.assertTrue(ordersDetailPage.isReorderButtonDisplayed(), "Reorder button on Order Detail is not displayed");
+		Assert.assertTrue(ordersDetailPage.isShippingMethodDisplayed(), "Shipping Method on Order Detail is not displayed");
+		Assert.assertTrue(ordersDetailPage.isPaymentMethodDisplayed(), "Payment Method on Order Detail is not displayed");
+
+		LOGGER.info("6. Return to My Orders page");
+		myOrdersPage = ordersDetailPage.clickBackToMyOrders();
+		Assert.assertNotNull(myOrdersPage, "My Orders page did not display");
+
 	}
 }
