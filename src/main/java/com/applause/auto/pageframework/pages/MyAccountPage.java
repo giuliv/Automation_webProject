@@ -248,6 +248,17 @@ public class MyAccountPage extends AbstractPage {
 		return PageFactory.create(MyAccountPeetsCardPage.class);
 	}
 
+	/**
+	 * Click My Orders Tab
+	 *
+	 * @return MyAccountMyOrdersPage
+	 */
+	public MyAccountMyOrdersPage clickMyOrdersTab() {
+		LOGGER.info("Clicking My Orders button");
+		getMyOrdersButton().click();
+		return PageFactory.create(MyAccountMyOrdersPage.class);
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -350,6 +361,11 @@ public class MyAccountPage extends AbstractPage {
 	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(5) > a")
 	protected Button getPeetsCardButton() {
 		return new Button(this, getLocator(this, "getPeetsCardButton"));
+	}
+
+	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(3) > a")
+	protected Button getMyOrdersButton() {
+		return new Button(this, getLocator(this, "getMyOrdersButton"));
 	}
 
 	private void dismissPopup() {
