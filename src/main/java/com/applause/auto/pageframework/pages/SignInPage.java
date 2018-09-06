@@ -1,5 +1,6 @@
 package com.applause.auto.pageframework.pages;
 
+import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
 import com.applause.auto.framework.pageframework.web.PageFactory;
@@ -35,6 +36,20 @@ public class SignInPage extends AbstractPage {
 	public void enterEmail(String text) {
 		LOGGER.info("Enter email : " + text);
 		getEmailEditField().setText(text);
+	}
+
+	/**
+	 * Enter Text into Email Field
+	 *
+	 * @param email
+	 * @param safariEmail
+	 */
+	public void enterEmailByBrowser(String email, String safariEmail) {
+		LOGGER.info("Enter email");
+		if (env.getBrowserType() == BrowserType.SAFARI)
+			getEmailEditField().setText(safariEmail);
+		else
+			getEmailEditField().setText(email);
 	}
 
 	/**
