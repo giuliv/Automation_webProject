@@ -1,9 +1,11 @@
 package com.applause.auto.test;
 
+import com.applause.auto.pageframework.helpers.WebHelper;
 import com.applause.auto.pageframework.pages.AddBillingAddressPage;
 import com.applause.auto.pageframework.pages.AddShippingAddressPage;
 import com.applause.auto.pageframework.pages.AddressBookPage;
 import com.applause.auto.pageframework.pages.AssociateNewCardPage;
+import com.applause.auto.pageframework.pages.EditAccountInformationPage;
 import com.applause.auto.pageframework.pages.EditBillingAddressPage;
 import com.applause.auto.pageframework.pages.EditPaymentMethodPage;
 import com.applause.auto.pageframework.pages.EditShippingAddressPage;
@@ -20,6 +22,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class MyAccountTest extends BaseTest {
+    WebHelper webHelper = new WebHelper();
 
     @Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133894")
     public void myAccountDashboard() {
@@ -265,4 +268,42 @@ public class MyAccountTest extends BaseTest {
 		Assert.assertNotNull(myOrdersPage, "My Orders page did not display");
 
 	}
+
+	@Test( groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133900")
+    public void myAccountSettings() {
+
+        LOGGER.info("1. Navigate to landing page");
+        LandingPage landingPage = navigateToLandingPage();
+
+        LOGGER.info("2. Log In");
+        SignInPage signInPage = landingPage.clickSignInButton();
+        signInPage.enterEmailByBrowser(TestConstants.MyAccountTestData.MODIFY_ACCOUNT_EMAIL, TestConstants.MyAccountTestData.SAFARI_ACCOUNT_EMAIL);
+        signInPage.enterPassword(TestConstants.MyAccountTestData.PASSWORD);
+        MyAccountPage myAccountPage = signInPage.clickonSignInButton();
+        Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
+
+        LOGGER.info("3. Select Settings");
+        EditAccountInformationPage editAccountInformationPage = myAccountPage.clickSettings();
+        Assert.assertNotNull(editAccountInformationPage, "Edit Account Information page is not displayed");
+
+        LOGGER.info("4. Edit Information");
+        editAccountInformationPage.enterFirstName(TestConstants.MyAccountTestData.FIRST_NAME);
+        String email = String.format(TestConstants.TestData.EMAIL, webHelper.returnTimestamp());
+        editAccountInformationPage.enterEmail(email);
+        editAccountInformationPage.enterCurrentPassword(TestConstants.MyAccountTestData.PASSWORD);
+        myAccountPage = editAccountInformationPage.clickSave();
+
+        LOGGER.info("5. Verify Information Changed");
+        Assert.assertTrue(myAccountPage.getCustomerName().contains(TestConstants.MyAccountTestData.FIRST_NAME));
+        Assert.assertTrue(myAccountPage.getCustomerEmail().contains(email));
+
+        LOGGER.info("6. Click Edit Contact Information");
+        editAccountInformationPage = myAccountPage.clickEditContactInformation();
+
+        LOGGER.info("7. Revert Data");
+        editAccountInformationPage.enterEmailByBrowser(TestConstants.MyAccountTestData.MODIFY_ACCOUNT_EMAIL, TestConstants.MyAccountTestData.SAFARI_ACCOUNT_EMAIL);
+        editAccountInformationPage.enterFirstName(TestConstants.TestData.FIRST_NAME);
+        editAccountInformationPage.enterCurrentPassword(TestConstants.MyAccountTestData.PASSWORD);
+        editAccountInformationPage.clickSave();
+    }
 }
