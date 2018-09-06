@@ -48,6 +48,16 @@ public class AddressBookPage extends AbstractPage {
     }
 
     /**
+     * Get Shipping Address
+     *
+     * @return
+     */
+    public String getShippingAddress() {
+        LOGGER.info("Getting Shipping Address");
+        return getShippingAddressText().getStringValue();
+    }
+
+    /**
      * Delete Billing Address
      */
     public void deleteBillingAddress() {
@@ -55,6 +65,18 @@ public class AddressBookPage extends AbstractPage {
         JavascriptExecutor jse = (JavascriptExecutor)getDriver();
         jse.executeScript("scroll(0,450)", "");
         getDeleteBillingAddressButton().click();
+        Alert alert = getDriver().switchTo().alert();
+        alert.accept();
+    }
+
+    /**
+     * Delete Shipping Address
+     */
+    public void deleteShippingAddress() {
+        LOGGER.info("Deleting Shipping Address");
+        JavascriptExecutor jse = (JavascriptExecutor)getDriver();
+        jse.executeScript("scroll(0,450)", "");
+        getDeleteShippingAddressButton().click();
         Alert alert = getDriver().switchTo().alert();
         alert.accept();
     }
@@ -70,6 +92,16 @@ public class AddressBookPage extends AbstractPage {
     }
 
     /**
+     * Verify Shipping Address was Deleted
+     *
+     * @return boolean
+     */
+    public boolean isShippingAddressDeleted() {
+        LOGGER.info("Verifying Shipping Address was deleted");
+        return getNoShippingAddressText().isDisplayed();
+    }
+
+    /**
      * Add New Billing Address
      *
      * @return AddBillingAddressPage
@@ -78,6 +110,17 @@ public class AddressBookPage extends AbstractPage {
         LOGGER.info("Clicking Add a New Billing Address");
         getAddBillingAddressButton().click();
         return PageFactory.create(AddBillingAddressPage.class);
+    }
+
+    /**
+     * Add New Shipping Address
+     *
+     * @return AddShippingAddressPage
+     */
+    public AddShippingAddressPage clickAddNewShippingAddress() {
+        LOGGER.info("Clicking Add a New Shipping Address");
+        getAddShippingAddressButton().click();
+        return PageFactory.create(AddShippingAddressPage.class);
     }
 
     // Protected getters
@@ -90,12 +133,24 @@ public class AddressBookPage extends AbstractPage {
     @WebElementLocator(webDesktop = "#billing_form > ol > li > div.info-col > p")
     protected Text getBillingAddressText() { return new Text(this, getLocator(this, "getBillingAddressText")); }
 
+    @WebElementLocator(webDesktop = "#shipping_form > ol > li > div.info-col > p")
+    protected Text getShippingAddressText() { return new Text(this, getLocator(this, "getShippingAddressText")); }
+
     @WebElementLocator(webDesktop = "#billing_form > ol > li > div.actions-col > ul > li:nth-child(2) > a")
     protected Button getDeleteBillingAddressButton() { return new Button(this, getLocator(this, "getDeleteBillingAddressButton")); }
+
+    @WebElementLocator(webDesktop = "#shipping_form > ol > li > div.actions-col > ul > li:nth-child(2) > a")
+    protected Button getDeleteShippingAddressButton() { return new Button(this, getLocator(this, "getDeleteShippingAddressButton")); }
 
     @WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.account-container.account-inner-section > div.addresses-list > div:nth-child(2) > div.main-section > div")
     protected Text getNoBillingAddressText() { return new Text(this, getLocator(this, "getNoBillingAddressText")); }
 
+    @WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.account-container.account-inner-section > div.addresses-list > div:nth-child(1) > div.main-section > div")
+    protected Text getNoShippingAddressText() { return new Text(this, getLocator(this, "getNoShippingAddressText")); }
+
     @WebElementLocator(webDesktop = "div.account-container.account-inner-section > div.addresses-list > div:nth-child(2) > div.account-inner-title > div.right > a")
     protected Button getAddBillingAddressButton() { return new Button(this, getLocator(this, "getAddBillingAddressButton")); }
+
+    @WebElementLocator(webDesktop = "div.account-container.account-inner-section > div.addresses-list > div:nth-child(1) > div.account-inner-title > div.right > a")
+    protected Button getAddShippingAddressButton() { return new Button(this, getLocator(this, "getAddShippingAddressButton")); }
 }
