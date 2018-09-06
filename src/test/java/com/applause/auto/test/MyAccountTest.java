@@ -1,5 +1,6 @@
 package com.applause.auto.test;
 
+import com.applause.auto.pageframework.helpers.WebHelper;
 import com.applause.auto.pageframework.pages.AddBillingAddressPage;
 import com.applause.auto.pageframework.pages.AddShippingAddressPage;
 import com.applause.auto.pageframework.pages.AddressBookPage;
@@ -21,6 +22,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class MyAccountTest extends BaseTest {
+    WebHelper webHelper = new WebHelper();
 
     @Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133894")
     public void myAccountDashboard() {
@@ -286,13 +288,14 @@ public class MyAccountTest extends BaseTest {
 
         LOGGER.info("4. Edit Information");
         editAccountInformationPage.enterFirstName(TestConstants.MyAccountTestData.FIRST_NAME);
-        editAccountInformationPage.enterEmail(TestConstants.MyAccountTestData.UNUSED_EMAIL);
+        String email = String.format(TestConstants.TestData.EMAIL, webHelper.returnTimestamp());
+        editAccountInformationPage.enterEmail(email);
         editAccountInformationPage.enterCurrentPassword(TestConstants.MyAccountTestData.PASSWORD);
         myAccountPage = editAccountInformationPage.clickSave();
 
         LOGGER.info("5. Verify Information Changed");
         Assert.assertTrue(myAccountPage.getCustomerName().contains(TestConstants.MyAccountTestData.FIRST_NAME));
-        Assert.assertTrue(myAccountPage.getCustomerEmail().contains(TestConstants.MyAccountTestData.UNUSED_EMAIL));
+        Assert.assertTrue(myAccountPage.getCustomerEmail().contains(email));
 
         LOGGER.info("6. Click Edit Contact Information");
         editAccountInformationPage = myAccountPage.clickEditContactInformation();

@@ -22,6 +22,12 @@ public class WebHelper {
         return name + time;
     }
 
+    public String returnTimestamp() {
+        Date date = new Date();
+        String time = Long.toString(date.getTime());
+        return time;
+    }
+
     public void jsClick(final WebElement webElement) {
         final JavascriptExecutor executor = (JavascriptExecutor) getDriver();
         executor.executeScript("arguments[0].click();", webElement);
