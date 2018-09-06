@@ -117,7 +117,7 @@ public class MyAccountTest extends BaseTest {
 
         LOGGER.info("2. Log In");
         SignInPage signInPage = landingPage.clickSignInButton();
-        signInPage.enterEmail(TestConstants.MyAccountTestData.EMAIL);
+        signInPage.enterEmailByBrowser(TestConstants.MyAccountTestData.EMAIL, TestConstants.MyAccountTestData.SAFARI_BILLING_EMAIL);
         signInPage.enterPassword(TestConstants.MyAccountTestData.PASSWORD);
         MyAccountPage myAccountPage = signInPage.clickonSignInButton();
         Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
@@ -158,7 +158,7 @@ public class MyAccountTest extends BaseTest {
 
         LOGGER.info("2. Log In");
         SignInPage signInPage = landingPage.clickSignInButton();
-        signInPage.enterEmail(TestConstants.MyAccountTestData.EMAIL);
+        signInPage.enterEmailByBrowser(TestConstants.MyAccountTestData.EMAIL, TestConstants.MyAccountTestData.SAFARI_SHIPPING_EMAIL);
         signInPage.enterPassword(TestConstants.MyAccountTestData.PASSWORD);
         MyAccountPage myAccountPage = signInPage.clickonSignInButton();
         Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
