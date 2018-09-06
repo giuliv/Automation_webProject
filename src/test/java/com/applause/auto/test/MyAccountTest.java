@@ -1,10 +1,12 @@
 package com.applause.auto.test;
 
 import com.applause.auto.pageframework.pages.AddBillingAddressPage;
+import com.applause.auto.pageframework.pages.AddShippingAddressPage;
 import com.applause.auto.pageframework.pages.AddressBookPage;
 import com.applause.auto.pageframework.pages.AssociateNewCardPage;
 import com.applause.auto.pageframework.pages.EditBillingAddressPage;
 import com.applause.auto.pageframework.pages.EditPaymentMethodPage;
+import com.applause.auto.pageframework.pages.EditShippingAddressPage;
 import com.applause.auto.pageframework.pages.LandingPage;
 import com.applause.auto.pageframework.pages.MyAccountMyOrdersPage;
 import com.applause.auto.pageframework.pages.MyAccountOrderDetailPage;
@@ -115,7 +117,7 @@ public class MyAccountTest extends BaseTest {
 
         LOGGER.info("2. Log In");
         SignInPage signInPage = landingPage.clickSignInButton();
-        signInPage.enterEmail(TestConstants.MyAccountTestData.EMAIL);
+        signInPage.enterEmailByBrowser(TestConstants.MyAccountTestData.EMAIL, TestConstants.MyAccountTestData.SAFARI_BILLING_EMAIL);
         signInPage.enterPassword(TestConstants.MyAccountTestData.PASSWORD);
         MyAccountPage myAccountPage = signInPage.clickonSignInButton();
         Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
@@ -145,6 +147,47 @@ public class MyAccountTest extends BaseTest {
 
         LOGGER.info("7. Verify Address is Added");
         Assert.assertTrue(addressBookPage.getBillingAddress().contains(TestConstants.TestData.ADDRESS));
+
+    }
+
+    @Test(groups = {TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133899")
+    public void myAccountShippingAddress() {
+
+        LOGGER.info("1. Navigate to landing page");
+        LandingPage landingPage = navigateToLandingPage();
+
+        LOGGER.info("2. Log In");
+        SignInPage signInPage = landingPage.clickSignInButton();
+        signInPage.enterEmailByBrowser(TestConstants.MyAccountTestData.EMAIL, TestConstants.MyAccountTestData.SAFARI_SHIPPING_EMAIL);
+        signInPage.enterPassword(TestConstants.MyAccountTestData.PASSWORD);
+        MyAccountPage myAccountPage = signInPage.clickonSignInButton();
+        Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
+
+        LOGGER.info("3. Edit Shipping Address");
+        EditShippingAddressPage editShippingAddressPage = myAccountPage.clickEditShippingAddress();
+        Assert.assertNotNull(editShippingAddressPage, "Edit Shipping Address page is not displayed");
+        String address = editShippingAddressPage.enterAddress(TestConstants.TestData.ADDRESS, TestConstants.MyAccountTestData.ADDRESS_LINE_2);
+        AddressBookPage addressBookPage = editShippingAddressPage.clickSaveAddress();
+
+        LOGGER.info("4. Verify Shipping Address Change");
+        Assert.assertTrue(addressBookPage.isAddressSavedTextDisplayed(), "Address Saved text is not displayed");
+        Assert.assertTrue(addressBookPage.getShippingAddress().contains(address));
+
+        LOGGER.info(" 5. Delete Shipping Address");
+        addressBookPage.deleteShippingAddress();
+        Assert.assertTrue(addressBookPage.isShippingAddressDeleted(), "Shipping Address was not deleted");
+
+        LOGGER.info("6. Add New Shipping Address");
+        AddShippingAddressPage addShippingAddressPage = addressBookPage.clickAddNewShippingAddress();
+        addShippingAddressPage.enterAddressLine1(TestConstants.TestData.ADDRESS);
+        addShippingAddressPage.enterZipCode(TestConstants.TestData.ZIP_CODE);
+        addShippingAddressPage.selectState(TestConstants.TestData.STATE);
+        addShippingAddressPage.enterCity(TestConstants.TestData.CITY);
+        addShippingAddressPage.enterPhoneNumber(TestConstants.TestData.PHONE);
+        addressBookPage = addShippingAddressPage.clickSaveAddress();
+
+        LOGGER.info("7. Verify Address was Added");
+        Assert.assertTrue(addressBookPage.getShippingAddress().contains(TestConstants.TestData.ADDRESS));
 
     }
 
