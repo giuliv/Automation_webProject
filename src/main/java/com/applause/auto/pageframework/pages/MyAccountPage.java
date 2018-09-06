@@ -228,6 +228,17 @@ public class MyAccountPage extends AbstractPage {
 	}
 
 	/**
+	 * Click Edit Shipping Address
+	 *
+	 * @return EditShippingAddressPage
+	 */
+	public EditShippingAddressPage clickEditShippingAddress() {
+		LOGGER.info("Clicking Edit Shipping Address");
+		getShippingAddressEditLink().click();
+		return PageFactory.create(EditShippingAddressPage.class);
+	}
+
+	/**
 	 * Gets Main Menu
 	 *
 	 * @return MainMenuChunk
@@ -357,6 +368,9 @@ public class MyAccountPage extends AbstractPage {
 	protected Text getShippingAddressSection() {
 		return new Text(this, getLocator(this, "getShippingAddressSection"));
 	}
+
+	@WebElementLocator(webDesktop = "#customer-dashboard-settings > div.box-content > div > div:nth-child(3) > div.head-block > a")
+	protected Link getShippingAddressEditLink() { return new Link(this, getLocator(this, "getShippingAddressEditLink")); }
 
 	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(5) > a")
 	protected Button getPeetsCardButton() {

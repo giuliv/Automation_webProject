@@ -1,6 +1,5 @@
 package com.applause.auto.pageframework.pages;
 
-import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
 import com.applause.auto.framework.pageframework.web.PageFactory;
@@ -9,20 +8,17 @@ import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplement
 import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
 import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
 import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.helpers.WebHelper;
-import com.applause.auto.pageframework.testdata.TestConstants;
 
 import java.lang.invoke.MethodHandles;
 
-@WebDesktopImplementation(AddBillingAddressPage.class)
-@WebTabletImplementation(AddBillingAddressPage.class)
-@WebPhoneImplementation(AddBillingAddressPage.class)
-public class AddBillingAddressPage extends AbstractPage {
+@WebDesktopImplementation(EditShippingAddressPage.class)
+@WebTabletImplementation(EditShippingAddressPage.class)
+@WebPhoneImplementation(EditShippingAddressPage.class)
+public class EditShippingAddressPage extends AbstractPage {
     protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
     WebHelper webHelper = new WebHelper();
 
     @Override
@@ -33,67 +29,18 @@ public class AddBillingAddressPage extends AbstractPage {
     // Public actions
 
     /**
-     * Enter Address Line 1
+     * Enter Address
      *
-     * @param address
+     * @param address1
+     * @param address2
+     * @return String
      */
-    public void enterAddressLine1(String address) {
+    public String enterAddress(String address1, String address2) {
         LOGGER.info("Entering Address");
-        getAddressLine1Field().setText(address);
-    }
-
-    /**
-     * Enter Address Line 2
-     *
-     * @param address
-     */
-    public void enterAddressLine2(String address) {
-        LOGGER.info("Entering Address");
-        getAddressLine2Field().setText(address);
-    }
-
-    /**
-     * Enter Zip Code
-     *
-     * @param zipCode
-     */
-    public void enterZipCode(String zipCode) {
-        LOGGER.info("Entering Zip Code");
-        getZipcodeField().setText(zipCode);
-    }
-
-    /**
-     * Select State
-     *
-     * @param state
-     */
-    public void selectState(String state) {
-        LOGGER.info("Selecting State");
-        if (env.getBrowserType() == BrowserType.SAFARI) {
-            webHelper.jsSelect(getStateDropdown().getWebElement(), TestConstants.TestData.STATE);
-        } else {
-            getStateDropdown().select(state);
-        }
-    }
-
-    /**
-     * Enter City
-     *
-     * @param city
-     */
-    public void enterCity(String city) {
-        LOGGER.info("Entering City");
-        getCityField().setText(city);
-    }
-
-    /**
-     * Enter Phone Number
-     *
-     * @param phoneNum
-     */
-    public void enterPhoneNumber(String phoneNum) {
-        LOGGER.info("Entering Phone Number");
-        getPhoneNumberField().setText(phoneNum);
+        address1 = webHelper.getTimestamp(address1);
+        getAddressLine1Field().setText(address1);
+        getAddressLine2Field().setText(address2);
+        return address1;
     }
 
     /**
@@ -112,7 +59,7 @@ public class AddBillingAddressPage extends AbstractPage {
     }
 
     // Protected getters
-    @WebElementLocator(webDesktop = "div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1")
+    @WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1")
     protected Text getViewSignature() { return new Text(this, getLocator(this, "getViewSignature")); }
 
     @WebElementLocator(webDesktop = "#street_1")
@@ -121,22 +68,9 @@ public class AddBillingAddressPage extends AbstractPage {
     @WebElementLocator(webDesktop = "#street_2")
     protected EditField getAddressLine2Field() { return new EditField(this, getLocator(this, "getAddressLine2Field")); }
 
-    @WebElementLocator(webDesktop = "#zip")
-    protected EditField getZipcodeField() { return new EditField(this, getLocator(this, "getZipcodeField")); }
-
-    @WebElementLocator(webDesktop = "#region_id")
-    protected Dropdown getStateDropdown() { return new Dropdown(this, getLocator(this, "getStateDropdown")); }
-
-    @WebElementLocator(webDesktop = "#city")
-    protected EditField getCityField() { return new EditField(this, getLocator(this, "getCityField")); }
-
-    @WebElementLocator(webDesktop = "#telephone")
-    protected EditField getPhoneNumberField() { return new EditField(this, getLocator(this, "getPhoneNumberField")); }
-
     @WebElementLocator(webDesktop = "button.button.btn-save")
     protected Button getSaveAddressButton() { return new Button(this, getLocator(this, "getSaveAddressButton")); }
 
     @WebElementLocator(webDesktop = "#qas-popup > div.modal-content-area > div > div.two-columns > div.right-column > div.qas-box-content > button")
     protected Button getUseAddressAsEnteredButton() { return new Button(this, getLocator(this, "getUseAddressAsEnteredButton")); }
-
 }
