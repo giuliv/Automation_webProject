@@ -2,7 +2,6 @@ package com.applause.auto.pageframework.pages;
 
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
 import com.applause.auto.framework.pageframework.web.ChunkFactory;
@@ -60,10 +59,7 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 		getMainAddressEditField().setText(TestConstants.TestData.ADDRESS);
 		getZipCodeEditField().setText(TestConstants.TestData.ZIP_CODE);
 		getCityEditField().setText(TestConstants.TestData.CITY);
-		if (env.getBrowserType() == BrowserType.SAFARI)
-			webHelper.jsSelect(getStateDropdown().getWebElement(), TestConstants.TestData.STATE);
-		else
-			getStateDropdown().select(TestConstants.TestData.STATE);
+		webHelper.jsSelect(getStateDropdown().getWebElement(), TestConstants.TestData.STATE);
 	}
 
 	/**
@@ -118,7 +114,7 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "#checkout-title-opc-shipping")
+	@WebElementLocator(webDesktop = "h2#checkout-title-opc-shipping.active")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
@@ -169,6 +165,7 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	}
 
 	@WebElementLocator(webDesktop = "//strong[@class='shipping-method-name' and contains(.,'%s')]")
+	// @WebElementLocator(webDesktop = "//strong[class='shipping-method-name'][text()='%s']")
 	protected Button getShippingMethodButton(String shippingMethod) {
 		return new Button(this, String.format(getLocator(this, "getShippingMethodButton"), shippingMethod));
 	}

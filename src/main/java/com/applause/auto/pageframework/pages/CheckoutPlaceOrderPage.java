@@ -41,6 +41,18 @@ public class CheckoutPlaceOrderPage extends AbstractPage {
 	}
 
 	/**
+	 * Click Place Order Button without payment method selected
+	 * 
+	 * @return CheckoutPaymentMethodPage
+	 */
+	public CheckoutPaymentMethodPage placeOrderMissingPayment() {
+		LOGGER.info("Click Place Order Button");
+
+		getPlaceOrderButton().click();
+		return PageFactory.create(CheckoutPaymentMethodPage.class);
+	}
+
+	/**
 	 * Get Gift Order Message
 	 *
 	 * @return String
@@ -64,7 +76,7 @@ public class CheckoutPlaceOrderPage extends AbstractPage {
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "//div[@id='step-title-section' and contains(.,'Review & Place Order')]")
+	@WebElementLocator(webDesktop = "h2#checkout-title-opc-review.active")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
