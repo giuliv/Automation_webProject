@@ -43,7 +43,7 @@ public class ShopCoffeePage extends AbstractPage {
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "//div[@class='top-banner']//div[@class='text-content']/h1[contains(.,'Coffee')]")
+	@WebElementLocator(webDesktop = "div.top-banner div.text-content h1")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}

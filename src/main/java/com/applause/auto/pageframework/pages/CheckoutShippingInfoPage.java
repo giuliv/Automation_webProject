@@ -16,6 +16,7 @@ import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.chunks.VerifyYourAddressDetailsChunk;
+import com.applause.auto.pageframework.helpers.WebHelper;
 import com.applause.auto.pageframework.testdata.TestConstants;
 
 @WebDesktopImplementation(CheckoutShippingInfoPage.class)
@@ -24,6 +25,7 @@ import com.applause.auto.pageframework.testdata.TestConstants;
 public class CheckoutShippingInfoPage extends AbstractPage {
 
 	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+	WebHelper webHelper = new WebHelper();
 
 	@Override
 	protected void waitUntilVisible() {
@@ -57,7 +59,7 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 		getMainAddressEditField().setText(TestConstants.TestData.ADDRESS);
 		getZipCodeEditField().setText(TestConstants.TestData.ZIP_CODE);
 		getCityEditField().setText(TestConstants.TestData.CITY);
-		getStateDropdown().select(TestConstants.TestData.STATE);
+		webHelper.jsSelect(getStateDropdown().getWebElement(), TestConstants.TestData.STATE);
 	}
 
 	/**
@@ -112,7 +114,7 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "//div[@id='step-title-section' and contains(.,'Shipping Information')]")
+	@WebElementLocator(webDesktop = "h2#checkout-title-opc-shipping.active")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
@@ -163,6 +165,7 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	}
 
 	@WebElementLocator(webDesktop = "//strong[@class='shipping-method-name' and contains(.,'%s')]")
+	// @WebElementLocator(webDesktop = "//strong[class='shipping-method-name'][text()='%s']")
 	protected Button getShippingMethodButton(String shippingMethod) {
 		return new Button(this, String.format(getLocator(this, "getShippingMethodButton"), shippingMethod));
 	}

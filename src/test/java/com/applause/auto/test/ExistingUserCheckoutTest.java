@@ -6,7 +6,9 @@ import org.testng.annotations.Test;
 import com.applause.auto.pageframework.chunks.MainMenuChunk;
 import com.applause.auto.pageframework.chunks.MiniCartContainerChunk;
 import com.applause.auto.pageframework.pages.CheckoutConfirmationPage;
+import com.applause.auto.pageframework.pages.CheckoutPaymentMethodPage;
 import com.applause.auto.pageframework.pages.CheckoutPlaceOrderPage;
+import com.applause.auto.pageframework.pages.CheckoutShippingInfoPage;
 import com.applause.auto.pageframework.pages.CoffeeProductPage;
 import com.applause.auto.pageframework.pages.EquipmentProductPage;
 import com.applause.auto.pageframework.pages.LandingPage;
@@ -47,7 +49,10 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
 		LOGGER.info("4. Select 'Proceed to Checkout'");
 		// TODO: Implement step 3 and 4 from test case to edit cart and add a promo card
-		CheckoutPlaceOrderPage placeOrderPage = miniCartContainer.checkoutSignedInUser();
+		CheckoutShippingInfoPage shippingInfoPage = miniCartContainer.clickSignedInCheckout();
+		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
+				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
+		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterEnteringPIN();
 
 		LOGGER.info("5. Click 'Place Order'");
 		CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
@@ -87,7 +92,10 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		shoppingCart.enterGiftMessage(TestConstants.TestData.GIFT_MESSAGE);
 
 		LOGGER.info("6. Select 'Proceed to Checkout'");
-		CheckoutPlaceOrderPage placeOrderPage = shoppingCart.checkoutSignedUser();
+		CheckoutShippingInfoPage shippingInfoPage = shoppingCart.defineShippingSignedUser();
+		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
+				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
+		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterEnteringPIN();
 
 		LOGGER.info("7. Verify gift message");
 		Assert.assertEquals(placeOrderPage.getGiftMessage(), TestConstants.TestData.GIFT_MESSAGE,
@@ -125,7 +133,10 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		MiniCartContainerChunk miniCartContainer = equipmentProductPage.clickAddToCart();
 
 		LOGGER.info("4. Select 'Proceed to Checkout'");
-		CheckoutPlaceOrderPage placeOrderPage = miniCartContainer.checkoutSignedInUser();
+		CheckoutShippingInfoPage shippingInfoPage = miniCartContainer.clickSignedInCheckout();
+		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
+				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
+		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterEnteringPIN();
 
 		LOGGER.info("5. Click 'Place Order'");
 		CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
@@ -158,7 +169,10 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		MiniCartContainerChunk miniCartContainer = peetsCardPage.clickAddToCart();
 
 		LOGGER.info("4. Select 'Proceed to Checkout'");
-		CheckoutPlaceOrderPage placeOrderPage = miniCartContainer.checkoutSignedInUser();
+		CheckoutShippingInfoPage shippingInfoPage = miniCartContainer.clickSignedInCheckout();
+		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
+				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
+		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterEnteringPIN();
 
 		LOGGER.info("5. Click 'Place Order'");
 		CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
