@@ -34,6 +34,7 @@ public class EditAccountInformationPage extends AbstractPage {
      */
     public void enterFirstName(String firstName) {
         LOGGER.info("Entering First Name");
+        getFirstNameField().clearText();
         getFirstNameField().setText(firstName);
     }
 
@@ -44,6 +45,7 @@ public class EditAccountInformationPage extends AbstractPage {
      */
     public void enterEmail(String email) {
         LOGGER.info("Entering Email");
+        getEmailField().clearText();
         getEmailField().setText(email);
     }
 
@@ -55,10 +57,11 @@ public class EditAccountInformationPage extends AbstractPage {
      */
     public void enterEmailByBrowser(String email, String safariEmail) {
         LOGGER.info("Entering Email");
-        if (env.getBrowserType() == BrowserType.SAFARI)
-            getEmailField().setText(safariEmail);
-        else
-            getEmailField().setText(email);
+        if (env.getBrowserType() == BrowserType.SAFARI){
+        	enterEmail(safariEmail);
+        } else {
+        	enterEmail(email);
+        }
     }
 
     /**

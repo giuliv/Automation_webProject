@@ -25,7 +25,8 @@ public class TestConstants {
 		public static final String SHOP_PEETS_CARD_PAGE_URL = "https://uat.aws.peets.com/peets-card";
 		public static final String SHOP_COFFEE_KCUPS_PAGE_URL = "https://uat.aws.peets.com/coffee/k-cups";
 
-		public static final String USERNAME = "appautosvc+peetscoffee@applause.com";
+		public static final String USERNAME = "appautosvc+peetscoffeealternate@applause.com";
+		public static final String USERNAME_SAFARI = "appautosvc+peetscoffeesafari@applause.com";
 		public static final String PASSWORD = "password123";
 
 		public static final String COFFEE_BRAND_NAME = "House Blend";
@@ -33,7 +34,7 @@ public class TestConstants {
 
 		public static final String TEA_NAME = "Chamomile Citrus Loose Leaf";
 
-		public static final String EQUIPMENT_NAME = "Kinto UNITEA Glass Teapot Set";
+		public static final String EQUIPMENT_NAME = "Origin Mug with Bamboo";
 
 		public static final String COFFEE_KCUP_NAME = "Colombia Luminosa";
 		public static final String COFFEE_KCUP_COUNT = "16";
@@ -51,13 +52,23 @@ public class TestConstants {
 		public static final String STATE = "New York";
 		public static final String EMAIL = "peets+%s@qa.utest.com";
 
-		public static final String PEETS_CARD_NUMBER = "81001000000747";
-		public static final String PEETS_CARD_PIN = "3396";
+		public static final String PEETS_CARD_NUMBER = "81001000000583";
+		public static final String PEETS_CARD_PIN = "7038";
+		public static final String PEETS_CARD_NUMBER_2 = "81001000000748";
+		public static final String PEETS_CARD_PIN_2 = "1342";
+
 		public static final String PEETS_CARD_LOWEST_AMOUNT = "1";
 		public static final String PEETS_CARD_BUY_AMOUNT = "Card +$10.00";
 
-		public static final String PEETS_CARD_NUMBER_2 = "81001000000748";
-		public static final String PEETS_CARD_PIN_2 = "1342";
+		public static final String PEETS_CARD_NUMBER_CHROME_1 = "81001000000581";
+		public static final String PEETS_CARD_PIN_CHROME_1 = "9967";
+		public static final String PEETS_CARD_NUMBER_CHROME_2 = "81001000000582";
+		public static final String PEETS_CARD_PIN_CHROME_2 = "3839";
+
+		public static final String PEETS_CARD_NUMBER_SAFARI_1 = "81001000000747";
+		public static final String PEETS_CARD_PIN_SAFARI_1 = "3396";
+		public static final String PEETS_CARD_NUMBER_SAFARI_2 = "81001000000584";
+		public static final String PEETS_CARD_PIN_SAFARI_2 = "8240";
 
 		public static final String VISA_CC_NUMBER = "4111111111111111";
 		public static final String VISA_CC_SECURITY_CODE = "111";
@@ -100,5 +111,6 @@ public class TestConstants {
 		public static final String PASSWORD = "p@ssword123";
 		public static final String ADDRESS_LINE_2 = "APT. 123";
 		public static final String FIRST_NAME = "UTest";
+		public static final String LAST_NAME = "QA Test";
 	}
 }

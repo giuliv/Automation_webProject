@@ -149,7 +149,7 @@ public class MyAccountPeetsCardPage extends AbstractPage {
 	}
 
 	// Protected getters
-	@WebElementLocator(webDesktop = "//h1[text()='My Cards']")
+	@WebElementLocator(webDesktop = "div.col-main > div > div.page-title > h1")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}

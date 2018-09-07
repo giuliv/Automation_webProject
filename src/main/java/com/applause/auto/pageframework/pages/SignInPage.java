@@ -80,7 +80,9 @@ public class SignInPage extends AbstractPage {
 	 */
 	public MyAccountPage mainUserLogin() {
 		LOGGER.info("Login with main user");
-		enterEmail(TestConstants.TestData.USERNAME);
+		String username = (env.getBrowserType() == BrowserType.SAFARI) ? TestConstants.TestData.USERNAME_SAFARI
+				: TestConstants.TestData.USERNAME;
+		enterEmail(username);
 		enterPassword(TestConstants.TestData.PASSWORD);
 		getSignInButton().click();
 		return PageFactory.create(MyAccountPage.class);

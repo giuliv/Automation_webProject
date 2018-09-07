@@ -78,12 +78,12 @@ public class MyAccountOrderDetailPage extends AbstractPage {
 	}
 
 	// Protected getters
-	@WebElementLocator(webDesktop = "//h1[text()='Order Details']")
+	@WebElementLocator(webDesktop = "div.account-container.account-inner-section > div.account-inner-title > div.left > h2")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
-	@WebElementLocator(webDesktop = ".product-name")
+	@WebElementLocator(webDesktop = "h3.product-name")
 	protected Text getDetailsProductText() {
 		return new Text(this, getLocator(this, "getDetailsProductText"));
 	}
@@ -93,12 +93,12 @@ public class MyAccountOrderDetailPage extends AbstractPage {
 		return new Button(this, getLocator(this, "getDetailsReorderButton"));
 	}
 
-	@WebElementLocator(webDesktop = "//div[div[contains(.,'Shipping Method')]]/p")
+	@WebElementLocator(webDesktop = "div.wrapper-items > div.content-info.left > div:nth-child(2) > div > div:nth-child(2) > p")
 	protected Text getDetailsShippingMethodText() {
 		return new Text(this, getLocator(this, "getDetailsShippingMethodText"));
 	}
 
-	@WebElementLocator(webDesktop = "//div[div[contains(.,'Payment Method')]]/div/p")
+	@WebElementLocator(webDesktop = "div.wrapper-items > div.content-info.left > div:nth-child(3) > div > div:nth-child(2) > div:nth-child(2) > p")
 	protected Text getDetailsPaymentMethodText() {
 		return new Text(this, getLocator(this, "getDetailsPaymentMethodText"));
 	}

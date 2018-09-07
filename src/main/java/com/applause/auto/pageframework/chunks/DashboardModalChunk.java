@@ -65,12 +65,12 @@ public class DashboardModalChunk extends AbstractPageChunk {
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "//div[@id='modal-new-message-2018']//a[contains(.,'explore dashboard')]")
+	@WebElementLocator(webDesktop = "div#modal-new-message-2018 a")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
-	@WebElementLocator(webDesktop = "//div[@id='modal-new-message-2018']//a[contains(.,'explore dashboard')]")
+	@WebElementLocator(webDesktop = "div#modal-new-message-2018 a")
 	protected Button getExploreDashboardButton() {
 		return new Button(this, getLocator(this, "getExploreDashboardButton"));
 	}
