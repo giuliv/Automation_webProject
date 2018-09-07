@@ -104,17 +104,17 @@ public class LandingPage extends AbstractPage {
 		return new Button(this, getLocator(this, "getDismissPopupButton"));
 	}
 
-	@WebElementLocator(webDesktop = "//div[@id='shop-peets']//a[contains(.,'Shop Coffee')]")
+	@WebElementLocator(webDesktop = "ul.shop-list li:nth-child(1)")
 	protected Button getShopCoffeeButton() {
 		return new Button(this, getLocator(this, "getShopCoffeeButton"));
 	}
 
-	@WebElementLocator(webDesktop = "//div[@id='shop-peets']//a[contains(.,'Shop Tea')]")
+	@WebElementLocator(webDesktop = "ul.shop-list li:nth-child(2)")
 	protected Button getShopTeaButton() {
 		return new Button(this, getLocator(this, "getShopTeaButton"));
 	}
 
-	@WebElementLocator(webDesktop = "//div[@id='shop-peets']//a[contains(.,'Shop Equipment')]")
+	@WebElementLocator(webDesktop = "ul.shop-list li:nth-child(3)")
 	protected Button getShopEquipmentButton() {
 		return new Button(this, getLocator(this, "getShopEquipmentButton"));
 	}

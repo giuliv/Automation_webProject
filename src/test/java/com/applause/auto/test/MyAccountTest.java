@@ -1,5 +1,6 @@
 package com.applause.auto.test;
 
+import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
 import com.applause.auto.pageframework.helpers.WebHelper;
 import com.applause.auto.pageframework.pages.AddBillingAddressPage;
 import com.applause.auto.pageframework.pages.AddShippingAddressPage;
@@ -32,9 +33,7 @@ public class MyAccountTest extends BaseTest {
 
         LOGGER.info("2. Log In");
         SignInPage signInPage = landingPage.clickSignInButton();
-        signInPage.enterEmail(TestConstants.TestData.USERNAME);
-        signInPage.enterPassword(TestConstants.TestData.PASSWORD);
-        MyAccountPage myAccountPage = signInPage.clickonSignInButton();
+		MyAccountPage myAccountPage = signInPage.mainUserLogin();
         Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
         LOGGER.info("3. Verify My Subscriptions Section");
@@ -76,9 +75,7 @@ public class MyAccountTest extends BaseTest {
 
         LOGGER.info("2. Log In");
         SignInPage signInPage = landingPage.clickSignInButton();
-        signInPage.enterEmail(TestConstants.MyAccountTestData.EMAIL);
-        signInPage.enterPassword(TestConstants.MyAccountTestData.PASSWORD);
-        MyAccountPage myAccountPage = signInPage.clickonSignInButton();
+		MyAccountPage myAccountPage = signInPage.mainUserLogin();
         Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
         LOGGER.info("3. Select Payment");
@@ -104,8 +101,12 @@ public class MyAccountTest extends BaseTest {
 
         LOGGER.info("7. Add New Payment Method");
         AssociateNewCardPage associateNewCardPage = paymentMethodsPage.addPeetsCard();
-        associateNewCardPage.enterCardNumber(TestConstants.TestData.PEETS_CARD_NUMBER_2);
-        associateNewCardPage.enterPinNumber(TestConstants.TestData.PEETS_CARD_PIN_2);
+		String alternatePeetsCardNumber = (env.getBrowserType() == BrowserType.SAFARI) ? TestConstants.TestData.PEETS_CARD_NUMBER_SAFARI_2
+				: TestConstants.TestData.PEETS_CARD_NUMBER_CHROME_2;
+        associateNewCardPage.enterCardNumber(alternatePeetsCardNumber);
+		String alternatePeetsCardPin = (env.getBrowserType() == BrowserType.SAFARI) ? TestConstants.TestData.PEETS_CARD_PIN_SAFARI_2
+				: TestConstants.TestData.PEETS_CARD_PIN_CHROME_2;
+        associateNewCardPage.enterPinNumber(alternatePeetsCardPin);
         paymentMethodsPage = associateNewCardPage.clickAssociateCard();
 
         LOGGER.info("8. Verify New Payment Method");
