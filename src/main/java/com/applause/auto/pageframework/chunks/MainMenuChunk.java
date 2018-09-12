@@ -19,6 +19,8 @@ import com.applause.auto.pageframework.pages.ShopEquipmentPage;
 import com.applause.auto.pageframework.pages.ShopGiftSubscriptionsPage;
 import com.applause.auto.pageframework.pages.ShopTeaPage;
 import com.applause.auto.pageframework.testdata.TestConstants;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 @WebDesktopImplementation(MainMenuChunk.class)
 @WebTabletImplementation(MainMenuChunk.class)
@@ -51,7 +53,10 @@ public class MainMenuChunk extends AbstractPageChunk {
 	 */
 	public void hoverCategory(String category) {
 		LOGGER.info("Hover a category in the main menu");
-		getMainMenuCategoryButton(category).hover();
+		WebElement element = getMainMenuCategoryButton(category).getWebElement();
+		Actions actions = new Actions(getDriver());
+		actions.moveToElement(element).build().perform();
+//		getMainMenuCategoryButton(category).hover();
 	}
 
 	/**
