@@ -133,6 +133,7 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 		// Cant select the month value due its content. Workaround was to select its value
 		if (env.getBrowserType() == BrowserType.SAFARI) {
 			webHelper.jsSelect(getCardExpMonthDropdown().getWebElement(), TestConstants.TestData.VISA_CC_MONTH);
+			syncHelper.suspend(2000);
 			webHelper.jsSelect(getCardExpYearDropdown().getWebElement(), TestConstants.TestData.VISA_CC_YEAR);
 		}
 		else {
