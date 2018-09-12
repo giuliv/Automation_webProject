@@ -22,6 +22,9 @@ import com.applause.auto.pageframework.testdata.TestConstants;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.HasInputDevices;
+import org.openqa.selenium.interactions.Mouse;
+import org.openqa.selenium.internal.Locatable;
 
 @WebDesktopImplementation(MainMenuChunk.class)
 @WebTabletImplementation(MainMenuChunk.class)
@@ -56,8 +59,9 @@ public class MainMenuChunk extends AbstractPageChunk {
 		LOGGER.info("Hover a category in the main menu");
 //		WebElement element = getMainMenuCategoryButton(category).getWebElement();
 		WebElement element = getMainMenuCategoryButton().getWebElement();
-		JavascriptExecutor js = (JavascriptExecutor)getDriver();
-		js.executeScript("arguments[0].onmouseover()", element);
+		Locatable hoverItem = (Locatable) element;
+		Mouse mouse = ((HasInputDevices) getDriver()).getMouse();
+		mouse.mouseMove(hoverItem.getCoordinates());
 //		Actions actions = new Actions(getDriver());
 //		actions.moveToElement(element).build().perform();
 //		getMainMenuCategoryButton(category).hover();
