@@ -149,7 +149,7 @@ public class MainMenuChunk extends AbstractPageChunk {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
-	@WebElementLocator(webDesktop = "//ul[@class='navigation']/li[contains(.,'%s')]")
+	@WebElementLocator(webDesktop = "//li[contains(.,'%s')]")
 	protected Button getMainMenuCategoryButton(String category) {
 		return new Button(this, String.format(getLocator(this, "getMainMenuCategoryButton"), category));
 	}
