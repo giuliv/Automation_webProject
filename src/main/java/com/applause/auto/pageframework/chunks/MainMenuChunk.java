@@ -60,8 +60,7 @@ public class MainMenuChunk extends AbstractPageChunk {
 		LOGGER.info("Hover a category in the main menu");
 //		WebElement element = getMainMenuCategoryButton(category).getWebElement();
 		WebElement element = getMainMenuCategoryButton().getWebElement();
-		String javaScript = "var evObj = document.createEvent('MouseEvents');evObj.initMouseEvent(\"mouseover\",true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);arguments[0].dispatchEvent(evObj);";
-		((JavascriptExecutor) getDriver()).executeScript(javaScript, new Object[] { element });
+		((JavascriptExecutor) getDriver()).executeScript("arguments[0].focus();", element);
 //		Actions actions = new Actions(getDriver());
 //		actions.moveToElement(element).build().perform();
 //		getMainMenuCategoryButton(category).hover();
