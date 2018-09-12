@@ -16,6 +16,7 @@ import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.pages.LandingPage;
 import com.applause.auto.pageframework.pages.PeetsCardProductPage;
 import com.applause.auto.pageframework.pages.ShopEquipmentPage;
+import com.applause.auto.pageframework.pages.ShopGiftSubscriptionsPage;
 import com.applause.auto.pageframework.pages.ShopTeaPage;
 import com.applause.auto.pageframework.testdata.TestConstants;
 
@@ -84,6 +85,18 @@ public class MainMenuChunk extends AbstractPageChunk {
 	}
 
 	/**
+	 * Access Gift Subscriptions under Shop from Main Menu
+	 *
+	 * @return ShopGiftSubscriptionsPage
+	 */
+	public ShopGiftSubscriptionsPage accessShopGiftSubscriptions() {
+		LOGGER.info("Accessing Shop Gift Subscriptions");
+		hoverCategory(TestConstants.TestMainMenu.NAV_CATEGORY_SHOP);
+		getSubcategoryButton(TestConstants.TestMainMenu.NAV_SUBMENU_GIFT_SUBSCRIPTIONS).click();
+		return PageFactory.create(ShopGiftSubscriptionsPage.class);
+	}
+
+	/**
 	 * Access Sub-Menu Equipment under Category Shop from main menu
 	 *
 	 */
@@ -144,6 +157,11 @@ public class MainMenuChunk extends AbstractPageChunk {
 	@WebElementLocator(webDesktop = "//a[@class='drop-link' and contains(.,'%s')]")
 	protected Button getCategorySubmenuButton(String subMenu) {
 		return new Button(this, String.format(getLocator(this, "getCategorySubmenuButton"), subMenu));
+	}
+
+	@WebElementLocator(webDesktop = "//a[contains(.,'%s')]")
+	protected Button getSubcategoryButton(String subMenu) {
+		return new Button(this, String.format(getLocator(this, "getSubcategoryButton"), subMenu));
 	}
 
 	@WebElementLocator(webDesktop = ".logo")

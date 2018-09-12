@@ -71,6 +71,7 @@ public class TestConstants {
 		public static final String NAV_SUBMENU_COFFEE = "Coffee";
 		public static final String NAV_SUBMENU_TEA = "Tea";
 		public static final String NAV_SUBMENU_EQUIPMENT = "Equipment";
+		public static final String NAV_SUBMENU_GIFT_SUBSCRIPTIONS = "Gift Subscriptions";
 
 		public static final String NAV_OPTION_CARDS_BY_MAIL = "Gift Cards by Mail";
 
