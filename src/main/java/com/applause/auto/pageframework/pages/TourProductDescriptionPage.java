@@ -1,5 +1,6 @@
 package com.applause.auto.pageframework.pages;
 
+import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
 import com.applause.auto.framework.pageframework.web.ChunkFactory;
@@ -10,6 +11,7 @@ import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementa
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
 import com.applause.auto.pageframework.chunks.MiniCartContainerChunk;
+import com.applause.auto.pageframework.helpers.WebHelper;
 
 import java.lang.invoke.MethodHandles;
 
@@ -18,6 +20,7 @@ import java.lang.invoke.MethodHandles;
 @WebPhoneImplementation(TourProductDescriptionPage.class)
 public class TourProductDescriptionPage extends AbstractPage {
     protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+    WebHelper webHelper = new WebHelper();
 
     @Override
     protected void waitUntilVisible() {
@@ -33,7 +36,10 @@ public class TourProductDescriptionPage extends AbstractPage {
      */
     public void selectGrind(String grind) {
         LOGGER.info("Select Grind");
-        getGrindDropdown().select(grind);
+        if (env.getBrowserType() == BrowserType.SAFARI)
+            webHelper.jsSelect(getGrindDropdown().getWebElement(), grind);
+        else
+            getGrindDropdown().select(grind);
     }
 
     /**
