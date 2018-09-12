@@ -58,12 +58,10 @@ public class MainMenuChunk extends AbstractPageChunk {
 	 */
 	public void hoverCategory(String category) {
 		LOGGER.info("Hover a category in the main menu");
-//		WebElement element = getMainMenuCategoryButton(category).getWebElement();
-		WebElement element = getMainMenuCategoryButton().getWebElement();
-		((JavascriptExecutor) getDriver()).executeScript("arguments[0].focus();", element);
-//		Actions actions = new Actions(getDriver());
-//		actions.moveToElement(element).build().perform();
-//		getMainMenuCategoryButton(category).hover();
+		WebElement element = getMainMenuCategoryButton(category).getWebElement();
+		Actions actions = new Actions(getDriver());
+		actions.moveToElement(element).build().perform();
+		getMainMenuCategoryButton(category).hover();
 	}
 
 	/**
@@ -161,9 +159,9 @@ public class MainMenuChunk extends AbstractPageChunk {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
-	@WebElementLocator(webDesktop = "#header-nav > nav > div > div.drop-holder > ul > li.wide.has-drop > a")
-	protected Button getMainMenuCategoryButton() {
-		return new Button(this, getLocator(this, "getMainMenuCategoryButton"));
+	@WebElementLocator(webDesktop = "//li[contains(.,'%s')]")
+	protected Button getMainMenuCategoryButton(String category) {
+		return new Button(this, String.format(getLocator(this, "getMainMenuCategoryButton"), category));
 	}
 
 	@WebElementLocator(webDesktop = "//a[@class='drop-link' and contains(.,'%s')]")

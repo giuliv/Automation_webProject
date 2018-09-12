@@ -1,6 +1,7 @@
 package com.applause.auto.test;
 
 import com.applause.auto.framework.pageframework.web.ChunkFactory;
+import com.applause.auto.pageframework.pages.SearchResultsPage;
 import com.applause.auto.pageframework.pages.ShopGiftSubscriptionsPage;
 import com.applause.auto.pageframework.pages.TourProductDescriptionPage;
 import org.testng.Assert;
@@ -213,14 +214,24 @@ public class GuestCheckoutTest extends BaseTest {
 		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
 
 		LOGGER.info("2. Navigate to Gift Subscription Shop page");
-		MainMenuChunk mainMenuChunk = landingPage.getMainMenu();
-		ShopGiftSubscriptionsPage shopGiftSubscriptionsPage = mainMenuChunk.accessShopGiftSubscriptions();
+		SearchResultsPage searchResultsPage = landingPage.searchForProduct(TestData.TOUR_SEARCH_TERMS);
 
 		LOGGER.info("3. Select Product and Add to Cart");
-		TourProductDescriptionPage tourProductDescriptionPage = shopGiftSubscriptionsPage.clickFirstProduct();
+		TourProductDescriptionPage tourProductDescriptionPage = searchResultsPage.clickFirstProduct();
 		tourProductDescriptionPage.selectGrind(TestData.GRIND);
 		MiniCartContainerChunk miniCartContainerChunk = tourProductDescriptionPage.addToCart();
 		Assert.assertNotNull(miniCartContainerChunk, "Mini Cart is not displayed");
+
+		// TODO: Commenting code out due to Safari hover issue. Will revisit when issue is fixed.
+//		LOGGER.info("2. Navigate to Gift Subscription Shop page");
+//		MainMenuChunk mainMenuChunk = landingPage.getMainMenu();
+//		ShopGiftSubscriptionsPage shopGiftSubscriptionsPage = mainMenuChunk.accessShopGiftSubscriptions();
+
+//		LOGGER.info("3. Select Product and Add to Cart");
+//		TourProductDescriptionPage tourProductDescriptionPage = shopGiftSubscriptionsPage.clickFirstProduct();
+//		tourProductDescriptionPage.selectGrind(TestData.GRIND);
+//		MiniCartContainerChunk miniCartContainerChunk = tourProductDescriptionPage.addToCart();
+//		Assert.assertNotNull(miniCartContainerChunk, "Mini Cart is not displayed");
 
 		LOGGER.info("4. Select Checkout");
 		CheckoutPage checkoutPage = miniCartContainerChunk.clickCheckout();
