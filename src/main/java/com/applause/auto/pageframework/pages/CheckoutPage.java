@@ -43,7 +43,7 @@ public class CheckoutPage extends AbstractPage {
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "//div[@class='page-title']/h1[contains(.,'Checkout')]")
+	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col1-layout > div > div > div > div > h1")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
