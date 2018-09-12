@@ -57,7 +57,7 @@ public class TestConstants {
 
 		public static final String VISA_CC_NUMBER = "4111111111111111";
 		public static final String VISA_CC_SECURITY_CODE = "111";
-		public static final String VISA_CC_MONTH = "12";
+		public static final String VISA_CC_MONTH = "12 - December";
 		public static final String VISA_CC_YEAR = "2020";
 		public static final String VISA_CC_NAME = "QA Test Applause Auto";
 		public static final String VISA_CC_ZIP = "90404";
