@@ -1,5 +1,8 @@
 package com.applause.auto.test;
 
+import com.applause.auto.framework.pageframework.web.ChunkFactory;
+import com.applause.auto.pageframework.pages.ShopGiftSubscriptionsPage;
+import com.applause.auto.pageframework.pages.TourProductDescriptionPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -196,6 +199,51 @@ public class GuestCheckoutTest extends BaseTest {
 		CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
 
 		LOGGER.info("Verify Confirmation page is displayed");
+		Assert.assertTrue(confirmationPage.getConfirmationMessage().contains("THANK YOU FOR YOUR PURCHASE!"),
+				"Order was not placed");
+
+		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
+	}
+
+	@Test(groups = { TestNGGroups.GUEST_CHECKOUT }, description = "19503")
+	public void guestCheckoutTour() {
+
+		LOGGER.info("1. Navigate to landing page");
+		LandingPage landingPage = navigateToLandingPage();
+		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+
+		LOGGER.info("2. Navigate to Gift Subscription Shop page");
+		MainMenuChunk mainMenuChunk = landingPage.getMainMenu();
+		ShopGiftSubscriptionsPage shopGiftSubscriptionsPage = mainMenuChunk.accessShopGiftSubscriptions();
+
+		LOGGER.info("3. Select Product and Add to Cart");
+		TourProductDescriptionPage tourProductDescriptionPage = shopGiftSubscriptionsPage.clickFirstProduct();
+		tourProductDescriptionPage.selectGrind(TestData.GRIND);
+		MiniCartContainerChunk miniCartContainerChunk = tourProductDescriptionPage.addToCart();
+		Assert.assertNotNull(miniCartContainerChunk, "Mini Cart is not displayed");
+
+		LOGGER.info("4. Select Checkout");
+		CheckoutPage checkoutPage = miniCartContainerChunk.clickCheckout();
+
+		LOGGER.info("5. Checkout as Guest");
+		CheckoutShippingInfoPage checkoutShippingInfoPage = checkoutPage.clickContinueAsGuest();
+		Assert.assertNotNull(checkoutShippingInfoPage, "Checkout Shipping page is not displayed");
+
+		LOGGER.info("6. Complete Contact Information");
+		VerifyYourAddressDetailsChunk verifyYourAddressDetailsChunk = checkoutShippingInfoPage.continueAfterFillingRequiredContactInfo();
+		checkoutShippingInfoPage = verifyYourAddressDetailsChunk.clickEnteredAddressButton();
+
+		LOGGER.info("7. Select ground shipping");
+		CheckoutPaymentMethodPage paymentMethodPage = checkoutShippingInfoPage
+				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
+
+		LOGGER.info("8. Use credit card for payment");
+		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterFillingRequiredBillingInfo();
+
+		LOGGER.info("9. Click 'Place Order'");
+		CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
+
+		LOGGER.info("10. Verify Confirmation page is displayed");
 		Assert.assertTrue(confirmationPage.getConfirmationMessage().contains("THANK YOU FOR YOUR PURCHASE!"),
 				"Order was not placed");
 
