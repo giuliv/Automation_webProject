@@ -3,6 +3,7 @@ package com.applause.auto.pageframework.chunks;
 import java.lang.invoke.MethodHandles;
 
 import com.applause.auto.framework.pageframework.UIData;
+import com.applause.auto.framework.pageframework.util.actions.NativeBrowserAction;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPageChunk;
 import com.applause.auto.framework.pageframework.web.ChunkFactory;
@@ -59,7 +60,7 @@ public class MainMenuChunk extends AbstractPageChunk {
 		LOGGER.info("Hover a category in the main menu");
 //		WebElement element = getMainMenuCategoryButton(category).getWebElement();
 		WebElement element = getMainMenuCategoryButton().getWebElement();
-		getMainMenuCategoryButton().hover();
+		new NativeBrowserAction(getDriver()).hoverOverElement(element);
 //		Actions actions = new Actions(getDriver());
 //		actions.moveToElement(element).build().perform();
 //		getMainMenuCategoryButton(category).hover();
