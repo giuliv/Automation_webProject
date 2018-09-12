@@ -112,7 +112,7 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "//div[@id='step-title-section' and contains(.,'Shipping Information')]")
+	@WebElementLocator(webDesktop = "#checkout-title-opc-shipping")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
