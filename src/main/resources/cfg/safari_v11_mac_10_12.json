@@ -15,6 +15,7 @@
         	"acceptSSLAlerts" : "true",
             "maxDuration" : "3600",
             "idleTimeout" : "120",
-            "acceptInsecureCerts" : "true"
+            "acceptInsecureCerts" : "true",
+            "screenResolution" : "1920x1440"
     	}
     }
