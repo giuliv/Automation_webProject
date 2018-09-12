@@ -48,7 +48,7 @@ public class CheckoutPage extends AbstractPage {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
-	@WebElementLocator(webDesktop = "//button[contains(.,'Continue as Guest')]")
+	@WebElementLocator(webDesktop = "#login-form > div > div > div.new-users > div > div.buttons-set > button")
 	protected Button getClickContinueAsGuestButton() {
 		return new Button(this, getLocator(this, "getClickContinueAsGuestButton"));
 	}
