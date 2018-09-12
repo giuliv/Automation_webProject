@@ -59,9 +59,7 @@ public class MainMenuChunk extends AbstractPageChunk {
 		LOGGER.info("Hover a category in the main menu");
 //		WebElement element = getMainMenuCategoryButton(category).getWebElement();
 		WebElement element = getMainMenuCategoryButton().getWebElement();
-		Locatable hoverItem = (Locatable) element;
-		Mouse mouse = ((HasInputDevices) getDriver()).getMouse();
-		mouse.mouseMove(hoverItem.getCoordinates());
+		getMainMenuCategoryButton().hover();
 //		Actions actions = new Actions(getDriver());
 //		actions.moveToElement(element).build().perform();
 //		getMainMenuCategoryButton(category).hover();
