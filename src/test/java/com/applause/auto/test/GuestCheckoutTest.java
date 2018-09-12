@@ -255,7 +255,7 @@ public class GuestCheckoutTest extends BaseTest {
 		CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
 
 		LOGGER.info("10. Verify Confirmation page is displayed");
-		Assert.assertTrue(confirmationPage.getConfirmationMessage().contains("THANK YOU FOR YOUR PURCHASE!"),
+		Assert.assertTrue(confirmationPage.getConfirmationMessage().contains("Thank you for your purchase!"),
 				"Order was not placed");
 
 		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
