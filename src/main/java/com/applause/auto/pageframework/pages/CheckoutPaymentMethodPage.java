@@ -137,7 +137,7 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 			webHelper.jsSelect(getCardExpYearDropdown().getWebElement(), TestConstants.TestData.VISA_CC_YEAR);
 		}
 		else {
-			new Select(getCardExpMonthDropdown().getWebElement()).selectByValue(TestConstants.TestData.VISA_CC_MONTH);
+			getCardExpMonthDropdown().select(TestConstants.TestData.VISA_CC_MONTH);
 			getCardExpYearDropdown().select(TestConstants.TestData.VISA_CC_YEAR);
 		}
 		getNameOnCardEditField().setText(TestConstants.TestData.VISA_CC_NAME);
