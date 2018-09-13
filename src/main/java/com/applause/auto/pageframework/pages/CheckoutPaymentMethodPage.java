@@ -2,6 +2,8 @@ package com.applause.auto.pageframework.pages;
 
 import java.lang.invoke.MethodHandles;
 
+import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
+import com.applause.auto.pageframework.helpers.WebHelper;
 import org.openqa.selenium.support.ui.Select;
 
 import com.applause.auto.framework.pageframework.util.logger.LogController;
@@ -25,6 +27,7 @@ import com.applause.auto.pageframework.testdata.TestConstants;
 public class CheckoutPaymentMethodPage extends AbstractPage {
 
 	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+	WebHelper webHelper = new WebHelper();
 
 	@Override
 	protected void waitUntilVisible() {
@@ -128,8 +131,15 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 		getCardNumberEditField().setText(TestConstants.TestData.VISA_CC_NUMBER);
 		getCardSecurityCodeEditField().setText(TestConstants.TestData.VISA_CC_SECURITY_CODE);
 		// Cant select the month value due its content. Workaround was to select its value
-		new Select(getCardExpMonthDropdown().getWebElement()).selectByValue(TestConstants.TestData.VISA_CC_MONTH);
-		getCardExpYearDropdown().select(TestConstants.TestData.VISA_CC_YEAR);
+		if (env.getBrowserType() == BrowserType.SAFARI) {
+			webHelper.jsSelect(getCardExpMonthDropdown().getWebElement(), TestConstants.TestData.VISA_CC_MONTH);
+			syncHelper.suspend(2000);
+			webHelper.jsSelect(getCardExpYearDropdown().getWebElement(), TestConstants.TestData.VISA_CC_YEAR);
+		}
+		else {
+			getCardExpMonthDropdown().select(TestConstants.TestData.VISA_CC_MONTH);
+			getCardExpYearDropdown().select(TestConstants.TestData.VISA_CC_YEAR);
+		}
 		getNameOnCardEditField().setText(TestConstants.TestData.VISA_CC_NAME);
 	}
 

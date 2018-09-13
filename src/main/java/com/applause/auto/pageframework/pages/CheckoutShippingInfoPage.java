@@ -2,6 +2,7 @@ package com.applause.auto.pageframework.pages;
 
 import java.lang.invoke.MethodHandles;
 
+import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
 import com.applause.auto.framework.pageframework.web.ChunkFactory;
@@ -16,6 +17,7 @@ import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.chunks.VerifyYourAddressDetailsChunk;
+import com.applause.auto.pageframework.helpers.WebHelper;
 import com.applause.auto.pageframework.testdata.TestConstants;
 
 @WebDesktopImplementation(CheckoutShippingInfoPage.class)
@@ -24,6 +26,7 @@ import com.applause.auto.pageframework.testdata.TestConstants;
 public class CheckoutShippingInfoPage extends AbstractPage {
 
 	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+	WebHelper webHelper = new WebHelper();
 
 	@Override
 	protected void waitUntilVisible() {
@@ -57,7 +60,10 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 		getMainAddressEditField().setText(TestConstants.TestData.ADDRESS);
 		getZipCodeEditField().setText(TestConstants.TestData.ZIP_CODE);
 		getCityEditField().setText(TestConstants.TestData.CITY);
-		getStateDropdown().select(TestConstants.TestData.STATE);
+		if (env.getBrowserType() == BrowserType.SAFARI)
+			webHelper.jsSelect(getStateDropdown().getWebElement(), TestConstants.TestData.STATE);
+		else
+			getStateDropdown().select(TestConstants.TestData.STATE);
 	}
 
 	/**
@@ -112,7 +118,7 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "//div[@id='step-title-section' and contains(.,'Shipping Information')]")
+	@WebElementLocator(webDesktop = "#checkout-title-opc-shipping")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
