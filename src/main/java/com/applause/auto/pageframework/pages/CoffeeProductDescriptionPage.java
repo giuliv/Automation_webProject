@@ -15,10 +15,10 @@ import com.applause.auto.pageframework.helpers.WebHelper;
 
 import java.lang.invoke.MethodHandles;
 
-@WebDesktopImplementation(TourProductDescriptionPage.class)
-@WebTabletImplementation(TourProductDescriptionPage.class)
-@WebPhoneImplementation(TourProductDescriptionPage.class)
-public class TourProductDescriptionPage extends AbstractPage {
+@WebDesktopImplementation(CoffeeProductDescriptionPage.class)
+@WebTabletImplementation(CoffeeProductDescriptionPage.class)
+@WebPhoneImplementation(CoffeeProductDescriptionPage.class)
+public class CoffeeProductDescriptionPage extends AbstractPage {
     protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
     WebHelper webHelper = new WebHelper();
 

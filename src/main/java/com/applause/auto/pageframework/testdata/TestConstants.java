@@ -63,8 +63,12 @@ public class TestConstants {
 		public static final String VISA_CC_ZIP = "90404";
 
 		public static final String TOUR_SEARCH_TERMS = "Tour";
+		public static final String WEDNES_ROAST_SEARCH = "Kona";
 
 		public static final String PURCHASE_CONFIRMATION_TEXT = "Thank you for your purchase!";
+
+		public static final String PAYPAL_EMAIL = "sraju@peets.com";
+		public static final String PAYPAL_PASSWORD = "123456789";
 
 	}
 

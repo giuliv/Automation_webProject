@@ -1,9 +1,9 @@
 package com.applause.auto.test;
 
-import com.applause.auto.framework.pageframework.web.ChunkFactory;
+import com.applause.auto.pageframework.pages.PaypalLoginPage;
+import com.applause.auto.pageframework.pages.PaypalReviewYourPurchasePage;
 import com.applause.auto.pageframework.pages.SearchResultsPage;
-import com.applause.auto.pageframework.pages.ShopGiftSubscriptionsPage;
-import com.applause.auto.pageframework.pages.TourProductDescriptionPage;
+import com.applause.auto.pageframework.pages.CoffeeProductDescriptionPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -31,8 +31,6 @@ import com.applause.auto.pageframework.pages.TeaProductPage;
 import com.applause.auto.pageframework.testdata.TestConstants;
 import com.applause.auto.pageframework.testdata.TestConstants.TestData;
 import com.applause.auto.pageframework.testdata.TestConstants.TestNGGroups;
-
-import java.util.regex.Pattern;
 
 public class GuestCheckoutTest extends BaseTest {
 
@@ -219,9 +217,9 @@ public class GuestCheckoutTest extends BaseTest {
 		SearchResultsPage searchResultsPage = landingPage.searchForProduct(TestData.TOUR_SEARCH_TERMS);
 
 		LOGGER.info("3. Select Product and Add to Cart");
-		TourProductDescriptionPage tourProductDescriptionPage = searchResultsPage.clickFirstProduct();
-		tourProductDescriptionPage.selectGrind(TestData.GRIND);
-		MiniCartContainerChunk miniCartContainerChunk = tourProductDescriptionPage.addToCart();
+		CoffeeProductDescriptionPage coffeeProductDescriptionPage = searchResultsPage.clickFirstProduct();
+		coffeeProductDescriptionPage.selectGrind(TestData.GRIND);
+		MiniCartContainerChunk miniCartContainerChunk = coffeeProductDescriptionPage.addToCart();
 		Assert.assertNotNull(miniCartContainerChunk, "Mini Cart is not displayed");
 
 		// TODO: Commenting code out due to Safari hover issue. Will revisit when issue is fixed.
@@ -230,9 +228,9 @@ public class GuestCheckoutTest extends BaseTest {
 //		ShopGiftSubscriptionsPage shopGiftSubscriptionsPage = mainMenuChunk.accessShopGiftSubscriptions();
 
 //		LOGGER.info("3. Select Product and Add to Cart");
-//		TourProductDescriptionPage tourProductDescriptionPage = shopGiftSubscriptionsPage.clickFirstProduct();
-//		tourProductDescriptionPage.selectGrind(TestData.GRIND);
-//		MiniCartContainerChunk miniCartContainerChunk = tourProductDescriptionPage.addToCart();
+//		CoffeeProductDescriptionPage coffeeProductDescriptionPage = shopGiftSubscriptionsPage.clickFirstProduct();
+//		coffeeProductDescriptionPage.selectGrind(TestData.GRIND);
+//		MiniCartContainerChunk miniCartContainerChunk = coffeeProductDescriptionPage.addToCart();
 //		Assert.assertNotNull(miniCartContainerChunk, "Mini Cart is not displayed");
 
 		LOGGER.info("4. Select Checkout");
@@ -263,4 +261,51 @@ public class GuestCheckoutTest extends BaseTest {
 
 		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
 	}
+
+	@Test(groups = { TestNGGroups.GUEST_CHECKOUT }, description = "137108")
+    public void wednesdayRoastCoffee() {
+
+        LOGGER.info("1. Navigate to landing page");
+        LandingPage landingPage = navigateToLandingPage();
+        Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+
+        LOGGER.info("2. Navigate to Gift Subscription Shop page");
+        SearchResultsPage searchResultsPage = landingPage.searchForProduct(TestData.WEDNES_ROAST_SEARCH);
+
+        LOGGER.info("3. Select Product and Add to Cart");
+        CoffeeProductDescriptionPage coffeeProductDescriptionPage = searchResultsPage.clickKona();
+        coffeeProductDescriptionPage.selectGrind(TestData.GRIND);
+        MiniCartContainerChunk miniCartContainerChunk = coffeeProductDescriptionPage.addToCart();
+        Assert.assertNotNull(miniCartContainerChunk, "Mini Cart is not displayed");
+
+        LOGGER.info("4. Edit Cart");
+        ShoppingCartPage shoppingCartPage = miniCartContainerChunk.clickEditCart();
+
+        LOGGER.info("5. Add Gift Message");
+        shoppingCartPage.selectOrderAsGift();
+        shoppingCartPage.enterGiftMessage(TestData.GIFT_MESSAGE);
+
+        LOGGER.info("6. Checkout with Paypal");
+        PaypalLoginPage paypalLoginPage = shoppingCartPage.clickPayWithPaypal();
+
+        LOGGER.info("7. Login with Paypal");
+        paypalLoginPage.enterEmail(TestData.PAYPAL_EMAIL);
+        paypalLoginPage.clickNext();
+        paypalLoginPage.enterPassword(TestData.PAYPAL_PASSWORD);
+        PaypalReviewYourPurchasePage paypalReviewYourPurchasePage = paypalLoginPage.clickLogIn();
+        CheckoutPlaceOrderPage checkoutPlaceOrderPage = paypalReviewYourPurchasePage.clickAgreeAndContinue();
+
+        LOGGER.info("8. Place Order");
+        Assert.assertEquals(checkoutPlaceOrderPage.getProductName(), TestData.WEDNES_ROAST_SEARCH,
+                "Incorrect product being purchased");
+        Assert.assertEquals(checkoutPlaceOrderPage.getGiftMessage(), TestData.GIFT_MESSAGE);
+        CheckoutConfirmationPage checkoutConfirmationPage = checkoutPlaceOrderPage.placeOrder();
+
+        LOGGER.info("9. Verify Confirmation page is displayed");
+        LOGGER.info(checkoutConfirmationPage.getConfirmationMessage());
+        Assert.assertEquals(checkoutConfirmationPage.getConfirmationMessage().toLowerCase(),
+                TestData.PURCHASE_CONFIRMATION_TEXT.toLowerCase(), "Order was not placed");
+
+        LOGGER.info("Order Placed: " + checkoutConfirmationPage.getOrderNumber());
+    }
 }
