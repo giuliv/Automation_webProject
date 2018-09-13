@@ -94,7 +94,7 @@ public class ShoppingCartPage extends AbstractPage {
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "//div[@class='page-title']/h1[contains(.,'Shopping Cart')]")
+	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col1-layout > div > div > div.cart.display-single-price > div.page-title > h1")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
