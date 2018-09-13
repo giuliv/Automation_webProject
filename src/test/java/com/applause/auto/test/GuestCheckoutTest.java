@@ -32,6 +32,8 @@ import com.applause.auto.pageframework.testdata.TestConstants;
 import com.applause.auto.pageframework.testdata.TestConstants.TestData;
 import com.applause.auto.pageframework.testdata.TestConstants.TestNGGroups;
 
+import java.util.regex.Pattern;
+
 public class GuestCheckoutTest extends BaseTest {
 
 	@Test(groups = { TestNGGroups.GUEST_CHECKOUT }, description = "19500")
@@ -255,8 +257,9 @@ public class GuestCheckoutTest extends BaseTest {
 		CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
 
 		LOGGER.info("10. Verify Confirmation page is displayed");
-		Assert.assertTrue(confirmationPage.getConfirmationMessage().contains("Thank you for your purchase!"),
-				"Order was not placed");
+		LOGGER.info(confirmationPage.getConfirmationMessage());
+		Assert.assertEquals(confirmationPage.getConfirmationMessage().toLowerCase(),
+				TestData.PURCHASE_CONFIRMATION_TEXT.toLowerCase(), "Order was not placed");
 
 		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
 	}
