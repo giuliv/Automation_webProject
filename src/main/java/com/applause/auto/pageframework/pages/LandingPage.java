@@ -11,6 +11,7 @@ import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplement
 import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
 import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
 import com.applause.auto.framework.pageframework.webcontrols.Button;
+import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.chunks.MainMenuChunk;
 
@@ -85,6 +86,20 @@ public class LandingPage extends AbstractPage {
 		return ChunkFactory.create(MainMenuChunk.class, this, "");
 	}
 
+	/**
+	 * Search for Product
+	 *
+	 * @param searchTerms
+	 * @return SearchResultsPage
+	 */
+	public SearchResultsPage searchForProduct(String searchTerms) {
+		LOGGER.info("Searching for " + searchTerms);
+		getShowSearchButton().click();
+		getSearchTextBox().setText(searchTerms);
+		getSearchButton().click();
+		return PageFactory.create(SearchResultsPage.class);
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -118,6 +133,15 @@ public class LandingPage extends AbstractPage {
 	protected Button getShopEquipmentButton() {
 		return new Button(this, getLocator(this, "getShopEquipmentButton"));
 	}
+
+	@WebElementLocator(webDesktop = ".skip-link.skip-search")
+	protected Button getShowSearchButton() { return new Button(this, getLocator(this, "getShowSearchButton")); }
+
+	@WebElementLocator(webDesktop = "#search")
+	protected EditField getSearchTextBox() { return new EditField(this, getLocator(this, "getSearchTextBox")); }
+
+	@WebElementLocator(webDesktop = ".button.search-button")
+	protected Button getSearchButton() { return new Button(this, getLocator(this, "getSearchButton")); }
 
 	private void dismissPopup() {
 		try {

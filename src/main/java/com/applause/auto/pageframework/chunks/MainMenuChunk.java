@@ -3,6 +3,7 @@ package com.applause.auto.pageframework.chunks;
 import java.lang.invoke.MethodHandles;
 
 import com.applause.auto.framework.pageframework.UIData;
+import com.applause.auto.framework.pageframework.util.actions.NativeBrowserAction;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPageChunk;
 import com.applause.auto.framework.pageframework.web.ChunkFactory;
@@ -16,8 +17,15 @@ import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.pages.LandingPage;
 import com.applause.auto.pageframework.pages.PeetsCardProductPage;
 import com.applause.auto.pageframework.pages.ShopEquipmentPage;
+import com.applause.auto.pageframework.pages.ShopGiftSubscriptionsPage;
 import com.applause.auto.pageframework.pages.ShopTeaPage;
 import com.applause.auto.pageframework.testdata.TestConstants;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.interactions.HasInputDevices;
+import org.openqa.selenium.interactions.Mouse;
+import org.openqa.selenium.internal.Locatable;
 
 @WebDesktopImplementation(MainMenuChunk.class)
 @WebTabletImplementation(MainMenuChunk.class)
@@ -50,6 +58,9 @@ public class MainMenuChunk extends AbstractPageChunk {
 	 */
 	public void hoverCategory(String category) {
 		LOGGER.info("Hover a category in the main menu");
+		WebElement element = getMainMenuCategoryButton(category).getWebElement();
+		Actions actions = new Actions(getDriver());
+		actions.moveToElement(element).build().perform();
 		getMainMenuCategoryButton(category).hover();
 	}
 
@@ -81,6 +92,18 @@ public class MainMenuChunk extends AbstractPageChunk {
 		LOGGER.info("Accessing Shop-Tea");
 		clickCategorySubmenu(TestConstants.TestMainMenu.NAV_CATEGORY_SHOP, TestConstants.TestMainMenu.NAV_SUBMENU_TEA);
 		return PageFactory.create(ShopTeaPage.class);
+	}
+
+	/**
+	 * Access Gift Subscriptions under Shop from Main Menu
+	 *
+	 * @return ShopGiftSubscriptionsPage
+	 */
+	public ShopGiftSubscriptionsPage accessShopGiftSubscriptions() {
+		LOGGER.info("Accessing Shop Gift Subscriptions");
+		hoverCategory(TestConstants.TestMainMenu.NAV_CATEGORY_SHOP);
+		getSubcategoryButton(TestConstants.TestMainMenu.NAV_SUBMENU_GIFT_SUBSCRIPTIONS).click();
+		return PageFactory.create(ShopGiftSubscriptionsPage.class);
 	}
 
 	/**
@@ -136,7 +159,7 @@ public class MainMenuChunk extends AbstractPageChunk {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
-	@WebElementLocator(webDesktop = "//ul[@class='navigation']/li[contains(.,'%s')]")
+	@WebElementLocator(webDesktop = "//li[contains(.,'%s')]")
 	protected Button getMainMenuCategoryButton(String category) {
 		return new Button(this, String.format(getLocator(this, "getMainMenuCategoryButton"), category));
 	}
@@ -144,6 +167,11 @@ public class MainMenuChunk extends AbstractPageChunk {
 	@WebElementLocator(webDesktop = "//a[@class='drop-link' and contains(.,'%s')]")
 	protected Button getCategorySubmenuButton(String subMenu) {
 		return new Button(this, String.format(getLocator(this, "getCategorySubmenuButton"), subMenu));
+	}
+
+	@WebElementLocator(webDesktop = "//a[contains(.,'%s')]")
+	protected Button getSubcategoryButton(String subMenu) {
+		return new Button(this, String.format(getLocator(this, "getSubcategoryButton"), subMenu));
 	}
 
 	@WebElementLocator(webDesktop = ".logo")
