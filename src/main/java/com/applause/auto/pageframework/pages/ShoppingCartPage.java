@@ -77,6 +77,19 @@ public class ShoppingCartPage extends AbstractPage {
 		return PageFactory.create(CheckoutPlaceOrderPage.class);
 	}
 
+	/**
+	 * Click Pay with Paypal Button
+	 *
+	 * @return PaypalLoginPage
+	 */
+	public PaypalLoginPage clickPayWithPaypal() {
+		LOGGER.info("Clicking Pay with Paypal");
+		getPaypalButton().click();
+		syncHelper.suspend(5000);
+		getPaypalButton().click();
+		return PageFactory.create(PaypalLoginPage.class);
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -87,9 +100,7 @@ public class ShoppingCartPage extends AbstractPage {
 	}
 
 	@WebElementLocator(webDesktop = ".add-gift-message input")
-	protected Checkbox getOrderAsGiftCheckCheckbox() {
-		return new Checkbox(this, getLocator(this, "getOrderAsGiftCheckCheckbox"));
-	}
+	protected Checkbox getOrderAsGiftCheckCheckbox() { return new Checkbox(this, getLocator(this, "getOrderAsGiftCheckCheckbox")); }
 
 	@WebElementLocator(webDesktop = "#gift-message-whole-message")
 	protected EditField getGiftMessageText() {
@@ -97,8 +108,9 @@ public class ShoppingCartPage extends AbstractPage {
 	}
 
 	@WebElementLocator(webDesktop = "#action-checkout")
-	protected Button getProceedToCheckoutButton() {
-		return new Button(this, getLocator(this, "getProceedToCheckoutButton"));
-	}
+	protected Button getProceedToCheckoutButton() { return new Button(this, getLocator(this, "getProceedToCheckoutButton")); }
+
+	@WebElementLocator(webDesktop = ".paypal-logo")
+	protected Button getPaypalButton() { return new Button(this, getLocator(this, "getPaypalButton")); }
 
 }
