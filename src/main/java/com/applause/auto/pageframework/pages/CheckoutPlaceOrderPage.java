@@ -50,6 +50,16 @@ public class CheckoutPlaceOrderPage extends AbstractPage {
 		return getGiftMessageEditField().getText();
 	}
 
+	/**
+	 * Get Product Name
+	 *
+	 * @return String
+	 */
+	public String getProductName() {
+		LOGGER.info("Getting product name");
+		return getProductNameText().getStringValue();
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -65,8 +75,9 @@ public class CheckoutPlaceOrderPage extends AbstractPage {
 	}
 
 	@WebElementLocator(webDesktop = "#gift-message-whole-message")
-	protected EditField getGiftMessageEditField() {
-		return new EditField(this, getLocator(this, "getGiftMessageEditField"));
-	}
+	protected EditField getGiftMessageEditField() { return new EditField(this, getLocator(this, "getGiftMessageEditField")); }
+
+	@WebElementLocator(webDesktop = "#cart-table-standard > tbody > tr > td.product-info-cell.last > h3 > a")
+	protected Text getProductNameText() { return new Text(this, getLocator(this, "getProductNameText")); }
 
 }
