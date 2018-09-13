@@ -107,7 +107,7 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
-	@WebElementLocator(webDesktop = ".minicart-wrapper .cart-link")
+	@WebElementLocator(webDesktop = "#minicart-container > div.block-subtitle > a.cart-link")
 	protected Link getEditCartLink() {
 		return new Link(this, getLocator(this, "getEditCartLink"));
 	}

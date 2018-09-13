@@ -28,12 +28,12 @@ public class ShopGiftSubscriptionsPage extends AbstractPage {
     /**
      * Click First Product
      *
-     * @return TourProductDescriptionPage
+     * @return CoffeeProductDescriptionPage
      */
-    public TourProductDescriptionPage clickFirstProduct() {
+    public CoffeeProductDescriptionPage clickFirstProduct() {
         LOGGER.info("Clicking First Product");
         getFirstProduct().click();
-        return PageFactory.create(TourProductDescriptionPage.class);
+        return PageFactory.create(CoffeeProductDescriptionPage.class);
     }
 
     // Protected getters
