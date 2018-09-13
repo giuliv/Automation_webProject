@@ -64,6 +64,8 @@ public class TestConstants {
 
 		public static final String TOUR_SEARCH_TERMS = "Tour";
 
+		public static final String PURCHASE_CONFIRMATION_TEXT = "Thank you for your purchase!";
+
 	}
 
 	public static final class TestMainMenu {

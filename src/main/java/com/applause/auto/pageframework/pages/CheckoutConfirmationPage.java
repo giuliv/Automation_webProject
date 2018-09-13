@@ -55,7 +55,7 @@ public class CheckoutConfirmationPage extends AbstractPage {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
-	@WebElementLocator(webDesktop = "h2.sub-title")
+	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col1-layout > div > div > div:nth-child(1) > div.default-page-text > h2")
 	protected Text getPageSubtitleText() {
 		return new Text(this, getLocator(this, "getPageSubtitleText"));
 	}
