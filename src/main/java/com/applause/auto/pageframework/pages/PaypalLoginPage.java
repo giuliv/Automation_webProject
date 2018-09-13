@@ -70,7 +70,7 @@ public class PaypalLoginPage extends AbstractPage {
     @WebElementLocator(webDesktop = "//*[@id=\"content\"]")
     protected Image getViewSignature() { return new Image(this, getLocator(this, "getViewSignature")); }
 
-    @WebElementLocator(webDesktop = "#login_emaildiv > div.fieldWrapper > input")
+    @WebElementLocator(webDesktop = "//input[@name='login_email']")
     protected EditField getEmailField() { return new EditField(this, getLocator(this, "getEmailField")); }
 
     @WebElementLocator(webDesktop = "//*[@id=\"btnNext\"]")
