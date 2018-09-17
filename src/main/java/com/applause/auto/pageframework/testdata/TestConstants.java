@@ -68,10 +68,18 @@ public class TestConstants {
 
 		public static final String VISA_CC_NUMBER = "4111111111111111";
 		public static final String VISA_CC_SECURITY_CODE = "111";
-		public static final String VISA_CC_MONTH = "12";
+		public static final String VISA_CC_MONTH = "12 - December";
 		public static final String VISA_CC_YEAR = "2020";
 		public static final String VISA_CC_NAME = "QA Test Applause Auto";
 		public static final String VISA_CC_ZIP = "90404";
+
+		public static final String TOUR_SEARCH_TERMS = "Tour";
+		public static final String WEDNES_ROAST_SEARCH = "Kona";
+
+		public static final String PURCHASE_CONFIRMATION_TEXT = "Thank you for your purchase!";
+
+		public static final String PAYPAL_EMAIL = "sraju@peets.com";
+		public static final String PAYPAL_PASSWORD = "123456789";
 
 	}
 
@@ -82,6 +90,7 @@ public class TestConstants {
 		public static final String NAV_SUBMENU_COFFEE = "Coffee";
 		public static final String NAV_SUBMENU_TEA = "Tea";
 		public static final String NAV_SUBMENU_EQUIPMENT = "Equipment";
+		public static final String NAV_SUBMENU_GIFT_SUBSCRIPTIONS = "Gift Subscriptions";
 
 		public static final String NAV_OPTION_CARDS_BY_MAIL = "Gift Cards by Mail";
 

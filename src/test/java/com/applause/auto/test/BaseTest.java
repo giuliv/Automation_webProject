@@ -64,6 +64,11 @@ public class BaseTest {
 		if (!env.getIsMobileWebTest()) {
 			driver.manage().window().maximize();
 		}
+		if (env.isPhone()) {
+			LOGGER.info("Mobile web test settings");
+			env.setIsMobileTest(true);
+			env.setRawCssOnly(true);
+		}
 
 		LOGGER.info("Test case setup complete.");
 	}
