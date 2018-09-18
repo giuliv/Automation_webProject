@@ -249,6 +249,17 @@ public class MyAccountPage extends AbstractPage {
 	}
 
 	/**
+	 * Click My Suscriptions
+	 *
+	 * @return MyAccountMySuscriptionsPage
+	 */
+	public MyAccountMySuscriptionsPage clickMySuscriptions() {
+		LOGGER.info("Clicking My Suscriptions");
+		getMySuscriptionsLink().click();
+		return PageFactory.create(MyAccountMySuscriptionsPage.class);
+	}
+	
+	/**
 	 * Click Peets Card Tab
 	 *
 	 * @return MyAccountPeetsCardPage
@@ -411,8 +422,15 @@ public class MyAccountPage extends AbstractPage {
 		return new Text(this, getLocator(this, "getShippingAddressSection"));
 	}
 
+	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(2) > a")
+	protected Link getMySuscriptionsLink() {
+		return new Link(this, getLocator(this, "getMySuscriptionsLink"));
+	}
+	
 	@WebElementLocator(webDesktop = "#customer-dashboard-settings > div.box-content > div > div:nth-child(3) > div.head-block > a")
-	protected Link getShippingAddressEditLink() { return new Link(this, getLocator(this, "getShippingAddressEditLink")); }
+	protected Link getShippingAddressEditLink() { 
+		return new Link(this, getLocator(this, "getShippingAddressEditLink")); 
+	}
 
 	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(5) > a")
 	protected Button getPeetsCardButton() {
