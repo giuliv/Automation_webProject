@@ -11,7 +11,9 @@ import com.applause.auto.pageframework.pages.EditBillingAddressPage;
 import com.applause.auto.pageframework.pages.EditPaymentMethodPage;
 import com.applause.auto.pageframework.pages.EditShippingAddressPage;
 import com.applause.auto.pageframework.pages.LandingPage;
+import com.applause.auto.pageframework.pages.MyAccountManageSubscriptionPage;
 import com.applause.auto.pageframework.pages.MyAccountMyOrdersPage;
+import com.applause.auto.pageframework.pages.MyAccountMySuscriptionsPage;
 import com.applause.auto.pageframework.pages.MyAccountOrderDetailPage;
 import com.applause.auto.pageframework.pages.MyAccountPage;
 import com.applause.auto.pageframework.pages.MyAccountPeetsCardPage;
@@ -33,7 +35,7 @@ public class MyAccountTest extends BaseTest {
 
         LOGGER.info("2. Log In");
         SignInPage signInPage = landingPage.clickSignInButton();
-		MyAccountPage myAccountPage = signInPage.mainUserLogin();
+        MyAccountPage myAccountPage = signInPage.mainUserLogin();
         Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
         LOGGER.info("3. Verify My Subscriptions Section");
@@ -75,7 +77,7 @@ public class MyAccountTest extends BaseTest {
 
         LOGGER.info("2. Log In");
         SignInPage signInPage = landingPage.clickSignInButton();
-		MyAccountPage myAccountPage = signInPage.mainUserLogin();
+        MyAccountPage myAccountPage = signInPage.mainUserLogin();
         Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
         LOGGER.info("3. Select Payment");
@@ -101,11 +103,11 @@ public class MyAccountTest extends BaseTest {
 
         LOGGER.info("7. Add New Payment Method");
         AssociateNewCardPage associateNewCardPage = paymentMethodsPage.addPeetsCard();
-		String alternatePeetsCardNumber = (env.getBrowserType() == BrowserType.SAFARI) ? TestConstants.TestData.PEETS_CARD_NUMBER_SAFARI_2
-				: TestConstants.TestData.PEETS_CARD_NUMBER_CHROME_2;
+        String alternatePeetsCardNumber = (env.getBrowserType() == BrowserType.SAFARI) ? TestConstants.TestData.PEETS_CARD_NUMBER_SAFARI_2
+                : TestConstants.TestData.PEETS_CARD_NUMBER_CHROME_2;
         associateNewCardPage.enterCardNumber(alternatePeetsCardNumber);
-		String alternatePeetsCardPin = (env.getBrowserType() == BrowserType.SAFARI) ? TestConstants.TestData.PEETS_CARD_PIN_SAFARI_2
-				: TestConstants.TestData.PEETS_CARD_PIN_CHROME_2;
+        String alternatePeetsCardPin = (env.getBrowserType() == BrowserType.SAFARI) ? TestConstants.TestData.PEETS_CARD_PIN_SAFARI_2
+                : TestConstants.TestData.PEETS_CARD_PIN_CHROME_2;
         associateNewCardPage.enterPinNumber(alternatePeetsCardPin);
         paymentMethodsPage = associateNewCardPage.clickAssociateCard();
 
@@ -195,82 +197,82 @@ public class MyAccountTest extends BaseTest {
 
     }
 
-	@Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133901")
-	public void myAccountPeetsCards() {
+    @Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133901")
+    public void myAccountPeetsCards() {
 
-		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
+        LOGGER.info("1. Navigate to landing page");
+        LandingPage landingPage = navigateToLandingPage();
 
-		LOGGER.info("2. Log In");
-		SignInPage signInPage = landingPage.clickSignInButton();
-		MyAccountPage myAccountPage = signInPage.mainUserLogin();
-		Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
+        LOGGER.info("2. Log In");
+        SignInPage signInPage = landingPage.clickSignInButton();
+        MyAccountPage myAccountPage = signInPage.mainUserLogin();
+        Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
-		LOGGER.info("3. Select 'Peets Cards' from Dashboard navigation bar");
-		MyAccountPeetsCardPage peetsCardsPage = myAccountPage.clickPeetsCardsTab();
-		Assert.assertNotNull(peetsCardsPage, "Peets Cards page did not display");
+        LOGGER.info("3. Select 'Peets Cards' from Dashboard navigation bar");
+        MyAccountPeetsCardPage peetsCardsPage = myAccountPage.clickPeetsCardsTab();
+        Assert.assertNotNull(peetsCardsPage, "Peets Cards page did not display");
 
-		LOGGER.info("4. Verify Peets Cards sections, Buy Peet's Card");
-		Assert.assertTrue(peetsCardsPage.isBuyPeetsCardSectionDisplayed(), "Buy Peet's Card Section is not displayed");
-		Assert.assertTrue(peetsCardsPage.isBuyPeetsCardDescriptionDisplayed(), "Buy Peet's Card Description is not displayed");
-		Assert.assertTrue(peetsCardsPage.isBuyPeetsCardLinkDisplayed(),"Buy Peet's Card Link is not displayed");
-		Assert.assertTrue(peetsCardsPage.isBuyPeetsCardImageDisplayed(),"Buy Peet's Card Image is not displayed");
+        LOGGER.info("4. Verify Peets Cards sections, Buy Peet's Card");
+        Assert.assertTrue(peetsCardsPage.isBuyPeetsCardSectionDisplayed(), "Buy Peet's Card Section is not displayed");
+        Assert.assertTrue(peetsCardsPage.isBuyPeetsCardDescriptionDisplayed(), "Buy Peet's Card Description is not displayed");
+        Assert.assertTrue(peetsCardsPage.isBuyPeetsCardLinkDisplayed(),"Buy Peet's Card Link is not displayed");
+        Assert.assertTrue(peetsCardsPage.isBuyPeetsCardImageDisplayed(),"Buy Peet's Card Image is not displayed");
 
-		LOGGER.info("5. Verify Peets Cards sections, Check Balance");
-		Assert.assertTrue(peetsCardsPage.isCheckBalanceSectionDisplayed(), "Check Balance Section is not displayed");
-		Assert.assertTrue(peetsCardsPage.isCheckBalanceCardNumberDisplayed(), "Check Balance Card Number is not displayed");
-		Assert.assertTrue(peetsCardsPage.isCheckBalancePinNumberDisplayed(), "Check Balance Pin Number is not displayed");
-		Assert.assertTrue(peetsCardsPage.isCheckBalanceButtonDisplayed(), "Check Balance Button is not displayed");
+        LOGGER.info("5. Verify Peets Cards sections, Check Balance");
+        Assert.assertTrue(peetsCardsPage.isCheckBalanceSectionDisplayed(), "Check Balance Section is not displayed");
+        Assert.assertTrue(peetsCardsPage.isCheckBalanceCardNumberDisplayed(), "Check Balance Card Number is not displayed");
+        Assert.assertTrue(peetsCardsPage.isCheckBalancePinNumberDisplayed(), "Check Balance Pin Number is not displayed");
+        Assert.assertTrue(peetsCardsPage.isCheckBalanceButtonDisplayed(), "Check Balance Button is not displayed");
 
 
-		LOGGER.info("6. Verify Peets Cards sections, Register Peet's Card");
-		Assert.assertTrue(peetsCardsPage.isRegisterPeetsCardSectionDisplayed(), "Register Peet's Card Section is not displayed");
-		Assert.assertTrue(peetsCardsPage.isRegisterPeetsCardDescriptionDisplayed(), "Register Peet's Card Description is not displayed");
-		Assert.assertTrue(peetsCardsPage.isRegisterPeetsCardLinkDisplayed(),"Register Peet's Card Link is not displayed");
+        LOGGER.info("6. Verify Peets Cards sections, Register Peet's Card");
+        Assert.assertTrue(peetsCardsPage.isRegisterPeetsCardSectionDisplayed(), "Register Peet's Card Section is not displayed");
+        Assert.assertTrue(peetsCardsPage.isRegisterPeetsCardDescriptionDisplayed(), "Register Peet's Card Description is not displayed");
+        Assert.assertTrue(peetsCardsPage.isRegisterPeetsCardLinkDisplayed(),"Register Peet's Card Link is not displayed");
 
-		LOGGER.info("6. Verify Peets Cards sections, FAQ");
-		Assert.assertTrue(peetsCardsPage.isFAQLinkDisplayed(), "FAQ Link is not displayed");
-	}
+        LOGGER.info("6. Verify Peets Cards sections, FAQ");
+        Assert.assertTrue(peetsCardsPage.isFAQLinkDisplayed(), "FAQ Link is not displayed");
+    }
 
-	@Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133895")
-	public void myAccountMyOrdersTest() {
+    @Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133895")
+    public void myAccountMyOrdersTest() {
 
-		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
+        LOGGER.info("1. Navigate to landing page");
+        LandingPage landingPage = navigateToLandingPage();
 
-		LOGGER.info("2. Log In");
-		SignInPage signInPage = landingPage.clickSignInButton();
-		MyAccountPage myAccountPage = signInPage.mainUserLogin();
-		Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
+        LOGGER.info("2. Log In");
+        SignInPage signInPage = landingPage.clickSignInButton();
+        MyAccountPage myAccountPage = signInPage.mainUserLogin();
+        Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
-		LOGGER.info("3. Select 'My Orders' from Dashboard navigation bar");
-		MyAccountMyOrdersPage myOrdersPage = myAccountPage.clickMyOrdersTab();
-		Assert.assertNotNull(myOrdersPage, "My Orders page did not display");
+        LOGGER.info("3. Select 'My Orders' from Dashboard navigation bar");
+        MyAccountMyOrdersPage myOrdersPage = myAccountPage.clickMyOrdersTab();
+        Assert.assertNotNull(myOrdersPage, "My Orders page did not display");
 
-		LOGGER.info("4. Verify My Orders section, First Order");
-		Assert.assertTrue(myOrdersPage.isOrdersPlacedSectionDisplayed(), "Orders Placed Section is not displayed");
-		Assert.assertTrue(myOrdersPage.isOrdersDateDisplayed(), "Order's Date is not displayed");
-		Assert.assertTrue(myOrdersPage.isOrdersNumberDisplayed(), "Order's Number is not displayed");
-		Assert.assertTrue(myOrdersPage.isOrdersItemDisplayed(), "Order's Item is not displayed");
-		Assert.assertTrue(myOrdersPage.isOrdersTotalDisplayed(), "Order's Total is not displayed");
-		Assert.assertTrue(myOrdersPage.isOrdersStatusDisplayed(), "Order's Status is not displayed");
-		Assert.assertTrue(myOrdersPage.isViewButtonDisplayed(), "Order's View button is not displayed");
-		Assert.assertTrue(myOrdersPage.isReorderButtonDisplayed(), "Order's View button is not displayed");
+        LOGGER.info("4. Verify My Orders section, First Order");
+        Assert.assertTrue(myOrdersPage.isOrdersPlacedSectionDisplayed(), "Orders Placed Section is not displayed");
+        Assert.assertTrue(myOrdersPage.isOrdersDateDisplayed(), "Order's Date is not displayed");
+        Assert.assertTrue(myOrdersPage.isOrdersNumberDisplayed(), "Order's Number is not displayed");
+        Assert.assertTrue(myOrdersPage.isOrdersItemDisplayed(), "Order's Item is not displayed");
+        Assert.assertTrue(myOrdersPage.isOrdersTotalDisplayed(), "Order's Total is not displayed");
+        Assert.assertTrue(myOrdersPage.isOrdersStatusDisplayed(), "Order's Status is not displayed");
+        Assert.assertTrue(myOrdersPage.isViewButtonDisplayed(), "Order's View button is not displayed");
+        Assert.assertTrue(myOrdersPage.isReorderButtonDisplayed(), "Order's View button is not displayed");
 
-		LOGGER.info("5. Access first Oder and Verify Detail");
-		MyAccountOrderDetailPage ordersDetailPage = myOrdersPage.clickOrderNumber();
-		Assert.assertTrue(ordersDetailPage.isProductDisplayed(), "Product on Order Detail is not displayed");
-		Assert.assertTrue(ordersDetailPage.isReorderButtonDisplayed(), "Reorder button on Order Detail is not displayed");
-		Assert.assertTrue(ordersDetailPage.isShippingMethodDisplayed(), "Shipping Method on Order Detail is not displayed");
-		Assert.assertTrue(ordersDetailPage.isPaymentMethodDisplayed(), "Payment Method on Order Detail is not displayed");
+        LOGGER.info("5. Access first Oder and Verify Detail");
+        MyAccountOrderDetailPage ordersDetailPage = myOrdersPage.clickOrderNumber();
+        Assert.assertTrue(ordersDetailPage.isProductDisplayed(), "Product on Order Detail is not displayed");
+        Assert.assertTrue(ordersDetailPage.isReorderButtonDisplayed(), "Reorder button on Order Detail is not displayed");
+        Assert.assertTrue(ordersDetailPage.isShippingMethodDisplayed(), "Shipping Method on Order Detail is not displayed");
+        Assert.assertTrue(ordersDetailPage.isPaymentMethodDisplayed(), "Payment Method on Order Detail is not displayed");
 
-		LOGGER.info("6. Return to My Orders page");
-		myOrdersPage = ordersDetailPage.clickBackToMyOrders();
-		Assert.assertNotNull(myOrdersPage, "My Orders page did not display");
+        LOGGER.info("6. Return to My Orders page");
+        myOrdersPage = ordersDetailPage.clickBackToMyOrders();
+        Assert.assertNotNull(myOrdersPage, "My Orders page did not display");
 
-	}
+    }
 
-	@Test( groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133900")
+    @Test( groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133900")
     public void myAccountSettings() {
 
         LOGGER.info("1. Navigate to landing page");
@@ -306,5 +308,33 @@ public class MyAccountTest extends BaseTest {
         editAccountInformationPage.enterFirstName(TestConstants.TestData.FIRST_NAME);
         editAccountInformationPage.enterCurrentPassword(TestConstants.MyAccountTestData.PASSWORD);
         editAccountInformationPage.clickSave();
+    }
+    
+    @Test(groups = {TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133896")
+    public void myAccountSubscriptionsTest() {
+
+        LOGGER.info("1. Navigate to landing page");
+        LandingPage landingPage = navigateToLandingPage();
+
+        LOGGER.info("2. Log In");
+        SignInPage signInPage = landingPage.clickSignInButton();
+        MyAccountPage myAccountPage = signInPage.mainUserLogin();
+        Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
+
+        LOGGER.info("3. My Subscriptions");
+        MyAccountMySuscriptionsPage mySuscriptionsPage = myAccountPage.clickMySuscriptions();
+        Assert.assertTrue(mySuscriptionsPage.isSubscriptionNameDisplayed(), "Subscription Name is not displayed");
+        Assert.assertTrue(mySuscriptionsPage.isNextShipmentDateDisplayed(), "Next Shipment Date is not displayed");
+        Assert.assertTrue(mySuscriptionsPage.isSubscriptionFrequencyDateDisplayed(), "Subscription Frequency Date is not displayed");
+        Assert.assertTrue(mySuscriptionsPage.isManageSubscriptionButtonDisplayed(), "Manage Subscription button is not displayed");
+        Assert.assertTrue(mySuscriptionsPage.isShippingAddressDisplayed(), "Shipping Address is not displayed");
+        Assert.assertTrue(mySuscriptionsPage.isShippingMethodDisplayed(), "Shipping Method is not displayed");
+        Assert.assertTrue(mySuscriptionsPage.isSubscribedProductDisplayed(), "Subscribed Product is not displayed");
+
+        LOGGER.info("5. My Subscriptions Details");
+        MyAccountManageSubscriptionPage suscriptionsDetailPage = mySuscriptionsPage.clickManageSubscription();
+        Assert.assertTrue(suscriptionsDetailPage.isPauseCancelSubscriptionButtonDisplayed(), "Pause/Cancel Subscription button is not displayed");
+        Assert.assertTrue(suscriptionsDetailPage.isManageShipmentButtonDisplayed(), "PManage Shipment button is not displayed");
+        Assert.assertTrue(suscriptionsDetailPage.isBillingAddressDisplayed(), "Billing Address is not displayed");
     }
 }
