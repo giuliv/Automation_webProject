@@ -223,15 +223,17 @@ public class GuestCheckoutTest extends BaseTest {
 		Assert.assertNotNull(miniCartContainerChunk, "Mini Cart is not displayed");
 
 		// TODO: Commenting code out due to Safari hover issue. Will revisit when issue is fixed.
-//		LOGGER.info("2. Navigate to Gift Subscription Shop page");
-//		MainMenuChunk mainMenuChunk = landingPage.getMainMenu();
-//		ShopGiftSubscriptionsPage shopGiftSubscriptionsPage = mainMenuChunk.accessShopGiftSubscriptions();
+		// LOGGER.info("2. Navigate to Gift Subscription Shop page");
+		// MainMenuChunk mainMenuChunk = landingPage.getMainMenu();
+		// ShopGiftSubscriptionsPage shopGiftSubscriptionsPage =
+		// mainMenuChunk.accessShopGiftSubscriptions();
 
-//		LOGGER.info("3. Select Product and Add to Cart");
-//		CoffeeProductDescriptionPage coffeeProductDescriptionPage = shopGiftSubscriptionsPage.clickFirstProduct();
-//		coffeeProductDescriptionPage.selectGrind(TestData.GRIND);
-//		MiniCartContainerChunk miniCartContainerChunk = coffeeProductDescriptionPage.addToCart();
-//		Assert.assertNotNull(miniCartContainerChunk, "Mini Cart is not displayed");
+		// LOGGER.info("3. Select Product and Add to Cart");
+		// CoffeeProductDescriptionPage coffeeProductDescriptionPage =
+		// shopGiftSubscriptionsPage.clickFirstProduct();
+		// coffeeProductDescriptionPage.selectGrind(TestData.GRIND);
+		// MiniCartContainerChunk miniCartContainerChunk = coffeeProductDescriptionPage.addToCart();
+		// Assert.assertNotNull(miniCartContainerChunk, "Mini Cart is not displayed");
 
 		LOGGER.info("4. Select Checkout");
 		CheckoutPage checkoutPage = miniCartContainerChunk.clickCheckout();
@@ -241,7 +243,8 @@ public class GuestCheckoutTest extends BaseTest {
 		Assert.assertNotNull(checkoutShippingInfoPage, "Checkout Shipping page is not displayed");
 
 		LOGGER.info("6. Complete Contact Information");
-		VerifyYourAddressDetailsChunk verifyYourAddressDetailsChunk = checkoutShippingInfoPage.continueAfterFillingRequiredContactInfo();
+		VerifyYourAddressDetailsChunk verifyYourAddressDetailsChunk = checkoutShippingInfoPage
+				.continueAfterFillingRequiredContactInfo();
 		checkoutShippingInfoPage = verifyYourAddressDetailsChunk.clickEnteredAddressButton();
 
 		LOGGER.info("7. Select ground shipping");

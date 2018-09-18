@@ -14,6 +14,7 @@ import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.chunks.MiniCartContainerChunk;
+import com.applause.auto.pageframework.helpers.WebHelper;
 
 @WebDesktopImplementation(CoffeeProductPage.class)
 @WebTabletImplementation(CoffeeProductPage.class)
@@ -21,6 +22,7 @@ import com.applause.auto.pageframework.chunks.MiniCartContainerChunk;
 public class CoffeeProductPage extends AbstractPage {
 
 	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+	WebHelper webHelper = new WebHelper();
 
 	@Override
 	protected void waitUntilVisible() {
@@ -37,7 +39,7 @@ public class CoffeeProductPage extends AbstractPage {
 	 */
 	public void selectAGrind(String grind) {
 		LOGGER.info(String.format("Selecting a Grind: %s", grind));
-		getSelectGrindDropdown().select(grind);
+		webHelper.jsSelect(getSelectGrindDropdown().getWebElement(), grind);
 	}
 
 	/**

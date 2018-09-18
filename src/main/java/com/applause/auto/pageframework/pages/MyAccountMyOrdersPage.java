@@ -119,7 +119,7 @@ public class MyAccountMyOrdersPage extends AbstractPage {
 	}
 
 	// Protected getters
-	@WebElementLocator(webDesktop = "//h1[text()='My Orders']")
+	@WebElementLocator(webDesktop = "div.col-main > div > div.page-title > h1")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
@@ -139,7 +139,7 @@ public class MyAccountMyOrdersPage extends AbstractPage {
 		return new Link(this, getLocator(this, "getOrdersNumberLink"));
 	}
 
-	@WebElementLocator(webDesktop = "#my-orders-table tr:nth-child(1) td.td-items div")
+	@WebElementLocator(webDesktop = "#my-orders-table > tbody > tr:nth-child(1) > td.td-items")
 	protected Text getOrdersItemText() {
 		return new Text(this, getLocator(this, "getOrdersItemText"));
 	}

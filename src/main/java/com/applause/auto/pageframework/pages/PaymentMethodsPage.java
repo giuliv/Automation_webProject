@@ -132,19 +132,19 @@ public class PaymentMethodsPage extends AbstractPage {
     }
 
     // Protected getters
-    @WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1")
+    @WebElementLocator(webDesktop = "ol.payment-cards-list")
     protected Text getViewSignature() { return new Text(this, getLocator(this, "getViewSignature")); }
 
-    @WebElementLocator(webDesktop = "div.primary.input-checked-parent")
+    @WebElementLocator(webDesktop = "ol.payment-cards-list")
     protected Text getCreditCardBlock() { return new Text(this, getLocator(this, "getCreditCardBlock")); }
 
-    @WebElementLocator(webDesktop = "div.payment-card-holder.account-container > div.main-section > ol > li:nth-child(1) > div.info-col > p:nth-child(4)")
+    @WebElementLocator(webDesktop = "div.main-section li.peets-account-block:nth-child(1) p:nth-child(4)")
     protected Text getNameOnCreditCardText() { return new Text(this, getLocator(this, "getNameOnCreditCardText")); }
 
-    @WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.payment-card-holder.account-container > div.main-section > ol > li:nth-child(2) > div.actions-col > ul > li:nth-child(2) > a")
+    @WebElementLocator(webDesktop = "div.main-section li.peets-account-block:nth-child(2) a.link-remove")
     protected Button getDeletePeetsCardButton() { return new Button(this, getLocator(this, "getDeletePeetsCardButton")); }
 
-    @WebElementLocator(webDesktop = "div.payment-card-holder.account-container > div.main-section > ol > li:nth-child(2) > div.info-col > div > span.left")
+    @WebElementLocator(webDesktop = "div.main-section li.peets-account-block:nth-child(2) div.highlighted")
     protected Text getPeetsCardBlock() { return new Text(this, getLocator(this, "getPeetsCardBlock")); }
 
     @WebElementLocator(webDesktop = "//a[text()='Add a credit card']")

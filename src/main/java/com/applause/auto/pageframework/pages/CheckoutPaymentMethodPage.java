@@ -4,8 +4,6 @@ import java.lang.invoke.MethodHandles;
 
 import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
 import com.applause.auto.pageframework.helpers.WebHelper;
-import org.openqa.selenium.support.ui.Select;
-
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
 import com.applause.auto.framework.pageframework.web.PageFactory;
@@ -68,12 +66,31 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	 */
 	public void fillPeetsCardInfo(String amount) {
 		LOGGER.info("Filling Peets Card info");
-		getPeetsCardNumberEditField().setText(TestConstants.TestData.PEETS_CARD_NUMBER);
-		getPeetsCardPinEditField().setText(TestConstants.TestData.PEETS_CARD_PIN);
+
+		String peetsCardNumber = (env.getBrowserType() == BrowserType.SAFARI) ? TestConstants.TestData.PEETS_CARD_NUMBER_SAFARI_1
+				: TestConstants.TestData.PEETS_CARD_NUMBER_CHROME_1;
+		getPeetsCardNumberEditField().setText(peetsCardNumber);
+		String peetsCardPin = (env.getBrowserType() == BrowserType.SAFARI) ? TestConstants.TestData.PEETS_CARD_PIN_SAFARI_1
+				: TestConstants.TestData.PEETS_CARD_PIN_CHROME_1;
+		getPeetsCardPinEditField().setText(peetsCardPin);
 		// Peets card loads its balance after clicking outside the Peets Card fields
 		getPeetsCardNumberEditField().click();
+		// Waits for an animation while the element is displayed
+		syncHelper.suspend(2000);
 		syncHelper.waitForElementToAppear(getLocator(this, "getPeetsCardAmountEditField"));
 		getPeetsCardAmountEditField().setText(amount);
+	}
+
+	/**
+	 * Fill Credit Card PIN and continue
+	 *
+	 */
+	public CheckoutPlaceOrderPage continueAfterEnteringPIN() {
+		LOGGER.info("Entering Credit Card PIN");
+		getValidateCSCEditField().setText(TestConstants.TestData.VISA_CC_SECURITY_CODE);
+		getContinuePaymentButton().exists();
+		getContinuePaymentButton().click();
+		return PageFactory.create(CheckoutPlaceOrderPage.class);
 	}
 
 	/**
@@ -131,15 +148,8 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 		getCardNumberEditField().setText(TestConstants.TestData.VISA_CC_NUMBER);
 		getCardSecurityCodeEditField().setText(TestConstants.TestData.VISA_CC_SECURITY_CODE);
 		// Cant select the month value due its content. Workaround was to select its value
-		if (env.getBrowserType() == BrowserType.SAFARI) {
-			webHelper.jsSelect(getCardExpMonthDropdown().getWebElement(), TestConstants.TestData.VISA_CC_MONTH);
-			syncHelper.suspend(2000);
-			webHelper.jsSelect(getCardExpYearDropdown().getWebElement(), TestConstants.TestData.VISA_CC_YEAR);
-		}
-		else {
-			getCardExpMonthDropdown().select(TestConstants.TestData.VISA_CC_MONTH);
-			getCardExpYearDropdown().select(TestConstants.TestData.VISA_CC_YEAR);
-		}
+		webHelper.jsSelectByValue(getCardExpMonthDropdown().getWebElement(), TestConstants.TestData.VISA_CC_MONTH);
+		webHelper.jsSelect(getCardExpYearDropdown().getWebElement(), TestConstants.TestData.VISA_CC_YEAR);
 		getNameOnCardEditField().setText(TestConstants.TestData.VISA_CC_NAME);
 	}
 
@@ -182,7 +192,7 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "//div[@id='step-title-section' and contains(.,'Billing & Payment')]")
+	@WebElementLocator(webDesktop = "h2#checkout-title-opc-billing.active")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
@@ -220,6 +230,11 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	@WebElementLocator(webDesktop = "#custompayment_cc_cid")
 	protected EditField getCardSecurityCodeEditField() {
 		return new EditField(this, getLocator(this, "getCardSecurityCodeEditField"));
+	}
+
+	@WebElementLocator(webDesktop = "input[id*='stored_cc_cid'][class*='validate-cc-cvn']")
+	protected EditField getValidateCSCEditField() {
+		return new EditField(this, getLocator(this, "getValidateCSCEditField"));
 	}
 
 	@WebElementLocator(webDesktop = "#custompayment_expiration")

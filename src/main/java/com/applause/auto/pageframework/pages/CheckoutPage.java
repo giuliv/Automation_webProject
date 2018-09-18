@@ -43,12 +43,12 @@ public class CheckoutPage extends AbstractPage {
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col1-layout > div > div > div > div > h1")
+	@WebElementLocator(webDesktop = "div.default-message-page.login div.page-title h1")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
-	@WebElementLocator(webDesktop = "#login-form > div > div > div.new-users > div > div.buttons-set > button")
+	@WebElementLocator(webDesktop = "div.new-users button")
 	protected Button getClickContinueAsGuestButton() {
 		return new Button(this, getLocator(this, "getClickContinueAsGuestButton"));
 	}
