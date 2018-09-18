@@ -40,6 +40,13 @@ public class WebHelper {
                 "dd.selectedIndex = [...dd.options].findIndex (option => option.text === textToFind);", element);
     }
 
+    public void jsSelectByContainedText(WebElement element, String text) {
+        JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+        executor.executeScript("const textToFind = '" + text + "';" +
+                "const dd = arguments[0];" +
+                "dd.selectedIndex = [...dd.options].findIndex (option => option.text.includes(textToFind));", element);
+    }
+
 	public void jsSelectByValue(WebElement element, String value) {
 		JavascriptExecutor executor = (JavascriptExecutor) getDriver();
 		executor.executeScript("const valueToFind = '" + value + "';" + "const dd = arguments[0];"

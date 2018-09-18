@@ -9,6 +9,7 @@ import com.applause.auto.framework.pageframework.web.WebElementLocator;
 import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
 import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
 import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
+import com.applause.auto.framework.pageframework.webcontrols.BaseHtmlElement;
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
@@ -36,7 +37,10 @@ public class CheckoutPlaceOrderPage extends AbstractPage {
 	 */
 	public CheckoutConfirmationPage placeOrder() {
 		LOGGER.info("Click Place Order Button");
+		syncHelper.waitForElementToAppear(getLocator(this, "getPlaceOrderButton"));
 		getPlaceOrderButton().click();
+		syncHelper.suspend(2000);
+		syncHelper.waitForElementToDisappear(getLocator(this, "getPlaceOrderSpinner"));
 		return PageFactory.create(CheckoutConfirmationPage.class);
 	}
 
@@ -47,7 +51,6 @@ public class CheckoutPlaceOrderPage extends AbstractPage {
 	 */
 	public CheckoutPaymentMethodPage placeOrderMissingPayment() {
 		LOGGER.info("Click Place Order Button");
-
 		getPlaceOrderButton().click();
 		return PageFactory.create(CheckoutPaymentMethodPage.class);
 	}
@@ -81,7 +84,7 @@ public class CheckoutPlaceOrderPage extends AbstractPage {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
-	@WebElementLocator(webDesktop = "#checkout-bottom-button-load button")
+	@WebElementLocator(webDesktop = "button[title='Place Order']")
 	protected Button getPlaceOrderButton() {
 		return new Button(this, getLocator(this, "getPlaceOrderButton"));
 	}
@@ -91,5 +94,10 @@ public class CheckoutPlaceOrderPage extends AbstractPage {
 
 	@WebElementLocator(webDesktop = "#cart-table-standard > tbody > tr > td.product-info-cell.last > h3 > a")
 	protected Text getProductNameText() { return new Text(this, getLocator(this, "getProductNameText")); }
+
+	@WebElementLocator(webDesktop = "span#opc-please-wait.please-wait-review")
+	protected BaseHtmlElement getPlaceOrderSpinner() {
+		return new BaseHtmlElement(this, getLocator(this, "getPlaceOrderSpinner"));
+	}
 
 }

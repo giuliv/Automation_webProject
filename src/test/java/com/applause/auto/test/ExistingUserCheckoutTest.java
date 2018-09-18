@@ -14,6 +14,8 @@ import com.applause.auto.pageframework.pages.CoffeeProductPage;
 import com.applause.auto.pageframework.pages.EquipmentProductPage;
 import com.applause.auto.pageframework.pages.LandingPage;
 import com.applause.auto.pageframework.pages.MyAccountPage;
+import com.applause.auto.pageframework.pages.PaypalLoginPage;
+import com.applause.auto.pageframework.pages.PaypalReviewYourPurchasePage;
 import com.applause.auto.pageframework.pages.PeetsCardProductPage;
 import com.applause.auto.pageframework.pages.ShopCoffeeKCupsPage;
 import com.applause.auto.pageframework.pages.ShopCoffeePage;
@@ -204,7 +206,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		landingPage = mainMenu.clickHeaderLogo();
 		ShopCoffeeKCupsPage shopCoffeeKCupsPage = navigateToShopCoffeeKCupsPage();
 		CoffeeKCupsProductPage coffeeKCupsProductPage = shopCoffeeKCupsPage.clickProductName(TestConstants.TestData.COFFEE_KCUP_NAME);
-		coffeeKCupsProductPage.selectABox(TestConstants.TestData.COFFEE_KCUP_COUNT);
+		coffeeKCupsProductPage.selectBoxContent(TestConstants.TestData.COFFEE_KCUP_COUNT);
 		MiniCartContainerChunk miniCartContainer = coffeeKCupsProductPage.clickAddToCart();
 
 		LOGGER.info("4. Select 'Edit Cart' from mini-cart");
@@ -214,8 +216,8 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		shoppingCart.selectOrderAsGift();
 		shoppingCart.enterGiftMessage(TestConstants.TestData.GIFT_MESSAGE);
 
-		LOGGER.info("6. Select 'Proceed to Checkout'");
-		CheckoutPlaceOrderPage placeOrderPage = shoppingCart.checkoutSignedUser();
+        LOGGER.info("6. Checkout with Paypal");
+        CheckoutPlaceOrderPage placeOrderPage = shoppingCart.clickPayWithPaypalSignedUser();
 
 		LOGGER.info("7. Verify gift message");
 		Assert.assertEquals(placeOrderPage.getGiftMessage(), TestConstants.TestData.GIFT_MESSAGE,
