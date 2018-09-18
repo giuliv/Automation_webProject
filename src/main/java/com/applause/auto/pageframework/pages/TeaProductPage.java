@@ -46,7 +46,7 @@ public class TeaProductPage extends AbstractPage {
 	 * @return MiniCartContainerChunk
 	 */
 	public MiniCartContainerChunk clickAddToCart() {
-		LOGGER.info("Tap on Shop Coffee Button");
+		LOGGER.info("Tap on Shop Button");
 		getAddToCartButton().click();
 		waitForAddingToCartSpinner();
 		return ChunkFactory.create(MiniCartContainerChunk.class, this, "");

@@ -33,7 +33,9 @@ public class CheckoutConfirmationPage extends AbstractPage {
 	 */
 	public String getConfirmationMessage() {
 		LOGGER.info("Getting confirmation message");
-		return getPageSubtitleText().getStringValue();
+		// Set to upper case as Safari shows the message Capitalized while Chrome not and this does
+		// not affect the test
+		return getPageSubtitleText().getStringValue().toUpperCase();
 	}
 
 	/**
@@ -50,12 +52,12 @@ public class CheckoutConfirmationPage extends AbstractPage {
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "//div[@id='step-title-section' and contains(.,'Review & Place Order')]")
+	@WebElementLocator(webDesktop = ".default-page-text strong")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
-	@WebElementLocator(webDesktop = ".sub-title")
+	@WebElementLocator(webDesktop = "h2.sub-title")
 	protected Text getPageSubtitleText() {
 		return new Text(this, getLocator(this, "getPageSubtitleText"));
 	}

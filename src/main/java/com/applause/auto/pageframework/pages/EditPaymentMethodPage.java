@@ -50,6 +50,8 @@ public class EditPaymentMethodPage extends AbstractPage {
     public PaymentMethodsPage clickSavePaymentMethod() {
         LOGGER.info("Clicking Save Payment Method");
         getSavePaymentMethodButton().click();
+        //wait for animation
+        syncHelper.suspend(2000);
         return PageFactory.create(PaymentMethodsPage.class);
     }
 

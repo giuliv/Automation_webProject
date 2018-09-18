@@ -17,12 +17,11 @@ import com.applause.auto.pageframework.testdata.TestConstants;
 
 import java.lang.invoke.MethodHandles;
 
-@WebDesktopImplementation(AddBillingAddressPage.class)
-@WebTabletImplementation(AddBillingAddressPage.class)
-@WebPhoneImplementation(AddBillingAddressPage.class)
-public class AddBillingAddressPage extends AbstractPage {
+@WebDesktopImplementation(AddShippingAddressPage.class)
+@WebTabletImplementation(AddShippingAddressPage.class)
+@WebPhoneImplementation(AddShippingAddressPage.class)
+public class AddShippingAddressPage extends AbstractPage {
     protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
     WebHelper webHelper = new WebHelper();
 
     @Override
@@ -112,7 +111,7 @@ public class AddBillingAddressPage extends AbstractPage {
     }
 
     // Protected getters
-    @WebElementLocator(webDesktop = "div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1")
+    @WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1")
     protected Text getViewSignature() { return new Text(this, getLocator(this, "getViewSignature")); }
 
     @WebElementLocator(webDesktop = "#street_1")
