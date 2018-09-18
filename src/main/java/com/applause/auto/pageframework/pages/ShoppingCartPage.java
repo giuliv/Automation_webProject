@@ -13,6 +13,7 @@ import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Checkbox;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageframework.helpers.WebHelper;
 
 @WebDesktopImplementation(ShoppingCartPage.class)
 @WebTabletImplementation(ShoppingCartPage.class)
@@ -20,6 +21,7 @@ import com.applause.auto.framework.pageframework.webcontrols.Text;
 public class ShoppingCartPage extends AbstractPage {
 
 	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+	WebHelper webHelper = new WebHelper();
 
 	@Override
 	protected void waitUntilVisible() {
@@ -56,40 +58,62 @@ public class ShoppingCartPage extends AbstractPage {
 	 */
 	public CheckoutPage clickProceedToCheckout() {
 		LOGGER.info("Click Proceed to Checkout button");
-		getProceedToCheckoutButton().hover();
-		syncHelper.suspend(1000);
 		getProceedToCheckoutButton().click();
-		syncHelper.suspend(1000);
-		getProceedToCheckoutButton().click();
+		syncHelper.suspend(2000);
+		webHelper.jsClick(getProceedToCheckoutButton().getWebElement());
 		return PageFactory.create(CheckoutPage.class);
 	}
 
 	/**
 	 * Click Proceed to Checkout button for a signed user
-	 * 
-	 * @return PlaceOrderPage
+	 *
+	 * @return CheckoutPlaceOrderPage
 	 */
 	public CheckoutPlaceOrderPage checkoutSignedUser() {
 		LOGGER.info("Click Proceed to Checkout button");
 		getProceedToCheckoutButton().click();
 		syncHelper.suspend(2000);
-		getProceedToCheckoutButton().click();
+		webHelper.jsClick(getProceedToCheckoutButton().getWebElement());
 		return PageFactory.create(CheckoutPlaceOrderPage.class);
+	}
+
+	/**
+	 * Proceed to Shipping page via Checkout button for a signed user
+	 *
+	 * @return CheckoutShippingInfoPage
+	 */
+	public CheckoutShippingInfoPage defineShippingSignedUser() {
+		LOGGER.info("Click Proceed to Checkout button");
+		getProceedToCheckoutButton().click();
+		syncHelper.suspend(2000);
+		webHelper.jsClick(getProceedToCheckoutButton().getWebElement());
+		return PageFactory.create(CheckoutShippingInfoPage.class);
+	}
+	
+	/**
+	 * Click Pay with Paypal Button
+	 *
+	 * @return PaypalLoginPage
+	 */
+	public PaypalLoginPage clickPayWithPaypal() {
+		LOGGER.info("Clicking Pay with Paypal");
+		getPaypalButton().click();
+		syncHelper.suspend(5000);
+		getPaypalButton().click();
+		return PageFactory.create(PaypalLoginPage.class);
 	}
 
 	/*
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "//div[@class='page-title']/h1[contains(.,'Shopping Cart')]")
+	@WebElementLocator(webDesktop = "div.cart.display-single-price div.page-title h1")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
 	@WebElementLocator(webDesktop = ".add-gift-message input")
-	protected Checkbox getOrderAsGiftCheckCheckbox() {
-		return new Checkbox(this, getLocator(this, "getOrderAsGiftCheckCheckbox"));
-	}
+	protected Checkbox getOrderAsGiftCheckCheckbox() { return new Checkbox(this, getLocator(this, "getOrderAsGiftCheckCheckbox")); }
 
 	@WebElementLocator(webDesktop = "#gift-message-whole-message")
 	protected EditField getGiftMessageText() {
@@ -97,8 +121,9 @@ public class ShoppingCartPage extends AbstractPage {
 	}
 
 	@WebElementLocator(webDesktop = "#action-checkout")
-	protected Button getProceedToCheckoutButton() {
-		return new Button(this, getLocator(this, "getProceedToCheckoutButton"));
-	}
+	protected Button getProceedToCheckoutButton() { return new Button(this, getLocator(this, "getProceedToCheckoutButton")); }
+
+	@WebElementLocator(webDesktop = ".paypal-logo")
+	protected Button getPaypalButton() { return new Button(this, getLocator(this, "getPaypalButton")); }
 
 }

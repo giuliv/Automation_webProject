@@ -22,6 +22,12 @@ public class WebHelper {
         return name + time;
     }
 
+    public String returnTimestamp() {
+        Date date = new Date();
+        String time = Long.toString(date.getTime());
+        return time;
+    }
+
     public void jsClick(final WebElement webElement) {
         final JavascriptExecutor executor = (JavascriptExecutor) getDriver();
         executor.executeScript("arguments[0].click();", webElement);
@@ -33,4 +39,10 @@ public class WebHelper {
                 "const dd = arguments[0];" +
                 "dd.selectedIndex = [...dd.options].findIndex (option => option.text === textToFind);", element);
     }
+
+	public void jsSelectByValue(WebElement element, String value) {
+		JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+		executor.executeScript("const valueToFind = '" + value + "';" + "const dd = arguments[0];"
+				+ "dd.selectedIndex = [...dd.options].findIndex (option => option.value === valueToFind);", element);
+	}
 }

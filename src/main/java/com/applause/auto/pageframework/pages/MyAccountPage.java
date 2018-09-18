@@ -228,6 +228,17 @@ public class MyAccountPage extends AbstractPage {
 	}
 
 	/**
+	 * Click Edit Shipping Address
+	 *
+	 * @return EditShippingAddressPage
+	 */
+	public EditShippingAddressPage clickEditShippingAddress() {
+		LOGGER.info("Clicking Edit Shipping Address");
+		getShippingAddressEditLink().click();
+		return PageFactory.create(EditShippingAddressPage.class);
+	}
+
+	/**
 	 * Gets Main Menu
 	 *
 	 * @return MainMenuChunk
@@ -257,6 +268,59 @@ public class MyAccountPage extends AbstractPage {
 		LOGGER.info("Clicking Peet's Cards button");
 		getPeetsCardButton().click();
 		return PageFactory.create(MyAccountPeetsCardPage.class);
+	}
+
+	/**
+	 * Click My Orders Tab
+	 *
+	 * @return MyAccountMyOrdersPage
+	 */
+	public MyAccountMyOrdersPage clickMyOrdersTab() {
+		LOGGER.info("Clicking My Orders button");
+		getMyOrdersButton().click();
+		return PageFactory.create(MyAccountMyOrdersPage.class);
+	}
+
+	/**
+	 * Click Settings
+	 *
+	 * @return EditAccountInformationPage
+	 */
+	public EditAccountInformationPage clickSettings() {
+		LOGGER.info("Clicking Settings");
+		getSettingButton().click();
+		return PageFactory.create(EditAccountInformationPage.class);
+	}
+
+	/**
+	 * Get Customer Name
+	 *
+	 * @return String
+	 */
+	public String getCustomerName() {
+		LOGGER.info("Getting Customer Name");
+		return getCustomerNameText().getStringValue();
+	}
+
+	/**
+	 * Get Customer Email
+	 *
+	 * @return String
+	 */
+	public String getCustomerEmail() {
+		LOGGER.info("Getting Customer Email");
+		return getCustomerEmailText().getStringValue();
+	}
+
+	/**
+	 * Click Edit Contact Information
+	 *
+	 * @return EditAccountInformationPage
+	 */
+	public EditAccountInformationPage clickEditContactInformation() {
+		LOGGER.info("Clicking Edit Contact Information");
+		getContactInformationEditLink().click();
+		return PageFactory.create(EditAccountInformationPage.class);
 	}
 
 	/*
@@ -363,17 +427,38 @@ public class MyAccountPage extends AbstractPage {
 		return new Link(this, getLocator(this, "getMySuscriptionsLink"));
 	}
 	
+	@WebElementLocator(webDesktop = "#customer-dashboard-settings > div.box-content > div > div:nth-child(3) > div.head-block > a")
+	protected Link getShippingAddressEditLink() { 
+		return new Link(this, getLocator(this, "getShippingAddressEditLink")); 
+	}
+
 	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(5) > a")
 	protected Button getPeetsCardButton() {
 		return new Button(this, getLocator(this, "getPeetsCardButton"));
 	}
 
+	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(3) > a")
+	protected Button getMyOrdersButton() {
+		return new Button(this, getLocator(this, "getMyOrdersButton"));
+	}
+
+	@WebElementLocator(webDesktop = "div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(6) > a")
+	protected Button getSettingButton() { return new Button(this, getLocator(this, "getSettingButton")); }
+
+	@WebElementLocator(webDesktop = "#customer-dashboard-settings > div.box-content > div > div:nth-child(1) > div.details > p:nth-child(1)")
+	protected Text getCustomerNameText() { return new Text(this, getLocator(this, "getCustomerNameText")); }
+
+	@WebElementLocator(webDesktop = "#customer-dashboard-settings > div.box-content > div > div:nth-child(1) > div.head-block > a")
+	protected Link getContactInformationEditLink() { return new Link(this, getLocator(this, "getContactInformationEditLink")); }
+
+	@WebElementLocator(webDesktop = "#customer-dashboard-settings > div.box-content > div > div:nth-child(1) > div.details > p:nth-child(2)")
+	protected Text getCustomerEmailText() { return new Text(this, getLocator(this, "getCustomerEmailText")); }
+
 	private void dismissPopup() {
 		try {
 			LOGGER.info("Attempting to dismiss popup");
-			syncHelper.waitForElementToAppear(getDismissPopupButton());
 			getDismissPopupButton().click();
-		} catch (NoSuchElementException e) {
+		} catch (Exception e) {
 			LOGGER.info("Popup not found, moving on");
 		}
 	}
