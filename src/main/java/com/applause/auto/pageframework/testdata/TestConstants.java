@@ -23,6 +23,7 @@ public class TestConstants {
 		public static final String SHOP_TEA_PAGE_URL = "https://uat.aws.peets.com/mighty-leaf-tea";
 		public static final String SHOP_EQUIPMENT_PAGE_URL = "https://uat.aws.peets.com/equipment";
 		public static final String SHOP_PEETS_CARD_PAGE_URL = "https://uat.aws.peets.com/peets-card";
+		public static final String SHOP_COFFEE_KCUPS_PAGE_URL = "https://uat.aws.peets.com/coffee/k-cups";
 
 		public static final String USERNAME = "appautosvc+peetscoffee@applause.com";
 		public static final String PASSWORD = "password123";
@@ -33,6 +34,9 @@ public class TestConstants {
 		public static final String TEA_NAME = "Chamomile Citrus Loose Leaf";
 
 		public static final String EQUIPMENT_NAME = "Kinto UNITEA Glass Teapot Set";
+
+		public static final String COFFEE_KCUP_NAME = "Colombia Luminosa";
+		public static final String COFFEE_KCUP_COUNT = "16";
 
 		public static final String GIFT_MESSAGE = "This is a test message for the gift-message field";
 
