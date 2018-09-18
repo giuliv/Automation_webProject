@@ -37,9 +37,9 @@ public class CoffeeKCupsProductPage extends AbstractPage {
 	 * Select a Box
 	 * 
 	 */
-	public void selectABox(String box) {
-		LOGGER.info(String.format("Selecting a Box: %s", box));
-		webHelper.jsSelect(getSelectBoxDropdown().getWebElement(), box);
+	public void selectBoxContent(String boxContent) {
+		LOGGER.info("Selecting a Box with: %s" + boxContent);
+		webHelper.jsSelectByContainedText(getSelectBoxDropdown().getWebElement(), boxContent);
 	}
 
 	/**

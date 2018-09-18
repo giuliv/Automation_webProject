@@ -37,7 +37,7 @@ public class TestConstants {
 		public static final String EQUIPMENT_NAME = "Origin Mug with Bamboo";
 
 		public static final String COFFEE_KCUP_NAME = "Colombia Luminosa";
-		public static final String COFFEE_KCUP_COUNT = "16";
+		public static final String COFFEE_KCUP_COUNT = "16 count";
 
 		public static final String GIFT_MESSAGE = "This is a test message for the gift-message field";
 

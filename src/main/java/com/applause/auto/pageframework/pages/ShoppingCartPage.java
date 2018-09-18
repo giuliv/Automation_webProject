@@ -39,6 +39,7 @@ public class ShoppingCartPage extends AbstractPage {
 	 */
 	public void selectOrderAsGift() {
 		LOGGER.info("Check the Order is a Gift");
+		syncHelper.waitForElementToAppear(getLocator(this, "getOrderAsGiftCheckCheckbox"));
 		getOrderAsGiftCheckCheckbox().check();
 	}
 
@@ -48,6 +49,7 @@ public class ShoppingCartPage extends AbstractPage {
 	 */
 	public void enterGiftMessage(String giftMessage) {
 		LOGGER.info("Enter a Gift Message");
+		syncHelper.waitForElementToAppear(getLocator(this, "getGiftMessageText"));
 		getGiftMessageText().setText(giftMessage);
 	}
 
@@ -89,7 +91,20 @@ public class ShoppingCartPage extends AbstractPage {
 		getPaypalButton().click();
 		return PageFactory.create(PaypalLoginPage.class);
 	}
-	
+
+	/**
+	 * Click Pay with Paypal Button for a signed user
+	 *
+	 * @return CheckoutPlaceOrderPage
+	 */
+	public CheckoutPlaceOrderPage clickPayWithPaypalSignedUser() {
+		LOGGER.info("Clicking Pay with Paypal for Signed User");
+		getPaypalButton().click();
+		syncHelper.suspend(5000);
+		webHelper.jsClick(getPaypalButton().getWebElement());
+		return PageFactory.create(CheckoutPlaceOrderPage.class);
+	}
+
 	/**
 	 * Proceed to Shipping page via Checkout button for a signed user
 	 *
@@ -113,7 +128,9 @@ public class ShoppingCartPage extends AbstractPage {
 	}
 
 	@WebElementLocator(webDesktop = ".add-gift-message input")
-	protected Checkbox getOrderAsGiftCheckCheckbox() { return new Checkbox(this, getLocator(this, "getOrderAsGiftCheckCheckbox")); }
+	protected Checkbox getOrderAsGiftCheckCheckbox() {
+		return new Checkbox(this, getLocator(this, "getOrderAsGiftCheckCheckbox"));
+	}
 
 	@WebElementLocator(webDesktop = "#gift-message-whole-message")
 	protected EditField getGiftMessageText() {
@@ -121,9 +138,13 @@ public class ShoppingCartPage extends AbstractPage {
 	}
 
 	@WebElementLocator(webDesktop = "#action-checkout")
-	protected Button getProceedToCheckoutButton() { return new Button(this, getLocator(this, "getProceedToCheckoutButton")); }
+	protected Button getProceedToCheckoutButton() {
+		return new Button(this, getLocator(this, "getProceedToCheckoutButton"));
+	}
 
-	@WebElementLocator(webDesktop = ".paypal-logo")
-	protected Button getPaypalButton() { return new Button(this, getLocator(this, "getPaypalButton")); }
+	@WebElementLocator(webDesktop = "div#shopping-cart-actions-additional img[title='Checkout with PayPal']")
+	protected Button getPaypalButton() {
+		return new Button(this, getLocator(this, "getPaypalButton"));
+	}
 
 }

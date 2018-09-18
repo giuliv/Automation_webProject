@@ -43,12 +43,12 @@ public class ShopCoffeeKCupsPage extends AbstractPage {
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "//div[@class='top-banner']//div[@class='text-content']/h1[contains(.,'Coffee')]")
+	@WebElementLocator(webDesktop = "div.top-banner div.text-content h1")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
-	@WebElementLocator(webDesktop = "//ul[@class='prod-list']//li[strong[@class='product-name' and contains(.,'%s')]]")
+	@WebElementLocator(webDesktop = "ul.products-grid h2.product-name a[title*='%s']")
 	protected Button productNameButton(String productName) {
 		return new Button(this, String.format(getLocator(this, "productNameButton"), productName));
 	}
