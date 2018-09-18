@@ -18,6 +18,7 @@ import com.applause.auto.framework.pageframework.web.PageFactory;
 import com.applause.auto.pageframework.helpers.TemplateTestHelper;
 import com.applause.auto.pageframework.pages.LandingPage;
 import com.applause.auto.pageframework.pages.PeetsCardProductPage;
+import com.applause.auto.pageframework.pages.ShopCoffeeKCupsPage;
 import com.applause.auto.pageframework.pages.ShopEquipmentPage;
 import com.applause.auto.pageframework.pages.ShopTeaPage;
 import com.applause.auto.pageframework.testdata.CustomerConfig;
@@ -110,4 +111,11 @@ public class BaseTest {
 		driver.navigate().to(TestData.SHOP_PEETS_CARD_PAGE_URL);
 		return PageFactory.create(PeetsCardProductPage.class);
 	}
+	
+	protected ShopCoffeeKCupsPage navigateToShopCoffeeKCupsPage() {
+		LOGGER.info(String.format("Navigating to the Shop Coffee K-Cups page '%s'", TestData.SHOP_COFFEE_KCUPS_PAGE_URL));
+		driver.navigate().to(TestData.SHOP_COFFEE_KCUPS_PAGE_URL);
+		return PageFactory.create(ShopCoffeeKCupsPage.class);
+	}
+	
 }

@@ -7,11 +7,13 @@ import com.applause.auto.pageframework.chunks.MainMenuChunk;
 import com.applause.auto.pageframework.chunks.MiniCartContainerChunk;
 import com.applause.auto.pageframework.pages.CheckoutConfirmationPage;
 import com.applause.auto.pageframework.pages.CheckoutPlaceOrderPage;
+import com.applause.auto.pageframework.pages.CoffeeKCupsProductPage;
 import com.applause.auto.pageframework.pages.CoffeeProductPage;
 import com.applause.auto.pageframework.pages.EquipmentProductPage;
 import com.applause.auto.pageframework.pages.LandingPage;
 import com.applause.auto.pageframework.pages.MyAccountPage;
 import com.applause.auto.pageframework.pages.PeetsCardProductPage;
+import com.applause.auto.pageframework.pages.ShopCoffeeKCupsPage;
 import com.applause.auto.pageframework.pages.ShopCoffeePage;
 import com.applause.auto.pageframework.pages.ShopEquipmentPage;
 import com.applause.auto.pageframework.pages.ShopTeaPage;
@@ -161,6 +163,51 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		CheckoutPlaceOrderPage placeOrderPage = miniCartContainer.checkoutSignedInUser();
 
 		LOGGER.info("5. Click 'Place Order'");
+		CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
+
+		LOGGER.info("Verify Confirmation page is displayed");
+		Assert.assertTrue(confirmationPage.getConfirmationMessage().contains("THANK YOU FOR YOUR PURCHASE!"),
+				"Order was not placed");
+
+		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
+	}
+
+	@Test(groups = { TestNGGroups.EXISTING_USER_CHECKOUT }, description = "133893")
+	public void userCheckoutPaypalKCupTest() {
+
+		LOGGER.info("1. Navigate to landing page");
+		LandingPage landingPage = navigateToLandingPage();
+		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+
+		LOGGER.info("2. Log in to UAT");
+		SignInPage signInPage = landingPage.clickSignInButton();
+		MyAccountPage myAccountPage = signInPage.mainUserLogin();
+		Assert.assertTrue(myAccountPage.getWelcomeMessage().contains("Applause"),
+				"User is not signed in or welcome name is wrong");
+
+		LOGGER.info("3. Select a tea from grid view and add to cart");
+		MainMenuChunk mainMenu = myAccountPage.getMainMenu();
+		landingPage = mainMenu.clickHeaderLogo();
+		ShopCoffeeKCupsPage shopCoffeeKCupsPage = navigateToShopCoffeeKCupsPage();
+		CoffeeKCupsProductPage coffeeKCupsProductPage = shopCoffeeKCupsPage.clickProductName(TestConstants.TestData.COFFEE_KCUP_NAME);
+		coffeeKCupsProductPage.selectABox(TestConstants.TestData.COFFEE_KCUP_COUNT);
+		MiniCartContainerChunk miniCartContainer = coffeeKCupsProductPage.clickAddToCart();
+
+		LOGGER.info("4. Select 'Edit Cart' from mini-cart");
+		ShoppingCartPage shoppingCart = miniCartContainer.clickEditCart();
+
+		LOGGER.info("5. Add gift message to product");
+		shoppingCart.selectOrderAsGift();
+		shoppingCart.enterGiftMessage(TestConstants.TestData.GIFT_MESSAGE);
+
+		LOGGER.info("6. Select 'Proceed to Checkout'");
+		CheckoutPlaceOrderPage placeOrderPage = shoppingCart.checkoutSignedUser();
+
+		LOGGER.info("7. Verify gift message");
+		Assert.assertEquals(placeOrderPage.getGiftMessage(), TestConstants.TestData.GIFT_MESSAGE,
+				"Gift message entered previously was not fetched correctly");
+
+		LOGGER.info("8. Click 'Place Order'");
 		CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
 
 		LOGGER.info("Verify Confirmation page is displayed");
