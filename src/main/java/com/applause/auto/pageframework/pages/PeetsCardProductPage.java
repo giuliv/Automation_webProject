@@ -14,6 +14,7 @@ import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.chunks.MiniCartContainerChunk;
+import com.applause.auto.pageframework.helpers.WebHelper;
 
 @WebDesktopImplementation(PeetsCardProductPage.class)
 @WebTabletImplementation(PeetsCardProductPage.class)
@@ -21,6 +22,7 @@ import com.applause.auto.pageframework.chunks.MiniCartContainerChunk;
 public class PeetsCardProductPage extends AbstractPage {
 
 	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+	WebHelper webHelper = new WebHelper();
 
 	@Override
 	protected void waitUntilVisible() {
@@ -37,7 +39,7 @@ public class PeetsCardProductPage extends AbstractPage {
 	 */
 	public void selectCardAmount(String amount) {
 		LOGGER.info(String.format("Selecting a Grind: %s", amount));
-		getSelectCardAmountDropdown().select(amount);
+		webHelper.jsSelect(getSelectCardAmountDropdown().getWebElement(), amount);
 	}
 
 	/**
