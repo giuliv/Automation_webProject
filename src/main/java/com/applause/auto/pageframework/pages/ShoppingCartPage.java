@@ -113,7 +113,7 @@ public class ShoppingCartPage extends AbstractPage {
 	public CheckoutPlaceOrderPage clickPayWithPaypalSignedUser() {
 		LOGGER.info("Clicking Pay with Paypal for Signed User");
 		getPaypalButton().click();
-		syncHelper.suspend(5000);
+		syncHelper.suspend(5000); // Required due a change of focus after leaving gift-message
 		webHelper.jsClick(getPaypalButton().getWebElement());
 		return PageFactory.create(CheckoutPlaceOrderPage.class);
 	}
