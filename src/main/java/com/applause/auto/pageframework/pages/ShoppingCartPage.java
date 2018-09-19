@@ -91,7 +91,7 @@ public class ShoppingCartPage extends AbstractPage {
 		webHelper.jsClick(getProceedToCheckoutButton().getWebElement());
 		return PageFactory.create(CheckoutShippingInfoPage.class);
 	}
-	
+
 	/**
 	 * Click Pay with Paypal Button
 	 *
@@ -116,19 +116,6 @@ public class ShoppingCartPage extends AbstractPage {
 		syncHelper.suspend(5000);
 		webHelper.jsClick(getPaypalButton().getWebElement());
 		return PageFactory.create(CheckoutPlaceOrderPage.class);
-	}
-
-	/**
-	 * Proceed to Shipping page via Checkout button for a signed user
-	 *
-	 * @return CheckoutShippingInfoPage
-	 */
-	public CheckoutShippingInfoPage defineShippingSignedUser() {
-		LOGGER.info("Click Proceed to Checkout button");
-		getProceedToCheckoutButton().click();
-		syncHelper.suspend(2000);
-		webHelper.jsClick(getProceedToCheckoutButton().getWebElement());
-		return PageFactory.create(CheckoutShippingInfoPage.class);
 	}
 
 	/*

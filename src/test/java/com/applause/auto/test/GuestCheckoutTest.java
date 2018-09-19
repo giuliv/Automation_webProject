@@ -4,6 +4,7 @@ import com.applause.auto.pageframework.pages.PaypalLoginPage;
 import com.applause.auto.pageframework.pages.PaypalReviewYourPurchasePage;
 import com.applause.auto.pageframework.pages.SearchResultsPage;
 import com.applause.auto.pageframework.pages.CoffeeProductDescriptionPage;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -16,11 +17,13 @@ import com.applause.auto.pageframework.pages.CheckoutPage;
 import com.applause.auto.pageframework.pages.CheckoutPaymentMethodPage;
 import com.applause.auto.pageframework.pages.CheckoutPlaceOrderPage;
 import com.applause.auto.pageframework.pages.CheckoutShippingInfoPage;
+import com.applause.auto.pageframework.pages.CoffeeKCupsProductPage;
 import com.applause.auto.pageframework.pages.CoffeeProductPage;
 import com.applause.auto.pageframework.pages.DashboardPage;
 import com.applause.auto.pageframework.pages.EquipmentProductPage;
 import com.applause.auto.pageframework.pages.LandingPage;
 import com.applause.auto.pageframework.pages.PeetsCardProductPage;
+import com.applause.auto.pageframework.pages.ShopCoffeeKCupsPage;
 import com.applause.auto.pageframework.pages.ShopCoffeePage;
 import com.applause.auto.pageframework.pages.ShopEquipmentPage;
 import com.applause.auto.pageframework.pages.ShopTeaPage;
@@ -310,5 +313,46 @@ public class GuestCheckoutTest extends BaseTest {
                 TestData.PURCHASE_CONFIRMATION_TEXT.toLowerCase(), "Order was not placed");
 
         LOGGER.info("Order Placed: " + checkoutConfirmationPage.getOrderNumber());
+    }
+
+	@Test(groups = { TestNGGroups.GUEST_CHECKOUT }, description = "133887")
+    public void guestCheckoutPaypalKCupTest() {
+
+        LOGGER.info("1. Navigate to landing page");
+        LandingPage landingPage = navigateToLandingPage();
+        Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+
+        LOGGER.info("2. Navigate to K-Cups Shop page");
+		ShopCoffeeKCupsPage shopCoffeeKCupsPage = navigateToShopCoffeeKCupsPage();
+		CoffeeKCupsProductPage coffeeKCupsProductPage = shopCoffeeKCupsPage.clickProductName(TestConstants.TestData.COFFEE_KCUP_NAME);
+		coffeeKCupsProductPage.selectBoxContent(TestConstants.TestData.COFFEE_KCUP_COUNT);
+		MiniCartContainerChunk miniCartContainer = coffeeKCupsProductPage.clickAddToCart();
+
+		LOGGER.info("4. Select 'Edit Cart' from mini-cart");
+		ShoppingCartPage shoppingCart = miniCartContainer.clickEditCart();
+
+		LOGGER.info("5. Add gift message to product");
+		shoppingCart.selectOrderAsGift();
+		shoppingCart.enterGiftMessage(TestConstants.TestData.GIFT_MESSAGE);
+
+        LOGGER.info("6. Checkout with Paypal");
+        PaypalLoginPage paypalLoginPage = shoppingCart.clickPayWithPaypal();
+
+        LOGGER.info("7. Login with Paypal");
+        paypalLoginPage.enterEmail(TestData.PAYPAL_EMAIL);
+        paypalLoginPage.clickNext();
+        paypalLoginPage.enterPassword(TestData.PAYPAL_PASSWORD);
+        PaypalReviewYourPurchasePage paypalReviewYourPurchasePage = paypalLoginPage.clickLogIn();
+        CheckoutPlaceOrderPage checkoutPlaceOrderPage = paypalReviewYourPurchasePage.clickAgreeAndContinue();
+
+        LOGGER.info("8. Place Order");
+        Assert.assertEquals(checkoutPlaceOrderPage.getGiftMessage(), TestData.GIFT_MESSAGE);
+        CheckoutConfirmationPage confirmationPage = checkoutPlaceOrderPage.placeOrder();
+
+		LOGGER.info("Verify Confirmation page is displayed");
+		Assert.assertTrue(confirmationPage.getConfirmationMessage().contains("THANK YOU FOR YOUR PURCHASE!"),
+				"Order was not placed");
+
+		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
     }
 }
