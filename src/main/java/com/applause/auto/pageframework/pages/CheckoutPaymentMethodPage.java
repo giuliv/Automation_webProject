@@ -3,6 +3,7 @@ package com.applause.auto.pageframework.pages;
 import java.lang.invoke.MethodHandles;
 
 import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
+import com.applause.auto.pageframework.helpers.WebHelper;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
 import com.applause.auto.framework.pageframework.web.PageFactory;
