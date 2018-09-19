@@ -117,5 +117,5 @@ public class BaseTest {
 		driver.navigate().to(TestData.SHOP_COFFEE_KCUPS_PAGE_URL);
 		return PageFactory.create(ShopCoffeeKCupsPage.class);
 	}
-	
+
 }
