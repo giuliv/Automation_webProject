@@ -30,7 +30,7 @@ import com.applause.auto.pageframework.testdata.TestConstants.TestNGGroups;
 
 public class ExistingUserCheckoutTest extends BaseTest {
 
-	@Test(groups = { TestNGGroups.EXISTING_USER_CHECKOUT }, description = "133888")
+	@Test(groups = {TestNGGroups.EXISTING_USER_CHECKOUT}, description = "133888")
 	public void userCheckoutCoffeeTest() {
 
 		LOGGER.info("1. Navigate to landing page");
@@ -68,7 +68,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
 	}
 
-	@Test(groups = { TestNGGroups.EXISTING_USER_CHECKOUT }, description = "133889")
+	@Test(groups = {TestNGGroups.EXISTING_USER_CHECKOUT}, description = "133889")
 	public void userCheckoutTeaTest() {
 
 		LOGGER.info("1. Navigate to landing page");
@@ -115,7 +115,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
 	}
 
-	@Test(groups = { TestNGGroups.EXISTING_USER_CHECKOUT }, description = "133890")
+	@Test(groups = {TestNGGroups.EXISTING_USER_CHECKOUT}, description = "133890")
 	public void userCheckoutEquipmentTest() {
 
 		LOGGER.info("1. Navigate to landing page");
@@ -152,7 +152,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
 	}
 
-	@Test(groups = { TestNGGroups.EXISTING_USER_CHECKOUT }, description = "133892")
+	@Test(groups = {TestNGGroups.EXISTING_USER_CHECKOUT}, description = "133892")
 	public void userCheckoutPeetsCardTest() {
 
 		LOGGER.info("1. Navigate to landing page");
@@ -188,7 +188,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
 	}
 
-	@Test(groups = { TestNGGroups.EXISTING_USER_CHECKOUT }, description = "133893")
+	@Test(groups = {TestNGGroups.EXISTING_USER_CHECKOUT}, description = "133893")
 	public void userCheckoutPaypalKCupTest() {
 
 		LOGGER.info("1. Navigate to landing page");
@@ -225,92 +225,6 @@ public class ExistingUserCheckoutTest extends BaseTest {
 				"Gift message entered previously was not fetched correctly");
 
 		LOGGER.info("8. Click 'Place Order'");
-		CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
-
-		LOGGER.info("Verify Confirmation page is displayed");
-		Assert.assertTrue(confirmationPage.getConfirmationMessage().contains("THANK YOU FOR YOUR PURCHASE!"),
-				"Order was not placed");
-
-		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
-	}
-
-	@Test(groups = { TestNGGroups.GUEST_CHECKOUT }, description = "137109")
-	public void userCheckoutPaypalWednesdayRoastCoffee() {
-
-		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
-		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
-
-		LOGGER.info("2. Log in to UAT");
-		SignInPage signInPage = landingPage.clickSignInButton();
-		MyAccountPage myAccountPage = signInPage.mainUserLogin();
-		Assert.assertTrue(myAccountPage.getWelcomeMessage().contains("Applause"),
-				"User is not signed in or welcome name is wrong");
-
-		LOGGER.info("3. Navigate to Kona Coffee page");
-		MainMenuChunk mainMenu = myAccountPage.getMainMenu();
-		landingPage = mainMenu.clickHeaderLogo();
-		SearchResultsPage searchResultsPage = landingPage.searchForProduct(TestData.WEDNES_ROAST_SEARCH);
-
-		LOGGER.info("4. Select Product and Add to Cart");
-		CoffeeProductDescriptionPage coffeeProductDescriptionPage = searchResultsPage.clickKona();
-		coffeeProductDescriptionPage.selectGrind(TestData.GRIND);
-		MiniCartContainerChunk miniCartContainer = coffeeProductDescriptionPage.addToCart();
-
-		LOGGER.info("4. Select 'Edit Cart' from mini-cart");
-		ShoppingCartPage shoppingCart = miniCartContainer.clickEditCart();
-
-		LOGGER.info("5. Add gift message to product");
-		shoppingCart.selectOrderAsGift();
-		shoppingCart.enterGiftMessage(TestConstants.TestData.GIFT_MESSAGE);
-
-		LOGGER.info("6. Checkout with Paypal");
-		CheckoutPlaceOrderPage placeOrderPage = shoppingCart.clickPayWithPaypalSignedUser();
-
-		LOGGER.info("7. Verify gift message");
-		Assert.assertEquals(placeOrderPage.getGiftMessage(), TestConstants.TestData.GIFT_MESSAGE,
-				"Gift message entered previously was not fetched correctly");
-
-		LOGGER.info("8. Click 'Place Order'");
-		CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
-
-		LOGGER.info("Verify Confirmation page is displayed");
-		Assert.assertTrue(confirmationPage.getConfirmationMessage().contains("THANK YOU FOR YOUR PURCHASE!"),
-				"Order was not placed");
-
-		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
-	}
-
-	@Test(groups = { TestNGGroups.GUEST_CHECKOUT }, description = "133891")
-	public void userCheckoutTour() {
-
-		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
-		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
-
-		LOGGER.info("2. Log in to UAT");
-		SignInPage signInPage = landingPage.clickSignInButton();
-		MyAccountPage myAccountPage = signInPage.mainUserLogin();
-		Assert.assertTrue(myAccountPage.getWelcomeMessage().contains("Applause"),
-				"User is not signed in or welcome name is wrong");
-
-		LOGGER.info("3. Navigate to Kona Coffee page");
-		MainMenuChunk mainMenu = myAccountPage.getMainMenu();
-		landingPage = mainMenu.clickHeaderLogo();
-		SearchResultsPage searchResultsPage = landingPage.searchForProduct(TestData.TOUR_SEARCH_TERMS);
-
-		LOGGER.info("4. Select Product and Add to Cart");
-		CoffeeProductDescriptionPage coffeeProductDescriptionPage = searchResultsPage.clickFirstProduct();
-		coffeeProductDescriptionPage.selectGrind(TestData.GRIND);
-		MiniCartContainerChunk miniCartContainer = coffeeProductDescriptionPage.addToCart();
-
-		LOGGER.info("5. Select 'Proceed to Checkout'");
-		CheckoutShippingInfoPage shippingInfoPage = miniCartContainer.clickSignedInCheckout();
-		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
-				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
-		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterEnteringPIN();
-
-		LOGGER.info("6. Click 'Place Order'");
 		CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
 
 		LOGGER.info("Verify Confirmation page is displayed");
