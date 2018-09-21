@@ -134,7 +134,7 @@ public class MyAccountMyOrdersPage extends AbstractPage {
 		return new Text(this, getLocator(this, "getOrdersDateText"));
 	}
 
-	@WebElementLocator(webDesktop = "#my-orders-table tr:nth-child(1) td.td-id span")
+	@WebElementLocator(webDesktop = "#my-orders-table tr:nth-child(6) td.td-id span")
 	protected Link getOrdersNumberLink() {
 		return new Link(this, getLocator(this, "getOrdersNumberLink"));
 	}
@@ -159,7 +159,7 @@ public class MyAccountMyOrdersPage extends AbstractPage {
 		return new Button(this, getLocator(this, "getOrdersViewButton"));
 	}
 
-	@WebElementLocator(webDesktop = "//table[@id='my-orders-table']//tr[1]//a[contains(.,'Reorder')]")
+	@WebElementLocator(webDesktop = "//table[@id='my-orders-table']//tr[6]//a[contains(.,'Reorder')]")
 	protected Button getOrdersReorderButton() {
 		return new Button(this, getLocator(this, "getOrdersReorderButton"));
 	}
