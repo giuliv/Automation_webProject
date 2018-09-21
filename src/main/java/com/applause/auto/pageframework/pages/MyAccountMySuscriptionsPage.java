@@ -142,7 +142,7 @@ public class MyAccountMySuscriptionsPage extends AbstractPage {
 		return new Text(this, getLocator(this, "getShippingMethodText"));
 	}
 
-	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.recurring-profile-section.account-container > div.wrapper-items > div.items > table > tbody > tr > td:nth-child(1) > a")
+	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.recurring-profile-section.account-container > div.wrapper-items > div.items > table > tbody")
 	protected Text getSubscribedProductText() {
 		return new Text(this, getLocator(this, "getSubscribedProductText"));
 	}
