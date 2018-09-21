@@ -78,7 +78,7 @@ public class MyAccountOrderDetailPage extends AbstractPage {
 	}
 
 	// Protected getters
-	@WebElementLocator(webDesktop = "div.account-container.account-inner-section > div.account-inner-title > div.left > h2")
+	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}

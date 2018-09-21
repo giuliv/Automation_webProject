@@ -107,7 +107,7 @@ public class MyAccountMySuscriptionsPage extends AbstractPage {
 	}
 
 	// Protected getters
-	@WebElementLocator(webDesktop = "//h1[contains(.,'My Subscriptions')]")
+	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
@@ -142,7 +142,7 @@ public class MyAccountMySuscriptionsPage extends AbstractPage {
 		return new Text(this, getLocator(this, "getShippingMethodText"));
 	}
 
-	@WebElementLocator(webDesktop = ".subscription-info-table a")
+	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.recurring-profile-section.account-container > div.wrapper-items > div.items > table > tbody")
 	protected Text getSubscribedProductText() {
 		return new Text(this, getLocator(this, "getSubscribedProductText"));
 	}
