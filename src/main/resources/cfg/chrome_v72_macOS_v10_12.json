@@ -4,13 +4,13 @@
         "manufacturer":"Apple",
         "osVersion" : "10.12",
         "os" : "macOS",
-        "deviceName" : "Chrome 68 on macOS 10.12",
+        "deviceName" : "Chrome 72 on macOS 10.12",
         "driverProvider" : "SAUCE_LABS",
         "factoryConfigKey" : "WEBDESKTOP",
         "hubUrl" : "http://%s:%s@ondemand.saucelabs.com:80/wd/hub", 
         "caps" : {
         	"browserName" : "chrome",
-        	"version" : "68.0",
+        	"version" : "72.0",
         	"platform" : "macOS 10.12",
         	"acceptSSLAlerts" : "true",
             "screenResolution" : "1920x1440"
