@@ -152,7 +152,8 @@ public class LandingPage extends AbstractPage {
 	private void dismissPopup() {
 		try {
 			LOGGER.info("Attempting to dismiss popup");
-			syncHelper.waitForElementToAppear(getLocator(this, "getDismissPopupButton"), 1000, 120, getDriver());
+			syncHelper.suspend(50000);
+			syncHelper.waitForElementToAppear(getLocator(this, "getDismissPopupButton"));
 			getDismissPopupButton().click();
 		} catch (Exception e) {
 			LOGGER.info("Popup not found, moving on");
