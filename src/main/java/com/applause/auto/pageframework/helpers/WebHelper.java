@@ -124,7 +124,7 @@ public class WebHelper {
 
 		try {
 			waitForDocument(120);
-			waitForJquery(120);
+			// waitForJquery(120);
 		} catch (Throwable t) {
 			LOGGER.warn(t.getMessage());
 			LOGGER.warn("Page not loaded properly. Continue....");
@@ -132,7 +132,7 @@ public class WebHelper {
 		LOGGER.debug("======> Wait for page load comleted in: " + (TestHelper.getCurrentGMT6Time() - startTime));
 	}
 
-	private static void waitForJquery(int seconds) {
+	public static void waitForJquery(int seconds) {
 		LOGGER.info("jQuery synchronization wait for " + seconds + " seconds");
 		long start = System.currentTimeMillis();
 		long end = start + seconds * 1000;
@@ -157,7 +157,7 @@ public class WebHelper {
 	 * @param seconds
 	 *            the seconds
 	 */
-	private static void waitForDocument(int seconds) {
+	public static void waitForDocument(int seconds) {
 		LOGGER.info("Page load synchronization wait for " + seconds + " seconds");
 		long start = System.currentTimeMillis();
 		long end = start + seconds * 1000;
