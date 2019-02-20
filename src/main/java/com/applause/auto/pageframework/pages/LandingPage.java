@@ -14,6 +14,7 @@ import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.chunks.MainMenuChunk;
+import com.applause.auto.pageframework.helpers.WebHelper;
 
 @WebDesktopImplementation(LandingPage.class)
 @WebTabletImplementation(LandingPage.class)
@@ -24,7 +25,7 @@ public class LandingPage extends AbstractPage {
 
 	@Override
 	protected void waitUntilVisible() {
-		// WebHelper.waitForLoad();
+		WebHelper.waitForLoad();
 		dismissPopup();
 		syncHelper.waitForElementToAppear(getViewSignature());
 	}
@@ -39,7 +40,8 @@ public class LandingPage extends AbstractPage {
 	 * @return a Login
 	 */
 	public SignInPage clickSignInButton() {
-		LOGGER.info("Tap on Signin Button");
+		LOGGER.info("Tap on SignIn Button");
+		WebHelper.waitForElementToBeClickable(getSignInButton().getWebElement());
 		getSignInButton().click();
 		return PageFactory.create(SignInPage.class);
 	}
