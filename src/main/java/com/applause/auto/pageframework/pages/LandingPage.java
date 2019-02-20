@@ -38,8 +38,8 @@ public class LandingPage extends AbstractPage {
 	 * @return a Login
 	 */
 	public SignInPage clickSignInButton() {
-		getSignInButton().click();
 		LOGGER.info("Tap on Signin Button");
+		getSignInButton().click();
 		return PageFactory.create(SignInPage.class);
 	}
 
@@ -135,17 +135,24 @@ public class LandingPage extends AbstractPage {
 	}
 
 	@WebElementLocator(webDesktop = ".skip-link.skip-search")
-	protected Button getShowSearchButton() { return new Button(this, getLocator(this, "getShowSearchButton")); }
+	protected Button getShowSearchButton() {
+		return new Button(this, getLocator(this, "getShowSearchButton"));
+	}
 
 	@WebElementLocator(webDesktop = "#search")
-	protected EditField getSearchTextBox() { return new EditField(this, getLocator(this, "getSearchTextBox")); }
+	protected EditField getSearchTextBox() {
+		return new EditField(this, getLocator(this, "getSearchTextBox"));
+	}
 
 	@WebElementLocator(webDesktop = ".button.search-button")
-	protected Button getSearchButton() { return new Button(this, getLocator(this, "getSearchButton")); }
+	protected Button getSearchButton() {
+		return new Button(this, getLocator(this, "getSearchButton"));
+	}
 
 	private void dismissPopup() {
 		try {
 			LOGGER.info("Attempting to dismiss popup");
+			syncHelper.suspend(30000);
 			syncHelper.waitForElementToAppear(getLocator(this, "getDismissPopupButton"));
 			getDismissPopupButton().click();
 		} catch (Exception e) {
