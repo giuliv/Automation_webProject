@@ -8,6 +8,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import com.applause.auto.framework.pageframework.util.TestHelper;
 import com.applause.auto.framework.pageframework.util.drivers.DriverWrapperManager;
@@ -109,6 +111,11 @@ public class WebHelper {
 	public static void shiftWindowView(final int yOffset) {
 		final JavascriptExecutor executor = (JavascriptExecutor) getDriver();
 		executor.executeScript(String.format("window.scrollBy(0, %s)", yOffset), "");
+	}
+
+	public static WebElement waitForElementToBeClickable(WebElement element) {
+		WebDriverWait wait = new WebDriverWait(getDriver(), 10);
+		return wait.until(ExpectedConditions.elementToBeClickable(element));
 	}
 
 	public static void waitForLoad() {
