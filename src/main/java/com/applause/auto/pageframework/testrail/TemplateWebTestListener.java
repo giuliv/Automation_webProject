@@ -16,7 +16,6 @@ import com.applause.auto.framework.pageframework.util.drivers.DriverWrapperManag
 import com.applause.auto.framework.pageframework.util.drivers.DriverWrapperUtil;
 import com.applause.auto.framework.pageframework.util.drivers.RunUtil;
 import com.applause.auto.framework.pageframework.util.environment.EnvironmentUtil;
-import com.applause.auto.framework.pageframework.util.logger.AtomLogger;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.util.logger.ops.ResultDAO;
 import com.applause.auto.framework.pageframework.util.logger.testrail.TestRailStatus;
@@ -25,8 +24,8 @@ import com.applause.auto.framework.pageframework.util.screenshots.WebScreenshotM
 import com.applause.auto.framework.test.listeners.TestNGListenerUtils;
 
 /**
- * TestListener class to implement logging of results and other hooks based on
- * test status conditions.
+ * TestListener class to implement logging of results and other hooks based on test status
+ * conditions.
  */
 public class TemplateWebTestListener extends TestListenerAdapter {
 
@@ -75,36 +74,6 @@ public class TemplateWebTestListener extends TestListenerAdapter {
 					listOfFailedTests.remove();
 				}
 			}
-		}
-
-		if (env.getLogATOMResults()) {
-			String failed = String.valueOf(context.getFailedTests().size());
-			String passed = String.valueOf(context.getPassedTests().size());
-			String skipped = String.valueOf(context.getSkippedTests().size());
-
-			runLogUrl = LogController.flushRunLogToS3(runUtil.getRunId(), env.getCustomerS3BucketName());
-			String result = "pass";
-			if (context.getFailedTests().size() > 0 || context.getSkippedTests().size() > 0) {
-				result = "fail";
-			}
-
-			// TODO Need to figure out how to get this
-			String externalUrl = "";
-
-			String jobName = env.getCIJobName();
-			if (env.getCustomerBuildNumber() != null) {
-				jobName = jobName + "_" + env.getCustomerBuildNumber();
-			}
-
-			// Log to atom
-			// AtomLogger.logTestRunResultToAtom(runUtil.getRunId(),
-			// runUtil.getRunDate(), result, env.getCIJobName(),
-			// passed, failed, skipped, env.getBuildId(),
-			// env.getCustomerBuildNumber(), env.getCompanyId(),
-			// getProductId(), getDeviceType(), env.getDeviceName(),
-			// wrapperUtil.getOs(),
-			// wrapperUtil.getOsVersion(), wrapperUtil.getManufacturer(),
-			// runLogUrl, externalUrl);
 		}
 
 	}
@@ -169,13 +138,6 @@ public class TemplateWebTestListener extends TestListenerAdapter {
 		// happens as the first test is executed.
 		if (firstTest) {
 			firstTest = false;
-			if (env.getLogATOMResults()) {
-				// Log to atom
-				AtomLogger.logTestRunResultToAtom(runUtil.getRunId(), runUtil.getRunDate(), "", env.getCIJobName(), "0",
-						"0", "0", env.getBuildId(), env.getCustomerBuildNumber(), env.getCompanyId(), getProductId(),
-						getDeviceType(), env.getDeviceName(), wrapperUtil.getOs(), wrapperUtil.getOsVersion(),
-						wrapperUtil.getManufacturer(), "", "");
-			}
 		}
 		testCaseRunTime = runUtil.getTestCaseRunDate();
 		logger.info("=== Starting test " + testResult.getName() + ":" + testCaseRunTime + "===");
@@ -307,13 +269,6 @@ public class TemplateWebTestListener extends TestListenerAdapter {
 
 	private void logTestCaseResult(String result, String testName, String testTags, String testDescription,
 			String executionTime, String url, String failureReason, String testCaseRunTime) {
-		if (env.getLogATOMResults()) {
-
-			AtomLogger.logTestCaseResultToAtom(runUtil.getRunId(), testName, testTags, testDescription, executionTime,
-					runUtil.getRunDate(), result, failureReason, env.getBuildId(), env.getCustomerBuildNumber(),
-					env.getCompanyId(), getProductId(), getDeviceType(), env.getDeviceName(), wrapperUtil.getOs(),
-					wrapperUtil.getOsVersion(), wrapperUtil.getManufacturer(), url, testCaseRunTime);
-		}
 		if (env.getSkipMySqlLogs()) {
 			logger.info("Skipping MySql Result Logging.");
 		} else {
