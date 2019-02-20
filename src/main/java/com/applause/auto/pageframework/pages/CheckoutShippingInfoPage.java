@@ -97,6 +97,7 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 */
 	public void continueAfterShippingInfo() {
 		LOGGER.info("Click Continue on shipping section");
+		WebHelper.shiftWindowView(-getDriver().manage().window().getSize().getHeight() / 2);
 		getShippingInfoContinueButton().click();
 	}
 
