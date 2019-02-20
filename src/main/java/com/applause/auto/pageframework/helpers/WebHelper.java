@@ -100,18 +100,29 @@ public class WebHelper {
 				element);
 	}
 
+	/**
+	 * Shift window view.
+	 *
+	 * @param yOffset
+	 *            the y offset
+	 */
+	public static void shiftWindowView(final int yOffset) {
+		final JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+		executor.executeScript(String.format("window.scrollBy(0, %s)", yOffset), "");
+	}
+
 	public static void waitForLoad() {
-        LOGGER.debug("======> Wait for page load");
+		LOGGER.debug("======> Wait for page load");
 		long startTime = TestHelper.getCurrentGMT6Time();
 
 		try {
-			waitForDocument(10);
-			waitForJquery(10);
+			waitForDocument(120);
+			waitForJquery(120);
 		} catch (Throwable t) {
-            LOGGER.warn(t.getMessage());
-            LOGGER.warn("Page not loaded properly. Continue....");
+			LOGGER.warn(t.getMessage());
+			LOGGER.warn("Page not loaded properly. Continue....");
 		}
-        LOGGER.debug("======> Wait for page load comleted in: " + (TestHelper.getCurrentGMT6Time() - startTime));
+		LOGGER.debug("======> Wait for page load comleted in: " + (TestHelper.getCurrentGMT6Time() - startTime));
 	}
 
 	private static void waitForJquery(int seconds) {
