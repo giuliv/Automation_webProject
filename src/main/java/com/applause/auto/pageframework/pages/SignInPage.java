@@ -84,6 +84,7 @@ public class SignInPage extends AbstractPage {
 				: TestConstants.TestData.USERNAME;
 		enterEmail(username);
 		enterPassword(TestConstants.TestData.PASSWORD);
+		syncHelper.suspend(5000);
 		getSignInButton().click();
 		return PageFactory.create(MyAccountPage.class);
 	}
