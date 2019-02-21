@@ -25,9 +25,7 @@ public class LandingPage extends AbstractPage {
 
 	@Override
 	protected void waitUntilVisible() {
-		syncHelper.suspend(50000);
-		dismissPopup();
-		syncHelper.suspend(50000);
+		WebHelper.waitForDocument();
 		dismissPopup();
 		syncHelper.waitForElementToAppear(getViewSignature());
 	}

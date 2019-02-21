@@ -25,6 +25,7 @@ public class ShoppingCartPage extends AbstractPage {
 
 	@Override
 	protected void waitUntilVisible() {
+		WebHelper.waitForDocument();
 		syncHelper.waitForElementToAppear(getViewSignature());
 	}
 

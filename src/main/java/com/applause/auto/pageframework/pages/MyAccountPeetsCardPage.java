@@ -14,6 +14,7 @@ import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Image;
 import com.applause.auto.framework.pageframework.webcontrols.Link;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageframework.helpers.WebHelper;
 
 @WebDesktopImplementation(MyAccountPeetsCardPage.class)
 @WebTabletImplementation(MyAccountPeetsCardPage.class)
@@ -23,6 +24,7 @@ public class MyAccountPeetsCardPage extends AbstractPage {
 
 	@Override
 	protected void waitUntilVisible() {
+		WebHelper.waitForDocument();
 		syncHelper.waitForElementToAppear(getViewSignature());
 	}
 

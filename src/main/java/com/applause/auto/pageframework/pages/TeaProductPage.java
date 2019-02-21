@@ -14,6 +14,7 @@ import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.chunks.MiniCartContainerChunk;
+import com.applause.auto.pageframework.helpers.WebHelper;
 
 @WebDesktopImplementation(TeaProductPage.class)
 @WebTabletImplementation(TeaProductPage.class)
@@ -24,6 +25,7 @@ public class TeaProductPage extends AbstractPage {
 
 	@Override
 	protected void waitUntilVisible() {
+		WebHelper.waitForDocument();
 		syncHelper.waitForElementToAppear(getViewSignature());
 	}
 

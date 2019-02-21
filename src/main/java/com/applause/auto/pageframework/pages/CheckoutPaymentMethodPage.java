@@ -3,7 +3,6 @@ package com.applause.auto.pageframework.pages;
 import java.lang.invoke.MethodHandles;
 
 import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
-import com.applause.auto.pageframework.helpers.WebHelper;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
 import com.applause.auto.framework.pageframework.web.PageFactory;
@@ -30,6 +29,7 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 
 	@Override
 	protected void waitUntilVisible() {
+		WebHelper.waitForDocument();
 		syncHelper.waitForElementToAppear(getViewSignature());
 	}
 
@@ -68,11 +68,11 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	public void fillPeetsCardInfo(String amount) {
 		LOGGER.info("Filling Peets Card info");
 
-		String peetsCardNumber = (env.getBrowserType() == BrowserType.SAFARI) ? TestConstants.TestData.PEETS_CARD_NUMBER_SAFARI_1
-				: TestConstants.TestData.PEETS_CARD_NUMBER_CHROME_1;
+		String peetsCardNumber = (env.getBrowserType() == BrowserType.SAFARI)
+				? TestConstants.TestData.PEETS_CARD_NUMBER_SAFARI_1 : TestConstants.TestData.PEETS_CARD_NUMBER_CHROME_1;
 		getPeetsCardNumberEditField().setText(peetsCardNumber);
-		String peetsCardPin = (env.getBrowserType() == BrowserType.SAFARI) ? TestConstants.TestData.PEETS_CARD_PIN_SAFARI_1
-				: TestConstants.TestData.PEETS_CARD_PIN_CHROME_1;
+		String peetsCardPin = (env.getBrowserType() == BrowserType.SAFARI)
+				? TestConstants.TestData.PEETS_CARD_PIN_SAFARI_1 : TestConstants.TestData.PEETS_CARD_PIN_CHROME_1;
 		getPeetsCardPinEditField().setText(peetsCardPin);
 		// Peets card loads its balance after clicking outside the Peets Card fields
 		getPeetsCardNumberEditField().click();
