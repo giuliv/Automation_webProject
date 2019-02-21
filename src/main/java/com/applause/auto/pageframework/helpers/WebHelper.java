@@ -135,7 +135,7 @@ public class WebHelper {
 		long startTime = TestHelper.getCurrentGMT6Time();
 
 		try {
-			waitForDocument(120);
+			waitForDocument();
 			// waitForJquery(120);
 		} catch (Throwable t) {
 			LOGGER.warn(t.getMessage());
@@ -169,7 +169,8 @@ public class WebHelper {
 	 * @param seconds
 	 *            the seconds
 	 */
-	public static void waitForDocument(int seconds) {
+	public static void waitForDocument() {
+		int seconds = 60;
 		LOGGER.info("Page load synchronization wait for " + seconds + " seconds");
 		long start = System.currentTimeMillis();
 		long end = start + seconds * 1000;

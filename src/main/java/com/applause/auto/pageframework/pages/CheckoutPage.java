@@ -11,6 +11,7 @@ import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementat
 import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageframework.helpers.WebHelper;
 
 @WebDesktopImplementation(CheckoutPage.class)
 @WebTabletImplementation(CheckoutPage.class)
@@ -21,6 +22,7 @@ public class CheckoutPage extends AbstractPage {
 
 	@Override
 	protected void waitUntilVisible() {
+		WebHelper.waitForDocument();
 		syncHelper.waitForElementToAppear(getViewSignature());
 	}
 

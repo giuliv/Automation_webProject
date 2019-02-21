@@ -2,8 +2,6 @@ package com.applause.auto.pageframework.pages;
 
 import java.lang.invoke.MethodHandles;
 
-import org.openqa.selenium.NoSuchElementException;
-
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
 import com.applause.auto.framework.pageframework.web.ChunkFactory;
@@ -17,6 +15,7 @@ import com.applause.auto.framework.pageframework.webcontrols.Image;
 import com.applause.auto.framework.pageframework.webcontrols.Link;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.chunks.MainMenuChunk;
+import com.applause.auto.pageframework.helpers.WebHelper;
 
 @WebDesktopImplementation(MyAccountPage.class)
 @WebTabletImplementation(MyAccountPage.class)
@@ -27,6 +26,7 @@ public class MyAccountPage extends AbstractPage {
 
 	@Override
 	protected void waitUntilVisible() {
+		WebHelper.waitForDocument();
 		dismissPopup();
 		syncHelper.waitForElementToAppear(getViewSignature());
 	}
@@ -258,7 +258,7 @@ public class MyAccountPage extends AbstractPage {
 		getMySuscriptionsLink().click();
 		return PageFactory.create(MyAccountMySuscriptionsPage.class);
 	}
-	
+
 	/**
 	 * Click Peets Card Tab
 	 *
@@ -426,10 +426,10 @@ public class MyAccountPage extends AbstractPage {
 	protected Link getMySuscriptionsLink() {
 		return new Link(this, getLocator(this, "getMySuscriptionsLink"));
 	}
-	
+
 	@WebElementLocator(webDesktop = "#customer-dashboard-settings > div.box-content > div > div:nth-child(3) > div.head-block > a")
-	protected Link getShippingAddressEditLink() { 
-		return new Link(this, getLocator(this, "getShippingAddressEditLink")); 
+	protected Link getShippingAddressEditLink() {
+		return new Link(this, getLocator(this, "getShippingAddressEditLink"));
 	}
 
 	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(6) > a")
@@ -443,16 +443,24 @@ public class MyAccountPage extends AbstractPage {
 	}
 
 	@WebElementLocator(webDesktop = "div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(7) > a")
-	protected Button getSettingButton() { return new Button(this, getLocator(this, "getSettingButton")); }
+	protected Button getSettingButton() {
+		return new Button(this, getLocator(this, "getSettingButton"));
+	}
 
 	@WebElementLocator(webDesktop = "#customer-dashboard-settings > div.box-content > div > div:nth-child(1) > div.details > p:nth-child(1)")
-	protected Text getCustomerNameText() { return new Text(this, getLocator(this, "getCustomerNameText")); }
+	protected Text getCustomerNameText() {
+		return new Text(this, getLocator(this, "getCustomerNameText"));
+	}
 
 	@WebElementLocator(webDesktop = "#customer-dashboard-settings > div.box-content > div > div:nth-child(1) > div.head-block > a")
-	protected Link getContactInformationEditLink() { return new Link(this, getLocator(this, "getContactInformationEditLink")); }
+	protected Link getContactInformationEditLink() {
+		return new Link(this, getLocator(this, "getContactInformationEditLink"));
+	}
 
 	@WebElementLocator(webDesktop = "#customer-dashboard-settings > div.box-content > div > div:nth-child(1) > div.details > p:nth-child(2)")
-	protected Text getCustomerEmailText() { return new Text(this, getLocator(this, "getCustomerEmailText")); }
+	protected Text getCustomerEmailText() {
+		return new Text(this, getLocator(this, "getCustomerEmailText"));
+	}
 
 	private void dismissPopup() {
 		try {

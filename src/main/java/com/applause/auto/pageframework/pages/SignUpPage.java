@@ -15,6 +15,7 @@ import com.applause.auto.framework.pageframework.webcontrols.Checkbox;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.chunks.DashboardModalChunk;
+import com.applause.auto.pageframework.helpers.WebHelper;
 import com.applause.auto.pageframework.testdata.TestConstants;
 
 @WebDesktopImplementation(SignUpPage.class)
@@ -26,6 +27,7 @@ public class SignUpPage extends AbstractPage {
 
 	@Override
 	protected void waitUntilVisible() {
+		WebHelper.waitForDocument();
 		syncHelper.waitForElementToAppear(getViewSignature());
 	}
 

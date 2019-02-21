@@ -13,6 +13,7 @@ import com.applause.auto.framework.pageframework.webcontrols.BaseHtmlElement;
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageframework.helpers.WebHelper;
 
 @WebDesktopImplementation(CheckoutPlaceOrderPage.class)
 @WebTabletImplementation(CheckoutPlaceOrderPage.class)
@@ -23,6 +24,7 @@ public class CheckoutPlaceOrderPage extends AbstractPage {
 
 	@Override
 	protected void waitUntilVisible() {
+		WebHelper.waitForDocument();
 		syncHelper.waitForElementToAppear(getViewSignature());
 	}
 
