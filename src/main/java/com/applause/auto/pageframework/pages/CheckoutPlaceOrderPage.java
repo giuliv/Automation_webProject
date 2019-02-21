@@ -38,8 +38,10 @@ public class CheckoutPlaceOrderPage extends AbstractPage {
 	public CheckoutConfirmationPage placeOrder() {
 		LOGGER.info("Click Place Order Button");
 		syncHelper.waitForElementToAppear(getLocator(this, "getPlaceOrderButton"));
+		syncHelper.suspend(5000); // Required time to trigger spinner animation if shown
+
 		getPlaceOrderButton().click();
-		syncHelper.suspend(2000); //Required time to trigger spinner animation if shown
+		syncHelper.suspend(2000); // Required time to trigger spinner animation if shown
 		syncHelper.waitForElementToDisappear(getLocator(this, "getPlaceOrderSpinner"));
 		return PageFactory.create(CheckoutConfirmationPage.class);
 	}
@@ -90,10 +92,14 @@ public class CheckoutPlaceOrderPage extends AbstractPage {
 	}
 
 	@WebElementLocator(webDesktop = "#gift-message-whole-message")
-	protected EditField getGiftMessageEditField() { return new EditField(this, getLocator(this, "getGiftMessageEditField")); }
+	protected EditField getGiftMessageEditField() {
+		return new EditField(this, getLocator(this, "getGiftMessageEditField"));
+	}
 
 	@WebElementLocator(webDesktop = "#cart-table-standard > tbody > tr > td.product-info-cell.last > h3 > a")
-	protected Text getProductNameText() { return new Text(this, getLocator(this, "getProductNameText")); }
+	protected Text getProductNameText() {
+		return new Text(this, getLocator(this, "getProductNameText"));
+	}
 
 	@WebElementLocator(webDesktop = "span#opc-please-wait.please-wait-review")
 	protected BaseHtmlElement getPlaceOrderSpinner() {
