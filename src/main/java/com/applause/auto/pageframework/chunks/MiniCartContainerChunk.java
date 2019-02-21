@@ -106,6 +106,7 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 	 */
 	@WebElementLocator(webDesktop = "#minicart-container")
 	protected Text getViewSignature() {
+		LOGGER.info(">>>>>>>>" + getDriver().getPageSource());
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
