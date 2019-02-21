@@ -118,6 +118,18 @@ public class WebHelper {
 		return wait.until(ExpectedConditions.elementToBeClickable(element));
 	}
 
+	public static void scrollToElement(WebElement element) {
+		JavascriptExecutor jse = (JavascriptExecutor) getDriver();
+		long windowHeight = (long) jse.executeScript("return window.innerHeight");
+
+		// scrolls element to view...
+		jse.executeScript("arguments[0].scrollIntoView(true);", element);
+
+		// ... and then scroll half-way up the page, to ensure
+		// the element is not obscured by another element.
+		jse.executeScript("window.scrollBy(0, " + -(windowHeight / 2) + ")", "");
+	}
+
 	public static void waitForLoad() {
 		LOGGER.debug("======> Wait for page load");
 		long startTime = TestHelper.getCurrentGMT6Time();
