@@ -49,6 +49,7 @@ public class CoffeeProductPage extends AbstractPage {
 	 */
 	public MiniCartContainerChunk clickAddToCart() {
 		LOGGER.info("Tap on Shop Coffee Button");
+		syncHelper.suspend(5000);
 		getAddToCartButton().click();
 		waitForAddingToCartSpinner();
 		return ChunkFactory.create(MiniCartContainerChunk.class, this, "");
