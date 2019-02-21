@@ -50,7 +50,7 @@ public class ShoppingCartPage extends AbstractPage {
 	 */
 	public void enterGiftMessage(String giftMessage) {
 		LOGGER.info("Enter a Gift Message");
-		syncHelper.waitForElementToAppear(getLocator(this, "getGiftMessageText"));
+		syncHelper.waitForElementToAppear(getGiftMessageText().getAbsoluteSelector());
 		getGiftMessageText().setText(giftMessage);
 	}
 
