@@ -12,7 +12,6 @@ import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementa
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Image;
-import com.applause.auto.pageframework.helpers.WebHelper;
 
 @WebDesktopImplementation(PaypalLoginPage.class)
 @WebTabletImplementation(PaypalLoginPage.class)
@@ -22,7 +21,6 @@ public class PaypalLoginPage extends AbstractPage {
 
 	@Override
 	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
 		syncHelper.waitForElementToAppear(getEmailField());
 	}
 
