@@ -40,7 +40,7 @@ public class CheckoutPlaceOrderPage extends AbstractPage {
 	public CheckoutConfirmationPage placeOrder() {
 		LOGGER.info("Click Place Order Button");
 		syncHelper.waitForElementToAppear(getLocator(this, "getPlaceOrderButton"));
-		syncHelper.suspend(5000); // Required time to trigger spinner animation if shown
+		syncHelper.suspend(7000); // Required time to trigger spinner animation if shown
 
 		getPlaceOrderButton().click();
 		syncHelper.suspend(2000); // Required time to trigger spinner animation if shown
