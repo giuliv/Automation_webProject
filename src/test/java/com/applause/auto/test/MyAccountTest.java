@@ -94,8 +94,8 @@ public class MyAccountTest extends BaseTest {
 		Assert.assertTrue(paymentMethodsPage.isPeetsCardDisplayed(), "Peets Card is not displayed");
 		Assert.assertTrue(paymentMethodsPage.isAddCreditCardButtonDisplayed(),
 				"Add Credit Card button is not displayed");
-		// Assert.assertTrue(paymentMethodsPage.isAddPaypalAccountButtonDisplayed(), "Add Paypal
-		// Account button is not displayed");
+		Assert.assertTrue(paymentMethodsPage.isAddPaypalAccountButtonDisplayed(),
+				"Add Paypal Account button is not displayed");
 		Assert.assertTrue(paymentMethodsPage.isAddPeetsCardButtonDisplayed(), "Add Peets Card button is not displayed");
 
 		LOGGER.info("5. Edit Saved Payment Method");
