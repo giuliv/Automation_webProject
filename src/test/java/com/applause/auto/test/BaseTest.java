@@ -79,9 +79,13 @@ public class BaseTest {
 	 */
 	@AfterMethod(alwaysRun = true)
 	public void afterMethod() {
-		driver.quit();
-		DriverWrapperManager.getInstance().deregisterDriver(driverWrapper);
-		LOGGER.info("Test case teardown complete.");
+		try {
+			driver.quit();
+			DriverWrapperManager.getInstance().deregisterDriver(driverWrapper);
+			LOGGER.info("Test case teardown complete.");
+		} catch (Throwable throwable) {
+			LOGGER.info("Something wrong happened during test teardown.");
+		}
 	}
 
 	/*
