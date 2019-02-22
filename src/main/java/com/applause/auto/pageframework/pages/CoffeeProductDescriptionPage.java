@@ -50,6 +50,7 @@ public class CoffeeProductDescriptionPage extends AbstractPage {
 	 */
 	public MiniCartContainerChunk addToCart() {
 		LOGGER.info("Clicking Add To Cart");
+		syncHelper.suspend(5000);
 		getAddToCartButton().click();
 		return ChunkFactory.create(MiniCartContainerChunk.class, this, "");
 	}
