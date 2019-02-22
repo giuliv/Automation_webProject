@@ -81,6 +81,10 @@ public class BaseTest {
 	public void afterMethod() {
 		try {
 			driver.quit();
+		} catch (Throwable throwable) {
+			LOGGER.info("Something wrong #1 happened during test teardown.");
+		}
+		try {
 			DriverWrapperManager.getInstance().deregisterDriver(driverWrapper);
 			LOGGER.info("Test case teardown complete.");
 		} catch (Throwable throwable) {
