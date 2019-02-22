@@ -156,9 +156,8 @@ public class MyAccountPeetsCardPage extends AbstractPage {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
-	@WebElementLocator(webDesktop = "//*[contains(.,'Buy a Peet's card')]")
+	@WebElementLocator(webDesktop = "//*[contains(.,\"Buy a Peet's card\")]")
 	protected BaseHtmlElement getBuyPeetsCardSection() {
-		LOGGER.info(">>>>>>>>>>" + getDriver().getPageSource());
 		return new BaseHtmlElement(this, getLocator(this, "getBuyPeetsCardSection"));
 	}
 
