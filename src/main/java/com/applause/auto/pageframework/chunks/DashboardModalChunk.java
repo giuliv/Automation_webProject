@@ -67,6 +67,7 @@ public class DashboardModalChunk extends AbstractPageChunk {
 
 	@WebElementLocator(webDesktop = "div#modal-new-message-2018 a")
 	protected Text getViewSignature() {
+		LOGGER.info(">>>>>>>>" + getDriver().getPageSource());
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
