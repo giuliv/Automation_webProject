@@ -158,6 +158,7 @@ public class MyAccountPeetsCardPage extends AbstractPage {
 
 	@WebElementLocator(webDesktop = "//*[contains(.,'Buy a Peet's card')]")
 	protected BaseHtmlElement getBuyPeetsCardSection() {
+		LOGGER.info(">>>>>>>>>>" + getDriver().getPageSource());
 		return new BaseHtmlElement(this, getLocator(this, "getBuyPeetsCardSection"));
 	}
 
