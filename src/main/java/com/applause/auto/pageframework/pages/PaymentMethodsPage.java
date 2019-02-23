@@ -172,7 +172,6 @@ public class PaymentMethodsPage extends AbstractPage {
 
 	@WebElementLocator(webDesktop = "div.col-main > div > div.payment-card-holder.account-container > div.title > div > a:nth-child(3)")
 	protected Button getAddPeetsCardButton() {
-		LOGGER.info(">>>>>>>>" + getDriver().getPageSource());
 		return new Button(this, getLocator(this, "getAddPeetsCardButton"));
 	}
 

@@ -82,8 +82,6 @@ public class EditShippingAddressPage extends AbstractPage {
 
 	@WebElementLocator(webDesktop = "#qas-popup > div.modal-content-area > div > div.two-columns > div.right-column > div.qas-box-content > button")
 	protected Button getUseAddressAsEnteredButton() {
-		LOGGER.info(">>>" + getDriver().getPageSource());
-
 		return new Button(this, getLocator(this, "getUseAddressAsEnteredButton"));
 	}
 }
