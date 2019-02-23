@@ -52,6 +52,7 @@ public class SignUpPage extends AbstractPage {
 	 */
 	public void fillSignUpInfo() {
 		LOGGER.info("Filling Sign up info");
+		syncHelper.suspend(5000);
 		long timeStamp = System.currentTimeMillis();
 		String email = String.format(TestConstants.TestData.EMAIL, timeStamp);
 		getFirstNameEditField().setText(TestConstants.TestData.FIRST_NAME);
