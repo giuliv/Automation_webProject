@@ -145,7 +145,6 @@ public class ShoppingCartPage extends AbstractPage {
 
 	@WebElementLocator(webDesktop = "div#shopping-cart-actions-additional img[alt='Checkout with PayPal']")
 	protected Button getPaypalButton() {
-		LOGGER.info(">>>>>" + getDriver().getPageSource());
 		return new Button(this, getLocator(this, "getPaypalButton"));
 	}
 
