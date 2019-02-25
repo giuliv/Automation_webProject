@@ -25,6 +25,7 @@ public class ShoppingCartPage extends AbstractPage {
 
 	@Override
 	protected void waitUntilVisible() {
+		WebHelper.waitForDocument();
 		syncHelper.waitForElementToAppear(getViewSignature());
 	}
 
@@ -49,7 +50,7 @@ public class ShoppingCartPage extends AbstractPage {
 	 */
 	public void enterGiftMessage(String giftMessage) {
 		LOGGER.info("Enter a Gift Message");
-		syncHelper.waitForElementToAppear(getLocator(this, "getGiftMessageText"));
+		syncHelper.waitForElementToAppear(getGiftMessageText().getAbsoluteSelector());
 		getGiftMessageText().setText(giftMessage);
 	}
 
@@ -142,7 +143,7 @@ public class ShoppingCartPage extends AbstractPage {
 		return new Button(this, getLocator(this, "getProceedToCheckoutButton"));
 	}
 
-	@WebElementLocator(webDesktop = "div#shopping-cart-actions-additional img[title='Checkout with PayPal']")
+	@WebElementLocator(webDesktop = "div#shopping-cart-actions-additional img[alt='Checkout with PayPal']")
 	protected Button getPaypalButton() {
 		return new Button(this, getLocator(this, "getPaypalButton"));
 	}

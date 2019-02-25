@@ -2,8 +2,10 @@ package com.applause.auto.pageframework.chunks;
 
 import java.lang.invoke.MethodHandles;
 
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+
 import com.applause.auto.framework.pageframework.UIData;
-import com.applause.auto.framework.pageframework.util.actions.NativeBrowserAction;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPageChunk;
 import com.applause.auto.framework.pageframework.web.ChunkFactory;
@@ -14,18 +16,13 @@ import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementat
 import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageframework.helpers.WebHelper;
 import com.applause.auto.pageframework.pages.LandingPage;
 import com.applause.auto.pageframework.pages.PeetsCardProductPage;
 import com.applause.auto.pageframework.pages.ShopEquipmentPage;
 import com.applause.auto.pageframework.pages.ShopGiftSubscriptionsPage;
 import com.applause.auto.pageframework.pages.ShopTeaPage;
 import com.applause.auto.pageframework.testdata.TestConstants;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.interactions.HasInputDevices;
-import org.openqa.selenium.interactions.Mouse;
-import org.openqa.selenium.internal.Locatable;
 
 @WebDesktopImplementation(MainMenuChunk.class)
 @WebTabletImplementation(MainMenuChunk.class)
@@ -45,6 +42,7 @@ public class MainMenuChunk extends AbstractPageChunk {
 
 	@Override
 	protected void waitUntilVisible() {
+		WebHelper.waitForDocument();
 		syncHelper.waitForElementToAppear(getViewSignature());
 	}
 

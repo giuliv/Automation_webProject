@@ -12,6 +12,7 @@ import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementat
 import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageframework.helpers.WebHelper;
 import com.applause.auto.pageframework.pages.DashboardPage;
 
 @WebDesktopImplementation(DashboardModalChunk.class)
@@ -32,6 +33,7 @@ public class DashboardModalChunk extends AbstractPageChunk {
 
 	@Override
 	protected void waitUntilVisible() {
+		WebHelper.waitForDocument();
 		syncHelper.waitForElementToAppear(getViewSignature());
 	}
 

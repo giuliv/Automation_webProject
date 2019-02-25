@@ -79,9 +79,17 @@ public class BaseTest {
 	 */
 	@AfterMethod(alwaysRun = true)
 	public void afterMethod() {
-		driver.quit();
-		DriverWrapperManager.getInstance().deregisterDriver(driverWrapper);
-		LOGGER.info("Test case teardown complete.");
+		try {
+			driver.quit();
+		} catch (Throwable throwable) {
+			LOGGER.info("Something wrong #1 happened during test teardown.");
+		}
+		try {
+			DriverWrapperManager.getInstance().deregisterDriver(driverWrapper);
+			LOGGER.info("Test case teardown complete.");
+		} catch (Throwable throwable) {
+			LOGGER.info("Something wrong happened during test teardown.");
+		}
 	}
 
 	/*
@@ -111,9 +119,10 @@ public class BaseTest {
 		driver.navigate().to(TestData.SHOP_PEETS_CARD_PAGE_URL);
 		return PageFactory.create(PeetsCardProductPage.class);
 	}
-	
+
 	protected ShopCoffeeKCupsPage navigateToShopCoffeeKCupsPage() {
-		LOGGER.info(String.format("Navigating to the Shop Coffee K-Cups page '%s'", TestData.SHOP_COFFEE_KCUPS_PAGE_URL));
+		LOGGER.info(
+				String.format("Navigating to the Shop Coffee K-Cups page '%s'", TestData.SHOP_COFFEE_KCUPS_PAGE_URL));
 		driver.navigate().to(TestData.SHOP_COFFEE_KCUPS_PAGE_URL);
 		return PageFactory.create(ShopCoffeeKCupsPage.class);
 	}

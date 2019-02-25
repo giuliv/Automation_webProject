@@ -10,6 +10,7 @@ import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementat
 import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
+import com.applause.auto.pageframework.helpers.WebHelper;
 import com.applause.auto.pageframework.testdata.TestConstants;
 
 @WebDesktopImplementation(SignInPage.class)
@@ -21,6 +22,7 @@ public class SignInPage extends AbstractPage {
 
 	@Override
 	protected void waitUntilVisible() {
+		WebHelper.waitForDocument();
 		syncHelper.waitForElementToAppear(getSignInButton());
 	}
 
@@ -84,6 +86,7 @@ public class SignInPage extends AbstractPage {
 				: TestConstants.TestData.USERNAME;
 		enterEmail(username);
 		enterPassword(TestConstants.TestData.PASSWORD);
+		syncHelper.suspend(5000);
 		getSignInButton().click();
 		return PageFactory.create(MyAccountPage.class);
 	}

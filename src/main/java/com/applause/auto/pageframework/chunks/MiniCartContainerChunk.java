@@ -13,6 +13,7 @@ import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementa
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Link;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageframework.helpers.WebHelper;
 import com.applause.auto.pageframework.pages.CheckoutPage;
 import com.applause.auto.pageframework.pages.CheckoutPlaceOrderPage;
 import com.applause.auto.pageframework.pages.CheckoutShippingInfoPage;
@@ -37,6 +38,7 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 
 	@Override
 	protected void waitUntilVisible() {
+		WebHelper.waitForDocument();
 		syncHelper.waitForElementToAppear(getViewSignature());
 	}
 
