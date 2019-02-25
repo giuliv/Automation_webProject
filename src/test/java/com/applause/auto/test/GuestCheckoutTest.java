@@ -181,26 +181,20 @@ public class GuestCheckoutTest extends BaseTest {
 		SignUpPage signUpPage = signInPage.clickonCreateAccountButton();
 
 		LOGGER.info("5. Fill out form to create an account");
-		DashboardModalChunk dashboardModal = signUpPage.submitSignUpInfo();
+		CheckoutShippingInfoPage shippingInfoPage = signUpPage.submitSignUpInfo();
 
-		LOGGER.info("6. Go back to mini-cart and select Checkout");
-		DashboardPage dashboardPage = dashboardModal.clickCloseModal();
-		MainMenuChunk mainMenu = dashboardPage.getMainMenu();
-		miniCartContainer = mainMenu.clickMiniCart();
-		CheckoutShippingInfoPage shippingInfoPage = miniCartContainer.clickSignedInCheckout();
-
-		LOGGER.info("7. Complete Contact Information");
+		LOGGER.info("6. Complete Contact Information");
 		VerifyYourAddressDetailsChunk verifyAddressChunk = shippingInfoPage.continueAfterFillingRequiredContactInfo();
 		shippingInfoPage = verifyAddressChunk.clickEnteredAddressButton();
 
-		LOGGER.info("8. Select ground shipping");
+		LOGGER.info("7. Select ground shipping");
 		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
 				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
 
-		LOGGER.info("9. Use credit card for payment");
+		LOGGER.info("8. Use credit card for payment");
 		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterCrediCardBillingInfo();
 
-		LOGGER.info("10. Click 'Place Order'");
+		LOGGER.info("9. Click 'Place Order'");
 		CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
 
 		LOGGER.info("Verify Confirmation page is displayed");

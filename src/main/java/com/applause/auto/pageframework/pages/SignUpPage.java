@@ -5,6 +5,7 @@ import java.lang.invoke.MethodHandles;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
 import com.applause.auto.framework.pageframework.web.ChunkFactory;
+import com.applause.auto.framework.pageframework.web.PageFactory;
 import com.applause.auto.framework.pageframework.web.WebElementLocator;
 import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
 import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
@@ -39,11 +40,11 @@ public class SignUpPage extends AbstractPage {
 	 * Continue after entering required Shipping info
 	 * 
 	 */
-	public DashboardModalChunk submitSignUpInfo() {
+	public CheckoutShippingInfoPage submitSignUpInfo() {
 		LOGGER.info("Clicking Submit after filling sign-up info");
 		fillSignUpInfo();
 		clickSubmit();
-		return ChunkFactory.create(DashboardModalChunk.class, this, "");
+		return PageFactory.create(CheckoutShippingInfoPage.class);
 	}
 
 	/**
