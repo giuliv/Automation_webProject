@@ -14,6 +14,7 @@ import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.chunks.MainMenuChunk;
+import com.applause.auto.pageframework.helpers.WebHelper;
 
 @WebDesktopImplementation(LandingPage.class)
 @WebTabletImplementation(LandingPage.class)
@@ -24,6 +25,7 @@ public class LandingPage extends AbstractPage {
 
 	@Override
 	protected void waitUntilVisible() {
+		WebHelper.waitForDocument();
 		dismissPopup();
 		syncHelper.waitForElementToAppear(getViewSignature());
 	}
@@ -38,8 +40,9 @@ public class LandingPage extends AbstractPage {
 	 * @return a Login
 	 */
 	public SignInPage clickSignInButton() {
+		LOGGER.info("Tap on SignIn Button");
+		WebHelper.waitForElementToBeClickable(getSignInButton().getWebElement());
 		getSignInButton().click();
-		LOGGER.info("Tap on Signin Button");
 		return PageFactory.create(SignInPage.class);
 	}
 
@@ -135,13 +138,19 @@ public class LandingPage extends AbstractPage {
 	}
 
 	@WebElementLocator(webDesktop = ".skip-link.skip-search")
-	protected Button getShowSearchButton() { return new Button(this, getLocator(this, "getShowSearchButton")); }
+	protected Button getShowSearchButton() {
+		return new Button(this, getLocator(this, "getShowSearchButton"));
+	}
 
 	@WebElementLocator(webDesktop = "#search")
-	protected EditField getSearchTextBox() { return new EditField(this, getLocator(this, "getSearchTextBox")); }
+	protected EditField getSearchTextBox() {
+		return new EditField(this, getLocator(this, "getSearchTextBox"));
+	}
 
 	@WebElementLocator(webDesktop = ".button.search-button")
-	protected Button getSearchButton() { return new Button(this, getLocator(this, "getSearchButton")); }
+	protected Button getSearchButton() {
+		return new Button(this, getLocator(this, "getSearchButton"));
+	}
 
 	private void dismissPopup() {
 		try {

@@ -14,6 +14,7 @@ import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.chunks.MiniCartContainerChunk;
+import com.applause.auto.pageframework.helpers.WebHelper;
 
 @WebDesktopImplementation(EquipmentProductPage.class)
 @WebTabletImplementation(EquipmentProductPage.class)
@@ -24,6 +25,7 @@ public class EquipmentProductPage extends AbstractPage {
 
 	@Override
 	protected void waitUntilVisible() {
+		WebHelper.waitForDocument();
 		syncHelper.waitForElementToAppear(getViewSignature());
 	}
 
@@ -47,6 +49,7 @@ public class EquipmentProductPage extends AbstractPage {
 	 */
 	public MiniCartContainerChunk clickAddToCart() {
 		LOGGER.info("Tap on Shop Coffee Button");
+		syncHelper.suspend(5000);
 		getAddToCartButton().click();
 		waitForAddingToCartSpinner();
 		return ChunkFactory.create(MiniCartContainerChunk.class, this, "");
