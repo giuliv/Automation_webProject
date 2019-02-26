@@ -60,10 +60,10 @@ public class PaypalLoginPage extends AbstractPage {
 	 *
 	 * @return PaypalReviewYourPurchasePage
 	 */
-	public PaypalReviewYourPurchasePage clickLogIn() {
+	public PaypalSelectPaymentMethodPage clickLogIn() {
 		LOGGER.info("Clicking Log In");
 		getLogInButton().click();
-		return PageFactory.create(PaypalReviewYourPurchasePage.class);
+		return PageFactory.create(PaypalSelectPaymentMethodPage.class);
 	}
 
 	// Protected getters
