@@ -3,6 +3,7 @@ package com.applause.auto.test;
 import com.applause.auto.pageframework.pages.MyAccountPage;
 import com.applause.auto.pageframework.pages.PaypalLoginPage;
 import com.applause.auto.pageframework.pages.PaypalReviewYourPurchasePage;
+import com.applause.auto.pageframework.pages.PaypalSelectPaymentMethodPage;
 import com.applause.auto.pageframework.pages.SearchResultsPage;
 import com.applause.auto.pageframework.pages.CoffeeProductDescriptionPage;
 
@@ -293,7 +294,8 @@ public class GuestCheckoutTest extends BaseTest {
         paypalLoginPage.enterEmail(TestData.PAYPAL_EMAIL);
         paypalLoginPage.clickNext();
         paypalLoginPage.enterPassword(TestData.PAYPAL_PASSWORD);
-        PaypalReviewYourPurchasePage paypalReviewYourPurchasePage = paypalLoginPage.clickLogIn();
+		PaypalSelectPaymentMethodPage paypalSelectPaymentMethodPage = paypalLoginPage.clickLogIn();
+		PaypalReviewYourPurchasePage paypalReviewYourPurchasePage = paypalSelectPaymentMethodPage.clickContinue();
         CheckoutPlaceOrderPage checkoutPlaceOrderPage = paypalReviewYourPurchasePage.clickAgreeAndContinue();
 
         LOGGER.info("8. Place Order");
@@ -337,8 +339,9 @@ public class GuestCheckoutTest extends BaseTest {
         paypalLoginPage.enterEmail(TestData.PAYPAL_EMAIL);
         paypalLoginPage.clickNext();
         paypalLoginPage.enterPassword(TestData.PAYPAL_PASSWORD);
-        PaypalReviewYourPurchasePage paypalReviewYourPurchasePage = paypalLoginPage.clickLogIn();
-        CheckoutPlaceOrderPage checkoutPlaceOrderPage = paypalReviewYourPurchasePage.clickAgreeAndContinue();
+        PaypalSelectPaymentMethodPage paypalSelectPaymentMethodPage = paypalLoginPage.clickLogIn();
+		PaypalReviewYourPurchasePage paypalReviewYourPurchasePage = paypalSelectPaymentMethodPage.clickContinue();
+		CheckoutPlaceOrderPage checkoutPlaceOrderPage = paypalReviewYourPurchasePage.clickAgreeAndContinue();
 
         LOGGER.info("8. Place Order");
         Assert.assertEquals(checkoutPlaceOrderPage.getGiftMessage(), TestData.GIFT_MESSAGE);
