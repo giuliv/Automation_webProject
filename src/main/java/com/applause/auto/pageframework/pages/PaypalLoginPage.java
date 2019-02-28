@@ -69,14 +69,13 @@ public class PaypalLoginPage extends AbstractPage {
 		// SAFARI flow
 		if (env.getBrowserType() == BrowserType.SAFARI) {
 			// Move to iFrame
-			syncHelper.suspend(20000);
 			getDriver().switchTo().defaultContent();
+			syncHelper.waitForElementToAppear("#injectedUl");
 			getDriver().switchTo().frame("injectedUl");
 			getPasswordField().clearText();
 			getPasswordField().setText(TestConstants.TestData.PAYPAL_PASSWORD);
 			getLogInButton().click();
 			getDriver().switchTo().defaultContent();
-			syncHelper.suspend(20000);
 		}
 
 		return PageFactory.create(PaypalReviewYourPurchasePage.class);
