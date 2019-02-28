@@ -35,6 +35,7 @@ public class PaypalReviewYourPurchasePage extends AbstractPage {
 	public CheckoutPlaceOrderPage clickAgreeAndContinue() {
 		LOGGER.info("Clicking Agree and Continue");
 		syncHelper.suspend(5000);
+		getContinueButton().click();
 		getAgreeAndContinueButton().click();
 		return PageFactory.create(CheckoutPlaceOrderPage.class);
 	}
@@ -45,7 +46,12 @@ public class PaypalReviewYourPurchasePage extends AbstractPage {
 		return new Image(this, getLocator(this, "getViewSignature"));
 	}
 
-	@WebElementLocator(webDesktop = "//*[@id=\"confirmButtonTop\"]")
+	@WebElementLocator(webDesktop = "//*[contains(@class,'confirmButton')]")
+	protected Button getContinueButton() {
+		return new Button(this, getLocator(this, "getContinueButton"));
+	}
+
+	@WebElementLocator(webDesktop = "//*[@id='confirmButtonTop' or @class='confirmButton']")
 	protected Button getAgreeAndContinueButton() {
 		return new Button(this, getLocator(this, "getAgreeAndContinueButton"));
 	}
