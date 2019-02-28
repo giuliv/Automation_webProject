@@ -2,6 +2,7 @@ package com.applause.auto.pageframework.pages;
 
 import java.lang.invoke.MethodHandles;
 
+import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
 import com.applause.auto.framework.pageframework.web.PageFactory;
@@ -12,6 +13,7 @@ import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementa
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Image;
+import com.applause.auto.pageframework.testdata.TestConstants;
 
 @WebDesktopImplementation(PaypalLoginPage.class)
 @WebTabletImplementation(PaypalLoginPage.class)
@@ -63,6 +65,20 @@ public class PaypalLoginPage extends AbstractPage {
 	public PaypalReviewYourPurchasePage clickLogIn() {
 		LOGGER.info("Clicking Log In");
 		getLogInButton().click();
+
+		// SAFARI flow
+		if (env.getBrowserType() == BrowserType.SAFARI) {
+			// Move to iFrame
+			syncHelper.suspend(20000);
+			getDriver().switchTo().defaultContent();
+			getDriver().switchTo().frame("injectedUl");
+			getPasswordField().clearText();
+			getPasswordField().setText(TestConstants.TestData.PAYPAL_PASSWORD);
+			getLogInButton().click();
+			getDriver().switchTo().defaultContent();
+			syncHelper.suspend(20000);
+		}
+
 		return PageFactory.create(PaypalReviewYourPurchasePage.class);
 	}
 
