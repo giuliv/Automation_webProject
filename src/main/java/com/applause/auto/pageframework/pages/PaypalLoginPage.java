@@ -72,8 +72,12 @@ public class PaypalLoginPage extends AbstractPage {
 			// Move to iFrame
 			syncHelper.suspend(45000);
 			getDriver().switchTo().defaultContent();
-			syncHelper.waitForElementToAppear("#injectedUl");
-			getDriver().switchTo().frame("injectedUl");
+			try {
+				syncHelper.waitForElementToAppear("#injectedUl");
+				getDriver().switchTo().frame("injectedUl");
+			} catch (Throwable throwable) {
+				LOGGER.warn(throwable.getMessage());
+			}
 			getPasswordField().clearText();
 			getPasswordField().setText(TestConstants.TestData.PAYPAL_PASSWORD);
 			getLogInButton().click();
