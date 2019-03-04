@@ -84,8 +84,7 @@ public class PaypalLoginPage extends AbstractPage {
 			}
 			getPasswordField().clearText();
 			getPasswordField().setText(TestConstants.TestData.PAYPAL_PASSWORD);
-			getLogInButton().click();
-			syncHelper.suspend(5000);
+			LOGGER.info(">>>>" + getDriver().getPageSource());
 			getLogInButton().click();
 			getDriver().switchTo().defaultContent();
 		}
