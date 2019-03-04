@@ -23,7 +23,7 @@ public class PaypalLoginPage extends AbstractPage {
 
 	@Override
 	protected void waitUntilVisible() {
-		syncHelper.suspend(30000);
+		syncHelper.suspend(45000);
 		syncHelper.waitForElementToAppear(getEmailField());
 	}
 
