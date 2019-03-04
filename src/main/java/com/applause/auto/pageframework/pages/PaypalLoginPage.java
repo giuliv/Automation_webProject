@@ -82,9 +82,10 @@ public class PaypalLoginPage extends AbstractPage {
 				LOGGER.info("Switching to iFrame failed");
 				LOGGER.warn(throwable.getMessage());
 			}
-			LOGGER.info(">>>>>>>" + getDriver().getPageSource());
 			getPasswordField().clearText();
 			getPasswordField().setText(TestConstants.TestData.PAYPAL_PASSWORD);
+			getLogInButton().click();
+			syncHelper.suspend(5000);
 			getLogInButton().click();
 			getDriver().switchTo().defaultContent();
 		}
