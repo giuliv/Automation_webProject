@@ -82,27 +82,27 @@ public class PaypalLoginPage extends AbstractPage {
 	}
 
 	// Protected getters
-	@WebElementLocator(webDesktop = "//*[@id=\"content\"]")
+	@WebElementLocator(webDesktop = "#content")
 	protected Image getViewSignature() {
 		return new Image(this, getLocator(this, "getViewSignature"));
 	}
 
-	@WebElementLocator(webDesktop = "//*[@id=\"email\"]")
+	@WebElementLocator(webDesktop = "#email")
 	protected EditField getEmailField() {
 		return new EditField(this, getLocator(this, "getEmailField"));
 	}
 
-	@WebElementLocator(webDesktop = "//*[@id=\"btnNext\"]")
+	@WebElementLocator(webDesktop = "#btnNext")
 	protected Button getNextButton() {
 		return new Button(this, getLocator(this, "getNextButton"));
 	}
 
-	@WebElementLocator(webDesktop = "//*[@id=\"password\"]")
+	@WebElementLocator(webDesktop = "#password")
 	protected EditField getPasswordField() {
 		return new EditField(this, getLocator(this, "getPasswordField"));
 	}
 
-	@WebElementLocator(webDesktop = "//*[@id=\"btnLogin\"]")
+	@WebElementLocator(webDesktop = "#btnLogin")
 	protected Button getLogInButton() {
 		return new Button(this, getLocator(this, "getLogInButton"));
 	}
