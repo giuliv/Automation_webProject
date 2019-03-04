@@ -78,6 +78,7 @@ public class PaypalLoginPage extends AbstractPage {
 			} catch (Throwable throwable) {
 				LOGGER.warn(throwable.getMessage());
 			}
+			LOGGER.info(">>>>>>>" + getDriver().getPageSource());
 			getPasswordField().clearText();
 			getPasswordField().setText(TestConstants.TestData.PAYPAL_PASSWORD);
 			getLogInButton().click();
@@ -88,27 +89,27 @@ public class PaypalLoginPage extends AbstractPage {
 	}
 
 	// Protected getters
-	@WebElementLocator(webDesktop = "#content")
+	@WebElementLocator(webDesktop = "//*[@id=\"content\"]")
 	protected Image getViewSignature() {
 		return new Image(this, getLocator(this, "getViewSignature"));
 	}
 
-	@WebElementLocator(webDesktop = "#email")
+	@WebElementLocator(webDesktop = "//*[@id=\"email\"]")
 	protected EditField getEmailField() {
 		return new EditField(this, getLocator(this, "getEmailField"));
 	}
 
-	@WebElementLocator(webDesktop = "#btnNext")
+	@WebElementLocator(webDesktop = "//*[@id=\"btnNext\"]")
 	protected Button getNextButton() {
 		return new Button(this, getLocator(this, "getNextButton"));
 	}
 
-	@WebElementLocator(webDesktop = "#password")
+	@WebElementLocator(webDesktop = "//*[@id=\"password\"]")
 	protected EditField getPasswordField() {
 		return new EditField(this, getLocator(this, "getPasswordField"));
 	}
 
-	@WebElementLocator(webDesktop = "#btnLogin")
+	@WebElementLocator(webDesktop = "//*[@id=\"btnLogin\"]")
 	protected Button getLogInButton() {
 		return new Button(this, getLocator(this, "getLogInButton"));
 	}
