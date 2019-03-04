@@ -15,6 +15,7 @@ import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementa
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Image;
+import com.applause.auto.pageframework.helpers.WebHelper;
 import com.applause.auto.pageframework.testdata.TestConstants;
 
 @WebDesktopImplementation(PaypalLoginPage.class)
@@ -22,6 +23,7 @@ import com.applause.auto.pageframework.testdata.TestConstants;
 @WebPhoneImplementation(PaypalLoginPage.class)
 public class PaypalLoginPage extends AbstractPage {
 	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+	protected final static WebHelper webHelper = new WebHelper();
 
 	@Override
 	protected void waitUntilVisible() {
@@ -84,8 +86,11 @@ public class PaypalLoginPage extends AbstractPage {
 			}
 			getPasswordField().clearText();
 			getPasswordField().setText(TestConstants.TestData.PAYPAL_PASSWORD);
-			LOGGER.info(">>>>" + getDriver().getPageSource());
-			getLogInButton().click();
+			if (env.getBrowserType() == BrowserType.SAFARI) {
+				webHelper.jsClick(getLogInButton().getWebElement());
+			} else {
+				getLogInButton().click();
+			}
 			getDriver().switchTo().defaultContent();
 		}
 
