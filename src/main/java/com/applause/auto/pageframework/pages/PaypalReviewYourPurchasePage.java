@@ -34,7 +34,7 @@ public class PaypalReviewYourPurchasePage extends AbstractPage {
 	 */
 	public CheckoutPlaceOrderPage clickAgreeAndContinue() {
 		LOGGER.info("Clicking Agree and Continue");
-		syncHelper.suspend(5000);
+		syncHelper.suspend(30000); // just waiting sandbox to completed
 		getContinueButton().click();
 		getAgreeAndContinueButton().click();
 		return PageFactory.create(CheckoutPlaceOrderPage.class);
