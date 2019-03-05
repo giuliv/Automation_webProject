@@ -291,7 +291,6 @@ public class GuestCheckoutTest extends BaseTest {
 		shoppingCartPage.enterGiftMessage(TestData.GIFT_MESSAGE);
 
 		LOGGER.info("6. Checkout with Paypal");
-		env.setRawCssOnly(true);
 		PaypalLoginPage paypalLoginPage = shoppingCartPage.clickPayWithPaypal();
 
 		LOGGER.info("7. Login with Paypal");
@@ -305,7 +304,6 @@ public class GuestCheckoutTest extends BaseTest {
 		Assert.assertEquals(checkoutPlaceOrderPage.getProductName(), TestData.WEDNES_ROAST_SEARCH,
 				"Incorrect product being purchased");
 		Assert.assertEquals(checkoutPlaceOrderPage.getGiftMessage(), TestData.GIFT_MESSAGE);
-		env.setRawCssOnly(false);
 		CheckoutConfirmationPage checkoutConfirmationPage = checkoutPlaceOrderPage.placeOrder();
 
 		LOGGER.info("9. Verify Confirmation page is displayed");
