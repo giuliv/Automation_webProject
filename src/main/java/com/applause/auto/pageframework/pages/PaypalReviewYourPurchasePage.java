@@ -18,9 +18,22 @@ import com.applause.auto.pageframework.helpers.WebHelper;
 @WebPhoneImplementation(PaypalReviewYourPurchasePage.class)
 public class PaypalReviewYourPurchasePage extends AbstractPage {
 	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+	protected static String winHandleBefore = "";
 
 	@Override
 	protected void waitUntilVisible() {
+		// Switch to new window opened
+		long endTime = System.currentTimeMillis() + 60000;
+		while ((getDriver().getWindowHandles().size() == 1) && (endTime < System.currentTimeMillis())) {
+			LOGGER.info("Wait for new window");
+		}
+		winHandleBefore = getDriver().getWindowHandle();
+		for (String winHandle : getDriver().getWindowHandles()) {
+			if (!winHandle.equals(winHandleBefore)) {
+				getDriver().switchTo().window(winHandle);
+			}
+		}
+
 		WebHelper.waitForDocument();
 		syncHelper.waitForElementToAppear(getViewSignature());
 	}
@@ -36,6 +49,7 @@ public class PaypalReviewYourPurchasePage extends AbstractPage {
 		LOGGER.info("Clicking Agree and Continue");
 		syncHelper.suspend(30000); // just waiting sandbox to completed
 		getContinueButton().click();
+		getDriver().switchTo().window(winHandleBefore);
 		getAgreeAndContinueButton().click();
 		return PageFactory.create(CheckoutPlaceOrderPage.class);
 	}
