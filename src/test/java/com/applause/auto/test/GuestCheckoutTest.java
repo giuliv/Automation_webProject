@@ -305,9 +305,9 @@ public class GuestCheckoutTest extends BaseTest {
 		Assert.assertEquals(checkoutPlaceOrderPage.getProductName(), TestData.WEDNES_ROAST_SEARCH,
 				"Incorrect product being purchased");
 		Assert.assertEquals(checkoutPlaceOrderPage.getGiftMessage(), TestData.GIFT_MESSAGE);
+		env.setRawCssOnly(false);
 		CheckoutConfirmationPage checkoutConfirmationPage = checkoutPlaceOrderPage.placeOrder();
 
-		env.setRawCssOnly(false);
 		LOGGER.info("9. Verify Confirmation page is displayed");
 		LOGGER.info(checkoutConfirmationPage.getConfirmationMessage());
 		Assert.assertEquals(checkoutConfirmationPage.getConfirmationMessage().toLowerCase(),
