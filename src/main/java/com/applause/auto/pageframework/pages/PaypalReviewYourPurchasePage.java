@@ -18,9 +18,22 @@ import com.applause.auto.pageframework.helpers.WebHelper;
 @WebPhoneImplementation(PaypalReviewYourPurchasePage.class)
 public class PaypalReviewYourPurchasePage extends AbstractPage {
 	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+	protected static String winHandleBefore = "";
 
 	@Override
 	protected void waitUntilVisible() {
+		// Switch to new window opened
+		long endTime = System.currentTimeMillis() + 60000;
+		while ((getDriver().getWindowHandles().size() == 1) && (endTime < System.currentTimeMillis())) {
+			LOGGER.info("Wait for new window");
+		}
+		winHandleBefore = getDriver().getWindowHandle();
+		for (String winHandle : getDriver().getWindowHandles()) {
+			if (!winHandle.equals(winHandleBefore)) {
+				getDriver().switchTo().window(winHandle);
+			}
+		}
+
 		WebHelper.waitForDocument();
 		syncHelper.waitForElementToAppear(getViewSignature());
 	}
@@ -34,8 +47,12 @@ public class PaypalReviewYourPurchasePage extends AbstractPage {
 	 */
 	public CheckoutPlaceOrderPage clickAgreeAndContinue() {
 		LOGGER.info("Clicking Agree and Continue");
-		syncHelper.suspend(5000);
+		syncHelper.suspend(45000); // just waiting sandbox to completed
+		new WebHelper().jsClick(getContinueButton().getWebElement());
+		syncHelper.suspend(45000); // just waiting sandbox to completed
 		getAgreeAndContinueButton().click();
+		getDriver().switchTo().window(winHandleBefore);
+		syncHelper.suspend(45000); // just waiting sandbox to completed
 		return PageFactory.create(CheckoutPlaceOrderPage.class);
 	}
 
@@ -45,7 +62,12 @@ public class PaypalReviewYourPurchasePage extends AbstractPage {
 		return new Image(this, getLocator(this, "getViewSignature"));
 	}
 
-	@WebElementLocator(webDesktop = "//*[@id=\"confirmButtonTop\"]")
+	@WebElementLocator(webDesktop = "//*[contains(@class,'confirmButton')]")
+	protected Button getContinueButton() {
+		return new Button(this, getLocator(this, "getContinueButton"));
+	}
+
+	@WebElementLocator(webDesktop = "//*[@id='confirmButtonTop' or @class='confirmButton']")
 	protected Button getAgreeAndContinueButton() {
 		return new Button(this, getLocator(this, "getAgreeAndContinueButton"));
 	}

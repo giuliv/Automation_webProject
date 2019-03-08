@@ -2,6 +2,9 @@ package com.applause.auto.pageframework.pages;
 
 import java.lang.invoke.MethodHandles;
 
+import org.openqa.selenium.By;
+
+import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
 import com.applause.auto.framework.pageframework.web.PageFactory;
@@ -12,15 +15,19 @@ import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementa
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Image;
+import com.applause.auto.pageframework.helpers.WebHelper;
+import com.applause.auto.pageframework.testdata.TestConstants;
 
 @WebDesktopImplementation(PaypalLoginPage.class)
 @WebTabletImplementation(PaypalLoginPage.class)
 @WebPhoneImplementation(PaypalLoginPage.class)
 public class PaypalLoginPage extends AbstractPage {
 	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+	protected final static WebHelper webHelper = new WebHelper();
 
 	@Override
 	protected void waitUntilVisible() {
+		syncHelper.suspend(45000);
 		syncHelper.waitForElementToAppear(getEmailField());
 	}
 
@@ -63,6 +70,30 @@ public class PaypalLoginPage extends AbstractPage {
 	public PaypalReviewYourPurchasePage clickLogIn() {
 		LOGGER.info("Clicking Log In");
 		getLogInButton().click();
+
+		// SAFARI flow
+		if (env.getBrowserType() == BrowserType.SAFARI) {
+			// Move to iFrame
+			syncHelper.suspend(45000);
+			getDriver().switchTo().defaultContent();
+			try {
+				syncHelper.waitForElementToAppear("[name='injectedUl']");
+				getDriver().switchTo().frame(getDriver().findElement(By.cssSelector("[name='injectedUl']")));
+				LOGGER.info("Switched to Iframe successfully");
+			} catch (Throwable throwable) {
+				LOGGER.info("Switching to iFrame failed");
+				LOGGER.warn(throwable.getMessage());
+			}
+			getPasswordField().clearText();
+			getPasswordField().setText(TestConstants.TestData.PAYPAL_PASSWORD);
+			if (env.getBrowserType() == BrowserType.SAFARI) {
+				webHelper.jsClick(getLogInButton().getWebElement());
+			} else {
+				getLogInButton().click();
+			}
+			getDriver().switchTo().defaultContent();
+		}
+
 		return PageFactory.create(PaypalReviewYourPurchasePage.class);
 	}
 
