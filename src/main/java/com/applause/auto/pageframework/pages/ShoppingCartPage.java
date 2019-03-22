@@ -1,6 +1,10 @@
 package com.applause.auto.pageframework.pages;
 
 import java.lang.invoke.MethodHandles;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.openqa.selenium.WebElement;
 
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
@@ -9,8 +13,10 @@ import com.applause.auto.framework.pageframework.web.WebElementLocator;
 import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
 import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
 import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
+import com.applause.auto.framework.pageframework.webcontrols.BaseHtmlElement;
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Checkbox;
+import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.helpers.WebHelper;
@@ -119,6 +125,96 @@ public class ShoppingCartPage extends AbstractPage {
 		return PageFactory.create(CheckoutPlaceOrderPage.class);
 	}
 
+	/**
+	 * Gets items.
+	 *
+	 * @return the items
+	 */
+	public List<String> getItems() {
+		LOGGER.info("Obtaining items from mini-cart");
+		List<WebElement> result = queryHelper.findElementsByExtendedCss(getLocator(this, "getCartItemsText"));
+		return result.stream().map(item -> item.getText()).collect(Collectors.toList());
+	}
+
+	/**
+	 * Remove item shopping cart page.
+	 *
+	 * @param itemName
+	 *            the item name
+	 * @return the shopping cart page
+	 */
+	public ShoppingCartPage removeItem(String itemName) {
+		LOGGER.info("Removing item: " + itemName);
+		getRemoveItemButton(itemName).click();
+		return PageFactory.create(ShoppingCartPage.class);
+	}
+
+	/**
+	 * Click Add to Cart Button
+	 *
+	 */
+	public void waitForAddingToCartSpinner() {
+		LOGGER.info("Adding item to Shopping Cart...");
+		syncHelper.waitForElementToAppear(getLocator(this, "getAddingToCartSpinner"));
+		syncHelper.waitForElementToDisappear(getLocator(this, "getAddingToCartSpinner"));
+	}
+
+	/**
+	 * Sets grind for item.
+	 *
+	 * @param itemName
+	 *            the item name
+	 * @param grind2
+	 *            the grind 2
+	 * @return the grind for item
+	 */
+	public ShoppingCartPage setGrindForItem(String itemName, String grind) {
+		LOGGER.info("Change grind value");
+		getGrindForItemDropdown(itemName).select(grind);
+		syncHelper.waitForElementToDisappear(getSpinnerElement().getAbsoluteSelector());
+		return this;
+	}
+
+	/**
+	 * Gets status message.
+	 *
+	 * @return the status message
+	 */
+	public String getStatusMessage() {
+		syncHelper.waitForElementToAppear(getStatusMessageText());
+		return getStatusMessageText().getText();
+	}
+
+	/**
+	 * Sets quantity for item.
+	 *
+	 * @param itemName
+	 *            the item name
+	 * @param quantity
+	 *            the quantity
+	 * @return the quantity for item
+	 */
+	public ShoppingCartPage setQuantityForItem(String itemName, int quantity) {
+		LOGGER.info("Change quantity value");
+		getQuantityForItemEditField(itemName).setText("" + quantity);
+		return this;
+	}
+
+	/**
+	 * Update cart shopping cart page.
+	 *
+	 * @return the shopping cart page
+	 */
+	public ShoppingCartPage updateCart() {
+		LOGGER.info("Click Update cart button");
+		getUpdateCartButton().click();
+		syncHelper.waitForElementToAppear(getSpinnerElement().getAbsoluteSelector());
+		syncHelper.suspend(2000);
+		syncHelper.waitForElementToDisappear(getSpinnerElement().getAbsoluteSelector());
+		syncHelper.suspend(2000);
+		return PageFactory.create(ShoppingCartPage.class);
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -126,6 +222,31 @@ public class ShoppingCartPage extends AbstractPage {
 	@WebElementLocator(webDesktop = "div.cart.display-single-price div.page-title h1")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
+	}
+
+	@WebElementLocator(webDesktop = "[value='update_qty']")
+	protected Text getUpdateCartButton() {
+		return new Text(this, getLocator(this, "getUpdateCartButton"));
+	}
+
+	@WebElementLocator(webDesktop = ".please-wait-review")
+	protected BaseHtmlElement getSpinnerElement() {
+		return new BaseHtmlElement(this, getLocator(this, "getSpinnerElement"));
+	}
+
+	@WebElementLocator(webDesktop = "#shopping-cart-messages")
+	protected Text getStatusMessageText() {
+		return new Text(this, getLocator(this, "getStatusMessageText"));
+	}
+
+	@WebElementLocator(webDesktop = "//h3[contains(.,'%s')]/../../..//select[@title='Grind']")
+	protected Dropdown getGrindForItemDropdown(String itemName) {
+		return new Dropdown(this, String.format(getLocator(this, "getGrindForItemDropdown"), itemName));
+	}
+
+	@WebElementLocator(webDesktop = "//h3[contains(.,'%s')]/../../..//input[@title='Qty']")
+	protected EditField getQuantityForItemEditField(String itemName) {
+		return new EditField(this, String.format(getLocator(this, "getQuantityForItemEditField"), itemName));
 	}
 
 	@WebElementLocator(webDesktop = ".add-gift-message input")
@@ -146,6 +267,16 @@ public class ShoppingCartPage extends AbstractPage {
 	@WebElementLocator(webDesktop = "div#shopping-cart-actions-additional img[alt='Checkout with PayPal']")
 	protected Button getPaypalButton() {
 		return new Button(this, getLocator(this, "getPaypalButton"));
+	}
+
+	@WebElementLocator(webDesktop = "//h3[contains(.,'%s')]/../../..//a[@class='btn-remove']")
+	protected Button getRemoveItemButton(String productName) {
+		return new Button(this, String.format(getLocator(this, "getRemoveItemButton"), productName));
+	}
+
+	@WebElementLocator(webDesktop = "h3.product-name")
+	protected Text getCartItemsText() {
+		return new Text(this, getLocator(this, "getCartItemsText"));
 	}
 
 }

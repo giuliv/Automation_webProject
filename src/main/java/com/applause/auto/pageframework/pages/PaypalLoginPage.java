@@ -3,6 +3,7 @@ package com.applause.auto.pageframework.pages;
 import java.lang.invoke.MethodHandles;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
@@ -78,7 +79,8 @@ public class PaypalLoginPage extends AbstractPage {
 			getDriver().switchTo().defaultContent();
 			try {
 				syncHelper.waitForElementToAppear("[name='injectedUl']");
-				getDriver().switchTo().frame(getDriver().findElement(By.cssSelector("[name='injectedUl']")));
+				getDriver().switchTo()
+						.frame((WebElement) getDriver().findElement(By.cssSelector("[name='injectedUl']")));
 				LOGGER.info("Switched to Iframe successfully");
 			} catch (Throwable throwable) {
 				LOGGER.info("Switching to iFrame failed");
