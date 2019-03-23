@@ -251,7 +251,8 @@ public class ShoppingCartPage extends AbstractPage {
 
 	@WebElementLocator(webDesktop = "//h3[contains(.,'%s')]/../../..//select[@title='Grind']")
 	protected Dropdown getGrindForItemDropdown(String itemName) {
-		return new Dropdown(this, String.format(getLocator(this, "getGrindForItemDropdown"), itemName));
+		return new Dropdown(this, String.format(getLocator(this, "getGrindForItemDropdown"),
+				"                        " + itemName + "                        "));
 	}
 
 	@WebElementLocator(webDesktop = "//h3[contains(.,'%s')]/../../..//input[@title='Qty']")
