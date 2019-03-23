@@ -153,6 +153,7 @@ public class ShoppingCartPage extends AbstractPage {
 			getRemoveItemButton(itemName).click();
 		}
 		waitForAddingToCartSpinner();
+		syncHelper.suspend(5000);
 		return this;
 	}
 
