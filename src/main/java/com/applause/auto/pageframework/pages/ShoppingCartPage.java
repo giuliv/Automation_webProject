@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import org.openqa.selenium.WebElement;
 
+import com.applause.auto.framework.pageframework.util.actions.NativeBrowserAction;
+import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
 import com.applause.auto.framework.pageframework.web.PageFactory;
@@ -145,7 +147,11 @@ public class ShoppingCartPage extends AbstractPage {
 	 */
 	public ShoppingCartPage removeItem(String itemName) {
 		LOGGER.info("Removing item: " + itemName);
-		getRemoveItemButton(itemName).click();
+		if (env.getBrowserType() == BrowserType.SAFARI) {
+			new NativeBrowserAction(getDriver()).click(getRemoveItemButton(itemName).getWebElement());
+		} else {
+			getRemoveItemButton(itemName).click();
+		}
 		return this;
 	}
 
