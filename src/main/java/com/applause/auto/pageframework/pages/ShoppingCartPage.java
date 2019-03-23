@@ -2,13 +2,9 @@ package com.applause.auto.pageframework.pages;
 
 import java.lang.invoke.MethodHandles;
 import java.util.List;
-import java.util.OptionalInt;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 
 import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
@@ -185,12 +181,7 @@ public class ShoppingCartPage extends AbstractPage {
 	 */
 	public ShoppingCartPage setGrindForItem(String itemName, String grind) {
 		LOGGER.info("Change grind value");
-		List<WebElement> options = getGrindForItemDropdown(itemName).getOptions();
-		OptionalInt indexOpt = IntStream.range(0, options.size()).filter(i -> options.get(i).getText().contains(grind))
-				.findFirst();
-		LOGGER.debug("Old value: " + getGrindForItemDropdown(itemName).getAllSelectedOptions().get(0).getText());
-		LOGGER.debug("Switching to: " + options.get(indexOpt.getAsInt()).getText());
-		getGrindForItemDropdown(itemName).selectByIndex(indexOpt.getAsInt());
+		getGrindForItemDropdown(itemName).getWebElement().sendKeys(grind + "\n");
 		waitForAddingToCartSpinner();
 		return this;
 	}
@@ -257,9 +248,8 @@ public class ShoppingCartPage extends AbstractPage {
 	}
 
 	@WebElementLocator(webDesktop = "//h3[contains(.,'%s')]/../../..//select[@title='Grind']")
-	protected Select getGrindForItemDropdown(String itemName) {
-		return new Select(getDriver()
-				.findElement(By.xpath(String.format(getLocator(this, "getGrindForItemDropdown"), itemName))));
+	protected BaseHtmlElement getGrindForItemDropdown(String itemName) {
+		return new BaseHtmlElement(this, String.format(getLocator(this, "getGrindForItemDropdown"), itemName));
 	}
 
 	@WebElementLocator(webDesktop = "//h3[contains(.,'%s')]/../../..//input[@title='Qty']")
