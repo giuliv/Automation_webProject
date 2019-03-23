@@ -46,6 +46,7 @@ public class TestConstants {
 		public static final String GIFT_MESSAGE = "This is a test message for the gift-message field";
 
 		public static final String SHIPPING_METHOD_GROUND = "Ground";
+		public static final String SHIPPING_METHOD_AIR_2ND_DAY = "2nd Day Air - Cont. U.S. (2-3 business days)";
 
 		public static final String FIRST_NAME = "Applause";
 		public static final String LAST_NAME = "QA Test";

@@ -76,4 +76,40 @@ public class ShoppingCartTest extends BaseTest {
 				"Shopping cart was updated - message not found");
 	}
 
+	@Test(groups = { TestNGGroups.CART }, description = "581731")
+	public void updateShippingMethodTest() {
+
+		LOGGER.info("1. Navigate to landing page");
+		LandingPage landingPage = navigateToLandingPage();
+		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+
+		LOGGER.info("2. Go to any category page and add an item to cart.");
+		ShopCoffeePage shopCoffeePage = landingPage.clickShopCoffeeButton();
+		CoffeeProductPage coffeeProductPage = shopCoffeePage.clickProductName(TestData.COFFEE_BRAND_NAME);
+		coffeeProductPage.selectAGrind(TestData.GRIND);
+		MiniCartContainerChunk miniCartContainer = coffeeProductPage.clickAddToCart();
+
+		LOGGER.info("3. From mini-cart, select 'View Cart'");
+		ShoppingCartPage shoppingCartPage = miniCartContainer.clickEditCart();
+
+		LOGGER.info(
+				"4. From shopping cart, select the 'Select Shipping Method' dropdown and select a new shipping method");
+		String oldSelectedMethod = shoppingCartPage.getShippingMethod();
+		String oldEstimatedPrice = shoppingCartPage.getEstimatedShippingPrice();
+		String oldOrderTotal = shoppingCartPage.getOrderSummaryPrice();
+		shoppingCartPage.selectShippingMethod(TestData.SHIPPING_METHOD_AIR_2ND_DAY);
+		String newSelectedMethod = shoppingCartPage.getShippingMethod();
+		String newEstimatedPrice = shoppingCartPage.getEstimatedShippingPrice();
+		String newOrderTotal = shoppingCartPage.getOrderSummaryPrice();
+
+		LOGGER.info("Shipping method is updated");
+		Assert.assertNotEquals(newSelectedMethod, oldSelectedMethod, "Shipping method does not updated");
+
+		LOGGER.info("Estimated Shipping price is updated in Order Summary");
+		Assert.assertNotEquals(newEstimatedPrice, oldEstimatedPrice, "Estimated price does not updated");
+
+		LOGGER.info("Total is updated in Order Summary");
+		Assert.assertNotEquals(newOrderTotal, oldOrderTotal, "Total does not updated");
+	}
+
 }
