@@ -183,6 +183,7 @@ public class ShoppingCartPage extends AbstractPage {
 	 */
 	public ShoppingCartPage setGrindForItem(String itemName, String grind) {
 		LOGGER.info("Change grind value");
+		waitForAddingToCartSpinner();
 		getGrindForItemDropdown(itemName).select(grind);
 		waitForAddingToCartSpinner();
 		return this;
