@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.openqa.selenium.WebElement;
 
+import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
 import com.applause.auto.framework.pageframework.web.PageFactory;
@@ -149,8 +150,12 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return the shopping cart page
 	 */
 	public ShoppingCartPage removeItem(String itemName) {
-		LOGGER.info("Removing item: " + itemName + getDriver().getPageSource());
-		webHelper.jsClick(getRemoveItemButton(itemName).getWebElement());
+		LOGGER.info("Removing item: " + itemName);
+		if (env.getBrowserType() == BrowserType.SAFARI) {
+			webHelper.jsClick(getRemoveItemButton(itemName).getWebElement());
+		} else {
+			getRemoveItemButton(itemName).click();
+		}
 		waitForAddingToCartSpinner();
 		syncHelper.suspend(5000);
 		return this;
@@ -177,7 +182,7 @@ public class ShoppingCartPage extends AbstractPage {
 	 */
 	public ShoppingCartPage setGrindForItem(String itemName, String grind) {
 		LOGGER.info("Change grind value");
-		waitForAddingToCartSpinner();
+		getGrindForItemDropdown(itemName).click();
 		getGrindForItemDropdown(itemName).select(grind);
 		waitForAddingToCartSpinner();
 		return this;
