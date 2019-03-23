@@ -153,12 +153,12 @@ public class ShoppingCartPage extends AbstractPage {
 	public ShoppingCartPage removeItem(String itemName) {
 		LOGGER.info("Removing item: " + itemName);
 		if (env.getBrowserType() == BrowserType.SAFARI) {
+			syncHelper.waitForElementToAppear(getRemoveItemButton(itemName).getAbsoluteSelector());
 			new NativeBrowserAction(getDriver()).click(getRemoveItemButton(itemName).getWebElement());
 		} else {
 			getRemoveItemButton(itemName).click();
 		}
 		waitForAddingToCartSpinner();
-		syncHelper.suspend(5000);
 		return this;
 	}
 
