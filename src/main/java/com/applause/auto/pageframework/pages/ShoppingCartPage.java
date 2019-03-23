@@ -149,9 +149,8 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return the shopping cart page
 	 */
 	public ShoppingCartPage removeItem(String itemName) {
-		LOGGER.info("Removing item: " + itemName);
-		WebHelper.waitForElementToBeClickable(getRemoveItemButton(itemName).getWebElement());
-		getRemoveItemButton(itemName).click();
+		LOGGER.info("Removing item: " + itemName + getDriver().getPageSource());
+		WebHelper.waitForElementToBeClickable(getRemoveItemButton(itemName).getWebElement()).click();
 		waitForAddingToCartSpinner();
 		syncHelper.suspend(5000);
 		return this;
