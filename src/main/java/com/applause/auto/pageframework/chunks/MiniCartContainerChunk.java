@@ -141,7 +141,7 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 	 */
 	public String getReAddButtonCaption(String itemName) {
 		LOGGER.info("Getting Re add button caption");
-		return getReAddItemButton(itemName).getText();
+		return getReAddItemButton(itemName).getText().trim();
 	}
 
 	/**
@@ -153,7 +153,7 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 	 */
 	public String getRemoveButtonCaption(String itemName) {
 		LOGGER.info("Getting Remove button caption");
-		return getRemoveItemButton(itemName).getText();
+		return getRemoveItemButton(itemName).getText().trim();
 	}
 
 	/**
