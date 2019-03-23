@@ -176,7 +176,7 @@ public class ShoppingCartPage extends AbstractPage {
 	 *
 	 * @param itemName
 	 *            the item name
-	 * @param grind2
+	 * @param grind
 	 *            the grind 2
 	 * @return the grind for item
 	 */
@@ -228,6 +228,37 @@ public class ShoppingCartPage extends AbstractPage {
 		return PageFactory.create(ShoppingCartPage.class);
 	}
 
+	/**
+	 * Select shipping method shopping cart page.
+	 *
+	 * @param method
+	 *            the method
+	 * @return the shopping cart page
+	 */
+	public ShoppingCartPage selectShippingMethod(String method) {
+		LOGGER.info("Select shipping method: " + method);
+		if (env.getBrowserType() == BrowserType.SAFARI) {
+			getShippingMethodDropdown().getWebElement().sendKeys(method + "\n");
+		} else {
+			getShippingMethodDropdown().select(method);
+		}
+		waitForAddingToCartSpinner();
+		syncHelper.suspend(5000);
+		return PageFactory.create(ShoppingCartPage.class);
+	}
+
+	public String getShippingMethod() {
+		return getShippingMethodDropdown().getSelectedOption().getText();
+	}
+
+	public String getEstimatedShippingPrice() {
+		return getEstimatedShippingPriceText().getText();
+	}
+
+	public String getOrderSummaryPrice() {
+		return getOrderSummaryPriceText().getText();
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -255,6 +286,11 @@ public class ShoppingCartPage extends AbstractPage {
 	@WebElementLocator(webDesktop = "//h3[contains(.,'%s')]/../../..//select[@title='Grind']")
 	protected Dropdown getGrindForItemDropdown(String itemName) {
 		return new Dropdown(this, String.format(getLocator(this, "getGrindForItemDropdown"), itemName));
+	}
+
+	@WebElementLocator(webDesktop = "select#shipping_method")
+	protected Dropdown getShippingMethodDropdown() {
+		return new Dropdown(this, getLocator(this, "getShippingMethodDropdown"));
 	}
 
 	@WebElementLocator(webDesktop = "//h3[contains(.,'%s')]/../../..//input[@title='Qty']")
@@ -290,6 +326,16 @@ public class ShoppingCartPage extends AbstractPage {
 	@WebElementLocator(webDesktop = "h3.product-name")
 	protected Text getCartItemsText() {
 		return new Text(this, getLocator(this, "getCartItemsText"));
+	}
+
+	@WebElementLocator(webDesktop = "//tr[td[contains(text(),'Estimated Shipping')]]//*[@class='price']")
+	protected Text getEstimatedShippingPriceText() {
+		return new Text(this, getLocator(this, "getEstimatedShippingPriceText"));
+	}
+
+	@WebElementLocator(webDesktop = "strong.total-price")
+	protected Text getOrderSummaryPriceText() {
+		return new Text(this, getLocator(this, "getOrderSummaryPriceText"));
 	}
 
 }
