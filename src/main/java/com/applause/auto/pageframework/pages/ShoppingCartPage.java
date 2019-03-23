@@ -146,7 +146,7 @@ public class ShoppingCartPage extends AbstractPage {
 	public ShoppingCartPage removeItem(String itemName) {
 		LOGGER.info("Removing item: " + itemName);
 		getRemoveItemButton(itemName).click();
-		return PageFactory.create(ShoppingCartPage.class);
+		return this;
 	}
 
 	/**
