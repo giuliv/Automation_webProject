@@ -181,8 +181,8 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return the grind for item
 	 */
 	public ShoppingCartPage setGrindForItem(String itemName, String grind) {
-		LOGGER.info("Change grind value");
-		getGrindForItemDropdown(itemName).click();
+		LOGGER.info("Change grind value" + ">>>>>>" + getDriver().getPageSource());
+		WebHelper.waitForElementToBeClickable(getGrindForItemDropdown(itemName).getWebElement());
 		getGrindForItemDropdown(itemName).select(grind);
 		waitForAddingToCartSpinner();
 		return this;
