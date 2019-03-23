@@ -2,7 +2,9 @@ package com.applause.auto.pageframework.pages;
 
 import java.lang.invoke.MethodHandles;
 import java.util.List;
+import java.util.OptionalInt;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -182,8 +184,11 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return the grind for item
 	 */
 	public ShoppingCartPage setGrindForItem(String itemName, String grind) {
-		LOGGER.info("Change grind value" + ">>>>>>" + getDriver().getPageSource());
-		getGrindForItemDropdown(itemName).selectByValue(grind);
+		LOGGER.info("Change grind value");
+		List<WebElement> options = getGrindForItemDropdown(itemName).getOptions();
+		OptionalInt indexOpt = IntStream.range(0, options.size()).filter(i -> options.get(i).getText().contains(grind))
+				.findFirst();
+		getGrindForItemDropdown(itemName).selectByIndex(indexOpt.getAsInt());
 		waitForAddingToCartSpinner();
 		return this;
 	}
