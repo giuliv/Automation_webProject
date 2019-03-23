@@ -152,6 +152,7 @@ public class ShoppingCartPage extends AbstractPage {
 		} else {
 			getRemoveItemButton(itemName).click();
 		}
+		waitForAddingToCartSpinner();
 		return this;
 	}
 
@@ -177,7 +178,7 @@ public class ShoppingCartPage extends AbstractPage {
 	public ShoppingCartPage setGrindForItem(String itemName, String grind) {
 		LOGGER.info("Change grind value");
 		getGrindForItemDropdown(itemName).select(grind);
-		syncHelper.waitForElementToDisappear(getSpinnerElement().getAbsoluteSelector());
+		waitForAddingToCartSpinner();
 		return this;
 	}
 
