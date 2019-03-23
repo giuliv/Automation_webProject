@@ -4,7 +4,9 @@ import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
@@ -17,7 +19,6 @@ import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementa
 import com.applause.auto.framework.pageframework.webcontrols.BaseHtmlElement;
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Checkbox;
-import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.helpers.WebHelper;
@@ -182,8 +183,7 @@ public class ShoppingCartPage extends AbstractPage {
 	 */
 	public ShoppingCartPage setGrindForItem(String itemName, String grind) {
 		LOGGER.info("Change grind value" + ">>>>>>" + getDriver().getPageSource());
-		WebHelper.waitForElementToBeClickable(getGrindForItemDropdown(itemName).getWebElement());
-		getGrindForItemDropdown(itemName).select("                        " + grind + "                        ");
+		getGrindForItemDropdown(itemName).selectByValue(grind);
 		waitForAddingToCartSpinner();
 		return this;
 	}
@@ -250,8 +250,9 @@ public class ShoppingCartPage extends AbstractPage {
 	}
 
 	@WebElementLocator(webDesktop = "//h3[contains(.,'%s')]/../../..//select[@title='Grind']")
-	protected Dropdown getGrindForItemDropdown(String itemName) {
-		return new Dropdown(this, String.format(getLocator(this, "getGrindForItemDropdown"), itemName));
+	protected Select getGrindForItemDropdown(String itemName) {
+		return new Select(getDriver()
+				.findElement(By.xpath(String.format(getLocator(this, "getGrindForItemDropdown"), itemName))));
 	}
 
 	@WebElementLocator(webDesktop = "//h3[contains(.,'%s')]/../../..//input[@title='Qty']")
