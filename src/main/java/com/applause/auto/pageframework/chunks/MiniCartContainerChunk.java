@@ -113,7 +113,7 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 		return queryHelper.findElementsByExtendedCss(getLocator(this, "getMinicartItems")).stream().map(item -> {
 			String result = item.getText();
 			LOGGER.info("Found item: " + result);
-			return result;
+			return result.trim();
 		}).collect(Collectors.toList());
 	}
 
