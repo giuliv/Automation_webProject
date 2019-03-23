@@ -17,6 +17,7 @@ import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementa
 import com.applause.auto.framework.pageframework.webcontrols.BaseHtmlElement;
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Checkbox;
+import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.helpers.WebHelper;
@@ -181,7 +182,11 @@ public class ShoppingCartPage extends AbstractPage {
 	 */
 	public ShoppingCartPage setGrindForItem(String itemName, String grind) {
 		LOGGER.info("Change grind value");
-		getGrindForItemDropdown(itemName).getWebElement().sendKeys(grind + "\n");
+		if (env.getBrowserType() == BrowserType.SAFARI) {
+			getGrindForItemDropdown(itemName).getWebElement().sendKeys(grind + "\n");
+		} else {
+			getGrindForItemDropdown(itemName).select(grind);
+		}
 		waitForAddingToCartSpinner();
 		return this;
 	}
@@ -193,7 +198,7 @@ public class ShoppingCartPage extends AbstractPage {
 	 */
 	public String getStatusMessage() {
 		syncHelper.waitForElementToAppear(getStatusMessageText());
-		return getStatusMessageText().getText();
+		return getStatusMessageText().getText().replace("  ", " ");
 	}
 
 	/**
@@ -248,8 +253,8 @@ public class ShoppingCartPage extends AbstractPage {
 	}
 
 	@WebElementLocator(webDesktop = "//h3[contains(.,'%s')]/../../..//select[@title='Grind']")
-	protected BaseHtmlElement getGrindForItemDropdown(String itemName) {
-		return new BaseHtmlElement(this, String.format(getLocator(this, "getGrindForItemDropdown"), itemName));
+	protected Dropdown getGrindForItemDropdown(String itemName) {
+		return new Dropdown(this, String.format(getLocator(this, "getGrindForItemDropdown"), itemName));
 	}
 
 	@WebElementLocator(webDesktop = "//h3[contains(.,'%s')]/../../..//input[@title='Qty']")
