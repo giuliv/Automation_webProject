@@ -135,7 +135,12 @@ public class ShoppingCartPage extends AbstractPage {
 	public List<String> getItems() {
 		LOGGER.info("Obtaining items from mini-cart");
 		List<WebElement> result = queryHelper.findElementsByExtendedCss(getLocator(this, "getCartItemsText"));
-		return result.stream().map(item -> item.getText()).collect(Collectors.toList());
+		return result.stream().map(item -> {
+			String _result = item.getText();
+			LOGGER.info("Found item: " + _result);
+			return _result.trim();
+		}).collect(Collectors.toList());
+
 	}
 
 	/**
