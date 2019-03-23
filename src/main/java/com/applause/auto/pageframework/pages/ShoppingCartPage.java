@@ -216,10 +216,7 @@ public class ShoppingCartPage extends AbstractPage {
 	public ShoppingCartPage updateCart() {
 		LOGGER.info("Click Update cart button");
 		getUpdateCartButton().click();
-		syncHelper.waitForElementToAppear(getSpinnerElement().getAbsoluteSelector());
-		syncHelper.suspend(2000);
-		syncHelper.waitForElementToDisappear(getSpinnerElement().getAbsoluteSelector());
-		syncHelper.suspend(2000);
+		waitForAddingToCartSpinner();
 		return PageFactory.create(ShoppingCartPage.class);
 	}
 
@@ -237,9 +234,9 @@ public class ShoppingCartPage extends AbstractPage {
 		return new Text(this, getLocator(this, "getUpdateCartButton"));
 	}
 
-	@WebElementLocator(webDesktop = ".please-wait-review")
-	protected BaseHtmlElement getSpinnerElement() {
-		return new BaseHtmlElement(this, getLocator(this, "getSpinnerElement"));
+	@WebElementLocator(webDesktop = "#shopping-cart-please-wait")
+	protected BaseHtmlElement getAddingToCartSpinner() {
+		return new BaseHtmlElement(this, getLocator(this, "getAddingToCartSpinner"));
 	}
 
 	@WebElementLocator(webDesktop = "#shopping-cart-messages")
