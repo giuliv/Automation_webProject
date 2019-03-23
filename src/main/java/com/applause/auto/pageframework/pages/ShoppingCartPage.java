@@ -188,8 +188,8 @@ public class ShoppingCartPage extends AbstractPage {
 		List<WebElement> options = getGrindForItemDropdown(itemName).getOptions();
 		OptionalInt indexOpt = IntStream.range(0, options.size()).filter(i -> options.get(i).getText().contains(grind))
 				.findFirst();
-		LOGGER.debug("Old value: " + getGrindForItemDropdown(itemName).getAllSelectedOptions().get(0));
-		LOGGER.debug("Switching to: " + options.get(indexOpt.getAsInt()));
+		LOGGER.debug("Old value: " + getGrindForItemDropdown(itemName).getAllSelectedOptions().get(0).getText());
+		LOGGER.debug("Switching to: " + options.get(indexOpt.getAsInt()).getText());
 		getGrindForItemDropdown(itemName).selectByIndex(indexOpt.getAsInt());
 		waitForAddingToCartSpinner();
 		return this;
