@@ -237,14 +237,12 @@ public class ShoppingCartPage extends AbstractPage {
 	 */
 	public ShoppingCartPage selectShippingMethod(String method) {
 		LOGGER.info("Select shipping method: " + method);
-		env.setRawCssOnly(false);
 		if (env.getBrowserType() == BrowserType.SAFARI) {
 			getShippingMethodDropdown().getWebElement().sendKeys(method + "\n");
 		} else {
 			getShippingMethodDropdown().select(method);
 		}
 		waitForAddingToCartSpinner();
-		env.setRawCssOnly(true);
 		syncHelper.suspend(5000);
 		return PageFactory.create(ShoppingCartPage.class);
 	}
