@@ -97,7 +97,8 @@ public class ShoppingCartTest extends BaseTest {
 		String oldSelectedMethod = shoppingCartPage.getShippingMethod();
 		String oldEstimatedPrice = shoppingCartPage.getEstimatedShippingPrice();
 		String oldOrderTotal = shoppingCartPage.getOrderSummaryPrice();
-		shoppingCartPage.selectShippingMethod(TestData.SHIPPING_METHOD_AIR_2ND_DAY);
+		shoppingCartPage.selectShippingMethod("2nd Day Air");
+		// shoppingCartPage.selectShippingMethod(TestData.SHIPPING_METHOD_AIR_2ND_DAY);
 		String newSelectedMethod = shoppingCartPage.getShippingMethod();
 		String newEstimatedPrice = shoppingCartPage.getEstimatedShippingPrice();
 		String newOrderTotal = shoppingCartPage.getOrderSummaryPrice();
