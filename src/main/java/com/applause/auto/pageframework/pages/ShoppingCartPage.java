@@ -290,7 +290,7 @@ public class ShoppingCartPage extends AbstractPage {
 		return new Dropdown(this, String.format(getLocator(this, "getGrindForItemDropdown"), itemName));
 	}
 
-	@WebElementLocator(webDesktop = "select#shipping_method")
+	@WebElementLocator(webDesktop = "//select[@id='shipping_method']")
 	protected Dropdown getShippingMethodDropdown() {
 		return new Dropdown(this, getLocator(this, "getShippingMethodDropdown"));
 	}
