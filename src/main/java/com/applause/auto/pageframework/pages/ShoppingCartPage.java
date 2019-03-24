@@ -238,6 +238,7 @@ public class ShoppingCartPage extends AbstractPage {
 	public ShoppingCartPage selectShippingMethod(String method) {
 		LOGGER.info("Select shipping method: " + method);
 		if (env.getBrowserType() == BrowserType.SAFARI) {
+			getShippingMethodDropdown().click();
 			getShippingMethodDropdown().getWebElement().sendKeys(method + "\n");
 		} else {
 			getShippingMethodDropdown().select(method);
