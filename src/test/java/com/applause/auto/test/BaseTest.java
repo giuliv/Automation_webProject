@@ -63,7 +63,7 @@ public class BaseTest {
 
 		// Maximize the browser for desktop platforms
 		if (!env.getIsMobileWebTest()) {
-			// driver.manage().window().maximize();
+			driver.manage().window().maximize();
 		}
 		if (env.isPhone()) {
 			LOGGER.info("Mobile web test settings");
