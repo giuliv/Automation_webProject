@@ -5,6 +5,7 @@ import java.lang.invoke.MethodHandles;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
 import com.applause.auto.framework.pageframework.web.ChunkFactory;
+import com.applause.auto.framework.pageframework.web.PageFactory;
 import com.applause.auto.framework.pageframework.web.WebElementLocator;
 import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
 import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
@@ -50,6 +51,7 @@ public class CoffeeProductPage extends AbstractPage {
 	 */
 	public MiniCartContainerChunk clickAddToCart() {
 		LOGGER.info("Tap on Shop Coffee Button");
+		WebHelper.waitForElementToBeClickable(getAddToCartButton().getWebElement());
 		getAddToCartButton().click();
 		waitForAddingToCartSpinner();
 		return ChunkFactory.create(MiniCartContainerChunk.class, this, "");
@@ -63,6 +65,21 @@ public class CoffeeProductPage extends AbstractPage {
 		LOGGER.info("Adding item to Shopping Cart...");
 		syncHelper.waitForElementToAppear(getLocator(this, "getAddingToCartSpinner"));
 		syncHelper.waitForElementToDisappear(getLocator(this, "getAddingToCartSpinner"));
+	}
+
+	/**
+	 * Navigate back t.
+	 *
+	 * @param <T>
+	 *            the type parameter
+	 * @param clazz
+	 *            the clazz
+	 * @return the t
+	 */
+	public <T extends AbstractPage> T navigateBack(Class<T> clazz) {
+		LOGGER.info("Navigate back");
+		getDriver().navigate().back();
+		return PageFactory.create(clazz);
 	}
 
 	/*
@@ -88,5 +105,4 @@ public class CoffeeProductPage extends AbstractPage {
 	protected Dropdown getSelectGrindDropdown() {
 		return new Dropdown(this, getLocator(this, "getSelectGrindDropdown"));
 	}
-
 }

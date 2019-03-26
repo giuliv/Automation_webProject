@@ -10,6 +10,8 @@ public class TestConstants {
 		public static final String DEBUG = "debug";
 		public static final String LOGIN = "login";
 		public static final String GUEST_CHECKOUT = "guest-checkout";
+		public static final String MINI_CART = "mini-cart";
+		public static final String CART = "shopping-cart";
 		public static final String MY_ACCOUNT = "my-account";
 		public static final String EXISTING_USER_CHECKOUT = "existing-user-checkout";
 	}
@@ -31,17 +33,20 @@ public class TestConstants {
 
 		public static final String COFFEE_BRAND_NAME = "House Blend";
 		public static final String GRIND = "Commercial Brewer";
+		public static final String GRIND_2 = "Drip";
 
 		public static final String TEA_NAME = "Chamomile Citrus Loose Leaf";
 
 		public static final String EQUIPMENT_NAME = "Origin Mug with Bamboo";
 
 		public static final String COFFEE_KCUP_NAME = "Colombia Luminosa";
+		public static final String COFFEE_ARABIAN_MOCHA_JAVA_NAME = "Arabian Mocha-Java";
 		public static final String COFFEE_KCUP_COUNT = "16 count";
 
 		public static final String GIFT_MESSAGE = "This is a test message for the gift-message field";
 
 		public static final String SHIPPING_METHOD_GROUND = "Ground";
+		public static final String SHIPPING_METHOD_AIR_2ND_DAY = "2nd Day Air - Cont. U.S. (2-3 business days)";
 
 		public static final String FIRST_NAME = "Applause";
 		public static final String LAST_NAME = "QA Test";
