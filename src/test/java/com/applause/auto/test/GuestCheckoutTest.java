@@ -3,8 +3,6 @@ package com.applause.auto.test;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.applause.auto.pageframework.chunks.DashboardModalChunk;
-import com.applause.auto.pageframework.chunks.MainMenuChunk;
 import com.applause.auto.pageframework.chunks.MiniCartContainerChunk;
 import com.applause.auto.pageframework.chunks.VerifyYourAddressDetailsChunk;
 import com.applause.auto.pageframework.pages.CheckoutConfirmationPage;
@@ -15,7 +13,6 @@ import com.applause.auto.pageframework.pages.CheckoutShippingInfoPage;
 import com.applause.auto.pageframework.pages.CoffeeKCupsProductPage;
 import com.applause.auto.pageframework.pages.CoffeeProductDescriptionPage;
 import com.applause.auto.pageframework.pages.CoffeeProductPage;
-import com.applause.auto.pageframework.pages.DashboardPage;
 import com.applause.auto.pageframework.pages.EquipmentProductPage;
 import com.applause.auto.pageframework.pages.LandingPage;
 import com.applause.auto.pageframework.pages.PaypalLoginPage;
@@ -179,13 +176,13 @@ public class GuestCheckoutTest extends BaseTest {
 		SignUpPage signUpPage = signInPage.clickonCreateAccountButton();
 
 		LOGGER.info("5. Fill out form to create an account");
-		DashboardModalChunk dashboardModal = signUpPage.submitSignUpInfo();
+		CheckoutShippingInfoPage shippingInfoPage = signUpPage.submitSignUpInfo();
 
 		LOGGER.info("6. Go back to mini-cart and select Checkout");
-		DashboardPage dashboardPage = dashboardModal.clickCloseModal();
-		MainMenuChunk mainMenu = dashboardPage.getMainMenu();
-		miniCartContainer = mainMenu.clickMiniCart();
-		CheckoutShippingInfoPage shippingInfoPage = miniCartContainer.clickSignedInCheckout();
+		// DashboardPage dashboardPage = dashboardModal.clickCloseModal();
+		// MainMenuChunk mainMenu = dashboardPage.getMainMenu();
+		// miniCartContainer = mainMenu.clickMiniCart();
+		// CheckoutShippingInfoPage shippingInfoPage = miniCartContainer.clickSignedInCheckout();
 
 		LOGGER.info("7. Complete Contact Information");
 		VerifyYourAddressDetailsChunk verifyAddressChunk = shippingInfoPage.continueAfterFillingRequiredContactInfo();
