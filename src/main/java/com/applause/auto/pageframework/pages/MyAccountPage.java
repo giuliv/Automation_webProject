@@ -432,7 +432,7 @@ public class MyAccountPage extends AbstractPage {
 		return new Link(this, getLocator(this, "getShippingAddressEditLink"));
 	}
 
-	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(6) > a")
+	@WebElementLocator(webDesktop = "[title='Peets Cards']")
 	protected Button getPeetsCardButton() {
 		return new Button(this, getLocator(this, "getPeetsCardButton"));
 	}
@@ -442,7 +442,7 @@ public class MyAccountPage extends AbstractPage {
 		return new Button(this, getLocator(this, "getMyOrdersButton"));
 	}
 
-	@WebElementLocator(webDesktop = "div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(7) > a")
+	@WebElementLocator(webDesktop = "[title='Settings']")
 	protected Button getSettingButton() {
 		return new Button(this, getLocator(this, "getSettingButton"));
 	}
