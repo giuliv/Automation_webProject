@@ -437,7 +437,7 @@ public class MyAccountPage extends AbstractPage {
 		return new Button(this, getLocator(this, "getPeetsCardButton"));
 	}
 
-	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(4) > a")
+	@WebElementLocator(webDesktop = "[title='Order History']")
 	protected Button getMyOrdersButton() {
 		return new Button(this, getLocator(this, "getMyOrdersButton"));
 	}
