@@ -332,7 +332,7 @@ public class MyAccountPage extends AbstractPage {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
-	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(5) > a")
+	@WebElementLocator(webDesktop = "[title='Payment']")
 	protected Button getPaymentButton() {
 		return new Button(this, getLocator(this, "getPaymentButton"));
 	}
