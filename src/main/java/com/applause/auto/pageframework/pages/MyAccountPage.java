@@ -432,7 +432,7 @@ public class MyAccountPage extends AbstractPage {
 		return new Link(this, getLocator(this, "getShippingAddressEditLink"));
 	}
 
-	@WebElementLocator(webDesktop = ".sidebar [title=\"Peet's Cards\"]")
+	@WebElementLocator(webDesktop = ".sidebar [title='Peet\\'s Cards']")
 	protected Button getPeetsCardButton() {
 		return new Button(this, getLocator(this, "getPeetsCardButton"));
 	}
