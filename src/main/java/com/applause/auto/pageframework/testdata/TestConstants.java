@@ -7,6 +7,7 @@ public class TestConstants {
 	 */
 	public static final class TestNGGroups {
 
+		// Web
 		public static final String DEBUG = "debug";
 		public static final String LOGIN = "login";
 		public static final String GUEST_CHECKOUT = "guest-checkout";
@@ -14,6 +15,9 @@ public class TestConstants {
 		public static final String CART = "shopping-cart";
 		public static final String MY_ACCOUNT = "my-account";
 		public static final String EXISTING_USER_CHECKOUT = "existing-user-checkout";
+
+		// Mobile
+		public static final String ONBOARDING = "onboarding";
 	}
 
 	/**
