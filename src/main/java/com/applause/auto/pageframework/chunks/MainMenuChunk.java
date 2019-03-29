@@ -187,4 +187,17 @@ public class MainMenuChunk extends AbstractPageChunk {
 		return new Button(this, getLocator(this, "getHeaderMinicart"));
 	}
 
+	@WebElementLocator(webDesktop = "span.count")
+	protected Button getCartItemsText() {
+		return new Button(this, getLocator(this, "getCartItemsText"));
+	}
+
+	public String getCartItemsCount() {
+		LOGGER.info("Reading GrtCArtItemsCount");
+		if (!queryHelper.doesElementExist(getCartItemsText().getAbsoluteSelector())) {
+			return "0";
+		} else {
+			return getCartItemsText().getText();
+		}
+	}
 }
