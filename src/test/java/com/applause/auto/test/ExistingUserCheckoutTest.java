@@ -3,6 +3,8 @@ package com.applause.auto.test;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import com.applause.auto.framework.pageframework.util.TestHelper;
+import com.applause.auto.pageframework.chunks.DatePickerChunk;
 import com.applause.auto.pageframework.chunks.MainMenuChunk;
 import com.applause.auto.pageframework.chunks.MiniCartContainerChunk;
 import com.applause.auto.pageframework.pages.CheckoutConfirmationPage;
@@ -30,7 +32,7 @@ import com.applause.auto.pageframework.testdata.TestConstants.TestNGGroups;
 
 public class ExistingUserCheckoutTest extends BaseTest {
 
-	@Test(groups = {TestNGGroups.EXISTING_USER_CHECKOUT}, description = "133888")
+	@Test(groups = { TestNGGroups.EXISTING_USER_CHECKOUT }, description = "133888")
 	public void userCheckoutCoffeeTest() {
 
 		LOGGER.info("1. Navigate to landing page");
@@ -68,7 +70,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
 	}
 
-	@Test(groups = {TestNGGroups.EXISTING_USER_CHECKOUT}, description = "133889")
+	@Test(groups = { TestNGGroups.EXISTING_USER_CHECKOUT }, description = "133889")
 	public void userCheckoutTeaTest() {
 
 		LOGGER.info("1. Navigate to landing page");
@@ -115,7 +117,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
 	}
 
-	@Test(groups = {TestNGGroups.EXISTING_USER_CHECKOUT}, description = "133890")
+	@Test(groups = { TestNGGroups.EXISTING_USER_CHECKOUT }, description = "133890")
 	public void userCheckoutEquipmentTest() {
 
 		LOGGER.info("1. Navigate to landing page");
@@ -152,7 +154,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
 	}
 
-	@Test(groups = {TestNGGroups.EXISTING_USER_CHECKOUT}, description = "133892")
+	@Test(groups = { TestNGGroups.EXISTING_USER_CHECKOUT }, description = "133892")
 	public void userCheckoutPeetsCardTest() {
 
 		LOGGER.info("1. Navigate to landing page");
@@ -188,7 +190,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
 	}
 
-	@Test(groups = {TestNGGroups.EXISTING_USER_CHECKOUT}, description = "133893")
+	@Test(groups = { TestNGGroups.EXISTING_USER_CHECKOUT }, description = "133893")
 	public void userCheckoutPaypalKCupTest() {
 
 		LOGGER.info("1. Navigate to landing page");
@@ -318,5 +320,68 @@ public class ExistingUserCheckoutTest extends BaseTest {
 				"Order was not placed");
 
 		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
+	}
+
+	@Test(groups = { TestNGGroups.EXISTING_USER_CHECKOUT }, description = "613495")
+	public void userCheckoutEditShippingInformationTest() {
+
+		LOGGER.info("1. Navigate to landing page");
+		LandingPage landingPage = navigateToLandingPage();
+		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+
+		LOGGER.info("2. Log in to UAT");
+		SignInPage signInPage = landingPage.clickSignInButton();
+		MyAccountPage myAccountPage = signInPage.mainUserLogin();
+		Assert.assertTrue(myAccountPage.getWelcomeMessage().contains("Applause"),
+				"User is not signed in or welcome name is wrong");
+
+		LOGGER.info("3. Navigate to Kona Coffee page");
+		MainMenuChunk mainMenu = myAccountPage.getMainMenu();
+		landingPage = mainMenu.clickHeaderLogo();
+		SearchResultsPage searchResultsPage = landingPage.searchForProduct(TestData.TOUR_SEARCH_TERMS);
+
+		LOGGER.info("4. Select Product and Add to Cart");
+		CoffeeProductDescriptionPage coffeeProductDescriptionPage = searchResultsPage.clickFirstProduct();
+		coffeeProductDescriptionPage.selectGrind(TestData.GRIND);
+		MiniCartContainerChunk miniCartContainer = coffeeProductDescriptionPage.addToCart();
+
+		LOGGER.info("5. Select 'Proceed to Checkout'");
+		CheckoutShippingInfoPage shippingInfoPage = miniCartContainer.clickSignedInCheckout();
+
+		LOGGER.info("6. Under Shipping Address on Checkout page, select 'Add New Address'");
+		shippingInfoPage.addNewAddress();
+
+		LOGGER.info("7. Complete information to add new address. Click Continue");
+		String uniqPrefix1 = "" + TestHelper.getCurrentGMT6Time();
+		shippingInfoPage.fillUniqueShippingInfo(uniqPrefix1);
+		shippingInfoPage.continueAddNewAddress();
+
+		LOGGER.info("New address is added and selected on Checkout page");
+		Assert.assertTrue(shippingInfoPage.getAddresses().stream().anyMatch(address -> address.contains(uniqPrefix1)),
+				"New address not found");
+
+		LOGGER.info("Select 'edit' next to newly added address");
+		shippingInfoPage.editAddress(uniqPrefix1);
+
+		LOGGER.info("Modify shipping address. Click Update");
+		String delta = "" + TestHelper.getCurrentGMT6Time();
+		shippingInfoPage.modifyShippingInfoByDelta(delta);
+		shippingInfoPage = shippingInfoPage.updateAfterShippingInfoModification();
+
+		LOGGER.info("Address is updated and selected on Checkout page");
+		Assert.assertTrue(shippingInfoPage.getAddresses().stream().anyMatch(address -> address.contains(delta)),
+				"New address not found");
+
+		LOGGER.info("Select 'edit' next to shipping date");
+		String oldDate = shippingInfoPage.getShippingDate();
+		DatePickerChunk datePicker = shippingInfoPage.editShippingDate();
+
+		LOGGER.info("Select a new date");
+		datePicker.selectDate(CheckoutShippingInfoPage.class, 3);
+
+		LOGGER.info("Shipping date is updated on Checkout page");
+		String newDate = shippingInfoPage.getShippingDate();
+		Assert.assertNotEquals(newDate, oldDate, "Shipping Date field does not updated");
+
 	}
 }
