@@ -337,11 +337,19 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
 		LOGGER.info("3. Select a coffee from grid view and add to cart");
 		MainMenuChunk mainMenu = myAccountPage.getMainMenu();
-		landingPage = mainMenu.clickHeaderLogo();
-		ShopCoffeePage shopCoffeePage = landingPage.clickShopCoffeeButton();
-		CoffeeProductPage coffeeProductPage = shopCoffeePage.clickProductName(TestConstants.TestData.COFFEE_BRAND_NAME);
-		coffeeProductPage.selectAGrind(TestConstants.TestData.GRIND);
-		MiniCartContainerChunk miniCartContainer = coffeeProductPage.clickAddToCart();
+		MiniCartContainerChunk miniCartContainer;
+		if (mainMenu.getCartItemsCount() == "0") {
+			landingPage = mainMenu.clickHeaderLogo();
+
+			ShopCoffeePage shopCoffeePage = landingPage.clickShopCoffeeButton();
+			CoffeeProductPage coffeeProductPage = shopCoffeePage
+					.clickProductName(TestConstants.TestData.COFFEE_BRAND_NAME);
+			coffeeProductPage.selectAGrind(TestConstants.TestData.GRIND);
+			miniCartContainer = coffeeProductPage.clickAddToCart();
+		} else {
+			LOGGER.info("Cart already contain items");
+			miniCartContainer = mainMenu.clickMiniCart();
+		}
 
 		LOGGER.info("5. Select 'Proceed to Checkout'");
 		CheckoutShippingInfoPage shippingInfoPage = miniCartContainer.clickSignedInCheckout();
