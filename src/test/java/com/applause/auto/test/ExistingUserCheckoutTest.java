@@ -335,15 +335,13 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		Assert.assertTrue(myAccountPage.getWelcomeMessage().contains("Applause"),
 				"User is not signed in or welcome name is wrong");
 
-		LOGGER.info("3. Navigate to Kona Coffee page");
+		LOGGER.info("3. Select a coffee from grid view and add to cart");
 		MainMenuChunk mainMenu = myAccountPage.getMainMenu();
 		landingPage = mainMenu.clickHeaderLogo();
-		SearchResultsPage searchResultsPage = landingPage.searchForProduct(TestData.TOUR_SEARCH_TERMS);
-
-		LOGGER.info("4. Select Product and Add to Cart");
-		CoffeeProductDescriptionPage coffeeProductDescriptionPage = searchResultsPage.clickFirstProduct();
-		coffeeProductDescriptionPage.selectGrind(TestData.GRIND);
-		MiniCartContainerChunk miniCartContainer = coffeeProductDescriptionPage.addToCart();
+		ShopCoffeePage shopCoffeePage = landingPage.clickShopCoffeeButton();
+		CoffeeProductPage coffeeProductPage = shopCoffeePage.clickProductName(TestConstants.TestData.COFFEE_BRAND_NAME);
+		coffeeProductPage.selectAGrind(TestConstants.TestData.GRIND);
+		MiniCartContainerChunk miniCartContainer = coffeeProductPage.clickAddToCart();
 
 		LOGGER.info("5. Select 'Proceed to Checkout'");
 		CheckoutShippingInfoPage shippingInfoPage = miniCartContainer.clickSignedInCheckout();
