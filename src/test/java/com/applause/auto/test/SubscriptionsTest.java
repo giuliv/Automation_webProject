@@ -1,5 +1,7 @@
 package com.applause.auto.test;
 
+import java.util.List;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -37,11 +39,11 @@ public class SubscriptionsTest extends BaseTest {
 
 		LOGGER.info("3. Select a coffee from grid view and add to cart");
 		MainMenuChunk mainMenu = myAccountPage.getMainMenu();
-		while (!mainMenu.getCartItemsCount().equals("0")) {
+		if (!mainMenu.getCartItemsCount().equals("0")) {
 			LOGGER.info("Cleanup cart");
 			MiniCartContainerChunk miniCart = mainMenu.clickMiniCart();
-			String itemName = miniCart.getItems().get(0);
-			miniCart.remove(itemName);
+			List<String> items = miniCart.getItems();
+			items.stream().forEach(item -> miniCart.remove(item));
 			mainMenu.closeMiniCart(LandingPage.class);
 		}
 		landingPage = mainMenu.clickHeaderLogo();
