@@ -2,6 +2,7 @@ package com.applause.auto.test;
 
 import java.util.List;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -43,7 +44,13 @@ public class SubscriptionsTest extends BaseTest {
 			LOGGER.info("Cleanup cart");
 			MiniCartContainerChunk miniCart = mainMenu.clickMiniCart();
 			List<String> items = miniCart.getItems();
-			items.stream().forEach(item -> miniCart.remove(item));
+			items.stream().forEach(item -> {
+				try {
+					miniCart.remove(item);
+				} catch (NoSuchElementException nse) {
+					LOGGER.warn("Unable to remove: " + item);
+				}
+			});
 			mainMenu.closeMiniCart(LandingPage.class);
 		}
 		landingPage = mainMenu.clickHeaderLogo();
