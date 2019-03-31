@@ -1,8 +1,5 @@
 package com.applause.auto.test;
 
-import java.util.List;
-
-import org.openqa.selenium.NoSuchElementException;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -40,20 +37,6 @@ public class SubscriptionsTest extends BaseTest {
 
 		LOGGER.info("3. Select a coffee from grid view and add to cart");
 		MainMenuChunk mainMenu = myAccountPage.getMainMenu();
-		while (!mainMenu.getCartItemsCount().equals("0")) {
-			LOGGER.info("Cleanup cart");
-			MiniCartContainerChunk miniCart = mainMenu.clickMiniCart();
-			List<String> items = miniCart.getItems();
-			items.stream().forEach(item -> {
-				try {
-					miniCart.remove(item);
-				} catch (NoSuchElementException nse) {
-					LOGGER.warn("Unable to remove: " + item);
-				}
-			});
-			landingPage = mainMenu.clickHeaderLogo();
-			syncHelper.suspend(10000);
-		}
 		landingPage = mainMenu.clickHeaderLogo();
 		ShopCoffeePage shopCoffeePage = landingPage.clickShopCoffeeButton();
 		CoffeeProductPage coffeeProductPage = shopCoffeePage.clickProductName(TestData.COFFEE_BRAND_NAME);
