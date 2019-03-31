@@ -58,7 +58,7 @@ public class CheckoutConfirmationPage extends AbstractPage {
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = ".default-page-text strong")
+	@WebElementLocator(webDesktop = ".default-page-text strong,.default-page-text .disc > li > a[href*='recurring_profile/view/profile']")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
