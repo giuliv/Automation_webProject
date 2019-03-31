@@ -52,6 +52,7 @@ public class SubscriptionsTest extends BaseTest {
 				}
 			});
 			landingPage = mainMenu.clickHeaderLogo();
+			syncHelper.suspend(10000);
 		}
 		landingPage = mainMenu.clickHeaderLogo();
 		ShopCoffeePage shopCoffeePage = landingPage.clickShopCoffeeButton();
