@@ -7,6 +7,7 @@ import org.openqa.selenium.interactions.Actions;
 
 import com.applause.auto.framework.pageframework.UIData;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
+import com.applause.auto.framework.pageframework.web.AbstractPage;
 import com.applause.auto.framework.pageframework.web.AbstractPageChunk;
 import com.applause.auto.framework.pageframework.web.ChunkFactory;
 import com.applause.auto.framework.pageframework.web.PageFactory;
@@ -146,6 +147,21 @@ public class MainMenuChunk extends AbstractPageChunk {
 		LOGGER.info("Click mini-cart icon");
 		getHeaderMinicart().click();
 		return ChunkFactory.create(MiniCartContainerChunk.class, this, "");
+	}
+
+	/**
+	 * Close mini cart t.
+	 *
+	 * @param <T>
+	 *            the type parameter
+	 * @param clazz
+	 *            the clazz
+	 * @return the t
+	 */
+	public <T extends AbstractPage> T closeMiniCart(Class<T> clazz) {
+		LOGGER.info("Click mini-cart icon");
+		getHeaderMinicart().click();
+		return PageFactory.create(clazz);
 	}
 
 	/*
