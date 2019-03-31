@@ -51,8 +51,7 @@ public class SubscriptionsTest extends BaseTest {
 					LOGGER.warn("Unable to remove: " + item);
 				}
 			});
-			mainMenu.closeMiniCart(MyAccountPage.class);
-			mainMenu.clickHeaderLogo();
+			mainMenu.closeMiniCart(LandingPage.class);
 		}
 		landingPage = mainMenu.clickHeaderLogo();
 		ShopCoffeePage shopCoffeePage = landingPage.clickShopCoffeeButton();
