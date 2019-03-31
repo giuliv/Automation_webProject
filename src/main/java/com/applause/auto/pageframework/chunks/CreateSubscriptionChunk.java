@@ -3,6 +3,7 @@ package com.applause.auto.pageframework.chunks;
 import java.lang.invoke.MethodHandles;
 
 import com.applause.auto.framework.pageframework.UIData;
+import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPageChunk;
 import com.applause.auto.framework.pageframework.web.ChunkFactory;
@@ -49,6 +50,44 @@ public class CreateSubscriptionChunk extends AbstractPageChunk {
 	 * Public actions
 	 */
 
+	/**
+	 * Sets new subscription name.
+	 *
+	 * @param subscriptionName
+	 *            the subscription name
+	 */
+	public void setNewSubscriptionName(String subscriptionName) {
+		LOGGER.info("Set subscription name: " + subscriptionName);
+		getNewSubscriptionNameEditField().setText(subscriptionName);
+	}
+
+	/**
+	 * Select frequency.
+	 *
+	 * @param frequency
+	 *            the frequency
+	 */
+	public void selectFrequency(TestConstants.SubscriptionTerm frequency) {
+		LOGGER.info("Set frequency: " + frequency);
+		if (env.getBrowserType() == BrowserType.SAFARI) {
+			WebHelper webHelper = new WebHelper();
+			webHelper.jsSelect(getNewSubscriptionFrequencyDropdown().getWebElement(), frequency.miniCartSpell);
+		} else {
+			getNewSubscriptionFrequencyDropdown().select(frequency.miniCartSpell);
+		}
+	}
+
+	/**
+	 * Create subscription mini cart container chunk.
+	 *
+	 * @return the mini cart container chunk
+	 */
+	public MiniCartContainerChunk createSubscription() {
+		LOGGER.info("Create subscription");
+		getNewSubscriptionCreateButton().click();
+		return ChunkFactory.create(MiniCartContainerChunk.class, this, "");
+	}
+
 	@WebElementLocator(webDesktop = "#subscription_name")
 	protected EditField getNewSubscriptionNameEditField() {
 		return new EditField(this, getLocator(this, "getNewSubscriptionNameEditField"));
@@ -69,19 +108,4 @@ public class CreateSubscriptionChunk extends AbstractPageChunk {
 		return new Dropdown(this, getLocator(this, "getNewSubscriptionFrequencyDropdown"));
 	}
 
-	public void setNewSubscriptionName(String subscriptionName) {
-		LOGGER.info("Set subscription name: " + subscriptionName);
-		getNewSubscriptionNameEditField().setText(subscriptionName);
-	}
-
-	public void selectFrequency(TestConstants.SubscriptionTerm frequency) {
-		LOGGER.info("Set frequency: " + frequency);
-		getNewSubscriptionFrequencyDropdown().select(frequency.miniCartSpell);
-	}
-
-	public MiniCartContainerChunk createSubscription() {
-		LOGGER.info("Create subscription");
-		getNewSubscriptionCreateButton().click();
-		return ChunkFactory.create(MiniCartContainerChunk.class, this, "");
-	}
 }
