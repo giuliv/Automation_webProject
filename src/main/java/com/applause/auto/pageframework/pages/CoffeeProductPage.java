@@ -14,6 +14,7 @@ import com.applause.auto.framework.pageframework.webcontrols.BaseHtmlElement;
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageframework.chunks.CreateSubscriptionChunk;
 import com.applause.auto.pageframework.chunks.MiniCartContainerChunk;
 import com.applause.auto.pageframework.helpers.WebHelper;
 
@@ -57,6 +58,14 @@ public class CoffeeProductPage extends AbstractPage {
 		return ChunkFactory.create(MiniCartContainerChunk.class, this, "");
 	}
 
+	public CreateSubscriptionChunk clickAddToSubscription() {
+		LOGGER.info("Tap on Add To Subscription Button");
+		WebHelper.waitForElementToBeClickable(getAddToSubscriptionCart().getWebElement());
+		getAddToSubscriptionCart().click();
+		waitForAddingToCartSpinner();
+		return ChunkFactory.create(CreateSubscriptionChunk.class, this, "");
+	}
+
 	/**
 	 * Click Add to Cart Button
 	 * 
@@ -82,6 +91,12 @@ public class CoffeeProductPage extends AbstractPage {
 		return PageFactory.create(clazz);
 	}
 
+	public void selectSubscription() {
+		LOGGER.info("Click on subscription");
+		getSubscriptionButton().click();
+
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -92,8 +107,18 @@ public class CoffeeProductPage extends AbstractPage {
 	}
 
 	@WebElementLocator(webDesktop = ".product-shop-holder .add-to-cart button")
+	protected Button getAddToSubscriptionCart() {
+		return new Button(this, getLocator(this, "getAddToSubscriptionCart"));
+	}
+
+	@WebElementLocator(webDesktop = ".product-shop-holder .add-to-cart button")
 	protected Button getAddToCartButton() {
 		return new Button(this, getLocator(this, "getAddToCartButton"));
+	}
+
+	@WebElementLocator(webDesktop = "label[for='option-subscription']")
+	protected Button getSubscriptionButton() {
+		return new Button(this, getLocator(this, "getSubscriptionButton"));
 	}
 
 	@WebElementLocator(webDesktop = "#shopping-cart-please-wait")
