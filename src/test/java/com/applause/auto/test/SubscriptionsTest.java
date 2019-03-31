@@ -40,7 +40,7 @@ public class SubscriptionsTest extends BaseTest {
 
 		LOGGER.info("3. Select a coffee from grid view and add to cart");
 		MainMenuChunk mainMenu = myAccountPage.getMainMenu();
-		if (!mainMenu.getCartItemsCount().equals("0")) {
+		while (!mainMenu.getCartItemsCount().equals("0")) {
 			LOGGER.info("Cleanup cart");
 			MiniCartContainerChunk miniCart = mainMenu.clickMiniCart();
 			List<String> items = miniCart.getItems();
@@ -52,6 +52,7 @@ public class SubscriptionsTest extends BaseTest {
 				}
 			});
 			mainMenu.closeMiniCart(MyAccountPage.class);
+			mainMenu.clickHeaderLogo();
 		}
 		landingPage = mainMenu.clickHeaderLogo();
 		ShopCoffeePage shopCoffeePage = landingPage.clickShopCoffeeButton();
