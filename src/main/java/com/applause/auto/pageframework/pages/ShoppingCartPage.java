@@ -261,7 +261,7 @@ public class ShoppingCartPage extends AbstractPage {
 	}
 
 	public String getSubscriptionName() {
-		return getSubscriptionNameText().getText();
+		return getSubscriptionNameText().getText().trim();
 	}
 
 	public String getSubscriptionFrequency() {
