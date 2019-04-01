@@ -49,17 +49,17 @@ public class OrderAheadView extends AbstractDeviceView {
 	 * Protected Getters
 	 */
 
-	@MobileElementLocator(android = "new UiSelector().textContains(\"Order Ahead\")", iOS = "TODO")
+	@MobileElementLocator(android = "new UiSelector().textContains(\"Order Ahead\")", iOS = "Order Ahead.")
 	protected Text getHeadingText() {
 		return new Text(getLocator(this, "getHeadingText"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/getStartedButton", iOS = "TODO")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/getStartedButton", iOS = "Get Started")
 	protected Button getGetStartedButton() {
 		return new Button(getLocator(this, "getGetStartedButton"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/skipTextView", iOS = "TODO")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/skipTextView", iOS = "//XCUIElementTypeOther[1]/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther")
 	protected Button getSkipButton() {
 		return new Button(getLocator(this, "getSkipButton"));
 	}

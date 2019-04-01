@@ -10,13 +10,11 @@
   "hubUrl" : "https://us1.appium.testobject.com/wd/hub",
   "caps" :{
     "usePrebuiltWDA" : "false",
-    "testobject_appium_version": "1.12.0",
     "automationName" : "XCUITest",
     "platformName" : "iOS",
     "phoneOnly" : "true",
     "privateDevicesOnly":"false",
     "platformVersion":"12",
-    "wdaEventloopIdleDelay":"5",
     "deviceName" : "iPhone [78].*"
   }
 }
