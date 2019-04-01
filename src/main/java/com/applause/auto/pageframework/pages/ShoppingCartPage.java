@@ -96,7 +96,7 @@ public class ShoppingCartPage extends AbstractPage {
 		LOGGER.info("Click Proceed to Checkout button");
 		getProceedToCheckoutButton().click();
 		syncHelper.suspend(2000);
-		webHelper.jsClick(getProceedToCheckoutButton().getWebElement());
+		// webHelper.jsClick(getProceedToCheckoutButton().getWebElement());
 		return PageFactory.create(CheckoutShippingInfoPage.class);
 	}
 
@@ -260,6 +260,22 @@ public class ShoppingCartPage extends AbstractPage {
 		return getOrderSummaryPriceText().getText();
 	}
 
+	public String getSubscriptionName() {
+		return getSubscriptionNameText().getText();
+	}
+
+	public String getSubscriptionFrequency() {
+		return getSubscriptionFrequencyText().getText();
+	}
+
+	public boolean isProductDiscountPriceDisplayed() {
+		return syncHelper.isCurrentlyVisible(getProductDiscountPriceText().getAbsoluteSelector(), getDriver());
+	}
+
+	public boolean isShippingDiscountPriceDisplayed() {
+		return syncHelper.isCurrentlyVisible(getShippingDiscountPriceText().getAbsoluteSelector(), getDriver());
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -272,6 +288,16 @@ public class ShoppingCartPage extends AbstractPage {
 	@WebElementLocator(webDesktop = "[value='update_qty']")
 	protected Text getUpdateCartButton() {
 		return new Text(this, getLocator(this, "getUpdateCartButton"));
+	}
+
+	@WebElementLocator(webDesktop = "#subscription_interval")
+	protected Text getSubscriptionFrequencyText() {
+		return new Text(this, getLocator(this, "getSubscriptionFrequencyText"));
+	}
+
+	@WebElementLocator(webDesktop = "#subscription-name-view > strong")
+	protected Text getSubscriptionNameText() {
+		return new Text(this, getLocator(this, "getSubscriptionNameText"));
 	}
 
 	@WebElementLocator(webDesktop = "#shopping-cart-please-wait")
@@ -334,9 +360,18 @@ public class ShoppingCartPage extends AbstractPage {
 		return new Text(this, getLocator(this, "getEstimatedShippingPriceText"));
 	}
 
+	@WebElementLocator(webDesktop = "//tr[th[contains(text(),'Product Discount')]]//*[@class='price']")
+	protected Text getProductDiscountPriceText() {
+		return new Text(this, getLocator(this, "getProductDiscountPriceText"));
+	}
+
+	@WebElementLocator(webDesktop = "//tr[th[contains(text(),'Shipping Discount')]]//*[@class='price']")
+	protected Text getShippingDiscountPriceText() {
+		return new Text(this, getLocator(this, "getShippingDiscountPriceText"));
+	}
+
 	@WebElementLocator(webDesktop = "strong.total-price")
 	protected Text getOrderSummaryPriceText() {
 		return new Text(this, getLocator(this, "getOrderSummaryPriceText"));
 	}
-
 }

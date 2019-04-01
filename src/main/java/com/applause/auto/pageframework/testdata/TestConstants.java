@@ -15,6 +15,7 @@ public class TestConstants {
 		public static final String CART = "shopping-cart";
 		public static final String MY_ACCOUNT = "my-account";
 		public static final String EXISTING_USER_CHECKOUT = "existing-user-checkout";
+		public static final String SUBSCRIPTIONS = "subscriptions";
 
 		// Mobile
 		public static final String ONBOARDING = "onboarding";
@@ -124,4 +125,17 @@ public class TestConstants {
 		public static final String FIRST_NAME = "UTest";
 		public static final String LAST_NAME = "QA Test";
 	}
+
+	public enum SubscriptionTerm {
+		TWO_WEEKS("Every 2 Weeks", "2 weeks");
+
+		public final String miniCartSpell;
+		public final String fullCartSpell;
+
+		SubscriptionTerm(String miniCartSpell, String fullCartSpell) {
+			this.miniCartSpell = miniCartSpell;
+			this.fullCartSpell = fullCartSpell;
+		}
+	}
+
 }
