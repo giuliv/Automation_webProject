@@ -51,7 +51,7 @@ public class CheckoutConfirmationPage extends AbstractPage {
 	}
 
 	public String getSubscriptionNumber() {
-		return getSubscriptionNumberText().getText();
+		return getSubscriptionNumberText().getText().trim();
 	}
 
 	/*
