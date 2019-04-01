@@ -51,17 +51,17 @@ public class ExploreOffersView extends AbstractDeviceView {
 	 * Protected Getters
 	 */
 
-	@MobileElementLocator(android = "new UiSelector().textContains(\"Explore Offers\")", iOS = "TODO")
+	@MobileElementLocator(android = "new UiSelector().textContains(\"Explore Offers\")", iOS = "Explore Offers.")
 	protected Text getHeadingText() {
 		return new Text(getLocator(this, "getHeadingText"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/skipTextView", iOS = "TODO")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/skipTextView", iOS = "Skip")
 	protected Button getSkipButton() {
 		return new Button(getLocator(this, "getSkipButton"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/onBoardingViewPager", iOS = "TODO")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/onBoardingViewPager", iOS = "//XCUIElementTypeOther[1]/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther")
 	protected ScrollView getViewPager() {
 		return new ScrollView(getLocator(this, "getViewPager"));
 	}

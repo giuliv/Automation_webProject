@@ -37,12 +37,12 @@ public class AuthenticationView extends AbstractDeviceView {
 	 * Protected Getters
 	 */
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/signUp", iOS = "TODO")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/signUp", iOS = "Create Account")
 	protected Button getCreateAccountButton() {
 		return new Button(getLocator(this, "getCreateAccountButton"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/rewardTitle", iOS = "TODO")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/rewardTitle", iOS = "Peetnik Rewards")
 	protected Text getRewardTitleText() {
 		return new Text(getLocator(this, "getRewardTitleText"));
 	}
