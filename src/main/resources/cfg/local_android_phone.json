@@ -1,0 +1,19 @@
+{
+        "deviceType" : "localnative",
+        "deviceName":"Local Android Phone",
+        "deviceClass" : "androidphone",
+        "os" : "Android",
+        "osVersion" : "8.0",
+        "manufacturer" : "Android",
+        "driverProvider" : "LOCAL_ANDROID_NATIVE",
+        "factoryConfigKey" : "ANDROID",
+        "hubUrl" : "local",
+        "caps" :{
+            "newCommandTimeout" : "300",
+            "deviceName" : "Google Pixel",
+            "platformName" : "Android",
+            "platformVersion" : "8.0",
+            "automationName": "uiautomator2",
+            "app" : "/Users/kklask/Downloads/Peets-staging-release.apk"
+        }
+}
