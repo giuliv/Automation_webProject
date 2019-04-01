@@ -1,6 +1,11 @@
 package com.applause.auto.pageframework.pages;
 
 import java.lang.invoke.MethodHandles;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import org.openqa.selenium.WebElement;
 
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
@@ -15,6 +20,7 @@ import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageframework.chunks.DatePickerChunk;
 import com.applause.auto.pageframework.chunks.VerifyYourAddressDetailsChunk;
 import com.applause.auto.pageframework.helpers.WebHelper;
 import com.applause.auto.pageframework.testdata.TestConstants;
@@ -30,6 +36,7 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	@Override
 	protected void waitUntilVisible() {
 		WebHelper.waitForDocument();
+		syncHelper.waitForElementToDisappear(getProgressWrapper().getAbsoluteSelector());
 		syncHelper.waitForElementToAppear(getViewSignature());
 	}
 
@@ -50,7 +57,7 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 
 	/**
 	 * Fill Required Fields for Shipping
-	 * 
+	 *
 	 */
 	public void fillShippingInfo() {
 		LOGGER.info("Filling shipping info");
@@ -64,12 +71,54 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	}
 
 	/**
+	 * Fill unique shipping info.
+	 *
+	 * @param uniqPrefix
+	 *            the uniq prefix
+	 */
+	public void fillUniqueShippingInfo(String uniqPrefix) {
+		LOGGER.info("Filling shipping info");
+		getFirstNameEditField().setText(uniqPrefix + TestConstants.TestData.FIRST_NAME);
+		getLastNameEditField().setText(TestConstants.TestData.LAST_NAME);
+		getPhoneNumberEditField().setText(TestConstants.TestData.PHONE);
+		getMainAddressEditField().setText(TestConstants.TestData.ADDRESS_2);
+		getZipCodeEditField().setText(TestConstants.TestData.ZIP_CODE_2);
+		getCityEditField().setText(TestConstants.TestData.CITY);
+		webHelper.jsSelect(getStateDropdown().getWebElement(), TestConstants.TestData.STATE);
+	}
+
+	/**
+	 * Modify shipping info by delta.
+	 *
+	 * @param uniqPrefix
+	 *            the uniq prefix
+	 */
+	public void modifyShippingInfoByDelta(String uniqPrefix) {
+		LOGGER.info("Filling shipping info");
+		getFirstNameModifyEditField().clearText();
+		getFirstNameModifyEditField().setText(uniqPrefix + TestConstants.TestData.FIRST_NAME);
+	}
+
+	/**
 	 * Click continue after contact info section
 	 * 
 	 */
 	public void continueAfterContactInfo() {
 		LOGGER.info("Click Continue on contact section");
 		getContactInfoContinueButton().click();
+	}
+
+	/**
+	 * Continue add new address checkout shipping info page.
+	 *
+	 * @return the checkout shipping info page
+	 */
+	public CheckoutShippingInfoPage continueAddNewAddress() {
+		LOGGER.info("Click Continue on contact section");
+		getNewAddressContinueButton().click();
+		syncHelper.suspend(20000);
+		WebHelper.waitForDocument();
+		return PageFactory.create(CheckoutShippingInfoPage.class);
 	}
 
 	/**
@@ -114,6 +163,78 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 		return getGiftMessageEditField().getText();
 	}
 
+	/**
+	 * Add new address checkout shipping info page.
+	 *
+	 * @return the checkout shipping info page
+	 */
+	public CheckoutShippingInfoPage addNewAddress() {
+		LOGGER.info("Click on Add new address button");
+		getAddNewAddressButton().click();
+		return PageFactory.create(CheckoutShippingInfoPage.class);
+	}
+
+	/**
+	 * Edit address checkout shipping info page.
+	 *
+	 * @param addressKey
+	 *            the address key
+	 * @return the checkout shipping info page
+	 */
+	public CheckoutShippingInfoPage editAddress(String addressKey) {
+		LOGGER.info("Click on edit link for address: " + addressKey);
+		List<String> addresses = getAddresses();
+		int index = IntStream.range(0, addresses.size()).filter(i -> addresses.get(i).contains(addressKey)).findFirst()
+				.getAsInt();
+		getAddressesEditButton().get(index).click();
+		return PageFactory.create(CheckoutShippingInfoPage.class);
+	}
+
+	/**
+	 * Edit shipping date date picker chunk.
+	 *
+	 * @return the date picker chunk
+	 */
+	public DatePickerChunk editShippingDate() {
+		LOGGER.info("Click on edit shipping date");
+		getEditShippingDateButton().click();
+		return ChunkFactory.create(DatePickerChunk.class, this, "");
+	}
+
+	/**
+	 * Gets addresses.
+	 *
+	 * @return the addresses
+	 */
+	public List<String> getAddresses() {
+		List<String> result = getAddressesText().stream().map(item -> {
+			String text = item.getText();
+			LOGGER.info("Found address: " + text);
+			return text;
+		}).collect(Collectors.toList());
+		return result;
+	}
+
+	/**
+	 * Gets shipping date.
+	 *
+	 * @return the shipping date
+	 */
+	public String getShippingDate() {
+		return getShippingDateText().getText();
+	}
+
+	/**
+	 * Update after shipping info modification checkout shipping info page.
+	 *
+	 * @return the checkout shipping info page
+	 */
+	public CheckoutShippingInfoPage updateAfterShippingInfoModification() {
+		LOGGER.info("Click on Update button");
+		getModifiedAddressUpdateButton().click();
+		return PageFactory.create(CheckoutShippingInfoPage.class);
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -126,6 +247,11 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	@WebElementLocator(webDesktop = "input[id='shipping:firstname']")
 	protected EditField getFirstNameEditField() {
 		return new EditField(this, getLocator(this, "getFirstNameEditField"));
+	}
+
+	@WebElementLocator(webDesktop = ".editing input[id^='shipping:firstname']")
+	protected EditField getFirstNameModifyEditField() {
+		return new EditField(this, getLocator(this, "getFirstNameModifyEditField"));
 	}
 
 	@WebElementLocator(webDesktop = "input[id='shipping:lastname']")
@@ -163,6 +289,16 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 		return new Button(this, getLocator(this, "getContactInfoContinueButton"));
 	}
 
+	@WebElementLocator(webDesktop = "button[title='Continue']")
+	protected Button getNewAddressContinueButton() {
+		return new Button(this, getLocator(this, "getNewAddressContinueButton"));
+	}
+
+	@WebElementLocator(webDesktop = ".editing button[title='Update']")
+	protected Button getModifiedAddressUpdateButton() {
+		return new Button(this, getLocator(this, "getModifiedAddressUpdateButton"));
+	}
+
 	@WebElementLocator(webDesktop = ".opc-please-wait")
 	protected BaseHtmlElement getShippingLoadingSpinner() {
 		return new BaseHtmlElement(this, getLocator(this, "getShippingLoadingSpinner"));
@@ -184,4 +320,38 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 		return new Button(this, getLocator(this, "getShippingInfoContinueButton"));
 	}
 
+	@WebElementLocator(webDesktop = ".shipping-add-address")
+	protected Button getAddNewAddressButton() {
+		return new Button(this, getLocator(this, "getAddNewAddressButton"));
+	}
+
+	@WebElementLocator(webDesktop = "#checkout-step-shipping .edit-shipping-date")
+	protected Button getEditShippingDateButton() {
+		return new Button(this, getLocator(this, "getEditShippingDateButton"));
+	}
+
+	@WebElementLocator(webDesktop = "[title^='Please wait...']")
+	protected Text getProgressWrapper() {
+		return new Text(this, getLocator(this, "getProgressWrapper"));
+	}
+
+	@WebElementLocator(webDesktop = "#checkout-step-shipping .shipping-date #ddate-selected-date")
+	protected Text getShippingDateText() {
+		return new Text(this, getLocator(this, "getShippingDateText"));
+	}
+
+	@WebElementLocator(web = ".checkout-section-content > .shipping-address-item ol li label")
+	protected List<WebElement> getAddressesText() {
+		return queryHelper.findElementsByExtendedCss(getLocator(this, "getAddressesText"));
+	}
+
+	@WebElementLocator(web = ".checkout-section-content > .shipping-address-item ol li > a")
+	protected List<WebElement> getAddressesEditButton() {
+		return queryHelper.findElementsByExtendedCss(getLocator(this, "getAddressesEditButton"));
+	}
+
+	@WebElementLocator(web = ".checkout-section-content > .shipping-address-item ol li label")
+	protected List<WebElement> getEditAddressButtonByKey() {
+		return queryHelper.findElementsByExtendedCss(getLocator(this, "getEditAddressButtonByKey"));
+	}
 }

@@ -56,7 +56,9 @@ public class TestConstants {
 		public static final String LAST_NAME = "QA Test";
 		public static final String PHONE = "646-759-4933";
 		public static final String ADDRESS = "133 Water St";
+		public static final String ADDRESS_2 = "2266 Bath Ave";
 		public static final String ZIP_CODE = "11201";
+		public static final String ZIP_CODE_2 = "11214";
 		public static final String CITY = "Brooklyn";
 		public static final String STATE = "New York";
 		public static final String EMAIL = "peets+%s@qa.utest.com";
