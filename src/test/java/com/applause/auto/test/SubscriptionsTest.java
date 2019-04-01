@@ -90,4 +90,66 @@ public class SubscriptionsTest extends BaseTest {
 				"Subscription number does not displayed");
 
 	}
+
+	@Test(groups = { TestNGGroups.SUBSCRIPTIONS }, description = "613497")
+	public void userCreateNewSubscriptionWithPayPalTest() {
+
+		LOGGER.info("1. Navigate to landing page");
+		LandingPage landingPage = navigateToLandingPage();
+		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+
+		LOGGER.info("2. Log in to UAT");
+		SignInPage signInPage = landingPage.clickSignInButton();
+		MyAccountPage myAccountPage = signInPage.mainUserLogin();
+		Assert.assertTrue(myAccountPage.getWelcomeMessage().contains("Applause"),
+				"User is not signed in or welcome name is wrong");
+
+		LOGGER.info("3. Select a coffee from grid view and add to cart");
+		MainMenuChunk mainMenu = myAccountPage.getMainMenu();
+		landingPage = mainMenu.clickHeaderLogo();
+		ShopCoffeePage shopCoffeePage = landingPage.clickShopCoffeeButton();
+		CoffeeProductPage coffeeProductPage = shopCoffeePage.clickProductName(TestData.COFFEE_BRAND_NAME);
+		coffeeProductPage.selectAGrind(TestData.GRIND);
+
+		coffeeProductPage.selectSubscription();
+		CreateSubscriptionChunk createSubscriptionChunk = coffeeProductPage.clickAddToSubscription();
+
+		LOGGER.info("In the popup, select Create A New Subscription");
+		createSubscriptionChunk.selectNewSubscription();
+
+		LOGGER.info("Give the subscription a name");
+		String subscriptionName = "sn" + System.currentTimeMillis();
+		createSubscriptionChunk.setNewSubscriptionName(subscriptionName);
+
+		LOGGER.info("Select frequency");
+		createSubscriptionChunk.selectFrequency(TestConstants.SubscriptionTerm.TWO_WEEKS);
+
+		LOGGER.info("Select Create Subscription");
+		MiniCartContainerChunk miniCart = createSubscriptionChunk.createSubscription();
+
+		LOGGER.info("From mini-cart, select View Cart");
+		ShoppingCartPage cartPage = miniCart.clickEditCart();
+
+		LOGGER.info("Verify Subscription Name");
+		Assert.assertEquals(cartPage.getSubscriptionName(), subscriptionName, "Subscription name does not match");
+
+		LOGGER.info("Verify Frequency");
+		Assert.assertEquals(cartPage.getSubscriptionFrequency(), TestConstants.SubscriptionTerm.TWO_WEEKS.fullCartSpell,
+				"Subscription frequency does not match");
+
+		LOGGER.info("Verify there is a Product Discount and Shipping Discount under Order Summary");
+		Assert.assertTrue(cartPage.isProductDiscountPriceDisplayed(), "Product discount does not displayed");
+		Assert.assertTrue(cartPage.isShippingDiscountPriceDisplayed(), "Shipping discount does not displayed");
+
+		LOGGER.info("Select Checkout with Paypal");
+		CheckoutPlaceOrderPage checkoutPlaceOrderPage = cartPage.clickPayWithPaypalSignedUser();
+
+		LOGGER.info("Place Order");
+		CheckoutConfirmationPage checkoutConfirmationPage = checkoutPlaceOrderPage.placeOrder();
+
+		LOGGER.info("On Purchase Complete screen, verify user is shown a subscription number");
+		Assert.assertTrue(checkoutConfirmationPage.getSubscriptionNumber().matches("\\d+"),
+				"Subscription number does not displayed");
+
+	}
 }
