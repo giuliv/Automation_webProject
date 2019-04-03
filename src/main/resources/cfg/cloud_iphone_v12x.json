@@ -15,6 +15,6 @@
     "phoneOnly" : "true",
     "privateDevicesOnly":"false",
     "platformVersion":"12",
-    "deviceName" : "iPhone [78].*"
+    "deviceName" : ".*iPhone.*"
   }
 }
