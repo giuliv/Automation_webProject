@@ -38,6 +38,12 @@ public class LandingView extends AbstractDeviceView {
 		return DeviceViewFactory.create(ExploreOffersView.class);
 	}
 
+	public CreateAccountView createAccount() {
+		LOGGER.info("Tap on create account button");
+		getCreateAccountButton().pressButton();
+		return DeviceViewFactory.create(CreateAccountView.class);
+	}
+
 	/**
 	 * Get the text vaalue of the heading
 	 * 
@@ -61,8 +67,14 @@ public class LandingView extends AbstractDeviceView {
 		return new Button(getLocator(this, "getSkipButton"));
 	}
 
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/skipTextView", iOS = "Create Account")
+	protected Button getCreateAccountButton() {
+		return new Button(getLocator(this, "getCreateAccountButton"));
+	}
+
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/onBoardingViewPager", iOS = "//XCUIElementTypeOther[1]/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther")
 	protected ScrollView getViewPager() {
 		return new ScrollView(getLocator(this, "getViewPager"));
 	}
+
 }
