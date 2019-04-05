@@ -2,6 +2,8 @@ package com.applause.auto.pageframework.views;
 
 import java.lang.invoke.MethodHandles;
 
+import org.openqa.selenium.Dimension;
+
 import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
 import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
 import com.applause.auto.framework.pageframework.device.MobileElementLocator;
@@ -10,8 +12,9 @@ import com.applause.auto.framework.pageframework.device.factory.IosImplementatio
 import com.applause.auto.framework.pageframework.devicecontrols.Button;
 import com.applause.auto.framework.pageframework.devicecontrols.Text;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
+import com.applause.auto.pageframework.helpers.MobileHelper;
 
-@AndroidImplementation(CreateAccountView.class)
+@AndroidImplementation(AndroidCreateAccountView.class)
 @IosImplementation(CreateAccountView.class)
 public class CreateAccountView extends AbstractDeviceView {
 
@@ -22,15 +25,6 @@ public class CreateAccountView extends AbstractDeviceView {
 		syncHelper.waitForElementToAppear(getHeadingText());
 	}
 
-	/**
-	 * Get the text vaalue of the heading
-	 * 
-	 * @return
-	 */
-	public String getHeadingTextValue() {
-		return getHeadingText().getStringValue();
-	}
-
 	public PrivacyPolicyView privacyPolicy() {
 		LOGGER.info("Tap on Privacy Policy");
 		getPrivacyPolicyButton().pressButton();
@@ -39,7 +33,7 @@ public class CreateAccountView extends AbstractDeviceView {
 
 	public TermsAndConditionsView termsAndConditions() {
 		LOGGER.info("Tap on Terms and Conditions");
-		getPrivacyPolicyButton().pressButton();
+		getTermsAndConditionsButton().pressButton();
 		return DeviceViewFactory.create(TermsAndConditionsView.class);
 	}
 
@@ -47,19 +41,29 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * Protected Getters
 	 */
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/headingText", iOS = "Privacy Policy")
+	@MobileElementLocator(android = "//*[contains(@text,'Privacy Policy')]", iOS = "Privacy Policy")
 	protected Button getPrivacyPolicyButton() {
 		return new Button(getLocator(this, "getPrivacyPolicyButton"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/headingText", iOS = "Terms and Conditions")
+	@MobileElementLocator(android = "//*[contains(@text,'Conditions')]", iOS = "Terms & Conditions")
 	protected Button getTermsAndConditionsButton() {
 		return new Button(getLocator(this, "getTermsAndConditionsButton"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/headingText", iOS = "//XCUIElementTypeNavigationBar[@name=\"Create Account\"]")
+	@MobileElementLocator(android = "//android.widget.TextView[@text='Create Account']", iOS = "//XCUIElementTypeNavigationBar[@name=\"Create Account\"]")
 	protected Text getHeadingText() {
 		return new Text(getLocator(this, "getHeadingText"));
+	}
+
+}
+
+class AndroidCreateAccountView extends CreateAccountView {
+	public TermsAndConditionsView termsAndConditions() {
+		LOGGER.info("Tap on Terms and Conditions");
+		Dimension size = getTermsAndConditionsButton().getMobileElement().getSize();
+		MobileHelper.tapOnElementWithOffset(getTermsAndConditionsButton(), size.getWidth() / 3, 0);
+		return DeviceViewFactory.create(TermsAndConditionsView.class);
 	}
 
 }

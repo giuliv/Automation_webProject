@@ -13,7 +13,7 @@ import com.applause.auto.framework.pageframework.devicecontrols.Text;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.pageframework.helpers.MobileHelper;
 
-@AndroidImplementation(LandingView.class)
+@AndroidImplementation(AndroidLandingView.class)
 @IosImplementation(LandingView.class)
 public class LandingView extends AbstractDeviceView {
 
@@ -44,6 +44,10 @@ public class LandingView extends AbstractDeviceView {
 		return DeviceViewFactory.create(CreateAccountView.class);
 	}
 
+	public void skipOffer() {
+		LOGGER.info("Tap on create account button");
+	}
+
 	/**
 	 * Get the text vaalue of the heading
 	 * 
@@ -67,7 +71,7 @@ public class LandingView extends AbstractDeviceView {
 		return new Button(getLocator(this, "getSkipButton"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/skipTextView", iOS = "Create Account")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/signUp", iOS = "Create Account")
 	protected Button getCreateAccountButton() {
 		return new Button(getLocator(this, "getCreateAccountButton"));
 	}
@@ -75,6 +79,18 @@ public class LandingView extends AbstractDeviceView {
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/onBoardingViewPager", iOS = "//XCUIElementTypeOther[1]/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther")
 	protected ScrollView getViewPager() {
 		return new ScrollView(getLocator(this, "getViewPager"));
+	}
+
+}
+
+class AndroidLandingView extends LandingView {
+
+	public void skipOffer() {
+		LOGGER.info("Swipe left and verify Explore Offers screen has correct title");
+		ExploreOffersView exploreOffersView = swipeLeftOnScreen();
+		PayFasterView payFasterView = exploreOffersView.swipeLeftOnScreen();
+		OrderAheadView orderAheadView = payFasterView.swipeLeftOnScreen();
+		AuthenticationView authenticationView = orderAheadView.clickGetStartedButton();
 	}
 
 }

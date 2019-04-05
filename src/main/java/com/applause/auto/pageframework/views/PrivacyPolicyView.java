@@ -9,7 +9,7 @@ import com.applause.auto.framework.pageframework.device.factory.IosImplementatio
 import com.applause.auto.framework.pageframework.devicecontrols.Text;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 
-@AndroidImplementation(PrivacyPolicyView.class)
+@AndroidImplementation(AndroidPrivacyPolicyView.class)
 @IosImplementation(PrivacyPolicyView.class)
 public class PrivacyPolicyView extends AbstractDeviceView {
 
@@ -17,25 +17,23 @@ public class PrivacyPolicyView extends AbstractDeviceView {
 
 	@Override
 	protected void waitUntilVisible() {
-		// syncHelper.waitForElementToAppear(getHeadingText());
-	}
-
-	/**
-	 * Get the text vaalue of the heading
-	 * 
-	 * @return
-	 */
-	public String getHeadingTextValue() {
-		return getHeadingText().getStringValue();
+		syncHelper.waitForElementToAppear(getHeadingText(), 120000);
 	}
 
 	/*
 	 * Protected Getters
 	 */
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/headingText", iOS = "//XCUIElementTypeOther[contains(@name,'PEET’S COFFEE & TEA PRIVACY POLICY')]")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/headingText", iOS = "//XCUIElementTypeOther[contains(@name,\"PRIVACY POLICY\")][1]")
 	protected Text getHeadingText() {
 		return new Text(getLocator(this, "getHeadingText"));
 	}
 
+}
+
+class AndroidPrivacyPolicyView extends PrivacyPolicyView {
+	protected void waitUntilVisible() {
+		throw new RuntimeException("Not Yet Implemeted. Blocked by WEB context switching issue");
+		// syncHelper.waitForElementToAppear(getHeadingText(), 120000);
+	}
 }
