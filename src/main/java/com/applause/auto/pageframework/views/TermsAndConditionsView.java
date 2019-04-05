@@ -17,7 +17,7 @@ public class TermsAndConditionsView extends AbstractDeviceView {
 
 	@Override
 	protected void waitUntilVisible() {
-		// syncHelper.waitForElementToAppear(getHeadingText());
+		syncHelper.waitForElementToAppear(getHeadingText(), 120000);
 	}
 
 	/**
@@ -33,7 +33,7 @@ public class TermsAndConditionsView extends AbstractDeviceView {
 	 * Protected Getters
 	 */
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/headingText", iOS = "//XCUIElementTypeOther[contains(@name,'PEET’S COFFEE & TEA PRIVACY POLICY')]")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/headingText", iOS = "//XCUIElementTypeOther[@name=\"THE PEETNIK REWARDS PROGRAM TERMS AND CONDITIONS\"]")
 	protected Text getHeadingText() {
 		return new Text(getLocator(this, "getHeadingText"));
 	}

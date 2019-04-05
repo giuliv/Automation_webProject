@@ -24,11 +24,13 @@ public class CreateAccountTest extends BaseTest {
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
+		landingView.skipOffer();
+
 		LOGGER.info("Tap Create Account");
 		CreateAccountView createAccountView = landingView.createAccount();
 
 		LOGGER.info("Scroll down and check the footer links");
-		MobileHelper.scrollDown(10);
+		MobileHelper.scrollDown(4);
 
 		LOGGER.info(
 				"Make sure above the create account button is the copy and check-box: I agree to the Privacy Policy and Terms & Conditions");
@@ -40,7 +42,7 @@ public class CreateAccountTest extends BaseTest {
 		Assert.assertNotNull(privacyPolicyView, "Privacy Policy does not displayed");
 
 		LOGGER.info("Tap at top left \"Peet's\" / close browser and open Peet's to return to the app");
-		driver.activateApp("com.wearehathway.peets-dev");
+		MobileHelper.activateApp();
 
 		LOGGER.info("Tap on the Terms and Conditions link");
 		TermsAndConditionsView termsAndConditionsView = createAccountView.termsAndConditions();
