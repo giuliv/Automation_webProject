@@ -23,6 +23,7 @@ import com.applause.auto.pageframework.testdata.TestConstants;
 public class SignUpPage extends AbstractPage {
 
 	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+	public String email;
 
 	@Override
 	protected void waitUntilVisible() {
@@ -53,7 +54,7 @@ public class SignUpPage extends AbstractPage {
 		LOGGER.info("Filling Sign up info");
 		syncHelper.suspend(5000);
 		long timeStamp = System.currentTimeMillis();
-		String email = String.format(TestConstants.TestData.EMAIL, timeStamp);
+		email = String.format(TestConstants.TestData.EMAIL, timeStamp);
 		getFirstNameEditField().setText(TestConstants.TestData.FIRST_NAME);
 		getLastNameEditField().setText(TestConstants.TestData.LAST_NAME);
 		getEmailEditField().setText(email);

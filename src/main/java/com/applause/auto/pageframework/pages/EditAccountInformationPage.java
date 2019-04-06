@@ -112,4 +112,34 @@ public class EditAccountInformationPage extends AbstractPage {
 	protected EditField getCurrentPasswordField() {
 		return new EditField(this, getLocator(this, "getCurrentPasswordField"));
 	}
+
+	@WebElementLocator(webDesktop = "label[for='change_password']")
+	protected Button getChangeCurrentPasswordButton() {
+		return new Button(this, getLocator(this, "getChangeCurrentPasswordButton"));
+	}
+
+	@WebElementLocator(webDesktop = "#password")
+	protected EditField getNewPasswordEditField() {
+		return new EditField(this, getLocator(this, "getNewPasswordEditField"));
+	}
+
+	@WebElementLocator(webDesktop = "#confirmation")
+	protected EditField getNewPasswordConfirmationEditField() {
+		return new EditField(this, getLocator(this, "getNewPasswordConfirmationEditField"));
+	}
+
+	public void changeCurrentPassword() {
+		LOGGER.info("Check current password checkbox");
+		getChangeCurrentPasswordButton().click();
+	}
+
+	public void enterNewPassword(String password) {
+		LOGGER.info("Typing new password: " + password);
+		getNewPasswordEditField().setText(password);
+	}
+
+	public void enterConfirmPassword(String password) {
+		LOGGER.info("Typing confirmation password: " + password);
+		getNewPasswordConfirmationEditField().setText(password);
+	}
 }
