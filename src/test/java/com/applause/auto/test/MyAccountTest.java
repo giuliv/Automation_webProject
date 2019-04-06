@@ -22,6 +22,7 @@ import com.applause.auto.pageframework.pages.MyAccountPage;
 import com.applause.auto.pageframework.pages.MyAccountPeetsCardPage;
 import com.applause.auto.pageframework.pages.PaymentMethodsPage;
 import com.applause.auto.pageframework.pages.SignInPage;
+import com.applause.auto.pageframework.pages.SignUpPage;
 import com.applause.auto.pageframework.testdata.TestConstants;
 
 public class MyAccountTest extends BaseTest {
@@ -362,5 +363,25 @@ public class MyAccountTest extends BaseTest {
 		Assert.assertTrue(suscriptionsDetailPage.isManageShipmentButtonDisplayed(),
 				"PManage Shipment button is not displayed");
 		Assert.assertTrue(suscriptionsDetailPage.isBillingAddressDisplayed(), "Billing Address is not displayed");
+	}
+
+	@Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "627698")
+	public void myAccountCreateNewAccountTest() {
+
+		LOGGER.info("1. Navigate to landing page");
+		LandingPage landingPage = navigateToLandingPage();
+
+		LOGGER.info("2. Click Sign In");
+		SignInPage signInPage = landingPage.clickSignInButton();
+
+		LOGGER.info("3. Click Create An Account");
+		SignUpPage signUpPage = signInPage.clickonCreateAccountButton();
+
+		LOGGER.info("4. Fill out new account information");
+		LOGGER.info("5. Click Submit");
+		MyAccountPage myAccountPage = signUpPage.submitSignUpInfo(MyAccountPage.class);
+
+		LOGGER.info("Verify user is logged in");
+		Assert.assertNotNull(myAccountPage, "User does not signed in");
 	}
 }
