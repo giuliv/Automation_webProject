@@ -441,4 +441,49 @@ public class MyAccountTest extends BaseTest {
 		LOGGER.info("Verify account was created");
 		Assert.assertNotNull(myAccountPage, "My Account page not found, account does not created");
 	}
+
+	@Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "627698")
+	public void myAccountChangePasswordTest() {
+
+		LOGGER.info("1. Navigate to landing page");
+		LandingPage landingPage = navigateToLandingPage();
+
+		LOGGER.info("2. Click Sign In");
+		SignInPage signInPage = landingPage.clickSignInButton();
+
+		LOGGER.info("3. Click Create An Account");
+		SignUpPage signUpPage = signInPage.clickonCreateAccountButton();
+
+		LOGGER.info("4. Fill out new account information");
+		LOGGER.info("5. Click Submit");
+		MyAccountPage myAccountPage = signUpPage.submitSignUpInfo(MyAccountPage.class);
+		String newAccountEmail = signUpPage.email;
+
+		LOGGER.info("Verify user is logged in");
+		Assert.assertNotNull(myAccountPage, "User does not signed in");
+
+		LOGGER.info("6. From My Dashboard, click Settings");
+		EditAccountInformationPage editAccountInformationPage = myAccountPage.clickSettings();
+
+		LOGGER.info("7. Enter current password. Select checkbox for Change Password.");
+		editAccountInformationPage.enterCurrentPassword(TestConstants.TestData.PASSWORD);
+		editAccountInformationPage.changeCurrentPassword();
+
+		LOGGER.info("8. Enter new password, Confirm password, Click Save");
+		editAccountInformationPage.enterNewPassword("new" + TestConstants.MyAccountTestData.PASSWORD);
+		editAccountInformationPage.enterConfirmPassword("new" + TestConstants.MyAccountTestData.PASSWORD);
+		myAccountPage = editAccountInformationPage.clickSave();
+
+		LOGGER.info("9. Log Out");
+		landingPage = myAccountPage.getAccountMenu().signOut();
+
+		LOGGER.info("10. Log back in using new password");
+		signInPage = landingPage.clickSignInButton();
+		MyAccountPage myAccountPageNew = signInPage.userLogin(newAccountEmail,
+				"new" + TestConstants.MyAccountTestData.PASSWORD);
+
+		LOGGER.info("User should be able to log in");
+		Assert.assertNotNull(myAccountPageNew, "Use was not able to log in using new password");
+	}
+
 }
