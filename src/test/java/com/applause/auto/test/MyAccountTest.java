@@ -442,7 +442,7 @@ public class MyAccountTest extends BaseTest {
 		Assert.assertNotNull(myAccountPage, "My Account page not found, account does not created");
 	}
 
-	@Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "627698")
+	@Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "627700")
 	public void myAccountChangePasswordTest() {
 
 		LOGGER.info("1. Navigate to landing page");
