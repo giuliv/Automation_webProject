@@ -38,11 +38,11 @@ public class SignUpPage extends AbstractPage {
 	 * Continue after entering required Shipping info
 	 * 
 	 */
-	public CheckoutShippingInfoPage submitSignUpInfo() {
+	public <T extends AbstractPage> T submitSignUpInfo(Class<T> clazz) {
 		LOGGER.info("Clicking Submit after filling sign-up info");
 		fillSignUpInfo();
 		clickSubmit();
-		return PageFactory.create(CheckoutShippingInfoPage.class);
+		return PageFactory.create(clazz);
 	}
 
 	/**
