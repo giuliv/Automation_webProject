@@ -61,7 +61,7 @@ public class AccountMenuChunk extends AbstractPageChunk {
 		return new Button(this, getLocator(this, "getExpandMenuButton"));
 	}
 
-	@WebElementLocator(webDesktop = "#header-account a[title=['Log Out']")
+	@WebElementLocator(webDesktop = "#header-account a[title='Log Out']")
 	protected Button getSignOutButton() {
 		return new Button(this, getLocator(this, "getSignOutButton"));
 	}
