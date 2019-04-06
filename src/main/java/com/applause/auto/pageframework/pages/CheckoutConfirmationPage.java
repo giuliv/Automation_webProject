@@ -4,10 +4,13 @@ import java.lang.invoke.MethodHandles;
 
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
+import com.applause.auto.framework.pageframework.web.PageFactory;
 import com.applause.auto.framework.pageframework.web.WebElementLocator;
 import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
 import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
 import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
+import com.applause.auto.framework.pageframework.webcontrols.Button;
+import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.helpers.WebHelper;
 
@@ -50,6 +53,34 @@ public class CheckoutConfirmationPage extends AbstractPage {
 		return getOrderNumberText().getStringValue();
 	}
 
+	/**
+	 * Enter password.
+	 *
+	 * @param password
+	 *            the password
+	 */
+	public void enterPassword(String password) {
+		LOGGER.info("Entering password: " + password);
+		getCreateAccountPasswordEditField().setText(password);
+	}
+
+	/**
+	 * Enter confirm password.
+	 *
+	 * @param password
+	 *            the password
+	 */
+	public void enterConfirmPassword(String password) {
+		LOGGER.info("Entering password confirmation: " + password);
+		getCreateAccountConfirmPasswordEditField().setText(password);
+	}
+
+	public MyAccountPage createAccount() {
+		LOGGER.info("Click on Create Account button");
+		getCreateAccountButton().click();
+		return PageFactory.create(MyAccountPage.class);
+	}
+
 	public String getSubscriptionNumber() {
 		return getSubscriptionNumberText().getText().trim();
 	}
@@ -76,5 +107,25 @@ public class CheckoutConfirmationPage extends AbstractPage {
 	@WebElementLocator(webDesktop = ".default-page-text .disc > li > a[href*='recurring_profile/view/profile']")
 	protected Text getSubscriptionNumberText() {
 		return new Text(this, getLocator(this, "getSubscriptionNumberText"));
+	}
+
+	@WebElementLocator(webDesktop = "#email_address")
+	protected EditField getCreateAccountEmailEditField() {
+		return new EditField(this, getLocator(this, "getCreateAccountEmailEditField"));
+	}
+
+	@WebElementLocator(webDesktop = "#password")
+	protected EditField getCreateAccountPasswordEditField() {
+		return new EditField(this, getLocator(this, "getCreateAccountPasswordEditField"));
+	}
+
+	@WebElementLocator(webDesktop = "#confirmation")
+	protected EditField getCreateAccountConfirmPasswordEditField() {
+		return new EditField(this, getLocator(this, "getCreateAccountConfirmPasswordEditField"));
+	}
+
+	@WebElementLocator(webDesktop = "button[title='Create an Account']")
+	protected Button getCreateAccountButton() {
+		return new Button(this, getLocator(this, "getCreateAccountButton"));
 	}
 }
