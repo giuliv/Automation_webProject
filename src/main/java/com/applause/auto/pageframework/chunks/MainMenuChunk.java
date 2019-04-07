@@ -60,7 +60,6 @@ public class MainMenuChunk extends AbstractPageChunk {
 		WebElement element = getMainMenuCategoryButton(category).getWebElement();
 		Actions actions = new Actions(getDriver());
 		actions.moveToElement(element).build().perform();
-		getMainMenuCategoryButton(category).hover();
 	}
 
 	/**
