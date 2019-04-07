@@ -7,6 +7,7 @@ import com.applause.auto.framework.pageframework.util.TestHelper;
 import com.applause.auto.pageframework.chunks.DatePickerChunk;
 import com.applause.auto.pageframework.chunks.MainMenuChunk;
 import com.applause.auto.pageframework.chunks.MiniCartContainerChunk;
+import com.applause.auto.pageframework.chunks.ShopRunnerChunk;
 import com.applause.auto.pageframework.pages.CheckoutConfirmationPage;
 import com.applause.auto.pageframework.pages.CheckoutPaymentMethodPage;
 import com.applause.auto.pageframework.pages.CheckoutPlaceOrderPage;
@@ -26,6 +27,7 @@ import com.applause.auto.pageframework.pages.ShopTeaPage;
 import com.applause.auto.pageframework.pages.ShoppingCartPage;
 import com.applause.auto.pageframework.pages.SignInPage;
 import com.applause.auto.pageframework.pages.TeaProductPage;
+import com.applause.auto.pageframework.pages.TopSellersTeaPage;
 import com.applause.auto.pageframework.testdata.TestConstants;
 import com.applause.auto.pageframework.testdata.TestConstants.TestData;
 import com.applause.auto.pageframework.testdata.TestConstants.TestNGGroups;
@@ -388,6 +390,58 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		LOGGER.info("Shipping date is updated on Checkout page");
 		String newDate = shippingInfoPage.getShippingDate();
 		Assert.assertNotEquals(newDate, oldDate, "Shipping Date field does not updated");
+
+	}
+
+	@Test(groups = { TestNGGroups.EXISTING_USER_CHECKOUT }, description = "627702")
+	public void userCheckoutShopRunnerLoginAtCartTest() {
+
+		LOGGER.info("1. Navigate to landing page");
+		LandingPage landingPage = navigateToLandingPage();
+		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+
+		LOGGER.info("2. Log in to UAT");
+		SignInPage signInPage = landingPage.clickSignInButton();
+		MyAccountPage myAccountPage = signInPage.mainUserLogin();
+
+		LOGGER.info("2. Select a tea from grid view and add to cart");
+		TopSellersTeaPage shopTeaPage = myAccountPage.getMainMenu().clickCategoryOption(TopSellersTeaPage.class, "Shop",
+				"Tea", "Top Sellers");
+
+		LOGGER.info("Select a Tea that costs over $25 and add to cart");
+		MiniCartContainerChunk miniCartContainer = shopTeaPage.addProductToCart(TestData.TEA_COST_OVER_25_NAME);
+
+		LOGGER.info("From mini-cart, click View Cart");
+		ShoppingCartPage shoppingCartPage = miniCartContainer.clickEditCart();
+
+		LOGGER.info("Next to ShopRunner text, click Sign In");
+		ShopRunnerChunk shopRunnerChunk = shoppingCartPage.signInShopRunner();
+
+		LOGGER.info("Sign into ShopRunner using the following account:\n" + "peets-test@shoprunner.com\n" + "abcd1234");
+		shopRunnerChunk.signIn("peets-test@shoprunner.com", "abcd1234");
+		LOGGER.info("Once signed in, click Continue Shopping");
+		shoppingCartPage = shopRunnerChunk.continueShopping(ShoppingCartPage.class);
+
+		LOGGER.info("5. Select 'Proceed to Checkout'");
+		CheckoutShippingInfoPage shippingInfoPage = shoppingCartPage.defineShippingSignedUser();
+
+		LOGGER.info("On Shipping Information page, select Shoprunner shipping method");
+		LOGGER.info("Click Continue");
+		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
+				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
+
+		LOGGER.info("Complete Payment method");
+		LOGGER.info("Click Continue");
+		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterFillingRequiredBillingInfo();
+
+		LOGGER.info("Click Place Order");
+		CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
+
+		LOGGER.info("Verify order was placed");
+		Assert.assertTrue(confirmationPage.getConfirmationMessage().contains("THANK YOU FOR YOUR PURCHASE!"),
+				"Order was not placed");
+
+		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
 
 	}
 }
