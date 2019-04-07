@@ -83,6 +83,14 @@ public class MainMenuChunk extends AbstractPageChunk {
 		getCategoryOptionButton(option).click();
 	}
 
+	public <T extends AbstractPage> T clickCategoryOption(Class<T> clazz, String category, String column,
+			String option) {
+		LOGGER.info(String.format("Accessing category [%s] subcategory [%s] option [%s]", category, column, option));
+		hoverCategory(category);
+		getCategoryColumnOptionButton(column, option).click();
+		return PageFactory.create(clazz);
+	}
+
 	/**
 	 * Access Sub-Menu Tea under Category Shop from main menu
 	 *
@@ -196,6 +204,11 @@ public class MainMenuChunk extends AbstractPageChunk {
 	@WebElementLocator(webDesktop = "//div[@class='mobile-slide']//a[contains(.,'%s')]")
 	protected Button getCategoryOptionButton(String option) {
 		return new Button(this, String.format(getLocator(this, "getCategoryOptionButton"), option));
+	}
+
+	@WebElementLocator(webDesktop = "//li[a[@class='drop-link' and contains(text(),'%s')]]//a[contains(text(),'%s')]")
+	protected Button getCategoryColumnOptionButton(String column, String option) {
+		return new Button(this, String.format(getLocator(this, "getCategoryColumnOptionButton"), column, option));
 	}
 
 	@WebElementLocator(webDesktop = "#top-cart-container")
