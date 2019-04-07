@@ -59,7 +59,7 @@ public class MainMenuChunk extends AbstractPageChunk {
 	 */
 	public void hoverCategory(String category) {
 		LOGGER.info("Hover a category in the main menu");
-		if (env.getBrowserType() == BrowserType.SAFARI) {
+		if (env.getBrowserType() != BrowserType.SAFARI) {
 			WebElement element = getMainMenuCategoryButton(category).getWebElement();
 			Actions actions = new Actions(getDriver());
 			actions.moveToElement(element).build().perform();
