@@ -87,6 +87,36 @@ public class EditAccountInformationPage extends AbstractPage {
 		return PageFactory.create(MyAccountPage.class);
 	}
 
+	/**
+	 * Change current password.
+	 */
+	public void changeCurrentPassword() {
+		LOGGER.info("Check current password checkbox");
+		getChangeCurrentPasswordButton().click();
+	}
+
+	/**
+	 * Enter new password.
+	 *
+	 * @param password
+	 *            the password
+	 */
+	public void enterNewPassword(String password) {
+		LOGGER.info("Typing new password: " + password);
+		getNewPasswordEditField().setText(password);
+	}
+
+	/**
+	 * Enter confirm password.
+	 *
+	 * @param password
+	 *            the password
+	 */
+	public void enterConfirmPassword(String password) {
+		LOGGER.info("Typing confirmation password: " + password);
+		getNewPasswordConfirmationEditField().setText(password);
+	}
+
 	// Protected getters
 	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1")
 	protected Text getViewSignature() {
@@ -128,18 +158,4 @@ public class EditAccountInformationPage extends AbstractPage {
 		return new EditField(this, getLocator(this, "getNewPasswordConfirmationEditField"));
 	}
 
-	public void changeCurrentPassword() {
-		LOGGER.info("Check current password checkbox");
-		getChangeCurrentPasswordButton().click();
-	}
-
-	public void enterNewPassword(String password) {
-		LOGGER.info("Typing new password: " + password);
-		getNewPasswordEditField().setText(password);
-	}
-
-	public void enterConfirmPassword(String password) {
-		LOGGER.info("Typing confirmation password: " + password);
-		getNewPasswordConfirmationEditField().setText(password);
-	}
 }

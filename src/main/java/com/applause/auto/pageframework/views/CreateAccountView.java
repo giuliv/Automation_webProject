@@ -25,12 +25,22 @@ public class CreateAccountView extends AbstractDeviceView {
 		syncHelper.waitForElementToAppear(getHeadingText());
 	}
 
+	/**
+	 * Privacy policy privacy policy view.
+	 *
+	 * @return the privacy policy view
+	 */
 	public PrivacyPolicyView privacyPolicy() {
 		LOGGER.info("Tap on Privacy Policy");
 		getPrivacyPolicyButton().pressButton();
 		return DeviceViewFactory.create(PrivacyPolicyView.class);
 	}
 
+	/**
+	 * Terms and conditions terms and conditions view.
+	 *
+	 * @return the terms and conditions view
+	 */
 	public TermsAndConditionsView termsAndConditions() {
 		LOGGER.info("Tap on Terms and Conditions");
 		getTermsAndConditionsButton().pressButton();
