@@ -50,11 +50,15 @@ public class CheckoutConfirmationPage extends AbstractPage {
 		return getOrderNumberText().getStringValue();
 	}
 
+	public String getSubscriptionNumber() {
+		return getSubscriptionNumberText().getText().trim();
+	}
+
 	/*
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = ".default-page-text strong")
+	@WebElementLocator(webDesktop = ".default-page-text strong,.default-page-text .disc > li > a[href*='recurring_profile/view/profile']")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
@@ -69,4 +73,8 @@ public class CheckoutConfirmationPage extends AbstractPage {
 		return new Text(this, getLocator(this, "getOrderNumberText"));
 	}
 
+	@WebElementLocator(webDesktop = ".default-page-text .disc > li > a[href*='recurring_profile/view/profile']")
+	protected Text getSubscriptionNumberText() {
+		return new Text(this, getLocator(this, "getSubscriptionNumberText"));
+	}
 }

@@ -332,7 +332,7 @@ public class MyAccountPage extends AbstractPage {
 		return new Text(this, getLocator(this, "getViewSignature"));
 	}
 
-	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(5) > a")
+	@WebElementLocator(webDesktop = "[title='Payment']")
 	protected Button getPaymentButton() {
 		return new Button(this, getLocator(this, "getPaymentButton"));
 	}
@@ -422,7 +422,7 @@ public class MyAccountPage extends AbstractPage {
 		return new Text(this, getLocator(this, "getShippingAddressSection"));
 	}
 
-	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(3) > a")
+	@WebElementLocator(webDesktop = "[title='My Subscriptions']")
 	protected Link getMySuscriptionsLink() {
 		return new Link(this, getLocator(this, "getMySuscriptionsLink"));
 	}
@@ -432,17 +432,17 @@ public class MyAccountPage extends AbstractPage {
 		return new Link(this, getLocator(this, "getShippingAddressEditLink"));
 	}
 
-	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(6) > a")
+	@WebElementLocator(webDesktop = "//*[contains(@class,\"sidebar\")]//*[contains(@title,\"Peet's Cards\")]")
 	protected Button getPeetsCardButton() {
 		return new Button(this, getLocator(this, "getPeetsCardButton"));
 	}
 
-	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(4) > a")
+	@WebElementLocator(webDesktop = ".sidebar [title='Order History']")
 	protected Button getMyOrdersButton() {
 		return new Button(this, getLocator(this, "getMyOrdersButton"));
 	}
 
-	@WebElementLocator(webDesktop = "div.main-container.col2-left-layout > div > div.col-left.sidebar.col-left-first > div.left-nav.left-nav-account > ul > li:nth-child(7) > a")
+	@WebElementLocator(webDesktop = ".sidebar [title='Settings']")
 	protected Button getSettingButton() {
 		return new Button(this, getLocator(this, "getSettingButton"));
 	}
