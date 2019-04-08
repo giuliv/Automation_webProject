@@ -12,6 +12,7 @@
         	"browserName" : "safari",
         	"version" : "12.0",
         	"platform" : "macOS 10.14",
+            "seleniumVersion" : "3.8.1",
         	"acceptSSLAlerts" : "true",
             "maxDuration" : "3600",
             "idleTimeout" : "120",
