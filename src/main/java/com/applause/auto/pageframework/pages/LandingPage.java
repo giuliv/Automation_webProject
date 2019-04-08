@@ -41,6 +41,7 @@ public class LandingPage extends AbstractPage {
 	 */
 	public SignInPage clickSignInButton() {
 		LOGGER.info("Tap on SignIn Button");
+		WebHelper.waitForElementToBeClickable(getSignInButton().getWebElement());
 		getSignInButton().click();
 		return PageFactory.create(SignInPage.class);
 	}
