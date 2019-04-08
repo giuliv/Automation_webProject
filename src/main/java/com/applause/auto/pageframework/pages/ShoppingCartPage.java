@@ -282,7 +282,6 @@ public class ShoppingCartPage extends AbstractPage {
 
 	public ShopRunnerChunk signInShopRunner() {
 		LOGGER.info("Click on Sign In shop runner");
-		syncHelper.suspend(30000);
 		getSignInShopRunnerButton().click();
 		return ChunkFactory.create(ShopRunnerChunk.class, this, "");
 	}
