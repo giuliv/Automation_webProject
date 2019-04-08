@@ -427,8 +427,59 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
 		LOGGER.info("On Shipping Information page, select Shoprunner shipping method");
 		LOGGER.info("Click Continue");
-		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
-				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
+		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage.setShippingMethod();
+
+		LOGGER.info("Complete Payment method");
+		LOGGER.info("Click Continue");
+		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterEnteringPIN();
+
+		LOGGER.info("Click Place Order");
+		CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
+
+		LOGGER.info("Verify order was placed");
+		Assert.assertTrue(confirmationPage.getConfirmationMessage().contains("THANK YOU FOR YOUR PURCHASE!"),
+				"Order was not placed");
+
+		LOGGER.info("Order Placed: " + confirmationPage.getOrderNumber());
+
+	}
+
+	@Test(groups = { TestNGGroups.EXISTING_USER_CHECKOUT }, description = "627703")
+	public void userCheckoutShopRunnerLoginAtCheckoutTest() {
+
+		LOGGER.info("1. Navigate to landing page");
+		LandingPage landingPage = navigateToLandingPage();
+		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+
+		LOGGER.info("2. Log in to UAT");
+		SignInPage signInPage = landingPage.clickSignInButton();
+		MyAccountPage myAccountPage = signInPage.mainUserLogin();
+
+		LOGGER.info("2. Select a tea from grid view and add to cart");
+		TopSellersTeaPage shopTeaPage = myAccountPage.getMainMenu().clickCategoryOption(TopSellersTeaPage.class, "Shop",
+				"Tea", "Top Sellers");
+
+		LOGGER.info("Select a Tea that costs over $25 and add to cart");
+		MiniCartContainerChunk miniCartContainer = shopTeaPage.addProductToCart(TestData.TEA_COST_OVER_25_NAME);
+
+		LOGGER.info("From mini-cart, click View Cart");
+		ShoppingCartPage shoppingCartPage = miniCartContainer.clickEditCart();
+
+		LOGGER.info("5. Select 'Proceed to Checkout'");
+		CheckoutShippingInfoPage shippingInfoPage = shoppingCartPage.defineShippingSignedUser();
+
+		LOGGER.info("Under Shipping Method, click Sign In on the Free 2-Day Shipping method");
+		ShopRunnerChunk shopRunnerChunk = shippingInfoPage.signInShopRunner();
+
+		LOGGER.info("Sign into ShopRunner using the following account:\n" + "peets-test@shoprunner.com\n" + "abcd1234");
+		shopRunnerChunk.signIn("peets-test@shoprunner.com", "abcd1234");
+
+		LOGGER.info("Once signed in, click Continue Shopping");
+		shippingInfoPage = shopRunnerChunk.continueShopping(CheckoutShippingInfoPage.class);
+
+		LOGGER.info("On Shipping Information page, select Shoprunner shipping method");
+		LOGGER.info("Click Continue");
+		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage.setShippingMethod();
 
 		LOGGER.info("Complete Payment method");
 		LOGGER.info("Click Continue");
