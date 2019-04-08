@@ -13,6 +13,7 @@
     "version" : "12.0",
     "platform" : "macOS 10.14",
     "acceptSSLAlerts" : "true",
-    "screenResolution" : "1920x1440"
+    "screenResolution" : "1920x1440",
+    "seleniumVersion" : "3.14.0_safarilegacy"
   }
 }
