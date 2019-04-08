@@ -282,7 +282,11 @@ public class ShoppingCartPage extends AbstractPage {
 
 	public ShopRunnerChunk signInShopRunner() {
 		LOGGER.info("Click on Sign In shop runner");
-		getSignInShopRunnerButton().click();
+		if (env.getBrowserType() == BrowserType.SAFARI) {
+			webHelper.jsClick(getSignInShopRunnerButton().getWebElement());
+		} else {
+			getSignInShopRunnerButton().click();
+		}
 		return ChunkFactory.create(ShopRunnerChunk.class, this, "");
 	}
 
