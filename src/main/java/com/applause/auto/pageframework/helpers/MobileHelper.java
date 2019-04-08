@@ -1345,26 +1345,26 @@ public class MobileHelper {
 				.getSnapshotManager();
 	}
 
-	public static boolean isElementDisplayed(String selector, int timeout) {
-		WebElement element = null;
-		DeviceElementQueryHelper queryHelper = new DeviceElementQueryHelper(getDriver());
-		getDriver().manage().timeouts().implicitlyWait(200, TimeUnit.MILLISECONDS);
-		long end = TestHelper.getCurrentGMT6Time() + (long) timeout;
-		while (TestHelper.getCurrentGMT6Time() < end) {
-			try {
-				element = queryHelper.findElement(selector);
-				if (element == null) {
-					LOGGER.info("Waiting for " + selector + " to appear");
-				} else if (element != null) {
-					if (element.isDisplayed()) {
-						return true;
-					}
-				}
-			} catch (NoSuchElementException var8) {
-				LOGGER.debug("Element [" + selector + "] wasn't located, waiting and rerunning loop");
-			}
-		}
-		return false;
-	}
+//	public static boolean isElementDisplayed(String selector, int timeout) {
+//		WebElement element = null;
+//		DeviceElementQueryHelper queryHelper = new DeviceElementQueryHelper(getDriver());
+//		getDriver().manage().timeouts().implicitlyWait(200, TimeUnit.MILLISECONDS);
+//		long end = TestHelper.getCurrentGMT6Time() + (long) timeout;
+//		while (TestHelper.getCurrentGMT6Time() < end) {
+//			try {
+//				element = queryHelper.findElement(selector);
+//				if (element == null) {
+//					LOGGER.info("Waiting for " + selector + " to appear");
+//				} else if (element != null) {
+//					if (element.isDisplayed()) {
+//						return true;
+//					}
+//				}
+//			} catch (NoSuchElementException var8) {
+//				LOGGER.debug("Element [" + selector + "] wasn't located, waiting and rerunning loop");
+//			}
+//		}
+//		return false;
+//	}
 
 }
