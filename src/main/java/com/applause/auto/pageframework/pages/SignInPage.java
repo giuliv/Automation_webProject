@@ -91,6 +91,15 @@ public class SignInPage extends AbstractPage {
 		return PageFactory.create(MyAccountPage.class);
 	}
 
+	public MyAccountPage userLogin(String email, String password) {
+		LOGGER.info("Login with main user");
+		enterEmail(email);
+		enterPassword(password);
+		syncHelper.suspend(5000);
+		getSignInButton().click();
+		return PageFactory.create(MyAccountPage.class);
+	}
+
 	/**
 	 * Click on Create Account Button on Login Page
 	 *
