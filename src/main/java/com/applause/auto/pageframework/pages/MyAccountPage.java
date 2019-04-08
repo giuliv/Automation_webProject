@@ -14,6 +14,7 @@ import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Image;
 import com.applause.auto.framework.pageframework.webcontrols.Link;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageframework.chunks.AccountMenuChunk;
 import com.applause.auto.pageframework.chunks.MainMenuChunk;
 import com.applause.auto.pageframework.helpers.WebHelper;
 
@@ -469,5 +470,9 @@ public class MyAccountPage extends AbstractPage {
 		} catch (Exception e) {
 			LOGGER.info("Popup not found, moving on");
 		}
+	}
+
+	public AccountMenuChunk getAccountMenu() {
+		return ChunkFactory.create(AccountMenuChunk.class, this, "");
 	}
 }
