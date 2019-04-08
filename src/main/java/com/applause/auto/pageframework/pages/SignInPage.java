@@ -91,6 +91,15 @@ public class SignInPage extends AbstractPage {
 		return PageFactory.create(MyAccountPage.class);
 	}
 
+	/**
+	 * User login my account page.
+	 *
+	 * @param email
+	 *            the email
+	 * @param password
+	 *            the password
+	 * @return the my account page
+	 */
 	public MyAccountPage userLogin(String email, String password) {
 		LOGGER.info("Login with main user");
 		enterEmail(email);
