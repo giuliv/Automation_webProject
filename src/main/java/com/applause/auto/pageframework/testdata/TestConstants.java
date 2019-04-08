@@ -112,6 +112,12 @@ public class TestConstants {
 
 	}
 
+	public static final class MobileApp {
+
+		public static final String IOS_BUNDLE_ID = "com.wearehathway.peets-dev";
+
+	}
+
 	public static final class MyAccountTestData {
 
 		public static final String EMAIL = "peets+testaccount@qa.utest.com";
