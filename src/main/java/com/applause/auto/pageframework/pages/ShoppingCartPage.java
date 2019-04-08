@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
+import com.applause.auto.framework.pageframework.web.ChunkFactory;
 import com.applause.auto.framework.pageframework.web.PageFactory;
 import com.applause.auto.framework.pageframework.web.WebElementLocator;
 import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
@@ -20,6 +21,7 @@ import com.applause.auto.framework.pageframework.webcontrols.Checkbox;
 import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageframework.chunks.ShopRunnerChunk;
 import com.applause.auto.pageframework.helpers.WebHelper;
 
 @WebDesktopImplementation(ShoppingCartPage.class)
@@ -278,6 +280,12 @@ public class ShoppingCartPage extends AbstractPage {
 		return syncHelper.isCurrentlyVisible(getShippingDiscountPriceText().getAbsoluteSelector(), getDriver());
 	}
 
+	public ShopRunnerChunk signInShopRunner() {
+		LOGGER.info("Click on Sign In shop runner");
+		getSignInShopRunnerButton().click();
+		return ChunkFactory.create(ShopRunnerChunk.class, this, "");
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -285,6 +293,11 @@ public class ShoppingCartPage extends AbstractPage {
 	@WebElementLocator(webDesktop = "div.cart.display-single-price div.page-title h1")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
+	}
+
+	@WebElementLocator(webDesktop = "//div[@class='shoprunner-cart-header']//a[text()='sign in']")
+	protected Button getSignInShopRunnerButton() {
+		return new Button(this, getLocator(this, "getSignInShopRunnerButton"));
 	}
 
 	@WebElementLocator(webDesktop = "[value='update_qty']")

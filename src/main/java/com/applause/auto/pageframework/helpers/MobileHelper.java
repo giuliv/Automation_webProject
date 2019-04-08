@@ -1,6 +1,6 @@
 package com.applause.auto.pageframework.helpers;
 
-import java.awt.Point;
+import java.awt.*;
 import java.io.IOException;
 import java.io.StringReader;
 import java.lang.invoke.MethodHandles;
@@ -56,6 +56,7 @@ import com.applause.auto.framework.pageframework.util.queryhelpers.DeviceElement
 import com.applause.auto.framework.pageframework.util.screenshots.MobileScreenshotManager;
 import com.applause.auto.framework.pageframework.util.synchronization.MobileNativeSyncHelper;
 import com.applause.auto.pageframework.enums.Direction;
+import com.applause.auto.pageframework.testdata.TestConstants;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileBy;
@@ -119,6 +120,10 @@ public class MobileHelper {
 		new TouchAction(getDriver()).press(PointOption.point(startX, (int) startY))
 				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(250))).moveTo(PointOption.point(endX, 0))
 				.release().perform();
+	}
+
+	public static void activateApp() {
+		getDriver().activateApp(TestConstants.MobileApp.IOS_BUNDLE_ID);
 	}
 
 	public static void swipeLeftSlow(double y) {
@@ -239,14 +244,13 @@ public class MobileHelper {
 	}
 
 	/**
-	 * Performs a quick swipe action towards a set direction of a specified
-	 * element
+	 * Performs a quick swipe action towards a set direction of a specified element
 	 *
 	 * @param element
 	 *            - Specified BaseDeviceControl element
 	 * @param direction
-	 *            - Horizontal direction that the element will be swiped
-	 *            towards. Can only be 'left' or 'right'.
+	 *            - Horizontal direction that the element will be swiped towards. Can only be 'left'
+	 *            or 'right'.
 	 */
 	private static void swipeHorizontallyOnElement(BaseDeviceControl element, Direction direction) {
 		if (direction.equals(Direction.DOWN) || direction.equals(Direction.UP)) {
@@ -608,11 +612,11 @@ public class MobileHelper {
 	 * @param element
 	 *            BaseDeviceControl element
 	 * @param xRelativeOffset
-	 *            offset from element center to the right in percents of element
-	 *            width. Value should be from 0 to 1
+	 *            offset from element center to the right in percents of element width. Value should
+	 *            be from 0 to 1
 	 * @param yRelativeOffset
-	 *            offset from element center to the top in percents of element
-	 *            height. Value should be from 0 to 1
+	 *            offset from element center to the top in percents of element height. Value should
+	 *            be from 0 to 1
 	 */
 	public static void tapOnElementWithOffset(BaseDeviceControl element, double xRelativeOffset,
 			double yRelativeOffset) {
@@ -734,8 +738,8 @@ public class MobileHelper {
 	}
 
 	/**
-	 * Switches to a WINDOW within the last webview, that contains a specified
-	 * element. The element will be checked in each window 5 times by default.
+	 * Switches to a WINDOW within the last webview, that contains a specified element. The element
+	 * will be checked in each window 5 times by default.
 	 *
 	 * @param elementLocator
 	 */
@@ -744,8 +748,7 @@ public class MobileHelper {
 	}
 
 	/**
-	 * Switches to a WINDOW within the last webview, that contains a specified
-	 * element
+	 * Switches to a WINDOW within the last webview, that contains a specified element
 	 *
 	 * @param elementLocator
 	 * @param numberOfTimesToCheckElementInWindows
@@ -899,8 +902,8 @@ public class MobileHelper {
 	}
 
 	/*
-	 * For IOS picker wheel it is scrolling only one value at a time so used
-	 * loop until it sets the value
+	 * For IOS picker wheel it is scrolling only one value at a time so used loop until it sets the
+	 * value
 	 */
 	public static void setPickerValue(String value, PickerWheel element) {
 		int loopCounter = 0;

@@ -41,6 +41,7 @@ public class TestConstants {
 		public static final String GRIND_2 = "Drip";
 
 		public static final String TEA_NAME = "Chamomile Citrus Loose Leaf";
+		public static final String TEA_COST_OVER_25_NAME = "Summer Solstice Loose Leaf";
 
 		public static final String EQUIPMENT_NAME = "Origin Mug with Bamboo";
 
@@ -52,6 +53,7 @@ public class TestConstants {
 
 		public static final String SHIPPING_METHOD_GROUND = "Ground";
 		public static final String SHIPPING_METHOD_AIR_2ND_DAY = "2nd Day Air - Cont. U.S. (2-3 business days)";
+		public static final String SHIPPING_METHOD_SHOP_RUNNER = "Shoprunner FREE 2-Day Shipping";
 
 		public static final String FIRST_NAME = "Applause";
 		public static final String LAST_NAME = "QA Test";
@@ -109,6 +111,12 @@ public class TestConstants {
 		public static final String NAV_SUBMENU_GIFT_SUBSCRIPTIONS = "Gift Subscriptions";
 
 		public static final String NAV_OPTION_CARDS_BY_MAIL = "Gift Cards by Mail";
+
+	}
+
+	public static final class MobileApp {
+
+		public static final String IOS_BUNDLE_ID = "com.wearehathway.peets-dev";
 
 	}
 
