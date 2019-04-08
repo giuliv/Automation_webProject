@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import com.applause.auto.framework.pageframework.UIData;
+import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
 import com.applause.auto.framework.pageframework.web.AbstractPageChunk;
@@ -60,7 +61,6 @@ public class MainMenuChunk extends AbstractPageChunk {
 		WebElement element = getMainMenuCategoryButton(category).getWebElement();
 		Actions actions = new Actions(getDriver());
 		actions.moveToElement(element).build().perform();
-		getMainMenuCategoryButton(category).hover();
 	}
 
 	/**
@@ -81,6 +81,18 @@ public class MainMenuChunk extends AbstractPageChunk {
 		LOGGER.info(String.format("Accessing option '%s' under category '%s'", option, category));
 		hoverCategory(category);
 		getCategoryOptionButton(option).click();
+	}
+
+	public <T extends AbstractPage> T clickCategoryOption(Class<T> clazz, String category, String column,
+			String option) {
+		LOGGER.info(String.format("Accessing category [%s] subcategory [%s] option [%s]", category, column, option));
+		if (env.getBrowserType() != BrowserType.SAFARI) {
+			hoverCategory(category);
+			getCategoryColumnOptionButton(column, option).click();
+		} else {
+			getDriver().get(getCategoryColumnOptionButton(column, option).getAttributeValue("href"));
+		}
+		return PageFactory.create(clazz);
 	}
 
 	/**
@@ -196,6 +208,11 @@ public class MainMenuChunk extends AbstractPageChunk {
 	@WebElementLocator(webDesktop = "//div[@class='mobile-slide']//a[contains(.,'%s')]")
 	protected Button getCategoryOptionButton(String option) {
 		return new Button(this, String.format(getLocator(this, "getCategoryOptionButton"), option));
+	}
+
+	@WebElementLocator(webDesktop = "//li[a[@class='drop-link' and contains(text(),'%s')]]//a[contains(text(),'%s')]")
+	protected Button getCategoryColumnOptionButton(String column, String option) {
+		return new Button(this, String.format(getLocator(this, "getCategoryColumnOptionButton"), column, option));
 	}
 
 	@WebElementLocator(webDesktop = "#top-cart-container")

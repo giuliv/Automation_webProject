@@ -21,6 +21,7 @@ import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.chunks.DatePickerChunk;
+import com.applause.auto.pageframework.chunks.ShopRunnerChunk;
 import com.applause.auto.pageframework.chunks.VerifyYourAddressDetailsChunk;
 import com.applause.auto.pageframework.helpers.WebHelper;
 import com.applause.auto.pageframework.testdata.TestConstants;
@@ -43,6 +44,12 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	/*
 	 * Public Actions
 	 */
+
+	public ShopRunnerChunk signInShopRunner() {
+		LOGGER.info("Click on Sign In shop runner");
+		getSignInShopRunnerButton().click();
+		return ChunkFactory.create(ShopRunnerChunk.class, this, "");
+	}
 
 	/**
 	 * Continue after entering required Shipping info
@@ -128,6 +135,12 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	public CheckoutPaymentMethodPage setShippingMethod(String shippingMethod) {
 		LOGGER.info("Set Shipping Method");
 		selectShippingMethod(shippingMethod);
+		continueAfterShippingInfo();
+		return PageFactory.create(CheckoutPaymentMethodPage.class);
+	}
+
+	public CheckoutPaymentMethodPage setShippingMethod() {
+		LOGGER.info("Click continue");
 		continueAfterShippingInfo();
 		return PageFactory.create(CheckoutPaymentMethodPage.class);
 	}
@@ -238,6 +251,10 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	/*
 	 * Protected Getters
 	 */
+	@WebElementLocator(webDesktop = "//div[@id='srd_so']//a[text()='sign in']")
+	protected Button getSignInShopRunnerButton() {
+		return new Button(this, getLocator(this, "getSignInShopRunnerButton"));
+	}
 
 	@WebElementLocator(webDesktop = "h2#checkout-title-opc-shipping.active")
 	protected Text getViewSignature() {
