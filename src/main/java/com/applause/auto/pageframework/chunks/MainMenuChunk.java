@@ -58,13 +58,9 @@ public class MainMenuChunk extends AbstractPageChunk {
 	 */
 	public void hoverCategory(String category) {
 		LOGGER.info("Hover a category in the main menu");
-		if (env.getBrowserType() != BrowserType.SAFARI) {
-			WebElement element = getMainMenuCategoryButton(category).getWebElement();
-			Actions actions = new Actions(getDriver());
-			actions.moveToElement(element).build().perform();
-		} else {
-			getMainMenuCategoryButton(category).hover();
-		}
+		WebElement element = getMainMenuCategoryButton(category).getWebElement();
+		Actions actions = new Actions(getDriver());
+		actions.moveToElement(element).build().perform();
 	}
 
 	/**
@@ -90,8 +86,12 @@ public class MainMenuChunk extends AbstractPageChunk {
 	public <T extends AbstractPage> T clickCategoryOption(Class<T> clazz, String category, String column,
 			String option) {
 		LOGGER.info(String.format("Accessing category [%s] subcategory [%s] option [%s]", category, column, option));
-		hoverCategory(category);
-		getCategoryColumnOptionButton(column, option).click();
+		if (env.getBrowserType() != BrowserType.SAFARI) {
+			hoverCategory(category);
+			getCategoryColumnOptionButton(column, option).click();
+		} else {
+			getDriver().get(getCategoryColumnOptionButton(column, option).getAttributeValue("href"));
+		}
 		return PageFactory.create(clazz);
 	}
 
