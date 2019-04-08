@@ -10,7 +10,7 @@
         "hubUrl" : "http://%s:%s@ondemand.saucelabs.com:80/wd/hub", 
         "caps" : {
         	"browserName" : "safari",
-        	"version" : "11",
+        	"version" : "11.1",
         	"platform" : "macOS 10.12",
         	"acceptSSLAlerts" : "true",
             "maxDuration" : "3600",
