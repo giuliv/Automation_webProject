@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
@@ -283,7 +284,7 @@ public class ShoppingCartPage extends AbstractPage {
 	public ShopRunnerChunk signInShopRunner() {
 		LOGGER.info("Click on Sign In shop runner");
 		if (env.getBrowserType() == BrowserType.SAFARI) {
-			webHelper.jsClick(getSignInShopRunnerButton().getWebElement());
+			new Actions(getDriver()).click(getSignInShopRunnerButton().getWebElement()).build().perform();
 		} else {
 			getSignInShopRunnerButton().click();
 		}
