@@ -6,8 +6,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import com.applause.auto.framework.pageframework.UIData;
-import com.applause.auto.framework.pageframework.util.actions.NativeBrowserAction;
-import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
 import com.applause.auto.framework.pageframework.web.AbstractPageChunk;
@@ -59,13 +57,9 @@ public class MainMenuChunk extends AbstractPageChunk {
 	 */
 	public void hoverCategory(String category) {
 		LOGGER.info("Hover a category in the main menu");
-		if (env.getBrowserType() != BrowserType.SAFARI) {
-			WebElement element = getMainMenuCategoryButton(category).getWebElement();
-			Actions actions = new Actions(getDriver());
-			actions.moveToElement(element).build().perform();
-		} else {
-			new NativeBrowserAction(getDriver()).hoverOverElement(getMainMenuCategoryButton(category).getWebElement());
-		}
+		WebElement element = getMainMenuCategoryButton(category).getWebElement();
+		Actions actions = new Actions(getDriver());
+		actions.moveToElement(element).moveByOffset(1, 0).build().perform();
 	}
 
 	/**
