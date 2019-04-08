@@ -5,6 +5,7 @@ import java.lang.invoke.MethodHandles;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
 import com.applause.auto.framework.pageframework.web.ChunkFactory;
+import com.applause.auto.framework.pageframework.web.PageFactory;
 import com.applause.auto.framework.pageframework.web.WebElementLocator;
 import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
 import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
@@ -13,6 +14,7 @@ import com.applause.auto.framework.pageframework.webcontrols.BaseHtmlElement;
 import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageframework.chunks.CreateSubscriptionChunk;
 import com.applause.auto.pageframework.chunks.MiniCartContainerChunk;
 import com.applause.auto.pageframework.helpers.WebHelper;
 
@@ -50,9 +52,18 @@ public class CoffeeProductPage extends AbstractPage {
 	 */
 	public MiniCartContainerChunk clickAddToCart() {
 		LOGGER.info("Tap on Shop Coffee Button");
+		WebHelper.waitForElementToBeClickable(getAddToCartButton().getWebElement());
 		getAddToCartButton().click();
 		waitForAddingToCartSpinner();
 		return ChunkFactory.create(MiniCartContainerChunk.class, this, "");
+	}
+
+	public CreateSubscriptionChunk clickAddToSubscription() {
+		LOGGER.info("Tap on Add To Subscription Button");
+		WebHelper.waitForElementToBeClickable(getAddToSubscriptionCart().getWebElement());
+		getAddToSubscriptionCart().click();
+		waitForAddingToCartSpinner();
+		return ChunkFactory.create(CreateSubscriptionChunk.class, this, "");
 	}
 
 	/**
@@ -65,6 +76,27 @@ public class CoffeeProductPage extends AbstractPage {
 		syncHelper.waitForElementToDisappear(getLocator(this, "getAddingToCartSpinner"));
 	}
 
+	/**
+	 * Navigate back t.
+	 *
+	 * @param <T>
+	 *            the type parameter
+	 * @param clazz
+	 *            the clazz
+	 * @return the t
+	 */
+	public <T extends AbstractPage> T navigateBack(Class<T> clazz) {
+		LOGGER.info("Navigate back");
+		getDriver().navigate().back();
+		return PageFactory.create(clazz);
+	}
+
+	public void selectSubscription() {
+		LOGGER.info("Click on subscription");
+		getSubscriptionButton().click();
+
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -75,8 +107,18 @@ public class CoffeeProductPage extends AbstractPage {
 	}
 
 	@WebElementLocator(webDesktop = ".product-shop-holder .add-to-cart button")
+	protected Button getAddToSubscriptionCart() {
+		return new Button(this, getLocator(this, "getAddToSubscriptionCart"));
+	}
+
+	@WebElementLocator(webDesktop = ".product-shop-holder .add-to-cart button")
 	protected Button getAddToCartButton() {
 		return new Button(this, getLocator(this, "getAddToCartButton"));
+	}
+
+	@WebElementLocator(webDesktop = "label[for='option-subscription']")
+	protected Button getSubscriptionButton() {
+		return new Button(this, getLocator(this, "getSubscriptionButton"));
 	}
 
 	@WebElementLocator(webDesktop = "#shopping-cart-please-wait")
@@ -88,5 +130,4 @@ public class CoffeeProductPage extends AbstractPage {
 	protected Dropdown getSelectGrindDropdown() {
 		return new Dropdown(this, getLocator(this, "getSelectGrindDropdown"));
 	}
-
 }

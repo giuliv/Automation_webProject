@@ -1,6 +1,8 @@
 package com.applause.auto.pageframework.chunks;
 
 import java.lang.invoke.MethodHandles;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import com.applause.auto.framework.pageframework.UIData;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
@@ -101,12 +103,84 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 		return PageFactory.create(ShoppingCartPage.class);
 	}
 
+	/**
+	 * Gets items.
+	 *
+	 * @return the items
+	 */
+	public List<String> getItems() {
+		LOGGER.info("Obtaining items from mini-cart");
+		return queryHelper.findElementsByExtendedCss(getLocator(this, "getMinicartItems")).stream().map(item -> {
+			String result = item.getText();
+			LOGGER.info("Found item: " + result);
+			return result.trim();
+		}).collect(Collectors.toList());
+	}
+
+	/**
+	 * Remove mini cart container chunk.
+	 *
+	 * @param itemName
+	 *            the item name
+	 * @return the mini cart container chunk
+	 */
+	public MiniCartContainerChunk remove(String itemName) {
+		LOGGER.info("Remove from cart item: " + itemName);
+		getRemoveItemButton(itemName).click();
+		getDriver().switchTo().alert().accept();
+		syncHelper.waitForElementToAppear(getReAddItemButton(itemName));
+		return this;
+	}
+
+	/**
+	 * Gets re add button caption.
+	 *
+	 * @param itemName
+	 *            the item name
+	 * @return the re add button caption
+	 */
+	public String getReAddButtonCaption(String itemName) {
+		LOGGER.info("Getting Re add button caption");
+		return getReAddItemButton(itemName).getText().trim();
+	}
+
+	/**
+	 * Gets remove button caption.
+	 *
+	 * @param itemName
+	 *            the item name
+	 * @return the remove button caption
+	 */
+	public String getRemoveButtonCaption(String itemName) {
+		LOGGER.info("Getting Remove button caption");
+		return getRemoveItemButton(itemName).getText().trim();
+	}
+
+	/**
+	 * Re add mini cart container chunk.
+	 *
+	 * @param itemName
+	 *            the item name
+	 * @return the mini cart container chunk
+	 */
+	public MiniCartContainerChunk reAdd(String itemName) {
+		LOGGER.info("Clicking re-add button");
+		getReAddItemButton(itemName).click();
+		syncHelper.waitForElementToAppear(getRemoveItemButton(itemName));
+		return this;
+	}
+
 	/*
 	 * Protected Getters
 	 */
 	@WebElementLocator(webDesktop = "#minicart-container")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
+	}
+
+	@WebElementLocator(webDesktop = "#minicart-container .product-name")
+	protected Text getMinicartItems() {
+		return new Text(this, getLocator(this, "getMinicartItems"));
 	}
 
 	@WebElementLocator(webDesktop = "#minicart-container > div.block-subtitle > a.cart-link")
@@ -117,6 +191,16 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 	@WebElementLocator(webDesktop = "a[title='Checkout']")
 	protected Button getCheckoutButton() {
 		return new Button(this, getLocator(this, "getCheckoutButton"));
+	}
+
+	@WebElementLocator(webDesktop = "//*[@id='cart-sidebar']//a[starts-with(@title,'%s')]/..//a[@class='remove']")
+	protected Button getRemoveItemButton(String itemName) {
+		return new Button(this, String.format(getLocator(this, "getRemoveItemButton"), itemName));
+	}
+
+	@WebElementLocator(webDesktop = "//*[@id='cart-sidebar']//a[starts-with(@title,'%s')]/..//a[@class='re-add']")
+	protected Button getReAddItemButton(String itemName) {
+		return new Button(this, String.format(getLocator(this, "getReAddItemButton"), itemName));
 	}
 
 }
