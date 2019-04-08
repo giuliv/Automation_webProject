@@ -432,7 +432,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
 		LOGGER.info("Complete Payment method");
 		LOGGER.info("Click Continue");
-		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterFillingRequiredBillingInfo();
+		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterEnteringPIN();
 
 		LOGGER.info("Click Place Order");
 		CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
