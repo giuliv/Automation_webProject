@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,7 +30,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.Assert;
 import org.w3c.dom.Document;
@@ -1345,26 +1343,26 @@ public class MobileHelper {
 				.getSnapshotManager();
 	}
 
-//	public static boolean isElementDisplayed(String selector, int timeout) {
-//		WebElement element = null;
-//		DeviceElementQueryHelper queryHelper = new DeviceElementQueryHelper(getDriver());
-//		getDriver().manage().timeouts().implicitlyWait(200, TimeUnit.MILLISECONDS);
-//		long end = TestHelper.getCurrentGMT6Time() + (long) timeout;
-//		while (TestHelper.getCurrentGMT6Time() < end) {
-//			try {
-//				element = queryHelper.findElement(selector);
-//				if (element == null) {
-//					LOGGER.info("Waiting for " + selector + " to appear");
-//				} else if (element != null) {
-//					if (element.isDisplayed()) {
-//						return true;
-//					}
-//				}
-//			} catch (NoSuchElementException var8) {
-//				LOGGER.debug("Element [" + selector + "] wasn't located, waiting and rerunning loop");
-//			}
-//		}
-//		return false;
-//	}
+	// public static boolean isElementDisplayed(String selector, int timeout) {
+	// WebElement element = null;
+	// DeviceElementQueryHelper queryHelper = new DeviceElementQueryHelper(getDriver());
+	// getDriver().manage().timeouts().implicitlyWait(200, TimeUnit.MILLISECONDS);
+	// long end = TestHelper.getCurrentGMT6Time() + (long) timeout;
+	// while (TestHelper.getCurrentGMT6Time() < end) {
+	// try {
+	// element = queryHelper.findElement(selector);
+	// if (element == null) {
+	// LOGGER.info("Waiting for " + selector + " to appear");
+	// } else if (element != null) {
+	// if (element.isDisplayed()) {
+	// return true;
+	// }
+	// }
+	// } catch (NoSuchElementException var8) {
+	// LOGGER.debug("Element [" + selector + "] wasn't located, waiting and rerunning loop");
+	// }
+	// }
+	// return false;
+	// }
 
 }
