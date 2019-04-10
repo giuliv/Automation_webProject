@@ -38,12 +38,20 @@ public class LandingView extends AbstractDeviceView {
 		return DeviceViewFactory.create(ExploreOffersView.class);
 	}
 
+	/**
+	 * Create account create account view.
+	 *
+	 * @return the create account view
+	 */
 	public CreateAccountView createAccount() {
 		LOGGER.info("Tap on create account button");
 		getCreateAccountButton().pressButton();
 		return DeviceViewFactory.create(CreateAccountView.class);
 	}
 
+	/**
+	 * Skip offer.
+	 */
 	public void skipOffer() {
 		LOGGER.info("Tap on create account button");
 	}
