@@ -8,8 +8,10 @@ import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.pageframework.helpers.MobileHelper;
 import com.applause.auto.pageframework.testdata.TestConstants;
 import com.applause.auto.pageframework.views.CreateAccountView;
+import com.applause.auto.pageframework.views.DashboardView;
 import com.applause.auto.pageframework.views.LandingView;
 import com.applause.auto.pageframework.views.PrivacyPolicyView;
+import com.applause.auto.pageframework.views.SignInView;
 import com.applause.auto.pageframework.views.TermsAndConditionsView;
 
 public class CreateAccountTest extends BaseTest {
@@ -51,6 +53,43 @@ public class CreateAccountTest extends BaseTest {
 		Assert.assertNotNull(termsAndConditionsView, "Terms And Conditions does not displayed");
 
 		LOGGER.info("Tap at top left \"Peet's\" / close browser and open Peet's to return to the app");
+
+	}
+
+	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625883")
+	public void signInEmailPasswordTest() {
+
+		LOGGER.info("Launch the app and arrive at the first onboarding screen view");
+		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
+				"First screen text value is not correct");
+
+		landingView.skipOffer();
+
+		LOGGER.info("Tap Sign In");
+		SignInView signInView = landingView.signIn();
+
+		LOGGER.info("Tap on Email Address field and enter valid email address");
+		String username = TestConstants.TestData.USERNAME;
+		signInView.setUsername(username);
+
+		LOGGER.info("Enter valid password");
+		signInView.setPassword(TestConstants.TestData.PASSWORD);
+		Assert.assertTrue(!signInView.getPassword().equals(TestConstants.TestData.PASSWORD),
+				"Password does not hidden");
+
+		LOGGER.info("Tap on show password icon");
+		signInView.showPassword();
+
+		LOGGER.info("Make sure password entered is displayed to user");
+		Assert.assertEquals(signInView.getUnEncryptedPassword(), TestConstants.TestData.PASSWORD,
+				"Password does not shown");
+
+		LOGGER.info("Tap Sign In button");
+		DashboardView dashboardView = signInView.signIn();
+
+		LOGGER.info("User should see home/dashboard screen");
+		Assert.assertNotNull(dashboardView, "Dashboard not displayed");
 
 	}
 }
