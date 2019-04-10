@@ -252,34 +252,74 @@ public class ShoppingCartPage extends AbstractPage {
 		return PageFactory.create(ShoppingCartPage.class);
 	}
 
+	/**
+	 * Gets shipping method.
+	 *
+	 * @return the shipping method
+	 */
 	public String getShippingMethod() {
 		return getShippingMethodDropdown().getSelectedOption().getText();
 	}
 
+	/**
+	 * Gets estimated shipping price.
+	 *
+	 * @return the estimated shipping price
+	 */
 	public String getEstimatedShippingPrice() {
 		return getEstimatedShippingPriceText().getText();
 	}
 
+	/**
+	 * Gets order summary price.
+	 *
+	 * @return the order summary price
+	 */
 	public String getOrderSummaryPrice() {
 		return getOrderSummaryPriceText().getText();
 	}
 
+	/**
+	 * Gets subscription name.
+	 *
+	 * @return the subscription name
+	 */
 	public String getSubscriptionName() {
 		return getSubscriptionNameText().getText().trim();
 	}
 
+	/**
+	 * Gets subscription frequency.
+	 *
+	 * @return the subscription frequency
+	 */
 	public String getSubscriptionFrequency() {
 		return getSubscriptionFrequencyText().getText().trim();
 	}
 
+	/**
+	 * Is product discount price displayed boolean.
+	 *
+	 * @return the boolean
+	 */
 	public boolean isProductDiscountPriceDisplayed() {
 		return syncHelper.isCurrentlyVisible(getProductDiscountPriceText().getAbsoluteSelector(), getDriver());
 	}
 
+	/**
+	 * Is shipping discount price displayed boolean.
+	 *
+	 * @return the boolean
+	 */
 	public boolean isShippingDiscountPriceDisplayed() {
 		return syncHelper.isCurrentlyVisible(getShippingDiscountPriceText().getAbsoluteSelector(), getDriver());
 	}
 
+	/**
+	 * Sign in shop runner shop runner chunk.
+	 *
+	 * @return the shop runner chunk
+	 */
 	public ShopRunnerChunk signInShopRunner() {
 		LOGGER.info("Click on Sign In shop runner");
 		getSignInShopRunnerButton().click();

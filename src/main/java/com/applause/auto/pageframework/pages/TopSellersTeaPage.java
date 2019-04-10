@@ -31,6 +31,13 @@ public class TopSellersTeaPage extends AbstractPage {
 	 * Public Actions
 	 */
 
+	/**
+	 * Add product to cart mini cart container chunk.
+	 *
+	 * @param productName
+	 *            the product name
+	 * @return the mini cart container chunk
+	 */
 	public MiniCartContainerChunk addProductToCart(String productName) {
 		LOGGER.info("Adding to cart product: " + productName);
 		getAddProductToCartButton(productName).click();
