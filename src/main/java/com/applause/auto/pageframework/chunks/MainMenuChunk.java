@@ -83,6 +83,21 @@ public class MainMenuChunk extends AbstractPageChunk {
 		getCategoryOptionButton(option).click();
 	}
 
+	/**
+	 * Click category option t.
+	 *
+	 * @param <T>
+	 *            the type parameter
+	 * @param clazz
+	 *            the clazz
+	 * @param category
+	 *            the category
+	 * @param column
+	 *            the column
+	 * @param option
+	 *            the option
+	 * @return the t
+	 */
 	public <T extends AbstractPage> T clickCategoryOption(Class<T> clazz, String category, String column,
 			String option) {
 		LOGGER.info(String.format("Accessing category [%s] subcategory [%s] option [%s]", category, column, option));

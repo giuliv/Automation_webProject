@@ -75,12 +75,22 @@ public class CheckoutConfirmationPage extends AbstractPage {
 		getCreateAccountConfirmPasswordEditField().setText(password);
 	}
 
+	/**
+	 * Create account my account page.
+	 *
+	 * @return the my account page
+	 */
 	public MyAccountPage createAccount() {
 		LOGGER.info("Click on Create Account button");
 		getCreateAccountButton().click();
 		return PageFactory.create(MyAccountPage.class);
 	}
 
+	/**
+	 * Gets subscription number.
+	 *
+	 * @return the subscription number
+	 */
 	public String getSubscriptionNumber() {
 		return getSubscriptionNumberText().getText().trim();
 	}
