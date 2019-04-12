@@ -169,10 +169,11 @@ public class CreateAccountTest extends BaseTest {
 		Assert.assertEquals(firstNameUpd, firstNameNew, "Firstname does not updated");
 		Assert.assertEquals(lastNameUpd, lastNameNew, "Lastname does not updated");
 		Assert.assertEquals(zipCodeUpd, zipCodeNew, "zipcode does not updated");
-		Assert.assertEquals(phoneUpd, phoneNew, "Phone does not updated");
+		Assert.assertEquals(phoneUpd.replace("(", "").replace(")", "").replace("-", "").replace(" ", ""),
+				phoneNew.replace("(", "").replace(")", "").replace("-", "").replace(" ", ""), "Phone does not updated");
 		Assert.assertEquals(emailUpd, emailNew, "email does not updated");
 
-		LOGGER.info("Restore original");
+		LOGGER.info("Cleanup Restore original");
 		profileDetailsView.setFirstname(firstNameOrig);
 		profileDetailsView.setLastname(lastNameOrig);
 		profileDetailsView.setZipCode(zipCodeOrig);

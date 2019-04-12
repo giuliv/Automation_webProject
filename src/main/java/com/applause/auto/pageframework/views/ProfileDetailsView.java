@@ -28,6 +28,7 @@ public class ProfileDetailsView extends AbstractDeviceView {
 		syncHelper.waitForElementToAppear(getDOBTextBox(), 120000);
 		syncHelper.waitForElementToAppear(getPhoneNumberTextBox(), 120000);
 		syncHelper.waitForElementToAppear(getEmailAddressTextBox(), 120000);
+		syncHelper.waitForElementToAppear(getChangePasswordButton(), 120000);
 		syncHelper.waitForElementToAppear(getSaveButton(), 120000);
 		syncHelper.waitForElementToAppear(getSignature(), 120000);
 	}
@@ -53,13 +54,6 @@ public class ProfileDetailsView extends AbstractDeviceView {
 		return this;
 	}
 
-	public ProfileDetailsView setDOB(String dob) {
-		LOGGER.info("Set first name to: " + dob);
-		getDOBTextBox().clearTextBox();
-		getDOBTextBox().enterText(dob);
-		return this;
-	}
-
 	public ProfileDetailsView setPhoneNumber(String phone) {
 		LOGGER.info("Set phone number to: " + phone);
 		getPhoneNumberTextBox().clearTextBox();
@@ -81,10 +75,6 @@ public class ProfileDetailsView extends AbstractDeviceView {
 		return this;
 	}
 
-	public String getDOB() {
-		return getDOBTextBox().getCurrentText();
-	}
-
 	public String getPhoneNumber() {
 		return getPhoneNumberTextBox().getCurrentText();
 	}
@@ -102,13 +92,19 @@ public class ProfileDetailsView extends AbstractDeviceView {
 
 	}
 
+	public String getDOB() {
+		return getDOBTextBox().getCurrentText();
+
+	}
+
 	public String getZipCode() {
-		return getFirstnameTextBox().getCurrentText();
+		return getZipCodeTextBox().getCurrentText();
 	}
 
 	public AccountMenuMobileChunk save() {
 		LOGGER.info("Click on SAVE button");
 		getSaveButton().pressButton();
+		syncHelper.suspend(5000);
 		return DeviceChunkFactory.create(AccountMenuMobileChunk.class, "");
 	}
 
@@ -116,52 +112,52 @@ public class ProfileDetailsView extends AbstractDeviceView {
 	 * Protected Getters
 	 */
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/firstName", iOS = "")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/firstName", iOS = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeTextField")
 	protected TextBox getFirstnameTextBox() {
 		return new TextBox(getLocator(this, "getFirstnameTextBox"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/lastName", iOS = "")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/lastName", iOS = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeTextField")
 	protected TextBox getLastnameTextBox() {
 		return new TextBox(getLocator(this, "getLastnameTextBox"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/zipCode", iOS = "")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/zipCode", iOS = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeTextField")
 	protected TextBox getZipCodeTextBox() {
 		return new TextBox(getLocator(this, "getZipCodeTextBox"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/birthday", iOS = "")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/birthday", iOS = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[4]/XCUIElementTypeTextField")
 	protected TextBox getDOBTextBox() {
 		return new TextBox(getLocator(this, "getDOBTextBox"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/phoneNumber", iOS = "")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/phoneNumber", iOS = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[5]/XCUIElementTypeTextField")
 	protected TextBox getPhoneNumberTextBox() {
 		return new TextBox(getLocator(this, "getPhoneNumberTextBox"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/emailAddress", iOS = "")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/emailAddress", iOS = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[6]/XCUIElementTypeTextField")
 	protected TextBox getEmailAddressTextBox() {
 		return new TextBox(getLocator(this, "getEmailAddressTextBox"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/confirmEmailAddress", iOS = "")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/confirmEmailAddress", iOS = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[7]/XCUIElementTypeTextField")
 	protected TextBox getConfirmEmailAddressTextBox() {
 		return new TextBox(getLocator(this, "getConfirmEmailAddressTextBox"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/saveButton", iOS = "")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/saveButton", iOS = "Save")
 	protected Button getSaveButton() {
 		return new Button(getLocator(this, "getSaveButton"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/changePassword", iOS = "")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/changePassword", iOS = "Change Password")
 	protected Button getChangePasswordButton() {
 		return new Button(getLocator(this, "getChangePasswordButton"));
 	}
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text='Profile Details']", iOS = "//XCUIElementTypeOther[@name=\"THE PEETNIK REWARDS PROGRAM TERMS AND CONDITIONS\"]")
+	@MobileElementLocator(android = "//android.widget.TextView[@text='Profile Details']", iOS = "//XCUIElementTypeOther[@name=\"Profile Details\"]")
 	protected Text getSignature() {
 		return new Text(getLocator(this, "getSignature"));
 	}
