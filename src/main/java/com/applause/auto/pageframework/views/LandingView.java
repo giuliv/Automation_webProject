@@ -57,7 +57,18 @@ public class LandingView extends AbstractDeviceView {
 	}
 
 	/**
-	 * Get the text vaalue of the heading
+	 * Sign in sign in view.
+	 *
+	 * @return the sign in view
+	 */
+	public SignInView signIn() {
+		LOGGER.info("Click on Sign In button");
+		getSignInButton().pressButton();
+		return DeviceViewFactory.create(SignInView.class);
+	}
+
+	/**
+	 * Get the text value of the heading
 	 * 
 	 * @return
 	 */
@@ -84,11 +95,15 @@ public class LandingView extends AbstractDeviceView {
 		return new Button(getLocator(this, "getCreateAccountButton"));
 	}
 
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/logIn", iOS = "Sign In")
+	protected Button getSignInButton() {
+		return new Button(getLocator(this, "getSignInButton"));
+	}
+
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/onBoardingViewPager", iOS = "//XCUIElementTypeOther[1]/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther")
 	protected ScrollView getViewPager() {
 		return new ScrollView(getLocator(this, "getViewPager"));
 	}
-
 }
 
 class AndroidLandingView extends LandingView {
