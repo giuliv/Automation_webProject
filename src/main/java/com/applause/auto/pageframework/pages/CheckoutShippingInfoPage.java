@@ -45,6 +45,11 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 * Public Actions
 	 */
 
+	/**
+	 * Sign in shop runner shop runner chunk.
+	 *
+	 * @return the shop runner chunk
+	 */
 	public ShopRunnerChunk signInShopRunner() {
 		LOGGER.info("Click on Sign In shop runner");
 		getSignInShopRunnerButton().click();
@@ -139,6 +144,11 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 		return PageFactory.create(CheckoutPaymentMethodPage.class);
 	}
 
+	/**
+	 * Sets shipping method.
+	 *
+	 * @return the shipping method
+	 */
 	public CheckoutPaymentMethodPage setShippingMethod() {
 		LOGGER.info("Click continue");
 		continueAfterShippingInfo();
@@ -161,7 +171,6 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	public void continueAfterShippingInfo() {
 		LOGGER.info("Click Continue on shipping section");
 		WebHelper.scrollToElement(getShippingInfoContinueButton().getWebElement());
-
 		syncHelper.suspend(10000);
 		getShippingInfoContinueButton().click();
 	}
