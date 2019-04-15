@@ -15,6 +15,7 @@ import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.util.queryhelpers.WebElementQueryHelper;
 import com.applause.auto.framework.pageframework.util.synchronization.WebSyncHelper;
 import com.applause.auto.framework.pageframework.web.PageFactory;
+import com.applause.auto.framework.test.listeners.TestListener;
 import com.applause.auto.pageframework.helpers.TemplateTestHelper;
 import com.applause.auto.pageframework.pages.LandingPage;
 import com.applause.auto.pageframework.pages.PeetsCardProductPage;
@@ -23,9 +24,8 @@ import com.applause.auto.pageframework.pages.ShopEquipmentPage;
 import com.applause.auto.pageframework.pages.ShopTeaPage;
 import com.applause.auto.pageframework.testdata.CustomerConfig;
 import com.applause.auto.pageframework.testdata.TestConstants.TestData;
-import com.applause.auto.pageframework.testrail.TemplateWebTestListener;
 
-@Listeners(TemplateWebTestListener.class)
+@Listeners(TestListener.class)
 public class BaseTest {
 
 	protected static final LogController LOGGER;
