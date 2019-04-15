@@ -23,7 +23,7 @@ import com.applause.auto.pageframework.pages.ShopCoffeeKCupsPage;
 import com.applause.auto.pageframework.pages.ShopEquipmentPage;
 import com.applause.auto.pageframework.pages.ShopTeaPage;
 import com.applause.auto.pageframework.testdata.CustomerConfig;
-import om.applause.auto.pageframework.testrail.TemplateWebTestListener;
+import com.applause.auto.pageframework.testdata.TestConstants.TestData;
 
 @Listeners(TestListener.class)
 public class BaseTest {
