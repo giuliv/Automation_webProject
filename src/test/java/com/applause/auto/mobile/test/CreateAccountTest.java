@@ -1,5 +1,7 @@
 package com.applause.auto.mobile.test;
 
+import java.util.Random;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -8,8 +10,10 @@ import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.pageframework.chunks.AccountMenuMobileChunk;
 import com.applause.auto.pageframework.helpers.MobileHelper;
 import com.applause.auto.pageframework.testdata.TestConstants;
+import com.applause.auto.pageframework.views.AuthenticationView;
 import com.applause.auto.pageframework.views.CreateAccountView;
 import com.applause.auto.pageframework.views.DashboardView;
+import com.applause.auto.pageframework.views.GeneralSettingsView;
 import com.applause.auto.pageframework.views.LandingView;
 import com.applause.auto.pageframework.views.PrivacyPolicyView;
 import com.applause.auto.pageframework.views.ProfileDetailsView;
@@ -182,5 +186,154 @@ public class CreateAccountTest extends BaseTest {
 		profileDetailsView.setConfirmEmailAddress(emailOrig);
 		accountMenuMobileChunk = profileDetailsView.save();
 
+	}
+
+	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625880")
+	public void сreateAccountEmailPassword() {
+		long uniq = System.currentTimeMillis();
+
+		LOGGER.info("Launch the app and arrive at the first onboarding screen view");
+		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
+				"First screen text value is not correct");
+
+		landingView.skipOffer();
+
+		LOGGER.info("Tap Create Account");
+		CreateAccountView createAccountView = landingView.createAccount();
+
+		LOGGER.info("Fields:\n" + "\n" + "* First Name\n" + "\n" + "* Last Name\n" + "\n" + "* Zip Code (Optional)\n"
+				+ "\n" + "* Date of Birth\n" + "\n" + "      o Text: Your birthday drink is on us\n" + "\n"
+				+ "* Phone Number (Optional)\n" + "\n" + "      o Text: Forgot your phone? Check in with this number.\n"
+				+ "\n" + "* Email Address" + "* Password with show/hide password icon\n" + "\n"
+				+ "      o Triggered Text: (x/_) At least 6 characters\n" + "\n" + "      o (x/_) At least 1 number\n"
+				+ "\n" + "      o (x/_) At least 1 letter\n" + "\n" + "Email opt in/out checkbox (checked by default)\n"
+				+ "\n" + "* Text: Yes, please send me emails with exclusive offers, rewards, news, and more.\n" + "\n"
+				+ "Privacy Policy/T&C checkbox (not checked by default)\n" + "\n"
+				+ "* Text: I agree to the Privacy Policy and Terms & Conditions\n" + "\n"
+				+ "[Button] Create Account (grey until all required fields are entered)");
+
+		LOGGER.info("Tap on First Name field and enter valid first name");
+
+		String firstname = "Firstname";
+		createAccountView.setFirstname(firstname);
+
+		LOGGER.info("Enter valid last name");
+		String lastname = "Lastname";
+		createAccountView.setLastname(lastname);
+
+		LOGGER.info("Enter valid zip code / Skip this field");
+		String zipCode = "11214";
+		createAccountView.setZipCode(zipCode);
+
+		LOGGER.info("Scroll through and select birthday");
+		String dobDay = "30";
+		String dobMonth = "December";
+		String dobYear = "1990";
+		createAccountView.setDOB(dobDay, dobMonth, dobYear);
+
+		LOGGER.info("Enter valid ten digit phone number / Skip this field");
+		Random random = new Random();
+		String phone = "2";
+		for (int i = 0; i < 9; i++) {
+			phone += "" + random.nextInt(9);
+		}
+		createAccountView.setPhoneNumber(phone);
+
+		LOGGER.info("Enter valid email address");
+		String email = String.format("a+%s@a.com", uniq);
+		createAccountView.setEmailAddress(email);
+		createAccountView.setConfirmEmailAddress(email);
+
+		LOGGER.info("Enter valid password");
+		String password = "Password1";
+		createAccountView.setPassword(password);
+		createAccountView.setConfirmationPassword(password);
+
+		LOGGER.info("Tap on show password icon");
+		createAccountView.showPassword();
+
+		LOGGER.info("Make sure password entered is displayed to user");
+		Assert.assertEquals(createAccountView.getPassword(), password, "Password does not displayed");
+
+		LOGGER.info("Tap on hide password icon");
+		createAccountView.hidePassword();
+
+		LOGGER.info("Make sure password entered is hidden from user");
+		Assert.assertNotEquals(createAccountView.getHiddenPassword(), password, "Password does not hidden");
+
+		createAccountView.setPromo("");
+
+		LOGGER.info("At email opt in/out checkbox:\n" + "\n" + "(1) leave box checked\n" + "\n" + "OR\n" + "\n"
+				+ "(2) un-check it\n");
+		LOGGER.info("Checkbox should be marked by default\n" + "\n"
+				+ "If user un-checks the box, make sure un-checking it removes the check mark from the box\n");
+		Assert.assertTrue(createAccountView.isEmailOptInChecked(), "Email opt in checkbox does not marked by default");
+		createAccountView.tapEmailOptIn();
+		Assert.assertFalse(createAccountView.isEmailOptInChecked(), "Email opt in checkbox does not marked");
+		createAccountView.tapEmailOptIn();
+		Assert.assertTrue(createAccountView.isEmailOptInChecked(), "Email opt in checkbox remains marked");
+
+		LOGGER.info("At Privacy Policy and Terms & Conditions\n" + "\n" + "(1) check box\n" + "\n" + "OR\n" + "\n"
+				+ "(2) un-check it\n");
+		LOGGER.info("Checkbox should be unmarked by default\n" + "\n"
+				+ "Create account button should be grey and not activated if check box is not marked\n");
+		Assert.assertFalse(createAccountView.isPrivacyPolicyAndTermsAndConditionsChecked(),
+				"Privacy Policy and Terms and Conditions does not checked does not marked by default");
+		Assert.assertFalse(createAccountView.isCreateAccountButtonEnabled(), "Create Account button does not disabled");
+
+		LOGGER.info("Tap on checkbox to agree to terms of service");
+		createAccountView.checkPrivacyPolicyAndTermsAndConditions();
+
+		LOGGER.info("Make sure checkbox is marked and create account button should be activated and turn gold");
+		Assert.assertTrue(createAccountView.isPrivacyPolicyAndTermsAndConditionsChecked(),
+				"Privacy Policy opt in checkbox does not marked");
+		Assert.assertTrue(createAccountView.isCreateAccountButtonEnabled(), "Create Account button does not enabled");
+
+		LOGGER.info("Tap Create Account button");
+		DashboardView dashboardView = createAccountView.createAccount();
+
+		LOGGER.info("User account should be created successfully:\n" + "\n"
+				+ "* User will see a loading dial, then a check mark to indicate successful account creation\n" + "\n"
+				+ "User should then see Peet's loading page briefly:\n" + "\n" + "* P-cup logo + Peet_s Coffee\n" + "\n"
+				+ "* Greeting [Good morning/afternoon/evening], <User_s first name>\n" + "\n" + "* Loading dial \n"
+				+ "\n" + "* Text: Loading your latest rewards_\n" + "\n" + "User should see home/dashboard screen\n");
+		Assert.assertNotNull(dashboardView, "Users dashboard does not displayed");
+
+		LOGGER.info("Tap on ... at top right corner of home/dashboard screen");
+		LOGGER.info("Tap on Profile Details");
+		ProfileDetailsView profileDetailsView = dashboardView.getAccountProfileMenu().profileDetails();
+
+		LOGGER.info(
+				"Make sure all user info on account settings screen matches what was entered during sign up process");
+		String firstNameUpd = profileDetailsView.getFirstname();
+		String lastNameUpd = profileDetailsView.getLastname();
+		String zipCodeUpd = profileDetailsView.getZipCode();
+		String phoneUpd = profileDetailsView.getPhoneNumber();
+		String emailUpd = profileDetailsView.getEmailAddress();
+		Assert.assertEquals(firstNameUpd, firstname, "Firstname does not match");
+		Assert.assertEquals(lastNameUpd, lastname, "Lastname does not match");
+		Assert.assertEquals(zipCodeUpd, zipCode, "zipcode does not match");
+		Assert.assertEquals(phoneUpd.replace("(", "").replace(")", "").replace("-", "").replace(" ", ""),
+				phone.replace("(", "").replace(")", "").replace("-", "").replace(" ", ""), "Phone does not updated");
+		Assert.assertEquals(emailUpd, email, "Email does not match");
+
+		LOGGER.info("Tap arrow at top left to return to more screen");
+		AccountMenuMobileChunk accountMenuMobileChunk = profileDetailsView.goBack(AccountMenuMobileChunk.class);
+
+		LOGGER.info("Tap on General Settings");
+		GeneralSettingsView generalSettingsView = accountMenuMobileChunk.generalSettings();
+
+		LOGGER.info("Make sure promotional emails toggle reflects whatever selection user chose at step 11");
+		Assert.assertTrue(generalSettingsView.isPromoEmailOptionChecked(), "Promo email does not checked");
+
+		LOGGER.info("Tap on back nav to return to more screen");
+		accountMenuMobileChunk = generalSettingsView.goBack(AccountMenuMobileChunk.class);
+
+		LOGGER.info("Tap sign out button");
+		AuthenticationView authenticationView = accountMenuMobileChunk.signOut();
+
+		LOGGER.info("User should be signed out successfully");
+		Assert.assertNotNull(authenticationView, "User does not signed out");
 	}
 }
