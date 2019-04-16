@@ -2,6 +2,7 @@ package com.applause.auto.pageframework.views;
 
 import java.lang.invoke.MethodHandles;
 
+import com.applause.auto.framework.pageframework.device.AbstractDeviceChunk;
 import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
 import com.applause.auto.framework.pageframework.device.DeviceChunkFactory;
 import com.applause.auto.framework.pageframework.device.MobileElementLocator;
@@ -33,6 +34,13 @@ public class ProfileDetailsView extends AbstractDeviceView {
 		syncHelper.waitForElementToAppear(getSignature(), 120000);
 	}
 
+	/**
+	 * Sets firstname.
+	 *
+	 * @param firstname
+	 *            the firstname
+	 * @return the firstname
+	 */
 	public ProfileDetailsView setFirstname(String firstname) {
 		LOGGER.info("Set first name to: " + firstname);
 		getFirstnameTextBox().clearTextBox();
@@ -40,6 +48,13 @@ public class ProfileDetailsView extends AbstractDeviceView {
 		return this;
 	}
 
+	/**
+	 * Sets lastname.
+	 *
+	 * @param lastname
+	 *            the lastname
+	 * @return the lastname
+	 */
 	public ProfileDetailsView setLastname(String lastname) {
 		LOGGER.info("Set last name to: " + lastname);
 		getLastnameTextBox().clearTextBox();
@@ -47,6 +62,13 @@ public class ProfileDetailsView extends AbstractDeviceView {
 		return this;
 	}
 
+	/**
+	 * Sets zip code.
+	 *
+	 * @param zipCode
+	 *            the zip code
+	 * @return the zip code
+	 */
 	public ProfileDetailsView setZipCode(String zipCode) {
 		LOGGER.info("Set ZIP to: " + zipCode);
 		getZipCodeTextBox().clearTextBox();
@@ -54,6 +76,13 @@ public class ProfileDetailsView extends AbstractDeviceView {
 		return this;
 	}
 
+	/**
+	 * Sets phone number.
+	 *
+	 * @param phone
+	 *            the phone
+	 * @return the phone number
+	 */
 	public ProfileDetailsView setPhoneNumber(String phone) {
 		LOGGER.info("Set phone number to: " + phone);
 		getPhoneNumberTextBox().clearTextBox();
@@ -61,6 +90,13 @@ public class ProfileDetailsView extends AbstractDeviceView {
 		return this;
 	}
 
+	/**
+	 * Sets email address.
+	 *
+	 * @param emailAddress
+	 *            the email address
+	 * @return the email address
+	 */
 	public ProfileDetailsView setEmailAddress(String emailAddress) {
 		LOGGER.info("Set email address to: " + emailAddress);
 		getEmailAddressTextBox().clearTextBox();
@@ -68,6 +104,13 @@ public class ProfileDetailsView extends AbstractDeviceView {
 		return this;
 	}
 
+	/**
+	 * Sets confirm email address.
+	 *
+	 * @param emailAddress
+	 *            the email address
+	 * @return the confirm email address
+	 */
 	public ProfileDetailsView setConfirmEmailAddress(String emailAddress) {
 		LOGGER.info("Set email address to: " + emailAddress);
 		getConfirmEmailAddressTextBox().clearTextBox();
@@ -75,32 +118,83 @@ public class ProfileDetailsView extends AbstractDeviceView {
 		return this;
 	}
 
+	/**
+	 * Gets phone number.
+	 *
+	 * @return the phone number
+	 */
 	public String getPhoneNumber() {
 		return getPhoneNumberTextBox().getCurrentText();
 	}
 
+	/**
+	 * Gets email address.
+	 *
+	 * @return the email address
+	 */
 	public String getEmailAddress() {
 		return getEmailAddressTextBox().getCurrentText();
 	}
 
+	/**
+	 * Gets firstname.
+	 *
+	 * @return the firstname
+	 */
 	public String getFirstname() {
 		return getFirstnameTextBox().getCurrentText();
 	}
 
+	/**
+	 * Gets lastname.
+	 *
+	 * @return the lastname
+	 */
 	public String getLastname() {
 		return getLastnameTextBox().getCurrentText();
 
 	}
 
+	/**
+	 * Gets dob.
+	 *
+	 * @return the dob
+	 */
 	public String getDOB() {
 		return getDOBTextBox().getCurrentText();
 
 	}
 
+	/**
+	 * Go back t.
+	 *
+	 * @param <T>
+	 *            the type parameter
+	 * @param clazz
+	 *            the clazz
+	 * @return the t
+	 */
+	public <T extends AbstractDeviceChunk> T goBack(Class<T> clazz) {
+		LOGGER.info("Tap back button");
+		getBackButton().pressButton();
+		return DeviceChunkFactory.create(clazz, "");
+
+	}
+
+	/**
+	 * Gets zip code.
+	 *
+	 * @return the zip code
+	 */
 	public String getZipCode() {
 		return getZipCodeTextBox().getCurrentText();
 	}
 
+	/**
+	 * Save account menu mobile chunk.
+	 *
+	 * @return the account menu mobile chunk
+	 */
 	public AccountMenuMobileChunk save() {
 		LOGGER.info("Click on SAVE button");
 		getSaveButton().pressButton();
@@ -155,6 +249,11 @@ public class ProfileDetailsView extends AbstractDeviceView {
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/changePassword", iOS = "Change Password")
 	protected Button getChangePasswordButton() {
 		return new Button(getLocator(this, "getChangePasswordButton"));
+	}
+
+	@MobileElementLocator(android = "Navigate up", iOS = "button back")
+	protected Button getBackButton() {
+		return new Button(getLocator(this, "getBackButton"));
 	}
 
 	@MobileElementLocator(android = "//android.widget.TextView[@text='Profile Details']", iOS = "//XCUIElementTypeOther[@name=\"Profile Details\"]")
