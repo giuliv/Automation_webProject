@@ -117,11 +117,14 @@ public class MobileHelper {
 		}
 		LOGGER.info("Swiping left...");
 		int i = 5;
-		while (i-- != 0) {
+		while (i != 0) {
+			i--;
 			try {
 				new TouchAction(getDriver()).press(PointOption.point(startX, (int) startY))
 						.waitAction(WaitOptions.waitOptions(Duration.ofMillis(500))).moveTo(PointOption.point(endX, 0))
 						.waitAction(WaitOptions.waitOptions(Duration.ofMillis(500))).release().perform();
+				LOGGER.info("Swiping completed");
+				break;
 			} catch (Throwable throwable) {
 				LOGGER.error("Something happened during swipe. Attempts left #" + i);
 			}
