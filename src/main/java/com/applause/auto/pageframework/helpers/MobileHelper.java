@@ -121,8 +121,8 @@ public class MobileHelper {
 			i--;
 			try {
 				new TouchAction(getDriver()).press(PointOption.point(startX, (int) startY))
-						.waitAction(WaitOptions.waitOptions(Duration.ofMillis(500))).moveTo(PointOption.point(endX, 0))
-						.waitAction(WaitOptions.waitOptions(Duration.ofMillis(500))).release().perform();
+						.waitAction(WaitOptions.waitOptions(Duration.ofMillis(300))).moveTo(PointOption.point(endX, 0))
+						.waitAction(WaitOptions.waitOptions(Duration.ofMillis(300))).release().perform();
 				LOGGER.info("Swiping completed");
 				break;
 			} catch (Throwable throwable) {
