@@ -117,8 +117,8 @@ public class MobileHelper {
 		}
 		LOGGER.info("Swiping left...");
 		new TouchAction(getDriver()).press(PointOption.point(startX, (int) startY))
-				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(250))).moveTo(PointOption.point(endX, 0))
-				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(250))).release().perform();
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(500))).moveTo(PointOption.point(endX, 0))
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(500))).release().perform();
 	}
 
 	public static void activateApp() {
