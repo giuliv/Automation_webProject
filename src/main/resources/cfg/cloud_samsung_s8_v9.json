@@ -14,6 +14,7 @@
 		"platformName" : "Android",
 		"platformVersion" : "9",
 		"automationName" : "uiautomator2",
-		"deviceName" : ".*S9.*"
+		"deviceName" : ".*S9.*",
+		"appiumVersion": "1.12.0"
 	}
 }
