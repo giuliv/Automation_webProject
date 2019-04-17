@@ -5,6 +5,7 @@ import org.testng.annotations.Test;
 
 import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
+import com.applause.auto.pageframework.helpers.MobileHelper;
 import com.applause.auto.pageframework.testdata.TestConstants;
 import com.applause.auto.pageframework.views.AuthenticationView;
 import com.applause.auto.pageframework.views.ExploreOffersView;
@@ -13,8 +14,7 @@ import com.applause.auto.pageframework.views.OrderAheadView;
 import com.applause.auto.pageframework.views.PayFasterView;
 
 /**
- * This is a sample test that verifies the project is setup correctly and can
- * execute a simple test.
+ * This is a sample test that verifies the project is setup correctly and can execute a simple test.
  */
 public class OnboardingSlidesTest extends BaseTest {
 
@@ -25,6 +25,7 @@ public class OnboardingSlidesTest extends BaseTest {
 
 		LOGGER.info("Launch the app and arrive at the first onboarding screen view");
 		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		MobileHelper.scrollDown(2);
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
