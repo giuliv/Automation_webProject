@@ -116,9 +116,20 @@ public class MobileHelper {
 			startY = y;
 		}
 		LOGGER.info("Swiping left...");
-		new TouchAction(getDriver()).press(PointOption.point(startX, (int) startY))
-				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(250))).moveTo(PointOption.point(endX, 0))
-				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(250))).release().perform();
+		int i = 5;
+		while (i != 0) {
+			i--;
+			try {
+				new TouchAction(getDriver()).press(PointOption.point(startX, (int) startY))
+						.waitAction(WaitOptions.waitOptions(Duration.ofMillis(100))).moveTo(PointOption.point(endX, 0))
+						.waitAction(WaitOptions.waitOptions(Duration.ofMillis(100))).release().perform();
+				LOGGER.info("Swiping completed");
+				break;
+			} catch (Throwable throwable) {
+				LOGGER.error("Something happened during swipe. Attempts left #" + i);
+			}
+
+		}
 	}
 
 	public static void activateApp() {
