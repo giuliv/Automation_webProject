@@ -108,7 +108,7 @@ public class SignInView extends AbstractDeviceView {
 
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/password", iOS = "//XCUIElementTypeSecureTextField")
 	protected TextBox getPasswordTextBox() {
-		return new TextBox(getLocator(this, "getPasswordTextBox"));
+		return new TextBox(getLocator(this, "getHiddenPasswordTextBox"));
 	}
 
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/password", iOS = "//XCUIElementTypeButton[@name=\"reveal password\"]/preceding-sibling:: XCUIElementTypeTextField")

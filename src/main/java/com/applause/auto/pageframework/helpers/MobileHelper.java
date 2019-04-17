@@ -27,6 +27,7 @@ import org.apache.commons.lang.WordUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriverException;
@@ -117,7 +118,7 @@ public class MobileHelper {
 		LOGGER.info("Swiping left...");
 		new TouchAction(getDriver()).press(PointOption.point(startX, (int) startY))
 				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(250))).moveTo(PointOption.point(endX, 0))
-				.release().perform();
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(250))).release().perform();
 	}
 
 	public static void activateApp() {
@@ -716,14 +717,39 @@ public class MobileHelper {
 		return getDriverWrapper().getDeviceControl();
 	}
 
+	/**
+	 * Gets sync helper.
+	 *
+	 * @return the sync helper
+	 */
 	public static MobileNativeSyncHelper getSyncHelper() {
 		return (MobileNativeSyncHelper) DriverWrapperManager.getInstance().getPrimaryDriverWrapper().getSyncHelper();
 	}
 
+	/**
+	 * Regex matches boolean.
+	 *
+	 * @param pattern
+	 *            the pattern
+	 * @param text
+	 *            the text
+	 * @return the boolean
+	 */
 	public static Boolean regexMatches(String pattern, String text) {
 		return regexMatches(pattern, text, true);
 	}
 
+	/**
+	 * Regex matches boolean.
+	 *
+	 * @param pattern
+	 *            the pattern
+	 * @param text
+	 *            the text
+	 * @param caseInsensitive
+	 *            the case insensitive
+	 * @return the boolean
+	 */
 	public static Boolean regexMatches(String pattern, String text, Boolean caseInsensitive) {
 		LOGGER.info(String.format("Trying to match %s on %s", pattern, text));
 		Pattern p;
@@ -808,6 +834,17 @@ public class MobileHelper {
 		}
 	}
 
+	/**
+	 * Gets element text.
+	 *
+	 * @param baseDeviceControl
+	 *            the base device control
+	 * @param iOSAttribute
+	 *            the os attribute
+	 * @param androidAttribute
+	 *            the android attribute
+	 * @return the element text
+	 */
 	public static String getElementText(BaseDeviceControl baseDeviceControl, String iOSAttribute,
 			String androidAttribute) {
 		if (env.getIsMobileIOS()) {
@@ -817,10 +854,24 @@ public class MobileHelper {
 		}
 	}
 
+	/**
+	 * Gets element text.
+	 *
+	 * @param baseDeviceControl
+	 *            the base device control
+	 * @return the element text
+	 */
 	public static String getElementText(BaseDeviceControl baseDeviceControl) {
 		return getElementText(baseDeviceControl, "name", "text");
 	}
 
+	/**
+	 * Gets number.
+	 *
+	 * @param text
+	 *            the text
+	 * @return the number
+	 */
 	public static String getNumber(String text) {
 		Pattern pattern = Pattern.compile("[\\d,]+");
 		Matcher matcher = pattern.matcher(text);
@@ -828,6 +879,12 @@ public class MobileHelper {
 		return matcher.group(0);
 	}
 
+	/**
+	 * Handle alert.
+	 *
+	 * @param alertName
+	 *            the alert name
+	 */
 	public static void handleAlert(String alertName) {
 
 		try {
@@ -838,6 +895,12 @@ public class MobileHelper {
 		}
 	}
 
+	/**
+	 * Wait for alert to dismiss.
+	 *
+	 * @param timeout
+	 *            the timeout
+	 */
 	public static void waitForAlertToDismiss(long timeout) {
 		boolean alertDisplayed = false;
 		getSyncHelper().suspend(2000); // warm time to get alert displayed
@@ -853,6 +916,14 @@ public class MobileHelper {
 		} while (endTime < System.currentTimeMillis() && alertDisplayed);
 	}
 
+	/**
+	 * Tap.
+	 *
+	 * @param x
+	 *            the x
+	 * @param y
+	 *            the y
+	 */
 	public static void tap(double x, double y) {
 		MobileHelper.refreshDeviceSize();
 
@@ -873,6 +944,9 @@ public class MobileHelper {
 
 	}
 
+	/**
+	 * Wait for video loading icon.
+	 */
 	public static void waitForVideoLoadingIcon() {
 		if (env.getIsMobileIOS()) {
 			getSyncHelper().waitForElementToDisappear("@name == 'Loading'");
@@ -881,19 +955,46 @@ public class MobileHelper {
 		}
 	}
 
+	/**
+	 * Wait for loading icon.
+	 *
+	 * @param retries
+	 *            the retries
+	 */
 	public static void waitForLoadingIcon(int retries) {
 		waitForElementToDisappear(getLoadingIconLocator(), retries);
 	}
 
+	/**
+	 * Wait for loading icon.
+	 */
 	public static void waitForLoadingIcon() {
 		waitForLoadingIcon(1);
 	}
 
+	/**
+	 * Gets random option.
+	 *
+	 * @param <T>
+	 *            the type parameter
+	 * @param options
+	 *            the options
+	 * @return the random option
+	 */
 	public static <T> T getRandomOption(T[] options) {
 		int size = options.length;
 		return options[new Random().nextInt(size)];
 	}
 
+	/**
+	 * Gets random option.
+	 *
+	 * @param <T>
+	 *            the type parameter
+	 * @param options
+	 *            the options
+	 * @return the random option
+	 */
 	public static <T> T getRandomOption(java.util.List<T> options) {
 		int size = options.size();
 		return options.get(new Random().nextInt(size));
@@ -904,19 +1005,69 @@ public class MobileHelper {
 	 * value
 	 */
 	public static void setPickerValue(String value, PickerWheel element) {
+		setPickerValueBasic(value, element, "next");
+	}
+
+	/**
+	 * Sets picker value reverse.
+	 *
+	 * @param value
+	 *            the value
+	 * @param element
+	 *            the element
+	 */
+	public static void setPickerValueReverse(String value, PickerWheel element) {
+		setPickerValueBasic(value, element, "previous");
+	}
+
+	/**
+	 * Is attribtue present boolean.
+	 *
+	 * @param element
+	 *            the element
+	 * @param attribute
+	 *            the attribute
+	 * @return the boolean
+	 */
+	public static boolean isAttribtuePresent(MobileElement element, String attribute) {
+		Boolean result = false;
+		try {
+			String value = element.getAttribute(attribute);
+			if (value != null) {
+				result = true;
+			}
+		} catch (Exception e) {
+		}
+
+		return result;
+	}
+
+	/**
+	 * Sets picker value basic.
+	 *
+	 * @param value
+	 *            the value
+	 * @param element
+	 *            the element
+	 * @param order
+	 *            the order
+	 */
+	public static void setPickerValueBasic(String value, PickerWheel element, String order) {
 		int loopCounter = 0;
 		String pickerWheel = element.getMobileElement().getText();
 		MobileElement elem = element.getMobileElement();
-		while (!pickerWheel.contentEquals(value) && loopCounter < 10) {
+		while (!pickerWheel.contentEquals(value.trim()) && loopCounter < 30) {
 			LOGGER.debug("Initial picker wheel value: " + pickerWheel);
 			LOGGER.debug("Sending value to: " + value);
+			LOGGER.debug("Loop #" + loopCounter);
 			if (!env.getIsMobileIOS()) {
-				element.getMobileElement().sendKeys(value);
+				elem.sendKeys(Keys.BACK_SPACE);
+				elem.sendKeys(value);
 			} else {
 				JavascriptExecutor js = (JavascriptExecutor) getDriver();
 				Map<String, Object> params = new HashMap<>();
-				params.put("order", "next");
-				params.put("offset", 0.10);
+				params.put("order", order);
+				params.put("offset", 0.1);
 				params.put("element", ((RemoteWebElement) elem).getId());
 				try {
 					js.executeScript("mobile: selectPickerWheelValue", params);
@@ -925,7 +1076,7 @@ public class MobileHelper {
 				}
 			}
 			loopCounter++;
-			pickerWheel = element.getMobileElement().getText();
+			pickerWheel = elem.getText();
 			LOGGER.debug("Updated picker wheel value: " + pickerWheel);
 		}
 	}
