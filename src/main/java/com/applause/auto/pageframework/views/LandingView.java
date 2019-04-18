@@ -68,6 +68,15 @@ public class LandingView extends AbstractDeviceView {
 	}
 
 	/**
+	 * Skip Onboarding Cards
+	 *
+	 */
+	public void skipOnboarding() {
+		LOGGER.info("Skipping Onboarding");
+		getSkipButton().pressButton();
+	}
+
+	/**
 	 * Get the text value of the heading
 	 * 
 	 * @return
