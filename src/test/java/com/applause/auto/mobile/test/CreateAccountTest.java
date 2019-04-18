@@ -107,17 +107,17 @@ public class CreateAccountTest extends BaseTest {
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
-		landingView.skipOffer();
+		landingView.skipOnboarding();
 
 		LOGGER.info("Tap Sign In");
 		SignInView signInView = landingView.signIn();
 
 		LOGGER.info("Tap on Email Address field and enter valid email address");
-		String username = TestConstants.TestData.USERNAME;
+		String username = TestConstants.MyAccountTestData.EMAIL;
 		signInView.setUsername(username);
 
 		LOGGER.info("Enter valid password");
-		signInView.setPassword(TestConstants.TestData.PASSWORD);
+		signInView.setPassword(TestConstants.MyAccountTestData.PASSWORD);
 
 		LOGGER.info("Tap Sign In button");
 		DashboardView dashboardView = signInView.signIn();
@@ -197,7 +197,7 @@ public class CreateAccountTest extends BaseTest {
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
-		landingView.skipOffer();
+		landingView.skipOnboarding();
 
 		LOGGER.info("Tap Create Account");
 		CreateAccountView createAccountView = landingView.createAccount();
