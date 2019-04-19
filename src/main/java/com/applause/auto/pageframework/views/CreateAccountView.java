@@ -79,6 +79,7 @@ public class CreateAccountView extends AbstractDeviceView {
 		LOGGER.info("Set last name to: " + lastname);
 		getLastnameTextBox().clearTextBox();
 		getLastnameTextBox().enterText(lastname);
+		MobileHelper.scrollDown(1);
 		return this;
 	}
 
@@ -93,6 +94,7 @@ public class CreateAccountView extends AbstractDeviceView {
 		LOGGER.info("Set ZIP to: " + zipCode);
 		getZipCodeTextBox().clearTextBox();
 		getZipCodeTextBox().enterText(zipCode);
+		MobileHelper.scrollDown(1);
 		return this;
 	}
 
@@ -509,12 +511,9 @@ class AndroidCreateAccountView extends CreateAccountView {
 	public CreateAccountView setDOB(String day, String month, String year) {
 		LOGGER.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
 		getDOBValueTextBox().clickTextBox();
-		getDOBDayPickerWheel().tapCenterOfElement();
-		MobileHelper.setPickerValue(day + "\n", getDOBDayPickerWheel());
-		getDOBMonthPickerWheel().tapCenterOfElement();
-		MobileHelper.setPickerValue(month.substring(0, 3) + "\n", getDOBMonthPickerWheel());
-		getDOBYearPickerWheel().tapCenterOfElement();
-		MobileHelper.setPickerValueReverse(year + "\n", getDOBYearPickerWheel());
+		MobileHelper.setPickerValue(day + "\t", getDOBDayPickerWheel());
+		MobileHelper.setPickerValue(month.substring(0, 3) + "\t", getDOBMonthPickerWheel());
+		MobileHelper.setPickerValueReverse(year + "\t", getDOBYearPickerWheel());
 		getDOBOkButton().pressButton();
 		return DeviceViewFactory.create(CreateAccountView.class);
 	}
