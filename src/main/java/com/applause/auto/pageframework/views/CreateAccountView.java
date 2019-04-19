@@ -514,7 +514,7 @@ class AndroidCreateAccountView extends CreateAccountView {
 		getDOBValueTextBox().clickTextBox();
 		MobileHelper.setPickerValue(day + "\t", getDOBDayPickerWheel());
 		MobileHelper.setPickerValue(month.substring(0, 3), getDOBMonthPickerWheel());
-		MobileHelper.setPickerValueReverse(year + "\t", getDOBYearPickerWheel());
+		MobileHelper.setPickerValueReverse(year + "\n", getDOBYearPickerWheel());
 		getDOBOkButton().pressButton();
 		return DeviceViewFactory.create(CreateAccountView.class);
 	}
