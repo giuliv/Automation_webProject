@@ -1067,6 +1067,8 @@ public class MobileHelper {
 		int loopCounter = 0;
 		String pickerWheel = element.getMobileElement().getText();
 		MobileElement elem = element.getMobileElement();
+		LOGGER.debug("Initial picker wheel value: " + pickerWheel);
+		LOGGER.debug("Expected value to: " + value);
 		while (!pickerWheel.contentEquals(value.trim()) && loopCounter < 30) {
 			LOGGER.debug("Initial picker wheel value: " + pickerWheel);
 			LOGGER.debug("Sending value to: " + value);
