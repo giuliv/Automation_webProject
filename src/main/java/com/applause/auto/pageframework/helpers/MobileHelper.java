@@ -1073,7 +1073,7 @@ public class MobileHelper {
 			LOGGER.debug("Initial picker wheel value: " + pickerWheel);
 			LOGGER.debug("Sending value to: " + value);
 			LOGGER.debug("Loop #" + loopCounter);
-			if (!env.getIsMobileIOS()) {
+			if (false || !env.getIsMobileIOS()) {
 				elem.sendKeys(Keys.BACK_SPACE);
 				elem.sendKeys(value);
 			} else {
