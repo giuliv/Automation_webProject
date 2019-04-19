@@ -227,7 +227,7 @@ public class CreateAccountTest extends BaseTest {
 		createAccountView.setZipCode(zipCode);
 
 		LOGGER.info("Scroll through and select birthday");
-		String dobDay = "30";
+		String dobDay = "27";
 		String dobMonth = "December";
 		String dobYear = "1990";
 		createAccountView.setDOB(dobDay, dobMonth, dobYear);
