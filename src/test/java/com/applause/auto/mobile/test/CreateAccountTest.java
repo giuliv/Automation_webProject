@@ -254,13 +254,13 @@ public class CreateAccountTest extends BaseTest {
 		createAccountView.showPassword();
 
 		LOGGER.info("Make sure password entered is displayed to user");
-		Assert.assertEquals(createAccountView.getPassword(), password, "Password does not displayed");
+		Assert.assertEquals(createAccountView.getHiddenPassword(), password, "Password does not displayed");
 
 		LOGGER.info("Tap on hide password icon");
 		createAccountView.hidePassword();
 
 		LOGGER.info("Make sure password entered is hidden from user");
-		Assert.assertNotEquals(createAccountView.getHiddenPassword(), password, "Password does not hidden");
+		Assert.assertNotEquals(createAccountView.getPassword(), password, "Password does not hidden");
 
 		createAccountView.setPromo("");
 
