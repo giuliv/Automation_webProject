@@ -76,11 +76,11 @@ public class CreateAccountTest extends BaseTest {
 		SignInView signInView = landingView.signIn();
 
 		LOGGER.info("Tap on Email Address field and enter valid email address");
-		String username = TestConstants.TestData.USERNAME;
+		String username = TestConstants.MyAccountTestData.EMAIL;
 		signInView.setUsername(username);
 
 		LOGGER.info("Enter valid password");
-		signInView.setPassword(TestConstants.TestData.PASSWORD);
+		signInView.setPassword(TestConstants.MyAccountTestData.PASSWORD);
 		Assert.assertTrue(!signInView.getPassword().equals(TestConstants.TestData.PASSWORD),
 				"Password does not hidden");
 
