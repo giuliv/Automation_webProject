@@ -88,7 +88,7 @@ public class CreateAccountTest extends BaseTest {
 		signInView.showPassword();
 
 		LOGGER.info("Make sure password entered is displayed to user");
-		Assert.assertEquals(signInView.getUnEncryptedPassword(), TestConstants.TestData.PASSWORD,
+		Assert.assertEquals(signInView.getUnEncryptedPassword(), TestConstants.MyAccountTestData.PASSWORD,
 				"Password does not shown");
 
 		LOGGER.info("Tap Sign In button");
