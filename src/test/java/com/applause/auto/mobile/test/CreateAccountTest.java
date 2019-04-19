@@ -188,9 +188,72 @@ public class CreateAccountTest extends BaseTest {
 
 	}
 
+	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625927")
+	public void accountSettingsGeneralSettingsTest() {
+
+		LOGGER.info("Launch the app and arrive at the first on boarding screen view");
+		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
+				"First screen text value is not correct");
+
+		landingView.skipOffer();
+
+		LOGGER.info("Tap Sign In");
+		SignInView signInView = landingView.signIn();
+
+		LOGGER.info("Tap on Email Address field and enter valid email address");
+		String username = "a+625927@a.com";
+		signInView.setUsername(username);
+
+		LOGGER.info("Enter valid password");
+		signInView.setPassword(TestConstants.TestData.PASSWORD);
+
+		LOGGER.info("Tap Sign In button");
+		DashboardView dashboardView = signInView.signIn();
+
+		LOGGER.info("Tap on ... at top right of home screen to view more screen");
+		AccountMenuMobileChunk accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
+
+		LOGGER.info("Tap on ... at top right of home screen to view more screen\nTap on General Settings field/row");
+		GeneralSettingsView profileDetailsView = accountMenuMobileChunk.generalSettings();
+
+		LOGGER.info("Make sure user is taken to General Settings screen:\n" + "\n" + "* Header: General Settings\n"
+				+ "\n" + "* Notification Settings\n" + "\n" + "      o Promotional Emails\n" + "\n"
+				+ "      o Text: Receive offers, news, and more [Toggle off / on]\n" + "\n"
+				+ "      o Push Notifications\n" + "\n"
+				+ "      o Text: Receive alerts about offers, news, and more [Toggle off / on]\n" + "\n"
+				+ "* Privacy Settings\n" + "\n" + "      o Locations Services\n" + "\n"
+				+ "      o Text: Helps us locate your nearest Peet's [Toggle off / on]\n" + "\n");
+
+		LOGGER.info("Toggle Promotional Emails on");
+
+		LOGGER.info("Promotional emails setting should turn on");
+
+		LOGGER.info("Toggle Promotional Emails off");
+
+		LOGGER.info("Promotional emails setting should turn off");
+
+		LOGGER.info("Toggle Location Services off");
+		LOGGER.info("User should see UI alert:\n" + "\n" + "* Title: Disable Location Service\n" + "\n"
+				+ "* Text: To disable Location Service you need to go to the Application Settings.");
+
+		LOGGER.info("* Tap Go to Settings");
+
+		LOGGER.info("User should be taken to Peet's app settings");
+
+		LOGGER.info("* Tap on Location field");
+
+		LOGGER.info("* Tap Never under Allow Location Access");
+
+		LOGGER.info("Tap on back to \"Peet's\" to return to app");
+
+		LOGGER.info("Toggle should be off in app");
+	}
+
 	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625880")
 	public void сreateAccountEmailPassword() {
 		long uniq = System.currentTimeMillis();
+		uniq = 625927;
 
 		LOGGER.info("Launch the app and arrive at the first onboarding screen view");
 		LandingView landingView = DeviceViewFactory.create(LandingView.class);
