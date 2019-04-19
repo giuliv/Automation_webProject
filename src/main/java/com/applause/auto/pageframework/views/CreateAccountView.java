@@ -508,19 +508,16 @@ class AndroidCreateAccountView extends CreateAccountView {
 		return DeviceViewFactory.create(TermsAndConditionsView.class);
 	}
 
-	// @Override
-	// public CreateAccountView setDOB(String day, String month, String year) {
-	// LOGGER.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
-	// getDOBValueTextBox().clickTextBox();
-	// MobileHelper.setPickerValue(day + "\t", getDOBDayPickerWheel());
-	// getDOBDayPickerWheel().tapCenterOfElement();
-	// MobileHelper.setPickerValue(month.substring(0, 3), getDOBMonthPickerWheel());
-	// getDOBMonthPickerWheel().tapCenterOfElement();
-	// MobileHelper.setPickerValueReverse(year + "\t", getDOBYearPickerWheel());
-	// getDOBYearPickerWheel().tapCenterOfElement();
-	// getDOBOkButton().pressButton();
-	// return DeviceViewFactory.create(CreateAccountView.class);
-	// }
+	@Override
+	public CreateAccountView setDOB(String day, String month, String year) {
+		LOGGER.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
+		getDOBValueTextBox().clickTextBox();
+		MobileHelper.setPickerValue(day, getDOBDayPickerWheel());
+		MobileHelper.setPickerValue(month.substring(0, 3), getDOBMonthPickerWheel());
+		MobileHelper.setPickerValueReverse(year, getDOBYearPickerWheel());
+		getDOBOkButton().pressButton();
+		return DeviceViewFactory.create(CreateAccountView.class);
+	}
 
 	@Override
 	public CreateAccountView showPassword() {
