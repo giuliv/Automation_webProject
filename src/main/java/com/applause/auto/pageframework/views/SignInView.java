@@ -48,6 +48,7 @@ public class SignInView extends AbstractDeviceView {
 	 */
 	public void setPassword(String password) {
 		LOGGER.info("Set password: " + password);
+		getPasswordTextBox().clearTextBox();
 		getPasswordTextBox().enterText(password);
 		syncHelper.suspend(3000);
 	}
@@ -108,7 +109,7 @@ public class SignInView extends AbstractDeviceView {
 
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/password", iOS = "//XCUIElementTypeSecureTextField")
 	protected TextBox getPasswordTextBox() {
-		return new TextBox(getLocator(this, "getHiddenPasswordTextBox"));
+		return new TextBox(getLocator(this, "getPasswordTextBox"));
 	}
 
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/password", iOS = "//XCUIElementTypeButton[@name=\"reveal password\"]/preceding-sibling:: XCUIElementTypeTextField")
