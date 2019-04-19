@@ -113,6 +113,7 @@ public class ProfileDetailsView extends AbstractDeviceView {
 	 */
 	public ProfileDetailsView setConfirmEmailAddress(String emailAddress) {
 		LOGGER.info("Set email address to: " + emailAddress);
+		getDriver().hideKeyboard();
 		getConfirmEmailAddressTextBox().clearTextBox();
 		getConfirmEmailAddressTextBox().enterText(emailAddress);
 		return this;
