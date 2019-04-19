@@ -509,9 +509,12 @@ class AndroidCreateAccountView extends CreateAccountView {
 	public CreateAccountView setDOB(String day, String month, String year) {
 		LOGGER.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
 		getDOBValueTextBox().clickTextBox();
-		MobileHelper.setPickerValue(day + "\t", getDOBDayPickerWheel());
-		MobileHelper.setPickerValue(month.substring(0, 3), getDOBMonthPickerWheel());
-		MobileHelper.setPickerValueReverse(year + "\t", getDOBYearPickerWheel());
+		getDOBDayPickerWheel().tapCenterOfElement();
+		MobileHelper.setPickerValue(day + "\n", getDOBDayPickerWheel());
+		getDOBMonthPickerWheel().tapCenterOfElement();
+		MobileHelper.setPickerValue(month.substring(0, 3) + "\n", getDOBMonthPickerWheel());
+		getDOBYearPickerWheel().tapCenterOfElement();
+		MobileHelper.setPickerValueReverse(year + "\n", getDOBYearPickerWheel());
 		getDOBOkButton().pressButton();
 		return DeviceViewFactory.create(CreateAccountView.class);
 	}
