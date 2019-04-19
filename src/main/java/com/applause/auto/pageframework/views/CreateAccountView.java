@@ -129,7 +129,7 @@ public class CreateAccountView extends AbstractDeviceView {
 		MobileHelper.setPickerValue(month, getDOBMonthPickerWheel());
 		MobileHelper.setPickerValueReverse(year, getDOBYearPickerWheel());
 
-		return this;
+		return DeviceViewFactory.create(CreateAccountView.class);
 	}
 
 	/**
