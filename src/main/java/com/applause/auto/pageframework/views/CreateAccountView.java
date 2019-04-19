@@ -301,7 +301,7 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the hidden password
 	 */
 	public String getHiddenPassword() {
-		return getHiddenPasswordTextBox().getCurrentText();
+		return getHiddenPasswordTextBox().getCurrentText().trim();
 
 	}
 
@@ -311,7 +311,7 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the password
 	 */
 	public String getPassword() {
-		return getPasswordTextBox().getCurrentText();
+		return getPasswordTextBox().getCurrentText().trim();
 
 	}
 
@@ -387,12 +387,12 @@ public class CreateAccountView extends AbstractDeviceView {
 		return new Button(getLocator(this, "getHideConfirmationPasswordButton"));
 	}
 
-	@MobileElementLocator(android = "//*[@resource-id='android:id/pickers']/android.widget.NumberPicker[2]/android.widget.EditText", iOS = "//XCUIElementTypeDatePicker/XCUIElementTypeOther/XCUIElementTypePickerWheel[2]")
+	@MobileElementLocator(android = "//*[@resource-id='android:id/pickers']/android.widget.NumberPicker[1]/android.widget.EditText", iOS = "//XCUIElementTypeDatePicker/XCUIElementTypeOther/XCUIElementTypePickerWheel[2]")
 	protected PickerWheel getDOBDayPickerWheel() {
 		return new PickerWheel(getLocator(this, "getDOBDayPickerWheel"));
 	}
 
-	@MobileElementLocator(android = "//*[@resource-id='android:id/pickers']/android.widget.NumberPicker[1]/android.widget.EditText", iOS = "//XCUIElementTypeDatePicker/XCUIElementTypeOther/XCUIElementTypePickerWheel[1]")
+	@MobileElementLocator(android = "//*[@resource-id='android:id/pickers']/android.widget.NumberPicker[2]/android.widget.EditText", iOS = "//XCUIElementTypeDatePicker/XCUIElementTypeOther/XCUIElementTypePickerWheel[1]")
 	protected PickerWheel getDOBMonthPickerWheel() {
 		return new PickerWheel(getLocator(this, "getDOBMonthPickerWheel"));
 	}
