@@ -189,7 +189,7 @@ public class CreateAccountTest extends BaseTest {
 	}
 
 	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625880")
-	public void сreateAccountEmailPassword() {
+	public void createAccountEmailPassword() {
 		long uniq = System.currentTimeMillis();
 
 		LOGGER.info("Launch the app and arrive at the first onboarding screen view");
