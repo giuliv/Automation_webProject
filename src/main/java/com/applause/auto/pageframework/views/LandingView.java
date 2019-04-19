@@ -54,6 +54,10 @@ public class LandingView extends AbstractDeviceView {
 	 */
 	public void skipOffer() {
 		LOGGER.info("Tap on create account button");
+		ExploreOffersView exploreOffersView = swipeLeftOnScreen();
+		PayFasterView payFasterView = exploreOffersView.swipeLeftOnScreen();
+		OrderAheadView orderAheadView = payFasterView.swipeLeftOnScreen();
+		AuthenticationView authenticationView = orderAheadView.clickGetStartedButton();
 	}
 
 	/**
