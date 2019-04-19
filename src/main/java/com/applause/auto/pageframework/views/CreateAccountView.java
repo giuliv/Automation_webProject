@@ -160,6 +160,7 @@ public class CreateAccountView extends AbstractDeviceView {
 		LOGGER.info("Set email address to: " + emailAddress);
 		getConfirmEmailAddressTextBox().clearTextBox();
 		getConfirmEmailAddressTextBox().enterText(emailAddress + "\n");
+		MobileHelper.scrollDown(1);
 		return this;
 	}
 
