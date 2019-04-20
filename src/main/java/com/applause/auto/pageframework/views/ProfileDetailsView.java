@@ -13,6 +13,7 @@ import com.applause.auto.framework.pageframework.devicecontrols.Text;
 import com.applause.auto.framework.pageframework.devicecontrols.TextBox;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.pageframework.chunks.AccountMenuMobileChunk;
+import com.applause.auto.pageframework.helpers.MobileHelper;
 
 @AndroidImplementation(ProfileDetailsView.class)
 @IosImplementation(ProfileDetailsView.class)
@@ -87,6 +88,7 @@ public class ProfileDetailsView extends AbstractDeviceView {
 		LOGGER.info("Set phone number to: " + phone);
 		getPhoneNumberTextBox().clearTextBox();
 		getPhoneNumberTextBox().enterText(phone);
+		MobileHelper.scrollDown(1);
 		return this;
 	}
 
@@ -101,6 +103,7 @@ public class ProfileDetailsView extends AbstractDeviceView {
 		LOGGER.info("Set email address to: " + emailAddress);
 		getEmailAddressTextBox().clearTextBox();
 		getEmailAddressTextBox().enterText(emailAddress);
+		MobileHelper.scrollDown(1);
 		return this;
 	}
 
