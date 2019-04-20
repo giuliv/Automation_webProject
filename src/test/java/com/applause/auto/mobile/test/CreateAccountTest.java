@@ -333,7 +333,7 @@ public class CreateAccountTest extends BaseTest {
 		LOGGER.info("Make sure promotional emails toggle reflects whatever selection user chose at step 11");
 		Assert.assertTrue(generalSettingsView.isPromoEmailOptionChecked(), "Promo email does not checked");
 
-		LOGGER.info("Tap on back nav to return to more screen");
+		LOGGER.info("Tap on back nav to return to more screen" + driver.getPageSource());
 		accountMenuMobileChunk = generalSettingsView.goBack(AccountMenuMobileChunk.class);
 
 		LOGGER.info("Tap sign out button");
