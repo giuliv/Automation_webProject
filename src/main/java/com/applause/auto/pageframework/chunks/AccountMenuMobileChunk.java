@@ -70,7 +70,6 @@ public class AccountMenuMobileChunk extends AbstractDeviceChunk {
 		getSignOutButton().pressButton();
 		syncHelper.suspend(10000);
 		if (queryHelper.doesElementExist(getLocator(this, "getLogOutButton"))) {
-			LOGGER.info(">>>>>>>>>>>" + getDriver().getPageSource());
 			getLogOutButton().tapCenterOfElement();
 		}
 		return DeviceViewFactory.create(AuthenticationView.class);
@@ -90,7 +89,7 @@ public class AccountMenuMobileChunk extends AbstractDeviceChunk {
 		return new Button(getLocator(this, "getSignOutButton"));
 	}
 
-	@MobileElementLocator(android = "android:id/button1", iOS = "Log Out")
+	@MobileElementLocator(android = "android:id/button1", iOS = "//XCUIElementTypeButton[@value='Log Out']")
 	protected Button getLogOutButton() {
 		return new Button(getLocator(this, "getLogOutButton"));
 	}
