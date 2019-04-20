@@ -145,7 +145,12 @@ public class CreateAccountTest extends BaseTest {
 		String firstNameNew = firstNameOrig.replaceFirst("A", "AA");
 		String lastNameNew = lastNameOrig.replaceFirst("A", "AA");
 		String zipCodeNew = "11214";
-		String phoneNew = "2345678901";
+
+		String phoneNew = "2";
+		Random random = new Random();
+		for (int i = 0; i < 9; i++) {
+			phoneNew += "" + random.nextInt(9);
+		}
 		String emailNew = emailOrig.replace(".com", ".net");
 
 		profileDetailsView.setFirstname(firstNameNew);

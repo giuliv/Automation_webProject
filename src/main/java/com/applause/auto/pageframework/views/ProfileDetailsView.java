@@ -16,7 +16,7 @@ import com.applause.auto.pageframework.chunks.AccountMenuMobileChunk;
 import com.applause.auto.pageframework.helpers.MobileHelper;
 
 @AndroidImplementation(ProfileDetailsView.class)
-@IosImplementation(ProfileDetailsView.class)
+@IosImplementation(IOSProfileDetailsView.class)
 public class ProfileDetailsView extends AbstractDeviceView {
 
 	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
@@ -88,7 +88,6 @@ public class ProfileDetailsView extends AbstractDeviceView {
 		LOGGER.info("Set phone number to: " + phone);
 		getPhoneNumberTextBox().clearTextBox();
 		getPhoneNumberTextBox().enterText(phone);
-		MobileHelper.scrollDown(1);
 		return this;
 	}
 
@@ -118,6 +117,7 @@ public class ProfileDetailsView extends AbstractDeviceView {
 		LOGGER.info("Set email address to: " + emailAddress);
 		getConfirmEmailAddressTextBox().clearTextBox();
 		getConfirmEmailAddressTextBox().enterText(emailAddress);
+		MobileHelper.scrollDownCloseToMiddle(1);
 		return this;
 	}
 
@@ -263,4 +263,25 @@ public class ProfileDetailsView extends AbstractDeviceView {
 	protected Text getSignature() {
 		return new Text(getLocator(this, "getSignature"));
 	}
+}
+
+class IOSProfileDetailsView extends ProfileDetailsView {
+	@Override
+	public ProfileDetailsView setZipCode(String zipCode) {
+		LOGGER.info("Set ZIP to: " + zipCode);
+		getZipCodeTextBox().clearTextBox();
+		getZipCodeTextBox().enterText(zipCode);
+		MobileHelper.scrollDownCloseToMiddle(1);
+		return this;
+	}
+
+	@Override
+	public ProfileDetailsView setPhoneNumber(String phone) {
+		LOGGER.info("Set phone number to: " + phone);
+		getPhoneNumberTextBox().clearTextBox();
+		getPhoneNumberTextBox().enterText(phone);
+		MobileHelper.scrollDownCloseToMiddle(1);
+		return this;
+	}
+
 }
