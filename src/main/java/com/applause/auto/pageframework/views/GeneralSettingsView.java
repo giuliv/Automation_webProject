@@ -5,6 +5,7 @@ import java.lang.invoke.MethodHandles;
 import com.applause.auto.framework.pageframework.device.AbstractDeviceChunk;
 import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
 import com.applause.auto.framework.pageframework.device.DeviceChunkFactory;
+import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
 import com.applause.auto.framework.pageframework.device.MobileElementLocator;
 import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
 import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
@@ -62,6 +63,41 @@ public class GeneralSettingsView extends AbstractDeviceView {
 		return getPromotionalEmailsButton().getAttributeValue("value").equals("1");
 	}
 
+	public boolean isPushNotificationChecked() {
+		return getPushNotificationButton().getAttributeValue("value").equals("1");
+	}
+
+	public boolean isLocationServicesChecked() {
+		return getLocationSetvicesButton().getAttributeValue("value").equals("1");
+	}
+
+	public void enableLocationServices() {
+		LOGGER.info("Checking Location services");
+		if (!isLocationServicesChecked())
+			getLocationSetvicesButton().checkCheckbox();
+	}
+
+	public PeetsSettingsView disableLocationServices() {
+		LOGGER.info("Unchecking Location services");
+		if (isLocationServicesChecked())
+			getLocationSetvicesButton().checkCheckbox();
+		return DeviceViewFactory.create(PeetsSettingsView.class);
+	}
+
+	public GeneralSettingsView enablePromotionalEmails() {
+		LOGGER.info("Checking Promo emails services");
+		if (!isPromoEmailOptionChecked())
+			getPromotionalEmailsButton().checkCheckbox();
+		return DeviceViewFactory.create(GeneralSettingsView.class);
+	}
+
+	public GeneralSettingsView disablePromotionalEmails() {
+		LOGGER.info("Unchecking Promo emails services");
+		if (isPromoEmailOptionChecked())
+			getPromotionalEmailsButton().checkCheckbox();
+		return DeviceViewFactory.create(GeneralSettingsView.class);
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -74,6 +110,16 @@ public class GeneralSettingsView extends AbstractDeviceView {
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/emailSubscription", iOS = "Promotional Emails, Receive offers, news, and more")
 	protected Checkbox getPromotionalEmailsButton() {
 		return new Checkbox(getLocator(this, "getPromotionalEmailsButton"));
+	}
+
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/pushNotifications", iOS = "Push Notifications, Receive alerts about offers, news, and more")
+	protected Checkbox getPushNotificationButton() {
+		return new Checkbox(getLocator(this, "getPushNotificationButton"));
+	}
+
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/enableLocation", iOS = "Location Services, Helps us locate your nearest Peet’s")
+	protected Checkbox getLocationSetvicesButton() {
+		return new Checkbox(getLocator(this, "getLocationSetvicesButton"));
 	}
 
 	@MobileElementLocator(android = "//android.widget.TextView[@text='General Settings']", iOS = "General Settings")
