@@ -70,6 +70,9 @@ public class AccountMenuMobileChunk extends AbstractDeviceChunk {
 		getSignOutButton().pressButton();
 		syncHelper.suspend(10000);
 		if (queryHelper.doesElementExist(getLocator(this, "getLogOutButton"))) {
+			getLogOutButton().tap();
+		}
+		if (queryHelper.doesElementExist(getLocator(this, "getLogOutButton"))) {
 			getLogOutButton().tapCenterOfElement();
 		}
 		return DeviceViewFactory.create(AuthenticationView.class);
