@@ -53,7 +53,12 @@ public class LandingView extends AbstractDeviceView {
 	 * Skip offer.
 	 */
 	public void skipOffer() {
-		LOGGER.info("Tap on create account button");
+		LOGGER.info("Swipe left and verify Explore Offers screen has correct title");
+		MobileHelper.scrollDown(3);
+		ExploreOffersView exploreOffersView = swipeLeftOnScreen();
+		PayFasterView payFasterView = exploreOffersView.swipeLeftOnScreen();
+		OrderAheadView orderAheadView = payFasterView.swipeLeftOnScreen();
+		AuthenticationView authenticationView = orderAheadView.clickGetStartedButton();
 	}
 
 	/**
@@ -107,13 +112,5 @@ public class LandingView extends AbstractDeviceView {
 }
 
 class AndroidLandingView extends LandingView {
-
-	public void skipOffer() {
-		LOGGER.info("Swipe left and verify Explore Offers screen has correct title");
-		ExploreOffersView exploreOffersView = swipeLeftOnScreen();
-		PayFasterView payFasterView = exploreOffersView.swipeLeftOnScreen();
-		OrderAheadView orderAheadView = payFasterView.swipeLeftOnScreen();
-		AuthenticationView authenticationView = orderAheadView.clickGetStartedButton();
-	}
 
 }

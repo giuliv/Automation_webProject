@@ -670,8 +670,8 @@ public class MobileHelper {
 		double pStartY = 0;
 		double pEndY = 0;
 		if (env.getIsMobileIOS()) {
-			pStartY = 0.7;
-			pEndY = -0.3;
+			pStartY = 0.6;
+			pEndY = -0.4;
 		} else { // Android scrolls faster so the start and end must be gentler
 			pStartY = 0.60;
 			pEndY = 0.40;
@@ -687,8 +687,9 @@ public class MobileHelper {
 		LOGGER.info("Swiping Down...");
 		try {
 			new TouchAction(getDriver()).press(PointOption.point((int) startX, startY))
-					.waitAction(WaitOptions.waitOptions(Duration.ofMillis(500)))
-					.moveTo(PointOption.point((int) startX, endY)).release().perform();
+					.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+					.moveTo(PointOption.point((int) startX, endY))
+					.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000))).release().perform();
 		} catch (WebDriverException wex) {
 			LOGGER.warn("Swipe cause error, probably nothing to swipe: " + wex.getMessage());
 		}
@@ -1067,6 +1068,8 @@ public class MobileHelper {
 		int loopCounter = 0;
 		String pickerWheel = element.getMobileElement().getText();
 		MobileElement elem = element.getMobileElement();
+		LOGGER.debug("Initial picker wheel value: " + pickerWheel);
+		LOGGER.debug("Expected value to: " + value);
 		while (!pickerWheel.contentEquals(value.trim()) && loopCounter < 30) {
 			LOGGER.debug("Initial picker wheel value: " + pickerWheel);
 			LOGGER.debug("Sending value to: " + value);
