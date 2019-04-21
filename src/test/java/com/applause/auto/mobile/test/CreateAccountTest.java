@@ -113,11 +113,11 @@ public class CreateAccountTest extends BaseTest {
 		SignInView signInView = landingView.signIn();
 
 		LOGGER.info("Tap on Email Address field and enter valid email address");
-		String username = TestConstants.TestData.USERNAME;
+		String username = TestConstants.MyAccountTestData.EMAIL;
 		signInView.setUsername(username);
 
 		LOGGER.info("Enter valid password");
-		signInView.setPassword(TestConstants.TestData.PASSWORD);
+		signInView.setPassword(TestConstants.MyAccountTestData.PASSWORD);
 
 		LOGGER.info("Tap Sign In button");
 		DashboardView dashboardView = signInView.signIn();
@@ -145,7 +145,12 @@ public class CreateAccountTest extends BaseTest {
 		String firstNameNew = firstNameOrig.replaceFirst("A", "AA");
 		String lastNameNew = lastNameOrig.replaceFirst("A", "AA");
 		String zipCodeNew = "11214";
-		String phoneNew = "2345678901";
+
+		String phoneNew = "2";
+		Random random = new Random();
+		for (int i = 0; i < 9; i++) {
+			phoneNew += "" + random.nextInt(9);
+		}
 		String emailNew = emailOrig.replace(".com", ".net");
 
 		profileDetailsView.setFirstname(firstNameNew);
@@ -251,7 +256,7 @@ public class CreateAccountTest extends BaseTest {
 	}
 
 	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625880")
-	public void сreateAccountEmailPassword() {
+	public void createAccountEmailPassword() {
 		long uniq = System.currentTimeMillis();
 		uniq = 625927;
 
@@ -290,7 +295,7 @@ public class CreateAccountTest extends BaseTest {
 		createAccountView.setZipCode(zipCode);
 
 		LOGGER.info("Scroll through and select birthday");
-		String dobDay = "30";
+		String dobDay = "27";
 		String dobMonth = "December";
 		String dobYear = "1990";
 		createAccountView.setDOB(dobDay, dobMonth, dobYear);
@@ -317,13 +322,13 @@ public class CreateAccountTest extends BaseTest {
 		createAccountView.showPassword();
 
 		LOGGER.info("Make sure password entered is displayed to user");
-		Assert.assertEquals(createAccountView.getPassword(), password, "Password does not displayed");
+		Assert.assertEquals(createAccountView.getHiddenPassword(), password, "Password does not displayed");
 
 		LOGGER.info("Tap on hide password icon");
 		createAccountView.hidePassword();
 
 		LOGGER.info("Make sure password entered is hidden from user");
-		Assert.assertNotEquals(createAccountView.getHiddenPassword(), password, "Password does not hidden");
+		Assert.assertNotEquals(createAccountView.getPassword(), password, "Password does not hidden");
 
 		createAccountView.setPromo("");
 
@@ -340,7 +345,8 @@ public class CreateAccountTest extends BaseTest {
 		LOGGER.info("At Privacy Policy and Terms & Conditions\n" + "\n" + "(1) check box\n" + "\n" + "OR\n" + "\n"
 				+ "(2) un-check it\n");
 		LOGGER.info("Checkbox should be unmarked by default\n" + "\n"
-				+ "Create account button should be grey and not activated if check box is not marked\n");
+				+ "Create account button should be grey and not activated if check box is not marked\n"
+				+ driver.getPageSource());
 		Assert.assertFalse(createAccountView.isPrivacyPolicyAndTermsAndConditionsChecked(),
 				"Privacy Policy and Terms and Conditions does not checked does not marked by default");
 		Assert.assertFalse(createAccountView.isCreateAccountButtonEnabled(), "Create Account button does not disabled");
@@ -390,7 +396,7 @@ public class CreateAccountTest extends BaseTest {
 		LOGGER.info("Make sure promotional emails toggle reflects whatever selection user chose at step 11");
 		Assert.assertTrue(generalSettingsView.isPromoEmailOptionChecked(), "Promo email does not checked");
 
-		LOGGER.info("Tap on back nav to return to more screen");
+		LOGGER.info("Tap on back nav to return to more screen" + driver.getPageSource());
 		accountMenuMobileChunk = generalSettingsView.goBack(AccountMenuMobileChunk.class);
 
 		LOGGER.info("Tap sign out button");

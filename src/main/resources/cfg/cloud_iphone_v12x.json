@@ -9,6 +9,7 @@
   "factoryConfigKey" : "IOS",
   "hubUrl" : "https://us1.appium.testobject.com/wd/hub",
   "caps" :{
+    "autoAcceptAlerts" : "true",
     "usePrebuiltWDA" : "false",
     "automationName" : "XCUITest",
     "platformName" : "iOS",
