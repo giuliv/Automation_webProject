@@ -15,6 +15,7 @@ import com.applause.auto.pageframework.views.CreateAccountView;
 import com.applause.auto.pageframework.views.DashboardView;
 import com.applause.auto.pageframework.views.GeneralSettingsView;
 import com.applause.auto.pageframework.views.LandingView;
+import com.applause.auto.pageframework.views.PeetsSettingsView;
 import com.applause.auto.pageframework.views.PrivacyPolicyView;
 import com.applause.auto.pageframework.views.ProfileDetailsView;
 import com.applause.auto.pageframework.views.SignInView;
@@ -207,7 +208,7 @@ public class CreateAccountTest extends BaseTest {
 		SignInView signInView = landingView.signIn();
 
 		LOGGER.info("Tap on Email Address field and enter valid email address");
-		String username = "a+625927@a.com";
+		String username = "a+test625927@a.com";
 		signInView.setUsername(username);
 
 		LOGGER.info("Enter valid password");
@@ -220,7 +221,7 @@ public class CreateAccountTest extends BaseTest {
 		AccountMenuMobileChunk accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
 
 		LOGGER.info("Tap on ... at top right of home screen to view more screen\nTap on General Settings field/row");
-		GeneralSettingsView profileDetailsView = accountMenuMobileChunk.generalSettings();
+		GeneralSettingsView generalSettingsView = accountMenuMobileChunk.generalSettings();
 
 		LOGGER.info("Make sure user is taken to General Settings screen:\n" + "\n" + "* Header: General Settings\n"
 				+ "\n" + "* Notification Settings\n" + "\n" + "      o Promotional Emails\n" + "\n"
@@ -231,28 +232,40 @@ public class CreateAccountTest extends BaseTest {
 				+ "      o Text: Helps us locate your nearest Peet's [Toggle off / on]\n" + "\n");
 
 		LOGGER.info("Toggle Promotional Emails on");
+		generalSettingsView.enablePromotionalEmails();
 
 		LOGGER.info("Promotional emails setting should turn on");
+		Assert.assertTrue(generalSettingsView.isPromoEmailOptionChecked(), "Promo emails oes not turned on");
 
 		LOGGER.info("Toggle Promotional Emails off");
+		generalSettingsView.disablePromotionalEmails();
 
 		LOGGER.info("Promotional emails setting should turn off");
+		Assert.assertFalse(generalSettingsView.isPromoEmailOptionChecked(), "Promo emails oes not turned off");
 
 		LOGGER.info("Toggle Location Services off");
+		PeetsSettingsView peetsSettingsView = generalSettingsView.disableLocationServices();
+
 		LOGGER.info("User should see UI alert:\n" + "\n" + "* Title: Disable Location Service\n" + "\n"
 				+ "* Text: To disable Location Service you need to go to the Application Settings.");
-
+		// TODO disable alert auto accept??
 		LOGGER.info("* Tap Go to Settings");
 
 		LOGGER.info("User should be taken to Peet's app settings");
+		Assert.assertNotNull(peetsSettingsView, "Peet's app settings does not found");
 
 		LOGGER.info("* Tap on Location field");
+		peetsSettingsView.openLocation();
 
 		LOGGER.info("* Tap Never under Allow Location Access");
+		peetsSettingsView.selectNever();
 
 		LOGGER.info("Tap on back to \"Peet's\" to return to app");
+		generalSettingsView = peetsSettingsView.backToApp();
 
 		LOGGER.info("Toggle should be off in app");
+		Assert.assertFalse(generalSettingsView.isLocationServicesChecked(),
+				"Location services switch does not disabled");
 	}
 
 	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625880")
