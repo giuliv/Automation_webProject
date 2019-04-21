@@ -9,6 +9,7 @@
 	"factoryConfigKey" : "ANDROID",
 	"hubUrl" : "https://us1.appium.testobject.com/wd/hub",
 	"caps" :{
+		"autoAcceptAlerts" : "true",
 		"newCommandTimeout" : "300",
 		"deviceOrientation" : "portrait",
 		"platformName" : "Android",
