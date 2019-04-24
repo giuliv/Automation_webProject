@@ -30,8 +30,9 @@ public class ChangePasswordView extends AbstractDeviceView {
 	public void setCurrentPassword(String password) {
 		LOGGER.info("Set current password to: " + password);
 		// workaroud for password cleanup
-		getNewPasswordTextBox().clickTextBox();
-		getOldPasswordTextBox().clearTextBox();
+		while (getOldPasswordTextBox().getCurrentText().length() != 0) {
+			getOldPasswordTextBox().clearTextBox();
+		}
 		getOldPasswordTextBox().enterText(password);
 	}
 
