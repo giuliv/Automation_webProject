@@ -51,6 +51,7 @@ public class SignInView extends AbstractDeviceView {
 		LOGGER.info("Set password: " + password);
 		getUsernameTextBox().clickTextBox();
 		getPasswordTextBox().clearTextBox();
+		getPasswordTextBox().enterText(password);
 	}
 
 	/**
