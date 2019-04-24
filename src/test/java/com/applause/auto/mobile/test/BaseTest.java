@@ -2,6 +2,8 @@ package com.applause.auto.mobile.test;
 
 import java.lang.reflect.Method;
 
+import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
+import com.applause.auto.pageframework.helpers.PeetsMobileHelper;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
@@ -17,6 +19,7 @@ import com.applause.auto.pageframework.helpers.TemplateTestHelper;
 import com.applause.auto.pageframework.testdata.CustomerConfig;
 
 import io.appium.java_client.AppiumDriver;
+import org.testng.asserts.SoftAssert;
 
 @Listeners(TestListener.class)
 public class BaseTest {
@@ -31,7 +34,9 @@ public class BaseTest {
 	protected static MobileNativeSyncHelper syncHelper;
 	protected static DeviceElementQueryHelper queryHelper;
 	protected static EnvironmentUtil env;
+	protected static PeetsMobileHelper peetsMobileHelper;
 	protected TemplateTestHelper templateTestHelper;
+	protected static SoftAssert softAssert;
 
 	static {
 		config = new CustomerConfig();
@@ -51,6 +56,8 @@ public class BaseTest {
 		syncHelper = (MobileNativeSyncHelper) driverWrapper.getSyncHelper();
 		queryHelper = (DeviceElementQueryHelper) driverWrapper.getQueryHelper();
 		templateTestHelper = new TemplateTestHelper();
+		peetsMobileHelper = DeviceViewFactory.create(PeetsMobileHelper.class);
+		softAssert = new SoftAssert();
 		LOGGER.info("Test case setup complete.");
 	}
 

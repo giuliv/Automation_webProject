@@ -182,7 +182,7 @@ public class GuestCheckoutTest extends BaseTest {
 		SignUpPage signUpPage = signInPage.clickonCreateAccountButton();
 
 		LOGGER.info("5. Fill out form to create an account");
-		CheckoutShippingInfoPage shippingInfoPage = signUpPage.submitSignUpInfo();
+		CheckoutShippingInfoPage shippingInfoPage = signUpPage.submitSignUpInfo(CheckoutShippingInfoPage.class);
 
 		LOGGER.info("6. Go back to mini-cart and select Checkout");
 		// DashboardPage dashboardPage = dashboardModal.clickCloseModal();

@@ -16,6 +16,7 @@ public class TestConstants {
 		public static final String MY_ACCOUNT = "my-account";
 		public static final String EXISTING_USER_CHECKOUT = "existing-user-checkout";
 		public static final String SUBSCRIPTIONS = "subscriptions";
+		public static final String ACCOUNT_SETTINGS = "account-settings";
 
 		// Mobile
 		public static final String ONBOARDING = "onboarding";
@@ -41,6 +42,7 @@ public class TestConstants {
 		public static final String GRIND_2 = "Drip";
 
 		public static final String TEA_NAME = "Chamomile Citrus Loose Leaf";
+		public static final String TEA_COST_OVER_25_NAME = "Summer Solstice Loose Leaf";
 
 		public static final String EQUIPMENT_NAME = "Origin Mug with Bamboo";
 
@@ -52,6 +54,7 @@ public class TestConstants {
 
 		public static final String SHIPPING_METHOD_GROUND = "Ground";
 		public static final String SHIPPING_METHOD_AIR_2ND_DAY = "2nd Day Air - Cont. U.S. (2-3 business days)";
+		public static final String SHIPPING_METHOD_SHOP_RUNNER = "Shoprunner FREE 2-Day Shipping";
 
 		public static final String FIRST_NAME = "Applause";
 		public static final String LAST_NAME = "QA Test";
@@ -112,6 +115,12 @@ public class TestConstants {
 
 	}
 
+	public static final class MobileApp {
+
+		public static final String IOS_BUNDLE_ID = "com.wearehathway.peets-dev";
+
+	}
+
 	public static final class MyAccountTestData {
 
 		public static final String EMAIL = "peets+testaccount@qa.utest.com";
@@ -136,6 +145,18 @@ public class TestConstants {
 			this.miniCartSpell = miniCartSpell;
 			this.fullCartSpell = fullCartSpell;
 		}
+	}
+
+	public static final class MobileTestData {
+		public static final String PEETS_CARD_HEADER = "Your Peet's Card";
+		public static final String SAVED_PAYMENT_HEADER = "Saved Payment Methods";
+		public static final String SAVED_CC_NAME = "Applause Test";
+		public static final String CC_NUM = "4111111111111111";
+		public static final String CC_EXP_DATE = "01/20";
+		public static final String CC_MODIFIED_EXP_DATE = "01/22";
+		public static final String CC_CVV = "111";
+		public static final String CC_ZIP = "94608";
+		public static final String CC_NAME = "Mobile Test";
 	}
 
 }
