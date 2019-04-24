@@ -59,7 +59,11 @@ public class BaseTest {
 	 */
 	@AfterMethod(alwaysRun = true)
 	public void afterMethod() {
-		driver.quit();
+		try {
+			driver.quit();
+		} catch (Throwable th) {
+			LOGGER.error("Something happened during driver session release");
+		}
 		DriverWrapperManager.getInstance().deregisterDriver(driverWrapper);
 		LOGGER.info("Test case teardown complete.");
 	}
