@@ -363,7 +363,7 @@ public class CreateAccountTest extends BaseTest {
 		signInView.dismissMessage();
 
 		LOGGER.info("Enter new password");
-		signInView.setPassword(INITIAL_PASSWORD);
+		signInView.setPassword(UPDATED_PASSWORD);
 
 		LOGGER.info("Tap Sign In button");
 		dashboardView = signInView.signIn();
