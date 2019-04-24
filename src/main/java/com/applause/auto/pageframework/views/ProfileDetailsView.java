@@ -5,6 +5,7 @@ import java.lang.invoke.MethodHandles;
 import com.applause.auto.framework.pageframework.device.AbstractDeviceChunk;
 import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
 import com.applause.auto.framework.pageframework.device.DeviceChunkFactory;
+import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
 import com.applause.auto.framework.pageframework.device.MobileElementLocator;
 import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
 import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
@@ -47,6 +48,17 @@ public class ProfileDetailsView extends AbstractDeviceView {
 		getFirstnameTextBox().clearTextBox();
 		getFirstnameTextBox().enterText(firstname);
 		return this;
+	}
+
+	/**
+	 * Change password profile details view.
+	 *
+	 * @return the profile details view
+	 */
+	public ChangePasswordView changePassword() {
+		LOGGER.info("Tap on change password button");
+		getChangePasswordButton().tapCenterOfElement();
+		return DeviceViewFactory.create(ChangePasswordView.class);
 	}
 
 	/**

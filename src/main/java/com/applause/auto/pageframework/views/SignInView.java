@@ -23,7 +23,8 @@ public class SignInView extends AbstractDeviceView {
 
 	@Override
 	protected void waitUntilVisible() {
-		syncHelper.waitForElementToAppear(getUsernameTextBox());
+		syncHelper.waitForOneOfTwoElementsToAppear(getLocator(this, "getUsernameTextBox"),
+				getLocator(this, "getDismissMessageButton"));
 	}
 
 	/*
@@ -48,9 +49,8 @@ public class SignInView extends AbstractDeviceView {
 	 */
 	public void setPassword(String password) {
 		LOGGER.info("Set password: " + password);
+		getUsernameTextBox().clickTextBox();
 		getPasswordTextBox().clearTextBox();
-		getPasswordTextBox().enterText(password);
-		syncHelper.suspend(3000);
 	}
 
 	/**
@@ -60,6 +60,26 @@ public class SignInView extends AbstractDeviceView {
 	 */
 	public String getPassword() {
 		return getPasswordTextBox().getCurrentText();
+	}
+
+	/**
+	 * Gets message.
+	 *
+	 * @return the message
+	 */
+	public String getMessage() {
+		return getMessageTextBox().getCurrentText();
+	}
+
+	/**
+	 * Dismiss message sign in view.
+	 *
+	 * @return the sign in view
+	 */
+	public SignInView dismissMessage() {
+		LOGGER.info("Dismissing message");
+		getDismissMessageButton().pressButton();
+		return this;
 	}
 
 	/**
@@ -81,6 +101,21 @@ public class SignInView extends AbstractDeviceView {
 	}
 
 	/**
+	 * Sign in t.
+	 *
+	 * @param <T>
+	 *            the type parameter
+	 * @param clazz
+	 *            the clazz
+	 * @return the t
+	 */
+	public <T extends AbstractDeviceView> T signIn(Class<T> clazz) {
+		LOGGER.info("Click on Sign In button");
+		getSignInButton().pressButton();
+		return DeviceViewFactory.create(clazz);
+	}
+
+	/**
 	 * Show password.
 	 */
 	public void showPassword() {
@@ -95,6 +130,16 @@ public class SignInView extends AbstractDeviceView {
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/emailAddress", iOS = "//XCUIElementTypeTextField")
 	protected TextBox getUsernameTextBox() {
 		return new TextBox(getLocator(this, "getUsernameTextBox"));
+	}
+
+	@MobileElementLocator(android = "android:id/message", iOS = "//XCUIElementTypeTextField")
+	protected TextBox getMessageTextBox() {
+		return new TextBox(getLocator(this, "getMessageTextBox"));
+	}
+
+	@MobileElementLocator(android = "//*[@text='Okay']", iOS = "//XCUIElementTypeTextField")
+	protected Button getDismissMessageButton() {
+		return new Button(getLocator(this, "getDismissMessageButton"));
 	}
 
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/loginButton", iOS = "//XCUIElementTypeButton[@name=\"Sign In\"]")
