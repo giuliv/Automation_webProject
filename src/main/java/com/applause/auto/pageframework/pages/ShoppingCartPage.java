@@ -9,6 +9,7 @@ import org.openqa.selenium.WebElement;
 import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.web.AbstractPage;
+import com.applause.auto.framework.pageframework.web.ChunkFactory;
 import com.applause.auto.framework.pageframework.web.PageFactory;
 import com.applause.auto.framework.pageframework.web.WebElementLocator;
 import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
@@ -20,6 +21,7 @@ import com.applause.auto.framework.pageframework.webcontrols.Checkbox;
 import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageframework.chunks.ShopRunnerChunk;
 import com.applause.auto.pageframework.helpers.WebHelper;
 
 @WebDesktopImplementation(ShoppingCartPage.class)
@@ -250,32 +252,78 @@ public class ShoppingCartPage extends AbstractPage {
 		return PageFactory.create(ShoppingCartPage.class);
 	}
 
+	/**
+	 * Gets shipping method.
+	 *
+	 * @return the shipping method
+	 */
 	public String getShippingMethod() {
 		return getShippingMethodDropdown().getSelectedOption().getText();
 	}
 
+	/**
+	 * Gets estimated shipping price.
+	 *
+	 * @return the estimated shipping price
+	 */
 	public String getEstimatedShippingPrice() {
 		return getEstimatedShippingPriceText().getText();
 	}
 
+	/**
+	 * Gets order summary price.
+	 *
+	 * @return the order summary price
+	 */
 	public String getOrderSummaryPrice() {
 		return getOrderSummaryPriceText().getText();
 	}
 
+	/**
+	 * Gets subscription name.
+	 *
+	 * @return the subscription name
+	 */
 	public String getSubscriptionName() {
 		return getSubscriptionNameText().getText().trim();
 	}
 
+	/**
+	 * Gets subscription frequency.
+	 *
+	 * @return the subscription frequency
+	 */
 	public String getSubscriptionFrequency() {
 		return getSubscriptionFrequencyText().getText().trim();
 	}
 
+	/**
+	 * Is product discount price displayed boolean.
+	 *
+	 * @return the boolean
+	 */
 	public boolean isProductDiscountPriceDisplayed() {
 		return syncHelper.isCurrentlyVisible(getProductDiscountPriceText().getAbsoluteSelector(), getDriver());
 	}
 
+	/**
+	 * Is shipping discount price displayed boolean.
+	 *
+	 * @return the boolean
+	 */
 	public boolean isShippingDiscountPriceDisplayed() {
 		return syncHelper.isCurrentlyVisible(getShippingDiscountPriceText().getAbsoluteSelector(), getDriver());
+	}
+
+	/**
+	 * Sign in shop runner shop runner chunk.
+	 *
+	 * @return the shop runner chunk
+	 */
+	public ShopRunnerChunk signInShopRunner() {
+		LOGGER.info("Click on Sign In shop runner");
+		getSignInShopRunnerButton().click();
+		return ChunkFactory.create(ShopRunnerChunk.class, this, "");
 	}
 
 	/*
@@ -285,6 +333,11 @@ public class ShoppingCartPage extends AbstractPage {
 	@WebElementLocator(webDesktop = "div.cart.display-single-price div.page-title h1")
 	protected Text getViewSignature() {
 		return new Text(this, getLocator(this, "getViewSignature"));
+	}
+
+	@WebElementLocator(webDesktop = "//div[@class='shoprunner-cart-header']//a[text()='sign in']")
+	protected Button getSignInShopRunnerButton() {
+		return new Button(this, getLocator(this, "getSignInShopRunnerButton"));
 	}
 
 	@WebElementLocator(webDesktop = "[value='update_qty']")

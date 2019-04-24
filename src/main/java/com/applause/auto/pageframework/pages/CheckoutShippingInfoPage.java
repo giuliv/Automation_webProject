@@ -21,6 +21,7 @@ import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
 import com.applause.auto.framework.pageframework.webcontrols.EditField;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
 import com.applause.auto.pageframework.chunks.DatePickerChunk;
+import com.applause.auto.pageframework.chunks.ShopRunnerChunk;
 import com.applause.auto.pageframework.chunks.VerifyYourAddressDetailsChunk;
 import com.applause.auto.pageframework.helpers.WebHelper;
 import com.applause.auto.pageframework.testdata.TestConstants;
@@ -43,6 +44,17 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	/*
 	 * Public Actions
 	 */
+
+	/**
+	 * Sign in shop runner shop runner chunk.
+	 *
+	 * @return the shop runner chunk
+	 */
+	public ShopRunnerChunk signInShopRunner() {
+		LOGGER.info("Click on Sign In shop runner");
+		getSignInShopRunnerButton().click();
+		return ChunkFactory.create(ShopRunnerChunk.class, this, "");
+	}
 
 	/**
 	 * Continue after entering required Shipping info
@@ -133,6 +145,17 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	}
 
 	/**
+	 * Sets shipping method.
+	 *
+	 * @return the shipping method
+	 */
+	public CheckoutPaymentMethodPage setShippingMethod() {
+		LOGGER.info("Click continue");
+		continueAfterShippingInfo();
+		return PageFactory.create(CheckoutPaymentMethodPage.class);
+	}
+
+	/**
 	 * Select Shipping Method
 	 * 
 	 */
@@ -148,7 +171,6 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	public void continueAfterShippingInfo() {
 		LOGGER.info("Click Continue on shipping section");
 		WebHelper.scrollToElement(getShippingInfoContinueButton().getWebElement());
-
 		syncHelper.suspend(10000);
 		getShippingInfoContinueButton().click();
 	}
@@ -238,6 +260,10 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	/*
 	 * Protected Getters
 	 */
+	@WebElementLocator(webDesktop = "//div[@id='srd_so']//a[text()='sign in']")
+	protected Button getSignInShopRunnerButton() {
+		return new Button(this, getLocator(this, "getSignInShopRunnerButton"));
+	}
 
 	@WebElementLocator(webDesktop = "h2#checkout-title-opc-shipping.active")
 	protected Text getViewSignature() {

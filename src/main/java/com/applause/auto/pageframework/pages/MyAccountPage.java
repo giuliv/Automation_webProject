@@ -14,6 +14,7 @@ import com.applause.auto.framework.pageframework.webcontrols.Button;
 import com.applause.auto.framework.pageframework.webcontrols.Image;
 import com.applause.auto.framework.pageframework.webcontrols.Link;
 import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageframework.chunks.AccountMenuChunk;
 import com.applause.auto.pageframework.chunks.MainMenuChunk;
 import com.applause.auto.pageframework.helpers.WebHelper;
 
@@ -323,6 +324,27 @@ public class MyAccountPage extends AbstractPage {
 		return PageFactory.create(EditAccountInformationPage.class);
 	}
 
+	/**
+	 * Gets account menu.
+	 *
+	 * @return the account menu
+	 */
+	public AccountMenuChunk getAccountMenu() {
+		return ChunkFactory.create(AccountMenuChunk.class, this, "");
+	}
+
+	/**
+	 * Dismiss popup.
+	 */
+	public void dismissPopup() {
+		try {
+			LOGGER.info("Attempting to dismiss popup");
+			getDismissPopupButton().click();
+		} catch (Exception e) {
+			LOGGER.info("Popup not found, moving on");
+		}
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -462,12 +484,4 @@ public class MyAccountPage extends AbstractPage {
 		return new Text(this, getLocator(this, "getCustomerEmailText"));
 	}
 
-	private void dismissPopup() {
-		try {
-			LOGGER.info("Attempting to dismiss popup");
-			getDismissPopupButton().click();
-		} catch (Exception e) {
-			LOGGER.info("Popup not found, moving on");
-		}
-	}
 }
