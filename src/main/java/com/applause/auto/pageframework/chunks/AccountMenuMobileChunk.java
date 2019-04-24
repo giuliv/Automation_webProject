@@ -15,7 +15,7 @@ import com.applause.auto.pageframework.views.AuthenticationView;
 import com.applause.auto.pageframework.views.GeneralSettingsView;
 import com.applause.auto.pageframework.views.ProfileDetailsView;
 
-@AndroidImplementation(AccountMenuMobileChunk.class)
+@AndroidImplementation(AndroidAccountMenuMobileChunk.class)
 @IosImplementation(AccountMenuMobileChunk.class)
 public class AccountMenuMobileChunk extends AbstractDeviceChunk {
 	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
@@ -110,6 +110,45 @@ public class AccountMenuMobileChunk extends AbstractDeviceChunk {
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/generalSettings", iOS = "//XCUIElementTypeStaticText[@name=\"General Settings\"]")
 	protected Button getGeneralSettingsButton() {
 		return new Button(getLocator(this, "getGeneralSettingsButton"));
+	}
+
+}
+
+class AndroidAccountMenuMobileChunk extends AccountMenuMobileChunk {
+
+	/**
+	 * Constructor.
+	 *
+	 * @param selector
+	 *            the selector of the chunk
+	 */
+	public AndroidAccountMenuMobileChunk(String selector) {
+		super(selector);
+	}
+
+	public AuthenticationView signOut() {
+		LOGGER.info("Click on Sign Out button");
+		MobileHelper.scrollToBottom(5);
+		getSignOutButton().pressButton();
+		getLogOutButton().pressButton();
+		return DeviceViewFactory.create(AuthenticationView.class);
+	}
+
+	/**
+	 * Sign out t.
+	 *
+	 * @param <T>
+	 *            the type parameter
+	 * @param clazz
+	 *            the clazz
+	 * @return the t
+	 */
+	public <T extends AbstractDeviceView> T signOut(Class<T> clazz) {
+		LOGGER.info("Click on Sign Out button");
+		MobileHelper.scrollToBottom(5);
+		getSignOutButton().pressButton();
+		getLogOutButton().pressButton();
+		return DeviceViewFactory.create(clazz);
 	}
 
 }
