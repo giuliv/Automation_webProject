@@ -192,6 +192,7 @@ public class ProfileDetailsView extends AbstractDeviceView {
 	public <T extends AbstractDeviceChunk> T goBack(Class<T> clazz) {
 		LOGGER.info("Tap back button");
 		getBackButton().pressButton();
+		syncHelper.suspend(4000);
 		return DeviceChunkFactory.create(clazz, "");
 
 	}
