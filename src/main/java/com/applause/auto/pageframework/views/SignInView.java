@@ -50,7 +50,6 @@ public class SignInView extends AbstractDeviceView {
 	public void setPassword(String password) {
 		LOGGER.info("Set password: " + password);
 		while (getPasswordTextBox().getCurrentText().length() != 0) {
-			getUsernameTextBox().clickTextBox();
 			getPasswordTextBox().clearTextBox();
 		}
 
