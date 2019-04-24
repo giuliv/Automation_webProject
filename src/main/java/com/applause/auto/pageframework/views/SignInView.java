@@ -138,7 +138,7 @@ public class SignInView extends AbstractDeviceView {
 		return new TextBox(getLocator(this, "getMessageTextBox"));
 	}
 
-	@MobileElementLocator(android = "//*[@text='Okay']", iOS = "//XCUIElementTypeTextField")
+	@MobileElementLocator(android = "//*[@text='OKAY']", iOS = "//XCUIElementTypeTextField")
 	protected Button getDismissMessageButton() {
 		return new Button(getLocator(this, "getDismissMessageButton"));
 	}
