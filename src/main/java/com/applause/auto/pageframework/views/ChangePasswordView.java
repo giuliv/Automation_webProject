@@ -85,7 +85,7 @@ public class ChangePasswordView extends AbstractDeviceView {
 	 * Protected Getters
 	 */
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text='Change Password']|//android.widget.Button[@text='Okay']", iOS = "")
+	@MobileElementLocator(android = "//android.widget.TextView[@text='Change Password']|//*[@text='Okay']", iOS = "")
 	protected TextBox getSignature() {
 		return new TextBox(getLocator(this, "getSignature"));
 	}
