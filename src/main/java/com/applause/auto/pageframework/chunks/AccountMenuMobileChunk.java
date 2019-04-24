@@ -93,7 +93,7 @@ public class AccountMenuMobileChunk extends AbstractDeviceChunk {
 	 * Protected Getters
 	 */
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/profileDetails", iOS = "//XCUIElementTypeStaticText[@name=\"Profile Details\"]")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/profileDetails", iOS = "//XCUIElementTypeStaticText[@name=\"Profile Details\" and @visible='true']")
 	protected Button getProfileDetailsButton() {
 		return new Button(getLocator(this, "getProfileDetailsButton"));
 	}
