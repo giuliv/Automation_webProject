@@ -11,6 +11,7 @@ import com.applause.auto.pageframework.chunks.AccountMenuMobileChunk;
 import com.applause.auto.pageframework.helpers.MobileHelper;
 import com.applause.auto.pageframework.testdata.TestConstants;
 import com.applause.auto.pageframework.views.AuthenticationView;
+import com.applause.auto.pageframework.views.ChangePasswordView;
 import com.applause.auto.pageframework.views.CreateAccountView;
 import com.applause.auto.pageframework.views.DashboardView;
 import com.applause.auto.pageframework.views.GeneralSettingsView;
@@ -266,6 +267,129 @@ public class CreateAccountTest extends BaseTest {
 		LOGGER.info("Toggle should be off in app");
 		Assert.assertFalse(generalSettingsView.isLocationServicesChecked(),
 				"Location services switch does not disabled");
+	}
+
+	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625926")
+	public void accountSettingsChangePasswordTest() {
+
+		LOGGER.info("Launch the app and arrive at the first on boarding screen view");
+		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
+				"First screen text value is not correct");
+
+		landingView.skipOffer();
+
+		LOGGER.info("Tap Sign In");
+		SignInView signInView = landingView.signIn();
+
+		LOGGER.info("Tap on Email Address field and enter valid email address");
+		String VALID_USERNAME = "a+625926@a.com";
+		signInView.setUsername(VALID_USERNAME);
+
+		LOGGER.info("Enter valid password");
+		String INITIAL_PASSWORD = "Password1";
+		signInView.setPassword(INITIAL_PASSWORD);
+
+		LOGGER.info("Tap Sign In button");
+		DashboardView dashboardView = signInView.signIn();
+
+		LOGGER.info("Tap on ... at top right of home screen to view more screen");
+		AccountMenuMobileChunk accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
+
+		LOGGER.info("Tap on Profile Details field/row");
+		ProfileDetailsView profileDetailsView = accountMenuMobileChunk.profileDetails();
+
+		LOGGER.info("Tap on Change Password link");
+		ChangePasswordView changePasswordView = profileDetailsView.changePassword();
+
+		LOGGER.info("Enter invalid current password");
+		changePasswordView.setCurrentPassword("somewrongpassword1");
+
+		LOGGER.info("Enter new password");
+		String UPDATED_PASSWORD = "newPassword1";
+		changePasswordView.setNewPassword(UPDATED_PASSWORD);
+
+		LOGGER.info("Tap Change Password button");
+		changePasswordView = changePasswordView.changePassword(ChangePasswordView.class);
+
+		LOGGER.info(
+				"Make sure user sees an error message: \"Operation failed, check your current password and try again\" and is not able to change password");
+		Assert.assertEquals(changePasswordView.getMessage(), "Old Password is not correct",
+				"Wrong old password message do not match");
+		changePasswordView = changePasswordView.dismissMessage(ChangePasswordView.class);
+
+		LOGGER.info("Tap show password icon");
+		changePasswordView.showPassword();
+
+		LOGGER.info("Enter valid current password");
+		changePasswordView.setCurrentPassword(INITIAL_PASSWORD);
+
+		LOGGER.info("Make sure password entered is displayed");
+		Assert.assertEquals(changePasswordView.getCurrentPasswordUnhide(), INITIAL_PASSWORD,
+				"Show password button does not work");
+		changePasswordView = changePasswordView.changePassword(ChangePasswordView.class);
+
+		LOGGER.info("Make sure user sees success check mark and a UI alert:\n" + "\n" + "* Header: Change Password\n"
+				+ "\n" + "* Text: Your new password has been set [Okay]\n" + "\n");
+		Assert.assertEquals(changePasswordView.getMessage(), "Your new password has been set",
+				"Wrong success password change message");
+
+		LOGGER.info("Tap okay to dismiss UI alert");
+		profileDetailsView = changePasswordView.dismissMessage(ProfileDetailsView.class);
+
+		LOGGER.info("Tap back arrow");
+		accountMenuMobileChunk = profileDetailsView.goBack(AccountMenuMobileChunk.class);
+
+		LOGGER.info("Make sure user is directed to more screen");
+		Assert.assertNotNull(accountMenuMobileChunk, "User does not directed to more screen");
+
+		LOGGER.info("Scroll down and tap sign out button");
+		AuthenticationView authenticationView = accountMenuMobileChunk.signOut();
+
+		signInView = landingView.signIn();
+
+		LOGGER.info("Enter valid email address and old password");
+		signInView.setUsername(VALID_USERNAME);
+		signInView.setPassword(INITIAL_PASSWORD);
+
+		LOGGER.info("Tap Sign In button");
+		signInView = signInView.signIn(SignInView.class);
+
+		LOGGER.info("Make sure user sees an error message and is not able to sign in");
+		Assert.assertEquals(signInView.getMessage(),
+				"The email and password you entered don't match. Please try again.", "Error message not found");
+
+		LOGGER.info("Tap okay to dismiss UI alert");
+		signInView.dismissMessage();
+
+		LOGGER.info("Enter new password");
+		signInView.setPassword(INITIAL_PASSWORD);
+
+		LOGGER.info("Tap Sign In button");
+		dashboardView = signInView.signIn();
+
+		LOGGER.info("User should be able to sign in successfully with new password");
+		Assert.assertNotNull(dashboardView, "User does not logged in");
+
+		// cleanup
+		LOGGER.info("Tap on ... at top right of home screen to view more screen");
+		accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
+
+		LOGGER.info("Tap on Profile Details field/row");
+		profileDetailsView = accountMenuMobileChunk.profileDetails();
+
+		LOGGER.info("Tap on Change Password link");
+		changePasswordView = profileDetailsView.changePassword();
+
+		LOGGER.info("Enter current updated password");
+		changePasswordView.setCurrentPassword(UPDATED_PASSWORD);
+
+		LOGGER.info("Enter initial password");
+		changePasswordView.setNewPassword(INITIAL_PASSWORD);
+
+		LOGGER.info("Tap Change Password button");
+		changePasswordView = changePasswordView.changePassword(ChangePasswordView.class);
+
 	}
 
 	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625880")

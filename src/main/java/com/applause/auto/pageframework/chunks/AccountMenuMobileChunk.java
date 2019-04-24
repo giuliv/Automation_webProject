@@ -3,6 +3,7 @@ package com.applause.auto.pageframework.chunks;
 import java.lang.invoke.MethodHandles;
 
 import com.applause.auto.framework.pageframework.device.AbstractDeviceChunk;
+import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
 import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
 import com.applause.auto.framework.pageframework.device.MobileElementLocator;
 import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
@@ -69,6 +70,22 @@ public class AccountMenuMobileChunk extends AbstractDeviceChunk {
 		MobileHelper.scrollDown(5);
 		getSignOutButton().pressButton();
 		return DeviceViewFactory.create(AuthenticationView.class);
+	}
+
+	/**
+	 * Sign out t.
+	 *
+	 * @param <T>
+	 *            the type parameter
+	 * @param clazz
+	 *            the clazz
+	 * @return the t
+	 */
+	public <T extends AbstractDeviceView> T signOut(Class<T> clazz) {
+		LOGGER.info("Click on Sign Out button");
+		MobileHelper.scrollToBottom(5);
+		getSignOutButton().pressButton();
+		return DeviceViewFactory.create(clazz);
 	}
 
 	/*
