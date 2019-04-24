@@ -67,7 +67,7 @@ public class AccountMenuMobileChunk extends AbstractDeviceChunk {
 	 */
 	public AuthenticationView signOut() {
 		LOGGER.info("Click on Sign Out button");
-		MobileHelper.scrollDown(5);
+		MobileHelper.scrollToBottom(5);
 		getSignOutButton().pressButton();
 		return DeviceViewFactory.create(AuthenticationView.class);
 	}

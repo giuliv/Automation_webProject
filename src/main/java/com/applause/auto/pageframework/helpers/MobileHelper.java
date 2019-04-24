@@ -554,7 +554,7 @@ public class MobileHelper {
 		LOGGER.info("Scrolling to bottom of page");
 		refreshDeviceSize();
 		for (int i = 0; i < swipeLimit; i++) {
-			scrollDownAlgorithm(0.1, 0.8, 0.2);
+			scrollDownFastAlgorithm(0.1, 0.8, 0.2);
 			getSyncHelper().suspend(500);
 		}
 	}
@@ -690,6 +690,21 @@ public class MobileHelper {
 					.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
 					.moveTo(PointOption.point((int) startX, endY))
 					.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000))).release().perform();
+		} catch (WebDriverException wex) {
+			LOGGER.warn("Swipe cause error, probably nothing to swipe: " + wex.getMessage());
+		}
+	}
+
+	private static void scrollDownFastAlgorithm(double startX, double pStartY, double pEndY) {
+		Dimension size = deviceSize;
+		int startY = (int) (size.getHeight() * pStartY);
+		int endY = (int) (size.getHeight() * pEndY);
+		startX = (int) (size.getWidth() * startX);
+		LOGGER.info("Swiping Down...");
+		try {
+			new TouchAction(getDriver()).press(PointOption.point((int) startX, startY))
+					.waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+					.moveTo(PointOption.point((int) startX, endY)).release().perform();
 		} catch (WebDriverException wex) {
 			LOGGER.warn("Swipe cause error, probably nothing to swipe: " + wex.getMessage());
 		}
