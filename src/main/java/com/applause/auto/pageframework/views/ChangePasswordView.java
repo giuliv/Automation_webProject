@@ -27,27 +27,47 @@ public class ChangePasswordView extends AbstractDeviceView {
 		syncHelper.waitForElementToAppear(getSignature());
 	}
 
+	/**
+	 * Sets current password.
+	 *
+	 * @param password
+	 *            the password
+	 */
 	public void setCurrentPassword(String password) {
 		LOGGER.info("Set current password to: " + password);
-		// workaroud for password cleanup
-		while (getOldPasswordTextBox().getCurrentText().length() != 0) {
-			getOldPasswordTextBox().clearTextBox();
-		}
+		getOldPasswordTextBox().clearTextBox();
 		getOldPasswordTextBox().enterText(password);
 	}
 
+	/**
+	 * Gets message.
+	 *
+	 * @return the message
+	 */
 	public String getMessage() {
 		return getMessageText().getStringValue();
 	}
 
+	/**
+	 * Show password.
+	 */
 	public void showPassword() {
 		LOGGER.info("Click on Show Password button");
 		getShowPasswordButton().pressButton();
 	}
 
+	/**
+	 * Dismiss message t.
+	 *
+	 * @param <T>
+	 *            the type parameter
+	 * @param clazz
+	 *            the clazz
+	 * @return the t
+	 */
 	public <T extends AbstractDeviceView> T dismissMessage(Class<T> clazz) {
-		LOGGER.info("Tap on OKAY to dismiss message");
-		getMessageOkButton().pressButton();
+		LOGGER.info("Alert should be accepted");
+		getDriver().switchTo().alert().accept();
 		return DeviceViewFactory.create(clazz);
 	}
 
@@ -78,6 +98,11 @@ public class ChangePasswordView extends AbstractDeviceView {
 		return DeviceViewFactory.create(clazz);
 	}
 
+	/**
+	 * Gets current password unhide.
+	 *
+	 * @return the current password unhide
+	 */
 	public String getCurrentPasswordUnhide() {
 		return getOldPasswordUnhiddenTextBox().getCurrentText();
 	}
@@ -86,17 +111,17 @@ public class ChangePasswordView extends AbstractDeviceView {
 	 * Protected Getters
 	 */
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text='Change Password']|//*[@text='OKAY']", iOS = "")
+	@MobileElementLocator(android = "//android.widget.TextView[@text='Change Password']|//*[@text='OKAY']", iOS = "//XCUIElementTypeNavigationBar[@visible='true' and @name=\"Change Password\"]|(//XCUIElementTypeAlert//XCUIElementTypeStaticText[@visible='true'])[1]")
 	protected TextBox getSignature() {
 		return new TextBox(getLocator(this, "getSignature"));
 	}
 
-	@MobileElementLocator(android = "NA", iOS = "hide password")
+	@MobileElementLocator(android = "NA", iOS = "(//XCUIElementTypeButton[@name=\"hide password\"])[1]")
 	protected Button getShowPasswordButton() {
 		return new Button(getLocator(this, "getShowPasswordButton"));
 	}
 
-	@MobileElementLocator(android = "//*[@resource-id='android:id/message']|//*[@resource-id='com.wearehathway.peets.development:id/md_content']", iOS = "//XCUIElementTypeCell[@name=\"Location\"]")
+	@MobileElementLocator(android = "//*[@resource-id='android:id/message']|//*[@resource-id='com.wearehathway.peets.development:id/md_content']", iOS = "//XCUIElementTypeAlert//XCUIElementTypeStaticText[@name=\"Old Password is not correct\" or @name=\"Your new password has been set\"]")
 	protected Text getMessageText() {
 		return new Text(getLocator(this, "getMessageText"));
 	}
@@ -106,22 +131,22 @@ public class ChangePasswordView extends AbstractDeviceView {
 		return new Button(getLocator(this, "getMessageOkButton"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/oldPassword", iOS = "//XCUIElementTypeCell[@name=\"Location\"]")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/oldPassword", iOS = "//XCUIElementTypeOther[1]/XCUIElementTypeSecureTextField|//XCUIElementTypeButton[@name=\"reveal password\"]/preceding-sibling::XCUIElementTypeTextField")
 	protected TextBox getOldPasswordTextBox() {
 		return new TextBox(getLocator(this, "getOldPasswordTextBox"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/oldPassword", iOS = "//XCUIElementTypeCell[@name=\"Location\"]")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/oldPassword", iOS = "//XCUIElementTypeButton[@name=\"reveal password\"]/preceding-sibling::XCUIElementTypeTextField")
 	protected TextBox getOldPasswordUnhiddenTextBox() {
 		return new TextBox(getLocator(this, "getOldPasswordUnhiddenTextBox"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/newPassword", iOS = "//XCUIElementTypeCell[@name=\"Location\"]")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/newPassword", iOS = "//XCUIElementTypeOther[2]/XCUIElementTypeSecureTextField")
 	protected TextBox getNewPasswordTextBox() {
 		return new TextBox(getLocator(this, "getNewPasswordTextBox"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/updateButton", iOS = "//XCUIElementTypeCell[@name=\"Never\"]")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/updateButton", iOS = "//XCUIElementTypeButton[@name=\"Change Password\"]")
 	protected Button getChangePasswordButton() {
 		return new Button(getLocator(this, "getChangePasswordButton"));
 	}
@@ -137,4 +162,22 @@ class AndroidChangePasswordView extends ChangePasswordView {
 		int width = element.getSize().getWidth();
 		(new TouchAction(getDriver())).tap(PointOption.point(x + width / 2 - 5, y)).perform();
 	}
+
+	@Override
+	public void setCurrentPassword(String password) {
+		LOGGER.info("Set current password to: " + password);
+		// workaroud for password cleanup
+		while (getOldPasswordTextBox().getCurrentText().length() != 0) {
+			getOldPasswordTextBox().clearTextBox();
+		}
+		getOldPasswordTextBox().enterText(password);
+	}
+
+	@Override
+	public <T extends AbstractDeviceView> T dismissMessage(Class<T> clazz) {
+		LOGGER.info("Tap on OKAY to dismiss message");
+		getMessageOkButton().pressButton();
+		return DeviceViewFactory.create(clazz);
+	}
+
 }
