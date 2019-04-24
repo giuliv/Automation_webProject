@@ -100,7 +100,7 @@ public class ChangePasswordView extends AbstractDeviceView {
 		return new Text(getLocator(this, "getMessageText"));
 	}
 
-	@MobileElementLocator(android = "//*[@text='Okay']", iOS = "//XCUIElementTypeCell[@name=\"Location\"]")
+	@MobileElementLocator(android = "//*[@text='OKAY']", iOS = "//XCUIElementTypeCell[@name=\"Location\"]")
 	protected Button getMessageOkButton() {
 		return new Button(getLocator(this, "getMessageOkButton"));
 	}
