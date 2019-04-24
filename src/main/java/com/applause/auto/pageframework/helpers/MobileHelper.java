@@ -660,8 +660,8 @@ public class MobileHelper {
 			pStartY = 0.8;
 			pEndY = 0.2;
 		} else { // Android scrolls faster so the start and end must be gentler
-			pStartY = 0.60;
-			pEndY = 0.40;
+			pStartY = 0.80;
+			pEndY = 0.2;
 		}
 		scrollDownAlgorithm(0.1, pStartY, pEndY);
 	}
