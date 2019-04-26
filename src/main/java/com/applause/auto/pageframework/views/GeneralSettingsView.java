@@ -189,4 +189,15 @@ class AndroidGeneralSettingsView extends GeneralSettingsView {
 		return getLocationSetvicesButton().getAttributeValue("checked").equals("true");
 	}
 
+	@Override
+	public GeneralSettingsView enableLocationServices() {
+		LOGGER.info("Checking Location services");
+		if (!isLocationServicesChecked())
+			getLocationSetvicesButton().checkCheckbox();
+		LOGGER.info("Tap Allow button");
+		getAllowLocationServicesButton().pressButton();
+		syncHelper.suspend(5000);
+		return this;
+	}
+
 }
