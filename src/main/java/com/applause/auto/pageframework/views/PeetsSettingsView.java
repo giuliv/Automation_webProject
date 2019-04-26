@@ -23,16 +23,27 @@ public class PeetsSettingsView extends AbstractDeviceView {
 		syncHelper.waitForElementToAppear(getSignature());
 	}
 
+	/**
+	 * Open location.
+	 */
 	public void openLocation() {
 		LOGGER.info("Open Location menu");
 		getLocationButton().tap();
 	}
 
+	/**
+	 * Select never.
+	 */
 	public void selectNever() {
 		LOGGER.info("Select Never");
 		getNeverButton().tap();
 	}
 
+	/**
+	 * Back to app general settings view.
+	 *
+	 * @return the general settings view
+	 */
 	public GeneralSettingsView backToApp() {
 		LOGGER.info("Returning to application");
 		MobileHelper.activateApp();

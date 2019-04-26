@@ -236,21 +236,19 @@ public class CreateAccountTest extends BaseTest {
 		generalSettingsView.enablePromotionalEmails();
 
 		LOGGER.info("Promotional emails setting should turn on");
-		Assert.assertTrue(generalSettingsView.isPromoEmailOptionChecked(), "Promo emails oes not turned on");
+		Assert.assertTrue(generalSettingsView.isPromoEmailOptionChecked(), "Promo emails does not turned on");
 
 		LOGGER.info("Toggle Promotional Emails off");
 		generalSettingsView.disablePromotionalEmails();
 
 		LOGGER.info("Promotional emails setting should turn off");
-		Assert.assertFalse(generalSettingsView.isPromoEmailOptionChecked(), "Promo emails oes not turned off");
+		Assert.assertFalse(generalSettingsView.isPromoEmailOptionChecked(), "Promo emails does not turned off");
 
 		LOGGER.info("Toggle Location Services off");
-		PeetsSettingsView peetsSettingsView = generalSettingsView.disableLocationServices();
-
 		LOGGER.info("User should see UI alert:\n" + "\n" + "* Title: Disable Location Service\n" + "\n"
 				+ "* Text: To disable Location Service you need to go to the Application Settings.");
-		// TODO disable alert auto accept??
 		LOGGER.info("* Tap Go to Settings");
+		PeetsSettingsView peetsSettingsView = generalSettingsView.enableLocationServices().disableLocationServices();
 
 		LOGGER.info("User should be taken to Peet's app settings");
 		Assert.assertNotNull(peetsSettingsView, "Peet's app settings does not found");
