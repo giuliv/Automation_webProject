@@ -457,6 +457,16 @@ public class MobileHelper {
 		}
 	}
 
+	public static void scrollUp(int swipeLimit) {
+		int countOfSwipes = 0;
+
+		while (countOfSwipes < swipeLimit) {
+			scrollUpAlgorithm();
+			getSyncHelper().suspend(1000);
+			countOfSwipes++;
+		}
+	}
+
 	public static void scrollDownCloseToMiddle(int swipeLimit) {
 		LOGGER.info("Scrolling down to element.");
 		refreshDeviceSize();
@@ -664,6 +674,19 @@ public class MobileHelper {
 			pEndY = 0.2;
 		}
 		scrollDownAlgorithm(0.1, pStartY, pEndY);
+	}
+
+	private static void scrollUpAlgorithm() {
+		Dimension size = getDriver().manage().window().getSize();
+		int startY = (int) (size.getHeight() * 0.2);
+		int endY = (int) (size.getHeight() * 0.8);
+		int startX = (int) (size.getWidth() * 0.1);
+		if (env.getIsMobileIOS()) {
+			endY -= startY;
+		}
+		new TouchAction(getDriver()).press(PointOption.point(startX, startY))
+				.waitAction(WaitOptions.waitOptions(Duration.ofMillis(500))).moveTo(PointOption.point(startX, endY))
+				.release().perform();
 	}
 
 	private static void scrollDownCloseToMiddleAlgorithm() {

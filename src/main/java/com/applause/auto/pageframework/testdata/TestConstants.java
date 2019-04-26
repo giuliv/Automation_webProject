@@ -16,6 +16,7 @@ public class TestConstants {
 		public static final String MY_ACCOUNT = "my-account";
 		public static final String EXISTING_USER_CHECKOUT = "existing-user-checkout";
 		public static final String SUBSCRIPTIONS = "subscriptions";
+		public static final String ACCOUNT_SETTINGS = "account-settings";
 
 		// Mobile
 		public static final String ONBOARDING = "onboarding";
@@ -144,6 +145,18 @@ public class TestConstants {
 			this.miniCartSpell = miniCartSpell;
 			this.fullCartSpell = fullCartSpell;
 		}
+	}
+
+	public static final class MobileTestData {
+		public static final String PEETS_CARD_HEADER = "Your Peet's Card";
+		public static final String SAVED_PAYMENT_HEADER = "Saved Payment Methods";
+		public static final String SAVED_CC_NAME = "Applause Test";
+		public static final String CC_NUM = "4111111111111111";
+		public static final String CC_EXP_DATE = "01/20";
+		public static final String CC_MODIFIED_EXP_DATE = "01/22";
+		public static final String CC_CVV = "111";
+		public static final String CC_ZIP = "94608";
+		public static final String CC_NAME = "Mobile Test";
 	}
 
 }

@@ -13,6 +13,7 @@ import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.pageframework.helpers.MobileHelper;
 import com.applause.auto.pageframework.views.AuthenticationView;
 import com.applause.auto.pageframework.views.GeneralSettingsView;
+import com.applause.auto.pageframework.views.PaymentMethodsView;
 import com.applause.auto.pageframework.views.ProfileDetailsView;
 
 @AndroidImplementation(AndroidAccountMenuMobileChunk.class)
@@ -74,6 +75,17 @@ public class AccountMenuMobileChunk extends AbstractDeviceChunk {
 	}
 
 	/**
+	 * Click Payment Methods
+	 *
+	 * @return PaymentMethodsView
+	 */
+	public PaymentMethodsView clickPaymentMethods() {
+		LOGGER.info("Click Payment Methods");
+		getPaymentMethodsButton().pressButton();
+		return DeviceViewFactory.create(PaymentMethodsView.class);
+	}
+
+	/**
 	 * Sign out t.
 	 *
 	 * @param <T>
@@ -112,6 +124,9 @@ public class AccountMenuMobileChunk extends AbstractDeviceChunk {
 	protected Button getGeneralSettingsButton() {
 		return new Button(getLocator(this, "getGeneralSettingsButton"));
 	}
+
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/paymentMethods", iOS = "Payment Methods")
+	protected Button getPaymentMethodsButton() { return new Button(getLocator(this, "getPaymentMethodsButton")); }
 
 }
 
