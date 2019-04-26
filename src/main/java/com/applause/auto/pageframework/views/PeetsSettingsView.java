@@ -12,7 +12,7 @@ import com.applause.auto.framework.pageframework.devicecontrols.TextBox;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.pageframework.helpers.MobileHelper;
 
-@AndroidImplementation(PeetsSettingsView.class)
+@AndroidImplementation(AndroidPeetsSettingsView.class)
 @IosImplementation(PeetsSettingsView.class)
 public class PeetsSettingsView extends AbstractDeviceView {
 
@@ -70,4 +70,14 @@ public class PeetsSettingsView extends AbstractDeviceView {
 	protected Button getNeverButton() {
 		return new Button(getLocator(this, "getNeverButton"));
 	}
+}
+
+class AndroidPeetsSettingsView extends PeetsSettingsView {
+	@Override
+	public GeneralSettingsView backToApp() {
+		LOGGER.info("Returning to application");
+		MobileHelper.tapAndroidDeviceBackButton();
+		return DeviceViewFactory.create(GeneralSettingsView.class);
+	}
+
 }
