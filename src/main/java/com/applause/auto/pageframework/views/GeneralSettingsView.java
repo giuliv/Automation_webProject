@@ -13,7 +13,6 @@ import com.applause.auto.framework.pageframework.devicecontrols.Button;
 import com.applause.auto.framework.pageframework.devicecontrols.Checkbox;
 import com.applause.auto.framework.pageframework.devicecontrols.Text;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.pageframework.helpers.MobileHelper;
 
 @AndroidImplementation(AndroidGeneralSettingsView.class)
 @IosImplementation(GeneralSettingsView.class)
@@ -206,10 +205,6 @@ class AndroidGeneralSettingsView extends GeneralSettingsView {
 		LOGGER.info("Unchecking Location services");
 		if (isLocationServicesChecked())
 			getLocationSetvicesButton().checkCheckbox();
-		MobileHelper.scrollToBottom(10);
-		syncHelper.suspend(5000);
-		LOGGER.info(">>>>>" + getDriver().getPageSource());
-		getDriver().switchTo().alert().accept();
 		return DeviceViewFactory.create(PeetsSettingsView.class);
 	}
 
