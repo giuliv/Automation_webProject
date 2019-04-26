@@ -196,8 +196,9 @@ class AndroidGeneralSettingsView extends GeneralSettingsView {
 			getLocationSetvicesButton().checkCheckbox();
 		LOGGER.info("Tap Allow button");
 		getAllowLocationServicesButton().pressButton();
-		syncHelper.suspend(5000);
 		getAllowLocationServices2Button().pressButton();
+		syncHelper.suspend(5000);
+		LOGGER.info(">>>>>" + getDriver().getPageSource());
 		return this;
 	}
 
