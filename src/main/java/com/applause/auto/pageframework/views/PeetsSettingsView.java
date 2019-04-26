@@ -12,7 +12,7 @@ import com.applause.auto.framework.pageframework.devicecontrols.TextBox;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.pageframework.helpers.MobileHelper;
 
-@AndroidImplementation(AndroidPeetsSettingsView.class)
+@AndroidImplementation(PeetsSettingsView.class)
 @IosImplementation(PeetsSettingsView.class)
 public class PeetsSettingsView extends AbstractDeviceView {
 
@@ -35,7 +35,9 @@ public class PeetsSettingsView extends AbstractDeviceView {
 	 * Select never.
 	 */
 	public void selectNever() {
-		LOGGER.info("Select Never");
+		syncHelper.suspend(5000);
+		LOGGER.info("Select Never" + getDriver().getPageSource());
+
 		getNeverButton().tap();
 	}
 
@@ -59,21 +61,13 @@ public class PeetsSettingsView extends AbstractDeviceView {
 		return new TextBox(getLocator(this, "getSignature"));
 	}
 
-	@MobileElementLocator(android = "", iOS = "//XCUIElementTypeCell[@name=\"Location\"]")
+	@MobileElementLocator(android = "com.android.settings:id/switch_widget", iOS = "//XCUIElementTypeCell[@name=\"Location\"]")
 	protected Button getLocationButton() {
 		return new Button(getLocator(this, "getLocationButton"));
 	}
 
-	@MobileElementLocator(android = "com.android.settings:id/switch_widget", iOS = "//XCUIElementTypeCell[@name=\"Never\"]")
+	@MobileElementLocator(android = "Never", iOS = "//XCUIElementTypeCell[@name=\"Never\"]")
 	protected Button getNeverButton() {
 		return new Button(getLocator(this, "getNeverButton"));
 	}
-}
-
-class AndroidPeetsSettingsView extends PeetsSettingsView {
-	public void openLocation() {
-		LOGGER.info("Location alrwady opened for android");
-
-	}
-
 }
