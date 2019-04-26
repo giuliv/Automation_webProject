@@ -36,7 +36,7 @@ public class PeetsSettingsView extends AbstractDeviceView {
 	 */
 	public void selectNever() {
 		syncHelper.suspend(5000);
-		LOGGER.info("Select Never" + getDriver().getPageSource());
+		LOGGER.info("Select Never");
 
 		getNeverButton().tap();
 	}
