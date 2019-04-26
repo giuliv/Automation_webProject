@@ -126,7 +126,9 @@ public class AccountMenuMobileChunk extends AbstractDeviceChunk {
 	}
 
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/paymentMethods", iOS = "Payment Methods")
-	protected Button getPaymentMethodsButton() { return new Button(getLocator(this, "getPaymentMethodsButton")); }
+	protected Button getPaymentMethodsButton() {
+		return new Button(getLocator(this, "getPaymentMethodsButton"));
+	}
 
 }
 
