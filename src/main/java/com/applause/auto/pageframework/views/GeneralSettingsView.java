@@ -206,7 +206,7 @@ class AndroidGeneralSettingsView extends GeneralSettingsView {
 		LOGGER.info("Unchecking Location services");
 		if (isLocationServicesChecked())
 			getLocationSetvicesButton().checkCheckbox();
-		MobileHelper.scrollDown(3);
+		MobileHelper.scrollToBottom(10);
 		syncHelper.suspend(5000);
 		LOGGER.info(">>>>>" + getDriver().getPageSource());
 		getDriver().switchTo().alert().accept();
