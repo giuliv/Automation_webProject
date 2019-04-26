@@ -197,6 +197,7 @@ class AndroidGeneralSettingsView extends GeneralSettingsView {
 		LOGGER.info("Tap Allow button");
 		getAllowLocationServicesButton().pressButton();
 		syncHelper.suspend(5000);
+		getDriver().switchTo().alert().accept();
 		return this;
 	}
 
