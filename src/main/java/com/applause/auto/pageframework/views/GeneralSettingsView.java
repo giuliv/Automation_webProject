@@ -63,27 +63,61 @@ public class GeneralSettingsView extends AbstractDeviceView {
 		return getPromotionalEmailsButton().getAttributeValue("value").equals("1");
 	}
 
+	/**
+	 * Is push notification checked boolean.
+	 *
+	 * @return the boolean
+	 */
 	public boolean isPushNotificationChecked() {
 		return getPushNotificationButton().getAttributeValue("value").equals("1");
 	}
 
+	/**
+	 * Is location services checked boolean.
+	 *
+	 * @return the boolean
+	 */
 	public boolean isLocationServicesChecked() {
 		return getLocationSetvicesButton().getAttributeValue("value").equals("1");
 	}
 
-	public void enableLocationServices() {
+	/**
+	 * Enable location services general settings view.
+	 *
+	 * @return the general settings view
+	 */
+	public GeneralSettingsView enableLocationServices() {
 		LOGGER.info("Checking Location services");
 		if (!isLocationServicesChecked())
 			getLocationSetvicesButton().checkCheckbox();
+		LOGGER.info("Tap Allow button");
+		getAllowLocationServicesButton().pressButton();
+		syncHelper.suspend(5000);
+		LOGGER.info("Accept alert");
+		getDriver().switchTo().alert().accept();
+		return this;
 	}
 
+	/**
+	 * Disable location services peets settings view.
+	 *
+	 * @return the peets settings view
+	 */
 	public PeetsSettingsView disableLocationServices() {
 		LOGGER.info("Unchecking Location services");
 		if (isLocationServicesChecked())
 			getLocationSetvicesButton().checkCheckbox();
+		LOGGER.info("Accept alert");
+		syncHelper.suspend(5000);
+		getDriver().switchTo().alert().accept();
 		return DeviceViewFactory.create(PeetsSettingsView.class);
 	}
 
+	/**
+	 * Enable promotional emails general settings view.
+	 *
+	 * @return the general settings view
+	 */
 	public GeneralSettingsView enablePromotionalEmails() {
 		LOGGER.info("Checking Promo emails services");
 		if (!isPromoEmailOptionChecked())
@@ -91,6 +125,11 @@ public class GeneralSettingsView extends AbstractDeviceView {
 		return DeviceViewFactory.create(GeneralSettingsView.class);
 	}
 
+	/**
+	 * Disable promotional emails general settings view.
+	 *
+	 * @return the general settings view
+	 */
 	public GeneralSettingsView disablePromotionalEmails() {
 		LOGGER.info("Unchecking Promo emails services");
 		if (isPromoEmailOptionChecked())
@@ -122,6 +161,11 @@ public class GeneralSettingsView extends AbstractDeviceView {
 		return new Checkbox(getLocator(this, "getLocationSetvicesButton"));
 	}
 
+	@MobileElementLocator(android = "android:id/button1", iOS = "Allow")
+	protected Button getAllowLocationServicesButton() {
+		return new Button(getLocator(this, "getAllowLocationServicesButton"));
+	}
+
 	@MobileElementLocator(android = "//android.widget.TextView[@text='General Settings']", iOS = "General Settings")
 	protected Text getHeadingText() {
 		return new Text(getLocator(this, "getHeadingText"));
@@ -144,4 +188,16 @@ class AndroidGeneralSettingsView extends GeneralSettingsView {
 	public boolean isLocationServicesChecked() {
 		return getLocationSetvicesButton().getAttributeValue("checked").equals("true");
 	}
+
+	public GeneralSettingsView enableLocationServices() {
+		LOGGER.info("Checking Location services");
+		if (!isLocationServicesChecked())
+			getLocationSetvicesButton().checkCheckbox();
+		LOGGER.info("Tap Allow button");
+		getAllowLocationServicesButton().pressButton();
+		syncHelper.suspend(5000);
+		LOGGER.info(">>>>>>>>" + getDriver().getPageSource());
+		return this;
+	}
+
 }
