@@ -66,7 +66,7 @@ public class PeetsSettingsView extends AbstractDeviceView {
 		return new Button(getLocator(this, "getLocationButton"));
 	}
 
-	@MobileElementLocator(android = "Never", iOS = "//XCUIElementTypeCell[@name=\"Never\"]")
+	@MobileElementLocator(android = "//android.widget.Button[@text='CLOSE']", iOS = "//XCUIElementTypeCell[@name=\"Never\"]")
 	protected Button getNeverButton() {
 		return new Button(getLocator(this, "getNeverButton"));
 	}
