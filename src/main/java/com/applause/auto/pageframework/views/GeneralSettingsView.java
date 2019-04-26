@@ -94,7 +94,11 @@ public class GeneralSettingsView extends AbstractDeviceView {
 		getAllowLocationServicesButton().pressButton();
 		syncHelper.suspend(5000);
 		LOGGER.info("Accept alert");
-		getDriver().switchTo().alert().accept();
+		try {
+			getDriver().switchTo().alert().accept();
+		} catch (Throwable throwable) {
+			LOGGER.info("Alert not found");
+		}
 		return this;
 	}
 
