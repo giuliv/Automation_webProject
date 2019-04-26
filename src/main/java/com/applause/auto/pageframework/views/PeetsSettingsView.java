@@ -54,7 +54,7 @@ public class PeetsSettingsView extends AbstractDeviceView {
 	 * Protected Getters
 	 */
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/yourFeedTextView", iOS = "//XCUIElementTypeApplication[@name=\"Settings\"]")
+	@MobileElementLocator(android = "com.android.settings:id/main_content", iOS = "//XCUIElementTypeApplication[@name=\"Settings\"]")
 	protected TextBox getSignature() {
 		return new TextBox(getLocator(this, "getSignature"));
 	}
