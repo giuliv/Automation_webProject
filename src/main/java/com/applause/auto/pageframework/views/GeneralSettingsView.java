@@ -198,8 +198,18 @@ class AndroidGeneralSettingsView extends GeneralSettingsView {
 		getAllowLocationServicesButton().pressButton();
 		getAllowLocationServices2Button().pressButton();
 		syncHelper.suspend(5000);
-		LOGGER.info(">>>>>" + getDriver().getPageSource());
 		return this;
+	}
+
+	public PeetsSettingsView disableLocationServices() {
+		LOGGER.info("Unchecking Location services");
+		if (isLocationServicesChecked())
+			getLocationSetvicesButton().checkCheckbox();
+		LOGGER.info("Accept alert");
+		syncHelper.suspend(5000);
+		LOGGER.info(">>>>>" + getDriver().getPageSource());
+		getDriver().switchTo().alert().accept();
+		return DeviceViewFactory.create(PeetsSettingsView.class);
 	}
 
 	@MobileElementLocator(android = "com.android.packageinstaller:id/permission_allow_button")
