@@ -197,9 +197,13 @@ class AndroidGeneralSettingsView extends GeneralSettingsView {
 		LOGGER.info("Tap Allow button");
 		getAllowLocationServicesButton().pressButton();
 		syncHelper.suspend(5000);
-		LOGGER.info(">>>>>" + getDriver().getPageSource());
-		getAllowLocationServicesButton().pressButton();
+		getAllowLocationServices2Button().pressButton();
 		return this;
+	}
+
+	@MobileElementLocator(android = "com.android.packageinstaller:id/permission_allow_button")
+	protected Button getAllowLocationServices2Button() {
+		return new Button(getLocator(this, "getAllowLocationServices2Button"));
 	}
 
 }
