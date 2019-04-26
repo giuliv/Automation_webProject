@@ -12,7 +12,7 @@ import com.applause.auto.framework.pageframework.devicecontrols.TextBox;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.pageframework.helpers.MobileHelper;
 
-@AndroidImplementation(PeetsSettingsView.class)
+@AndroidImplementation(AndroidPeetsSettingsView.class)
 @IosImplementation(PeetsSettingsView.class)
 public class PeetsSettingsView extends AbstractDeviceView {
 
