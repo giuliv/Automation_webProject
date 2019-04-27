@@ -115,9 +115,11 @@ public class GeneralSettingsView extends AbstractDeviceView {
 			getLocationSetvicesButton().checkCheckbox();
 		LOGGER.info("Accept alert");
 		syncHelper.suspend(5000);
-		LOGGER.info("Closing settings if opened");
+		LOGGER.info("Closing settings if opened, to avoid previous submenu opened");
+		String settingsBundleId = "com.apple.Preferences";
+		getDriver().activateApp(settingsBundleId);
 		Map<String, Object> params = new HashMap<>();
-		params.put("bundleId", "com.apple.Preferences");
+		params.put("bundleId", settingsBundleId);
 		getDriver().executeScript("mobile: terminateApp", params);
 		LOGGER.info("Accepting alert");
 		getDriver().switchTo().alert().accept();
