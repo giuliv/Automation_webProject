@@ -15,6 +15,7 @@ import com.applause.auto.framework.pageframework.devicecontrols.Button;
 import com.applause.auto.framework.pageframework.devicecontrols.Checkbox;
 import com.applause.auto.framework.pageframework.devicecontrols.Text;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
+import com.applause.auto.pageframework.helpers.MobileHelper;
 
 @AndroidImplementation(AndroidGeneralSettingsView.class)
 @IosImplementation(GeneralSettingsView.class)
@@ -111,16 +112,19 @@ public class GeneralSettingsView extends AbstractDeviceView {
 	 */
 	public PeetsSettingsView disableLocationServices() {
 		LOGGER.info("Unchecking Location services");
-		if (isLocationServicesChecked())
-			getLocationSetvicesButton().checkCheckbox();
-		LOGGER.info("Accept alert");
-		syncHelper.suspend(5000);
 		LOGGER.info("Closing settings if opened, to avoid previous submenu opened");
 		String settingsBundleId = "com.apple.Preferences";
 		getDriver().activateApp(settingsBundleId);
 		Map<String, Object> params = new HashMap<>();
 		params.put("bundleId", settingsBundleId);
 		getDriver().executeScript("mobile: terminateApp", params);
+		LOGGER.info("Activating SUT application");
+		MobileHelper.activateApp();
+
+		if (isLocationServicesChecked())
+			getLocationSetvicesButton().checkCheckbox();
+		LOGGER.info("Accept alert");
+		syncHelper.suspend(5000);
 		LOGGER.info("Accepting alert");
 		getDriver().switchTo().alert().accept();
 		return DeviceViewFactory.create(PeetsSettingsView.class);
