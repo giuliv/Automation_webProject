@@ -113,6 +113,9 @@ public class GeneralSettingsView extends AbstractDeviceView {
 			getLocationSetvicesButton().checkCheckbox();
 		LOGGER.info("Accept alert");
 		syncHelper.suspend(5000);
+		LOGGER.info("Closing settings if opened");
+		getDriver().executeScript("client:client.applicationClose(\"com.apple.Preferences\");");
+		LOGGER.info("Accepting alert");
 		getDriver().switchTo().alert().accept();
 		return DeviceViewFactory.create(PeetsSettingsView.class);
 	}
