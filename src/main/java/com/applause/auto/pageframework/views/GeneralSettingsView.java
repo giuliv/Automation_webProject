@@ -114,12 +114,19 @@ public class GeneralSettingsView extends AbstractDeviceView {
 		LOGGER.info("Unchecking Location services");
 		LOGGER.info("Closing settings if opened, to avoid previous submenu opened");
 		String settingsBundleId = "com.apple.Preferences";
+		LOGGER.info("Settings activating");
+		syncHelper.suspend(3000);
 		getDriver().activateApp(settingsBundleId);
+		LOGGER.info("Settings activated. Terminating....");
+		syncHelper.suspend(3000);
 		Map<String, Object> params = new HashMap<>();
 		params.put("bundleId", settingsBundleId);
 		getDriver().executeScript("mobile: terminateApp", params);
-		LOGGER.info("Activating SUT application");
+		syncHelper.suspend(3000);
+		LOGGER.info("Settings terminated. Returning back to app");
 		MobileHelper.activateApp();
+		syncHelper.suspend(3000);
+		LOGGER.info("App restored");
 
 		if (isLocationServicesChecked())
 			getLocationSetvicesButton().checkCheckbox();
