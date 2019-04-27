@@ -1,8 +1,6 @@
 package com.applause.auto.pageframework.views;
 
 import java.lang.invoke.MethodHandles;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.applause.auto.framework.pageframework.device.AbstractDeviceChunk;
 import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
@@ -15,7 +13,6 @@ import com.applause.auto.framework.pageframework.devicecontrols.Button;
 import com.applause.auto.framework.pageframework.devicecontrols.Checkbox;
 import com.applause.auto.framework.pageframework.devicecontrols.Text;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.pageframework.helpers.MobileHelper;
 
 @AndroidImplementation(AndroidGeneralSettingsView.class)
 @IosImplementation(GeneralSettingsView.class)
@@ -112,22 +109,6 @@ public class GeneralSettingsView extends AbstractDeviceView {
 	 */
 	public PeetsSettingsView disableLocationServices() {
 		LOGGER.info("Unchecking Location services");
-		LOGGER.info("Closing settings if opened, to avoid previous submenu opened");
-		String settingsBundleId = "com.apple.Preferences";
-		LOGGER.info("Settings activating");
-		syncHelper.suspend(3000);
-		getDriver().activateApp(settingsBundleId);
-		LOGGER.info("Settings activated. Terminating....");
-		syncHelper.suspend(3000);
-		Map<String, Object> params = new HashMap<>();
-		params.put("bundleId", settingsBundleId);
-		getDriver().executeScript("mobile: terminateApp", params);
-		syncHelper.suspend(3000);
-		LOGGER.info("Settings terminated. Returning back to app");
-		MobileHelper.activateApp();
-		syncHelper.suspend(3000);
-		LOGGER.info("App restored");
-
 		if (isLocationServicesChecked())
 			getLocationSetvicesButton().checkCheckbox();
 		LOGGER.info("Accept alert");

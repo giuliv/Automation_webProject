@@ -1,6 +1,8 @@
 package com.applause.auto.pageframework.views;
 
 import java.lang.invoke.MethodHandles;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
 import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
@@ -21,6 +23,16 @@ public class PeetsSettingsView extends AbstractDeviceView {
 	@Override
 	protected void waitUntilVisible() {
 		syncHelper.waitForElementToAppear(getSignature());
+		if (!getLocationButton().exists()) {
+			LOGGER.info("Closing settings if opened, to avoid previous submenu opened");
+			String settingsBundleId = "com.apple.Preferences";
+			LOGGER.info("Terminating settings for futere device usage....");
+			Map<String, Object> params = new HashMap<>();
+			params.put("bundleId", settingsBundleId);
+			getDriver().executeScript("mobile: terminateApp", params);
+			syncHelper.suspend(3000);
+			LOGGER.info("Settings terminated. Returning back to app");
+		}
 	}
 
 	/**
