@@ -1,6 +1,8 @@
 package com.applause.auto.pageframework.views;
 
 import java.lang.invoke.MethodHandles;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.applause.auto.framework.pageframework.device.AbstractDeviceChunk;
 import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
@@ -114,7 +116,9 @@ public class GeneralSettingsView extends AbstractDeviceView {
 		LOGGER.info("Accept alert");
 		syncHelper.suspend(5000);
 		LOGGER.info("Closing settings if opened");
-		getDriver().executeScript("client:client.applicationClose(\"com.apple.Preferences\");");
+		Map<String, Object> params = new HashMap<>();
+		params.put("bundleId", "com.apple.Preferences");
+		getDriver().executeScript("mobile: terminateApp", params);
 		LOGGER.info("Accepting alert");
 		getDriver().switchTo().alert().accept();
 		return DeviceViewFactory.create(PeetsSettingsView.class);
