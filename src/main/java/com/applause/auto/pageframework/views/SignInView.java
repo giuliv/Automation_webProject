@@ -89,6 +89,8 @@ public class SignInView extends AbstractDeviceView {
 	public <T extends AbstractDeviceView> T signIn(Class<T> clazz) {
 		LOGGER.info("Click on Sign In button");
 		getSignInButton().pressButton();
+		syncHelper.suspend(10000);
+		LOGGER.info(">>>>" + getDriver().getPageSource());
 		return DeviceViewFactory.create(clazz);
 	}
 
