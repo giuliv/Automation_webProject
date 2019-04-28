@@ -11,6 +11,7 @@ import com.applause.auto.pageframework.chunks.AccountMenuMobileChunk;
 import com.applause.auto.pageframework.helpers.MobileHelper;
 import com.applause.auto.pageframework.testdata.TestConstants;
 import com.applause.auto.pageframework.views.AuthenticationView;
+import com.applause.auto.pageframework.views.CompleteAccountView;
 import com.applause.auto.pageframework.views.CreateAccountView;
 import com.applause.auto.pageframework.views.DashboardView;
 import com.applause.auto.pageframework.views.GeneralSettingsView;
@@ -336,4 +337,15 @@ public class CreateAccountTest extends BaseTest {
 		LOGGER.info("User should be signed out successfully");
 		Assert.assertNotNull(authenticationView, "User does not signed out");
 	}
+
+	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625882")
+	public void createAccountExistingWebUserTest() {
+		LOGGER.info("Launch the app and arrive at the first on boarding screen view");
+		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+
+		CompleteAccountView completeAccountView = peetsMobileHelper.signIn(landingView,
+				TestConstants.TestData.USERNAME_625882, TestConstants.TestData.PASSWORD, CompleteAccountView.class);
+		Assert.assertNotNull(completeAccountView, "Complete Account View does not displayed");
+	}
+
 }
