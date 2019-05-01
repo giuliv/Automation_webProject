@@ -11,6 +11,7 @@ import com.applause.auto.framework.pageframework.device.factory.IosImplementatio
 import com.applause.auto.framework.pageframework.devicecontrols.Button;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.pageframework.helpers.MobileHelper;
+import com.applause.auto.pageframework.views.AccountHistoryView;
 import com.applause.auto.pageframework.views.AuthenticationView;
 import com.applause.auto.pageframework.views.GeneralSettingsView;
 import com.applause.auto.pageframework.views.PaymentMethodsView;
@@ -101,6 +102,17 @@ public class AccountMenuMobileChunk extends AbstractDeviceChunk {
 		return DeviceViewFactory.create(clazz);
 	}
 
+	/**
+	 * Account history account history view.
+	 *
+	 * @return the account history view
+	 */
+	public AccountHistoryView accountHistory() {
+		LOGGER.info("Click Account History");
+		getAccountHistoryButton().pressButton();
+		return DeviceViewFactory.create(AccountHistoryView.class);
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -125,11 +137,15 @@ public class AccountMenuMobileChunk extends AbstractDeviceChunk {
 		return new Button(getLocator(this, "getGeneralSettingsButton"));
 	}
 
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/accountActivity", iOS = "//XCUIElementTypeStaticText[@name=\"Account History\"]")
+	protected Button getAccountHistoryButton() {
+		return new Button(getLocator(this, "getAccountHistoryButton"));
+	}
+
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/paymentMethods", iOS = "Payment Methods")
 	protected Button getPaymentMethodsButton() {
 		return new Button(getLocator(this, "getPaymentMethodsButton"));
 	}
-
 }
 
 class AndroidAccountMenuMobileChunk extends AccountMenuMobileChunk {
