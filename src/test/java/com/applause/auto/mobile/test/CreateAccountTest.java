@@ -70,7 +70,7 @@ public class CreateAccountTest extends BaseTest {
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
-		landingView.skipOffer();
+		landingView.skipOnboarding();
 
 		LOGGER.info("Tap Sign In");
 		SignInView signInView = landingView.signIn();
