@@ -575,7 +575,7 @@ public class CreateAccountTest extends BaseTest {
 
 		LOGGER.info(
 				"Transactions should be organized by most recent transactions at the top and oldest transactions at the bottom and show date of the transaction [month day, year]");
-		Assert.assertEquals(accountHistoryView.getTransactionDate(0), "April 30, 2019",
+		Assert.assertEquals(accountHistoryView.getTransactionDate(0), "April 29, 2019",
 				"Transaction does not contain valid date format");
 
 		LOGGER.info("Transactions should be divided by month dividers");
