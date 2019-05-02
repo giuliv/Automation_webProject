@@ -107,7 +107,6 @@ public class CreateAccountView extends AbstractDeviceView {
 		LOGGER.info("Set phone number to: " + phone);
 		getPhoneNumberTextBox().clearTextBox();
 		getPhoneNumberTextBox().enterText(phone + "\n");
-
 		return this;
 	}
 
@@ -125,8 +124,6 @@ public class CreateAccountView extends AbstractDeviceView {
 	public CreateAccountView setDOB(String day, String month, String year) {
 		LOGGER.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
 		getDOBValueTextBox().clickTextBox();
-//		MobileHelper.setPickerValue(day, getDOBDayPickerWheel());
-//		MobileHelper.setPickerValue(month, getDOBMonthPickerWheel());
 		MobileHelper.setPickerValueReverse(year, getDOBYearPickerWheel());
 
 		return this;
@@ -141,10 +138,8 @@ public class CreateAccountView extends AbstractDeviceView {
 	 */
 	public CreateAccountView setEmailAddress(String emailAddress) {
 		LOGGER.info("Set email address to: " + emailAddress);
-		MobileHelper.scrollDown(2);
 		getEmailAddressTextBox().clearTextBox();
-		getEmailAddressTextBox().enterText(emailAddress);
-		MobileHelper.scrollDown(1);
+		getEmailAddressTextBox().enterText(emailAddress + "\n");
 		return this;
 	}
 
@@ -159,7 +154,7 @@ public class CreateAccountView extends AbstractDeviceView {
 		LOGGER.info("Set email address to: " + emailAddress);
 		MobileHelper.scrollDown(1);
 		getConfirmEmailAddressTextBox().clearTextBox();
-		getConfirmEmailAddressTextBox().enterText(emailAddress);
+		getConfirmEmailAddressTextBox().enterText(emailAddress + "\n");
 		return this;
 	}
 
@@ -174,8 +169,7 @@ public class CreateAccountView extends AbstractDeviceView {
 		LOGGER.info("Set password to: " + password);
 		MobileHelper.scrollDown(1);
 		getHiddenPasswordTextBox().clearTextBox();
-		getHiddenPasswordTextBox().enterText(password);
-		MobileHelper.scrollDown(1);
+		getHiddenPasswordTextBox().enterText(password + "\n");
 		return this;
 	}
 
@@ -189,7 +183,7 @@ public class CreateAccountView extends AbstractDeviceView {
 	public CreateAccountView setConfirmationPassword(String password) {
 		LOGGER.info("Set confirmation password to: " + password);
 		getConfirmPasswordTextBox().clearTextBox();
-		getConfirmPasswordTextBox().enterText(password);
+		getConfirmPasswordTextBox().enterText(password + "\n");
 		return this;
 	}
 
@@ -352,6 +346,7 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the boolean
 	 */
 	public boolean isPrivacyPolicyAndTermsAndConditionsChecked() {
+		syncHelper.suspend(5000);
 		return MobileHelper.isAttribtuePresent(getAgreePrivacyPolicyAndTermsAndConditions().getMobileElement(),
 				"value");
 	}
@@ -496,9 +491,6 @@ class AndroidCreateAccountView extends CreateAccountView {
 	public DashboardView createAccount() {
 		LOGGER.info("Create account");
 		getCreateAccountButton().pressButton();
-		try {
-			getCreateAccountButton().pressButton();
-		} catch (Exception ex) { }
 		return DeviceViewFactory.create(DashboardView.class);
 	}
 
@@ -517,8 +509,7 @@ class AndroidCreateAccountView extends CreateAccountView {
 		MobileHelper.setPickerValueReverse(year, getDOBYearPickerWheel());
 		getDOBYearPickerWheel().getMobileElement().click();
 		getDOBDayPickerWheel().getMobileElement().click();
-//		MobileHelper.setPickerValue(day + "\t", getDOBDayPickerWheel());
-//		MobileHelper.setPickerValue(month.substring(0, 3) + "\t", getDOBMonthPickerWheel());
+		getDriver().hideKeyboard();
 		getDOBOkButton().pressButton();
 		return this;
 	}
@@ -568,11 +559,44 @@ class AndroidCreateAccountView extends CreateAccountView {
 		return this;
 	}
 
+	public CreateAccountView setPassword(String password) {
+		LOGGER.info("Set password to: " + password);
+		MobileHelper.scrollDown(1);
+		getHiddenPasswordTextBox().clearTextBox();
+		getHiddenPasswordTextBox().enterText(password);
+		MobileHelper.scrollDown(1);
+		return this;
+	}
+
 	public CreateAccountView setConfirmationPassword(String password) {
 		LOGGER.info("Set confirmation password to: " + password);
 		getConfirmPasswordTextBox().clearTextBox();
 		getConfirmPasswordTextBox().enterText(password);
 		getDriver().hideKeyboard();
+		return this;
+	}
+
+	public CreateAccountView setPhoneNumber(String phone) {
+		LOGGER.info("Set phone number to: " + phone);
+		getPhoneNumberTextBox().clearTextBox();
+		getPhoneNumberTextBox().enterText(phone);
+		getDriver().hideKeyboard();
+		return this;
+	}
+
+	public CreateAccountView setEmailAddress(String emailAddress) {
+		LOGGER.info("Set email address to: " + emailAddress);
+		getEmailAddressTextBox().clearTextBox();
+		getEmailAddressTextBox().enterText(emailAddress);
+		getDriver().hideKeyboard();
+		return this;
+	}
+
+	public CreateAccountView setConfirmEmailAddress(String emailAddress) {
+		LOGGER.info("Set email address to: " + emailAddress);
+		MobileHelper.scrollDown(1);
+		getConfirmEmailAddressTextBox().clearTextBox();
+		getConfirmEmailAddressTextBox().enterText(emailAddress);
 		return this;
 	}
 
