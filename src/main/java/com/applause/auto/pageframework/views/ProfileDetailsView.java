@@ -13,9 +13,10 @@ import com.applause.auto.framework.pageframework.devicecontrols.Text;
 import com.applause.auto.framework.pageframework.devicecontrols.TextBox;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.pageframework.chunks.AccountMenuMobileChunk;
+import com.applause.auto.pageframework.helpers.MobileHelper;
 
 @AndroidImplementation(ProfileDetailsView.class)
-@IosImplementation(ProfileDetailsView.class)
+@IosImplementation(IosProfileDetailsView.class)
 public class ProfileDetailsView extends AbstractDeviceView {
 
 	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
@@ -114,6 +115,7 @@ public class ProfileDetailsView extends AbstractDeviceView {
 	public ProfileDetailsView setConfirmEmailAddress(String emailAddress) {
 		LOGGER.info("Set email address to: " + emailAddress);
 		getDriver().hideKeyboard();
+		MobileHelper.scrollUp(1);
 		getConfirmEmailAddressTextBox().clearTextBox();
 		getConfirmEmailAddressTextBox().enterText(emailAddress);
 		return this;
@@ -261,4 +263,26 @@ public class ProfileDetailsView extends AbstractDeviceView {
 	protected Text getSignature() {
 		return new Text(getLocator(this, "getSignature"));
 	}
+}
+
+class IosProfileDetailsView extends ProfileDetailsView {
+
+	public AccountMenuMobileChunk save() {
+		LOGGER.info("Click on SAVE button");
+		getDoneButton().pressButton();
+		getSaveButton().pressButton();
+		syncHelper.suspend(5000);
+		return DeviceChunkFactory.create(AccountMenuMobileChunk.class, "");
+	}
+
+	public ProfileDetailsView setConfirmEmailAddress(String emailAddress) {
+		LOGGER.info("Set email address to: " + emailAddress);
+		getDoneButton().pressButton();
+		getConfirmEmailAddressTextBox().clearTextBox();
+		getConfirmEmailAddressTextBox().enterText(emailAddress);
+		return this;
+	}
+
+	@MobileElementLocator(iOS = "Done")
+	protected Button getDoneButton() { return new Button(getLocator(this, "getDoneButton")); }
 }
