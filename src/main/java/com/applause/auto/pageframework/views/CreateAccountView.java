@@ -2,7 +2,6 @@ package com.applause.auto.pageframework.views;
 
 import java.lang.invoke.MethodHandles;
 
-import com.sun.tools.corba.se.idl.toJavaPortable.Helper;
 import org.openqa.selenium.Dimension;
 
 import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
