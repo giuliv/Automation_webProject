@@ -1,5 +1,11 @@
 package com.applause.auto.test;
 
+import com.applause.auto.pageframework.pages.MyAccountPage;
+import com.applause.auto.pageframework.pages.PaypalLoginPage;
+import com.applause.auto.pageframework.pages.PaypalReviewYourPurchasePage;
+import com.applause.auto.pageframework.pages.PaypalSelectPaymentMethodPage;
+import com.applause.auto.pageframework.pages.SearchResultsPage;
+import com.applause.auto.pageframework.pages.CoffeeProductDescriptionPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -188,14 +194,14 @@ public class GuestCheckoutTest extends BaseTest {
 		VerifyYourAddressDetailsChunk verifyAddressChunk = shippingInfoPage.continueAfterFillingRequiredContactInfo();
 		shippingInfoPage = verifyAddressChunk.clickEnteredAddressButton();
 
-		LOGGER.info("8. Select ground shipping");
+		LOGGER.info("7. Select ground shipping");
 		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
 				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
 
-		LOGGER.info("9. Use credit card for payment");
+		LOGGER.info("8. Use credit card for payment");
 		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterCrediCardBillingInfo();
 
-		LOGGER.info("10. Click 'Place Order'");
+		LOGGER.info("9. Click 'Place Order'");
 		CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
 
 		LOGGER.info("Verify Confirmation page is displayed");

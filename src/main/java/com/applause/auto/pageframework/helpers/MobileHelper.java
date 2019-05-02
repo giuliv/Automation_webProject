@@ -1114,7 +1114,7 @@ public class MobileHelper {
 			LOGGER.debug("Loop #" + loopCounter);
 			if (!env.getIsMobileIOS()) {
 				elem.sendKeys(Keys.BACK_SPACE);
-				elem.sendKeys(value);
+				element.setValue(value);
 			} else {
 				JavascriptExecutor js = (JavascriptExecutor) getDriver();
 				Map<String, Object> params = new HashMap<>();
