@@ -189,13 +189,13 @@ public class CreateAccountTest extends BaseTest {
 	}
 
 	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625880")
-	public void сreateAccountEmailPassword() {
-		long uniq = System.currentTimeMillis();
+	public void createAccountEmailPassword() {
 
 		LOGGER.info("Launch the app and arrive at the first onboarding screen view");
 		LandingView landingView = DeviceViewFactory.create(LandingView.class);
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
+		long uniq = System.currentTimeMillis();
 
 		landingView.skipOnboarding();
 
