@@ -32,7 +32,7 @@ public class CreateAccountTest extends BaseTest {
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
-		landingView.skipOffer();
+		landingView.skipOnboarding();
 
 		LOGGER.info("Tap Create Account");
 		CreateAccountView createAccountView = landingView.createAccount();
@@ -229,7 +229,7 @@ public class CreateAccountTest extends BaseTest {
 		LOGGER.info("Scroll through and select birthday");
 		String dobDay = "30";
 		String dobMonth = "December";
-		String dobYear = "1990";
+		String dobYear = "2000";
 		createAccountView.setDOB(dobDay, dobMonth, dobYear);
 
 		LOGGER.info("Enter valid ten digit phone number / Skip this field");
