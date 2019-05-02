@@ -114,21 +114,6 @@ public class SignInView extends AbstractDeviceView {
 	}
 
 	/**
-	 * Sign in t.
-	 *
-	 * @param <T>
-	 *            the type parameter
-	 * @param clazz
-	 *            the clazz
-	 * @return the t
-	 */
-	public <T extends AbstractDeviceView> T signIn(Class<T> clazz) {
-		LOGGER.info("Click on Sign In button");
-		getSignInButton().pressButton();
-		return DeviceViewFactory.create(clazz);
-	}
-
-	/**
 	 * Show password.
 	 */
 	public void showPassword() {
