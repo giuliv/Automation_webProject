@@ -61,6 +61,7 @@ public class CreditCardDetailsView extends AbstractDeviceView {
      */
     public void enterExpDate(String expDate) {
         LOGGER.info("Entering Expiration Date");
+        getExpDateField().clearTextBox();
         getExpDateField().enterText(expDate);
     }
 
