@@ -34,6 +34,7 @@ public class TestConstants {
 		public static final String SHOP_COFFEE_KCUPS_PAGE_URL = "https://uat.aws.peets.com/coffee/k-cups";
 
 		public static final String USERNAME = "appautosvc+peetscoffeealternate@applause.com";
+		public static final String USERNAME_625882 = "appautosvc+test625882@applause.com";
 		public static final String USERNAME_SAFARI = "appautosvc+peetscoffeesafari@applause.com";
 		public static final String PASSWORD = "password123";
 
