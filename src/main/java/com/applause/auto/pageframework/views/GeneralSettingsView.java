@@ -66,7 +66,7 @@ public class GeneralSettingsView extends AbstractDeviceView {
 	 * Protected Getters
 	 */
 
-	@MobileElementLocator(android = "Navigate up", iOS = "button back")
+	@MobileElementLocator(android = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]", iOS = "button back")
 	protected Button getBackButton() {
 		return new Button(getLocator(this, "getBackButton"));
 	}
