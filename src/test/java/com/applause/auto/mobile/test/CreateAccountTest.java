@@ -241,7 +241,7 @@ public class CreateAccountTest extends BaseTest {
 		createAccountView.setPhoneNumber(phone);
 
 		LOGGER.info("Enter valid email address");
-		String email = String.format("a+%s@a.com", uniq);
+		String email = String.format("a+%s@gmail.com", uniq);
 		createAccountView.setEmailAddress(email);
 		createAccountView.setConfirmEmailAddress(email);
 
@@ -254,7 +254,7 @@ public class CreateAccountTest extends BaseTest {
 		createAccountView.showPassword();
 
 		LOGGER.info("Make sure password entered is displayed to user");
-		Assert.assertEquals(createAccountView.getPassword(), password, "Password does not displayed");
+		Assert.assertEquals(createAccountView.getPassword().trim(), password, "Password does not displayed");
 
 		LOGGER.info("Tap on hide password icon");
 		createAccountView.hidePassword();

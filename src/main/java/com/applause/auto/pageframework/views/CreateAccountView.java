@@ -2,6 +2,7 @@ package com.applause.auto.pageframework.views;
 
 import java.lang.invoke.MethodHandles;
 
+import com.sun.tools.corba.se.idl.toJavaPortable.Helper;
 import org.openqa.selenium.Dimension;
 
 import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
@@ -125,8 +126,8 @@ public class CreateAccountView extends AbstractDeviceView {
 	public CreateAccountView setDOB(String day, String month, String year) {
 		LOGGER.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
 		getDOBValueTextBox().clickTextBox();
-		MobileHelper.setPickerValue(day, getDOBDayPickerWheel());
-		MobileHelper.setPickerValue(month, getDOBMonthPickerWheel());
+//		MobileHelper.setPickerValue(day, getDOBDayPickerWheel());
+//		MobileHelper.setPickerValue(month, getDOBMonthPickerWheel());
 		MobileHelper.setPickerValueReverse(year, getDOBYearPickerWheel());
 
 		return this;
@@ -141,8 +142,9 @@ public class CreateAccountView extends AbstractDeviceView {
 	 */
 	public CreateAccountView setEmailAddress(String emailAddress) {
 		LOGGER.info("Set email address to: " + emailAddress);
+		MobileHelper.scrollDown(2);
 		getEmailAddressTextBox().clearTextBox();
-		getEmailAddressTextBox().enterText(emailAddress + "\n");
+		getEmailAddressTextBox().enterText(emailAddress);
 		MobileHelper.scrollDown(1);
 		return this;
 	}
@@ -156,8 +158,9 @@ public class CreateAccountView extends AbstractDeviceView {
 	 */
 	public CreateAccountView setConfirmEmailAddress(String emailAddress) {
 		LOGGER.info("Set email address to: " + emailAddress);
+		MobileHelper.scrollDown(1);
 		getConfirmEmailAddressTextBox().clearTextBox();
-		getConfirmEmailAddressTextBox().enterText(emailAddress + "\n");
+		getConfirmEmailAddressTextBox().enterText(emailAddress);
 		return this;
 	}
 
@@ -170,8 +173,9 @@ public class CreateAccountView extends AbstractDeviceView {
 	 */
 	public CreateAccountView setPassword(String password) {
 		LOGGER.info("Set password to: " + password);
-		getPasswordTextBox().clearTextBox();
-		getPasswordTextBox().enterText(password + "\n");
+		MobileHelper.scrollDown(1);
+		getHiddenPasswordTextBox().clearTextBox();
+		getHiddenPasswordTextBox().enterText(password);
 		MobileHelper.scrollDown(1);
 		return this;
 	}
@@ -186,8 +190,7 @@ public class CreateAccountView extends AbstractDeviceView {
 	public CreateAccountView setConfirmationPassword(String password) {
 		LOGGER.info("Set confirmation password to: " + password);
 		getConfirmPasswordTextBox().clearTextBox();
-		getConfirmPasswordTextBox().enterText(password + "\n");
-		MobileHelper.scrollDown(1);
+		getConfirmPasswordTextBox().enterText(password);
 		return this;
 	}
 
@@ -437,7 +440,7 @@ public class CreateAccountView extends AbstractDeviceView {
 		return new TextBox(getLocator(this, "getConfirmEmailAddressTextBox"));
 	}
 
-	@MobileElementLocator(android = "", iOS = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[8]/XCUIElementTypeSecureTextField")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/password", iOS = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[8]/XCUIElementTypeSecureTextField")
 	protected TextBox getHiddenPasswordTextBox() {
 		return new TextBox(getLocator(this, "getHiddenPasswordTextBox"));
 	}
@@ -494,6 +497,9 @@ class AndroidCreateAccountView extends CreateAccountView {
 	public DashboardView createAccount() {
 		LOGGER.info("Create account");
 		getCreateAccountButton().pressButton();
+		try {
+			getCreateAccountButton().pressButton();
+		} catch (Exception ex) { }
 		return DeviceViewFactory.create(DashboardView.class);
 	}
 
@@ -509,9 +515,11 @@ class AndroidCreateAccountView extends CreateAccountView {
 	public CreateAccountView setDOB(String day, String month, String year) {
 		LOGGER.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
 		getDOBValueTextBox().clickTextBox();
-		MobileHelper.setPickerValue(day + "\t", getDOBDayPickerWheel());
-		MobileHelper.setPickerValue(month.substring(0, 3) + "\t", getDOBMonthPickerWheel());
-		MobileHelper.setPickerValueReverse(year + "\t", getDOBYearPickerWheel());
+		MobileHelper.setPickerValueReverse(year, getDOBYearPickerWheel());
+		getDOBYearPickerWheel().getMobileElement().click();
+		getDOBDayPickerWheel().getMobileElement().click();
+//		MobileHelper.setPickerValue(day + "\t", getDOBDayPickerWheel());
+//		MobileHelper.setPickerValue(month.substring(0, 3) + "\t", getDOBMonthPickerWheel());
 		getDOBOkButton().pressButton();
 		return this;
 	}
@@ -551,6 +559,22 @@ class AndroidCreateAccountView extends CreateAccountView {
 	@Override
 	public String getHiddenPassword() {
 		return getPasswordTextBox().getCurrentText();
+	}
+
+	public CreateAccountView setPromo(String promo) {
+		LOGGER.info("Set promo to: " + promo);
+		getPromoCodeTextBox().clearTextBox();
+		getPromoCodeTextBox().enterText(promo);
+		getDriver().hideKeyboard();
+		return this;
+	}
+
+	public CreateAccountView setConfirmationPassword(String password) {
+		LOGGER.info("Set confirmation password to: " + password);
+		getConfirmPasswordTextBox().clearTextBox();
+		getConfirmPasswordTextBox().enterText(password);
+		getDriver().hideKeyboard();
+		return this;
 	}
 
 	@MobileElementLocator(android = "android:id/button1")
