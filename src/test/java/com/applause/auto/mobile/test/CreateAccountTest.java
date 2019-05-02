@@ -192,7 +192,7 @@ public class CreateAccountTest extends BaseTest {
 		profileDetailsView.setPhoneNumber(phoneOrig);
 		profileDetailsView.setEmailAddress(emailOrig);
 		profileDetailsView.setConfirmEmailAddress(emailOrig);
-		accountMenuMobileChunk = profileDetailsView.save();
+		profileDetailsView.save();
 
 	}
 

@@ -17,7 +17,7 @@ import com.applause.auto.pageframework.chunks.AccountMenuMobileChunk;
 import com.applause.auto.pageframework.helpers.MobileHelper;
 
 @AndroidImplementation(ProfileDetailsView.class)
-@IosImplementation(IOSProfileDetailsView.class)
+@IosImplementation(IosProfileDetailsView.class)
 public class ProfileDetailsView extends AbstractDeviceView {
 
 	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
@@ -114,7 +114,6 @@ public class ProfileDetailsView extends AbstractDeviceView {
 		LOGGER.info("Set email address to: " + emailAddress);
 		getEmailAddressTextBox().clearTextBox();
 		getEmailAddressTextBox().enterText(emailAddress);
-		MobileHelper.scrollDown(1);
 		return this;
 	}
 
@@ -128,9 +127,9 @@ public class ProfileDetailsView extends AbstractDeviceView {
 	public ProfileDetailsView setConfirmEmailAddress(String emailAddress) {
 		LOGGER.info("Set email address to: " + emailAddress);
 		getDriver().hideKeyboard();
+		MobileHelper.scrollUp(1);
 		getConfirmEmailAddressTextBox().clearTextBox();
 		getConfirmEmailAddressTextBox().enterText(emailAddress);
-		MobileHelper.scrollDownCloseToMiddle(1);
 		return this;
 	}
 
@@ -279,23 +278,24 @@ public class ProfileDetailsView extends AbstractDeviceView {
 	}
 }
 
-class IOSProfileDetailsView extends ProfileDetailsView {
-	@Override
-	public ProfileDetailsView setZipCode(String zipCode) {
-		LOGGER.info("Set ZIP to: " + zipCode);
-		getZipCodeTextBox().clearTextBox();
-		getZipCodeTextBox().enterText(zipCode);
-		MobileHelper.scrollDownCloseToMiddle(1);
+class IosProfileDetailsView extends ProfileDetailsView {
+
+	public AccountMenuMobileChunk save() {
+		LOGGER.info("Click on SAVE button");
+		getDoneButton().pressButton();
+		getSaveButton().pressButton();
+		syncHelper.suspend(5000);
+		return DeviceChunkFactory.create(AccountMenuMobileChunk.class, "");
+	}
+
+	public ProfileDetailsView setConfirmEmailAddress(String emailAddress) {
+		LOGGER.info("Set email address to: " + emailAddress);
+		getDoneButton().pressButton();
+		getConfirmEmailAddressTextBox().clearTextBox();
+		getConfirmEmailAddressTextBox().enterText(emailAddress);
 		return this;
 	}
 
-	@Override
-	public ProfileDetailsView setPhoneNumber(String phone) {
-		LOGGER.info("Set phone number to: " + phone);
-		getPhoneNumberTextBox().clearTextBox();
-		getPhoneNumberTextBox().enterText(phone);
-		MobileHelper.scrollDownCloseToMiddle(1);
-		return this;
-	}
-
+	@MobileElementLocator(iOS = "Done")
+	protected Button getDoneButton() { return new Button(getLocator(this, "getDoneButton")); }
 }
