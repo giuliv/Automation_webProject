@@ -79,7 +79,6 @@ public class CreateAccountView extends AbstractDeviceView {
 		LOGGER.info("Set last name to: " + lastname);
 		getLastnameTextBox().clearTextBox();
 		getLastnameTextBox().enterText(lastname);
-		MobileHelper.scrollDown(1);
 		return this;
 	}
 
@@ -94,7 +93,6 @@ public class CreateAccountView extends AbstractDeviceView {
 		LOGGER.info("Set ZIP to: " + zipCode);
 		getZipCodeTextBox().clearTextBox();
 		getZipCodeTextBox().enterText(zipCode);
-		MobileHelper.scrollDown(1);
 		return this;
 	}
 
@@ -348,7 +346,9 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the boolean
 	 */
 	public boolean isPrivacyPolicyAndTermsAndConditionsChecked() {
-		syncHelper.suspend(5000);
+		getDriver().getPageSource();
+		MobileHelper.scrollDown(1);
+		syncHelper.suspend(10000);
 		return MobileHelper.isAttribtuePresent(getAgreePrivacyPolicyAndTermsAndConditions().getMobileElement(),
 				"value");
 	}
@@ -563,10 +563,9 @@ class AndroidCreateAccountView extends CreateAccountView {
 
 	public CreateAccountView setPassword(String password) {
 		LOGGER.info("Set password to: " + password);
-		MobileHelper.scrollDown(1);
 		getHiddenPasswordTextBox().clearTextBox();
 		getHiddenPasswordTextBox().enterText(password);
-		MobileHelper.scrollDown(1);
+		getDriver().hideKeyboard();
 		return this;
 	}
 
@@ -599,6 +598,7 @@ class AndroidCreateAccountView extends CreateAccountView {
 		MobileHelper.scrollDown(1);
 		getConfirmEmailAddressTextBox().clearTextBox();
 		getConfirmEmailAddressTextBox().enterText(emailAddress);
+		getDriver().hideKeyboard();
 		return this;
 	}
 
