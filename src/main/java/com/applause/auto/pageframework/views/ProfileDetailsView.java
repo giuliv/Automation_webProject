@@ -297,5 +297,7 @@ class IosProfileDetailsView extends ProfileDetailsView {
 	}
 
 	@MobileElementLocator(iOS = "Done")
-	protected Button getDoneButton() { return new Button(getLocator(this, "getDoneButton")); }
+	protected Button getDoneButton() {
+		return new Button(getLocator(this, "getDoneButton"));
+	}
 }
