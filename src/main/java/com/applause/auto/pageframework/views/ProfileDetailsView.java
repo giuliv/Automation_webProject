@@ -5,6 +5,7 @@ import java.lang.invoke.MethodHandles;
 import com.applause.auto.framework.pageframework.device.AbstractDeviceChunk;
 import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
 import com.applause.auto.framework.pageframework.device.DeviceChunkFactory;
+import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
 import com.applause.auto.framework.pageframework.device.MobileElementLocator;
 import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
 import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
@@ -47,6 +48,17 @@ public class ProfileDetailsView extends AbstractDeviceView {
 		getFirstnameTextBox().clearTextBox();
 		getFirstnameTextBox().enterText(firstname);
 		return this;
+	}
+
+	/**
+	 * Change password profile details view.
+	 *
+	 * @return the profile details view
+	 */
+	public ChangePasswordView changePassword() {
+		LOGGER.info("Tap on change password button");
+		getChangePasswordButton().tapCenterOfElement();
+		return DeviceViewFactory.create(ChangePasswordView.class);
 	}
 
 	/**
@@ -180,6 +192,7 @@ public class ProfileDetailsView extends AbstractDeviceView {
 	public <T extends AbstractDeviceChunk> T goBack(Class<T> clazz) {
 		LOGGER.info("Tap back button");
 		getBackButton().pressButton();
+		syncHelper.suspend(4000);
 		return DeviceChunkFactory.create(clazz, "");
 
 	}
@@ -254,7 +267,7 @@ public class ProfileDetailsView extends AbstractDeviceView {
 		return new Button(getLocator(this, "getChangePasswordButton"));
 	}
 
-	@MobileElementLocator(android = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]", iOS = "button back")
+	@MobileElementLocator(android = "//android.widget.ImageButton[@content-desc='Navigate up']", iOS = "button back")
 	protected Button getBackButton() {
 		return new Button(getLocator(this, "getBackButton"));
 	}
@@ -284,5 +297,7 @@ class IosProfileDetailsView extends ProfileDetailsView {
 	}
 
 	@MobileElementLocator(iOS = "Done")
-	protected Button getDoneButton() { return new Button(getLocator(this, "getDoneButton")); }
+	protected Button getDoneButton() {
+		return new Button(getLocator(this, "getDoneButton"));
+	}
 }
