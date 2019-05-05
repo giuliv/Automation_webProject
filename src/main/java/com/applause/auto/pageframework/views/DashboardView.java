@@ -13,6 +13,7 @@ import com.applause.auto.framework.pageframework.devicecontrols.Button;
 import com.applause.auto.framework.pageframework.devicecontrols.TextBox;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.pageframework.chunks.AccountMenuMobileChunk;
+import com.applause.auto.pageframework.chunks.mobile.BottomNavigationMenuChunk;
 
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
@@ -28,11 +29,26 @@ public class DashboardView extends AbstractDeviceView {
 		syncHelper.waitForElementToAppear(getSignature());
 	}
 
+	/**
+	 * Gets account profile menu.
+	 *
+	 * @return the account profile menu
+	 */
 	public AccountMenuMobileChunk getAccountProfileMenu() {
 		LOGGER.info("Open account profile menu");
 		Point elemCoord = getMoreScreenButton().getMobileElement().getCenter();
 		new TouchAction(getDriver()).tap(PointOption.point(elemCoord.getX(), elemCoord.getY())).perform();
 		return DeviceChunkFactory.create(AccountMenuMobileChunk.class, "");
+	}
+
+	/**
+	 * Gets bottom navigation menu.
+	 *
+	 * @return the bottom navigation menu
+	 */
+	public BottomNavigationMenuChunk getBottomNavigationMenu() {
+		return DeviceChunkFactory.create(BottomNavigationMenuChunk.class, "");
+
 	}
 
 	/*
@@ -48,4 +64,5 @@ public class DashboardView extends AbstractDeviceView {
 	protected Button getMoreScreenButton() {
 		return new Button(getLocator(this, "getMoreScreenButton"));
 	}
+
 }
