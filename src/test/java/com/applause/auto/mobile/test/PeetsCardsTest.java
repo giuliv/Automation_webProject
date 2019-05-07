@@ -1,11 +1,16 @@
 package com.applause.auto.mobile.test;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.pageframework.testdata.TestConstants;
+import com.applause.auto.pageframework.views.AccountHistoryView;
 import com.applause.auto.pageframework.views.DashboardView;
 import com.applause.auto.pageframework.views.LandingView;
 import com.applause.auto.pageframework.views.PaymentMethodsView;
@@ -60,11 +65,14 @@ public class PeetsCardsTest extends BaseTest {
 
 		LOGGER.info("Check account history");
 		dashboardView = peetsCardsView.getBottomNavigationMenu().home();
+		AccountHistoryView accountHistory = dashboardView.getAccountProfileMenu().accountHistory();
 
 		LOGGER.info("Make sure it shows Peet's Card transaction details:\n" + "\n" + "* Peet's Card Load + $25.00\n"
 				+ "\n" + "* Date [Month Day, Year]\n" + "\n");
-
-		LOGGER.info("FINAL");
+		Assert.assertEquals(accountHistory.getTransactionDate(0),
+				new SimpleDateFormat("MMM d, yyyy").format(new Date()), "Incorrect transaction date");
+		Assert.assertEquals(accountHistory.getTransactionAmount(0), "+$" + new DecimalFormat("0.00").format(cardAmount),
+				"Incorrect transaction amount");
 
 	}
 
