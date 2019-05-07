@@ -71,8 +71,8 @@ public class PeetsCardsTest extends BaseTest {
 				+ "\n" + "* Date [Month Day, Year]\n" + "\n");
 		Assert.assertEquals(accountHistory.getTransactionDate(0),
 				new SimpleDateFormat("MMM d, yyyy").format(new Date()), "Incorrect transaction date");
-		Assert.assertEquals(accountHistory.getTransactionAmount(0), "+$" + new DecimalFormat("0.00").format(cardAmount),
-				"Incorrect transaction amount");
+		Assert.assertEquals(accountHistory.getTransactionAmount(0).replace(" ", ""),
+				"+$" + new DecimalFormat("0.00").format(cardAmount), "Incorrect transaction amount");
 
 	}
 
