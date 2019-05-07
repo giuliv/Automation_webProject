@@ -95,9 +95,7 @@ public class SignInView extends AbstractDeviceView {
 	 * Sign in.
 	 */
 	public DashboardView signIn() {
-		LOGGER.info("Click on Sign In button");
-		getSignInButton().pressButton();
-		return DeviceViewFactory.create(DashboardView.class);
+		return signIn(DashboardView.class);
 	}
 
 	/**
