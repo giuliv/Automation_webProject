@@ -10,6 +10,7 @@ import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.pageframework.chunks.AccountMenuMobileChunk;
 import com.applause.auto.pageframework.helpers.MobileHelper;
 import com.applause.auto.pageframework.testdata.TestConstants;
+import com.applause.auto.pageframework.views.AccountHistoryView;
 import com.applause.auto.pageframework.views.AuthenticationView;
 import com.applause.auto.pageframework.views.ChangePasswordView;
 import com.applause.auto.pageframework.views.CompleteAccountView;
@@ -539,6 +540,47 @@ public class CreateAccountTest extends BaseTest {
 
 		LOGGER.info("User should be signed out successfully");
 		Assert.assertNotNull(authenticationView, "User does not signed out");
+	}
+
+	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625929")
+	public void accountSettingsAccountHistoryTest() {
+
+		LOGGER.info("Launch the app and arrive at the first on boarding screen view");
+		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
+				"First screen text value is not correct");
+
+		landingView.skipOffer();
+
+		LOGGER.info("Tap Sign In");
+		SignInView signInView = landingView.signIn();
+
+		LOGGER.info("Tap on Email Address field and enter valid email address");
+		signInView.setUsername(TestConstants.MyAccountTestData.EMAIL);
+
+		LOGGER.info("Enter valid password");
+		signInView.setPassword(TestConstants.MyAccountTestData.PASSWORD);
+
+		LOGGER.info("Tap Sign In button");
+		DashboardView dashboardView = signInView.signIn();
+
+		LOGGER.info("Tap on ... at top right of home screen to view more screen");
+		AccountMenuMobileChunk accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
+
+		LOGGER.info("Tap on Account History field/row");
+		AccountHistoryView accountHistoryView = accountMenuMobileChunk.accountHistory();
+
+		LOGGER.info("Make sure user is taken to account history screen:\n" + "\n" + "* Header: Account History\n" + "\n"
+				+ "* Back arrow");
+		Assert.assertNotNull(accountHistoryView, "User does not taken to account history screen");
+
+		LOGGER.info(
+				"Transactions should be organized by most recent transactions at the top and oldest transactions at the bottom and show date of the transaction [month day, year]");
+		Assert.assertEquals(accountHistoryView.getTransactionDate(0), "April 29, 2019",
+				"Transaction does not contain valid date format");
+
+		LOGGER.info("Transactions should be divided by month dividers");
+		Assert.assertEquals(accountHistoryView.getTransactionDateDivider(0), "April", "Wrong month divider");
 	}
 
 	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625882")
