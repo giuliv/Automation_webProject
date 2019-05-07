@@ -23,7 +23,8 @@ public class SignInView extends AbstractDeviceView {
 
 	@Override
 	protected void waitUntilVisible() {
-		syncHelper.waitForElementToAppear(getUsernameTextBox());
+		syncHelper.waitForOneOfTwoElementsToAppear(getLocator(this, "getUsernameTextBox"),
+				getLocator(this, "getDismissMessageButton"));
 	}
 
 	/*
@@ -48,8 +49,8 @@ public class SignInView extends AbstractDeviceView {
 	 */
 	public void setPassword(String password) {
 		LOGGER.info("Set password: " + password);
+		getPasswordTextBox().clearTextBox();
 		getPasswordTextBox().enterText(password);
-		syncHelper.suspend(3000);
 	}
 
 	/**
@@ -59,6 +60,26 @@ public class SignInView extends AbstractDeviceView {
 	 */
 	public String getPassword() {
 		return getPasswordTextBox().getCurrentText();
+	}
+
+	/**
+	 * Gets message.
+	 *
+	 * @return the message
+	 */
+	public String getMessage() {
+		return getMessageTextBox().getCurrentText();
+	}
+
+	/**
+	 * Dismiss message sign in view.
+	 *
+	 * @return the sign in view
+	 */
+	public SignInView dismissMessage() {
+		LOGGER.info("Dismissing message");
+		getDriver().switchTo().alert().accept();
+		return this;
 	}
 
 	/**
@@ -109,6 +130,16 @@ public class SignInView extends AbstractDeviceView {
 		return new TextBox(getLocator(this, "getUsernameTextBox"));
 	}
 
+	@MobileElementLocator(android = "android:id/message", iOS = "//XCUIElementTypeAlert//XCUIElementTypeStaticText[@name=\"The email and password you entered don't match. Please try again.\"]")
+	protected TextBox getMessageTextBox() {
+		return new TextBox(getLocator(this, "getMessageTextBox"));
+	}
+
+	@MobileElementLocator(android = "//*[@text='OKAY']", iOS = "//XCUIElementTypeTextField")
+	protected Button getDismissMessageButton() {
+		return new Button(getLocator(this, "getDismissMessageButton"));
+	}
+
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/loginButton", iOS = "//XCUIElementTypeButton[@name=\"Sign In\"]")
 	protected Button getSignInButton() {
 		return new Button(getLocator(this, "getSignInButton"));
@@ -119,12 +150,12 @@ public class SignInView extends AbstractDeviceView {
 		return new Button(getLocator(this, "getShowPasswordButton"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/password", iOS = "//XCUIElementTypeSecureTextField")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/password", iOS = "//XCUIElementTypeSecureTextField|//XCUIElementTypeButton[@name=\"reveal password\"]/preceding-sibling::XCUIElementTypeTextField")
 	protected TextBox getPasswordTextBox() {
 		return new TextBox(getLocator(this, "getPasswordTextBox"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/password", iOS = "//XCUIElementTypeButton[@name=\"reveal password\"]/preceding-sibling:: XCUIElementTypeTextField")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/password", iOS = "//XCUIElementTypeButton[@name=\"reveal password\"]/preceding-sibling::XCUIElementTypeTextField")
 	protected TextBox getUnEncryptedPasswordTextBox() {
 		return new TextBox(getLocator(this, "getUnEncryptedPasswordTextBox"));
 	}
@@ -132,6 +163,7 @@ public class SignInView extends AbstractDeviceView {
 }
 
 class AndroidSignInView extends SignInView {
+	@Override
 	public void showPassword() {
 		LOGGER.info("Click on Show Password button");
 		MobileElement element = getPasswordTextBox().getMobileElement();
@@ -141,4 +173,20 @@ class AndroidSignInView extends SignInView {
 		(new TouchAction(getDriver())).tap(PointOption.point(x + width / 2 - 5, y)).perform();
 	}
 
+	@Override
+	public void setPassword(String password) {
+		LOGGER.info("Set password: " + password);
+		while (getPasswordTextBox().getCurrentText().length() != 0) {
+			getPasswordTextBox().clearTextBox();
+		}
+
+		getPasswordTextBox().enterText(password);
+	}
+
+	@Override
+	public SignInView dismissMessage() {
+		LOGGER.info("Dismissing message");
+		getDismissMessageButton().pressButton();
+		return this;
+	}
 }
