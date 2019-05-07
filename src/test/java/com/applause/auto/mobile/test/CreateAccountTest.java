@@ -10,12 +10,15 @@ import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.pageframework.chunks.AccountMenuMobileChunk;
 import com.applause.auto.pageframework.helpers.MobileHelper;
 import com.applause.auto.pageframework.testdata.TestConstants;
+import com.applause.auto.pageframework.views.AccountHistoryView;
 import com.applause.auto.pageframework.views.AuthenticationView;
+import com.applause.auto.pageframework.views.ChangePasswordView;
 import com.applause.auto.pageframework.views.CompleteAccountView;
 import com.applause.auto.pageframework.views.CreateAccountView;
 import com.applause.auto.pageframework.views.DashboardView;
 import com.applause.auto.pageframework.views.GeneralSettingsView;
 import com.applause.auto.pageframework.views.LandingView;
+import com.applause.auto.pageframework.views.PeetsSettingsView;
 import com.applause.auto.pageframework.views.PrivacyPolicyView;
 import com.applause.auto.pageframework.views.ProfileDetailsView;
 import com.applause.auto.pageframework.views.SignInView;
@@ -146,7 +149,12 @@ public class CreateAccountTest extends BaseTest {
 		String firstNameNew = firstNameOrig.replaceFirst("A", "AA");
 		String lastNameNew = lastNameOrig.replaceFirst("A", "AA");
 		String zipCodeNew = "11214";
-		String phoneNew = "2345678901";
+
+		String phoneNew = "2";
+		Random random = new Random();
+		for (int i = 0; i < 9; i++) {
+			phoneNew += "" + random.nextInt(9);
+		}
 		String emailNew = emailOrig.replace(".com", ".net");
 
 		profileDetailsView.setFirstname(firstNameNew);
@@ -185,7 +193,203 @@ public class CreateAccountTest extends BaseTest {
 		profileDetailsView.setPhoneNumber(phoneOrig);
 		profileDetailsView.setEmailAddress(emailOrig);
 		profileDetailsView.setConfirmEmailAddress(emailOrig);
-		accountMenuMobileChunk = profileDetailsView.save();
+		profileDetailsView.save();
+
+	}
+
+	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625927")
+	public void accountSettingsGeneralSettingsTest() {
+
+		LOGGER.info("Launch the app and arrive at the first on boarding screen view");
+		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
+				"First screen text value is not correct");
+
+		landingView.skipOnboarding();
+
+		LOGGER.info("Tap Sign In");
+		SignInView signInView = landingView.signIn();
+
+		LOGGER.info("Tap on Email Address field and enter valid email address");
+		String username = "a+test625927@a.com";
+		signInView.setUsername(username);
+
+		LOGGER.info("Enter valid password");
+		signInView.setPassword(TestConstants.TestData.PASSWORD);
+
+		LOGGER.info("Tap Sign In button");
+		DashboardView dashboardView = signInView.signIn();
+
+		LOGGER.info("Tap on ... at top right of home screen to view more screen");
+		AccountMenuMobileChunk accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
+
+		LOGGER.info("Tap on ... at top right of home screen to view more screen\nTap on General Settings field/row");
+		GeneralSettingsView generalSettingsView = accountMenuMobileChunk.generalSettings();
+
+		LOGGER.info("Make sure user is taken to General Settings screen:\n" + "\n" + "* Header: General Settings\n"
+				+ "\n" + "* Notification Settings\n" + "\n" + "      o Promotional Emails\n" + "\n"
+				+ "      o Text: Receive offers, news, and more [Toggle off / on]\n" + "\n"
+				+ "      o Push Notifications\n" + "\n"
+				+ "      o Text: Receive alerts about offers, news, and more [Toggle off / on]\n" + "\n"
+				+ "* Privacy Settings\n" + "\n" + "      o Locations Services\n" + "\n"
+				+ "      o Text: Helps us locate your nearest Peet's [Toggle off / on]\n" + "\n");
+
+		LOGGER.info("Toggle Promotional Emails on");
+		generalSettingsView.enablePromotionalEmails();
+
+		LOGGER.info("Promotional emails setting should turn on");
+		Assert.assertTrue(generalSettingsView.isPromoEmailOptionChecked(), "Promo emails does not turned on");
+
+		LOGGER.info("Toggle Promotional Emails off");
+		generalSettingsView.disablePromotionalEmails();
+
+		LOGGER.info("Promotional emails setting should turn off");
+		Assert.assertFalse(generalSettingsView.isPromoEmailOptionChecked(), "Promo emails does not turned off");
+
+		LOGGER.info("Toggle Location Services off");
+		LOGGER.info("User should see UI alert:\n" + "\n" + "* Title: Disable Location Service\n" + "\n"
+				+ "* Text: To disable Location Service you need to go to the Application Settings.");
+		LOGGER.info("* Tap Go to Settings");
+		PeetsSettingsView peetsSettingsView = generalSettingsView.enableLocationServices().disableLocationServices();
+
+		LOGGER.info("User should be taken to Peet's app settings");
+		Assert.assertNotNull(peetsSettingsView, "Peet's app settings does not found");
+
+		LOGGER.info("* Tap on Location field");
+		peetsSettingsView.openLocation();
+
+		LOGGER.info("* Tap Never under Allow Location Access");
+		peetsSettingsView.selectNever();
+
+		LOGGER.info("Tap on back to \"Peet's\" to return to app");
+		generalSettingsView = peetsSettingsView.backToApp();
+
+		LOGGER.info("Toggle should be off in app");
+		Assert.assertFalse(generalSettingsView.isLocationServicesChecked(),
+				"Location services switch does not disabled");
+	}
+
+	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625926")
+	public void accountSettingsChangePasswordTest() {
+
+		LOGGER.info("Launch the app and arrive at the first on boarding screen view");
+		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
+				"First screen text value is not correct");
+
+		landingView.skipOnboarding();
+
+		LOGGER.info("Tap Sign In");
+		SignInView signInView = landingView.signIn();
+
+		LOGGER.info("Tap on Email Address field and enter valid email address");
+		String VALID_USERNAME = "a+625926@a.com";
+		signInView.setUsername(VALID_USERNAME);
+
+		LOGGER.info("Enter valid password");
+		String INITIAL_PASSWORD = "Password1";
+		signInView.setPassword(INITIAL_PASSWORD);
+
+		LOGGER.info("Tap Sign In button");
+		DashboardView dashboardView = signInView.signIn();
+
+		LOGGER.info("Tap on ... at top right of home screen to view more screen");
+		AccountMenuMobileChunk accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
+
+		LOGGER.info("Tap on Profile Details field/row");
+		ProfileDetailsView profileDetailsView = accountMenuMobileChunk.profileDetails();
+
+		LOGGER.info("Tap on Change Password link");
+		ChangePasswordView changePasswordView = profileDetailsView.changePassword();
+
+		LOGGER.info("Enter invalid current password");
+		changePasswordView.setCurrentPassword("somewrongpassword1");
+
+		LOGGER.info("Enter new password");
+		String UPDATED_PASSWORD = "newPassword1";
+		changePasswordView.setNewPassword(UPDATED_PASSWORD);
+
+		LOGGER.info("Tap Change Password button");
+		changePasswordView = changePasswordView.changePassword(ChangePasswordView.class);
+
+		LOGGER.info(
+				"Make sure user sees an error message: \"Operation failed, check your current password and try again\" and is not able to change password");
+		Assert.assertEquals(changePasswordView.getMessage(), "Old Password is not correct",
+				"Wrong old password message do not match");
+		changePasswordView = changePasswordView.dismissMessage(ChangePasswordView.class);
+
+		LOGGER.info("Tap show password icon");
+		changePasswordView.showPassword();
+
+		LOGGER.info("Enter valid current password");
+		changePasswordView.setCurrentPassword(INITIAL_PASSWORD);
+
+		LOGGER.info("Make sure password entered is displayed");
+		Assert.assertEquals(changePasswordView.getCurrentPasswordUnhide(), INITIAL_PASSWORD,
+				"Show password button does not work");
+		changePasswordView = changePasswordView.changePassword(ChangePasswordView.class);
+
+		LOGGER.info("Make sure user sees success check mark and a UI alert:\n" + "\n" + "* Header: Change Password\n"
+				+ "\n" + "* Text: Your new password has been set [Okay]\n" + "\n");
+		Assert.assertEquals(changePasswordView.getMessage(), "Your new password has been set",
+				"Wrong success password change message");
+
+		LOGGER.info("Tap okay to dismiss UI alert");
+		profileDetailsView = changePasswordView.dismissMessage(ProfileDetailsView.class);
+
+		LOGGER.info("Tap back arrow");
+		accountMenuMobileChunk = profileDetailsView.goBack(AccountMenuMobileChunk.class);
+
+		LOGGER.info("Make sure user is directed to more screen");
+		Assert.assertNotNull(accountMenuMobileChunk, "User does not directed to more screen");
+
+		LOGGER.info("Scroll down and tap sign out button");
+		AuthenticationView authenticationView = accountMenuMobileChunk.signOut();
+
+		signInView = landingView.signIn();
+
+		LOGGER.info("Enter valid email address and old password");
+		signInView.setUsername(VALID_USERNAME);
+		signInView.setPassword(INITIAL_PASSWORD);
+
+		LOGGER.info("Tap Sign In button");
+		signInView = signInView.signIn(SignInView.class);
+
+		LOGGER.info("Make sure user sees an error message and is not able to sign in");
+		Assert.assertEquals(signInView.getMessage(),
+				"The email and password you entered don't match. Please try again.", "Error message not found");
+
+		LOGGER.info("Tap okay to dismiss UI alert");
+		signInView.dismissMessage();
+
+		LOGGER.info("Enter new password");
+		signInView.showPassword();
+		signInView.setPassword(UPDATED_PASSWORD);
+
+		LOGGER.info("Tap Sign In button");
+		dashboardView = signInView.signIn();
+
+		LOGGER.info("User should be able to sign in successfully with new password");
+		Assert.assertNotNull(dashboardView, "User does not logged in");
+
+		// cleanup
+		LOGGER.info("Tap on ... at top right of home screen to view more screen");
+		accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
+
+		LOGGER.info("Tap on Profile Details field/row");
+		profileDetailsView = accountMenuMobileChunk.profileDetails();
+
+		LOGGER.info("Tap on Change Password link");
+		changePasswordView = profileDetailsView.changePassword();
+
+		LOGGER.info("Enter current updated password");
+		changePasswordView.setCurrentPassword(UPDATED_PASSWORD);
+
+		LOGGER.info("Enter initial password");
+		changePasswordView.setNewPassword(INITIAL_PASSWORD);
+
+		LOGGER.info("Tap Change Password button");
+		changePasswordView = changePasswordView.changePassword(ChangePasswordView.class);
 
 	}
 
@@ -228,7 +432,7 @@ public class CreateAccountTest extends BaseTest {
 		createAccountView.setZipCode(zipCode);
 
 		LOGGER.info("Scroll through and select birthday");
-		String dobDay = "30";
+		String dobDay = "27";
 		String dobMonth = "December";
 		String dobYear = "2000";
 		createAccountView.setDOB(dobDay, dobMonth, dobYear);
@@ -336,6 +540,47 @@ public class CreateAccountTest extends BaseTest {
 
 		LOGGER.info("User should be signed out successfully");
 		Assert.assertNotNull(authenticationView, "User does not signed out");
+	}
+
+	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625929")
+	public void accountSettingsAccountHistoryTest() {
+
+		LOGGER.info("Launch the app and arrive at the first on boarding screen view");
+		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
+				"First screen text value is not correct");
+
+		landingView.skipOffer();
+
+		LOGGER.info("Tap Sign In");
+		SignInView signInView = landingView.signIn();
+
+		LOGGER.info("Tap on Email Address field and enter valid email address");
+		signInView.setUsername(TestConstants.MyAccountTestData.EMAIL);
+
+		LOGGER.info("Enter valid password");
+		signInView.setPassword(TestConstants.MyAccountTestData.PASSWORD);
+
+		LOGGER.info("Tap Sign In button");
+		DashboardView dashboardView = signInView.signIn();
+
+		LOGGER.info("Tap on ... at top right of home screen to view more screen");
+		AccountMenuMobileChunk accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
+
+		LOGGER.info("Tap on Account History field/row");
+		AccountHistoryView accountHistoryView = accountMenuMobileChunk.accountHistory();
+
+		LOGGER.info("Make sure user is taken to account history screen:\n" + "\n" + "* Header: Account History\n" + "\n"
+				+ "* Back arrow");
+		Assert.assertNotNull(accountHistoryView, "User does not taken to account history screen");
+
+		LOGGER.info(
+				"Transactions should be organized by most recent transactions at the top and oldest transactions at the bottom and show date of the transaction [month day, year]");
+		Assert.assertEquals(accountHistoryView.getTransactionDate(0), "April 29, 2019",
+				"Transaction does not contain valid date format");
+
+		LOGGER.info("Transactions should be divided by month dividers");
+		Assert.assertEquals(accountHistoryView.getTransactionDateDivider(0), "April", "Wrong month divider");
 	}
 
 	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625882")
