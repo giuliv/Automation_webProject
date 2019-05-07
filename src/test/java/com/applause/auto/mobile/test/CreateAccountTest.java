@@ -13,6 +13,7 @@ import com.applause.auto.pageframework.testdata.TestConstants;
 import com.applause.auto.pageframework.views.AccountHistoryView;
 import com.applause.auto.pageframework.views.AuthenticationView;
 import com.applause.auto.pageframework.views.ChangePasswordView;
+import com.applause.auto.pageframework.views.CompleteAccountView;
 import com.applause.auto.pageframework.views.CreateAccountView;
 import com.applause.auto.pageframework.views.DashboardView;
 import com.applause.auto.pageframework.views.GeneralSettingsView;
@@ -35,7 +36,7 @@ public class CreateAccountTest extends BaseTest {
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
-		landingView.skipOffer();
+		landingView.skipOnboarding();
 
 		LOGGER.info("Tap Create Account");
 		CreateAccountView createAccountView = landingView.createAccount();
@@ -73,7 +74,7 @@ public class CreateAccountTest extends BaseTest {
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
-		landingView.skipOffer();
+		landingView.skipOnboarding();
 
 		LOGGER.info("Tap Sign In");
 		SignInView signInView = landingView.signIn();
@@ -110,7 +111,7 @@ public class CreateAccountTest extends BaseTest {
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
-		landingView.skipOffer();
+		landingView.skipOnboarding();
 
 		LOGGER.info("Tap Sign In");
 		SignInView signInView = landingView.signIn();
@@ -192,7 +193,7 @@ public class CreateAccountTest extends BaseTest {
 		profileDetailsView.setPhoneNumber(phoneOrig);
 		profileDetailsView.setEmailAddress(emailOrig);
 		profileDetailsView.setConfirmEmailAddress(emailOrig);
-		accountMenuMobileChunk = profileDetailsView.save();
+		profileDetailsView.save();
 
 	}
 
@@ -204,7 +205,7 @@ public class CreateAccountTest extends BaseTest {
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
-		landingView.skipOffer();
+		landingView.skipOnboarding();
 
 		LOGGER.info("Tap Sign In");
 		SignInView signInView = landingView.signIn();
@@ -276,7 +277,7 @@ public class CreateAccountTest extends BaseTest {
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
-		landingView.skipOffer();
+		landingView.skipOnboarding();
 
 		LOGGER.info("Tap Sign In");
 		SignInView signInView = landingView.signIn();
@@ -394,14 +395,14 @@ public class CreateAccountTest extends BaseTest {
 
 	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625880")
 	public void createAccountEmailPassword() {
-		long uniq = System.currentTimeMillis();
 
 		LOGGER.info("Launch the app and arrive at the first onboarding screen view");
 		LandingView landingView = DeviceViewFactory.create(LandingView.class);
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
+		long uniq = System.currentTimeMillis();
 
-		landingView.skipOffer();
+		landingView.skipOnboarding();
 
 		LOGGER.info("Tap Create Account");
 		CreateAccountView createAccountView = landingView.createAccount();
@@ -433,7 +434,7 @@ public class CreateAccountTest extends BaseTest {
 		LOGGER.info("Scroll through and select birthday");
 		String dobDay = "27";
 		String dobMonth = "December";
-		String dobYear = "1990";
+		String dobYear = "2000";
 		createAccountView.setDOB(dobDay, dobMonth, dobYear);
 
 		LOGGER.info("Enter valid ten digit phone number / Skip this field");
@@ -445,7 +446,7 @@ public class CreateAccountTest extends BaseTest {
 		createAccountView.setPhoneNumber(phone);
 
 		LOGGER.info("Enter valid email address");
-		String email = String.format("a+%s@a.com", uniq);
+		String email = String.format("a+%s@gmail.com", uniq);
 		createAccountView.setEmailAddress(email);
 		createAccountView.setConfirmEmailAddress(email);
 
@@ -458,13 +459,13 @@ public class CreateAccountTest extends BaseTest {
 		createAccountView.showPassword();
 
 		LOGGER.info("Make sure password entered is displayed to user");
-		Assert.assertEquals(createAccountView.getHiddenPassword(), password, "Password does not displayed");
+		Assert.assertEquals(createAccountView.getPassword().trim(), password, "Password does not displayed");
 
 		LOGGER.info("Tap on hide password icon");
 		createAccountView.hidePassword();
 
 		LOGGER.info("Make sure password entered is hidden from user");
-		Assert.assertNotEquals(createAccountView.getPassword(), password, "Password does not hidden");
+		Assert.assertNotEquals(createAccountView.getHiddenPassword(), password, "Password does not hidden");
 
 		createAccountView.setPromo("");
 
@@ -580,7 +581,16 @@ public class CreateAccountTest extends BaseTest {
 
 		LOGGER.info("Transactions should be divided by month dividers");
 		Assert.assertEquals(accountHistoryView.getTransactionDateDivider(0), "April", "Wrong month divider");
+	}
 
+	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625882")
+	public void createAccountExistingWebUserTest() {
+		LOGGER.info("Launch the app and arrive at the first on boarding screen view");
+		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+
+		CompleteAccountView completeAccountView = peetsMobileHelper.signIn(landingView,
+				TestConstants.TestData.USERNAME_625882, TestConstants.TestData.PASSWORD, CompleteAccountView.class);
+		Assert.assertNotNull(completeAccountView, "Complete Account View does not displayed");
 	}
 
 }
