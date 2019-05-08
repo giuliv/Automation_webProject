@@ -44,8 +44,15 @@ public class CheckInView extends AbstractDeviceView {
 		return DeviceViewFactory.create(PaymentMethodsView.class);
 	}
 
+	/**
+	 * Gets balance.
+	 *
+	 * @return the balance
+	 */
 	public String getBalance() {
-		return getBalanceText().getStringValue();
+		String rawBalance = getBalanceText().getStringValue();
+		int decimalPosition = rawBalance.indexOf(".");
+		return rawBalance.substring(0, decimalPosition).replace("$", "");
 	}
 
 	/**
@@ -98,7 +105,7 @@ public class CheckInView extends AbstractDeviceView {
 		return new Button(getLocator(this, "getAddValueButton"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/amount", iOS = "//XCUIElementTypeStaticText[@name=\"$\"]/following-sibling::XCUIElementTypeStaticText[1]")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/amount", iOS = "//XCUIElementTypeStaticText[@name=\"Your Peet’s Card Balance\"]/following-sibling::XCUIElementTypeStaticText[starts-with(@name,'$')]")
 	protected Text getBalanceText() {
 		return new Text(getLocator(this, "getBalanceText"));
 	}
@@ -124,6 +131,10 @@ class AndroidCheckInView extends CheckInView {
 	@Override
 	public boolean isAmountSelected(String amount) {
 		return getAmountButton(amount).getMobileElement().isSelected();
+	}
+
+	public String getBalance() {
+		return getBalanceText().getStringValue();
 	}
 
 }
