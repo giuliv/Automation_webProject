@@ -88,7 +88,7 @@ public class CheckInView extends AbstractDeviceView {
 	 * Protected Getters
 	 */
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text=\"Check In\" or @text=\"Add Value to My Peet's Card\"]", iOS = "(//XCUIElementTypeStaticText[(@name=\"Peet's Card\" or @name=\"Add Value to My Peet's Card\") and @visible=\"true\"])[1]")
+	@MobileElementLocator(android = "//android.widget.TextView[@text=\"Check In\" or @text=\"Add Value to My Peet's Card\"]", iOS = "(//XCUIElementTypeStaticText[(@name=\"Check In\" or @name=\"Add Value to My Peet's Card\") and @visible=\"true\"])[1]")
 	protected Text getSignature() {
 		return new Text(getLocator(this, "getSignature"));
 	}
