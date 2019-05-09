@@ -9,6 +9,7 @@ import com.applause.auto.framework.pageframework.device.factory.AndroidImplement
 import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
 import com.applause.auto.framework.pageframework.devicecontrols.Button;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
+import com.applause.auto.pageframework.views.CheckInView;
 import com.applause.auto.pageframework.views.DashboardView;
 import com.applause.auto.pageframework.views.PeetsCardsView;
 
@@ -41,6 +42,17 @@ public class BottomNavigationMenuChunk extends AbstractDeviceChunk {
 	}
 
 	/**
+	 * Check in check in view.
+	 *
+	 * @return the check in view
+	 */
+	public CheckInView checkIn() {
+		LOGGER.info("Tap on Check In");
+		getCheckInButton().pressButton();
+		return DeviceViewFactory.create(CheckInView.class);
+	}
+
+	/**
 	 * Home peets cards view.
 	 *
 	 * @return the peets cards view
@@ -63,6 +75,11 @@ public class BottomNavigationMenuChunk extends AbstractDeviceChunk {
 	@MobileElementLocator(android = "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[@text=\"Peet's Card\"]/..", iOS = "//XCUIElementTypeButton[@name=\"Peet's Card\"]")
 	protected Button getPeetsCardsButton() {
 		return new Button(getLocator(this, "getPeetsCardsButton"));
+	}
+
+	@MobileElementLocator(android = "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[@text=\"Check In\"]/..", iOS = "//XCUIElementTypeButton[@name=\"Check In\"]")
+	protected Button getCheckInButton() {
+		return new Button(getLocator(this, "getCheckInButton"));
 	}
 
 }
