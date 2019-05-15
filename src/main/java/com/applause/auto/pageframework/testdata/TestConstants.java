@@ -125,7 +125,7 @@ public class TestConstants {
 
 	public static final class MyAccountTestData {
 
-		public static final String EMAIL = "peets+testaccount@qa.utest.com";
+		public static final String EMAIL = "peets+testaccount@gmail.com";
 		public static final String SAFARI_SHIPPING_EMAIL = "peets+safarishipping@qa.utest.com";
 		public static final String SAFARI_BILLING_EMAIL = "peets+safaribilling@qa.utest.com";
 		public static final String SAFARI_ACCOUNT_EMAIL = "peets+safariaccountsettings@qa.utest.com";
