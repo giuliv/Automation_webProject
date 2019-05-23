@@ -444,6 +444,14 @@ public class MobileHelper {
 	}
 
 	/**
+	 * Hide keyboard ios by press done.
+	 */
+	public static void hideKeyboardIOSByPressDone() {
+		LOGGER.info("Hiding keyboard.");
+		getDriver().findElement(By.xpath("//*[@name='Done']")).click();
+	}
+
+	/**
 	 * Scrolls down with a maximum swipeLimit
 	 *
 	 * @param swipeLimit
