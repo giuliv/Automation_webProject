@@ -12,6 +12,7 @@ import com.applause.auto.framework.pageframework.devicecontrols.Button;
 import com.applause.auto.framework.pageframework.devicecontrols.Text;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.pageframework.chunks.mobile.BottomNavigationMenuChunk;
+import com.applause.auto.pageframework.chunks.mobile.PeetsCardsTransferAmountChunk;
 import com.applause.auto.pageframework.helpers.MobileHelper;
 
 @AndroidImplementation(AndroidPeetsCardsView.class)
@@ -84,6 +85,12 @@ public class PeetsCardsView extends AbstractDeviceView {
 
 	}
 
+	public PeetsCardsTransferAmountChunk transferValue() {
+		LOGGER.info("Tap on transfer value button");
+		getTransferButton().pressButton();
+		return DeviceChunkFactory.create(PeetsCardsTransferAmountChunk.class, "");
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -96,6 +103,11 @@ public class PeetsCardsView extends AbstractDeviceView {
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/addValue", iOS = "Add Value")
 	protected Button getAddValueButton() {
 		return new Button(getLocator(this, "getAddValueButton"));
+	}
+
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/transferValue", iOS = "Transfer Value")
+	protected Button getTransferButton() {
+		return new Button(getLocator(this, "getTransferButton"));
 	}
 
 	@MobileElementLocator(android = "//android.widget.TextSwitcher[@resource-id='com.wearehathway.peets.development:id/textSwitcherInteger']/android.widget.TextView", iOS = "//XCUIElementTypeStaticText[@name=\"$\"]/following-sibling::XCUIElementTypeStaticText[1]")
@@ -117,7 +129,6 @@ public class PeetsCardsView extends AbstractDeviceView {
 	protected Button getAmountButton(String amount) {
 		return new Button(getLocator(this, "getAmountButton", amount));
 	}
-
 }
 
 class AndroidPeetsCardsView extends PeetsCardsView {
