@@ -9,6 +9,8 @@ import org.testng.annotations.Test;
 
 import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
+import com.applause.auto.pageframework.chunks.mobile.PeetsCardsTransferAmountChunk;
+import com.applause.auto.pageframework.chunks.mobile.PeetsCardsTransferAmountWarningChunk;
 import com.applause.auto.pageframework.testdata.TestConstants;
 import com.applause.auto.pageframework.views.AccountHistoryView;
 import com.applause.auto.pageframework.views.CheckInView;
@@ -130,6 +132,209 @@ public class PeetsCardsTest extends BaseTest {
 				new SimpleDateFormat("MMM d, yyyy").format(new Date()), "Incorrect transaction date");
 		Assert.assertEquals(accountHistory.getTransactionAmount(0).replace(" ", ""),
 				"+$" + new DecimalFormat("0.00").format(cardAmount), "Incorrect transaction amount");
+
+	}
+
+	@Test(groups = { TestConstants.TestNGGroups.PEETS_CARDS }, description = "625913")
+	public void transferBalanceFromPhysicalCardDigitalCardWithNoBalance() {
+		LOGGER.info("Launch the app and arrive at the first on boarding screen view");
+		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+
+		DashboardView dashboardView = peetsMobileHelper.signIn(landingView, TestConstants.MyAccountTestData.EMAIL,
+				TestConstants.MyAccountTestData.PASSWORD, DashboardView.class);
+		Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
+
+		LOGGER.info("Tap Peet's Card icon from bottom nav bar");
+		PeetsCardsView peetsCardsView = dashboardView.getBottomNavigationMenu().peetsCards();
+
+		LOGGER.info("User should be taken to peet's card screen");
+		Assert.assertNotNull(peetsCardsView, "User does not taken to Peets card screen");
+
+		LOGGER.info("Tap Transfer Value button");
+		PeetsCardsTransferAmountChunk peetsCardsTransferAmountChunk = peetsCardsView.transferValue();
+
+		LOGGER.info("User should be taken to transfer value overlay that appears from bottom");
+		Assert.assertNotNull(peetsCardsTransferAmountChunk,
+				"User does not taken to transfer value overlay that appears from bottom");
+
+		LOGGER.info("Tap into Card Number field");
+		LOGGER.info("Enter invalid peet's card number");
+		peetsCardsTransferAmountChunk.enterCardNumber("12341234123412");
+		peetsCardsTransferAmountChunk.enterCardPin("9967");
+
+		LOGGER.info("Tap Transfer Value button");
+		PeetsCardsTransferAmountWarningChunk peetsCardsTransferAmountWarningChunk = peetsCardsTransferAmountChunk
+				.transfer();
+
+		LOGGER.info("Branded UI alert should display:\n" + "\n" + "Title: One last thing\n" + "\n"
+				+ "When you transfer a card into the app, you will:\n" + "\n"
+				+ "* Not be able to transfer the value back to the original card\n" + "\n"
+				+ "* No longer be able to add funds to your physical card\n" + "\n"
+				+ "* Be able to access the new value with your digital Peet's Card located in the app.\n" + "\n"
+				+ "[Button] Cancel [Button] Continue\n");
+		Assert.assertNotNull(peetsCardsTransferAmountWarningChunk, "Branded UI alert does not display");
+		Assert.assertEquals(peetsCardsTransferAmountWarningChunk.getFormattedMessage(),
+				"One last thing When you transfer a card into the app, you will: Not be able to transfer the value back to the original card No longer be able to add funds to your physical card Be able to access the new value with your digital Peet's Card located in the app",
+				"Wrong message displayed");
+		Assert.assertTrue(peetsCardsTransferAmountWarningChunk.isContinueButtonDisplayed(),
+				"Continue button does not displayed");
+		Assert.assertTrue(peetsCardsTransferAmountWarningChunk.isCancelButtonDisplayed(),
+				"Cancel button does not displayed");
+
+		LOGGER.info("Tap Continue button");
+		peetsCardsTransferAmountWarningChunk.tapContinue();
+
+		LOGGER.info("User should see branded UI error alert:\n" + "\n" + "Title: We couldn't process your transfer\n"
+				+ "\n" + "* Please check your card number and pin code and try again\n" + "\n"
+				+ "* If there's no value remaining on the card you are trying to transfer, you won't be able to transfer value\n"
+				+ "\n"
+				+ "* If this issue persists, please contact Peet's customer service at cs@peets.com <mailto:cs@peets.com>\n"
+				+ "\n" + "[Button] Cancel [Button] Try Again\n");
+		Assert.assertEquals(peetsCardsTransferAmountWarningChunk.getFormattedMessageCouldNotProcess(),
+				"We couldn't process your transfer Please check your card number and pin code and try again. If there's no value remaining on the card you are trying to transfer, you won't be able to transfer value. If this issue persist, please contact Peet's customer serviceat cs@peets.com.",
+				"Wrong message displayed");
+		Assert.assertTrue(peetsCardsTransferAmountWarningChunk.isTryAgainButtonCouldNotProcessDisplayed(),
+				"Try again button does not displayed");
+		Assert.assertTrue(peetsCardsTransferAmountWarningChunk.isCancelButtonCouldNotProcessDisplayed(),
+				"Cancel button does not displayed");
+
+		LOGGER.info("Tap Try Again button");
+		peetsCardsTransferAmountChunk = peetsCardsTransferAmountWarningChunk
+				.tapTryAgain(PeetsCardsTransferAmountChunk.class);
+
+		LOGGER.info(
+				"User should be directed to transfer value screen with card number and pin number fields still filled in");
+		Assert.assertNotNull(peetsCardsTransferAmountChunk, "User does not navigated to Transfer value screen");
+		Assert.assertEquals(peetsCardsTransferAmountChunk.getCardNumber(), "12341234123412",
+				"Card number field not filled in");
+		Assert.assertEquals(peetsCardsTransferAmountChunk.getPinNumber(), "9967", "Pin number field not filled in");
+
+		LOGGER.info("Enter valid peet's card number\n" + "\n" + "Tap done on numeric keypad\n");
+		peetsCardsTransferAmountChunk.enterCardNumber("81001000000581");
+
+		LOGGER.info("Tap Transfer Value button");
+		peetsCardsTransferAmountWarningChunk = peetsCardsTransferAmountChunk.transfer();
+
+		LOGGER.info("Tap Continue button");
+		peetsCardsTransferAmountWarningChunk.tapContinue();
+
+		// TODO Cannot be completed without new card used every run
+		LOGGER.info("User should see branded UI loading alert:\n" + "\n"
+				+ "Title: Transferring the value to your digital Peet's card...\n" + "\n"
+				+ "* Digital peet's card image\n" + "\n" + "* Loading animation\n" + "\n"
+				+ "* Gold check mark with text \"Done!\" should appear after successful value transfer\n" + "\n");
+
+		LOGGER.info("Tap Done!");
+
+		LOGGER.info("User should see main Peet's card screen with card balance reflecting amount that was transferred");
+
+		LOGGER.info("Check account history");
+
+		LOGGER.info("Make sure it shows Peet's Card transaction details:\n" + "\n" + "* Check No: web\n" + "\n"
+				+ "* Transaction Type: Transfer Balances to Card\n" + "\n" + "* Activity: Added xx.00\n" + "\n"
+				+ "* Balance: xx.xx\n" + "\n");
+	}
+
+	@Test(groups = { TestConstants.TestNGGroups.PEETS_CARDS }, description = "1026052")
+	public void negativeTestTransferBalance() {
+		LOGGER.info("Launch the app and arrive at the first on boarding screen view");
+		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+
+		DashboardView dashboardView = peetsMobileHelper.signIn(landingView, TestConstants.MyAccountTestData.EMAIL,
+				TestConstants.MyAccountTestData.PASSWORD, DashboardView.class);
+		Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
+
+		LOGGER.info("Tap Peet's Card icon from bottom nav bar");
+		PeetsCardsView peetsCardsView = dashboardView.getBottomNavigationMenu().peetsCards();
+
+		LOGGER.info("User should be taken to peet's card screen");
+		Assert.assertNotNull(peetsCardsView, "User does not taken to Peets card screen");
+
+		LOGGER.info("Tap Transfer Value button");
+		PeetsCardsTransferAmountChunk peetsCardsTransferAmountChunk = peetsCardsView.transferValue();
+
+		LOGGER.info("User should be taken to transfer value overlay that appears from bottom");
+		Assert.assertNotNull(peetsCardsTransferAmountChunk,
+				"User does not taken to transfer value overlay that appears from bottom");
+
+		LOGGER.info("Tap into Card Number field");
+		LOGGER.info("Enter valid peet's card number\n" + "\n" + "Tap done on numeric keypad\n");
+		peetsCardsTransferAmountChunk.enterCardNumber("81001000000584");
+
+		LOGGER.info("Enter invalid peet's card pin number");
+		peetsCardsTransferAmountChunk.enterCardPin("1111");
+
+		PeetsCardsTransferAmountWarningChunk peetsCardsTransferAmountWarningChunk = peetsCardsTransferAmountChunk
+				.transfer();
+
+		LOGGER.info("Branded UI alert should display:\n" + "\n" + "Title: One last thing\n" + "\n"
+				+ "When you transfer a card into the app, you will:\n" + "\n"
+				+ "* Not be able to transfer the value back to the original card\n" + "\n"
+				+ "* No longer be able to add funds to your physical card\n" + "\n"
+				+ "* Be able to access the new value with your digital Peet's Card located in the app.\n" + "\n"
+				+ "[Button] Cancel [Button] Continue\n");
+		Assert.assertNotNull(peetsCardsTransferAmountWarningChunk, "Branded UI alert does not display");
+		Assert.assertEquals(peetsCardsTransferAmountWarningChunk.getFormattedMessage(),
+				peetsCardsTransferAmountWarningChunk.getValidMessage(), "Wrong message displayed");
+		Assert.assertTrue(peetsCardsTransferAmountWarningChunk.isContinueButtonDisplayed(),
+				"Continue button does not displayed");
+		Assert.assertTrue(peetsCardsTransferAmountWarningChunk.isCancelButtonDisplayed(),
+				"Cancel button does not displayed");
+
+		LOGGER.info("Tap Continue button");
+		peetsCardsTransferAmountWarningChunk.tapContinue();
+
+		LOGGER.info("User should see branded UI error alert:\n" + "\n" + "Title: We couldn't process your transfer\n"
+				+ "\n" + "* Please check your card number and pin code and try again\n" + "\n"
+				+ "* If there's no value remaining on the card you are trying to transfer, you won't be able to transfer value\n"
+				+ "\n"
+				+ "* If this issue persists, please contact Peet's customer service at cs@peets.com <mailto:cs@peets.com>\n"
+				+ "\n" + "[Button] Cancel [Button] Try Again\n");
+		Assert.assertEquals(peetsCardsTransferAmountWarningChunk.getFormattedMessageCouldNotProcess(),
+				peetsCardsTransferAmountWarningChunk.getValidMessageCouldNotProcess(), "Wrong message displayed");
+		Assert.assertTrue(peetsCardsTransferAmountWarningChunk.isTryAgainButtonCouldNotProcessDisplayed(),
+				"Try again button does not displayed");
+		Assert.assertTrue(peetsCardsTransferAmountWarningChunk.isCancelButtonCouldNotProcessDisplayed(),
+				"Cancel button does not displayed");
+
+		LOGGER.info("Tap Try Again button");
+		peetsCardsTransferAmountChunk = peetsCardsTransferAmountWarningChunk
+				.tapTryAgain(PeetsCardsTransferAmountChunk.class);
+
+		LOGGER.info("Enter Card number of already added card with invalid PIN");
+		peetsCardsTransferAmountChunk.enterCardNumber("81001000000581");
+
+		peetsCardsTransferAmountWarningChunk = peetsCardsTransferAmountChunk.transfer();
+
+		LOGGER.info("Branded UI alert should display:\n" + "\n" + "Title: One last thing\n" + "\n"
+				+ "When you transfer a card into the app, you will:\n" + "\n"
+				+ "* Not be able to transfer the value back to the original card\n" + "\n"
+				+ "* No longer be able to add funds to your physical card\n" + "\n"
+				+ "* Be able to access the new value with your digital Peet's Card located in the app.\n" + "\n"
+				+ "[Button] Cancel [Button] Continue\n");
+		Assert.assertNotNull(peetsCardsTransferAmountWarningChunk, "Branded UI alert does not display");
+		Assert.assertEquals(peetsCardsTransferAmountWarningChunk.getFormattedMessage(),
+				peetsCardsTransferAmountWarningChunk.getValidMessage(), "Wrong message displayed");
+		Assert.assertTrue(peetsCardsTransferAmountWarningChunk.isContinueButtonDisplayed(),
+				"Continue button does not displayed");
+		Assert.assertTrue(peetsCardsTransferAmountWarningChunk.isCancelButtonDisplayed(),
+				"Cancel button does not displayed");
+
+		LOGGER.info("Tap Continue button");
+		peetsCardsTransferAmountWarningChunk.tapContinue();
+
+		LOGGER.info("User should see branded UI error alert:\n" + "\n" + "Title: We couldn't process your transfer\n"
+				+ "\n" + "* Please check your card number and pin code and try again\n" + "\n"
+				+ "* If there's no value remaining on the card you are trying to transfer, you won't be able to transfer value\n"
+				+ "\n"
+				+ "* If this issue persists, please contact Peet's customer service at cs@peets.com <mailto:cs@peets.com>\n"
+				+ "\n" + "[Button] Cancel [Button] Try Again\n");
+		Assert.assertEquals(peetsCardsTransferAmountWarningChunk.getFormattedMessageCouldNotProcess(),
+				peetsCardsTransferAmountWarningChunk.getValidMessageCouldNotProcess(), "Wrong message displayed");
+		Assert.assertTrue(peetsCardsTransferAmountWarningChunk.isTryAgainButtonCouldNotProcessDisplayed(),
+				"Try again button does not displayed");
+		Assert.assertTrue(peetsCardsTransferAmountWarningChunk.isCancelButtonCouldNotProcessDisplayed(),
+				"Cancel button does not displayed");
 
 	}
 
