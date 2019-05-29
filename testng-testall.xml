@@ -6,6 +6,7 @@
             <run>
                 <include name="onboarding"/>
                 <include name="account-settings"/>
+                <include name="peets-cards"/>
             </run>
         </groups>
         <packages>
