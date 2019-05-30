@@ -45,7 +45,6 @@ public class ProfileDetailsView extends AbstractDeviceView {
 	 */
 	public ProfileDetailsView setFirstname(String firstname) {
 		LOGGER.info("Set first name to: " + firstname);
-		getFirstnameTextBox().clearTextBox();
 		getFirstnameTextBox().enterText(firstname);
 		return this;
 	}
@@ -70,7 +69,6 @@ public class ProfileDetailsView extends AbstractDeviceView {
 	 */
 	public ProfileDetailsView setLastname(String lastname) {
 		LOGGER.info("Set last name to: " + lastname);
-		getLastnameTextBox().clearTextBox();
 		getLastnameTextBox().enterText(lastname);
 		return this;
 	}
@@ -84,7 +82,6 @@ public class ProfileDetailsView extends AbstractDeviceView {
 	 */
 	public ProfileDetailsView setZipCode(String zipCode) {
 		LOGGER.info("Set ZIP to: " + zipCode);
-		getZipCodeTextBox().clearTextBox();
 		getZipCodeTextBox().enterText(zipCode);
 		return this;
 	}
@@ -213,6 +210,7 @@ public class ProfileDetailsView extends AbstractDeviceView {
 	 */
 	public AccountMenuMobileChunk save() {
 		LOGGER.info("Click on SAVE button");
+		getDriver().hideKeyboard();
 		getSaveButton().pressButton();
 		syncHelper.suspend(5000);
 		return DeviceChunkFactory.create(AccountMenuMobileChunk.class, "");
@@ -293,6 +291,27 @@ class IosProfileDetailsView extends ProfileDetailsView {
 		getDoneButton().pressButton();
 		getConfirmEmailAddressTextBox().clearTextBox();
 		getConfirmEmailAddressTextBox().enterText(emailAddress);
+		return this;
+	}
+
+	public ProfileDetailsView setZipCode(String zipCode) {
+		LOGGER.info("Set ZIP to: " + zipCode);
+		getZipCodeTextBox().clearTextBox();
+		getZipCodeTextBox().enterText(zipCode);
+		return this;
+	}
+
+	public ProfileDetailsView setLastname(String lastname) {
+		LOGGER.info("Set last name to: " + lastname);
+		getLastnameTextBox().clearTextBox();
+		getLastnameTextBox().enterText(lastname);
+		return this;
+	}
+
+	public ProfileDetailsView setFirstname(String firstname) {
+		LOGGER.info("Set first name to: " + firstname);
+		getFirstnameTextBox().clearTextBox();
+		getFirstnameTextBox().enterText(firstname);
 		return this;
 	}
 

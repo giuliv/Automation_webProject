@@ -108,7 +108,7 @@ public class CreateAccountTest extends BaseTest {
 
 		LOGGER.info("Launch the app and arrive at the first on boarding screen view");
 		LandingView landingView = DeviceViewFactory.create(LandingView.class);
-		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
+		softAssert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
 		landingView.skipOnboarding();
@@ -137,30 +137,23 @@ public class CreateAccountTest extends BaseTest {
 				+ "* Zip code (Optional) field\n" + "* Date of birth field (not editable)\n"
 				+ "* Phone number (Optional) field\n" + "* Email address field\n" + "* Change password link\n"
 				+ "* [Button] Save");
-		Assert.assertNotNull(profileDetailsView, "Profile details view does not passed validation");
+		softAssert.assertNotNull(profileDetailsView, "Profile details view does not passed validation");
 
 		LOGGER.info("Edit the fields that are editable");
 		String firstNameOrig = profileDetailsView.getFirstname();
 		String lastNameOrig = profileDetailsView.getLastname();
 		String zipCodeOrig = profileDetailsView.getZipCode();
-		String phoneOrig = profileDetailsView.getPhoneNumber();
 		String emailOrig = profileDetailsView.getEmailAddress();
 
-		String firstNameNew = firstNameOrig.replaceFirst("A", "AA");
-		String lastNameNew = lastNameOrig.replaceFirst("A", "AA");
+		String firstNameNew = "ApplauseUpdated";
+		String lastNameNew = "QAUpdated";
 		String zipCodeNew = "11214";
 
-		String phoneNew = "2";
-		Random random = new Random();
-		for (int i = 0; i < 9; i++) {
-			phoneNew += "" + random.nextInt(9);
-		}
 		String emailNew = emailOrig.replace(".com", ".net");
 
 		profileDetailsView.setFirstname(firstNameNew);
 		profileDetailsView.setLastname(lastNameNew);
 		profileDetailsView.setZipCode(zipCodeNew);
-		profileDetailsView.setPhoneNumber(phoneNew);
 		profileDetailsView.setEmailAddress(emailNew);
 		profileDetailsView.setConfirmEmailAddress(emailNew);
 
@@ -168,7 +161,7 @@ public class CreateAccountTest extends BaseTest {
 		accountMenuMobileChunk = profileDetailsView.save();
 
 		LOGGER.info("User should be directed back to the more screen");
-		Assert.assertNotNull(accountMenuMobileChunk, "User does not redirected to account menu");
+		softAssert.assertNotNull(accountMenuMobileChunk, "User does not redirected to account menu");
 
 		LOGGER.info("Tap on Profile Details field again");
 		profileDetailsView = accountMenuMobileChunk.profileDetails();
@@ -177,23 +170,21 @@ public class CreateAccountTest extends BaseTest {
 		String firstNameUpd = profileDetailsView.getFirstname();
 		String lastNameUpd = profileDetailsView.getLastname();
 		String zipCodeUpd = profileDetailsView.getZipCode();
-		String phoneUpd = profileDetailsView.getPhoneNumber();
 		String emailUpd = profileDetailsView.getEmailAddress();
-		Assert.assertEquals(firstNameUpd, firstNameNew, "Firstname does not updated");
-		Assert.assertEquals(lastNameUpd, lastNameNew, "Lastname does not updated");
-		Assert.assertEquals(zipCodeUpd, zipCodeNew, "zipcode does not updated");
-		Assert.assertEquals(phoneUpd.replace("(", "").replace(")", "").replace("-", "").replace(" ", ""),
-				phoneNew.replace("(", "").replace(")", "").replace("-", "").replace(" ", ""), "Phone does not updated");
-		Assert.assertEquals(emailUpd, emailNew, "email does not updated");
+		softAssert.assertEquals(firstNameUpd, firstNameNew, "Firstname does not updated");
+		softAssert.assertEquals(lastNameUpd, lastNameNew, "Lastname does not updated");
+		softAssert.assertEquals(zipCodeUpd, zipCodeNew, "zipcode does not updated");
+		softAssert.assertEquals(emailUpd, emailNew, "email does not updated");
 
 		LOGGER.info("Cleanup Restore original");
 		profileDetailsView.setFirstname(firstNameOrig);
 		profileDetailsView.setLastname(lastNameOrig);
 		profileDetailsView.setZipCode(zipCodeOrig);
-		profileDetailsView.setPhoneNumber(phoneOrig);
 		profileDetailsView.setEmailAddress(emailOrig);
 		profileDetailsView.setConfirmEmailAddress(emailOrig);
 		profileDetailsView.save();
+
+		softAssert.assertAll();
 
 	}
 
