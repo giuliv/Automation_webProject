@@ -265,7 +265,7 @@ public class CreateAccountTest extends BaseTest {
 
 		LOGGER.info("Launch the app and arrive at the first on boarding screen view");
 		LandingView landingView = DeviceViewFactory.create(LandingView.class);
-		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
+		softAssert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
 		landingView.skipOnboarding();
@@ -305,8 +305,7 @@ public class CreateAccountTest extends BaseTest {
 
 		LOGGER.info(
 				"Make sure user sees an error message: \"Operation failed, check your current password and try again\" and is not able to change password");
-		Assert.assertEquals(changePasswordView.getMessage(), "Old Password is not correct",
-				"Wrong old password message do not match");
+		softAssert.assertTrue(changePasswordView.verifyMessage(), "Error message was incorrect");
 		changePasswordView = changePasswordView.dismissMessage(ChangePasswordView.class);
 
 		LOGGER.info("Tap show password icon");
@@ -316,13 +315,13 @@ public class CreateAccountTest extends BaseTest {
 		changePasswordView.setCurrentPassword(INITIAL_PASSWORD);
 
 		LOGGER.info("Make sure password entered is displayed");
-		Assert.assertEquals(changePasswordView.getCurrentPasswordUnhide(), INITIAL_PASSWORD,
+		softAssert.assertEquals(changePasswordView.getCurrentPasswordUnhide(), INITIAL_PASSWORD,
 				"Show password button does not work");
 		changePasswordView = changePasswordView.changePassword(ChangePasswordView.class);
 
 		LOGGER.info("Make sure user sees success check mark and a UI alert:\n" + "\n" + "* Header: Change Password\n"
 				+ "\n" + "* Text: Your new password has been set [Okay]\n" + "\n");
-		Assert.assertEquals(changePasswordView.getMessage(), "Your new password has been set",
+		softAssert.assertEquals(changePasswordView.getMessage(), "Your new password has been set",
 				"Wrong success password change message");
 
 		LOGGER.info("Tap okay to dismiss UI alert");
@@ -332,7 +331,7 @@ public class CreateAccountTest extends BaseTest {
 		accountMenuMobileChunk = profileDetailsView.goBack(AccountMenuMobileChunk.class);
 
 		LOGGER.info("Make sure user is directed to more screen");
-		Assert.assertNotNull(accountMenuMobileChunk, "User does not directed to more screen");
+		softAssert.assertNotNull(accountMenuMobileChunk, "User does not directed to more screen");
 
 		LOGGER.info("Scroll down and tap sign out button");
 		AuthenticationView authenticationView = accountMenuMobileChunk.signOut();
@@ -347,7 +346,7 @@ public class CreateAccountTest extends BaseTest {
 		signInView = signInView.signIn(SignInView.class);
 
 		LOGGER.info("Make sure user sees an error message and is not able to sign in");
-		Assert.assertEquals(signInView.getMessage(),
+		softAssert.assertEquals(signInView.getMessage(),
 				"The email and password you entered don't match. Please try again.", "Error message not found");
 
 		LOGGER.info("Tap okay to dismiss UI alert");
@@ -361,7 +360,7 @@ public class CreateAccountTest extends BaseTest {
 		dashboardView = signInView.signIn();
 
 		LOGGER.info("User should be able to sign in successfully with new password");
-		Assert.assertNotNull(dashboardView, "User does not logged in");
+		softAssert.assertNotNull(dashboardView, "User does not logged in");
 
 		// cleanup
 		LOGGER.info("Tap on ... at top right of home screen to view more screen");
@@ -381,6 +380,8 @@ public class CreateAccountTest extends BaseTest {
 
 		LOGGER.info("Tap Change Password button");
 		changePasswordView = changePasswordView.changePassword(ChangePasswordView.class);
+
+		softAssert.assertAll();
 
 	}
 

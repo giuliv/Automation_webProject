@@ -49,6 +49,15 @@ public class ChangePasswordView extends AbstractDeviceView {
 	}
 
 	/**
+	 * Verify Error Message
+	 *
+	 * @return Boolean
+	 */
+	public Boolean verifyMessage() {
+		return getMessage().equals("Sorry, something's wrong");
+	}
+
+	/**
 	 * Show password.
 	 */
 	public void showPassword() {
@@ -121,7 +130,7 @@ public class ChangePasswordView extends AbstractDeviceView {
 		return new Button(getLocator(this, "getShowPasswordButton"));
 	}
 
-	@MobileElementLocator(android = "//*[@resource-id='android:id/message']|//*[@resource-id='com.wearehathway.peets.development:id/md_content']", iOS = "//XCUIElementTypeAlert//XCUIElementTypeStaticText[@name=\"Old Password is not correct\" or @name=\"Your new password has been set\"]")
+	@MobileElementLocator(android = "//*[@resource-id='android:id/message']|//*[@resource-id='com.wearehathway.peets.development:id/md_content']", iOS = "//XCUIElementTypeAlert//XCUIElementTypeStaticText[@name=\"Sorry, something's wrong\" or @name=\"Your new password has been set\"]")
 	protected Text getMessageText() {
 		return new Text(getLocator(this, "getMessageText"));
 	}
@@ -178,6 +187,10 @@ class AndroidChangePasswordView extends ChangePasswordView {
 		LOGGER.info("Tap on OKAY to dismiss message");
 		getMessageOkButton().pressButton();
 		return DeviceViewFactory.create(clazz);
+	}
+
+	public Boolean verifyMessage() {
+		return getMessage().equals("Operation failed, check your current password and try again");
 	}
 
 }
