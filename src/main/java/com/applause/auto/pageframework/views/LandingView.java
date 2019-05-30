@@ -123,4 +123,10 @@ public class LandingView extends AbstractDeviceView {
 
 class AndroidLandingView extends LandingView {
 
+	public void skipOnboarding() {
+		LOGGER.info("Skipping Onboarding");
+		getSkipButton().pressButton();
+		syncHelper.suspend(10000);
+	}
+
 }
