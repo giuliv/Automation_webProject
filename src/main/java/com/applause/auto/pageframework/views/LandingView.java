@@ -88,6 +88,7 @@ public class LandingView extends AbstractDeviceView {
 	 * @return
 	 */
 	public String getHeadingTextValue() {
+		syncHelper.suspend(3000);
 		getDriver().getPageSource();
 		return getHeadingText().getStringValue();
 	}
