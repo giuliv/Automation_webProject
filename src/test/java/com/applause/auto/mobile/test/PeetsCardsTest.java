@@ -86,13 +86,13 @@ public class PeetsCardsTest extends BaseTest {
 
 		DashboardView dashboardView = peetsMobileHelper.signIn(landingView, TestConstants.MyAccountTestData.EMAIL,
 				TestConstants.MyAccountTestData.PASSWORD, DashboardView.class);
-		Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
+		softAssert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
 		LOGGER.info("Tap Check In icon on bottom nav bar");
 		CheckInView checkInView = dashboardView.getBottomNavigationMenu().checkIn();
 
 		LOGGER.info("User should be taken to check in screen");
-		Assert.assertNotNull(checkInView, "User does not taken to Check In view");
+		softAssert.assertNotNull(checkInView, "User does not taken to Check In view");
 		int oldBalance = Integer.parseInt(checkInView.getBalance());
 
 		LOGGER.info("Tap Add Value button from Peet's Card Balance tile");
@@ -102,17 +102,17 @@ public class PeetsCardsTest extends BaseTest {
 		PaymentMethodsView paymentMethodsView = checkInView.edit();
 
 		LOGGER.info("User should be taken to payment method screen");
-		Assert.assertNotNull(paymentMethodsView, "User does not taken to payment method view");
+		softAssert.assertNotNull(paymentMethodsView, "User does not taken to payment method view");
 
 		LOGGER.info("Select a saved credit card");
 		checkInView = paymentMethodsView.clickSavedPaymentMethod2(CheckInView.class);
 
 		LOGGER.info("User should return to add value to my peet's card screen");
-		Assert.assertNotNull(paymentMethodsView, "User does taken to Peets Cards screen");
+		softAssert.assertNotNull(paymentMethodsView, "User does taken to Peets Cards screen");
 
 		LOGGER.info("$25 tile should be default highlighted");
 		int cardAmount = 25;
-		Assert.assertTrue(checkInView.isAmountSelected("$" + cardAmount), "$25 tile does not highlighted");
+		softAssert.assertTrue(checkInView.isAmountSelected("$" + cardAmount), "$25 tile does not highlighted");
 
 		LOGGER.info("Tap Confirm Value button");
 		checkInView = checkInView.confirm();
@@ -120,7 +120,7 @@ public class PeetsCardsTest extends BaseTest {
 
 		LOGGER.info(
 				"Make sure user is able to successfully add value to card and peet's card screen shows card balance of $25.00");
-		Assert.assertEquals(newBalance - oldBalance, cardAmount, "Balance does not changed properly");
+		softAssert.assertEquals(newBalance - oldBalance, cardAmount, "Balance does not changed properly");
 
 		LOGGER.info("Check account history");
 		dashboardView = checkInView.getBottomNavigationMenu().home();
@@ -128,10 +128,12 @@ public class PeetsCardsTest extends BaseTest {
 
 		LOGGER.info("Make sure it shows Peet's Card transaction details:\n" + "\n" + "* Peet's Card Load + $25.00\n"
 				+ "\n" + "* Date [Month Day, Year]\n" + "\n");
-		Assert.assertEquals(accountHistory.getTransactionDate(0),
+		softAssert.assertEquals(accountHistory.getTransactionDate(0),
 				new SimpleDateFormat("MMM d, yyyy").format(new Date()), "Incorrect transaction date");
-		Assert.assertEquals(accountHistory.getTransactionAmount(0).replace(" ", ""),
+		softAssert.assertEquals(accountHistory.getTransactionAmount(0).replace(" ", ""),
 				"+$" + new DecimalFormat("0.00").format(cardAmount), "Incorrect transaction amount");
+
+		softAssert.assertAll();
 
 	}
 
