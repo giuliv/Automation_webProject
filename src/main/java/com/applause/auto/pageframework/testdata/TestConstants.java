@@ -159,6 +159,8 @@ public class TestConstants {
 		public static final String CC_CVV = "111";
 		public static final String CC_ZIP = "94608";
 		public static final String CC_NAME = "Mobile Test";
+		public static final String TRANSFER_ERROR = "One last thing";
+		public static final String TRANSFER_PROCESS_ERROR = "Please check your card number and pin code and try again";
 	}
 
 }
