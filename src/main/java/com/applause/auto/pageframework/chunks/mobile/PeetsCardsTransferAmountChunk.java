@@ -60,6 +60,7 @@ public class PeetsCardsTransferAmountChunk extends AbstractDeviceChunk {
 	 */
 	public PeetsCardsTransferAmountWarningChunk transfer() {
 		LOGGER.info("Tap on transfer button");
+		getDriver().hideKeyboard();
 		getTransferButton().pressButton();
 		return DeviceChunkFactory.create(PeetsCardsTransferAmountWarningChunk.class, "");
 	}
