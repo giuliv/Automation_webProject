@@ -2,6 +2,7 @@ package com.applause.auto.mobile.test;
 
 import java.util.Random;
 
+import com.applause.auto.pageframework.helpers.PeetsMobileHelper;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -542,7 +543,7 @@ public class CreateAccountTest extends BaseTest {
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
-		landingView.skipOffer();
+		landingView.skipOnboarding();
 
 		LOGGER.info("Tap Sign In");
 		SignInView signInView = landingView.signIn();
@@ -566,13 +567,6 @@ public class CreateAccountTest extends BaseTest {
 				+ "* Back arrow");
 		Assert.assertNotNull(accountHistoryView, "User does not taken to account history screen");
 
-		LOGGER.info(
-				"Transactions should be organized by most recent transactions at the top and oldest transactions at the bottom and show date of the transaction [month day, year]");
-		Assert.assertEquals(accountHistoryView.getTransactionDate(0), "April 29, 2019",
-				"Transaction does not contain valid date format");
-
-		LOGGER.info("Transactions should be divided by month dividers");
-		Assert.assertEquals(accountHistoryView.getTransactionDateDivider(0), "April", "Wrong month divider");
 	}
 
 	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625882")
