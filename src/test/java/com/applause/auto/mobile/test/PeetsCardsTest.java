@@ -242,19 +242,19 @@ public class PeetsCardsTest extends BaseTest {
 
 		DashboardView dashboardView = peetsMobileHelper.signIn(landingView, TestConstants.MyAccountTestData.EMAIL,
 				TestConstants.MyAccountTestData.PASSWORD, DashboardView.class);
-		Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
+		softAssert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
 		LOGGER.info("Tap Peet's Card icon from bottom nav bar");
 		PeetsCardsView peetsCardsView = dashboardView.getBottomNavigationMenu().peetsCards();
 
 		LOGGER.info("User should be taken to peet's card screen");
-		Assert.assertNotNull(peetsCardsView, "User does not taken to Peets card screen");
+		softAssert.assertNotNull(peetsCardsView, "User does not taken to Peets card screen");
 
 		LOGGER.info("Tap Transfer Value button");
 		PeetsCardsTransferAmountChunk peetsCardsTransferAmountChunk = peetsCardsView.transferValue();
 
 		LOGGER.info("User should be taken to transfer value overlay that appears from bottom");
-		Assert.assertNotNull(peetsCardsTransferAmountChunk,
+		softAssert.assertNotNull(peetsCardsTransferAmountChunk,
 				"User does not taken to transfer value overlay that appears from bottom");
 
 		LOGGER.info("Tap into Card Number field");
@@ -273,12 +273,12 @@ public class PeetsCardsTest extends BaseTest {
 				+ "* No longer be able to add funds to your physical card\n" + "\n"
 				+ "* Be able to access the new value with your digital Peet's Card located in the app.\n" + "\n"
 				+ "[Button] Cancel [Button] Continue\n");
-		Assert.assertNotNull(peetsCardsTransferAmountWarningChunk, "Branded UI alert does not display");
-		Assert.assertEquals(peetsCardsTransferAmountWarningChunk.getFormattedMessage(),
+		softAssert.assertNotNull(peetsCardsTransferAmountWarningChunk, "Branded UI alert does not display");
+		softAssert.assertEquals(peetsCardsTransferAmountWarningChunk.getFormattedMessage(),
 				peetsCardsTransferAmountWarningChunk.getValidMessage(), "Wrong message displayed");
-		Assert.assertTrue(peetsCardsTransferAmountWarningChunk.isContinueButtonDisplayed(),
+		softAssert.assertTrue(peetsCardsTransferAmountWarningChunk.isContinueButtonDisplayed(),
 				"Continue button does not displayed");
-		Assert.assertTrue(peetsCardsTransferAmountWarningChunk.isCancelButtonDisplayed(),
+		softAssert.assertTrue(peetsCardsTransferAmountWarningChunk.isCancelButtonDisplayed(),
 				"Cancel button does not displayed");
 
 		LOGGER.info("Tap Continue button");
@@ -290,11 +290,11 @@ public class PeetsCardsTest extends BaseTest {
 				+ "\n"
 				+ "* If this issue persists, please contact Peet's customer service at cs@peets.com <mailto:cs@peets.com>\n"
 				+ "\n" + "[Button] Cancel [Button] Try Again\n");
-		Assert.assertEquals(peetsCardsTransferAmountWarningChunk.getFormattedMessageCouldNotProcess(),
-				peetsCardsTransferAmountWarningChunk.getValidMessageCouldNotProcess(), "Wrong message displayed");
-		Assert.assertTrue(peetsCardsTransferAmountWarningChunk.isTryAgainButtonCouldNotProcessDisplayed(),
+		softAssert.assertTrue(peetsCardsTransferAmountWarningChunk.getFormattedMessageCouldNotProcess()
+				.contains(TestConstants.MobileTestData.TRANSFER_PROCESS_ERROR), "Wrong message displayed");
+		softAssert.assertTrue(peetsCardsTransferAmountWarningChunk.isTryAgainButtonCouldNotProcessDisplayed(),
 				"Try again button does not displayed");
-		Assert.assertTrue(peetsCardsTransferAmountWarningChunk.isCancelButtonCouldNotProcessDisplayed(),
+		softAssert.assertTrue(peetsCardsTransferAmountWarningChunk.isCancelButtonCouldNotProcessDisplayed(),
 				"Cancel button does not displayed");
 
 		LOGGER.info("Tap Try Again button");
@@ -312,12 +312,12 @@ public class PeetsCardsTest extends BaseTest {
 				+ "* No longer be able to add funds to your physical card\n" + "\n"
 				+ "* Be able to access the new value with your digital Peet's Card located in the app.\n" + "\n"
 				+ "[Button] Cancel [Button] Continue\n");
-		Assert.assertNotNull(peetsCardsTransferAmountWarningChunk, "Branded UI alert does not display");
-		Assert.assertEquals(peetsCardsTransferAmountWarningChunk.getFormattedMessage(),
+		softAssert.assertNotNull(peetsCardsTransferAmountWarningChunk, "Branded UI alert does not display");
+		softAssert.assertEquals(peetsCardsTransferAmountWarningChunk.getFormattedMessage(),
 				peetsCardsTransferAmountWarningChunk.getValidMessage(), "Wrong message displayed");
-		Assert.assertTrue(peetsCardsTransferAmountWarningChunk.isContinueButtonDisplayed(),
+		softAssert.assertTrue(peetsCardsTransferAmountWarningChunk.isContinueButtonDisplayed(),
 				"Continue button does not displayed");
-		Assert.assertTrue(peetsCardsTransferAmountWarningChunk.isCancelButtonDisplayed(),
+		softAssert.assertTrue(peetsCardsTransferAmountWarningChunk.isCancelButtonDisplayed(),
 				"Cancel button does not displayed");
 
 		LOGGER.info("Tap Continue button");
@@ -329,12 +329,14 @@ public class PeetsCardsTest extends BaseTest {
 				+ "\n"
 				+ "* If this issue persists, please contact Peet's customer service at cs@peets.com <mailto:cs@peets.com>\n"
 				+ "\n" + "[Button] Cancel [Button] Try Again\n");
-		Assert.assertEquals(peetsCardsTransferAmountWarningChunk.getFormattedMessageCouldNotProcess(),
-				peetsCardsTransferAmountWarningChunk.getValidMessageCouldNotProcess(), "Wrong message displayed");
-		Assert.assertTrue(peetsCardsTransferAmountWarningChunk.isTryAgainButtonCouldNotProcessDisplayed(),
+		softAssert.assertTrue(peetsCardsTransferAmountWarningChunk.getFormattedMessageCouldNotProcess()
+				.contains(TestConstants.MobileTestData.TRANSFER_PROCESS_ERROR), "Wrong message displayed");
+		softAssert.assertTrue(peetsCardsTransferAmountWarningChunk.isTryAgainButtonCouldNotProcessDisplayed(),
 				"Try again button does not displayed");
-		Assert.assertTrue(peetsCardsTransferAmountWarningChunk.isCancelButtonCouldNotProcessDisplayed(),
+		softAssert.assertTrue(peetsCardsTransferAmountWarningChunk.isCancelButtonCouldNotProcessDisplayed(),
 				"Cancel button does not displayed");
+
+		softAssert.assertAll();
 
 	}
 
