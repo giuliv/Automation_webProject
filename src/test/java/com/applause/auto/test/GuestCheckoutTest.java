@@ -345,7 +345,6 @@ public class GuestCheckoutTest extends BaseTest {
 
 		LOGGER.info("7. Login with Paypal");
 		paypalLoginPage.enterEmail(TestData.PAYPAL_EMAIL);
-		paypalLoginPage.clickNext();
 		paypalLoginPage.enterPassword(TestData.PAYPAL_PASSWORD);
 		PaypalReviewYourPurchasePage paypalReviewYourPurchasePage = paypalLoginPage.clickLogIn();
 		CheckoutPlaceOrderPage checkoutPlaceOrderPage = paypalReviewYourPurchasePage.clickAgreeAndContinue();
