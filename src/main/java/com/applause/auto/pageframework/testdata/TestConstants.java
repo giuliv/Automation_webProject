@@ -94,6 +94,11 @@ public class TestConstants {
 		public static final String VISA_CC_NAME = "QA Test Applause Auto";
 		public static final String VISA_CC_ZIP = "90404";
 
+		public static final String AMEX_CC_NUM = "378282246310005";
+		public static final String AMEX_CC_CODE = "2222";
+		public static final String AMEX_CC_MONTH = "12";
+		public static final String AMEX_CC_YEAR = "2020";
+
 		public static final String TOUR_SEARCH_TERMS = "Tour";
 		public static final String WEDNES_ROAST_SEARCH = "Kona";
 
