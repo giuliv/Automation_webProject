@@ -77,8 +77,8 @@ public class TestConstants {
 		public static final String PEETS_CARD_LOWEST_AMOUNT = "1";
 		public static final String PEETS_CARD_BUY_AMOUNT = "Card +$10.00";
 
-		public static final String PEETS_CARD_NUMBER_CHROME_1 = "81001000000581";
-		public static final String PEETS_CARD_PIN_CHROME_1 = "9967";
+		public static final String PEETS_CARD_NUMBER_CHROME_1 = "81001000001011";
+		public static final String PEETS_CARD_PIN_CHROME_1 = "9056";
 		public static final String PEETS_CARD_NUMBER_CHROME_2 = "81001000000582";
 		public static final String PEETS_CARD_PIN_CHROME_2 = "3839";
 
