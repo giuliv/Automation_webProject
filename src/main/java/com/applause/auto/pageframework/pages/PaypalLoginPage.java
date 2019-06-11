@@ -41,6 +41,7 @@ public class PaypalLoginPage extends AbstractPage {
 	 */
 	public void enterEmail(String email) {
 		LOGGER.info("Entering email address");
+		getEmailField().clearText();
 		getEmailField().setText(email);
 	}
 
