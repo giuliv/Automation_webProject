@@ -53,8 +53,10 @@ public class EditBillingAddressPage extends AbstractPage {
 		LOGGER.info("Clicking Save Address");
 		getSaveAddressButton().click();
 		syncHelper.suspend(3000);
-		if (getUseAddressAsEnteredButton().visible()) {
+		try {
 			getUseAddressAsEnteredButton().click();
+		} catch (Exception ex) {
+			LOGGER.info("Popup not displayed");
 		}
 		return PageFactory.create(AddressBookPage.class);
 	}
