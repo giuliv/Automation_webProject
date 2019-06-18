@@ -77,7 +77,7 @@ public class LandingView extends AbstractDeviceView {
 	 */
 	public void skipOnboarding() {
 		LOGGER.info("Skipping Onboarding");
-		syncHelper.suspend(5000);
+		syncHelper.suspend(10000);
 		getSkipButton().pressButton();
 		syncHelper.suspend(10000);
 	}
