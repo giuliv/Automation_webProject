@@ -81,6 +81,7 @@ public class SelectCoffeeBarView extends AbstractDeviceView {
 class AndroidSelectCoffeeBarView extends SelectCoffeeBarView {
 	@Override
 	protected void waitUntilVisible() {
+		// Workaround for Automator hang
 		DeviceChunkFactory.create(AllowLocationServicesPopupChunk.class, "").notNow();
 		syncHelper.waitForElementToAppear(getSignature());
 	}
