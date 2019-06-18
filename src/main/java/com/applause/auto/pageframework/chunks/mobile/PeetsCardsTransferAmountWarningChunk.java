@@ -17,6 +17,12 @@ import com.applause.auto.framework.pageframework.util.logger.LogController;
 public class PeetsCardsTransferAmountWarningChunk extends AbstractDeviceChunk {
 	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
 
+	/**
+	 * Instantiates a new Peets cards transfer amount warning chunk.
+	 *
+	 * @param selector
+	 *            the selector
+	 */
 	public PeetsCardsTransferAmountWarningChunk(String selector) {
 		super(selector);
 	}
@@ -37,10 +43,20 @@ public class PeetsCardsTransferAmountWarningChunk extends AbstractDeviceChunk {
 				getMessageText3Text().getStringValue());
 	}
 
+	/**
+	 * Gets valid message.
+	 *
+	 * @return the valid message
+	 */
 	public String getValidMessage() {
 		return "One last thing When you transfer a card into the app, you will: Not be able to transfer the value back to the original card No longer be able to add funds to your physical card Be able to access the new value with your digital Peet's Card located in the app";
 	}
 
+	/**
+	 * Gets formatted message could not process.
+	 *
+	 * @return the formatted message could not process
+	 */
 	public String getFormattedMessageCouldNotProcess() {
 		return String.format("%s %s %s %s", getMainTitleCouldNotProcessText().getStringValue(),
 				getMessageText1CouldNotProcessText().getStringValue(),
@@ -48,6 +64,11 @@ public class PeetsCardsTransferAmountWarningChunk extends AbstractDeviceChunk {
 				getMessageText3CouldNotProcessText().getStringValue());
 	}
 
+	/**
+	 * Gets valid message could not process.
+	 *
+	 * @return the valid message could not process
+	 */
 	public String getValidMessageCouldNotProcess() {
 		return "We couldn't process your transfer Please check your card number and pin code and try again. If there's no value remaining on the card you are trying to transfer, you won't be able to transfer value. If this issue persist, please contact Peet's customer serviceat cs@peets.com.";
 	}
@@ -61,10 +82,20 @@ public class PeetsCardsTransferAmountWarningChunk extends AbstractDeviceChunk {
 		return syncHelper.isElementDisplayed(getLocator(this, "getContinueButton"));
 	}
 
+	/**
+	 * Is try again button could not process displayed boolean.
+	 *
+	 * @return the boolean
+	 */
 	public boolean isTryAgainButtonCouldNotProcessDisplayed() {
 		return syncHelper.isElementDisplayed(getLocator(this, "getTryAgainCouldNotProcessButton"));
 	}
 
+	/**
+	 * Is cancel button could not process displayed boolean.
+	 *
+	 * @return the boolean
+	 */
 	public boolean isCancelButtonCouldNotProcessDisplayed() {
 		return syncHelper.isElementDisplayed(getLocator(this, "getCancelCouldNotProcessButton"));
 	}
