@@ -82,7 +82,7 @@ class AndroidSelectCoffeeBarView extends SelectCoffeeBarView {
 	@Override
 	protected void waitUntilVisible() {
 		// Workaround for Automator hang
-		DeviceChunkFactory.create(AllowLocationServicesPopupChunk.class, "").notNow();
+		getDriver().switchTo().alert().dismiss();
 		syncHelper.waitForElementToAppear(getSignature());
 	}
 }
