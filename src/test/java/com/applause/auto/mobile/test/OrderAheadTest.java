@@ -80,7 +80,7 @@ public class OrderAheadTest extends BaseTest {
 		LOGGER.info("Make sure user sees another UI alert:\n" + "\n"
 				+ "Title: Allow \"Peet's\" to access your location while you are using the app?");
 		Assert.assertEquals(allowLocationServicesSystemPopupChunk.getTitle(),
-				"Allow “Peet's” to access your location while you are using the app?",
+				"Allow “Peets-Sandbox” to access your location while you are using the app?",
 				"Title: Allow \"Peet's\" to access your location while you are using the app? doe not displayed");
 		LOGGER.info(
 				"Text: Location services will only use your location while using the app, and will not share your location or information. Your location will be used to find the nearest coffeebar and place a mobile order.");
