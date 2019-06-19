@@ -72,6 +72,7 @@ public class AllowLocationServicesPopupChunk extends AbstractDeviceChunk {
 	public AllowLocationServicesSystemPopupChunk allow() {
 		LOGGER.info("Tap Allow button");
 		getAllowButton().pressButton();
+		LOGGER.info(">>>>" + getDriver().getPageSource());
 		return DeviceChunkFactory.create(AllowLocationServicesSystemPopupChunk.class, "");
 	}
 
