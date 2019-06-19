@@ -88,7 +88,7 @@ public class OrderAheadTest extends BaseTest {
 				"Location Services will only use your location while using the app, and will not share your location or information. Your location will be used to find the nearest coffeebar and place a mobile order.",
 				"Text: 'Location Services will only use your location while using the app, and will not share your location or information. Your location will be used to find the nearest coffeebar and place a mobile order.' does not displayed");
 
-		LOGGER.info("[Don't Alllow] [Allow]");
+		LOGGER.info("[Don't Allow] [Allow]");
 		Assert.assertTrue(allowLocationServicesSystemPopupChunk.isAllowButtonDisplayed(),
 				"Allow button does not displayed");
 		Assert.assertTrue(allowLocationServicesSystemPopupChunk.isDoNotAllowButtonDisplayed(),
