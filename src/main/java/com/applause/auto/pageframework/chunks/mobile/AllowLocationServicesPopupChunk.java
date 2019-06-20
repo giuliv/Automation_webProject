@@ -1,6 +1,9 @@
 package com.applause.auto.pageframework.chunks.mobile;
 
 import java.lang.invoke.MethodHandles;
+import java.time.Duration;
+
+import org.openqa.selenium.Point;
 
 import com.applause.auto.framework.pageframework.device.AbstractDeviceChunk;
 import com.applause.auto.framework.pageframework.device.DeviceChunkFactory;
@@ -12,7 +15,11 @@ import com.applause.auto.framework.pageframework.devicecontrols.Button;
 import com.applause.auto.framework.pageframework.devicecontrols.Text;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 
-@AndroidImplementation(AllowLocationServicesPopupChunk.class)
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
+
+@AndroidImplementation(AndroidAllowLocationServicesPopupChunk.class)
 @IosImplementation(AllowLocationServicesPopupChunk.class)
 public class AllowLocationServicesPopupChunk extends AbstractDeviceChunk {
 	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
@@ -32,7 +39,7 @@ public class AllowLocationServicesPopupChunk extends AbstractDeviceChunk {
 	 * @return the title
 	 */
 	public String getTitle() {
-		return getTitleText().getStringValue();
+		return getTitleText().getStringValue().replaceAll("’", "'").replaceAll("\\.$", "");
 	}
 
 	/**
@@ -41,9 +48,11 @@ public class AllowLocationServicesPopupChunk extends AbstractDeviceChunk {
 	 * @return the formatted message
 	 */
 	public String getFormattedMessage() {
-		return String.format("%s %s %s %s %s", getSubTitleText().getStringValue(), getTitleText().getStringValue(),
-				getMessageText1Text().getStringValue(), getMessageText2Text().getStringValue(),
-				getMessageText3Text().getStringValue());
+		return String.format("%s %s %s %s %s",
+				getSubTitleText().getStringValue().replaceAll("’", "'").replaceAll("\\.$", ""), getTitle(),
+				getMessageText1Text().getStringValue().replaceAll("• ", ""),
+				getMessageText2Text().getStringValue().replaceAll("• ", ""),
+				getMessageText3Text().getStringValue().replaceAll("• ", ""));
 	}
 
 	/**
@@ -72,7 +81,6 @@ public class AllowLocationServicesPopupChunk extends AbstractDeviceChunk {
 	public AllowLocationServicesSystemPopupChunk allow() {
 		LOGGER.info("Tap Allow button");
 		getAllowButton().pressButton();
-		LOGGER.info(">>>>" + getDriver().getPageSource());
 		return DeviceChunkFactory.create(AllowLocationServicesSystemPopupChunk.class, "");
 	}
 
@@ -129,4 +137,23 @@ public class AllowLocationServicesPopupChunk extends AbstractDeviceChunk {
 	protected Text getMessageText3Text() {
 		return new Text(getLocator(this, "getMessageText3Text"));
 	}
+}
+
+class AndroidAllowLocationServicesPopupChunk extends AllowLocationServicesPopupChunk {
+
+	public AndroidAllowLocationServicesPopupChunk(String selector) {
+		super(selector);
+	}
+
+	public void notNow() {
+		LOGGER.info("Tap Not Now button");
+		Point point = getNotNowButton().getMobileElement().getCenter();
+		new TouchAction(getDriver()).tap(PointOption.point(point.x, point.y))
+				.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(3)))
+				.tap(PointOption.point(point.x + getDriver().manage().window().getSize().width / 4,
+						point.y + getDriver().manage().window().getSize().height / 10))
+				.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(3))).tap(PointOption.point(point.x, point.y))
+				.perform();
+	}
+
 }

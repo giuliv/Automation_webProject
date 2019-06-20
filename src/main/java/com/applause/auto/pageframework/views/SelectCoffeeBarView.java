@@ -61,7 +61,7 @@ public class SelectCoffeeBarView extends AbstractDeviceView {
 	 * Protected Getters
 	 */
 
-	@MobileElementLocator(android = "//android.widget.TextView[@resource-id='Select Coffeebar']", iOS = "//XCUIElementTypeNavigationBar[@name='Select Coffeebar']")
+	@MobileElementLocator(android = "//android.widget.TextView[@text='Select Coffeebar']", iOS = "//XCUIElementTypeNavigationBar[@name='Select Coffeebar']")
 	protected BaseDeviceControl getSignature() {
 		return new BaseDeviceControl(getLocator(this, "getSignature"));
 	}
@@ -82,7 +82,7 @@ class AndroidSelectCoffeeBarView extends SelectCoffeeBarView {
 	@Override
 	protected void waitUntilVisible() {
 		// Workaround for Automator hang
-		getDriver().switchTo().alert().dismiss();
+		DeviceChunkFactory.create(AllowLocationServicesPopupChunk.class, "").notNow();
 		syncHelper.waitForElementToAppear(getSignature());
 	}
 }
