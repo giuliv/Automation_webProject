@@ -189,4 +189,11 @@ class AndroidSignInView extends SignInView {
 		getDismissMessageButton().pressButton();
 		return this;
 	}
+
+	public <T extends AbstractDeviceView> T signIn(Class<T> clazz) {
+		LOGGER.info("Click on Sign In button");
+		getDriver().hideKeyboard();
+		getSignInButton().pressButton();
+		return DeviceViewFactory.create(clazz);
+	}
 }
