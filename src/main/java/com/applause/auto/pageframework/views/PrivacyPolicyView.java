@@ -33,6 +33,7 @@ public class PrivacyPolicyView extends AbstractDeviceView {
 
 class AndroidPrivacyPolicyView extends PrivacyPolicyView {
 	protected void waitUntilVisible() {
+		syncHelper.suspend(5000);
 		throw new RuntimeException("Not Yet Implemeted. Blocked by WEB context switching issue");
 		// syncHelper.waitForElementToAppear(getHeadingText(), 120000);
 	}
