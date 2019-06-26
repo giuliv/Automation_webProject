@@ -43,7 +43,7 @@ public class CreateAccountTest extends BaseTest {
 		CreateAccountView createAccountView = landingView.createAccount();
 
 		LOGGER.info("Scroll down and check the footer links");
-		MobileHelper.scrollDown(4);
+		MobileHelper.scrollToBottom(3);
 
 		LOGGER.info(
 				"Make sure above the create account button is the copy and check-box: I agree to the Privacy Policy and Terms & Conditions");
