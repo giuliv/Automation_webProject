@@ -92,7 +92,7 @@ public class PaymentMethodsView extends AbstractDeviceView {
 	}
 
 	// Protected getters
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/title", iOS = "Payment Method")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/title", iOS = "//*[contains(@name,\"Payment Method\")][1]")
 	protected Text getViewSignature() {
 		return new Text(getLocator(this, "getViewSignature"));
 	}

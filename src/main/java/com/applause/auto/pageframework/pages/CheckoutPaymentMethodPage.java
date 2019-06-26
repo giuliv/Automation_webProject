@@ -146,11 +146,11 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	 */
 	public void fillBillingInfo() {
 		LOGGER.info("Filling Billing info");
-		getCardNumberEditField().setText(TestConstants.TestData.VISA_CC_NUMBER);
-		getCardSecurityCodeEditField().setText(TestConstants.TestData.VISA_CC_SECURITY_CODE);
+		getCardNumberEditField().setText(TestConstants.TestData.AMEX_CC_NUM);
+		getCardSecurityCodeEditField().setText(TestConstants.TestData.AMEX_CC_CODE);
 		// Cant select the month value due its content. Workaround was to select its value
-		webHelper.jsSelectByValue(getCardExpMonthDropdown().getWebElement(), TestConstants.TestData.VISA_CC_MONTH);
-		webHelper.jsSelect(getCardExpYearDropdown().getWebElement(), TestConstants.TestData.VISA_CC_YEAR);
+		webHelper.jsSelectByValue(getCardExpMonthDropdown().getWebElement(), TestConstants.TestData.AMEX_CC_MONTH);
+		webHelper.jsSelect(getCardExpYearDropdown().getWebElement(), TestConstants.TestData.AMEX_CC_YEAR);
 		getNameOnCardEditField().setText(TestConstants.TestData.VISA_CC_NAME);
 	}
 
