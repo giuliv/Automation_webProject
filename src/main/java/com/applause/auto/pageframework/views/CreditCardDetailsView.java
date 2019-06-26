@@ -130,7 +130,7 @@ public class CreditCardDetailsView extends AbstractDeviceView {
     protected Text getDefaultCardText() { return new Text(getLocator(this, "getDefaultCardText")); }
 
     @MobileElementLocator(android = "com.wearehathway.peets.development:id/expiry",
-            iOS = "//XCUIElementTypeApplication[@name=\"Peet's\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeTextField")
+            iOS = "//XCUIElementTypeButton[@name=\"Delete Card\"]/preceding-sibling::XCUIElementTypeTextField")
     protected TextBox getExpDateField() { return new TextBox(getLocator(this, "getExpDateField")); }
 
     @MobileElementLocator(android = "com.wearehathway.peets.development:id/deleteCardBtn", iOS = "Delete Card")
