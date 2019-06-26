@@ -77,8 +77,8 @@ public class TestConstants {
 		public static final String PEETS_CARD_LOWEST_AMOUNT = "1";
 		public static final String PEETS_CARD_BUY_AMOUNT = "Card +$10.00";
 
-		public static final String PEETS_CARD_NUMBER_CHROME_1 = "81001000000581";
-		public static final String PEETS_CARD_PIN_CHROME_1 = "9967";
+		public static final String PEETS_CARD_NUMBER_CHROME_1 = "81001000001011";
+		public static final String PEETS_CARD_PIN_CHROME_1 = "9056";
 		public static final String PEETS_CARD_NUMBER_CHROME_2 = "81001000000582";
 		public static final String PEETS_CARD_PIN_CHROME_2 = "3839";
 
@@ -93,6 +93,11 @@ public class TestConstants {
 		public static final String VISA_CC_YEAR = "2020";
 		public static final String VISA_CC_NAME = "QA Test Applause Auto";
 		public static final String VISA_CC_ZIP = "90404";
+
+		public static final String AMEX_CC_NUM = "378282246310005";
+		public static final String AMEX_CC_CODE = "2222";
+		public static final String AMEX_CC_MONTH = "12";
+		public static final String AMEX_CC_YEAR = "2020";
 
 		public static final String TOUR_SEARCH_TERMS = "Tour";
 		public static final String WEDNES_ROAST_SEARCH = "Kona";
@@ -159,6 +164,8 @@ public class TestConstants {
 		public static final String CC_CVV = "111";
 		public static final String CC_ZIP = "94608";
 		public static final String CC_NAME = "Mobile Test";
+		public static final String TRANSFER_ERROR = "One last thing";
+		public static final String TRANSFER_PROCESS_ERROR = "Please check your card number and pin code and try again";
 	}
 
 }

@@ -77,7 +77,7 @@ public class LandingView extends AbstractDeviceView {
 	 */
 	public void skipOnboarding() {
 		LOGGER.info("Skipping Onboarding");
-		syncHelper.suspend(5000);
+		syncHelper.suspend(10000);
 		getSkipButton().pressButton();
 		syncHelper.suspend(10000);
 	}
@@ -88,6 +88,8 @@ public class LandingView extends AbstractDeviceView {
 	 * @return
 	 */
 	public String getHeadingTextValue() {
+		syncHelper.suspend(3000);
+		getDriver().getPageSource();
 		return getHeadingText().getStringValue();
 	}
 
@@ -122,5 +124,11 @@ public class LandingView extends AbstractDeviceView {
 }
 
 class AndroidLandingView extends LandingView {
+
+	public void skipOnboarding() {
+		LOGGER.info("Skipping Onboarding");
+		getSkipButton().pressButton();
+		syncHelper.suspend(10000);
+	}
 
 }

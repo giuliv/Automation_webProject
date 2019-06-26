@@ -111,7 +111,11 @@ public class ShoppingCartPage extends AbstractPage {
 		LOGGER.info("Clicking Pay with Paypal");
 		getPaypalButton().click();
 		syncHelper.suspend(5000);
-		getPaypalButton().click();
+		try {
+			getPaypalButton().click();
+		} catch (Exception ex) {
+			LOGGER.info("Already clicked Paypal button");
+		}
 		return PageFactory.create(PaypalLoginPage.class);
 	}
 

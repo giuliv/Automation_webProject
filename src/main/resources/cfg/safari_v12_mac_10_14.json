@@ -14,6 +14,8 @@
     "platform" : "macOS 10.14",
     "acceptSSLAlerts" : "true",
     "screenResolution" : "1920x1440",
-    "seleniumVersion" : "3.14.0_safarilegacy"
+    "seleniumVersion" : "3.14.0_safarilegacy",
+    "extendedDebugging" : true,
+    "capturePerformance" : true
   }
 }

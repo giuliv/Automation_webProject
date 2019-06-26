@@ -2,6 +2,7 @@ package com.applause.auto.mobile.test;
 
 import java.util.Random;
 
+import com.applause.auto.pageframework.helpers.PeetsMobileHelper;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -42,7 +43,7 @@ public class CreateAccountTest extends BaseTest {
 		CreateAccountView createAccountView = landingView.createAccount();
 
 		LOGGER.info("Scroll down and check the footer links");
-		MobileHelper.scrollDown(4);
+		MobileHelper.scrollToBottom(3);
 
 		LOGGER.info(
 				"Make sure above the create account button is the copy and check-box: I agree to the Privacy Policy and Terms & Conditions");
@@ -108,7 +109,7 @@ public class CreateAccountTest extends BaseTest {
 
 		LOGGER.info("Launch the app and arrive at the first on boarding screen view");
 		LandingView landingView = DeviceViewFactory.create(LandingView.class);
-		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
+		softAssert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
 		landingView.skipOnboarding();
@@ -137,30 +138,23 @@ public class CreateAccountTest extends BaseTest {
 				+ "* Zip code (Optional) field\n" + "* Date of birth field (not editable)\n"
 				+ "* Phone number (Optional) field\n" + "* Email address field\n" + "* Change password link\n"
 				+ "* [Button] Save");
-		Assert.assertNotNull(profileDetailsView, "Profile details view does not passed validation");
+		softAssert.assertNotNull(profileDetailsView, "Profile details view does not passed validation");
 
 		LOGGER.info("Edit the fields that are editable");
 		String firstNameOrig = profileDetailsView.getFirstname();
 		String lastNameOrig = profileDetailsView.getLastname();
 		String zipCodeOrig = profileDetailsView.getZipCode();
-		String phoneOrig = profileDetailsView.getPhoneNumber();
 		String emailOrig = profileDetailsView.getEmailAddress();
 
-		String firstNameNew = firstNameOrig.replaceFirst("A", "AA");
-		String lastNameNew = lastNameOrig.replaceFirst("A", "AA");
+		String firstNameNew = "ApplauseUpdated";
+		String lastNameNew = "QAUpdated";
 		String zipCodeNew = "11214";
 
-		String phoneNew = "2";
-		Random random = new Random();
-		for (int i = 0; i < 9; i++) {
-			phoneNew += "" + random.nextInt(9);
-		}
 		String emailNew = emailOrig.replace(".com", ".net");
 
 		profileDetailsView.setFirstname(firstNameNew);
 		profileDetailsView.setLastname(lastNameNew);
 		profileDetailsView.setZipCode(zipCodeNew);
-		profileDetailsView.setPhoneNumber(phoneNew);
 		profileDetailsView.setEmailAddress(emailNew);
 		profileDetailsView.setConfirmEmailAddress(emailNew);
 
@@ -168,7 +162,7 @@ public class CreateAccountTest extends BaseTest {
 		accountMenuMobileChunk = profileDetailsView.save();
 
 		LOGGER.info("User should be directed back to the more screen");
-		Assert.assertNotNull(accountMenuMobileChunk, "User does not redirected to account menu");
+		softAssert.assertNotNull(accountMenuMobileChunk, "User does not redirected to account menu");
 
 		LOGGER.info("Tap on Profile Details field again");
 		profileDetailsView = accountMenuMobileChunk.profileDetails();
@@ -177,23 +171,21 @@ public class CreateAccountTest extends BaseTest {
 		String firstNameUpd = profileDetailsView.getFirstname();
 		String lastNameUpd = profileDetailsView.getLastname();
 		String zipCodeUpd = profileDetailsView.getZipCode();
-		String phoneUpd = profileDetailsView.getPhoneNumber();
 		String emailUpd = profileDetailsView.getEmailAddress();
-		Assert.assertEquals(firstNameUpd, firstNameNew, "Firstname does not updated");
-		Assert.assertEquals(lastNameUpd, lastNameNew, "Lastname does not updated");
-		Assert.assertEquals(zipCodeUpd, zipCodeNew, "zipcode does not updated");
-		Assert.assertEquals(phoneUpd.replace("(", "").replace(")", "").replace("-", "").replace(" ", ""),
-				phoneNew.replace("(", "").replace(")", "").replace("-", "").replace(" ", ""), "Phone does not updated");
-		Assert.assertEquals(emailUpd, emailNew, "email does not updated");
+		softAssert.assertEquals(firstNameUpd, firstNameNew, "Firstname does not updated");
+		softAssert.assertEquals(lastNameUpd, lastNameNew, "Lastname does not updated");
+		softAssert.assertEquals(zipCodeUpd, zipCodeNew, "zipcode does not updated");
+		softAssert.assertEquals(emailUpd, emailNew, "email does not updated");
 
 		LOGGER.info("Cleanup Restore original");
 		profileDetailsView.setFirstname(firstNameOrig);
 		profileDetailsView.setLastname(lastNameOrig);
 		profileDetailsView.setZipCode(zipCodeOrig);
-		profileDetailsView.setPhoneNumber(phoneOrig);
 		profileDetailsView.setEmailAddress(emailOrig);
 		profileDetailsView.setConfirmEmailAddress(emailOrig);
 		profileDetailsView.save();
+
+		softAssert.assertAll();
 
 	}
 
@@ -274,7 +266,7 @@ public class CreateAccountTest extends BaseTest {
 
 		LOGGER.info("Launch the app and arrive at the first on boarding screen view");
 		LandingView landingView = DeviceViewFactory.create(LandingView.class);
-		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
+		softAssert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
 		landingView.skipOnboarding();
@@ -314,8 +306,7 @@ public class CreateAccountTest extends BaseTest {
 
 		LOGGER.info(
 				"Make sure user sees an error message: \"Operation failed, check your current password and try again\" and is not able to change password");
-		Assert.assertEquals(changePasswordView.getMessage(), "Old Password is not correct",
-				"Wrong old password message do not match");
+		softAssert.assertTrue(changePasswordView.verifyMessage(), "Error message was incorrect");
 		changePasswordView = changePasswordView.dismissMessage(ChangePasswordView.class);
 
 		LOGGER.info("Tap show password icon");
@@ -325,13 +316,13 @@ public class CreateAccountTest extends BaseTest {
 		changePasswordView.setCurrentPassword(INITIAL_PASSWORD);
 
 		LOGGER.info("Make sure password entered is displayed");
-		Assert.assertEquals(changePasswordView.getCurrentPasswordUnhide(), INITIAL_PASSWORD,
+		softAssert.assertEquals(changePasswordView.getCurrentPasswordUnhide(), INITIAL_PASSWORD,
 				"Show password button does not work");
 		changePasswordView = changePasswordView.changePassword(ChangePasswordView.class);
 
 		LOGGER.info("Make sure user sees success check mark and a UI alert:\n" + "\n" + "* Header: Change Password\n"
 				+ "\n" + "* Text: Your new password has been set [Okay]\n" + "\n");
-		Assert.assertEquals(changePasswordView.getMessage(), "Your new password has been set",
+		softAssert.assertEquals(changePasswordView.getMessage(), "Your new password has been set",
 				"Wrong success password change message");
 
 		LOGGER.info("Tap okay to dismiss UI alert");
@@ -341,7 +332,7 @@ public class CreateAccountTest extends BaseTest {
 		accountMenuMobileChunk = profileDetailsView.goBack(AccountMenuMobileChunk.class);
 
 		LOGGER.info("Make sure user is directed to more screen");
-		Assert.assertNotNull(accountMenuMobileChunk, "User does not directed to more screen");
+		softAssert.assertNotNull(accountMenuMobileChunk, "User does not directed to more screen");
 
 		LOGGER.info("Scroll down and tap sign out button");
 		AuthenticationView authenticationView = accountMenuMobileChunk.signOut();
@@ -356,7 +347,7 @@ public class CreateAccountTest extends BaseTest {
 		signInView = signInView.signIn(SignInView.class);
 
 		LOGGER.info("Make sure user sees an error message and is not able to sign in");
-		Assert.assertEquals(signInView.getMessage(),
+		softAssert.assertEquals(signInView.getMessage(),
 				"The email and password you entered don't match. Please try again.", "Error message not found");
 
 		LOGGER.info("Tap okay to dismiss UI alert");
@@ -370,7 +361,7 @@ public class CreateAccountTest extends BaseTest {
 		dashboardView = signInView.signIn();
 
 		LOGGER.info("User should be able to sign in successfully with new password");
-		Assert.assertNotNull(dashboardView, "User does not logged in");
+		softAssert.assertNotNull(dashboardView, "User does not logged in");
 
 		// cleanup
 		LOGGER.info("Tap on ... at top right of home screen to view more screen");
@@ -390,6 +381,8 @@ public class CreateAccountTest extends BaseTest {
 
 		LOGGER.info("Tap Change Password button");
 		changePasswordView = changePasswordView.changePassword(ChangePasswordView.class);
+
+		softAssert.assertAll();
 
 	}
 
@@ -550,7 +543,7 @@ public class CreateAccountTest extends BaseTest {
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
-		landingView.skipOffer();
+		landingView.skipOnboarding();
 
 		LOGGER.info("Tap Sign In");
 		SignInView signInView = landingView.signIn();
@@ -574,13 +567,6 @@ public class CreateAccountTest extends BaseTest {
 				+ "* Back arrow");
 		Assert.assertNotNull(accountHistoryView, "User does not taken to account history screen");
 
-		LOGGER.info(
-				"Transactions should be organized by most recent transactions at the top and oldest transactions at the bottom and show date of the transaction [month day, year]");
-		Assert.assertEquals(accountHistoryView.getTransactionDate(0), "April 29, 2019",
-				"Transaction does not contain valid date format");
-
-		LOGGER.info("Transactions should be divided by month dividers");
-		Assert.assertEquals(accountHistoryView.getTransactionDateDivider(0), "April", "Wrong month divider");
 	}
 
 	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625882")
