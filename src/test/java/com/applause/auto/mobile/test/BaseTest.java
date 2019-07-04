@@ -2,12 +2,12 @@ package com.applause.auto.mobile.test;
 
 import java.lang.reflect.Method;
 
-import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
-import com.applause.auto.pageframework.helpers.PeetsMobileHelper;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
+import org.testng.asserts.SoftAssert;
 
+import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
 import com.applause.auto.framework.pageframework.util.drivers.DriverWrapper;
 import com.applause.auto.framework.pageframework.util.drivers.DriverWrapperManager;
 import com.applause.auto.framework.pageframework.util.environment.EnvironmentUtil;
@@ -15,11 +15,11 @@ import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.util.queryhelpers.DeviceElementQueryHelper;
 import com.applause.auto.framework.pageframework.util.synchronization.MobileNativeSyncHelper;
 import com.applause.auto.framework.test.listeners.TestListener;
+import com.applause.auto.pageframework.helpers.PeetsMobileHelper;
 import com.applause.auto.pageframework.helpers.TemplateTestHelper;
 import com.applause.auto.pageframework.testdata.CustomerConfig;
 
 import io.appium.java_client.AppiumDriver;
-import org.testng.asserts.SoftAssert;
 
 @Listeners(TestListener.class)
 public class BaseTest {

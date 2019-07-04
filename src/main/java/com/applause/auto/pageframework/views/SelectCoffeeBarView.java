@@ -4,14 +4,18 @@ import java.lang.invoke.MethodHandles;
 
 import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
 import com.applause.auto.framework.pageframework.device.DeviceChunkFactory;
+import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
 import com.applause.auto.framework.pageframework.device.MobileElementLocator;
 import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
 import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
 import com.applause.auto.framework.pageframework.devicecontrols.BaseDeviceControl;
 import com.applause.auto.framework.pageframework.devicecontrols.Button;
 import com.applause.auto.framework.pageframework.devicecontrols.Text;
+import com.applause.auto.framework.pageframework.devicecontrols.TextBox;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.pageframework.chunks.mobile.AllowLocationServicesPopupChunk;
+
+import com.google.common.collect.ImmutableMap;
 
 @AndroidImplementation(AndroidSelectCoffeeBarView.class)
 @IosImplementation(SelectCoffeeBarView.class)
@@ -76,6 +80,32 @@ public class SelectCoffeeBarView extends AbstractDeviceView {
 		return new Button(getLocator(this, "getEnableLocationButton"));
 	}
 
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/action_search", iOS = "search magnifier")
+	protected Button getSearchButton() {
+		return new Button(getLocator(this, "getSearchButton"));
+	}
+
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/searchField", iOS = "Search for coffeebar")
+	protected TextBox getSearchTextBox() {
+		return new TextBox(getLocator(this, "getSearchTextBox"));
+	}
+
+	@MobileElementLocator(android = "(//android.widget.RelativeLayout[@resource-id='com.wearehathway.peets.development:id/storeDetail'])[%s]", iOS = "//XCUIElementTypeStaticText[@name=\"Accepts Mobile Orders\"]/../../../../../following-sibling::XCUIElementTypeTable/XCUIElementTypeCell[%s]")
+	protected TextBox getSearchResultText(int index) {
+		return new TextBox(getLocator(this, "getSearchResultText", index));
+	}
+
+	public void search(String searchTxt) {
+		LOGGER.info("Searching for store: " + searchTxt);
+		getSearchButton().pressButton();
+		getSearchTextBox().enterText(searchTxt + "\n");
+	}
+
+	public NewOrderView openCoffeebarFromSearchResults(int index) {
+		LOGGER.info("Tap on Search result");
+		getSearchResultText(index).tapCenterOfElement();
+		return DeviceViewFactory.create(NewOrderView.class);
+	}
 }
 
 class AndroidSelectCoffeeBarView extends SelectCoffeeBarView {
@@ -84,5 +114,12 @@ class AndroidSelectCoffeeBarView extends SelectCoffeeBarView {
 		// Workaround for Automator hang
 		DeviceChunkFactory.create(AllowLocationServicesPopupChunk.class, "").notNow();
 		syncHelper.waitForElementToAppear(getSignature());
+	}
+
+	public void search(String searchTxt) {
+		LOGGER.info("Searching for store: " + searchTxt);
+		getSearchButton().pressButton();
+		getSearchTextBox().enterText(searchTxt);
+		getDriver().executeScript("mobile: performEditorAction", ImmutableMap.of("action", "search"));
 	}
 }
