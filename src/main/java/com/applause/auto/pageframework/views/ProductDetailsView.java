@@ -61,14 +61,10 @@ public class ProductDetailsView extends AbstractDeviceView {
 	 */
 	public <T extends AbstractDeviceView> T navigateBack(Class<T> clazz) {
 		LOGGER.info("Navigate Back");
-		LOGGER.info(">>>>" + getDriver().getPageSource());
 		getBackButton().pressButton();
-		LOGGER.info(">>>>>>>" + getDriver().getPageSource());
 		if (!clazz.equals(SearchResultsView.class)) {
 			getBackButton().pressButton();
-			LOGGER.info(">>>>>>>>>>" + getDriver().getPageSource());
 		}
-		LOGGER.info(">>>>>>>>>>>>>>>>>>" + getDriver().getPageSource());
 		return DeviceViewFactory.create(clazz);
 	}
 
