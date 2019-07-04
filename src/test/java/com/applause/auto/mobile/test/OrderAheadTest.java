@@ -1,5 +1,7 @@
 package com.applause.auto.mobile.test;
 
+import java.util.List;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -10,14 +12,17 @@ import com.applause.auto.pageframework.chunks.mobile.AllowLocationServicesSystem
 import com.applause.auto.pageframework.testdata.TestConstants;
 import com.applause.auto.pageframework.views.DashboardView;
 import com.applause.auto.pageframework.views.LandingView;
+import com.applause.auto.pageframework.views.NewOrderView;
 import com.applause.auto.pageframework.views.OrderAheadView;
+import com.applause.auto.pageframework.views.ProductDetailsView;
+import com.applause.auto.pageframework.views.SearchResultsView;
 import com.applause.auto.pageframework.views.SelectCoffeeBarView;
 
 public class OrderAheadTest extends BaseTest {
 
 	private LogController LOGGER = new LogController(OrderAheadTest.class);
 
-	@Test(groups = { TestConstants.TestNGGroups.ORDER_AHEAD }, description = "625889")
+	@Test(enabled = false, groups = { TestConstants.TestNGGroups.ORDER_AHEAD }, description = "625889")
 	public void locationServicesNotEnabled() {
 		LOGGER.info("Launch the app and arrive at the first on boarding screen view");
 		LandingView landingView = DeviceViewFactory.create(LandingView.class);
@@ -128,67 +133,61 @@ public class OrderAheadTest extends BaseTest {
 		LOGGER.info("Tap See Participating Coffeebars");
 		SelectCoffeeBarView selectCoffeeBarView = orderAhead.participatingCoffeebars();
 
-		LOGGER.info("User should be taken to Select Coffeebar screen:");
-		Assert.assertNotNull(selectCoffeeBarView, "User does not taken to Select Coffeebar screen");
+		LOGGER.info("Select a store from:\n" + "\n" + "Nearby\n" + "\n" + "Recent\n" + "\n" + "Favorites\n" + "\n"
+				+ "OR\n" + "\n" + "by using search function\n");
+		selectCoffeeBarView.search("94608");
+		NewOrderView newOrderView = selectCoffeeBarView.openCoffeebarFromSearchResults(1);
 
-		LOGGER.info("Allow Location Services to help you find nearby Peet's Coffeebars.");
-		Assert.assertEquals(selectCoffeeBarView.getEnableLocationDescription(),
-				"Allow Location Services to help you find nearby Peet's Coffeebars.",
-				"'Allow Location Services to help you find nearby Peet's Coffeebars.' text does not displayed");
+		LOGGER.info("Tap a category");
+		newOrderView.selectCategory("Espresso Beverages");
 
-		LOGGER.info("[Button] Enable Location");
-		Assert.assertTrue(selectCoffeeBarView.isEnableLocationButtonDisplayed(),
-				"[Button] Enable Location does not displayed");
+		LOGGER.info("Sub-categories should expand downward");
+		List<String> items = newOrderView.getCategoryItems("Espresso Beverages");
+		Assert.assertTrue(items.size() > 0, "Sub categories does not expand");
 
-		LOGGER.info("Tap enable location");
-		AllowLocationServicesPopupChunk allowLocationServicesPopupChunk = selectCoffeeBarView.enableLocation();
+		LOGGER.info("Select a sub-category");
+		newOrderView.selectSubCategory("Espresso Beverages", items.get(0));
 
-		LOGGER.info("Make sure Peet's branded Location Services alert appears:");
-		LOGGER.info("Title: Allow Location Services to help you find nearby Peet's Coffeebars.");
-		Assert.assertEquals(allowLocationServicesPopupChunk.getTitle(),
-				"Allow Location Services to help you find nearby Peet's Coffeebars",
-				"'Allow Location Services to help you find nearby Peet's Coffeebars' title does not found");
+		LOGGER.info("Select a product");
+		ProductDetailsView productDetail = newOrderView.selectProduct("Iced Espresso");
 
-		LOGGER.info("Text: Location Services will:\n" + "\n" + "* Only use your location while using the app\n" + "\n"
-				+ "* Not share your locations or information\n" + "\n" + "* Pinpoint the coffeebars closest to you");
-		// Assert.assertEquals(allowLocationServicesPopupChunk.getFormattedMessage(),
-		// "Location Services will: Allow Location Services to help you find nearby Peet’s
-		// Coffeebars Only use your location while using the app Not share your location or
-		// information Pinpoint the coffeebars closest to you",
-		// "Unexpected text: ");
-		LOGGER.info("[Button] Not Now [Button] Allow");
-		Assert.assertTrue(allowLocationServicesPopupChunk.isAllowButtonDisplayed(), "Allow button does not displayed");
-		Assert.assertTrue(allowLocationServicesPopupChunk.isNotNowButtonDisplayed(),
-				"Not Now button does not displayed");
+		LOGGER.info("User should be taken to product details page");
+		Assert.assertNotNull(productDetail, "User des not taken to product detail page");
 
-		LOGGER.info("Tap Allow");
-		AllowLocationServicesSystemPopupChunk allowLocationServicesSystemPopupChunk = allowLocationServicesPopupChunk
-				.allow();
+		LOGGER.info("Scroll down PDP and select a modifiers");
+		productDetail = productDetail.selectModifiers("Ice", "Light Ice");
 
-		LOGGER.info("Make sure user sees another UI alert:\n" + "\n"
-				+ "Title: Allow \"Peet's\" to access your location while you are using the app?");
-		Assert.assertEquals(allowLocationServicesSystemPopupChunk.getTitle(),
-				"Allow “Peets-Sandbox” to access your location while you are using the app?",
-				"Title: Allow \"Peet's\" to access your location while you are using the app? doe not displayed");
-		LOGGER.info(
-				"Text: Location services will only use your location while using the app, and will not share your location or information. Your location will be used to find the nearest coffeebar and place a mobile order.");
-		Assert.assertEquals(allowLocationServicesSystemPopupChunk.getFormattedMessage(),
-				"Location Services will only use your location while using the app, and will not share your location or information. Your location will be used to find the nearest coffeebar and place a mobile order.",
-				"Text: 'Location Services will only use your location while using the app, and will not share your location or information. Your location will be used to find the nearest coffeebar and place a mobile order.' does not displayed");
+		LOGGER.info("Return to main order menu screen");
+		newOrderView = productDetail.navigateBack(NewOrderView.class);
 
-		LOGGER.info("[Don't Allow] [Allow]");
-		Assert.assertTrue(allowLocationServicesSystemPopupChunk.isAllowButtonDisplayed(),
-				"Allow button does not displayed");
-		Assert.assertTrue(allowLocationServicesSystemPopupChunk.isDoNotAllowButtonDisplayed(),
-				"Don't Allow button does not displayed");
+		LOGGER.info("Tap on category header again");
+		newOrderView.selectCategory("Espresso Beverages");
 
-		LOGGER.info("Tap Allow");
-		allowLocationServicesSystemPopupChunk.allow();
+		LOGGER.info("Category should collapse");
+		items = newOrderView.getCategoryItems("Espresso Beverages");
+		Assert.assertTrue(items.size() == 0, "Categories does not collapsed");
 
-		LOGGER.info(
-				"User should see loading dial, nearby stores should appear under nearby stores tab and user should be able to select a store");
-		syncHelper.suspend(25000);
-		LOGGER.info(">>>>>>" + driver.getPageSource());
+		LOGGER.info("Tap on search icon");
+		LOGGER.info("Search menu field should appear at top of screen\n" + "\n"
+				+ "User should see a list of recent products (if applicable) populate below search field\n");
+		LOGGER.info("Tap into search field and manually enter a search term (i.e. mocha)");
+		SearchResultsView searchResultsView = newOrderView.search("mocha");
+
+		LOGGER.info("Make sure items appear");
+		Assert.assertTrue(searchResultsView.getResults().get(0).toLowerCase().contains("mocha"),
+				"No relevant search results");
+
+		LOGGER.info("Tap on an item");
+		ProductDetailsView productDetailsView = searchResultsView.selectSearchResultByIndex(0);
+
+		LOGGER.info("User should be taken to product details page:");
+		Assert.assertNotNull(productDetailsView, "Product detail view does not displayed");
+
+		LOGGER.info("Tap back arrow on PDP");
+		searchResultsView = productDetailsView.navigateBack(SearchResultsView.class);
+
+		LOGGER.info("User should be taken back to search menu screen");
+		Assert.assertNotNull(searchResultsView, "User does not taken back to search menu screen");
 	}
 
 }
