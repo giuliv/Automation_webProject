@@ -61,6 +61,31 @@ public class SelectCoffeeBarView extends AbstractDeviceView {
 		return DeviceChunkFactory.create(AllowLocationServicesPopupChunk.class, "");
 	}
 
+	/**
+	 * Search.
+	 *
+	 * @param searchTxt
+	 *            the search txt
+	 */
+	public void search(String searchTxt) {
+		LOGGER.info("Searching for store: " + searchTxt);
+		getSearchButton().pressButton();
+		getSearchTextBox().enterText(searchTxt + "\n");
+	}
+
+	/**
+	 * Open coffeebar from search results new order view.
+	 *
+	 * @param index
+	 *            the index
+	 * @return the new order view
+	 */
+	public NewOrderView openCoffeebarFromSearchResults(int index) {
+		LOGGER.info("Tap on Search result");
+		getSearchResultText(index).tapCenterOfElement();
+		return DeviceViewFactory.create(NewOrderView.class);
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -95,17 +120,6 @@ public class SelectCoffeeBarView extends AbstractDeviceView {
 		return new TextBox(getLocator(this, "getSearchResultText", index));
 	}
 
-	public void search(String searchTxt) {
-		LOGGER.info("Searching for store: " + searchTxt);
-		getSearchButton().pressButton();
-		getSearchTextBox().enterText(searchTxt + "\n");
-	}
-
-	public NewOrderView openCoffeebarFromSearchResults(int index) {
-		LOGGER.info("Tap on Search result");
-		getSearchResultText(index).tapCenterOfElement();
-		return DeviceViewFactory.create(NewOrderView.class);
-	}
 }
 
 class AndroidSelectCoffeeBarView extends SelectCoffeeBarView {

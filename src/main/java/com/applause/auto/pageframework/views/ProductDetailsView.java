@@ -33,6 +33,41 @@ public class ProductDetailsView extends AbstractDeviceView {
 		return getHeadingText().getStringValue();
 	}
 
+	/**
+	 * Select modifiers product details view.
+	 *
+	 * @param category
+	 *            the category
+	 * @param subCategory
+	 *            the sub category
+	 * @return the product details view
+	 */
+	public ProductDetailsView selectModifiers(String category, String subCategory) {
+		LOGGER.info("Select category: " + category + " | " + subCategory);
+		getCategoryItem(category).tapCenterOfElement();
+		getCategoryItem(subCategory).tapCenterOfElement();
+		getSaveChangesButton().pressButton();
+		return DeviceViewFactory.create(ProductDetailsView.class);
+	}
+
+	/**
+	 * Navigate back t.
+	 *
+	 * @param <T>
+	 *            the type parameter
+	 * @param clazz
+	 *            the clazz
+	 * @return the t
+	 */
+	public <T extends AbstractDeviceView> T navigateBack(Class<T> clazz) {
+		LOGGER.info("Navigate Back");
+		getBackButton().pressButton();
+		if (!clazz.equals(SearchResultsView.class)) {
+			getBackButton().pressButton();
+		}
+		return DeviceViewFactory.create(clazz);
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -55,23 +90,6 @@ public class ProductDetailsView extends AbstractDeviceView {
 	@MobileElementLocator(android = "Navigate up", iOS = "button back")
 	protected Button getBackButton() {
 		return new Button(getLocator(this, "getBackButton"));
-	}
-
-	public ProductDetailsView selectModifiers(String category, String subCategory) {
-		LOGGER.info("Select category: " + category + " | " + subCategory);
-		getCategoryItem(category).tapCenterOfElement();
-		getCategoryItem(subCategory).tapCenterOfElement();
-		getSaveChangesButton().pressButton();
-		return DeviceViewFactory.create(ProductDetailsView.class);
-	}
-
-	public <T extends AbstractDeviceView> T navigateBack(Class<T> clazz) {
-		LOGGER.info("Navigate Back");
-		getBackButton().pressButton();
-		if (!clazz.equals(SearchResultsView.class)) {
-			getBackButton().pressButton();
-		}
-		return DeviceViewFactory.create(clazz);
 	}
 }
 

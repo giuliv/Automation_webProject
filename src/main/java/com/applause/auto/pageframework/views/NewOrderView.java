@@ -37,6 +37,71 @@ public class NewOrderView extends AbstractDeviceView {
 		return getHeadingText().getStringValue();
 	}
 
+	/**
+	 * Select category.
+	 *
+	 * @param category
+	 *            the category
+	 */
+	public void selectCategory(String category) {
+		LOGGER.info("Select category: " + category);
+		getCategoryItem(category).tapCenterOfElement();
+		syncHelper.suspend(1000);
+	}
+
+	/**
+	 * Select product product details view.
+	 *
+	 * @param category
+	 *            the category
+	 * @return the product details view
+	 */
+	public ProductDetailsView selectProduct(String category) {
+		LOGGER.info("Select product: " + category);
+		getCategoryItem(category).tapCenterOfElement();
+		return DeviceViewFactory.create(ProductDetailsView.class);
+	}
+
+	/**
+	 * Gets category items.
+	 *
+	 * @param category
+	 *            the category
+	 * @return the category items
+	 */
+	public List<String> getCategoryItems(String category) {
+		LOGGER.info("Select category: " + category);
+		return getCategoryItemsElements(category).stream().filter(item -> item.isDisplayed())
+				.map(item -> item.getText()).collect(Collectors.toList());
+	}
+
+	/**
+	 * Select sub category.
+	 *
+	 * @param category
+	 *            the category
+	 * @param subcategory
+	 *            the subcategory
+	 */
+	public void selectSubCategory(String category, String subcategory) {
+		LOGGER.info(String.format("Select subcategory: %s %s", category, subcategory));
+		getSubCategoryItem(category, subcategory).tapCenterOfElement();
+	}
+
+	/**
+	 * Search search results view.
+	 *
+	 * @param searchItem
+	 *            the search item
+	 * @return the search results view
+	 */
+	public SearchResultsView search(String searchItem) {
+		LOGGER.info("Searching for: " + searchItem);
+		getSearchMagnifierButton().pressButton();
+		getSearchMenuEditField().enterText(searchItem);
+		return DeviceViewFactory.create(SearchResultsView.class);
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -56,12 +121,6 @@ public class NewOrderView extends AbstractDeviceView {
 		return queryHelper.findElements(getLocator(this, "getCategoryItemsElements", category));
 	}
 
-	// @MobileElementLocator(android = "TODO", iOS =
-	// "//XCUIElementTypeImage[@name=\"arrow-right\"]/preceding-sibling::XCUIElementTypeStaticText")
-	// protected List<MobileElement> getSearchResultsElements() {
-	// return queryHelper.findElements(getLocator(this, "getSearchResultsElements"));
-	// }
-
 	@MobileElementLocator(android = "//android.widget.TextView[@text=\"%s\"]/../following-sibling::android.support.v7.widget.RecyclerView/android.support.v7.widget.LinearLayoutCompat/android.widget.TextView[@text=\"%s\"]", iOS = "//XCUIElementTypeStaticText[@name=\"%s\"]/preceding-sibling::XCUIElementTypeStaticText[@name=\"%s\"]")
 	protected BaseDeviceControl getSubCategoryItem(String category, String subCategory) {
 		return new BaseDeviceControl(getLocator(this, "getSubCategoryItem", category, subCategory));
@@ -75,36 +134,6 @@ public class NewOrderView extends AbstractDeviceView {
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/search_src_text", iOS = "//XCUIElementTypeSearchField[@name=\"Search Menu\"]")
 	protected TextBox getSearchMenuEditField() {
 		return new TextBox(getLocator(this, "getSearchMenuEditField"));
-	}
-
-	public void selectCategory(String category) {
-		LOGGER.info("Select category: " + category);
-		getCategoryItem(category).tapCenterOfElement();
-		syncHelper.suspend(1000);
-	}
-
-	public ProductDetailsView selectProduct(String category) {
-		LOGGER.info("Select product: " + category);
-		getCategoryItem(category).tapCenterOfElement();
-		return DeviceViewFactory.create(ProductDetailsView.class);
-	}
-
-	public List<String> getCategoryItems(String category) {
-		LOGGER.info("Select category: " + category);
-		return getCategoryItemsElements(category).stream().filter(item -> item.isDisplayed())
-				.map(item -> item.getText()).collect(Collectors.toList());
-	}
-
-	public void selectSubCategory(String category, String subcategory) {
-		LOGGER.info(String.format("Select subcategory: %s %s", category, subcategory));
-		getSubCategoryItem(category, subcategory).tapCenterOfElement();
-	}
-
-	public SearchResultsView search(String searchItem) {
-		LOGGER.info("Searching for: " + searchItem);
-		getSearchMagnifierButton().pressButton();
-		getSearchMenuEditField().enterText(searchItem);
-		return DeviceViewFactory.create(SearchResultsView.class);
 	}
 
 }
