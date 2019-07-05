@@ -11,6 +11,7 @@ import com.applause.auto.framework.pageframework.devicecontrols.Button;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.pageframework.views.CheckInView;
 import com.applause.auto.pageframework.views.DashboardView;
+import com.applause.auto.pageframework.views.OrderAheadView;
 import com.applause.auto.pageframework.views.PeetsCardsView;
 
 @AndroidImplementation(BottomNavigationMenuChunk.class)
@@ -63,6 +64,17 @@ public class BottomNavigationMenuChunk extends AbstractDeviceChunk {
 		return DeviceViewFactory.create(DashboardView.class);
 	}
 
+	/**
+	 * Order order ahead view.
+	 *
+	 * @return the order ahead view
+	 */
+	public OrderAheadView order() {
+		LOGGER.info("Tap on Order");
+		getOrdersButton().pressButton();
+		return DeviceViewFactory.create(OrderAheadView.class);
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -77,9 +89,13 @@ public class BottomNavigationMenuChunk extends AbstractDeviceChunk {
 		return new Button(getLocator(this, "getPeetsCardsButton"));
 	}
 
+	@MobileElementLocator(android = "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[@text=\"Order\"]/..", iOS = "//XCUIElementTypeButton[@name=\"Order\"]")
+	protected Button getOrdersButton() {
+		return new Button(getLocator(this, "getOrdersButton"));
+	}
+
 	@MobileElementLocator(android = "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[@text=\"Check In\"]/..", iOS = "//XCUIElementTypeButton[@name=\"Check In\"]")
 	protected Button getCheckInButton() {
 		return new Button(getLocator(this, "getCheckInButton"));
 	}
-
 }

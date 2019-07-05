@@ -21,6 +21,7 @@ public class TestConstants {
 		// Mobile
 		public static final String ONBOARDING = "onboarding";
 		public static final String PEETS_CARDS = "peets-cards";
+		public static final String ORDER_AHEAD = "order-ahead";
 	}
 
 	/**
