@@ -176,8 +176,10 @@ class AndroidAllowLocationServicesPopupChunk extends AllowLocationServicesPopupC
 		getSettingsButton().pressButton();
 
 		LOGGER.info("Tap Permissions");
-		MobileHelper.androidScrollToText("Permissions");
-		getPermissionsButton().pressButton();
+		if (!syncHelper.isElementDisplayed(getLocator(this, "getPermissionsButton"))) {
+			MobileHelper.scrollDownHalfScreen(1);
+			getPermissionsButton().pressButton();
+		}
 
 		LOGGER.info("Toggle Locations");
 		if (!getLocationsCheckbox().isChecked()) {

@@ -87,7 +87,7 @@ public class SelectCoffeeBarView extends AbstractDeviceView {
 	}
 
 	public boolean isStoresDisplayed() {
-		return syncHelper.isElementDisplayed(getLocator(this, "getSearchResultText", 1));
+		return queryHelper.doesElementExist(getLocator(this, "getSearchResultText", 1));
 	}
 
 	/*
