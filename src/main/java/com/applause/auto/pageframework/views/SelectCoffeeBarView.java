@@ -87,7 +87,9 @@ public class SelectCoffeeBarView extends AbstractDeviceView {
 	}
 
 	public boolean isStoresDisplayed() {
-		return queryHelper.doesElementExist(getLocator(this, "getSearchResultText", 1));
+		boolean result = queryHelper.doesElementExist(getLocator(this, "getSearchResultText", 1));
+		LOGGER.info(">>>>>>>" + getDriver().getPageSource());
+		return result;
 	}
 
 	/*
