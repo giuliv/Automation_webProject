@@ -185,8 +185,6 @@ class AndroidAllowLocationServicesPopupChunk extends AllowLocationServicesPopupC
 		}
 
 		LOGGER.info("Navigate back");
-		LOGGER.info(">>>>>>>" + getDriver().getPageSource());
-
 		getNavigateBackButton().pressButton();
 		syncHelper.suspend(5000);
 		getNavigateBackButton().pressButton();
