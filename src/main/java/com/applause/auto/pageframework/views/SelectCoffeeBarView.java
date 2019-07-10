@@ -86,6 +86,10 @@ public class SelectCoffeeBarView extends AbstractDeviceView {
 		return DeviceViewFactory.create(NewOrderView.class);
 	}
 
+	public boolean isStoresDisplayed() {
+		return syncHelper.isElementDisplayed(getLocator(this, "getSearchResultText", 1));
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -126,7 +130,11 @@ class AndroidSelectCoffeeBarView extends SelectCoffeeBarView {
 	@Override
 	protected void waitUntilVisible() {
 		// Workaround for Automator hang
-		DeviceChunkFactory.create(AllowLocationServicesPopupChunk.class, "").notNow();
+		try {
+			DeviceChunkFactory.create(AllowLocationServicesPopupChunk.class, "").notNow();
+		} catch (AssertionError ase) {
+			LOGGER.warn("No popup found");
+		}
 		syncHelper.waitForElementToAppear(getSignature());
 	}
 
