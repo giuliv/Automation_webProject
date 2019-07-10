@@ -210,7 +210,7 @@ class AndroidAllowLocationServicesPopupChunk extends AllowLocationServicesPopupC
 		return new Checkbox(getLocator(this, "getLocationsCheckbox"));
 	}
 
-	@MobileElementLocator(android = "Navigate up")
+	@MobileElementLocator(android = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]")
 	protected Button getNavigateBackButton() {
 		return new Button(getLocator(this, "getNavigateBackButton"));
 	}
