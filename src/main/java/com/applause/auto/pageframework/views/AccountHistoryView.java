@@ -60,7 +60,7 @@ public class AccountHistoryView extends AbstractDeviceView {
 	 * Protected Getters
 	 */
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text='Account History']", iOS = "//XCUIElementTypeNavigationBar[@name=\"Account History\"]")
+	@MobileElementLocator(android = "//android.widget.TextView[@text='ACCOUNT HISTORY']", iOS = "//XCUIElementTypeNavigationBar[@name=\"ACCOUNT HISTORY\"]")
 	protected Text getSignatureText() {
 		return new Text(getLocator(this, "getSignatureText"));
 	}

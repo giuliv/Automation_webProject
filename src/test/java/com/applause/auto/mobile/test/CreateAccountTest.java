@@ -238,27 +238,6 @@ public class CreateAccountTest extends BaseTest {
 		LOGGER.info("Promotional emails setting should turn off");
 		Assert.assertFalse(generalSettingsView.isPromoEmailOptionChecked(), "Promo emails does not turned off");
 
-		LOGGER.info("Toggle Location Services off");
-		LOGGER.info("User should see UI alert:\n" + "\n" + "* Title: Disable Location Service\n" + "\n"
-				+ "* Text: To disable Location Service you need to go to the Application Settings.");
-		LOGGER.info("* Tap Go to Settings");
-		PeetsSettingsView peetsSettingsView = generalSettingsView.enableLocationServices().disableLocationServices();
-
-		LOGGER.info("User should be taken to Peet's app settings");
-		Assert.assertNotNull(peetsSettingsView, "Peet's app settings does not found");
-
-		LOGGER.info("* Tap on Location field");
-		peetsSettingsView.openLocation();
-
-		LOGGER.info("* Tap Never under Allow Location Access");
-		peetsSettingsView.selectNever();
-
-		LOGGER.info("Tap on back to \"Peet's\" to return to app");
-		generalSettingsView = peetsSettingsView.backToApp();
-
-		LOGGER.info("Toggle should be off in app");
-		Assert.assertFalse(generalSettingsView.isLocationServicesChecked(),
-				"Location services switch does not disabled");
 	}
 
 	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625926")

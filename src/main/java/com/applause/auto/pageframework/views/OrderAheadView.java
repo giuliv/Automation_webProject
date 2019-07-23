@@ -83,7 +83,7 @@ public class OrderAheadView extends AbstractDeviceView {
 		return new Button(getLocator(this, "getParticipatingCoffeebarsButton"));
 	}
 
-	@MobileElementLocator(android = "new UiSelector().textContains(\"Order Ahead\")", iOS = "Order Ahead")
+	@MobileElementLocator(android = "new UiSelector().textContains(\"Order Ahead\")", iOS = "Order Ahead.")
 	protected Text getHeadingText() {
 		return new Text(getLocator(this, "getHeadingText"));
 	}

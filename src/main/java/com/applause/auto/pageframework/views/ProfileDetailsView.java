@@ -270,7 +270,7 @@ public class ProfileDetailsView extends AbstractDeviceView {
 		return new Button(getLocator(this, "getBackButton"));
 	}
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text='Profile Details']", iOS = "//XCUIElementTypeOther[@name=\"Profile Details\"]")
+	@MobileElementLocator(android = "//android.widget.TextView[@text='PROFILE DETAILS']", iOS = "//XCUIElementTypeOther[@name=\"PROFILE DETAILS\"]")
 	protected Text getSignature() {
 		return new Text(getLocator(this, "getSignature"));
 	}
