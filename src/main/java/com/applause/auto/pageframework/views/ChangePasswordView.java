@@ -120,7 +120,7 @@ public class ChangePasswordView extends AbstractDeviceView {
 	 * Protected Getters
 	 */
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text='Change Password']|//*[@text='OKAY']", iOS = "//XCUIElementTypeNavigationBar[@visible='true' and @name=\"Change Password\"]|(//XCUIElementTypeAlert//XCUIElementTypeStaticText[@visible='true'])[1]")
+	@MobileElementLocator(android = "//android.widget.TextView[@text='CHANGE PASSWORD']|//*[@text='OKAY']", iOS = "//XCUIElementTypeNavigationBar[@visible='true' and @name=\"CHANGE PASSWORD\"]|(//XCUIElementTypeAlert//XCUIElementTypeStaticText[@visible='true'])[1]")
 	protected TextBox getSignature() {
 		return new TextBox(getLocator(this, "getSignature"));
 	}
