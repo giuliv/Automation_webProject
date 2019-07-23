@@ -481,7 +481,7 @@ public class CreateAccountView extends AbstractDeviceView {
 		return new Button(getLocator(this, "getTermsAndConditionsButton"));
 	}
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text='Create Account']", iOS = "//XCUIElementTypeNavigationBar[@name=\"Create Account\"]")
+	@MobileElementLocator(android = "//android.widget.TextView[@text='CREATE ACCOUNT']", iOS = "//XCUIElementTypeNavigationBar[@name=\"CREATE ACCOUNT\"]")
 	protected Text getHeadingText() {
 		return new Text(getLocator(this, "getHeadingText"));
 	}

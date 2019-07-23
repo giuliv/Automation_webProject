@@ -24,7 +24,7 @@ public class CompleteAccountView extends AbstractDeviceView {
 	 * Protected Getters
 	 */
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text='Complete Account']", iOS = "//XCUIElementTypeOther[@name=\"Complete Account\"]")
+	@MobileElementLocator(android = "//android.widget.TextView[@text='COMPLETE ACCOUNT']", iOS = "//XCUIElementTypeOther[@name=\"COMPLETE ACCOUNT\"]")
 	protected Text getSignature() {
 		return new Text(getLocator(this, "getSignature"));
 	}

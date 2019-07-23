@@ -171,7 +171,7 @@ public class GeneralSettingsView extends AbstractDeviceView {
 		return new Button(getLocator(this, "getAllowLocationServicesButton"));
 	}
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text='General Settings']", iOS = "General Settings")
+	@MobileElementLocator(android = "//android.widget.TextView[@text='GENERAL SETTINGS']", iOS = "GENERAL SETTINGS")
 	protected Text getHeadingText() {
 		return new Text(getLocator(this, "getHeadingText"));
 	}

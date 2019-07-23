@@ -25,11 +25,11 @@ public class OnboardingSlidesTest extends BaseTest {
 
 		LOGGER.info("Launch the app and arrive at the first onboarding screen view");
 		LandingView landingView = DeviceViewFactory.create(LandingView.class);
-		MobileHelper.scrollDown(2);
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
 		LOGGER.info("Swipe left and verify Explore Offers screen has correct title");
+		syncHelper.suspend(5000);
 		ExploreOffersView exploreOffersView = landingView.swipeLeftOnScreen();
 		Assert.assertEquals(exploreOffersView.getHeadingTextValue(), "Explore Offers.",
 				"First screen text value is not correct");
