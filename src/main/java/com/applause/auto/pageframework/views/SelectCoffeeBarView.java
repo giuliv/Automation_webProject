@@ -86,6 +86,11 @@ public class SelectCoffeeBarView extends AbstractDeviceView {
 		return DeviceViewFactory.create(NewOrderView.class);
 	}
 
+	public boolean isStoresDisplayed() {
+		boolean result = queryHelper.doesElementExist(getLocator(this, "getSearchResultText", 1));
+		return result;
+	}
+
 	/*
 	 * Protected Getters
 	 */
@@ -115,7 +120,7 @@ public class SelectCoffeeBarView extends AbstractDeviceView {
 		return new TextBox(getLocator(this, "getSearchTextBox"));
 	}
 
-	@MobileElementLocator(android = "(//android.widget.RelativeLayout[@resource-id='com.wearehathway.peets.development:id/storeDetail'])[%s]", iOS = "//XCUIElementTypeStaticText[@name=\"Accepts Mobile Orders\"]/../../../../../following-sibling::XCUIElementTypeTable/XCUIElementTypeCell[%s]")
+	@MobileElementLocator(android = "(//android.widget.RelativeLayout[@resource-id='com.wearehathway.peets.development:id/storeDetail'])[%s]", iOS = "//XCUIElementTypeTable/XCUIElementTypeCell[%s]")
 	protected TextBox getSearchResultText(int index) {
 		return new TextBox(getLocator(this, "getSearchResultText", index));
 	}
@@ -126,7 +131,11 @@ class AndroidSelectCoffeeBarView extends SelectCoffeeBarView {
 	@Override
 	protected void waitUntilVisible() {
 		// Workaround for Automator hang
-		DeviceChunkFactory.create(AllowLocationServicesPopupChunk.class, "").notNow();
+		try {
+			DeviceChunkFactory.create(AllowLocationServicesPopupChunk.class, "").notNow();
+		} catch (AssertionError ase) {
+			LOGGER.warn("No popup found");
+		}
 		syncHelper.waitForElementToAppear(getSignature());
 	}
 
