@@ -7,13 +7,17 @@ import org.openqa.selenium.Point;
 
 import com.applause.auto.framework.pageframework.device.AbstractDeviceChunk;
 import com.applause.auto.framework.pageframework.device.DeviceChunkFactory;
+import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
 import com.applause.auto.framework.pageframework.device.MobileElementLocator;
 import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
 import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
 import com.applause.auto.framework.pageframework.devicecontrols.BaseDeviceControl;
 import com.applause.auto.framework.pageframework.devicecontrols.Button;
+import com.applause.auto.framework.pageframework.devicecontrols.Checkbox;
 import com.applause.auto.framework.pageframework.devicecontrols.Text;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
+import com.applause.auto.pageframework.helpers.MobileHelper;
+import com.applause.auto.pageframework.views.SelectCoffeeBarView;
 
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
@@ -74,14 +78,19 @@ public class AllowLocationServicesPopupChunk extends AbstractDeviceChunk {
 	}
 
 	/**
-	 * Allow allow location services system popup chunk.
+	 * Allow select coffee bar view.
 	 *
-	 * @return the allow location services system popup chunk
+	 * @return the select coffee bar view
 	 */
-	public AllowLocationServicesSystemPopupChunk allow() {
+	public SelectCoffeeBarView allow() {
 		LOGGER.info("Tap Allow button");
 		getAllowButton().pressButton();
-		return DeviceChunkFactory.create(AllowLocationServicesSystemPopupChunk.class, "");
+		AllowLocationServicesSystemPopupChunk allowLocationServicesSystemPopupChunk = DeviceChunkFactory
+				.create(AllowLocationServicesSystemPopupChunk.class, "");
+
+		LOGGER.info("Tap Allow");
+		allowLocationServicesSystemPopupChunk.allow();
+		return DeviceViewFactory.create(SelectCoffeeBarView.class);
 	}
 
 	/**
@@ -154,6 +163,54 @@ class AndroidAllowLocationServicesPopupChunk extends AllowLocationServicesPopupC
 						point.y + getDriver().manage().window().getSize().height / 10))
 				.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(3))).tap(PointOption.point(point.x, point.y))
 				.perform();
+	}
+
+	@Override
+	public SelectCoffeeBarView allow() {
+		LOGGER.info("Tap Allow button");
+		getAllowButton().pressButton();
+		AllowLocationServicesSystemPopupChunk allowLocationServicesSystemPopupChunk = DeviceChunkFactory
+				.create(AllowLocationServicesSystemPopupChunk.class, "");
+
+		LOGGER.info("Tap Settings");
+		getSettingsButton().pressButton();
+
+		LOGGER.info("Tap Permissions");
+		MobileHelper.scrollDownHalfScreen(1);
+		getPermissionsButton().pressButton();
+
+		LOGGER.info("Toggle Locations");
+		if (!getLocationsCheckbox().isChecked()) {
+			getLocationsCheckbox().checkCheckbox();
+		}
+
+		LOGGER.info("Navigate back");
+		getNavigateBackButton().pressButton();
+		syncHelper.suspend(5000);
+		getNavigateBackButton().pressButton();
+		syncHelper.suspend(5000);
+
+		return DeviceViewFactory.create(SelectCoffeeBarView.class);
+	}
+
+	@MobileElementLocator(android = "android:id/button1")
+	protected Button getSettingsButton() {
+		return new Button(getLocator(this, "getSettingsButton"));
+	}
+
+	@MobileElementLocator(android = "//android.widget.TextView[@text='Permissions']")
+	protected Button getPermissionsButton() {
+		return new Button(getLocator(this, "getPermissionsButton"));
+	}
+
+	@MobileElementLocator(android = "//android.widget.RelativeLayout/android.widget.TextView[@text='Location']/../..//android.widget.Switch")
+	protected Checkbox getLocationsCheckbox() {
+		return new Checkbox(getLocator(this, "getLocationsCheckbox"));
+	}
+
+	@MobileElementLocator(android = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]")
+	protected Button getNavigateBackButton() {
+		return new Button(getLocator(this, "getNavigateBackButton"));
 	}
 
 }
