@@ -88,8 +88,8 @@ public class TestConstants {
 		public static final String PEETS_CARD_NUMBER_SAFARI_2 = "81001000000584";
 		public static final String PEETS_CARD_PIN_SAFARI_2 = "8240";
 
-		public static final String VISA_CC_NUMBER = "4111111111111111";
-		public static final String VISA_CC_SECURITY_CODE = "111";
+		public static final String VISA_CC_NUMBER = "378282246310005";
+		public static final String VISA_CC_SECURITY_CODE = "2222";
 		public static final String VISA_CC_MONTH = "12";
 		public static final String VISA_CC_YEAR = "2020";
 		public static final String VISA_CC_NAME = "QA Test Applause Auto";
