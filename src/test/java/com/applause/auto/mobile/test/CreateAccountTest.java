@@ -85,7 +85,7 @@ public class CreateAccountTest extends BaseTest {
 		signInView.setUsername(username);
 
 		LOGGER.info("Enter valid password");
-		signInView.setPassword(TestConstants.MyAccountTestData.PASSWORD);
+		signInView.setPassword(TestConstants.MyAccountTestData.FIRST_NAME);
 		Assert.assertTrue(!signInView.getPassword().equals(TestConstants.TestData.PASSWORD),
 				"Password does not hidden");
 
