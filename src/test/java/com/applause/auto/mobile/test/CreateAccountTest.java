@@ -327,7 +327,7 @@ public class CreateAccountTest extends BaseTest {
 
 		LOGGER.info("Make sure user sees an error message and is not able to sign in");
 		softAssert.assertEquals(signInView.getMessage(),
-				"The email and password you entered don't match. Please try again.", "Error message not found");
+				"There was an error while trying to log in to your account. Please check all of the required fields and try submitting again.", "Error message not found");
 
 		LOGGER.info("Tap okay to dismiss UI alert");
 		signInView.dismissMessage();

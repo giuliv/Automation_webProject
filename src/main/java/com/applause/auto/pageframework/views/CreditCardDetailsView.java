@@ -120,10 +120,10 @@ public class CreditCardDetailsView extends AbstractDeviceView {
     @MobileElementLocator(android = "com.wearehathway.peets.development:id/saveCardButton", iOS = "Save Card")
     protected Button getSaveCardButton() { return new Button(getLocator(this, "getSaveCardButton")); }
 
-    @MobileElementLocator(android = "com.wearehathway.peets.development:id/title", iOS = "//XCUIElementTypeOther[@name=\"Mobile Test\"]")
+    @MobileElementLocator(android = "com.wearehathway.peets.development:id/title", iOS = "//XCUIElementTypeOther[@name=\"MOBILE TEST\"]")
     protected Text getHeaderText() { return new Text(getLocator(this, "getHeaderText")); }
 
-    @MobileElementLocator(android = "com.wearehathway.peets.development:id/cardName", iOS = "//XCUIElementTypeStaticText[@name=\"Mobile Test\"]")
+    @MobileElementLocator(android = "com.wearehathway.peets.development:id/cardName", iOS = "//XCUIElementTypeStaticText[@name=\"MOBILE TEST\"]")
     protected Text getCCNameText() { return new Text(getLocator(this, "getCCNameText")); }
 
     @MobileElementLocator(android = "com.wearehathway.peets.development:id/defaultText", iOS = "Set as Default Payment")
