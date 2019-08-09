@@ -1,5 +1,6 @@
 package com.applause.auto.test.web;
 
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.EnvironmentHelper;
 import org.apache.logging.log4j.LogManager;
@@ -35,7 +36,6 @@ import com.applause.auto.web.views.PaymentMethodsPage;
 import com.applause.auto.web.views.ShopCoffeePage;
 import com.applause.auto.web.views.SignInPage;
 import com.applause.auto.web.views.SignUpPage;
-import com.applause.auto.common.data.TestConstants;
 
 import java.lang.invoke.MethodHandles;
 
@@ -44,7 +44,7 @@ public class MyAccountTest extends BaseTest {
 	private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 	private WebHelper webHelper = new WebHelper();
 
-	@Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133894")
+	@Test(groups = { Constants.TestNGGroups.MY_ACCOUNT }, description = "133894")
 	public void myAccountDashboard() {
 
 		logger.info("1. Navigate to landing page");
@@ -91,7 +91,7 @@ public class MyAccountTest extends BaseTest {
 		Assert.assertTrue(myAccountPage.isShippingAddressDisplayed(), "Shipping Address section is not displayed");
 	}
 
-	@Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133897")
+	@Test(groups = { Constants.TestNGGroups.MY_ACCOUNT }, description = "133897")
 	public void myAccountPaymentMethod() {
 
 		logger.info("1. Navigate to landing page");
@@ -117,7 +117,7 @@ public class MyAccountTest extends BaseTest {
 
 		logger.info("5. Edit Saved Payment Method");
 		EditPaymentMethodPage editPaymentMethodPage = paymentMethodsPage.clickEditCreditCard();
-		String updatedName = editPaymentMethodPage.enterNameOnCard(TestConstants.TestData.LAST_NAME);
+		String updatedName = editPaymentMethodPage.enterNameOnCard(Constants.TestData.LAST_NAME);
 		paymentMethodsPage = editPaymentMethodPage.clickSavePaymentMethod();
 		Assert.assertEquals(paymentMethodsPage.getNameOnCreditCard(), updatedName,
 				"Name on Credit Card was not updated");
@@ -130,11 +130,11 @@ public class MyAccountTest extends BaseTest {
 		AssociateNewCardPage associateNewCardPage = paymentMethodsPage.addPeetsCard();
     String alternatePeetsCardNumber =
         (EnvironmentHelper.isSafari(DriverManager.getDriver()))
-            ? TestConstants.TestData.PEETS_CARD_NUMBER_SAFARI_2
-            : TestConstants.TestData.PEETS_CARD_NUMBER_CHROME_2;
+            ? Constants.TestData.PEETS_CARD_NUMBER_SAFARI_2
+            : Constants.TestData.PEETS_CARD_NUMBER_CHROME_2;
 		associateNewCardPage.enterCardNumber(alternatePeetsCardNumber);
 		String alternatePeetsCardPin = (EnvironmentHelper.isSafari(DriverManager.getDriver()))
-				? TestConstants.TestData.PEETS_CARD_PIN_SAFARI_2 : TestConstants.TestData.PEETS_CARD_PIN_CHROME_2;
+				? Constants.TestData.PEETS_CARD_PIN_SAFARI_2 : Constants.TestData.PEETS_CARD_PIN_CHROME_2;
 		associateNewCardPage.enterPinNumber(alternatePeetsCardPin);
 		paymentMethodsPage = associateNewCardPage.clickAssociateCard();
 
@@ -142,7 +142,7 @@ public class MyAccountTest extends BaseTest {
 		Assert.assertTrue(paymentMethodsPage.isPeetsCardDisplayed(), "Peets Card is not displayed");
 	}
 
-	@Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133898")
+	@Test(groups = { Constants.TestNGGroups.MY_ACCOUNT }, description = "133898")
 	public void myAccountBillingAddress() {
 
 		logger.info("1. Navigate to landing page");
@@ -150,17 +150,17 @@ public class MyAccountTest extends BaseTest {
 
 		logger.info("2. Log In");
 		SignInPage signInPage = landing.clickSignInButton();
-		signInPage.enterEmailByBrowser(TestConstants.MyAccountTestData.EMAIL,
-				TestConstants.MyAccountTestData.SAFARI_BILLING_EMAIL);
-		signInPage.enterPassword(TestConstants.MyAccountTestData.PASSWORD);
+		signInPage.enterEmailByBrowser(Constants.MyAccountTestData.EMAIL,
+				Constants.MyAccountTestData.SAFARI_BILLING_EMAIL);
+		signInPage.enterPassword(Constants.MyAccountTestData.PASSWORD);
 		MyAccountPage myAccountPage = signInPage.clickonSignInButton();
 		Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
 		logger.info("3. Edit Billing Address");
 		EditBillingAddressPage editBillingAddressPage = myAccountPage.clickEditBillingAddress();
 		Assert.assertNotNull(editBillingAddressPage, "Edit Billing Address page is not displayed");
-		String address = editBillingAddressPage.enterAddress(TestConstants.TestData.ADDRESS,
-				TestConstants.MyAccountTestData.ADDRESS_LINE_2);
+		String address = editBillingAddressPage.enterAddress(Constants.TestData.ADDRESS,
+				Constants.MyAccountTestData.ADDRESS_LINE_2);
 		AddressBookPage addressBookPage = editBillingAddressPage.clickSaveAddress();
 
 		logger.info("4. Verify Billing Address Change");
@@ -173,19 +173,19 @@ public class MyAccountTest extends BaseTest {
 
 		logger.info("6. Add New Billing Address");
 		AddBillingAddressPage addBillingAddressPage = addressBookPage.clickAddNewBillingAddress();
-		addBillingAddressPage.enterAddressLine1(TestConstants.TestData.ADDRESS);
-		addBillingAddressPage.enterZipCode(TestConstants.TestData.ZIP_CODE);
-		addBillingAddressPage.selectState(TestConstants.TestData.STATE);
-		addBillingAddressPage.enterCity(TestConstants.TestData.CITY);
-		addBillingAddressPage.enterPhoneNumber(TestConstants.TestData.PHONE);
+		addBillingAddressPage.enterAddressLine1(Constants.TestData.ADDRESS);
+		addBillingAddressPage.enterZipCode(Constants.TestData.ZIP_CODE);
+		addBillingAddressPage.selectState(Constants.TestData.STATE);
+		addBillingAddressPage.enterCity(Constants.TestData.CITY);
+		addBillingAddressPage.enterPhoneNumber(Constants.TestData.PHONE);
 		addressBookPage = addBillingAddressPage.clickSaveAddress();
 
 		logger.info("7. Verify Address is Added");
-		Assert.assertTrue(addressBookPage.getBillingAddress().contains(TestConstants.TestData.ADDRESS));
+		Assert.assertTrue(addressBookPage.getBillingAddress().contains(Constants.TestData.ADDRESS));
 
 	}
 
-	@Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133899")
+	@Test(groups = { Constants.TestNGGroups.MY_ACCOUNT }, description = "133899")
 	public void myAccountShippingAddress() {
 
 		logger.info("1. Navigate to landing page");
@@ -193,17 +193,17 @@ public class MyAccountTest extends BaseTest {
 
 		logger.info("2. Log In");
 		SignInPage signInPage = landing.clickSignInButton();
-		signInPage.enterEmailByBrowser(TestConstants.MyAccountTestData.EMAIL,
-				TestConstants.MyAccountTestData.SAFARI_SHIPPING_EMAIL);
-		signInPage.enterPassword(TestConstants.MyAccountTestData.PASSWORD);
+		signInPage.enterEmailByBrowser(Constants.MyAccountTestData.EMAIL,
+				Constants.MyAccountTestData.SAFARI_SHIPPING_EMAIL);
+		signInPage.enterPassword(Constants.MyAccountTestData.PASSWORD);
 		MyAccountPage myAccountPage = signInPage.clickonSignInButton();
 		Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
 		logger.info("3. Edit Shipping Address");
 		EditShippingAddressPage editShippingAddressPage = myAccountPage.clickEditShippingAddress();
 		Assert.assertNotNull(editShippingAddressPage, "Edit Shipping Address page is not displayed");
-		String address = editShippingAddressPage.enterAddress(TestConstants.TestData.ADDRESS,
-				TestConstants.MyAccountTestData.ADDRESS_LINE_2);
+		String address = editShippingAddressPage.enterAddress(Constants.TestData.ADDRESS,
+				Constants.MyAccountTestData.ADDRESS_LINE_2);
 		AddressBookPage addressBookPage = editShippingAddressPage.clickSaveAddress();
 
 		logger.info("4. Verify Shipping Address Change");
@@ -216,19 +216,19 @@ public class MyAccountTest extends BaseTest {
 
 		logger.info("6. Add New Shipping Address");
 		AddShippingAddressPage addShippingAddressPage = addressBookPage.clickAddNewShippingAddress();
-		addShippingAddressPage.enterAddressLine1(TestConstants.TestData.ADDRESS);
-		addShippingAddressPage.enterZipCode(TestConstants.TestData.ZIP_CODE);
-		addShippingAddressPage.selectState(TestConstants.TestData.STATE);
-		addShippingAddressPage.enterCity(TestConstants.TestData.CITY);
-		addShippingAddressPage.enterPhoneNumber(TestConstants.TestData.PHONE);
+		addShippingAddressPage.enterAddressLine1(Constants.TestData.ADDRESS);
+		addShippingAddressPage.enterZipCode(Constants.TestData.ZIP_CODE);
+		addShippingAddressPage.selectState(Constants.TestData.STATE);
+		addShippingAddressPage.enterCity(Constants.TestData.CITY);
+		addShippingAddressPage.enterPhoneNumber(Constants.TestData.PHONE);
 		addressBookPage = addShippingAddressPage.clickSaveAddress();
 
 		logger.info("7. Verify Address was Added");
-		Assert.assertTrue(addressBookPage.getShippingAddress().contains(TestConstants.TestData.ADDRESS));
+		Assert.assertTrue(addressBookPage.getShippingAddress().contains(Constants.TestData.ADDRESS));
 
 	}
 
-	@Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133901")
+	@Test(groups = { Constants.TestNGGroups.MY_ACCOUNT }, description = "133901")
 	public void myAccountPeetsCards() {
 
 		logger.info("1. Navigate to landing page");
@@ -270,7 +270,7 @@ public class MyAccountTest extends BaseTest {
 		Assert.assertTrue(peetsCardsPage.isFAQLinkDisplayed(), "FAQ Link is not displayed");
 	}
 
-	@Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133895")
+	@Test(groups = { Constants.TestNGGroups.MY_ACCOUNT }, description = "133895")
 	public void myAccountMyOrdersTest() {
 
 		logger.info("1. Navigate to landing page");
@@ -311,7 +311,7 @@ public class MyAccountTest extends BaseTest {
 
 	}
 
-	@Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133900")
+	@Test(groups = { Constants.TestNGGroups.MY_ACCOUNT }, description = "133900")
 	public void myAccountSettings() {
 
 		logger.info("1. Navigate to landing page");
@@ -319,9 +319,9 @@ public class MyAccountTest extends BaseTest {
 
 		logger.info("2. Log In");
 		SignInPage signInPage = landing.clickSignInButton();
-		signInPage.enterEmailByBrowser(TestConstants.MyAccountTestData.MODIFY_ACCOUNT_EMAIL,
-				TestConstants.MyAccountTestData.SAFARI_ACCOUNT_EMAIL);
-		signInPage.enterPassword(TestConstants.MyAccountTestData.PASSWORD);
+		signInPage.enterEmailByBrowser(Constants.MyAccountTestData.MODIFY_ACCOUNT_EMAIL,
+				Constants.MyAccountTestData.SAFARI_ACCOUNT_EMAIL);
+		signInPage.enterPassword(Constants.MyAccountTestData.PASSWORD);
 		MyAccountPage myAccountPage = signInPage.clickonSignInButton();
 		Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
@@ -330,28 +330,28 @@ public class MyAccountTest extends BaseTest {
 		Assert.assertNotNull(editAccountInformationPage, "Edit Account Information page is not displayed");
 
 		logger.info("4. Edit Information");
-		editAccountInformationPage.enterFirstName(TestConstants.MyAccountTestData.FIRST_NAME);
-		String email = String.format(TestConstants.TestData.EMAIL, webHelper.returnTimestamp());
+		editAccountInformationPage.enterFirstName(Constants.MyAccountTestData.FIRST_NAME);
+		String email = String.format(Constants.TestData.EMAIL, webHelper.returnTimestamp());
 		editAccountInformationPage.enterEmail(email);
-		editAccountInformationPage.enterCurrentPassword(TestConstants.MyAccountTestData.PASSWORD);
+		editAccountInformationPage.enterCurrentPassword(Constants.MyAccountTestData.PASSWORD);
 		myAccountPage = editAccountInformationPage.clickSave();
 
 		logger.info("5. Verify Information Changed");
-		Assert.assertTrue(myAccountPage.getCustomerName().contains(TestConstants.MyAccountTestData.FIRST_NAME));
+		Assert.assertTrue(myAccountPage.getCustomerName().contains(Constants.MyAccountTestData.FIRST_NAME));
 		Assert.assertTrue(myAccountPage.getCustomerEmail().contains(email));
 
 		logger.info("6. Click Edit Contact Information");
 		editAccountInformationPage = myAccountPage.clickEditContactInformation();
 
 		logger.info("7. Revert Data");
-		editAccountInformationPage.enterEmailByBrowser(TestConstants.MyAccountTestData.MODIFY_ACCOUNT_EMAIL,
-				TestConstants.MyAccountTestData.SAFARI_ACCOUNT_EMAIL);
-		editAccountInformationPage.enterFirstName(TestConstants.TestData.FIRST_NAME);
-		editAccountInformationPage.enterCurrentPassword(TestConstants.MyAccountTestData.PASSWORD);
+		editAccountInformationPage.enterEmailByBrowser(Constants.MyAccountTestData.MODIFY_ACCOUNT_EMAIL,
+				Constants.MyAccountTestData.SAFARI_ACCOUNT_EMAIL);
+		editAccountInformationPage.enterFirstName(Constants.TestData.FIRST_NAME);
+		editAccountInformationPage.enterCurrentPassword(Constants.MyAccountTestData.PASSWORD);
 		editAccountInformationPage.clickSave();
 	}
 
-	@Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "133896")
+	@Test(groups = { Constants.TestNGGroups.MY_ACCOUNT }, description = "133896")
 	public void myAccountSubscriptionsTest() {
 
 		logger.info("1. Navigate to landing page");
@@ -383,7 +383,7 @@ public class MyAccountTest extends BaseTest {
 		Assert.assertTrue(suscriptionsDetailPage.isBillingAddressDisplayed(), "Billing Address is not displayed");
 	}
 
-	@Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "627698")
+	@Test(groups = { Constants.TestNGGroups.MY_ACCOUNT }, description = "627698")
 	public void myAccountCreateNewAccountTest() {
 
 		logger.info("1. Navigate to landing page");
@@ -403,7 +403,7 @@ public class MyAccountTest extends BaseTest {
 		Assert.assertNotNull(myAccountPage, "User does not signed in");
 	}
 
-	@Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "627699")
+	@Test(groups = { Constants.TestNGGroups.MY_ACCOUNT }, description = "627699")
 	public void myAccountCreateNewAccountAfterGuestCheckoutTest() {
 		logger.info("1. Navigate to landing page");
 		Landing landing = navigateToLanding();
@@ -411,8 +411,8 @@ public class MyAccountTest extends BaseTest {
 
 		logger.info("2. Select a coffee from grid view and add to cart");
 		ShopCoffeePage shopCoffeePage = landing.clickShopCoffeeButton();
-		CoffeeProductPage coffeeProductPage = shopCoffeePage.clickProductName(TestConstants.TestData.COFFEE_BRAND_NAME);
-		coffeeProductPage.selectAGrind(TestConstants.TestData.GRIND);
+		CoffeeProductPage coffeeProductPage = shopCoffeePage.clickProductName(Constants.TestData.COFFEE_BRAND_NAME);
+		coffeeProductPage.selectAGrind(Constants.TestData.GRIND);
 		MiniCartContainerChunk miniCartContainer = coffeeProductPage.clickAddToCart();
 
 		logger.info("3. Select 'Proceed to Checkout'");
@@ -425,7 +425,7 @@ public class MyAccountTest extends BaseTest {
 
 		logger.info("5. Select ground shipping");
 		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
-				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
+				.setShippingMethod(Constants.TestData.SHIPPING_METHOD_GROUND);
 
 		logger.info("6. Use credit card for payment");
 		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterFillingRequiredBillingInfo();
@@ -441,8 +441,8 @@ public class MyAccountTest extends BaseTest {
 
 		logger.info(
 				"On Order confirmation page, create a new account for new customers. Enter email address, password, confirm password. ");
-		confirmationPage.enterPassword(TestConstants.MyAccountTestData.PASSWORD);
-		confirmationPage.enterConfirmPassword(TestConstants.MyAccountTestData.PASSWORD);
+		confirmationPage.enterPassword(Constants.MyAccountTestData.PASSWORD);
+		confirmationPage.enterConfirmPassword(Constants.MyAccountTestData.PASSWORD);
 
 		logger.info("Select Create Account");
 		MyAccountPage myAccountPage = confirmationPage.createAccount();
@@ -451,7 +451,7 @@ public class MyAccountTest extends BaseTest {
 		Assert.assertNotNull(myAccountPage, "My Account page not found, account does not created");
 	}
 
-	@Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "627700")
+	@Test(groups = { Constants.TestNGGroups.MY_ACCOUNT }, description = "627700")
 	public void myAccountChangePasswordTest() {
 
 		logger.info("1. Navigate to landing page");
@@ -475,12 +475,12 @@ public class MyAccountTest extends BaseTest {
 		EditAccountInformationPage editAccountInformationPage = myAccountPage.clickSettings();
 
 		logger.info("7. Enter current password. Select checkbox for Change Password.");
-		editAccountInformationPage.enterCurrentPassword(TestConstants.TestData.PASSWORD);
+		editAccountInformationPage.enterCurrentPassword(Constants.TestData.PASSWORD);
 		editAccountInformationPage.changeCurrentPassword();
 
 		logger.info("8. Enter new password, Confirm password, Click Save");
-		editAccountInformationPage.enterNewPassword("new" + TestConstants.MyAccountTestData.PASSWORD);
-		editAccountInformationPage.enterConfirmPassword("new" + TestConstants.MyAccountTestData.PASSWORD);
+		editAccountInformationPage.enterNewPassword("new" + Constants.MyAccountTestData.PASSWORD);
+		editAccountInformationPage.enterConfirmPassword("new" + Constants.MyAccountTestData.PASSWORD);
 		myAccountPage = editAccountInformationPage.clickSave();
 
 		logger.info("9. Log Out");
@@ -489,7 +489,7 @@ public class MyAccountTest extends BaseTest {
 		logger.info("10. Log back in using new password");
 		signInPage = landing.clickSignInButton();
 		MyAccountPage myAccountPageNew = signInPage.userLogin(newAccountEmail,
-				"new" + TestConstants.MyAccountTestData.PASSWORD);
+				"new" + Constants.MyAccountTestData.PASSWORD);
 
 		logger.info("User should be able to log in");
 		Assert.assertNotNull(myAccountPageNew, "Use was not able to log in using new password");

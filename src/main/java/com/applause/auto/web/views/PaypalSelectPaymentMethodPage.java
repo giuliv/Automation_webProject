@@ -9,12 +9,13 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = PaypalSelectPaymentMethodPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = PaypalSelectPaymentMethodPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = PaypalSelectPaymentMethodPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = PaypalSelectPaymentMethodPage.class, on = Platform.WEB)
 public class PaypalSelectPaymentMethodPage extends BaseComponent {
 
-    // Public actions
+    /* -------- Elements -------- */
+
+    /* -------- Actions -------- */
+
 
     /**
      * Select Visa Payment Method
@@ -35,12 +36,12 @@ public class PaypalSelectPaymentMethodPage extends BaseComponent {
     }
 
     // Protected getters
-    @Locate(jQuery = ".noBottom.paymentsHeader.alpha", on = Platform.WEB_DESKTOP)
+    @Locate(css = ".noBottom.paymentsHeader.alpha", on = Platform.WEB)
     protected Text getViewSignature() { return new Text(this, getLocator(this, "getViewSignature")); }
 
-    @Locate(jQuery = "#xoSelectFi > div.row-fluid.justMember > div.span14.trayInner.reviewSections > div.reviews.reviews_first > div > div.trayInner.trayInnerDefault.multipleFi > div > ul > li:nth-child(3) > experience:nth-child(2) > div > div > ng-transclude > div.row-fluid.radioButton > label", on = Platform.WEB_DESKTOP)
+    @Locate(css = "#xoSelectFi > div.row-fluid.justMember > div.span14.trayInner.reviewSections > div.reviews.reviews_first > div > div.trayInner.trayInnerDefault.multipleFi > div > ul > li:nth-child(3) > experience:nth-child(2) > div > div > ng-transclude > div.row-fluid.radioButton > label", on = Platform.WEB)
     protected Button getCreditCardButton() { return new Button(this, getLocator(this, "getCreditCardButton")); }
 
-    @Locate(xpath = "//*[@id=\"button\"]", on = Platform.WEB_DESKTOP)
+    @Locate(xpath = "//*[@id=\"button\"]", on = Platform.WEB)
     protected Button getContinueButton() { return new Button(this, getLocator(this, "getContinueButton")); }
 }

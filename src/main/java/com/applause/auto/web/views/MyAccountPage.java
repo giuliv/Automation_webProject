@@ -14,14 +14,12 @@ import com.applause.auto.web.components.MainMenuChunk;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = MyAccountPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = MyAccountPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = MyAccountPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = MyAccountPage.class, on = Platform.WEB)
 public class MyAccountPage extends BaseComponent {
 
-	/*
-	 * Public Actions
-	 */
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
 
 	/**
 	 * Clicks on LoginMenu
@@ -233,7 +231,7 @@ public class MyAccountPage extends BaseComponent {
 	 */
 	public MainMenuChunk getMainMenu() {
 		logger.info("Getting Main Menu");
-		return ComponentFactory.create(MainMenuChunk.class, this, "");
+		return ComponentFactory.create(MainMenuChunk.class);
 	}
 
 	/**
@@ -317,7 +315,7 @@ public class MyAccountPage extends BaseComponent {
 	 * @return the account menu
 	 */
 	public AccountMenuChunk getAccountMenu() {
-		return ComponentFactory.create(AccountMenuChunk.class, this, "");
+		return ComponentFactory.create(AccountMenuChunk.class);
 	}
 
 	/**
@@ -336,85 +334,85 @@ public class MyAccountPage extends BaseComponent {
 	 * Protected Getters
 	 */
 
-	@Locate(jQuery = ".welcome-msg .title", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".welcome-msg .title", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(jQuery = "[title='Payment']", on = Platform.WEB_DESKTOP)
+	@Locate(css = "[title='Payment']", on = Platform.WEB)
 	protected Button getPaymentButton;
 
-	@Locate(jQuery = ".close-button", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".close-button", on = Platform.WEB)
 	protected Button getDismissPopupButton;
 
-	@Locate(jQuery = "div#peets-dashboard-subscription.box-account.peets-account-block", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div#peets-dashboard-subscription.box-account.peets-account-block", on = Platform.WEB)
 	protected Text getSubscriptionsSection;
 
-	@Locate(jQuery = "#peets-dashboard-subscription > div.box-head > a", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#peets-dashboard-subscription > div.box-head > a", on = Platform.WEB)
 	protected Link getSubscriptionsManageLink;
 
-	@Locate(xpath = "//a[text()='Edit']", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//a[text()='Edit']", on = Platform.WEB)
 	protected Button getSubscriptionsEditButton;
 
-	@Locate(jQuery = "div#cutsomer-dashboard-recent-orders.box-account.box-recent.peets-account-block", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div#cutsomer-dashboard-recent-orders.box-account.box-recent.peets-account-block", on = Platform.WEB)
 	protected Text getOrderHistorySection;
 
-	@Locate(jQuery = "#cutsomer-dashboard-recent-orders > div.box-head > a", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#cutsomer-dashboard-recent-orders > div.box-head > a", on = Platform.WEB)
 	protected Link getViewAllOrdersLink;
 
-	@Locate(jQuery = "td.review-col", on = Platform.WEB_DESKTOP)
+	@Locate(css = "td.review-col", on = Platform.WEB)
 	protected Button getOrderRatingButton;
 
-	@Locate(jQuery = "div#customer-dashboard-payments.box-account.box-recent.peets-account-block", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div#customer-dashboard-payments.box-account.box-recent.peets-account-block", on = Platform.WEB)
 	protected Text getPaymentSection;
 
-	@Locate(jQuery = "#customer-dashboard-payments > div.box-head > a", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#customer-dashboard-payments > div.box-head > a", on = Platform.WEB)
 	protected Link getPaymentManageCardsLink;
 
-	@Locate(jQuery = "div.details", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.details", on = Platform.WEB)
 	protected Image getPaymentDetailsImage;
 
-	@Locate(jQuery = "div#customer-dashboard-peets-cards.box-account.box-recent.peets-account-block", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div#customer-dashboard-peets-cards.box-account.box-recent.peets-account-block", on = Platform.WEB)
 	protected Text getPeetsCardSection;
 
-	@Locate(jQuery = "#customer-dashboard-peets-cards > div.box-head > a", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#customer-dashboard-peets-cards > div.box-head > a", on = Platform.WEB)
 	protected Link getPeetsCardManageCardsLink;
 
-	@Locate(jQuery = "div#customer-dashboard-settings.box-account", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div#customer-dashboard-settings.box-account", on = Platform.WEB)
 	protected Text getSettingsSection;
 
-	@Locate(jQuery = "#customer-dashboard-settings > div.box-head > a", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#customer-dashboard-settings > div.box-head > a", on = Platform.WEB)
 	protected Link getGoToAddressBookLink;
 
-	@Locate(jQuery = "#customer-dashboard-settings > div.box-content > div > div:nth-child(2)", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#customer-dashboard-settings > div.box-content > div > div:nth-child(2)", on = Platform.WEB)
 	protected Text getBillingAddressSection;
 
-	@Locate(jQuery = "#customer-dashboard-settings > div.box-content > div > div:nth-child(2) > div.head-block > a", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#customer-dashboard-settings > div.box-content > div > div:nth-child(2) > div.head-block > a", on = Platform.WEB)
 	protected Link getBillingAddressEditLink;
 
-	@Locate(jQuery = "#customer-dashboard-settings > div.box-content > div > div:nth-child(3)", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#customer-dashboard-settings > div.box-content > div > div:nth-child(3)", on = Platform.WEB)
 	protected Text getShippingAddressSection;
 
-	@Locate(jQuery = "[title='My Subscriptions']", on = Platform.WEB_DESKTOP)
+	@Locate(css = "[title='My Subscriptions']", on = Platform.WEB)
 	protected Link getMySuscriptionsLink;
 
-	@Locate(jQuery = "#customer-dashboard-settings > div.box-content > div > div:nth-child(3) > div.head-block > a", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#customer-dashboard-settings > div.box-content > div > div:nth-child(3) > div.head-block > a", on = Platform.WEB)
 	protected Link getShippingAddressEditLink;
 
-	@Locate(xpath = "//*[contains(@class,\"sidebar\")]//*[contains(@title,\"Peet's Cards\")]", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//*[contains(@class,\"sidebar\")]//*[contains(@title,\"Peet's Cards\")]", on = Platform.WEB)
 	protected Button getPeetsCardButton;
 
-	@Locate(jQuery = ".sidebar [title='Order History']", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".sidebar [title='Order History']", on = Platform.WEB)
 	protected Button getMyOrdersButton;
 
-	@Locate(jQuery = ".sidebar [title='Settings']", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".sidebar [title='Settings']", on = Platform.WEB)
 	protected Button getSettingButton;
 
-	@Locate(jQuery = "#customer-dashboard-settings > div.box-content > div > div:nth-child(1) > div.details > p:nth-child(1)", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#customer-dashboard-settings > div.box-content > div > div:nth-child(1) > div.details > p:nth-child(1)", on = Platform.WEB)
 	protected Text getCustomerNameText;
 
-	@Locate(jQuery = "#customer-dashboard-settings > div.box-content > div > div:nth-child(1) > div.head-block > a", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#customer-dashboard-settings > div.box-content > div > div:nth-child(1) > div.head-block > a", on = Platform.WEB)
 	protected Link getContactInformationEditLink;
 
-	@Locate(jQuery = "#customer-dashboard-settings > div.box-content > div > div:nth-child(1) > div.details > p:nth-child(2)", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#customer-dashboard-settings > div.box-content > div > div:nth-child(1) > div.details > p:nth-child(2)", on = Platform.WEB)
 	protected Text getCustomerEmailText;
 
 }

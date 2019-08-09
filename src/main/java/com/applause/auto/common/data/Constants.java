@@ -1,6 +1,6 @@
 package com.applause.auto.common.data;
 
-public class TestConstants {
+public class Constants {
 
   /** Test Groups */
   public static final class TestNGGroups {

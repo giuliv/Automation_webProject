@@ -12,14 +12,13 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.web.helpers.WebHelper;
 
-@Implementation(is = SignInPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = SignInPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = SignInPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = SignInPage.class, on = Platform.WEB)
 public class SignInPage extends BaseComponent {
 
-	/*
-	 * Public Actions
-	 */
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
+
 
 	/**
 	 * Enter Text into email field
@@ -39,7 +38,7 @@ public class SignInPage extends BaseComponent {
 	 */
 	public void enterEmailByBrowser(String email, String safariEmail) {
 		logger.info("Enter email");
-		if (env.getBrowserType() == BrowserType.SAFARI)
+		if (EnvironmentHelper.isSafari(DriverManager.getDriver()))
 			getEmailTextBox.sendKeys(safariEmail);
 		else
 			getEmailTextBox.sendKeys(email);
@@ -73,7 +72,7 @@ public class SignInPage extends BaseComponent {
 	 */
 	public MyAccountPage mainUserLogin() {
 		logger.info("Login with main user");
-		String username = (env.getBrowserType() == BrowserType.SAFARI) ? Constants.TestData.USERNAME_SAFARI
+		String username = (EnvironmentHelper.isSafari(DriverManager.getDriver())) ? Constants.TestData.USERNAME_SAFARI
 				: Constants.TestData.USERNAME;
 		enterEmail(username);
 		enterPassword(Constants.TestData.PASSWORD);
@@ -115,15 +114,15 @@ public class SignInPage extends BaseComponent {
 	 * Protected Getters
 	 */
 
-	@Locate(jQuery = "#email", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#email", on = Platform.WEB)
 	protected TextBox getEmailTextBox;
 
-	@Locate(jQuery = "#pass", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#pass", on = Platform.WEB)
 	protected TextBox getPasswordTextBox;
 
-	@Locate(jQuery = "#send2", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#send2", on = Platform.WEB)
 	protected Button getSignInButton;
 
-	@Locate(jQuery = ".new-users button", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".new-users button", on = Platform.WEB)
 	protected Button getCreateAccountButton;
 }

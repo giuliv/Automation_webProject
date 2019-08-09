@@ -11,10 +11,12 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = CheckoutConfirmationPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = CheckoutConfirmationPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = CheckoutConfirmationPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = CheckoutConfirmationPage.class, on = Platform.WEB)
 public class CheckoutConfirmationPage extends BaseComponent {
+
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
 
 	/*
 	 * Public Actions
@@ -88,27 +90,27 @@ public class CheckoutConfirmationPage extends BaseComponent {
 	 * Protected Getters
 	 */
 
-	@Locate(jQuery = ".default-page-text strong,.default-page-text .disc > li > a[href*='recurring_profile/view/profile']", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".default-page-text strong,.default-page-text .disc > li > a[href*='recurring_profile/view/profile']", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(jQuery = "h2.sub-title", on = Platform.WEB_DESKTOP)
+	@Locate(css = "h2.sub-title", on = Platform.WEB)
 	protected Text getPageSubtitleText;
 
-	@Locate(jQuery = ".default-page-text strong", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".default-page-text strong", on = Platform.WEB)
 	protected Text getOrderNumberText;
 
-	@Locate(jQuery = ".default-page-text .disc > li > a[href*='recurring_profile/view/profile']", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".default-page-text .disc > li > a[href*='recurring_profile/view/profile']", on = Platform.WEB)
 	protected Text getSubscriptionNumberText;
 
-	@Locate(jQuery = "#email_address", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#email_address", on = Platform.WEB)
 	protected TextBox getCreateAccountEmailTextBox;
 
-	@Locate(jQuery = "#password", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#password", on = Platform.WEB)
 	protected TextBox getCreateAccountPasswordTextBox;
 
-	@Locate(jQuery = "#confirmation", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#confirmation", on = Platform.WEB)
 	protected TextBox getCreateAccountConfirmPasswordTextBox;
 
-	@Locate(jQuery = "button[title='Create an Account']", on = Platform.WEB_DESKTOP)
+	@Locate(css = "button[title='Create an Account']", on = Platform.WEB)
 	protected Button getCreateAccountButton;
 }

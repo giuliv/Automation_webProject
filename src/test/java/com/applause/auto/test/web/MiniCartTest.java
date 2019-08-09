@@ -12,8 +12,8 @@ import com.applause.auto.web.components.MiniCartContainerChunk;
 import com.applause.auto.web.views.CoffeeProductPage;
 import com.applause.auto.web.views.Landing;
 import com.applause.auto.web.views.ShopCoffeePage;
-import com.applause.auto.common.data.TestConstants.TestData;
-import com.applause.auto.common.data.TestConstants.TestNGGroups;
+import com.applause.auto.common.data.Constants.TestData;
+import com.applause.auto.common.data.Constants.TestNGGroups;
 
 public class MiniCartTest extends BaseTest {
 

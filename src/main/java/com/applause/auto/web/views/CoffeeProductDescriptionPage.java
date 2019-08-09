@@ -13,10 +13,13 @@ import com.applause.auto.web.components.MiniCartContainerChunk;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = CoffeeProductDescriptionPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = CoffeeProductDescriptionPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = CoffeeProductDescriptionPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = CoffeeProductDescriptionPage.class, on = Platform.WEB)
 public class CoffeeProductDescriptionPage extends BaseComponent {
+
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
+
 	WebHelper webHelper = new WebHelper();
 
 	// Public actions
@@ -28,7 +31,7 @@ public class CoffeeProductDescriptionPage extends BaseComponent {
 	 */
 	public void selectGrind(String grind) {
 		logger.info("Select Grind");
-		if (env.getBrowserType() == BrowserType.SAFARI)
+		if (EnvironmentHelper.isSafari(DriverManager.getDriver()))
 			webHelper.jsSelect(getGrindSelectList.getWebElement(), grind);
 		else
 			getGrindSelectList.select(grind);
@@ -43,13 +46,13 @@ public class CoffeeProductDescriptionPage extends BaseComponent {
 		logger.info("Clicking Add To Cart");
 		SyncHelper.sleep(5000);
 		getAddToCartButton.click();
-		return ComponentFactory.create(MiniCartContainerChunk.class, this, "");
+		return ComponentFactory.create(MiniCartContainerChunk.class);
 	}
 
 	// Protected getters
-	@Locate(jQuery = ".button.btn-cart.btn-dark", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".button.btn-cart.btn-dark", on = Platform.WEB)
 	protected Button getAddToCartButton;
 
-	@Locate(jQuery = "#attribute198", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#attribute198", on = Platform.WEB)
 	protected SelectList getGrindSelectList;
 }

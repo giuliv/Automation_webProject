@@ -1,7 +1,7 @@
 package com.applause.auto.test.web;
 
 import com.applause.auto.base.BaseSeleniumTest;
-import com.applause.auto.common.data.TestConstants.TestData;
+import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.integrations.RunUtil;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;

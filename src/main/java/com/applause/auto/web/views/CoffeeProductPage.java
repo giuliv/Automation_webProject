@@ -15,10 +15,12 @@ import com.applause.auto.web.components.MiniCartContainerChunk;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = CoffeeProductPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = CoffeeProductPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = CoffeeProductPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = CoffeeProductPage.class, on = Platform.WEB)
 public class CoffeeProductPage extends BaseComponent {
+
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
 
 	WebHelper webHelper = new WebHelper();
 
@@ -45,7 +47,7 @@ public class CoffeeProductPage extends BaseComponent {
 		WebHelper.waitForElementToBeClickable(getAddToCartButton.getWebElement());
 		getAddToCartButton.click();
 		waitForAddingToCartSpinner();
-		return ComponentFactory.create(MiniCartContainerChunk.class, this, "");
+		return ComponentFactory.create(MiniCartContainerChunk.class);
 	}
 
 	public CreateSubscriptionChunk clickAddToSubscription() {
@@ -53,7 +55,7 @@ public class CoffeeProductPage extends BaseComponent {
 		WebHelper.waitForElementToBeClickable(getAddToSubscriptionCart.getWebElement());
 		getAddToSubscriptionCart.click();
 		waitForAddingToCartSpinner();
-		return ComponentFactory.create(CreateSubscriptionChunk.class, this, "");
+		return ComponentFactory.create(CreateSubscriptionChunk.class);
 	}
 
 	/**
@@ -91,21 +93,21 @@ public class CoffeeProductPage extends BaseComponent {
 	 * Protected Getters
 	 */
 
-	@Locate(jQuery = ".product-shop-holder .product-name", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".product-shop-holder .product-name", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(jQuery = ".product-shop-holder .add-to-cart button", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".product-shop-holder .add-to-cart button", on = Platform.WEB)
 	protected Button getAddToSubscriptionCart;
 
-	@Locate(jQuery = ".product-shop-holder .add-to-cart button", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".product-shop-holder .add-to-cart button", on = Platform.WEB)
 	protected Button getAddToCartButton;
 
-	@Locate(jQuery = "label[for='option-subscription']", on = Platform.WEB_DESKTOP)
+	@Locate(css = "label[for='option-subscription']", on = Platform.WEB)
 	protected Button getSubscriptionButton;
 
-	@Locate(jQuery = "#shopping-cart-please-wait", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#shopping-cart-please-wait", on = Platform.WEB)
 	protected ContainerElement getAddingToCartSpinner;
 
-	@Locate(jQuery = "#attribute198", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#attribute198", on = Platform.WEB)
 	protected SelectList getSelectGrindSelectList;
 }

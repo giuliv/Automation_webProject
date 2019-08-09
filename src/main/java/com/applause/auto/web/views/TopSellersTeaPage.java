@@ -11,14 +11,13 @@ import com.applause.auto.web.components.MiniCartContainerChunk;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = TopSellersTeaPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = TopSellersTeaPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = TopSellersTeaPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = TopSellersTeaPage.class, on = Platform.WEB)
 public class TopSellersTeaPage extends BaseComponent {
 
-	/*
-	 * Public Actions
-	 */
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
+
 
 	/**
 	 * Add product to cart mini cart container chunk.
@@ -31,20 +30,20 @@ public class TopSellersTeaPage extends BaseComponent {
 		logger.info("Adding to cart product: " + productName);
 		getAddProductToCartButton(productName).click();
 		getAddProductToCart2Button(productName).click();
-		return ComponentFactory.create(MiniCartContainerChunk.class, this, "");
+		return ComponentFactory.create(MiniCartContainerChunk.class);
 	}
 
 	/*
 	 * Protected Getters
 	 */
 
-	@Locate(xpath = "//h1[contains(.,'Top Sellers')]", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//h1[contains(.,'Top Sellers')]", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(xpath = "//a[@title='%s']/../..//a[contains(@class,'btn-cart')]", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//a[@title='%s']/../..//a[contains(@class,'btn-cart')]", on = Platform.WEB)
 	protected Button getAddProductToCartButton;
 
-	@Locate(xpath = "//a[@title='%s']/../..//button[contains(@class,'btn-cart')]", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//a[@title='%s']/../..//button[contains(@class,'btn-cart')]", on = Platform.WEB)
 	protected Button getAddProductToCart2Button;
 
 }

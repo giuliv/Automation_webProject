@@ -17,10 +17,13 @@ import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = CheckoutPaymentMethodPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = CheckoutPaymentMethodPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = CheckoutPaymentMethodPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = CheckoutPaymentMethodPage.class, on = Platform.WEB)
 public class CheckoutPaymentMethodPage extends BaseComponent {
+
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
+
 
 	WebHelper webHelper = new WebHelper();
 
@@ -59,10 +62,10 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
 	public void fillPeetsCardInfo(String amount) {
 		logger.info("Filling Peets Card info");
 
-		String peetsCardNumber = (env.getBrowserType() == BrowserType.SAFARI)
+		String peetsCardNumber = (EnvironmentHelper.isSafari(DriverManager.getDriver()))
 				? Constants.TestData.PEETS_CARD_NUMBER_SAFARI_1 : Constants.TestData.PEETS_CARD_NUMBER_CHROME_1;
 		getPeetsCardNumberTextBox.sendKeys(peetsCardNumber);
-		String peetsCardPin = (env.getBrowserType() == BrowserType.SAFARI)
+		String peetsCardPin = (EnvironmentHelper.isSafari(DriverManager.getDriver()))
 				? Constants.TestData.PEETS_CARD_PIN_SAFARI_1 : Constants.TestData.PEETS_CARD_PIN_CHROME_1;
 		getPeetsCardPinTextBox.sendKeys(peetsCardPin);
 		// Peets card loads its balance after clicking outside the Peets Card fields
@@ -184,58 +187,58 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
 	 * Protected Getters
 	 */
 
-	@Locate(jQuery = "h2#checkout-title-opc-billing.active", on = Platform.WEB_DESKTOP)
+	@Locate(css = "h2#checkout-title-opc-billing.active", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(jQuery = "#pc-title input", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#pc-title input", on = Platform.WEB)
 	protected Checkbox getPeetsCardCheckbox;
 
-	@Locate(jQuery = "#custompayment_pc_number", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#custompayment_pc_number", on = Platform.WEB)
 	protected TextBox getPeetsCardNumberTextBox;
 
-	@Locate(jQuery = "#custompayment_pc_pin", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#custompayment_pc_pin", on = Platform.WEB)
 	protected TextBox getPeetsCardPinTextBox;
 
-	@Locate(jQuery = "#custompayment_pc_amount", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#custompayment_pc_amount", on = Platform.WEB)
 	protected TextBox getPeetsCardAmountTextBox;
 
-	@Locate(jQuery = "#cc_checkbox", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#cc_checkbox", on = Platform.WEB)
 	protected Checkbox getDebitCreditCardCheckbox;
 
-	@Locate(jQuery = "#custompayment_cc_number", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#custompayment_cc_number", on = Platform.WEB)
 	protected TextBox getCardNumberTextBox;
 
-	@Locate(jQuery = "#custompayment_cc_cid", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#custompayment_cc_cid", on = Platform.WEB)
 	protected TextBox getCardSecurityCodeTextBox;
 
-	@Locate(jQuery = "input[id*='stored_cc_cid'][class*='validate-cc-cvn']", on = Platform.WEB_DESKTOP)
+	@Locate(css = "input[id*='stored_cc_cid'][class*='validate-cc-cvn']", on = Platform.WEB)
 	protected TextBox getValidateCSCTextBox;
 
-	@Locate(jQuery = "#custompayment_expiration", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#custompayment_expiration", on = Platform.WEB)
 	protected SelectList getCardExpMonthSelectList;
 
-	@Locate(jQuery = "#custompayment_expiration_yr", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#custompayment_expiration_yr", on = Platform.WEB)
 	protected SelectList getCardExpYearSelectList;
 
-	@Locate(jQuery = "#custompayment_cc_owner", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#custompayment_cc_owner", on = Platform.WEB)
 	protected TextBox getNameOnCardTextBox;
 
-	@Locate(xpath = "//input[contains(@id,'same_as_shipping')]", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//input[contains(@id,'same_as_shipping')]", on = Platform.WEB)
 	protected Checkbox getBillShippingAddressCheckbox;
 
-	@Locate(jQuery = "input[id='billing:email']", on = Platform.WEB_DESKTOP)
+	@Locate(css = "input[id='billing:email']", on = Platform.WEB)
 	protected TextBox getEmailTextBox;
 
-	@Locate(jQuery = "#billing-container button", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#billing-container button", on = Platform.WEB)
 	protected Button getContinueButton;
 
-	@Locate(jQuery = "#payment-button-continue", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#payment-button-continue", on = Platform.WEB)
 	protected Button getContinuePaymentButton;
 
-	@Locate(jQuery = "opc-please-wait", on = Platform.WEB_DESKTOP)
+	@Locate(css = "opc-please-wait", on = Platform.WEB)
 	protected ContainerElement getBillingLoadingSpinner;
 
-	@Locate(jQuery = "peets-card-please-wait", on = Platform.WEB_DESKTOP)
+	@Locate(css = "peets-card-please-wait", on = Platform.WEB)
 	protected ContainerElement getPeetsCardLoadingSpinner;
 
 }

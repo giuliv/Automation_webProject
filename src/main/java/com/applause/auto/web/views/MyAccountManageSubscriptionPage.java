@@ -9,12 +9,13 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = MyAccountManageSubscriptionPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = MyAccountManageSubscriptionPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = MyAccountManageSubscriptionPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = MyAccountManageSubscriptionPage.class, on = Platform.WEB)
 public class MyAccountManageSubscriptionPage extends BaseComponent {
 
-	// Public actions
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
+
 
 	/**
 	 * Verify Pause Cancel Subscription button is Displayed
@@ -47,16 +48,16 @@ public class MyAccountManageSubscriptionPage extends BaseComponent {
 	}
 
 	// Protected getters
-	@Locate(jQuery = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB_DESKTOP)
+	@Locate(css = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(jQuery = ".recurring-profile-title a", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".recurring-profile-title a", on = Platform.WEB)
 	protected Button getPauseCancelSubscriptionButton;
 
-	@Locate(jQuery = "div.shipment-title a", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.shipment-title a", on = Platform.WEB)
 	protected Button getManageShipmentButton;
 
-	@Locate(xpath = "//div[div[contains(.,'Billing Address')]]/address", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//div[div[contains(.,'Billing Address')]]/address", on = Platform.WEB)
 	protected Text getBillingAddressText;
 
 }

@@ -10,10 +10,12 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = CheckoutPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = CheckoutPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = CheckoutPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = CheckoutPage.class, on = Platform.WEB)
 public class CheckoutPage extends BaseComponent {
+
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
 
 	/*
 	 * Public Actions
@@ -34,10 +36,10 @@ public class CheckoutPage extends BaseComponent {
 	 * Protected Getters
 	 */
 
-	@Locate(jQuery = "div.default-message-page.login div.page-title h1", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.default-message-page.login div.page-title h1", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(jQuery = "div.new-users button", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.new-users button", on = Platform.WEB)
 	protected Button getClickContinueAsGuestButton;
 
 }

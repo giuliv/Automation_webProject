@@ -14,10 +14,12 @@ import com.applause.auto.web.components.MiniCartContainerChunk;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = PeetsCardProductPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = PeetsCardProductPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = PeetsCardProductPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = PeetsCardProductPage.class, on = Platform.WEB)
 public class PeetsCardProductPage extends BaseComponent {
+
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
 
 	WebHelper webHelper = new WebHelper();
 
@@ -43,7 +45,7 @@ public class PeetsCardProductPage extends BaseComponent {
 		logger.info("Tap on Shop Coffee Button");
 		getAddToCartButton.click();
 		waitForAddingToCartSpinner();
-		return ComponentFactory.create(MiniCartContainerChunk.class, this, "");
+		return ComponentFactory.create(MiniCartContainerChunk.class);
 	}
 
 	/**
@@ -60,16 +62,16 @@ public class PeetsCardProductPage extends BaseComponent {
 	 * Protected Getters
 	 */
 
-	@Locate(jQuery = ".product-shop .product-name", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".product-shop .product-name", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(jQuery = ".product-shop .add-to-cart button", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".product-shop .add-to-cart button", on = Platform.WEB)
 	protected Button getAddToCartButton;
 
-	@Locate(jQuery = "#shopping-cart-please-wait", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#shopping-cart-please-wait", on = Platform.WEB)
 	protected ContainerElement getAddingToCartSpinner;
 
-	@Locate(jQuery = "#select_1", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#select_1", on = Platform.WEB)
 	protected SelectList getSelectCardAmountSelectList;
 
 }

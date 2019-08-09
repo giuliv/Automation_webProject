@@ -10,14 +10,13 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = ShopCoffeePage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = ShopCoffeePage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = ShopCoffeePage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = ShopCoffeePage.class, on = Platform.WEB)
 public class ShopCoffeePage extends BaseComponent {
 
-	/*
-	 * Public Actions
-	 */
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
+
 
 	/**
 	 * Taps the sign in button.
@@ -34,9 +33,9 @@ public class ShopCoffeePage extends BaseComponent {
 	 * Protected Getters
 	 */
 
-	@Locate(jQuery = "div.top-banner div.text-content h1", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.top-banner div.text-content h1", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(xpath = "//ul[@class='prod-list']//li[strong[@class='product-name' and contains(.,'%s')]]", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//ul[@class='prod-list']//li[strong[@class='product-name' and contains(.,'%s')]]", on = Platform.WEB)
 	protected Button productNameButton;
 }

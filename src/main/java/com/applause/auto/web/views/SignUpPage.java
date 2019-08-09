@@ -15,10 +15,12 @@ import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = SignUpPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = SignUpPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = SignUpPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = SignUpPage.class, on = Platform.WEB)
 public class SignUpPage extends BaseComponent {
+
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
 
 	public String email;
 
@@ -92,40 +94,40 @@ public class SignUpPage extends BaseComponent {
 	 * Protected Getters
 	 */
 
-	@Locate(jQuery = ".account-create-form", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".account-create-form", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(jQuery = "#firstname", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#firstname", on = Platform.WEB)
 	protected TextBox getFirstNameTextBox;
 
-	@Locate(jQuery = "#lastname", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#lastname", on = Platform.WEB)
 	protected TextBox getLastNameTextBox;
 
-	@Locate(jQuery = "#email_address", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#email_address", on = Platform.WEB)
 	protected TextBox getEmailTextBox;
 
-	@Locate(jQuery = "#confirm_email", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#confirm_email", on = Platform.WEB)
 	protected TextBox getConfirmEmailTextBox;
 
-	@Locate(jQuery = "#password", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#password", on = Platform.WEB)
 	protected TextBox getPasswordTextBox;
 
-	@Locate(jQuery = "#confirmation", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#confirmation", on = Platform.WEB)
 	protected TextBox getConfirmPasswordTextBox;
 
-	@Locate(jQuery = "#zipcode", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#zipcode", on = Platform.WEB)
 	protected TextBox getZipCodeTextBox;
 
-	@Locate(jQuery = "#is_subscribed", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#is_subscribed", on = Platform.WEB)
 	protected Checkbox getSendEmailsCheckbox;
 
-	@Locate(jQuery = "#remember-me-box input", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#remember-me-box input", on = Platform.WEB)
 	protected Checkbox getRememberMeCheckbox;
 
-	@Locate(jQuery = ".buttons-set button", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".buttons-set button", on = Platform.WEB)
 	protected Button getSubmitButton;
 
-	@Locate(jQuery = "opc-please-wait", on = Platform.WEB_DESKTOP)
+	@Locate(css = "opc-please-wait", on = Platform.WEB)
 	protected ContainerElement getShippingLoadingSpinner;
 
 }

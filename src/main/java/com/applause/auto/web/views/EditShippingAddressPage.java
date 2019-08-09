@@ -12,10 +12,13 @@ import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = EditShippingAddressPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = EditShippingAddressPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = EditShippingAddressPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = EditShippingAddressPage.class, on = Platform.WEB)
 public class EditShippingAddressPage extends BaseComponent {
+
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
+
 	WebHelper webHelper = new WebHelper();
 
 	// Public actions
@@ -51,18 +54,18 @@ public class EditShippingAddressPage extends BaseComponent {
 	}
 
 	// Protected getters
-	@Locate(jQuery = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB_DESKTOP)
+	@Locate(css = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(jQuery = "#street_1", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#street_1", on = Platform.WEB)
 	protected TextBox getAddressLine1Field;
 
-	@Locate(jQuery = "#street_2", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#street_2", on = Platform.WEB)
 	protected TextBox getAddressLine2Field;
 
-	@Locate(jQuery = "button.button.btn-save", on = Platform.WEB_DESKTOP)
+	@Locate(css = "button.button.btn-save", on = Platform.WEB)
 	protected Button getSaveAddressButton;
 
-	@Locate(jQuery = "#qas-popup > div.modal-content-area > div > div.two-columns > div.right-column > div.qas-box-content > button", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#qas-popup > div.modal-content-area > div > div.two-columns > div.right-column > div.qas-box-content > button", on = Platform.WEB)
 	protected Button getUseAddressAsEnteredButton;
 }
