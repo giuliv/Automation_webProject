@@ -12,3 +12,4 @@ doc/
 *.log
 *.txt
 *-all.xml
+results/

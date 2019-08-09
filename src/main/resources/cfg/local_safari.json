@@ -1,16 +1,12 @@
-    {
-    	"deviceType" : "localweb",
-        "deviceClass" : "safari",
-        "manufacturer":"Apple",
-        "osVersion" : "10.12",
-        "os" : "OS X",
-        "deviceName" : "Safari on macOS",
-        "driverProvider" : "LOCAL_WEB",
-        "factoryConfigKey" : "WEBDESKTOP",
-        "hubUrl" : "local",
-        "caps" : {
-        	"browserName" : "safari",
-        	"acceptSSLAlerts" : "true",
-        	"acceptInsecureCerts" : "true"
-    	}
-    }
+{
+	"device_name" : "Local Safari",
+	"driver_type" : "Safari",
+	"factory_key" : "WEB_DESKTOP_SAFARI",
+	"os_name" : "local",
+	"os_version": "local",
+	"region" : "US",
+	"caps" : { 
+		"browserName" : "safari",
+        "acceptSSLAlerts" : "true"
+	}
+} 

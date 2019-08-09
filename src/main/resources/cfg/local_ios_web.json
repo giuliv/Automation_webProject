@@ -1,0 +1,13 @@
+{
+  "device_name" : "Local iOS Web",
+  "driver_type" : "iOS",
+  "factory_key" : "WEB_MOBILE",
+  "caps" : {
+    "browserName" : "Safari",
+    "platformName": "iOS",
+    "platformVersion": "11.2.6",
+    "deviceName": "iPhone",
+    "udid": "f4c1c9193012e913473cd2a4f5be7bfacd7e02e1",
+    "xcodeSigningId": "iPhone Developer"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "device_name" : "Local Android Web",
+  "driver_type" : "Android",
+  "factory_key" : "WEB_MOBILE",
+  "caps" : {
+    "browserName" : "Chrome",
+    "platformName": "ANDROID",
+    "platformVersion": "8.0",
+    "deviceName": "Android",
+    "udid": "fb56eb63"
+  }
+}

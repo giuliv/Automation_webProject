@@ -1,0 +1,9 @@
+{
+  "device_name" : "Local Edge",
+  "driver_type" : "Edge",
+  "factory_key" : "WEB_DESKTOP_EDGE",
+  "caps" : {
+    "browserName" : "edge",
+    "acceptSSLAlerts" : "true"
+  }
+}
