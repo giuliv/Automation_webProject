@@ -6,8 +6,11 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+import com.applause.auto.web.components.MainMenuChunk;
+import com.applause.auto.web.helpers.WebHelper;
 import org.openqa.selenium.TimeoutException;
 
 @Implementation(is = Landing.class, on = Platform.WEB)
@@ -54,16 +57,16 @@ public class Landing extends BaseComponent {
 
   /* -------- Actions -------- */
 
-  /*
   /**
    * Taps the sign in button.
    *
    * @return a Login
-   /
+   */
   public SignInPage clickSignInButton() {
   	logger.info("Tap on SignIn Button");
-  	WebHelper.waitForElementToBeClickable(signInButton.getWebElement());
-  	signInButton.click();
+  	// TODO: Do we really need this?
+  	// WebHelper.waitForElementToBeClickable(signInButton.getWebElement());
+    SyncHelper.wait(Until.uiElement(signInButton).clickable()).click();
   	return ComponentFactory.create(SignInPage.class);
   }
 
@@ -71,7 +74,7 @@ public class Landing extends BaseComponent {
    * Click Shop Coffee Button
    *
    * @return a Shop Coffee Page
-   /
+   */
   public ShopCoffeePage clickShopCoffeeButton() {
   	logger.info("Tap on Shop Coffee Button");
   	shopCoffeeButton.click();
@@ -82,7 +85,7 @@ public class Landing extends BaseComponent {
    * Click Shop Tea Button
    *
    * @return a Shop Tea Page
-   /
+   */
   public ShopTeaPage clickShopTeaButton() {
   	logger.info("Tap on Shop Tea Button");
   	shopTeaButton.click();
@@ -93,7 +96,7 @@ public class Landing extends BaseComponent {
    * Click Shop Equipment Button
    *
    * @return a Shop Equipment Page
-   /
+   */
   public ShopEquipmentPage clickShopEquipmentButton() {
   	logger.info("Tap on Shop Equipment Button");
   	shopEquipmentButton.click();
@@ -104,10 +107,10 @@ public class Landing extends BaseComponent {
    * s Main Menu
    *
    * @return MainMenuChunk
-   /
+   */
   public MainMenuChunk mainMenu() {
   	logger.info("ting Main Menu");
-  	return ComponentFactory.create(MainMenuChunk.class, this, "");
+  	return ComponentFactory.create(MainMenuChunk.class);
   }
 
   /**
@@ -115,7 +118,7 @@ public class Landing extends BaseComponent {
    *
    * @param searchTerms
    * @return SearchResultsPage
-   /
+   */
   public SearchResultsPage searchForProduct(String searchTerms) {
   	logger.info("Searching for " + searchTerms);
   	showSearchButton.click();
@@ -123,5 +126,4 @@ public class Landing extends BaseComponent {
   	searchButton.click();
   	return ComponentFactory.create(SearchResultsPage.class);
   }
-  */
 }
