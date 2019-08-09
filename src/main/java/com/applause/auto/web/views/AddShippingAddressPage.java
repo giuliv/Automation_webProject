@@ -1,34 +1,25 @@
 package com.applause.auto.web.views;
 
+import com.applause.auto.common.data.Constants;
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.pageframework.util.webDrivers.BrowserType;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.SelectList;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
-import com.applause.auto.framework.pageframework.webcontrols.EditField;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
-import com.applause.auto.web.helpers.WebHelper;
-import com.applause.auto.common.data.TestConstants;
-
-@WebDesktopImplementation(AddShippingAddressPage.class)
-@WebTabletImplementation(AddShippingAddressPage.class)
-@WebPhoneImplementation(AddShippingAddressPage.class)
-public class AddShippingAddressPage extends AbstractPage {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+@Implementation(is = AddShippingAddressPage.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = AddShippingAddressPage.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = AddShippingAddressPage.class, on = Platform.WEB_MOBILE_PHONE)
+public class AddShippingAddressPage extends BaseComponent {
 	WebHelper webHelper = new WebHelper();
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getViewSignature());
-	}
 
 	// Public actions
 
@@ -38,8 +29,8 @@ public class AddShippingAddressPage extends AbstractPage {
 	 * @param address
 	 */
 	public void enterAddressLine1(String address) {
-		LOGGER.info("Entering Address");
-		getAddressLine1Field().setText(address);
+		logger.info("Entering Address");
+		getAddressLine1Field.sendKeys(address);
 	}
 
 	/**
@@ -48,8 +39,8 @@ public class AddShippingAddressPage extends AbstractPage {
 	 * @param address
 	 */
 	public void enterAddressLine2(String address) {
-		LOGGER.info("Entering Address");
-		getAddressLine2Field().setText(address);
+		logger.info("Entering Address");
+		getAddressLine2Field.sendKeys(address);
 	}
 
 	/**
@@ -58,8 +49,8 @@ public class AddShippingAddressPage extends AbstractPage {
 	 * @param zipCode
 	 */
 	public void enterZipCode(String zipCode) {
-		LOGGER.info("Entering Zip Code");
-		getZipcodeField().setText(zipCode);
+		logger.info("Entering Zip Code");
+		getZipcodeField.sendKeys(zipCode);
 	}
 
 	/**
@@ -68,11 +59,11 @@ public class AddShippingAddressPage extends AbstractPage {
 	 * @param state
 	 */
 	public void selectState(String state) {
-		LOGGER.info("Selecting State");
+		logger.info("Selecting State");
 		if (env.getBrowserType() == BrowserType.SAFARI) {
-			webHelper.jsSelect(getStateDropdown().getWebElement(), TestConstants.TestData.STATE);
+			webHelper.jsSelect(getStateSelectList.getWebElement(), Constants.TestData.STATE);
 		} else {
-			getStateDropdown().select(state);
+			getStateSelectList.select(state);
 		}
 	}
 
@@ -82,8 +73,8 @@ public class AddShippingAddressPage extends AbstractPage {
 	 * @param city
 	 */
 	public void enterCity(String city) {
-		LOGGER.info("Entering City");
-		getCityField().setText(city);
+		logger.info("Entering City");
+		getCityField.sendKeys(city);
 	}
 
 	/**
@@ -92,8 +83,8 @@ public class AddShippingAddressPage extends AbstractPage {
 	 * @param phoneNum
 	 */
 	public void enterPhoneNumber(String phoneNum) {
-		LOGGER.info("Entering Phone Number");
-		getPhoneNumberField().setText(phoneNum);
+		logger.info("Entering Phone Number");
+		getPhoneNumberField.sendKeys(phoneNum);
 	}
 
 	/**
@@ -102,59 +93,41 @@ public class AddShippingAddressPage extends AbstractPage {
 	 * @return AddressBookPage
 	 */
 	public AddressBookPage clickSaveAddress() {
-		LOGGER.info("Clicking Save Address");
-		getSaveAddressButton().click();
-		syncHelper.suspend(3000);
-		if (getUseAddressAsEnteredButton().visible()) {
-			getUseAddressAsEnteredButton().click();
+		logger.info("Clicking Save Address");
+		getSaveAddressButton.click();
+		SyncHelper.sleep(3000);
+		if (getUseAddressAsEnteredButton.visible()) {
+			getUseAddressAsEnteredButton.click();
 		}
-		return PageFactory.create(AddressBookPage.class);
+		return ComponentFactory.create(AddressBookPage.class);
 	}
 
 	// Protected getters
-	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(jQuery = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
-	@WebElementLocator(webDesktop = "#street_1")
-	protected EditField getAddressLine1Field() {
-		return new EditField(this, getLocator(this, "getAddressLine1Field"));
-	}
+	@Locate(jQuery = "#street_1", on = Platform.WEB_DESKTOP)
+	protected TextBox getAddressLine1Field;
 
-	@WebElementLocator(webDesktop = "#street_2")
-	protected EditField getAddressLine2Field() {
-		return new EditField(this, getLocator(this, "getAddressLine2Field"));
-	}
+	@Locate(jQuery = "#street_2", on = Platform.WEB_DESKTOP)
+	protected TextBox getAddressLine2Field;
 
-	@WebElementLocator(webDesktop = "#zip")
-	protected EditField getZipcodeField() {
-		return new EditField(this, getLocator(this, "getZipcodeField"));
-	}
+	@Locate(jQuery = "#zip", on = Platform.WEB_DESKTOP)
+	protected TextBox getZipcodeField;
 
-	@WebElementLocator(webDesktop = "#region_id")
-	protected Dropdown getStateDropdown() {
-		return new Dropdown(this, getLocator(this, "getStateDropdown"));
-	}
+	@Locate(jQuery = "#region_id", on = Platform.WEB_DESKTOP)
+	protected SelectList getStateSelectList;
 
-	@WebElementLocator(webDesktop = "#city")
-	protected EditField getCityField() {
-		return new EditField(this, getLocator(this, "getCityField"));
-	}
+	@Locate(jQuery = "#city", on = Platform.WEB_DESKTOP)
+	protected TextBox getCityField;
 
-	@WebElementLocator(webDesktop = "#telephone")
-	protected EditField getPhoneNumberField() {
-		return new EditField(this, getLocator(this, "getPhoneNumberField"));
-	}
+	@Locate(jQuery = "#telephone", on = Platform.WEB_DESKTOP)
+	protected TextBox getPhoneNumberField;
 
-	@WebElementLocator(webDesktop = "button.button.btn-save")
-	protected Button getSaveAddressButton() {
-		return new Button(this, getLocator(this, "getSaveAddressButton"));
-	}
+	@Locate(jQuery = "button.button.btn-save", on = Platform.WEB_DESKTOP)
+	protected Button getSaveAddressButton;
 
-	@WebElementLocator(webDesktop = "#qas-popup > div.modal-content-area > div > div.two-columns > div.right-column > div.qas-box-content > button")
-	protected Button getUseAddressAsEnteredButton() {
-		return new Button(this, getLocator(this, "getUseAddressAsEnteredButton"));
-	}
+	@Locate(jQuery = "#qas-popup > div.modal-content-area > div > div.two-columns > div.right-column > div.qas-box-content > button", on = Platform.WEB_DESKTOP)
+	protected Button getUseAddressAsEnteredButton;
 
 }

@@ -1,36 +1,30 @@
 package com.applause.auto.web.components;
 
-import java.lang.invoke.MethodHandles;
-
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-
+import com.applause.auto.common.data.Constants;
+import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.pageframework.UIData;
-import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.AbstractPageChunk;
-import com.applause.auto.framework.pageframework.web.ChunkFactory;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.framework.pageframework.util.webDrivers.BrowserType;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.QueryHelper;
 import com.applause.auto.web.helpers.WebHelper;
-import com.applause.auto.web.views.LandingPage;
+import com.applause.auto.web.views.Landing;
 import com.applause.auto.web.views.PeetsCardProductPage;
 import com.applause.auto.web.views.ShopEquipmentPage;
 import com.applause.auto.web.views.ShopGiftSubscriptionsPage;
 import com.applause.auto.web.views.ShopTeaPage;
-import com.applause.auto.common.data.TestConstants;
+import java.lang.invoke.MethodHandles;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
-@WebDesktopImplementation(MainMenuChunk.class)
-@WebTabletImplementation(MainMenuChunk.class)
-@WebPhoneImplementation(MainMenuChunk.class)
-public class MainMenuChunk extends AbstractPageChunk {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+@Implementation(is = MainMenuChunk.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = MainMenuChunk.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = MainMenuChunk.class, on = Platform.WEB_MOBILE_PHONE)
+public class MainMenuChunk extends BaseComponent {
 
 	/**
 	 * Constructor.
@@ -42,12 +36,6 @@ public class MainMenuChunk extends AbstractPageChunk {
 		super(parent, selector);
 	}
 
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getViewSignature());
-	}
-
 	/*
 	 * Public actions
 	 */
@@ -57,7 +45,7 @@ public class MainMenuChunk extends AbstractPageChunk {
 	 *
 	 */
 	public void hoverCategory(String category) {
-		LOGGER.info("Hover a category in the main menu");
+		logger.info("Hover a category in the main menu");
 		WebElement element = getMainMenuCategoryButton(category).getWebElement();
 		Actions actions = new Actions(getDriver());
 		actions.moveToElement(element).build().perform();
@@ -68,7 +56,7 @@ public class MainMenuChunk extends AbstractPageChunk {
 	 *
 	 */
 	public void clickCategorySubmenu(String category, String subMenu) {
-		LOGGER.info(String.format("Accessing Sub-Menu '%s' under category '%s'", subMenu, category));
+		logger.info(String.format("Accessing Sub-Menu '%s' under category '%s'", subMenu, category));
 		hoverCategory(category);
 		getCategorySubmenuButton(subMenu).click();
 	}
@@ -78,7 +66,7 @@ public class MainMenuChunk extends AbstractPageChunk {
 	 *
 	 */
 	public void clickCategoryOption(String category, String option) {
-		LOGGER.info(String.format("Accessing option '%s' under category '%s'", option, category));
+		logger.info(String.format("Accessing option '%s' under category '%s'", option, category));
 		hoverCategory(category);
 		getCategoryOptionButton(option).click();
 	}
@@ -98,16 +86,16 @@ public class MainMenuChunk extends AbstractPageChunk {
 	 *            the option
 	 * @return the t
 	 */
-	public <T extends AbstractPage> T clickCategoryOption(Class<T> clazz, String category, String column,
+	public <T extends BaseComponent> T clickCategoryOption(Class<T> clazz, String category, String column,
 			String option) {
-		LOGGER.info(String.format("Accessing category [%s] subcategory [%s] option [%s]", category, column, option));
+		logger.info(String.format("Accessing category [%s] subcategory [%s] option [%s]", category, column, option));
 		if (env.getBrowserType() != BrowserType.SAFARI) {
 			hoverCategory(category);
 			getCategoryColumnOptionButton(column, option).click();
 		} else {
 			getDriver().get(getCategoryColumnOptionButton(column, option).getAttributeValue("href"));
 		}
-		return PageFactory.create(clazz);
+		return ComponentFactory.create(clazz);
 	}
 
 	/**
@@ -115,9 +103,9 @@ public class MainMenuChunk extends AbstractPageChunk {
 	 *
 	 */
 	public ShopTeaPage accessShopTea() {
-		LOGGER.info("Accessing Shop-Tea");
-		clickCategorySubmenu(TestConstants.TestMainMenu.NAV_CATEGORY_SHOP, TestConstants.TestMainMenu.NAV_SUBMENU_TEA);
-		return PageFactory.create(ShopTeaPage.class);
+		logger.info("Accessing Shop-Tea");
+		clickCategorySubmenu(Constants.TestMainMenu.NAV_CATEGORY_SHOP, Constants.TestMainMenu.NAV_SUBMENU_TEA);
+		return ComponentFactory.create(ShopTeaPage.class);
 	}
 
 	/**
@@ -126,10 +114,10 @@ public class MainMenuChunk extends AbstractPageChunk {
 	 * @return ShopGiftSubscriptionsPage
 	 */
 	public ShopGiftSubscriptionsPage accessShopGiftSubscriptions() {
-		LOGGER.info("Accessing Shop Gift Subscriptions");
-		hoverCategory(TestConstants.TestMainMenu.NAV_CATEGORY_SHOP);
-		getSubcategoryButton(TestConstants.TestMainMenu.NAV_SUBMENU_GIFT_SUBSCRIPTIONS).click();
-		return PageFactory.create(ShopGiftSubscriptionsPage.class);
+		logger.info("Accessing Shop Gift Subscriptions");
+		hoverCategory(Constants.TestMainMenu.NAV_CATEGORY_SHOP);
+		getSubcategoryButton(Constants.TestMainMenu.NAV_SUBMENU_GIFT_SUBSCRIPTIONS).click();
+		return ComponentFactory.create(ShopGiftSubscriptionsPage.class);
 	}
 
 	/**
@@ -137,21 +125,21 @@ public class MainMenuChunk extends AbstractPageChunk {
 	 *
 	 */
 	public ShopEquipmentPage accessShopEquipment() {
-		LOGGER.info("Accessing Shop-Equipment");
-		clickCategorySubmenu(TestConstants.TestMainMenu.NAV_CATEGORY_SHOP,
-				TestConstants.TestMainMenu.NAV_SUBMENU_EQUIPMENT);
-		return PageFactory.create(ShopEquipmentPage.class);
+		logger.info("Accessing Shop-Equipment");
+		clickCategorySubmenu(Constants.TestMainMenu.NAV_CATEGORY_SHOP,
+				Constants.TestMainMenu.NAV_SUBMENU_EQUIPMENT);
+		return ComponentFactory.create(ShopEquipmentPage.class);
 	}
 
 	/**
 	 * Click Peets Coffee logo
 	 *
-	 * @return LandingPage
+	 * @return Landing
 	 */
-	public LandingPage clickHeaderLogo() {
-		LOGGER.info("Click Peets Coffee logo");
-		getHeaderLogo().click();
-		return PageFactory.create(LandingPage.class);
+	public Landing clickHeaderLogo() {
+		logger.info("Click Peets Coffee logo");
+		getHeaderLogo.click();
+		return ComponentFactory.create(Landing.class);
 	}
 
 	/**
@@ -159,10 +147,10 @@ public class MainMenuChunk extends AbstractPageChunk {
 	 *
 	 */
 	public PeetsCardProductPage accessCardsByMail() {
-		LOGGER.info("Accessing Shop-Equipment");
-		clickCategorySubmenu(TestConstants.TestMainMenu.NAV_CATEGORY_SHOP,
-				TestConstants.TestMainMenu.NAV_OPTION_CARDS_BY_MAIL);
-		return PageFactory.create(PeetsCardProductPage.class);
+		logger.info("Accessing Shop-Equipment");
+		clickCategorySubmenu(Constants.TestMainMenu.NAV_CATEGORY_SHOP,
+				Constants.TestMainMenu.NAV_OPTION_CARDS_BY_MAIL);
+		return ComponentFactory.create(PeetsCardProductPage.class);
 	}
 
 	/**
@@ -171,9 +159,9 @@ public class MainMenuChunk extends AbstractPageChunk {
 	 * @return MiniCartContainerChunk
 	 */
 	public MiniCartContainerChunk clickMiniCart() {
-		LOGGER.info("Click mini-cart icon");
-		getHeaderMinicart().click();
-		return ChunkFactory.create(MiniCartContainerChunk.class, this, "");
+		logger.info("Click mini-cart icon");
+		getHeaderMinicart.click();
+		return ComponentFactory.create(MiniCartContainerChunk.class, this, "");
 	}
 
 	/**
@@ -185,67 +173,49 @@ public class MainMenuChunk extends AbstractPageChunk {
 	 *            the clazz
 	 * @return the t
 	 */
-	public <T extends AbstractPage> T closeMiniCart(Class<T> clazz) {
-		LOGGER.info("Click mini-cart icon");
-		getHeaderMinicart().click();
-		return PageFactory.create(clazz);
+	public <T extends BaseComponent> T closeMiniCart(Class<T> clazz) {
+		logger.info("Click mini-cart icon");
+		getHeaderMinicart.click();
+		return ComponentFactory.create(clazz);
 	}
 
 	/*
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = ".page-header-container")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(jQuery = ".page-header-container", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
-	@WebElementLocator(webDesktop = "//li[contains(.,'%s')]")
-	protected Button getMainMenuCategoryButton(String category) {
-		return new Button(this, String.format(getLocator(this, "getMainMenuCategoryButton"), category));
-	}
+	@Locate(xpath = "//li[contains(.,'%s')]", on = Platform.WEB_DESKTOP)
+	protected Button getMainMenuCategoryButton;
 
-	@WebElementLocator(webDesktop = "//a[@class='drop-link' and contains(.,'%s')]")
-	protected Button getCategorySubmenuButton(String subMenu) {
-		return new Button(this, String.format(getLocator(this, "getCategorySubmenuButton"), subMenu));
-	}
+	@Locate(xpath = "//a[@class='drop-link' and contains(.,'%s')]", on = Platform.WEB_DESKTOP)
+	protected Button getCategorySubmenuButton;
 
-	@WebElementLocator(webDesktop = "//a[contains(.,'%s')]")
-	protected Button getSubcategoryButton(String subMenu) {
-		return new Button(this, String.format(getLocator(this, "getSubcategoryButton"), subMenu));
-	}
+	@Locate(xpath = "//a[contains(.,'%s')]", on = Platform.WEB_DESKTOP)
+	protected Button getSubcategoryButton;
 
-	@WebElementLocator(webDesktop = ".logo")
-	protected Button getHeaderLogo() {
-		return new Button(this, getLocator(this, "getHeaderLogo"));
-	}
+	@Locate(jQuery = ".logo", on = Platform.WEB_DESKTOP)
+	protected Button getHeaderLogo;
 
-	@WebElementLocator(webDesktop = "//div[@class='mobile-slide']//a[contains(.,'%s')]")
-	protected Button getCategoryOptionButton(String option) {
-		return new Button(this, String.format(getLocator(this, "getCategoryOptionButton"), option));
-	}
+	@Locate(xpath = "//div[@class='mobile-slide']//a[contains(.,'%s')]", on = Platform.WEB_DESKTOP)
+	protected Button getCategoryOptionButton;
 
-	@WebElementLocator(webDesktop = "//li[a[@class='drop-link' and contains(text(),'%s')]]//a[contains(text(),'%s')]")
-	protected Button getCategoryColumnOptionButton(String column, String option) {
-		return new Button(this, String.format(getLocator(this, "getCategoryColumnOptionButton"), column, option));
-	}
+	@Locate(xpath = "//li[a[@class='drop-link' and contains(text(),'%s')]]//a[contains(text(),'%s')]", on = Platform.WEB_DESKTOP)
+	protected Button getCategoryColumnOptionButton;
 
-	@WebElementLocator(webDesktop = "#top-cart-container")
-	protected Button getHeaderMinicart() {
-		return new Button(this, getLocator(this, "getHeaderMinicart"));
-	}
+	@Locate(jQuery = "#top-cart-container", on = Platform.WEB_DESKTOP)
+	protected Button getHeaderMinicart;
 
-	@WebElementLocator(webDesktop = "span.count")
-	protected Button getCartItemsText() {
-		return new Button(this, getLocator(this, "getCartItemsText"));
-	}
+	@Locate(jQuery = "span.count", on = Platform.WEB_DESKTOP)
+	protected Button getCartItemsText;
 
 	public String getCartItemsCount() {
-		LOGGER.info("Reading GrtCArtItemsCount");
-		if (!queryHelper.doesElementExist(getCartItemsText().getAbsoluteSelector())) {
+		logger.info("Reading GrtCArtItemsCount");
+		if (!QueryHelper.doesElementExist(getCartItemsText.getAbsoluteSelector())) {
 			return "0";
 		} else {
-			return getCartItemsText().getText();
+			return getCartItemsText.getCurrentText();
 		}
 	}
 }

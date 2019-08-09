@@ -1,37 +1,28 @@
 package com.applause.auto.web.views;
 
+import com.applause.auto.common.data.Constants;
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.pageframework.util.webDrivers.BrowserType;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Checkbox;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.SelectList;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.BaseHtmlElement;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.Checkbox;
-import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
-import com.applause.auto.framework.pageframework.webcontrols.EditField;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
-import com.applause.auto.web.helpers.WebHelper;
-import com.applause.auto.common.data.TestConstants;
+@Implementation(is = CheckoutPaymentMethodPage.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = CheckoutPaymentMethodPage.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = CheckoutPaymentMethodPage.class, on = Platform.WEB_MOBILE_PHONE)
+public class CheckoutPaymentMethodPage extends BaseComponent {
 
-@WebDesktopImplementation(CheckoutPaymentMethodPage.class)
-@WebTabletImplementation(CheckoutPaymentMethodPage.class)
-@WebPhoneImplementation(CheckoutPaymentMethodPage.class)
-public class CheckoutPaymentMethodPage extends AbstractPage {
-
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
 	WebHelper webHelper = new WebHelper();
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getViewSignature());
-	}
 
 	/*
 	 * Public Actions
@@ -42,12 +33,12 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	 *
 	 */
 	public CheckoutPlaceOrderPage continueAfterFillingPeetsCardInfo(String amount) {
-		LOGGER.info("Clicking Continue after filling Peets Card info");
+		logger.info("Clicking Continue after filling Peets Card info");
 		selectPeetsCardOption();
 		fillPeetsCardInfo(amount);
 		fillEmailField();
 		continueAfterBillingInfo();
-		return PageFactory.create(CheckoutPlaceOrderPage.class);
+		return ComponentFactory.create(CheckoutPlaceOrderPage.class);
 	}
 
 	/**
@@ -55,9 +46,9 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	 *
 	 */
 	public void selectPeetsCardOption() {
-		LOGGER.info("Selecting the Peets card Checkbox");
-		if (!getPeetsCardCheckbox().isSelected()) {
-			getPeetsCardCheckbox().check();
+		logger.info("Selecting the Peets card Checkbox");
+		if (!getPeetsCardCheckbox.isSelected()) {
+			getPeetsCardCheckbox.click();
 		}
 	}
 
@@ -66,20 +57,20 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	 *
 	 */
 	public void fillPeetsCardInfo(String amount) {
-		LOGGER.info("Filling Peets Card info");
+		logger.info("Filling Peets Card info");
 
 		String peetsCardNumber = (env.getBrowserType() == BrowserType.SAFARI)
-				? TestConstants.TestData.PEETS_CARD_NUMBER_SAFARI_1 : TestConstants.TestData.PEETS_CARD_NUMBER_CHROME_1;
-		getPeetsCardNumberEditField().setText(peetsCardNumber);
+				? Constants.TestData.PEETS_CARD_NUMBER_SAFARI_1 : Constants.TestData.PEETS_CARD_NUMBER_CHROME_1;
+		getPeetsCardNumberTextBox.sendKeys(peetsCardNumber);
 		String peetsCardPin = (env.getBrowserType() == BrowserType.SAFARI)
-				? TestConstants.TestData.PEETS_CARD_PIN_SAFARI_1 : TestConstants.TestData.PEETS_CARD_PIN_CHROME_1;
-		getPeetsCardPinEditField().setText(peetsCardPin);
+				? Constants.TestData.PEETS_CARD_PIN_SAFARI_1 : Constants.TestData.PEETS_CARD_PIN_CHROME_1;
+		getPeetsCardPinTextBox.sendKeys(peetsCardPin);
 		// Peets card loads its balance after clicking outside the Peets Card fields
-		getPeetsCardNumberEditField().click();
+		getPeetsCardNumberTextBox.click();
 		// Waits for an animation while the element is displayed
-		syncHelper.suspend(2000);
-		syncHelper.waitForElementToAppear(getLocator(this, "getPeetsCardAmountEditField"));
-		getPeetsCardAmountEditField().setText(amount);
+		SyncHelper.sleep(2000);
+		SyncHelper.waitUntilElementPresent(getLocator(this, "getPeetsCardAmountTextBox"));
+		getPeetsCardAmountTextBox.sendKeys(amount);
 	}
 
 	/**
@@ -87,11 +78,11 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	 *
 	 */
 	public CheckoutPlaceOrderPage continueAfterEnteringPIN() {
-		LOGGER.info("Entering Credit Card PIN");
-		getValidateCSCEditField().setText(TestConstants.TestData.VISA_CC_SECURITY_CODE);
-		getContinuePaymentButton().exists();
-		getContinuePaymentButton().click();
-		return PageFactory.create(CheckoutPlaceOrderPage.class);
+		logger.info("Entering Credit Card PIN");
+		getValidateCSCTextBox.sendKeys(Constants.TestData.VISA_CC_SECURITY_CODE);
+		getContinuePaymentButton.exists();
+		getContinuePaymentButton.click();
+		return ComponentFactory.create(CheckoutPlaceOrderPage.class);
 	}
 
 	/**
@@ -99,12 +90,12 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	 * 
 	 */
 	public CheckoutPlaceOrderPage continueAfterFillingRequiredBillingInfo() {
-		LOGGER.info("Clicking Continue after filling Billing info");
+		logger.info("Clicking Continue after filling Billing info");
 		selectDebitCreditCardOption();
 		fillBillingInfo();
 		fillEmailField();
 		continueAfterBillingInfo();
-		return PageFactory.create(CheckoutPlaceOrderPage.class);
+		return ComponentFactory.create(CheckoutPlaceOrderPage.class);
 	}
 
 	/**
@@ -112,11 +103,11 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	 *
 	 */
 	public CheckoutPlaceOrderPage continueAfterCrediCardBillingInfo() {
-		LOGGER.info("Clicking Continue after filling Credit Card Billing info");
+		logger.info("Clicking Continue after filling Credit Card Billing info");
 		selectDebitCreditCardOption();
 		fillBillingInfo();
-		getContinuePaymentButton().click();
-		return PageFactory.create(CheckoutPlaceOrderPage.class);
+		getContinuePaymentButton.click();
+		return ComponentFactory.create(CheckoutPlaceOrderPage.class);
 	}
 
 	/**
@@ -125,8 +116,8 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	 */
 	public void fillEmailField() {
 		long timeStamp = System.currentTimeMillis();
-		String email = String.format(TestConstants.TestData.EMAIL, timeStamp);
-		getEmailEditField().setText(email);
+		String email = String.format(Constants.TestData.EMAIL, timeStamp);
+		getEmailTextBox.sendKeys(email);
 	}
 
 	/**
@@ -134,9 +125,9 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	 *
 	 */
 	public void selectDebitCreditCardOption() {
-		LOGGER.info("Selecting the Debit/Credit card Checkbox");
-		if (!getDebitCreditCardCheckbox().isSelected()) {
-			getDebitCreditCardCheckbox().check();
+		logger.info("Selecting the Debit/Credit card Checkbox");
+		if (!getDebitCreditCardCheckbox.isSelected()) {
+			getDebitCreditCardCheckbox.click();
 		}
 	}
 
@@ -145,13 +136,13 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	 *
 	 */
 	public void fillBillingInfo() {
-		LOGGER.info("Filling Billing info");
-		getCardNumberEditField().setText(TestConstants.TestData.AMEX_CC_NUM);
-		getCardSecurityCodeEditField().setText(TestConstants.TestData.AMEX_CC_CODE);
+		logger.info("Filling Billing info");
+		getCardNumberTextBox.sendKeys(Constants.TestData.AMEX_CC_NUM);
+		getCardSecurityCodeTextBox.sendKeys(Constants.TestData.AMEX_CC_CODE);
 		// Cant select the month value due its content. Workaround was to select its value
-		webHelper.jsSelectByValue(getCardExpMonthDropdown().getWebElement(), TestConstants.TestData.AMEX_CC_MONTH);
-		webHelper.jsSelect(getCardExpYearDropdown().getWebElement(), TestConstants.TestData.AMEX_CC_YEAR);
-		getNameOnCardEditField().setText(TestConstants.TestData.VISA_CC_NAME);
+		webHelper.jsSelectByValue(getCardExpMonthSelectList.getWebElement(), Constants.TestData.AMEX_CC_MONTH);
+		webHelper.jsSelect(getCardExpYearSelectList.getWebElement(), Constants.TestData.AMEX_CC_YEAR);
+		getNameOnCardTextBox.sendKeys(Constants.TestData.VISA_CC_NAME);
 	}
 
 	/**
@@ -159,9 +150,9 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	 *
 	 */
 	public void selectBilligShippingAddress() {
-		LOGGER.info("Select Billing Address Same as Shipping Address");
-		if (!getBillShippingAddressCheckbox().isSelected()) {
-			getBillShippingAddressCheckbox().check();
+		logger.info("Select Billing Address Same as Shipping Address");
+		if (!getBillShippingAddressCheckbox.isSelected()) {
+			getBillShippingAddressCheckbox.click();
 		}
 	}
 
@@ -170,14 +161,14 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	 *
 	 */
 	public CheckoutPlaceOrderPage continueAfterFillingPeetsAndCreditInfo() {
-		LOGGER.info("Clicking Continue after filling Peets Card and Credit Card info");
+		logger.info("Clicking Continue after filling Peets Card and Credit Card info");
 		selectPeetsCardOption();
-		fillPeetsCardInfo(TestConstants.TestData.PEETS_CARD_LOWEST_AMOUNT);
+		fillPeetsCardInfo(Constants.TestData.PEETS_CARD_LOWEST_AMOUNT);
 		selectDebitCreditCardOption();
 		fillBillingInfo();
 		fillEmailField();
 		continueAfterBillingInfo();
-		return PageFactory.create(CheckoutPlaceOrderPage.class);
+		return ComponentFactory.create(CheckoutPlaceOrderPage.class);
 	}
 
 	/**
@@ -185,102 +176,66 @@ public class CheckoutPaymentMethodPage extends AbstractPage {
 	 *
 	 */
 	public void continueAfterBillingInfo() {
-		LOGGER.info("Click Continue on billing section");
-		getContinueButton().click();
+		logger.info("Click Continue on billing section");
+		getContinueButton.click();
 	}
 
 	/*
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "h2#checkout-title-opc-billing.active")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(jQuery = "h2#checkout-title-opc-billing.active", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
-	@WebElementLocator(webDesktop = "#pc-title input")
-	protected Checkbox getPeetsCardCheckbox() {
-		return new Checkbox(this, getLocator(this, "getPeetsCardCheckbox"));
-	}
+	@Locate(jQuery = "#pc-title input", on = Platform.WEB_DESKTOP)
+	protected Checkbox getPeetsCardCheckbox;
 
-	@WebElementLocator(webDesktop = "#custompayment_pc_number")
-	protected EditField getPeetsCardNumberEditField() {
-		return new EditField(this, getLocator(this, "getPeetsCardNumberEditField"));
-	}
+	@Locate(jQuery = "#custompayment_pc_number", on = Platform.WEB_DESKTOP)
+	protected TextBox getPeetsCardNumberTextBox;
 
-	@WebElementLocator(webDesktop = "#custompayment_pc_pin")
-	protected EditField getPeetsCardPinEditField() {
-		return new EditField(this, getLocator(this, "getPeetsCardPinEditField"));
-	}
+	@Locate(jQuery = "#custompayment_pc_pin", on = Platform.WEB_DESKTOP)
+	protected TextBox getPeetsCardPinTextBox;
 
-	@WebElementLocator(webDesktop = "#custompayment_pc_amount")
-	protected EditField getPeetsCardAmountEditField() {
-		return new EditField(this, getLocator(this, "getPeetsCardAmountEditField"));
-	}
+	@Locate(jQuery = "#custompayment_pc_amount", on = Platform.WEB_DESKTOP)
+	protected TextBox getPeetsCardAmountTextBox;
 
-	@WebElementLocator(webDesktop = "#cc_checkbox")
-	protected Checkbox getDebitCreditCardCheckbox() {
-		return new Checkbox(this, getLocator(this, "getDebitCreditCardCheckbox"));
-	}
+	@Locate(jQuery = "#cc_checkbox", on = Platform.WEB_DESKTOP)
+	protected Checkbox getDebitCreditCardCheckbox;
 
-	@WebElementLocator(webDesktop = "#custompayment_cc_number")
-	protected EditField getCardNumberEditField() {
-		return new EditField(this, getLocator(this, "getCardNumberEditField"));
-	}
+	@Locate(jQuery = "#custompayment_cc_number", on = Platform.WEB_DESKTOP)
+	protected TextBox getCardNumberTextBox;
 
-	@WebElementLocator(webDesktop = "#custompayment_cc_cid")
-	protected EditField getCardSecurityCodeEditField() {
-		return new EditField(this, getLocator(this, "getCardSecurityCodeEditField"));
-	}
+	@Locate(jQuery = "#custompayment_cc_cid", on = Platform.WEB_DESKTOP)
+	protected TextBox getCardSecurityCodeTextBox;
 
-	@WebElementLocator(webDesktop = "input[id*='stored_cc_cid'][class*='validate-cc-cvn']")
-	protected EditField getValidateCSCEditField() {
-		return new EditField(this, getLocator(this, "getValidateCSCEditField"));
-	}
+	@Locate(jQuery = "input[id*='stored_cc_cid'][class*='validate-cc-cvn']", on = Platform.WEB_DESKTOP)
+	protected TextBox getValidateCSCTextBox;
 
-	@WebElementLocator(webDesktop = "#custompayment_expiration")
-	protected Dropdown getCardExpMonthDropdown() {
-		return new Dropdown(this, getLocator(this, "getCardExpMonthDropdown"));
-	}
+	@Locate(jQuery = "#custompayment_expiration", on = Platform.WEB_DESKTOP)
+	protected SelectList getCardExpMonthSelectList;
 
-	@WebElementLocator(webDesktop = "#custompayment_expiration_yr")
-	protected Dropdown getCardExpYearDropdown() {
-		return new Dropdown(this, getLocator(this, "getCardExpYearDropdown"));
-	}
+	@Locate(jQuery = "#custompayment_expiration_yr", on = Platform.WEB_DESKTOP)
+	protected SelectList getCardExpYearSelectList;
 
-	@WebElementLocator(webDesktop = "#custompayment_cc_owner")
-	protected EditField getNameOnCardEditField() {
-		return new EditField(this, getLocator(this, "getNameOnCardEditField"));
-	}
+	@Locate(jQuery = "#custompayment_cc_owner", on = Platform.WEB_DESKTOP)
+	protected TextBox getNameOnCardTextBox;
 
-	@WebElementLocator(webDesktop = "//input[contains(@id,'same_as_shipping')]")
-	protected Checkbox getBillShippingAddressCheckbox() {
-		return new Checkbox(this, getLocator(this, "getBillShippingAddressCheckbox"));
-	}
+	@Locate(xpath = "//input[contains(@id,'same_as_shipping')]", on = Platform.WEB_DESKTOP)
+	protected Checkbox getBillShippingAddressCheckbox;
 
-	@WebElementLocator(webDesktop = "input[id='billing:email']")
-	protected EditField getEmailEditField() {
-		return new EditField(this, getLocator(this, "getEmailEditField"));
-	}
+	@Locate(jQuery = "input[id='billing:email']", on = Platform.WEB_DESKTOP)
+	protected TextBox getEmailTextBox;
 
-	@WebElementLocator(webDesktop = "#billing-container button")
-	protected Button getContinueButton() {
-		return new Button(this, getLocator(this, "getContinueButton"));
-	}
+	@Locate(jQuery = "#billing-container button", on = Platform.WEB_DESKTOP)
+	protected Button getContinueButton;
 
-	@WebElementLocator(webDesktop = "#payment-button-continue")
-	protected Button getContinuePaymentButton() {
-		return new Button(this, getLocator(this, "getContinuePaymentButton"));
-	}
+	@Locate(jQuery = "#payment-button-continue", on = Platform.WEB_DESKTOP)
+	protected Button getContinuePaymentButton;
 
-	@WebElementLocator(webDesktop = "opc-please-wait")
-	protected BaseHtmlElement getBillingLoadingSpinner() {
-		return new BaseHtmlElement(this, getLocator(this, "getBillingLoadingSpinner"));
-	}
+	@Locate(jQuery = "opc-please-wait", on = Platform.WEB_DESKTOP)
+	protected ContainerElement getBillingLoadingSpinner;
 
-	@WebElementLocator(webDesktop = "peets-card-please-wait")
-	protected BaseHtmlElement getPeetsCardLoadingSpinner() {
-		return new BaseHtmlElement(this, getLocator(this, "getPeetsCardLoadingSpinner"));
-	}
+	@Locate(jQuery = "peets-card-please-wait", on = Platform.WEB_DESKTOP)
+	protected ContainerElement getPeetsCardLoadingSpinner;
 
 }

@@ -1,31 +1,22 @@
 package com.applause.auto.web.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.EditField;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
-import com.applause.auto.web.helpers.WebHelper;
-
-@WebDesktopImplementation(EditBillingAddressPage.class)
-@WebTabletImplementation(EditBillingAddressPage.class)
-@WebPhoneImplementation(EditBillingAddressPage.class)
-public class EditBillingAddressPage extends AbstractPage {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+@Implementation(is = EditBillingAddressPage.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = EditBillingAddressPage.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = EditBillingAddressPage.class, on = Platform.WEB_MOBILE_PHONE)
+public class EditBillingAddressPage extends BaseComponent {
 	WebHelper webHelper = new WebHelper();
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getViewSignature());
-	}
 
 	// Public actions
 
@@ -37,10 +28,10 @@ public class EditBillingAddressPage extends AbstractPage {
 	 * @return String
 	 */
 	public String enterAddress(String address1, String address2) {
-		LOGGER.info("Entering Address");
+		logger.info("Entering Address");
 		address1 = webHelper.getTimestamp(address1);
-		getAddressLine1Field().setText(address1);
-		getAddressLine2Field().setText(address2);
+		getAddressLine1Field.sendKeys(address1);
+		getAddressLine2Field.sendKeys(address2);
 		return address1;
 	}
 
@@ -50,40 +41,30 @@ public class EditBillingAddressPage extends AbstractPage {
 	 * @return AddressBookPage
 	 */
 	public AddressBookPage clickSaveAddress() {
-		LOGGER.info("Clicking Save Address");
-		getSaveAddressButton().click();
-		syncHelper.suspend(3000);
+		logger.info("Clicking Save Address");
+		getSaveAddressButton.click();
+		SyncHelper.sleep(3000);
 		try {
-			getUseAddressAsEnteredButton().click();
+			getUseAddressAsEnteredButton.click();
 		} catch (Exception ex) {
-			LOGGER.info("Popup not displayed");
+			logger.info("Popup not displayed");
 		}
-		return PageFactory.create(AddressBookPage.class);
+		return ComponentFactory.create(AddressBookPage.class);
 	}
 
 	// Protected getters
-	@WebElementLocator(webDesktop = "div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(jQuery = "div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
-	@WebElementLocator(webDesktop = "#street_1")
-	protected EditField getAddressLine1Field() {
-		return new EditField(this, getLocator(this, "getAddressLine1Field"));
-	}
+	@Locate(jQuery = "#street_1", on = Platform.WEB_DESKTOP)
+	protected TextBox getAddressLine1Field;
 
-	@WebElementLocator(webDesktop = "#street_2")
-	protected EditField getAddressLine2Field() {
-		return new EditField(this, getLocator(this, "getAddressLine2Field"));
-	}
+	@Locate(jQuery = "#street_2", on = Platform.WEB_DESKTOP)
+	protected TextBox getAddressLine2Field;
 
-	@WebElementLocator(webDesktop = "button.button.btn-save")
-	protected Button getSaveAddressButton() {
-		return new Button(this, getLocator(this, "getSaveAddressButton"));
-	}
+	@Locate(jQuery = "button.button.btn-save", on = Platform.WEB_DESKTOP)
+	protected Button getSaveAddressButton;
 
-	@WebElementLocator(webDesktop = "#qas-popup > div.modal-content-area > div > div.two-columns > div.right-column > div.qas-box-content > button")
-	protected Button getUseAddressAsEnteredButton() {
-		return new Button(this, getLocator(this, "getUseAddressAsEnteredButton"));
-	}
+	@Locate(jQuery = "#qas-popup > div.modal-content-area > div > div.two-columns > div.right-column > div.qas-box-content > button", on = Platform.WEB_DESKTOP)
+	protected Button getUseAddressAsEnteredButton;
 }

@@ -1,30 +1,19 @@
 package com.applause.auto.web.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
-import com.applause.auto.web.helpers.WebHelper;
-
-@WebDesktopImplementation(ShopEquipmentPage.class)
-@WebTabletImplementation(ShopEquipmentPage.class)
-@WebPhoneImplementation(ShopEquipmentPage.class)
-public class ShopEquipmentPage extends AbstractPage {
-
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getViewSignature());
-	}
+@Implementation(is = ShopEquipmentPage.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = ShopEquipmentPage.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = ShopEquipmentPage.class, on = Platform.WEB_MOBILE_PHONE)
+public class ShopEquipmentPage extends BaseComponent {
 
 	/*
 	 * Public Actions
@@ -36,22 +25,18 @@ public class ShopEquipmentPage extends AbstractPage {
 	 * @return a Tea Product Page
 	 */
 	public EquipmentProductPage clickProductName(String productName) {
-		LOGGER.info(String.format("Tap on Product Name: %s", productName));
+		logger.info(String.format("Tap on Product Name: %s", productName));
 		productNameButton(productName).click();
-		return PageFactory.create(EquipmentProductPage.class);
+		return ComponentFactory.create(EquipmentProductPage.class);
 	}
 
 	/*
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "//div[contains(@class,'top-banner')]//div[@class='text-content']/h1[contains(.,'Equipment')]")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(xpath = "//div[contains(@class,'top-banner')]//div[@class='text-content']/h1[contains(.,'Equipment')]", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
-	@WebElementLocator(webDesktop = "//ul[@class='prod-list']//li[strong[@class='product-name' and contains(.,'%s')]]")
-	protected Button productNameButton(String productName) {
-		return new Button(this, String.format(getLocator(this, "productNameButton"), productName));
-	}
+	@Locate(xpath = "//ul[@class='prod-list']//li[strong[@class='product-name' and contains(.,'%s')]]", on = Platform.WEB_DESKTOP)
+	protected Button productNameButton;
 }

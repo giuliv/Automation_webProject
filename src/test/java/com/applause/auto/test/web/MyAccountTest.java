@@ -21,7 +21,7 @@ import com.applause.auto.web.views.EditAccountInformationPage;
 import com.applause.auto.web.views.EditBillingAddressPage;
 import com.applause.auto.web.views.EditPaymentMethodPage;
 import com.applause.auto.web.views.EditShippingAddressPage;
-import com.applause.auto.web.views.LandingPage;
+import com.applause.auto.web.views.Landing;
 import com.applause.auto.web.views.MyAccountManageSubscriptionPage;
 import com.applause.auto.web.views.MyAccountMyOrdersPage;
 import com.applause.auto.web.views.MyAccountMySuscriptionsPage;
@@ -41,10 +41,10 @@ public class MyAccountTest extends BaseTest {
 	public void myAccountDashboard() {
 
 		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
+		Landing landing = navigateToLanding();
 
 		LOGGER.info("2. Log In");
-		SignInPage signInPage = landingPage.clickSignInButton();
+		SignInPage signInPage = landing.clickSignInButton();
 		MyAccountPage myAccountPage = signInPage.mainUserLogin();
 		Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
@@ -88,10 +88,10 @@ public class MyAccountTest extends BaseTest {
 	public void myAccountPaymentMethod() {
 
 		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
+		Landing landing = navigateToLanding();
 
 		LOGGER.info("2. Log In");
-		SignInPage signInPage = landingPage.clickSignInButton();
+		SignInPage signInPage = landing.clickSignInButton();
 		MyAccountPage myAccountPage = signInPage.mainUserLogin();
 		Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
@@ -137,10 +137,10 @@ public class MyAccountTest extends BaseTest {
 	public void myAccountBillingAddress() {
 
 		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
+		Landing landing = navigateToLanding();
 
 		LOGGER.info("2. Log In");
-		SignInPage signInPage = landingPage.clickSignInButton();
+		SignInPage signInPage = landing.clickSignInButton();
 		signInPage.enterEmailByBrowser(TestConstants.MyAccountTestData.EMAIL,
 				TestConstants.MyAccountTestData.SAFARI_BILLING_EMAIL);
 		signInPage.enterPassword(TestConstants.MyAccountTestData.PASSWORD);
@@ -180,10 +180,10 @@ public class MyAccountTest extends BaseTest {
 	public void myAccountShippingAddress() {
 
 		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
+		Landing landing = navigateToLanding();
 
 		LOGGER.info("2. Log In");
-		SignInPage signInPage = landingPage.clickSignInButton();
+		SignInPage signInPage = landing.clickSignInButton();
 		signInPage.enterEmailByBrowser(TestConstants.MyAccountTestData.EMAIL,
 				TestConstants.MyAccountTestData.SAFARI_SHIPPING_EMAIL);
 		signInPage.enterPassword(TestConstants.MyAccountTestData.PASSWORD);
@@ -223,10 +223,10 @@ public class MyAccountTest extends BaseTest {
 	public void myAccountPeetsCards() {
 
 		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
+		Landing landing = navigateToLanding();
 
 		LOGGER.info("2. Log In");
-		SignInPage signInPage = landingPage.clickSignInButton();
+		SignInPage signInPage = landing.clickSignInButton();
 		MyAccountPage myAccountPage = signInPage.mainUserLogin();
 		Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
@@ -265,10 +265,10 @@ public class MyAccountTest extends BaseTest {
 	public void myAccountMyOrdersTest() {
 
 		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
+		Landing landing = navigateToLanding();
 
 		LOGGER.info("2. Log In");
-		SignInPage signInPage = landingPage.clickSignInButton();
+		SignInPage signInPage = landing.clickSignInButton();
 		MyAccountPage myAccountPage = signInPage.mainUserLogin();
 		Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
@@ -306,10 +306,10 @@ public class MyAccountTest extends BaseTest {
 	public void myAccountSettings() {
 
 		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
+		Landing landing = navigateToLanding();
 
 		LOGGER.info("2. Log In");
-		SignInPage signInPage = landingPage.clickSignInButton();
+		SignInPage signInPage = landing.clickSignInButton();
 		signInPage.enterEmailByBrowser(TestConstants.MyAccountTestData.MODIFY_ACCOUNT_EMAIL,
 				TestConstants.MyAccountTestData.SAFARI_ACCOUNT_EMAIL);
 		signInPage.enterPassword(TestConstants.MyAccountTestData.PASSWORD);
@@ -346,10 +346,10 @@ public class MyAccountTest extends BaseTest {
 	public void myAccountSubscriptionsTest() {
 
 		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
+		Landing landing = navigateToLanding();
 
 		LOGGER.info("2. Log In");
-		SignInPage signInPage = landingPage.clickSignInButton();
+		SignInPage signInPage = landing.clickSignInButton();
 		MyAccountPage myAccountPage = signInPage.mainUserLogin();
 		Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
@@ -378,10 +378,10 @@ public class MyAccountTest extends BaseTest {
 	public void myAccountCreateNewAccountTest() {
 
 		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
+		Landing landing = navigateToLanding();
 
 		LOGGER.info("2. Click Sign In");
-		SignInPage signInPage = landingPage.clickSignInButton();
+		SignInPage signInPage = landing.clickSignInButton();
 
 		LOGGER.info("3. Click Create An Account");
 		SignUpPage signUpPage = signInPage.clickonCreateAccountButton();
@@ -397,11 +397,11 @@ public class MyAccountTest extends BaseTest {
 	@Test(groups = { TestConstants.TestNGGroups.MY_ACCOUNT }, description = "627699")
 	public void myAccountCreateNewAccountAfterGuestCheckoutTest() {
 		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
-		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+		Landing landing = navigateToLanding();
+		Assert.assertNotNull(landing, "Failed to navigate to the landing page.");
 
 		LOGGER.info("2. Select a coffee from grid view and add to cart");
-		ShopCoffeePage shopCoffeePage = landingPage.clickShopCoffeeButton();
+		ShopCoffeePage shopCoffeePage = landing.clickShopCoffeeButton();
 		CoffeeProductPage coffeeProductPage = shopCoffeePage.clickProductName(TestConstants.TestData.COFFEE_BRAND_NAME);
 		coffeeProductPage.selectAGrind(TestConstants.TestData.GRIND);
 		MiniCartContainerChunk miniCartContainer = coffeeProductPage.clickAddToCart();
@@ -446,10 +446,10 @@ public class MyAccountTest extends BaseTest {
 	public void myAccountChangePasswordTest() {
 
 		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
+		Landing landing = navigateToLanding();
 
 		LOGGER.info("2. Click Sign In");
-		SignInPage signInPage = landingPage.clickSignInButton();
+		SignInPage signInPage = landing.clickSignInButton();
 
 		LOGGER.info("3. Click Create An Account");
 		SignUpPage signUpPage = signInPage.clickonCreateAccountButton();
@@ -475,10 +475,10 @@ public class MyAccountTest extends BaseTest {
 		myAccountPage = editAccountInformationPage.clickSave();
 
 		LOGGER.info("9. Log Out");
-		landingPage = myAccountPage.getAccountMenu().signOut();
+		landing = myAccountPage.getAccountMenu().signOut();
 
 		LOGGER.info("10. Log back in using new password");
-		signInPage = landingPage.clickSignInButton();
+		signInPage = landing.clickSignInButton();
 		MyAccountPage myAccountPageNew = signInPage.userLogin(newAccountEmail,
 				"new" + TestConstants.MyAccountTestData.PASSWORD);
 

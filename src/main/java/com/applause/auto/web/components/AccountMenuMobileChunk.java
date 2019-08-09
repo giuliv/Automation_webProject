@@ -1,26 +1,22 @@
 package com.applause.auto.web.components;
 
-import java.lang.invoke.MethodHandles;
-
-import com.applause.auto.framework.pageframework.device.AbstractDeviceChunk;
-import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
-import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
+import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.framework.pageframework.devicecontrols.Button;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.AccountHistoryView;
 import com.applause.auto.mobile.views.AuthenticationView;
 import com.applause.auto.mobile.views.GeneralSettingsView;
 import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.ProfileDetailsView;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import java.lang.invoke.MethodHandles;
 
-@AndroidImplementation(AndroidAccountMenuMobileChunk.class)
-@IosImplementation(AccountMenuMobileChunk.class)
-public class AccountMenuMobileChunk extends AbstractDeviceChunk {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+@Implementation(is = AndroidAccountMenuMobileChunk.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = AccountMenuMobileChunk.class, on = Platform.MOBILE_IOS)
+public class AccountMenuMobileChunk extends BaseComponent {
 
 	/**
 	 * Constructor.
@@ -30,10 +26,6 @@ public class AccountMenuMobileChunk extends AbstractDeviceChunk {
 	 */
 	public AccountMenuMobileChunk(String selector) {
 		super(selector);
-	}
-
-	@Override
-	protected void waitUntilVisible() {
 	}
 
 	/*
@@ -46,9 +38,9 @@ public class AccountMenuMobileChunk extends AbstractDeviceChunk {
 	 * @return the profile details view
 	 */
 	public ProfileDetailsView profileDetails() {
-		LOGGER.info("Click on Profile Details button");
-		getProfileDetailsButton().pressButton();
-		return DeviceViewFactory.create(ProfileDetailsView.class);
+		logger.info("Click on Profile Details button");
+		getProfileDetailsButton.click();
+		return ComponentFactory.create(ProfileDetailsView.class);
 	}
 
 	/**
@@ -57,9 +49,9 @@ public class AccountMenuMobileChunk extends AbstractDeviceChunk {
 	 * @return the general settings view
 	 */
 	public GeneralSettingsView generalSettings() {
-		LOGGER.info("Click on General Settings button");
-		getGeneralSettingsButton().pressButton();
-		return DeviceViewFactory.create(GeneralSettingsView.class);
+		logger.info("Click on General Settings button");
+		getGeneralSettingsButton.click();
+		return ComponentFactory.create(GeneralSettingsView.class);
 	}
 
 	/**
@@ -68,11 +60,11 @@ public class AccountMenuMobileChunk extends AbstractDeviceChunk {
 	 * @return the authentication view
 	 */
 	public AuthenticationView signOut() {
-		LOGGER.info("Click on Sign Out button");
+		logger.info("Click on Sign Out button");
 		MobileHelper.scrollToBottom(5);
-		getSignOutButton().pressButton();
+		getSignOutButton.click();
 		getDriver().switchTo().alert().accept();
-		return DeviceViewFactory.create(AuthenticationView.class);
+		return ComponentFactory.create(AuthenticationView.class);
 	}
 
 	/**
@@ -81,9 +73,9 @@ public class AccountMenuMobileChunk extends AbstractDeviceChunk {
 	 * @return PaymentMethodsView
 	 */
 	public PaymentMethodsView clickPaymentMethods() {
-		LOGGER.info("Click Payment Methods");
-		getPaymentMethodsButton().pressButton();
-		return DeviceViewFactory.create(PaymentMethodsView.class);
+		logger.info("Click Payment Methods");
+		getPaymentMethodsButton.click();
+		return ComponentFactory.create(PaymentMethodsView.class);
 	}
 
 	/**
@@ -95,11 +87,11 @@ public class AccountMenuMobileChunk extends AbstractDeviceChunk {
 	 *            the clazz
 	 * @return the t
 	 */
-	public <T extends AbstractDeviceView> T signOut(Class<T> clazz) {
-		LOGGER.info("Click on Sign Out button");
+	public <T extends BaseComponent> T signOut(Class<T> clazz) {
+		logger.info("Click on Sign Out button");
 		MobileHelper.scrollToBottom(5);
-		getSignOutButton().pressButton();
-		return DeviceViewFactory.create(clazz);
+		getSignOutButton.click();
+		return ComponentFactory.create(clazz);
 	}
 
 	/**
@@ -108,44 +100,38 @@ public class AccountMenuMobileChunk extends AbstractDeviceChunk {
 	 * @return the account history view
 	 */
 	public AccountHistoryView accountHistory() {
-		LOGGER.info("Click Account History");
-		getAccountHistoryButton().pressButton();
-		return DeviceViewFactory.create(AccountHistoryView.class);
+		logger.info("Click Account History");
+		getAccountHistoryButton.click();
+		return ComponentFactory.create(AccountHistoryView.class);
 	}
 
 	/*
 	 * Protected Getters
 	 */
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/profileDetails", iOS = "//XCUIElementTypeStaticText[@name=\"Profile Details\" and @visible='true']")
-	protected Button getProfileDetailsButton() {
-		return new Button(getLocator(this, "getProfileDetailsButton"));
-	}
+	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Profile Details\" and @visible='true']", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/profileDetails", on = Platform.MOBILE_ANDROID)
+	protected Button getProfileDetailsButton;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/logoutButton", iOS = "Sign Out")
-	protected Button getSignOutButton() {
-		return new Button(getLocator(this, "getSignOutButton"));
-	}
+	@Locate(id = "Sign Out", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/logoutButton", on = Platform.MOBILE_ANDROID)
+	protected Button getSignOutButton;
 
-	@MobileElementLocator(android = "android:id/button1", iOS = "//XCUIElementTypeButton[@value='Log Out']")
-	protected Button getLogOutButton() {
-		return new Button(getLocator(this, "getLogOutButton"));
-	}
+	@Locate(xpath = "//XCUIElementTypeButton[@value='Log Out']", on = Platform.MOBILE_IOS)
+	@Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
+	protected Button getLogOutButton;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/generalSettings", iOS = "//XCUIElementTypeStaticText[@name=\"General Settings\"]")
-	protected Button getGeneralSettingsButton() {
-		return new Button(getLocator(this, "getGeneralSettingsButton"));
-	}
+	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"General Settings\"]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/generalSettings", on = Platform.MOBILE_ANDROID)
+	protected Button getGeneralSettingsButton;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/accountActivity", iOS = "//XCUIElementTypeStaticText[@name=\"Account History\"]")
-	protected Button getAccountHistoryButton() {
-		return new Button(getLocator(this, "getAccountHistoryButton"));
-	}
+	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Account History\"]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/accountActivity", on = Platform.MOBILE_ANDROID)
+	protected Button getAccountHistoryButton;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/paymentMethods", iOS = "Payment Methods")
-	protected Button getPaymentMethodsButton() {
-		return new Button(getLocator(this, "getPaymentMethodsButton"));
-	}
+	@Locate(id = "Payment Methods", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/paymentMethods", on = Platform.MOBILE_ANDROID)
+	protected Button getPaymentMethodsButton;
 }
 
 class AndroidAccountMenuMobileChunk extends AccountMenuMobileChunk {
@@ -161,11 +147,11 @@ class AndroidAccountMenuMobileChunk extends AccountMenuMobileChunk {
 	}
 
 	public AuthenticationView signOut() {
-		LOGGER.info("Click on Sign Out button");
+		logger.info("Click on Sign Out button");
 		MobileHelper.scrollToBottom(5);
-		getSignOutButton().pressButton();
-		getLogOutButton().pressButton();
-		return DeviceViewFactory.create(AuthenticationView.class);
+		getSignOutButton.click();
+		getLogOutButton.click();
+		return ComponentFactory.create(AuthenticationView.class);
 	}
 
 	/**
@@ -177,12 +163,12 @@ class AndroidAccountMenuMobileChunk extends AccountMenuMobileChunk {
 	 *            the clazz
 	 * @return the t
 	 */
-	public <T extends AbstractDeviceView> T signOut(Class<T> clazz) {
-		LOGGER.info("Click on Sign Out button");
+	public <T extends BaseComponent> T signOut(Class<T> clazz) {
+		logger.info("Click on Sign Out button");
 		MobileHelper.scrollToBottom(5);
-		getSignOutButton().pressButton();
-		getLogOutButton().pressButton();
-		return DeviceViewFactory.create(clazz);
+		getSignOutButton.click();
+		getLogOutButton.click();
+		return ComponentFactory.create(clazz);
 	}
 
 }

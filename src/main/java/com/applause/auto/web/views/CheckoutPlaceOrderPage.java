@@ -1,32 +1,22 @@
 package com.applause.auto.web.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.BaseHtmlElement;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.EditField;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
-import com.applause.auto.web.helpers.WebHelper;
-
-@WebDesktopImplementation(CheckoutPlaceOrderPage.class)
-@WebTabletImplementation(CheckoutPlaceOrderPage.class)
-@WebPhoneImplementation(CheckoutPlaceOrderPage.class)
-public class CheckoutPlaceOrderPage extends AbstractPage {
-
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getViewSignature());
-	}
+@Implementation(is = CheckoutPlaceOrderPage.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = CheckoutPlaceOrderPage.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = CheckoutPlaceOrderPage.class, on = Platform.WEB_MOBILE_PHONE)
+public class CheckoutPlaceOrderPage extends BaseComponent {
 
 	/*
 	 * Public Actions
@@ -38,14 +28,14 @@ public class CheckoutPlaceOrderPage extends AbstractPage {
 	 * @return CheckoutConfirmationPage
 	 */
 	public CheckoutConfirmationPage placeOrder() {
-		LOGGER.info("Click Place Order Button");
-		syncHelper.waitForElementToAppear(getLocator(this, "getPlaceOrderButton"));
-		syncHelper.suspend(7000); // Required time to trigger spinner animation if shown
+		logger.info("Click Place Order Button");
+		SyncHelper.waitUntilElementPresent(getLocator(this, "getPlaceOrderButton"));
+		SyncHelper.sleep(7000); // Required time to trigger spinner animation if shown
 
-		getPlaceOrderButton().click();
-		syncHelper.suspend(2000); // Required time to trigger spinner animation if shown
-		syncHelper.waitForElementToDisappear(getLocator(this, "getPlaceOrderSpinner"));
-		return PageFactory.create(CheckoutConfirmationPage.class);
+		getPlaceOrderButton.click();
+		SyncHelper.sleep(2000); // Required time to trigger spinner animation if shown
+		SyncHelper.waitUntilElementNotPresent(getLocator(this, "getPlaceOrderSpinner"));
+		return ComponentFactory.create(CheckoutConfirmationPage.class);
 	}
 
 	/**
@@ -54,9 +44,9 @@ public class CheckoutPlaceOrderPage extends AbstractPage {
 	 * @return CheckoutPaymentMethodPage
 	 */
 	public CheckoutPaymentMethodPage placeOrderMissingPayment() {
-		LOGGER.info("Click Place Order Button");
-		getPlaceOrderButton().click();
-		return PageFactory.create(CheckoutPaymentMethodPage.class);
+		logger.info("Click Place Order Button");
+		getPlaceOrderButton.click();
+		return ComponentFactory.create(CheckoutPaymentMethodPage.class);
 	}
 
 	/**
@@ -65,8 +55,8 @@ public class CheckoutPlaceOrderPage extends AbstractPage {
 	 * @return String
 	 */
 	public String getGiftMessage() {
-		LOGGER.info("Getting gift Message");
-		return getGiftMessageEditField().getText();
+		logger.info("Getting gift Message");
+		return getGiftMessageTextBox.getCurrentText();
 	}
 
 	/**
@@ -75,37 +65,27 @@ public class CheckoutPlaceOrderPage extends AbstractPage {
 	 * @return String
 	 */
 	public String getProductName() {
-		LOGGER.info("Getting product name");
-		return getProductNameText().getStringValue();
+		logger.info("Getting product name");
+		return getProductNameText.getText();
 	}
 
 	/*
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "h2#checkout-title-opc-review.active")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(jQuery = "h2#checkout-title-opc-review.active", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
-	@WebElementLocator(webDesktop = "button[title='Place Order']")
-	protected Button getPlaceOrderButton() {
-		return new Button(this, getLocator(this, "getPlaceOrderButton"));
-	}
+	@Locate(jQuery = "button[title='Place Order']", on = Platform.WEB_DESKTOP)
+	protected Button getPlaceOrderButton;
 
-	@WebElementLocator(webDesktop = "#gift-message-whole-message")
-	protected EditField getGiftMessageEditField() {
-		return new EditField(this, getLocator(this, "getGiftMessageEditField"));
-	}
+	@Locate(jQuery = "#gift-message-whole-message", on = Platform.WEB_DESKTOP)
+	protected TextBox getGiftMessageTextBox;
 
-	@WebElementLocator(webDesktop = "#cart-table-standard > tbody > tr > td.product-info-cell.last > h3 > a")
-	protected Text getProductNameText() {
-		return new Text(this, getLocator(this, "getProductNameText"));
-	}
+	@Locate(jQuery = "#cart-table-standard > tbody > tr > td.product-info-cell.last > h3 > a", on = Platform.WEB_DESKTOP)
+	protected Text getProductNameText;
 
-	@WebElementLocator(webDesktop = "span#opc-please-wait.please-wait-review")
-	protected BaseHtmlElement getPlaceOrderSpinner() {
-		return new BaseHtmlElement(this, getLocator(this, "getPlaceOrderSpinner"));
-	}
+	@Locate(jQuery = "span#opc-please-wait.please-wait-review", on = Platform.WEB_DESKTOP)
+	protected ContainerElement getPlaceOrderSpinner;
 
 }

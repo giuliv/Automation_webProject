@@ -1,32 +1,30 @@
 package com.applause.auto.web.components;
 
-import java.lang.invoke.MethodHandles;
-import java.util.List;
-import java.util.stream.Collectors;
-
+import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.pageframework.UIData;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPageChunk;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.Link;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Link;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.QueryHelper;
+import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.web.views.CheckoutPage;
 import com.applause.auto.web.views.CheckoutPlaceOrderPage;
 import com.applause.auto.web.views.CheckoutShippingInfoPage;
 import com.applause.auto.web.views.ShoppingCartPage;
 import com.applause.auto.web.views.SignInPage;
+import java.lang.invoke.MethodHandles;
+import java.util.List;
+import java.util.stream.Collectors;
 
-@WebDesktopImplementation(MiniCartContainerChunk.class)
-@WebTabletImplementation(MiniCartContainerChunk.class)
-@WebPhoneImplementation(MiniCartContainerChunk.class)
-public class MiniCartContainerChunk extends AbstractPageChunk {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+@Implementation(is = MiniCartContainerChunk.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = MiniCartContainerChunk.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = MiniCartContainerChunk.class, on = Platform.WEB_MOBILE_PHONE)
+public class MiniCartContainerChunk extends BaseComponent {
 
 	/**
 	 * Constructor.
@@ -36,12 +34,6 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 	 */
 	public MiniCartContainerChunk(UIData parent, String selector) {
 		super(parent, selector);
-	}
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getViewSignature());
 	}
 
 	/*
@@ -54,9 +46,9 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 	 * @return CheckoutPage
 	 */
 	public CheckoutPage clickCheckout() {
-		LOGGER.info("Clicking Checkout Button");
-		getCheckoutButton().click();
-		return PageFactory.create(CheckoutPage.class);
+		logger.info("Clicking Checkout Button");
+		getCheckoutButton.click();
+		return ComponentFactory.create(CheckoutPage.class);
 	}
 
 	/**
@@ -65,9 +57,9 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 	 * @return CheckoutPlaceOrderPage
 	 */
 	public CheckoutPlaceOrderPage checkoutSignedInUser() {
-		LOGGER.info("Clicking Checkout Button");
-		getCheckoutButton().click();
-		return PageFactory.create(CheckoutPlaceOrderPage.class);
+		logger.info("Clicking Checkout Button");
+		getCheckoutButton.click();
+		return ComponentFactory.create(CheckoutPlaceOrderPage.class);
 	}
 
 	/**
@@ -76,9 +68,9 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 	 * @return CheckoutShippingInfoPage
 	 */
 	public CheckoutShippingInfoPage clickSignedInCheckout() {
-		LOGGER.info("Clicking Checkout Button");
-		getCheckoutButton().click();
-		return PageFactory.create(CheckoutShippingInfoPage.class);
+		logger.info("Clicking Checkout Button");
+		getCheckoutButton.click();
+		return ComponentFactory.create(CheckoutShippingInfoPage.class);
 	}
 
 	/**
@@ -87,9 +79,9 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 	 * @return SignInPage
 	 */
 	public SignInPage checkoutPeetsCard() {
-		LOGGER.info("Clicking Checkout Button on Peets Card Page");
-		getCheckoutButton().click();
-		return PageFactory.create(SignInPage.class);
+		logger.info("Clicking Checkout Button on Peets Card Page");
+		getCheckoutButton.click();
+		return ComponentFactory.create(SignInPage.class);
 	}
 
 	/**
@@ -98,9 +90,9 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 	 * @return ShoppingCartPage
 	 */
 	public ShoppingCartPage clickEditCart() {
-		LOGGER.info("Clicking Edit Button");
-		getEditCartLink().click();
-		return PageFactory.create(ShoppingCartPage.class);
+		logger.info("Clicking Edit Button");
+		getEditCartLink.click();
+		return ComponentFactory.create(ShoppingCartPage.class);
 	}
 
 	/**
@@ -109,10 +101,10 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 	 * @return the items
 	 */
 	public List<String> getItems() {
-		LOGGER.info("Obtaining items from mini-cart");
-		return queryHelper.findElementsByExtendedCss(getLocator(this, "getMinicartItems")).stream().map(item -> {
-			String result = item.getText();
-			LOGGER.info("Found item: " + result);
+		logger.info("Obtaining items from mini-cart");
+		return QueryHelper.findElementsByExtendedCss(getLocator(this, "getMinicartItems")).stream().map(item -> {
+			String result = item.getCurrentText();
+			logger.info("Found item: " + result);
 			return result.trim();
 		}).collect(Collectors.toList());
 	}
@@ -125,10 +117,10 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 	 * @return the mini cart container chunk
 	 */
 	public MiniCartContainerChunk remove(String itemName) {
-		LOGGER.info("Remove from cart item: " + itemName);
+		logger.info("Remove from cart item: " + itemName);
 		getRemoveItemButton(itemName).click();
 		getDriver().switchTo().alert().accept();
-		syncHelper.waitForElementToAppear(getReAddItemButton(itemName));
+		SyncHelper.waitUntilElementPresent(getReAddItemButton(itemName));
 		return this;
 	}
 
@@ -140,8 +132,8 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 	 * @return the re add button caption
 	 */
 	public String getReAddButtonCaption(String itemName) {
-		LOGGER.info("Getting Re add button caption");
-		return getReAddItemButton(itemName).getText().trim();
+		logger.info("Getting Re add button caption");
+		return getReAddItemButton(itemName).getCurrentText().trim();
 	}
 
 	/**
@@ -152,8 +144,8 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 	 * @return the remove button caption
 	 */
 	public String getRemoveButtonCaption(String itemName) {
-		LOGGER.info("Getting Remove button caption");
-		return getRemoveItemButton(itemName).getText().trim();
+		logger.info("Getting Remove button caption");
+		return getRemoveItemButton(itemName).getCurrentText().trim();
 	}
 
 	/**
@@ -164,43 +156,31 @@ public class MiniCartContainerChunk extends AbstractPageChunk {
 	 * @return the mini cart container chunk
 	 */
 	public MiniCartContainerChunk reAdd(String itemName) {
-		LOGGER.info("Clicking re-add button");
+		logger.info("Clicking re-add button");
 		getReAddItemButton(itemName).click();
-		syncHelper.waitForElementToAppear(getRemoveItemButton(itemName));
+		SyncHelper.waitUntilElementPresent(getRemoveItemButton(itemName));
 		return this;
 	}
 
 	/*
 	 * Protected Getters
 	 */
-	@WebElementLocator(webDesktop = "#minicart-container")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(jQuery = "#minicart-container", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
-	@WebElementLocator(webDesktop = "#minicart-container .product-name")
-	protected Text getMinicartItems() {
-		return new Text(this, getLocator(this, "getMinicartItems"));
-	}
+	@Locate(jQuery = "#minicart-container .product-name", on = Platform.WEB_DESKTOP)
+	protected Text getMinicartItems;
 
-	@WebElementLocator(webDesktop = "#minicart-container > div.block-subtitle > a.cart-link")
-	protected Link getEditCartLink() {
-		return new Link(this, getLocator(this, "getEditCartLink"));
-	}
+	@Locate(jQuery = "#minicart-container > div.block-subtitle > a.cart-link", on = Platform.WEB_DESKTOP)
+	protected Link getEditCartLink;
 
-	@WebElementLocator(webDesktop = "a[title='Checkout']")
-	protected Button getCheckoutButton() {
-		return new Button(this, getLocator(this, "getCheckoutButton"));
-	}
+	@Locate(jQuery = "a[title='Checkout']", on = Platform.WEB_DESKTOP)
+	protected Button getCheckoutButton;
 
-	@WebElementLocator(webDesktop = "//*[@id='cart-sidebar']//a[starts-with(@title,'%s')]/..//a[@class='remove']")
-	protected Button getRemoveItemButton(String itemName) {
-		return new Button(this, String.format(getLocator(this, "getRemoveItemButton"), itemName));
-	}
+	@Locate(xpath = "//*[@id='cart-sidebar']//a[starts-with(@title,'%s')]/..//a[@class='remove']", on = Platform.WEB_DESKTOP)
+	protected Button getRemoveItemButton;
 
-	@WebElementLocator(webDesktop = "//*[@id='cart-sidebar']//a[starts-with(@title,'%s')]/..//a[@class='re-add']")
-	protected Button getReAddItemButton(String itemName) {
-		return new Button(this, String.format(getLocator(this, "getReAddItemButton"), itemName));
-	}
+	@Locate(xpath = "//*[@id='cart-sidebar']//a[starts-with(@title,'%s')]/..//a[@class='re-add']", on = Platform.WEB_DESKTOP)
+	protected Button getReAddItemButton;
 
 }

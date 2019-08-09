@@ -16,9 +16,9 @@ public class DebugTest extends BaseTest {
   public void debugTest() {
 
     // Test Steps
-    Landing landingPage = navigateToLandingPage();
+    Landing landing = navigateToLanding();
 
     // Assertions
-    Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+    Assert.assertNotNull(landing, "Failed to navigate to the landing page.");
   }
 }

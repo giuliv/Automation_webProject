@@ -1,36 +1,26 @@
 package com.applause.auto.web.views;
 
+import com.applause.auto.common.data.Constants;
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.pageframework.util.webDrivers.BrowserType;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Image;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.EditField;
-import com.applause.auto.framework.pageframework.webcontrols.Image;
-import com.applause.auto.web.helpers.WebHelper;
-import com.applause.auto.common.data.TestConstants;
-
-@WebDesktopImplementation(PaypalLoginPage.class)
-@WebTabletImplementation(PaypalLoginPage.class)
-@WebPhoneImplementation(PaypalLoginPage.class)
-public class PaypalLoginPage extends AbstractPage {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+@Implementation(is = PaypalLoginPage.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = PaypalLoginPage.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = PaypalLoginPage.class, on = Platform.WEB_MOBILE_PHONE)
+public class PaypalLoginPage extends BaseComponent {
 	protected final static WebHelper webHelper = new WebHelper();
-
-	@Override
-	protected void waitUntilVisible() {
-		syncHelper.suspend(45000);
-		syncHelper.waitForElementToAppear(getEmailField());
-	}
 
 	// Public actions
 
@@ -40,17 +30,17 @@ public class PaypalLoginPage extends AbstractPage {
 	 * @param email
 	 */
 	public void enterEmail(String email) {
-		LOGGER.info("Entering email address");
-		getEmailField().clearText();
-		getEmailField().setText(email);
+		logger.info("Entering email address");
+		getEmailField.clearText();
+		getEmailField.sendKeys(email);
 	}
 
 	/**
 	 * Click Next Button
 	 */
 	public void clickNext() {
-		LOGGER.info("Clicking Next button");
-		getNextButton().click();
+		logger.info("Clicking Next button");
+		getNextButton.click();
 	}
 
 	/**
@@ -59,9 +49,9 @@ public class PaypalLoginPage extends AbstractPage {
 	 * @param password
 	 */
 	public void enterPassword(String password) {
-		LOGGER.info("Entering password");
-		syncHelper.waitForElementToAppear(getPasswordField());
-		getPasswordField().setText(password);
+		logger.info("Entering password");
+		SyncHelper.waitUntilElementPresent(getPasswordField);
+		getPasswordField.sendKeys(password);
 	}
 
 	/**
@@ -70,59 +60,49 @@ public class PaypalLoginPage extends AbstractPage {
 	 * @return PaypalReviewYourPurchasePage
 	 */
 	public PaypalReviewYourPurchasePage clickLogIn() {
-		LOGGER.info("Clicking Log In");
-		getLogInButton().click();
+		logger.info("Clicking Log In");
+		getLogInButton.click();
 
 		// SAFARI flow
 		if (env.getBrowserType() == BrowserType.SAFARI) {
 			// Move to iFrame
-			syncHelper.suspend(45000);
+			SyncHelper.sleep(45000);
 			getDriver().switchTo().defaultContent();
 			try {
-				syncHelper.waitForElementToAppear("[name='injectedUl']");
+				SyncHelper.waitUntilElementPresent("[name='injectedUl']");
 				getDriver().switchTo()
 						.frame((WebElement) getDriver().findElement(By.cssSelector("[name='injectedUl']")));
-				LOGGER.info("Switched to Iframe successfully");
+				logger.info("Switched to Iframe successfully");
 			} catch (Throwable throwable) {
-				LOGGER.info("Switching to iFrame failed");
-				LOGGER.warn(throwable.getMessage());
+				logger.info("Switching to iFrame failed");
+				logger.warn(throwable.getMessage());
 			}
-			getPasswordField().clearText();
-			getPasswordField().setText(TestConstants.TestData.PAYPAL_PASSWORD);
+			getPasswordField.clearText();
+			getPasswordField.sendKeys(Constants.TestData.PAYPAL_PASSWORD);
 			if (env.getBrowserType() == BrowserType.SAFARI) {
-				webHelper.jsClick(getLogInButton().getWebElement());
+				webHelper.jsClick(getLogInButton.getWebElement());
 			} else {
-				getLogInButton().click();
+				getLogInButton.click();
 			}
 			getDriver().switchTo().defaultContent();
 		}
 
-		return PageFactory.create(PaypalReviewYourPurchasePage.class);
+		return ComponentFactory.create(PaypalReviewYourPurchasePage.class);
 	}
 
 	// Protected getters
-	@WebElementLocator(webDesktop = "//*[@id=\"content\"]")
-	protected Image getViewSignature() {
-		return new Image(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(xpath = "//*[@id=\"content\"]", on = Platform.WEB_DESKTOP)
+	protected Image getViewSignature;
 
-	@WebElementLocator(webDesktop = "//*[@id=\"email\"]")
-	protected EditField getEmailField() {
-		return new EditField(this, getLocator(this, "getEmailField"));
-	}
+	@Locate(xpath = "//*[@id=\"email\"]", on = Platform.WEB_DESKTOP)
+	protected TextBox getEmailField;
 
-	@WebElementLocator(webDesktop = "//*[@id=\"btnNext\"]")
-	protected Button getNextButton() {
-		return new Button(this, getLocator(this, "getNextButton"));
-	}
+	@Locate(xpath = "//*[@id=\"btnNext\"]", on = Platform.WEB_DESKTOP)
+	protected Button getNextButton;
 
-	@WebElementLocator(webDesktop = "//*[@id=\"password\"]")
-	protected EditField getPasswordField() {
-		return new EditField(this, getLocator(this, "getPasswordField"));
-	}
+	@Locate(xpath = "//*[@id=\"password\"]", on = Platform.WEB_DESKTOP)
+	protected TextBox getPasswordField;
 
-	@WebElementLocator(webDesktop = "//*[@id=\"btnLogin\"]")
-	protected Button getLogInButton() {
-		return new Button(this, getLocator(this, "getLogInButton"));
-	}
+	@Locate(xpath = "//*[@id=\"btnLogin\"]", on = Platform.WEB_DESKTOP)
+	protected Button getLogInButton;
 }

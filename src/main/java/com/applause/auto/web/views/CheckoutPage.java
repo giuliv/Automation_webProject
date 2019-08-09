@@ -1,30 +1,19 @@
 package com.applause.auto.web.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
-import com.applause.auto.web.helpers.WebHelper;
-
-@WebDesktopImplementation(CheckoutPage.class)
-@WebTabletImplementation(CheckoutPage.class)
-@WebPhoneImplementation(CheckoutPage.class)
-public class CheckoutPage extends AbstractPage {
-
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getViewSignature());
-	}
+@Implementation(is = CheckoutPage.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = CheckoutPage.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = CheckoutPage.class, on = Platform.WEB_MOBILE_PHONE)
+public class CheckoutPage extends BaseComponent {
 
 	/*
 	 * Public Actions
@@ -36,23 +25,19 @@ public class CheckoutPage extends AbstractPage {
 	 * @return CheckoutShippingInfoPage
 	 */
 	public CheckoutShippingInfoPage clickContinueAsGuest() {
-		LOGGER.info("Click Continue as Guest");
-		getClickContinueAsGuestButton().click();
-		return PageFactory.create(CheckoutShippingInfoPage.class);
+		logger.info("Click Continue as Guest");
+		getClickContinueAsGuestButton.click();
+		return ComponentFactory.create(CheckoutShippingInfoPage.class);
 	}
 
 	/*
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "div.default-message-page.login div.page-title h1")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(jQuery = "div.default-message-page.login div.page-title h1", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
-	@WebElementLocator(webDesktop = "div.new-users button")
-	protected Button getClickContinueAsGuestButton() {
-		return new Button(this, getLocator(this, "getClickContinueAsGuestButton"));
-	}
+	@Locate(jQuery = "div.new-users button", on = Platform.WEB_DESKTOP)
+	protected Button getClickContinueAsGuestButton;
 
 }

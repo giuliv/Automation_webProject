@@ -1,25 +1,21 @@
 package com.applause.auto.web.components;
 
-import java.lang.invoke.MethodHandles;
-
+import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.pageframework.UIData;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPageChunk;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.web.views.DashboardPage;
+import java.lang.invoke.MethodHandles;
 
-@WebDesktopImplementation(DashboardModalChunk.class)
-@WebTabletImplementation(DashboardModalChunk.class)
-@WebPhoneImplementation(DashboardModalChunk.class)
-public class DashboardModalChunk extends AbstractPageChunk {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+@Implementation(is = DashboardModalChunk.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = DashboardModalChunk.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = DashboardModalChunk.class, on = Platform.WEB_MOBILE_PHONE)
+public class DashboardModalChunk extends BaseComponent {
 
 	/**
 	 * Constructor.
@@ -29,12 +25,6 @@ public class DashboardModalChunk extends AbstractPageChunk {
 	 */
 	public DashboardModalChunk(UIData parent, String selector) {
 		super(parent, selector);
-	}
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getViewSignature());
 	}
 
 	/*
@@ -47,9 +37,9 @@ public class DashboardModalChunk extends AbstractPageChunk {
 	 * @return DashboardPage
 	 */
 	public DashboardPage clickExploreDashboard() {
-		LOGGER.info("Clicking Explore Dashboard Button");
-		getExploreDashboardButton().click();
-		return PageFactory.create(DashboardPage.class);
+		logger.info("Clicking Explore Dashboard Button");
+		getExploreDashboardButton.click();
+		return ComponentFactory.create(DashboardPage.class);
 	}
 
 	/**
@@ -58,28 +48,22 @@ public class DashboardModalChunk extends AbstractPageChunk {
 	 * @return DashboardPage
 	 */
 	public DashboardPage clickCloseModal() {
-		LOGGER.info("Clicking Close button on Dashboard Modal");
-		getCloseDashboardModalButton().click();
-		return PageFactory.create(DashboardPage.class);
+		logger.info("Clicking Close button on Dashboard Modal");
+		getCloseDashboardModalButton.click();
+		return ComponentFactory.create(DashboardPage.class);
 	}
 
 	/*
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "div#modal-new-message-2018 a")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(jQuery = "div#modal-new-message-2018 a", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
-	@WebElementLocator(webDesktop = "div#modal-new-message-2018 a")
-	protected Button getExploreDashboardButton() {
-		return new Button(this, getLocator(this, "getExploreDashboardButton"));
-	}
+	@Locate(jQuery = "div#modal-new-message-2018 a", on = Platform.WEB_DESKTOP)
+	protected Button getExploreDashboardButton;
 
-	@WebElementLocator(webDesktop = "#modal-new-message-2018 .close-button")
-	protected Button getCloseDashboardModalButton() {
-		return new Button(this, getLocator(this, "getCloseDashboardModalButton"));
-	}
+	@Locate(jQuery = "#modal-new-message-2018 .close-button", on = Platform.WEB_DESKTOP)
+	protected Button getCloseDashboardModalButton;
 
 }

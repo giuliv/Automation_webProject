@@ -1,25 +1,21 @@
 package com.applause.auto.web.components;
 
-import java.lang.invoke.MethodHandles;
-
+import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.pageframework.UIData;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPageChunk;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.web.views.CheckoutShippingInfoPage;
+import java.lang.invoke.MethodHandles;
 
-@WebDesktopImplementation(VerifyYourAddressDetailsChunk.class)
-@WebTabletImplementation(VerifyYourAddressDetailsChunk.class)
-@WebPhoneImplementation(VerifyYourAddressDetailsChunk.class)
-public class VerifyYourAddressDetailsChunk extends AbstractPageChunk {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+@Implementation(is = VerifyYourAddressDetailsChunk.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = VerifyYourAddressDetailsChunk.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = VerifyYourAddressDetailsChunk.class, on = Platform.WEB_MOBILE_PHONE)
+public class VerifyYourAddressDetailsChunk extends BaseComponent {
 
 	/**
 	 * Constructor.
@@ -29,12 +25,6 @@ public class VerifyYourAddressDetailsChunk extends AbstractPageChunk {
 	 */
 	public VerifyYourAddressDetailsChunk(UIData parent, String selector) {
 		super(parent, selector);
-	}
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getViewSignature());
 	}
 
 	/*
@@ -47,21 +37,17 @@ public class VerifyYourAddressDetailsChunk extends AbstractPageChunk {
 	 * @return CheckoutShippingInfoPage
 	 */
 	public CheckoutShippingInfoPage clickEnteredAddressButton() {
-		LOGGER.info("Clicking Use Entered Address Button");
-		getUseEnteredAddressButton().click();
-		return PageFactory.create(CheckoutShippingInfoPage.class);
+		logger.info("Clicking Use Entered Address Button");
+		getUseEnteredAddressButton.click();
+		return ComponentFactory.create(CheckoutShippingInfoPage.class);
 	}
 
 	/*
 	 * Protected Getters
 	 */
-	@WebElementLocator(webDesktop = ".verification-form")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(jQuery = ".verification-form", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
-	@WebElementLocator(webDesktop = "button[title='Use Address As Entered *']")
-	protected Button getUseEnteredAddressButton() {
-		return new Button(this, getLocator(this, "getUseEnteredAddressButton"));
-	}
+	@Locate(jQuery = "button[title='Use Address As Entered *']", on = Platform.WEB_DESKTOP)
+	protected Button getUseEnteredAddressButton;
 }

@@ -1,29 +1,19 @@
 package com.applause.auto.web.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
-import com.applause.auto.web.helpers.WebHelper;
-
-@WebDesktopImplementation(SearchResultsPage.class)
-@WebTabletImplementation(SearchResultsPage.class)
-@WebPhoneImplementation(SearchResultsPage.class)
-public class SearchResultsPage extends AbstractPage {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getResultsText());
-	}
+@Implementation(is = SearchResultsPage.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = SearchResultsPage.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = SearchResultsPage.class, on = Platform.WEB_MOBILE_PHONE)
+public class SearchResultsPage extends BaseComponent {
 
 	// Public actions
 
@@ -33,9 +23,9 @@ public class SearchResultsPage extends AbstractPage {
 	 * @return CoffeeProductDescriptionPage
 	 */
 	public CoffeeProductDescriptionPage clickFirstProduct() {
-		LOGGER.info("Clicking First Product");
-		getFirstProduct().click();
-		return PageFactory.create(CoffeeProductDescriptionPage.class);
+		logger.info("Clicking First Product");
+		getFirstProduct.click();
+		return ComponentFactory.create(CoffeeProductDescriptionPage.class);
 	}
 
 	/**
@@ -44,25 +34,19 @@ public class SearchResultsPage extends AbstractPage {
 	 * @return CoffeeProductDescriptionPage
 	 */
 	public CoffeeProductDescriptionPage clickKona() {
-		LOGGER.info("Clicking First Product");
-		getKonaProduct().click();
-		return PageFactory.create(CoffeeProductDescriptionPage.class);
+		logger.info("Clicking First Product");
+		getKonaProduct.click();
+		return ComponentFactory.create(CoffeeProductDescriptionPage.class);
 	}
 
 	// Protected getters
-	@WebElementLocator(webDesktop = ".shown-results")
-	protected Text getResultsText() {
-		return new Text(this, getLocator(this, "getResultsText"));
-	}
+	@Locate(jQuery = ".shown-results", on = Platform.WEB_DESKTOP)
+	protected Text getResultsText;
 
-	@WebElementLocator(webDesktop = "#product_addtocart_form10995 > div.image-holder > div > a > picture > img")
-	protected Button getFirstProduct() {
-		return new Button(this, getLocator(this, "getFirstProduct"));
-	}
+	@Locate(jQuery = "#product_addtocart_form10995 > div.image-holder > div > a > picture > img", on = Platform.WEB_DESKTOP)
+	protected Button getFirstProduct;
 
-	@WebElementLocator(webDesktop = "#product_addtocart_form10008 > div.image-holder > div.product-image.americas > a > picture > img")
-	protected Button getKonaProduct() {
-		return new Button(this, getLocator(this, "getKonaProduct"));
-	}
+	@Locate(jQuery = "#product_addtocart_form10008 > div.image-holder > div.product-image.americas > a > picture > img", on = Platform.WEB_DESKTOP)
+	protected Button getKonaProduct;
 
 }

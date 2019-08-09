@@ -1,29 +1,19 @@
 package com.applause.auto.web.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
-import com.applause.auto.web.helpers.WebHelper;
-
-@WebDesktopImplementation(MyAccountMySuscriptionsPage.class)
-@WebTabletImplementation(MyAccountMySuscriptionsPage.class)
-@WebPhoneImplementation(MyAccountMySuscriptionsPage.class)
-public class MyAccountMySuscriptionsPage extends AbstractPage {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getViewSignature());
-	}
+@Implementation(is = MyAccountMySuscriptionsPage.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = MyAccountMySuscriptionsPage.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = MyAccountMySuscriptionsPage.class, on = Platform.WEB_MOBILE_PHONE)
+public class MyAccountMySuscriptionsPage extends BaseComponent {
 
 	// Public actions
 
@@ -33,8 +23,8 @@ public class MyAccountMySuscriptionsPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isSubscriptionNameDisplayed() {
-		LOGGER.info("Verifying Subscription Name is displayed");
-		return getSubscriptionNameText().isDisplayed();
+		logger.info("Verifying Subscription Name is displayed");
+		return getSubscriptionNameText.isDisplayed();
 	}
 
 	/**
@@ -43,8 +33,8 @@ public class MyAccountMySuscriptionsPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isNextShipmentDateDisplayed() {
-		LOGGER.info("Verifying Next Shipment Date is displayed");
-		return getNextShipmentDateText().isDisplayed();
+		logger.info("Verifying Next Shipment Date is displayed");
+		return getNextShipmentDateText.isDisplayed();
 	}
 
 	/**
@@ -53,8 +43,8 @@ public class MyAccountMySuscriptionsPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isSubscriptionFrequencyDateDisplayed() {
-		LOGGER.info("Verifying Subscription frequency is displayed");
-		return getSubscriptionFrequencyDateText().isDisplayed();
+		logger.info("Verifying Subscription frequency is displayed");
+		return getSubscriptionFrequencyDateText.isDisplayed();
 	}
 
 	/**
@@ -63,8 +53,8 @@ public class MyAccountMySuscriptionsPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isManageSubscriptionButtonDisplayed() {
-		LOGGER.info("Verifying Manage Subscription button is displayed");
-		return getManageSubscriptionButton().isDisplayed();
+		logger.info("Verifying Manage Subscription button is displayed");
+		return getManageSubscriptionButton.isDisplayed();
 	}
 
 	/**
@@ -73,9 +63,9 @@ public class MyAccountMySuscriptionsPage extends AbstractPage {
 	 * @return MyAccountManageSubscriptionPage
 	 */
 	public MyAccountManageSubscriptionPage clickManageSubscription() {
-		LOGGER.info("Clicking Manage Subscription");
-		getManageSubscriptionButton().click();
-		return PageFactory.create(MyAccountManageSubscriptionPage.class);
+		logger.info("Clicking Manage Subscription");
+		getManageSubscriptionButton.click();
+		return ComponentFactory.create(MyAccountManageSubscriptionPage.class);
 	}
 
 	/**
@@ -84,8 +74,8 @@ public class MyAccountMySuscriptionsPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isShippingAddressDisplayed() {
-		LOGGER.info("Verifying Shipping Address is displayed");
-		return getShippingAddressText().isDisplayed();
+		logger.info("Verifying Shipping Address is displayed");
+		return getShippingAddressText.isDisplayed();
 	}
 
 	/**
@@ -94,8 +84,8 @@ public class MyAccountMySuscriptionsPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isShippingMethodDisplayed() {
-		LOGGER.info("Verifying Shipping Method is displayed");
-		return getShippingMethodText().isDisplayed();
+		logger.info("Verifying Shipping Method is displayed");
+		return getShippingMethodText.isDisplayed();
 	}
 
 	/**
@@ -104,49 +94,33 @@ public class MyAccountMySuscriptionsPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isSubscribedProductDisplayed() {
-		LOGGER.info("Verifying SubscribedProduct is displayed");
-		return getSubscribedProductText().isDisplayed();
+		logger.info("Verifying SubscribedProduct is displayed");
+		return getSubscribedProductText.isDisplayed();
 	}
 
 	// Protected getters
-	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(jQuery = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
-	@WebElementLocator(webDesktop = "div.sub-id h2")
-	protected Text getSubscriptionNameText() {
-		return new Text(this, getLocator(this, "getSubscriptionNameText"));
-	}
+	@Locate(jQuery = "div.sub-id h2", on = Platform.WEB_DESKTOP)
+	protected Text getSubscriptionNameText;
 
-	@WebElementLocator(webDesktop = ".sub-shipment span.number")
-	protected Text getNextShipmentDateText() {
-		return new Text(this, getLocator(this, "getNextShipmentDateText"));
-	}
+	@Locate(jQuery = ".sub-shipment span.number", on = Platform.WEB_DESKTOP)
+	protected Text getNextShipmentDateText;
 
-	@WebElementLocator(webDesktop = ".sub-frequency span.number")
-	protected Text getSubscriptionFrequencyDateText() {
-		return new Text(this, getLocator(this, "getSubscriptionFrequencyDateText"));
-	}
+	@Locate(jQuery = ".sub-frequency span.number", on = Platform.WEB_DESKTOP)
+	protected Text getSubscriptionFrequencyDateText;
 
-	@WebElementLocator(webDesktop = "div.recurring-profile-title a")
-	protected Button getManageSubscriptionButton() {
-		return new Button(this, getLocator(this, "getManageSubscriptionButton"));
-	}
+	@Locate(jQuery = "div.recurring-profile-title a", on = Platform.WEB_DESKTOP)
+	protected Button getManageSubscriptionButton;
 
-	@WebElementLocator(webDesktop = "//div[div[contains(.,'Ship To')]]/address")
-	protected Text getShippingAddressText() {
-		return new Text(this, getLocator(this, "getShippingAddressText"));
-	}
+	@Locate(xpath = "//div[div[contains(.,'Ship To')]]/address", on = Platform.WEB_DESKTOP)
+	protected Text getShippingAddressText;
 
-	@WebElementLocator(webDesktop = "//div[div[contains(.,'Shipping Method')]]/p")
-	protected Text getShippingMethodText() {
-		return new Text(this, getLocator(this, "getShippingMethodText"));
-	}
+	@Locate(xpath = "//div[div[contains(.,'Shipping Method')]]/p", on = Platform.WEB_DESKTOP)
+	protected Text getShippingMethodText;
 
-	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.recurring-profile-section.account-container > div.wrapper-items > div.items > table > tbody")
-	protected Text getSubscribedProductText() {
-		return new Text(this, getLocator(this, "getSubscribedProductText"));
-	}
+	@Locate(jQuery = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.recurring-profile-section.account-container > div.wrapper-items > div.items > table > tbody", on = Platform.WEB_DESKTOP)
+	protected Text getSubscribedProductText;
 
 }

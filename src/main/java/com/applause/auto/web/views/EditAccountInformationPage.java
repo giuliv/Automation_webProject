@@ -1,31 +1,21 @@
 package com.applause.auto.web.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.pageframework.util.webDrivers.BrowserType;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.EditField;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
-import com.applause.auto.web.helpers.WebHelper;
-
-@WebDesktopImplementation(EditAccountInformationPage.class)
-@WebTabletImplementation(EditAccountInformationPage.class)
-@WebPhoneImplementation(EditAccountInformationPage.class)
-public class EditAccountInformationPage extends AbstractPage {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getViewSignature());
-	}
+@Implementation(is = EditAccountInformationPage.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = EditAccountInformationPage.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = EditAccountInformationPage.class, on = Platform.WEB_MOBILE_PHONE)
+public class EditAccountInformationPage extends BaseComponent {
 
 	// Public actions
 
@@ -35,9 +25,9 @@ public class EditAccountInformationPage extends AbstractPage {
 	 * @param firstName
 	 */
 	public void enterFirstName(String firstName) {
-		LOGGER.info("Entering First Name");
-		getFirstNameField().clearText();
-		getFirstNameField().setText(firstName);
+		logger.info("Entering First Name");
+		getFirstNameField.clearText();
+		getFirstNameField.sendKeys(firstName);
 	}
 
 	/**
@@ -46,9 +36,9 @@ public class EditAccountInformationPage extends AbstractPage {
 	 * @param email
 	 */
 	public void enterEmail(String email) {
-		LOGGER.info("Entering Email");
-		getEmailField().clearText();
-		getEmailField().setText(email);
+		logger.info("Entering Email");
+		getEmailField.clearText();
+		getEmailField.sendKeys(email);
 	}
 
 	/**
@@ -58,7 +48,7 @@ public class EditAccountInformationPage extends AbstractPage {
 	 * @param safariEmail
 	 */
 	public void enterEmailByBrowser(String email, String safariEmail) {
-		LOGGER.info("Entering Email");
+		logger.info("Entering Email");
 		if (env.getBrowserType() == BrowserType.SAFARI) {
 			enterEmail(safariEmail);
 		} else {
@@ -72,8 +62,8 @@ public class EditAccountInformationPage extends AbstractPage {
 	 * @param password
 	 */
 	public void enterCurrentPassword(String password) {
-		LOGGER.info("Entering Current Password");
-		getCurrentPasswordField().setText(password);
+		logger.info("Entering Current Password");
+		getCurrentPasswordField.sendKeys(password);
 	}
 
 	/**
@@ -82,17 +72,17 @@ public class EditAccountInformationPage extends AbstractPage {
 	 * @return MyAccountPage
 	 */
 	public MyAccountPage clickSave() {
-		LOGGER.info("Clicking Save");
-		getSaveButton().click();
-		return PageFactory.create(MyAccountPage.class);
+		logger.info("Clicking Save");
+		getSaveButton.click();
+		return ComponentFactory.create(MyAccountPage.class);
 	}
 
 	/**
 	 * Change current password.
 	 */
 	public void changeCurrentPassword() {
-		LOGGER.info("Check current password checkbox");
-		getChangeCurrentPasswordButton().click();
+		logger.info("Check current password checkbox");
+		getChangeCurrentPasswordButton.click();
 	}
 
 	/**
@@ -102,8 +92,8 @@ public class EditAccountInformationPage extends AbstractPage {
 	 *            the password
 	 */
 	public void enterNewPassword(String password) {
-		LOGGER.info("Typing new password: " + password);
-		getNewPasswordEditField().setText(password);
+		logger.info("Typing new password: " + password);
+		getNewPasswordTextBox.sendKeys(password);
 	}
 
 	/**
@@ -113,49 +103,33 @@ public class EditAccountInformationPage extends AbstractPage {
 	 *            the password
 	 */
 	public void enterConfirmPassword(String password) {
-		LOGGER.info("Typing confirmation password: " + password);
-		getNewPasswordConfirmationEditField().setText(password);
+		logger.info("Typing confirmation password: " + password);
+		getNewPasswordConfirmationTextBox.sendKeys(password);
 	}
 
 	// Protected getters
-	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(jQuery = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
-	@WebElementLocator(webDesktop = "#firstname")
-	protected EditField getFirstNameField() {
-		return new EditField(this, getLocator(this, "getFirstNameField"));
-	}
+	@Locate(jQuery = "#firstname", on = Platform.WEB_DESKTOP)
+	protected TextBox getFirstNameField;
 
-	@WebElementLocator(webDesktop = "#email")
-	protected EditField getEmailField() {
-		return new EditField(this, getLocator(this, "getEmailField"));
-	}
+	@Locate(jQuery = "#email", on = Platform.WEB_DESKTOP)
+	protected TextBox getEmailField;
 
-	@WebElementLocator(webDesktop = "button.button.btn-save")
-	protected Button getSaveButton() {
-		return new Button(this, getLocator(this, "getSaveButton"));
-	}
+	@Locate(jQuery = "button.button.btn-save", on = Platform.WEB_DESKTOP)
+	protected Button getSaveButton;
 
-	@WebElementLocator(webDesktop = "#current_password")
-	protected EditField getCurrentPasswordField() {
-		return new EditField(this, getLocator(this, "getCurrentPasswordField"));
-	}
+	@Locate(jQuery = "#current_password", on = Platform.WEB_DESKTOP)
+	protected TextBox getCurrentPasswordField;
 
-	@WebElementLocator(webDesktop = "label[for='change_password']")
-	protected Button getChangeCurrentPasswordButton() {
-		return new Button(this, getLocator(this, "getChangeCurrentPasswordButton"));
-	}
+	@Locate(jQuery = "label[for='change_password']", on = Platform.WEB_DESKTOP)
+	protected Button getChangeCurrentPasswordButton;
 
-	@WebElementLocator(webDesktop = "#password")
-	protected EditField getNewPasswordEditField() {
-		return new EditField(this, getLocator(this, "getNewPasswordEditField"));
-	}
+	@Locate(jQuery = "#password", on = Platform.WEB_DESKTOP)
+	protected TextBox getNewPasswordTextBox;
 
-	@WebElementLocator(webDesktop = "#confirmation")
-	protected EditField getNewPasswordConfirmationEditField() {
-		return new EditField(this, getLocator(this, "getNewPasswordConfirmationEditField"));
-	}
+	@Locate(jQuery = "#confirmation", on = Platform.WEB_DESKTOP)
+	protected TextBox getNewPasswordConfirmationTextBox;
 
 }
