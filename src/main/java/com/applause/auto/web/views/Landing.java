@@ -10,7 +10,6 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
 import com.applause.auto.web.components.MainMenuChunk;
-import com.applause.auto.web.helpers.WebHelper;
 import org.openqa.selenium.TimeoutException;
 
 @Implementation(is = Landing.class, on = Platform.WEB)
@@ -63,11 +62,11 @@ public class Landing extends BaseComponent {
    * @return a Login
    */
   public SignInPage clickSignInButton() {
-  	logger.info("Tap on SignIn Button");
-  	// TODO: Do we really need this?
-  	// WebHelper.waitForElementToBeClickable(signInButton.getWebElement());
+    logger.info("Tap on SignIn Button");
+    // TODO: Do we really need this?
+    // WebHelper.waitForElementToBeClickable(signInButton.getWebElement());
     SyncHelper.wait(Until.uiElement(signInButton).clickable()).click();
-  	return ComponentFactory.create(SignInPage.class);
+    return ComponentFactory.create(SignInPage.class);
   }
 
   /**
@@ -76,9 +75,9 @@ public class Landing extends BaseComponent {
    * @return a Shop Coffee Page
    */
   public ShopCoffeePage clickShopCoffeeButton() {
-  	logger.info("Tap on Shop Coffee Button");
-  	shopCoffeeButton.click();
-  	return ComponentFactory.create(ShopCoffeePage.class);
+    logger.info("Tap on Shop Coffee Button");
+    shopCoffeeButton.click();
+    return ComponentFactory.create(ShopCoffeePage.class);
   }
 
   /**
@@ -87,9 +86,9 @@ public class Landing extends BaseComponent {
    * @return a Shop Tea Page
    */
   public ShopTeaPage clickShopTeaButton() {
-  	logger.info("Tap on Shop Tea Button");
-  	shopTeaButton.click();
-  	return ComponentFactory.create(ShopTeaPage.class);
+    logger.info("Tap on Shop Tea Button");
+    shopTeaButton.click();
+    return ComponentFactory.create(ShopTeaPage.class);
   }
 
   /**
@@ -98,9 +97,9 @@ public class Landing extends BaseComponent {
    * @return a Shop Equipment Page
    */
   public ShopEquipmentPage clickShopEquipmentButton() {
-  	logger.info("Tap on Shop Equipment Button");
-  	shopEquipmentButton.click();
-  	return ComponentFactory.create(ShopEquipmentPage.class);
+    logger.info("Tap on Shop Equipment Button");
+    shopEquipmentButton.click();
+    return ComponentFactory.create(ShopEquipmentPage.class);
   }
 
   /**
@@ -109,8 +108,8 @@ public class Landing extends BaseComponent {
    * @return MainMenuChunk
    */
   public MainMenuChunk mainMenu() {
-  	logger.info("ting Main Menu");
-  	return ComponentFactory.create(MainMenuChunk.class);
+    logger.info("ting Main Menu");
+    return ComponentFactory.create(MainMenuChunk.class);
   }
 
   /**
@@ -120,10 +119,10 @@ public class Landing extends BaseComponent {
    * @return SearchResultsPage
    */
   public SearchResultsPage searchForProduct(String searchTerms) {
-  	logger.info("Searching for " + searchTerms);
-  	showSearchButton.click();
-  	searchTextBox.sendKeys(searchTerms);
-  	searchButton.click();
-  	return ComponentFactory.create(SearchResultsPage.class);
+    logger.info("Searching for " + searchTerms);
+    showSearchButton.click();
+    searchTextBox.sendKeys(searchTerms);
+    searchButton.click();
+    return ComponentFactory.create(SearchResultsPage.class);
   }
 }

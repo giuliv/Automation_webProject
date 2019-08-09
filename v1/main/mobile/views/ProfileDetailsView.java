@@ -136,7 +136,7 @@ public class ProfileDetailsView extends AbstractDeviceView {
 	 * @return the phone number
 	 */
 	public String getPhoneNumber() {
-		return getPhoneNumberTextBox().getCurrentText();
+		return getPhoneNumberTextBox().getText();
 	}
 
 	/**
@@ -145,7 +145,7 @@ public class ProfileDetailsView extends AbstractDeviceView {
 	 * @return the email address
 	 */
 	public String getEmailAddress() {
-		return getEmailAddressTextBox().getCurrentText();
+		return getEmailAddressTextBox().getText();
 	}
 
 	/**
@@ -154,7 +154,7 @@ public class ProfileDetailsView extends AbstractDeviceView {
 	 * @return the firstname
 	 */
 	public String getFirstname() {
-		return getFirstnameTextBox().getCurrentText();
+		return getFirstnameTextBox().getText();
 	}
 
 	/**
@@ -163,7 +163,7 @@ public class ProfileDetailsView extends AbstractDeviceView {
 	 * @return the lastname
 	 */
 	public String getLastname() {
-		return getLastnameTextBox().getCurrentText();
+		return getLastnameTextBox().getText();
 
 	}
 
@@ -173,7 +173,7 @@ public class ProfileDetailsView extends AbstractDeviceView {
 	 * @return the dob
 	 */
 	public String getDOB() {
-		return getDOBTextBox().getCurrentText();
+		return getDOBTextBox().getText();
 
 	}
 
@@ -200,7 +200,7 @@ public class ProfileDetailsView extends AbstractDeviceView {
 	 * @return the zip code
 	 */
 	public String getZipCode() {
-		return getZipCodeTextBox().getCurrentText();
+		return getZipCodeTextBox().getText();
 	}
 
 	/**
@@ -216,9 +216,7 @@ public class ProfileDetailsView extends AbstractDeviceView {
 		return DeviceChunkFactory.create(AccountMenuMobileChunk.class, "");
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/firstName", iOS = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeTextField")
 	protected TextBox getFirstnameTextBox() {

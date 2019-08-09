@@ -20,9 +20,7 @@ public class CompleteAccountView extends AbstractDeviceView {
 		syncHelper.waitForElementToAppear(getSignature(), 120000);
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "//android.widget.TextView[@text='COMPLETE ACCOUNT']", iOS = "//XCUIElementTypeOther[@name=\"COMPLETE ACCOUNT\"]")
 	protected Text getSignature() {

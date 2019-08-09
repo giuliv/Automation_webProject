@@ -21,7 +21,7 @@ public class PaymentMethodsView extends AbstractDeviceView {
 		syncHelper.waitForElementToAppear(getLocator(this, "getViewSignature"));
 	}
 
-	// Public actions
+
 
 	/**
 	 * Check for Peets Card Header
@@ -91,7 +91,7 @@ public class PaymentMethodsView extends AbstractDeviceView {
 		return DeviceViewFactory.create(AddNewCardView.class);
 	}
 
-	// Protected getters
+
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/title", iOS = "//*[contains(@name,\"Payment Method\")][1]")
 	protected Text getViewSignature() {
 		return new Text(getLocator(this, "getViewSignature"));

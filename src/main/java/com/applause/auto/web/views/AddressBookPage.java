@@ -7,144 +7,149 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.web.helpers.WebHelper;
-import java.lang.invoke.MethodHandles;
+import com.applause.auto.util.DriverManager;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 
 @Implementation(is = AddressBookPage.class, on = Platform.WEB)
 public class AddressBookPage extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	/* -------- Actions -------- */
+  @Locate(xpath = "//span[contains(.,'address has been saved')]", on = Platform.WEB)
+  private Text getAddressSavedBannerText;
 
-	// Public actions
+  @Locate(css = "#billing_form > ol > li > div.info-col > p", on = Platform.WEB)
+  private Text getBillingAddressText;
 
-	/**
-	 * Verify Address Changed Text is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isAddressSavedTextDisplayed() {
-		logger.info("Verifying Address Changed text is displayed");
-		return getAddressSavedBannerText.isDisplayed();
-	}
+  @Locate(css = "#shipping_form > ol > li > div.info-col > p", on = Platform.WEB)
+  private Text getShippingAddressText;
 
-	/**
-	 * Get Billing Address
-	 *
-	 * @return String
-	 */
-	public String getBillingAddress() {
-		logger.info("Getting Billing Address");
-		return getBillingAddressText.getText();
-	}
+  @Locate(
+      css = "#billing_form > ol > li > div.actions-col > ul > li:nth-child(2) > a",
+      on = Platform.WEB)
+  private Button getDeleteBillingAddressButton;
 
-	/**
-	 * Get Shipping Address
-	 *
-	 * @return
-	 */
-	public String getShippingAddress() {
-		logger.info("Getting Shipping Address");
-		return getShippingAddressText.getText();
-	}
+  @Locate(
+      css = "#shipping_form > ol > li > div.actions-col > ul > li:nth-child(2) > a",
+      on = Platform.WEB)
+  private Button getDeleteShippingAddressButton;
 
-	/**
-	 * Delete Billing Address
-	 */
-	public void deleteBillingAddress() {
-		logger.info("Deleting Billing Address");
-		JavascriptExecutor jse = (JavascriptExecutor) getDriver();
-		jse.executeScript("scroll(0,450)", "");
-		getDeleteBillingAddressButton.click();
-		Alert alert = getDriver().switchTo().alert();
-		alert.accept();
-	}
+  @Locate(
+      css =
+          "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.account-container.account-inner-section > div.addresses-list > div:nth-child(2) > div.main-section > div",
+      on = Platform.WEB)
+  private Text getNoBillingAddressText;
 
-	/**
-	 * Delete Shipping Address
-	 */
-	public void deleteShippingAddress() {
-		logger.info("Deleting Shipping Address");
-		JavascriptExecutor jse = (JavascriptExecutor) getDriver();
-		jse.executeScript("scroll(0,450)", "");
-		getDeleteShippingAddressButton.click();
-		Alert alert = getDriver().switchTo().alert();
-		alert.accept();
-	}
+  @Locate(
+      css =
+          "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.account-container.account-inner-section > div.addresses-list > div:nth-child(1) > div.main-section > div",
+      on = Platform.WEB)
+  private Text getNoShippingAddressText;
 
-	/**
-	 * Verify Billing Address was Deleted
-	 *
-	 * @return boolean
-	 */
-	public boolean isBillingAddressDeleted() {
-		logger.info("Verifying Billing Address was deleted");
-		return getNoBillingAddressText.isDisplayed();
-	}
+  @Locate(
+      css =
+          "div.account-container.account-inner-section > div.addresses-list > div:nth-child(2) > div.account-inner-title > div.right > a",
+      on = Platform.WEB)
+  private Button getAddBillingAddressButton;
 
-	/**
-	 * Verify Shipping Address was Deleted
-	 *
-	 * @return boolean
-	 */
-	public boolean isShippingAddressDeleted() {
-		logger.info("Verifying Shipping Address was deleted");
-		return getNoShippingAddressText.isDisplayed();
-	}
+  @Locate(
+      css =
+          "div.account-container.account-inner-section > div.addresses-list > div:nth-child(1) > div.account-inner-title > div.right > a",
+      on = Platform.WEB)
+  private Button getAddShippingAddressButton;
 
-	/**
-	 * Add New Billing Address
-	 *
-	 * @return AddBillingAddressPage
-	 */
-	public AddBillingAddressPage clickAddNewBillingAddress() {
-		logger.info("Clicking Add a New Billing Address");
-		getAddBillingAddressButton.click();
-		return ComponentFactory.create(AddBillingAddressPage.class);
-	}
+  /* -------- Actions -------- */
 
-	/**
-	 * Add New Shipping Address
-	 *
-	 * @return AddShippingAddressPage
-	 */
-	public AddShippingAddressPage clickAddNewShippingAddress() {
-		logger.info("Clicking Add a New Shipping Address");
-		getAddShippingAddressButton.click();
-		return ComponentFactory.create(AddShippingAddressPage.class);
-	}
+  /**
+   * Verify Address Changed Text is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isAddressSavedTextDisplayed() {
+    logger.info("Verifying Address Changed text is displayed");
+    return getAddressSavedBannerText.isDisplayed();
+  }
 
-	// Protected getters
-	@Locate(css = "div.account-container.account-inner-section > div.addresses-list > div:nth-child(1) > div.account-inner-title > div.left > h2", on = Platform.WEB)
-	protected Text getViewSignature;
+  /**
+   * Get Billing Address
+   *
+   * @return String
+   */
+  public String getBillingAddress() {
+    logger.info("Getting Billing Address");
+    return getBillingAddressText.getText();
+  }
 
-	@Locate(xpath = "//span[contains(.,'address has been saved')]", on = Platform.WEB)
-	protected Text getAddressSavedBannerText;
+  /**
+   * Get Shipping Address
+   *
+   * @return
+   */
+  public String getShippingAddress() {
+    logger.info("Getting Shipping Address");
+    return getShippingAddressText.getText();
+  }
 
-	@Locate(css = "#billing_form > ol > li > div.info-col > p", on = Platform.WEB)
-	protected Text getBillingAddressText;
+  /** Delete Billing Address */
+  public void deleteBillingAddress() {
+    logger.info("Deleting Billing Address");
+    JavascriptExecutor jse = (JavascriptExecutor) DriverManager.getDriver();
+    jse.executeScript("scroll(0,450)", "");
+    getDeleteBillingAddressButton.click();
+    Alert alert = DriverManager.getDriver().switchTo().alert();
+    alert.accept();
+  }
 
-	@Locate(css = "#shipping_form > ol > li > div.info-col > p", on = Platform.WEB)
-	protected Text getShippingAddressText;
+  /** Delete Shipping Address */
+  public void deleteShippingAddress() {
+    logger.info("Deleting Shipping Address");
+    JavascriptExecutor jse = (JavascriptExecutor) DriverManager.getDriver();
+    jse.executeScript("scroll(0,450)", "");
+    getDeleteShippingAddressButton.click();
+    Alert alert = DriverManager.getDriver().switchTo().alert();
+    alert.accept();
+  }
 
-	@Locate(css = "#billing_form > ol > li > div.actions-col > ul > li:nth-child(2) > a", on = Platform.WEB)
-	protected Button getDeleteBillingAddressButton;
+  /**
+   * Verify Billing Address was Deleted
+   *
+   * @return boolean
+   */
+  public boolean isBillingAddressDeleted() {
+    logger.info("Verifying Billing Address was deleted");
+    return getNoBillingAddressText.isDisplayed();
+  }
 
-	@Locate(css = "#shipping_form > ol > li > div.actions-col > ul > li:nth-child(2) > a", on = Platform.WEB)
-	protected Button getDeleteShippingAddressButton;
+  /**
+   * Verify Shipping Address was Deleted
+   *
+   * @return boolean
+   */
+  public boolean isShippingAddressDeleted() {
+    logger.info("Verifying Shipping Address was deleted");
+    return getNoShippingAddressText.isDisplayed();
+  }
 
-	@Locate(css = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.account-container.account-inner-section > div.addresses-list > div:nth-child(2) > div.main-section > div", on = Platform.WEB)
-	protected Text getNoBillingAddressText;
+  /**
+   * Add New Billing Address
+   *
+   * @return AddBillingAddressPage
+   */
+  public AddBillingAddressPage clickAddNewBillingAddress() {
+    logger.info("Clicking Add a New Billing Address");
+    getAddBillingAddressButton.click();
+    return ComponentFactory.create(AddBillingAddressPage.class);
+  }
 
-	@Locate(css = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.account-container.account-inner-section > div.addresses-list > div:nth-child(1) > div.main-section > div", on = Platform.WEB)
-	protected Text getNoShippingAddressText;
-
-	@Locate(css = "div.account-container.account-inner-section > div.addresses-list > div:nth-child(2) > div.account-inner-title > div.right > a", on = Platform.WEB)
-	protected Button getAddBillingAddressButton;
-
-	@Locate(css = "div.account-container.account-inner-section > div.addresses-list > div:nth-child(1) > div.account-inner-title > div.right > a", on = Platform.WEB)
-	protected Button getAddShippingAddressButton;
+  /**
+   * Add New Shipping Address
+   *
+   * @return AddShippingAddressPage
+   */
+  public AddShippingAddressPage clickAddNewShippingAddress() {
+    logger.info("Clicking Add a New Shipping Address");
+    getAddShippingAddressButton.click();
+    return ComponentFactory.create(AddShippingAddressPage.class);
+  }
 }

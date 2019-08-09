@@ -11,27 +11,24 @@ import org.openqa.selenium.WebElement;
 @Implementation(is = DatePickerChunk.class, on = Platform.WEB)
 public class DatePickerChunk extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	@Locate(css = "[data-handler='selectDay']", on = Platform.WEB)
-	protected List<WebElement> getAvailableDatesText;
+  @Locate(css = "[data-handler='selectDay']", on = Platform.WEB)
+  protected List<WebElement> getAvailableDatesText;
 
-	/* -------- Actions -------- */
+  /* -------- Actions -------- */
 
-	/**
-	 * Select date t.
-	 *
-	 * @param <T>
-	 *            the type parameter
-	 * @param clazz
-	 *            the clazz
-	 * @param index
-	 *            the index
-	 * @return the t
-	 */
-	public <T extends BaseComponent> T selectDate(Class<T> clazz, int index) {
-		logger.info("Clicking available day by index: " + index);
-		getAvailableDatesText.get(index).click();
-		return ComponentFactory.create(clazz);
-	}
+  /**
+   * Select date t.
+   *
+   * @param <T> the type parameter
+   * @param clazz the clazz
+   * @param index the index
+   * @return the t
+   */
+  public <T extends BaseComponent> T selectDate(Class<T> clazz, int index) {
+    logger.info("Clicking available day by index: " + index);
+    getAvailableDatesText.get(index).click();
+    return ComponentFactory.create(clazz);
+  }
 }

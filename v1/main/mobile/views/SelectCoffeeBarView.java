@@ -28,9 +28,7 @@ public class SelectCoffeeBarView extends AbstractDeviceView {
 		syncHelper.waitForElementToAppear(getSignature());
 	}
 
-	/*
-	 * Public Actions
-	 */
+
 
 	/**
 	 * Gets enable location description.
@@ -91,9 +89,7 @@ public class SelectCoffeeBarView extends AbstractDeviceView {
 		return result;
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "//android.widget.TextView[@text='Select Coffeebar']", iOS = "//XCUIElementTypeNavigationBar[@name='Select Coffeebar']")
 	protected BaseDeviceControl getSignature() {

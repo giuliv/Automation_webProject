@@ -103,9 +103,7 @@ public class AllowLocationServicesPopupChunk extends AbstractDeviceChunk {
 		getNotNowButton().pressButton();
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/allowButton", iOS = "Allow Location Services to help you find nearby Peet’s Coffeebars.")
 	protected BaseDeviceControl getSignature() {

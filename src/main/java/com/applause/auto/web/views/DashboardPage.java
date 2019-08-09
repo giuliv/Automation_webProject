@@ -6,36 +6,28 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
 import com.applause.auto.web.components.MainMenuChunk;
-import com.applause.auto.web.helpers.WebHelper;
-import java.lang.invoke.MethodHandles;
 
 @Implementation(is = DashboardPage.class, on = Platform.WEB)
 public class DashboardPage extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	/* -------- Actions -------- */
+  @Locate(css = ".dashboard", on = Platform.WEB)
+  private Text getViewSignature;
 
-	/*
-	 * Public Actions
-	 */
+  /* -------- Actions -------- */
 
-	/**
-	 * Gets Main Menu
-	 *
-	 * @return MainMenuChunk
-	 */
-	public MainMenuChunk getMainMenu() {
-		logger.info("Getting Main Menu");
-		return ComponentFactory.create(MainMenuChunk.class);
-	}
-
-	/*
-	 * Protected Getters
-	 */
-
-	@Locate(css = ".dashboard", on = Platform.WEB)
-	protected Text getViewSignature;
-
+  /**
+   * Gets Main Menu
+   *
+   * @return MainMenuChunk
+   */
+  public MainMenuChunk getMainMenu() {
+    logger.info("Getting Main Menu");
+    SyncHelper.wait(Until.uiElement(getViewSignature).present());
+    return ComponentFactory.create(MainMenuChunk.class);
+  }
 }

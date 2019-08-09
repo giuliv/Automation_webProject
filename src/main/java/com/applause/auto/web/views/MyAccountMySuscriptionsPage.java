@@ -7,121 +7,122 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.web.helpers.WebHelper;
-import java.lang.invoke.MethodHandles;
 
 @Implementation(is = MyAccountMySuscriptionsPage.class, on = Platform.WEB)
 public class MyAccountMySuscriptionsPage extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	/* -------- Actions -------- */
+  @Locate(
+      css =
+          "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1",
+      on = Platform.WEB)
+  private Text getViewSignature;
 
+  @Locate(css = "div.sub-id h2", on = Platform.WEB)
+  private Text getSubscriptionNameText;
 
-	/**
-	 * Verify Subscription Name is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isSubscriptionNameDisplayed() {
-		logger.info("Verifying Subscription Name is displayed");
-		return getSubscriptionNameText.isDisplayed();
-	}
+  @Locate(css = ".sub-shipment span.number", on = Platform.WEB)
+  private Text getNextShipmentDateText;
 
-	/**
-	 * Verify Next Shipment Date is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isNextShipmentDateDisplayed() {
-		logger.info("Verifying Next Shipment Date is displayed");
-		return getNextShipmentDateText.isDisplayed();
-	}
+  @Locate(css = ".sub-frequency span.number", on = Platform.WEB)
+  private Text getSubscriptionFrequencyDateText;
 
-	/**
-	 * Verify Subscription Frequency is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isSubscriptionFrequencyDateDisplayed() {
-		logger.info("Verifying Subscription frequency is displayed");
-		return getSubscriptionFrequencyDateText.isDisplayed();
-	}
+  @Locate(css = "div.recurring-profile-title a", on = Platform.WEB)
+  private Button getManageSubscriptionButton;
 
-	/**
-	 * Verify Manage Subscription button is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isManageSubscriptionButtonDisplayed() {
-		logger.info("Verifying Manage Subscription button is displayed");
-		return getManageSubscriptionButton.isDisplayed();
-	}
+  @Locate(xpath = "//div[div[contains(.,'Ship To')]]/address", on = Platform.WEB)
+  private Text getShippingAddressText;
 
-	/**
-	 * Click Manage Subscription
-	 *
-	 * @return MyAccountManageSubscriptionPage
-	 */
-	public MyAccountManageSubscriptionPage clickManageSubscription() {
-		logger.info("Clicking Manage Subscription");
-		getManageSubscriptionButton.click();
-		return ComponentFactory.create(MyAccountManageSubscriptionPage.class);
-	}
+  @Locate(xpath = "//div[div[contains(.,'Shipping Method')]]/p", on = Platform.WEB)
+  private Text getShippingMethodText;
 
-	/**
-	 * Verify Shipping Address is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isShippingAddressDisplayed() {
-		logger.info("Verifying Shipping Address is displayed");
-		return getShippingAddressText.isDisplayed();
-	}
+  @Locate(
+      css =
+          "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.recurring-profile-section.account-container > div.wrapper-items > div.items > table > tbody",
+      on = Platform.WEB)
+  private Text getSubscribedProductText;
 
-	/**
-	 * Verify Shipping Method is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isShippingMethodDisplayed() {
-		logger.info("Verifying Shipping Method is displayed");
-		return getShippingMethodText.isDisplayed();
-	}
+  /* -------- Actions -------- */
 
-	/**
-	 * Verify Subscribed Product is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isSubscribedProductDisplayed() {
-		logger.info("Verifying SubscribedProduct is displayed");
-		return getSubscribedProductText.isDisplayed();
-	}
+  /**
+   * Verify Subscription Name is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isSubscriptionNameDisplayed() {
+    logger.info("Verifying Subscription Name is displayed");
+    return getSubscriptionNameText.isDisplayed();
+  }
 
-	// Protected getters
-	@Locate(css = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB)
-	protected Text getViewSignature;
+  /**
+   * Verify Next Shipment Date is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isNextShipmentDateDisplayed() {
+    logger.info("Verifying Next Shipment Date is displayed");
+    return getNextShipmentDateText.isDisplayed();
+  }
 
-	@Locate(css = "div.sub-id h2", on = Platform.WEB)
-	protected Text getSubscriptionNameText;
+  /**
+   * Verify Subscription Frequency is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isSubscriptionFrequencyDateDisplayed() {
+    logger.info("Verifying Subscription frequency is displayed");
+    return getSubscriptionFrequencyDateText.isDisplayed();
+  }
 
-	@Locate(css = ".sub-shipment span.number", on = Platform.WEB)
-	protected Text getNextShipmentDateText;
+  /**
+   * Verify Manage Subscription button is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isManageSubscriptionButtonDisplayed() {
+    logger.info("Verifying Manage Subscription button is displayed");
+    return getManageSubscriptionButton.isDisplayed();
+  }
 
-	@Locate(css = ".sub-frequency span.number", on = Platform.WEB)
-	protected Text getSubscriptionFrequencyDateText;
+  /**
+   * Click Manage Subscription
+   *
+   * @return MyAccountManageSubscriptionPage
+   */
+  public MyAccountManageSubscriptionPage clickManageSubscription() {
+    logger.info("Clicking Manage Subscription");
+    getManageSubscriptionButton.click();
+    return ComponentFactory.create(MyAccountManageSubscriptionPage.class);
+  }
 
-	@Locate(css = "div.recurring-profile-title a", on = Platform.WEB)
-	protected Button getManageSubscriptionButton;
+  /**
+   * Verify Shipping Address is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isShippingAddressDisplayed() {
+    logger.info("Verifying Shipping Address is displayed");
+    return getShippingAddressText.isDisplayed();
+  }
 
-	@Locate(xpath = "//div[div[contains(.,'Ship To')]]/address", on = Platform.WEB)
-	protected Text getShippingAddressText;
+  /**
+   * Verify Shipping Method is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isShippingMethodDisplayed() {
+    logger.info("Verifying Shipping Method is displayed");
+    return getShippingMethodText.isDisplayed();
+  }
 
-	@Locate(xpath = "//div[div[contains(.,'Shipping Method')]]/p", on = Platform.WEB)
-	protected Text getShippingMethodText;
-
-	@Locate(css = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.recurring-profile-section.account-container > div.wrapper-items > div.items > table > tbody", on = Platform.WEB)
-	protected Text getSubscribedProductText;
-
+  /**
+   * Verify Subscribed Product is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isSubscribedProductDisplayed() {
+    logger.info("Verifying SubscribedProduct is displayed");
+    return getSubscribedProductText.isDisplayed();
+  }
 }

@@ -7,107 +7,83 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
-import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
 import com.applause.auto.web.components.CreateSubscriptionChunk;
 import com.applause.auto.web.components.MiniCartContainerChunk;
 import com.applause.auto.web.helpers.WebHelper;
-import java.lang.invoke.MethodHandles;
 
 @Implementation(is = CoffeeProductPage.class, on = Platform.WEB)
 public class CoffeeProductPage extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	/* -------- Actions -------- */
+  @Locate(css = ".product-shop-holder .add-to-cart button", on = Platform.WEB)
+  private Button getAddToSubscriptionCart;
 
-	WebHelper webHelper = new WebHelper();
+  @Locate(css = ".product-shop-holder .add-to-cart button", on = Platform.WEB)
+  private Button getAddToCartButton;
 
-	/*
-	 * Public Actions
-	 */
+  @Locate(css = "label[for='option-subscription']", on = Platform.WEB)
+  private Button getSubscriptionButton;
 
-	/**
-	 * Select a Grind
-	 * 
-	 */
-	public void selectAGrind(String grind) {
-		logger.info(String.format("Selecting a Grind: %s", grind));
-		webHelper.jsSelect(getSelectGrindSelectList.getWebElement(), grind);
-	}
+  @Locate(css = "#shopping-cart-please-wait", on = Platform.WEB)
+  private ContainerElement getAddingToCartSpinner;
 
-	/**
-	 * Click Add to Cart Button
-	 * 
-	 * @return MiniCartContainerChunk
-	 */
-	public MiniCartContainerChunk clickAddToCart() {
-		logger.info("Tap on Shop Coffee Button");
-		WebHelper.waitForElementToBeClickable(getAddToCartButton.getWebElement());
-		getAddToCartButton.click();
-		waitForAddingToCartSpinner();
-		return ComponentFactory.create(MiniCartContainerChunk.class);
-	}
+  @Locate(css = "#attribute198", on = Platform.WEB)
+  private SelectList getSelectGrindSelectList;
 
-	public CreateSubscriptionChunk clickAddToSubscription() {
-		logger.info("Tap on Add To Subscription Button");
-		WebHelper.waitForElementToBeClickable(getAddToSubscriptionCart.getWebElement());
-		getAddToSubscriptionCart.click();
-		waitForAddingToCartSpinner();
-		return ComponentFactory.create(CreateSubscriptionChunk.class);
-	}
+  /* -------- Actions -------- */
 
-	/**
-	 * Click Add to Cart Button
-	 * 
-	 */
-	public void waitForAddingToCartSpinner() {
-		logger.info("Adding item to Shopping Cart...");
-		SyncHelper.waitUntilElementPresent(getLocator(this, "getAddingToCartSpinner"));
-		SyncHelper.waitUntilElementNotPresent(getLocator(this, "getAddingToCartSpinner"));
-	}
+  /** Select a Grind */
+  public void selectAGrind(String grind) {
+    logger.info(String.format("Selecting a Grind: %s", grind));
+    WebHelper.jsSelect(getSelectGrindSelectList.getWebElement(), grind);
+  }
 
-	/**
-	 * Navigate back t.
-	 *
-	 * @param <T>
-	 *            the type parameter
-	 * @param clazz
-	 *            the clazz
-	 * @return the t
-	 */
-	public <T extends BaseComponent> T navigateBack(Class<T> clazz) {
-		logger.info("Navigate back");
-		getDriver().navigate().back();
-		return ComponentFactory.create(clazz);
-	}
+  /**
+   * Click Add to Cart Button
+   *
+   * @return MiniCartContainerChunk
+   */
+  public MiniCartContainerChunk clickAddToCart() {
+    logger.info("Tap on Shop Coffee Button");
+    SyncHelper.wait(Until.uiElement(getAddToCartButton).clickable()).click();
+    waitForAddingToCartSpinner();
+    return ComponentFactory.create(MiniCartContainerChunk.class);
+  }
 
-	public void selectSubscription() {
-		logger.info("Click on subscription");
-		getSubscriptionButton.click();
+  public CreateSubscriptionChunk clickAddToSubscription() {
+    logger.info("Tap on Add To Subscription Button");
+    SyncHelper.wait(Until.uiElement(getAddToSubscriptionCart).clickable()).click();
+    waitForAddingToCartSpinner();
+    return ComponentFactory.create(CreateSubscriptionChunk.class);
+  }
 
-	}
+  /** Click Add to Cart Button */
+  public void waitForAddingToCartSpinner() {
+    logger.info("Adding item to Shopping Cart...");
+    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).present());
+    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).notPresent());
+  }
 
-	/*
-	 * Protected Getters
-	 */
+  /**
+   * Navigate back t.
+   *
+   * @param <T> the type parameter
+   * @param clazz the clazz
+   * @return the t
+   */
+  public <T extends BaseComponent> T navigateBack(Class<T> clazz) {
+    logger.info("Navigate back");
+    DriverManager.getDriver().navigate().back();
+    return ComponentFactory.create(clazz);
+  }
 
-	@Locate(css = ".product-shop-holder .product-name", on = Platform.WEB)
-	protected Text getViewSignature;
-
-	@Locate(css = ".product-shop-holder .add-to-cart button", on = Platform.WEB)
-	protected Button getAddToSubscriptionCart;
-
-	@Locate(css = ".product-shop-holder .add-to-cart button", on = Platform.WEB)
-	protected Button getAddToCartButton;
-
-	@Locate(css = "label[for='option-subscription']", on = Platform.WEB)
-	protected Button getSubscriptionButton;
-
-	@Locate(css = "#shopping-cart-please-wait", on = Platform.WEB)
-	protected ContainerElement getAddingToCartSpinner;
-
-	@Locate(css = "#attribute198", on = Platform.WEB)
-	protected SelectList getSelectGrindSelectList;
+  public void selectSubscription() {
+    logger.info("Click on subscription");
+    getSubscriptionButton.click();
+  }
 }

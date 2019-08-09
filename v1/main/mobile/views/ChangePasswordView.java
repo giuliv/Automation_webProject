@@ -113,12 +113,10 @@ public class ChangePasswordView extends AbstractDeviceView {
 	 * @return the current password unhide
 	 */
 	public String getCurrentPasswordUnhide() {
-		return getOldPasswordUnhiddenTextBox().getCurrentText();
+		return getOldPasswordUnhiddenTextBox().getText();
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "//android.widget.TextView[@text='CHANGE PASSWORD']|//*[@text='OKAY']", iOS = "//XCUIElementTypeNavigationBar[@visible='true' and @name=\"CHANGE PASSWORD\"]|(//XCUIElementTypeAlert//XCUIElementTypeStaticText[@visible='true'])[1]")
 	protected TextBox getSignature() {
@@ -176,7 +174,7 @@ class AndroidChangePasswordView extends ChangePasswordView {
 	public void setCurrentPassword(String password) {
 		LOGGER.info("Set current password to: " + password);
 		// workaroud for password cleanup
-		while (getOldPasswordTextBox().getCurrentText().length() != 0) {
+		while (getOldPasswordTextBox().getText().length() != 0) {
 			getOldPasswordTextBox().clearTextBox();
 		}
 		getOldPasswordTextBox().enterText(password);

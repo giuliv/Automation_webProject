@@ -72,9 +72,7 @@ public class AllowLocationServicesSystemPopupChunk extends AbstractDeviceChunk {
 		getAllowButton().pressButton();
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "android:id/message", iOS = "//XCUIElementTypeAlert[@name=\"Allow “Peets-Sandbox” to access your location while you are using the app?\"]")
 	protected BaseDeviceControl getSignature() {

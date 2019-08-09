@@ -113,7 +113,7 @@ public class CreditCardDetailsView extends AbstractDeviceView {
      * @return String
      */
     public String getExpDate() {
-        return getExpDateField().getCurrentText();
+        return getExpDateField().getText();
     }
 
     // Protected getters

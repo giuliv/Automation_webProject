@@ -1,7 +1,6 @@
 package com.applause.auto.web.views;
 
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.framework.pageframework.util.webDrivers.BrowserType;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -12,377 +11,368 @@ import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.helper.QueryHelper;
+import com.applause.auto.util.DriverManager;
+import com.applause.auto.util.control.BrowserControl;
+import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
 import com.applause.auto.web.components.ShopRunnerChunk;
 import com.applause.auto.web.helpers.WebHelper;
-import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.openqa.selenium.WebElement;
 
 @Implementation(is = ShoppingCartPage.class, on = Platform.WEB)
 public class ShoppingCartPage extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	/* -------- Actions -------- */
+  @Locate(css = "div.cart.display-single-price div.page-title h1", on = Platform.WEB)
+  private Text getViewSignature;
 
-	WebHelper webHelper = new WebHelper();
+  @Locate(xpath = "//div[@class='shoprunner-cart-header']//a[text()='sign in']", on = Platform.WEB)
+  private Button getSignInShopRunnerButton;
 
-	/*
-	 * Public Actions
-	 */
+  @Locate(css = "[value='update_qty']", on = Platform.WEB)
+  private Text getUpdateCartButton;
 
-	/**
-	 * Select Order is a Gift Checkbox
-	 * 
-	 * @return CheckoutPage
-	 */
-	public void selectOrderAsGift() {
-		logger.info("Check the Order is a Gift");
-		SyncHelper.waitUntilElementPresent(getLocator(this, "getOrderAsGiftCheckCheckbox"));
-		getOrderAsGiftCheckCheckbox.click();
-	}
+  @Locate(css = "#subscription_interval", on = Platform.WEB)
+  private Text getSubscriptionFrequencyText;
 
-	/**
-	 * Enter Gift Message
-	 * 
-	 */
-	public void enterGiftMessage(String giftMessage) {
-		logger.info("Enter a Gift Message");
-		SyncHelper.waitUntilElementPresent(getGiftMessageText.getAbsoluteSelector());
-		getGiftMessageText.sendKeys(giftMessage);
-	}
+  @Locate(css = "#subscription-name-view > strong", on = Platform.WEB)
+  private Text getSubscriptionNameText;
 
-	/**
-	 * Click Proceed to Checkout button
-	 * 
-	 * @return CheckoutPage
-	 */
-	public CheckoutPage clickProceedToCheckout() {
-		logger.info("Click Proceed to Checkout button");
-		getProceedToCheckoutButton.click();
-		SyncHelper.sleep(2000);
-		webHelper.jsClick(getProceedToCheckoutButton.getWebElement());
-		return ComponentFactory.create(CheckoutPage.class);
-	}
+  @Locate(css = "#shopping-cart-please-wait", on = Platform.WEB)
+  private ContainerElement getAddingToCartSpinner;
 
-	/**
-	 * Click Proceed to Checkout button for a signed user
-	 *
-	 * @return CheckoutPlaceOrderPage
-	 */
-	public CheckoutPlaceOrderPage checkoutSignedUser() {
-		logger.info("Click Proceed to Checkout button");
-		getProceedToCheckoutButton.click();
-		SyncHelper.sleep(2000);
-		webHelper.jsClick(getProceedToCheckoutButton.getWebElement());
-		return ComponentFactory.create(CheckoutPlaceOrderPage.class);
-	}
+  @Locate(css = "#shopping-cart-messages", on = Platform.WEB)
+  private Text getStatusMessageText;
 
-	/**
-	 * Proceed to Shipping page via Checkout button for a signed user
-	 *
-	 * @return CheckoutShippingInfoPage
-	 */
-	public CheckoutShippingInfoPage defineShippingSignedUser() {
-		logger.info("Click Proceed to Checkout button");
-		getProceedToCheckoutButton.click();
-		SyncHelper.sleep(2000);
-		// webHelper.jsClick(getProceedToCheckoutButton.getWebElement());
-		return ComponentFactory.create(CheckoutShippingInfoPage.class);
-	}
+  @Locate(xpath = "//h3[contains(.,'%s')]/../../..//select[@title='Grind']", on = Platform.WEB)
+  private SelectList getGrindForItemSelectList;
 
-	/**
-	 * Click Pay with Paypal Button
-	 *
-	 * @return PaypalLoginPage
-	 */
-	public PaypalLoginPage clickPayWithPaypal() {
-		logger.info("Clicking Pay with Paypal");
-		getPaypalButton.click();
-		SyncHelper.sleep(5000);
-		try {
-			getPaypalButton.click();
-		} catch (Exception ex) {
-			logger.info("Already clicked Paypal button");
-		}
-		return ComponentFactory.create(PaypalLoginPage.class);
-	}
+  @Locate(xpath = "//select[@id='shipping_method']", on = Platform.WEB)
+  private SelectList getShippingMethodSelectList;
 
-	/**
-	 * Click Pay with Paypal Button for a signed user
-	 *
-	 * @return CheckoutPlaceOrderPage
-	 */
-	public CheckoutPlaceOrderPage clickPayWithPaypalSignedUser() {
-		logger.info("Clicking Pay with Paypal for Signed User");
-		getPaypalButton.click();
-		SyncHelper.sleep(5000); // Required due a change of focus after leaving gift-message
-		if (QueryHelper.doesElementExist(getPaypalButton.getAbsoluteSelector())) {
-			webHelper.jsClick(getPaypalButton.getWebElement());
-		}
-		return ComponentFactory.create(CheckoutPlaceOrderPage.class);
-	}
+  @Locate(xpath = "//h3[contains(.,'%s')]/../../..//input[@title='Qty']", on = Platform.WEB)
+  private TextBox getQuantityForItemTextBox;
 
-	/**
-	 * Gets items.
-	 *
-	 * @return the items
-	 */
-	public List<String> getItems() {
-		logger.info("Obtaining items from mini-cart");
-		List<WebElement> result = QueryHelper.findElementsByExtendedCss(getLocator(this, "getCartItemsText"));
-		return result.stream().map(item -> {
-			String _result = item.getCurrentText();
-			logger.info("Found item: " + _result);
-			return _result.trim();
-		}).collect(Collectors.toList());
+  @Locate(css = ".add-gift-message input", on = Platform.WEB)
+  private Checkbox getOrderAsGiftCheckCheckbox;
 
-	}
+  @Locate(css = "#gift-message-whole-message", on = Platform.WEB)
+  private TextBox getGiftMessageText;
 
-	/**
-	 * Remove item shopping cart page.
-	 *
-	 * @param itemName
-	 *            the item name
-	 * @return the shopping cart page
-	 */
-	public ShoppingCartPage removeItem(String itemName) {
-		logger.info("Removing item: " + itemName);
-		if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
-			webHelper.jsClick(getRemoveItemButton(itemName).getWebElement());
-		} else {
-			getRemoveItemButton(itemName).click();
-		}
-		waitForAddingToCartSpinner();
-		SyncHelper.sleep(5000);
-		return this;
-	}
+  @Locate(css = "#action-checkout", on = Platform.WEB)
+  private Button getProceedToCheckoutButton;
 
-	/**
-	 * Click Add to Cart Button
-	 *
-	 */
-	public void waitForAddingToCartSpinner() {
-		logger.info("Adding item to Shopping Cart...");
-		SyncHelper.waitUntilElementPresent(getLocator(this, "getAddingToCartSpinner"));
-		SyncHelper.waitUntilElementNotPresent(getLocator(this, "getAddingToCartSpinner"));
-	}
+  @Locate(
+      css = "div#shopping-cart-actions-additional img[alt='Checkout with PayPal']",
+      on = Platform.WEB)
+  private Button getPaypalButton;
 
-	/**
-	 * Sets grind for item.
-	 *
-	 * @param itemName
-	 *            the item name
-	 * @param grind
-	 *            the grind 2
-	 * @return the grind for item
-	 */
-	public ShoppingCartPage setGrindForItem(String itemName, String grind) {
-		logger.info("Change grind value");
-		if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
-			getGrindForItemSelectList(itemName).getWebElement().sendKeys(grind + "\n");
-		} else {
-			getGrindForItemSelectList(itemName).select(grind);
-		}
-		waitForAddingToCartSpinner();
-		return this;
-	}
+  @Locate(xpath = "//h3[contains(.,'%s')]/../../..//a[@class='btn-remove']", on = Platform.WEB)
+  private Button getRemoveItemButton;
 
-	/**
-	 * Gets status message.
-	 *
-	 * @return the status message
-	 */
-	public String getStatusMessage() {
-		SyncHelper.waitUntilElementPresent(getStatusMessageText);
-		return getStatusMessageText.getCurrentText().replace("  ", " ");
-	}
+  @Locate(css = "h3.product-name", on = Platform.WEB)
+  private List<Text> getCartItemsText;
 
-	/**
-	 * Sets quantity for item.
-	 *
-	 * @param itemName
-	 *            the item name
-	 * @param quantity
-	 *            the quantity
-	 * @return the quantity for item
-	 */
-	public ShoppingCartPage setQuantityForItem(String itemName, int quantity) {
-		logger.info("Change quantity value");
-		getQuantityForItemTextBox(itemName).sendKeys("" + quantity);
-		return this;
-	}
+  @Locate(
+      xpath = "//tr[td[contains(text(),'Estimated Shipping')]]//*[@class='price']",
+      on = Platform.WEB)
+  private Text getEstimatedShippingPriceText;
 
-	/**
-	 * Update cart shopping cart page.
-	 *
-	 * @return the shopping cart page
-	 */
-	public ShoppingCartPage updateCart() {
-		logger.info("Click Update cart button");
-		getUpdateCartButton.click();
-		waitForAddingToCartSpinner();
-		return ComponentFactory.create(ShoppingCartPage.class);
-	}
+  @Locate(
+      xpath = "//tr[th[contains(text(),'Product Discount')]]//*[@class='price']",
+      on = Platform.WEB)
+  private Text getProductDiscountPriceText;
 
-	/**
-	 * Select shipping method shopping cart page.
-	 *
-	 * @param method
-	 *            the method
-	 * @return the shopping cart page
-	 */
-	public ShoppingCartPage selectShippingMethod(String method) {
-		logger.info("Select shipping method: " + method);
-		if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
-			getShippingMethodSelectList.click();
-			getShippingMethodSelectList.getWebElement().sendKeys(method + "\n");
-		} else {
-			getShippingMethodSelectList.select(method);
-		}
-		waitForAddingToCartSpinner();
-		SyncHelper.sleep(5000);
-		return ComponentFactory.create(ShoppingCartPage.class);
-	}
+  @Locate(
+      xpath = "//tr[th[contains(text(),'Shipping Discount')]]//*[@class='price']",
+      on = Platform.WEB)
+  private Text getShippingDiscountPriceText;
 
-	/**
-	 * Gets shipping method.
-	 *
-	 * @return the shipping method
-	 */
-	public String getShippingMethod() {
-		return getShippingMethodSelectList.getSelectedOption().getCurrentText();
-	}
+  @Locate(css = "strong.total-price", on = Platform.WEB)
+  private Text getOrderSummaryPriceText;
 
-	/**
-	 * Gets estimated shipping price.
-	 *
-	 * @return the estimated shipping price
-	 */
-	public String getEstimatedShippingPrice() {
-		return getEstimatedShippingPriceText.getCurrentText();
-	}
+  /* -------- Actions -------- */
 
-	/**
-	 * Gets order summary price.
-	 *
-	 * @return the order summary price
-	 */
-	public String getOrderSummaryPrice() {
-		return getOrderSummaryPriceText.getCurrentText();
-	}
+  /**
+   * Select Order is a Gift Checkbox
+   *
+   * @return CheckoutPage
+   */
+  public void selectOrderAsGift() {
+    logger.info("Check the Order is a Gift");
+    SyncHelper.wait(Until.uiElement(getOrderAsGiftCheckCheckbox).present());
+    getOrderAsGiftCheckCheckbox.click();
+  }
 
-	/**
-	 * Gets subscription name.
-	 *
-	 * @return the subscription name
-	 */
-	public String getSubscriptionName() {
-		return getSubscriptionNameText.getCurrentText().trim();
-	}
+  /** Enter Gift Message */
+  public void enterGiftMessage(String giftMessage) {
+    logger.info("Enter a Gift Message");
+    SyncHelper.wait(Until.uiElement(getGiftMessageText).present()).sendKeys(giftMessage);
+  }
 
-	/**
-	 * Gets subscription frequency.
-	 *
-	 * @return the subscription frequency
-	 */
-	public String getSubscriptionFrequency() {
-		return getSubscriptionFrequencyText.getCurrentText().trim();
-	}
+  /**
+   * Click Proceed to Checkout button
+   *
+   * @return CheckoutPage
+   */
+  public CheckoutPage clickProceedToCheckout() {
+    logger.info("Click Proceed to Checkout button");
+    getProceedToCheckoutButton.click();
+    SyncHelper.sleep(2000);
+    WebHelper.jsClick(getProceedToCheckoutButton.getWebElement());
+    return ComponentFactory.create(CheckoutPage.class);
+  }
 
-	/**
-	 * Is product discount price displayed boolean.
-	 *
-	 * @return the boolean
-	 */
-	public boolean isProductDiscountPriceDisplayed() {
-		return SyncHelper.isCurrentlyVisible(getProductDiscountPriceText.getAbsoluteSelector(), getDriver());
-	}
+  /**
+   * Click Proceed to Checkout button for a signed user
+   *
+   * @return CheckoutPlaceOrderPage
+   */
+  public CheckoutPlaceOrderPage checkoutSignedUser() {
+    logger.info("Click Proceed to Checkout button");
+    getProceedToCheckoutButton.click();
+    SyncHelper.sleep(2000);
+    WebHelper.jsClick(getProceedToCheckoutButton.getWebElement());
+    return ComponentFactory.create(CheckoutPlaceOrderPage.class);
+  }
 
-	/**
-	 * Is shipping discount price displayed boolean.
-	 *
-	 * @return the boolean
-	 */
-	public boolean isShippingDiscountPriceDisplayed() {
-		return SyncHelper.isCurrentlyVisible(getShippingDiscountPriceText.getAbsoluteSelector(), getDriver());
-	}
+  /**
+   * Proceed to Shipping page via Checkout button for a signed user
+   *
+   * @return CheckoutShippingInfoPage
+   */
+  public CheckoutShippingInfoPage defineShippingSignedUser() {
+    logger.info("Click Proceed to Checkout button");
+    getProceedToCheckoutButton.click();
+    SyncHelper.sleep(2000);
+    // WebHelper.jsClick(getProceedToCheckoutButton.getWebElement());
+    return ComponentFactory.create(CheckoutShippingInfoPage.class);
+  }
 
-	/**
-	 * Sign in shop runner shop runner chunk.
-	 *
-	 * @return the shop runner chunk
-	 */
-	public ShopRunnerChunk signInShopRunner() {
-		logger.info("Click on Sign In shop runner");
-		getSignInShopRunnerButton.click();
-		return ComponentFactory.create(ShopRunnerChunk.class);
-	}
+  /**
+   * Click Pay with Paypal Button
+   *
+   * @return PaypalLoginPage
+   */
+  public PaypalLoginPage clickPayWithPaypal() {
+    logger.info("Clicking Pay with Paypal");
+    getPaypalButton.click();
+    SyncHelper.sleep(5000);
+    try {
+      getPaypalButton.click();
+    } catch (Exception ex) {
+      logger.info("Already clicked Paypal button");
+    }
+    return ComponentFactory.create(PaypalLoginPage.class);
+  }
 
-	/*
-	 * Protected Getters
-	 */
+  /**
+   * Click Pay with Paypal Button for a signed user
+   *
+   * @return CheckoutPlaceOrderPage
+   */
+  public CheckoutPlaceOrderPage clickPayWithPaypalSignedUser() {
+    logger.info("Clicking Pay with Paypal for Signed User");
+    getPaypalButton.click();
+    SyncHelper.sleep(5000); // Required due a change of focus after leaving gift-message
+    if (getPaypalButton.exists()) {
+      WebHelper.jsClick(getPaypalButton.getWebElement());
+    }
+    return ComponentFactory.create(CheckoutPlaceOrderPage.class);
+  }
 
-	@Locate(css = "div.cart.display-single-price div.page-title h1", on = Platform.WEB)
-	protected Text getViewSignature;
+  /**
+   * Gets items.
+   *
+   * @return the items
+   */
+  public List<String> getItems() {
+    logger.info("Obtaining items from mini-cart");
+    return getCartItemsText
+        .stream()
+        .map(
+            item -> {
+              String _result = item.getText();
+              logger.info("Found item: " + _result);
+              return _result.trim();
+            })
+        .collect(Collectors.toList());
+  }
 
-	@Locate(xpath = "//div[@class='shoprunner-cart-header']//a[text()='sign in']", on = Platform.WEB)
-	protected Button getSignInShopRunnerButton;
+  /**
+   * Remove item shopping cart page.
+   *
+   * @param itemName the item name
+   * @return the shopping cart page
+   */
+  public ShoppingCartPage removeItem(String itemName) {
+    logger.info("Removing item: " + itemName);
+    if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
+      getRemoveItemButton.initializeWithFormat(itemName);
+      BrowserControl.jsClick(getRemoveItemButton);
+    } else {
+      getRemoveItemButton.click();
+    }
+    waitForAddingToCartSpinner();
+    SyncHelper.sleep(5000);
+    return this;
+  }
 
-	@Locate(css = "[value='update_qty']", on = Platform.WEB)
-	protected Text getUpdateCartButton;
+  /** Click Add to Cart Button */
+  public void waitForAddingToCartSpinner() {
+    logger.info("Adding item to Shopping Cart...");
+    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).present());
+    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).notPresent());
+  }
 
-	@Locate(css = "#subscription_interval", on = Platform.WEB)
-	protected Text getSubscriptionFrequencyText;
+  /**
+   * Sets grind for item.
+   *
+   * @param itemName the item name
+   * @param grind the grind 2
+   * @return the grind for item
+   */
+  public ShoppingCartPage setGrindForItem(String itemName, String grind) {
+    logger.info("Change grind value");
+    if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
+      getGrindForItemSelectList.initializeWithFormat(itemName);
+      getGrindForItemSelectList.getWebElement().sendKeys(grind + "\n");
+    } else {
+      getGrindForItemSelectList.select(grind);
+    }
+    waitForAddingToCartSpinner();
+    return this;
+  }
 
-	@Locate(css = "#subscription-name-view > strong", on = Platform.WEB)
-	protected Text getSubscriptionNameText;
+  /**
+   * Gets status message.
+   *
+   * @return the status message
+   */
+  public String getStatusMessage() {
+    SyncHelper.wait(Until.uiElement(getStatusMessageText).present());
+    return getStatusMessageText.getText().replace("  ", " ");
+  }
 
-	@Locate(css = "#shopping-cart-please-wait", on = Platform.WEB)
-	protected ContainerElement getAddingToCartSpinner;
+  /**
+   * Sets quantity for item.
+   *
+   * @param itemName the item name
+   * @param quantity the quantity
+   * @return the quantity for item
+   */
+  public ShoppingCartPage setQuantityForItem(String itemName, int quantity) {
+    logger.info("Change quantity value");
+    getQuantityForItemTextBox.initializeWithFormat(itemName);
+    getQuantityForItemTextBox.sendKeys("" + quantity);
+    return this;
+  }
 
-	@Locate(css = "#shopping-cart-messages", on = Platform.WEB)
-	protected Text getStatusMessageText;
+  /**
+   * Update cart shopping cart page.
+   *
+   * @return the shopping cart page
+   */
+  public ShoppingCartPage updateCart() {
+    logger.info("Click Update cart button");
+    getUpdateCartButton.click();
+    waitForAddingToCartSpinner();
+    return ComponentFactory.create(ShoppingCartPage.class);
+  }
 
-	@Locate(xpath = "//h3[contains(.,'%s')]/../../..//select[@title='Grind']", on = Platform.WEB)
-	protected SelectList getGrindForItemSelectList;
+  /**
+   * Select shipping method shopping cart page.
+   *
+   * @param method the method
+   * @return the shopping cart page
+   */
+  public ShoppingCartPage selectShippingMethod(String method) {
+    logger.info("Select shipping method: " + method);
+    if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
+      getShippingMethodSelectList.click();
+      getShippingMethodSelectList.getWebElement().sendKeys(method + "\n");
+    } else {
+      getShippingMethodSelectList.select(method);
+    }
+    waitForAddingToCartSpinner();
+    SyncHelper.sleep(5000);
+    return ComponentFactory.create(ShoppingCartPage.class);
+  }
 
-	@Locate(xpath = "//select[@id='shipping_method']", on = Platform.WEB)
-	protected SelectList getShippingMethodSelectList;
+  /**
+   * Gets shipping method.
+   *
+   * @return the shipping method
+   */
+  public String getShippingMethod() {
+    return getShippingMethodSelectList.getSelectedOption().getText();
+  }
 
-	@Locate(xpath = "//h3[contains(.,'%s')]/../../..//input[@title='Qty']", on = Platform.WEB)
-	protected TextBox getQuantityForItemTextBox;
+  /**
+   * Gets estimated shipping price.
+   *
+   * @return the estimated shipping price
+   */
+  public String getEstimatedShippingPrice() {
+    return getEstimatedShippingPriceText.getText();
+  }
 
-	@Locate(css = ".add-gift-message input", on = Platform.WEB)
-	protected Checkbox getOrderAsGiftCheckCheckbox;
+  /**
+   * Gets order summary price.
+   *
+   * @return the order summary price
+   */
+  public String getOrderSummaryPrice() {
+    return getOrderSummaryPriceText.getText();
+  }
 
-	@Locate(css = "#gift-message-whole-message", on = Platform.WEB)
-	protected TextBox getGiftMessageText;
+  /**
+   * Gets subscription name.
+   *
+   * @return the subscription name
+   */
+  public String getSubscriptionName() {
+    return getSubscriptionNameText.getText().trim();
+  }
 
-	@Locate(css = "#action-checkout", on = Platform.WEB)
-	protected Button getProceedToCheckoutButton;
+  /**
+   * Gets subscription frequency.
+   *
+   * @return the subscription frequency
+   */
+  public String getSubscriptionFrequency() {
+    return getSubscriptionFrequencyText.getText().trim();
+  }
 
-	@Locate(css = "div#shopping-cart-actions-additional img[alt='Checkout with PayPal']", on = Platform.WEB)
-	protected Button getPaypalButton;
+  /**
+   * Is product discount price displayed boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isProductDiscountPriceDisplayed() {
+    return getProductDiscountPriceText.isDisplayed();
+  }
 
-	@Locate(xpath = "//h3[contains(.,'%s')]/../../..//a[@class='btn-remove']", on = Platform.WEB)
-	protected Button getRemoveItemButton;
+  /**
+   * Is shipping discount price displayed boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isShippingDiscountPriceDisplayed() {
+    return getShippingDiscountPriceText.isDisplayed();
+  }
 
-	@Locate(css = "h3.product-name", on = Platform.WEB)
-	protected Text getCartItemsText;
-
-	@Locate(xpath = "//tr[td[contains(text(),'Estimated Shipping')]]//*[@class='price']", on = Platform.WEB)
-	protected Text getEstimatedShippingPriceText;
-
-	@Locate(xpath = "//tr[th[contains(text(),'Product Discount')]]//*[@class='price']", on = Platform.WEB)
-	protected Text getProductDiscountPriceText;
-
-	@Locate(xpath = "//tr[th[contains(text(),'Shipping Discount')]]//*[@class='price']", on = Platform.WEB)
-	protected Text getShippingDiscountPriceText;
-
-	@Locate(css = "strong.total-price", on = Platform.WEB)
-	protected Text getOrderSummaryPriceText;
+  /**
+   * Sign in shop runner shop runner chunk.
+   *
+   * @return the shop runner chunk
+   */
+  public ShopRunnerChunk signInShopRunner() {
+    logger.info("Click on Sign In shop runner");
+    getSignInShopRunnerButton.click();
+    return ComponentFactory.create(ShopRunnerChunk.class);
+  }
 }

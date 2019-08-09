@@ -11,26 +11,26 @@ import com.applause.auto.web.views.Landing;
 @Implementation(is = AccountMenuChunk.class, on = Platform.WEB)
 public class AccountMenuChunk extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	@Locate(css = "a[href='#header-account']", on = Platform.WEB)
-	private Button getExpandMenuButton;
+  @Locate(css = "a[href='#header-account']", on = Platform.WEB)
+  private Button getExpandMenuButton;
 
-	@Locate(css = "#header-account a[title='Log Out']", on = Platform.WEB)
-	private Button getSignOutButton;
+  @Locate(css = "#header-account a[title='Log Out']", on = Platform.WEB)
+  private Button getSignOutButton;
 
-	/* -------- Actions -------- */
+  /* -------- Actions -------- */
 
-	/**
-	 * Click Close Button on explore-dashboard-modal
-	 *
-	 * @return DashboardPage
-	 */
-	public Landing signOut() {
-		logger.info("Expanding menu");
-		getExpandMenuButton.click();
-		logger.info("Click on Sign Out button");
-		getSignOutButton.click();
-		return ComponentFactory.create(Landing.class);
-	}
+  /**
+   * Click Close Button on explore-dashboard-modal
+   *
+   * @return DashboardPage
+   */
+  public Landing signOut() {
+    logger.info("Expanding menu");
+    getExpandMenuButton.click();
+    logger.info("Click on Sign Out button");
+    getSignOutButton.click();
+    return ComponentFactory.create(Landing.class);
+  }
 }
