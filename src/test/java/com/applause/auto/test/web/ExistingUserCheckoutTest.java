@@ -51,15 +51,15 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		MainMenuChunk mainMenu = myAccountPage.getMainMenu();
 		landingPage = mainMenu.clickHeaderLogo();
 		ShopCoffeePage shopCoffeePage = landingPage.clickShopCoffeeButton();
-		CoffeeProductPage coffeeProductPage = shopCoffeePage.clickProductName(TestConstants.TestData.COFFEE_BRAND_NAME);
-		coffeeProductPage.selectAGrind(TestConstants.TestData.GRIND);
+		CoffeeProductPage coffeeProductPage = shopCoffeePage.clickProductName(TestData.COFFEE_BRAND_NAME);
+		coffeeProductPage.selectAGrind(TestData.GRIND);
 		MiniCartContainerChunk miniCartContainer = coffeeProductPage.clickAddToCart();
 
 		LOGGER.info("4. Select 'Proceed to Checkout'");
 		// TODO: Implement step 3 and 4 from test case to edit cart and add a promo card
 		CheckoutShippingInfoPage shippingInfoPage = miniCartContainer.clickSignedInCheckout();
 		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
-				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
+				.setShippingMethod(TestData.SHIPPING_METHOD_GROUND);
 		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterEnteringPIN();
 
 		LOGGER.info("5. Click 'Place Order'");
@@ -89,7 +89,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		MainMenuChunk mainMenu = myAccountPage.getMainMenu();
 		landingPage = mainMenu.clickHeaderLogo();
 		ShopTeaPage shopTeaPage = navigateToShopTeaPage();
-		TeaProductPage teaProductPage = shopTeaPage.clickProductName(TestConstants.TestData.TEA_NAME);
+		TeaProductPage teaProductPage = shopTeaPage.clickProductName(TestData.TEA_NAME);
 		MiniCartContainerChunk miniCartContainer = teaProductPage.clickAddToCart();
 
 		LOGGER.info("4. Select 'Edit Cart' from mini-cart");
@@ -97,16 +97,16 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
 		LOGGER.info("5. Add gift message to product");
 		shoppingCart.selectOrderAsGift();
-		shoppingCart.enterGiftMessage(TestConstants.TestData.GIFT_MESSAGE);
+		shoppingCart.enterGiftMessage(TestData.GIFT_MESSAGE);
 
 		LOGGER.info("6. Select 'Proceed to Checkout'");
 		CheckoutShippingInfoPage shippingInfoPage = shoppingCart.defineShippingSignedUser();
 		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
-				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
+				.setShippingMethod(TestData.SHIPPING_METHOD_GROUND);
 		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterEnteringPIN();
 
 		LOGGER.info("7. Verify gift message");
-		Assert.assertEquals(placeOrderPage.getGiftMessage(), TestConstants.TestData.GIFT_MESSAGE,
+		Assert.assertEquals(placeOrderPage.getGiftMessage(), TestData.GIFT_MESSAGE,
 				"Gift message entered previously was not fetched correctly");
 
 		LOGGER.info("8. Click 'Place Order'");
@@ -137,13 +137,13 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		landingPage = mainMenu.clickHeaderLogo();
 		ShopEquipmentPage shopEquipmentPage = navigateToShopEquipmentPage();
 		EquipmentProductPage equipmentProductPage = shopEquipmentPage
-				.clickProductName(TestConstants.TestData.EQUIPMENT_NAME);
+				.clickProductName(TestData.EQUIPMENT_NAME);
 		MiniCartContainerChunk miniCartContainer = equipmentProductPage.clickAddToCart();
 
 		LOGGER.info("4. Select 'Proceed to Checkout'");
 		CheckoutShippingInfoPage shippingInfoPage = miniCartContainer.clickSignedInCheckout();
 		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
-				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
+				.setShippingMethod(TestData.SHIPPING_METHOD_GROUND);
 		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterEnteringPIN();
 
 		LOGGER.info("5. Click 'Place Order'");
@@ -179,7 +179,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		LOGGER.info("4. Select 'Proceed to Checkout'");
 		CheckoutShippingInfoPage shippingInfoPage = miniCartContainer.clickSignedInCheckout();
 		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
-				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
+				.setShippingMethod(TestData.SHIPPING_METHOD_GROUND);
 		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterEnteringPIN();
 
 		LOGGER.info("5. Click 'Place Order'");
@@ -210,8 +210,8 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		landingPage = mainMenu.clickHeaderLogo();
 		ShopCoffeeKCupsPage shopCoffeeKCupsPage = navigateToShopCoffeeKCupsPage();
 		CoffeeKCupsProductPage coffeeKCupsProductPage = shopCoffeeKCupsPage
-				.clickProductName(TestConstants.TestData.COFFEE_KCUP_NAME);
-		coffeeKCupsProductPage.selectBoxContent(TestConstants.TestData.COFFEE_KCUP_COUNT);
+				.clickProductName(TestData.COFFEE_KCUP_NAME);
+		coffeeKCupsProductPage.selectBoxContent(TestData.COFFEE_KCUP_COUNT);
 		MiniCartContainerChunk miniCartContainer = coffeeKCupsProductPage.clickAddToCart();
 
 		LOGGER.info("4. Select 'Edit Cart' from mini-cart");
@@ -219,13 +219,13 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
 		LOGGER.info("5. Add gift message to product");
 		shoppingCart.selectOrderAsGift();
-		shoppingCart.enterGiftMessage(TestConstants.TestData.GIFT_MESSAGE);
+		shoppingCart.enterGiftMessage(TestData.GIFT_MESSAGE);
 
 		LOGGER.info("6. Checkout with Paypal");
 		CheckoutPlaceOrderPage placeOrderPage = shoppingCart.clickPayWithPaypalSignedUser();
 
 		LOGGER.info("7. Verify gift message");
-		Assert.assertEquals(placeOrderPage.getGiftMessage(), TestConstants.TestData.GIFT_MESSAGE,
+		Assert.assertEquals(placeOrderPage.getGiftMessage(), TestData.GIFT_MESSAGE,
 				"Gift message entered previously was not fetched correctly");
 
 		LOGGER.info("8. Click 'Place Order'");
@@ -266,13 +266,13 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
 		LOGGER.info("5. Add gift message to product");
 		shoppingCart.selectOrderAsGift();
-		shoppingCart.enterGiftMessage(TestConstants.TestData.GIFT_MESSAGE);
+		shoppingCart.enterGiftMessage(TestData.GIFT_MESSAGE);
 
 		LOGGER.info("6. Checkout with Paypal");
 		CheckoutPlaceOrderPage placeOrderPage = shoppingCart.clickPayWithPaypalSignedUser();
 
 		LOGGER.info("7. Verify gift message");
-		Assert.assertEquals(placeOrderPage.getGiftMessage(), TestConstants.TestData.GIFT_MESSAGE,
+		Assert.assertEquals(placeOrderPage.getGiftMessage(), TestData.GIFT_MESSAGE,
 				"Gift message entered previously was not fetched correctly");
 
 		LOGGER.info("8. Click 'Place Order'");
@@ -311,7 +311,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 		LOGGER.info("5. Select 'Proceed to Checkout'");
 		CheckoutShippingInfoPage shippingInfoPage = miniCartContainer.clickSignedInCheckout();
 		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
-				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
+				.setShippingMethod(TestData.SHIPPING_METHOD_GROUND);
 		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterEnteringPIN();
 
 		LOGGER.info("6. Click 'Place Order'");
@@ -345,8 +345,8 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
 			ShopCoffeePage shopCoffeePage = landingPage.clickShopCoffeeButton();
 			CoffeeProductPage coffeeProductPage = shopCoffeePage
-					.clickProductName(TestConstants.TestData.COFFEE_BRAND_NAME);
-			coffeeProductPage.selectAGrind(TestConstants.TestData.GRIND);
+					.clickProductName(TestData.COFFEE_BRAND_NAME);
+			coffeeProductPage.selectAGrind(TestData.GRIND);
 			miniCartContainer = coffeeProductPage.clickAddToCart();
 		} else {
 			LOGGER.info("Cart already contain items");
