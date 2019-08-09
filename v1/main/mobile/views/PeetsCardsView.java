@@ -91,9 +91,7 @@ public class PeetsCardsView extends AbstractDeviceView {
 		return DeviceChunkFactory.create(PeetsCardsTransferAmountChunk.class, "");
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "//android.widget.TextView[@text=\"Peet's Card\" or @text=\"Add Value to My Peet's Card\"][1]", iOS = "(//XCUIElementTypeStaticText[(@name=\"Peet's Card\" or @name=\"Add Value to My Peet's Card\") and @visible=\"true\"])[1]")
 	protected Text getSignature() {

@@ -250,7 +250,7 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the phone number
 	 */
 	public String getPhoneNumber() {
-		return getPhoneNumberTextBox().getCurrentText();
+		return getPhoneNumberTextBox().getText();
 	}
 
 	/**
@@ -259,7 +259,7 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the email address
 	 */
 	public String getEmailAddress() {
-		return getEmailAddressTextBox().getCurrentText();
+		return getEmailAddressTextBox().getText();
 	}
 
 	/**
@@ -268,7 +268,7 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the firstname
 	 */
 	public String getFirstname() {
-		return getFirstnameTextBox().getCurrentText();
+		return getFirstnameTextBox().getText();
 	}
 
 	/**
@@ -277,7 +277,7 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the lastname
 	 */
 	public String getLastname() {
-		return getLastnameTextBox().getCurrentText();
+		return getLastnameTextBox().getText();
 
 	}
 
@@ -287,7 +287,7 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the dob
 	 */
 	public String getDOB() {
-		return getDOBValueTextBox().getCurrentText();
+		return getDOBValueTextBox().getText();
 
 	}
 
@@ -297,7 +297,7 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the hidden password
 	 */
 	public String getHiddenPassword() {
-		return getHiddenPasswordTextBox().getCurrentText();
+		return getHiddenPasswordTextBox().getText();
 
 	}
 
@@ -307,7 +307,7 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the password
 	 */
 	public String getPassword() {
-		return getPasswordTextBox().getCurrentText();
+		return getPasswordTextBox().getText();
 
 	}
 
@@ -359,12 +359,10 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the zip code
 	 */
 	public String getZipCode() {
-		return getZipCodeTextBox().getCurrentText();
+		return getZipCodeTextBox().getText();
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "", iOS = "(//XCUIElementTypeButton[@name=\"hide password\"])[1]")
 	protected Button getShowPasswordButton() {
@@ -550,7 +548,7 @@ class AndroidCreateAccountView extends CreateAccountView {
 
 	@Override
 	public String getHiddenPassword() {
-		return getPasswordTextBox().getCurrentText();
+		return getPasswordTextBox().getText();
 	}
 
 	public CreateAccountView setPromo(String promo) {

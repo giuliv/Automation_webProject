@@ -10,175 +10,170 @@ import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.web.helpers.WebHelper;
-import java.lang.invoke.MethodHandles;
 
 @Implementation(is = MyAccountPeetsCardPage.class, on = Platform.WEB)
 public class MyAccountPeetsCardPage extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	/* -------- Actions -------- */
+  @Locate(css = "div.col-main > div > div.page-title > h1", on = Platform.WEB)
+  private Text getViewSignature;
 
+  @Locate(xpath = "//*[contains(.,\"Buy a Peet's card\")]", on = Platform.WEB)
+  private ContainerElement getBuyPeetsCardSection;
 
-	/**
-	 * Verify Buy Peet's Card Section is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isBuyPeetsCardSectionDisplayed() {
-		logger.info("Verifying Buy Peets Card button is displayed");
-		return getBuyPeetsCardSection.isDisplayed();
-	}
+  @Locate(css = ".item-content-column .item-content-box", on = Platform.WEB)
+  private Text getBuyCardDescriptionText;
 
-	/**
-	 * Verify Buy Peet's Card Description is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isBuyPeetsCardDescriptionDisplayed() {
-		logger.info("Verifying Buy Peets Card Description is displayed");
-		return getBuyCardDescriptionText.isDisplayed();
-	}
+  @Locate(css = ".item-content-column .item-link", on = Platform.WEB)
+  private Link getBuyCardLink;
 
-	/**
-	 * Verify Buy Peet's Card Link is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isBuyPeetsCardLinkDisplayed() {
-		logger.info("Verifying Buy Peets Card link is displayed");
-		return getBuyCardLink.isDisplayed();
-	}
+  @Locate(css = ".item-visual-column", on = Platform.WEB)
+  private Image getBuyCardImage;
 
-	/**
-	 * Verify Buy Peet's Card Image is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isBuyPeetsCardImageDisplayed() {
-		logger.info("Verifying Buy Peets Card image is displayed");
-		return getBuyCardImage.isDisplayed();
-	}
+  @Locate(xpath = "//li[contains(.,'Check Your Balance')]", on = Platform.WEB)
+  private ContainerElement getCheckBalanceSection;
 
-	/**
-	 * Verify Check Balance Section is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isCheckBalanceSectionDisplayed() {
-		logger.info("Verifying Check Balance section is displayed");
-		return getCheckBalanceSection.isDisplayed();
-	}
+  @Locate(css = "#card_number", on = Platform.WEB)
+  private TextBox getCheckBalanceCardTextBox;
 
-	/**
-	 * Verify Check Balance Card Number is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isCheckBalanceCardNumberDisplayed() {
-		logger.info("Verifying Check Balance Card Number is displayed");
-		return getCheckBalanceCardTextBox.isDisplayed();
-	}
+  @Locate(css = "#card_pin", on = Platform.WEB)
+  private TextBox getCheckBalancePinTextBox;
 
-	/**
-	 * Verify Check Balance Pin Number is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isCheckBalancePinNumberDisplayed() {
-		logger.info("Verifying Check Balance Pin Number is displayed");
-		return getCheckBalancePinTextBox.isDisplayed();
-	}
+  @Locate(css = "#check-balance", on = Platform.WEB)
+  private Button getCheckBalanceButton;
 
-	/**
-	 * Verify Check Balance Button is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isCheckBalanceButtonDisplayed() {
-		logger.info("Verifying Check Balance Button is displayed");
-		return getCheckBalanceButton.isDisplayed();
-	}
+  @Locate(xpath = "//li[contains(.,\"Register a Peet's Card\")]", on = Platform.WEB)
+  private ContainerElement getRegisterPeetsCardSection;
 
-	/**
-	 * Verify Register Peet's Card Section is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isRegisterPeetsCardSectionDisplayed() {
-		logger.info("Verifying Register Peets Card button is displayed");
-		return getRegisterPeetsCardSection.isDisplayed();
-	}
+  @Locate(css = ".quarter .item-content-box", on = Platform.WEB)
+  private Text getRegisterCardDescriptionText;
 
-	/**
-	 * Verify Register Peet's Card Description is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isRegisterPeetsCardDescriptionDisplayed() {
-		logger.info("Verifying Register Peets Card Description is displayed");
-		return getRegisterCardDescriptionText.isDisplayed();
-	}
+  @Locate(css = ".quarter .item-link", on = Platform.WEB)
+  private Link getRegisterCardLink;
 
-	/**
-	 * Verify Register Peet's Card Link is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isRegisterPeetsCardLinkDisplayed() {
-		logger.info("Verifying Register Peets Card link is displayed");
-		return getRegisterCardLink.isDisplayed();
-	}
+  @Locate(css = ".buttons-set-link", on = Platform.WEB)
+  private Link getFAQLink;
 
-	/**
-	 * Verify FAQ Link is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isFAQLinkDisplayed() {
-		logger.info("Verifying FAQ link is displayed");
-		return getFAQLink.isDisplayed();
-	}
+  /* -------- Actions -------- */
 
-	// Protected getters
-	@Locate(css = "div.col-main > div > div.page-title > h1", on = Platform.WEB)
-	protected Text getViewSignature;
+  /**
+   * Verify Buy Peet's Card Section is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isBuyPeetsCardSectionDisplayed() {
+    logger.info("Verifying Buy Peets Card button is displayed");
+    return getBuyPeetsCardSection.isDisplayed();
+  }
 
-	@Locate(xpath = "//*[contains(.,\"Buy a Peet's card\")]", on = Platform.WEB)
-	protected ContainerElement getBuyPeetsCardSection;
+  /**
+   * Verify Buy Peet's Card Description is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isBuyPeetsCardDescriptionDisplayed() {
+    logger.info("Verifying Buy Peets Card Description is displayed");
+    return getBuyCardDescriptionText.isDisplayed();
+  }
 
-	@Locate(css = ".item-content-column .item-content-box", on = Platform.WEB)
-	protected Text getBuyCardDescriptionText;
+  /**
+   * Verify Buy Peet's Card Link is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isBuyPeetsCardLinkDisplayed() {
+    logger.info("Verifying Buy Peets Card link is displayed");
+    return getBuyCardLink.isDisplayed();
+  }
 
-	@Locate(css = ".item-content-column .item-link", on = Platform.WEB)
-	protected Link getBuyCardLink;
+  /**
+   * Verify Buy Peet's Card Image is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isBuyPeetsCardImageDisplayed() {
+    logger.info("Verifying Buy Peets Card image is displayed");
+    return getBuyCardImage.isDisplayed();
+  }
 
-	@Locate(css = ".item-visual-column", on = Platform.WEB)
-	protected Image getBuyCardImage;
+  /**
+   * Verify Check Balance Section is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isCheckBalanceSectionDisplayed() {
+    logger.info("Verifying Check Balance section is displayed");
+    return getCheckBalanceSection.isDisplayed();
+  }
 
-	@Locate(xpath = "//li[contains(.,'Check Your Balance')]", on = Platform.WEB)
-	protected ContainerElement getCheckBalanceSection;
+  /**
+   * Verify Check Balance Card Number is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isCheckBalanceCardNumberDisplayed() {
+    logger.info("Verifying Check Balance Card Number is displayed");
+    return getCheckBalanceCardTextBox.isDisplayed();
+  }
 
-	@Locate(css = "#card_number", on = Platform.WEB)
-	protected TextBox getCheckBalanceCardTextBox;
+  /**
+   * Verify Check Balance Pin Number is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isCheckBalancePinNumberDisplayed() {
+    logger.info("Verifying Check Balance Pin Number is displayed");
+    return getCheckBalancePinTextBox.isDisplayed();
+  }
 
-	@Locate(css = "#card_pin", on = Platform.WEB)
-	protected TextBox getCheckBalancePinTextBox;
+  /**
+   * Verify Check Balance Button is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isCheckBalanceButtonDisplayed() {
+    logger.info("Verifying Check Balance Button is displayed");
+    return getCheckBalanceButton.isDisplayed();
+  }
 
-	@Locate(css = "#check-balance", on = Platform.WEB)
-	protected Button getCheckBalanceButton;
+  /**
+   * Verify Register Peet's Card Section is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isRegisterPeetsCardSectionDisplayed() {
+    logger.info("Verifying Register Peets Card button is displayed");
+    return getRegisterPeetsCardSection.isDisplayed();
+  }
 
-	@Locate(xpath = "//li[contains(.,\"Register a Peet's Card\")]", on = Platform.WEB)
-	protected ContainerElement getRegisterPeetsCardSection;
+  /**
+   * Verify Register Peet's Card Description is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isRegisterPeetsCardDescriptionDisplayed() {
+    logger.info("Verifying Register Peets Card Description is displayed");
+    return getRegisterCardDescriptionText.isDisplayed();
+  }
 
-	@Locate(css = ".quarter .item-content-box", on = Platform.WEB)
-	protected Text getRegisterCardDescriptionText;
+  /**
+   * Verify Register Peet's Card Link is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isRegisterPeetsCardLinkDisplayed() {
+    logger.info("Verifying Register Peets Card link is displayed");
+    return getRegisterCardLink.isDisplayed();
+  }
 
-	@Locate(css = ".quarter .item-link", on = Platform.WEB)
-	protected Link getRegisterCardLink;
-
-	@Locate(css = ".buttons-set-link", on = Platform.WEB)
-	protected Link getFAQLink;
-
+  /**
+   * Verify FAQ Link is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isFAQLinkDisplayed() {
+    logger.info("Verifying FAQ link is displayed");
+    return getFAQLink.isDisplayed();
+  }
 }

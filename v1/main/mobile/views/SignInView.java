@@ -27,9 +27,7 @@ public class SignInView extends AbstractDeviceView {
 				getLocator(this, "getDismissMessageButton"));
 	}
 
-	/*
-	 * Public Actions
-	 */
+
 	/**
 	 * Get the text value of the reward title
 	 * 
@@ -59,7 +57,7 @@ public class SignInView extends AbstractDeviceView {
 	 * @return the password
 	 */
 	public String getPassword() {
-		return getPasswordTextBox().getCurrentText();
+		return getPasswordTextBox().getText();
 	}
 
 	/**
@@ -68,7 +66,7 @@ public class SignInView extends AbstractDeviceView {
 	 * @return the message
 	 */
 	public String getMessage() {
-		return getMessageTextBox().getCurrentText();
+		return getMessageTextBox().getText();
 	}
 
 	/**
@@ -88,7 +86,7 @@ public class SignInView extends AbstractDeviceView {
 	 * @return the un encrypted password
 	 */
 	public String getUnEncryptedPassword() {
-		return getUnEncryptedPasswordTextBox().getCurrentText();
+		return getUnEncryptedPasswordTextBox().getText();
 	}
 
 	/**
@@ -121,9 +119,7 @@ public class SignInView extends AbstractDeviceView {
 		getShowPasswordButton().pressButton();
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/emailAddress", iOS = "//XCUIElementTypeTextField")
 	protected TextBox getUsernameTextBox() {
@@ -176,7 +172,7 @@ class AndroidSignInView extends SignInView {
 	@Override
 	public void setPassword(String password) {
 		LOGGER.info("Set password: " + password);
-		while (getPasswordTextBox().getCurrentText().length() != 0) {
+		while (getPasswordTextBox().getText().length() != 0) {
 			getPasswordTextBox().clearTextBox();
 		}
 

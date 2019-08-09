@@ -24,9 +24,7 @@ public class PayFasterView extends AbstractDeviceView {
 		syncHelper.waitForElementToAppear(getHeadingText());
 	}
 
-	/*
-	 * Public Actions
-	 */
+
 	/**
 	 * Swipe left on tutorial view and expect to arrive at next view
 	 * 
@@ -47,9 +45,7 @@ public class PayFasterView extends AbstractDeviceView {
 		return getHeadingText().getStringValue();
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "new UiSelector().textContains(\"Pay Faster\")", iOS = "Pay Faster.")
 	protected Text getHeadingText() {

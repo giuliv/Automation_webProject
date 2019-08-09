@@ -29,9 +29,7 @@ public class TermsAndConditionsView extends AbstractDeviceView {
 		return getHeadingText().getStringValue();
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/headingText", iOS = "//XCUIElementTypeOther[@name=\"THE PEETNIK REWARDS PROGRAM TERMS AND CONDITIONS\"]")
 	protected Text getHeadingText() {

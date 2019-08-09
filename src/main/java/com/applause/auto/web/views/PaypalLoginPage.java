@@ -2,110 +2,108 @@ package com.applause.auto.web.views;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.framework.pageframework.util.webDrivers.BrowserType;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.DriverManager;
+import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
 import com.applause.auto.web.helpers.WebHelper;
-import java.lang.invoke.MethodHandles;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 @Implementation(is = PaypalLoginPage.class, on = Platform.WEB)
 public class PaypalLoginPage extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	/* -------- Actions -------- */
+  @Locate(xpath = "//*[@id=\"content\"]", on = Platform.WEB)
+  private Image getViewSignature;
 
-	protected final static WebHelper webHelper = new WebHelper();
+  @Locate(xpath = "//*[@id=\"email\"]", on = Platform.WEB)
+  private TextBox getEmailField;
 
-	// Public actions
+  @Locate(xpath = "//*[@id=\"btnNext\"]", on = Platform.WEB)
+  private Button getNextButton;
 
-	/**
-	 * Enter Paypal Email Address
-	 *
-	 * @param email
-	 */
-	public void enterEmail(String email) {
-		logger.info("Entering email address");
-		getEmailField.clearText();
-		getEmailField.sendKeys(email);
-	}
+  @Locate(xpath = "//*[@id=\"password\"]", on = Platform.WEB)
+  private TextBox getPasswordField;
 
-	/**
-	 * Click Next Button
-	 */
-	public void clickNext() {
-		logger.info("Clicking Next button");
-		getNextButton.click();
-	}
+  @Locate(xpath = "//*[@id=\"btnLogin\"]", on = Platform.WEB)
+  private Button getLogInButton;
 
-	/**
-	 * Enter Paypal Password
-	 *
-	 * @param password
-	 */
-	public void enterPassword(String password) {
-		logger.info("Entering password");
-		SyncHelper.waitUntilElementPresent(getPasswordField);
-		getPasswordField.sendKeys(password);
-	}
+  @Locate(xpath = "[name='injectedUl']", on = Platform.WEB)
+  private ContainerElement getIFrame;
 
-	/**
-	 * Click Log In
-	 *
-	 * @return PaypalReviewYourPurchasePage
-	 */
-	public PaypalReviewYourPurchasePage clickLogIn() {
-		logger.info("Clicking Log In");
-		getLogInButton.click();
+  /* -------- Actions -------- */
 
-		// SAFARI flow
-		if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
-			// Move to iFrame
-			SyncHelper.sleep(45000);
-			getDriver().switchTo().defaultContent();
-			try {
-				SyncHelper.waitUntilElementPresent("[name='injectedUl']");
-				getDriver().switchTo()
-						.frame((WebElement) getDriver().findElement(By.cssSelector("[name='injectedUl']")));
-				logger.info("Switched to Iframe successfully");
-			} catch (Throwable throwable) {
-				logger.info("Switching to iFrame failed");
-				logger.warn(throwable.getMessage());
-			}
-			getPasswordField.clearText();
-			getPasswordField.sendKeys(Constants.TestData.PAYPAL_PASSWORD);
-			if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
-				webHelper.jsClick(getLogInButton.getWebElement());
-			} else {
-				getLogInButton.click();
-			}
-			getDriver().switchTo().defaultContent();
-		}
+  /**
+   * Enter Paypal Email Address
+   *
+   * @param email
+   */
+  public void enterEmail(String email) {
+    logger.info("Entering email address");
+    getEmailField.clearText();
+    getEmailField.sendKeys(email);
+  }
 
-		return ComponentFactory.create(PaypalReviewYourPurchasePage.class);
-	}
+  /** Click Next Button */
+  public void clickNext() {
+    logger.info("Clicking Next button");
+    getNextButton.click();
+  }
 
-	// Protected getters
-	@Locate(xpath = "//*[@id=\"content\"]", on = Platform.WEB)
-	protected Image getViewSignature;
+  /**
+   * Enter Paypal Password
+   *
+   * @param password
+   */
+  public void enterPassword(String password) {
+    logger.info("Entering password");
+    SyncHelper.waitUntilElementPresent(getPasswordField);
+    getPasswordField.sendKeys(password);
+  }
 
-	@Locate(xpath = "//*[@id=\"email\"]", on = Platform.WEB)
-	protected TextBox getEmailField;
+  /**
+   * Click Log In
+   *
+   * @return PaypalReviewYourPurchasePage
+   */
+  public PaypalReviewYourPurchasePage clickLogIn() {
+    logger.info("Clicking Log In");
+    getLogInButton.click();
 
-	@Locate(xpath = "//*[@id=\"btnNext\"]", on = Platform.WEB)
-	protected Button getNextButton;
+    // SAFARI flow
+    if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
+      // Move to iFrame
+      SyncHelper.sleep(45000);
+      DriverManager.getDriver().switchTo().defaultContent();
+      try {
+        SyncHelper.wait(Until.uiElement(getIFrame).present());
+        DriverManager.getDriver()
+            .switchTo()
+            .frame(DriverManager.getDriver().findElement(By.cssSelector("[name='injectedUl']")));
+        logger.info("Switched to Iframe successfully");
+      } catch (Throwable throwable) {
+        logger.info("Switching to iFrame failed");
+        logger.warn(throwable.getMessage());
+      }
+      getPasswordField.clearText();
+      getPasswordField.sendKeys(Constants.TestData.PAYPAL_PASSWORD);
+      if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
+        WebHelper.jsClick(getLogInButton.getWebElement());
+      } else {
+        getLogInButton.click();
+      }
+      DriverManager.getDriver().switchTo().defaultContent();
+    }
 
-	@Locate(xpath = "//*[@id=\"password\"]", on = Platform.WEB)
-	protected TextBox getPasswordField;
-
-	@Locate(xpath = "//*[@id=\"btnLogin\"]", on = Platform.WEB)
-	protected Button getLogInButton;
+    return ComponentFactory.create(PaypalReviewYourPurchasePage.class);
+  }
 }

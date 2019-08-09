@@ -25,9 +25,7 @@ public class GeneralSettingsView extends AbstractDeviceView {
 		syncHelper.waitForElementToAppear(getHeadingText());
 	}
 
-	/*
-	 * Public Actions
-	 */
+
 
 	/**
 	 * Get the text vaalue of the heading
@@ -142,9 +140,7 @@ public class GeneralSettingsView extends AbstractDeviceView {
 		return DeviceViewFactory.create(GeneralSettingsView.class);
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]", iOS = "button back")
 	protected Button getBackButton() {

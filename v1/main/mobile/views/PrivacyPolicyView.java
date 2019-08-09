@@ -20,9 +20,7 @@ public class PrivacyPolicyView extends AbstractDeviceView {
 		syncHelper.waitForElementToAppear(getHeadingText(), 120000);
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/headingText", iOS = "//XCUIElementTypeOther[contains(@name,\"PRIVACY POLICY\")][1]")
 	protected Text getHeadingText() {

@@ -9,134 +9,131 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.web.helpers.WebHelper;
-import java.lang.invoke.MethodHandles;
 
 @Implementation(is = MyAccountMyOrdersPage.class, on = Platform.WEB)
 public class MyAccountMyOrdersPage extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	/* -------- Actions -------- */
+  @Locate(css = "div.col-main > div > div.page-title > h1", on = Platform.WEB)
+  private Text getViewSignature;
 
+  @Locate(css = ".orders-history-holder", on = Platform.WEB)
+  private ContainerElement getOrdersPlacedSection;
 
-	/**
-	 * Verify Orders-Placed Section is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isOrdersPlacedSectionDisplayed() {
-		logger.info("Verifying Orders-Placed section is displayed");
-		return getOrdersPlacedSection.isDisplayed();
-	}
+  @Locate(css = "#my-orders-table tr:nth-child(1) td.td-bold span", on = Platform.WEB)
+  private Text getOrdersDateText;
 
-	/**
-	 * Verify Order's Date is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isOrdersDateDisplayed() {
-		logger.info("Verifying Order's Date is displayed");
-		return getOrdersDateText.isDisplayed();
-	}
+  @Locate(css = "#my-orders-table tr:nth-child(6) td.td-id span", on = Platform.WEB)
+  private Link getOrdersNumberLink;
 
-	/**
-	 * Verify Order's Number is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isOrdersNumberDisplayed() {
-		logger.info("Verifying Order's Number is displayed");
-		return getOrdersNumberLink.isDisplayed();
-	}
+  @Locate(css = "#my-orders-table > tbody > tr:nth-child(1) > td.td-items", on = Platform.WEB)
+  private Text getOrdersItemText;
 
-	/**
-	 * Click Order's Number
-	 *
-	 * @return MyAccountOrderDetailPage
-	 */
-	public MyAccountOrderDetailPage clickOrderNumber() {
-		logger.info("Clicking first Order's Number");
-		getOrdersNumberLink.click();
-		return ComponentFactory.create(MyAccountOrderDetailPage.class);
-	}
+  @Locate(css = "#my-orders-table tr:nth-child(1) td.td-price span.price", on = Platform.WEB)
+  private Text getOrdersTotalText;
 
-	/**
-	 * Verify Order's Item is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isOrdersItemDisplayed() {
-		logger.info("Verifying Order's Item is displayed");
-		return getOrdersItemText.isDisplayed();
-	}
+  @Locate(css = "#my-orders-table tr:nth-child(1) div.status span", on = Platform.WEB)
+  private Text getOrdersStatusText;
 
-	/**
-	 * Verify Order's Total is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isOrdersTotalDisplayed() {
-		logger.info("Verifying Order's Total is displayed");
-		return getOrdersTotalText.isDisplayed();
-	}
+  @Locate(xpath = "//table[@id='my-orders-table']//tr[1]//a[contains(.,'View')]", on = Platform.WEB)
+  private Button getOrdersViewButton;
 
-	/**
-	 * Verify Order's Status is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isOrdersStatusDisplayed() {
-		logger.info("Verifying Order's Status is displayed");
-		return getOrdersStatusText.isDisplayed();
-	}
+  @Locate(
+      xpath = "//table[@id='my-orders-table']//tr[6]//a[contains(.,'Reorder')]",
+      on = Platform.WEB)
+  private Button getOrdersReorderButton;
 
-	/**
-	 * Verify Order's View button is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isViewButtonDisplayed() {
-		logger.info("Verifying Order's View button is displayed");
-		return getOrdersViewButton.isDisplayed();
-	}
+  /* -------- Actions -------- */
 
-	/**
-	 * Verify Order's Reorder button is Displayed
-	 *
-	 * @return boolean
-	 */
-	public boolean isReorderButtonDisplayed() {
-		logger.info("Verifying Order's Reorder button is displayed");
-		return getOrdersReorderButton.isDisplayed();
-	}
+  /**
+   * Verify Orders-Placed Section is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isOrdersPlacedSectionDisplayed() {
+    logger.info("Verifying Orders-Placed section is displayed");
+    return getOrdersPlacedSection.isDisplayed();
+  }
 
-	// Protected getters
-	@Locate(css = "div.col-main > div > div.page-title > h1", on = Platform.WEB)
-	protected Text getViewSignature;
+  /**
+   * Verify Order's Date is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isOrdersDateDisplayed() {
+    logger.info("Verifying Order's Date is displayed");
+    return getOrdersDateText.isDisplayed();
+  }
 
-	@Locate(css = ".orders-history-holder", on = Platform.WEB)
-	protected ContainerElement getOrdersPlacedSection;
+  /**
+   * Verify Order's Number is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isOrdersNumberDisplayed() {
+    logger.info("Verifying Order's Number is displayed");
+    return getOrdersNumberLink.isDisplayed();
+  }
 
-	@Locate(css = "#my-orders-table tr:nth-child(1) td.td-bold span", on = Platform.WEB)
-	protected Text getOrdersDateText;
+  /**
+   * Click Order's Number
+   *
+   * @return MyAccountOrderDetailPage
+   */
+  public MyAccountOrderDetailPage clickOrderNumber() {
+    logger.info("Clicking first Order's Number");
+    getOrdersNumberLink.click();
+    return ComponentFactory.create(MyAccountOrderDetailPage.class);
+  }
 
-	@Locate(css = "#my-orders-table tr:nth-child(6) td.td-id span", on = Platform.WEB)
-	protected Link getOrdersNumberLink;
+  /**
+   * Verify Order's Item is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isOrdersItemDisplayed() {
+    logger.info("Verifying Order's Item is displayed");
+    return getOrdersItemText.isDisplayed();
+  }
 
-	@Locate(css = "#my-orders-table > tbody > tr:nth-child(1) > td.td-items", on = Platform.WEB)
-	protected Text getOrdersItemText;
+  /**
+   * Verify Order's Total is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isOrdersTotalDisplayed() {
+    logger.info("Verifying Order's Total is displayed");
+    return getOrdersTotalText.isDisplayed();
+  }
 
-	@Locate(css = "#my-orders-table tr:nth-child(1) td.td-price span.price", on = Platform.WEB)
-	protected Text getOrdersTotalText;
+  /**
+   * Verify Order's Status is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isOrdersStatusDisplayed() {
+    logger.info("Verifying Order's Status is displayed");
+    return getOrdersStatusText.isDisplayed();
+  }
 
-	@Locate(css = "#my-orders-table tr:nth-child(1) div.status span", on = Platform.WEB)
-	protected Text getOrdersStatusText;
+  /**
+   * Verify Order's View button is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isViewButtonDisplayed() {
+    logger.info("Verifying Order's View button is displayed");
+    return getOrdersViewButton.isDisplayed();
+  }
 
-	@Locate(xpath = "//table[@id='my-orders-table']//tr[1]//a[contains(.,'View')]", on = Platform.WEB)
-	protected Button getOrdersViewButton;
-
-	@Locate(xpath = "//table[@id='my-orders-table']//tr[6]//a[contains(.,'Reorder')]", on = Platform.WEB)
-	protected Button getOrdersReorderButton;
-
+  /**
+   * Verify Order's Reorder button is Displayed
+   *
+   * @return boolean
+   */
+  public boolean isReorderButtonDisplayed() {
+    logger.info("Verifying Order's Reorder button is displayed");
+    return getOrdersReorderButton.isDisplayed();
+  }
 }

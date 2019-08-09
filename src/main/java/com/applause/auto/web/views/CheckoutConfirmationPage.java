@@ -8,109 +8,96 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.web.helpers.WebHelper;
-import java.lang.invoke.MethodHandles;
 
 @Implementation(is = CheckoutConfirmationPage.class, on = Platform.WEB)
 public class CheckoutConfirmationPage extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	/* -------- Actions -------- */
+  @Locate(css = "h2.sub-title", on = Platform.WEB)
+  private Text getPageSubtitleText;
 
-	/*
-	 * Public Actions
-	 */
+  @Locate(css = ".default-page-text strong", on = Platform.WEB)
+  private Text getOrderNumberText;
 
-	/**
-	 * Get Confirmation message
-	 * 
-	 * @return String
-	 */
-	public String getConfirmationMessage() {
-		logger.info("Getting confirmation message");
-		// Set to upper case as Safari shows the message Capitalized while Chrome not and this does
-		// not affect the test
-		return getPageSubtitleText.getText().toUpperCase();
-	}
+  @Locate(
+      css = ".default-page-text .disc > li > a[href*='recurring_profile/view/profile']",
+      on = Platform.WEB)
+  private Text getSubscriptionNumberText;
 
-	/**
-	 * Get Order Number
-	 * 
-	 * @return String
-	 */
-	public String getOrderNumber() {
-		logger.info("Getting order number");
-		return getOrderNumberText.getText();
-	}
+  @Locate(css = "#email_address", on = Platform.WEB)
+  private TextBox getCreateAccountEmailTextBox;
 
-	/**
-	 * Enter password.
-	 *
-	 * @param password
-	 *            the password
-	 */
-	public void enterPassword(String password) {
-		logger.info("Entering password: " + password);
-		getCreateAccountPasswordTextBox.sendKeys(password);
-	}
+  @Locate(css = "#password", on = Platform.WEB)
+  private TextBox getCreateAccountPasswordTextBox;
 
-	/**
-	 * Enter confirm password.
-	 *
-	 * @param password
-	 *            the password
-	 */
-	public void enterConfirmPassword(String password) {
-		logger.info("Entering password confirmation: " + password);
-		getCreateAccountConfirmPasswordTextBox.sendKeys(password);
-	}
+  @Locate(css = "#confirmation", on = Platform.WEB)
+  private TextBox getCreateAccountConfirmPasswordTextBox;
 
-	/**
-	 * Create account my account page.
-	 *
-	 * @return the my account page
-	 */
-	public MyAccountPage createAccount() {
-		logger.info("Click on Create Account button");
-		getCreateAccountButton.click();
-		return ComponentFactory.create(MyAccountPage.class);
-	}
+  @Locate(css = "button[title='Create an Account']", on = Platform.WEB)
+  private Button getCreateAccountButton;
 
-	/**
-	 * Gets subscription number.
-	 *
-	 * @return the subscription number
-	 */
-	public String getSubscriptionNumber() {
-		return getSubscriptionNumberText.getCurrentText().trim();
-	}
+  /* -------- Actions -------- */
 
-	/*
-	 * Protected Getters
-	 */
+  /**
+   * Get Confirmation message
+   *
+   * @return String
+   */
+  public String getConfirmationMessage() {
+    logger.info("Getting confirmation message");
+    // Set to upper case as Safari shows the message Capitalized while Chrome not and this does
+    // not affect the test
+    return getPageSubtitleText.getText().toUpperCase();
+  }
 
-	@Locate(css = ".default-page-text strong,.default-page-text .disc > li > a[href*='recurring_profile/view/profile']", on = Platform.WEB)
-	protected Text getViewSignature;
+  /**
+   * Get Order Number
+   *
+   * @return String
+   */
+  public String getOrderNumber() {
+    logger.info("Getting order number");
+    return getOrderNumberText.getText();
+  }
 
-	@Locate(css = "h2.sub-title", on = Platform.WEB)
-	protected Text getPageSubtitleText;
+  /**
+   * Enter password.
+   *
+   * @param password the password
+   */
+  public void enterPassword(String password) {
+    logger.info("Entering password: " + password);
+    getCreateAccountPasswordTextBox.sendKeys(password);
+  }
 
-	@Locate(css = ".default-page-text strong", on = Platform.WEB)
-	protected Text getOrderNumberText;
+  /**
+   * Enter confirm password.
+   *
+   * @param password the password
+   */
+  public void enterConfirmPassword(String password) {
+    logger.info("Entering password confirmation: " + password);
+    getCreateAccountConfirmPasswordTextBox.sendKeys(password);
+  }
 
-	@Locate(css = ".default-page-text .disc > li > a[href*='recurring_profile/view/profile']", on = Platform.WEB)
-	protected Text getSubscriptionNumberText;
+  /**
+   * Create account my account page.
+   *
+   * @return the my account page
+   */
+  public MyAccountPage createAccount() {
+    logger.info("Click on Create Account button");
+    getCreateAccountButton.click();
+    return ComponentFactory.create(MyAccountPage.class);
+  }
 
-	@Locate(css = "#email_address", on = Platform.WEB)
-	protected TextBox getCreateAccountEmailTextBox;
-
-	@Locate(css = "#password", on = Platform.WEB)
-	protected TextBox getCreateAccountPasswordTextBox;
-
-	@Locate(css = "#confirmation", on = Platform.WEB)
-	protected TextBox getCreateAccountConfirmPasswordTextBox;
-
-	@Locate(css = "button[title='Create an Account']", on = Platform.WEB)
-	protected Button getCreateAccountButton;
+  /**
+   * Gets subscription number.
+   *
+   * @return the subscription number
+   */
+  public String getSubscriptionNumber() {
+    return getSubscriptionNumberText.getText().trim();
+  }
 }

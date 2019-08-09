@@ -102,9 +102,7 @@ public class NewOrderView extends AbstractDeviceView {
 		return DeviceViewFactory.create(SearchResultsView.class);
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "//android.widget.TextView[@text='New Order']", iOS = "//XCUIElementTypeNavigationBar[@name=\"New Order\"]")
 	protected Text getHeadingText() {

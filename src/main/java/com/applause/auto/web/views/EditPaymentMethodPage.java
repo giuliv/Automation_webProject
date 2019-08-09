@@ -10,53 +10,48 @@ import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.web.helpers.WebHelper;
-import java.lang.invoke.MethodHandles;
 
 @Implementation(is = EditPaymentMethodPage.class, on = Platform.WEB)
 public class EditPaymentMethodPage extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	/* -------- Actions -------- */
+  @Locate(
+      css = "div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1",
+      on = Platform.WEB)
+  private Text getViewSignature;
 
-	WebHelper webHelper = new WebHelper();
+  @Locate(css = "#NameOnCard", on = Platform.WEB)
+  private TextBox getNameOnCardField;
 
-	// Public actions
+  @Locate(css = "#send2", on = Platform.WEB)
+  private Button getSavePaymentMethodButton;
 
-	/**
-	 * Enter Name on Card
-	 *
-	 * @param name
-	 * @return String
-	 */
-	public String enterNameOnCard(String name) {
-		logger.info("Entering Name on Card");
-		name = webHelper.getTimestamp(name);
-		getNameOnCardField.sendKeys(name);
-		return name;
-	}
+  /* -------- Actions -------- */
 
-	/**
-	 * Click Save Payment Method Button
-	 *
-	 * @return PaymentMethodsPage
-	 */
-	public PaymentMethodsPage clickSavePaymentMethod() {
-		logger.info("Clicking Save Payment Method");
-		getSavePaymentMethodButton.click();
-		// wait for animation
-		SyncHelper.sleep(2000);
-		return ComponentFactory.create(PaymentMethodsPage.class);
-	}
+  /**
+   * Enter Name on Card
+   *
+   * @param name
+   * @return String
+   */
+  public String enterNameOnCard(String name) {
+    logger.info("Entering Name on Card");
+    name = WebHelper.getTimestamp(name);
+    getNameOnCardField.sendKeys(name);
+    return name;
+  }
 
-	// Protected getters
-	@Locate(css = "div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB)
-	protected Text getViewSignature;
-
-	@Locate(css = "#NameOnCard", on = Platform.WEB)
-	protected TextBox getNameOnCardField;
-
-	@Locate(css = "#send2", on = Platform.WEB)
-	protected Button getSavePaymentMethodButton;
-
+  /**
+   * Click Save Payment Method Button
+   *
+   * @return PaymentMethodsPage
+   */
+  public PaymentMethodsPage clickSavePaymentMethod() {
+    logger.info("Clicking Save Payment Method");
+    getSavePaymentMethodButton.click();
+    // wait for animation
+    SyncHelper.sleep(2000);
+    return ComponentFactory.create(PaymentMethodsPage.class);
+  }
 }

@@ -289,7 +289,7 @@ public class MobileHelper {
 		if (direction.equals(Direction.DOWN) || direction.equals(Direction.UP)) {
 			Assert.fail("'" + direction + "' is not a valid horizontal direction. Please specify 'left' or 'right'.");
 		}
-		Dimension size = getDriver().manage().window().getSize();
+		Dimension size = DriverManager.getDriver().manage().window().getSize();
 		int startX = (int) (size.width * 0.2);
 		int endX = (int) (size.width * 0.8);
 		int elementY = element.getCenterY();
@@ -485,7 +485,7 @@ public class MobileHelper {
 	}
 
 	public static void refreshDeviceSize() {
-		deviceSize = getDriver().manage().window().getSize();
+		deviceSize = DriverManager.getDriver().manage().window().getSize();
 	}
 
 	/**
@@ -685,7 +685,7 @@ public class MobileHelper {
 	}
 
 	private static void scrollUpAlgorithm() {
-		Dimension size = getDriver().manage().window().getSize();
+		Dimension size = DriverManager.getDriver().manage().window().getSize();
 		int startY = (int) (size.getHeight() * 0.2);
 		int endY = (int) (size.getHeight() * 0.8);
 		int startX = (int) (size.getWidth() * 0.1);
@@ -1124,7 +1124,7 @@ public class MobileHelper {
 				elem.sendKeys(Keys.BACK_SPACE);
 				element.setValue(value);
 			} else {
-				JavascriptExecutor js = (JavascriptExecutor) getDriver();
+				JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
 				Map<String, Object> params = new HashMap<>();
 				params.put("order", order);
 				params.put("offset", 0.1);
@@ -1184,14 +1184,14 @@ public class MobileHelper {
 		int total = 0;
 		if (env.getIsMobileIOS()) {
 			if (locator.startsWith("//") || locator.startsWith("(/")) {
-				total = getDriver().findElements(MobileBy.xpath(locator.replace("[<<s>>]", ""))).size();
+				total = DriverManager.getDriver().findElements(MobileBy.xpath(locator.replace("[<<s>>]", ""))).size();
 			} else if (locator.startsWith("XCUI") || locator.startsWith("**")) {
-				total = getDriver().findElements(MobileBy.iOSClassChain(locator.replace("[<<s>>]", ""))).size();
+				total = DriverManager.getDriver().findElements(MobileBy.iOSClassChain(locator.replace("[<<s>>]", ""))).size();
 			} else {
 				throw new RuntimeException("Invalid locator strategy. Expected xpath or iOS class chain");
 			}
 		} else {
-			total = getDriver().findElements(By.xpath(locator.replace("[<<s>>]", ""))).size();
+			total = DriverManager.getDriver().findElements(By.xpath(locator.replace("[<<s>>]", ""))).size();
 		}
 
 		List<T> result = new ArrayList<>();
@@ -1234,14 +1234,14 @@ public class MobileHelper {
 		int total;
 		if (env.getIsMobileIOS()) {
 			if (locator.startsWith("//") || locator.startsWith("(/")) {
-				total = getDriver().findElements(MobileBy.xpath(locator.replace("[<<s>>]", ""))).size();
+				total = DriverManager.getDriver().findElements(MobileBy.xpath(locator.replace("[<<s>>]", ""))).size();
 			} else if (locator.startsWith("XCUI") || locator.startsWith("**")) {
-				total = getDriver().findElements(MobileBy.iOSClassChain(locator.replace("[<<s>>]", ""))).size();
+				total = DriverManager.getDriver().findElements(MobileBy.iOSClassChain(locator.replace("[<<s>>]", ""))).size();
 			} else {
 				throw new RuntimeException("Invalid locator strategy. Expected xpath or iOS class chain");
 			}
 		} else {
-			total = getDriver().findElements(By.xpath(locator.replace("[<<s>>]", ""))).size();
+			total = DriverManager.getDriver().findElements(By.xpath(locator.replace("[<<s>>]", ""))).size();
 		}
 
 		List<T> result = new ArrayList<>();
@@ -1341,7 +1341,7 @@ public class MobileHelper {
 	}
 
 	public static Element getElementFromPageSource(String locator) {
-		String pageSource = getDriver().getPageSource();
+		String pageSource = DriverManager.getDriver().getPageSource();
 		LOGGER.debug("PAGE SOURCE: " + pageSource);
 		return getElementFromPageSource(locator, pageSource);
 	}

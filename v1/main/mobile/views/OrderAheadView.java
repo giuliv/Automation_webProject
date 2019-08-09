@@ -22,9 +22,7 @@ public class OrderAheadView extends AbstractDeviceView {
 		syncHelper.waitForElementToAppear(getHeadingText());
 	}
 
-	/*
-	 * Public Actions
-	 */
+
 	/**
 	 * Press Get Started button
 	 * 
@@ -74,9 +72,7 @@ public class OrderAheadView extends AbstractDeviceView {
 		return DeviceViewFactory.create(SelectCoffeeBarView.class);
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/seeCoffeebarsButton", iOS = "See Participating Coffeebars")
 	protected Button getParticipatingCoffeebarsButton() {

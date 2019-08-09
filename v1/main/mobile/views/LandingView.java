@@ -24,9 +24,7 @@ public class LandingView extends AbstractDeviceView {
 		syncHelper.waitForElementToAppear(getHeadingText());
 	}
 
-	/*
-	 * Public Actions
-	 */
+
 	/**
 	 * Swipe left on tutorial view and expect to arrive at next view
 	 * 
@@ -93,9 +91,7 @@ public class LandingView extends AbstractDeviceView {
 		return getHeadingText().getStringValue();
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/headingText", iOS = "Earn Rewards.")
 	protected Text getHeadingText() {

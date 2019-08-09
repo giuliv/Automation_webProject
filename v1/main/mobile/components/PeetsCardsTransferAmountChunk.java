@@ -71,7 +71,7 @@ public class PeetsCardsTransferAmountChunk extends AbstractDeviceChunk {
 	 * @return the card number
 	 */
 	public String getCardNumber() {
-		return getCardNumberTextBox().getCurrentText().replace(" ", "");
+		return getCardNumberTextBox().getText().replace(" ", "");
 	}
 
 	/**
@@ -80,12 +80,10 @@ public class PeetsCardsTransferAmountChunk extends AbstractDeviceChunk {
 	 * @return the pin number
 	 */
 	public String getPinNumber() {
-		return getCardPinTextBox().getCurrentText().replace(" ", "");
+		return getCardPinTextBox().getText().replace(" ", "");
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/cardNumber", iOS = "(//XCUIElementTypeTextField)[1]")
 	protected TextBox getCardNumberTextBox() {

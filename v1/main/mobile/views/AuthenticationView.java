@@ -21,9 +21,7 @@ public class AuthenticationView extends AbstractDeviceView {
 		syncHelper.waitForElementToAppear(getCreateAccountButton());
 	}
 
-	/*
-	 * Public Actions
-	 */
+
 	/**
 	 * Get the text value of the reward title
 	 * 
@@ -33,9 +31,7 @@ public class AuthenticationView extends AbstractDeviceView {
 		return getRewardTitleText().getStringValue();
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/signUp", iOS = "Create Account")
 	protected Button getCreateAccountButton() {

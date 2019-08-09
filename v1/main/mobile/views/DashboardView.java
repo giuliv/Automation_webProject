@@ -51,9 +51,7 @@ public class DashboardView extends AbstractDeviceView {
 
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/yourFeedTextView", iOS = "Your Feed")
 	protected TextBox getSignature() {

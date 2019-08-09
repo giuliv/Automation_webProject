@@ -56,9 +56,7 @@ public class PeetsSettingsView extends AbstractDeviceView {
 		return DeviceViewFactory.create(GeneralSettingsView.class);
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "com.android.settings:id/main_content", iOS = "//XCUIElementTypeApplication[@name=\"Settings\"]")
 	protected TextBox getSignature() {

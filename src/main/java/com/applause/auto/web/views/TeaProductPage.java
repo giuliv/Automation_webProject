@@ -10,63 +10,50 @@ import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
 import com.applause.auto.web.components.MiniCartContainerChunk;
-import com.applause.auto.web.helpers.WebHelper;
-import java.lang.invoke.MethodHandles;
 
 @Implementation(is = TeaProductPage.class, on = Platform.WEB)
 public class TeaProductPage extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	/* -------- Actions -------- */
+  @Locate(css = ".product-shop-holder .product-name", on = Platform.WEB)
+  private Text getViewSignature;
 
+  @Locate(css = ".product-shop-holder .add-to-cart button", on = Platform.WEB)
+  private Button getAddToCartButton;
 
-	/**
-	 * Select a Grind
-	 * 
-	 */
-	public void selectAGrind(String grind) {
-		logger.info(String.format("Selecting a Grind: %s", grind));
-		getSelectGrindSelectList.select(grind);
-	}
+  @Locate(css = "#shopping-cart-please-wait", on = Platform.WEB)
+  private ContainerElement getAddingToCartSpinner;
 
-	/**
-	 * Click Add to Cart Button
-	 * 
-	 * @return MiniCartContainerChunk
-	 */
-	public MiniCartContainerChunk clickAddToCart() {
-		logger.info("Tap on Shop Button");
-		getAddToCartButton.click();
-		waitForAddingToCartSpinner();
-		return ComponentFactory.create(MiniCartContainerChunk.class);
-	}
+  @Locate(css = "#attribute198", on = Platform.WEB)
+  private SelectList getSelectGrindSelectList;
 
-	/**
-	 * Click Add to Cart Button
-	 * 
-	 */
-	public void waitForAddingToCartSpinner() {
-		logger.info("Adding item to Shopping Cart...");
-		SyncHelper.waitUntilElementPresent(getLocator(this, "getAddingToCartSpinner"));
-		SyncHelper.waitUntilElementNotPresent(getLocator(this, "getAddingToCartSpinner"));
-	}
+  /* -------- Actions -------- */
 
-	/*
-	 * Protected Getters
-	 */
+  /** Select a Grind */
+  public void selectAGrind(String grind) {
+    logger.info(String.format("Selecting a Grind: %s", grind));
+    getSelectGrindSelectList.select(grind);
+  }
 
-	@Locate(css = ".product-shop-holder .product-name", on = Platform.WEB)
-	protected Text getViewSignature;
+  /**
+   * Click Add to Cart Button
+   *
+   * @return MiniCartContainerChunk
+   */
+  public MiniCartContainerChunk clickAddToCart() {
+    logger.info("Tap on Shop Button");
+    getAddToCartButton.click();
+    waitForAddingToCartSpinner();
+    return ComponentFactory.create(MiniCartContainerChunk.class);
+  }
 
-	@Locate(css = ".product-shop-holder .add-to-cart button", on = Platform.WEB)
-	protected Button getAddToCartButton;
-
-	@Locate(css = "#shopping-cart-please-wait", on = Platform.WEB)
-	protected ContainerElement getAddingToCartSpinner;
-
-	@Locate(css = "#attribute198", on = Platform.WEB)
-	protected SelectList getSelectGrindSelectList;
-
+  /** Click Add to Cart Button */
+  public void waitForAddingToCartSpinner() {
+    logger.info("Adding item to Shopping Cart...");
+    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).present());
+    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).notPresent());
+  }
 }

@@ -75,9 +75,7 @@ public class BottomNavigationMenuChunk extends AbstractDeviceChunk {
 		return DeviceViewFactory.create(OrderAheadView.class);
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[@text=\"Home\"]/..", iOS = "//XCUIElementTypeButton[@name=\"Home\"]")
 	protected Button getHomeButton() {

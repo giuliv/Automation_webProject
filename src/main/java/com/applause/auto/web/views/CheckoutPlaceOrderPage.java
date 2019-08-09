@@ -10,84 +10,72 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.web.helpers.WebHelper;
-import java.lang.invoke.MethodHandles;
+import com.applause.auto.util.helper.sync.Until;
 
 @Implementation(is = CheckoutPlaceOrderPage.class, on = Platform.WEB)
 public class CheckoutPlaceOrderPage extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	/* -------- Actions -------- */
+  @Locate(css = "button[title='Place Order']", on = Platform.WEB)
+  private Button getPlaceOrderButton;
 
-	/*
-	 * Public Actions
-	 */
+  @Locate(css = "#gift-message-whole-message", on = Platform.WEB)
+  private TextBox getGiftMessageTextBox;
 
-	/**
-	 * Click Place Order Button
-	 * 
-	 * @return CheckoutConfirmationPage
-	 */
-	public CheckoutConfirmationPage placeOrder() {
-		logger.info("Click Place Order Button");
-		SyncHelper.waitUntilElementPresent(getLocator(this, "getPlaceOrderButton"));
-		SyncHelper.sleep(7000); // Required time to trigger spinner animation if shown
+  @Locate(
+      css = "#cart-table-standard > tbody > tr > td.product-info-cell.last > h3 > a",
+      on = Platform.WEB)
+  private Text getProductNameText;
 
-		getPlaceOrderButton.click();
-		SyncHelper.sleep(2000); // Required time to trigger spinner animation if shown
-		SyncHelper.waitUntilElementNotPresent(getLocator(this, "getPlaceOrderSpinner"));
-		return ComponentFactory.create(CheckoutConfirmationPage.class);
-	}
+  @Locate(css = "span#opc-please-wait.please-wait-review", on = Platform.WEB)
+  private ContainerElement getPlaceOrderSpinner;
 
-	/**
-	 * Click Place Order Button without payment method selected
-	 * 
-	 * @return CheckoutPaymentMethodPage
-	 */
-	public CheckoutPaymentMethodPage placeOrderMissingPayment() {
-		logger.info("Click Place Order Button");
-		getPlaceOrderButton.click();
-		return ComponentFactory.create(CheckoutPaymentMethodPage.class);
-	}
+  /* -------- Actions -------- */
 
-	/**
-	 * Get Gift Order Message
-	 *
-	 * @return String
-	 */
-	public String getGiftMessage() {
-		logger.info("Getting gift Message");
-		return getGiftMessageTextBox.getCurrentText();
-	}
+  /**
+   * Click Place Order Button
+   *
+   * @return CheckoutConfirmationPage
+   */
+  public CheckoutConfirmationPage placeOrder() {
+    logger.info("Click Place Order Button");
+    SyncHelper.wait(Until.uiElement(getPlaceOrderButton).present());
+    SyncHelper.sleep(7000); // Required time to trigger spinner animation if shown
+    getPlaceOrderButton.click();
+    SyncHelper.sleep(2000); // Required time to trigger spinner animation if shown
+    SyncHelper.wait(Until.uiElement(getPlaceOrderSpinner).notPresent());
+    return ComponentFactory.create(CheckoutConfirmationPage.class);
+  }
 
-	/**
-	 * Get Product Name
-	 *
-	 * @return String
-	 */
-	public String getProductName() {
-		logger.info("Getting product name");
-		return getProductNameText.getText();
-	}
+  /**
+   * Click Place Order Button without payment method selected
+   *
+   * @return CheckoutPaymentMethodPage
+   */
+  public CheckoutPaymentMethodPage placeOrderMissingPayment() {
+    logger.info("Click Place Order Button");
+    getPlaceOrderButton.click();
+    return ComponentFactory.create(CheckoutPaymentMethodPage.class);
+  }
 
-	/*
-	 * Protected Getters
-	 */
+  /**
+   * Get Gift Order Message
+   *
+   * @return String
+   */
+  public String getGiftMessage() {
+    logger.info("Getting gift Message");
+    return getGiftMessageTextBox.getCurrentText();
+  }
 
-	@Locate(css = "h2#checkout-title-opc-review.active", on = Platform.WEB)
-	protected Text getViewSignature;
-
-	@Locate(css = "button[title='Place Order']", on = Platform.WEB)
-	protected Button getPlaceOrderButton;
-
-	@Locate(css = "#gift-message-whole-message", on = Platform.WEB)
-	protected TextBox getGiftMessageTextBox;
-
-	@Locate(css = "#cart-table-standard > tbody > tr > td.product-info-cell.last > h3 > a", on = Platform.WEB)
-	protected Text getProductNameText;
-
-	@Locate(css = "span#opc-please-wait.please-wait-review", on = Platform.WEB)
-	protected ContainerElement getPlaceOrderSpinner;
-
+  /**
+   * Get Product Name
+   *
+   * @return String
+   */
+  public String getProductName() {
+    logger.info("Getting product name");
+    return getProductNameText.getText();
+  }
 }

@@ -12,122 +12,98 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.web.helpers.WebHelper;
-import java.lang.invoke.MethodHandles;
 
 @Implementation(is = SignUpPage.class, on = Platform.WEB)
 public class SignUpPage extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Variables -------- */
 
-	/* -------- Actions -------- */
+  public String email;
 
-	public String email;
+  /* -------- Elements -------- */
 
-	/*
-	 * Public Actions
-	 */
+  @Locate(css = ".account-create-form", on = Platform.WEB)
+  private Text getViewSignature;
 
-	/**
-	 * Continue after entering required Shipping info
-	 * 
-	 */
-	public <T extends BaseComponent> T submitSignUpInfo(Class<T> clazz) {
-		logger.info("Clicking Submit after filling sign-up info");
-		fillSignUpInfo();
-		clickSubmit();
-		return ComponentFactory.create(clazz);
-	}
+  @Locate(css = "#firstname", on = Platform.WEB)
+  private TextBox getFirstNameTextBox;
 
-	/**
-	 * Fill Required Fields for Shipping
-	 * 
-	 */
-	public void fillSignUpInfo() {
-		logger.info("Filling Sign up info");
-		SyncHelper.sleep(5000);
-		long timeStamp = System.currentTimeMillis();
-		email = String.format(Constants.TestData.EMAIL, timeStamp);
-		getFirstNameTextBox.sendKeys(Constants.TestData.FIRST_NAME);
-		getLastNameTextBox.sendKeys(Constants.TestData.LAST_NAME);
-		getEmailTextBox.sendKeys(email);
-		getConfirmEmailTextBox.sendKeys(email);
-		getPasswordTextBox.sendKeys(Constants.TestData.PASSWORD);
-		getConfirmPasswordTextBox.sendKeys(Constants.TestData.PASSWORD);
-		getZipCodeTextBox.sendKeys(Constants.TestData.ZIP_CODE);
-		disableSendEmail();
-		disableRememberMe();
-	}
+  @Locate(css = "#lastname", on = Platform.WEB)
+  private TextBox getLastNameTextBox;
 
-	/**
-	 * Disable Send Email Checkbox
-	 * 
-	 */
-	public void disableSendEmail() {
-		logger.info("Disable Send Email Checkbox");
-		if (getSendEmailsCheckbox.isSelected()) {
-			getSendEmailsCheckbox.click();
-		}
-	}
+  @Locate(css = "#email_address", on = Platform.WEB)
+  private TextBox getEmailTextBox;
 
-	/**
-	 * Disable Remember me Checkbox
-	 * 
-	 */
-	public void disableRememberMe() {
-		logger.info("Disable Remember me Checkbox");
-		if (getRememberMeCheckbox.isSelected()) {
-			getRememberMeCheckbox.click();
-		}
-	}
+  @Locate(css = "#confirm_email", on = Platform.WEB)
+  private TextBox getConfirmEmailTextBox;
 
-	/**
-	 * Click Submit
-	 * 
-	 */
-	public void clickSubmit() {
-		logger.info("Click Submit button");
-		getSubmitButton.click();
-	}
+  @Locate(css = "#password", on = Platform.WEB)
+  private TextBox getPasswordTextBox;
 
-	/*
-	 * Protected Getters
-	 */
+  @Locate(css = "#confirmation", on = Platform.WEB)
+  private TextBox getConfirmPasswordTextBox;
 
-	@Locate(css = ".account-create-form", on = Platform.WEB)
-	protected Text getViewSignature;
+  @Locate(css = "#zipcode", on = Platform.WEB)
+  private TextBox getZipCodeTextBox;
 
-	@Locate(css = "#firstname", on = Platform.WEB)
-	protected TextBox getFirstNameTextBox;
+  @Locate(css = "#is_subscribed", on = Platform.WEB)
+  private Checkbox getSendEmailsCheckbox;
 
-	@Locate(css = "#lastname", on = Platform.WEB)
-	protected TextBox getLastNameTextBox;
+  @Locate(css = "#remember-me-box input", on = Platform.WEB)
+  private Checkbox getRememberMeCheckbox;
 
-	@Locate(css = "#email_address", on = Platform.WEB)
-	protected TextBox getEmailTextBox;
+  @Locate(css = ".buttons-set button", on = Platform.WEB)
+  private Button getSubmitButton;
 
-	@Locate(css = "#confirm_email", on = Platform.WEB)
-	protected TextBox getConfirmEmailTextBox;
+  @Locate(css = "opc-please-wait", on = Platform.WEB)
+  private ContainerElement getShippingLoadingSpinner;
 
-	@Locate(css = "#password", on = Platform.WEB)
-	protected TextBox getPasswordTextBox;
+  /* -------- Actions -------- */
 
-	@Locate(css = "#confirmation", on = Platform.WEB)
-	protected TextBox getConfirmPasswordTextBox;
+  /** Continue after entering required Shipping info */
+  public <T extends BaseComponent> T submitSignUpInfo(Class<T> clazz) {
+    logger.info("Clicking Submit after filling sign-up info");
+    fillSignUpInfo();
+    clickSubmit();
+    return ComponentFactory.create(clazz);
+  }
 
-	@Locate(css = "#zipcode", on = Platform.WEB)
-	protected TextBox getZipCodeTextBox;
+  /** Fill Required Fields for Shipping */
+  public void fillSignUpInfo() {
+    logger.info("Filling Sign up info");
+    SyncHelper.sleep(5000);
+    long timeStamp = System.currentTimeMillis();
+    email = String.format(Constants.TestData.EMAIL, timeStamp);
+    getFirstNameTextBox.sendKeys(Constants.TestData.FIRST_NAME);
+    getLastNameTextBox.sendKeys(Constants.TestData.LAST_NAME);
+    getEmailTextBox.sendKeys(email);
+    getConfirmEmailTextBox.sendKeys(email);
+    getPasswordTextBox.sendKeys(Constants.TestData.PASSWORD);
+    getConfirmPasswordTextBox.sendKeys(Constants.TestData.PASSWORD);
+    getZipCodeTextBox.sendKeys(Constants.TestData.ZIP_CODE);
+    disableSendEmail();
+    disableRememberMe();
+  }
 
-	@Locate(css = "#is_subscribed", on = Platform.WEB)
-	protected Checkbox getSendEmailsCheckbox;
+  /** Disable Send Email Checkbox */
+  public void disableSendEmail() {
+    logger.info("Disable Send Email Checkbox");
+    if (getSendEmailsCheckbox.isChecked()) {
+      getSendEmailsCheckbox.click();
+    }
+  }
 
-	@Locate(css = "#remember-me-box input", on = Platform.WEB)
-	protected Checkbox getRememberMeCheckbox;
+  /** Disable Remember me Checkbox */
+  public void disableRememberMe() {
+    logger.info("Disable Remember me Checkbox");
+    if (getRememberMeCheckbox.isChecked()) {
+      getRememberMeCheckbox.click();
+    }
+  }
 
-	@Locate(css = ".buttons-set button", on = Platform.WEB)
-	protected Button getSubmitButton;
-
-	@Locate(css = "opc-please-wait", on = Platform.WEB)
-	protected ContainerElement getShippingLoadingSpinner;
-
+  /** Click Submit */
+  public void clickSubmit() {
+    logger.info("Click Submit button");
+    getSubmitButton.click();
+  }
 }

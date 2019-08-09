@@ -56,9 +56,7 @@ public class AccountHistoryView extends AbstractDeviceView {
 		return getTransactionAmountText().get(index).getText();
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "//android.widget.TextView[@text='ACCOUNT HISTORY']", iOS = "//XCUIElementTypeNavigationBar[@name=\"ACCOUNT HISTORY\"]")
 	protected Text getSignatureText() {

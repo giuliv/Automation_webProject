@@ -126,9 +126,7 @@ public class PeetsCardsTransferAmountWarningChunk extends AbstractDeviceChunk {
 		return DeviceChunkFactory.create(clazz, "");
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "//android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.TextView[1]", iOS = "One last thing")
 	protected Text getMainTitleText() {

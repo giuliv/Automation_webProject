@@ -13,53 +13,49 @@ import com.applause.auto.util.helper.SyncHelper;
 @Implementation(is = ShopRunnerChunk.class, on = Platform.WEB)
 public class ShopRunnerChunk extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	@Locate(css = "input#sr_sign_in_button", on = Platform.WEB)
-	protected Button getSignInButton;
+  @Locate(css = "input#sr_sign_in_button", on = Platform.WEB)
+  protected Button getSignInButton;
 
-	@Locate(css = "#sr_close", on = Platform.WEB)
-	protected Button getContinueShoppingButton;
+  @Locate(css = "#sr_close", on = Platform.WEB)
+  protected Button getContinueShoppingButton;
 
-	@Locate(css = "#sr_signin_email", on = Platform.WEB)
-	protected TextBox getEmailTextBox;
+  @Locate(css = "#sr_signin_email", on = Platform.WEB)
+  protected TextBox getEmailTextBox;
 
-	@Locate(css = "#sr_signin_password", on = Platform.WEB)
-	protected TextBox getPasswordTextBox;
+  @Locate(css = "#sr_signin_password", on = Platform.WEB)
+  protected TextBox getPasswordTextBox;
 
-	@Locate(css = "#sr_modal_inner", on = Platform.WEB)
-	protected ContainerElement getSignature;
+  @Locate(css = "#sr_modal_inner", on = Platform.WEB)
+  protected ContainerElement getSignature;
 
-	/* -------- Actions -------- */
+  /* -------- Actions -------- */
 
-	/**
-	 * Sign in.
-	 *
-	 * @param email
-	 *            the email
-	 * @param password
-	 *            the password
-	 */
-	public void signIn(String email, String password) {
-		logger.info("Clicking Sign In");
-		getEmailTextBox.sendKeys(email);
-		getPasswordTextBox.sendKeys(password);
-		getSignInButton.click();
-	}
+  /**
+   * Sign in.
+   *
+   * @param email the email
+   * @param password the password
+   */
+  public void signIn(String email, String password) {
+    logger.info("Clicking Sign In");
+    getEmailTextBox.sendKeys(email);
+    getPasswordTextBox.sendKeys(password);
+    getSignInButton.click();
+  }
 
-	/**
-	 * Continue shopping t.
-	 *
-	 * @param <T>
-	 *            the type parameter
-	 * @param clazz
-	 *            the clazz
-	 * @return the t
-	 */
-	public <T extends BaseComponent> T continueShopping(Class<T> clazz) {
-		logger.info("Clicking Continue Shopping button");
-		getContinueShoppingButton.click();
-		SyncHelper.sleep(6000);
-		return ComponentFactory.create(clazz);
-	}
+  /**
+   * Continue shopping t.
+   *
+   * @param <T> the type parameter
+   * @param clazz the clazz
+   * @return the t
+   */
+  public <T extends BaseComponent> T continueShopping(Class<T> clazz) {
+    logger.info("Clicking Continue Shopping button");
+    getContinueShoppingButton.click();
+    SyncHelper.sleep(6000);
+    return ComponentFactory.create(clazz);
+  }
 }

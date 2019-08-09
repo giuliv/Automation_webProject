@@ -24,9 +24,7 @@ public class ExploreOffersView extends AbstractDeviceView {
 		syncHelper.waitForElementToAppear(getHeadingText());
 	}
 
-	/*
-	 * Public Actions
-	 */
+
 	/**
 	 * Swipe left on tutorial view and expect to arrive at next view
 	 * 
@@ -47,9 +45,7 @@ public class ExploreOffersView extends AbstractDeviceView {
 		return getHeadingText().getStringValue();
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "new UiSelector().textContains(\"Explore Offers\")", iOS = "Explore Offers.")
 	protected Text getHeadingText() {

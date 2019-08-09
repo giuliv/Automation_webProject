@@ -68,9 +68,7 @@ public class ProductDetailsView extends AbstractDeviceView {
 		return DeviceViewFactory.create(clazz);
 	}
 
-	/*
-	 * Protected Getters
-	 */
+
 
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/productCalories", iOS = "//XCUIElementTypeStaticText[contains(@name,'Calories')]")
 	protected Text getHeadingText() {

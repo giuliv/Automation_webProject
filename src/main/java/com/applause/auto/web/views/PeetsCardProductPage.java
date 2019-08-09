@@ -10,68 +10,51 @@ import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
 import com.applause.auto.web.components.MiniCartContainerChunk;
 import com.applause.auto.web.helpers.WebHelper;
-import java.lang.invoke.MethodHandles;
 
 @Implementation(is = PeetsCardProductPage.class, on = Platform.WEB)
 public class PeetsCardProductPage extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	/* -------- Actions -------- */
+  @Locate(css = ".product-shop .product-name", on = Platform.WEB)
+  private Text getViewSignature;
 
-	WebHelper webHelper = new WebHelper();
+  @Locate(css = ".product-shop .add-to-cart button", on = Platform.WEB)
+  private Button getAddToCartButton;
 
-	/*
-	 * Public Actions
-	 */
+  @Locate(css = "#shopping-cart-please-wait", on = Platform.WEB)
+  private ContainerElement getAddingToCartSpinner;
 
-	/**
-	 * Select an Amount for the Card
-	 * 
-	 */
-	public void selectCardAmount(String amount) {
-		logger.info(String.format("Selecting a Grind: %s", amount));
-		webHelper.jsSelect(getSelectCardAmountSelectList.getWebElement(), amount);
-	}
+  @Locate(css = "#select_1", on = Platform.WEB)
+  private SelectList getSelectCardAmountSelectList;
 
-	/**
-	 * Click Add to Cart Button
-	 * 
-	 * @return MiniCartContainerChunk
-	 */
-	public MiniCartContainerChunk clickAddToCart() {
-		logger.info("Tap on Shop Coffee Button");
-		getAddToCartButton.click();
-		waitForAddingToCartSpinner();
-		return ComponentFactory.create(MiniCartContainerChunk.class);
-	}
+  /* -------- Actions -------- */
 
-	/**
-	 * Click Add to Cart Button
-	 * 
-	 */
-	public void waitForAddingToCartSpinner() {
-		logger.info("Adding item to Shopping Cart...");
-		SyncHelper.waitUntilElementPresent(getLocator(this, "getAddingToCartSpinner"));
-		SyncHelper.waitUntilElementNotPresent(getLocator(this, "getAddingToCartSpinner"));
-	}
+  /** Select an Amount for the Card */
+  public void selectCardAmount(String amount) {
+    logger.info(String.format("Selecting a Grind: %s", amount));
+    WebHelper.jsSelect(getSelectCardAmountSelectList.getWebElement(), amount);
+  }
 
-	/*
-	 * Protected Getters
-	 */
+  /**
+   * Click Add to Cart Button
+   *
+   * @return MiniCartContainerChunk
+   */
+  public MiniCartContainerChunk clickAddToCart() {
+    logger.info("Tap on Shop Coffee Button");
+    getAddToCartButton.click();
+    waitForAddingToCartSpinner();
+    return ComponentFactory.create(MiniCartContainerChunk.class);
+  }
 
-	@Locate(css = ".product-shop .product-name", on = Platform.WEB)
-	protected Text getViewSignature;
-
-	@Locate(css = ".product-shop .add-to-cart button", on = Platform.WEB)
-	protected Button getAddToCartButton;
-
-	@Locate(css = "#shopping-cart-please-wait", on = Platform.WEB)
-	protected ContainerElement getAddingToCartSpinner;
-
-	@Locate(css = "#select_1", on = Platform.WEB)
-	protected SelectList getSelectCardAmountSelectList;
-
+  /** Click Add to Cart Button */
+  public void waitForAddingToCartSpinner() {
+    logger.info("Adding item to Shopping Cart...");
+    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).present());
+    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).notPresent());
+  }
 }
