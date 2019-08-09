@@ -5,12 +5,12 @@ import org.testng.annotations.Test;
 
 import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.pageframework.testdata.TestConstants;
-import com.applause.auto.pageframework.views.AuthenticationView;
-import com.applause.auto.pageframework.views.ExploreOffersView;
-import com.applause.auto.pageframework.views.LandingView;
-import com.applause.auto.pageframework.views.OrderAheadView;
-import com.applause.auto.pageframework.views.PayFasterView;
+import com.applause.auto.common.data.TestConstants;
+import com.applause.auto.mobile.views.AuthenticationView;
+import com.applause.auto.mobile.views.ExploreOffersView;
+import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.OrderAheadView;
+import com.applause.auto.mobile.views.PayFasterView;
 
 /**
  * This is a sample test that verifies the project is setup correctly and can execute a simple test.

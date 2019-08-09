@@ -7,21 +7,21 @@ import org.testng.annotations.Test;
 
 import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.pageframework.chunks.AccountMenuMobileChunk;
-import com.applause.auto.pageframework.helpers.MobileHelper;
-import com.applause.auto.pageframework.testdata.TestConstants;
-import com.applause.auto.pageframework.views.AccountHistoryView;
-import com.applause.auto.pageframework.views.AuthenticationView;
-import com.applause.auto.pageframework.views.ChangePasswordView;
-import com.applause.auto.pageframework.views.CompleteAccountView;
-import com.applause.auto.pageframework.views.CreateAccountView;
-import com.applause.auto.pageframework.views.DashboardView;
-import com.applause.auto.pageframework.views.GeneralSettingsView;
-import com.applause.auto.pageframework.views.LandingView;
-import com.applause.auto.pageframework.views.PrivacyPolicyView;
-import com.applause.auto.pageframework.views.ProfileDetailsView;
-import com.applause.auto.pageframework.views.SignInView;
-import com.applause.auto.pageframework.views.TermsAndConditionsView;
+import com.applause.auto.web.components.AccountMenuMobileChunk;
+import com.applause.auto.mobile.helpers.MobileHelper;
+import com.applause.auto.common.data.TestConstants;
+import com.applause.auto.mobile.views.AccountHistoryView;
+import com.applause.auto.mobile.views.AuthenticationView;
+import com.applause.auto.mobile.views.ChangePasswordView;
+import com.applause.auto.mobile.views.CompleteAccountView;
+import com.applause.auto.mobile.views.CreateAccountView;
+import com.applause.auto.mobile.views.DashboardView;
+import com.applause.auto.mobile.views.GeneralSettingsView;
+import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.PrivacyPolicyView;
+import com.applause.auto.mobile.views.ProfileDetailsView;
+import com.applause.auto.mobile.views.SignInView;
+import com.applause.auto.mobile.views.TermsAndConditionsView;
 
 public class CreateAccountTest extends BaseTest {
 

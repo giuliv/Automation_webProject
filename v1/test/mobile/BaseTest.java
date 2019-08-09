@@ -2,7 +2,7 @@ package com.applause.auto.test.mobile;
 
 import java.lang.reflect.Method;
 
-import com.applause.auto.pageframework.helpers.RetryAnalyzer;
+import com.applause.auto.common.util.RetryAnalyzer;
 import org.testng.ITestContext;
 import org.testng.ITestNGMethod;
 import org.testng.annotations.AfterMethod;
@@ -19,7 +19,7 @@ import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.framework.pageframework.util.queryhelpers.DeviceElementQueryHelper;
 import com.applause.auto.framework.pageframework.util.synchronization.MobileNativeSyncHelper;
 import com.applause.auto.framework.test.listeners.TestListener;
-import com.applause.auto.pageframework.helpers.PeetsMobileHelper;
+import com.applause.auto.test.mobile.helpers.TestHelper;
 
 import io.appium.java_client.AppiumDriver;
 
@@ -36,7 +36,7 @@ public class BaseTest {
 	protected static MobileNativeSyncHelper syncHelper;
 	protected static DeviceElementQueryHelper queryHelper;
 	protected static EnvironmentUtil env;
-	protected static PeetsMobileHelper peetsMobileHelper;
+	protected static TestHelper peetsMobileHelper;
 	protected TemplateTestHelper templateTestHelper;
 	protected static SoftAssert softAssert;
 
@@ -58,7 +58,7 @@ public class BaseTest {
 		syncHelper = (MobileNativeSyncHelper) driverWrapper.getSyncHelper();
 		queryHelper = (DeviceElementQueryHelper) driverWrapper.getQueryHelper();
 		templateTestHelper = new TemplateTestHelper();
-		peetsMobileHelper = DeviceViewFactory.create(PeetsMobileHelper.class);
+		peetsMobileHelper = DeviceViewFactory.create(TestHelper.class);
 		softAssert = new SoftAssert();
 		LOGGER.info("Test case setup complete.");
 	}

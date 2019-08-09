@@ -5,12 +5,12 @@ import java.util.List;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.applause.auto.pageframework.chunks.MiniCartContainerChunk;
-import com.applause.auto.pageframework.pages.CoffeeProductPage;
-import com.applause.auto.pageframework.pages.LandingPage;
-import com.applause.auto.pageframework.pages.ShopCoffeePage;
-import com.applause.auto.pageframework.testdata.TestConstants.TestData;
-import com.applause.auto.pageframework.testdata.TestConstants.TestNGGroups;
+import com.applause.auto.web.components.MiniCartContainerChunk;
+import com.applause.auto.web.views.CoffeeProductPage;
+import com.applause.auto.web.views.LandingPage;
+import com.applause.auto.web.views.ShopCoffeePage;
+import com.applause.auto.common.data.TestConstants.TestData;
+import com.applause.auto.common.data.TestConstants.TestNGGroups;
 
 public class MiniCartTest extends BaseTest {
 

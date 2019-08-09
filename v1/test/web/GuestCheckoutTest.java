@@ -1,35 +1,35 @@
 package com.applause.auto.test.web;
 
-import com.applause.auto.pageframework.pages.PaypalLoginPage;
-import com.applause.auto.pageframework.pages.PaypalReviewYourPurchasePage;
-import com.applause.auto.pageframework.pages.SearchResultsPage;
-import com.applause.auto.pageframework.pages.CoffeeProductDescriptionPage;
+import com.applause.auto.web.views.PaypalLoginPage;
+import com.applause.auto.web.views.PaypalReviewYourPurchasePage;
+import com.applause.auto.web.views.SearchResultsPage;
+import com.applause.auto.web.views.CoffeeProductDescriptionPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.applause.auto.pageframework.chunks.MiniCartContainerChunk;
-import com.applause.auto.pageframework.chunks.VerifyYourAddressDetailsChunk;
-import com.applause.auto.pageframework.pages.CheckoutConfirmationPage;
-import com.applause.auto.pageframework.pages.CheckoutPage;
-import com.applause.auto.pageframework.pages.CheckoutPaymentMethodPage;
-import com.applause.auto.pageframework.pages.CheckoutPlaceOrderPage;
-import com.applause.auto.pageframework.pages.CheckoutShippingInfoPage;
-import com.applause.auto.pageframework.pages.CoffeeKCupsProductPage;
-import com.applause.auto.pageframework.pages.CoffeeProductPage;
-import com.applause.auto.pageframework.pages.EquipmentProductPage;
-import com.applause.auto.pageframework.pages.LandingPage;
-import com.applause.auto.pageframework.pages.PeetsCardProductPage;
-import com.applause.auto.pageframework.pages.ShopCoffeeKCupsPage;
-import com.applause.auto.pageframework.pages.ShopCoffeePage;
-import com.applause.auto.pageframework.pages.ShopEquipmentPage;
-import com.applause.auto.pageframework.pages.ShopTeaPage;
-import com.applause.auto.pageframework.pages.ShoppingCartPage;
-import com.applause.auto.pageframework.pages.SignInPage;
-import com.applause.auto.pageframework.pages.SignUpPage;
-import com.applause.auto.pageframework.pages.TeaProductPage;
-import com.applause.auto.pageframework.testdata.TestConstants;
-import com.applause.auto.pageframework.testdata.TestConstants.TestData;
-import com.applause.auto.pageframework.testdata.TestConstants.TestNGGroups;
+import com.applause.auto.web.components.MiniCartContainerChunk;
+import com.applause.auto.web.components.VerifyYourAddressDetailsChunk;
+import com.applause.auto.web.views.CheckoutConfirmationPage;
+import com.applause.auto.web.views.CheckoutPage;
+import com.applause.auto.web.views.CheckoutPaymentMethodPage;
+import com.applause.auto.web.views.CheckoutPlaceOrderPage;
+import com.applause.auto.web.views.CheckoutShippingInfoPage;
+import com.applause.auto.web.views.CoffeeKCupsProductPage;
+import com.applause.auto.web.views.CoffeeProductPage;
+import com.applause.auto.web.views.EquipmentProductPage;
+import com.applause.auto.web.views.LandingPage;
+import com.applause.auto.web.views.PeetsCardProductPage;
+import com.applause.auto.web.views.ShopCoffeeKCupsPage;
+import com.applause.auto.web.views.ShopCoffeePage;
+import com.applause.auto.web.views.ShopEquipmentPage;
+import com.applause.auto.web.views.ShopTeaPage;
+import com.applause.auto.web.views.ShoppingCartPage;
+import com.applause.auto.web.views.SignInPage;
+import com.applause.auto.web.views.SignUpPage;
+import com.applause.auto.web.views.TeaProductPage;
+import com.applause.auto.common.data.TestConstants;
+import com.applause.auto.common.data.TestConstants.TestData;
+import com.applause.auto.common.data.TestConstants.TestNGGroups;
 
 public class GuestCheckoutTest extends BaseTest {
 

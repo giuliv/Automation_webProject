@@ -3,22 +3,22 @@ package com.applause.auto.test.web;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.applause.auto.pageframework.chunks.CreateSubscriptionChunk;
-import com.applause.auto.pageframework.chunks.MainMenuChunk;
-import com.applause.auto.pageframework.chunks.MiniCartContainerChunk;
-import com.applause.auto.pageframework.pages.CheckoutConfirmationPage;
-import com.applause.auto.pageframework.pages.CheckoutPaymentMethodPage;
-import com.applause.auto.pageframework.pages.CheckoutPlaceOrderPage;
-import com.applause.auto.pageframework.pages.CheckoutShippingInfoPage;
-import com.applause.auto.pageframework.pages.CoffeeProductPage;
-import com.applause.auto.pageframework.pages.LandingPage;
-import com.applause.auto.pageframework.pages.MyAccountPage;
-import com.applause.auto.pageframework.pages.ShopCoffeePage;
-import com.applause.auto.pageframework.pages.ShoppingCartPage;
-import com.applause.auto.pageframework.pages.SignInPage;
-import com.applause.auto.pageframework.testdata.TestConstants;
-import com.applause.auto.pageframework.testdata.TestConstants.TestData;
-import com.applause.auto.pageframework.testdata.TestConstants.TestNGGroups;
+import com.applause.auto.web.components.CreateSubscriptionChunk;
+import com.applause.auto.web.components.MainMenuChunk;
+import com.applause.auto.web.components.MiniCartContainerChunk;
+import com.applause.auto.web.views.CheckoutConfirmationPage;
+import com.applause.auto.web.views.CheckoutPaymentMethodPage;
+import com.applause.auto.web.views.CheckoutPlaceOrderPage;
+import com.applause.auto.web.views.CheckoutShippingInfoPage;
+import com.applause.auto.web.views.CoffeeProductPage;
+import com.applause.auto.web.views.LandingPage;
+import com.applause.auto.web.views.MyAccountPage;
+import com.applause.auto.web.views.ShopCoffeePage;
+import com.applause.auto.web.views.ShoppingCartPage;
+import com.applause.auto.web.views.SignInPage;
+import com.applause.auto.common.data.TestConstants;
+import com.applause.auto.common.data.TestConstants.TestData;
+import com.applause.auto.common.data.TestConstants.TestNGGroups;
 
 public class SubscriptionsTest extends BaseTest {
 
