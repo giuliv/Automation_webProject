@@ -1,5 +1,7 @@
 package com.applause.auto.test.web;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -20,22 +22,26 @@ import com.applause.auto.common.data.TestConstants;
 import com.applause.auto.common.data.TestConstants.TestData;
 import com.applause.auto.common.data.TestConstants.TestNGGroups;
 
+import java.lang.invoke.MethodHandles;
+
 public class SubscriptionsTest extends BaseTest {
+
+	private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
 	@Test(groups = { TestNGGroups.SUBSCRIPTIONS }, description = "613496")
 	public void userCreateNewSubscriptionTest() {
 
-		LOGGER.info("1. Navigate to landing page");
+		logger.info("1. Navigate to landing page");
 		Landing landing = navigateToLanding();
 		Assert.assertNotNull(landing, "Failed to navigate to the landing page.");
 
-		LOGGER.info("2. Log in to UAT");
+		logger.info("2. Log in to UAT");
 		SignInPage signInPage = landing.clickSignInButton();
 		MyAccountPage myAccountPage = signInPage.mainUserLogin();
 		Assert.assertTrue(myAccountPage.getWelcomeMessage().contains("Applause"),
 				"User is not signed in or welcome name is wrong");
 
-		LOGGER.info("3. Select a coffee from grid view and add to cart");
+		logger.info("3. Select a coffee from grid view and add to cart");
 		MainMenuChunk mainMenu = myAccountPage.getMainMenu();
 		landing = mainMenu.clickHeaderLogo();
 		ShopCoffeePage shopCoffeePage = landing.clickShopCoffeeButton();
@@ -45,47 +51,47 @@ public class SubscriptionsTest extends BaseTest {
 		coffeeProductPage.selectSubscription();
 		CreateSubscriptionChunk createSubscriptionChunk = coffeeProductPage.clickAddToSubscription();
 
-		LOGGER.info("In the popup, select Create A New Subscription");
+		logger.info("In the popup, select Create A New Subscription");
 		createSubscriptionChunk.selectNewSubscription();
 
-		LOGGER.info("Give the subscription a name");
+		logger.info("Give the subscription a name");
 		String subscriptionName = "sn" + System.currentTimeMillis();
 		createSubscriptionChunk.setNewSubscriptionName(subscriptionName);
 
-		LOGGER.info("Select frequency");
+		logger.info("Select frequency");
 		createSubscriptionChunk.selectFrequency(TestConstants.SubscriptionTerm.TWO_WEEKS);
 
-		LOGGER.info("Select Create Subscription");
+		logger.info("Select Create Subscription");
 		MiniCartContainerChunk miniCart = createSubscriptionChunk.createSubscription();
 
-		LOGGER.info("From mini-cart, select View Cart");
+		logger.info("From mini-cart, select View Cart");
 		ShoppingCartPage cartPage = miniCart.clickEditCart();
 
-		LOGGER.info("Verify Subscription Name");
+		logger.info("Verify Subscription Name");
 		Assert.assertEquals(cartPage.getSubscriptionName(), subscriptionName, "Subscription name does not match");
 
-		LOGGER.info("Verify Frequency");
+		logger.info("Verify Frequency");
 		Assert.assertEquals(cartPage.getSubscriptionFrequency(), TestConstants.SubscriptionTerm.TWO_WEEKS.fullCartSpell,
 				"Subscription frequency does not match");
 
-		LOGGER.info("Verify there is a Product Discount and Shipping Discount under Order Summary");
+		logger.info("Verify there is a Product Discount and Shipping Discount under Order Summary");
 		Assert.assertTrue(cartPage.isProductDiscountPriceDisplayed(), "Product discount does not displayed");
 		Assert.assertTrue(cartPage.isShippingDiscountPriceDisplayed(), "Shipping discount does not displayed");
 
-		LOGGER.info("Select Proceed to Checkout");
+		logger.info("Select Proceed to Checkout");
 		CheckoutShippingInfoPage shippingInfoPage = cartPage.defineShippingSignedUser();
 
-		LOGGER.info("Select Shipping Address & Shipping Method");
+		logger.info("Select Shipping Address & Shipping Method");
 		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
 				.setShippingMethod(TestData.SHIPPING_METHOD_GROUND);
 
-		LOGGER.info("Select Payment Method & Billing Address");
+		logger.info("Select Payment Method & Billing Address");
 		CheckoutPlaceOrderPage checkoutPlaceOrderPage = paymentMethodPage.continueAfterEnteringPIN();
 
-		LOGGER.info("Place Order");
+		logger.info("Place Order");
 		CheckoutConfirmationPage checkoutConfirmationPage = checkoutPlaceOrderPage.placeOrder();
 
-		LOGGER.info("On Purchase Complete screen, verify user is shown a subscription number");
+		logger.info("On Purchase Complete screen, verify user is shown a subscription number");
 		Assert.assertTrue(checkoutConfirmationPage.getSubscriptionNumber().matches("\\d+"),
 				"Subscription number does not displayed");
 
@@ -94,17 +100,17 @@ public class SubscriptionsTest extends BaseTest {
 	@Test(groups = { TestNGGroups.SUBSCRIPTIONS }, description = "613497")
 	public void userCreateNewSubscriptionWithPayPalTest() {
 
-		LOGGER.info("1. Navigate to landing page");
+		logger.info("1. Navigate to landing page");
 		Landing landing = navigateToLanding();
 		Assert.assertNotNull(landing, "Failed to navigate to the landing page.");
 
-		LOGGER.info("2. Log in to UAT");
+		logger.info("2. Log in to UAT");
 		SignInPage signInPage = landing.clickSignInButton();
 		MyAccountPage myAccountPage = signInPage.mainUserLogin();
 		Assert.assertTrue(myAccountPage.getWelcomeMessage().contains("Applause"),
 				"User is not signed in or welcome name is wrong");
 
-		LOGGER.info("3. Select a coffee from grid view and add to cart");
+		logger.info("3. Select a coffee from grid view and add to cart");
 		MainMenuChunk mainMenu = myAccountPage.getMainMenu();
 		landing = mainMenu.clickHeaderLogo();
 		ShopCoffeePage shopCoffeePage = landing.clickShopCoffeeButton();
@@ -114,40 +120,40 @@ public class SubscriptionsTest extends BaseTest {
 		coffeeProductPage.selectSubscription();
 		CreateSubscriptionChunk createSubscriptionChunk = coffeeProductPage.clickAddToSubscription();
 
-		LOGGER.info("In the popup, select Create A New Subscription");
+		logger.info("In the popup, select Create A New Subscription");
 		createSubscriptionChunk.selectNewSubscription();
 
-		LOGGER.info("Give the subscription a name");
+		logger.info("Give the subscription a name");
 		String subscriptionName = "sn" + System.currentTimeMillis();
 		createSubscriptionChunk.setNewSubscriptionName(subscriptionName);
 
-		LOGGER.info("Select frequency");
+		logger.info("Select frequency");
 		createSubscriptionChunk.selectFrequency(TestConstants.SubscriptionTerm.TWO_WEEKS);
 
-		LOGGER.info("Select Create Subscription");
+		logger.info("Select Create Subscription");
 		MiniCartContainerChunk miniCart = createSubscriptionChunk.createSubscription();
 
-		LOGGER.info("From mini-cart, select View Cart");
+		logger.info("From mini-cart, select View Cart");
 		ShoppingCartPage cartPage = miniCart.clickEditCart();
 
-		LOGGER.info("Verify Subscription Name");
+		logger.info("Verify Subscription Name");
 		Assert.assertEquals(cartPage.getSubscriptionName(), subscriptionName, "Subscription name does not match");
 
-		LOGGER.info("Verify Frequency");
+		logger.info("Verify Frequency");
 		Assert.assertEquals(cartPage.getSubscriptionFrequency(), TestConstants.SubscriptionTerm.TWO_WEEKS.fullCartSpell,
 				"Subscription frequency does not match");
 
-		LOGGER.info("Verify there is a Product Discount and Shipping Discount under Order Summary");
+		logger.info("Verify there is a Product Discount and Shipping Discount under Order Summary");
 		Assert.assertTrue(cartPage.isProductDiscountPriceDisplayed(), "Product discount does not displayed");
 		Assert.assertTrue(cartPage.isShippingDiscountPriceDisplayed(), "Shipping discount does not displayed");
 
-		LOGGER.info("Select Checkout with Paypal");
+		logger.info("Select Checkout with Paypal");
 		CheckoutPlaceOrderPage checkoutPlaceOrderPage = cartPage.clickPayWithPaypalSignedUser();
 
-		LOGGER.info("Place Order");
+		logger.info("Place Order");
 		CheckoutConfirmationPage checkoutConfirmationPage = checkoutPlaceOrderPage.placeOrder();
 
-		LOGGER.info("On Purchase Complete screen, verify user is shown a subscription number");
+		logger.info("On Purchase Complete screen, verify user is shown a subscription number");
 		Assert.assertTrue(checkoutConfirmationPage.getSubscriptionNumber().matches("\\d+"),
 				"Subscription number does not displayed");
 

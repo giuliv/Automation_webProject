@@ -1,5 +1,7 @@
 package com.applause.auto.test.web;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -11,32 +13,36 @@ import com.applause.auto.web.views.ShoppingCartPage;
 import com.applause.auto.common.data.TestConstants.TestData;
 import com.applause.auto.common.data.TestConstants.TestNGGroups;
 
+import java.lang.invoke.MethodHandles;
+
 public class ShoppingCartTest extends BaseTest {
+
+	private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
 	@Test(groups = { TestNGGroups.CART }, description = "581729")
 	public void removeFromShoppingCartTest() {
 
-		LOGGER.info("1. Navigate to landing page");
+		logger.info("1. Navigate to landing page");
 		Landing landing = navigateToLanding();
 		Assert.assertNotNull(landing, "Failed to navigate to the landing page.");
 
-		LOGGER.info("2. Go to any category page and add an item to cart.");
+		logger.info("2. Go to any category page and add an item to cart.");
 		ShopCoffeePage shopCoffeePage = landing.clickShopCoffeeButton();
 		CoffeeProductPage coffeeProductPage = shopCoffeePage.clickProductName(TestData.COFFEE_BRAND_NAME);
 		coffeeProductPage.selectAGrind(TestData.GRIND);
 		MiniCartContainerChunk miniCartContainer = coffeeProductPage.clickAddToCart();
 
-		LOGGER.info("3. From mini-cart, select 'View Cart'");
+		logger.info("3. From mini-cart, select 'View Cart'");
 		ShoppingCartPage shoppingCartPage = miniCartContainer.clickEditCart();
 
-		LOGGER.info("Validate correct item is in cart");
+		logger.info("Validate correct item is in cart");
 		Assert.assertEquals(shoppingCartPage.getItems().size(), 1, "Wrong products count");
 		Assert.assertTrue(shoppingCartPage.getItems().contains(TestData.COFFEE_BRAND_NAME));
 
-		LOGGER.info("4. Select 'X' next to item to remove from cart");
+		logger.info("4. Select 'X' next to item to remove from cart");
 		shoppingCartPage = shoppingCartPage.removeItem(TestData.COFFEE_BRAND_NAME);
 
-		LOGGER.info("Verify item is remove from cart and shopping cart is empty");
+		logger.info("Verify item is remove from cart and shopping cart is empty");
 		Assert.assertEquals(shoppingCartPage.getItems().size(), 0, "Wrong product count after deletion");
 
 	}
@@ -44,34 +50,34 @@ public class ShoppingCartTest extends BaseTest {
 	@Test(groups = { TestNGGroups.CART }, description = "581730")
 	public void updateGrindQuantityTest() {
 
-		LOGGER.info("1. Navigate to landing page");
+		logger.info("1. Navigate to landing page");
 		Landing landing = navigateToLanding();
 		Assert.assertNotNull(landing, "Failed to navigate to the landing page.");
 
-		LOGGER.info("2. Go to any category page and add an item to cart.");
+		logger.info("2. Go to any category page and add an item to cart.");
 		ShopCoffeePage shopCoffeePage = landing.clickShopCoffeeButton();
 		CoffeeProductPage coffeeProductPage = shopCoffeePage.clickProductName(TestData.COFFEE_BRAND_NAME);
 		coffeeProductPage.selectAGrind(TestData.GRIND);
 		MiniCartContainerChunk miniCartContainer = coffeeProductPage.clickAddToCart();
 
-		LOGGER.info("3. From mini-cart, select 'View Cart'");
+		logger.info("3. From mini-cart, select 'View Cart'");
 		ShoppingCartPage shoppingCartPage = miniCartContainer.clickEditCart();
 
-		LOGGER.info("4. Update Grind to a different grind type from the cart");
+		logger.info("4. Update Grind to a different grind type from the cart");
 		shoppingCartPage.setGrindForItem(TestData.COFFEE_BRAND_NAME, TestData.GRIND_2);
 
-		LOGGER.info("User is shown a message 'Grind for x was updated'");
+		logger.info("User is shown a message 'Grind for x was updated'");
 		Assert.assertEquals(shoppingCartPage.getStatusMessage(),
 				String.format("Grind for %s was updated", TestData.COFFEE_BRAND_NAME),
 				String.format("Grind for %s was updated", TestData.COFFEE_BRAND_NAME) + " - message not found");
 
-		LOGGER.info("5. Update quantity to a different amount");
+		logger.info("5. Update quantity to a different amount");
 		shoppingCartPage.setQuantityForItem(TestData.COFFEE_BRAND_NAME, 2);
 
-		LOGGER.info("6. Select 'Update Cart'");
+		logger.info("6. Select 'Update Cart'");
 		shoppingCartPage = shoppingCartPage.updateCart();
 
-		LOGGER.info("User is shown a 'Shopping cart is updated' message. Quantity is updated");
+		logger.info("User is shown a 'Shopping cart is updated' message. Quantity is updated");
 		Assert.assertEquals(shoppingCartPage.getStatusMessage(), "Shopping cart was updated",
 				"Shopping cart was updated - message not found");
 	}
@@ -79,20 +85,20 @@ public class ShoppingCartTest extends BaseTest {
 	@Test(groups = { TestNGGroups.CART }, description = "581731")
 	public void updateShippingMethodTest() {
 
-		LOGGER.info("1. Navigate to landing page");
+		logger.info("1. Navigate to landing page");
 		Landing landing = navigateToLanding();
 		Assert.assertNotNull(landing, "Failed to navigate to the landing page.");
 
-		LOGGER.info("2. Go to any category page and add an item to cart.");
+		logger.info("2. Go to any category page and add an item to cart.");
 		ShopCoffeePage shopCoffeePage = landing.clickShopCoffeeButton();
 		CoffeeProductPage coffeeProductPage = shopCoffeePage.clickProductName(TestData.COFFEE_BRAND_NAME);
 		coffeeProductPage.selectAGrind(TestData.GRIND);
 		MiniCartContainerChunk miniCartContainer = coffeeProductPage.clickAddToCart();
 
-		LOGGER.info("3. From mini-cart, select 'View Cart'");
+		logger.info("3. From mini-cart, select 'View Cart'");
 		ShoppingCartPage shoppingCartPage = miniCartContainer.clickEditCart();
 
-		LOGGER.info(
+		logger.info(
 				"4. From shopping cart, select the 'Select Shipping Method' dropdown and select a new shipping method");
 		String oldSelectedMethod = shoppingCartPage.getShippingMethod();
 		String oldEstimatedPrice = shoppingCartPage.getEstimatedShippingPrice();
@@ -102,13 +108,13 @@ public class ShoppingCartTest extends BaseTest {
 		String newEstimatedPrice = shoppingCartPage.getEstimatedShippingPrice();
 		String newOrderTotal = shoppingCartPage.getOrderSummaryPrice();
 
-		LOGGER.info("Shipping method is updated");
+		logger.info("Shipping method is updated");
 		Assert.assertNotEquals(newSelectedMethod, oldSelectedMethod, "Shipping method does not updated");
 
-		LOGGER.info("Estimated Shipping price is updated in Order Summary");
+		logger.info("Estimated Shipping price is updated in Order Summary");
 		Assert.assertNotEquals(newEstimatedPrice, oldEstimatedPrice, "Estimated price does not updated");
 
-		LOGGER.info("Total is updated in Order Summary");
+		logger.info("Total is updated in Order Summary");
 		Assert.assertNotEquals(newOrderTotal, oldOrderTotal, "Total does not updated");
 	}
 

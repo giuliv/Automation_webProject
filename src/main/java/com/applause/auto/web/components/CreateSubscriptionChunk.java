@@ -1,6 +1,5 @@
 package com.applause.auto.web.components;
 
-import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.pageframework.UIData;
 import com.applause.auto.framework.pageframework.util.webDrivers.BrowserType;
@@ -13,6 +12,7 @@ import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.web.helpers.WebHelper;
+import com.applause.auto.common.data.TestConstants;
 import java.lang.invoke.MethodHandles;
 
 @Implementation(is = CreateSubscriptionChunk.class, on = Platform.WEB_DESKTOP)
@@ -58,7 +58,7 @@ public class CreateSubscriptionChunk extends BaseComponent {
 	 * @param frequency
 	 *            the frequency
 	 */
-	public void selectFrequency(Constants.SubscriptionTerm frequency) {
+	public void selectFrequency(TestConstants.SubscriptionTerm frequency) {
 		logger.info("Set frequency: " + frequency);
 		if (env.getBrowserType() == BrowserType.SAFARI) {
 			WebHelper webHelper = new WebHelper();

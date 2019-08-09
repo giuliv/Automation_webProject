@@ -6,9 +6,11 @@ import com.applause.auto.integrations.RunUtil;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.EnvironmentHelper;
-import com.applause.auto.web.views.Landing;
+import com.applause.auto.web.views.*;
+
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.BeforeMethod;
@@ -30,8 +32,10 @@ public class BaseTest extends BaseSeleniumTest {
     // Maximize the browser for desktop web platforms
     if (EnvironmentHelper.isChrome(DriverManager.getDriver())
         || EnvironmentHelper.isFirefox(DriverManager.getDriver())
-        || EnvironmentHelper.isSafari(DriverManager.getDriver())) {
-      // DriverManager.getDriver().manage().window().maximize();
+        || EnvironmentHelper.isSafari(DriverManager.getDriver())
+            || EnvironmentHelper.isIE(DriverManager.getDriver())
+            || EnvironmentHelper.isEdge(DriverManager.getDriver())) {
+      DriverManager.getDriver().manage().window().maximize();
     }
 
     logger.info("Test case setup complete.");
@@ -41,37 +45,34 @@ public class BaseTest extends BaseSeleniumTest {
    * Platform Agnostic Test Helpers
    */
 
-  protected Landing navigateToLanding() {
+  Landing navigateToLanding() {
     logger.info(String.format("Navigating to the landing page '%s'", TestData.LANDING_PAGE_URL));
     DriverManager.getDriver().navigate().to(TestData.LANDING_PAGE_URL);
     return ComponentFactory.create(Landing.class);
   }
 
-  /*
-  // TODO: Reincorporate these when we add tests back
-  protected ShopTeaPage navigateToShopTeaPage() {
+  ShopTeaPage navigateToShopTeaPage() {
   	logger.info(String.format("Navigating to the Shop Tea page '%s'", TestData.SHOP_TEA_PAGE_URL));
-  	driver.navigate().to(TestData.SHOP_TEA_PAGE_URL);
-  	return PageFactory.create(ShopTeaPage.class);
+  	 DriverManager.getDriver().navigate().to(TestData.SHOP_TEA_PAGE_URL);
+  	return ComponentFactory.create(ShopTeaPage.class);
   }
 
-  protected ShopEquipmentPage navigateToShopEquipmentPage() {
+  ShopEquipmentPage navigateToShopEquipmentPage() {
   	logger.info(String.format("Navigating to the Shop Equipment page '%s'", TestData.SHOP_EQUIPMENT_PAGE_URL));
-  	driver.navigate().to(TestData.SHOP_EQUIPMENT_PAGE_URL);
-  	return PageFactory.create(ShopEquipmentPage.class);
+  	 DriverManager.getDriver().navigate().to(TestData.SHOP_EQUIPMENT_PAGE_URL);
+  	return ComponentFactory.create(ShopEquipmentPage.class);
   }
 
-  protected PeetsCardProductPage navigateToShopPeetsCardPage() {
+  PeetsCardProductPage navigateToShopPeetsCardPage() {
   	logger.info(String.format("Navigating to the Shop Peets Card page '%s'", TestData.SHOP_PEETS_CARD_PAGE_URL));
-  	driver.navigate().to(TestData.SHOP_PEETS_CARD_PAGE_URL);
-  	return PageFactory.create(PeetsCardProductPage.class);
+  	 DriverManager.getDriver().navigate().to(TestData.SHOP_PEETS_CARD_PAGE_URL);
+  	return ComponentFactory.create(PeetsCardProductPage.class);
   }
 
-  protected ShopCoffeeKCupsPage navigateToShopCoffeeKCupsPage() {
+  ShopCoffeeKCupsPage navigateToShopCoffeeKCupsPage() {
   	logger.info(
   			String.format("Navigating to the Shop Coffee K-Cups page '%s'", TestData.SHOP_COFFEE_KCUPS_PAGE_URL));
-  	driver.navigate().to(TestData.SHOP_COFFEE_KCUPS_PAGE_URL);
-  	return PageFactory.create(ShopCoffeeKCupsPage.class);
+  	 DriverManager.getDriver().navigate().to(TestData.SHOP_COFFEE_KCUPS_PAGE_URL);
+  	return ComponentFactory.create(ShopCoffeeKCupsPage.class);
   }
-  */
 }
