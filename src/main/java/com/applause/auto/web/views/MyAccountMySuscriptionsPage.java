@@ -10,12 +10,13 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = MyAccountMySuscriptionsPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = MyAccountMySuscriptionsPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = MyAccountMySuscriptionsPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = MyAccountMySuscriptionsPage.class, on = Platform.WEB)
 public class MyAccountMySuscriptionsPage extends BaseComponent {
 
-	// Public actions
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
+
 
 	/**
 	 * Verify Subscription Name is Displayed
@@ -99,28 +100,28 @@ public class MyAccountMySuscriptionsPage extends BaseComponent {
 	}
 
 	// Protected getters
-	@Locate(jQuery = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB_DESKTOP)
+	@Locate(css = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(jQuery = "div.sub-id h2", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.sub-id h2", on = Platform.WEB)
 	protected Text getSubscriptionNameText;
 
-	@Locate(jQuery = ".sub-shipment span.number", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".sub-shipment span.number", on = Platform.WEB)
 	protected Text getNextShipmentDateText;
 
-	@Locate(jQuery = ".sub-frequency span.number", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".sub-frequency span.number", on = Platform.WEB)
 	protected Text getSubscriptionFrequencyDateText;
 
-	@Locate(jQuery = "div.recurring-profile-title a", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.recurring-profile-title a", on = Platform.WEB)
 	protected Button getManageSubscriptionButton;
 
-	@Locate(xpath = "//div[div[contains(.,'Ship To')]]/address", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//div[div[contains(.,'Ship To')]]/address", on = Platform.WEB)
 	protected Text getShippingAddressText;
 
-	@Locate(xpath = "//div[div[contains(.,'Shipping Method')]]/p", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//div[div[contains(.,'Shipping Method')]]/p", on = Platform.WEB)
 	protected Text getShippingMethodText;
 
-	@Locate(jQuery = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.recurring-profile-section.account-container > div.wrapper-items > div.items > table > tbody", on = Platform.WEB_DESKTOP)
+	@Locate(css = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.recurring-profile-section.account-container > div.wrapper-items > div.items > table > tbody", on = Platform.WEB)
 	protected Text getSubscribedProductText;
 
 }

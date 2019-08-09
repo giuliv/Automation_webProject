@@ -12,12 +12,13 @@ import java.lang.invoke.MethodHandles;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 
-@Implementation(is = PaymentMethodsPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = PaymentMethodsPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = PaymentMethodsPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = PaymentMethodsPage.class, on = Platform.WEB)
 public class PaymentMethodsPage extends BaseComponent {
 
-	// Public actions
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
+
 
 	/**
 	 * Verify Add Credit Card Button is Displayed
@@ -124,33 +125,33 @@ public class PaymentMethodsPage extends BaseComponent {
 	}
 
 	// Protected getters
-	@Locate(jQuery = "ol.payment-cards-list", on = Platform.WEB_DESKTOP)
+	@Locate(css = "ol.payment-cards-list", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(jQuery = "ol.payment-cards-list", on = Platform.WEB_DESKTOP)
+	@Locate(css = "ol.payment-cards-list", on = Platform.WEB)
 	protected Text getCreditCardBlock;
 
-	@Locate(jQuery = "div.main-section li.peets-account-block:nth-child(1) p:nth-child(4)", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.main-section li.peets-account-block:nth-child(1) p:nth-child(4)", on = Platform.WEB)
 	protected Text getNameOnCreditCardText;
 
-	@Locate(jQuery = "div.main-section li.peets-account-block:nth-child(2) a.link-remove", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.main-section li.peets-account-block:nth-child(2) a.link-remove", on = Platform.WEB)
 	protected Button getDeletePeetsCardButton;
 
-	@Locate(jQuery = "div.main-section li.peets-account-block:nth-child(2) div.highlighted", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.main-section li.peets-account-block:nth-child(2) div.highlighted", on = Platform.WEB)
 	protected Text getPeetsCardBlock;
 
-	@Locate(xpath = "//a[text()='Add a credit card']", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//a[text()='Add a credit card']", on = Platform.WEB)
 	protected Button getAddACreditCardButton;
 
-	@Locate(xpath = "//a[text()='Add a PayPal account']", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//a[text()='Add a PayPal account']", on = Platform.WEB)
 	protected Button getAddAPaypalAccountButton;
 
-	@Locate(jQuery = "div.col-main > div > div.payment-card-holder.account-container > div.title > div > a:nth-child(3)", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.col-main > div > div.payment-card-holder.account-container > div.title > div > a:nth-child(3)", on = Platform.WEB)
 	protected Button getAddPeetsCardButton;
 
-	@Locate(jQuery = "div.payment-card-holder.account-container > div.main-section > ol > li:nth-child(1) > div.actions-col > ul > li:nth-child(1) > a", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.payment-card-holder.account-container > div.main-section > ol > li:nth-child(1) > div.actions-col > ul > li:nth-child(1) > a", on = Platform.WEB)
 	protected Button getEditCreditCardButton;
 
-	@Locate(jQuery = "div.main-container.col2-left-layout > div > div.col-main > div > div.payment-card-holder.account-container > ul > li > ul > li", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.main-container.col2-left-layout > div > div.col-main > div > div.payment-card-holder.account-container > ul > li > ul > li", on = Platform.WEB)
 	protected Text getSuccessfulDeleteText;
 }

@@ -10,12 +10,13 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = MyAccountOrderDetailPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = MyAccountOrderDetailPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = MyAccountOrderDetailPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = MyAccountOrderDetailPage.class, on = Platform.WEB)
 public class MyAccountOrderDetailPage extends BaseComponent {
 
-	// Public actions
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
+
 
 	/**
 	 * Verify Order's Detail, product is Displayed
@@ -70,22 +71,22 @@ public class MyAccountOrderDetailPage extends BaseComponent {
 	}
 
 	// Protected getters
-	@Locate(jQuery = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB_DESKTOP)
+	@Locate(css = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(jQuery = "h3.product-name", on = Platform.WEB_DESKTOP)
+	@Locate(css = "h3.product-name", on = Platform.WEB)
 	protected Text getDetailsProductText;
 
-	@Locate(jQuery = "a.button.link-cart", on = Platform.WEB_DESKTOP)
+	@Locate(css = "a.button.link-cart", on = Platform.WEB)
 	protected Button getDetailsReorderButton;
 
-	@Locate(jQuery = "div.wrapper-items > div.content-info.left > div:nth-child(2) > div > div:nth-child(2) > p", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.wrapper-items > div.content-info.left > div:nth-child(2) > div > div:nth-child(2) > p", on = Platform.WEB)
 	protected Text getDetailsShippingMethodText;
 
-	@Locate(jQuery = "div.wrapper-items > div.content-info.left > div:nth-child(3) > div > div:nth-child(2) > div:nth-child(2) > p", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.wrapper-items > div.content-info.left > div:nth-child(3) > div > div:nth-child(2) > div:nth-child(2) > p", on = Platform.WEB)
 	protected Text getDetailsPaymentMethodText;
 
-	@Locate(jQuery = "a.back-link", on = Platform.WEB_DESKTOP)
+	@Locate(css = "a.back-link", on = Platform.WEB)
 	protected Button getBackToMyOrdersButton;
 
 }

@@ -16,10 +16,13 @@ import java.lang.invoke.MethodHandles;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-@Implementation(is = PaypalLoginPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = PaypalLoginPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = PaypalLoginPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = PaypalLoginPage.class, on = Platform.WEB)
 public class PaypalLoginPage extends BaseComponent {
+
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
+
 	protected final static WebHelper webHelper = new WebHelper();
 
 	// Public actions
@@ -64,7 +67,7 @@ public class PaypalLoginPage extends BaseComponent {
 		getLogInButton.click();
 
 		// SAFARI flow
-		if (env.getBrowserType() == BrowserType.SAFARI) {
+		if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
 			// Move to iFrame
 			SyncHelper.sleep(45000);
 			getDriver().switchTo().defaultContent();
@@ -79,7 +82,7 @@ public class PaypalLoginPage extends BaseComponent {
 			}
 			getPasswordField.clearText();
 			getPasswordField.sendKeys(Constants.TestData.PAYPAL_PASSWORD);
-			if (env.getBrowserType() == BrowserType.SAFARI) {
+			if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
 				webHelper.jsClick(getLogInButton.getWebElement());
 			} else {
 				getLogInButton.click();
@@ -91,18 +94,18 @@ public class PaypalLoginPage extends BaseComponent {
 	}
 
 	// Protected getters
-	@Locate(xpath = "//*[@id=\"content\"]", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//*[@id=\"content\"]", on = Platform.WEB)
 	protected Image getViewSignature;
 
-	@Locate(xpath = "//*[@id=\"email\"]", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//*[@id=\"email\"]", on = Platform.WEB)
 	protected TextBox getEmailField;
 
-	@Locate(xpath = "//*[@id=\"btnNext\"]", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//*[@id=\"btnNext\"]", on = Platform.WEB)
 	protected Button getNextButton;
 
-	@Locate(xpath = "//*[@id=\"password\"]", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//*[@id=\"password\"]", on = Platform.WEB)
 	protected TextBox getPasswordField;
 
-	@Locate(xpath = "//*[@id=\"btnLogin\"]", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//*[@id=\"btnLogin\"]", on = Platform.WEB)
 	protected Button getLogInButton;
 }

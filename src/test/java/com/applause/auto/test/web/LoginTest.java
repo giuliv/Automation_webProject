@@ -1,5 +1,6 @@
 package com.applause.auto.test.web;
 
+import com.applause.auto.common.data.Constants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -8,8 +9,7 @@ import org.testng.annotations.Test;
 import com.applause.auto.web.views.Landing;
 import com.applause.auto.web.views.MyAccountPage;
 import com.applause.auto.web.views.SignInPage;
-import com.applause.auto.common.data.TestConstants;
-import com.applause.auto.common.data.TestConstants.TestNGGroups;
+import com.applause.auto.common.data.Constants.TestNGGroups;
 
 import java.lang.invoke.MethodHandles;
 
@@ -28,8 +28,8 @@ public class LoginTest extends BaseTest {
 		SignInPage signInPage = landing.clickSignInButton();
 
 		logger.info("3. Enter username and password");
-		signInPage.enterEmail(TestConstants.TestData.USERNAME);
-		signInPage.enterPassword(TestConstants.TestData.PASSWORD);
+		signInPage.enterEmail(Constants.TestData.USERNAME);
+		signInPage.enterPassword(Constants.TestData.PASSWORD);
 		MyAccountPage myAccountPage = signInPage.clickonSignInButton();
 
 		logger.info("Verify user is signed in");

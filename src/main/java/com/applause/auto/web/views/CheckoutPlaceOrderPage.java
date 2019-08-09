@@ -13,10 +13,12 @@ import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = CheckoutPlaceOrderPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = CheckoutPlaceOrderPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = CheckoutPlaceOrderPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = CheckoutPlaceOrderPage.class, on = Platform.WEB)
 public class CheckoutPlaceOrderPage extends BaseComponent {
+
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
 
 	/*
 	 * Public Actions
@@ -73,19 +75,19 @@ public class CheckoutPlaceOrderPage extends BaseComponent {
 	 * Protected Getters
 	 */
 
-	@Locate(jQuery = "h2#checkout-title-opc-review.active", on = Platform.WEB_DESKTOP)
+	@Locate(css = "h2#checkout-title-opc-review.active", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(jQuery = "button[title='Place Order']", on = Platform.WEB_DESKTOP)
+	@Locate(css = "button[title='Place Order']", on = Platform.WEB)
 	protected Button getPlaceOrderButton;
 
-	@Locate(jQuery = "#gift-message-whole-message", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#gift-message-whole-message", on = Platform.WEB)
 	protected TextBox getGiftMessageTextBox;
 
-	@Locate(jQuery = "#cart-table-standard > tbody > tr > td.product-info-cell.last > h3 > a", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#cart-table-standard > tbody > tr > td.product-info-cell.last > h3 > a", on = Platform.WEB)
 	protected Text getProductNameText;
 
-	@Locate(jQuery = "span#opc-please-wait.please-wait-review", on = Platform.WEB_DESKTOP)
+	@Locate(css = "span#opc-please-wait.please-wait-review", on = Platform.WEB)
 	protected ContainerElement getPlaceOrderSpinner;
 
 }

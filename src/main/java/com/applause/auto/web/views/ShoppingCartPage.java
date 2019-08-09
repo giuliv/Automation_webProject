@@ -21,10 +21,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.openqa.selenium.WebElement;
 
-@Implementation(is = ShoppingCartPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = ShoppingCartPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = ShoppingCartPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = ShoppingCartPage.class, on = Platform.WEB)
 public class ShoppingCartPage extends BaseComponent {
+
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
 
 	WebHelper webHelper = new WebHelper();
 
@@ -149,7 +151,7 @@ public class ShoppingCartPage extends BaseComponent {
 	 */
 	public ShoppingCartPage removeItem(String itemName) {
 		logger.info("Removing item: " + itemName);
-		if (env.getBrowserType() == BrowserType.SAFARI) {
+		if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
 			webHelper.jsClick(getRemoveItemButton(itemName).getWebElement());
 		} else {
 			getRemoveItemButton(itemName).click();
@@ -180,7 +182,7 @@ public class ShoppingCartPage extends BaseComponent {
 	 */
 	public ShoppingCartPage setGrindForItem(String itemName, String grind) {
 		logger.info("Change grind value");
-		if (env.getBrowserType() == BrowserType.SAFARI) {
+		if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
 			getGrindForItemSelectList(itemName).getWebElement().sendKeys(grind + "\n");
 		} else {
 			getGrindForItemSelectList(itemName).select(grind);
@@ -235,7 +237,7 @@ public class ShoppingCartPage extends BaseComponent {
 	 */
 	public ShoppingCartPage selectShippingMethod(String method) {
 		logger.info("Select shipping method: " + method);
-		if (env.getBrowserType() == BrowserType.SAFARI) {
+		if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
 			getShippingMethodSelectList.click();
 			getShippingMethodSelectList.getWebElement().sendKeys(method + "\n");
 		} else {
@@ -317,70 +319,70 @@ public class ShoppingCartPage extends BaseComponent {
 	public ShopRunnerChunk signInShopRunner() {
 		logger.info("Click on Sign In shop runner");
 		getSignInShopRunnerButton.click();
-		return ComponentFactory.create(ShopRunnerChunk.class, this, "");
+		return ComponentFactory.create(ShopRunnerChunk.class);
 	}
 
 	/*
 	 * Protected Getters
 	 */
 
-	@Locate(jQuery = "div.cart.display-single-price div.page-title h1", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.cart.display-single-price div.page-title h1", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(xpath = "//div[@class='shoprunner-cart-header']//a[text()='sign in']", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//div[@class='shoprunner-cart-header']//a[text()='sign in']", on = Platform.WEB)
 	protected Button getSignInShopRunnerButton;
 
-	@Locate(jQuery = "[value='update_qty']", on = Platform.WEB_DESKTOP)
+	@Locate(css = "[value='update_qty']", on = Platform.WEB)
 	protected Text getUpdateCartButton;
 
-	@Locate(jQuery = "#subscription_interval", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#subscription_interval", on = Platform.WEB)
 	protected Text getSubscriptionFrequencyText;
 
-	@Locate(jQuery = "#subscription-name-view > strong", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#subscription-name-view > strong", on = Platform.WEB)
 	protected Text getSubscriptionNameText;
 
-	@Locate(jQuery = "#shopping-cart-please-wait", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#shopping-cart-please-wait", on = Platform.WEB)
 	protected ContainerElement getAddingToCartSpinner;
 
-	@Locate(jQuery = "#shopping-cart-messages", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#shopping-cart-messages", on = Platform.WEB)
 	protected Text getStatusMessageText;
 
-	@Locate(xpath = "//h3[contains(.,'%s')]/../../..//select[@title='Grind']", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//h3[contains(.,'%s')]/../../..//select[@title='Grind']", on = Platform.WEB)
 	protected SelectList getGrindForItemSelectList;
 
-	@Locate(xpath = "//select[@id='shipping_method']", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//select[@id='shipping_method']", on = Platform.WEB)
 	protected SelectList getShippingMethodSelectList;
 
-	@Locate(xpath = "//h3[contains(.,'%s')]/../../..//input[@title='Qty']", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//h3[contains(.,'%s')]/../../..//input[@title='Qty']", on = Platform.WEB)
 	protected TextBox getQuantityForItemTextBox;
 
-	@Locate(jQuery = ".add-gift-message input", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".add-gift-message input", on = Platform.WEB)
 	protected Checkbox getOrderAsGiftCheckCheckbox;
 
-	@Locate(jQuery = "#gift-message-whole-message", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#gift-message-whole-message", on = Platform.WEB)
 	protected TextBox getGiftMessageText;
 
-	@Locate(jQuery = "#action-checkout", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#action-checkout", on = Platform.WEB)
 	protected Button getProceedToCheckoutButton;
 
-	@Locate(jQuery = "div#shopping-cart-actions-additional img[alt='Checkout with PayPal']", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div#shopping-cart-actions-additional img[alt='Checkout with PayPal']", on = Platform.WEB)
 	protected Button getPaypalButton;
 
-	@Locate(xpath = "//h3[contains(.,'%s')]/../../..//a[@class='btn-remove']", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//h3[contains(.,'%s')]/../../..//a[@class='btn-remove']", on = Platform.WEB)
 	protected Button getRemoveItemButton;
 
-	@Locate(jQuery = "h3.product-name", on = Platform.WEB_DESKTOP)
+	@Locate(css = "h3.product-name", on = Platform.WEB)
 	protected Text getCartItemsText;
 
-	@Locate(xpath = "//tr[td[contains(text(),'Estimated Shipping')]]//*[@class='price']", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//tr[td[contains(text(),'Estimated Shipping')]]//*[@class='price']", on = Platform.WEB)
 	protected Text getEstimatedShippingPriceText;
 
-	@Locate(xpath = "//tr[th[contains(text(),'Product Discount')]]//*[@class='price']", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//tr[th[contains(text(),'Product Discount')]]//*[@class='price']", on = Platform.WEB)
 	protected Text getProductDiscountPriceText;
 
-	@Locate(xpath = "//tr[th[contains(text(),'Shipping Discount')]]//*[@class='price']", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//tr[th[contains(text(),'Shipping Discount')]]//*[@class='price']", on = Platform.WEB)
 	protected Text getShippingDiscountPriceText;
 
-	@Locate(jQuery = "strong.total-price", on = Platform.WEB_DESKTOP)
+	@Locate(css = "strong.total-price", on = Platform.WEB)
 	protected Text getOrderSummaryPriceText;
 }

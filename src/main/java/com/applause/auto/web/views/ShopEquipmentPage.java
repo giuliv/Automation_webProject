@@ -10,14 +10,13 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = ShopEquipmentPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = ShopEquipmentPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = ShopEquipmentPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = ShopEquipmentPage.class, on = Platform.WEB)
 public class ShopEquipmentPage extends BaseComponent {
 
-	/*
-	 * Public Actions
-	 */
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
+
 
 	/**
 	 * Clicks a product name under the Tea Page
@@ -34,9 +33,9 @@ public class ShopEquipmentPage extends BaseComponent {
 	 * Protected Getters
 	 */
 
-	@Locate(xpath = "//div[contains(@class,'top-banner')]//div[@class='text-content']/h1[contains(.,'Equipment')]", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//div[contains(@class,'top-banner')]//div[@class='text-content']/h1[contains(.,'Equipment')]", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(xpath = "//ul[@class='prod-list']//li[strong[@class='product-name' and contains(.,'%s')]]", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//ul[@class='prod-list']//li[strong[@class='product-name' and contains(.,'%s')]]", on = Platform.WEB)
 	protected Button productNameButton;
 }

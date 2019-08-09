@@ -15,10 +15,13 @@ import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = AddShippingAddressPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = AddShippingAddressPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = AddShippingAddressPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = AddShippingAddressPage.class, on = Platform.WEB)
 public class AddShippingAddressPage extends BaseComponent {
+
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
+
 	WebHelper webHelper = new WebHelper();
 
 	// Public actions
@@ -60,7 +63,7 @@ public class AddShippingAddressPage extends BaseComponent {
 	 */
 	public void selectState(String state) {
 		logger.info("Selecting State");
-		if (env.getBrowserType() == BrowserType.SAFARI) {
+		if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
 			webHelper.jsSelect(getStateSelectList.getWebElement(), Constants.TestData.STATE);
 		} else {
 			getStateSelectList.select(state);
@@ -103,31 +106,31 @@ public class AddShippingAddressPage extends BaseComponent {
 	}
 
 	// Protected getters
-	@Locate(jQuery = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB_DESKTOP)
+	@Locate(css = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(jQuery = "#street_1", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#street_1", on = Platform.WEB)
 	protected TextBox getAddressLine1Field;
 
-	@Locate(jQuery = "#street_2", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#street_2", on = Platform.WEB)
 	protected TextBox getAddressLine2Field;
 
-	@Locate(jQuery = "#zip", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#zip", on = Platform.WEB)
 	protected TextBox getZipcodeField;
 
-	@Locate(jQuery = "#region_id", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#region_id", on = Platform.WEB)
 	protected SelectList getStateSelectList;
 
-	@Locate(jQuery = "#city", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#city", on = Platform.WEB)
 	protected TextBox getCityField;
 
-	@Locate(jQuery = "#telephone", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#telephone", on = Platform.WEB)
 	protected TextBox getPhoneNumberField;
 
-	@Locate(jQuery = "button.button.btn-save", on = Platform.WEB_DESKTOP)
+	@Locate(css = "button.button.btn-save", on = Platform.WEB)
 	protected Button getSaveAddressButton;
 
-	@Locate(jQuery = "#qas-popup > div.modal-content-area > div > div.two-columns > div.right-column > div.qas-box-content > button", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#qas-popup > div.modal-content-area > div > div.two-columns > div.right-column > div.qas-box-content > button", on = Platform.WEB)
 	protected Button getUseAddressAsEnteredButton;
 
 }

@@ -12,10 +12,12 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = EditAccountInformationPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = EditAccountInformationPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = EditAccountInformationPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = EditAccountInformationPage.class, on = Platform.WEB)
 public class EditAccountInformationPage extends BaseComponent {
+
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
 
 	// Public actions
 
@@ -49,7 +51,7 @@ public class EditAccountInformationPage extends BaseComponent {
 	 */
 	public void enterEmailByBrowser(String email, String safariEmail) {
 		logger.info("Entering Email");
-		if (env.getBrowserType() == BrowserType.SAFARI) {
+		if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
 			enterEmail(safariEmail);
 		} else {
 			enterEmail(email);
@@ -108,28 +110,28 @@ public class EditAccountInformationPage extends BaseComponent {
 	}
 
 	// Protected getters
-	@Locate(jQuery = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB_DESKTOP)
+	@Locate(css = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(jQuery = "#firstname", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#firstname", on = Platform.WEB)
 	protected TextBox getFirstNameField;
 
-	@Locate(jQuery = "#email", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#email", on = Platform.WEB)
 	protected TextBox getEmailField;
 
-	@Locate(jQuery = "button.button.btn-save", on = Platform.WEB_DESKTOP)
+	@Locate(css = "button.button.btn-save", on = Platform.WEB)
 	protected Button getSaveButton;
 
-	@Locate(jQuery = "#current_password", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#current_password", on = Platform.WEB)
 	protected TextBox getCurrentPasswordField;
 
-	@Locate(jQuery = "label[for='change_password']", on = Platform.WEB_DESKTOP)
+	@Locate(css = "label[for='change_password']", on = Platform.WEB)
 	protected Button getChangeCurrentPasswordButton;
 
-	@Locate(jQuery = "#password", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#password", on = Platform.WEB)
 	protected TextBox getNewPasswordTextBox;
 
-	@Locate(jQuery = "#confirmation", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#confirmation", on = Platform.WEB)
 	protected TextBox getNewPasswordConfirmationTextBox;
 
 }

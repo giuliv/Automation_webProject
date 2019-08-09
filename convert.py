@@ -506,7 +506,7 @@ def is_page_object(contents):
 
 def convert_implementations(contents):
     implementations = [
-        ('@WebDesktopImplementation(.*)', '@Implementation(is = CLASS, on = Platform.WEB_DESKTOP)'),
+        ('@WebDesktopImplementation(.*)', '@Implementation(is = CLASS, on = Platform.WEB)'),
         ('@WebMobileImplementation(.*)', '@Implementation(is = CLASS, on = Platform.WEB_MOBILE)'),
         ('@WebPhoneImplementation(.*)', '@Implementation(is = CLASS, on = Platform.WEB_MOBILE_PHONE)'),
         ('@WebSmallTabletImplementation(.*)', '@Implementation(is = CLASS, on = Platform.WEB_MOBILE_SMALLTABLET)'),

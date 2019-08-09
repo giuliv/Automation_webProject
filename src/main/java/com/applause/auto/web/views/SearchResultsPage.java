@@ -10,12 +10,13 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = SearchResultsPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = SearchResultsPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = SearchResultsPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = SearchResultsPage.class, on = Platform.WEB)
 public class SearchResultsPage extends BaseComponent {
 
-	// Public actions
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
+
 
 	/**
 	 * Click First Product
@@ -40,13 +41,13 @@ public class SearchResultsPage extends BaseComponent {
 	}
 
 	// Protected getters
-	@Locate(jQuery = ".shown-results", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".shown-results", on = Platform.WEB)
 	protected Text getResultsText;
 
-	@Locate(jQuery = "#product_addtocart_form10995 > div.image-holder > div > a > picture > img", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#product_addtocart_form10995 > div.image-holder > div > a > picture > img", on = Platform.WEB)
 	protected Button getFirstProduct;
 
-	@Locate(jQuery = "#product_addtocart_form10008 > div.image-holder > div.product-image.americas > a > picture > img", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#product_addtocart_form10008 > div.image-holder > div.product-image.americas > a > picture > img", on = Platform.WEB)
 	protected Button getKonaProduct;
 
 }

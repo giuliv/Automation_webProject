@@ -11,10 +11,12 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = AssociateNewCardPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = AssociateNewCardPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = AssociateNewCardPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = AssociateNewCardPage.class, on = Platform.WEB)
 public class AssociateNewCardPage extends BaseComponent {
+
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
 
 	// Public actions
 
@@ -50,15 +52,15 @@ public class AssociateNewCardPage extends BaseComponent {
 	}
 
 	// Protected getters
-	@Locate(jQuery = "div.main-container.col2-left-layout > div > div.col-main > div > div.page-title.title-buttons > h1", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.main-container.col2-left-layout > div > div.col-main > div > div.page-title.title-buttons > h1", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(jQuery = "#card_number", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#card_number", on = Platform.WEB)
 	protected TextBox getCardNumberField;
 
-	@Locate(jQuery = "#pin_number", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#pin_number", on = Platform.WEB)
 	protected TextBox getPinNumberField;
 
-	@Locate(jQuery = "button.btn-dark", on = Platform.WEB_DESKTOP)
+	@Locate(css = "button.btn-dark", on = Platform.WEB)
 	protected Button getAssociateCardButton;
 }

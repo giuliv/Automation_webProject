@@ -22,10 +22,12 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.openqa.selenium.WebElement;
 
-@Implementation(is = CheckoutShippingInfoPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = CheckoutShippingInfoPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = CheckoutShippingInfoPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = CheckoutShippingInfoPage.class, on = Platform.WEB)
 public class CheckoutShippingInfoPage extends BaseComponent {
+
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
 
 	WebHelper webHelper = new WebHelper();
 
@@ -41,7 +43,7 @@ public class CheckoutShippingInfoPage extends BaseComponent {
 	public ShopRunnerChunk signInShopRunner() {
 		logger.info("Click on Sign In shop runner");
 		getSignInShopRunnerButton.click();
-		return ComponentFactory.create(ShopRunnerChunk.class, this, "");
+		return ComponentFactory.create(ShopRunnerChunk.class);
 	}
 
 	/**
@@ -52,7 +54,7 @@ public class CheckoutShippingInfoPage extends BaseComponent {
 		logger.info("Clicking Continue after filling shipping info");
 		fillShippingInfo();
 		continueAfterContactInfo();
-		return ComponentFactory.create(VerifyYourAddressDetailsChunk.class, this, "");
+		return ComponentFactory.create(VerifyYourAddressDetailsChunk.class);
 	}
 
 	/**
@@ -208,7 +210,7 @@ public class CheckoutShippingInfoPage extends BaseComponent {
 	public DatePickerChunk editShippingDate() {
 		logger.info("Click on edit shipping date");
 		getEditShippingDateButton.click();
-		return ComponentFactory.create(DatePickerChunk.class, this, "");
+		return ComponentFactory.create(DatePickerChunk.class);
 	}
 
 	/**
@@ -248,76 +250,76 @@ public class CheckoutShippingInfoPage extends BaseComponent {
 	/*
 	 * Protected Getters
 	 */
-	@Locate(xpath = "//div[@id='srd_so']//a[text()='sign in']", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//div[@id='srd_so']//a[text()='sign in']", on = Platform.WEB)
 	protected Button getSignInShopRunnerButton;
 
-	@Locate(jQuery = "h2#checkout-title-opc-shipping.active", on = Platform.WEB_DESKTOP)
+	@Locate(css = "h2#checkout-title-opc-shipping.active", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(jQuery = "input[id='shipping:firstname']", on = Platform.WEB_DESKTOP)
+	@Locate(css = "input[id='shipping:firstname']", on = Platform.WEB)
 	protected TextBox getFirstNameTextBox;
 
-	@Locate(jQuery = ".editing input[id^='shipping:firstname']", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".editing input[id^='shipping:firstname']", on = Platform.WEB)
 	protected TextBox getFirstNameModifyTextBox;
 
-	@Locate(jQuery = "input[id='shipping:lastname']", on = Platform.WEB_DESKTOP)
+	@Locate(css = "input[id='shipping:lastname']", on = Platform.WEB)
 	protected TextBox getLastNameTextBox;
 
-	@Locate(jQuery = "input[id='shipping:telephone']", on = Platform.WEB_DESKTOP)
+	@Locate(css = "input[id='shipping:telephone']", on = Platform.WEB)
 	protected TextBox getPhoneNumberTextBox;
 
-	@Locate(jQuery = "input[id='shipping:street1']", on = Platform.WEB_DESKTOP)
+	@Locate(css = "input[id='shipping:street1']", on = Platform.WEB)
 	protected TextBox getMainAddressTextBox;
 
-	@Locate(jQuery = "input[id='shipping:postcode']", on = Platform.WEB_DESKTOP)
+	@Locate(css = "input[id='shipping:postcode']", on = Platform.WEB)
 	protected TextBox getZipCodeTextBox;
 
-	@Locate(jQuery = "input[id='shipping:city']", on = Platform.WEB_DESKTOP)
+	@Locate(css = "input[id='shipping:city']", on = Platform.WEB)
 	protected TextBox getCityTextBox;
 
-	@Locate(jQuery = "select[id='shipping:region_id']", on = Platform.WEB_DESKTOP)
+	@Locate(css = "select[id='shipping:region_id']", on = Platform.WEB)
 	protected SelectList getStateSelectList;
 
-	@Locate(jQuery = ".shipping-buttons-set button", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".shipping-buttons-set button", on = Platform.WEB)
 	protected Button getContactInfoContinueButton;
 
-	@Locate(jQuery = "button[title='Continue']", on = Platform.WEB_DESKTOP)
+	@Locate(css = "button[title='Continue']", on = Platform.WEB)
 	protected Button getNewAddressContinueButton;
 
-	@Locate(jQuery = ".editing button[title='Update']", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".editing button[title='Update']", on = Platform.WEB)
 	protected Button getModifiedAddressUpdateButton;
 
-	@Locate(jQuery = ".opc-please-wait", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".opc-please-wait", on = Platform.WEB)
 	protected ContainerElement getShippingLoadingSpinner;
 
-	@Locate(xpath = "//strong[@class='shipping-method-name' and contains(.,'%s')]", on = Platform.WEB_DESKTOP)
-	// @Locate(xpath = "//strong[class='shipping-method-name'][text()='%s']", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//strong[@class='shipping-method-name' and contains(.,'%s')]", on = Platform.WEB)
+	// @Locate(xpath = "//strong[class='shipping-method-name'][text()='%s']", on = Platform.WEB)
 protected Button getShippingMethodButton;
 
-	@Locate(jQuery = "#gift-message-whole-message", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#gift-message-whole-message", on = Platform.WEB)
 	protected TextBox getGiftMessageTextBox;
 
-	@Locate(jQuery = "#co-shipping-method-form button", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#co-shipping-method-form button", on = Platform.WEB)
 	protected Button getShippingInfoContinueButton;
 
-	@Locate(jQuery = ".shipping-add-address", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".shipping-add-address", on = Platform.WEB)
 	protected Button getAddNewAddressButton;
 
-	@Locate(jQuery = "#checkout-step-shipping .edit-shipping-date", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#checkout-step-shipping .edit-shipping-date", on = Platform.WEB)
 	protected Button getEditShippingDateButton;
 
-	@Locate(jQuery = "[title^='Please wait...']", on = Platform.WEB_DESKTOP)
+	@Locate(css = "[title^='Please wait...']", on = Platform.WEB)
 	protected Text getProgressWrapper;
 
-	@Locate(jQuery = "#checkout-step-shipping .shipping-date #ddate-selected-date", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#checkout-step-shipping .shipping-date #ddate-selected-date", on = Platform.WEB)
 	protected Text getShippingDateText;
 
-	@Locate(jQuery = ".checkout-section-content > .shipping-address-item ol li label", on = Platform.WEB)
+	@Locate(css = ".checkout-section-content > .shipping-address-item ol li label", on = Platform.WEB)
 	protected List<WebElement> getAddressesText;
 
-	@Locate(jQuery = ".checkout-section-content > .shipping-address-item ol li > a", on = Platform.WEB)
+	@Locate(css = ".checkout-section-content > .shipping-address-item ol li > a", on = Platform.WEB)
 	protected List<WebElement> getAddressesEditButton;
 
-	@Locate(jQuery = ".checkout-section-content > .shipping-address-item ol li label", on = Platform.WEB)
+	@Locate(css = ".checkout-section-content > .shipping-address-item ol li label", on = Platform.WEB)
 	protected List<WebElement> getEditAddressButtonByKey;
 }

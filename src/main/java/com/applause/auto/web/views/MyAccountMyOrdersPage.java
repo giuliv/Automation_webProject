@@ -12,12 +12,13 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = MyAccountMyOrdersPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = MyAccountMyOrdersPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = MyAccountMyOrdersPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = MyAccountMyOrdersPage.class, on = Platform.WEB)
 public class MyAccountMyOrdersPage extends BaseComponent {
 
-	// Public actions
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
+
 
 	/**
 	 * Verify Orders-Placed Section is Displayed
@@ -111,31 +112,31 @@ public class MyAccountMyOrdersPage extends BaseComponent {
 	}
 
 	// Protected getters
-	@Locate(jQuery = "div.col-main > div > div.page-title > h1", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.col-main > div > div.page-title > h1", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(jQuery = ".orders-history-holder", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".orders-history-holder", on = Platform.WEB)
 	protected ContainerElement getOrdersPlacedSection;
 
-	@Locate(jQuery = "#my-orders-table tr:nth-child(1) td.td-bold span", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#my-orders-table tr:nth-child(1) td.td-bold span", on = Platform.WEB)
 	protected Text getOrdersDateText;
 
-	@Locate(jQuery = "#my-orders-table tr:nth-child(6) td.td-id span", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#my-orders-table tr:nth-child(6) td.td-id span", on = Platform.WEB)
 	protected Link getOrdersNumberLink;
 
-	@Locate(jQuery = "#my-orders-table > tbody > tr:nth-child(1) > td.td-items", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#my-orders-table > tbody > tr:nth-child(1) > td.td-items", on = Platform.WEB)
 	protected Text getOrdersItemText;
 
-	@Locate(jQuery = "#my-orders-table tr:nth-child(1) td.td-price span.price", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#my-orders-table tr:nth-child(1) td.td-price span.price", on = Platform.WEB)
 	protected Text getOrdersTotalText;
 
-	@Locate(jQuery = "#my-orders-table tr:nth-child(1) div.status span", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#my-orders-table tr:nth-child(1) div.status span", on = Platform.WEB)
 	protected Text getOrdersStatusText;
 
-	@Locate(xpath = "//table[@id='my-orders-table']//tr[1]//a[contains(.,'View')]", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//table[@id='my-orders-table']//tr[1]//a[contains(.,'View')]", on = Platform.WEB)
 	protected Button getOrdersViewButton;
 
-	@Locate(xpath = "//table[@id='my-orders-table']//tr[6]//a[contains(.,'Reorder')]", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//table[@id='my-orders-table']//tr[6]//a[contains(.,'Reorder')]", on = Platform.WEB)
 	protected Button getOrdersReorderButton;
 
 }

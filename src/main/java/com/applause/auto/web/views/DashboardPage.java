@@ -10,10 +10,12 @@ import com.applause.auto.web.components.MainMenuChunk;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = DashboardPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = DashboardPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = DashboardPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = DashboardPage.class, on = Platform.WEB)
 public class DashboardPage extends BaseComponent {
+
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
 
 	/*
 	 * Public Actions
@@ -26,14 +28,14 @@ public class DashboardPage extends BaseComponent {
 	 */
 	public MainMenuChunk getMainMenu() {
 		logger.info("Getting Main Menu");
-		return ComponentFactory.create(MainMenuChunk.class, this, "");
+		return ComponentFactory.create(MainMenuChunk.class);
 	}
 
 	/*
 	 * Protected Getters
 	 */
 
-	@Locate(jQuery = ".dashboard", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".dashboard", on = Platform.WEB)
 	protected Text getViewSignature;
 
 }

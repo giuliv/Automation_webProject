@@ -1,35 +1,25 @@
 package com.applause.auto.web.components;
 
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.framework.pageframework.UIData;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
-import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.web.views.DashboardPage;
-import java.lang.invoke.MethodHandles;
 
-@Implementation(is = DashboardModalChunk.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = DashboardModalChunk.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = DashboardModalChunk.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = DashboardModalChunk.class, on = Platform.WEB)
 public class DashboardModalChunk extends BaseComponent {
 
-	/**
-	 * Constructor.
-	 *
-	 * @param selector
-	 *            the selector of the chunk
-	 */
-	public DashboardModalChunk(UIData parent, String selector) {
-		super(parent, selector);
-	}
+	/* -------- Elements -------- */
 
-	/*
-	 * Public actions
-	 */
+	@Locate(css = "div#modal-new-message-2018 a", on = Platform.WEB)
+	private Button getExploreDashboardButton;
+
+	@Locate(css = "#modal-new-message-2018 .close-button", on = Platform.WEB)
+	private Button getCloseDashboardModalButton;
+
+	/* -------- Actions -------- */
 
 	/**
 	 * Click Explore Dashboard Button
@@ -52,18 +42,4 @@ public class DashboardModalChunk extends BaseComponent {
 		getCloseDashboardModalButton.click();
 		return ComponentFactory.create(DashboardPage.class);
 	}
-
-	/*
-	 * Protected Getters
-	 */
-
-	@Locate(jQuery = "div#modal-new-message-2018 a", on = Platform.WEB_DESKTOP)
-	protected Text getViewSignature;
-
-	@Locate(jQuery = "div#modal-new-message-2018 a", on = Platform.WEB_DESKTOP)
-	protected Button getExploreDashboardButton;
-
-	@Locate(jQuery = "#modal-new-message-2018 .close-button", on = Platform.WEB_DESKTOP)
-	protected Button getCloseDashboardModalButton;
-
 }

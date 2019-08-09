@@ -13,12 +13,13 @@ import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = MyAccountPeetsCardPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = MyAccountPeetsCardPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = MyAccountPeetsCardPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = MyAccountPeetsCardPage.class, on = Platform.WEB)
 public class MyAccountPeetsCardPage extends BaseComponent {
 
-	// Public actions
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
+
 
 	/**
 	 * Verify Buy Peet's Card Section is Displayed
@@ -141,43 +142,43 @@ public class MyAccountPeetsCardPage extends BaseComponent {
 	}
 
 	// Protected getters
-	@Locate(jQuery = "div.col-main > div > div.page-title > h1", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.col-main > div > div.page-title > h1", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(xpath = "//*[contains(.,\"Buy a Peet's card\")]", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//*[contains(.,\"Buy a Peet's card\")]", on = Platform.WEB)
 	protected ContainerElement getBuyPeetsCardSection;
 
-	@Locate(jQuery = ".item-content-column .item-content-box", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".item-content-column .item-content-box", on = Platform.WEB)
 	protected Text getBuyCardDescriptionText;
 
-	@Locate(jQuery = ".item-content-column .item-link", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".item-content-column .item-link", on = Platform.WEB)
 	protected Link getBuyCardLink;
 
-	@Locate(jQuery = ".item-visual-column", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".item-visual-column", on = Platform.WEB)
 	protected Image getBuyCardImage;
 
-	@Locate(xpath = "//li[contains(.,'Check Your Balance')]", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//li[contains(.,'Check Your Balance')]", on = Platform.WEB)
 	protected ContainerElement getCheckBalanceSection;
 
-	@Locate(jQuery = "#card_number", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#card_number", on = Platform.WEB)
 	protected TextBox getCheckBalanceCardTextBox;
 
-	@Locate(jQuery = "#card_pin", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#card_pin", on = Platform.WEB)
 	protected TextBox getCheckBalancePinTextBox;
 
-	@Locate(jQuery = "#check-balance", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#check-balance", on = Platform.WEB)
 	protected Button getCheckBalanceButton;
 
-	@Locate(xpath = "//li[contains(.,\"Register a Peet's Card\")]", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//li[contains(.,\"Register a Peet's Card\")]", on = Platform.WEB)
 	protected ContainerElement getRegisterPeetsCardSection;
 
-	@Locate(jQuery = ".quarter .item-content-box", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".quarter .item-content-box", on = Platform.WEB)
 	protected Text getRegisterCardDescriptionText;
 
-	@Locate(jQuery = ".quarter .item-link", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".quarter .item-link", on = Platform.WEB)
 	protected Link getRegisterCardLink;
 
-	@Locate(jQuery = ".buttons-set-link", on = Platform.WEB_DESKTOP)
+	@Locate(css = ".buttons-set-link", on = Platform.WEB)
 	protected Link getFAQLink;
 
 }

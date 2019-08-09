@@ -10,12 +10,13 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = ShopGiftSubscriptionsPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = ShopGiftSubscriptionsPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = ShopGiftSubscriptionsPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = ShopGiftSubscriptionsPage.class, on = Platform.WEB)
 public class ShopGiftSubscriptionsPage extends BaseComponent {
 
-	// Public actions
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
+
 
 	/**
 	 * Click First Product
@@ -29,9 +30,9 @@ public class ShopGiftSubscriptionsPage extends BaseComponent {
 	}
 
 	// Protected getters
-	@Locate(jQuery = "body > div.wrapper > div > div.main-container.full-width > div > div > div.top-banner.wide-content > div.text-holder > div > h1", on = Platform.WEB_DESKTOP)
+	@Locate(css = "body > div.wrapper > div > div.main-container.full-width > div > div > div.top-banner.wide-content > div.text-holder > div > h1", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(jQuery = "#product_addtocart_form10995 > div.image-holder > div > a > picture > img", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#product_addtocart_form10995 > div.image-holder > div > a > picture > img", on = Platform.WEB)
 	protected Button getFirstProduct;
 }

@@ -1,6 +1,6 @@
 package com.applause.auto.test.web;
 
-import com.applause.auto.common.data.TestConstants.TestNGGroups;
+import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.web.views.Landing;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

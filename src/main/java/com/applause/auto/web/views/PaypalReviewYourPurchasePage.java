@@ -11,10 +11,13 @@ import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = PaypalReviewYourPurchasePage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = PaypalReviewYourPurchasePage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = PaypalReviewYourPurchasePage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = PaypalReviewYourPurchasePage.class, on = Platform.WEB)
 public class PaypalReviewYourPurchasePage extends BaseComponent {
+
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
+
 	protected static String winHandleBefore = "";
 
 	// Public actions
@@ -36,12 +39,12 @@ public class PaypalReviewYourPurchasePage extends BaseComponent {
 	}
 
 	// Protected getters
-	@Locate(xpath = "//*[@id=\"paypalLogo\"]", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//*[@id=\"paypalLogo\"]", on = Platform.WEB)
 	protected Image getViewSignature;
 
-	@Locate(xpath = "//*[contains(@class,'confirmButton')]", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//*[contains(@class,'confirmButton')]", on = Platform.WEB)
 	protected Button getContinueButton;
 
-	@Locate(xpath = "//*[@id='confirmButtonTop' or @class='confirmButton']", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//*[@id='confirmButtonTop' or @class='confirmButton']", on = Platform.WEB)
 	protected Button getAgreeAndContinueButton;
 }

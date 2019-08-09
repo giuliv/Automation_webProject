@@ -12,10 +12,12 @@ import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-@Implementation(is = EditPaymentMethodPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = EditPaymentMethodPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = EditPaymentMethodPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = EditPaymentMethodPage.class, on = Platform.WEB)
 public class EditPaymentMethodPage extends BaseComponent {
+
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
 
 	WebHelper webHelper = new WebHelper();
 
@@ -48,13 +50,13 @@ public class EditPaymentMethodPage extends BaseComponent {
 	}
 
 	// Protected getters
-	@Locate(jQuery = "div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(jQuery = "#NameOnCard", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#NameOnCard", on = Platform.WEB)
 	protected TextBox getNameOnCardField;
 
-	@Locate(jQuery = "#send2", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#send2", on = Platform.WEB)
 	protected Button getSavePaymentMethodButton;
 
 }

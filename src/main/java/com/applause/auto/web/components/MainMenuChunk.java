@@ -2,43 +2,56 @@ package com.applause.auto.web.components;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.framework.pageframework.UIData;
-import com.applause.auto.framework.pageframework.util.webDrivers.BrowserType;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.DriverManager;
+import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.QueryHelper;
-import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.web.views.Landing;
 import com.applause.auto.web.views.PeetsCardProductPage;
 import com.applause.auto.web.views.ShopEquipmentPage;
 import com.applause.auto.web.views.ShopGiftSubscriptionsPage;
 import com.applause.auto.web.views.ShopTeaPage;
-import java.lang.invoke.MethodHandles;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-@Implementation(is = MainMenuChunk.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = MainMenuChunk.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = MainMenuChunk.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = MainMenuChunk.class, on = Platform.WEB)
 public class MainMenuChunk extends BaseComponent {
 
-	/**
-	 * Constructor.
-	 *
-	 * @param selector
-	 *            the selector of the chunk
-	 */
-	public MainMenuChunk(UIData parent, String selector) {
-		super(parent, selector);
-	}
+	/* -------- Elements -------- */
 
-	/*
-	 * Public actions
-	 */
+	@Locate(css = ".page-header-container", on = Platform.WEB)
+	protected Text getViewSignature;
+
+	@Locate(xpath = "//li[contains(.,'%s')]", on = Platform.WEB)
+	protected Button getMainMenuCategoryButton;
+
+	@Locate(xpath = "//a[@class='drop-link' and contains(.,'%s')]", on = Platform.WEB)
+	protected Button getCategorySubmenuButton;
+
+	@Locate(xpath = "//a[contains(.,'%s')]", on = Platform.WEB)
+	protected Button getSubcategoryButton;
+
+	@Locate(css = ".logo", on = Platform.WEB)
+	protected Button getHeaderLogo;
+
+	@Locate(xpath = "//div[@class='mobile-slide']//a[contains(.,'%s')]", on = Platform.WEB)
+	protected Button getCategoryOptionButton;
+
+	@Locate(xpath = "//li[a[@class='drop-link' and contains(text(),'%s')]]//a[contains(text(),'%s')]", on = Platform.WEB)
+	protected Button getCategoryColumnOptionButton;
+
+	@Locate(css = "#top-cart-container", on = Platform.WEB)
+	protected Button getHeaderMinicart;
+
+	@Locate(css = "span.count", on = Platform.WEB)
+	protected Button getCartItemsText;
+
+	/* -------- Actions -------- */
 
 	/**
 	 * Hover over main menu category
@@ -46,9 +59,9 @@ public class MainMenuChunk extends BaseComponent {
 	 */
 	public void hoverCategory(String category) {
 		logger.info("Hover a category in the main menu");
-		WebElement element = getMainMenuCategoryButton(category).getWebElement();
-		Actions actions = new Actions(getDriver());
-		actions.moveToElement(element).build().perform();
+		getMainMenuCategoryButton.initializeWithFormat(category);
+		Actions actions = new Actions(DriverManager.getDriver());
+		actions.moveToElement(getMainMenuCategoryButton.getWebElement()).build().perform();
 	}
 
 	/**
@@ -58,7 +71,8 @@ public class MainMenuChunk extends BaseComponent {
 	public void clickCategorySubmenu(String category, String subMenu) {
 		logger.info(String.format("Accessing Sub-Menu '%s' under category '%s'", subMenu, category));
 		hoverCategory(category);
-		getCategorySubmenuButton(subMenu).click();
+		getCategorySubmenuButton.initializeWithFormat(subMenu);
+		getCategorySubmenuButton.click();
 	}
 
 	/**
@@ -68,7 +82,8 @@ public class MainMenuChunk extends BaseComponent {
 	public void clickCategoryOption(String category, String option) {
 		logger.info(String.format("Accessing option '%s' under category '%s'", option, category));
 		hoverCategory(category);
-		getCategoryOptionButton(option).click();
+		getCategoryOptionButton.initializeWithFormat(option);
+		getCategoryOptionButton.click();
 	}
 
 	/**
@@ -89,11 +104,13 @@ public class MainMenuChunk extends BaseComponent {
 	public <T extends BaseComponent> T clickCategoryOption(Class<T> clazz, String category, String column,
 			String option) {
 		logger.info(String.format("Accessing category [%s] subcategory [%s] option [%s]", category, column, option));
-		if (env.getBrowserType() != BrowserType.SAFARI) {
+		if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
 			hoverCategory(category);
-			getCategoryColumnOptionButton(column, option).click();
+			getCategoryColumnOptionButton.initializeWithFormat(column, option);
+			getCategoryColumnOptionButton.click();
 		} else {
-			getDriver().get(getCategoryColumnOptionButton(column, option).getAttributeValue("href"));
+			getCategoryColumnOptionButton.initializeWithFormat(column, option);
+			DriverManager.getDriver().get(getCategoryColumnOptionButton.getAttributeValue("href"));
 		}
 		return ComponentFactory.create(clazz);
 	}
@@ -116,7 +133,8 @@ public class MainMenuChunk extends BaseComponent {
 	public ShopGiftSubscriptionsPage accessShopGiftSubscriptions() {
 		logger.info("Accessing Shop Gift Subscriptions");
 		hoverCategory(Constants.TestMainMenu.NAV_CATEGORY_SHOP);
-		getSubcategoryButton(Constants.TestMainMenu.NAV_SUBMENU_GIFT_SUBSCRIPTIONS).click();
+		getSubcategoryButton.initializeWithFormat(Constants.TestMainMenu.NAV_SUBMENU_GIFT_SUBSCRIPTIONS);
+		getSubcategoryButton.click();
 		return ComponentFactory.create(ShopGiftSubscriptionsPage.class);
 	}
 
@@ -161,7 +179,7 @@ public class MainMenuChunk extends BaseComponent {
 	public MiniCartContainerChunk clickMiniCart() {
 		logger.info("Click mini-cart icon");
 		getHeaderMinicart.click();
-		return ComponentFactory.create(MiniCartContainerChunk.class, this, "");
+		return ComponentFactory.create(MiniCartContainerChunk.class);
 	}
 
 	/**
@@ -179,43 +197,16 @@ public class MainMenuChunk extends BaseComponent {
 		return ComponentFactory.create(clazz);
 	}
 
-	/*
-	 * Protected Getters
+	/**
+	 * Gets the count of items in the cart
+	 * @return
 	 */
-
-	@Locate(jQuery = ".page-header-container", on = Platform.WEB_DESKTOP)
-	protected Text getViewSignature;
-
-	@Locate(xpath = "//li[contains(.,'%s')]", on = Platform.WEB_DESKTOP)
-	protected Button getMainMenuCategoryButton;
-
-	@Locate(xpath = "//a[@class='drop-link' and contains(.,'%s')]", on = Platform.WEB_DESKTOP)
-	protected Button getCategorySubmenuButton;
-
-	@Locate(xpath = "//a[contains(.,'%s')]", on = Platform.WEB_DESKTOP)
-	protected Button getSubcategoryButton;
-
-	@Locate(jQuery = ".logo", on = Platform.WEB_DESKTOP)
-	protected Button getHeaderLogo;
-
-	@Locate(xpath = "//div[@class='mobile-slide']//a[contains(.,'%s')]", on = Platform.WEB_DESKTOP)
-	protected Button getCategoryOptionButton;
-
-	@Locate(xpath = "//li[a[@class='drop-link' and contains(text(),'%s')]]//a[contains(text(),'%s')]", on = Platform.WEB_DESKTOP)
-	protected Button getCategoryColumnOptionButton;
-
-	@Locate(jQuery = "#top-cart-container", on = Platform.WEB_DESKTOP)
-	protected Button getHeaderMinicart;
-
-	@Locate(jQuery = "span.count", on = Platform.WEB_DESKTOP)
-	protected Button getCartItemsText;
-
 	public String getCartItemsCount() {
 		logger.info("Reading GrtCArtItemsCount");
-		if (!QueryHelper.doesElementExist(getCartItemsText.getAbsoluteSelector())) {
+		if (!getCartItemsText.exists()) {
 			return "0";
 		} else {
-			return getCartItemsText.getCurrentText();
+			return getCartItemsText.getText();
 		}
 	}
 }

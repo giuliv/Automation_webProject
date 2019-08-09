@@ -1,5 +1,6 @@
 package com.applause.auto.test.web;
 
+import com.applause.auto.common.data.Constants;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -18,9 +19,8 @@ import com.applause.auto.web.views.MyAccountPage;
 import com.applause.auto.web.views.ShopCoffeePage;
 import com.applause.auto.web.views.ShoppingCartPage;
 import com.applause.auto.web.views.SignInPage;
-import com.applause.auto.common.data.TestConstants;
-import com.applause.auto.common.data.TestConstants.TestData;
-import com.applause.auto.common.data.TestConstants.TestNGGroups;
+import com.applause.auto.common.data.Constants.TestData;
+import com.applause.auto.common.data.Constants.TestNGGroups;
 
 import java.lang.invoke.MethodHandles;
 
@@ -59,7 +59,7 @@ public class SubscriptionsTest extends BaseTest {
 		createSubscriptionChunk.setNewSubscriptionName(subscriptionName);
 
 		logger.info("Select frequency");
-		createSubscriptionChunk.selectFrequency(TestConstants.SubscriptionTerm.TWO_WEEKS);
+		createSubscriptionChunk.selectFrequency(Constants.SubscriptionTerm.TWO_WEEKS);
 
 		logger.info("Select Create Subscription");
 		MiniCartContainerChunk miniCart = createSubscriptionChunk.createSubscription();
@@ -71,7 +71,7 @@ public class SubscriptionsTest extends BaseTest {
 		Assert.assertEquals(cartPage.getSubscriptionName(), subscriptionName, "Subscription name does not match");
 
 		logger.info("Verify Frequency");
-		Assert.assertEquals(cartPage.getSubscriptionFrequency(), TestConstants.SubscriptionTerm.TWO_WEEKS.fullCartSpell,
+		Assert.assertEquals(cartPage.getSubscriptionFrequency(), Constants.SubscriptionTerm.TWO_WEEKS.fullCartSpell,
 				"Subscription frequency does not match");
 
 		logger.info("Verify there is a Product Discount and Shipping Discount under Order Summary");
@@ -128,7 +128,7 @@ public class SubscriptionsTest extends BaseTest {
 		createSubscriptionChunk.setNewSubscriptionName(subscriptionName);
 
 		logger.info("Select frequency");
-		createSubscriptionChunk.selectFrequency(TestConstants.SubscriptionTerm.TWO_WEEKS);
+		createSubscriptionChunk.selectFrequency(Constants.SubscriptionTerm.TWO_WEEKS);
 
 		logger.info("Select Create Subscription");
 		MiniCartContainerChunk miniCart = createSubscriptionChunk.createSubscription();
@@ -140,7 +140,7 @@ public class SubscriptionsTest extends BaseTest {
 		Assert.assertEquals(cartPage.getSubscriptionName(), subscriptionName, "Subscription name does not match");
 
 		logger.info("Verify Frequency");
-		Assert.assertEquals(cartPage.getSubscriptionFrequency(), TestConstants.SubscriptionTerm.TWO_WEEKS.fullCartSpell,
+		Assert.assertEquals(cartPage.getSubscriptionFrequency(), Constants.SubscriptionTerm.TWO_WEEKS.fullCartSpell,
 				"Subscription frequency does not match");
 
 		logger.info("Verify there is a Product Discount and Shipping Discount under Order Summary");

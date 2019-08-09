@@ -12,10 +12,12 @@ import java.lang.invoke.MethodHandles;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 
-@Implementation(is = AddressBookPage.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = AddressBookPage.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = AddressBookPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = AddressBookPage.class, on = Platform.WEB)
 public class AddressBookPage extends BaseComponent {
+
+	/* -------- Elements -------- */
+
+	/* -------- Actions -------- */
 
 	// Public actions
 
@@ -116,33 +118,33 @@ public class AddressBookPage extends BaseComponent {
 	}
 
 	// Protected getters
-	@Locate(jQuery = "div.account-container.account-inner-section > div.addresses-list > div:nth-child(1) > div.account-inner-title > div.left > h2", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.account-container.account-inner-section > div.addresses-list > div:nth-child(1) > div.account-inner-title > div.left > h2", on = Platform.WEB)
 	protected Text getViewSignature;
 
-	@Locate(xpath = "//span[contains(.,'address has been saved')]", on = Platform.WEB_DESKTOP)
+	@Locate(xpath = "//span[contains(.,'address has been saved')]", on = Platform.WEB)
 	protected Text getAddressSavedBannerText;
 
-	@Locate(jQuery = "#billing_form > ol > li > div.info-col > p", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#billing_form > ol > li > div.info-col > p", on = Platform.WEB)
 	protected Text getBillingAddressText;
 
-	@Locate(jQuery = "#shipping_form > ol > li > div.info-col > p", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#shipping_form > ol > li > div.info-col > p", on = Platform.WEB)
 	protected Text getShippingAddressText;
 
-	@Locate(jQuery = "#billing_form > ol > li > div.actions-col > ul > li:nth-child(2) > a", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#billing_form > ol > li > div.actions-col > ul > li:nth-child(2) > a", on = Platform.WEB)
 	protected Button getDeleteBillingAddressButton;
 
-	@Locate(jQuery = "#shipping_form > ol > li > div.actions-col > ul > li:nth-child(2) > a", on = Platform.WEB_DESKTOP)
+	@Locate(css = "#shipping_form > ol > li > div.actions-col > ul > li:nth-child(2) > a", on = Platform.WEB)
 	protected Button getDeleteShippingAddressButton;
 
-	@Locate(jQuery = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.account-container.account-inner-section > div.addresses-list > div:nth-child(2) > div.main-section > div", on = Platform.WEB_DESKTOP)
+	@Locate(css = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.account-container.account-inner-section > div.addresses-list > div:nth-child(2) > div.main-section > div", on = Platform.WEB)
 	protected Text getNoBillingAddressText;
 
-	@Locate(jQuery = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.account-container.account-inner-section > div.addresses-list > div:nth-child(1) > div.main-section > div", on = Platform.WEB_DESKTOP)
+	@Locate(css = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.account-container.account-inner-section > div.addresses-list > div:nth-child(1) > div.main-section > div", on = Platform.WEB)
 	protected Text getNoShippingAddressText;
 
-	@Locate(jQuery = "div.account-container.account-inner-section > div.addresses-list > div:nth-child(2) > div.account-inner-title > div.right > a", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.account-container.account-inner-section > div.addresses-list > div:nth-child(2) > div.account-inner-title > div.right > a", on = Platform.WEB)
 	protected Button getAddBillingAddressButton;
 
-	@Locate(jQuery = "div.account-container.account-inner-section > div.addresses-list > div:nth-child(1) > div.account-inner-title > div.right > a", on = Platform.WEB_DESKTOP)
+	@Locate(css = "div.account-container.account-inner-section > div.addresses-list > div:nth-child(1) > div.account-inner-title > div.right > a", on = Platform.WEB)
 	protected Button getAddShippingAddressButton;
 }

@@ -29,9 +29,8 @@ import com.applause.auto.web.views.ShoppingCartPage;
 import com.applause.auto.web.views.SignInPage;
 import com.applause.auto.web.views.SignUpPage;
 import com.applause.auto.web.views.TeaProductPage;
-import com.applause.auto.common.data.TestConstants;
-import com.applause.auto.common.data.TestConstants.TestData;
-import com.applause.auto.common.data.TestConstants.TestNGGroups;
+import com.applause.auto.common.data.Constants.TestData;
+import com.applause.auto.common.data.Constants.TestNGGroups;
 
 import java.lang.invoke.MethodHandles;
 

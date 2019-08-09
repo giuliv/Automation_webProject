@@ -1,7 +1,6 @@
 package com.applause.auto.web.components;
 
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.framework.pageframework.UIData;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -9,36 +8,38 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.helper.QueryHelper;
+import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.web.helpers.WebHelper;
+import com.applause.auto.util.helper.sync.Until;
 import com.applause.auto.web.views.CheckoutPage;
 import com.applause.auto.web.views.CheckoutPlaceOrderPage;
 import com.applause.auto.web.views.CheckoutShippingInfoPage;
 import com.applause.auto.web.views.ShoppingCartPage;
 import com.applause.auto.web.views.SignInPage;
-import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Implementation(is = MiniCartContainerChunk.class, on = Platform.WEB_DESKTOP)
-@Implementation(is = MiniCartContainerChunk.class, on = Platform.WEB_MOBILE_TABLET)
-@Implementation(is = MiniCartContainerChunk.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = MiniCartContainerChunk.class, on = Platform.WEB)
 public class MiniCartContainerChunk extends BaseComponent {
 
-	/**
-	 * Constructor.
-	 *
-	 * @param selector
-	 *            the selector of the chunk
-	 */
-	public MiniCartContainerChunk(UIData parent, String selector) {
-		super(parent, selector);
-	}
+	/* -------- Elements -------- */
 
-	/*
-	 * Public actions
-	 */
+	@Locate(css = "#minicart-container .product-name", on = Platform.WEB)
+	protected List<Text> getMinicartItems;
+
+	@Locate(css = "#minicart-container > div.block-subtitle > a.cart-link", on = Platform.WEB)
+	protected Link getEditCartLink;
+
+	@Locate(css = "a[title='Checkout']", on = Platform.WEB)
+	protected Button getCheckoutButton;
+
+	@Locate(xpath = "//*[@id='cart-sidebar']//a[starts-with(@title,'%s')]/..//a[@class='remove']", on = Platform.WEB)
+	protected Button getRemoveItemButton;
+
+	@Locate(xpath = "//*[@id='cart-sidebar']//a[starts-with(@title,'%s')]/..//a[@class='re-add']", on = Platform.WEB)
+	protected Button getReAddItemButton;
+
+	/* -------- Actions -------- */
 
 	/**
 	 * Click Checkout Button
@@ -102,8 +103,8 @@ public class MiniCartContainerChunk extends BaseComponent {
 	 */
 	public List<String> getItems() {
 		logger.info("Obtaining items from mini-cart");
-		return QueryHelper.findElementsByExtendedCss(getLocator(this, "getMinicartItems")).stream().map(item -> {
-			String result = item.getCurrentText();
+		return getMinicartItems.stream().map(item -> {
+			String result = item.getText();
 			logger.info("Found item: " + result);
 			return result.trim();
 		}).collect(Collectors.toList());
@@ -118,9 +119,11 @@ public class MiniCartContainerChunk extends BaseComponent {
 	 */
 	public MiniCartContainerChunk remove(String itemName) {
 		logger.info("Remove from cart item: " + itemName);
-		getRemoveItemButton(itemName).click();
-		getDriver().switchTo().alert().accept();
-		SyncHelper.waitUntilElementPresent(getReAddItemButton(itemName));
+		getRemoveItemButton.initializeWithFormat(itemName);
+		getRemoveItemButton.click();
+		DriverManager.getDriver().switchTo().alert().accept();
+		getReAddItemButton.initializeWithFormat(itemName);
+		SyncHelper.wait(Until.uiElement(getReAddItemButton).present());
 		return this;
 	}
 
@@ -133,7 +136,8 @@ public class MiniCartContainerChunk extends BaseComponent {
 	 */
 	public String getReAddButtonCaption(String itemName) {
 		logger.info("Getting Re add button caption");
-		return getReAddItemButton(itemName).getCurrentText().trim();
+		getReAddItemButton.initializeWithFormat(itemName);
+		return getReAddItemButton.getText().trim();
 	}
 
 	/**
@@ -145,7 +149,8 @@ public class MiniCartContainerChunk extends BaseComponent {
 	 */
 	public String getRemoveButtonCaption(String itemName) {
 		logger.info("Getting Remove button caption");
-		return getRemoveItemButton(itemName).getCurrentText().trim();
+		getRemoveItemButton.initializeWithFormat(itemName);
+		return getRemoveItemButton.getText().trim();
 	}
 
 	/**
@@ -157,30 +162,10 @@ public class MiniCartContainerChunk extends BaseComponent {
 	 */
 	public MiniCartContainerChunk reAdd(String itemName) {
 		logger.info("Clicking re-add button");
-		getReAddItemButton(itemName).click();
-		SyncHelper.waitUntilElementPresent(getRemoveItemButton(itemName));
+		getReAddItemButton.initializeWithFormat(itemName);
+		getReAddItemButton.click();
+		getRemoveItemButton.initializeWithFormat(itemName);
+		SyncHelper.wait(Until.uiElement(getRemoveItemButton).present());
 		return this;
 	}
-
-	/*
-	 * Protected Getters
-	 */
-	@Locate(jQuery = "#minicart-container", on = Platform.WEB_DESKTOP)
-	protected Text getViewSignature;
-
-	@Locate(jQuery = "#minicart-container .product-name", on = Platform.WEB_DESKTOP)
-	protected Text getMinicartItems;
-
-	@Locate(jQuery = "#minicart-container > div.block-subtitle > a.cart-link", on = Platform.WEB_DESKTOP)
-	protected Link getEditCartLink;
-
-	@Locate(jQuery = "a[title='Checkout']", on = Platform.WEB_DESKTOP)
-	protected Button getCheckoutButton;
-
-	@Locate(xpath = "//*[@id='cart-sidebar']//a[starts-with(@title,'%s')]/..//a[@class='remove']", on = Platform.WEB_DESKTOP)
-	protected Button getRemoveItemButton;
-
-	@Locate(xpath = "//*[@id='cart-sidebar']//a[starts-with(@title,'%s')]/..//a[@class='re-add']", on = Platform.WEB_DESKTOP)
-	protected Button getReAddItemButton;
-
 }
