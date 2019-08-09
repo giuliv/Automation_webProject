@@ -19,7 +19,7 @@ public class WebHelper {
 	 * @param name
 	 * @return String
 	 */
-	public String getTimestamp(String name) {
+	public static String getTimestamp(String name) {
 		Date date = new Date();
 		String time = Long.toString(date.getTime());
 		return name + time;
@@ -30,7 +30,7 @@ public class WebHelper {
 	 * 
 	 * @return time
 	 */
-	public String returnTimestamp() {
+	public static String returnTimestamp() {
 		Date date = new Date();
 		String time = Long.toString(date.getTime());
 		return time;
@@ -41,7 +41,7 @@ public class WebHelper {
 	 * 
 	 * @param webElement
 	 */
-	public void jsClick(final WebElement webElement) {
+	public static void jsClick(final WebElement webElement) {
 		final JavascriptExecutor executor = (JavascriptExecutor) DriverManager.getDriver();
 		executor.executeScript("arguments[0].click();", webElement);
 	}
@@ -54,7 +54,7 @@ public class WebHelper {
 	 * @param item
 	 *            as text
 	 */
-	public void jsSelect(WebElement element, String item) {
+	public static void jsSelect(WebElement element, String item) {
 		JavascriptExecutor executor = (JavascriptExecutor) DriverManager.getDriver();
 		executor.executeScript(
 				"const textToFind = '" + item + "';" + "const dd = arguments[0];"
@@ -70,7 +70,7 @@ public class WebHelper {
 	 * @param text
 	 *            as text
 	 */
-	public void jsSelectByContainedText(WebElement element, String text) {
+	public static void jsSelectByContainedText(WebElement element, String text) {
 		JavascriptExecutor executor = (JavascriptExecutor) DriverManager.getDriver();
 		executor.executeScript(
 				"const textToFind = '" + text + "';" + "const dd = arguments[0];"
@@ -86,7 +86,7 @@ public class WebHelper {
 	 * @param value
 	 *            as value
 	 */
-	public void jsSelectByValue(WebElement element, String value) {
+	public static void jsSelectByValue(WebElement element, String value) {
 		JavascriptExecutor executor = (JavascriptExecutor) DriverManager.getDriver();
 		executor.executeScript(
 				"const valueToFind = '" + value + "';" + "const dd = arguments[0];"
