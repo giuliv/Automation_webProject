@@ -7,15 +7,15 @@ import org.testng.annotations.Test;
 
 import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.pageframework.chunks.mobile.AllowLocationServicesPopupChunk;
-import com.applause.auto.pageframework.testdata.TestConstants;
-import com.applause.auto.pageframework.views.DashboardView;
-import com.applause.auto.pageframework.views.LandingView;
-import com.applause.auto.pageframework.views.NewOrderView;
-import com.applause.auto.pageframework.views.OrderAheadView;
-import com.applause.auto.pageframework.views.ProductDetailsView;
-import com.applause.auto.pageframework.views.SearchResultsView;
-import com.applause.auto.pageframework.views.SelectCoffeeBarView;
+import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
+import com.applause.auto.common.data.TestConstants;
+import com.applause.auto.mobile.views.DashboardView;
+import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.NewOrderView;
+import com.applause.auto.mobile.views.OrderAheadView;
+import com.applause.auto.mobile.views.ProductDetailsView;
+import com.applause.auto.mobile.views.SearchResultsView;
+import com.applause.auto.mobile.views.SelectCoffeeBarView;
 
 public class OrderAheadTest extends BaseTest {
 

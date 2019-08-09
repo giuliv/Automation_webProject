@@ -9,15 +9,15 @@ import org.testng.annotations.Test;
 
 import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.pageframework.chunks.mobile.PeetsCardsTransferAmountChunk;
-import com.applause.auto.pageframework.chunks.mobile.PeetsCardsTransferAmountWarningChunk;
-import com.applause.auto.pageframework.testdata.TestConstants;
-import com.applause.auto.pageframework.views.AccountHistoryView;
-import com.applause.auto.pageframework.views.CheckInView;
-import com.applause.auto.pageframework.views.DashboardView;
-import com.applause.auto.pageframework.views.LandingView;
-import com.applause.auto.pageframework.views.PaymentMethodsView;
-import com.applause.auto.pageframework.views.PeetsCardsView;
+import com.applause.auto.mobile.components.PeetsCardsTransferAmountChunk;
+import com.applause.auto.mobile.components.PeetsCardsTransferAmountWarningChunk;
+import com.applause.auto.common.data.TestConstants;
+import com.applause.auto.mobile.views.AccountHistoryView;
+import com.applause.auto.mobile.views.CheckInView;
+import com.applause.auto.mobile.views.DashboardView;
+import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.PaymentMethodsView;
+import com.applause.auto.mobile.views.PeetsCardsView;
 
 public class PeetsCardsTest extends BaseTest {
 

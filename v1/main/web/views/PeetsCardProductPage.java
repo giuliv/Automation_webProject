@@ -1,0 +1,92 @@
+package com.applause.auto.web.views;
+
+import java.lang.invoke.MethodHandles;
+
+import com.applause.auto.framework.pageframework.util.logger.LogController;
+import com.applause.auto.framework.pageframework.web.AbstractPage;
+import com.applause.auto.framework.pageframework.web.ChunkFactory;
+import com.applause.auto.framework.pageframework.web.WebElementLocator;
+import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
+import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
+import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
+import com.applause.auto.framework.pageframework.webcontrols.BaseHtmlElement;
+import com.applause.auto.framework.pageframework.webcontrols.Button;
+import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
+import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.web.components.MiniCartContainerChunk;
+import com.applause.auto.web.helpers.WebHelper;
+
+@WebDesktopImplementation(PeetsCardProductPage.class)
+@WebTabletImplementation(PeetsCardProductPage.class)
+@WebPhoneImplementation(PeetsCardProductPage.class)
+public class PeetsCardProductPage extends AbstractPage {
+
+	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+	WebHelper webHelper = new WebHelper();
+
+	@Override
+	protected void waitUntilVisible() {
+		WebHelper.waitForDocument();
+		syncHelper.waitForElementToAppear(getViewSignature());
+	}
+
+	/*
+	 * Public Actions
+	 */
+
+	/**
+	 * Select an Amount for the Card
+	 * 
+	 */
+	public void selectCardAmount(String amount) {
+		LOGGER.info(String.format("Selecting a Grind: %s", amount));
+		webHelper.jsSelect(getSelectCardAmountDropdown().getWebElement(), amount);
+	}
+
+	/**
+	 * Click Add to Cart Button
+	 * 
+	 * @return MiniCartContainerChunk
+	 */
+	public MiniCartContainerChunk clickAddToCart() {
+		LOGGER.info("Tap on Shop Coffee Button");
+		getAddToCartButton().click();
+		waitForAddingToCartSpinner();
+		return ChunkFactory.create(MiniCartContainerChunk.class, this, "");
+	}
+
+	/**
+	 * Click Add to Cart Button
+	 * 
+	 */
+	public void waitForAddingToCartSpinner() {
+		LOGGER.info("Adding item to Shopping Cart...");
+		syncHelper.waitForElementToAppear(getLocator(this, "getAddingToCartSpinner"));
+		syncHelper.waitForElementToDisappear(getLocator(this, "getAddingToCartSpinner"));
+	}
+
+	/*
+	 * Protected Getters
+	 */
+
+	@WebElementLocator(webDesktop = ".product-shop .product-name")
+	protected Text getViewSignature() {
+		return new Text(this, getLocator(this, "getViewSignature"));
+	}
+
+	@WebElementLocator(webDesktop = ".product-shop .add-to-cart button")
+	protected Button getAddToCartButton() {
+		return new Button(this, getLocator(this, "getAddToCartButton"));
+	}
+
+	@WebElementLocator(webDesktop = "#shopping-cart-please-wait")
+	protected BaseHtmlElement getAddingToCartSpinner() {
+		return new BaseHtmlElement(this, getLocator(this, "getAddingToCartSpinner"));
+	}
+
+	@WebElementLocator(webDesktop = "#select_1")
+	protected Dropdown getSelectCardAmountDropdown() {
+		return new Dropdown(this, getLocator(this, "getSelectCardAmountDropdown"));
+	}
+
+}

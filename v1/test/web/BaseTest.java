@@ -16,12 +16,12 @@ import com.applause.auto.framework.pageframework.util.queryhelpers.WebElementQue
 import com.applause.auto.framework.pageframework.util.synchronization.WebSyncHelper;
 import com.applause.auto.framework.pageframework.web.PageFactory;
 import com.applause.auto.framework.test.listeners.TestListener;
-import com.applause.auto.pageframework.pages.LandingPage;
-import com.applause.auto.pageframework.pages.PeetsCardProductPage;
-import com.applause.auto.pageframework.pages.ShopCoffeeKCupsPage;
-import com.applause.auto.pageframework.pages.ShopEquipmentPage;
-import com.applause.auto.pageframework.pages.ShopTeaPage;
-import com.applause.auto.pageframework.testdata.TestConstants.TestData;
+import com.applause.auto.web.views.LandingPage;
+import com.applause.auto.web.views.PeetsCardProductPage;
+import com.applause.auto.web.views.ShopCoffeeKCupsPage;
+import com.applause.auto.web.views.ShopEquipmentPage;
+import com.applause.auto.web.views.ShopTeaPage;
+import com.applause.auto.common.data.TestConstants.TestData;
 
 @Listeners(TestListener.class)
 public class BaseTest {

@@ -3,11 +3,11 @@ package com.applause.auto.test.web;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.applause.auto.pageframework.pages.LandingPage;
-import com.applause.auto.pageframework.pages.MyAccountPage;
-import com.applause.auto.pageframework.pages.SignInPage;
-import com.applause.auto.pageframework.testdata.TestConstants;
-import com.applause.auto.pageframework.testdata.TestConstants.TestNGGroups;
+import com.applause.auto.web.views.LandingPage;
+import com.applause.auto.web.views.MyAccountPage;
+import com.applause.auto.web.views.SignInPage;
+import com.applause.auto.common.data.TestConstants;
+import com.applause.auto.common.data.TestConstants.TestNGGroups;
 
 public class LoginTest extends BaseTest {
 

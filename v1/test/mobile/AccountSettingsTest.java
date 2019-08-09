@@ -4,15 +4,15 @@ import org.testng.annotations.Test;
 
 import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.pageframework.chunks.AccountMenuMobileChunk;
-import com.applause.auto.pageframework.helpers.MobileHelper;
-import com.applause.auto.pageframework.testdata.TestConstants;
-import com.applause.auto.pageframework.views.AddNewCardView;
-import com.applause.auto.pageframework.views.CreditCardDetailsView;
-import com.applause.auto.pageframework.views.DashboardView;
-import com.applause.auto.pageframework.views.LandingView;
-import com.applause.auto.pageframework.views.PaymentMethodsView;
-import com.applause.auto.pageframework.views.PeetsCardSettingsView;
+import com.applause.auto.web.components.AccountMenuMobileChunk;
+import com.applause.auto.mobile.helpers.MobileHelper;
+import com.applause.auto.common.data.TestConstants;
+import com.applause.auto.mobile.views.AddNewCardView;
+import com.applause.auto.mobile.views.CreditCardDetailsView;
+import com.applause.auto.mobile.views.DashboardView;
+import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.PaymentMethodsView;
+import com.applause.auto.mobile.views.PeetsCardSettingsView;
 
 public class AccountSettingsTest extends BaseTest {
 	private LogController LOGGER = new LogController(OnboardingSlidesTest.class);

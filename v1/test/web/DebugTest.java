@@ -3,8 +3,8 @@ package com.applause.auto.test.web;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.applause.auto.pageframework.pages.LandingPage;
-import com.applause.auto.pageframework.testdata.TestConstants.TestNGGroups;
+import com.applause.auto.web.views.LandingPage;
+import com.applause.auto.common.data.TestConstants.TestNGGroups;
 
 /**
  * This is a sample test that verifies the project is setup correctly and can
