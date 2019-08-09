@@ -1,45 +1,33 @@
 package com.applause.auto.web.views;
 
-import java.lang.invoke.MethodHandles;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-import org.openqa.selenium.WebElement;
-
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.ChunkFactory;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.BaseHtmlElement;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
-import com.applause.auto.framework.pageframework.webcontrols.EditField;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.common.data.Constants;
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.SelectList;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.web.components.DatePickerChunk;
 import com.applause.auto.web.components.ShopRunnerChunk;
 import com.applause.auto.web.components.VerifyYourAddressDetailsChunk;
 import com.applause.auto.web.helpers.WebHelper;
-import com.applause.auto.common.data.TestConstants;
+import java.lang.invoke.MethodHandles;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import org.openqa.selenium.WebElement;
 
-@WebDesktopImplementation(CheckoutShippingInfoPage.class)
-@WebTabletImplementation(CheckoutShippingInfoPage.class)
-@WebPhoneImplementation(CheckoutShippingInfoPage.class)
-public class CheckoutShippingInfoPage extends AbstractPage {
+@Implementation(is = CheckoutShippingInfoPage.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = CheckoutShippingInfoPage.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = CheckoutShippingInfoPage.class, on = Platform.WEB_MOBILE_PHONE)
+public class CheckoutShippingInfoPage extends BaseComponent {
 
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
 	WebHelper webHelper = new WebHelper();
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToDisappear(getProgressWrapper().getAbsoluteSelector());
-		syncHelper.waitForElementToAppear(getViewSignature());
-	}
 
 	/*
 	 * Public Actions
@@ -51,9 +39,9 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 * @return the shop runner chunk
 	 */
 	public ShopRunnerChunk signInShopRunner() {
-		LOGGER.info("Click on Sign In shop runner");
-		getSignInShopRunnerButton().click();
-		return ChunkFactory.create(ShopRunnerChunk.class, this, "");
+		logger.info("Click on Sign In shop runner");
+		getSignInShopRunnerButton.click();
+		return ComponentFactory.create(ShopRunnerChunk.class, this, "");
 	}
 
 	/**
@@ -61,10 +49,10 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 * 
 	 */
 	public VerifyYourAddressDetailsChunk continueAfterFillingRequiredContactInfo() {
-		LOGGER.info("Clicking Continue after filling shipping info");
+		logger.info("Clicking Continue after filling shipping info");
 		fillShippingInfo();
 		continueAfterContactInfo();
-		return ChunkFactory.create(VerifyYourAddressDetailsChunk.class, this, "");
+		return ComponentFactory.create(VerifyYourAddressDetailsChunk.class, this, "");
 	}
 
 	/**
@@ -72,14 +60,14 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 *
 	 */
 	public void fillShippingInfo() {
-		LOGGER.info("Filling shipping info");
-		getFirstNameEditField().setText(TestConstants.TestData.FIRST_NAME);
-		getLastNameEditField().setText(TestConstants.TestData.LAST_NAME);
-		getPhoneNumberEditField().setText(TestConstants.TestData.PHONE);
-		getMainAddressEditField().setText(TestConstants.TestData.ADDRESS);
-		getZipCodeEditField().setText(TestConstants.TestData.ZIP_CODE);
-		getCityEditField().setText(TestConstants.TestData.CITY);
-		webHelper.jsSelect(getStateDropdown().getWebElement(), TestConstants.TestData.STATE);
+		logger.info("Filling shipping info");
+		getFirstNameTextBox.sendKeys(Constants.TestData.FIRST_NAME);
+		getLastNameTextBox.sendKeys(Constants.TestData.LAST_NAME);
+		getPhoneNumberTextBox.sendKeys(Constants.TestData.PHONE);
+		getMainAddressTextBox.sendKeys(Constants.TestData.ADDRESS);
+		getZipCodeTextBox.sendKeys(Constants.TestData.ZIP_CODE);
+		getCityTextBox.sendKeys(Constants.TestData.CITY);
+		webHelper.jsSelect(getStateSelectList.getWebElement(), Constants.TestData.STATE);
 	}
 
 	/**
@@ -89,14 +77,14 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 *            the uniq prefix
 	 */
 	public void fillUniqueShippingInfo(String uniqPrefix) {
-		LOGGER.info("Filling shipping info");
-		getFirstNameEditField().setText(uniqPrefix + TestConstants.TestData.FIRST_NAME);
-		getLastNameEditField().setText(TestConstants.TestData.LAST_NAME);
-		getPhoneNumberEditField().setText(TestConstants.TestData.PHONE);
-		getMainAddressEditField().setText(TestConstants.TestData.ADDRESS_2);
-		getZipCodeEditField().setText(TestConstants.TestData.ZIP_CODE_2);
-		getCityEditField().setText(TestConstants.TestData.CITY);
-		webHelper.jsSelect(getStateDropdown().getWebElement(), TestConstants.TestData.STATE);
+		logger.info("Filling shipping info");
+		getFirstNameTextBox.sendKeys(uniqPrefix + Constants.TestData.FIRST_NAME);
+		getLastNameTextBox.sendKeys(Constants.TestData.LAST_NAME);
+		getPhoneNumberTextBox.sendKeys(Constants.TestData.PHONE);
+		getMainAddressTextBox.sendKeys(Constants.TestData.ADDRESS_2);
+		getZipCodeTextBox.sendKeys(Constants.TestData.ZIP_CODE_2);
+		getCityTextBox.sendKeys(Constants.TestData.CITY);
+		webHelper.jsSelect(getStateSelectList.getWebElement(), Constants.TestData.STATE);
 	}
 
 	/**
@@ -106,9 +94,9 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 *            the uniq prefix
 	 */
 	public void modifyShippingInfoByDelta(String uniqPrefix) {
-		LOGGER.info("Filling shipping info");
-		getFirstNameModifyEditField().clearText();
-		getFirstNameModifyEditField().setText(uniqPrefix + TestConstants.TestData.FIRST_NAME);
+		logger.info("Filling shipping info");
+		getFirstNameModifyTextBox.clearText();
+		getFirstNameModifyTextBox.sendKeys(uniqPrefix + Constants.TestData.FIRST_NAME);
 	}
 
 	/**
@@ -116,8 +104,8 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 * 
 	 */
 	public void continueAfterContactInfo() {
-		LOGGER.info("Click Continue on contact section");
-		getContactInfoContinueButton().click();
+		logger.info("Click Continue on contact section");
+		getContactInfoContinueButton.click();
 	}
 
 	/**
@@ -126,11 +114,11 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 * @return the checkout shipping info page
 	 */
 	public CheckoutShippingInfoPage continueAddNewAddress() {
-		LOGGER.info("Click Continue on contact section");
-		getNewAddressContinueButton().click();
-		syncHelper.suspend(20000);
+		logger.info("Click Continue on contact section");
+		getNewAddressContinueButton.click();
+		SyncHelper.sleep(20000);
 		WebHelper.waitForDocument();
-		return PageFactory.create(CheckoutShippingInfoPage.class);
+		return ComponentFactory.create(CheckoutShippingInfoPage.class);
 	}
 
 	/**
@@ -138,10 +126,10 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 * 
 	 */
 	public CheckoutPaymentMethodPage setShippingMethod(String shippingMethod) {
-		LOGGER.info("Set Shipping Method");
+		logger.info("Set Shipping Method");
 		selectShippingMethod(shippingMethod);
 		continueAfterShippingInfo();
-		return PageFactory.create(CheckoutPaymentMethodPage.class);
+		return ComponentFactory.create(CheckoutPaymentMethodPage.class);
 	}
 
 	/**
@@ -150,9 +138,9 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 * @return the shipping method
 	 */
 	public CheckoutPaymentMethodPage setShippingMethod() {
-		LOGGER.info("Click continue");
+		logger.info("Click continue");
 		continueAfterShippingInfo();
-		return PageFactory.create(CheckoutPaymentMethodPage.class);
+		return ComponentFactory.create(CheckoutPaymentMethodPage.class);
 	}
 
 	/**
@@ -160,7 +148,7 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 * 
 	 */
 	public void selectShippingMethod(String shippingMethod) {
-		LOGGER.info("Select Shipping Method");
+		logger.info("Select Shipping Method");
 		getShippingMethodButton(shippingMethod).click();
 	}
 
@@ -169,10 +157,10 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 * 
 	 */
 	public void continueAfterShippingInfo() {
-		LOGGER.info("Click Continue on shipping section");
-		WebHelper.scrollToElement(getShippingInfoContinueButton().getWebElement());
-		syncHelper.suspend(10000);
-		getShippingInfoContinueButton().click();
+		logger.info("Click Continue on shipping section");
+		WebHelper.scrollToElement(getShippingInfoContinueButton.getWebElement());
+		SyncHelper.sleep(10000);
+		getShippingInfoContinueButton.click();
 	}
 
 	/**
@@ -181,8 +169,8 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 * @return String
 	 */
 	public String getGiftMessage() {
-		LOGGER.info("Getting gift Message");
-		return getGiftMessageEditField().getText();
+		logger.info("Getting gift Message");
+		return getGiftMessageTextBox.getCurrentText();
 	}
 
 	/**
@@ -191,9 +179,9 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 * @return the checkout shipping info page
 	 */
 	public CheckoutShippingInfoPage addNewAddress() {
-		LOGGER.info("Click on Add new address button");
-		getAddNewAddressButton().click();
-		return PageFactory.create(CheckoutShippingInfoPage.class);
+		logger.info("Click on Add new address button");
+		getAddNewAddressButton.click();
+		return ComponentFactory.create(CheckoutShippingInfoPage.class);
 	}
 
 	/**
@@ -204,12 +192,12 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 * @return the checkout shipping info page
 	 */
 	public CheckoutShippingInfoPage editAddress(String addressKey) {
-		LOGGER.info("Click on edit link for address: " + addressKey);
+		logger.info("Click on edit link for address: " + addressKey);
 		List<String> addresses = getAddresses();
 		int index = IntStream.range(0, addresses.size()).filter(i -> addresses.get(i).contains(addressKey)).findFirst()
 				.getAsInt();
-		getAddressesEditButton().get(index).click();
-		return PageFactory.create(CheckoutShippingInfoPage.class);
+		getAddressesEditButton.get(index).click();
+		return ComponentFactory.create(CheckoutShippingInfoPage.class);
 	}
 
 	/**
@@ -218,9 +206,9 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 * @return the date picker chunk
 	 */
 	public DatePickerChunk editShippingDate() {
-		LOGGER.info("Click on edit shipping date");
-		getEditShippingDateButton().click();
-		return ChunkFactory.create(DatePickerChunk.class, this, "");
+		logger.info("Click on edit shipping date");
+		getEditShippingDateButton.click();
+		return ComponentFactory.create(DatePickerChunk.class, this, "");
 	}
 
 	/**
@@ -229,9 +217,9 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 * @return the addresses
 	 */
 	public List<String> getAddresses() {
-		List<String> result = getAddressesText().stream().map(item -> {
-			String text = item.getText();
-			LOGGER.info("Found address: " + text);
+		List<String> result = getAddressesText.stream().map(item -> {
+			String text = item.getCurrentText();
+			logger.info("Found address: " + text);
 			return text;
 		}).collect(Collectors.toList());
 		return result;
@@ -243,7 +231,7 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 * @return the shipping date
 	 */
 	public String getShippingDate() {
-		return getShippingDateText().getText();
+		return getShippingDateText.getCurrentText();
 	}
 
 	/**
@@ -252,132 +240,84 @@ public class CheckoutShippingInfoPage extends AbstractPage {
 	 * @return the checkout shipping info page
 	 */
 	public CheckoutShippingInfoPage updateAfterShippingInfoModification() {
-		LOGGER.info("Click on Update button");
-		getModifiedAddressUpdateButton().click();
-		return PageFactory.create(CheckoutShippingInfoPage.class);
+		logger.info("Click on Update button");
+		getModifiedAddressUpdateButton.click();
+		return ComponentFactory.create(CheckoutShippingInfoPage.class);
 	}
 
 	/*
 	 * Protected Getters
 	 */
-	@WebElementLocator(webDesktop = "//div[@id='srd_so']//a[text()='sign in']")
-	protected Button getSignInShopRunnerButton() {
-		return new Button(this, getLocator(this, "getSignInShopRunnerButton"));
-	}
+	@Locate(xpath = "//div[@id='srd_so']//a[text()='sign in']", on = Platform.WEB_DESKTOP)
+	protected Button getSignInShopRunnerButton;
 
-	@WebElementLocator(webDesktop = "h2#checkout-title-opc-shipping.active")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(jQuery = "h2#checkout-title-opc-shipping.active", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
-	@WebElementLocator(webDesktop = "input[id='shipping:firstname']")
-	protected EditField getFirstNameEditField() {
-		return new EditField(this, getLocator(this, "getFirstNameEditField"));
-	}
+	@Locate(jQuery = "input[id='shipping:firstname']", on = Platform.WEB_DESKTOP)
+	protected TextBox getFirstNameTextBox;
 
-	@WebElementLocator(webDesktop = ".editing input[id^='shipping:firstname']")
-	protected EditField getFirstNameModifyEditField() {
-		return new EditField(this, getLocator(this, "getFirstNameModifyEditField"));
-	}
+	@Locate(jQuery = ".editing input[id^='shipping:firstname']", on = Platform.WEB_DESKTOP)
+	protected TextBox getFirstNameModifyTextBox;
 
-	@WebElementLocator(webDesktop = "input[id='shipping:lastname']")
-	protected EditField getLastNameEditField() {
-		return new EditField(this, getLocator(this, "getLastNameEditField"));
-	}
+	@Locate(jQuery = "input[id='shipping:lastname']", on = Platform.WEB_DESKTOP)
+	protected TextBox getLastNameTextBox;
 
-	@WebElementLocator(webDesktop = "input[id='shipping:telephone']")
-	protected EditField getPhoneNumberEditField() {
-		return new EditField(this, getLocator(this, "getPhoneNumberEditField"));
-	}
+	@Locate(jQuery = "input[id='shipping:telephone']", on = Platform.WEB_DESKTOP)
+	protected TextBox getPhoneNumberTextBox;
 
-	@WebElementLocator(webDesktop = "input[id='shipping:street1']")
-	protected EditField getMainAddressEditField() {
-		return new EditField(this, getLocator(this, "getMainAddressEditField"));
-	}
+	@Locate(jQuery = "input[id='shipping:street1']", on = Platform.WEB_DESKTOP)
+	protected TextBox getMainAddressTextBox;
 
-	@WebElementLocator(webDesktop = "input[id='shipping:postcode']")
-	protected EditField getZipCodeEditField() {
-		return new EditField(this, getLocator(this, "getZipCodeEditField"));
-	}
+	@Locate(jQuery = "input[id='shipping:postcode']", on = Platform.WEB_DESKTOP)
+	protected TextBox getZipCodeTextBox;
 
-	@WebElementLocator(webDesktop = "input[id='shipping:city']")
-	protected EditField getCityEditField() {
-		return new EditField(this, getLocator(this, "getCityEditField"));
-	}
+	@Locate(jQuery = "input[id='shipping:city']", on = Platform.WEB_DESKTOP)
+	protected TextBox getCityTextBox;
 
-	@WebElementLocator(webDesktop = "select[id='shipping:region_id']")
-	protected Dropdown getStateDropdown() {
-		return new Dropdown(this, getLocator(this, "getStateDropdown"));
-	}
+	@Locate(jQuery = "select[id='shipping:region_id']", on = Platform.WEB_DESKTOP)
+	protected SelectList getStateSelectList;
 
-	@WebElementLocator(webDesktop = ".shipping-buttons-set button")
-	protected Button getContactInfoContinueButton() {
-		return new Button(this, getLocator(this, "getContactInfoContinueButton"));
-	}
+	@Locate(jQuery = ".shipping-buttons-set button", on = Platform.WEB_DESKTOP)
+	protected Button getContactInfoContinueButton;
 
-	@WebElementLocator(webDesktop = "button[title='Continue']")
-	protected Button getNewAddressContinueButton() {
-		return new Button(this, getLocator(this, "getNewAddressContinueButton"));
-	}
+	@Locate(jQuery = "button[title='Continue']", on = Platform.WEB_DESKTOP)
+	protected Button getNewAddressContinueButton;
 
-	@WebElementLocator(webDesktop = ".editing button[title='Update']")
-	protected Button getModifiedAddressUpdateButton() {
-		return new Button(this, getLocator(this, "getModifiedAddressUpdateButton"));
-	}
+	@Locate(jQuery = ".editing button[title='Update']", on = Platform.WEB_DESKTOP)
+	protected Button getModifiedAddressUpdateButton;
 
-	@WebElementLocator(webDesktop = ".opc-please-wait")
-	protected BaseHtmlElement getShippingLoadingSpinner() {
-		return new BaseHtmlElement(this, getLocator(this, "getShippingLoadingSpinner"));
-	}
+	@Locate(jQuery = ".opc-please-wait", on = Platform.WEB_DESKTOP)
+	protected ContainerElement getShippingLoadingSpinner;
 
-	@WebElementLocator(webDesktop = "//strong[@class='shipping-method-name' and contains(.,'%s')]")
-	// @WebElementLocator(webDesktop = "//strong[class='shipping-method-name'][text()='%s']")
-	protected Button getShippingMethodButton(String shippingMethod) {
-		return new Button(this, String.format(getLocator(this, "getShippingMethodButton"), shippingMethod));
-	}
+	@Locate(xpath = "//strong[@class='shipping-method-name' and contains(.,'%s')]", on = Platform.WEB_DESKTOP)
+	// @Locate(xpath = "//strong[class='shipping-method-name'][text()='%s']", on = Platform.WEB_DESKTOP)
+protected Button getShippingMethodButton;
 
-	@WebElementLocator(webDesktop = "#gift-message-whole-message")
-	protected EditField getGiftMessageEditField() {
-		return new EditField(this, getLocator(this, "getGiftMessageEditField"));
-	}
+	@Locate(jQuery = "#gift-message-whole-message", on = Platform.WEB_DESKTOP)
+	protected TextBox getGiftMessageTextBox;
 
-	@WebElementLocator(webDesktop = "#co-shipping-method-form button")
-	protected Button getShippingInfoContinueButton() {
-		return new Button(this, getLocator(this, "getShippingInfoContinueButton"));
-	}
+	@Locate(jQuery = "#co-shipping-method-form button", on = Platform.WEB_DESKTOP)
+	protected Button getShippingInfoContinueButton;
 
-	@WebElementLocator(webDesktop = ".shipping-add-address")
-	protected Button getAddNewAddressButton() {
-		return new Button(this, getLocator(this, "getAddNewAddressButton"));
-	}
+	@Locate(jQuery = ".shipping-add-address", on = Platform.WEB_DESKTOP)
+	protected Button getAddNewAddressButton;
 
-	@WebElementLocator(webDesktop = "#checkout-step-shipping .edit-shipping-date")
-	protected Button getEditShippingDateButton() {
-		return new Button(this, getLocator(this, "getEditShippingDateButton"));
-	}
+	@Locate(jQuery = "#checkout-step-shipping .edit-shipping-date", on = Platform.WEB_DESKTOP)
+	protected Button getEditShippingDateButton;
 
-	@WebElementLocator(webDesktop = "[title^='Please wait...']")
-	protected Text getProgressWrapper() {
-		return new Text(this, getLocator(this, "getProgressWrapper"));
-	}
+	@Locate(jQuery = "[title^='Please wait...']", on = Platform.WEB_DESKTOP)
+	protected Text getProgressWrapper;
 
-	@WebElementLocator(webDesktop = "#checkout-step-shipping .shipping-date #ddate-selected-date")
-	protected Text getShippingDateText() {
-		return new Text(this, getLocator(this, "getShippingDateText"));
-	}
+	@Locate(jQuery = "#checkout-step-shipping .shipping-date #ddate-selected-date", on = Platform.WEB_DESKTOP)
+	protected Text getShippingDateText;
 
-	@WebElementLocator(web = ".checkout-section-content > .shipping-address-item ol li label")
-	protected List<WebElement> getAddressesText() {
-		return queryHelper.findElementsByExtendedCss(getLocator(this, "getAddressesText"));
-	}
+	@Locate(jQuery = ".checkout-section-content > .shipping-address-item ol li label", on = Platform.WEB)
+	protected List<WebElement> getAddressesText;
 
-	@WebElementLocator(web = ".checkout-section-content > .shipping-address-item ol li > a")
-	protected List<WebElement> getAddressesEditButton() {
-		return queryHelper.findElementsByExtendedCss(getLocator(this, "getAddressesEditButton"));
-	}
+	@Locate(jQuery = ".checkout-section-content > .shipping-address-item ol li > a", on = Platform.WEB)
+	protected List<WebElement> getAddressesEditButton;
 
-	@WebElementLocator(web = ".checkout-section-content > .shipping-address-item ol li label")
-	protected List<WebElement> getEditAddressButtonByKey() {
-		return queryHelper.findElementsByExtendedCss(getLocator(this, "getEditAddressButtonByKey"));
-	}
+	@Locate(jQuery = ".checkout-section-content > .shipping-address-item ol li label", on = Platform.WEB)
+	protected List<WebElement> getEditAddressButtonByKey;
 }

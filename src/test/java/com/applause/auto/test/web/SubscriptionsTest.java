@@ -11,7 +11,7 @@ import com.applause.auto.web.views.CheckoutPaymentMethodPage;
 import com.applause.auto.web.views.CheckoutPlaceOrderPage;
 import com.applause.auto.web.views.CheckoutShippingInfoPage;
 import com.applause.auto.web.views.CoffeeProductPage;
-import com.applause.auto.web.views.LandingPage;
+import com.applause.auto.web.views.Landing;
 import com.applause.auto.web.views.MyAccountPage;
 import com.applause.auto.web.views.ShopCoffeePage;
 import com.applause.auto.web.views.ShoppingCartPage;
@@ -26,19 +26,19 @@ public class SubscriptionsTest extends BaseTest {
 	public void userCreateNewSubscriptionTest() {
 
 		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
-		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+		Landing landing = navigateToLanding();
+		Assert.assertNotNull(landing, "Failed to navigate to the landing page.");
 
 		LOGGER.info("2. Log in to UAT");
-		SignInPage signInPage = landingPage.clickSignInButton();
+		SignInPage signInPage = landing.clickSignInButton();
 		MyAccountPage myAccountPage = signInPage.mainUserLogin();
 		Assert.assertTrue(myAccountPage.getWelcomeMessage().contains("Applause"),
 				"User is not signed in or welcome name is wrong");
 
 		LOGGER.info("3. Select a coffee from grid view and add to cart");
 		MainMenuChunk mainMenu = myAccountPage.getMainMenu();
-		landingPage = mainMenu.clickHeaderLogo();
-		ShopCoffeePage shopCoffeePage = landingPage.clickShopCoffeeButton();
+		landing = mainMenu.clickHeaderLogo();
+		ShopCoffeePage shopCoffeePage = landing.clickShopCoffeeButton();
 		CoffeeProductPage coffeeProductPage = shopCoffeePage.clickProductName(TestData.COFFEE_BRAND_NAME);
 		coffeeProductPage.selectAGrind(TestData.GRIND);
 
@@ -95,19 +95,19 @@ public class SubscriptionsTest extends BaseTest {
 	public void userCreateNewSubscriptionWithPayPalTest() {
 
 		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
-		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+		Landing landing = navigateToLanding();
+		Assert.assertNotNull(landing, "Failed to navigate to the landing page.");
 
 		LOGGER.info("2. Log in to UAT");
-		SignInPage signInPage = landingPage.clickSignInButton();
+		SignInPage signInPage = landing.clickSignInButton();
 		MyAccountPage myAccountPage = signInPage.mainUserLogin();
 		Assert.assertTrue(myAccountPage.getWelcomeMessage().contains("Applause"),
 				"User is not signed in or welcome name is wrong");
 
 		LOGGER.info("3. Select a coffee from grid view and add to cart");
 		MainMenuChunk mainMenu = myAccountPage.getMainMenu();
-		landingPage = mainMenu.clickHeaderLogo();
-		ShopCoffeePage shopCoffeePage = landingPage.clickShopCoffeeButton();
+		landing = mainMenu.clickHeaderLogo();
+		ShopCoffeePage shopCoffeePage = landing.clickShopCoffeeButton();
 		CoffeeProductPage coffeeProductPage = shopCoffeePage.clickProductName(TestData.COFFEE_BRAND_NAME);
 		coffeeProductPage.selectAGrind(TestData.GRIND);
 

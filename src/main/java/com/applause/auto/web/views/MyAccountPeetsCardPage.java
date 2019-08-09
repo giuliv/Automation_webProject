@@ -1,32 +1,22 @@
 package com.applause.auto.web.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.Image;
+import com.applause.auto.pageobjectmodel.elements.Link;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.BaseHtmlElement;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.EditField;
-import com.applause.auto.framework.pageframework.webcontrols.Image;
-import com.applause.auto.framework.pageframework.webcontrols.Link;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
-import com.applause.auto.web.helpers.WebHelper;
-
-@WebDesktopImplementation(MyAccountPeetsCardPage.class)
-@WebTabletImplementation(MyAccountPeetsCardPage.class)
-@WebPhoneImplementation(MyAccountPeetsCardPage.class)
-public class MyAccountPeetsCardPage extends AbstractPage {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getViewSignature());
-	}
+@Implementation(is = MyAccountPeetsCardPage.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = MyAccountPeetsCardPage.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = MyAccountPeetsCardPage.class, on = Platform.WEB_MOBILE_PHONE)
+public class MyAccountPeetsCardPage extends BaseComponent {
 
 	// Public actions
 
@@ -36,8 +26,8 @@ public class MyAccountPeetsCardPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isBuyPeetsCardSectionDisplayed() {
-		LOGGER.info("Verifying Buy Peets Card button is displayed");
-		return getBuyPeetsCardSection().isDisplayed();
+		logger.info("Verifying Buy Peets Card button is displayed");
+		return getBuyPeetsCardSection.isDisplayed();
 	}
 
 	/**
@@ -46,8 +36,8 @@ public class MyAccountPeetsCardPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isBuyPeetsCardDescriptionDisplayed() {
-		LOGGER.info("Verifying Buy Peets Card Description is displayed");
-		return getBuyCardDescriptionText().isDisplayed();
+		logger.info("Verifying Buy Peets Card Description is displayed");
+		return getBuyCardDescriptionText.isDisplayed();
 	}
 
 	/**
@@ -56,8 +46,8 @@ public class MyAccountPeetsCardPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isBuyPeetsCardLinkDisplayed() {
-		LOGGER.info("Verifying Buy Peets Card link is displayed");
-		return getBuyCardLink().isDisplayed();
+		logger.info("Verifying Buy Peets Card link is displayed");
+		return getBuyCardLink.isDisplayed();
 	}
 
 	/**
@@ -66,8 +56,8 @@ public class MyAccountPeetsCardPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isBuyPeetsCardImageDisplayed() {
-		LOGGER.info("Verifying Buy Peets Card image is displayed");
-		return getBuyCardImage().isDisplayed();
+		logger.info("Verifying Buy Peets Card image is displayed");
+		return getBuyCardImage.isDisplayed();
 	}
 
 	/**
@@ -76,8 +66,8 @@ public class MyAccountPeetsCardPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isCheckBalanceSectionDisplayed() {
-		LOGGER.info("Verifying Check Balance section is displayed");
-		return getCheckBalanceSection().isDisplayed();
+		logger.info("Verifying Check Balance section is displayed");
+		return getCheckBalanceSection.isDisplayed();
 	}
 
 	/**
@@ -86,8 +76,8 @@ public class MyAccountPeetsCardPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isCheckBalanceCardNumberDisplayed() {
-		LOGGER.info("Verifying Check Balance Card Number is displayed");
-		return getCheckBalanceCardEditField().isDisplayed();
+		logger.info("Verifying Check Balance Card Number is displayed");
+		return getCheckBalanceCardTextBox.isDisplayed();
 	}
 
 	/**
@@ -96,8 +86,8 @@ public class MyAccountPeetsCardPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isCheckBalancePinNumberDisplayed() {
-		LOGGER.info("Verifying Check Balance Pin Number is displayed");
-		return getCheckBalancePinEditField().isDisplayed();
+		logger.info("Verifying Check Balance Pin Number is displayed");
+		return getCheckBalancePinTextBox.isDisplayed();
 	}
 
 	/**
@@ -106,8 +96,8 @@ public class MyAccountPeetsCardPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isCheckBalanceButtonDisplayed() {
-		LOGGER.info("Verifying Check Balance Button is displayed");
-		return getCheckBalanceButton().isDisplayed();
+		logger.info("Verifying Check Balance Button is displayed");
+		return getCheckBalanceButton.isDisplayed();
 	}
 
 	/**
@@ -116,8 +106,8 @@ public class MyAccountPeetsCardPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isRegisterPeetsCardSectionDisplayed() {
-		LOGGER.info("Verifying Register Peets Card button is displayed");
-		return getRegisterPeetsCardSection().isDisplayed();
+		logger.info("Verifying Register Peets Card button is displayed");
+		return getRegisterPeetsCardSection.isDisplayed();
 	}
 
 	/**
@@ -126,8 +116,8 @@ public class MyAccountPeetsCardPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isRegisterPeetsCardDescriptionDisplayed() {
-		LOGGER.info("Verifying Register Peets Card Description is displayed");
-		return getRegisterCardDescriptionText().isDisplayed();
+		logger.info("Verifying Register Peets Card Description is displayed");
+		return getRegisterCardDescriptionText.isDisplayed();
 	}
 
 	/**
@@ -136,8 +126,8 @@ public class MyAccountPeetsCardPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isRegisterPeetsCardLinkDisplayed() {
-		LOGGER.info("Verifying Register Peets Card link is displayed");
-		return getRegisterCardLink().isDisplayed();
+		logger.info("Verifying Register Peets Card link is displayed");
+		return getRegisterCardLink.isDisplayed();
 	}
 
 	/**
@@ -146,74 +136,48 @@ public class MyAccountPeetsCardPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isFAQLinkDisplayed() {
-		LOGGER.info("Verifying FAQ link is displayed");
-		return getFAQLink().isDisplayed();
+		logger.info("Verifying FAQ link is displayed");
+		return getFAQLink.isDisplayed();
 	}
 
 	// Protected getters
-	@WebElementLocator(webDesktop = "div.col-main > div > div.page-title > h1")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(jQuery = "div.col-main > div > div.page-title > h1", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
-	@WebElementLocator(webDesktop = "//*[contains(.,\"Buy a Peet's card\")]")
-	protected BaseHtmlElement getBuyPeetsCardSection() {
-		return new BaseHtmlElement(this, getLocator(this, "getBuyPeetsCardSection"));
-	}
+	@Locate(xpath = "//*[contains(.,\"Buy a Peet's card\")]", on = Platform.WEB_DESKTOP)
+	protected ContainerElement getBuyPeetsCardSection;
 
-	@WebElementLocator(webDesktop = ".item-content-column .item-content-box")
-	protected Text getBuyCardDescriptionText() {
-		return new Text(this, getLocator(this, "getBuyCardDescriptionText"));
-	}
+	@Locate(jQuery = ".item-content-column .item-content-box", on = Platform.WEB_DESKTOP)
+	protected Text getBuyCardDescriptionText;
 
-	@WebElementLocator(webDesktop = ".item-content-column .item-link")
-	protected Link getBuyCardLink() {
-		return new Link(this, getLocator(this, "getBuyCardLink"));
-	}
+	@Locate(jQuery = ".item-content-column .item-link", on = Platform.WEB_DESKTOP)
+	protected Link getBuyCardLink;
 
-	@WebElementLocator(webDesktop = ".item-visual-column")
-	protected Image getBuyCardImage() {
-		return new Image(this, getLocator(this, "getBuyCardImage"));
-	}
+	@Locate(jQuery = ".item-visual-column", on = Platform.WEB_DESKTOP)
+	protected Image getBuyCardImage;
 
-	@WebElementLocator(webDesktop = "//li[contains(.,'Check Your Balance')]")
-	protected BaseHtmlElement getCheckBalanceSection() {
-		return new BaseHtmlElement(this, getLocator(this, "getCheckBalanceSection"));
-	}
+	@Locate(xpath = "//li[contains(.,'Check Your Balance')]", on = Platform.WEB_DESKTOP)
+	protected ContainerElement getCheckBalanceSection;
 
-	@WebElementLocator(webDesktop = "#card_number")
-	protected EditField getCheckBalanceCardEditField() {
-		return new EditField(this, getLocator(this, "getCheckBalanceCardEditField"));
-	}
+	@Locate(jQuery = "#card_number", on = Platform.WEB_DESKTOP)
+	protected TextBox getCheckBalanceCardTextBox;
 
-	@WebElementLocator(webDesktop = "#card_pin")
-	protected EditField getCheckBalancePinEditField() {
-		return new EditField(this, getLocator(this, "getCheckBalancePinEditField"));
-	}
+	@Locate(jQuery = "#card_pin", on = Platform.WEB_DESKTOP)
+	protected TextBox getCheckBalancePinTextBox;
 
-	@WebElementLocator(webDesktop = "#check-balance")
-	protected Button getCheckBalanceButton() {
-		return new Button(this, getLocator(this, "getCheckBalanceButton"));
-	}
+	@Locate(jQuery = "#check-balance", on = Platform.WEB_DESKTOP)
+	protected Button getCheckBalanceButton;
 
-	@WebElementLocator(webDesktop = "//li[contains(.,\"Register a Peet's Card\")]")
-	protected BaseHtmlElement getRegisterPeetsCardSection() {
-		return new BaseHtmlElement(this, getLocator(this, "getRegisterPeetsCardSection"));
-	}
+	@Locate(xpath = "//li[contains(.,\"Register a Peet's Card\")]", on = Platform.WEB_DESKTOP)
+	protected ContainerElement getRegisterPeetsCardSection;
 
-	@WebElementLocator(webDesktop = ".quarter .item-content-box")
-	protected Text getRegisterCardDescriptionText() {
-		return new Text(this, getLocator(this, "getRegisterCardDescriptionText"));
-	}
+	@Locate(jQuery = ".quarter .item-content-box", on = Platform.WEB_DESKTOP)
+	protected Text getRegisterCardDescriptionText;
 
-	@WebElementLocator(webDesktop = ".quarter .item-link")
-	protected Link getRegisterCardLink() {
-		return new Link(this, getLocator(this, "getRegisterCardLink"));
-	}
+	@Locate(jQuery = ".quarter .item-link", on = Platform.WEB_DESKTOP)
+	protected Link getRegisterCardLink;
 
-	@WebElementLocator(webDesktop = ".buttons-set-link")
-	protected Link getFAQLink() {
-		return new Link(this, getLocator(this, "getFAQLink"));
-	}
+	@Locate(jQuery = ".buttons-set-link", on = Platform.WEB_DESKTOP)
+	protected Link getFAQLink;
 
 }

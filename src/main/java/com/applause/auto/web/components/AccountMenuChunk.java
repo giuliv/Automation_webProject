@@ -1,24 +1,20 @@
 package com.applause.auto.web.components;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.pageframework.UIData;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.web.helpers.WebHelper;
+import com.applause.auto.web.views.Landing;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.UIData;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPageChunk;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.web.helpers.WebHelper;
-import com.applause.auto.web.views.LandingPage;
-
-@WebDesktopImplementation(AccountMenuChunk.class)
-@WebTabletImplementation(AccountMenuChunk.class)
-@WebPhoneImplementation(AccountMenuChunk.class)
-public class AccountMenuChunk extends AbstractPageChunk {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+@Implementation(is = AccountMenuChunk.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = AccountMenuChunk.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = AccountMenuChunk.class, on = Platform.WEB_MOBILE_PHONE)
+public class AccountMenuChunk extends BaseComponent {
 
 	/**
 	 * Constructor.
@@ -30,11 +26,6 @@ public class AccountMenuChunk extends AbstractPageChunk {
 		super(parent, selector);
 	}
 
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-	}
-
 	/*
 	 * Public actions
 	 */
@@ -44,26 +35,22 @@ public class AccountMenuChunk extends AbstractPageChunk {
 	 *
 	 * @return DashboardPage
 	 */
-	public LandingPage signOut() {
-		LOGGER.info("Expanding menu");
-		getExpandMenuButton().click();
-		LOGGER.info("Click on Sign Out button");
-		getSignOutButton().click();
-		return PageFactory.create(LandingPage.class);
+	public Landing signOut() {
+		logger.info("Expanding menu");
+		getExpandMenuButton.click();
+		logger.info("Click on Sign Out button");
+		getSignOutButton.click();
+		return ComponentFactory.create(Landing.class);
 	}
 
 	/*
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "a[href='#header-account']")
-	protected Button getExpandMenuButton() {
-		return new Button(this, getLocator(this, "getExpandMenuButton"));
-	}
+	@Locate(jQuery = "a[href='#header-account']", on = Platform.WEB_DESKTOP)
+	protected Button getExpandMenuButton;
 
-	@WebElementLocator(webDesktop = "#header-account a[title='Log Out']")
-	protected Button getSignOutButton() {
-		return new Button(this, getLocator(this, "getSignOutButton"));
-	}
+	@Locate(jQuery = "#header-account a[title='Log Out']", on = Platform.WEB_DESKTOP)
+	protected Button getSignOutButton;
 
 }

@@ -1,30 +1,19 @@
 package com.applause.auto.web.views;
 
-import java.lang.invoke.MethodHandles;
-
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.ChunkFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.web.components.MainMenuChunk;
 import com.applause.auto.web.helpers.WebHelper;
+import java.lang.invoke.MethodHandles;
 
-@WebDesktopImplementation(DashboardPage.class)
-@WebTabletImplementation(DashboardPage.class)
-@WebPhoneImplementation(DashboardPage.class)
-public class DashboardPage extends AbstractPage {
-
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getViewSignature());
-	}
+@Implementation(is = DashboardPage.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = DashboardPage.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = DashboardPage.class, on = Platform.WEB_MOBILE_PHONE)
+public class DashboardPage extends BaseComponent {
 
 	/*
 	 * Public Actions
@@ -36,17 +25,15 @@ public class DashboardPage extends AbstractPage {
 	 * @return MainMenuChunk
 	 */
 	public MainMenuChunk getMainMenu() {
-		LOGGER.info("Getting Main Menu");
-		return ChunkFactory.create(MainMenuChunk.class, this, "");
+		logger.info("Getting Main Menu");
+		return ComponentFactory.create(MainMenuChunk.class, this, "");
 	}
 
 	/*
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = ".dashboard")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(jQuery = ".dashboard", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
 }

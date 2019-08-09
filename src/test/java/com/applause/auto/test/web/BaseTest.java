@@ -41,7 +41,7 @@ public class BaseTest extends BaseSeleniumTest {
    * Platform Agnostic Test Helpers
    */
 
-  protected Landing navigateToLandingPage() {
+  protected Landing navigateToLanding() {
     logger.info(String.format("Navigating to the landing page '%s'", TestData.LANDING_PAGE_URL));
     DriverManager.getDriver().navigate().to(TestData.LANDING_PAGE_URL);
     return ComponentFactory.create(Landing.class);

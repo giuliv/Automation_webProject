@@ -1,32 +1,21 @@
 package com.applause.auto.web.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
-
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
-import com.applause.auto.web.helpers.WebHelper;
-
-@WebDesktopImplementation(AddressBookPage.class)
-@WebTabletImplementation(AddressBookPage.class)
-@WebPhoneImplementation(AddressBookPage.class)
-public class AddressBookPage extends AbstractPage {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getViewSignature());
-	}
+@Implementation(is = AddressBookPage.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = AddressBookPage.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = AddressBookPage.class, on = Platform.WEB_MOBILE_PHONE)
+public class AddressBookPage extends BaseComponent {
 
 	// Public actions
 
@@ -36,8 +25,8 @@ public class AddressBookPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isAddressSavedTextDisplayed() {
-		LOGGER.info("Verifying Address Changed text is displayed");
-		return getAddressSavedBannerText().isDisplayed();
+		logger.info("Verifying Address Changed text is displayed");
+		return getAddressSavedBannerText.isDisplayed();
 	}
 
 	/**
@@ -46,8 +35,8 @@ public class AddressBookPage extends AbstractPage {
 	 * @return String
 	 */
 	public String getBillingAddress() {
-		LOGGER.info("Getting Billing Address");
-		return getBillingAddressText().getStringValue();
+		logger.info("Getting Billing Address");
+		return getBillingAddressText.getText();
 	}
 
 	/**
@@ -56,18 +45,18 @@ public class AddressBookPage extends AbstractPage {
 	 * @return
 	 */
 	public String getShippingAddress() {
-		LOGGER.info("Getting Shipping Address");
-		return getShippingAddressText().getStringValue();
+		logger.info("Getting Shipping Address");
+		return getShippingAddressText.getText();
 	}
 
 	/**
 	 * Delete Billing Address
 	 */
 	public void deleteBillingAddress() {
-		LOGGER.info("Deleting Billing Address");
+		logger.info("Deleting Billing Address");
 		JavascriptExecutor jse = (JavascriptExecutor) getDriver();
 		jse.executeScript("scroll(0,450)", "");
-		getDeleteBillingAddressButton().click();
+		getDeleteBillingAddressButton.click();
 		Alert alert = getDriver().switchTo().alert();
 		alert.accept();
 	}
@@ -76,10 +65,10 @@ public class AddressBookPage extends AbstractPage {
 	 * Delete Shipping Address
 	 */
 	public void deleteShippingAddress() {
-		LOGGER.info("Deleting Shipping Address");
+		logger.info("Deleting Shipping Address");
 		JavascriptExecutor jse = (JavascriptExecutor) getDriver();
 		jse.executeScript("scroll(0,450)", "");
-		getDeleteShippingAddressButton().click();
+		getDeleteShippingAddressButton.click();
 		Alert alert = getDriver().switchTo().alert();
 		alert.accept();
 	}
@@ -90,8 +79,8 @@ public class AddressBookPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isBillingAddressDeleted() {
-		LOGGER.info("Verifying Billing Address was deleted");
-		return getNoBillingAddressText().isDisplayed();
+		logger.info("Verifying Billing Address was deleted");
+		return getNoBillingAddressText.isDisplayed();
 	}
 
 	/**
@@ -100,8 +89,8 @@ public class AddressBookPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isShippingAddressDeleted() {
-		LOGGER.info("Verifying Shipping Address was deleted");
-		return getNoShippingAddressText().isDisplayed();
+		logger.info("Verifying Shipping Address was deleted");
+		return getNoShippingAddressText.isDisplayed();
 	}
 
 	/**
@@ -110,9 +99,9 @@ public class AddressBookPage extends AbstractPage {
 	 * @return AddBillingAddressPage
 	 */
 	public AddBillingAddressPage clickAddNewBillingAddress() {
-		LOGGER.info("Clicking Add a New Billing Address");
-		getAddBillingAddressButton().click();
-		return PageFactory.create(AddBillingAddressPage.class);
+		logger.info("Clicking Add a New Billing Address");
+		getAddBillingAddressButton.click();
+		return ComponentFactory.create(AddBillingAddressPage.class);
 	}
 
 	/**
@@ -121,59 +110,39 @@ public class AddressBookPage extends AbstractPage {
 	 * @return AddShippingAddressPage
 	 */
 	public AddShippingAddressPage clickAddNewShippingAddress() {
-		LOGGER.info("Clicking Add a New Shipping Address");
-		getAddShippingAddressButton().click();
-		return PageFactory.create(AddShippingAddressPage.class);
+		logger.info("Clicking Add a New Shipping Address");
+		getAddShippingAddressButton.click();
+		return ComponentFactory.create(AddShippingAddressPage.class);
 	}
 
 	// Protected getters
-	@WebElementLocator(webDesktop = "div.account-container.account-inner-section > div.addresses-list > div:nth-child(1) > div.account-inner-title > div.left > h2")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(jQuery = "div.account-container.account-inner-section > div.addresses-list > div:nth-child(1) > div.account-inner-title > div.left > h2", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
-	@WebElementLocator(webDesktop = "//span[contains(.,'address has been saved')]")
-	protected Text getAddressSavedBannerText() {
-		return new Text(this, getLocator(this, "getAddressSavedBannerText"));
-	}
+	@Locate(xpath = "//span[contains(.,'address has been saved')]", on = Platform.WEB_DESKTOP)
+	protected Text getAddressSavedBannerText;
 
-	@WebElementLocator(webDesktop = "#billing_form > ol > li > div.info-col > p")
-	protected Text getBillingAddressText() {
-		return new Text(this, getLocator(this, "getBillingAddressText"));
-	}
+	@Locate(jQuery = "#billing_form > ol > li > div.info-col > p", on = Platform.WEB_DESKTOP)
+	protected Text getBillingAddressText;
 
-	@WebElementLocator(webDesktop = "#shipping_form > ol > li > div.info-col > p")
-	protected Text getShippingAddressText() {
-		return new Text(this, getLocator(this, "getShippingAddressText"));
-	}
+	@Locate(jQuery = "#shipping_form > ol > li > div.info-col > p", on = Platform.WEB_DESKTOP)
+	protected Text getShippingAddressText;
 
-	@WebElementLocator(webDesktop = "#billing_form > ol > li > div.actions-col > ul > li:nth-child(2) > a")
-	protected Button getDeleteBillingAddressButton() {
-		return new Button(this, getLocator(this, "getDeleteBillingAddressButton"));
-	}
+	@Locate(jQuery = "#billing_form > ol > li > div.actions-col > ul > li:nth-child(2) > a", on = Platform.WEB_DESKTOP)
+	protected Button getDeleteBillingAddressButton;
 
-	@WebElementLocator(webDesktop = "#shipping_form > ol > li > div.actions-col > ul > li:nth-child(2) > a")
-	protected Button getDeleteShippingAddressButton() {
-		return new Button(this, getLocator(this, "getDeleteShippingAddressButton"));
-	}
+	@Locate(jQuery = "#shipping_form > ol > li > div.actions-col > ul > li:nth-child(2) > a", on = Platform.WEB_DESKTOP)
+	protected Button getDeleteShippingAddressButton;
 
-	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.account-container.account-inner-section > div.addresses-list > div:nth-child(2) > div.main-section > div")
-	protected Text getNoBillingAddressText() {
-		return new Text(this, getLocator(this, "getNoBillingAddressText"));
-	}
+	@Locate(jQuery = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.account-container.account-inner-section > div.addresses-list > div:nth-child(2) > div.main-section > div", on = Platform.WEB_DESKTOP)
+	protected Text getNoBillingAddressText;
 
-	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.account-container.account-inner-section > div.addresses-list > div:nth-child(1) > div.main-section > div")
-	protected Text getNoShippingAddressText() {
-		return new Text(this, getLocator(this, "getNoShippingAddressText"));
-	}
+	@Locate(jQuery = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.account-container.account-inner-section > div.addresses-list > div:nth-child(1) > div.main-section > div", on = Platform.WEB_DESKTOP)
+	protected Text getNoShippingAddressText;
 
-	@WebElementLocator(webDesktop = "div.account-container.account-inner-section > div.addresses-list > div:nth-child(2) > div.account-inner-title > div.right > a")
-	protected Button getAddBillingAddressButton() {
-		return new Button(this, getLocator(this, "getAddBillingAddressButton"));
-	}
+	@Locate(jQuery = "div.account-container.account-inner-section > div.addresses-list > div:nth-child(2) > div.account-inner-title > div.right > a", on = Platform.WEB_DESKTOP)
+	protected Button getAddBillingAddressButton;
 
-	@WebElementLocator(webDesktop = "div.account-container.account-inner-section > div.addresses-list > div:nth-child(1) > div.account-inner-title > div.right > a")
-	protected Button getAddShippingAddressButton() {
-		return new Button(this, getLocator(this, "getAddShippingAddressButton"));
-	}
+	@Locate(jQuery = "div.account-container.account-inner-section > div.addresses-list > div:nth-child(1) > div.account-inner-title > div.right > a", on = Platform.WEB_DESKTOP)
+	protected Button getAddShippingAddressButton;
 }

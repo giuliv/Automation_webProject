@@ -17,7 +17,7 @@ import com.applause.auto.web.views.CheckoutShippingInfoPage;
 import com.applause.auto.web.views.CoffeeKCupsProductPage;
 import com.applause.auto.web.views.CoffeeProductPage;
 import com.applause.auto.web.views.EquipmentProductPage;
-import com.applause.auto.web.views.LandingPage;
+import com.applause.auto.web.views.Landing;
 import com.applause.auto.web.views.PeetsCardProductPage;
 import com.applause.auto.web.views.ShopCoffeeKCupsPage;
 import com.applause.auto.web.views.ShopCoffeePage;
@@ -37,11 +37,11 @@ public class GuestCheckoutTest extends BaseTest {
 	public void guestCheckoutCoffeeTest() {
 
 		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
-		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+		Landing landing = navigateToLanding();
+		Assert.assertNotNull(landing, "Failed to navigate to the landing page.");
 
 		LOGGER.info("2. Select a coffee from grid view and add to cart");
-		ShopCoffeePage shopCoffeePage = landingPage.clickShopCoffeeButton();
+		ShopCoffeePage shopCoffeePage = landing.clickShopCoffeeButton();
 		CoffeeProductPage coffeeProductPage = shopCoffeePage.clickProductName(TestData.COFFEE_BRAND_NAME);
 		coffeeProductPage.selectAGrind(TestData.GRIND);
 		MiniCartContainerChunk miniCartContainer = coffeeProductPage.clickAddToCart();
@@ -76,8 +76,8 @@ public class GuestCheckoutTest extends BaseTest {
 	public void guestCheckoutTeaTest() {
 
 		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
-		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+		Landing landing = navigateToLanding();
+		Assert.assertNotNull(landing, "Failed to navigate to the landing page.");
 
 		LOGGER.info("2. Select a tea from grid view and add to cart");
 		ShopTeaPage shopTeaPage = navigateToShopTeaPage();
@@ -123,8 +123,8 @@ public class GuestCheckoutTest extends BaseTest {
 	public void guestCheckoutEquipmentTest() {
 
 		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
-		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+		Landing landing = navigateToLanding();
+		Assert.assertNotNull(landing, "Failed to navigate to the landing page.");
 
 		LOGGER.info("2. Select a equipment from grid view and add to cart");
 		ShopEquipmentPage shopEquipmentPage = navigateToShopEquipmentPage();
@@ -161,8 +161,8 @@ public class GuestCheckoutTest extends BaseTest {
 	public void guestCheckoutPeetsCardTest() {
 
 		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
-		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+		Landing landing = navigateToLanding();
+		Assert.assertNotNull(landing, "Failed to navigate to the landing page.");
 
 		LOGGER.info("2. Select a Peet's Card and add to cart from the product description page.");
 		PeetsCardProductPage peetsCardPage = navigateToShopPeetsCardPage();
@@ -209,11 +209,11 @@ public class GuestCheckoutTest extends BaseTest {
 	public void guestCheckoutTour() {
 
 		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
-		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+		Landing landing = navigateToLanding();
+		Assert.assertNotNull(landing, "Failed to navigate to the landing page.");
 
 		LOGGER.info("2. Navigate to Gift Subscription Shop page");
-		SearchResultsPage searchResultsPage = landingPage.searchForProduct(TestData.TOUR_SEARCH_TERMS);
+		SearchResultsPage searchResultsPage = landing.searchForProduct(TestData.TOUR_SEARCH_TERMS);
 
 		LOGGER.info("3. Select Product and Add to Cart");
 		CoffeeProductDescriptionPage coffeeProductDescriptionPage = searchResultsPage.clickFirstProduct();
@@ -223,7 +223,7 @@ public class GuestCheckoutTest extends BaseTest {
 
 		// TODO: Commenting code out due to Safari hover issue. Will revisit when issue is fixed.
 		// LOGGER.info("2. Navigate to Gift Subscription Shop page");
-		// MainMenuChunk mainMenuChunk = landingPage.getMainMenu();
+		// MainMenuChunk mainMenuChunk = landing.getMainMenu();
 		// ShopGiftSubscriptionsPage shopGiftSubscriptionsPage =
 		// mainMenuChunk.accessShopGiftSubscriptions();
 
@@ -268,11 +268,11 @@ public class GuestCheckoutTest extends BaseTest {
 	public void wednesdayRoastCoffee() {
 
 		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
-		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+		Landing landing = navigateToLanding();
+		Assert.assertNotNull(landing, "Failed to navigate to the landing page.");
 
 		LOGGER.info("2. Navigate to Gift Subscription Shop page");
-		SearchResultsPage searchResultsPage = landingPage.searchForProduct(TestData.WEDNES_ROAST_SEARCH);
+		SearchResultsPage searchResultsPage = landing.searchForProduct(TestData.WEDNES_ROAST_SEARCH);
 
 		LOGGER.info("3. Select Product and Add to Cart");
 		CoffeeProductDescriptionPage coffeeProductDescriptionPage = searchResultsPage.clickKona();
@@ -317,8 +317,8 @@ public class GuestCheckoutTest extends BaseTest {
 	public void guestCheckoutPaypalKCupTest() {
 
 		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
-		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+		Landing landing = navigateToLanding();
+		Assert.assertNotNull(landing, "Failed to navigate to the landing page.");
 
 		LOGGER.info("2. Navigate to K-Cups Shop page");
 		ShopCoffeeKCupsPage shopCoffeeKCupsPage = navigateToShopCoffeeKCupsPage();

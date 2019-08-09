@@ -1,30 +1,21 @@
 package com.applause.auto.web.views;
 
-import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.EditField;
+import com.applause.auto.common.data.Constants;
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.pageframework.util.webDrivers.BrowserType;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.web.helpers.WebHelper;
-import com.applause.auto.common.data.TestConstants;
 
-@WebDesktopImplementation(SignInPage.class)
-@WebTabletImplementation(SignInPage.class)
-@WebPhoneImplementation(SignInPage.class)
-public class SignInPage extends AbstractPage {
-
-	public static final LogController LOGGER = new LogController(SignInPage.class);
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getSignInButton());
-	}
+@Implementation(is = SignInPage.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = SignInPage.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = SignInPage.class, on = Platform.WEB_MOBILE_PHONE)
+public class SignInPage extends BaseComponent {
 
 	/*
 	 * Public Actions
@@ -36,8 +27,8 @@ public class SignInPage extends AbstractPage {
 	 * @param text
 	 */
 	public void enterEmail(String text) {
-		LOGGER.info("Enter email : " + text);
-		getEmailEditField().setText(text);
+		logger.info("Enter email : " + text);
+		getEmailTextBox.sendKeys(text);
 	}
 
 	/**
@@ -47,11 +38,11 @@ public class SignInPage extends AbstractPage {
 	 * @param safariEmail
 	 */
 	public void enterEmailByBrowser(String email, String safariEmail) {
-		LOGGER.info("Enter email");
+		logger.info("Enter email");
 		if (env.getBrowserType() == BrowserType.SAFARI)
-			getEmailEditField().setText(safariEmail);
+			getEmailTextBox.sendKeys(safariEmail);
 		else
-			getEmailEditField().setText(email);
+			getEmailTextBox.sendKeys(email);
 	}
 
 	/**
@@ -60,8 +51,8 @@ public class SignInPage extends AbstractPage {
 	 * @param text
 	 */
 	public void enterPassword(String text) {
-		LOGGER.info("Enter Password : " + text);
-		getPasswordEditField().setText(text);
+		logger.info("Enter Password : " + text);
+		getPasswordTextBox.sendKeys(text);
 	}
 
 	/**
@@ -70,9 +61,9 @@ public class SignInPage extends AbstractPage {
 	 * @return My Account page
 	 */
 	public MyAccountPage clickonSignInButton() {
-		LOGGER.info("Click on sign in button");
-		getSignInButton().click();
-		return PageFactory.create(MyAccountPage.class);
+		logger.info("Click on sign in button");
+		getSignInButton.click();
+		return ComponentFactory.create(MyAccountPage.class);
 	}
 
 	/**
@@ -81,14 +72,14 @@ public class SignInPage extends AbstractPage {
 	 * @return MyAccountPage
 	 */
 	public MyAccountPage mainUserLogin() {
-		LOGGER.info("Login with main user");
-		String username = (env.getBrowserType() == BrowserType.SAFARI) ? TestConstants.TestData.USERNAME_SAFARI
-				: TestConstants.TestData.USERNAME;
+		logger.info("Login with main user");
+		String username = (env.getBrowserType() == BrowserType.SAFARI) ? Constants.TestData.USERNAME_SAFARI
+				: Constants.TestData.USERNAME;
 		enterEmail(username);
-		enterPassword(TestConstants.TestData.PASSWORD);
-		syncHelper.suspend(5000);
-		getSignInButton().click();
-		return PageFactory.create(MyAccountPage.class);
+		enterPassword(Constants.TestData.PASSWORD);
+		SyncHelper.sleep(5000);
+		getSignInButton.click();
+		return ComponentFactory.create(MyAccountPage.class);
 	}
 
 	/**
@@ -101,12 +92,12 @@ public class SignInPage extends AbstractPage {
 	 * @return the my account page
 	 */
 	public MyAccountPage userLogin(String email, String password) {
-		LOGGER.info("Login with main user");
+		logger.info("Login with main user");
 		enterEmail(email);
 		enterPassword(password);
-		syncHelper.suspend(5000);
-		getSignInButton().click();
-		return PageFactory.create(MyAccountPage.class);
+		SyncHelper.sleep(5000);
+		getSignInButton.click();
+		return ComponentFactory.create(MyAccountPage.class);
 	}
 
 	/**
@@ -115,32 +106,24 @@ public class SignInPage extends AbstractPage {
 	 * @return SignUppage
 	 */
 	public SignUpPage clickonCreateAccountButton() {
-		LOGGER.info("Click on Create Account button");
-		getCreateAccountButton().click();
-		return PageFactory.create(SignUpPage.class);
+		logger.info("Click on Create Account button");
+		getCreateAccountButton.click();
+		return ComponentFactory.create(SignUpPage.class);
 	}
 
 	/*
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "#email")
-	protected EditField getEmailEditField() {
-		return new EditField(this, getLocator(this, "getEmailEditField"));
-	}
+	@Locate(jQuery = "#email", on = Platform.WEB_DESKTOP)
+	protected TextBox getEmailTextBox;
 
-	@WebElementLocator(webDesktop = "#pass")
-	protected EditField getPasswordEditField() {
-		return new EditField(this, getLocator(this, "getPasswordEditField"));
-	}
+	@Locate(jQuery = "#pass", on = Platform.WEB_DESKTOP)
+	protected TextBox getPasswordTextBox;
 
-	@WebElementLocator(webDesktop = "#send2")
-	protected Button getSignInButton() {
-		return new Button(this, getLocator(this, "getSignInButton"));
-	}
+	@Locate(jQuery = "#send2", on = Platform.WEB_DESKTOP)
+	protected Button getSignInButton;
 
-	@WebElementLocator(webDesktop = ".new-users button")
-	protected Button getCreateAccountButton() {
-		return new Button(this, getLocator(this, "getCreateAccountButton"));
-	}
+	@Locate(jQuery = ".new-users button", on = Platform.WEB_DESKTOP)
+	protected Button getCreateAccountButton;
 }

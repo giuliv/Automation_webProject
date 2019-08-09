@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 
 import com.applause.auto.web.components.MiniCartContainerChunk;
 import com.applause.auto.web.views.CoffeeProductPage;
-import com.applause.auto.web.views.LandingPage;
+import com.applause.auto.web.views.Landing;
 import com.applause.auto.web.views.ShopCoffeePage;
 import com.applause.auto.common.data.TestConstants.TestData;
 import com.applause.auto.common.data.TestConstants.TestNGGroups;
@@ -18,11 +18,11 @@ public class MiniCartTest extends BaseTest {
 	public void removeReAddMiniCartTest() {
 
 		LOGGER.info("1. Navigate to landing page");
-		LandingPage landingPage = navigateToLandingPage();
-		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+		Landing landing = navigateToLanding();
+		Assert.assertNotNull(landing, "Failed to navigate to the landing page.");
 
 		LOGGER.info("2. Go to any category page and add an item to cart.");
-		ShopCoffeePage shopCoffeePage = landingPage.clickShopCoffeeButton();
+		ShopCoffeePage shopCoffeePage = landing.clickShopCoffeeButton();
 		CoffeeProductPage coffeeProductPage = shopCoffeePage.clickProductName(TestData.COFFEE_BRAND_NAME);
 		coffeeProductPage.selectAGrind(TestData.GRIND);
 		MiniCartContainerChunk miniCartContainer = coffeeProductPage.clickAddToCart();

@@ -3,7 +3,7 @@ package com.applause.auto.test.web;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import com.applause.auto.web.views.LandingPage;
+import com.applause.auto.web.views.Landing;
 import com.applause.auto.web.views.MyAccountPage;
 import com.applause.auto.web.views.SignInPage;
 import com.applause.auto.common.data.TestConstants;
@@ -11,7 +11,7 @@ import com.applause.auto.common.data.TestConstants.TestNGGroups;
 
 public class LoginTest extends BaseTest {
 
-	private LandingPage landingPage;
+	private Landing landing;
 	private MyAccountPage myAccountPage;
 	private SignInPage signInPage;
 
@@ -19,13 +19,13 @@ public class LoginTest extends BaseTest {
 	public void loginTest() {
 
 		LOGGER.info("1. Navigate to landing page");
-		landingPage = navigateToLandingPage();
+		landing = navigateToLanding();
 
 		// Assertions
-		Assert.assertNotNull(landingPage, "Failed to navigate to the landing page.");
+		Assert.assertNotNull(landing, "Failed to navigate to the landing page.");
 
 		LOGGER.info("2. Click on Sign In");
-		signInPage = landingPage.clickSignInButton();
+		signInPage = landing.clickSignInButton();
 
 		LOGGER.info("3. Enter username and password");
 		signInPage.enterEmail(TestConstants.TestData.USERNAME);

@@ -1,28 +1,18 @@
 package com.applause.auto.web.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
-import com.applause.auto.web.helpers.WebHelper;
-
-@WebDesktopImplementation(MyAccountManageSubscriptionPage.class)
-@WebTabletImplementation(MyAccountManageSubscriptionPage.class)
-@WebPhoneImplementation(MyAccountManageSubscriptionPage.class)
-public class MyAccountManageSubscriptionPage extends AbstractPage {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getViewSignature());
-	}
+@Implementation(is = MyAccountManageSubscriptionPage.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = MyAccountManageSubscriptionPage.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = MyAccountManageSubscriptionPage.class, on = Platform.WEB_MOBILE_PHONE)
+public class MyAccountManageSubscriptionPage extends BaseComponent {
 
 	// Public actions
 
@@ -32,8 +22,8 @@ public class MyAccountManageSubscriptionPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isPauseCancelSubscriptionButtonDisplayed() {
-		LOGGER.info("Verifying Pause/Cancel Subscription button is displayed");
-		return getPauseCancelSubscriptionButton().isDisplayed();
+		logger.info("Verifying Pause/Cancel Subscription button is displayed");
+		return getPauseCancelSubscriptionButton.isDisplayed();
 	}
 
 	/**
@@ -42,8 +32,8 @@ public class MyAccountManageSubscriptionPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isManageShipmentButtonDisplayed() {
-		LOGGER.info("Verifying Manage Shipment Button is displayed");
-		return getManageShipmentButton().isDisplayed();
+		logger.info("Verifying Manage Shipment Button is displayed");
+		return getManageShipmentButton.isDisplayed();
 	}
 
 	/**
@@ -52,29 +42,21 @@ public class MyAccountManageSubscriptionPage extends AbstractPage {
 	 * @return boolean
 	 */
 	public boolean isBillingAddressDisplayed() {
-		LOGGER.info("Verifying Billing Address is displayed");
-		return getBillingAddressText().isDisplayed();
+		logger.info("Verifying Billing Address is displayed");
+		return getBillingAddressText.isDisplayed();
 	}
 
 	// Protected getters
-	@WebElementLocator(webDesktop = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(jQuery = "body > div.wrapper > div > div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
-	@WebElementLocator(webDesktop = ".recurring-profile-title a")
-	protected Button getPauseCancelSubscriptionButton() {
-		return new Button(this, getLocator(this, "getPauseCancelSubscriptionButton"));
-	}
+	@Locate(jQuery = ".recurring-profile-title a", on = Platform.WEB_DESKTOP)
+	protected Button getPauseCancelSubscriptionButton;
 
-	@WebElementLocator(webDesktop = "div.shipment-title a")
-	protected Button getManageShipmentButton() {
-		return new Button(this, getLocator(this, "getManageShipmentButton"));
-	}
+	@Locate(jQuery = "div.shipment-title a", on = Platform.WEB_DESKTOP)
+	protected Button getManageShipmentButton;
 
-	@WebElementLocator(webDesktop = "//div[div[contains(.,'Billing Address')]]/address")
-	protected Text getBillingAddressText() {
-		return new Text(this, getLocator(this, "getBillingAddressText"));
-	}
+	@Locate(xpath = "//div[div[contains(.,'Billing Address')]]/address", on = Platform.WEB_DESKTOP)
+	protected Text getBillingAddressText;
 
 }

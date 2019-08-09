@@ -1,30 +1,19 @@
 package com.applause.auto.web.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
-import com.applause.auto.web.helpers.WebHelper;
-
-@WebDesktopImplementation(ShopCoffeeKCupsPage.class)
-@WebTabletImplementation(ShopCoffeeKCupsPage.class)
-@WebPhoneImplementation(ShopCoffeeKCupsPage.class)
-public class ShopCoffeeKCupsPage extends AbstractPage {
-
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getViewSignature());
-	}
+@Implementation(is = ShopCoffeeKCupsPage.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = ShopCoffeeKCupsPage.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = ShopCoffeeKCupsPage.class, on = Platform.WEB_MOBILE_PHONE)
+public class ShopCoffeeKCupsPage extends BaseComponent {
 
 	/*
 	 * Public Actions
@@ -36,22 +25,18 @@ public class ShopCoffeeKCupsPage extends AbstractPage {
 	 * @return a Coffee K-Cups Product Page
 	 */
 	public CoffeeKCupsProductPage clickProductName(String productName) {
-		LOGGER.info(String.format("Tap on Product Name: %s", productName));
+		logger.info(String.format("Tap on Product Name: %s", productName));
 		productNameButton(productName).click();
-		return PageFactory.create(CoffeeKCupsProductPage.class);
+		return ComponentFactory.create(CoffeeKCupsProductPage.class);
 	}
 
 	/*
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "div.top-banner div.text-content h1")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(jQuery = "div.top-banner div.text-content h1", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
-	@WebElementLocator(webDesktop = "ul.products-grid h2.product-name a[title*='%s']")
-	protected Button productNameButton(String productName) {
-		return new Button(this, String.format(getLocator(this, "productNameButton"), productName));
-	}
+	@Locate(jQuery = "ul.products-grid h2.product-name a[title*='%s']", on = Platform.WEB_DESKTOP)
+	protected Button productNameButton;
 }

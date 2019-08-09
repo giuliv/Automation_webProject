@@ -1,33 +1,23 @@
 package com.applause.auto.web.views;
 
-import java.lang.invoke.MethodHandles;
-
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.ChunkFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.BaseHtmlElement;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.SelectList;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.web.components.MiniCartContainerChunk;
 import com.applause.auto.web.helpers.WebHelper;
+import java.lang.invoke.MethodHandles;
 
-@WebDesktopImplementation(EquipmentProductPage.class)
-@WebTabletImplementation(EquipmentProductPage.class)
-@WebPhoneImplementation(EquipmentProductPage.class)
-public class EquipmentProductPage extends AbstractPage {
-
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getViewSignature());
-	}
+@Implementation(is = EquipmentProductPage.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = EquipmentProductPage.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = EquipmentProductPage.class, on = Platform.WEB_MOBILE_PHONE)
+public class EquipmentProductPage extends BaseComponent {
 
 	/*
 	 * Public Actions
@@ -38,8 +28,8 @@ public class EquipmentProductPage extends AbstractPage {
 	 * 
 	 */
 	public void selectAGrind(String grind) {
-		LOGGER.info(String.format("Selecting a Grind: %s", grind));
-		getSelectGrindDropdown().select(grind);
+		logger.info(String.format("Selecting a Grind: %s", grind));
+		getSelectGrindSelectList.select(grind);
 	}
 
 	/**
@@ -48,11 +38,11 @@ public class EquipmentProductPage extends AbstractPage {
 	 * @return MiniCartContainerChunk
 	 */
 	public MiniCartContainerChunk clickAddToCart() {
-		LOGGER.info("Tap on Shop Coffee Button");
-		syncHelper.suspend(5000);
-		getAddToCartButton().click();
+		logger.info("Tap on Shop Coffee Button");
+		SyncHelper.sleep(5000);
+		getAddToCartButton.click();
 		waitForAddingToCartSpinner();
-		return ChunkFactory.create(MiniCartContainerChunk.class, this, "");
+		return ComponentFactory.create(MiniCartContainerChunk.class, this, "");
 	}
 
 	/**
@@ -60,33 +50,25 @@ public class EquipmentProductPage extends AbstractPage {
 	 * 
 	 */
 	public void waitForAddingToCartSpinner() {
-		LOGGER.info("Checkout loading-spinner...");
-		syncHelper.waitForElementToAppear(getLocator(this, "getAddingToCartSpinner"));
-		syncHelper.waitForElementToDisappear(getLocator(this, "getAddingToCartSpinner"));
+		logger.info("Checkout loading-spinner...");
+		SyncHelper.waitUntilElementPresent(getLocator(this, "getAddingToCartSpinner"));
+		SyncHelper.waitUntilElementNotPresent(getLocator(this, "getAddingToCartSpinner"));
 	}
 
 	/*
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = ".product-shop-holder .product-name")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(jQuery = ".product-shop-holder .product-name", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
-	@WebElementLocator(webDesktop = ".product-shop-holder .add-to-cart button")
-	protected Button getAddToCartButton() {
-		return new Button(this, getLocator(this, "getAddToCartButton"));
-	}
+	@Locate(jQuery = ".product-shop-holder .add-to-cart button", on = Platform.WEB_DESKTOP)
+	protected Button getAddToCartButton;
 
-	@WebElementLocator(webDesktop = "#shopping-cart-please-wait")
-	protected BaseHtmlElement getAddingToCartSpinner() {
-		return new BaseHtmlElement(this, getLocator(this, "getAddingToCartSpinner"));
-	}
+	@Locate(jQuery = "#shopping-cart-please-wait", on = Platform.WEB_DESKTOP)
+	protected ContainerElement getAddingToCartSpinner;
 
-	@WebElementLocator(webDesktop = "#attribute198")
-	protected Dropdown getSelectGrindDropdown() {
-		return new Dropdown(this, getLocator(this, "getSelectGrindDropdown"));
-	}
+	@Locate(jQuery = "#attribute198", on = Platform.WEB_DESKTOP)
+	protected SelectList getSelectGrindSelectList;
 
 }

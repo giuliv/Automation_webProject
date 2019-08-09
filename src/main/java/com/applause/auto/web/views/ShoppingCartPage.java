@@ -1,42 +1,32 @@
 package com.applause.auto.web.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.pageframework.util.webDrivers.BrowserType;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Checkbox;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.SelectList;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.QueryHelper;
+import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.web.components.ShopRunnerChunk;
+import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.openqa.selenium.WebElement;
 
-import com.applause.auto.framework.pageframework.util.drivers.BrowserType;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.ChunkFactory;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.BaseHtmlElement;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.Checkbox;
-import com.applause.auto.framework.pageframework.webcontrols.Dropdown;
-import com.applause.auto.framework.pageframework.webcontrols.EditField;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
-import com.applause.auto.web.components.ShopRunnerChunk;
-import com.applause.auto.web.helpers.WebHelper;
+@Implementation(is = ShoppingCartPage.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = ShoppingCartPage.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = ShoppingCartPage.class, on = Platform.WEB_MOBILE_PHONE)
+public class ShoppingCartPage extends BaseComponent {
 
-@WebDesktopImplementation(ShoppingCartPage.class)
-@WebTabletImplementation(ShoppingCartPage.class)
-@WebPhoneImplementation(ShoppingCartPage.class)
-public class ShoppingCartPage extends AbstractPage {
-
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
 	WebHelper webHelper = new WebHelper();
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getViewSignature());
-	}
 
 	/*
 	 * Public Actions
@@ -48,9 +38,9 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return CheckoutPage
 	 */
 	public void selectOrderAsGift() {
-		LOGGER.info("Check the Order is a Gift");
-		syncHelper.waitForElementToAppear(getLocator(this, "getOrderAsGiftCheckCheckbox"));
-		getOrderAsGiftCheckCheckbox().check();
+		logger.info("Check the Order is a Gift");
+		SyncHelper.waitUntilElementPresent(getLocator(this, "getOrderAsGiftCheckCheckbox"));
+		getOrderAsGiftCheckCheckbox.click();
 	}
 
 	/**
@@ -58,9 +48,9 @@ public class ShoppingCartPage extends AbstractPage {
 	 * 
 	 */
 	public void enterGiftMessage(String giftMessage) {
-		LOGGER.info("Enter a Gift Message");
-		syncHelper.waitForElementToAppear(getGiftMessageText().getAbsoluteSelector());
-		getGiftMessageText().setText(giftMessage);
+		logger.info("Enter a Gift Message");
+		SyncHelper.waitUntilElementPresent(getGiftMessageText.getAbsoluteSelector());
+		getGiftMessageText.sendKeys(giftMessage);
 	}
 
 	/**
@@ -69,11 +59,11 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return CheckoutPage
 	 */
 	public CheckoutPage clickProceedToCheckout() {
-		LOGGER.info("Click Proceed to Checkout button");
-		getProceedToCheckoutButton().click();
-		syncHelper.suspend(2000);
-		webHelper.jsClick(getProceedToCheckoutButton().getWebElement());
-		return PageFactory.create(CheckoutPage.class);
+		logger.info("Click Proceed to Checkout button");
+		getProceedToCheckoutButton.click();
+		SyncHelper.sleep(2000);
+		webHelper.jsClick(getProceedToCheckoutButton.getWebElement());
+		return ComponentFactory.create(CheckoutPage.class);
 	}
 
 	/**
@@ -82,11 +72,11 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return CheckoutPlaceOrderPage
 	 */
 	public CheckoutPlaceOrderPage checkoutSignedUser() {
-		LOGGER.info("Click Proceed to Checkout button");
-		getProceedToCheckoutButton().click();
-		syncHelper.suspend(2000);
-		webHelper.jsClick(getProceedToCheckoutButton().getWebElement());
-		return PageFactory.create(CheckoutPlaceOrderPage.class);
+		logger.info("Click Proceed to Checkout button");
+		getProceedToCheckoutButton.click();
+		SyncHelper.sleep(2000);
+		webHelper.jsClick(getProceedToCheckoutButton.getWebElement());
+		return ComponentFactory.create(CheckoutPlaceOrderPage.class);
 	}
 
 	/**
@@ -95,11 +85,11 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return CheckoutShippingInfoPage
 	 */
 	public CheckoutShippingInfoPage defineShippingSignedUser() {
-		LOGGER.info("Click Proceed to Checkout button");
-		getProceedToCheckoutButton().click();
-		syncHelper.suspend(2000);
-		// webHelper.jsClick(getProceedToCheckoutButton().getWebElement());
-		return PageFactory.create(CheckoutShippingInfoPage.class);
+		logger.info("Click Proceed to Checkout button");
+		getProceedToCheckoutButton.click();
+		SyncHelper.sleep(2000);
+		// webHelper.jsClick(getProceedToCheckoutButton.getWebElement());
+		return ComponentFactory.create(CheckoutShippingInfoPage.class);
 	}
 
 	/**
@@ -108,15 +98,15 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return PaypalLoginPage
 	 */
 	public PaypalLoginPage clickPayWithPaypal() {
-		LOGGER.info("Clicking Pay with Paypal");
-		getPaypalButton().click();
-		syncHelper.suspend(5000);
+		logger.info("Clicking Pay with Paypal");
+		getPaypalButton.click();
+		SyncHelper.sleep(5000);
 		try {
-			getPaypalButton().click();
+			getPaypalButton.click();
 		} catch (Exception ex) {
-			LOGGER.info("Already clicked Paypal button");
+			logger.info("Already clicked Paypal button");
 		}
-		return PageFactory.create(PaypalLoginPage.class);
+		return ComponentFactory.create(PaypalLoginPage.class);
 	}
 
 	/**
@@ -125,13 +115,13 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return CheckoutPlaceOrderPage
 	 */
 	public CheckoutPlaceOrderPage clickPayWithPaypalSignedUser() {
-		LOGGER.info("Clicking Pay with Paypal for Signed User");
-		getPaypalButton().click();
-		syncHelper.suspend(5000); // Required due a change of focus after leaving gift-message
-		if (queryHelper.doesElementExist(getPaypalButton().getAbsoluteSelector())) {
-			webHelper.jsClick(getPaypalButton().getWebElement());
+		logger.info("Clicking Pay with Paypal for Signed User");
+		getPaypalButton.click();
+		SyncHelper.sleep(5000); // Required due a change of focus after leaving gift-message
+		if (QueryHelper.doesElementExist(getPaypalButton.getAbsoluteSelector())) {
+			webHelper.jsClick(getPaypalButton.getWebElement());
 		}
-		return PageFactory.create(CheckoutPlaceOrderPage.class);
+		return ComponentFactory.create(CheckoutPlaceOrderPage.class);
 	}
 
 	/**
@@ -140,11 +130,11 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return the items
 	 */
 	public List<String> getItems() {
-		LOGGER.info("Obtaining items from mini-cart");
-		List<WebElement> result = queryHelper.findElementsByExtendedCss(getLocator(this, "getCartItemsText"));
+		logger.info("Obtaining items from mini-cart");
+		List<WebElement> result = QueryHelper.findElementsByExtendedCss(getLocator(this, "getCartItemsText"));
 		return result.stream().map(item -> {
-			String _result = item.getText();
-			LOGGER.info("Found item: " + _result);
+			String _result = item.getCurrentText();
+			logger.info("Found item: " + _result);
 			return _result.trim();
 		}).collect(Collectors.toList());
 
@@ -158,14 +148,14 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return the shopping cart page
 	 */
 	public ShoppingCartPage removeItem(String itemName) {
-		LOGGER.info("Removing item: " + itemName);
+		logger.info("Removing item: " + itemName);
 		if (env.getBrowserType() == BrowserType.SAFARI) {
 			webHelper.jsClick(getRemoveItemButton(itemName).getWebElement());
 		} else {
 			getRemoveItemButton(itemName).click();
 		}
 		waitForAddingToCartSpinner();
-		syncHelper.suspend(5000);
+		SyncHelper.sleep(5000);
 		return this;
 	}
 
@@ -174,9 +164,9 @@ public class ShoppingCartPage extends AbstractPage {
 	 *
 	 */
 	public void waitForAddingToCartSpinner() {
-		LOGGER.info("Adding item to Shopping Cart...");
-		syncHelper.waitForElementToAppear(getLocator(this, "getAddingToCartSpinner"));
-		syncHelper.waitForElementToDisappear(getLocator(this, "getAddingToCartSpinner"));
+		logger.info("Adding item to Shopping Cart...");
+		SyncHelper.waitUntilElementPresent(getLocator(this, "getAddingToCartSpinner"));
+		SyncHelper.waitUntilElementNotPresent(getLocator(this, "getAddingToCartSpinner"));
 	}
 
 	/**
@@ -189,11 +179,11 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return the grind for item
 	 */
 	public ShoppingCartPage setGrindForItem(String itemName, String grind) {
-		LOGGER.info("Change grind value");
+		logger.info("Change grind value");
 		if (env.getBrowserType() == BrowserType.SAFARI) {
-			getGrindForItemDropdown(itemName).getWebElement().sendKeys(grind + "\n");
+			getGrindForItemSelectList(itemName).getWebElement().sendKeys(grind + "\n");
 		} else {
-			getGrindForItemDropdown(itemName).select(grind);
+			getGrindForItemSelectList(itemName).select(grind);
 		}
 		waitForAddingToCartSpinner();
 		return this;
@@ -205,8 +195,8 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return the status message
 	 */
 	public String getStatusMessage() {
-		syncHelper.waitForElementToAppear(getStatusMessageText());
-		return getStatusMessageText().getText().replace("  ", " ");
+		SyncHelper.waitUntilElementPresent(getStatusMessageText);
+		return getStatusMessageText.getCurrentText().replace("  ", " ");
 	}
 
 	/**
@@ -219,8 +209,8 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return the quantity for item
 	 */
 	public ShoppingCartPage setQuantityForItem(String itemName, int quantity) {
-		LOGGER.info("Change quantity value");
-		getQuantityForItemEditField(itemName).setText("" + quantity);
+		logger.info("Change quantity value");
+		getQuantityForItemTextBox(itemName).sendKeys("" + quantity);
 		return this;
 	}
 
@@ -230,10 +220,10 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return the shopping cart page
 	 */
 	public ShoppingCartPage updateCart() {
-		LOGGER.info("Click Update cart button");
-		getUpdateCartButton().click();
+		logger.info("Click Update cart button");
+		getUpdateCartButton.click();
 		waitForAddingToCartSpinner();
-		return PageFactory.create(ShoppingCartPage.class);
+		return ComponentFactory.create(ShoppingCartPage.class);
 	}
 
 	/**
@@ -244,16 +234,16 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return the shopping cart page
 	 */
 	public ShoppingCartPage selectShippingMethod(String method) {
-		LOGGER.info("Select shipping method: " + method);
+		logger.info("Select shipping method: " + method);
 		if (env.getBrowserType() == BrowserType.SAFARI) {
-			getShippingMethodDropdown().click();
-			getShippingMethodDropdown().getWebElement().sendKeys(method + "\n");
+			getShippingMethodSelectList.click();
+			getShippingMethodSelectList.getWebElement().sendKeys(method + "\n");
 		} else {
-			getShippingMethodDropdown().select(method);
+			getShippingMethodSelectList.select(method);
 		}
 		waitForAddingToCartSpinner();
-		syncHelper.suspend(5000);
-		return PageFactory.create(ShoppingCartPage.class);
+		SyncHelper.sleep(5000);
+		return ComponentFactory.create(ShoppingCartPage.class);
 	}
 
 	/**
@@ -262,7 +252,7 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return the shipping method
 	 */
 	public String getShippingMethod() {
-		return getShippingMethodDropdown().getSelectedOption().getText();
+		return getShippingMethodSelectList.getSelectedOption().getCurrentText();
 	}
 
 	/**
@@ -271,7 +261,7 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return the estimated shipping price
 	 */
 	public String getEstimatedShippingPrice() {
-		return getEstimatedShippingPriceText().getText();
+		return getEstimatedShippingPriceText.getCurrentText();
 	}
 
 	/**
@@ -280,7 +270,7 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return the order summary price
 	 */
 	public String getOrderSummaryPrice() {
-		return getOrderSummaryPriceText().getText();
+		return getOrderSummaryPriceText.getCurrentText();
 	}
 
 	/**
@@ -289,7 +279,7 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return the subscription name
 	 */
 	public String getSubscriptionName() {
-		return getSubscriptionNameText().getText().trim();
+		return getSubscriptionNameText.getCurrentText().trim();
 	}
 
 	/**
@@ -298,7 +288,7 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return the subscription frequency
 	 */
 	public String getSubscriptionFrequency() {
-		return getSubscriptionFrequencyText().getText().trim();
+		return getSubscriptionFrequencyText.getCurrentText().trim();
 	}
 
 	/**
@@ -307,7 +297,7 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return the boolean
 	 */
 	public boolean isProductDiscountPriceDisplayed() {
-		return syncHelper.isCurrentlyVisible(getProductDiscountPriceText().getAbsoluteSelector(), getDriver());
+		return SyncHelper.isCurrentlyVisible(getProductDiscountPriceText.getAbsoluteSelector(), getDriver());
 	}
 
 	/**
@@ -316,7 +306,7 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return the boolean
 	 */
 	public boolean isShippingDiscountPriceDisplayed() {
-		return syncHelper.isCurrentlyVisible(getShippingDiscountPriceText().getAbsoluteSelector(), getDriver());
+		return SyncHelper.isCurrentlyVisible(getShippingDiscountPriceText.getAbsoluteSelector(), getDriver());
 	}
 
 	/**
@@ -325,112 +315,72 @@ public class ShoppingCartPage extends AbstractPage {
 	 * @return the shop runner chunk
 	 */
 	public ShopRunnerChunk signInShopRunner() {
-		LOGGER.info("Click on Sign In shop runner");
-		getSignInShopRunnerButton().click();
-		return ChunkFactory.create(ShopRunnerChunk.class, this, "");
+		logger.info("Click on Sign In shop runner");
+		getSignInShopRunnerButton.click();
+		return ComponentFactory.create(ShopRunnerChunk.class, this, "");
 	}
 
 	/*
 	 * Protected Getters
 	 */
 
-	@WebElementLocator(webDesktop = "div.cart.display-single-price div.page-title h1")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(jQuery = "div.cart.display-single-price div.page-title h1", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
-	@WebElementLocator(webDesktop = "//div[@class='shoprunner-cart-header']//a[text()='sign in']")
-	protected Button getSignInShopRunnerButton() {
-		return new Button(this, getLocator(this, "getSignInShopRunnerButton"));
-	}
+	@Locate(xpath = "//div[@class='shoprunner-cart-header']//a[text()='sign in']", on = Platform.WEB_DESKTOP)
+	protected Button getSignInShopRunnerButton;
 
-	@WebElementLocator(webDesktop = "[value='update_qty']")
-	protected Text getUpdateCartButton() {
-		return new Text(this, getLocator(this, "getUpdateCartButton"));
-	}
+	@Locate(jQuery = "[value='update_qty']", on = Platform.WEB_DESKTOP)
+	protected Text getUpdateCartButton;
 
-	@WebElementLocator(webDesktop = "#subscription_interval")
-	protected Text getSubscriptionFrequencyText() {
-		return new Text(this, getLocator(this, "getSubscriptionFrequencyText"));
-	}
+	@Locate(jQuery = "#subscription_interval", on = Platform.WEB_DESKTOP)
+	protected Text getSubscriptionFrequencyText;
 
-	@WebElementLocator(webDesktop = "#subscription-name-view > strong")
-	protected Text getSubscriptionNameText() {
-		return new Text(this, getLocator(this, "getSubscriptionNameText"));
-	}
+	@Locate(jQuery = "#subscription-name-view > strong", on = Platform.WEB_DESKTOP)
+	protected Text getSubscriptionNameText;
 
-	@WebElementLocator(webDesktop = "#shopping-cart-please-wait")
-	protected BaseHtmlElement getAddingToCartSpinner() {
-		return new BaseHtmlElement(this, getLocator(this, "getAddingToCartSpinner"));
-	}
+	@Locate(jQuery = "#shopping-cart-please-wait", on = Platform.WEB_DESKTOP)
+	protected ContainerElement getAddingToCartSpinner;
 
-	@WebElementLocator(webDesktop = "#shopping-cart-messages")
-	protected Text getStatusMessageText() {
-		return new Text(this, getLocator(this, "getStatusMessageText"));
-	}
+	@Locate(jQuery = "#shopping-cart-messages", on = Platform.WEB_DESKTOP)
+	protected Text getStatusMessageText;
 
-	@WebElementLocator(webDesktop = "//h3[contains(.,'%s')]/../../..//select[@title='Grind']")
-	protected Dropdown getGrindForItemDropdown(String itemName) {
-		return new Dropdown(this, String.format(getLocator(this, "getGrindForItemDropdown"), itemName));
-	}
+	@Locate(xpath = "//h3[contains(.,'%s')]/../../..//select[@title='Grind']", on = Platform.WEB_DESKTOP)
+	protected SelectList getGrindForItemSelectList;
 
-	@WebElementLocator(webDesktop = "//select[@id='shipping_method']")
-	protected Dropdown getShippingMethodDropdown() {
-		return new Dropdown(this, getLocator(this, "getShippingMethodDropdown"));
-	}
+	@Locate(xpath = "//select[@id='shipping_method']", on = Platform.WEB_DESKTOP)
+	protected SelectList getShippingMethodSelectList;
 
-	@WebElementLocator(webDesktop = "//h3[contains(.,'%s')]/../../..//input[@title='Qty']")
-	protected EditField getQuantityForItemEditField(String itemName) {
-		return new EditField(this, String.format(getLocator(this, "getQuantityForItemEditField"), itemName));
-	}
+	@Locate(xpath = "//h3[contains(.,'%s')]/../../..//input[@title='Qty']", on = Platform.WEB_DESKTOP)
+	protected TextBox getQuantityForItemTextBox;
 
-	@WebElementLocator(webDesktop = ".add-gift-message input")
-	protected Checkbox getOrderAsGiftCheckCheckbox() {
-		return new Checkbox(this, getLocator(this, "getOrderAsGiftCheckCheckbox"));
-	}
+	@Locate(jQuery = ".add-gift-message input", on = Platform.WEB_DESKTOP)
+	protected Checkbox getOrderAsGiftCheckCheckbox;
 
-	@WebElementLocator(webDesktop = "#gift-message-whole-message")
-	protected EditField getGiftMessageText() {
-		return new EditField(this, getLocator(this, "getGiftMessageText"));
-	}
+	@Locate(jQuery = "#gift-message-whole-message", on = Platform.WEB_DESKTOP)
+	protected TextBox getGiftMessageText;
 
-	@WebElementLocator(webDesktop = "#action-checkout")
-	protected Button getProceedToCheckoutButton() {
-		return new Button(this, getLocator(this, "getProceedToCheckoutButton"));
-	}
+	@Locate(jQuery = "#action-checkout", on = Platform.WEB_DESKTOP)
+	protected Button getProceedToCheckoutButton;
 
-	@WebElementLocator(webDesktop = "div#shopping-cart-actions-additional img[alt='Checkout with PayPal']")
-	protected Button getPaypalButton() {
-		return new Button(this, getLocator(this, "getPaypalButton"));
-	}
+	@Locate(jQuery = "div#shopping-cart-actions-additional img[alt='Checkout with PayPal']", on = Platform.WEB_DESKTOP)
+	protected Button getPaypalButton;
 
-	@WebElementLocator(webDesktop = "//h3[contains(.,'%s')]/../../..//a[@class='btn-remove']")
-	protected Button getRemoveItemButton(String productName) {
-		return new Button(this, String.format(getLocator(this, "getRemoveItemButton"), productName));
-	}
+	@Locate(xpath = "//h3[contains(.,'%s')]/../../..//a[@class='btn-remove']", on = Platform.WEB_DESKTOP)
+	protected Button getRemoveItemButton;
 
-	@WebElementLocator(webDesktop = "h3.product-name")
-	protected Text getCartItemsText() {
-		return new Text(this, getLocator(this, "getCartItemsText"));
-	}
+	@Locate(jQuery = "h3.product-name", on = Platform.WEB_DESKTOP)
+	protected Text getCartItemsText;
 
-	@WebElementLocator(webDesktop = "//tr[td[contains(text(),'Estimated Shipping')]]//*[@class='price']")
-	protected Text getEstimatedShippingPriceText() {
-		return new Text(this, getLocator(this, "getEstimatedShippingPriceText"));
-	}
+	@Locate(xpath = "//tr[td[contains(text(),'Estimated Shipping')]]//*[@class='price']", on = Platform.WEB_DESKTOP)
+	protected Text getEstimatedShippingPriceText;
 
-	@WebElementLocator(webDesktop = "//tr[th[contains(text(),'Product Discount')]]//*[@class='price']")
-	protected Text getProductDiscountPriceText() {
-		return new Text(this, getLocator(this, "getProductDiscountPriceText"));
-	}
+	@Locate(xpath = "//tr[th[contains(text(),'Product Discount')]]//*[@class='price']", on = Platform.WEB_DESKTOP)
+	protected Text getProductDiscountPriceText;
 
-	@WebElementLocator(webDesktop = "//tr[th[contains(text(),'Shipping Discount')]]//*[@class='price']")
-	protected Text getShippingDiscountPriceText() {
-		return new Text(this, getLocator(this, "getShippingDiscountPriceText"));
-	}
+	@Locate(xpath = "//tr[th[contains(text(),'Shipping Discount')]]//*[@class='price']", on = Platform.WEB_DESKTOP)
+	protected Text getShippingDiscountPriceText;
 
-	@WebElementLocator(webDesktop = "strong.total-price")
-	protected Text getOrderSummaryPriceText() {
-		return new Text(this, getLocator(this, "getOrderSummaryPriceText"));
-	}
+	@Locate(jQuery = "strong.total-price", on = Platform.WEB_DESKTOP)
+	protected Text getOrderSummaryPriceText;
 }

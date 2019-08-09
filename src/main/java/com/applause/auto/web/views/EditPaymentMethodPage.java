@@ -1,32 +1,23 @@
 package com.applause.auto.web.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.EditField;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
-import com.applause.auto.web.helpers.WebHelper;
-
-@WebDesktopImplementation(EditPaymentMethodPage.class)
-@WebTabletImplementation(EditPaymentMethodPage.class)
-@WebPhoneImplementation(EditPaymentMethodPage.class)
-public class EditPaymentMethodPage extends AbstractPage {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+@Implementation(is = EditPaymentMethodPage.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = EditPaymentMethodPage.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = EditPaymentMethodPage.class, on = Platform.WEB_MOBILE_PHONE)
+public class EditPaymentMethodPage extends BaseComponent {
 
 	WebHelper webHelper = new WebHelper();
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getViewSignature());
-	}
 
 	// Public actions
 
@@ -37,9 +28,9 @@ public class EditPaymentMethodPage extends AbstractPage {
 	 * @return String
 	 */
 	public String enterNameOnCard(String name) {
-		LOGGER.info("Entering Name on Card");
+		logger.info("Entering Name on Card");
 		name = webHelper.getTimestamp(name);
-		getNameOnCardField().setText(name);
+		getNameOnCardField.sendKeys(name);
 		return name;
 	}
 
@@ -49,27 +40,21 @@ public class EditPaymentMethodPage extends AbstractPage {
 	 * @return PaymentMethodsPage
 	 */
 	public PaymentMethodsPage clickSavePaymentMethod() {
-		LOGGER.info("Clicking Save Payment Method");
-		getSavePaymentMethodButton().click();
+		logger.info("Clicking Save Payment Method");
+		getSavePaymentMethodButton.click();
 		// wait for animation
-		syncHelper.suspend(2000);
-		return PageFactory.create(PaymentMethodsPage.class);
+		SyncHelper.sleep(2000);
+		return ComponentFactory.create(PaymentMethodsPage.class);
 	}
 
 	// Protected getters
-	@WebElementLocator(webDesktop = "div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(jQuery = "div.main-container.col2-left-layout > div > div.col-main > div > div.page-title > h1", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
-	@WebElementLocator(webDesktop = "#NameOnCard")
-	protected EditField getNameOnCardField() {
-		return new EditField(this, getLocator(this, "getNameOnCardField"));
-	}
+	@Locate(jQuery = "#NameOnCard", on = Platform.WEB_DESKTOP)
+	protected TextBox getNameOnCardField;
 
-	@WebElementLocator(webDesktop = "#send2")
-	protected Button getSavePaymentMethodButton() {
-		return new Button(this, getLocator(this, "getSavePaymentMethodButton"));
-	}
+	@Locate(jQuery = "#send2", on = Platform.WEB_DESKTOP)
+	protected Button getSavePaymentMethodButton;
 
 }

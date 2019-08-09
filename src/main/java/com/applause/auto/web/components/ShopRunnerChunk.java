@@ -1,26 +1,22 @@
 package com.applause.auto.web.components;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.pageframework.UIData;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.UIData;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.AbstractPageChunk;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.BaseHtmlElement;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.EditField;
-import com.applause.auto.web.helpers.WebHelper;
-
-@WebDesktopImplementation(ShopRunnerChunk.class)
-@WebTabletImplementation(ShopRunnerChunk.class)
-@WebPhoneImplementation(ShopRunnerChunk.class)
-public class ShopRunnerChunk extends AbstractPageChunk {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+@Implementation(is = ShopRunnerChunk.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = ShopRunnerChunk.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = ShopRunnerChunk.class, on = Platform.WEB_MOBILE_PHONE)
+public class ShopRunnerChunk extends BaseComponent {
 
 	/**
 	 * Constructor.
@@ -32,13 +28,6 @@ public class ShopRunnerChunk extends AbstractPageChunk {
 		super(parent, selector);
 	}
 
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getSignature().getAbsoluteSelector());
-		syncHelper.suspend(5000);
-	}
-
 	/**
 	 * Sign in.
 	 *
@@ -48,10 +37,10 @@ public class ShopRunnerChunk extends AbstractPageChunk {
 	 *            the password
 	 */
 	public void signIn(String email, String password) {
-		LOGGER.info("Clicking Sign In");
-		getEmailEditField().setText(email);
-		getPasswordEditField().setText(password);
-		getSignInButton().click();
+		logger.info("Clicking Sign In");
+		getEmailTextBox.sendKeys(email);
+		getPasswordTextBox.sendKeys(password);
+		getSignInButton.click();
 	}
 
 	/**
@@ -63,40 +52,30 @@ public class ShopRunnerChunk extends AbstractPageChunk {
 	 *            the clazz
 	 * @return the t
 	 */
-	public <T extends AbstractPage> T continueShopping(Class<T> clazz) {
-		LOGGER.info("Clicking Continue Shopping button");
-		getContinueShoppingButton().click();
-		syncHelper.suspend(6000);
-		return PageFactory.create(clazz);
+	public <T extends BaseComponent> T continueShopping(Class<T> clazz) {
+		logger.info("Clicking Continue Shopping button");
+		getContinueShoppingButton.click();
+		SyncHelper.sleep(6000);
+		return ComponentFactory.create(clazz);
 	}
 
 	/*
 	 * Public actions
 	 */
 
-	@WebElementLocator(webDesktop = "input#sr_sign_in_button")
-	protected Button getSignInButton() {
-		return new Button(this, getLocator(this, "getSignInButton"));
-	}
+	@Locate(jQuery = "input#sr_sign_in_button", on = Platform.WEB_DESKTOP)
+	protected Button getSignInButton;
 
-	@WebElementLocator(webDesktop = "#sr_close")
-	protected Button getContinueShoppingButton() {
-		return new Button(this, getLocator(this, "getContinueShoppingButton"));
-	}
+	@Locate(jQuery = "#sr_close", on = Platform.WEB_DESKTOP)
+	protected Button getContinueShoppingButton;
 
-	@WebElementLocator(webDesktop = "#sr_signin_email")
-	protected EditField getEmailEditField() {
-		return new EditField(this, getLocator(this, "getEmailEditField"));
-	}
+	@Locate(jQuery = "#sr_signin_email", on = Platform.WEB_DESKTOP)
+	protected TextBox getEmailTextBox;
 
-	@WebElementLocator(webDesktop = "#sr_signin_password")
-	protected EditField getPasswordEditField() {
-		return new EditField(this, getLocator(this, "getPasswordEditField"));
-	}
+	@Locate(jQuery = "#sr_signin_password", on = Platform.WEB_DESKTOP)
+	protected TextBox getPasswordTextBox;
 
-	@WebElementLocator(webDesktop = "#sr_modal_inner")
-	protected BaseHtmlElement getSignature() {
-		return new BaseHtmlElement(this, getLocator(this, "getSignature"));
-	}
+	@Locate(jQuery = "#sr_modal_inner", on = Platform.WEB_DESKTOP)
+	protected ContainerElement getSignature;
 
 }

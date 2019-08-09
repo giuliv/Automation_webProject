@@ -1,30 +1,20 @@
 package com.applause.auto.web.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.framework.pageframework.web.AbstractPage;
-import com.applause.auto.framework.pageframework.web.PageFactory;
-import com.applause.auto.framework.pageframework.web.WebElementLocator;
-import com.applause.auto.framework.pageframework.web.factory.WebDesktopImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebPhoneImplementation;
-import com.applause.auto.framework.pageframework.web.factory.WebTabletImplementation;
-import com.applause.auto.framework.pageframework.webcontrols.Button;
-import com.applause.auto.framework.pageframework.webcontrols.EditField;
-import com.applause.auto.framework.pageframework.webcontrols.Text;
-import com.applause.auto.web.helpers.WebHelper;
-
-@WebDesktopImplementation(AssociateNewCardPage.class)
-@WebTabletImplementation(AssociateNewCardPage.class)
-@WebPhoneImplementation(AssociateNewCardPage.class)
-public class AssociateNewCardPage extends AbstractPage {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		WebHelper.waitForDocument();
-		syncHelper.waitForElementToAppear(getViewSignature());
-	}
+@Implementation(is = AssociateNewCardPage.class, on = Platform.WEB_DESKTOP)
+@Implementation(is = AssociateNewCardPage.class, on = Platform.WEB_MOBILE_TABLET)
+@Implementation(is = AssociateNewCardPage.class, on = Platform.WEB_MOBILE_PHONE)
+public class AssociateNewCardPage extends BaseComponent {
 
 	// Public actions
 
@@ -34,8 +24,8 @@ public class AssociateNewCardPage extends AbstractPage {
 	 * @param cardNum
 	 */
 	public void enterCardNumber(String cardNum) {
-		LOGGER.info("Entering card number");
-		getCardNumberField().setText(cardNum);
+		logger.info("Entering card number");
+		getCardNumberField.sendKeys(cardNum);
 	}
 
 	/**
@@ -44,8 +34,8 @@ public class AssociateNewCardPage extends AbstractPage {
 	 * @param pinNum
 	 */
 	public void enterPinNumber(String pinNum) {
-		LOGGER.info("Entering PIN number");
-		getPinNumberField().setText(pinNum);
+		logger.info("Entering PIN number");
+		getPinNumberField.sendKeys(pinNum);
 	}
 
 	/**
@@ -54,29 +44,21 @@ public class AssociateNewCardPage extends AbstractPage {
 	 * @return PaymentMethodsPage
 	 */
 	public PaymentMethodsPage clickAssociateCard() {
-		LOGGER.info("Clicking Associate Card");
-		getAssociateCardButton().click();
-		return PageFactory.create(PaymentMethodsPage.class);
+		logger.info("Clicking Associate Card");
+		getAssociateCardButton.click();
+		return ComponentFactory.create(PaymentMethodsPage.class);
 	}
 
 	// Protected getters
-	@WebElementLocator(webDesktop = "div.main-container.col2-left-layout > div > div.col-main > div > div.page-title.title-buttons > h1")
-	protected Text getViewSignature() {
-		return new Text(this, getLocator(this, "getViewSignature"));
-	}
+	@Locate(jQuery = "div.main-container.col2-left-layout > div > div.col-main > div > div.page-title.title-buttons > h1", on = Platform.WEB_DESKTOP)
+	protected Text getViewSignature;
 
-	@WebElementLocator(webDesktop = "#card_number")
-	protected EditField getCardNumberField() {
-		return new EditField(this, getLocator(this, "getCardNumberField"));
-	}
+	@Locate(jQuery = "#card_number", on = Platform.WEB_DESKTOP)
+	protected TextBox getCardNumberField;
 
-	@WebElementLocator(webDesktop = "#pin_number")
-	protected EditField getPinNumberField() {
-		return new EditField(this, getLocator(this, "getPinNumberField"));
-	}
+	@Locate(jQuery = "#pin_number", on = Platform.WEB_DESKTOP)
+	protected TextBox getPinNumberField;
 
-	@WebElementLocator(webDesktop = "button.btn-dark")
-	protected Button getAssociateCardButton() {
-		return new Button(this, getLocator(this, "getAssociateCardButton"));
-	}
+	@Locate(jQuery = "button.btn-dark", on = Platform.WEB_DESKTOP)
+	protected Button getAssociateCardButton;
 }
