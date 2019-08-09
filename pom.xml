@@ -8,7 +8,7 @@
 	<name>peetscoffee.auto</name>
 	<url>http://maven.apache.org</url>
 	<properties>
-		<com.applause.sdk.java.version>2.1.515</com.applause.sdk.java.version>
+		<com.applause.sdk.java.version>2.1.675</com.applause.sdk.java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<surefire.version>2.19</surefire.version>
 		<surefire.suiteXmlFiles>${suiteFile}</surefire.suiteXmlFiles>

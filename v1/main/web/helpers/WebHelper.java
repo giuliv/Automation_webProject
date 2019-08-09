@@ -162,30 +162,4 @@ public class WebHelper {
 			LOGGER.info("waitForDocument timed out.");
 		}
 	}
-
-	/**
-	 * Wait for document.
-	 *
-	 * @param seconds
-	 *            the seconds
-	 */
-	public static void waitForDocument() {
-		int seconds = 60;
-		LOGGER.info("Page load synchronization wait for " + seconds + " seconds");
-		long start = System.currentTimeMillis();
-		long end = start + seconds * 1000;
-		boolean exitCond = false;
-		while ((System.currentTimeMillis() < end) && !exitCond) {
-			try {
-				exitCond = ((JavascriptExecutor) getDriver()).executeScript("return document.readyState")
-						.equals("complete");
-			} catch (WebDriverException we) {
-				LOGGER.info("Page load throw exception. Status undefined" + we.getMessage());
-			}
-		}
-		if (!exitCond) {
-			LOGGER.info("waitForDocument timed out.");
-		}
-	}
-
 }
