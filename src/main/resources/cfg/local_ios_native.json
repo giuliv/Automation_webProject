@@ -1,0 +1,12 @@
+{
+  "device_name" : "Local iOS Native",
+  "driver_type" : "iOS",
+  "factory_key" : "MOBILE_IOS",
+  "caps" : {
+    "platformName": "iOS",
+    "platformVersion": "11.4",
+    "deviceName": "R2D2",
+    "udid": "48b55bb923a1001e8e9e8ec9e7b116ba75a3d9f7",
+    "automationName": "XCUITest"
+  }
+}

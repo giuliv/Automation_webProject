@@ -1,4 +1,4 @@
-# template.web.auto
+# peetscoffe.auto
 
 The simple scenario was automated. 
 
