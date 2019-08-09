@@ -42,8 +42,8 @@ public class GuestCheckoutTest extends BaseTest {
 
 		LOGGER.info("2. Select a coffee from grid view and add to cart");
 		ShopCoffeePage shopCoffeePage = landingPage.clickShopCoffeeButton();
-		CoffeeProductPage coffeeProductPage = shopCoffeePage.clickProductName(TestConstants.TestData.COFFEE_BRAND_NAME);
-		coffeeProductPage.selectAGrind(TestConstants.TestData.GRIND);
+		CoffeeProductPage coffeeProductPage = shopCoffeePage.clickProductName(TestData.COFFEE_BRAND_NAME);
+		coffeeProductPage.selectAGrind(TestData.GRIND);
 		MiniCartContainerChunk miniCartContainer = coffeeProductPage.clickAddToCart();
 
 		LOGGER.info("3. Select 'Proceed to Checkout'");
@@ -57,7 +57,7 @@ public class GuestCheckoutTest extends BaseTest {
 
 		LOGGER.info("5. Select ground shipping");
 		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
-				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
+				.setShippingMethod(TestData.SHIPPING_METHOD_GROUND);
 
 		LOGGER.info("6. Use credit card for payment");
 		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterFillingRequiredBillingInfo();
@@ -81,7 +81,7 @@ public class GuestCheckoutTest extends BaseTest {
 
 		LOGGER.info("2. Select a tea from grid view and add to cart");
 		ShopTeaPage shopTeaPage = navigateToShopTeaPage();
-		TeaProductPage teaProductPage = shopTeaPage.clickProductName(TestConstants.TestData.TEA_NAME);
+		TeaProductPage teaProductPage = shopTeaPage.clickProductName(TestData.TEA_NAME);
 		MiniCartContainerChunk miniCartContainer = teaProductPage.clickAddToCart();
 
 		LOGGER.info("3. Select 'Edit Cart' from mini-cart");
@@ -89,7 +89,7 @@ public class GuestCheckoutTest extends BaseTest {
 
 		LOGGER.info("4. Add gift message to product");
 		shoppingCart.selectOrderAsGift();
-		shoppingCart.enterGiftMessage(TestConstants.TestData.GIFT_MESSAGE);
+		shoppingCart.enterGiftMessage(TestData.GIFT_MESSAGE);
 
 		LOGGER.info("5. Select 'Proceed to Checkout'");
 		CheckoutPage checkoutPage = shoppingCart.clickProceedToCheckout();
@@ -100,10 +100,10 @@ public class GuestCheckoutTest extends BaseTest {
 		shippingInfoPage = verifyAddressChunk.clickEnteredAddressButton();
 
 		LOGGER.info("7. Select ground shipping");
-		Assert.assertEquals(shippingInfoPage.getGiftMessage(), TestConstants.TestData.GIFT_MESSAGE,
+		Assert.assertEquals(shippingInfoPage.getGiftMessage(), TestData.GIFT_MESSAGE,
 				"Gift message entered previously was not fetched correctly");
 		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
-				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
+				.setShippingMethod(TestData.SHIPPING_METHOD_GROUND);
 
 		LOGGER.info("8. Use credit card for payment");
 		// Cant use Peets Card as it is limited to $50 so wont be a stable test
@@ -129,7 +129,7 @@ public class GuestCheckoutTest extends BaseTest {
 		LOGGER.info("2. Select a equipment from grid view and add to cart");
 		ShopEquipmentPage shopEquipmentPage = navigateToShopEquipmentPage();
 		EquipmentProductPage equipmentProductPage = shopEquipmentPage
-				.clickProductName(TestConstants.TestData.EQUIPMENT_NAME);
+				.clickProductName(TestData.EQUIPMENT_NAME);
 		MiniCartContainerChunk miniCartContainer = equipmentProductPage.clickAddToCart();
 
 		LOGGER.info("3. Select 'Proceed to Checkout'");
@@ -142,7 +142,7 @@ public class GuestCheckoutTest extends BaseTest {
 
 		LOGGER.info("5. Select ground shipping");
 		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
-				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
+				.setShippingMethod(TestData.SHIPPING_METHOD_GROUND);
 
 		LOGGER.info("6. Use credit card for payment");
 		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterFillingPeetsAndCreditInfo();
@@ -190,7 +190,7 @@ public class GuestCheckoutTest extends BaseTest {
 
 		LOGGER.info("7. Select ground shipping");
 		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
-				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
+				.setShippingMethod(TestData.SHIPPING_METHOD_GROUND);
 
 		LOGGER.info("8. Use credit card for payment");
 		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterCrediCardBillingInfo();
@@ -248,7 +248,7 @@ public class GuestCheckoutTest extends BaseTest {
 
 		LOGGER.info("7. Select ground shipping");
 		CheckoutPaymentMethodPage paymentMethodPage = checkoutShippingInfoPage
-				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
+				.setShippingMethod(TestData.SHIPPING_METHOD_GROUND);
 
 		LOGGER.info("8. Use credit card for payment");
 		CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterFillingRequiredBillingInfo();
@@ -323,8 +323,8 @@ public class GuestCheckoutTest extends BaseTest {
 		LOGGER.info("2. Navigate to K-Cups Shop page");
 		ShopCoffeeKCupsPage shopCoffeeKCupsPage = navigateToShopCoffeeKCupsPage();
 		CoffeeKCupsProductPage coffeeKCupsProductPage = shopCoffeeKCupsPage
-				.clickProductName(TestConstants.TestData.COFFEE_KCUP_NAME);
-		coffeeKCupsProductPage.selectBoxContent(TestConstants.TestData.COFFEE_KCUP_COUNT);
+				.clickProductName(TestData.COFFEE_KCUP_NAME);
+		coffeeKCupsProductPage.selectBoxContent(TestData.COFFEE_KCUP_COUNT);
 		MiniCartContainerChunk miniCartContainer = coffeeKCupsProductPage.clickAddToCart();
 
 		LOGGER.info("4. Select 'Edit Cart' from mini-cart");
@@ -332,7 +332,7 @@ public class GuestCheckoutTest extends BaseTest {
 
 		LOGGER.info("5. Add gift message to product");
 		shoppingCart.selectOrderAsGift();
-		shoppingCart.enterGiftMessage(TestConstants.TestData.GIFT_MESSAGE);
+		shoppingCart.enterGiftMessage(TestData.GIFT_MESSAGE);
 
 		LOGGER.info("6. Checkout with Paypal");
 		PaypalLoginPage paypalLoginPage = shoppingCart.clickPayWithPaypal();

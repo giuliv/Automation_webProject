@@ -77,7 +77,7 @@ public class SubscriptionsTest extends BaseTest {
 
 		LOGGER.info("Select Shipping Address & Shipping Method");
 		CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage
-				.setShippingMethod(TestConstants.TestData.SHIPPING_METHOD_GROUND);
+				.setShippingMethod(TestData.SHIPPING_METHOD_GROUND);
 
 		LOGGER.info("Select Payment Method & Billing Address");
 		CheckoutPlaceOrderPage checkoutPlaceOrderPage = paymentMethodPage.continueAfterEnteringPIN();
