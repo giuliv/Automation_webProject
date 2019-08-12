@@ -35,7 +35,7 @@ public class PeetsCardSettingsView extends AbstractDeviceView {
     }
 
     // Protected getters
-    @MobileElementLocator(android = "//android.widget.TextView[@text='Card Settings']", iOS = "//XCUIElementTypeOther[@name=\"Card Settings\"]")
+    @MobileElementLocator(android = "//android.widget.TextView[@text='CARD SETTINGS']", iOS = "//XCUIElementTypeOther[@name=\"CARD SETTINGS\"]")
     protected Text getViewSignature() { return new Text(getLocator(this, "getViewSignature")); }
 
     @MobileElementLocator(android = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]", iOS = "button back")

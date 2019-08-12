@@ -42,9 +42,9 @@ public class AccountSettingsTest extends BaseTest {
 
 		LOGGER.info("Add New Payment Method");
 		AddNewCardView addNewCardView = paymentMethodsView.clickAddNewPayment();
-		addNewCardView.enterCardNumber(TestConstants.MobileTestData.CC_NUM);
+		addNewCardView.enterCardNumber(TestConstants.TestData.AMEX_CC_NUM);
 		addNewCardView.enterExpDate(TestConstants.MobileTestData.CC_EXP_DATE);
-		addNewCardView.enterCvvCode(TestConstants.MobileTestData.CC_CVV);
+		addNewCardView.enterCvvCode(TestConstants.TestData.AMEX_CC_CODE);
 		addNewCardView.enterZipCode(TestConstants.MobileTestData.CC_ZIP);
 		addNewCardView.enterCardName(TestConstants.MobileTestData.CC_NAME);
 		addNewCardView.selectMakeDefault();
