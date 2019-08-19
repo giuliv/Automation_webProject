@@ -1,36 +1,26 @@
 package com.applause.auto.mobile.views;
 
-import java.lang.invoke.MethodHandles;
-
-import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
-import com.applause.auto.framework.pageframework.device.DeviceChunkFactory;
-import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
+import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.framework.pageframework.devicecontrols.Button;
-import com.applause.auto.framework.pageframework.devicecontrols.Text;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.mobile.components.BottomNavigationMenuChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import java.lang.invoke.MethodHandles;
 
-@AndroidImplementation(AndroidCheckInView.class)
-@IosImplementation(CheckInView.class)
-public class CheckInView extends AbstractDeviceView {
-
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		syncHelper.waitForElementToAppear(getSignature(), 120000);
-	}
+@Implementation(is = AndroidCheckInView.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = CheckInView.class, on = Platform.MOBILE_IOS)
+public class CheckInView extends BaseComponent {
 
 	/**
 	 * Add value.
 	 */
 	public void addValue() {
-		LOGGER.info("Tap on Add Value");
-		getAddValueButton().pressButton();
+		logger.info("Tap on Add Value");
+		getAddValueButton.click();
 	}
 
 	/**
@@ -39,9 +29,9 @@ public class CheckInView extends AbstractDeviceView {
 	 * @return the payment methods view
 	 */
 	public PaymentMethodsView edit() {
-		LOGGER.info("Tap pencil icon");
-		getPencilIconButton().pressButton();
-		return DeviceViewFactory.create(PaymentMethodsView.class);
+		logger.info("Tap pencil icon");
+		getPencilIconButton.click();
+		return ComponentFactory.create(PaymentMethodsView.class);
 	}
 
 	/**
@@ -50,7 +40,7 @@ public class CheckInView extends AbstractDeviceView {
 	 * @return the balance
 	 */
 	public String getBalance() {
-		String rawBalance = getBalanceText().getStringValue();
+		String rawBalance = getBalanceText.getText();
 		int decimalPosition = rawBalance.indexOf(".");
 		return rawBalance.substring(0, decimalPosition).replace("$", "");
 	}
@@ -76,9 +66,9 @@ public class CheckInView extends AbstractDeviceView {
 	 * @return the peets cards view
 	 */
 	public CheckInView confirm() {
-		LOGGER.info("Tap on confirm button");
-		getConfirmButton().pressButton();
-		return DeviceViewFactory.create(CheckInView.class);
+		logger.info("Tap on confirm button");
+		getConfirmButton.click();
+		return ComponentFactory.create(CheckInView.class);
 	}
 
 	/**
@@ -87,41 +77,33 @@ public class CheckInView extends AbstractDeviceView {
 	 * @return the bottom navigation menu
 	 */
 	public BottomNavigationMenuChunk getBottomNavigationMenu() {
-		return DeviceChunkFactory.create(BottomNavigationMenuChunk.class, "");
+		return DeviceComponentFactory.create(BottomNavigationMenuChunk.class, "");
 
 	}
 
+	@Locate(xpath = "(//XCUIElementTypeStaticText[(@name=\"Check In\" or @name=\"Add Value to My Peet's Card\") and @visible=\"true\"])[1]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.TextView[@text=\"Check In\" or @text=\"Add Value to My Peet's Card\"]", on = Platform.MOBILE_ANDROID)
+	protected Text getSignature;
 
+	@Locate(id = "Add Value", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/addValue", on = Platform.MOBILE_ANDROID)
+	protected Button getAddValueButton;
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text=\"Check In\" or @text=\"Add Value to My Peet's Card\"]", iOS = "(//XCUIElementTypeStaticText[(@name=\"Check In\" or @name=\"Add Value to My Peet's Card\") and @visible=\"true\"])[1]")
-	protected Text getSignature() {
-		return new Text(getLocator(this, "getSignature"));
-	}
+	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Your Peet’s Card Balance\"]/following-sibling::XCUIElementTypeStaticText[starts-with(@name,'$')]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/amount", on = Platform.MOBILE_ANDROID)
+	protected Text getBalanceText;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/addValue", iOS = "Add Value")
-	protected Button getAddValueButton() {
-		return new Button(getLocator(this, "getAddValueButton"));
-	}
+	@Locate(id = "Confirm Value", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/confirmChangesButton", on = Platform.MOBILE_ANDROID)
+	protected Button getConfirmButton;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/amount", iOS = "//XCUIElementTypeStaticText[@name=\"Your Peet’s Card Balance\"]/following-sibling::XCUIElementTypeStaticText[starts-with(@name,'$')]")
-	protected Text getBalanceText() {
-		return new Text(getLocator(this, "getBalanceText"));
-	}
+	@Locate(id = "button edit pen", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/editCreditCardBtn", on = Platform.MOBILE_ANDROID)
+	protected Button getPencilIconButton;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/confirmChangesButton", iOS = "Confirm Value")
-	protected Button getConfirmButton() {
-		return new Button(getLocator(this, "getConfirmButton"));
-	}
-
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/editCreditCardBtn", iOS = "button edit pen")
-	protected Button getPencilIconButton() {
-		return new Button(getLocator(this, "getPencilIconButton"));
-	}
-
-	@MobileElementLocator(android = "//android.widget.LinearLayout/android.widget.Button[@text='%s']", iOS = "//XCUIElementTypeOther/XCUIElementTypeButton[@name='%s']")
-	protected Button getAmountButton(String amount) {
-		return new Button(getLocator(this, "getAmountButton", amount));
-	}
+	@Locate(xpath = "//XCUIElementTypeOther/XCUIElementTypeButton[@name='%s']", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.LinearLayout/android.widget.Button[@text='%s']", on = Platform.MOBILE_ANDROID)
+	protected Button getAmountButton;
 
 }
 
@@ -132,7 +114,7 @@ class AndroidCheckInView extends CheckInView {
 	}
 
 	public String getBalance() {
-		return getBalanceText().getStringValue();
+		return getBalanceText.getText();
 	}
 
 }

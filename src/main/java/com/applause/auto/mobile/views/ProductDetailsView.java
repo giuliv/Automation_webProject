@@ -1,28 +1,20 @@
 package com.applause.auto.mobile.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.pageframework.device.MobileElementLocator;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
 import java.lang.invoke.MethodHandles;
 import java.time.Duration;
 
-import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
-import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
-import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.framework.pageframework.devicecontrols.BaseDeviceControl;
-import com.applause.auto.framework.pageframework.devicecontrols.Button;
-import com.applause.auto.framework.pageframework.devicecontrols.Text;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-
-@IosImplementation(ProductDetailsView.class)
-@AndroidImplementation(AndroidProductDetailsView.class)
-public class ProductDetailsView extends AbstractDeviceView {
-
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		syncHelper.waitForElementToAppear(getHeadingText(), 120000);
-	}
+@Implementation(is = ProductDetailsView.class, on = Platform.MOBILE_IOS)
+@Implementation(is = AndroidProductDetailsView.class, on = Platform.MOBILE_ANDROID)
+public class ProductDetailsView extends BaseComponent {
 
 	/**
 	 * Get the text vaalue of the heading
@@ -30,7 +22,7 @@ public class ProductDetailsView extends AbstractDeviceView {
 	 * @return
 	 */
 	public String getHeadingTextValue() {
-		return getHeadingText().getStringValue();
+		return getHeadingText.getText();
 	}
 
 	/**
@@ -43,11 +35,11 @@ public class ProductDetailsView extends AbstractDeviceView {
 	 * @return the product details view
 	 */
 	public ProductDetailsView selectModifiers(String category, String subCategory) {
-		LOGGER.info("Select category: " + category + " | " + subCategory);
+		logger.info("Select category: " + category + " | " + subCategory);
 		getCategoryItem(category).tapCenterOfElement();
 		getCategoryItem(subCategory).tapCenterOfElement();
-		getSaveChangesButton().pressButton();
-		return DeviceViewFactory.create(ProductDetailsView.class);
+		getSaveChangesButton.click();
+		return ComponentFactory.create(ProductDetailsView.class);
 	}
 
 	/**
@@ -59,42 +51,36 @@ public class ProductDetailsView extends AbstractDeviceView {
 	 *            the clazz
 	 * @return the t
 	 */
-	public <T extends AbstractDeviceView> T navigateBack(Class<T> clazz) {
-		LOGGER.info("Navigate Back");
-		getBackButton().pressButton();
+	public <T extends BaseComponent> T navigateBack(Class<T> clazz) {
+		logger.info("Navigate Back");
+		getBackButton.click();
 		if (!clazz.equals(SearchResultsView.class)) {
-			getBackButton().pressButton();
+			getBackButton.click();
 		}
-		return DeviceViewFactory.create(clazz);
+		return ComponentFactory.create(clazz);
 	}
 
+	@Locate(xpath = "//XCUIElementTypeStaticText[contains(@name,'Calories')]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/productCalories", on = Platform.MOBILE_ANDROID)
+	protected Text getHeadingText;
 
+	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.TextView[@text=\"%s\"]", on = Platform.MOBILE_ANDROID)
+	protected ContainerElement getCategoryItem;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/productCalories", iOS = "//XCUIElementTypeStaticText[contains(@name,'Calories')]")
-	protected Text getHeadingText() {
-		return new Text(getLocator(this, "getHeadingText"));
-	}
+	@Locate(id = "Save Changes", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/saveChangesButton", on = Platform.MOBILE_ANDROID)
+	protected Button getSaveChangesButton;
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text=\"%s\"]", iOS = "//XCUIElementTypeStaticText[@name=\"%s\"]")
-	protected BaseDeviceControl getCategoryItem(String category) {
-		return new BaseDeviceControl(getLocator(this, "getCategoryItem", category));
-	}
-
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/saveChangesButton", iOS = "Save Changes")
-	protected Button getSaveChangesButton() {
-		return new Button(getLocator(this, "getSaveChangesButton"));
-	}
-
-	@MobileElementLocator(android = "//android.widget.ImageButton[@content-desc='Navigate up']", iOS = "button back")
-	protected Button getBackButton() {
-		return new Button(getLocator(this, "getBackButton"));
-	}
+	@Locate(id = "button back", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.ImageButton[@content-desc='Navigate up']", on = Platform.MOBILE_ANDROID)
+	protected Button getBackButton;
 }
 
 class AndroidProductDetailsView extends ProductDetailsView {
 	@Override
-	protected void waitUntilVisible() {
+	public void waitUntilVisible() {
 		getDriver().runAppInBackground(Duration.ofSeconds(1));
-		syncHelper.waitForElementToAppear(getHeadingText(), 120000);
+		SyncHelper.waitUntilElementPresent(getHeadingText, 120000);
 	}
 }

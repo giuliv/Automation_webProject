@@ -1,21 +1,19 @@
 package com.applause.auto.mobile.components;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.pageframework.device.MobileElementLocator;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.device.AbstractDeviceChunk;
-import com.applause.auto.framework.pageframework.device.DeviceChunkFactory;
-import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.framework.pageframework.devicecontrols.BaseDeviceControl;
-import com.applause.auto.framework.pageframework.devicecontrols.Button;
-import com.applause.auto.framework.pageframework.devicecontrols.Text;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-
-@AndroidImplementation(PeetsCardsTransferAmountWarningChunk.class)
-@IosImplementation(IOSPeetsCardsTransferAmountWarningChunk.class)
-public class PeetsCardsTransferAmountWarningChunk extends AbstractDeviceChunk {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+@Implementation(is = PeetsCardsTransferAmountWarningChunk.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = IOSPeetsCardsTransferAmountWarningChunk.class, on = Platform.MOBILE_IOS)
+public class PeetsCardsTransferAmountWarningChunk extends BaseComponent {
 
 	/**
 	 * Instantiates a new Peets cards transfer amount warning chunk.
@@ -27,20 +25,15 @@ public class PeetsCardsTransferAmountWarningChunk extends AbstractDeviceChunk {
 		super(selector);
 	}
 
-	@Override
-	protected void waitUntilVisible() {
-		syncHelper.waitForElementToAppear(getSignature());
-	}
-
 	/**
 	 * Gets formatted message.
 	 *
 	 * @return the formatted message
 	 */
 	public String getFormattedMessage() {
-		return String.format("%s %s %s %s %s", getMainTitleText().getStringValue(), getTitleText().getStringValue(),
-				getMessageText1Text().getStringValue(), getMessageText2Text().getStringValue(),
-				getMessageText3Text().getStringValue());
+		return String.format("%s %s %s %s %s", getMainTitleText.getText(), getImageAltTextText.getText(),
+				getMessageText1Text.getText(), getMessageText2Text.getText(),
+				getMessageText3Text.getText());
 	}
 
 	/**
@@ -58,10 +51,10 @@ public class PeetsCardsTransferAmountWarningChunk extends AbstractDeviceChunk {
 	 * @return the formatted message could not process
 	 */
 	public String getFormattedMessageCouldNotProcess() {
-		return String.format("%s %s %s %s", getMainTitleCouldNotProcessText().getStringValue(),
-				getMessageText1CouldNotProcessText().getStringValue(),
-				getMessageText2CouldNotProcessText().getStringValue(),
-				getMessageText3CouldNotProcessText().getStringValue());
+		return String.format("%s %s %s %s", getMainTitleCouldNotProcessText.getText(),
+				getMessageText1CouldNotProcessText.getText(),
+				getMessageText2CouldNotProcessText.getText(),
+				getMessageText3CouldNotProcessText.getText());
 	}
 
 	/**
@@ -79,7 +72,7 @@ public class PeetsCardsTransferAmountWarningChunk extends AbstractDeviceChunk {
 	 * @return the boolean
 	 */
 	public boolean isContinueButtonDisplayed() {
-		return syncHelper.isElementDisplayed(getLocator(this, "getContinueButton"));
+		return SyncHelper.isElementDisplayed(getLocator(this, "getContinueButton"));
 	}
 
 	/**
@@ -88,7 +81,7 @@ public class PeetsCardsTransferAmountWarningChunk extends AbstractDeviceChunk {
 	 * @return the boolean
 	 */
 	public boolean isTryAgainButtonCouldNotProcessDisplayed() {
-		return syncHelper.isElementDisplayed(getLocator(this, "getTryAgainCouldNotProcessButton"));
+		return SyncHelper.isElementDisplayed(getLocator(this, "getTryAgainCouldNotProcessButton"));
 	}
 
 	/**
@@ -97,7 +90,7 @@ public class PeetsCardsTransferAmountWarningChunk extends AbstractDeviceChunk {
 	 * @return the boolean
 	 */
 	public boolean isCancelButtonCouldNotProcessDisplayed() {
-		return syncHelper.isElementDisplayed(getLocator(this, "getCancelCouldNotProcessButton"));
+		return SyncHelper.isElementDisplayed(getLocator(this, "getCancelCouldNotProcessButton"));
 	}
 
 	/**
@@ -106,97 +99,81 @@ public class PeetsCardsTransferAmountWarningChunk extends AbstractDeviceChunk {
 	 * @return the boolean
 	 */
 	public boolean isCancelButtonDisplayed() {
-		return syncHelper.isElementDisplayed(getLocator(this, "getCancelButton"));
+		return SyncHelper.isElementDisplayed(getLocator(this, "getCancelButton"));
 	}
 
 	/**
 	 * Tap continue.
 	 */
 	public void tapContinue() {
-		LOGGER.info("Tap Continue button");
-		getContinueButton().pressButton();
+		logger.info("Tap Continue button");
+		getContinueButton.click();
 	}
 
 	/**
 	 * Tap try again.
 	 */
-	public <T extends AbstractDeviceChunk> T tapTryAgain(Class<T> clazz) {
-		LOGGER.info("Tap Try again button");
-		getTryAgainCouldNotProcessButton().pressButton();
-		return DeviceChunkFactory.create(clazz, "");
+	public <T extends BaseComponent> T tapTryAgain(Class<T> clazz) {
+		logger.info("Tap Try again button");
+		getTryAgainCouldNotProcessButton.click();
+		return DeviceComponentFactory.create(clazz, "");
 	}
 
+	@Locate(id = "One last thing", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.TextView[1]", on = Platform.MOBILE_ANDROID)
+	protected Text getMainTitleText;
 
+	@Locate(id = "When you transfer a card into the app, you will:", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.TextView[2]", on = Platform.MOBILE_ANDROID)
+	protected Text getImageAltTextText;
 
-	@MobileElementLocator(android = "//android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.TextView[1]", iOS = "One last thing")
-	protected Text getMainTitleText() {
-		return new Text(getLocator(this, "getMainTitleText"));
-	}
+	@Locate(xpath = "(//XCUIElementTypeStaticText[@name=\"One last thing\"]/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText)[1]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.TextView[1]", on = Platform.MOBILE_ANDROID)
+	protected Text getMessageText1Text;
 
-	@MobileElementLocator(android = "//android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.TextView[2]", iOS = "When you transfer a card into the app, you will:")
-	protected Text getTitleText() {
-		return new Text(getLocator(this, "getTitleText"));
-	}
+	@Locate(xpath = "(//XCUIElementTypeStaticText[@name=\"One last thing\"]/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText)[2]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.TextView[2]", on = Platform.MOBILE_ANDROID)
+	protected Text getMessageText2Text;
 
-	@MobileElementLocator(android = "//android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.TextView[1]", iOS = "(//XCUIElementTypeStaticText[@name=\"One last thing\"]/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText)[1]")
-	protected Text getMessageText1Text() {
-		return new Text(getLocator(this, "getMessageText1Text"));
-	}
+	@Locate(xpath = "(//XCUIElementTypeStaticText[@name=\"One last thing\"]/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText)[3]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.TextView[3]", on = Platform.MOBILE_ANDROID)
+	protected Text getMessageText3Text;
 
-	@MobileElementLocator(android = "//android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.TextView[2]", iOS = "(//XCUIElementTypeStaticText[@name=\"One last thing\"]/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText)[2]")
-	protected Text getMessageText2Text() {
-		return new Text(getLocator(this, "getMessageText2Text"));
-	}
+	@Locate(id = "We couldn’t process your transfer.", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/textView3", on = Platform.MOBILE_ANDROID)
+	protected Text getMainTitleCouldNotProcessText;
 
-	@MobileElementLocator(android = "//android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.LinearLayout/android.widget.TextView[3]", iOS = "(//XCUIElementTypeStaticText[@name=\"One last thing\"]/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText)[3]")
-	protected Text getMessageText3Text() {
-		return new Text(getLocator(this, "getMessageText3Text"));
-	}
+	@Locate(xpath = "(//XCUIElementTypeStaticText[@name=\"We couldn’t process your transfer.\"]/following-sibling::XCUIElementTypeOther//XCUIElementTypeStaticText)[1]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/textView5", on = Platform.MOBILE_ANDROID)
+	protected Text getMessageText1CouldNotProcessText;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/textView3", iOS = "We couldn’t process your transfer.")
-	protected Text getMainTitleCouldNotProcessText() {
-		return new Text(getLocator(this, "getMainTitleCouldNotProcessText"));
-	}
+	@Locate(xpath = "(//XCUIElementTypeStaticText[@name=\"We couldn’t process your transfer.\"]/following-sibling::XCUIElementTypeOther//XCUIElementTypeStaticText)[2]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/textView6", on = Platform.MOBILE_ANDROID)
+	protected Text getMessageText2CouldNotProcessText;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/textView5", iOS = "(//XCUIElementTypeStaticText[@name=\"We couldn’t process your transfer.\"]/following-sibling::XCUIElementTypeOther//XCUIElementTypeStaticText)[1]")
-	protected Text getMessageText1CouldNotProcessText() {
-		return new Text(getLocator(this, "getMessageText1CouldNotProcessText"));
-	}
+	@Locate(xpath = "(//XCUIElementTypeStaticText[@name=\"We couldn’t process your transfer.\"]/following-sibling::XCUIElementTypeOther//XCUIElementTypeStaticText)[3]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/textView7", on = Platform.MOBILE_ANDROID)
+	protected Text getMessageText3CouldNotProcessText;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/textView6", iOS = "(//XCUIElementTypeStaticText[@name=\"We couldn’t process your transfer.\"]/following-sibling::XCUIElementTypeOther//XCUIElementTypeStaticText)[2]")
-	protected Text getMessageText2CouldNotProcessText() {
-		return new Text(getLocator(this, "getMessageText2CouldNotProcessText"));
-	}
+	@Locate(id = "Continue", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/continueButton", on = Platform.MOBILE_ANDROID)
+	protected Button getContinueButton;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/textView7", iOS = "(//XCUIElementTypeStaticText[@name=\"We couldn’t process your transfer.\"]/following-sibling::XCUIElementTypeOther//XCUIElementTypeStaticText)[3]")
-	protected Text getMessageText3CouldNotProcessText() {
-		return new Text(getLocator(this, "getMessageText3CouldNotProcessText"));
-	}
+	@Locate(id = "Cancel", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/cancelButton", on = Platform.MOBILE_ANDROID)
+	protected Button getCancelCouldNotProcessButton;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/continueButton", iOS = "Continue")
-	protected Button getContinueButton() {
-		return new Button(getLocator(this, "getContinueButton"));
-	}
+	@Locate(id = "Try Again", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/tryAgainButton", on = Platform.MOBILE_ANDROID)
+	protected Button getTryAgainCouldNotProcessButton;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/cancelButton", iOS = "Cancel")
-	protected Button getCancelCouldNotProcessButton() {
-		return new Button(getLocator(this, "getCancelCouldNotProcessButton"));
-	}
+	@Locate(id = "Cancel", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/cancel", on = Platform.MOBILE_ANDROID)
+	protected Button getCancelButton;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/tryAgainButton", iOS = "Try Again")
-	protected Button getTryAgainCouldNotProcessButton() {
-		return new Button(getLocator(this, "getTryAgainCouldNotProcessButton"));
-	}
-
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/cancel", iOS = "Cancel")
-	protected Button getCancelButton() {
-		return new Button(getLocator(this, "getCancelButton"));
-	}
-
-	@MobileElementLocator(android = "//android.widget.TextView[@text='One last thing']", iOS = "One last thing")
-	protected BaseDeviceControl getSignature() {
-		return new Button(getLocator(this, "getSignature"));
-	}
+	@Locate(id = "One last thing", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.TextView[@text='One last thing']", on = Platform.MOBILE_ANDROID)
+	protected ContainerElement getSignature;
 }
 
 class IOSPeetsCardsTransferAmountWarningChunk extends PeetsCardsTransferAmountWarningChunk {

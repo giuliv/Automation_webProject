@@ -1,26 +1,16 @@
 package com.applause.auto.mobile.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.pageframework.device.MobileElementLocator;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
-import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.framework.pageframework.devicecontrols.Button;
-import com.applause.auto.framework.pageframework.devicecontrols.Text;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-
-@AndroidImplementation(AuthenticationView.class)
-@IosImplementation(AuthenticationView.class)
-public class AuthenticationView extends AbstractDeviceView {
-
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		syncHelper.waitForElementToAppear(getCreateAccountButton());
-	}
-
+@Implementation(is = AuthenticationView.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = AuthenticationView.class, on = Platform.MOBILE_IOS)
+public class AuthenticationView extends BaseComponent {
 
 	/**
 	 * Get the text value of the reward title
@@ -28,18 +18,14 @@ public class AuthenticationView extends AbstractDeviceView {
 	 * @return
 	 */
 	public String getRewardTitleTextValue() {
-		return getRewardTitleText().getStringValue();
+		return getRewardTitleText.getText();
 	}
 
+	@Locate(id = "Create Account", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/signUp", on = Platform.MOBILE_ANDROID)
+	protected Button getCreateAccountButton;
 
-
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/signUp", iOS = "Create Account")
-	protected Button getCreateAccountButton() {
-		return new Button(getLocator(this, "getCreateAccountButton"));
-	}
-
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/rewardTitle", iOS = "Peetnik Rewards")
-	protected Text getRewardTitleText() {
-		return new Text(getLocator(this, "getRewardTitleText"));
-	}
+	@Locate(id = "Peetnik Rewards", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/rewardTitle", on = Platform.MOBILE_ANDROID)
+	protected Text getRewardTitleText;
 }

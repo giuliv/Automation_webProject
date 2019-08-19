@@ -1,26 +1,18 @@
 package com.applause.auto.mobile.views;
 
-import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
-import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
+import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.framework.pageframework.devicecontrols.Button;
-import com.applause.auto.framework.pageframework.devicecontrols.Text;
-import com.applause.auto.framework.pageframework.devicecontrols.TextBox;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import java.lang.invoke.MethodHandles;
 
-@AndroidImplementation(CreditCardDetailsView.class)
-@IosImplementation(IosCreditCardDetailsView.class)
-public class CreditCardDetailsView extends AbstractDeviceView {
-    protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-    @Override
-    protected void waitUntilVisible() {
-        syncHelper.waitForElementToAppear(getLocator(this, "getSaveCardButton"));
-    }
+@Implementation(is = CreditCardDetailsView.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = IosCreditCardDetailsView.class, on = Platform.MOBILE_IOS)
+public class CreditCardDetailsView extends BaseComponent {
 
     // Public actions
 
@@ -30,8 +22,8 @@ public class CreditCardDetailsView extends AbstractDeviceView {
      * @return String
      */
     public String getHeader() {
-        LOGGER.info("Getting Header Text");
-        return getHeaderText().getStringValue().trim();
+        logger.info("Getting Header Text");
+        return getHeaderText().getText().trim();
     }
 
     /**
@@ -40,8 +32,8 @@ public class CreditCardDetailsView extends AbstractDeviceView {
      * @return String
      */
     public String getCreditCardName() {
-        LOGGER.info("Getting Credit Card Name");
-        return getCCNameText().getStringValue().trim();
+        logger.info("Getting Credit Card Name");
+        return getCCNameText().getText().trim();
     }
 
     /**
@@ -50,8 +42,8 @@ public class CreditCardDetailsView extends AbstractDeviceView {
      * @return Boolean
      */
     public Boolean isDefaultCardTextPresent() {
-        LOGGER.info("Checking for Default Card text");
-        return getDefaultCardText().isTextDisplayed();
+        logger.info("Checking for Default Card text");
+        return getDefaultCardText().isVisible();
     }
 
     /**
@@ -60,9 +52,9 @@ public class CreditCardDetailsView extends AbstractDeviceView {
      * @param expDate
      */
     public void enterExpDate(String expDate) {
-        LOGGER.info("Entering Expiration Date");
-        getExpDateField().clearTextBox();
-        getExpDateField().enterText(expDate);
+        logger.info("Entering Expiration Date");
+        getExpDateField().clearText();
+        getExpDateField().sendKeys(expDate);
     }
 
     /**
@@ -71,18 +63,18 @@ public class CreditCardDetailsView extends AbstractDeviceView {
      * @return PaymentMethodsView
      */
     public PaymentMethodsView saveCard() {
-        LOGGER.info("Save Payment Method");
+        logger.info("Save Payment Method");
         getDriver().hideKeyboard();
-        getSaveCardButton().pressButton();
-        return DeviceViewFactory.create(PaymentMethodsView.class);
+        getSaveCardButton().click();
+        return ComponentFactory.create(PaymentMethodsView.class);
     }
 
     /**
      * Click Delete Card
      */
     public void clickDeleteCard() {
-        LOGGER.info("Clicking Delete Card");
-        getDeleteButton().pressButton();
+        logger.info("Clicking Delete Card");
+        getDeleteButton().click();
     }
 
     /**
@@ -91,9 +83,9 @@ public class CreditCardDetailsView extends AbstractDeviceView {
      * @return CreditCardDetailsView
      */
     public CreditCardDetailsView clickDeleteNo() {
-        LOGGER.info("Cancel Deleting Payment Method");
-        getDeleteNoButton().pressButton();
-        return DeviceViewFactory.create(CreditCardDetailsView.class);
+        logger.info("Cancel Deleting Payment Method");
+        getDeleteNoButton().click();
+        return ComponentFactory.create(CreditCardDetailsView.class);
     }
 
     /**
@@ -102,9 +94,9 @@ public class CreditCardDetailsView extends AbstractDeviceView {
      * @return PaymentMethodsView
      */
     public PaymentMethodsView clickDeleteYes() {
-        LOGGER.info("Confirming Deletion of Card");
-        getDeleteYesButton().pressButton();
-        return DeviceViewFactory.create(PaymentMethodsView.class);
+        logger.info("Confirming Deletion of Card");
+        getDeleteYesButton().click();
+        return ComponentFactory.create(PaymentMethodsView.class);
     }
 
     /**
@@ -113,49 +105,56 @@ public class CreditCardDetailsView extends AbstractDeviceView {
      * @return String
      */
     public String getExpDate() {
-        return getExpDateField().getText();
+        return getExpDateField().getCurrentText();
     }
 
     // Protected getters
-    @MobileElementLocator(android = "com.wearehathway.peets.development:id/saveCardButton", iOS = "Save Card")
+    @Locate(id = "Save Card", on = Platform.MOBILE_IOS)
+    @Locate(id = "com.wearehathway.peets.development:id/saveCardButton", on = Platform.MOBILE_ANDROID)
     protected Button getSaveCardButton() { return new Button(getLocator(this, "getSaveCardButton")); }
 
-    @MobileElementLocator(android = "com.wearehathway.peets.development:id/title", iOS = "//XCUIElementTypeOther[@name=\"Mobile Test\"]")
+    @Locate(xpath = "//XCUIElementTypeOther[@name=\"Mobile Test\"]", on = Platform.MOBILE_IOS)
+    @Locate(id = "com.wearehathway.peets.development:id/title", on = Platform.MOBILE_ANDROID)
     protected Text getHeaderText() { return new Text(getLocator(this, "getHeaderText")); }
 
-    @MobileElementLocator(android = "com.wearehathway.peets.development:id/cardName", iOS = "//XCUIElementTypeStaticText[@name=\"Mobile Test\"]")
+    @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Mobile Test\"]", on = Platform.MOBILE_IOS)
+    @Locate(id = "com.wearehathway.peets.development:id/cardName", on = Platform.MOBILE_ANDROID)
     protected Text getCCNameText() { return new Text(getLocator(this, "getCCNameText")); }
 
-    @MobileElementLocator(android = "com.wearehathway.peets.development:id/defaultText", iOS = "Set as Default Payment")
+    @Locate(id = "Set as Default Payment", on = Platform.MOBILE_IOS)
+    @Locate(id = "com.wearehathway.peets.development:id/defaultText", on = Platform.MOBILE_ANDROID)
     protected Text getDefaultCardText() { return new Text(getLocator(this, "getDefaultCardText")); }
 
     @MobileElementLocator(android = "com.wearehathway.peets.development:id/expiry",
             iOS = "//XCUIElementTypeButton[@name=\"Delete Card\"]/preceding-sibling::XCUIElementTypeTextField")
     protected TextBox getExpDateField() { return new TextBox(getLocator(this, "getExpDateField")); }
 
-    @MobileElementLocator(android = "com.wearehathway.peets.development:id/deleteCardBtn", iOS = "Delete Card")
+    @Locate(id = "Delete Card", on = Platform.MOBILE_IOS)
+    @Locate(id = "com.wearehathway.peets.development:id/deleteCardBtn", on = Platform.MOBILE_ANDROID)
     protected Button getDeleteButton() { return new Button(getLocator(this, "getDeleteButton")); }
 
-    @MobileElementLocator(android = "android:id/button2", iOS = "No")
+    @Locate(id = "No", on = Platform.MOBILE_IOS)
+    @Locate(id = "android:id/button2", on = Platform.MOBILE_ANDROID)
     protected Button getDeleteNoButton() { return new Button(getLocator(this, "getDeleteNoButton")); }
 
-    @MobileElementLocator(android = "android:id/button1", iOS = "Yes")
+    @Locate(id = "Yes", on = Platform.MOBILE_IOS)
+    @Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
     protected Button getDeleteYesButton() { return new Button(getLocator(this, "getDeleteYesButton")); }
 }
 
 class IosCreditCardDetailsView extends CreditCardDetailsView {
 
     public PaymentMethodsView saveCard() {
-        LOGGER.info("Save Payment Method");
-        getKeyboardDoneButton().pressButton();
-        getSaveCardButton().pressButton();
-        getBackButton().pressButton();
-        return DeviceViewFactory.create(PaymentMethodsView.class);
+        logger.info("Save Payment Method");
+        getKeyboardDoneButton().click();
+        getSaveCardButton().click();
+        getBackButton().click();
+        return ComponentFactory.create(PaymentMethodsView.class);
     }
 
-    @MobileElementLocator(iOS = "Done")
+    @Locate(id = "Done", on = Platform.MOBILE_IOS)
     protected Button getKeyboardDoneButton() { return new Button(getLocator(this, "getKeyboardDoneButton")); }
 
-    @MobileElementLocator(iOS = "button back")
+    @Locate(id = "button back", on = Platform.MOBILE_IOS)
     protected Button getBackButton() { return new Button(getLocator(this, "getBackButton")); }
 }

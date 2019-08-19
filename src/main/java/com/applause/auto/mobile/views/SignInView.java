@@ -1,32 +1,20 @@
 package com.applause.auto.mobile.views;
 
-import java.lang.invoke.MethodHandles;
-
-import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
-import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
+import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.framework.pageframework.devicecontrols.Button;
-import com.applause.auto.framework.pageframework.devicecontrols.TextBox;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
+import java.lang.invoke.MethodHandles;
 
-@AndroidImplementation(AndroidSignInView.class)
-@IosImplementation(SignInView.class)
-public class SignInView extends AbstractDeviceView {
-
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		syncHelper.waitForOneOfTwoElementsToAppear(getLocator(this, "getUsernameTextBox"),
-				getLocator(this, "getDismissMessageButton"));
-	}
-
+@Implementation(is = AndroidSignInView.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = SignInView.class, on = Platform.MOBILE_IOS)
+public class SignInView extends BaseComponent {
 
 	/**
 	 * Get the text value of the reward title
@@ -34,9 +22,9 @@ public class SignInView extends AbstractDeviceView {
 	 * @return
 	 */
 	public void setUsername(String username) {
-		LOGGER.info("Set username: " + username);
-		getUsernameTextBox().clearTextBox();
-		getUsernameTextBox().enterText(username);
+		logger.info("Set username: " + username);
+		getUsernameTextBox.clearText();
+		getUsernameTextBox.sendKeys(username);
 	}
 
 	/**
@@ -46,9 +34,9 @@ public class SignInView extends AbstractDeviceView {
 	 *            the password
 	 */
 	public void setPassword(String password) {
-		LOGGER.info("Set password: " + password);
-		getPasswordTextBox().clearTextBox();
-		getPasswordTextBox().enterText(password);
+		logger.info("Set password: " + password);
+		getPasswordTextBox.clearText();
+		getPasswordTextBox.sendKeys(password);
 	}
 
 	/**
@@ -57,7 +45,7 @@ public class SignInView extends AbstractDeviceView {
 	 * @return the password
 	 */
 	public String getPassword() {
-		return getPasswordTextBox().getText();
+		return getPasswordTextBox.getCurrentText();
 	}
 
 	/**
@@ -66,7 +54,7 @@ public class SignInView extends AbstractDeviceView {
 	 * @return the message
 	 */
 	public String getMessage() {
-		return getMessageTextBox().getText();
+		return getMessageTextBox.getCurrentText();
 	}
 
 	/**
@@ -75,7 +63,7 @@ public class SignInView extends AbstractDeviceView {
 	 * @return the sign in view
 	 */
 	public SignInView dismissMessage() {
-		LOGGER.info("Dismissing message");
+		logger.info("Dismissing message");
 		getDriver().switchTo().alert().accept();
 		return this;
 	}
@@ -86,7 +74,7 @@ public class SignInView extends AbstractDeviceView {
 	 * @return the un encrypted password
 	 */
 	public String getUnEncryptedPassword() {
-		return getUnEncryptedPasswordTextBox().getText();
+		return getUnEncryptedPasswordTextBox.getCurrentText();
 	}
 
 	/**
@@ -105,64 +93,55 @@ public class SignInView extends AbstractDeviceView {
 	 *            the clazz
 	 * @return the t
 	 */
-	public <T extends AbstractDeviceView> T signIn(Class<T> clazz) {
-		LOGGER.info("Click on Sign In button");
-		getSignInButton().pressButton();
-		return DeviceViewFactory.create(clazz);
+	public <T extends BaseComponent> T signIn(Class<T> clazz) {
+		logger.info("Click on Sign In button");
+		getSignInButton.click();
+		return ComponentFactory.create(clazz);
 	}
 
 	/**
 	 * Show password.
 	 */
 	public void showPassword() {
-		LOGGER.info("Click on Show Password button");
-		getShowPasswordButton().pressButton();
+		logger.info("Click on Show Password button");
+		getShowPasswordButton.click();
 	}
 
+	@Locate(xpath = "//XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/emailAddress", on = Platform.MOBILE_ANDROID)
+	protected TextBox getUsernameTextBox;
 
+	@Locate(xpath = "//XCUIElementTypeAlert//XCUIElementTypeStaticText[@name=\"The email and password you entered don't match. Please try again.\"]", on = Platform.MOBILE_IOS)
+	@Locate(id = "android:id/message", on = Platform.MOBILE_ANDROID)
+	protected TextBox getMessageTextBox;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/emailAddress", iOS = "//XCUIElementTypeTextField")
-	protected TextBox getUsernameTextBox() {
-		return new TextBox(getLocator(this, "getUsernameTextBox"));
-	}
+	@Locate(xpath = "//XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//*[@text='OKAY']", on = Platform.MOBILE_ANDROID)
+	protected Button getDismissMessageButton;
 
-	@MobileElementLocator(android = "android:id/message", iOS = "//XCUIElementTypeAlert//XCUIElementTypeStaticText[@name=\"The email and password you entered don't match. Please try again.\"]")
-	protected TextBox getMessageTextBox() {
-		return new TextBox(getLocator(this, "getMessageTextBox"));
-	}
+	@Locate(xpath = "//XCUIElementTypeButton[@name=\"Sign In\"]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/loginButton", on = Platform.MOBILE_ANDROID)
+	protected Button getSignInButton;
 
-	@MobileElementLocator(android = "//*[@text='OKAY']", iOS = "//XCUIElementTypeTextField")
-	protected Button getDismissMessageButton() {
-		return new Button(getLocator(this, "getDismissMessageButton"));
-	}
+	@Locate(id = "hide password", on = Platform.MOBILE_IOS)
+	@Locate(id = "NA", on = Platform.MOBILE_ANDROID)
+	protected Button getShowPasswordButton;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/loginButton", iOS = "//XCUIElementTypeButton[@name=\"Sign In\"]")
-	protected Button getSignInButton() {
-		return new Button(getLocator(this, "getSignInButton"));
-	}
+	@Locate(xpath = "//XCUIElementTypeSecureTextField|//XCUIElementTypeButton[@name=\"reveal password\"]/preceding-sibling::XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/password", on = Platform.MOBILE_ANDROID)
+	protected TextBox getPasswordTextBox;
 
-	@MobileElementLocator(android = "NA", iOS = "hide password")
-	protected Button getShowPasswordButton() {
-		return new Button(getLocator(this, "getShowPasswordButton"));
-	}
-
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/password", iOS = "//XCUIElementTypeSecureTextField|//XCUIElementTypeButton[@name=\"reveal password\"]/preceding-sibling::XCUIElementTypeTextField")
-	protected TextBox getPasswordTextBox() {
-		return new TextBox(getLocator(this, "getPasswordTextBox"));
-	}
-
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/password", iOS = "//XCUIElementTypeButton[@name=\"reveal password\"]/preceding-sibling::XCUIElementTypeTextField")
-	protected TextBox getUnEncryptedPasswordTextBox() {
-		return new TextBox(getLocator(this, "getUnEncryptedPasswordTextBox"));
-	}
+	@Locate(xpath = "//XCUIElementTypeButton[@name=\"reveal password\"]/preceding-sibling::XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/password", on = Platform.MOBILE_ANDROID)
+	protected TextBox getUnEncryptedPasswordTextBox;
 
 }
 
 class AndroidSignInView extends SignInView {
 	@Override
 	public void showPassword() {
-		LOGGER.info("Click on Show Password button");
-		MobileElement element = getPasswordTextBox().getMobileElement();
+		logger.info("Click on Show Password button");
+		MobileElement element = getPasswordTextBox.getMobileElement();
 		int x = element.getCenter().getX();
 		int y = element.getCenter().getY();
 		int width = element.getSize().getWidth();
@@ -171,25 +150,25 @@ class AndroidSignInView extends SignInView {
 
 	@Override
 	public void setPassword(String password) {
-		LOGGER.info("Set password: " + password);
-		while (getPasswordTextBox().getText().length() != 0) {
-			getPasswordTextBox().clearTextBox();
+		logger.info("Set password: " + password);
+		while (getPasswordTextBox.getCurrentText().length() != 0) {
+			getPasswordTextBox.clearText();
 		}
 
-		getPasswordTextBox().enterText(password);
+		getPasswordTextBox.sendKeys(password);
 	}
 
 	@Override
 	public SignInView dismissMessage() {
-		LOGGER.info("Dismissing message");
-		getDismissMessageButton().pressButton();
+		logger.info("Dismissing message");
+		getDismissMessageButton.click();
 		return this;
 	}
 
-	public <T extends AbstractDeviceView> T signIn(Class<T> clazz) {
-		LOGGER.info("Click on Sign In button");
+	public <T extends BaseComponent> T signIn(Class<T> clazz) {
+		logger.info("Click on Sign In button");
 		getDriver().hideKeyboard();
-		getSignInButton().pressButton();
-		return DeviceViewFactory.create(clazz);
+		getSignInButton.click();
+		return ComponentFactory.create(clazz);
 	}
 }

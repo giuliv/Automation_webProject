@@ -1,25 +1,17 @@
 package com.applause.auto.mobile.views;
 
-import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
-import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
+import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.framework.pageframework.devicecontrols.Button;
-import com.applause.auto.framework.pageframework.devicecontrols.Text;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import java.lang.invoke.MethodHandles;
 
-@AndroidImplementation(PeetsCardSettingsView.class)
-@IosImplementation(PeetsCardSettingsView.class)
-public class PeetsCardSettingsView extends AbstractDeviceView {
-    protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-    @Override
-    protected void waitUntilVisible() {
-        syncHelper.waitForElementToAppear(getLocator(this, "getViewSignature"));
-    }
+@Implementation(is = PeetsCardSettingsView.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = PeetsCardSettingsView.class, on = Platform.MOBILE_IOS)
+public class PeetsCardSettingsView extends BaseComponent {
 
     // Public actions
 
@@ -29,15 +21,17 @@ public class PeetsCardSettingsView extends AbstractDeviceView {
      * @return PaymentMethodsView
      */
     public PaymentMethodsView clickBackButton() {
-        LOGGER.info("Click Back Button");
-        getBackButton().pressButton();
-        return DeviceViewFactory.create(PaymentMethodsView.class);
+        logger.info("Click Back Button");
+        getBackButton().click();
+        return ComponentFactory.create(PaymentMethodsView.class);
     }
 
     // Protected getters
-    @MobileElementLocator(android = "//android.widget.TextView[@text='Card Settings']", iOS = "//XCUIElementTypeOther[@name=\"Card Settings\"]")
+    @Locate(xpath = "//XCUIElementTypeOther[@name=\"Card Settings\"]", on = Platform.MOBILE_IOS)
+    @Locate(xpath = "//android.widget.TextView[@text='Card Settings']", on = Platform.MOBILE_ANDROID)
     protected Text getViewSignature() { return new Text(getLocator(this, "getViewSignature")); }
 
-    @MobileElementLocator(android = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]", iOS = "button back")
+    @Locate(id = "button back", on = Platform.MOBILE_IOS)
+    @Locate(xpath = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]", on = Platform.MOBILE_ANDROID)
     protected Button getBackButton() { return new Button(getLocator(this, "getBackButton")); }
 }

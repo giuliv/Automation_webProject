@@ -1,27 +1,17 @@
 package com.applause.auto.mobile.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.pageframework.device.MobileElementLocator;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
-import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
-import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.framework.pageframework.devicecontrols.Button;
-import com.applause.auto.framework.pageframework.devicecontrols.Text;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-
-@AndroidImplementation(AndroidPaymentMethodsView.class)
-@IosImplementation(PaymentMethodsView.class)
-public class PaymentMethodsView extends AbstractDeviceView {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		syncHelper.waitForElementToAppear(getLocator(this, "getViewSignature"));
-	}
-
-
+@Implementation(is = AndroidPaymentMethodsView.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = PaymentMethodsView.class, on = Platform.MOBILE_IOS)
+public class PaymentMethodsView extends BaseComponent {
 
 	/**
 	 * Check for Peets Card Header
@@ -29,8 +19,8 @@ public class PaymentMethodsView extends AbstractDeviceView {
 	 * @return String
 	 */
 	public String getPeetsCardHeader() {
-		LOGGER.info("Checking for Peets Card Header");
-		return getPeetsCardHeaderText().getStringValue();
+		logger.info("Checking for Peets Card Header");
+		return getPeetsCardHeaderText.getText();
 	}
 
 	/**
@@ -39,8 +29,8 @@ public class PaymentMethodsView extends AbstractDeviceView {
 	 * @return String
 	 */
 	public String getSavedPaymentHeader() {
-		LOGGER.info("Getting Saved Payment Method Header");
-		return getSavedPaymentMethodHeaderText().getStringValue();
+		logger.info("Getting Saved Payment Method Header");
+		return getSavedPaymentMethodHeaderText.getText();
 	}
 
 	/**
@@ -49,9 +39,9 @@ public class PaymentMethodsView extends AbstractDeviceView {
 	 * @return PeetsCardSettingsView
 	 */
 	public PeetsCardSettingsView clickPeetsCard() {
-		LOGGER.info("Clicking Peets Card");
-		getPeetsCard().pressButton();
-		return DeviceViewFactory.create(PeetsCardSettingsView.class);
+		logger.info("Clicking Peets Card");
+		getPeetsCard.click();
+		return ComponentFactory.create(PeetsCardSettingsView.class);
 	}
 
 	/**
@@ -59,10 +49,10 @@ public class PaymentMethodsView extends AbstractDeviceView {
 	 *
 	 * @return CreditCardDetailsView
 	 */
-	public <T extends AbstractDeviceView> T clickSavedPaymentMethod(Class<T> clazz) {
-		LOGGER.info("Clicking Payment Method");
-		getSavedPaymentMethodButton().pressButton();
-		return DeviceViewFactory.create(clazz);
+	public <T extends BaseComponent> T clickSavedPaymentMethod(Class<T> clazz) {
+		logger.info("Clicking Payment Method");
+		getSavedPaymentMethodButton.click();
+		return ComponentFactory.create(clazz);
 	}
 
 	/**
@@ -74,10 +64,10 @@ public class PaymentMethodsView extends AbstractDeviceView {
 	 *            the clazz
 	 * @return the t
 	 */
-	public <T extends AbstractDeviceView> T clickSavedPaymentMethod2(Class<T> clazz) {
-		LOGGER.info("Clicking Payment Method");
-		getSavedPaymentMethod2Button().pressButton();
-		return DeviceViewFactory.create(clazz);
+	public <T extends BaseComponent> T clickSavedPaymentMethod2(Class<T> clazz) {
+		logger.info("Clicking Payment Method");
+		getSavedPaymentMethod2Button.click();
+		return ComponentFactory.create(clazz);
 	}
 
 	/**
@@ -86,64 +76,54 @@ public class PaymentMethodsView extends AbstractDeviceView {
 	 * @return AddNewCardView
 	 */
 	public AddNewCardView clickAddNewPayment() {
-		LOGGER.info("Clicking Add New Payment");
-		getAddNewPaymentButton().pressButton();
-		return DeviceViewFactory.create(AddNewCardView.class);
+		logger.info("Clicking Add New Payment");
+		getAddNewPaymentButton.click();
+		return ComponentFactory.create(AddNewCardView.class);
 	}
 
+	@Locate(xpath = "//*[contains(@name,\"Payment Method\")][1]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/title", on = Platform.MOBILE_ANDROID)
+	protected Text getViewSignature;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/title", iOS = "//*[contains(@name,\"Payment Method\")][1]")
-	protected Text getViewSignature() {
-		return new Text(getLocator(this, "getViewSignature"));
-	}
+	@Locate(id = "button back", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]", on = Platform.MOBILE_ANDROID)
+	protected Button getBackButton;
 
-	@MobileElementLocator(android = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]", iOS = "button back")
-	protected Button getBackButton() {
-		return new Button(getLocator(this, "getBackButton"));
-	}
+	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Your Peet's Card\"]", on = Platform.MOBILE_IOS)
+	@Locate(androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/sectionHeading\")", on = Platform.MOBILE_ANDROID)
+	protected Text getPeetsCardHeaderText;
 
-	@MobileElementLocator(android = "new UiSelector().resourceIdMatches(\".*id/sectionHeading\")", iOS = "//XCUIElementTypeStaticText[@name=\"Your Peet's Card\"]")
-	protected Text getPeetsCardHeaderText() {
-		return new Text(getLocator(this, "getPeetsCardHeaderText"));
-	}
+	@Locate(id = "Peet's Card", on = Platform.MOBILE_IOS)
+	@Locate(androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/creditCardView\")", on = Platform.MOBILE_ANDROID)
+	protected Button getPeetsCard;
 
-	@MobileElementLocator(android = "new UiSelector().resourceIdMatches(\".*id/creditCardView\")", iOS = "Peet's Card")
-	protected Button getPeetsCard() {
-		return new Button(getLocator(this, "getPeetsCard"));
-	}
+	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Saved Payment Methods\"]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.TextView[@text='Saved Payment Methods']", on = Platform.MOBILE_ANDROID)
+	protected Text getSavedPaymentMethodHeaderText;
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text='Saved Payment Methods']", iOS = "//XCUIElementTypeStaticText[@name=\"Saved Payment Methods\"]")
-	protected Text getSavedPaymentMethodHeaderText() {
-		return new Text(getLocator(this, "getSavedPaymentMethodHeaderText"));
-	}
+	@Locate(xpath = "//XCUIElementTypeTable/XCUIElementTypeCell[1]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//*[contains(@resource-id, 'id/creditCardView')][1]", on = Platform.MOBILE_ANDROID)
+	protected Button getSavedPaymentMethod2Button;
 
-	@MobileElementLocator(android = "//*[contains(@resource-id, 'id/creditCardView')][1]", iOS = "//XCUIElementTypeTable/XCUIElementTypeCell[1]")
-	protected Button getSavedPaymentMethod2Button() {
-		return new Button(getLocator(this, "getSavedPaymentMethod2Button"));
-	}
+	@Locate(xpath = "//XCUIElementTypeTable/XCUIElementTypeCell[3]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//*[contains(@resource-id, 'id/creditCardView')][3]", on = Platform.MOBILE_ANDROID)
+	protected Button getSavedPaymentMethodButton;
 
-	@MobileElementLocator(android = "//*[contains(@resource-id, 'id/creditCardView')][3]", iOS = "//XCUIElementTypeTable/XCUIElementTypeCell[3]")
-	protected Button getSavedPaymentMethodButton() {
-		return new Button(getLocator(this, "getSavedPaymentMethodButton"));
-	}
+	@Locate(id = "", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/saveChangesButton", on = Platform.MOBILE_ANDROID)
+	protected Button getSaveChangesButton;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/saveChangesButton", iOS = "")
-	protected Button getSaveChangesButton() {
-		return new Button(getLocator(this, "getSaveChangesButton"));
-	}
-
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/addPaymentView", iOS = "(//XCUIElementTypeStaticText[@name=\"Add New Payment\"])[3]")
-	protected Button getAddNewPaymentButton() {
-		return new Button(getLocator(this, "getAddNewPaymentButton"));
-	}
+	@Locate(xpath = "(//XCUIElementTypeStaticText[@name=\"Add New Payment\"])[3]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/addPaymentView", on = Platform.MOBILE_ANDROID)
+	protected Button getAddNewPaymentButton;
 
 }
 
 class AndroidPaymentMethodsView extends PaymentMethodsView {
-	public <T extends AbstractDeviceView> T clickSavedPaymentMethod2(Class<T> clazz) {
-		LOGGER.info("Selecting Saved card");
-		getSavedPaymentMethod2Button().pressButton();
-		getSaveChangesButton().pressButton();
-		return DeviceViewFactory.create(clazz);
+	public <T extends BaseComponent> T clickSavedPaymentMethod2(Class<T> clazz) {
+		logger.info("Selecting Saved card");
+		getSavedPaymentMethod2Button.click();
+		getSaveChangesButton.click();
+		return ComponentFactory.create(clazz);
 	}
 }

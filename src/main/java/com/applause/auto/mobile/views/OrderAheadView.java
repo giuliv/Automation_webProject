@@ -1,27 +1,18 @@
 package com.applause.auto.mobile.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.pageframework.device.MobileElementLocator;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
-import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
-import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.framework.pageframework.devicecontrols.Button;
-import com.applause.auto.framework.pageframework.devicecontrols.Text;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-
-@AndroidImplementation(OrderAheadView.class)
-@IosImplementation(OrderAheadView.class)
-public class OrderAheadView extends AbstractDeviceView {
-
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		syncHelper.waitForElementToAppear(getHeadingText());
-	}
-
+@Implementation(is = OrderAheadView.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = OrderAheadView.class, on = Platform.MOBILE_IOS)
+public class OrderAheadView extends BaseComponent {
 
 	/**
 	 * Press Get Started button
@@ -29,9 +20,9 @@ public class OrderAheadView extends AbstractDeviceView {
 	 * @return
 	 */
 	public AuthenticationView clickGetStartedButton() {
-		LOGGER.info("Pressing Get Started button and expected to land at Peetnik Rewards auth screen");
-		getGetStartedButton().pressButton();
-		return DeviceViewFactory.create(AuthenticationView.class);
+		logger.info("Pressing Get Started button and expected to land at Peetnik Rewards auth screen");
+		getGetStartedButton.click();
+		return ComponentFactory.create(AuthenticationView.class);
 	}
 
 	/**
@@ -40,7 +31,7 @@ public class OrderAheadView extends AbstractDeviceView {
 	 * @return
 	 */
 	public String getHeadingTextValue() {
-		return getHeadingText().getStringValue();
+		return getHeadingText.getText();
 	}
 
 	/**
@@ -49,7 +40,7 @@ public class OrderAheadView extends AbstractDeviceView {
 	 * @return the sub header text value
 	 */
 	public String getSubHeaderTextValue() {
-		return getSubHeaderText().getStringValue();
+		return getSubHeaderText.getText();
 	}
 
 	/**
@@ -58,7 +49,7 @@ public class OrderAheadView extends AbstractDeviceView {
 	 * @return the boolean
 	 */
 	public boolean isParticipatingCoffeebarsDisplayed() {
-		return syncHelper.isElementDisplayed(getLocator(this, "getParticipatingCoffeebarsButton"));
+		return SyncHelper.isElementDisplayed(getLocator(this, "getParticipatingCoffeebarsButton"));
 	}
 
 	/**
@@ -67,35 +58,28 @@ public class OrderAheadView extends AbstractDeviceView {
 	 * @return the select coffee bar view
 	 */
 	public SelectCoffeeBarView participatingCoffeebars() {
-		LOGGER.info("Tap See Participating Coffeebars");
-		getParticipatingCoffeebarsButton().pressButton();
-		return DeviceViewFactory.create(SelectCoffeeBarView.class);
+		logger.info("Tap See Participating Coffeebars");
+		getParticipatingCoffeebarsButton.click();
+		return ComponentFactory.create(SelectCoffeeBarView.class);
 	}
 
+	@Locate(id = "See Participating Coffeebars", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/seeCoffeebarsButton", on = Platform.MOBILE_ANDROID)
+	protected Button getParticipatingCoffeebarsButton;
 
+	@Locate(id = "Order Ahead.", on = Platform.MOBILE_IOS)
+	@Locate(androidUIAutomator = "new UiSelector().textContains(\"Order Ahead\")", on = Platform.MOBILE_ANDROID)
+	protected Text getHeadingText;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/seeCoffeebarsButton", iOS = "See Participating Coffeebars")
-	protected Button getParticipatingCoffeebarsButton() {
-		return new Button(getLocator(this, "getParticipatingCoffeebarsButton"));
-	}
+	@Locate(id = "Bypass the line and proceed to great coffee.", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//*[@resource-id='com.wearehathway.peets.development:id/topContainer']/android.widget.TextView[2]", on = Platform.MOBILE_ANDROID)
+	protected Text getSubHeaderText;
 
-	@MobileElementLocator(android = "new UiSelector().textContains(\"Order Ahead\")", iOS = "Order Ahead.")
-	protected Text getHeadingText() {
-		return new Text(getLocator(this, "getHeadingText"));
-	}
+	@Locate(id = "Get Started", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/getStartedButton", on = Platform.MOBILE_ANDROID)
+	protected Button getGetStartedButton;
 
-	@MobileElementLocator(android = "//*[@resource-id='com.wearehathway.peets.development:id/topContainer']/android.widget.TextView[2]", iOS = "Bypass the line and proceed to great coffee.")
-	protected Text getSubHeaderText() {
-		return new Text(getLocator(this, "getSubHeaderText"));
-	}
-
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/getStartedButton", iOS = "Get Started")
-	protected Button getGetStartedButton() {
-		return new Button(getLocator(this, "getGetStartedButton"));
-	}
-
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/skipTextView", iOS = "//XCUIElementTypeOther[1]/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther")
-	protected Button getSkipButton() {
-		return new Button(getLocator(this, "getSkipButton"));
-	}
+	@Locate(xpath = "//XCUIElementTypeOther[1]/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/skipTextView", on = Platform.MOBILE_ANDROID)
+	protected Button getSkipButton;
 }

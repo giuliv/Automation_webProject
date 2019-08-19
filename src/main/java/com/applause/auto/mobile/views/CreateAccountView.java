@@ -1,36 +1,26 @@
 package com.applause.auto.mobile.views;
 
-import java.lang.invoke.MethodHandles;
-
-import org.openqa.selenium.Dimension;
-
-import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
-import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
+import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.framework.pageframework.devicecontrols.Button;
-import com.applause.auto.framework.pageframework.devicecontrols.Checkbox;
-import com.applause.auto.framework.pageframework.devicecontrols.PickerWheel;
-import com.applause.auto.framework.pageframework.devicecontrols.Text;
-import com.applause.auto.framework.pageframework.devicecontrols.TextBox;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.mobile.helpers.MobileHelper;
-
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Checkbox;
+import com.applause.auto.pageobjectmodel.elements.Picker;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
+import java.lang.invoke.MethodHandles;
+import org.openqa.selenium.Dimension;
 
-@AndroidImplementation(AndroidCreateAccountView.class)
-@IosImplementation(CreateAccountView.class)
-public class CreateAccountView extends AbstractDeviceView {
-
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		syncHelper.waitForElementToAppear(getHeadingText());
-	}
+@Implementation(is = AndroidCreateAccountView.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = CreateAccountView.class, on = Platform.MOBILE_IOS)
+public class CreateAccountView extends BaseComponent {
 
 	/**
 	 * Privacy policy privacy policy view.
@@ -38,9 +28,9 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the privacy policy view
 	 */
 	public PrivacyPolicyView privacyPolicy() {
-		LOGGER.info("Tap on Privacy Policy");
-		getPrivacyPolicyButton().pressButton();
-		return DeviceViewFactory.create(PrivacyPolicyView.class);
+		logger.info("Tap on Privacy Policy");
+		getPrivacyPolicyButton.click();
+		return ComponentFactory.create(PrivacyPolicyView.class);
 	}
 
 	/**
@@ -49,9 +39,9 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the terms and conditions view
 	 */
 	public TermsAndConditionsView termsAndConditions() {
-		LOGGER.info("Tap on Terms and Conditions");
-		getTermsAndConditionsButton().pressButton();
-		return DeviceViewFactory.create(TermsAndConditionsView.class);
+		logger.info("Tap on Terms and Conditions");
+		getTermsAndConditionsButton.click();
+		return ComponentFactory.create(TermsAndConditionsView.class);
 	}
 
 	/**
@@ -62,9 +52,9 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the firstname
 	 */
 	public CreateAccountView setFirstname(String firstname) {
-		LOGGER.info("Set first name to: " + firstname);
-		getFirstnameTextBox().clearTextBox();
-		getFirstnameTextBox().enterText(firstname);
+		logger.info("Set first name to: " + firstname);
+		getFirstnameTextBox.clearText();
+		getFirstnameTextBox.sendKeys(firstname);
 		return this;
 	}
 
@@ -76,9 +66,9 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the lastname
 	 */
 	public CreateAccountView setLastname(String lastname) {
-		LOGGER.info("Set last name to: " + lastname);
-		getLastnameTextBox().clearTextBox();
-		getLastnameTextBox().enterText(lastname);
+		logger.info("Set last name to: " + lastname);
+		getLastnameTextBox.clearText();
+		getLastnameTextBox.sendKeys(lastname);
 		return this;
 	}
 
@@ -90,9 +80,9 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the zip code
 	 */
 	public CreateAccountView setZipCode(String zipCode) {
-		LOGGER.info("Set ZIP to: " + zipCode);
-		getZipCodeTextBox().clearTextBox();
-		getZipCodeTextBox().enterText(zipCode);
+		logger.info("Set ZIP to: " + zipCode);
+		getZipCodeTextBox.clearText();
+		getZipCodeTextBox.sendKeys(zipCode);
 		return this;
 	}
 
@@ -104,9 +94,9 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the phone number
 	 */
 	public CreateAccountView setPhoneNumber(String phone) {
-		LOGGER.info("Set phone number to: " + phone);
-		getPhoneNumberTextBox().clearTextBox();
-		getPhoneNumberTextBox().enterText(phone + "\n");
+		logger.info("Set phone number to: " + phone);
+		getPhoneNumberTextBox.clearText();
+		getPhoneNumberTextBox.sendKeys(phone + "\n");
 		return this;
 	}
 
@@ -122,9 +112,9 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the dob
 	 */
 	public CreateAccountView setDOB(String day, String month, String year) {
-		LOGGER.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
-		getDOBValueTextBox().clickTextBox();
-		MobileHelper.setPickerValueReverse(year, getDOBYearPickerWheel());
+		logger.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
+		getDOBValueTextBox.clickBox();
+		MobileHelper.setPickerValueReverse(year, getDOBYearPicker);
 
 		return this;
 	}
@@ -137,9 +127,9 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the email address
 	 */
 	public CreateAccountView setEmailAddress(String emailAddress) {
-		LOGGER.info("Set email address to: " + emailAddress);
-		getEmailAddressTextBox().clearTextBox();
-		getEmailAddressTextBox().enterText(emailAddress + "\n");
+		logger.info("Set email address to: " + emailAddress);
+		getEmailAddressTextBox.clearText();
+		getEmailAddressTextBox.sendKeys(emailAddress + "\n");
 		return this;
 	}
 
@@ -151,10 +141,10 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the confirm email address
 	 */
 	public CreateAccountView setConfirmEmailAddress(String emailAddress) {
-		LOGGER.info("Set email address to: " + emailAddress);
+		logger.info("Set email address to: " + emailAddress);
 		MobileHelper.scrollDown(1);
-		getConfirmEmailAddressTextBox().clearTextBox();
-		getConfirmEmailAddressTextBox().enterText(emailAddress + "\n");
+		getConfirmEmailAddressTextBox.clearText();
+		getConfirmEmailAddressTextBox.sendKeys(emailAddress + "\n");
 		return this;
 	}
 
@@ -166,10 +156,10 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the password
 	 */
 	public CreateAccountView setPassword(String password) {
-		LOGGER.info("Set password to: " + password);
+		logger.info("Set password to: " + password);
 		MobileHelper.scrollDown(1);
-		getHiddenPasswordTextBox().clearTextBox();
-		getHiddenPasswordTextBox().enterText(password + "\n");
+		getHiddenPasswordTextBox.clearText();
+		getHiddenPasswordTextBox.sendKeys(password + "\n");
 		return this;
 	}
 
@@ -181,9 +171,9 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the confirmation password
 	 */
 	public CreateAccountView setConfirmationPassword(String password) {
-		LOGGER.info("Set confirmation password to: " + password);
-		getConfirmPasswordTextBox().clearTextBox();
-		getConfirmPasswordTextBox().enterText(password + "\n");
+		logger.info("Set confirmation password to: " + password);
+		getConfirmPasswordTextBox.clearText();
+		getConfirmPasswordTextBox.sendKeys(password + "\n");
 		return this;
 	}
 
@@ -195,9 +185,9 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the promo
 	 */
 	public CreateAccountView setPromo(String promo) {
-		LOGGER.info("Set promo to: " + promo);
-		getPromoCodeTextBox().clearTextBox();
-		getPromoCodeTextBox().enterText(promo + "\n");
+		logger.info("Set promo to: " + promo);
+		getPromoCodeTextBox.clearText();
+		getPromoCodeTextBox.sendKeys(promo + "\n");
 		MobileHelper.scrollDown(1);
 		return this;
 	}
@@ -208,8 +198,8 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the create account view
 	 */
 	public CreateAccountView showPassword() {
-		LOGGER.info("Click to show password");
-		getShowPasswordButton().pressButton();
+		logger.info("Click to show password");
+		getShowPasswordButton.click();
 		return this;
 	}
 
@@ -219,8 +209,8 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the create account view
 	 */
 	public CreateAccountView hidePassword() {
-		LOGGER.info("Click to hide password");
-		getHidePasswordButton().pressButton();
+		logger.info("Click to hide password");
+		getHidePasswordButton.click();
 		return this;
 	}
 
@@ -228,8 +218,8 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * Check privacy policy and terms and conditions.
 	 */
 	public void checkPrivacyPolicyAndTermsAndConditions() {
-		LOGGER.info("Click on Privacy Policy button");
-		getAgreePrivacyPolicyAndTermsAndConditions().tapCenterOfElement();
+		logger.info("Click on Privacy Policy button");
+		getAgreePrivacyPolicyAndTermsAndConditions.tapCenterOfElement();
 	}
 
 	/**
@@ -238,10 +228,10 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the dashboard view
 	 */
 	public DashboardView createAccount() {
-		LOGGER.info("Create account");
-		getCreateAccountButton().pressButton();
-		syncHelper.waitForElementToDisappear(getCreateAccountButton().getSelector());
-		return DeviceViewFactory.create(DashboardView.class);
+		logger.info("Create account");
+		getCreateAccountButton.click();
+		SyncHelper.waitUntilElementNotPresent(getCreateAccountButton.getSelector());
+		return ComponentFactory.create(DashboardView.class);
 	}
 
 	/**
@@ -250,7 +240,7 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the phone number
 	 */
 	public String getPhoneNumber() {
-		return getPhoneNumberTextBox().getText();
+		return getPhoneNumberTextBox.getCurrentText();
 	}
 
 	/**
@@ -259,7 +249,7 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the email address
 	 */
 	public String getEmailAddress() {
-		return getEmailAddressTextBox().getText();
+		return getEmailAddressTextBox.getCurrentText();
 	}
 
 	/**
@@ -268,7 +258,7 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the firstname
 	 */
 	public String getFirstname() {
-		return getFirstnameTextBox().getText();
+		return getFirstnameTextBox.getCurrentText();
 	}
 
 	/**
@@ -277,7 +267,7 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the lastname
 	 */
 	public String getLastname() {
-		return getLastnameTextBox().getText();
+		return getLastnameTextBox.getCurrentText();
 
 	}
 
@@ -287,7 +277,7 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the dob
 	 */
 	public String getDOB() {
-		return getDOBValueTextBox().getText();
+		return getDOBValueTextBox.getCurrentText();
 
 	}
 
@@ -297,7 +287,7 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the hidden password
 	 */
 	public String getHiddenPassword() {
-		return getHiddenPasswordTextBox().getText();
+		return getHiddenPasswordTextBox.getCurrentText();
 
 	}
 
@@ -307,7 +297,7 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the password
 	 */
 	public String getPassword() {
-		return getPasswordTextBox().getText();
+		return getPasswordTextBox.getCurrentText();
 
 	}
 
@@ -317,7 +307,7 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the boolean
 	 */
 	public boolean isEmailOptInChecked() {
-		return MobileHelper.isAttribtuePresent(getEmailsWithOffersCheckBox().getMobileElement(), "value");
+		return MobileHelper.isAttribtuePresent(getEmailsWithOffersCheckBox.getMobileElement(), "value");
 
 	}
 
@@ -327,7 +317,7 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the boolean
 	 */
 	public boolean isCreateAccountButtonEnabled() {
-		return getCreateAccountButton().isEnabled();
+		return getCreateAccountButton.isEnabled();
 
 	}
 
@@ -335,8 +325,8 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * Tap email opt in.
 	 */
 	public void tapEmailOptIn() {
-		LOGGER.info("Tap on email opt in checkbo");
-		getEmailsWithOffersCheckBox().tapCenterOfElement();
+		logger.info("Tap on email opt in checkbo");
+		getEmailsWithOffersCheckBox.tapCenterOfElement();
 
 	}
 
@@ -348,8 +338,8 @@ public class CreateAccountView extends AbstractDeviceView {
 	public boolean isPrivacyPolicyAndTermsAndConditionsChecked() {
 		getDriver().getPageSource();
 		MobileHelper.scrollDown(1);
-		syncHelper.suspend(10000);
-		return MobileHelper.isAttribtuePresent(getAgreePrivacyPolicyAndTermsAndConditions().getMobileElement(),
+		SyncHelper.sleep(10000);
+		return MobileHelper.isAttribtuePresent(getAgreePrivacyPolicyAndTermsAndConditions.getMobileElement(),
 				"value");
 	}
 
@@ -359,165 +349,139 @@ public class CreateAccountView extends AbstractDeviceView {
 	 * @return the zip code
 	 */
 	public String getZipCode() {
-		return getZipCodeTextBox().getText();
+		return getZipCodeTextBox.getCurrentText();
 	}
 
+	@Locate(xpath = "(//XCUIElementTypeButton[@name=\"hide password\"])[1]", on = Platform.MOBILE_IOS)
+	@Locate(id = "", on = Platform.MOBILE_ANDROID)
+	protected Button getShowPasswordButton;
 
+	@Locate(xpath = "(//XCUIElementTypeButton[@name=\"reveal password\"])[1]", on = Platform.MOBILE_IOS)
+	@Locate(id = "", on = Platform.MOBILE_ANDROID)
+	protected Button getHidePasswordButton;
 
-	@MobileElementLocator(android = "", iOS = "(//XCUIElementTypeButton[@name=\"hide password\"])[1]")
-	protected Button getShowPasswordButton() {
-		return new Button(getLocator(this, "getShowPasswordButton"));
-	}
+	@Locate(xpath = "(//XCUIElementTypeButton[@name=\"hide password\"])[2]", on = Platform.MOBILE_IOS)
+	@Locate(id = "", on = Platform.MOBILE_ANDROID)
+	protected Button getShowConfirmationPasswordButton;
 
-	@MobileElementLocator(android = "", iOS = "(//XCUIElementTypeButton[@name=\"reveal password\"])[1]")
-	protected Button getHidePasswordButton() {
-		return new Button(getLocator(this, "getHidePasswordButton"));
-	}
+	@Locate(xpath = "(//XCUIElementTypeButton[@name=\"reveal password\"])[2]", on = Platform.MOBILE_IOS)
+	@Locate(id = "", on = Platform.MOBILE_ANDROID)
+	protected Button getHideConfirmationPasswordButton;
 
-	@MobileElementLocator(android = "", iOS = "(//XCUIElementTypeButton[@name=\"hide password\"])[2]")
-	protected Button getShowConfirmationPasswordButton() {
-		return new Button(getLocator(this, "getShowConfirmationPasswordButton"));
-	}
+	@Locate(xpath = "//XCUIElementTypeDatePicker/XCUIElementTypeOther/XCUIElementTypePicker[2]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//*[@resource-id='android:id/pickers']/android.widget.NumberPicker[2]/android.widget.EditText", on = Platform.MOBILE_ANDROID)
+	protected Picker getDOBDayPicker;
 
-	@MobileElementLocator(android = "", iOS = "(//XCUIElementTypeButton[@name=\"reveal password\"])[2]")
-	protected Button getHideConfirmationPasswordButton() {
-		return new Button(getLocator(this, "getHideConfirmationPasswordButton"));
-	}
+	@Locate(xpath = "//XCUIElementTypeDatePicker/XCUIElementTypeOther/XCUIElementTypePicker[1]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//*[@resource-id='android:id/pickers']/android.widget.NumberPicker[1]/android.widget.EditText", on = Platform.MOBILE_ANDROID)
+	protected Picker getDOBMonthPicker;
 
-	@MobileElementLocator(android = "//*[@resource-id='android:id/pickers']/android.widget.NumberPicker[2]/android.widget.EditText", iOS = "//XCUIElementTypeDatePicker/XCUIElementTypeOther/XCUIElementTypePickerWheel[2]")
-	protected PickerWheel getDOBDayPickerWheel() {
-		return new PickerWheel(getLocator(this, "getDOBDayPickerWheel"));
-	}
+	@Locate(xpath = "//XCUIElementTypeDatePicker/XCUIElementTypeOther/XCUIElementTypePicker[3]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//*[@resource-id='android:id/pickers']/android.widget.NumberPicker[3]/android.widget.EditText", on = Platform.MOBILE_ANDROID)
+	protected Picker getDOBYearPicker;
 
-	@MobileElementLocator(android = "//*[@resource-id='android:id/pickers']/android.widget.NumberPicker[1]/android.widget.EditText", iOS = "//XCUIElementTypeDatePicker/XCUIElementTypeOther/XCUIElementTypePickerWheel[1]")
-	protected PickerWheel getDOBMonthPickerWheel() {
-		return new PickerWheel(getLocator(this, "getDOBMonthPickerWheel"));
-	}
+	@Locate(xpath = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/firstName", on = Platform.MOBILE_ANDROID)
+	protected TextBox getFirstnameTextBox;
 
-	@MobileElementLocator(android = "//*[@resource-id='android:id/pickers']/android.widget.NumberPicker[3]/android.widget.EditText", iOS = "//XCUIElementTypeDatePicker/XCUIElementTypeOther/XCUIElementTypePickerWheel[3]")
-	protected PickerWheel getDOBYearPickerWheel() {
-		return new PickerWheel(getLocator(this, "getDOBYearPickerWheel"));
-	}
+	@Locate(xpath = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/lastName", on = Platform.MOBILE_ANDROID)
+	protected TextBox getLastnameTextBox;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/firstName", iOS = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeTextField")
-	protected TextBox getFirstnameTextBox() {
-		return new TextBox(getLocator(this, "getFirstnameTextBox"));
-	}
+	@Locate(xpath = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/zipCodeEditText", on = Platform.MOBILE_ANDROID)
+	protected TextBox getZipCodeTextBox;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/lastName", iOS = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeTextField")
-	protected TextBox getLastnameTextBox() {
-		return new TextBox(getLocator(this, "getLastnameTextBox"));
-	}
+	@Locate(xpath = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[4]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/birthday", on = Platform.MOBILE_ANDROID)
+	protected TextBox getDOBValueTextBox;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/zipCodeEditText", iOS = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeTextField")
-	protected TextBox getZipCodeTextBox() {
-		return new TextBox(getLocator(this, "getZipCodeTextBox"));
-	}
+	@Locate(xpath = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[5]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/phoneNumber", on = Platform.MOBILE_ANDROID)
+	protected TextBox getPhoneNumberTextBox;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/birthday", iOS = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[4]/XCUIElementTypeTextField")
-	protected TextBox getDOBValueTextBox() {
-		return new TextBox(getLocator(this, "getDOBValueTextBox"));
-	}
+	@Locate(xpath = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[6]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/emailAddress", on = Platform.MOBILE_ANDROID)
+	protected TextBox getEmailAddressTextBox;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/phoneNumber", iOS = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[5]/XCUIElementTypeTextField")
-	protected TextBox getPhoneNumberTextBox() {
-		return new TextBox(getLocator(this, "getPhoneNumberTextBox"));
-	}
+	@Locate(xpath = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[7]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/confirmEmailAddress", on = Platform.MOBILE_ANDROID)
+	protected TextBox getConfirmEmailAddressTextBox;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/emailAddress", iOS = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[6]/XCUIElementTypeTextField")
-	protected TextBox getEmailAddressTextBox() {
-		return new TextBox(getLocator(this, "getEmailAddressTextBox"));
-	}
+	@Locate(xpath = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[8]/XCUIElementTypeSecureTextField", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/password", on = Platform.MOBILE_ANDROID)
+	protected TextBox getHiddenPasswordTextBox;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/confirmEmailAddress", iOS = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[7]/XCUIElementTypeTextField")
-	protected TextBox getConfirmEmailAddressTextBox() {
-		return new TextBox(getLocator(this, "getConfirmEmailAddressTextBox"));
-	}
+	@Locate(xpath = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[8]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/password", on = Platform.MOBILE_ANDROID)
+	protected TextBox getPasswordTextBox;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/password", iOS = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[8]/XCUIElementTypeSecureTextField")
-	protected TextBox getHiddenPasswordTextBox() {
-		return new TextBox(getLocator(this, "getHiddenPasswordTextBox"));
-	}
+	@Locate(xpath = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[9]/XCUIElementTypeSecureTextField", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/confirmPassword", on = Platform.MOBILE_ANDROID)
+	protected TextBox getConfirmPasswordTextBox;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/password", iOS = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[8]/XCUIElementTypeTextField")
-	protected TextBox getPasswordTextBox() {
-		return new TextBox(getLocator(this, "getPasswordTextBox"));
-	}
+	@Locate(xpath = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[10]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/promoCode", on = Platform.MOBILE_ANDROID)
+	protected TextBox getPromoCodeTextBox;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/confirmPassword", iOS = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[9]/XCUIElementTypeSecureTextField")
-	protected TextBox getConfirmPasswordTextBox() {
-		return new TextBox(getLocator(this, "getConfirmPasswordTextBox"));
-	}
+	@Locate(xpath = "//XCUIElementTypeTextView[@value='Yes, please send me emails with exclusive offers, rewards, news, and more.']/following-sibling::XCUIElementTypeButton", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/receiveMessageFromPeetCheckBox", on = Platform.MOBILE_ANDROID)
+	protected Checkbox getEmailsWithOffersCheckBox;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/promoCode", iOS = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[10]/XCUIElementTypeTextField")
-	protected TextBox getPromoCodeTextBox() {
-		return new TextBox(getLocator(this, "getPromoCodeTextBox"));
-	}
+	@Locate(xpath = "//XCUIElementTypeTextView[@value='I agree to the Privacy Policy and Terms & Conditions']/following-sibling::XCUIElementTypeButton", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/agreePrivacyPolicyCheckBox", on = Platform.MOBILE_ANDROID)
+	protected Checkbox getAgreePrivacyPolicyAndTermsAndConditions;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/receiveMessageFromPeetCheckBox", iOS = "//XCUIElementTypeTextView[@value='Yes, please send me emails with exclusive offers, rewards, news, and more.']/following-sibling::XCUIElementTypeButton")
-	protected Checkbox getEmailsWithOffersCheckBox() {
-		return new Checkbox(getLocator(this, "getEmailsWithOffersCheckBox"));
-	}
+	@Locate(id = "Privacy Policy", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//*[contains(@text,'Privacy Policy')]", on = Platform.MOBILE_ANDROID)
+	protected Button getPrivacyPolicyButton;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/agreePrivacyPolicyCheckBox", iOS = "//XCUIElementTypeTextView[@value='I agree to the Privacy Policy and Terms & Conditions']/following-sibling::XCUIElementTypeButton")
-	protected Checkbox getAgreePrivacyPolicyAndTermsAndConditions() {
-		return new Checkbox(getLocator(this, "getAgreePrivacyPolicyAndTermsAndConditions"));
-	}
+	@Locate(xpath = "//XCUIElementTypeButton[@name=\"Create Account\"]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/createAccount", on = Platform.MOBILE_ANDROID)
+	protected Button getCreateAccountButton;
 
-	@MobileElementLocator(android = "//*[contains(@text,'Privacy Policy')]", iOS = "Privacy Policy")
-	protected Button getPrivacyPolicyButton() {
-		return new Button(getLocator(this, "getPrivacyPolicyButton"));
-	}
+	@Locate(id = "Terms & Conditions", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//*[contains(@text,'Conditions')]", on = Platform.MOBILE_ANDROID)
+	protected Button getTermsAndConditionsButton;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/createAccount", iOS = "//XCUIElementTypeButton[@name=\"Create Account\"]")
-	protected Button getCreateAccountButton() {
-		return new Button(getLocator(this, "getCreateAccountButton"));
-	}
-
-	@MobileElementLocator(android = "//*[contains(@text,'Conditions')]", iOS = "Terms & Conditions")
-	protected Button getTermsAndConditionsButton() {
-		return new Button(getLocator(this, "getTermsAndConditionsButton"));
-	}
-
-	@MobileElementLocator(android = "//android.widget.TextView[@text='CREATE ACCOUNT']", iOS = "//XCUIElementTypeNavigationBar[@name=\"CREATE ACCOUNT\"]")
-	protected Text getHeadingText() {
-		return new Text(getLocator(this, "getHeadingText"));
-	}
+	@Locate(xpath = "//XCUIElementTypeNavigationBar[@name=\"CREATE ACCOUNT\"]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.TextView[@text='CREATE ACCOUNT']", on = Platform.MOBILE_ANDROID)
+	protected Text getHeadingText;
 
 }
 
 class AndroidCreateAccountView extends CreateAccountView {
 	@Override
 	public DashboardView createAccount() {
-		LOGGER.info("Create account");
-		getCreateAccountButton().pressButton();
-		return DeviceViewFactory.create(DashboardView.class);
+		logger.info("Create account");
+		getCreateAccountButton.click();
+		return ComponentFactory.create(DashboardView.class);
 	}
 
 	@Override
 	public TermsAndConditionsView termsAndConditions() {
-		LOGGER.info("Tap on Terms and Conditions");
-		Dimension size = getTermsAndConditionsButton().getMobileElement().getSize();
-		MobileHelper.tapOnElementWithOffset(getTermsAndConditionsButton(), size.getWidth() / 3, 0);
-		return DeviceViewFactory.create(TermsAndConditionsView.class);
+		logger.info("Tap on Terms and Conditions");
+		Dimension size = getTermsAndConditionsButton.getMobileElement().getSize();
+		MobileHelper.tapOnElementWithOffset(getTermsAndConditionsButton, size.getWidth() / 3, 0);
+		return ComponentFactory.create(TermsAndConditionsView.class);
 	}
 
 	@Override
 	public CreateAccountView setDOB(String day, String month, String year) {
-		LOGGER.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
-		getDOBValueTextBox().clickTextBox();
-		MobileHelper.setPickerValueReverse(year, getDOBYearPickerWheel());
-		getDOBYearPickerWheel().getMobileElement().click();
-		getDOBDayPickerWheel().getMobileElement().click();
+		logger.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
+		getDOBValueTextBox.clickBox();
+		MobileHelper.setPickerValueReverse(year, getDOBYearPicker);
+		getDOBYearPicker.getMobileElement().click();
+		getDOBDayPicker.getMobileElement().click();
 		getDriver().hideKeyboard();
-		getDOBOkButton().pressButton();
-		return DeviceViewFactory.create(CreateAccountView.class);
+		getDOBOkButton.click();
+		return ComponentFactory.create(CreateAccountView.class);
 	}
 
 	@Override
 	public CreateAccountView showPassword() {
-		LOGGER.info("Click on Show Password button");
-		MobileElement element = getPasswordTextBox().getMobileElement();
+		logger.info("Click on Show Password button");
+		MobileElement element = getPasswordTextBox.getMobileElement();
 		int x = element.getCenter().getX();
 		int y = element.getCenter().getY();
 		int width = element.getSize().getWidth();
@@ -527,8 +491,8 @@ class AndroidCreateAccountView extends CreateAccountView {
 
 	@Override
 	public CreateAccountView hidePassword() {
-		LOGGER.info("Click to hide password");
-		MobileElement element = getPasswordTextBox().getMobileElement();
+		logger.info("Click to hide password");
+		MobileElement element = getPasswordTextBox.getMobileElement();
 		int x = element.getCenter().getX();
 		int y = element.getCenter().getY();
 		int width = element.getSize().getWidth();
@@ -538,71 +502,69 @@ class AndroidCreateAccountView extends CreateAccountView {
 
 	@Override
 	public boolean isEmailOptInChecked() {
-		return getEmailsWithOffersCheckBox().getAttributeValue("checked").equals("true");
+		return getEmailsWithOffersCheckBox.getAttributeValue("checked").equals("true");
 	}
 
 	@Override
 	public boolean isPrivacyPolicyAndTermsAndConditionsChecked() {
-		return getAgreePrivacyPolicyAndTermsAndConditions().getAttributeValue("checked").equals("true");
+		return getAgreePrivacyPolicyAndTermsAndConditions.getAttributeValue("checked").equals("true");
 	}
 
 	@Override
 	public String getHiddenPassword() {
-		return getPasswordTextBox().getText();
+		return getPasswordTextBox.getCurrentText();
 	}
 
 	public CreateAccountView setPromo(String promo) {
-		LOGGER.info("Set promo to: " + promo);
-		getPromoCodeTextBox().clearTextBox();
-		getPromoCodeTextBox().enterText(promo);
+		logger.info("Set promo to: " + promo);
+		getPromoCodeTextBox.clearText();
+		getPromoCodeTextBox.sendKeys(promo);
 		getDriver().hideKeyboard();
 		return this;
 	}
 
 	public CreateAccountView setPassword(String password) {
-		LOGGER.info("Set password to: " + password);
-		getHiddenPasswordTextBox().clearTextBox();
-		getHiddenPasswordTextBox().enterText(password);
+		logger.info("Set password to: " + password);
+		getHiddenPasswordTextBox.clearText();
+		getHiddenPasswordTextBox.sendKeys(password);
 		getDriver().hideKeyboard();
 		return this;
 	}
 
 	public CreateAccountView setConfirmationPassword(String password) {
-		LOGGER.info("Set confirmation password to: " + password);
-		getConfirmPasswordTextBox().clearTextBox();
-		getConfirmPasswordTextBox().enterText(password);
+		logger.info("Set confirmation password to: " + password);
+		getConfirmPasswordTextBox.clearText();
+		getConfirmPasswordTextBox.sendKeys(password);
 		getDriver().hideKeyboard();
 		return this;
 	}
 
 	public CreateAccountView setPhoneNumber(String phone) {
-		LOGGER.info("Set phone number to: " + phone);
-		getPhoneNumberTextBox().clearTextBox();
-		getPhoneNumberTextBox().enterText(phone);
+		logger.info("Set phone number to: " + phone);
+		getPhoneNumberTextBox.clearText();
+		getPhoneNumberTextBox.sendKeys(phone);
 		getDriver().hideKeyboard();
 		return this;
 	}
 
 	public CreateAccountView setEmailAddress(String emailAddress) {
-		LOGGER.info("Set email address to: " + emailAddress);
-		getEmailAddressTextBox().clearTextBox();
-		getEmailAddressTextBox().enterText(emailAddress);
+		logger.info("Set email address to: " + emailAddress);
+		getEmailAddressTextBox.clearText();
+		getEmailAddressTextBox.sendKeys(emailAddress);
 		getDriver().hideKeyboard();
 		return this;
 	}
 
 	public CreateAccountView setConfirmEmailAddress(String emailAddress) {
-		LOGGER.info("Set email address to: " + emailAddress);
+		logger.info("Set email address to: " + emailAddress);
 		MobileHelper.scrollDown(1);
-		getConfirmEmailAddressTextBox().clearTextBox();
-		getConfirmEmailAddressTextBox().enterText(emailAddress);
+		getConfirmEmailAddressTextBox.clearText();
+		getConfirmEmailAddressTextBox.sendKeys(emailAddress);
 		getDriver().hideKeyboard();
 		return this;
 	}
 
-	@MobileElementLocator(android = "android:id/button1")
-	protected Button getDOBOkButton() {
-		return new Button(getLocator(this, "getDOBOkButton"));
-	}
+	@Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
+	protected Button getDOBOkButton;
 
 }
