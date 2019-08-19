@@ -2,25 +2,20 @@ package com.applause.auto.test.mobile.helpers;
 
 import java.lang.invoke.MethodHandles;
 
-import org.apache.log4j.Logger;
+import com.applause.auto.common.data.Constants.MyAccountTestData;
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
 
-import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.common.data.TestConstants;
 import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.SignInView;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-@AndroidImplementation(TestHelper.class)
-@IosImplementation(TestHelper.class)
-public class TestHelper extends AbstractDeviceView {
-	private static final Logger logger = Logger.getLogger(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-
-	}
+@Implementation(is = TestHelper.class, on = Platform.MOBILE)
+public class TestHelper extends BaseComponent {
+	private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
 	/**
 	 * Sign in dashboard view.
@@ -45,7 +40,7 @@ public class TestHelper extends AbstractDeviceView {
 	 *            the clazz
 	 * @return the t
 	 */
-	public <T extends AbstractDeviceView> T signIn(LandingView landingView, String username, String password,
+	public <T extends BaseComponent> T signIn(LandingView landingView, String username, String password,
 			Class<T> clazz) {
 
 		landingView.skipOnboarding();
