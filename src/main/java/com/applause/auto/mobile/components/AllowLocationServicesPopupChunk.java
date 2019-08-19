@@ -30,9 +30,9 @@ public class AllowLocationServicesPopupChunk extends BaseComponent {
 	@Locate(id = "com.wearehathway.peets.development:id/allowButton", on = Platform.MOBILE_ANDROID)
 	protected ContainerElement getSignature;
 
-	@Locate(id = "Allow Location Services to help you find nearby Peet’s Coffeebars.", on = Platform.MOBILE_IOS)
 	@Locate(id = "com.wearehathway.peets.development:id/textView3", on = Platform.MOBILE_ANDROID)
-	protected Text getImageAltTextText;
+	@Locate(id = "Allow Location Services to help you find nearby Peet’s Coffeebars.", on = Platform.MOBILE_IOS)
+	protected Text getTitleText;
 
 	@Locate(id = "Allow", on = Platform.MOBILE_IOS)
 	@Locate(id = "com.wearehathway.peets.development:id/allowButton", on = Platform.MOBILE_ANDROID)
@@ -65,8 +65,8 @@ public class AllowLocationServicesPopupChunk extends BaseComponent {
 	 *
 	 * @return the title
 	 */
-	public String getImageAltText() {
-		return getImageAltTextText.getText().replaceAll("’", "'").replaceAll("\\.$", "");
+	public String getTitle() {
+		return getTitleText.getText().replaceAll("’", "'").replaceAll("\\.$", "");
 	}
 
 	/**
@@ -76,7 +76,8 @@ public class AllowLocationServicesPopupChunk extends BaseComponent {
 	 */
 	public String getFormattedMessage() {
 		return String.format("%s %s %s %s %s",
-				getSubTitleText.getText().replaceAll("’", "'").replaceAll("\\.$", ""), getImageAltText(),
+				getSubTitleText.getText().replaceAll("’", "'").replaceAll("\\.$", ""),
+				getTitle(),
 				getMessageText1Text.getText().replaceAll("• ", ""),
 				getMessageText2Text.getText().replaceAll("• ", ""),
 				getMessageText3Text.getText().replaceAll("• ", ""));

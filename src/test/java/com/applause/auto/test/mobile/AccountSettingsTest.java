@@ -1,5 +1,10 @@
 package com.applause.auto.test.mobile;
 
+import com.applause.auto.data.enums.SwipeDirection;
+import com.applause.auto.mobile.components.AccountMenuMobileChunk;
+import com.applause.auto.mobile.views.*;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.control.DeviceControl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
@@ -16,9 +21,9 @@ public class AccountSettingsTest extends BaseTest {
 	public void paymentMethodsTest() {
 
 		logger.info("Launch the app and arrive at the first on boarding screen view");
-		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		LandingView landingView = ComponentFactory.create(LandingView.class);
 
-		DashboardView dashboardView = peetsMobileHelper.signIn(landingView);
+		DashboardView dashboardView = testHelper.signIn(landingView);
 
 		logger.info("Navigate to Payment Methods");
 		AccountMenuMobileChunk accountProfileMenu = dashboardView.getAccountProfileMenu();
@@ -44,7 +49,7 @@ public class AccountSettingsTest extends BaseTest {
 		addNewCardView.enterCardName(MobileTestData.CC_NAME);
 		addNewCardView.selectMakeDefault();
 		paymentMethodsView = addNewCardView.saveCard();
-		MobileHelper.scrollUp(1);
+		DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.DOWN);
 
 		logger.info("Click Payment Method");
 		CreditCardDetailsView creditCardDetailsView = paymentMethodsView

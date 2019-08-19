@@ -1,5 +1,8 @@
 package com.applause.auto.test.mobile;
 
+import com.applause.auto.mobile.views.*;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -20,12 +23,12 @@ public class OnboardingSlidesTest extends BaseTest {
 	public void onboardingSlidesTest() {
 
 		logger.info("Launch the app and arrive at the first onboarding screen view");
-		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		LandingView landingView = ComponentFactory.create(LandingView.class);
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
 		logger.info("Swipe left and verify Explore Offers screen has correct title");
-		syncHelper.suspend(5000);
+		SyncHelper.sleep(5000);
 		ExploreOffersView exploreOffersView = landingView.swipeLeftOnScreen();
 		Assert.assertEquals(exploreOffersView.getHeadingTextValue(), "Explore Offers.",
 				"First screen text value is not correct");

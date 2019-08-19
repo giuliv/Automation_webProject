@@ -3,12 +3,18 @@ package com.applause.auto.test.mobile;
 import java.lang.invoke.MethodHandles;
 import java.util.Random;
 
+import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.common.data.Constants.TestData;
+import com.applause.auto.common.data.Constants.MyAccountTestData;
+import com.applause.auto.data.enums.SwipeDirection;
+import com.applause.auto.mobile.components.AccountMenuMobileChunk;
+import com.applause.auto.mobile.helpers.MobileHelper;
+import com.applause.auto.mobile.views.*;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import com.applause.auto.common.data.Constants.TestNGGroups;
 
 public class CreateAccountTest extends BaseTest {
 
@@ -18,7 +24,7 @@ public class CreateAccountTest extends BaseTest {
 	public void footerLinksTest() {
 
 		logger.info("Launch the app and arrive at the first onboarding screen view");
-		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		LandingView landingView = ComponentFactory.create(LandingView.class);
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
@@ -28,7 +34,7 @@ public class CreateAccountTest extends BaseTest {
 		CreateAccountView createAccountView = landingView.createAccount();
 
 		logger.info("Scroll down and check the footer links");
-		MobileHelper.scrollToBottom(3);
+		MobileHelper.swipeWithCount(SwipeDirection.UP, 3);
 
 		logger.info(
 				"Make sure above the create account button is the copy and check-box: I agree to the Privacy Policy and Terms & Conditions");
@@ -56,7 +62,7 @@ public class CreateAccountTest extends BaseTest {
 	public void signInEmailPasswordTest() {
 
 		logger.info("Launch the app and arrive at the first onboarding screen view");
-		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		LandingView landingView = ComponentFactory.create(LandingView.class);
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
@@ -93,7 +99,7 @@ public class CreateAccountTest extends BaseTest {
 	public void accountSettingsEditProfileTest() {
 
 		logger.info("Launch the app and arrive at the first on boarding screen view");
-		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		LandingView landingView = ComponentFactory.create(LandingView.class);
 		softAssert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
@@ -178,7 +184,7 @@ public class CreateAccountTest extends BaseTest {
 	public void accountSettingsGeneralSettingsTest() {
 
 		logger.info("Launch the app and arrive at the first on boarding screen view");
-		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		LandingView landingView = ComponentFactory.create(LandingView.class);
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
@@ -229,7 +235,7 @@ public class CreateAccountTest extends BaseTest {
 	public void accountSettingsChangePasswordTest() {
 
 		logger.info("Launch the app and arrive at the first on boarding screen view");
-		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		LandingView landingView = ComponentFactory.create(LandingView.class);
 		softAssert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
@@ -354,7 +360,7 @@ public class CreateAccountTest extends BaseTest {
 	public void createAccountEmailPassword() {
 
 		logger.info("Launch the app and arrive at the first onboarding screen view");
-		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		LandingView landingView = ComponentFactory.create(LandingView.class);
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 		long uniq = System.currentTimeMillis();
@@ -503,7 +509,7 @@ public class CreateAccountTest extends BaseTest {
 	public void accountSettingsAccountHistoryTest() {
 
 		logger.info("Launch the app and arrive at the first on boarding screen view");
-		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		LandingView landingView = ComponentFactory.create(LandingView.class);
 		Assert.assertEquals(landingView.getHeadingTextValue(), "Earn Rewards.",
 				"First screen text value is not correct");
 
@@ -536,9 +542,9 @@ public class CreateAccountTest extends BaseTest {
 	@Test(groups = { TestNGGroups.ONBOARDING }, description = "625882")
 	public void createAccountExistingWebUserTest() {
 		logger.info("Launch the app and arrive at the first on boarding screen view");
-		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		LandingView landingView = ComponentFactory.create(LandingView.class);
 
-		CompleteAccountView completeAccountView = peetsMobileHelper.signIn(landingView,
+		CompleteAccountView completeAccountView = testHelper.signIn(landingView,
 				TestData.USERNAME_625882, TestData.PASSWORD, CompleteAccountView.class);
 		Assert.assertNotNull(completeAccountView, "Complete Account View does not displayed");
 	}
