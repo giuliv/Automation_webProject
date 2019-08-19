@@ -15,7 +15,7 @@ import com.applause.auto.mobile.views.SignInView;
 @AndroidImplementation(TestHelper.class)
 @IosImplementation(TestHelper.class)
 public class TestHelper extends AbstractDeviceView {
-	private static final Logger LOGGER = Logger.getLogger(MethodHandles.lookup().getClass());
+	private static final Logger logger = Logger.getLogger(MethodHandles.lookup().getClass());
 
 	@Override
 	protected void waitUntilVisible() {
@@ -30,7 +30,7 @@ public class TestHelper extends AbstractDeviceView {
 	 * @return the dashboard view
 	 */
 	public DashboardView signIn(LandingView landingView) {
-		return signIn(landingView, TestConstants.MyAccountTestData.EMAIL, TestConstants.MyAccountTestData.PASSWORD,
+		return signIn(landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD,
 				DashboardView.class);
 	}
 
@@ -50,16 +50,16 @@ public class TestHelper extends AbstractDeviceView {
 
 		landingView.skipOnboarding();
 
-		LOGGER.info("Tap Sign In");
+		logger.info("Tap Sign In");
 		SignInView signInView = landingView.signIn();
 
-		LOGGER.info("Tap on Email Address field and enter valid email address");
+		logger.info("Tap on Email Address field and enter valid email address");
 		signInView.setUsername(username);
 
-		LOGGER.info("Enter valid password");
+		logger.info("Enter valid password");
 		signInView.setPassword(password);
 
-		LOGGER.info("Tap Sign In button");
+		logger.info("Tap Sign In button");
 		return signInView.signIn(clazz);
 	}
 }
