@@ -5,6 +5,12 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.applause.auto.common.data.Constants.MobileTestData;
+import com.applause.auto.common.data.Constants.MyAccountTestData;
+import com.applause.auto.mobile.components.PeetsCardsTransferAmountChunk;
+import com.applause.auto.mobile.components.PeetsCardsTransferAmountWarningChunk;
+import com.applause.auto.mobile.views.*;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -19,9 +25,9 @@ public class PeetsCardsTest extends BaseTest {
 	@Test(groups = { TestNGGroups.PEETS_CARDS }, description = "625910")
 	public void addValueToNewDigitalCard25SavedCC() {
 		logger.info("Launch the app and arrive at the first on boarding screen view");
-		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		LandingView landingView = ComponentFactory.create(LandingView.class);
 
-		DashboardView dashboardView = peetsMobileHelper.signIn(landingView, MyAccountTestData.EMAIL,
+		DashboardView dashboardView = testHelper.signIn(landingView, MyAccountTestData.EMAIL,
 				MyAccountTestData.PASSWORD, DashboardView.class);
 		Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
@@ -75,9 +81,9 @@ public class PeetsCardsTest extends BaseTest {
 	@Test(groups = { TestNGGroups.PEETS_CARDS }, description = "625916")
 	public void reloadDigitalCard25SavedCC() {
 		logger.info("Launch the app and arrive at the first on boarding screen view");
-		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		LandingView landingView = ComponentFactory.create(LandingView.class);
 
-		DashboardView dashboardView = peetsMobileHelper.signIn(landingView, MyAccountTestData.EMAIL,
+		DashboardView dashboardView = testHelper.signIn(landingView, MyAccountTestData.EMAIL,
 				MyAccountTestData.PASSWORD, DashboardView.class);
 		softAssert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
@@ -133,9 +139,9 @@ public class PeetsCardsTest extends BaseTest {
 	@Test(groups = { TestNGGroups.PEETS_CARDS }, description = "625913")
 	public void transferBalanceFromPhysicalCardDigitalCardWithNoBalance() {
 		logger.info("Launch the app and arrive at the first on boarding screen view");
-		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		LandingView landingView = ComponentFactory.create(LandingView.class);
 
-		DashboardView dashboardView = peetsMobileHelper.signIn(landingView, MyAccountTestData.EMAIL,
+		DashboardView dashboardView = testHelper.signIn(landingView, MyAccountTestData.EMAIL,
 				MyAccountTestData.PASSWORD, DashboardView.class);
 		softAssert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
@@ -231,9 +237,9 @@ public class PeetsCardsTest extends BaseTest {
 	@Test(groups = { TestNGGroups.PEETS_CARDS }, description = "1026052")
 	public void negativeTestTransferBalance() {
 		logger.info("Launch the app and arrive at the first on boarding screen view");
-		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		LandingView landingView = ComponentFactory.create(LandingView.class);
 
-		DashboardView dashboardView = peetsMobileHelper.signIn(landingView, MyAccountTestData.EMAIL,
+		DashboardView dashboardView = testHelper.signIn(landingView, MyAccountTestData.EMAIL,
 				MyAccountTestData.PASSWORD, DashboardView.class);
 		softAssert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 

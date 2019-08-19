@@ -3,6 +3,10 @@ package com.applause.auto.test.mobile;
 import java.lang.invoke.MethodHandles;
 import java.util.List;
 
+import com.applause.auto.common.data.Constants.MyAccountTestData;
+import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
+import com.applause.auto.mobile.views.*;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -17,8 +21,8 @@ public class OrderAheadTest extends BaseTest {
 	@Test(enabled = true, groups = { TestNGGroups.ORDER_AHEAD }, description = "625889")
 	public void locationServicesNotEnabled() {
 		logger.info("Launch the app and arrive at the first on boarding screen view");
-		LandingView landingView = DeviceViewFactory.create(LandingView.class);
-		DashboardView dashboardView = peetsMobileHelper.signIn(landingView, MyAccountTestData.EMAIL,
+		LandingView landingView = ComponentFactory.create(LandingView.class);
+		DashboardView dashboardView = testHelper.signIn(landingView, MyAccountTestData.EMAIL,
 				MyAccountTestData.PASSWORD, DashboardView.class);
 		Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
@@ -82,8 +86,8 @@ public class OrderAheadTest extends BaseTest {
 	@Test(groups = { TestNGGroups.ORDER_AHEAD }, description = "625890")
 	public void browseTheMenu() {
 		logger.info("Launch the app and arrive at the first on boarding screen view");
-		LandingView landingView = DeviceViewFactory.create(LandingView.class);
-		DashboardView dashboardView = peetsMobileHelper.signIn(landingView, MyAccountTestData.EMAIL,
+		LandingView landingView = ComponentFactory.create(LandingView.class);
+		DashboardView dashboardView = testHelper.signIn(landingView, MyAccountTestData.EMAIL,
 				MyAccountTestData.PASSWORD, DashboardView.class);
 		Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
