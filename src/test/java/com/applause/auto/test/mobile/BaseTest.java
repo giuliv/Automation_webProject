@@ -6,6 +6,8 @@ import java.lang.reflect.Method;
 import com.applause.auto.base.BaseSeleniumTest;
 import com.applause.auto.common.util.RetryAnalyzer;
 import com.applause.auto.integrations.RunUtil;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.test.mobile.helpers.TestHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.ITestContext;
@@ -14,12 +16,11 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.asserts.SoftAssert;
 
-import io.appium.java_client.AppiumDriver;
-
 public class BaseTest extends BaseSeleniumTest {
 
 	private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
-	protected static SoftAssert softAssert;
+    static TestHelper testHelper;
+    static SoftAssert softAssert;
 
 	/**
 	 * Get a new Appium driver at the start of each test.
@@ -32,6 +33,9 @@ public class BaseTest extends BaseSeleniumTest {
 
 		// Set the default wait time on elements to 20 seconds
 		RunUtil.setTimeout(20);
+
+		// Set the custom mobile test helper
+        testHelper = ComponentFactory.create(TestHelper.class);
 
 		logger.info("Test case setup complete.");
 	}
