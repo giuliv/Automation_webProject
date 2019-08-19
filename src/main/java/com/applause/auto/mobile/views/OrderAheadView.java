@@ -12,76 +12,88 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 @Implementation(is = OrderAheadView.class, on = Platform.MOBILE_IOS)
 public class OrderAheadView extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	@Locate(id = "See Participating Coffeebars", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/seeCoffeebarsButton", on = Platform.MOBILE_ANDROID)
-	protected Button getParticipatingCoffeebarsButton;
+  @Locate(id = "See Participating Coffeebars", on = Platform.MOBILE_IOS)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/seeCoffeebarsButton",
+      on = Platform.MOBILE_ANDROID)
+  protected Button getParticipatingCoffeebarsButton;
 
-	@Locate(id = "Order Ahead.", on = Platform.MOBILE_IOS)
-	@Locate(androidUIAutomator = "new UiSelector().textContains(\"Order Ahead\")", on = Platform.MOBILE_ANDROID)
-	protected Text getHeadingText;
+  @Locate(id = "Order Ahead.", on = Platform.MOBILE_IOS)
+  @Locate(
+      androidUIAutomator = "new UiSelector().textContains(\"Order Ahead\")",
+      on = Platform.MOBILE_ANDROID)
+  protected Text getHeadingText;
 
-	@Locate(id = "Bypass the line and proceed to great coffee.", on = Platform.MOBILE_IOS)
-	@Locate(xpath = "//*[@resource-id='com.wearehathway.peets.development:id/topContainer']/android.widget.TextView[2]", on = Platform.MOBILE_ANDROID)
-	protected Text getSubHeaderText;
+  @Locate(id = "Bypass the line and proceed to great coffee.", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//*[@resource-id='com.wearehathway.peets.development:id/topContainer']/android.widget.TextView[2]",
+      on = Platform.MOBILE_ANDROID)
+  protected Text getSubHeaderText;
 
-	@Locate(id = "Get Started", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/getStartedButton", on = Platform.MOBILE_ANDROID)
-	protected Button getGetStartedButton;
+  @Locate(id = "Get Started", on = Platform.MOBILE_IOS)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/getStartedButton",
+      on = Platform.MOBILE_ANDROID)
+  protected Button getGetStartedButton;
 
-	@Locate(xpath = "//XCUIElementTypeOther[1]/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/skipTextView", on = Platform.MOBILE_ANDROID)
-	protected Button getSkipButton;
+  @Locate(
+      xpath =
+          "//XCUIElementTypeOther[1]/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/skipTextView", on = Platform.MOBILE_ANDROID)
+  protected Button getSkipButton;
 
-	/* -------- Actions -------- */
+  /* -------- Actions -------- */
 
-	/**
-	 * Press Get Started button
-	 * 
-	 * @return
-	 */
-	public AuthenticationView clickGetStartedButton() {
-		logger.info("Pressing Get Started button and expected to land at Peetnik Rewards auth screen");
-		getGetStartedButton.click();
-		return ComponentFactory.create(AuthenticationView.class);
-	}
+  /**
+   * Press Get Started button
+   *
+   * @return
+   */
+  public AuthenticationView clickGetStartedButton() {
+    logger.info("Pressing Get Started button and expected to land at Peetnik Rewards auth screen");
+    getGetStartedButton.click();
+    return ComponentFactory.create(AuthenticationView.class);
+  }
 
-	/**
-	 * Get the text vaalue of the heading
-	 * 
-	 * @return
-	 */
-	public String getHeadingTextValue() {
-		return getHeadingText.getText();
-	}
+  /**
+   * Get the text vaalue of the heading
+   *
+   * @return
+   */
+  public String getHeadingTextValue() {
+    return getHeadingText.getText();
+  }
 
-	/**
-	 * Gets sub header text value.
-	 *
-	 * @return the sub header text value
-	 */
-	public String getSubHeaderTextValue() {
-		return getSubHeaderText.getText();
-	}
+  /**
+   * Gets sub header text value.
+   *
+   * @return the sub header text value
+   */
+  public String getSubHeaderTextValue() {
+    return getSubHeaderText.getText();
+  }
 
-	/**
-	 * Is participating coffeebars displayed boolean.
-	 *
-	 * @return the boolean
-	 */
-	public boolean isParticipatingCoffeebarsDisplayed() {
-		return getParticipatingCoffeebarsButton.isDisplayed();
-	}
+  /**
+   * Is participating coffeebars displayed boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isParticipatingCoffeebarsDisplayed() {
+    return getParticipatingCoffeebarsButton.isDisplayed();
+  }
 
-	/**
-	 * Participating coffeebars select coffee bar view.
-	 *
-	 * @return the select coffee bar view
-	 */
-	public SelectCoffeeBarView participatingCoffeebars() {
-		logger.info("Tap See Participating Coffeebars");
-		getParticipatingCoffeebarsButton.click();
-		return ComponentFactory.create(SelectCoffeeBarView.class);
-	}
+  /**
+   * Participating coffeebars select coffee bar view.
+   *
+   * @return the select coffee bar view
+   */
+  public SelectCoffeeBarView participatingCoffeebars() {
+    logger.info("Tap See Participating Coffeebars");
+    getParticipatingCoffeebarsButton.click();
+    return ComponentFactory.create(SelectCoffeeBarView.class);
+  }
 }

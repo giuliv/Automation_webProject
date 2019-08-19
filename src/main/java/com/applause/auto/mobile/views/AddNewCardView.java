@@ -14,127 +14,131 @@ import com.applause.auto.util.control.DeviceControl;
 @Implementation(is = IosAddNewCardView.class, on = Platform.MOBILE_IOS)
 public class AddNewCardView extends BaseComponent {
 
-    /* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-    @Locate(xpath = "//XCUIElementTypeOther[@name=\"Add New Card\"]", on = Platform.MOBILE_IOS)
-    @Locate(xpath = "//android.widget.TextView[@text='Add New Card']", on = Platform.MOBILE_ANDROID)
-    protected Text getViewSignature;
+  @Locate(xpath = "//XCUIElementTypeOther[@name=\"Add New Card\"]", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//android.widget.TextView[@text='Add New Card']", on = Platform.MOBILE_ANDROID)
+  protected Text getViewSignature;
 
-    @Locate(iOSClassChain = "**/XCUIElementTypeTextField[`value == 'Card Number'`]", on = Platform.MOBILE_IOS)
-    @Locate(id = "com.wearehathway.peets.development:id/cardNumber", on = Platform.MOBILE_ANDROID)
-    protected TextBox getCardNumberTextBox;
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeTextField[`value == 'Card Number'`]",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/cardNumber", on = Platform.MOBILE_ANDROID)
+  protected TextBox getCardNumberTextBox;
 
-    @Locate(iOSClassChain = "**/XCUIElementTypeTextField[`value == 'MM/YY'`]", on = Platform.MOBILE_IOS)
-    @Locate(id = "com.wearehathway.peets.development:id/expiryDate", on = Platform.MOBILE_ANDROID)
-    protected TextBox getExpDateTextBox;
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeTextField[`value == 'MM/YY'`]",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/expiryDate", on = Platform.MOBILE_ANDROID)
+  protected TextBox getExpDateTextBox;
 
-    @Locate(iOSClassChain = "**/XCUIElementTypeTextField[`value == 'CVV'`]", on = Platform.MOBILE_IOS)
-    @Locate(id = "com.wearehathway.peets.development:id/cvv", on = Platform.MOBILE_ANDROID)
-    protected TextBox getCvvTextBox;
+  @Locate(iOSClassChain = "**/XCUIElementTypeTextField[`value == 'CVV'`]", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/cvv", on = Platform.MOBILE_ANDROID)
+  protected TextBox getCvvTextBox;
 
-    @Locate(iOSClassChain = "**/XCUIElementTypeTextField[`value == 'Zip'`]", on = Platform.MOBILE_IOS)
-    @Locate(id = "com.wearehathway.peets.development:id/zip", on = Platform.MOBILE_ANDROID)
-    protected TextBox getZipTextBox;
+  @Locate(iOSClassChain = "**/XCUIElementTypeTextField[`value == 'Zip'`]", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/zip", on = Platform.MOBILE_ANDROID)
+  protected TextBox getZipTextBox;
 
-    @Locate(iOSClassChain = "**/XCUIElementTypeTextField[`value == 'Card Name'`]", on = Platform.MOBILE_IOS)
-    @Locate(id = "com.wearehathway.peets.development:id/cardName", on = Platform.MOBILE_ANDROID)
-    protected TextBox getCardNameTextBox;
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeTextField[`value == 'Card Name'`]",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/cardName", on = Platform.MOBILE_ANDROID)
+  protected TextBox getCardNameTextBox;
 
-    @Locate(iOSClassChain = "**/XCUIElementTypeSwitch", on = Platform.MOBILE_IOS)
-    @Locate(id = "com.wearehathway.peets.development:id/isDefaultSwitch", on = Platform.MOBILE_ANDROID)
-    protected Button getDefaultToggle;
+  @Locate(iOSClassChain = "**/XCUIElementTypeSwitch", on = Platform.MOBILE_IOS)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/isDefaultSwitch",
+      on = Platform.MOBILE_ANDROID)
+  protected Button getDefaultToggle;
 
-    @Locate(id = "Save Card", on = Platform.MOBILE_IOS)
-    @Locate(id = "com.wearehathway.peets.development:id/saveCardButton", on = Platform.MOBILE_ANDROID)
-    protected Button getSaveCardButton;
+  @Locate(id = "Save Card", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/saveCardButton", on = Platform.MOBILE_ANDROID)
+  protected Button getSaveCardButton;
 
-    /* -------- Actions -------- */
+  /* -------- Actions -------- */
 
-    /**
-     * Enter Card Number
-     *
-     * @param cardNum
-     */
-    public void enterCardNumber(String cardNum) {
-        logger.info("Entering Card Number");
-        getCardNumberTextBox.sendKeys(cardNum);
-    }
+  /**
+   * Enter Card Number
+   *
+   * @param cardNum
+   */
+  public void enterCardNumber(String cardNum) {
+    logger.info("Entering Card Number");
+    getCardNumberTextBox.sendKeys(cardNum);
+  }
 
-    /**
-     * Enter Expiration Date
-     *
-     * @param expDate
-     */
-    public void enterExpDate(String expDate) {
-        logger.info("Entering Exp Date");
-        getExpDateTextBox.sendKeys(expDate);
-    }
+  /**
+   * Enter Expiration Date
+   *
+   * @param expDate
+   */
+  public void enterExpDate(String expDate) {
+    logger.info("Entering Exp Date");
+    getExpDateTextBox.sendKeys(expDate);
+  }
 
-    /**
-     * Enter CVV Code
-     *
-     * @param cvv
-     */
-    public void enterCvvCode(String cvv) {
-        logger.info("Entering CVV Code");
-        getCvvTextBox.sendKeys(cvv);
-    }
+  /**
+   * Enter CVV Code
+   *
+   * @param cvv
+   */
+  public void enterCvvCode(String cvv) {
+    logger.info("Entering CVV Code");
+    getCvvTextBox.sendKeys(cvv);
+  }
 
-    /**
-     * Enter Zip Code
-     *
-     * @param zipCode
-     */
-    public void enterZipCode(String zipCode) {
-        logger.info("Entering Zip Code");
-        getZipTextBox.sendKeys(zipCode);
-    }
+  /**
+   * Enter Zip Code
+   *
+   * @param zipCode
+   */
+  public void enterZipCode(String zipCode) {
+    logger.info("Entering Zip Code");
+    getZipTextBox.sendKeys(zipCode);
+  }
 
-    /**
-     * Enter Card Name
-     *
-     * @param cardName
-     */
-    public void enterCardName(String cardName) {
-        logger.info("Entering Card Name");
-        getCardNameTextBox.sendKeys(cardName);
-    }
+  /**
+   * Enter Card Name
+   *
+   * @param cardName
+   */
+  public void enterCardName(String cardName) {
+    logger.info("Entering Card Name");
+    getCardNameTextBox.sendKeys(cardName);
+  }
 
-    /**
-     * Make Payment Method Default
-     */
-    public void selectMakeDefault() {
-        logger.info("Making Card Default");
-        DeviceControl.hideKeyboard();
-        getDefaultToggle.click();
-    }
+  /** Make Payment Method Default */
+  public void selectMakeDefault() {
+    logger.info("Making Card Default");
+    DeviceControl.hideKeyboard();
+    getDefaultToggle.click();
+  }
 
-    /**
-     * Save Payment Method
-     *
-     * @return PaymentMethodsView
-     */
-    public PaymentMethodsView saveCard() {
-        logger.info("Saving Payment Method");
-        getSaveCardButton.click();
-        return ComponentFactory.create(PaymentMethodsView.class);
-    }
+  /**
+   * Save Payment Method
+   *
+   * @return PaymentMethodsView
+   */
+  public PaymentMethodsView saveCard() {
+    logger.info("Saving Payment Method");
+    getSaveCardButton.click();
+    return ComponentFactory.create(PaymentMethodsView.class);
+  }
 }
 
 class IosAddNewCardView extends AddNewCardView {
 
-    /* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-    @Locate(id = "Done", on = Platform.MOBILE_IOS)
-    protected Button getKeyboardDoneButton;
+  @Locate(id = "Done", on = Platform.MOBILE_IOS)
+  protected Button getKeyboardDoneButton;
 
-    /* -------- Actions -------- */
+  /* -------- Actions -------- */
 
-    public void selectMakeDefault() {
-        logger.info("Making Card Default");
-        getKeyboardDoneButton.click();
-        getDefaultToggle.click();
-    }
-
-
+  public void selectMakeDefault() {
+    logger.info("Making Card Default");
+    getKeyboardDoneButton.click();
+    getDefaultToggle.click();
+  }
 }

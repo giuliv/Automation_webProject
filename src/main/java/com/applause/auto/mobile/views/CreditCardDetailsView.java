@@ -14,154 +14,153 @@ import com.applause.auto.util.control.DeviceControl;
 @Implementation(is = IosCreditCardDetailsView.class, on = Platform.MOBILE_IOS)
 public class CreditCardDetailsView extends BaseComponent {
 
-    /* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-    @Locate(id = "Save Card", on = Platform.MOBILE_IOS)
-    @Locate(id = "com.wearehathway.peets.development:id/saveCardButton", on = Platform.MOBILE_ANDROID)
-    protected Button getSaveCardButton;
+  @Locate(id = "Save Card", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/saveCardButton", on = Platform.MOBILE_ANDROID)
+  protected Button getSaveCardButton;
 
-    @Locate(xpath = "//XCUIElementTypeOther[@name=\"Mobile Test\"]", on = Platform.MOBILE_IOS)
-    @Locate(id = "com.wearehathway.peets.development:id/title", on = Platform.MOBILE_ANDROID)
-    protected Text getHeaderText;
+  @Locate(xpath = "//XCUIElementTypeOther[@name=\"Mobile Test\"]", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/title", on = Platform.MOBILE_ANDROID)
+  protected Text getHeaderText;
 
-    @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Mobile Test\"]", on = Platform.MOBILE_IOS)
-    @Locate(id = "com.wearehathway.peets.development:id/cardName", on = Platform.MOBILE_ANDROID)
-    protected Text getCCNameText;
+  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Mobile Test\"]", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/cardName", on = Platform.MOBILE_ANDROID)
+  protected Text getCCNameText;
 
-    @Locate(id = "Set as Default Payment", on = Platform.MOBILE_IOS)
-    @Locate(id = "com.wearehathway.peets.development:id/defaultText", on = Platform.MOBILE_ANDROID)
-    protected Text getDefaultCardText;
+  @Locate(id = "Set as Default Payment", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/defaultText", on = Platform.MOBILE_ANDROID)
+  protected Text getDefaultCardText;
 
-    @Locate(id = "com.wearehathway.peets.development:id/expiry", on = Platform.MOBILE_ANDROID)
-    @Locate(xpath = "//XCUIElementTypeButton[@name=\"Delete Card\"]/preceding-sibling::XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
-    protected TextBox getExpDateField;
+  @Locate(id = "com.wearehathway.peets.development:id/expiry", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//XCUIElementTypeButton[@name=\"Delete Card\"]/preceding-sibling::XCUIElementTypeTextField",
+      on = Platform.MOBILE_IOS)
+  protected TextBox getExpDateField;
 
-    @Locate(id = "Delete Card", on = Platform.MOBILE_IOS)
-    @Locate(id = "com.wearehathway.peets.development:id/deleteCardBtn", on = Platform.MOBILE_ANDROID)
-    protected Button getDeleteButton;
+  @Locate(id = "Delete Card", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/deleteCardBtn", on = Platform.MOBILE_ANDROID)
+  protected Button getDeleteButton;
 
-    @Locate(id = "No", on = Platform.MOBILE_IOS)
-    @Locate(id = "android:id/button2", on = Platform.MOBILE_ANDROID)
-    protected Button getDeleteNoButton;
+  @Locate(id = "No", on = Platform.MOBILE_IOS)
+  @Locate(id = "android:id/button2", on = Platform.MOBILE_ANDROID)
+  protected Button getDeleteNoButton;
 
-    @Locate(id = "Yes", on = Platform.MOBILE_IOS)
-    @Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
-    protected Button getDeleteYesButton;
+  @Locate(id = "Yes", on = Platform.MOBILE_IOS)
+  @Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
+  protected Button getDeleteYesButton;
 
-    /* -------- Actions -------- */
+  /* -------- Actions -------- */
 
-    /**
-     * Get Header Text
-     *
-     * @return String
-     */
-    public String getHeader() {
-        logger.info("Getting Header Text");
-        return getHeaderText.getText().trim();
-    }
+  /**
+   * Get Header Text
+   *
+   * @return String
+   */
+  public String getHeader() {
+    logger.info("Getting Header Text");
+    return getHeaderText.getText().trim();
+  }
 
-    /**
-     * Get Credit Card Name
-     *
-     * @return String
-     */
-    public String getCreditCardName() {
-        logger.info("Getting Credit Card Name");
-        return getCCNameText.getText().trim();
-    }
+  /**
+   * Get Credit Card Name
+   *
+   * @return String
+   */
+  public String getCreditCardName() {
+    logger.info("Getting Credit Card Name");
+    return getCCNameText.getText().trim();
+  }
 
-    /**
-     * Checking for Default Card text
-     *
-     * @return Boolean
-     */
-    public Boolean isDefaultCardTextPresent() {
-        logger.info("Checking for Default Card text");
-        return getDefaultCardText.isDisplayed();
-    }
+  /**
+   * Checking for Default Card text
+   *
+   * @return Boolean
+   */
+  public Boolean isDefaultCardTextPresent() {
+    logger.info("Checking for Default Card text");
+    return getDefaultCardText.isDisplayed();
+  }
 
-    /**
-     * Update Exp Date
-     *
-     * @param expDate
-     */
-    public void enterExpDate(String expDate) {
-        logger.info("Entering Expiration Date");
-        getExpDateField.clearText();
-        getExpDateField.sendKeys(expDate);
-    }
+  /**
+   * Update Exp Date
+   *
+   * @param expDate
+   */
+  public void enterExpDate(String expDate) {
+    logger.info("Entering Expiration Date");
+    getExpDateField.clearText();
+    getExpDateField.sendKeys(expDate);
+  }
 
-    /**
-     * Save Payment Method
-     *
-     * @return PaymentMethodsView
-     */
-    public PaymentMethodsView saveCard() {
-        logger.info("Save Payment Method");
-        DeviceControl.hideKeyboard();
-        getSaveCardButton.click();
-        return ComponentFactory.create(PaymentMethodsView.class);
-    }
+  /**
+   * Save Payment Method
+   *
+   * @return PaymentMethodsView
+   */
+  public PaymentMethodsView saveCard() {
+    logger.info("Save Payment Method");
+    DeviceControl.hideKeyboard();
+    getSaveCardButton.click();
+    return ComponentFactory.create(PaymentMethodsView.class);
+  }
 
-    /**
-     * Click Delete Card
-     */
-    public void clickDeleteCard() {
-        logger.info("Clicking Delete Card");
-        getDeleteButton.click();
-    }
+  /** Click Delete Card */
+  public void clickDeleteCard() {
+    logger.info("Clicking Delete Card");
+    getDeleteButton.click();
+  }
 
-    /**
-     * Cancel Deleting Payment Method
-     *
-     * @return CreditCardDetailsView
-     */
-    public CreditCardDetailsView clickDeleteNo() {
-        logger.info("Cancel Deleting Payment Method");
-        getDeleteNoButton.click();
-        return ComponentFactory.create(CreditCardDetailsView.class);
-    }
+  /**
+   * Cancel Deleting Payment Method
+   *
+   * @return CreditCardDetailsView
+   */
+  public CreditCardDetailsView clickDeleteNo() {
+    logger.info("Cancel Deleting Payment Method");
+    getDeleteNoButton.click();
+    return ComponentFactory.create(CreditCardDetailsView.class);
+  }
 
-    /**
-     * Confirm Deleting Payment Method
-     *
-     * @return PaymentMethodsView
-     */
-    public PaymentMethodsView clickDeleteYes() {
-        logger.info("Confirming Deletion of Card");
-        getDeleteYesButton.click();
-        return ComponentFactory.create(PaymentMethodsView.class);
-    }
+  /**
+   * Confirm Deleting Payment Method
+   *
+   * @return PaymentMethodsView
+   */
+  public PaymentMethodsView clickDeleteYes() {
+    logger.info("Confirming Deletion of Card");
+    getDeleteYesButton.click();
+    return ComponentFactory.create(PaymentMethodsView.class);
+  }
 
-    /**
-     * Get Exp Date
-     *
-     * @return String
-     */
-    public String getExpDate() {
-        return getExpDateField.getCurrentText();
-    }
+  /**
+   * Get Exp Date
+   *
+   * @return String
+   */
+  public String getExpDate() {
+    return getExpDateField.getCurrentText();
+  }
 }
 
 class IosCreditCardDetailsView extends CreditCardDetailsView {
 
-    /* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-    @Locate(id = "Done", on = Platform.MOBILE_IOS)
-    protected Button getKeyboardDoneButton;
+  @Locate(id = "Done", on = Platform.MOBILE_IOS)
+  protected Button getKeyboardDoneButton;
 
-    @Locate(id = "button back", on = Platform.MOBILE_IOS)
-    protected Button getBackButton;
+  @Locate(id = "button back", on = Platform.MOBILE_IOS)
+  protected Button getBackButton;
 
-    /* -------- Actions -------- */
+  /* -------- Actions -------- */
 
-    public PaymentMethodsView saveCard() {
-        logger.info("Save Payment Method");
-        getKeyboardDoneButton.click();
-        getSaveCardButton.click();
-        getBackButton.click();
-        return ComponentFactory.create(PaymentMethodsView.class);
-    }
-
-
+  public PaymentMethodsView saveCard() {
+    logger.info("Save Payment Method");
+    getKeyboardDoneButton.click();
+    getSaveCardButton.click();
+    getBackButton.click();
+    return ComponentFactory.create(PaymentMethodsView.class);
+  }
 }

@@ -1,7 +1,6 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
-
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -16,41 +15,46 @@ import com.applause.auto.util.control.DeviceControl;
 @Implementation(is = ExploreOffersView.class, on = Platform.MOBILE_IOS)
 public class ExploreOffersView extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	@Locate(id = "Explore Offers.", on = Platform.MOBILE_IOS)
-	@Locate(androidUIAutomator = "new UiSelector().textContains(\"Explore Offers\")", on = Platform.MOBILE_ANDROID)
-	protected Text getHeadingText;
+  @Locate(id = "Explore Offers.", on = Platform.MOBILE_IOS)
+  @Locate(
+      androidUIAutomator = "new UiSelector().textContains(\"Explore Offers\")",
+      on = Platform.MOBILE_ANDROID)
+  protected Text getHeadingText;
 
-	@Locate(id = "Skip", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/skipTextView", on = Platform.MOBILE_ANDROID)
-	protected Button getSkipButton;
+  @Locate(id = "Skip", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/skipTextView", on = Platform.MOBILE_ANDROID)
+  protected Button getSkipButton;
 
-	@Locate(xpath = "//XCUIElementTypeOther[1]/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/onBoardingViewPager", on = Platform.MOBILE_ANDROID)
-	protected BaseElement getViewPager;
+  @Locate(
+      xpath =
+          "//XCUIElementTypeOther[1]/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/onBoardingViewPager",
+      on = Platform.MOBILE_ANDROID)
+  protected BaseElement getViewPager;
 
-	/* -------- Actions -------- */
+  /* -------- Actions -------- */
 
-	/**
-	 * Swipe left on tutorial view and expect to arrive at next view
-	 * 
-	 * @return
-	 */
-	public PayFasterView swipeLeftOnScreen() {
-		logger.info("Swiping left to get to next tutorial view");
-		DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
-		return ComponentFactory.create(PayFasterView.class);
-	}
+  /**
+   * Swipe left on tutorial view and expect to arrive at next view
+   *
+   * @return
+   */
+  public PayFasterView swipeLeftOnScreen() {
+    logger.info("Swiping left to get to next tutorial view");
+    DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
+    return ComponentFactory.create(PayFasterView.class);
+  }
 
-	/**
-	 * Get the text vaalue of the heading
-	 * 
-	 * @return
-	 */
-	public String getHeadingTextValue() {
-		return getHeadingText.getText();
-	}
-
-
+  /**
+   * Get the text vaalue of the heading
+   *
+   * @return
+   */
+  public String getHeadingTextValue() {
+    return getHeadingText.getText();
+  }
 }

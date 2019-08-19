@@ -18,166 +18,168 @@ import io.appium.java_client.touch.offset.PointOption;
 @Implementation(is = SignInView.class, on = Platform.MOBILE_IOS)
 public class SignInView extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	@Locate(xpath = "//XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/emailAddress", on = Platform.MOBILE_ANDROID)
-	protected TextBox getUsernameTextBox;
+  @Locate(xpath = "//XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/emailAddress", on = Platform.MOBILE_ANDROID)
+  protected TextBox getUsernameTextBox;
 
-	@Locate(xpath = "//XCUIElementTypeAlert//XCUIElementTypeStaticText[@name=\"The email and password you entered don't match. Please try again.\"]", on = Platform.MOBILE_IOS)
-	@Locate(id = "android:id/message", on = Platform.MOBILE_ANDROID)
-	protected TextBox getMessageTextBox;
+  @Locate(
+      xpath =
+          "//XCUIElementTypeAlert//XCUIElementTypeStaticText[@name=\"The email and password you entered don't match. Please try again.\"]",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "android:id/message", on = Platform.MOBILE_ANDROID)
+  protected TextBox getMessageTextBox;
 
-	@Locate(xpath = "//XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
-	@Locate(xpath = "//*[@text='OKAY']", on = Platform.MOBILE_ANDROID)
-	protected Button getDismissMessageButton;
+  @Locate(xpath = "//XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//*[@text='OKAY']", on = Platform.MOBILE_ANDROID)
+  protected Button getDismissMessageButton;
 
-	@Locate(xpath = "//XCUIElementTypeButton[@name=\"Sign In\"]", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/loginButton", on = Platform.MOBILE_ANDROID)
-	protected Button getSignInButton;
+  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Sign In\"]", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/loginButton", on = Platform.MOBILE_ANDROID)
+  protected Button getSignInButton;
 
-	@Locate(id = "hide password", on = Platform.MOBILE_IOS)
-	@Locate(id = "NA", on = Platform.MOBILE_ANDROID)
-	protected Button getShowPasswordButton;
+  @Locate(id = "hide password", on = Platform.MOBILE_IOS)
+  @Locate(id = "NA", on = Platform.MOBILE_ANDROID)
+  protected Button getShowPasswordButton;
 
-	@Locate(xpath = "//XCUIElementTypeSecureTextField|//XCUIElementTypeButton[@name=\"reveal password\"]/preceding-sibling::XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/password", on = Platform.MOBILE_ANDROID)
-	protected TextBox getPasswordTextBox;
+  @Locate(
+      xpath =
+          "//XCUIElementTypeSecureTextField|//XCUIElementTypeButton[@name=\"reveal password\"]/preceding-sibling::XCUIElementTypeTextField",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/password", on = Platform.MOBILE_ANDROID)
+  protected TextBox getPasswordTextBox;
 
-	@Locate(xpath = "//XCUIElementTypeButton[@name=\"reveal password\"]/preceding-sibling::XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/password", on = Platform.MOBILE_ANDROID)
-	protected TextBox getUnEncryptedPasswordTextBox;
+  @Locate(
+      xpath =
+          "//XCUIElementTypeButton[@name=\"reveal password\"]/preceding-sibling::XCUIElementTypeTextField",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/password", on = Platform.MOBILE_ANDROID)
+  protected TextBox getUnEncryptedPasswordTextBox;
 
-	/* -------- Actions -------- */
+  /* -------- Actions -------- */
 
-	/**
-	 * Get the text value of the reward title
-	 * 
-	 * @return
-	 */
-	public void setUsername(String username) {
-		logger.info("Set username: " + username);
-		getUsernameTextBox.clearText();
-		getUsernameTextBox.sendKeys(username);
-	}
+  /**
+   * Get the text value of the reward title
+   *
+   * @return
+   */
+  public void setUsername(String username) {
+    logger.info("Set username: " + username);
+    getUsernameTextBox.clearText();
+    getUsernameTextBox.sendKeys(username);
+  }
 
-	/**
-	 * Sets password.
-	 *
-	 * @param password
-	 *            the password
-	 */
-	public void setPassword(String password) {
-		logger.info("Set password: " + password);
-		getPasswordTextBox.clearText();
-		getPasswordTextBox.sendKeys(password);
-	}
+  /**
+   * Sets password.
+   *
+   * @param password the password
+   */
+  public void setPassword(String password) {
+    logger.info("Set password: " + password);
+    getPasswordTextBox.clearText();
+    getPasswordTextBox.sendKeys(password);
+  }
 
-	/**
-	 * Gets password.
-	 *
-	 * @return the password
-	 */
-	public String getPassword() {
-		return getPasswordTextBox.getCurrentText();
-	}
+  /**
+   * Gets password.
+   *
+   * @return the password
+   */
+  public String getPassword() {
+    return getPasswordTextBox.getCurrentText();
+  }
 
-	/**
-	 * Gets message.
-	 *
-	 * @return the message
-	 */
-	public String getMessage() {
-		return getMessageTextBox.getCurrentText();
-	}
+  /**
+   * Gets message.
+   *
+   * @return the message
+   */
+  public String getMessage() {
+    return getMessageTextBox.getCurrentText();
+  }
 
-	/**
-	 * Dismiss message sign in view.
-	 *
-	 * @return the sign in view
-	 */
-	public SignInView dismissMessage() {
-		logger.info("Dismissing message");
-		DriverManager.getDriver().switchTo().alert().accept();
-		return this;
-	}
+  /**
+   * Dismiss message sign in view.
+   *
+   * @return the sign in view
+   */
+  public SignInView dismissMessage() {
+    logger.info("Dismissing message");
+    DriverManager.getDriver().switchTo().alert().accept();
+    return this;
+  }
 
-	/**
-	 * Gets un encrypted password.
-	 *
-	 * @return the un encrypted password
-	 */
-	public String getUnEncryptedPassword() {
-		return getUnEncryptedPasswordTextBox.getCurrentText();
-	}
+  /**
+   * Gets un encrypted password.
+   *
+   * @return the un encrypted password
+   */
+  public String getUnEncryptedPassword() {
+    return getUnEncryptedPasswordTextBox.getCurrentText();
+  }
 
-	/**
-	 * Sign in.
-	 */
-	public DashboardView signIn() {
-		return signIn(DashboardView.class);
-	}
+  /** Sign in. */
+  public DashboardView signIn() {
+    return signIn(DashboardView.class);
+  }
 
-	/**
-	 * Sign in t.
-	 *
-	 * @param <T>
-	 *            the type parameter
-	 * @param clazz
-	 *            the clazz
-	 * @return the t
-	 */
-	public <T extends BaseComponent> T signIn(Class<T> clazz) {
-		logger.info("Click on Sign In button");
-		getSignInButton.click();
-		return ComponentFactory.create(clazz);
-	}
+  /**
+   * Sign in t.
+   *
+   * @param <T> the type parameter
+   * @param clazz the clazz
+   * @return the t
+   */
+  public <T extends BaseComponent> T signIn(Class<T> clazz) {
+    logger.info("Click on Sign In button");
+    getSignInButton.click();
+    return ComponentFactory.create(clazz);
+  }
 
-	/**
-	 * Show password.
-	 */
-	public void showPassword() {
-		logger.info("Click on Show Password button");
-		getShowPasswordButton.click();
-	}
+  /** Show password. */
+  public void showPassword() {
+    logger.info("Click on Show Password button");
+    getShowPasswordButton.click();
+  }
 }
 
 class AndroidSignInView extends SignInView {
 
-	/* -------- Actions -------- */
+  /* -------- Actions -------- */
 
-	@Override
-	public void showPassword() {
-		logger.info("Click on Show Password button");
-		MobileElement element = getPasswordTextBox.getMobileElement();
-		int x = element.getCenter().getX();
-		int y = element.getCenter().getY();
-		int width = element.getSize().getWidth();
-		AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
-		(new TouchAction(driver)).tap(PointOption.point(x + width / 2 - 5, y)).perform();
-	}
+  @Override
+  public void showPassword() {
+    logger.info("Click on Show Password button");
+    MobileElement element = getPasswordTextBox.getMobileElement();
+    int x = element.getCenter().getX();
+    int y = element.getCenter().getY();
+    int width = element.getSize().getWidth();
+    AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
+    (new TouchAction(driver)).tap(PointOption.point(x + width / 2 - 5, y)).perform();
+  }
 
-	@Override
-	public void setPassword(String password) {
-		logger.info("Set password: " + password);
-		while (getPasswordTextBox.getCurrentText().length() != 0) {
-			getPasswordTextBox.clearText();
-		}
+  @Override
+  public void setPassword(String password) {
+    logger.info("Set password: " + password);
+    while (getPasswordTextBox.getCurrentText().length() != 0) {
+      getPasswordTextBox.clearText();
+    }
 
-		getPasswordTextBox.sendKeys(password);
-	}
+    getPasswordTextBox.sendKeys(password);
+  }
 
-	@Override
-	public SignInView dismissMessage() {
-		logger.info("Dismissing message");
-		getDismissMessageButton.click();
-		return this;
-	}
+  @Override
+  public SignInView dismissMessage() {
+    logger.info("Dismissing message");
+    getDismissMessageButton.click();
+    return this;
+  }
 
-	public <T extends BaseComponent> T signIn(Class<T> clazz) {
-		logger.info("Click on Sign In button");
-		DeviceControl.hideKeyboard();
-		getSignInButton.click();
-		return ComponentFactory.create(clazz);
-	}
+  public <T extends BaseComponent> T signIn(Class<T> clazz) {
+    logger.info("Click on Sign In button");
+    DeviceControl.hideKeyboard();
+    getSignInButton.click();
+    return ComponentFactory.create(clazz);
+  }
 }
