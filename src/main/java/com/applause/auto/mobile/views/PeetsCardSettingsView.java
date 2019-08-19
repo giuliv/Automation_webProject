@@ -12,26 +12,28 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 @Implementation(is = PeetsCardSettingsView.class, on = Platform.MOBILE_IOS)
 public class PeetsCardSettingsView extends BaseComponent {
 
-    /* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-    @Locate(xpath = "//XCUIElementTypeOther[@name=\"Card Settings\"]", on = Platform.MOBILE_IOS)
-    @Locate(xpath = "//android.widget.TextView[@text='Card Settings']", on = Platform.MOBILE_ANDROID)
-    protected Text getViewSignature;
+  @Locate(xpath = "//XCUIElementTypeOther[@name=\"Card Settings\"]", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//android.widget.TextView[@text='Card Settings']", on = Platform.MOBILE_ANDROID)
+  protected Text getViewSignature;
 
-    @Locate(id = "button back", on = Platform.MOBILE_IOS)
-    @Locate(xpath = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]", on = Platform.MOBILE_ANDROID)
-    protected Button getBackButton;
+  @Locate(id = "button back", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]",
+      on = Platform.MOBILE_ANDROID)
+  protected Button getBackButton;
 
-    /* -------- Actions -------- */
+  /* -------- Actions -------- */
 
-    /**
-     * Click Back Button
-     *
-     * @return PaymentMethodsView
-     */
-    public PaymentMethodsView clickBackButton() {
-        logger.info("Click Back Button");
-        getBackButton.click();
-        return ComponentFactory.create(PaymentMethodsView.class);
-    }
+  /**
+   * Click Back Button
+   *
+   * @return PaymentMethodsView
+   */
+  public PaymentMethodsView clickBackButton() {
+    logger.info("Click Back Button");
+    getBackButton.click();
+    return ComponentFactory.create(PaymentMethodsView.class);
+  }
 }

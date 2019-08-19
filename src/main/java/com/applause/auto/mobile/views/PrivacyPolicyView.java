@@ -11,21 +11,23 @@ import com.applause.auto.util.helper.SyncHelper;
 @Implementation(is = PrivacyPolicyView.class, on = Platform.MOBILE_IOS)
 public class PrivacyPolicyView extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	@Locate(xpath = "//XCUIElementTypeOther[contains(@name,\"PRIVACY POLICY\")][1]", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/headingText", on = Platform.MOBILE_ANDROID)
-	protected Text getHeadingText;
+  @Locate(
+      xpath = "//XCUIElementTypeOther[contains(@name,\"PRIVACY POLICY\")][1]",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/headingText", on = Platform.MOBILE_ANDROID)
+  protected Text getHeadingText;
 }
 
 class AndroidPrivacyPolicyView extends PrivacyPolicyView {
 
-	/* -------- Lifecycle Methods -------- */
+  /* -------- Lifecycle Methods -------- */
 
-	@Override
-	public void afterInit() {
-		SyncHelper.sleep(5000);
-		throw new RuntimeException("Not Yet Implemeted. Blocked by WEB context switching issue");
-		// SyncHelper.waitUntilElementPresent(getHeadingText, 120000);
-	}
+  @Override
+  public void afterInit() {
+    SyncHelper.sleep(5000);
+    throw new RuntimeException("Not Yet Implemeted. Blocked by WEB context switching issue");
+    // SyncHelper.waitUntilElementPresent(getHeadingText, 120000);
+  }
 }

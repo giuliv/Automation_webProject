@@ -13,107 +13,119 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 @Implementation(is = CheckInView.class, on = Platform.MOBILE_IOS)
 public class CheckInView extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	@Locate(xpath = "(//XCUIElementTypeStaticText[(@name=\"Check In\" or @name=\"Add Value to My Peet's Card\") and @visible=\"true\"])[1]", on = Platform.MOBILE_IOS)
-	@Locate(xpath = "//android.widget.TextView[@text=\"Check In\" or @text=\"Add Value to My Peet's Card\"]", on = Platform.MOBILE_ANDROID)
-	protected Text getSignature;
+  @Locate(
+      xpath =
+          "(//XCUIElementTypeStaticText[(@name=\"Check In\" or @name=\"Add Value to My Peet's Card\") and @visible=\"true\"])[1]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//android.widget.TextView[@text=\"Check In\" or @text=\"Add Value to My Peet's Card\"]",
+      on = Platform.MOBILE_ANDROID)
+  protected Text getSignature;
 
-	@Locate(id = "Add Value", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/addValue", on = Platform.MOBILE_ANDROID)
-	protected Button getAddValueButton;
+  @Locate(id = "Add Value", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/addValue", on = Platform.MOBILE_ANDROID)
+  protected Button getAddValueButton;
 
-	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Your Peet’s Card Balance\"]/following-sibling::XCUIElementTypeStaticText[starts-with(@name,'$')]", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/amount", on = Platform.MOBILE_ANDROID)
-	protected Text getBalanceText;
+  @Locate(
+      xpath =
+          "//XCUIElementTypeStaticText[@name=\"Your Peet’s Card Balance\"]/following-sibling::XCUIElementTypeStaticText[starts-with(@name,'$')]",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/amount", on = Platform.MOBILE_ANDROID)
+  protected Text getBalanceText;
 
-	@Locate(id = "Confirm Value", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/confirmChangesButton", on = Platform.MOBILE_ANDROID)
-	protected Button getConfirmButton;
+  @Locate(id = "Confirm Value", on = Platform.MOBILE_IOS)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/confirmChangesButton",
+      on = Platform.MOBILE_ANDROID)
+  protected Button getConfirmButton;
 
-	@Locate(id = "button edit pen", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/editCreditCardBtn", on = Platform.MOBILE_ANDROID)
-	protected Button getPencilIconButton;
+  @Locate(id = "button edit pen", on = Platform.MOBILE_IOS)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/editCreditCardBtn",
+      on = Platform.MOBILE_ANDROID)
+  protected Button getPencilIconButton;
 
-	@Locate(xpath = "//XCUIElementTypeOther/XCUIElementTypeButton[@name='%s']", on = Platform.MOBILE_IOS)
-	@Locate(xpath = "//android.widget.LinearLayout/android.widget.Button[@text='%s']", on = Platform.MOBILE_ANDROID)
-	protected Button getAmountButton;
+  @Locate(
+      xpath = "//XCUIElementTypeOther/XCUIElementTypeButton[@name='%s']",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//android.widget.LinearLayout/android.widget.Button[@text='%s']",
+      on = Platform.MOBILE_ANDROID)
+  protected Button getAmountButton;
 
-	/* -------- Actions -------- */
+  /* -------- Actions -------- */
 
-	/**
-	 * Add value.
-	 */
-	public void addValue() {
-		logger.info("Tap on Add Value");
-		getAddValueButton.click();
-	}
+  /** Add value. */
+  public void addValue() {
+    logger.info("Tap on Add Value");
+    getAddValueButton.click();
+  }
 
-	/**
-	 * Edit payment methods view.
-	 *
-	 * @return the payment methods view
-	 */
-	public PaymentMethodsView edit() {
-		logger.info("Tap pencil icon");
-		getPencilIconButton.click();
-		return ComponentFactory.create(PaymentMethodsView.class);
-	}
+  /**
+   * Edit payment methods view.
+   *
+   * @return the payment methods view
+   */
+  public PaymentMethodsView edit() {
+    logger.info("Tap pencil icon");
+    getPencilIconButton.click();
+    return ComponentFactory.create(PaymentMethodsView.class);
+  }
 
-	/**
-	 * Gets balance.
-	 *
-	 * @return the balance
-	 */
-	public String getBalance() {
-		String rawBalance = getBalanceText.getText();
-		int decimalPosition = rawBalance.indexOf(".");
-		return rawBalance.substring(0, decimalPosition).replace("$", "");
-	}
+  /**
+   * Gets balance.
+   *
+   * @return the balance
+   */
+  public String getBalance() {
+    String rawBalance = getBalanceText.getText();
+    int decimalPosition = rawBalance.indexOf(".");
+    return rawBalance.substring(0, decimalPosition).replace("$", "");
+  }
 
-	/**
-	 * Is amount selected boolean.
-	 *
-	 * @param amount
-	 *            the amount
-	 * @return the boolean
-	 */
-	public boolean isAmountSelected(String amount) {
-		getAmountButton.initializeWithFormat(amount);
-		return (getAmountButton.getAttributeValue("value") != null);
-	}
+  /**
+   * Is amount selected boolean.
+   *
+   * @param amount the amount
+   * @return the boolean
+   */
+  public boolean isAmountSelected(String amount) {
+    getAmountButton.initializeWithFormat(amount);
+    return (getAmountButton.getAttributeValue("value") != null);
+  }
 
-	/**
-	 * Confirm peets cards view.
-	 *
-	 * @return the peets cards view
-	 */
-	public CheckInView confirm() {
-		logger.info("Tap on confirm button");
-		getConfirmButton.click();
-		return ComponentFactory.create(CheckInView.class);
-	}
+  /**
+   * Confirm peets cards view.
+   *
+   * @return the peets cards view
+   */
+  public CheckInView confirm() {
+    logger.info("Tap on confirm button");
+    getConfirmButton.click();
+    return ComponentFactory.create(CheckInView.class);
+  }
 
-	/**
-	 * Gets bottom navigation menu.
-	 *
-	 * @return the bottom navigation menu
-	 */
-	public BottomNavigationMenuChunk getBottomNavigationMenu() {
-		return ComponentFactory.create(BottomNavigationMenuChunk.class, "");
-
-	}
+  /**
+   * Gets bottom navigation menu.
+   *
+   * @return the bottom navigation menu
+   */
+  public BottomNavigationMenuChunk getBottomNavigationMenu() {
+    return ComponentFactory.create(BottomNavigationMenuChunk.class, "");
+  }
 }
 
 class AndroidCheckInView extends CheckInView {
-	@Override
-	public boolean isAmountSelected(String amount) {
-		getAmountButton.initializeWithFormat(amount);
-		return getAmountButton.getMobileElement().isSelected();
-	}
+  @Override
+  public boolean isAmountSelected(String amount) {
+    getAmountButton.initializeWithFormat(amount);
+    return getAmountButton.getMobileElement().isSelected();
+  }
 
-	public String getBalance() {
-		return getBalanceText.getText();
-	}
-
+  public String getBalance() {
+    return getBalanceText.getText();
+  }
 }

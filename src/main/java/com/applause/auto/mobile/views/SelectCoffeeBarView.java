@@ -14,7 +14,6 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
-
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
 
@@ -22,119 +21,125 @@ import io.appium.java_client.AppiumDriver;
 @Implementation(is = SelectCoffeeBarView.class, on = Platform.MOBILE_IOS)
 public class SelectCoffeeBarView extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	@Locate(xpath = "//XCUIElementTypeNavigationBar[@name='Select Coffeebar']", on = Platform.MOBILE_IOS)
-	@Locate(xpath = "//android.widget.TextView[@text='Select Coffeebar']", on = Platform.MOBILE_ANDROID)
-	protected ContainerElement getSignature;
+  @Locate(
+      xpath = "//XCUIElementTypeNavigationBar[@name='Select Coffeebar']",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//android.widget.TextView[@text='Select Coffeebar']",
+      on = Platform.MOBILE_ANDROID)
+  protected ContainerElement getSignature;
 
-	@Locate(xpath = "//XCUIElementTypeButton[@name=\"Enable Location\"]/preceding-sibling::*", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/noStoreMessage", on = Platform.MOBILE_ANDROID)
-	protected Text getEnableLocationDescriptionText;
+  @Locate(
+      xpath = "//XCUIElementTypeButton[@name=\"Enable Location\"]/preceding-sibling::*",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/noStoreMessage", on = Platform.MOBILE_ANDROID)
+  protected Text getEnableLocationDescriptionText;
 
-	@Locate(id = "Enable Location", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/enableLocationServiceButton", on = Platform.MOBILE_ANDROID)
-	protected Button getEnableLocationButton;
+  @Locate(id = "Enable Location", on = Platform.MOBILE_IOS)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/enableLocationServiceButton",
+      on = Platform.MOBILE_ANDROID)
+  protected Button getEnableLocationButton;
 
-	@Locate(id = "search magnifier", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/action_search", on = Platform.MOBILE_ANDROID)
-	protected Button getSearchButton;
+  @Locate(id = "search magnifier", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/action_search", on = Platform.MOBILE_ANDROID)
+  protected Button getSearchButton;
 
-	@Locate(id = "Search for coffeebar", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/searchField", on = Platform.MOBILE_ANDROID)
-	protected TextBox getSearchTextBox;
+  @Locate(id = "Search for coffeebar", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/searchField", on = Platform.MOBILE_ANDROID)
+  protected TextBox getSearchTextBox;
 
-	@Locate(xpath = "//XCUIElementTypeTable/XCUIElementTypeCell[%s]", on = Platform.MOBILE_IOS)
-	@Locate(xpath = "(//android.widget.RelativeLayout[@resource-id='com.wearehathway.peets.development:id/storeDetail'])[%s]", on = Platform.MOBILE_ANDROID)
-	protected TextBox getSearchResultText;
+  @Locate(xpath = "//XCUIElementTypeTable/XCUIElementTypeCell[%s]", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "(//android.widget.RelativeLayout[@resource-id='com.wearehathway.peets.development:id/storeDetail'])[%s]",
+      on = Platform.MOBILE_ANDROID)
+  protected TextBox getSearchResultText;
 
-	/* -------- Actions -------- */
+  /* -------- Actions -------- */
 
-	/**
-	 * Gets enable location description.
-	 *
-	 * @return the enable location description
-	 */
-	public String getEnableLocationDescription() {
-		return getEnableLocationDescriptionText.getText();
-	}
+  /**
+   * Gets enable location description.
+   *
+   * @return the enable location description
+   */
+  public String getEnableLocationDescription() {
+    return getEnableLocationDescriptionText.getText();
+  }
 
-	/**
-	 * Is enable location button displayed boolean.
-	 *
-	 * @return the boolean
-	 */
-	public boolean isEnableLocationButtonDisplayed() {
-		return getEnableLocationButton.isDisplayed();
-	}
+  /**
+   * Is enable location button displayed boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isEnableLocationButtonDisplayed() {
+    return getEnableLocationButton.isDisplayed();
+  }
 
-	/**
-	 * Enable location allow location services popup chunk.
-	 *
-	 * @return the allow location services popup chunk
-	 */
-	public AllowLocationServicesPopupChunk enableLocation() {
-		logger.info("Tap enable location button");
-		getEnableLocationButton.click();
-		return ComponentFactory.create(AllowLocationServicesPopupChunk.class, "");
-	}
+  /**
+   * Enable location allow location services popup chunk.
+   *
+   * @return the allow location services popup chunk
+   */
+  public AllowLocationServicesPopupChunk enableLocation() {
+    logger.info("Tap enable location button");
+    getEnableLocationButton.click();
+    return ComponentFactory.create(AllowLocationServicesPopupChunk.class, "");
+  }
 
-	/**
-	 * Search.
-	 *
-	 * @param searchTxt
-	 *            the search txt
-	 */
-	public void search(String searchTxt) {
-		logger.info("Searching for store: " + searchTxt);
-		getSearchButton.click();
-		getSearchTextBox.sendKeys(searchTxt + "\n");
-	}
+  /**
+   * Search.
+   *
+   * @param searchTxt the search txt
+   */
+  public void search(String searchTxt) {
+    logger.info("Searching for store: " + searchTxt);
+    getSearchButton.click();
+    getSearchTextBox.sendKeys(searchTxt + "\n");
+  }
 
-	/**
-	 * Open coffeebar from search results new order view.
-	 *
-	 * @param index
-	 *            the index
-	 * @return the new order view
-	 */
-	public NewOrderView openCoffeebarFromSearchResults(int index) {
-		logger.info("Tap on Search result");
-		getSearchResultText.initializeWithFormat(index);
-		DeviceControl.tapElementCenter(getSearchResultText);
-		return ComponentFactory.create(NewOrderView.class);
-	}
+  /**
+   * Open coffeebar from search results new order view.
+   *
+   * @param index the index
+   * @return the new order view
+   */
+  public NewOrderView openCoffeebarFromSearchResults(int index) {
+    logger.info("Tap on Search result");
+    getSearchResultText.initializeWithFormat(index);
+    DeviceControl.tapElementCenter(getSearchResultText);
+    return ComponentFactory.create(NewOrderView.class);
+  }
 
-	public boolean isStoresDisplayed() {
-		return getSearchResultText.isDisplayed();
-	}
-
-
-
+  public boolean isStoresDisplayed() {
+    return getSearchResultText.isDisplayed();
+  }
 }
 
 class AndroidSelectCoffeeBarView extends SelectCoffeeBarView {
 
-	/* -------- Lifecycle Methods -------- */
+  /* -------- Lifecycle Methods -------- */
 
-	@Override
-	public void afterInit() {
-		// Workaround for Automator hang
-		try {
-			ComponentFactory.create(AllowLocationServicesPopupChunk.class, "").notNow();
-		} catch (AssertionError ase) {
-			logger.warn("No popup found");
-		}
-		SyncHelper.wait(Until.uiElement(getSignature).present());
-	}
+  @Override
+  public void afterInit() {
+    // Workaround for Automator hang
+    try {
+      ComponentFactory.create(AllowLocationServicesPopupChunk.class, "").notNow();
+    } catch (AssertionError ase) {
+      logger.warn("No popup found");
+    }
+    SyncHelper.wait(Until.uiElement(getSignature).present());
+  }
 
-	/* -------- Actions -------- */
+  /* -------- Actions -------- */
 
-	public void search(String searchTxt) {
-		logger.info("Searching for store: " + searchTxt);
-		getSearchButton.click();
-		getSearchTextBox.sendKeys(searchTxt);
-		AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
-		driver.executeScript("mobile: performEditorAction", ImmutableMap.of("action", "search"));
-	}
+  public void search(String searchTxt) {
+    logger.info("Searching for store: " + searchTxt);
+    getSearchButton.click();
+    getSearchTextBox.sendKeys(searchTxt);
+    AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
+    driver.executeScript("mobile: performEditorAction", ImmutableMap.of("action", "search"));
+  }
 }

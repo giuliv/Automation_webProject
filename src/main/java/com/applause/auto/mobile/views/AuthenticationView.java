@@ -11,24 +11,24 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 @Implementation(is = AuthenticationView.class, on = Platform.MOBILE_IOS)
 public class AuthenticationView extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	@Locate(id = "Create Account", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/signUp", on = Platform.MOBILE_ANDROID)
-	protected Button getCreateAccountButton;
+  @Locate(id = "Create Account", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/signUp", on = Platform.MOBILE_ANDROID)
+  protected Button getCreateAccountButton;
 
-	@Locate(id = "Peetnik Rewards", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/rewardTitle", on = Platform.MOBILE_ANDROID)
-	protected Text getRewardTitleText;
+  @Locate(id = "Peetnik Rewards", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/rewardTitle", on = Platform.MOBILE_ANDROID)
+  protected Text getRewardTitleText;
 
-	/* -------- Actions -------- */
+  /* -------- Actions -------- */
 
-	/**
-	 * Get the text value of the reward title
-	 * 
-	 * @return
-	 */
-	public String getRewardTitleTextValue() {
-		return getRewardTitleText.getText();
-	}
+  /**
+   * Get the text value of the reward title
+   *
+   * @return
+   */
+  public String getRewardTitleTextValue() {
+    return getRewardTitleText.getText();
+  }
 }

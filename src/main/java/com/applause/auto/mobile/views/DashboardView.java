@@ -19,37 +19,39 @@ import org.openqa.selenium.Point;
 @Implementation(is = DashboardView.class, on = Platform.MOBILE_IOS)
 public class DashboardView extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	@Locate(id = "Your Feed", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/yourFeedTextView", on = Platform.MOBILE_ANDROID)
-	protected TextBox getSignature;
+  @Locate(id = "Your Feed", on = Platform.MOBILE_IOS)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/yourFeedTextView",
+      on = Platform.MOBILE_ANDROID)
+  protected TextBox getSignature;
 
-	@Locate(id = "button more", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/actionMore", on = Platform.MOBILE_ANDROID)
-	protected Button getMoreScreenButton;
+  @Locate(id = "button more", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/actionMore", on = Platform.MOBILE_ANDROID)
+  protected Button getMoreScreenButton;
 
-	/* -------- Actions -------- */
+  /* -------- Actions -------- */
 
-	/**
-	 * Gets account profile menu.
-	 *
-	 * @return the account profile menu
-	 */
-	public AccountMenuMobileChunk getAccountProfileMenu() {
-		logger.info("Open account profile menu");
-		Point elemCoord = getMoreScreenButton.getMobileElement().getCenter();
-		AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
-		new TouchAction(driver).tap(PointOption.point(elemCoord.getX(), elemCoord.getY())).perform();
-		return ComponentFactory.create(AccountMenuMobileChunk.class, "");
-	}
+  /**
+   * Gets account profile menu.
+   *
+   * @return the account profile menu
+   */
+  public AccountMenuMobileChunk getAccountProfileMenu() {
+    logger.info("Open account profile menu");
+    Point elemCoord = getMoreScreenButton.getMobileElement().getCenter();
+    AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
+    new TouchAction(driver).tap(PointOption.point(elemCoord.getX(), elemCoord.getY())).perform();
+    return ComponentFactory.create(AccountMenuMobileChunk.class, "");
+  }
 
-	/**
-	 * Gets bottom navigation menu.
-	 *
-	 * @return the bottom navigation menu
-	 */
-	public BottomNavigationMenuChunk getBottomNavigationMenu() {
-		return ComponentFactory.create(BottomNavigationMenuChunk.class, "");
-	}
+  /**
+   * Gets bottom navigation menu.
+   *
+   * @return the bottom navigation menu
+   */
+  public BottomNavigationMenuChunk getBottomNavigationMenu() {
+    return ComponentFactory.create(BottomNavigationMenuChunk.class, "");
+  }
 }
