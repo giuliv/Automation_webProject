@@ -1,21 +1,69 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.mobile.helpers.MobileHelper;
+import com.applause.auto.data.enums.SwipeDirection;
+import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.web.components.AccountMenuMobileChunk;
-import java.lang.invoke.MethodHandles;
 
 @Implementation(is = ProfileDetailsView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosProfileDetailsView.class, on = Platform.MOBILE_IOS)
 public class ProfileDetailsView extends BaseComponent {
+
+	/* -------- Elements -------- */
+
+	@Locate(xpath = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/firstName", on = Platform.MOBILE_ANDROID)
+	protected TextBox getFirstnameTextBox;
+
+	@Locate(xpath = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/lastName", on = Platform.MOBILE_ANDROID)
+	protected TextBox getLastnameTextBox;
+
+	@Locate(xpath = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/zipCode", on = Platform.MOBILE_ANDROID)
+	protected TextBox getZipCodeTextBox;
+
+	@Locate(xpath = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[4]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/birthday", on = Platform.MOBILE_ANDROID)
+	protected TextBox getDOBTextBox;
+
+	@Locate(xpath = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[5]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/phoneNumber", on = Platform.MOBILE_ANDROID)
+	protected TextBox getPhoneNumberTextBox;
+
+	@Locate(xpath = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[6]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/emailAddress", on = Platform.MOBILE_ANDROID)
+	protected TextBox getEmailAddressTextBox;
+
+	@Locate(xpath = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[7]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/confirmEmailAddress", on = Platform.MOBILE_ANDROID)
+	protected TextBox getConfirmEmailAddressTextBox;
+
+	@Locate(id = "Save", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/saveButton", on = Platform.MOBILE_ANDROID)
+	protected Button getSaveButton;
+
+	@Locate(id = "Change Password", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/changePassword", on = Platform.MOBILE_ANDROID)
+	protected Button getChangePasswordButton;
+
+	@Locate(id = "button back", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.ImageButton[@content-desc='Navigate up']", on = Platform.MOBILE_ANDROID)
+	protected Button getBackButton;
+
+	@Locate(xpath = "//XCUIElementTypeOther[@name=\"PROFILE DETAILS\"]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.TextView[@text='PROFILE DETAILS']", on = Platform.MOBILE_ANDROID)
+	protected Text getSignature;
+
+	/* -------- Actions -------- */
 
 	/**
 	 * Sets firstname.
@@ -37,7 +85,7 @@ public class ProfileDetailsView extends BaseComponent {
 	 */
 	public ChangePasswordView changePassword() {
 		logger.info("Tap on change password button");
-		getChangePasswordButton.tapCenterOfElement();
+		DeviceControl.tapElementCenter(getChangePasswordButton);
 		return ComponentFactory.create(ChangePasswordView.class);
 	}
 
@@ -104,8 +152,8 @@ public class ProfileDetailsView extends BaseComponent {
 	 */
 	public ProfileDetailsView setConfirmEmailAddress(String emailAddress) {
 		logger.info("Set email address to: " + emailAddress);
-		getDriver().hideKeyboard();
-		MobileHelper.scrollUp(1);
+		DeviceControl.hideKeyboard();
+		DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.DOWN);
 		getConfirmEmailAddressTextBox.clearText();
 		getConfirmEmailAddressTextBox.sendKeys(emailAddress);
 		return this;
@@ -171,7 +219,7 @@ public class ProfileDetailsView extends BaseComponent {
 		logger.info("Tap back button");
 		getBackButton.click();
 		SyncHelper.sleep(4000);
-		return DeviceComponentFactory.create(clazz, "");
+		return ComponentFactory.create(clazz, "");
 
 	}
 
@@ -191,65 +239,28 @@ public class ProfileDetailsView extends BaseComponent {
 	 */
 	public AccountMenuMobileChunk save() {
 		logger.info("Click on SAVE button");
-		getDriver().hideKeyboard();
+		DeviceControl.hideKeyboard();
 		getSaveButton.click();
 		SyncHelper.sleep(5000);
-		return DeviceComponentFactory.create(AccountMenuMobileChunk.class, "");
+		return ComponentFactory.create(AccountMenuMobileChunk.class, "");
 	}
-
-	@Locate(xpath = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/firstName", on = Platform.MOBILE_ANDROID)
-	protected TextBox getFirstnameTextBox;
-
-	@Locate(xpath = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/lastName", on = Platform.MOBILE_ANDROID)
-	protected TextBox getLastnameTextBox;
-
-	@Locate(xpath = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/zipCode", on = Platform.MOBILE_ANDROID)
-	protected TextBox getZipCodeTextBox;
-
-	@Locate(xpath = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[4]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/birthday", on = Platform.MOBILE_ANDROID)
-	protected TextBox getDOBTextBox;
-
-	@Locate(xpath = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[5]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/phoneNumber", on = Platform.MOBILE_ANDROID)
-	protected TextBox getPhoneNumberTextBox;
-
-	@Locate(xpath = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[6]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/emailAddress", on = Platform.MOBILE_ANDROID)
-	protected TextBox getEmailAddressTextBox;
-
-	@Locate(xpath = "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[7]/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/confirmEmailAddress", on = Platform.MOBILE_ANDROID)
-	protected TextBox getConfirmEmailAddressTextBox;
-
-	@Locate(id = "Save", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/saveButton", on = Platform.MOBILE_ANDROID)
-	protected Button getSaveButton;
-
-	@Locate(id = "Change Password", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/changePassword", on = Platform.MOBILE_ANDROID)
-	protected Button getChangePasswordButton;
-
-	@Locate(id = "button back", on = Platform.MOBILE_IOS)
-	@Locate(xpath = "//android.widget.ImageButton[@content-desc='Navigate up']", on = Platform.MOBILE_ANDROID)
-	protected Button getBackButton;
-
-	@Locate(xpath = "//XCUIElementTypeOther[@name=\"PROFILE DETAILS\"]", on = Platform.MOBILE_IOS)
-	@Locate(xpath = "//android.widget.TextView[@text='PROFILE DETAILS']", on = Platform.MOBILE_ANDROID)
-	protected Text getSignature;
 }
 
 class IosProfileDetailsView extends ProfileDetailsView {
+
+	/* -------- Elements -------- */
+
+	@Locate(id = "Done", on = Platform.MOBILE_IOS)
+	protected Button getDoneButton;
+
+	/* -------- Actions -------- */
 
 	public AccountMenuMobileChunk save() {
 		logger.info("Click on SAVE button");
 		getDoneButton.click();
 		getSaveButton.click();
 		SyncHelper.sleep(5000);
-		return DeviceComponentFactory.create(AccountMenuMobileChunk.class, "");
+		return ComponentFactory.create(AccountMenuMobileChunk.class, "");
 	}
 
 	public ProfileDetailsView setConfirmEmailAddress(String emailAddress) {
@@ -280,7 +291,4 @@ class IosProfileDetailsView extends ProfileDetailsView {
 		getFirstnameTextBox.sendKeys(firstname);
 		return this;
 	}
-
-	@Locate(id = "Done", on = Platform.MOBILE_IOS)
-	protected Button getDoneButton;
 }

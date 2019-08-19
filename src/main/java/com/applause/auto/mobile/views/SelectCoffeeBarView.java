@@ -1,82 +1,28 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.framework.pageframework.device.MobileElementLocator;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.helper.QueryHelper;
+import com.applause.auto.util.DriverManager;
+import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
+
 import com.google.common.collect.ImmutableMap;
-import java.lang.invoke.MethodHandles;
+import io.appium.java_client.AppiumDriver;
 
 @Implementation(is = AndroidSelectCoffeeBarView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = SelectCoffeeBarView.class, on = Platform.MOBILE_IOS)
 public class SelectCoffeeBarView extends BaseComponent {
 
-	/**
-	 * Gets enable location description.
-	 *
-	 * @return the enable location description
-	 */
-	public String getEnableLocationDescription() {
-		return getEnableLocationDescriptionText.getText();
-	}
-
-	/**
-	 * Is enable location button displayed boolean.
-	 *
-	 * @return the boolean
-	 */
-	public boolean isEnableLocationButtonDisplayed() {
-		return SyncHelper.isElementDisplayed(getLocator(this, "getEnableLocationButton"));
-	}
-
-	/**
-	 * Enable location allow location services popup chunk.
-	 *
-	 * @return the allow location services popup chunk
-	 */
-	public AllowLocationServicesPopupChunk enableLocation() {
-		logger.info("Tap enable location button");
-		getEnableLocationButton.click();
-		return DeviceComponentFactory.create(AllowLocationServicesPopupChunk.class, "");
-	}
-
-	/**
-	 * Search.
-	 *
-	 * @param searchTxt
-	 *            the search txt
-	 */
-	public void search(String searchTxt) {
-		logger.info("Searching for store: " + searchTxt);
-		getSearchButton.click();
-		getSearchTextBox.sendKeys(searchTxt + "\n");
-	}
-
-	/**
-	 * Open coffeebar from search results new order view.
-	 *
-	 * @param index
-	 *            the index
-	 * @return the new order view
-	 */
-	public NewOrderView openCoffeebarFromSearchResults(int index) {
-		logger.info("Tap on Search result");
-		getSearchResultText(index).tapCenterOfElement();
-		return ComponentFactory.create(NewOrderView.class);
-	}
-
-	public boolean isStoresDisplayed() {
-		boolean result = QueryHelper.doesElementExist(getLocator(this, "getSearchResultText", 1));
-		return result;
-	}
+	/* -------- Elements -------- */
 
 	@Locate(xpath = "//XCUIElementTypeNavigationBar[@name='Select Coffeebar']", on = Platform.MOBILE_IOS)
 	@Locate(xpath = "//android.widget.TextView[@text='Select Coffeebar']", on = Platform.MOBILE_ANDROID)
@@ -102,24 +48,93 @@ public class SelectCoffeeBarView extends BaseComponent {
 	@Locate(xpath = "(//android.widget.RelativeLayout[@resource-id='com.wearehathway.peets.development:id/storeDetail'])[%s]", on = Platform.MOBILE_ANDROID)
 	protected TextBox getSearchResultText;
 
+	/* -------- Actions -------- */
+
+	/**
+	 * Gets enable location description.
+	 *
+	 * @return the enable location description
+	 */
+	public String getEnableLocationDescription() {
+		return getEnableLocationDescriptionText.getText();
+	}
+
+	/**
+	 * Is enable location button displayed boolean.
+	 *
+	 * @return the boolean
+	 */
+	public boolean isEnableLocationButtonDisplayed() {
+		return getEnableLocationButton.isDisplayed();
+	}
+
+	/**
+	 * Enable location allow location services popup chunk.
+	 *
+	 * @return the allow location services popup chunk
+	 */
+	public AllowLocationServicesPopupChunk enableLocation() {
+		logger.info("Tap enable location button");
+		getEnableLocationButton.click();
+		return ComponentFactory.create(AllowLocationServicesPopupChunk.class, "");
+	}
+
+	/**
+	 * Search.
+	 *
+	 * @param searchTxt
+	 *            the search txt
+	 */
+	public void search(String searchTxt) {
+		logger.info("Searching for store: " + searchTxt);
+		getSearchButton.click();
+		getSearchTextBox.sendKeys(searchTxt + "\n");
+	}
+
+	/**
+	 * Open coffeebar from search results new order view.
+	 *
+	 * @param index
+	 *            the index
+	 * @return the new order view
+	 */
+	public NewOrderView openCoffeebarFromSearchResults(int index) {
+		logger.info("Tap on Search result");
+		getSearchResultText.initializeWithFormat(index);
+		DeviceControl.tapElementCenter(getSearchResultText);
+		return ComponentFactory.create(NewOrderView.class);
+	}
+
+	public boolean isStoresDisplayed() {
+		return getSearchResultText.isDisplayed();
+	}
+
+
+
 }
 
 class AndroidSelectCoffeeBarView extends SelectCoffeeBarView {
+
+	/* -------- Lifecycle Methods -------- */
+
 	@Override
-	public void waitUntilVisible() {
+	public void afterInit() {
 		// Workaround for Automator hang
 		try {
-			DeviceComponentFactory.create(AllowLocationServicesPopupChunk.class, "").notNow();
+			ComponentFactory.create(AllowLocationServicesPopupChunk.class, "").notNow();
 		} catch (AssertionError ase) {
 			logger.warn("No popup found");
 		}
-		SyncHelper.waitUntilElementPresent(getSignature);
+		SyncHelper.wait(Until.uiElement(getSignature).present());
 	}
+
+	/* -------- Actions -------- */
 
 	public void search(String searchTxt) {
 		logger.info("Searching for store: " + searchTxt);
 		getSearchButton.click();
 		getSearchTextBox.sendKeys(searchTxt);
-		getDriver().executeScript("mobile: performEditorAction", ImmutableMap.of("action", "search"));
+		AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
+		driver.executeScript("mobile: performEditorAction", ImmutableMap.of("action", "search"));
 	}
 }
