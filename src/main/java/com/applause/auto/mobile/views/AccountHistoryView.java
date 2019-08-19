@@ -1,27 +1,17 @@
 package com.applause.auto.mobile.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.pageframework.device.MobileElementLocator;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import io.appium.java_client.MobileElement;
 import java.lang.invoke.MethodHandles;
 import java.util.List;
 
-import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
-import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.framework.pageframework.devicecontrols.Text;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-
-import io.appium.java_client.MobileElement;
-
-@AndroidImplementation(AccountHistoryView.class)
-@IosImplementation(AccountHistoryView.class)
-public class AccountHistoryView extends AbstractDeviceView {
-
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		syncHelper.waitForElementToAppear(getSignatureText(), 120000);
-	}
+@Implementation(is = AccountHistoryView.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = AccountHistoryView.class, on = Platform.MOBILE_IOS)
+public class AccountHistoryView extends BaseComponent {
 
 	/**
 	 * Gets transaction date.
@@ -31,7 +21,7 @@ public class AccountHistoryView extends AbstractDeviceView {
 	 * @return the transaction date
 	 */
 	public String getTransactionDate(int index) {
-		return getTransactionDatesText().get(index).getText();
+		return getTransactionDatesText.get(index).getCurrentText();
 	}
 
 	/**
@@ -42,7 +32,7 @@ public class AccountHistoryView extends AbstractDeviceView {
 	 * @return the transaction date divider
 	 */
 	public String getTransactionDateDivider(int index) {
-		return getTransactionDividersText().get(index).getAttribute("name");
+		return getTransactionDividersText.get(index).getAttribute("name");
 	}
 
 	/**
@@ -53,33 +43,26 @@ public class AccountHistoryView extends AbstractDeviceView {
 	 * @return the transaction amount
 	 */
 	public String getTransactionAmount(int index) {
-		return getTransactionAmountText().get(index).getText();
+		return getTransactionAmountText.get(index).getCurrentText();
 	}
 
+	@Locate(xpath = "//XCUIElementTypeNavigationBar[@name=\"ACCOUNT HISTORY\"]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.TextView[@text='ACCOUNT HISTORY']", on = Platform.MOBILE_ANDROID)
+	protected Text getSignatureText;
 
+	@Locate(xpath = "//XCUIElementTypeTable/XCUIElementTypeOther", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/sectionHeaderText", on = Platform.MOBILE_ANDROID)
+	protected List<MobileElement> getTransactionDividersText;
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text='ACCOUNT HISTORY']", iOS = "//XCUIElementTypeNavigationBar[@name=\"ACCOUNT HISTORY\"]")
-	protected Text getSignatureText() {
-		return new Text(getLocator(this, "getSignatureText"));
-	}
+	@Locate(xpath = "//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[3]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/transactionAmount", on = Platform.MOBILE_ANDROID)
+	protected List<MobileElement> getTransactionAmountText;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/sectionHeaderText", iOS = "//XCUIElementTypeTable/XCUIElementTypeOther")
-	protected List<MobileElement> getTransactionDividersText() {
-		return queryHelper.findElements(getLocator(this, "getTransactionDividersText"));
-	}
+	@Locate(xpath = "//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[2]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/transactionTitle", on = Platform.MOBILE_ANDROID)
+	protected List<MobileElement> getTransactionNamesText;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/transactionAmount", iOS = "//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[3]")
-	protected List<MobileElement> getTransactionAmountText() {
-		return queryHelper.findElements(getLocator(this, "getTransactionAmountText"));
-	}
-
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/transactionTitle", iOS = "//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[2]")
-	protected List<MobileElement> getTransactionNamesText() {
-		return queryHelper.findElements(getLocator(this, "getTransactionNamesText"));
-	}
-
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/transactionDate", iOS = "//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[1]")
-	protected List<MobileElement> getTransactionDatesText() {
-		return queryHelper.findElements(getLocator(this, "getTransactionDatesText"));
-	}
+	@Locate(xpath = "//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[1]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/transactionDate", on = Platform.MOBILE_ANDROID)
+	protected List<MobileElement> getTransactionDatesText;
 }

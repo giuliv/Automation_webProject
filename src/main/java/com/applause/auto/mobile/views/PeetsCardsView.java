@@ -1,37 +1,27 @@
 package com.applause.auto.mobile.views;
 
-import java.lang.invoke.MethodHandles;
-
-import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
-import com.applause.auto.framework.pageframework.device.DeviceChunkFactory;
-import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
+import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.framework.pageframework.devicecontrols.Button;
-import com.applause.auto.framework.pageframework.devicecontrols.Text;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.mobile.components.BottomNavigationMenuChunk;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import java.lang.invoke.MethodHandles;
 
-@AndroidImplementation(AndroidPeetsCardsView.class)
-@IosImplementation(PeetsCardsView.class)
-public class PeetsCardsView extends AbstractDeviceView {
-
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		syncHelper.waitForElementToAppear(getSignature(), 120000);
-	}
+@Implementation(is = AndroidPeetsCardsView.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = PeetsCardsView.class, on = Platform.MOBILE_IOS)
+public class PeetsCardsView extends BaseComponent {
 
 	/**
 	 * Add value.
 	 */
 	public void addValue() {
-		LOGGER.info("Tap on Add Value");
-		getAddValueButton().pressButton();
+		logger.info("Tap on Add Value");
+		getAddValueButton.click();
 	}
 
 	/**
@@ -40,13 +30,13 @@ public class PeetsCardsView extends AbstractDeviceView {
 	 * @return the payment methods view
 	 */
 	public PaymentMethodsView edit() {
-		LOGGER.info("Tap pencil icon");
-		getPencilIconButton().pressButton();
-		return DeviceViewFactory.create(PaymentMethodsView.class);
+		logger.info("Tap pencil icon");
+		getPencilIconButton.click();
+		return ComponentFactory.create(PaymentMethodsView.class);
 	}
 
 	public String getBalance() {
-		return getBalanceText().getStringValue();
+		return getBalanceText.getText();
 	}
 
 	/**
@@ -70,9 +60,9 @@ public class PeetsCardsView extends AbstractDeviceView {
 	 * @return the peets cards view
 	 */
 	public PeetsCardsView confirm() {
-		LOGGER.info("Tap on confirm button");
-		getConfirmButton().pressButton();
-		return DeviceViewFactory.create(PeetsCardsView.class);
+		logger.info("Tap on confirm button");
+		getConfirmButton.click();
+		return ComponentFactory.create(PeetsCardsView.class);
 	}
 
 	/**
@@ -81,52 +71,43 @@ public class PeetsCardsView extends AbstractDeviceView {
 	 * @return the bottom navigation menu
 	 */
 	public BottomNavigationMenuChunk getBottomNavigationMenu() {
-		return DeviceChunkFactory.create(BottomNavigationMenuChunk.class, "");
+		return DeviceComponentFactory.create(BottomNavigationMenuChunk.class, "");
 
 	}
 
 	public PeetsCardsTransferAmountChunk transferValue() {
-		LOGGER.info("Tap on transfer value button");
-		getTransferButton().pressButton();
-		return DeviceChunkFactory.create(PeetsCardsTransferAmountChunk.class, "");
+		logger.info("Tap on transfer value button");
+		getTransferButton.click();
+		return DeviceComponentFactory.create(PeetsCardsTransferAmountChunk.class, "");
 	}
 
+	@Locate(xpath = "(//XCUIElementTypeStaticText[(@name=\"Peet's Card\" or @name=\"Add Value to My Peet's Card\") and @visible=\"true\"])[1]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.TextView[@text=\"Peet's Card\" or @text=\"Add Value to My Peet's Card\"][1]", on = Platform.MOBILE_ANDROID)
+	protected Text getSignature;
 
+	@Locate(id = "Add Value", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/addValue", on = Platform.MOBILE_ANDROID)
+	protected Button getAddValueButton;
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text=\"Peet's Card\" or @text=\"Add Value to My Peet's Card\"][1]", iOS = "(//XCUIElementTypeStaticText[(@name=\"Peet's Card\" or @name=\"Add Value to My Peet's Card\") and @visible=\"true\"])[1]")
-	protected Text getSignature() {
-		return new Text(getLocator(this, "getSignature"));
-	}
+	@Locate(id = "Transfer Value", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/transferValue", on = Platform.MOBILE_ANDROID)
+	protected Button getTransferButton;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/addValue", iOS = "Add Value")
-	protected Button getAddValueButton() {
-		return new Button(getLocator(this, "getAddValueButton"));
-	}
+	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"$\"]/following-sibling::XCUIElementTypeStaticText[1]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.TextSwitcher[@resource-id='com.wearehathway.peets.development:id/textSwitcherInteger']/android.widget.TextView", on = Platform.MOBILE_ANDROID)
+	protected Text getBalanceText;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/transferValue", iOS = "Transfer Value")
-	protected Button getTransferButton() {
-		return new Button(getLocator(this, "getTransferButton"));
-	}
+	@Locate(id = "Confirm Value", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/confirmChangesButton", on = Platform.MOBILE_ANDROID)
+	protected Button getConfirmButton;
 
-	@MobileElementLocator(android = "//android.widget.TextSwitcher[@resource-id='com.wearehathway.peets.development:id/textSwitcherInteger']/android.widget.TextView", iOS = "//XCUIElementTypeStaticText[@name=\"$\"]/following-sibling::XCUIElementTypeStaticText[1]")
-	protected Text getBalanceText() {
-		return new Text(getLocator(this, "getBalanceText"));
-	}
+	@Locate(id = "button edit pen", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/editCreditCardBtn", on = Platform.MOBILE_ANDROID)
+	protected Button getPencilIconButton;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/confirmChangesButton", iOS = "Confirm Value")
-	protected Button getConfirmButton() {
-		return new Button(getLocator(this, "getConfirmButton"));
-	}
-
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/editCreditCardBtn", iOS = "button edit pen")
-	protected Button getPencilIconButton() {
-		return new Button(getLocator(this, "getPencilIconButton"));
-	}
-
-	@MobileElementLocator(android = "//android.widget.LinearLayout/android.widget.Button[@text='%s']", iOS = "//XCUIElementTypeOther/XCUIElementTypeButton[@name='%s']")
-	protected Button getAmountButton(String amount) {
-		return new Button(getLocator(this, "getAmountButton", amount));
-	}
+	@Locate(xpath = "//XCUIElementTypeOther/XCUIElementTypeButton[@name='%s']", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.LinearLayout/android.widget.Button[@text='%s']", on = Platform.MOBILE_ANDROID)
+	protected Button getAmountButton;
 }
 
 class AndroidPeetsCardsView extends PeetsCardsView {

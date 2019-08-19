@@ -1,48 +1,41 @@
 package com.applause.auto.mobile.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.pageframework.device.MobileElementLocator;
+import com.applause.auto.mobile.helpers.MobileHelper;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.QueryHelper;
+import com.applause.auto.util.helper.SyncHelper;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
-import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
-import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.framework.pageframework.devicecontrols.Button;
-import com.applause.auto.framework.pageframework.devicecontrols.TextBox;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.mobile.helpers.MobileHelper;
-
-@AndroidImplementation(AndroidPeetsSettingsView.class)
-@IosImplementation(PeetsSettingsView.class)
-public class PeetsSettingsView extends AbstractDeviceView {
-
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		syncHelper.waitForElementToAppear(getLocator(this, "getSignature"));
-	}
+@Implementation(is = AndroidPeetsSettingsView.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = PeetsSettingsView.class, on = Platform.MOBILE_IOS)
+public class PeetsSettingsView extends BaseComponent {
 
 	/**
 	 * Open location.
 	 */
 	public void openLocation() {
-		if (queryHelper.getMobileElementCount(getLocator(this, "getLocationButton")) == 0) {
+		if (QueryHelper.elementCount(getLocator(this, "getLocationButton")) == 0) {
 			MobileHelper.scrollDownToElementCloseToMiddle(getLocator(this, "getPeetsAppMenuItem"), 30);
-			getPeetsAppMenuItem().tap();
+			getPeetsAppMenuItem.tap();
 		}
-		LOGGER.info("Open Location menu");
-		getLocationButton().tap();
+		logger.info("Open Location menu");
+		getLocationButton.tap();
 	}
 
 	/**
 	 * Select never.
 	 */
 	public void selectNever() {
-		syncHelper.suspend(5000);
-		LOGGER.info("Select Never");
+		SyncHelper.sleep(5000);
+		logger.info("Select Never");
 
-		getNeverButton().tap();
+		getNeverButton.tap();
 	}
 
 	/**
@@ -51,46 +44,40 @@ public class PeetsSettingsView extends AbstractDeviceView {
 	 * @return the general settings view
 	 */
 	public GeneralSettingsView backToApp() {
-		LOGGER.info("Returning to application");
+		logger.info("Returning to application");
 		MobileHelper.activateApp();
-		return DeviceViewFactory.create(GeneralSettingsView.class);
+		return ComponentFactory.create(GeneralSettingsView.class);
 	}
 
+	@Locate(xpath = "//XCUIElementTypeApplication[@name=\"Settings\"]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.android.settings:id/main_content", on = Platform.MOBILE_ANDROID)
+	protected TextBox getSignature;
 
+	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Peet's\"]", on = Platform.MOBILE_IOS)
+	@Locate(id = "", on = Platform.MOBILE_ANDROID)
+	protected TextBox getPeetsAppMenuItem;
 
-	@MobileElementLocator(android = "com.android.settings:id/main_content", iOS = "//XCUIElementTypeApplication[@name=\"Settings\"]")
-	protected TextBox getSignature() {
-		return new TextBox(getLocator(this, "getSignature"));
-	}
+	@Locate(xpath = "//XCUIElementTypeCell[@name=\"Location\"]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.android.settings:id/switch_widget", on = Platform.MOBILE_ANDROID)
+	protected Button getLocationButton;
 
-	@MobileElementLocator(android = "", iOS = "//XCUIElementTypeStaticText[@name=\"Peet's\"]")
-	protected TextBox getPeetsAppMenuItem() {
-		return new TextBox(getLocator(this, "getPeetsAppMenuItem"));
-	}
-
-	@MobileElementLocator(android = "com.android.settings:id/switch_widget", iOS = "//XCUIElementTypeCell[@name=\"Location\"]")
-	protected Button getLocationButton() {
-		return new Button(getLocator(this, "getLocationButton"));
-	}
-
-	@MobileElementLocator(android = "//android.widget.Button[@text='CLOSE']", iOS = "//XCUIElementTypeCell[@name=\"Never\"]")
-	protected Button getNeverButton() {
-		return new Button(getLocator(this, "getNeverButton"));
-	}
+	@Locate(xpath = "//XCUIElementTypeCell[@name=\"Never\"]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.Button[@text='CLOSE']", on = Platform.MOBILE_ANDROID)
+	protected Button getNeverButton;
 }
 
 class AndroidPeetsSettingsView extends PeetsSettingsView {
 	@Override
 	public void openLocation() {
-		LOGGER.info("Open Location menu");
-		getLocationButton().tap();
+		logger.info("Open Location menu");
+		getLocationButton.tap();
 	}
 
 	@Override
 	public GeneralSettingsView backToApp() {
-		LOGGER.info("Returning to application");
+		logger.info("Returning to application");
 		MobileHelper.tapAndroidDeviceBackButton();
-		return DeviceViewFactory.create(GeneralSettingsView.class);
+		return ComponentFactory.create(GeneralSettingsView.class);
 	}
 
 }

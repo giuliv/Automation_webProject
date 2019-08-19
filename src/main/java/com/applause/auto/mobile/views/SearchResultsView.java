@@ -1,47 +1,35 @@
 package com.applause.auto.mobile.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.pageframework.device.MobileElementLocator;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import io.appium.java_client.MobileElement;
 import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
-import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
-import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.framework.pageframework.devicecontrols.TextBox;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
+@Implementation(is = SearchResultsView.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = SearchResultsView.class, on = Platform.MOBILE_IOS)
+public class SearchResultsView extends BaseComponent {
 
-import io.appium.java_client.MobileElement;
+	@Locate(xpath = "//XCUIElementTypeImage[@name=\"arrow-right\"]/preceding-sibling::XCUIElementTypeStaticText", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.support.v7.widget.LinearLayoutCompat[@resource-id='com.wearehathway.peets.development:id/productContainer']/android.widget.TextView", on = Platform.MOBILE_ANDROID)
+	protected List<MobileElement> getSearchResultsElements;
 
-@AndroidImplementation(SearchResultsView.class)
-@IosImplementation(SearchResultsView.class)
-public class SearchResultsView extends AbstractDeviceView {
-
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		syncHelper.waitForElementToAppear(getSearchMenuEditField(), 120000);
-	}
-
-	@MobileElementLocator(android = "//android.support.v7.widget.LinearLayoutCompat[@resource-id='com.wearehathway.peets.development:id/productContainer']/android.widget.TextView", iOS = "//XCUIElementTypeImage[@name=\"arrow-right\"]/preceding-sibling::XCUIElementTypeStaticText")
-	protected List<MobileElement> getSearchResultsElements() {
-		return queryHelper.findElements(getLocator(this, "getSearchResultsElements"));
-	}
-
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/search_src_text", iOS = "//XCUIElementTypeSearchField[@name=\"Search Menu\"]")
-	protected TextBox getSearchMenuEditField() {
-		return new TextBox(getLocator(this, "getSearchMenuEditField"));
-	}
+	@Locate(xpath = "//XCUIElementTypeSearchField[@name=\"Search Menu\"]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/search_src_text", on = Platform.MOBILE_ANDROID)
+	protected TextBox getSearchMenuTextBox;
 
 	public ProductDetailsView selectSearchResultByIndex(int index) {
-		LOGGER.info("Select search result");
-		getSearchResultsElements().get(index).click();
-		return DeviceViewFactory.create(ProductDetailsView.class);
+		logger.info("Select search result");
+		getSearchResultsElements.get(index).click();
+		return ComponentFactory.create(ProductDetailsView.class);
 	}
 
 	public List<String> getResults() {
-		return getSearchResultsElements().stream().map(item -> item.getText()).collect(Collectors.toList());
+		return getSearchResultsElements.stream().map(item -> item.getCurrentText()).collect(Collectors.toList());
 	}
 }

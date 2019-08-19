@@ -1,40 +1,30 @@
 package com.applause.auto.mobile.components;
 
-import java.lang.invoke.MethodHandles;
-import java.time.Duration;
-
-import org.openqa.selenium.Point;
-
-import com.applause.auto.framework.pageframework.device.AbstractDeviceChunk;
-import com.applause.auto.framework.pageframework.device.DeviceChunkFactory;
-import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
+import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.framework.pageframework.devicecontrols.BaseDeviceControl;
-import com.applause.auto.framework.pageframework.devicecontrols.Button;
-import com.applause.auto.framework.pageframework.devicecontrols.Checkbox;
-import com.applause.auto.framework.pageframework.devicecontrols.Text;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.SelectCoffeeBarView;
-
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Checkbox;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import java.lang.invoke.MethodHandles;
+import java.time.Duration;
+import org.openqa.selenium.Point;
 
-@AndroidImplementation(AndroidAllowLocationServicesPopupChunk.class)
-@IosImplementation(AllowLocationServicesPopupChunk.class)
-public class AllowLocationServicesPopupChunk extends AbstractDeviceChunk {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+@Implementation(is = AndroidAllowLocationServicesPopupChunk.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = AllowLocationServicesPopupChunk.class, on = Platform.MOBILE_IOS)
+public class AllowLocationServicesPopupChunk extends BaseComponent {
 
 	public AllowLocationServicesPopupChunk(String selector) {
 		super(selector);
-	}
-
-	@Override
-	protected void waitUntilVisible() {
-		syncHelper.waitForElementToAppear(getLocator(this, "getSignature"));
 	}
 
 	/**
@@ -42,8 +32,8 @@ public class AllowLocationServicesPopupChunk extends AbstractDeviceChunk {
 	 *
 	 * @return the title
 	 */
-	public String getTitle() {
-		return getTitleText().getStringValue().replaceAll("’", "'").replaceAll("\\.$", "");
+	public String getImageAltText() {
+		return getImageAltTextText.getText().replaceAll("’", "'").replaceAll("\\.$", "");
 	}
 
 	/**
@@ -53,10 +43,10 @@ public class AllowLocationServicesPopupChunk extends AbstractDeviceChunk {
 	 */
 	public String getFormattedMessage() {
 		return String.format("%s %s %s %s %s",
-				getSubTitleText().getStringValue().replaceAll("’", "'").replaceAll("\\.$", ""), getTitle(),
-				getMessageText1Text().getStringValue().replaceAll("• ", ""),
-				getMessageText2Text().getStringValue().replaceAll("• ", ""),
-				getMessageText3Text().getStringValue().replaceAll("• ", ""));
+				getSubTitleText.getText().replaceAll("’", "'").replaceAll("\\.$", ""), getImageAltText(),
+				getMessageText1Text.getText().replaceAll("• ", ""),
+				getMessageText2Text.getText().replaceAll("• ", ""),
+				getMessageText3Text.getText().replaceAll("• ", ""));
 	}
 
 	/**
@@ -65,7 +55,7 @@ public class AllowLocationServicesPopupChunk extends AbstractDeviceChunk {
 	 * @return the boolean
 	 */
 	public boolean isAllowButtonDisplayed() {
-		return syncHelper.isElementDisplayed(getLocator(this, "getAllowButton"));
+		return SyncHelper.isElementDisplayed(getLocator(this, "getAllowButton"));
 	}
 
 	/**
@@ -74,7 +64,7 @@ public class AllowLocationServicesPopupChunk extends AbstractDeviceChunk {
 	 * @return the boolean
 	 */
 	public boolean isNotNowButtonDisplayed() {
-		return syncHelper.isElementDisplayed(getLocator(this, "getNotNowButton"));
+		return SyncHelper.isElementDisplayed(getLocator(this, "getNotNowButton"));
 	}
 
 	/**
@@ -83,14 +73,14 @@ public class AllowLocationServicesPopupChunk extends AbstractDeviceChunk {
 	 * @return the select coffee bar view
 	 */
 	public SelectCoffeeBarView allow() {
-		LOGGER.info("Tap Allow button");
-		getAllowButton().pressButton();
-		AllowLocationServicesSystemPopupChunk allowLocationServicesSystemPopupChunk = DeviceChunkFactory
+		logger.info("Tap Allow button");
+		getAllowButton.click();
+		AllowLocationServicesSystemPopupChunk allowLocationServicesSystemPopupChunk = DeviceComponentFactory
 				.create(AllowLocationServicesSystemPopupChunk.class, "");
 
-		LOGGER.info("Tap Allow");
+		logger.info("Tap Allow");
 		allowLocationServicesSystemPopupChunk.allow();
-		return DeviceViewFactory.create(SelectCoffeeBarView.class);
+		return ComponentFactory.create(SelectCoffeeBarView.class);
 	}
 
 	/**
@@ -99,51 +89,41 @@ public class AllowLocationServicesPopupChunk extends AbstractDeviceChunk {
 	 * @return the allow location services system popup chunk
 	 */
 	public void notNow() {
-		LOGGER.info("Tap Not Now button");
-		getNotNowButton().pressButton();
+		logger.info("Tap Not Now button");
+		getNotNowButton.click();
 	}
 
+	@Locate(id = "Allow Location Services to help you find nearby Peet’s Coffeebars.", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/allowButton", on = Platform.MOBILE_ANDROID)
+	protected ContainerElement getSignature;
 
+	@Locate(id = "Allow Location Services to help you find nearby Peet’s Coffeebars.", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/textView3", on = Platform.MOBILE_ANDROID)
+	protected Text getImageAltTextText;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/allowButton", iOS = "Allow Location Services to help you find nearby Peet’s Coffeebars.")
-	protected BaseDeviceControl getSignature() {
-		return new BaseDeviceControl(getLocator(this, "getSignature"));
-	}
+	@Locate(id = "Allow", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/allowButton", on = Platform.MOBILE_ANDROID)
+	protected Button getAllowButton;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/textView3", iOS = "Allow Location Services to help you find nearby Peet’s Coffeebars.")
-	protected Text getTitleText() {
-		return new Text(getLocator(this, "getTitleText"));
-	}
+	@Locate(id = "Not Now", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/notNowButton", on = Platform.MOBILE_ANDROID)
+	protected Button getNotNowButton;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/allowButton", iOS = "Allow")
-	protected Button getAllowButton() {
-		return new Button(getLocator(this, "getAllowButton"));
-	}
+	@Locate(id = "Location Services will:", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/textView4", on = Platform.MOBILE_ANDROID)
+	protected Text getSubTitleText;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/notNowButton", iOS = "Not Now")
-	protected Button getNotNowButton() {
-		return new Button(getLocator(this, "getNotNowButton"));
-	}
+	@Locate(xpath = "(//XCUIElementTypeStaticText[@name=\"Location Services will:\"]/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText)[1]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/textView5", on = Platform.MOBILE_ANDROID)
+	protected Text getMessageText1Text;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/textView4", iOS = "Location Services will:")
-	protected Text getSubTitleText() {
-		return new Text(getLocator(this, "getSubTitleText"));
-	}
+	@Locate(xpath = "(//XCUIElementTypeStaticText[@name=\"Location Services will:\"]/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText)[2]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/textView6", on = Platform.MOBILE_ANDROID)
+	protected Text getMessageText2Text;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/textView5", iOS = "(//XCUIElementTypeStaticText[@name=\"Location Services will:\"]/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText)[1]")
-	protected Text getMessageText1Text() {
-		return new Text(getLocator(this, "getMessageText1Text"));
-	}
-
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/textView6", iOS = "(//XCUIElementTypeStaticText[@name=\"Location Services will:\"]/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText)[2]")
-	protected Text getMessageText2Text() {
-		return new Text(getLocator(this, "getMessageText2Text"));
-	}
-
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/textView7", iOS = "(//XCUIElementTypeStaticText[@name=\"Location Services will:\"]/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText)[3]")
-	protected Text getMessageText3Text() {
-		return new Text(getLocator(this, "getMessageText3Text"));
-	}
+	@Locate(xpath = "(//XCUIElementTypeStaticText[@name=\"Location Services will:\"]/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText)[3]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/textView7", on = Platform.MOBILE_ANDROID)
+	protected Text getMessageText3Text;
 }
 
 class AndroidAllowLocationServicesPopupChunk extends AllowLocationServicesPopupChunk {
@@ -153,8 +133,8 @@ class AndroidAllowLocationServicesPopupChunk extends AllowLocationServicesPopupC
 	}
 
 	public void notNow() {
-		LOGGER.info("Tap Not Now button");
-		Point point = getNotNowButton().getMobileElement().getCenter();
+		logger.info("Tap Not Now button");
+		Point point = getNotNowButton.getMobileElement().getCenter();
 		new TouchAction(getDriver()).tap(PointOption.point(point.x, point.y))
 				.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(3)))
 				.tap(PointOption.point(point.x + getDriver().manage().window().getSize().width / 4,
@@ -165,50 +145,42 @@ class AndroidAllowLocationServicesPopupChunk extends AllowLocationServicesPopupC
 
 	@Override
 	public SelectCoffeeBarView allow() {
-		LOGGER.info("Tap Allow button");
-		getAllowButton().pressButton();
-		AllowLocationServicesSystemPopupChunk allowLocationServicesSystemPopupChunk = DeviceChunkFactory
+		logger.info("Tap Allow button");
+		getAllowButton.click();
+		AllowLocationServicesSystemPopupChunk allowLocationServicesSystemPopupChunk = DeviceComponentFactory
 				.create(AllowLocationServicesSystemPopupChunk.class, "");
 
-		LOGGER.info("Tap Settings");
-		getSettingsButton().pressButton();
+		logger.info("Tap Settings");
+		getSettingsButton.click();
 
-		LOGGER.info("Tap Permissions");
+		logger.info("Tap Permissions");
 		MobileHelper.scrollDownHalfScreen(1);
-		getPermissionsButton().pressButton();
+		getPermissionsButton.click();
 
-		LOGGER.info("Toggle Locations");
-		if (!getLocationsCheckbox().isChecked()) {
-			getLocationsCheckbox().checkCheckbox();
+		logger.info("Toggle Locations");
+		if (!getLocationsCheckbox.isChecked()) {
+			getLocationsCheckbox.click();
 		}
 
-		LOGGER.info("Navigate back");
-		getNavigateBackButton().pressButton();
-		syncHelper.suspend(5000);
-		getNavigateBackButton().pressButton();
-		syncHelper.suspend(5000);
+		logger.info("Navigate back");
+		getNavigateBackButton.click();
+		SyncHelper.sleep(5000);
+		getNavigateBackButton.click();
+		SyncHelper.sleep(5000);
 
-		return DeviceViewFactory.create(SelectCoffeeBarView.class);
+		return ComponentFactory.create(SelectCoffeeBarView.class);
 	}
 
-	@MobileElementLocator(android = "android:id/button1")
-	protected Button getSettingsButton() {
-		return new Button(getLocator(this, "getSettingsButton"));
-	}
+	@Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
+	protected Button getSettingsButton;
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text='Permissions']")
-	protected Button getPermissionsButton() {
-		return new Button(getLocator(this, "getPermissionsButton"));
-	}
+	@Locate(xpath = "//android.widget.TextView[@text='Permissions']", on = Platform.MOBILE_ANDROID)
+	protected Button getPermissionsButton;
 
-	@MobileElementLocator(android = "//android.widget.RelativeLayout/android.widget.TextView[@text='Location']/../..//android.widget.Switch")
-	protected Checkbox getLocationsCheckbox() {
-		return new Checkbox(getLocator(this, "getLocationsCheckbox"));
-	}
+	@Locate(xpath = "//android.widget.RelativeLayout/android.widget.TextView[@text='Location']/../..//android.widget.Switch", on = Platform.MOBILE_ANDROID)
+	protected Checkbox getLocationsCheckbox;
 
-	@MobileElementLocator(android = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]")
-	protected Button getNavigateBackButton() {
-		return new Button(getLocator(this, "getNavigateBackButton"));
-	}
+	@Locate(xpath = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]", on = Platform.MOBILE_ANDROID)
+	protected Button getNavigateBackButton;
 
 }

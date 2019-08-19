@@ -1,30 +1,22 @@
 package com.applause.auto.mobile.components;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.pageframework.device.MobileElementLocator;
+import com.applause.auto.mobile.helpers.MobileHelper;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import java.lang.invoke.MethodHandles;
 
-import com.applause.auto.framework.pageframework.device.AbstractDeviceChunk;
-import com.applause.auto.framework.pageframework.device.DeviceChunkFactory;
-import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.framework.pageframework.devicecontrols.BaseDeviceControl;
-import com.applause.auto.framework.pageframework.devicecontrols.Button;
-import com.applause.auto.framework.pageframework.devicecontrols.TextBox;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-import com.applause.auto.mobile.helpers.MobileHelper;
-
-@AndroidImplementation(PeetsCardsTransferAmountChunk.class)
-@IosImplementation(IOSPeetsCardsTransferAmountChunk.class)
-public class PeetsCardsTransferAmountChunk extends AbstractDeviceChunk {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+@Implementation(is = PeetsCardsTransferAmountChunk.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = IOSPeetsCardsTransferAmountChunk.class, on = Platform.MOBILE_IOS)
+public class PeetsCardsTransferAmountChunk extends BaseComponent {
 
 	public PeetsCardsTransferAmountChunk(String selector) {
 		super(selector);
-	}
-
-	@Override
-	protected void waitUntilVisible() {
-		syncHelper.waitForElementToAppear(getSignature());
 	}
 
 	/**
@@ -34,10 +26,10 @@ public class PeetsCardsTransferAmountChunk extends AbstractDeviceChunk {
 	 *            the card number
 	 */
 	public void enterCardNumber(String cardNumber) {
-		LOGGER.info("Enter card number: " + cardNumber);
-		getCardNumberTextBox().clickTextBox();
-		getCardNumberTextBox().clearTextBox();
-		getCardNumberTextBox().enterText(cardNumber);
+		logger.info("Enter card number: " + cardNumber);
+		getCardNumberTextBox.clickBox();
+		getCardNumberTextBox.clearText();
+		getCardNumberTextBox.sendKeys(cardNumber);
 	}
 
 	/**
@@ -47,10 +39,10 @@ public class PeetsCardsTransferAmountChunk extends AbstractDeviceChunk {
 	 *            the card number
 	 */
 	public void enterCardPin(String cardNumber) {
-		LOGGER.info("Enter card pin: " + cardNumber);
-		getCardPinTextBox().clickTextBox();
-		getCardPinTextBox().clearTextBox();
-		getCardPinTextBox().enterText(cardNumber);
+		logger.info("Enter card pin: " + cardNumber);
+		getCardPinTextBox.clickBox();
+		getCardPinTextBox.clearText();
+		getCardPinTextBox.sendKeys(cardNumber);
 	}
 
 	/**
@@ -59,10 +51,10 @@ public class PeetsCardsTransferAmountChunk extends AbstractDeviceChunk {
 	 * @return the peets cards transfer amount warning chunk
 	 */
 	public PeetsCardsTransferAmountWarningChunk transfer() {
-		LOGGER.info("Tap on transfer button");
+		logger.info("Tap on transfer button");
 		getDriver().hideKeyboard();
-		getTransferButton().pressButton();
-		return DeviceChunkFactory.create(PeetsCardsTransferAmountWarningChunk.class, "");
+		getTransferButton.click();
+		return DeviceComponentFactory.create(PeetsCardsTransferAmountWarningChunk.class, "");
 	}
 
 	/**
@@ -71,7 +63,7 @@ public class PeetsCardsTransferAmountChunk extends AbstractDeviceChunk {
 	 * @return the card number
 	 */
 	public String getCardNumber() {
-		return getCardNumberTextBox().getText().replace(" ", "");
+		return getCardNumberTextBox.getCurrentText().replace(" ", "");
 	}
 
 	/**
@@ -80,30 +72,24 @@ public class PeetsCardsTransferAmountChunk extends AbstractDeviceChunk {
 	 * @return the pin number
 	 */
 	public String getPinNumber() {
-		return getCardPinTextBox().getText().replace(" ", "");
+		return getCardPinTextBox.getCurrentText().replace(" ", "");
 	}
 
+	@Locate(xpath = "(//XCUIElementTypeTextField)[1]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/cardNumber", on = Platform.MOBILE_ANDROID)
+	protected TextBox getCardNumberTextBox;
 
+	@Locate(xpath = "(//XCUIElementTypeTextField)[2]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/pinCode", on = Platform.MOBILE_ANDROID)
+	protected TextBox getCardPinTextBox;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/cardNumber", iOS = "(//XCUIElementTypeTextField)[1]")
-	protected TextBox getCardNumberTextBox() {
-		return new TextBox(getLocator(this, "getCardNumberTextBox"));
-	}
+	@Locate(xpath = "(//XCUIElementTypeButton[@name=\"Transfer Value\"])[2]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/mergeCards", on = Platform.MOBILE_ANDROID)
+	protected Button getTransferButton;
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/pinCode", iOS = "(//XCUIElementTypeTextField)[2]")
-	protected TextBox getCardPinTextBox() {
-		return new TextBox(getLocator(this, "getCardPinTextBox"));
-	}
-
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/mergeCards", iOS = "(//XCUIElementTypeButton[@name=\"Transfer Value\"])[2]")
-	protected Button getTransferButton() {
-		return new Button(getLocator(this, "getTransferButton"));
-	}
-
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/transferValueLayout", iOS = "Enter your card info to transfer the balance to your digital card.")
-	protected BaseDeviceControl getSignature() {
-		return new Button(getLocator(this, "getSignature"));
-	}
+	@Locate(id = "Enter your card info to transfer the balance to your digital card.", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/transferValueLayout", on = Platform.MOBILE_ANDROID)
+	protected ContainerElement getSignature;
 
 }
 
@@ -113,10 +99,10 @@ class IOSPeetsCardsTransferAmountChunk extends PeetsCardsTransferAmountChunk {
 	}
 
 	public PeetsCardsTransferAmountWarningChunk transfer() {
-		LOGGER.info("Tap on transfer button");
+		logger.info("Tap on transfer button");
 		MobileHelper.hideKeyboardIOSByPressDone();
-		getTransferButton().pressButton();
-		return DeviceChunkFactory.create(PeetsCardsTransferAmountWarningChunk.class, "");
+		getTransferButton.click();
+		return DeviceComponentFactory.create(PeetsCardsTransferAmountWarningChunk.class, "");
 	}
 
 }

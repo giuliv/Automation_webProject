@@ -1,32 +1,23 @@
 package com.applause.auto.mobile.views;
 
+import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.pageframework.device.MobileElementLocator;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
+import io.appium.java_client.MobileElement;
 import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
-import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
-import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.framework.pageframework.devicecontrols.BaseDeviceControl;
-import com.applause.auto.framework.pageframework.devicecontrols.Button;
-import com.applause.auto.framework.pageframework.devicecontrols.Text;
-import com.applause.auto.framework.pageframework.devicecontrols.TextBox;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-
-import io.appium.java_client.MobileElement;
-
-@AndroidImplementation(NewOrderView.class)
-@IosImplementation(NewOrderView.class)
-public class NewOrderView extends AbstractDeviceView {
-
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-	@Override
-	protected void waitUntilVisible() {
-		syncHelper.waitForElementToAppear(getHeadingText(), 120000);
-	}
+@Implementation(is = NewOrderView.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = NewOrderView.class, on = Platform.MOBILE_IOS)
+public class NewOrderView extends BaseComponent {
 
 	/**
 	 * Get the text vaalue of the heading
@@ -34,7 +25,7 @@ public class NewOrderView extends AbstractDeviceView {
 	 * @return
 	 */
 	public String getHeadingTextValue() {
-		return getHeadingText().getStringValue();
+		return getHeadingText.getText();
 	}
 
 	/**
@@ -44,9 +35,9 @@ public class NewOrderView extends AbstractDeviceView {
 	 *            the category
 	 */
 	public void selectCategory(String category) {
-		LOGGER.info("Select category: " + category);
+		logger.info("Select category: " + category);
 		getCategoryItem(category).tapCenterOfElement();
-		syncHelper.suspend(1000);
+		SyncHelper.sleep(1000);
 	}
 
 	/**
@@ -57,9 +48,9 @@ public class NewOrderView extends AbstractDeviceView {
 	 * @return the product details view
 	 */
 	public ProductDetailsView selectProduct(String category) {
-		LOGGER.info("Select product: " + category);
+		logger.info("Select product: " + category);
 		getCategoryItem(category).tapCenterOfElement();
-		return DeviceViewFactory.create(ProductDetailsView.class);
+		return ComponentFactory.create(ProductDetailsView.class);
 	}
 
 	/**
@@ -70,9 +61,9 @@ public class NewOrderView extends AbstractDeviceView {
 	 * @return the category items
 	 */
 	public List<String> getCategoryItems(String category) {
-		LOGGER.info("Select category: " + category);
+		logger.info("Select category: " + category);
 		return getCategoryItemsElements(category).stream().filter(item -> item.isDisplayed())
-				.map(item -> item.getText()).collect(Collectors.toList());
+				.map(item -> item.getCurrentText()).collect(Collectors.toList());
 	}
 
 	/**
@@ -84,7 +75,7 @@ public class NewOrderView extends AbstractDeviceView {
 	 *            the subcategory
 	 */
 	public void selectSubCategory(String category, String subcategory) {
-		LOGGER.info(String.format("Select subcategory: %s %s", category, subcategory));
+		logger.info(String.format("Select subcategory: %s %s", category, subcategory));
 		getSubCategoryItem(category, subcategory).tapCenterOfElement();
 	}
 
@@ -96,42 +87,34 @@ public class NewOrderView extends AbstractDeviceView {
 	 * @return the search results view
 	 */
 	public SearchResultsView search(String searchItem) {
-		LOGGER.info("Searching for: " + searchItem);
-		getSearchMagnifierButton().pressButton();
-		getSearchMenuEditField().enterText(searchItem);
-		return DeviceViewFactory.create(SearchResultsView.class);
+		logger.info("Searching for: " + searchItem);
+		getSearchMagnifierButton.click();
+		getSearchMenuTextBox.sendKeys(searchItem);
+		return ComponentFactory.create(SearchResultsView.class);
 	}
 
+	@Locate(xpath = "//XCUIElementTypeNavigationBar[@name=\"New Order\"]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.TextView[@text='New Order']", on = Platform.MOBILE_ANDROID)
+	protected Text getHeadingText;
 
+	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.TextView[@text=\"%s\"]", on = Platform.MOBILE_ANDROID)
+	protected ContainerElement getCategoryItem;
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text='New Order']", iOS = "//XCUIElementTypeNavigationBar[@name=\"New Order\"]")
-	protected Text getHeadingText() {
-		return new Text(getLocator(this, "getHeadingText"));
-	}
+	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]/preceding-sibling::XCUIElementTypeStaticText", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.TextView[@text=\"%s\"]/../following-sibling::android.support.v7.widget.RecyclerView/android.support.v7.widget.LinearLayoutCompat/android.widget.TextView", on = Platform.MOBILE_ANDROID)
+	protected List<MobileElement> getCategoryItemsElements;
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text=\"%s\"]", iOS = "//XCUIElementTypeStaticText[@name=\"%s\"]")
-	protected BaseDeviceControl getCategoryItem(String category) {
-		return new BaseDeviceControl(getLocator(this, "getCategoryItem", category));
-	}
+	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]/preceding-sibling::XCUIElementTypeStaticText[@name=\"%s\"]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.TextView[@text=\"%s\"]/../following-sibling::android.support.v7.widget.RecyclerView/android.support.v7.widget.LinearLayoutCompat/android.widget.TextView[@text=\"%s\"]", on = Platform.MOBILE_ANDROID)
+	protected ContainerElement getSubCategoryItem;
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text=\"%s\"]/../following-sibling::android.support.v7.widget.RecyclerView/android.support.v7.widget.LinearLayoutCompat/android.widget.TextView", iOS = "//XCUIElementTypeStaticText[@name=\"%s\"]/preceding-sibling::XCUIElementTypeStaticText")
-	protected List<MobileElement> getCategoryItemsElements(String category) {
-		return queryHelper.findElements(getLocator(this, "getCategoryItemsElements", category));
-	}
+	@Locate(id = "Menu", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/searchContainer", on = Platform.MOBILE_ANDROID)
+	protected Button getSearchMagnifierButton;
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text=\"%s\"]/../following-sibling::android.support.v7.widget.RecyclerView/android.support.v7.widget.LinearLayoutCompat/android.widget.TextView[@text=\"%s\"]", iOS = "//XCUIElementTypeStaticText[@name=\"%s\"]/preceding-sibling::XCUIElementTypeStaticText[@name=\"%s\"]")
-	protected BaseDeviceControl getSubCategoryItem(String category, String subCategory) {
-		return new BaseDeviceControl(getLocator(this, "getSubCategoryItem", category, subCategory));
-	}
-
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/searchContainer", iOS = "Menu")
-	protected Button getSearchMagnifierButton() {
-		return new Button(getLocator(this, "getSearchMagnifierButton"));
-	}
-
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/search_src_text", iOS = "//XCUIElementTypeSearchField[@name=\"Search Menu\"]")
-	protected TextBox getSearchMenuEditField() {
-		return new TextBox(getLocator(this, "getSearchMenuEditField"));
-	}
+	@Locate(xpath = "//XCUIElementTypeSearchField[@name=\"Search Menu\"]", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/search_src_text", on = Platform.MOBILE_ANDROID)
+	protected TextBox getSearchMenuTextBox;
 
 }

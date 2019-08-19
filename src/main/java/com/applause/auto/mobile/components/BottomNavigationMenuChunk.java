@@ -1,31 +1,23 @@
 package com.applause.auto.mobile.components;
 
-import java.lang.invoke.MethodHandles;
-
-import com.applause.auto.framework.pageframework.device.AbstractDeviceChunk;
-import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
+import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.framework.pageframework.devicecontrols.Button;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.mobile.views.CheckInView;
 import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.OrderAheadView;
 import com.applause.auto.mobile.views.PeetsCardsView;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import java.lang.invoke.MethodHandles;
 
-@AndroidImplementation(BottomNavigationMenuChunk.class)
-@IosImplementation(BottomNavigationMenuChunk.class)
-public class BottomNavigationMenuChunk extends AbstractDeviceChunk {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+@Implementation(is = BottomNavigationMenuChunk.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = BottomNavigationMenuChunk.class, on = Platform.MOBILE_IOS)
+public class BottomNavigationMenuChunk extends BaseComponent {
 
 	public BottomNavigationMenuChunk(String selector) {
 		super(selector);
-	}
-
-	@Override
-	protected void waitUntilVisible() {
-
 	}
 
 	/**
@@ -37,9 +29,9 @@ public class BottomNavigationMenuChunk extends AbstractDeviceChunk {
 	 * Public actions
 	 */
 	public PeetsCardsView peetsCards() {
-		LOGGER.info("Tap on Peeds Cards");
-		getPeetsCardsButton().pressButton();
-		return DeviceViewFactory.create(PeetsCardsView.class);
+		logger.info("Tap on Peeds Cards");
+		getPeetsCardsButton.click();
+		return ComponentFactory.create(PeetsCardsView.class);
 	}
 
 	/**
@@ -48,9 +40,9 @@ public class BottomNavigationMenuChunk extends AbstractDeviceChunk {
 	 * @return the check in view
 	 */
 	public CheckInView checkIn() {
-		LOGGER.info("Tap on Check In");
-		getCheckInButton().pressButton();
-		return DeviceViewFactory.create(CheckInView.class);
+		logger.info("Tap on Check In");
+		getCheckInButton.click();
+		return ComponentFactory.create(CheckInView.class);
 	}
 
 	/**
@@ -59,9 +51,9 @@ public class BottomNavigationMenuChunk extends AbstractDeviceChunk {
 	 * @return the peets cards view
 	 */
 	public DashboardView home() {
-		LOGGER.info("Tap on Home");
-		getHomeButton().pressButton();
-		return DeviceViewFactory.create(DashboardView.class);
+		logger.info("Tap on Home");
+		getHomeButton.click();
+		return ComponentFactory.create(DashboardView.class);
 	}
 
 	/**
@@ -70,30 +62,24 @@ public class BottomNavigationMenuChunk extends AbstractDeviceChunk {
 	 * @return the order ahead view
 	 */
 	public OrderAheadView order() {
-		LOGGER.info("Tap on Order");
-		getOrdersButton().pressButton();
-		return DeviceViewFactory.create(OrderAheadView.class);
+		logger.info("Tap on Order");
+		getOrdersButton.click();
+		return ComponentFactory.create(OrderAheadView.class);
 	}
 
+	@Locate(xpath = "//XCUIElementTypeButton[@name=\"Home\"]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[@text=\"Home\"]/..", on = Platform.MOBILE_ANDROID)
+	protected Button getHomeButton;
 
+	@Locate(xpath = "//XCUIElementTypeButton[@name=\"Peet's Card\"]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[@text=\"Peet's Card\"]/..", on = Platform.MOBILE_ANDROID)
+	protected Button getPeetsCardsButton;
 
-	@MobileElementLocator(android = "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[@text=\"Home\"]/..", iOS = "//XCUIElementTypeButton[@name=\"Home\"]")
-	protected Button getHomeButton() {
-		return new Button(getLocator(this, "getHomeButton"));
-	}
+	@Locate(xpath = "//XCUIElementTypeButton[@name=\"Order\"]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[@text=\"Order\"]/..", on = Platform.MOBILE_ANDROID)
+	protected Button getOrdersButton;
 
-	@MobileElementLocator(android = "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[@text=\"Peet's Card\"]/..", iOS = "//XCUIElementTypeButton[@name=\"Peet's Card\"]")
-	protected Button getPeetsCardsButton() {
-		return new Button(getLocator(this, "getPeetsCardsButton"));
-	}
-
-	@MobileElementLocator(android = "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[@text=\"Order\"]/..", iOS = "//XCUIElementTypeButton[@name=\"Order\"]")
-	protected Button getOrdersButton() {
-		return new Button(getLocator(this, "getOrdersButton"));
-	}
-
-	@MobileElementLocator(android = "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[@text=\"Check In\"]/..", iOS = "//XCUIElementTypeButton[@name=\"Check In\"]")
-	protected Button getCheckInButton() {
-		return new Button(getLocator(this, "getCheckInButton"));
-	}
+	@Locate(xpath = "//XCUIElementTypeButton[@name=\"Check In\"]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[@text=\"Check In\"]/..", on = Platform.MOBILE_ANDROID)
+	protected Button getCheckInButton;
 }

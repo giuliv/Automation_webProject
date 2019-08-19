@@ -1,26 +1,18 @@
 package com.applause.auto.mobile.views;
 
-import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
-import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
+import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.framework.pageframework.devicecontrols.Button;
-import com.applause.auto.framework.pageframework.devicecontrols.Text;
-import com.applause.auto.framework.pageframework.devicecontrols.TextBox;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
-
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import java.lang.invoke.MethodHandles;
 
-@AndroidImplementation(AddNewCardView.class)
-@IosImplementation(IosAddNewCardView.class)
-public class AddNewCardView extends AbstractDeviceView {
-    protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
-
-    @Override
-    protected void waitUntilVisible() {
-        syncHelper.waitForElementToAppear(getLocator(this, "getViewSignature"));
-    }
+@Implementation(is = AddNewCardView.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = IosAddNewCardView.class, on = Platform.MOBILE_IOS)
+public class AddNewCardView extends BaseComponent {
 
     // Public actions
 
@@ -30,8 +22,8 @@ public class AddNewCardView extends AbstractDeviceView {
      * @param cardNum
      */
     public void enterCardNumber(String cardNum) {
-        LOGGER.info("Entering Card Number");
-        getCardNumberTextBox().enterText(cardNum);
+        logger.info("Entering Card Number");
+        getCardNumberTextBox().sendKeys(cardNum);
     }
 
     /**
@@ -40,8 +32,8 @@ public class AddNewCardView extends AbstractDeviceView {
      * @param expDate
      */
     public void enterExpDate(String expDate) {
-        LOGGER.info("Entering Exp Date");
-        getExpDateTextBox().enterText(expDate);
+        logger.info("Entering Exp Date");
+        getExpDateTextBox().sendKeys(expDate);
     }
 
     /**
@@ -50,8 +42,8 @@ public class AddNewCardView extends AbstractDeviceView {
      * @param cvv
      */
     public void enterCvvCode(String cvv) {
-        LOGGER.info("Entering CVV Code");
-        getCvvTextBox().enterText(cvv);
+        logger.info("Entering CVV Code");
+        getCvvTextBox().sendKeys(cvv);
     }
 
     /**
@@ -60,8 +52,8 @@ public class AddNewCardView extends AbstractDeviceView {
      * @param zipCode
      */
     public void enterZipCode(String zipCode) {
-        LOGGER.info("Entering Zip Code");
-        getZipTextBox().enterText(zipCode);
+        logger.info("Entering Zip Code");
+        getZipTextBox().sendKeys(zipCode);
     }
 
     /**
@@ -70,17 +62,17 @@ public class AddNewCardView extends AbstractDeviceView {
      * @param cardName
      */
     public void enterCardName(String cardName) {
-        LOGGER.info("Entering Card Name");
-        getCardNameTextBox().enterText(cardName);
+        logger.info("Entering Card Name");
+        getCardNameTextBox().sendKeys(cardName);
     }
 
     /**
      * Make Payment Method Default
      */
     public void selectMakeDefault() {
-        LOGGER.info("Making Card Default");
+        logger.info("Making Card Default");
         getDriver().hideKeyboard();
-        getDefaultToggle().pressButton();
+        getDefaultToggle().click();
     }
 
     /**
@@ -89,45 +81,53 @@ public class AddNewCardView extends AbstractDeviceView {
      * @return PaymentMethodsView
      */
     public PaymentMethodsView saveCard() {
-        LOGGER.info("Saving Payment Method");
-        getSaveCardButton().pressButton();
-        return DeviceViewFactory.create(PaymentMethodsView.class);
+        logger.info("Saving Payment Method");
+        getSaveCardButton().click();
+        return ComponentFactory.create(PaymentMethodsView.class);
     }
 
     // Protected getters
-    @MobileElementLocator(android = "//android.widget.TextView[@text='Add New Card']", iOS = "//XCUIElementTypeOther[@name=\"Add New Card\"]")
+    @Locate(xpath = "//XCUIElementTypeOther[@name=\"Add New Card\"]", on = Platform.MOBILE_IOS)
+    @Locate(xpath = "//android.widget.TextView[@text='Add New Card']", on = Platform.MOBILE_ANDROID)
     protected Text getViewSignature() { return new Text(getLocator(this, "getViewSignature")); }
 
-    @MobileElementLocator(android = "com.wearehathway.peets.development:id/cardNumber", iOS = "**/XCUIElementTypeTextField[`value == 'Card Number'`]")
+    @Locate(iOSClassChain = "**/XCUIElementTypeTextField[`value == 'Card Number'`]", on = Platform.MOBILE_IOS)
+    @Locate(id = "com.wearehathway.peets.development:id/cardNumber", on = Platform.MOBILE_ANDROID)
     protected TextBox getCardNumberTextBox() { return new TextBox(getLocator(this, "getCardNumberTextBox")); }
 
-    @MobileElementLocator(android = "com.wearehathway.peets.development:id/expiryDate", iOS = "**/XCUIElementTypeTextField[`value == 'MM/YY'`]")
+    @Locate(iOSClassChain = "**/XCUIElementTypeTextField[`value == 'MM/YY'`]", on = Platform.MOBILE_IOS)
+    @Locate(id = "com.wearehathway.peets.development:id/expiryDate", on = Platform.MOBILE_ANDROID)
     protected TextBox getExpDateTextBox() { return new TextBox(getLocator(this, "getExpDateTextBox")); }
 
-    @MobileElementLocator(android = "com.wearehathway.peets.development:id/cvv", iOS = "**/XCUIElementTypeTextField[`value == 'CVV'`]")
+    @Locate(iOSClassChain = "**/XCUIElementTypeTextField[`value == 'CVV'`]", on = Platform.MOBILE_IOS)
+    @Locate(id = "com.wearehathway.peets.development:id/cvv", on = Platform.MOBILE_ANDROID)
     protected TextBox getCvvTextBox() { return new TextBox(getLocator(this, "getCvvTextBox")); }
 
-    @MobileElementLocator(android = "com.wearehathway.peets.development:id/zip", iOS = "**/XCUIElementTypeTextField[`value == 'Zip'`]")
+    @Locate(iOSClassChain = "**/XCUIElementTypeTextField[`value == 'Zip'`]", on = Platform.MOBILE_IOS)
+    @Locate(id = "com.wearehathway.peets.development:id/zip", on = Platform.MOBILE_ANDROID)
     protected TextBox getZipTextBox() { return new TextBox(getLocator(this, "getZipTextBox")); }
 
-    @MobileElementLocator(android = "com.wearehathway.peets.development:id/cardName", iOS = "**/XCUIElementTypeTextField[`value == 'Card Name'`]")
+    @Locate(iOSClassChain = "**/XCUIElementTypeTextField[`value == 'Card Name'`]", on = Platform.MOBILE_IOS)
+    @Locate(id = "com.wearehathway.peets.development:id/cardName", on = Platform.MOBILE_ANDROID)
     protected TextBox getCardNameTextBox() { return new TextBox(getLocator(this, "getCardNameTextBox")); }
 
-    @MobileElementLocator(android = "com.wearehathway.peets.development:id/isDefaultSwitch", iOS = "**/XCUIElementTypeSwitch")
+    @Locate(iOSClassChain = "**/XCUIElementTypeSwitch", on = Platform.MOBILE_IOS)
+    @Locate(id = "com.wearehathway.peets.development:id/isDefaultSwitch", on = Platform.MOBILE_ANDROID)
     protected Button getDefaultToggle() { return new Button(getLocator(this, "getDefaultToggle")); }
 
-    @MobileElementLocator(android = "com.wearehathway.peets.development:id/saveCardButton", iOS = "Save Card")
+    @Locate(id = "Save Card", on = Platform.MOBILE_IOS)
+    @Locate(id = "com.wearehathway.peets.development:id/saveCardButton", on = Platform.MOBILE_ANDROID)
     protected Button getSaveCardButton() { return new Button(getLocator(this, "getSaveCardButton")); }
 }
 
 class IosAddNewCardView extends AddNewCardView {
 
     public void selectMakeDefault() {
-        LOGGER.info("Making Card Default");
-        getKeyboardDoneButton().pressButton();
-        getDefaultToggle().pressButton();
+        logger.info("Making Card Default");
+        getKeyboardDoneButton().click();
+        getDefaultToggle().click();
     }
 
-    @MobileElementLocator(iOS = "Done")
+    @Locate(id = "Done", on = Platform.MOBILE_IOS)
     protected Button getKeyboardDoneButton() { return new Button(getLocator(this, "getKeyboardDoneButton")); }
 }

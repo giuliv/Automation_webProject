@@ -1,31 +1,24 @@
 package com.applause.auto.mobile.components;
 
-import java.lang.invoke.MethodHandles;
-
-import com.applause.auto.framework.pageframework.device.AbstractDeviceChunk;
+import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.pageframework.device.MobileElementLocator;
-import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
-import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
-import com.applause.auto.framework.pageframework.devicecontrols.BaseDeviceControl;
-import com.applause.auto.framework.pageframework.devicecontrols.Button;
-import com.applause.auto.framework.pageframework.devicecontrols.Text;
-import com.applause.auto.framework.pageframework.util.logger.LogController;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.util.helper.SyncHelper;
+import java.lang.invoke.MethodHandles;
 
 /**
  * The type Allow location services system popup chunk.
  */
-@AndroidImplementation(AllowLocationServicesSystemPopupChunk.class)
-@IosImplementation(AllowLocationServicesSystemPopupChunk.class)
-public class AllowLocationServicesSystemPopupChunk extends AbstractDeviceChunk {
-	protected final static LogController LOGGER = new LogController(MethodHandles.lookup().getClass());
+@Implementation(is = AllowLocationServicesSystemPopupChunk.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = AllowLocationServicesSystemPopupChunk.class, on = Platform.MOBILE_IOS)
+public class AllowLocationServicesSystemPopupChunk extends BaseComponent {
 
 	public AllowLocationServicesSystemPopupChunk(String selector) {
 		super(selector);
-	}
-
-	@Override
-	protected void waitUntilVisible() {
-		syncHelper.waitForElementToAppear(getLocator(this, "getSignature"));
 	}
 
 	/**
@@ -33,8 +26,8 @@ public class AllowLocationServicesSystemPopupChunk extends AbstractDeviceChunk {
 	 *
 	 * @return the title
 	 */
-	public String getTitle() {
-		return getTitleText().getStringValue();
+	public String getImageAltText() {
+		return getImageAltTextText.getText();
 	}
 
 	/**
@@ -43,7 +36,7 @@ public class AllowLocationServicesSystemPopupChunk extends AbstractDeviceChunk {
 	 * @return the formatted message
 	 */
 	public String getFormattedMessage() {
-		return getSubTitleText().getStringValue();
+		return getSubTitleText.getText();
 	}
 
 	/**
@@ -52,7 +45,7 @@ public class AllowLocationServicesSystemPopupChunk extends AbstractDeviceChunk {
 	 * @return the boolean
 	 */
 	public boolean isAllowButtonDisplayed() {
-		return syncHelper.isElementDisplayed(getLocator(this, "getAllowButton"));
+		return SyncHelper.isElementDisplayed(getLocator(this, "getAllowButton"));
 	}
 
 	/**
@@ -61,41 +54,34 @@ public class AllowLocationServicesSystemPopupChunk extends AbstractDeviceChunk {
 	 * @return the boolean
 	 */
 	public boolean isDoNotAllowButtonDisplayed() {
-		return syncHelper.isElementDisplayed(getLocator(this, "getDoNotAllowButton"));
+		return SyncHelper.isElementDisplayed(getLocator(this, "getDoNotAllowButton"));
 	}
 
 	/**
 	 * Allow.
 	 */
 	public void allow() {
-		LOGGER.info("Tap Allow button");
-		getAllowButton().pressButton();
+		logger.info("Tap Allow button");
+		getAllowButton.click();
 	}
 
+	@Locate(xpath = "//XCUIElementTypeAlert[@name=\"Allow “Peets-Sandbox” to access your location while you are using the app?\"]", on = Platform.MOBILE_IOS)
+	@Locate(id = "android:id/message", on = Platform.MOBILE_ANDROID)
+	protected ContainerElement getSignature;
 
+	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Allow “Peets-Sandbox” to access your location while you are using the app?\"]", on = Platform.MOBILE_IOS)
+	@Locate(id = "android:id/message", on = Platform.MOBILE_ANDROID)
+	protected Text getImageAltTextText;
 
-	@MobileElementLocator(android = "android:id/message", iOS = "//XCUIElementTypeAlert[@name=\"Allow “Peets-Sandbox” to access your location while you are using the app?\"]")
-	protected BaseDeviceControl getSignature() {
-		return new BaseDeviceControl(getLocator(this, "getSignature"));
-	}
+	@Locate(id = "Allow", on = Platform.MOBILE_IOS)
+	@Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
+	protected Button getAllowButton;
 
-	@MobileElementLocator(android = "android:id/message", iOS = "//XCUIElementTypeStaticText[@name=\"Allow “Peets-Sandbox” to access your location while you are using the app?\"]")
-	protected Text getTitleText() {
-		return new Text(getLocator(this, "getTitleText"));
-	}
+	@Locate(id = "Don’t Allow", on = Platform.MOBILE_IOS)
+	@Locate(id = "TBD", on = Platform.MOBILE_ANDROID)
+	protected Button getDoNotAllowButton;
 
-	@MobileElementLocator(android = "android:id/button1", iOS = "Allow")
-	protected Button getAllowButton() {
-		return new Button(getLocator(this, "getAllowButton"));
-	}
-
-	@MobileElementLocator(android = "TBD", iOS = "Don’t Allow")
-	protected Button getDoNotAllowButton() {
-		return new Button(getLocator(this, "getDoNotAllowButton"));
-	}
-
-	@MobileElementLocator(android = "//android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.TextView[2]", iOS = "//XCUIElementTypeStaticText[@name=\"Location Services will only use your location while using the app, and will not share your location or information. Your location will be used to find the nearest coffeebar and place a mobile order.\"]")
-	protected Text getSubTitleText() {
-		return new Text(getLocator(this, "getSubTitleText"));
-	}
+	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Location Services will only use your location while using the app, and will not share your location or information. Your location will be used to find the nearest coffeebar and place a mobile order.\"]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.TextView[2]", on = Platform.MOBILE_ANDROID)
+	protected Text getSubTitleText;
 }
