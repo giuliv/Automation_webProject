@@ -1,19 +1,47 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.framework.pageframework.device.MobileElementLocator;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Checkbox;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.SyncHelper;
-import java.lang.invoke.MethodHandles;
 
 @Implementation(is = AndroidGeneralSettingsView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = GeneralSettingsView.class, on = Platform.MOBILE_IOS)
 public class GeneralSettingsView extends BaseComponent {
+
+	/* -------- Elements -------- */
+
+	@Locate(id = "button back", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]", on = Platform.MOBILE_ANDROID)
+	protected Button getBackButton;
+
+	@Locate(id = "Promotional Emails, Receive offers, news, and more", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/emailSubscription", on = Platform.MOBILE_ANDROID)
+	protected Checkbox getPromotionalEmailsButton;
+
+	@Locate(id = "Push Notifications, Receive alerts about offers, news, and more", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/pushNotifications", on = Platform.MOBILE_ANDROID)
+	protected Checkbox getPushNotificationButton;
+
+	@Locate(id = "Location Services, Helps us locate your nearest Peet’s", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/enableLocation", on = Platform.MOBILE_ANDROID)
+	protected Checkbox getLocationSetvicesButton;
+
+	@Locate(id = "Allow", on = Platform.MOBILE_IOS)
+	@Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
+	protected Button getAllowLocationServicesButton;
+
+	@Locate(id = "GENERAL SETTINGS", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.TextView[@text='GENERAL SETTINGS']", on = Platform.MOBILE_ANDROID)
+	protected Text getHeadingText;
+
+	/* -------- Actions -------- */
 
 	/**
 	 * Get the text vaalue of the heading
@@ -36,7 +64,7 @@ public class GeneralSettingsView extends BaseComponent {
 	public <T extends BaseComponent> T goBack(Class<T> clazz) {
 		logger.info("Tap back button");
 		getBackButton.click();
-		return DeviceComponentFactory.create(clazz, "");
+		return ComponentFactory.create(clazz, "");
 
 	}
 
@@ -81,7 +109,7 @@ public class GeneralSettingsView extends BaseComponent {
 		SyncHelper.sleep(5000);
 		logger.info("Accept alert");
 		try {
-			getDriver().switchTo().alert().accept();
+      	DriverManager.getDriver().switchTo().alert().accept();
 		} catch (Throwable throwable) {
 			logger.info("Alert not found");
 		}
@@ -100,7 +128,7 @@ public class GeneralSettingsView extends BaseComponent {
 		logger.info("Accept alert");
 		SyncHelper.sleep(5000);
 		logger.info("Accepting alert");
-		getDriver().switchTo().alert().accept();
+		DriverManager.getDriver().switchTo().alert().accept();
 		return ComponentFactory.create(PeetsSettingsView.class);
 	}
 
@@ -127,34 +155,17 @@ public class GeneralSettingsView extends BaseComponent {
 			getPromotionalEmailsButton.click();
 		return ComponentFactory.create(GeneralSettingsView.class);
 	}
-
-	@Locate(id = "button back", on = Platform.MOBILE_IOS)
-	@Locate(xpath = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]", on = Platform.MOBILE_ANDROID)
-	protected Button getBackButton;
-
-	@Locate(id = "Promotional Emails, Receive offers, news, and more", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/emailSubscription", on = Platform.MOBILE_ANDROID)
-	protected Checkbox getPromotionalEmailsButton;
-
-	@Locate(id = "Push Notifications, Receive alerts about offers, news, and more", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/pushNotifications", on = Platform.MOBILE_ANDROID)
-	protected Checkbox getPushNotificationButton;
-
-	@Locate(id = "Location Services, Helps us locate your nearest Peet’s", on = Platform.MOBILE_IOS)
-	@Locate(id = "com.wearehathway.peets.development:id/enableLocation", on = Platform.MOBILE_ANDROID)
-	protected Checkbox getLocationSetvicesButton;
-
-	@Locate(id = "Allow", on = Platform.MOBILE_IOS)
-	@Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
-	protected Button getAllowLocationServicesButton;
-
-	@Locate(id = "GENERAL SETTINGS", on = Platform.MOBILE_IOS)
-	@Locate(xpath = "//android.widget.TextView[@text='GENERAL SETTINGS']", on = Platform.MOBILE_ANDROID)
-	protected Text getHeadingText;
-
 }
 
 class AndroidGeneralSettingsView extends GeneralSettingsView {
+
+	/* -------- Elements -------- */
+
+	@Locate(id = "com.android.packageinstaller:id/permission_allow_button", on = Platform.MOBILE_ANDROID)
+	protected Button getAllowLocationServices2Button;
+
+	/* -------- Actions -------- */
+
 	@Override
 	public boolean isPromoEmailOptionChecked() {
 		return getPromotionalEmailsButton.getAttributeValue("checked").equals("true");
@@ -188,8 +199,4 @@ class AndroidGeneralSettingsView extends GeneralSettingsView {
 			getLocationSetvicesButton.click();
 		return ComponentFactory.create(PeetsSettingsView.class);
 	}
-
-	@Locate(id = "com.android.packageinstaller:id/permission_allow_button", on = Platform.MOBILE_ANDROID)
-	protected Button getAllowLocationServices2Button;
-
 }
