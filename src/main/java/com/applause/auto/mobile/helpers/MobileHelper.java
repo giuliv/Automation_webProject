@@ -1053,7 +1053,7 @@ public class MobileHelper {
 	 *            the options
 	 * @return the random option
 	 */
-	public static <T> T getRandomOption(java.util.List<T> options) {
+	public static <T> T getRandomOption(List<T> options) {
 		int size = options.size();
 		return options.get(new Random().nextInt(size));
 	}
