@@ -8,7 +8,8 @@ jobs:
       - run:
           name: Run Automated Tests
           command: |
-            mvn test-compile -P ss-run \
+            mvn test-compile \
+              -Pss-run \
               -DapiKey=${APPLAUSE_API_KEY} \
               -DdriverId=1304 \
               -Dexecution=serverside \
