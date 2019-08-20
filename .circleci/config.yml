@@ -19,8 +19,8 @@ jobs:
 workflows:
   version: 2
   test:
-    filters:
-      branches:
-        only: v2-conversion
     jobs:
-      - test
+      - test:
+          filters:
+            branches:
+              only: v2-conversion
