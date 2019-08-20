@@ -115,26 +115,19 @@ workflows:
   version: 2
   test:
     jobs:
-      - test_with_sc:
+      - test:
           filters:
             branches:
-              only: v2
-
-          username: peetscoffee-auto
-          api_key: ${SC_API_KEY}
-          proxy_host: proxy.utest.com:9999
-          proxy_upw: utest:${APPLAUSE_PROXY_PASSWORD}
-          tunnel_identifier: sc.peetscoffee-auto
-
+              only: v2-conversion
           steps:
             - run:
                 name: Run Automated Tests
                 command: |
-                  mvn clean compile test \
+                  mvn test-compile -P ss-run \
                     -DapiKey=${APPLAUSE_API_KEY} \
                     -DdriverId=1304 \
-                    -Dexecution=clientside \
+                    -Dexecution=serverside \
                     -DsuiteFile=testng/web/login.xml \
                     -DproductId=19830 \
-                    -DdesiredCaps=tunnelIdentifier:sc.peetscoffee-auto \
-                    -DdownloadResults=never
+                    -DdownloadResults=always \
+                    -DsetupCommand='bash ./setup/setup_sc.sh -v4.5.3 -upeetscoffee-auto -k${SC_API_KEY} -hproxy.utest.com:9999 -cutest:${APPLAUSE_PROXY_PASSWORD} -tsc.peetscoffee-auto'
