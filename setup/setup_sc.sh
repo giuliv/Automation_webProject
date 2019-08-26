@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-while getopts ":vukhct" opt; do
+while getopts ":v:u:k:h:c:t:" opt; do
   case ${opt} in
     v) SC_VERSION=$OPTARG;;
     u) SC_USERNAME=$OPTARG;;
@@ -11,13 +11,6 @@ while getopts ":vukhct" opt; do
     t) SC_TUNNEL_IDENTIFIER=$OPTARG;;
   esac
 done
-
-echo $SC_VERSION
-echo $SC_USERNAME
-# echo $SC_API_KEY
-echo $SC_HOST
-# echo $SC_PROXY_CREDENTIALS
-echo $SC_TUNNEL_IDENTIFIER
 
 cd /tmp
 curl https://saucelabs.com/downloads/sc-${SC_VERSION}-linux.tar.gz -o saucelabs.tar.gz
