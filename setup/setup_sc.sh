@@ -12,6 +12,13 @@ while getopts ":vukhct" opt; do
   esac
 done
 
+echo $SC_VERSION
+echo $SC_USERNAME
+# echo $SC_API_KEY
+echo $SC_HOST
+# echo $SC_PROXY_CREDENTIALS
+echo $SC_TUNNEL_IDENTIFIER
+
 cd /tmp
 curl https://saucelabs.com/downloads/sc-${SC_VERSION}-linux.tar.gz -o saucelabs.tar.gz
 tar -xzf saucelabs.tar.gz
