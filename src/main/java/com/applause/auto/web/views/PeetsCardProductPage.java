@@ -55,6 +55,7 @@ public class PeetsCardProductPage extends BaseComponent {
   public void waitForAddingToCartSpinner() {
     logger.info("Adding item to Shopping Cart...");
     SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).present());
-    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).notPresent());
+    // TODO: Doesn't seem to be needed anymore, but confirm on tests other than GuestCheckoutTest
+    // SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).notPresent());
   }
 }

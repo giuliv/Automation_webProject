@@ -178,6 +178,7 @@ public class GuestCheckoutTest extends BaseTest {
     logger.info("Order Placed: " + confirmationPage.getOrderNumber());
   }
 
+  /** * WORKING *** */
   @Test(
       groups = {TestNGGroups.GUEST_CHECKOUT},
       description = "19608")
@@ -231,6 +232,7 @@ public class GuestCheckoutTest extends BaseTest {
     logger.info("Order Placed: " + confirmationPage.getOrderNumber());
   }
 
+  /** * WORKING *** */
   @Test(
       groups = {TestNGGroups.GUEST_CHECKOUT},
       description = "19503")
