@@ -33,6 +33,7 @@ public class ShopTeaPage extends BaseComponent {
   public TeaProductPage clickProductName(String productName) {
     logger.info(String.format("Tap on Product Name: %s", productName));
     productNameButton.initializeWithFormat(productName);
+    productNameButton.scrollToElement();
     productNameButton.click();
     return ComponentFactory.create(TeaProductPage.class);
   }

@@ -103,6 +103,7 @@ public class ShoppingCartPage extends BaseComponent {
    */
   public void selectOrderAsGift() {
     logger.info("Check the Order is a Gift");
+    getOrderAsGiftCheckCheckbox.scrollToElement();
     SyncHelper.wait(Until.uiElement(getOrderAsGiftCheckCheckbox).present());
     getOrderAsGiftCheckCheckbox.click();
   }
@@ -120,8 +121,11 @@ public class ShoppingCartPage extends BaseComponent {
    */
   public CheckoutPage clickProceedToCheckout() {
     logger.info("Click Proceed to Checkout button");
-    getProceedToCheckoutButton.click();
-    SyncHelper.sleep(2000);
+    getProceedToCheckoutButton.scrollToElement();
+
+    // TODO: Investigate further why click is not working
+    // getProceedToCheckoutButton.click();
+    // SyncHelper.sleep(2000);
     WebHelper.jsClick(getProceedToCheckoutButton.getWebElement());
     return ComponentFactory.create(CheckoutPage.class);
   }
