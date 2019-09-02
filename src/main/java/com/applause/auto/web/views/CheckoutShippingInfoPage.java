@@ -86,14 +86,18 @@ public class CheckoutShippingInfoPage extends BaseComponent {
   @Locate(css = "#checkout-step-shipping .shipping-date #ddate-selected-date", on = Platform.WEB)
   private Text getShippingDateText;
 
-  @Locate(css = ".checkout-section-content > .shipping-address-item ol li label", on = Platform.WEB)
-  private List<WebElement> getAddressesText;
+  // TODO: Fix up and add back (tests fail when these are uncommented)
+  // @Locate(css = ".checkout-section-content > .shipping-address-item ol li label", on =
+  // Platform.WEB)
+  // private List<WebElement> getAddressesText;
 
-  @Locate(css = ".checkout-section-content > .shipping-address-item ol li > a", on = Platform.WEB)
-  private List<WebElement> getAddressesEditButton;
+  // @Locate(css = ".checkout-section-content > .shipping-address-item ol li > a", on =
+  // Platform.WEB)
+  // private List<WebElement> getAddressesEditButton;
 
-  @Locate(css = ".checkout-section-content > .shipping-address-item ol li label", on = Platform.WEB)
-  private List<WebElement> getEditAddressButtonByKey;
+  // @Locate(css = ".checkout-section-content > .shipping-address-item ol li label", on =
+  // Platform.WEB)
+  // private List<WebElement> getEditAddressButtonByKey;
 
   /* -------- Actions -------- */
 
@@ -229,22 +233,17 @@ public class CheckoutShippingInfoPage extends BaseComponent {
   }
 
   /**
-   * Edit address checkout shipping info page.
+   * TODO: Fix up and add back (tests fail when these are uncommented) Edit address checkout
+   * shipping info page.
    *
    * @param addressKey the address key
    * @return the checkout shipping info page
+   *     <p>public CheckoutShippingInfoPage editAddress(String addressKey) { logger.info("Click on
+   *     edit link for address: " + addressKey); List<String> addresses = getAddresses(); int index
+   *     = IntStream.range(0, addresses.size()) .filter(i -> addresses.get(i).contains(addressKey))
+   *     .findFirst() .getAsInt(); getAddressesEditButton.get(index).click(); return
+   *     ComponentFactory.create(CheckoutShippingInfoPage.class); }
    */
-  public CheckoutShippingInfoPage editAddress(String addressKey) {
-    logger.info("Click on edit link for address: " + addressKey);
-    List<String> addresses = getAddresses();
-    int index =
-        IntStream.range(0, addresses.size())
-            .filter(i -> addresses.get(i).contains(addressKey))
-            .findFirst()
-            .getAsInt();
-    getAddressesEditButton.get(index).click();
-    return ComponentFactory.create(CheckoutShippingInfoPage.class);
-  }
 
   /**
    * Edit shipping date date picker chunk.
@@ -261,20 +260,10 @@ public class CheckoutShippingInfoPage extends BaseComponent {
    * Gets addresses.
    *
    * @return the addresses
+   *     <p>public List<String> getAddresses() { List<String> result = getAddressesText .stream()
+   *     .map( item -> { String text = item.getText(); logger.info("Found address: " + text); return
+   *     text; }) .collect(Collectors.toList()); return result; }
    */
-  public List<String> getAddresses() {
-    List<String> result =
-        getAddressesText
-            .stream()
-            .map(
-                item -> {
-                  String text = item.getText();
-                  logger.info("Found address: " + text);
-                  return text;
-                })
-            .collect(Collectors.toList());
-    return result;
-  }
 
   /**
    * Gets shipping date.
