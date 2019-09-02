@@ -218,6 +218,7 @@ public class CheckoutShippingInfoPage extends BaseComponent {
    */
   public String getGiftMessage() {
     logger.info("Getting gift Message");
+    getGiftMessageTextBox.scrollToElement();
     return getGiftMessageTextBox.getCurrentText();
   }
 

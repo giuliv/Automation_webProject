@@ -46,7 +46,8 @@ public class TeaProductPage extends BaseComponent {
   public MiniCartContainerChunk clickAddToCart() {
     logger.info("Tap on Shop Button");
     getAddToCartButton.click();
-    waitForAddingToCartSpinner();
+    /// TODO
+    // waitForAddingToCartSpinner();
     return ComponentFactory.create(MiniCartContainerChunk.class);
   }
 
