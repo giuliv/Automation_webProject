@@ -16,10 +16,9 @@ cd /tmp
 curl https://saucelabs.com/downloads/sc-${SC_VERSION}-linux.tar.gz -o saucelabs.tar.gz
 tar -xzf saucelabs.tar.gz
 chmod a+x sc-${SC_VERSION}-linux/bin/sc
-sudo cp sc-${SC_VERSION}-linux/bin/sc /usr/local/bin
-sc --version
+./sc --version
 
-sc \
+./sc \
   -u ${SC_USERNAME} \
   -k ${SC_API_KEY} \
   -p ${SC_API_KEY} \
