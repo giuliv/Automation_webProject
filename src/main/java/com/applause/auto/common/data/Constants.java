@@ -7,6 +7,7 @@ public class Constants {
 
     // Web
     public static final String DEBUG = "debug";
+    public static final String DEMO_CHECKOUT = "demo-checkout";
     public static final String LOGIN = "login";
     public static final String GUEST_CHECKOUT = "guest-checkout";
     public static final String MINI_CART = "mini-cart";
