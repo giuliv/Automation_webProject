@@ -5,8 +5,8 @@ import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
-import com.applause.auto.pageobjectmodel.elements.BaseElement;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
@@ -34,7 +34,7 @@ public class ExploreOffersView extends BaseComponent {
   @Locate(
       id = "com.wearehathway.peets.development:id/onBoardingViewPager",
       on = Platform.MOBILE_ANDROID)
-  protected BaseElement getViewPager;
+  protected ContainerElement getViewPager;
 
   /* -------- Actions -------- */
 
