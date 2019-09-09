@@ -17,11 +17,6 @@
                     <include name="signInEmailPasswordTest"/>
                 </methods>
             </class>
-            <class name="com.applause.auto.mobile.test.OrderAheadTest">
-                <methods>
-                    <include name="browseTheMenu"/>
-                </methods>
-            </class>
         </classes>
     </test>
 </suite>
