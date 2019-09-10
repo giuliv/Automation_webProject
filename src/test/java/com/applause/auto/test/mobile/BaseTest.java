@@ -19,7 +19,7 @@ public class BaseTest extends BaseSeleniumTest {
 
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
   static TestHelper testHelper;
-  static SoftAssert softAssert;
+  SoftAssert softAssert = new SoftAssert();
 
   /** Get a new Appium driver at the start of each test. */
   @BeforeMethod(alwaysRun = true)
