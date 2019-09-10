@@ -2,7 +2,6 @@ package com.applause.auto.mobile.test;
 
 import java.util.Random;
 
-import com.applause.auto.pageframework.helpers.PeetsMobileHelper;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -19,7 +18,6 @@ import com.applause.auto.pageframework.views.CreateAccountView;
 import com.applause.auto.pageframework.views.DashboardView;
 import com.applause.auto.pageframework.views.GeneralSettingsView;
 import com.applause.auto.pageframework.views.LandingView;
-import com.applause.auto.pageframework.views.PeetsSettingsView;
 import com.applause.auto.pageframework.views.PrivacyPolicyView;
 import com.applause.auto.pageframework.views.ProfileDetailsView;
 import com.applause.auto.pageframework.views.SignInView;
@@ -327,7 +325,8 @@ public class CreateAccountTest extends BaseTest {
 
 		LOGGER.info("Make sure user sees an error message and is not able to sign in");
 		softAssert.assertEquals(signInView.getMessage(),
-				"There was an error while trying to log in to your account. Please check all of the required fields and try submitting again.", "Error message not found");
+				"There was an error while trying to log in to your account. Please check all of the required fields and try submitting again.",
+				"Error message not found");
 
 		LOGGER.info("Tap okay to dismiss UI alert");
 		signInView.dismissMessage();
@@ -454,7 +453,8 @@ public class CreateAccountTest extends BaseTest {
 		LOGGER.info("At Privacy Policy and Terms & Conditions\n" + "\n" + "(1) check box\n" + "\n" + "OR\n" + "\n"
 				+ "(2) un-check it\n");
 		LOGGER.info("Checkbox should be unmarked by default\n" + "\n"
-				+ "Create account button should be grey and not activated if check box is not marked\n");
+				+ "Create account button should be grey and not activated if check box is not marked>>>>>>"
+				+ driver.getPageSource());
 		Assert.assertFalse(createAccountView.isPrivacyPolicyAndTermsAndConditionsChecked(),
 				"Privacy Policy and Terms and Conditions does not checked does not marked by default");
 		Assert.assertFalse(createAccountView.isCreateAccountButtonEnabled(), "Create Account button does not disabled");
