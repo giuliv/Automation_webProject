@@ -162,9 +162,10 @@ class AndroidSignInView extends SignInView {
   @Override
   public void setPassword(String password) {
     logger.info("Set password: " + password);
-    while (getPasswordTextBox.getCurrentText().length() != 0) {
-      getPasswordTextBox.clearText();
-    }
+    // TODO: figure out why this code block is causing an exception on Android 
+    // while (getPasswordTextBox.getCurrentText().length() != 0) {
+    //   getPasswordTextBox.clearText();
+    // }
 
     getPasswordTextBox.sendKeys(password);
   }
