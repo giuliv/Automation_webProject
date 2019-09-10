@@ -43,7 +43,7 @@ public class DashboardView extends BaseComponent {
     Point elemCoord = getMoreScreenButton.getMobileElement().getCenter();
     AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
     new TouchAction(driver).tap(PointOption.point(elemCoord.getX(), elemCoord.getY())).perform();
-    return ComponentFactory.create(AccountMenuMobileChunk.class, "");
+    return ComponentFactory.create(AccountMenuMobileChunk.class);
   }
 
   /**
@@ -52,6 +52,6 @@ public class DashboardView extends BaseComponent {
    * @return the bottom navigation menu
    */
   public BottomNavigationMenuChunk getBottomNavigationMenu() {
-    return ComponentFactory.create(BottomNavigationMenuChunk.class, "");
+    return ComponentFactory.create(BottomNavigationMenuChunk.class);
   }
 }

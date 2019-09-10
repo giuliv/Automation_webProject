@@ -114,7 +114,7 @@ public class CheckInView extends BaseComponent {
    * @return the bottom navigation menu
    */
   public BottomNavigationMenuChunk getBottomNavigationMenu() {
-    return ComponentFactory.create(BottomNavigationMenuChunk.class, "");
+    return ComponentFactory.create(BottomNavigationMenuChunk.class);
   }
 }
 

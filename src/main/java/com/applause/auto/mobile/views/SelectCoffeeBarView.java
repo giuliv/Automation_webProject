@@ -86,7 +86,7 @@ public class SelectCoffeeBarView extends BaseComponent {
   public AllowLocationServicesPopupChunk enableLocation() {
     logger.info("Tap enable location button");
     getEnableLocationButton.click();
-    return ComponentFactory.create(AllowLocationServicesPopupChunk.class, "");
+    return ComponentFactory.create(AllowLocationServicesPopupChunk.class);
   }
 
   /**
