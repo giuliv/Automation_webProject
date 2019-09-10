@@ -93,6 +93,7 @@ public class LandingView extends BaseComponent {
   /** Skip onboarding. */
   public void skipOnboarding() {
     logger.info("Skipping Onboarding");
+    // TODO: get rid of hard-coded sleep
     SyncHelper.sleep(20000);
     getSkipButton.click();
     SyncHelper.sleep(10000);

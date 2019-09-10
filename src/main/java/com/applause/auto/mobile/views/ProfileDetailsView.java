@@ -258,7 +258,7 @@ public class ProfileDetailsView extends BaseComponent {
     DeviceControl.hideKeyboard();
     getSaveButton.click();
     SyncHelper.sleep(5000);
-    return ComponentFactory.create(AccountMenuMobileChunk.class, "");
+    return ComponentFactory.create(AccountMenuMobileChunk.class);
   }
 }
 
@@ -276,7 +276,7 @@ class IosProfileDetailsView extends ProfileDetailsView {
     getDoneButton.click();
     getSaveButton.click();
     SyncHelper.sleep(5000);
-    return ComponentFactory.create(AccountMenuMobileChunk.class, "");
+    return ComponentFactory.create(AccountMenuMobileChunk.class);
   }
 
   public ProfileDetailsView setConfirmEmailAddress(String emailAddress) {

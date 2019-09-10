@@ -115,13 +115,13 @@ public class PeetsCardsView extends BaseComponent {
    * @return the bottom navigation menu
    */
   public BottomNavigationMenuChunk getBottomNavigationMenu() {
-    return ComponentFactory.create(BottomNavigationMenuChunk.class, "");
+    return ComponentFactory.create(BottomNavigationMenuChunk.class);
   }
 
   public PeetsCardsTransferAmountChunk transferValue() {
     logger.info("Tap on transfer value button");
     getTransferButton.click();
-    return ComponentFactory.create(PeetsCardsTransferAmountChunk.class, "");
+    return ComponentFactory.create(PeetsCardsTransferAmountChunk.class);
   }
 }
 

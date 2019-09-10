@@ -74,7 +74,7 @@ public class PeetsCardsTransferAmountChunk extends BaseComponent {
     logger.info("Tap on transfer button");
     DeviceControl.hideKeyboard();
     getTransferButton.click();
-    return ComponentFactory.create(PeetsCardsTransferAmountWarningChunk.class, "");
+    return ComponentFactory.create(PeetsCardsTransferAmountWarningChunk.class);
   }
 
   /**
@@ -104,6 +104,6 @@ class IOSPeetsCardsTransferAmountChunk extends PeetsCardsTransferAmountChunk {
     logger.info("Tap on transfer button");
     MobileHelper.hideKeyboardIOSByPressDone();
     getTransferButton.click();
-    return ComponentFactory.create(PeetsCardsTransferAmountWarningChunk.class, "");
+    return ComponentFactory.create(PeetsCardsTransferAmountWarningChunk.class);
   }
 }
