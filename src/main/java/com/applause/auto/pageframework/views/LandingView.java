@@ -107,7 +107,7 @@ public class LandingView extends AbstractDeviceView {
 		return new Button(getLocator(this, "getSkipButton"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/signUp", iOS = "Create Account")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/signUp", iOS = "//XCUIElementTypeButton[@name='Create Account']")
 	protected Button getCreateAccountButton() {
 		return new Button(getLocator(this, "getCreateAccountButton"));
 	}
