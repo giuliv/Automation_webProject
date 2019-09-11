@@ -23,8 +23,8 @@ public class AuthenticationView extends AbstractDeviceView {
 
 	@Override
 	protected void waitUntilVisible() {
-		(new TouchAction(getDriver())).waitAction(WaitOptions.waitOptions(Duration.ofSeconds(10)))
-				.tap(PointOption.point(1, 200)).perform();
+		(new TouchAction(getDriver())).tap(PointOption.point(1, 200))
+				.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(10))).tap(PointOption.point(1, 200)).perform();
 		syncHelper.waitForElementToAppear(getCreateAccountButton());
 	}
 
