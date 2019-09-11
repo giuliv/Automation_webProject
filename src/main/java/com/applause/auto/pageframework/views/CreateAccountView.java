@@ -473,7 +473,7 @@ public class CreateAccountView extends AbstractDeviceView {
 
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/agreePrivacyPolicyCheckBox", iOS = "//XCUIElementTypeTextView[contains(@value,'I agree to the Privacy Policy and Terms')]/preceding-sibling::XCUIElementTypeButton̈")
 	protected Checkbox getAgreePrivacyPolicyAndTermsAndConditionsAlter() {
-		return new Checkbox(getLocator(this, "getAgreePrivacyPolicyAndTermsAndConditions"));
+		return new Checkbox(getLocator(this, "getAgreePrivacyPolicyAndTermsAndConditionsAlter"));
 	}
 
 	@MobileElementLocator(android = "//*[contains(@text,'Privacy Policy')]", iOS = "Privacy Policy")
