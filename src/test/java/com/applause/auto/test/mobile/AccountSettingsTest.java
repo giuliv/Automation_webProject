@@ -2,11 +2,9 @@ package com.applause.auto.test.mobile;
 
 import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.views.*;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.control.DeviceControl;
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,6 +26,7 @@ public class AccountSettingsTest extends BaseTest {
     logger.info("Navigate to Payment Methods");
     AccountMenuMobileChunk accountProfileMenu = dashboardView.getAccountProfileMenu();
     PaymentMethodsView paymentMethodsView = accountProfileMenu.clickPaymentMethods();
+
     softAssert.assertEquals(
         paymentMethodsView.getPeetsCardHeader(),
         MobileTestData.PEETS_CARD_HEADER,
@@ -53,11 +52,16 @@ public class AccountSettingsTest extends BaseTest {
     addNewCardView.enterCardName(MobileTestData.CC_NAME);
     addNewCardView.selectMakeDefault();
     paymentMethodsView = addNewCardView.saveCard();
-    DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.DOWN);
+    // TODO - Revert back to swiping and figure out why it's not working
+    // for now, go back, and then forward
+    // DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.DOWN);
+    paymentMethodsView.clickBackButton();
+    accountProfileMenu.clickPaymentMethods();
 
     logger.info("Click Payment Method");
     CreditCardDetailsView creditCardDetailsView =
         paymentMethodsView.clickSavedPaymentMethod(CreditCardDetailsView.class);
+
     softAssert.assertEquals(
         creditCardDetailsView.getHeader(), MobileTestData.CC_NAME, "CC Name does not match title");
     softAssert.assertEquals(
@@ -70,6 +74,8 @@ public class AccountSettingsTest extends BaseTest {
     logger.info("Edit Payment Method");
     creditCardDetailsView.enterExpDate(MobileTestData.CC_MODIFIED_EXP_DATE);
     paymentMethodsView = creditCardDetailsView.saveCard();
+    paymentMethodsView.clickBackButton();
+    accountProfileMenu.clickPaymentMethods();
 
     logger.info("Delete and Cancel Payment Method");
     creditCardDetailsView = paymentMethodsView.clickSavedPaymentMethod(CreditCardDetailsView.class);
