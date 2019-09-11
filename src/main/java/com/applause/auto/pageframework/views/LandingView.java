@@ -21,7 +21,7 @@ public class LandingView extends AbstractDeviceView {
 
 	@Override
 	protected void waitUntilVisible() {
-		syncHelper.waitForElementToAppear(getHeadingText());
+		syncHelper.waitForElementToAppear(getLocator(this, "getHeadingText"));
 	}
 
 	/*
