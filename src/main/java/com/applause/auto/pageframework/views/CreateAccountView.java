@@ -423,7 +423,6 @@ public class CreateAccountView extends AbstractDeviceView {
 
 	@MobileElementLocator(android = "com.wearehathway.peets.development:id/phoneNumber", iOS = "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[5]/XCUIElementTypeTextField")
 	protected TextBox getPhoneNumberTextBox() {
-		LOGGER.info(">>>>>" + getDriver().getPageSource());
 		return new TextBox(getLocator(this, "getPhoneNumberTextBox"));
 	}
 

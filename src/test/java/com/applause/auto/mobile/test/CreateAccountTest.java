@@ -453,8 +453,7 @@ public class CreateAccountTest extends BaseTest {
 		LOGGER.info("At Privacy Policy and Terms & Conditions\n" + "\n" + "(1) check box\n" + "\n" + "OR\n" + "\n"
 				+ "(2) un-check it\n");
 		LOGGER.info("Checkbox should be unmarked by default\n" + "\n"
-				+ "Create account button should be grey and not activated if check box is not marked>>>>>>"
-				+ driver.getPageSource());
+				+ "Create account button should be grey and not activated if check box is not marked");
 		Assert.assertFalse(createAccountView.isPrivacyPolicyAndTermsAndConditionsChecked(),
 				"Privacy Policy and Terms and Conditions does not checked does not marked by default");
 		Assert.assertFalse(createAccountView.isCreateAccountButtonEnabled(), "Create Account button does not disabled");
