@@ -10,6 +10,9 @@ import com.applause.auto.framework.pageframework.devicecontrols.Button;
 import com.applause.auto.framework.pageframework.devicecontrols.Text;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.offset.PointOption;
+
 @AndroidImplementation(AuthenticationView.class)
 @IosImplementation(AuthenticationView.class)
 public class AuthenticationView extends AbstractDeviceView {
@@ -18,6 +21,7 @@ public class AuthenticationView extends AbstractDeviceView {
 
 	@Override
 	protected void waitUntilVisible() {
+		(new TouchAction(getDriver())).tap(PointOption.point(1, 1)).perform();
 		syncHelper.waitForElementToAppear(getCreateAccountButton());
 	}
 
