@@ -507,11 +507,11 @@ public class CreateAccountTest extends BaseTest {
 		LOGGER.info("Tap on back nav to return to more screen");
 		accountMenuMobileChunk = generalSettingsView.goBack(AccountMenuMobileChunk.class);
 
-		LOGGER.info("Tap sign out button");
-		AuthenticationView authenticationView = accountMenuMobileChunk.signOut();
-
-		LOGGER.info("User should be signed out successfully");
-		Assert.assertNotNull(authenticationView, "User does not signed out");
+		// LOGGER.info("Tap sign out button");
+		// AuthenticationView authenticationView = accountMenuMobileChunk.signOut();
+		//
+		// LOGGER.info("User should be signed out successfully");
+		// Assert.assertNotNull(authenticationView, "User does not signed out");
 	}
 
 	@Test(groups = { TestConstants.TestNGGroups.ONBOARDING }, description = "625929")
