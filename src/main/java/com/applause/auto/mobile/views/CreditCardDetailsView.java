@@ -39,6 +39,13 @@ public class CreditCardDetailsView extends BaseComponent {
       on = Platform.MOBILE_IOS)
   protected TextBox getExpDateField;
 
+  @Locate(id = "com.wearehathway.peets.development:id/expiry", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//XCUIElementTypeButton[@name=\"Delete Card\"]/preceding-sibling::XCUIElementTypeTextField",
+      on = Platform.MOBILE_IOS)
+  protected Text getExpDateFieldForText;
+
   @Locate(id = "Delete Card", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/deleteCardBtn", on = Platform.MOBILE_ANDROID)
   protected Button getDeleteButton;
@@ -140,7 +147,11 @@ public class CreditCardDetailsView extends BaseComponent {
    * @return String
    */
   public String getExpDate() {
-    return getExpDateField.getCurrentText();
+    // TODO - investigate why getCurrentText() is not working;
+    // workaround is to declare a text element for the expiration
+    // date field
+    // return getExpDateField.getCurrentText();
+    return getExpDateFieldForText.getText();
   }
 }
 
