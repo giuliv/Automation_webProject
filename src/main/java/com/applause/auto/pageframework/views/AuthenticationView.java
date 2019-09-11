@@ -10,6 +10,9 @@ import com.applause.auto.framework.pageframework.devicecontrols.Button;
 import com.applause.auto.framework.pageframework.devicecontrols.Text;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.touch.offset.PointOption;
+
 @AndroidImplementation(AuthenticationView.class)
 @IosImplementation(AuthenticationView.class)
 public class AuthenticationView extends AbstractDeviceView {
@@ -18,6 +21,10 @@ public class AuthenticationView extends AbstractDeviceView {
 
 	@Override
 	protected void waitUntilVisible() {
+		if (!getCreateAccountButton().isDisplayed()) {
+			LOGGER.info("View does not visible trying to set focus");
+			(new TouchAction(getDriver())).tap(PointOption.point(20, 200)).perform();
+		}
 		syncHelper.waitForElementToAppear(getCreateAccountButton());
 	}
 
@@ -37,7 +44,7 @@ public class AuthenticationView extends AbstractDeviceView {
 	 * Protected Getters
 	 */
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/signUp", iOS = "Create Account")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/signUp", iOS = "//XCUIElementTypeButton[@name='Create Account']")
 	protected Button getCreateAccountButton() {
 		return new Button(getLocator(this, "getCreateAccountButton"));
 	}
