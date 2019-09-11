@@ -461,7 +461,7 @@ public class CreateAccountView extends AbstractDeviceView {
 		return new Checkbox(getLocator(this, "getEmailsWithOffersCheckBox"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/agreePrivacyPolicyCheckBox", iOS = "(//XCUIElementTypeTextView[contains(@value,'I agree to the Privacy Policy and Terms')]/following-sibling::XCUIElementTypeButton | //XCUIElementTypeTextView[contains(@value,'I agree to the Privacy Policy and Terms')]/../XCUIElementTypeButton)̈")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/agreePrivacyPolicyCheckBox", iOS = "(//XCUIElementTypeTextView[contains(@value,'I agree to the Privacy Policy and Terms')]/following-sibling::XCUIElementTypeButton | //XCUIElementTypeTextView[contains(@value,'I agree to the Privacy Policy and Terms')]/preceding-sibling::XCUIElementTypeButton)[1]̈")
 	protected Checkbox getAgreePrivacyPolicyAndTermsAndConditions() {
 		return new Checkbox(getLocator(this, "getAgreePrivacyPolicyAndTermsAndConditions"));
 	}
