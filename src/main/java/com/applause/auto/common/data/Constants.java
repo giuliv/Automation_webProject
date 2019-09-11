@@ -155,7 +155,7 @@ public class Constants {
     public static final String PEETS_CARD_HEADER = "Your Peet's Card";
     public static final String SAVED_PAYMENT_HEADER = "Saved Payment Methods";
     public static final String SAVED_CC_NAME = "Applause Test";
-    public static final String CC_NUM = "4111111111111111";
+    public static final String CC_NUM = "5105105105105100";
     public static final String CC_EXP_DATE = "01/20";
     public static final String CC_MODIFIED_EXP_DATE = "01/22";
     public static final String CC_CVV = "111";
