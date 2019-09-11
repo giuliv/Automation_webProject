@@ -1,7 +1,6 @@
 package com.applause.auto.pageframework.views;
 
 import java.lang.invoke.MethodHandles;
-import java.time.Duration;
 
 import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
 import com.applause.auto.framework.pageframework.device.MobileElementLocator;
@@ -12,7 +11,6 @@ import com.applause.auto.framework.pageframework.devicecontrols.Text;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 
 @AndroidImplementation(AuthenticationView.class)
@@ -23,8 +21,10 @@ public class AuthenticationView extends AbstractDeviceView {
 
 	@Override
 	protected void waitUntilVisible() {
-		(new TouchAction(getDriver())).tap(PointOption.point(1, 200))
-				.waitAction(WaitOptions.waitOptions(Duration.ofSeconds(10))).tap(PointOption.point(1, 200)).perform();
+		if (!getCreateAccountButton().isDisplayed()) {
+			LOGGER.info("View does not visible trying to set focus");
+			(new TouchAction(getDriver())).tap(PointOption.point(20, 200)).perform();
+		}
 		syncHelper.waitForElementToAppear(getCreateAccountButton());
 	}
 
