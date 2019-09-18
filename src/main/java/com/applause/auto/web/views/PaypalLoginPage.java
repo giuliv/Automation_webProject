@@ -66,8 +66,7 @@ public class PaypalLoginPage extends BaseComponent {
    */
   public void enterPassword(String password) {
     logger.info("Entering password");
-    SyncHelper.waitUntilElementPresent(getPasswordField);
-    getPasswordField.sendKeys(password);
+    SyncHelper.wait(Until.uiElement(getPasswordField).present()).sendKeys(password);
   }
 
   /**
