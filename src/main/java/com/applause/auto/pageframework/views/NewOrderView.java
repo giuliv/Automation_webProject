@@ -106,7 +106,7 @@ public class NewOrderView extends AbstractDeviceView {
 	 * Protected Getters
 	 */
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text='New Order']", iOS = "//XCUIElementTypeNavigationBar[@name=\"New Order\"]")
+	@MobileElementLocator(android = "//android.widget.TextView[@text='ORDER']", iOS = "//XCUIElementTypeNavigationBar[@name=\"Order\"]")
 	protected Text getHeadingText() {
 		return new Text(getLocator(this, "getHeadingText"));
 	}

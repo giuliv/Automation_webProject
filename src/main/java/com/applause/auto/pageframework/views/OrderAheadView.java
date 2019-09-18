@@ -83,11 +83,17 @@ public class OrderAheadView extends AbstractDeviceView {
 		return new Button(getLocator(this, "getParticipatingCoffeebarsButton"));
 	}
 
-	@MobileElementLocator(android = "new UiSelector().textContains(\"Order Ahead\")", iOS = "Order Ahead.")
+	@MobileElementLocator(android = "new UiSelector().textContains(\"Order\")", iOS = "Order")
 	protected Text getHeadingText() {
 		return new Text(getLocator(this, "getHeadingText"));
 	}
 
+	// @MobileElementLocator(android = "new UiSelector().textContains(\"Order Ahead\")", iOS =
+	// "Order Ahead")
+	// protected Text getHeadingText() {
+	// return new Text(getLocator(this, "getHeadingText"));
+	// }
+	//
 	@MobileElementLocator(android = "//*[@resource-id='com.wearehathway.peets.development:id/topContainer']/android.widget.TextView[2]", iOS = "Bypass the line and proceed to great coffee.")
 	protected Text getSubHeaderText() {
 		return new Text(getLocator(this, "getSubHeaderText"));

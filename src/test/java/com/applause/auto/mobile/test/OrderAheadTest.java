@@ -168,4 +168,42 @@ public class OrderAheadTest extends BaseTest {
 		Assert.assertNotNull(searchResultsView, "User does not taken back to search menu screen");
 	}
 
+	@Test(groups = { TestConstants.TestNGGroups.ORDER_AHEAD }, description = "625897")
+	public void checkoutTest() {
+		LOGGER.info("Launch the app and arrive at the first on boarding screen view");
+		LandingView landingView = DeviceViewFactory.create(LandingView.class);
+		DashboardView dashboardView = peetsMobileHelper.signIn(landingView, TestConstants.MyAccountTestData.EMAIL,
+				TestConstants.MyAccountTestData.PASSWORD, DashboardView.class);
+		Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
+
+		LOGGER.info("Tap Order icon on the bottom nav bar");
+		NewOrderView newOrderView = dashboardView.getBottomNavigationMenu().order(NewOrderView.class);
+
+		LOGGER.info("Tap a category");
+		newOrderView.selectCategory("Espresso Beverages");
+
+		LOGGER.info("Sub-categories should expand downward");
+		List<String> items = newOrderView.getCategoryItems("Espresso Beverages");
+		Assert.assertTrue(items.size() > 0, "Sub categories does not expand");
+
+		LOGGER.info("Select a sub-category");
+		newOrderView.selectSubCategory("Espresso Beverages", items.get(0));
+
+		LOGGER.info("Select a product");
+		ProductDetailsView productDetail = newOrderView.selectProduct("Iced Espresso");
+
+		LOGGER.info("User should be taken to product details page");
+		Assert.assertNotNull(productDetail, "User des not taken to product detail page");
+
+		LOGGER.info("Scroll down PDP and select a modifiers");
+		productDetail = productDetail.selectModifiers("Ice", "Light Ice");
+
+		LOGGER.info("Return to main order menu screen");
+		newOrderView = productDetail.navigateBack(NewOrderView.class);
+
+		LOGGER.info("Tap on category header again");
+		newOrderView.selectCategory("Espresso Beverages");
+
+	}
+
 }

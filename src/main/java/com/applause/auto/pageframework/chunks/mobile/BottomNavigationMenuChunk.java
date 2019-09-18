@@ -3,6 +3,7 @@ package com.applause.auto.pageframework.chunks.mobile;
 import java.lang.invoke.MethodHandles;
 
 import com.applause.auto.framework.pageframework.device.AbstractDeviceChunk;
+import com.applause.auto.framework.pageframework.device.AbstractDeviceView;
 import com.applause.auto.framework.pageframework.device.DeviceViewFactory;
 import com.applause.auto.framework.pageframework.device.MobileElementLocator;
 import com.applause.auto.framework.pageframework.device.factory.AndroidImplementation;
@@ -73,6 +74,12 @@ public class BottomNavigationMenuChunk extends AbstractDeviceChunk {
 		LOGGER.info("Tap on Order");
 		getOrdersButton().pressButton();
 		return DeviceViewFactory.create(OrderAheadView.class);
+	}
+
+	public <T extends AbstractDeviceView> T order(Class<T> clazz) {
+		LOGGER.info("Tap on Order");
+		getOrdersButton().pressButton();
+		return DeviceViewFactory.create(clazz);
 	}
 
 	/*
