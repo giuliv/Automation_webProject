@@ -156,11 +156,11 @@ public class Constants {
     public static final String SAVED_PAYMENT_HEADER = "Saved Payment Methods";
     public static final String SAVED_CC_NAME = "Applause Test";
     public static final String CC_NUM = "5105105105105100";
-    public static final String CC_EXP_DATE = "01/20";
-    public static final String CC_MODIFIED_EXP_DATE = "01/22";
+    public static final String CC_EXP_DATE = "12/20";
+    public static final String CC_MODIFIED_EXP_DATE = "12/22";
     public static final String CC_CVV = "111";
     public static final String CC_ZIP = "94608";
-    public static final String CC_NAME = "Mobile Test";
+    public static final String CC_NAME = "MOBILE TEST";
     public static final String TRANSFER_ERROR = "One last thing";
     public static final String TRANSFER_PROCESS_ERROR =
         "Please check your card number and pin code and try again";

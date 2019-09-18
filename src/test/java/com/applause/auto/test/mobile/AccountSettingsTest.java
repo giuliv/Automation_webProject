@@ -1,5 +1,6 @@
 package com.applause.auto.test.mobile;
 
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
@@ -45,9 +46,9 @@ public class AccountSettingsTest extends BaseTest {
 
     logger.info("Add New Payment Method");
     AddNewCardView addNewCardView = paymentMethodsView.clickAddNewPayment();
-    addNewCardView.enterCardNumber(MobileTestData.CC_NUM);
+    addNewCardView.enterCardNumber(Constants.TestData.AMEX_CC_NUM);
     addNewCardView.enterExpDate(MobileTestData.CC_EXP_DATE);
-    addNewCardView.enterCvvCode(MobileTestData.CC_CVV);
+    addNewCardView.enterCvvCode(Constants.TestData.AMEX_CC_CODE);
     addNewCardView.enterZipCode(MobileTestData.CC_ZIP);
     addNewCardView.enterCardName(MobileTestData.CC_NAME);
     addNewCardView.selectMakeDefault();

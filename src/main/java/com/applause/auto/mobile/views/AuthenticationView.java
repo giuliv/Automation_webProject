@@ -11,6 +11,11 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 @Implementation(is = AuthenticationView.class, on = Platform.MOBILE_IOS)
 public class AuthenticationView extends BaseComponent {
 
+  @Override
+  public void afterInit() {
+    super.afterInit();
+  }
+
   /* -------- Elements -------- */
 
   @Locate(id = "Create Account", on = Platform.MOBILE_IOS)
