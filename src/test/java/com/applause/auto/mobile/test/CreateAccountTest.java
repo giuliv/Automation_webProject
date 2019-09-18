@@ -312,7 +312,7 @@ public class CreateAccountTest extends BaseTest {
 		softAssert.assertNotNull(accountMenuMobileChunk, "User does not directed to more screen");
 
 		LOGGER.info("Scroll down and tap sign out button");
-		AuthenticationView authenticationView = accountMenuMobileChunk.signOut();
+		accountMenuMobileChunk.signOut();
 
 		signInView = landingView.signIn();
 
