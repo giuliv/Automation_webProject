@@ -353,7 +353,7 @@ public class CreateAccountTest extends BaseTest {
     softAssert.assertNotNull(accountMenuMobileChunk, "User does not directed to more screen");
 
     logger.info("Scroll down and tap sign out button");
-    AuthenticationView authenticationView = accountMenuMobileChunk.signOut();
+    accountMenuMobileChunk.signOut();
 
     signInView = landingView.signIn();
 
@@ -545,7 +545,7 @@ public class CreateAccountTest extends BaseTest {
     logger.info(
         "Checkbox should be unmarked by default\n"
             + "\n"
-            + "Create account button should be grey and not activated if check box is not marked\n");
+            + "Create account button should be grey and not activated if check box is not marked");
     Assert.assertFalse(
         createAccountView.isPrivacyPolicyAndTermsAndConditionsChecked(),
         "Privacy Policy and Terms and Conditions does not checked does not marked by default");
@@ -620,11 +620,11 @@ public class CreateAccountTest extends BaseTest {
     logger.info("Tap on back nav to return to more screen");
     accountMenuMobileChunk = generalSettingsView.goBack(AccountMenuMobileChunk.class);
 
-    logger.info("Tap sign out button");
-    AuthenticationView authenticationView = accountMenuMobileChunk.signOut();
-
-    logger.info("User should be signed out successfully");
-    Assert.assertNotNull(authenticationView, "User does not signed out");
+//    logger.info("Tap sign out button");
+//    AuthenticationView authenticationView = accountMenuMobileChunk.signOut();
+//
+//    logger.info("User should be signed out successfully");
+//    Assert.assertNotNull(authenticationView, "User does not signed out");
   }
 
   @Test(

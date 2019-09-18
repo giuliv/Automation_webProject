@@ -28,7 +28,7 @@ public class LandingView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/skipTextView", on = Platform.MOBILE_ANDROID)
   protected Button getSkipButton;
 
-  @Locate(id = "Create Account", on = Platform.MOBILE_IOS)
+  @Locate(id = "//XCUIElementTypeButton[@name='Create Account']", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/signUp", on = Platform.MOBILE_ANDROID)
   protected Button getCreateAccountButton;
 
