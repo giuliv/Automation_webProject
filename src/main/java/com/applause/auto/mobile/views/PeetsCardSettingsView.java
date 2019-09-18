@@ -14,8 +14,8 @@ public class PeetsCardSettingsView extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(xpath = "//XCUIElementTypeOther[@name=\"Card Settings\"]", on = Platform.MOBILE_IOS)
-  @Locate(xpath = "//android.widget.TextView[@text='Card Settings']", on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//XCUIElementTypeOther[@name=\"CARD SETTINGS\"]", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//android.widget.TextView[@text='CARD SETTINGS']", on = Platform.MOBILE_ANDROID)
   protected Text getViewSignature;
 
   @Locate(id = "button back", on = Platform.MOBILE_IOS)
