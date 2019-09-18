@@ -6,19 +6,15 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import org.openqa.selenium.interactions.internal.TouchAction;
 
 @Implementation(is = AuthenticationView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = AuthenticationView.class, on = Platform.MOBILE_IOS)
 public class AuthenticationView extends BaseComponent {
 
-  @Override
-  public void afterInit() {
-    super.afterInit();
-  }
-
   /* -------- Elements -------- */
 
-  @Locate(id = "Create Account", on = Platform.MOBILE_IOS)
+  @Locate(id = "//XCUIElementTypeButton[@name='Create Account']", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/signUp", on = Platform.MOBILE_ANDROID)
   protected Button getCreateAccountButton;
 

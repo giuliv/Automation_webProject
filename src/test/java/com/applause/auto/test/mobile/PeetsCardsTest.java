@@ -9,8 +9,12 @@ import com.applause.auto.mobile.views.*;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import java.lang.invoke.MethodHandles;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -22,8 +26,8 @@ public class PeetsCardsTest extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.PEETS_CARDS},
-      description = "625910")
-  public void addValueToNewDigitalCard25SavedCC() {
+      description = "1957258")
+  public void addValueToNewDigitalCard25SavedCC() throws ParseException {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = ComponentFactory.create(LandingView.class);
 
@@ -37,7 +41,7 @@ public class PeetsCardsTest extends BaseTest {
 
     logger.info("User should be taken to peet's card screen");
     Assert.assertNotNull(peetsCardsView, "User does not taken to Peets Cards view");
-    int oldBalance = Integer.parseInt(peetsCardsView.getBalance());
+    int oldBalance = NumberFormat.getNumberInstance(Locale.US).parse(peetsCardsView.getBalance()).intValue();
 
     logger.info("Tap Add Value button");
     peetsCardsView.addValue();
@@ -61,7 +65,7 @@ public class PeetsCardsTest extends BaseTest {
 
     logger.info("Tap Confirm Value button");
     peetsCardsView = peetsCardsView.confirm();
-    int newBalance = Integer.parseInt(peetsCardsView.getBalance());
+    int newBalance = NumberFormat.getNumberInstance(Locale.US).parse(peetsCardsView.getBalance()).intValue();
 
     logger.info(
         "Make sure user is able to successfully add value to card and peet's card screen shows card balance of $25.00");
@@ -80,7 +84,7 @@ public class PeetsCardsTest extends BaseTest {
             + "\n");
     Assert.assertEquals(
         accountHistory.getTransactionDate(0),
-        new SimpleDateFormat("MMM d, yyyy").format(new Date()),
+        new SimpleDateFormat("MMMM d, yyyy").format(new Date()),
         "Incorrect transaction date");
     Assert.assertEquals(
         accountHistory.getTransactionAmount(0).replace(" ", ""),
@@ -90,8 +94,8 @@ public class PeetsCardsTest extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.PEETS_CARDS},
-      description = "625916")
-  public void reloadDigitalCard25SavedCC() {
+      description = "1292900")
+  public void reloadDigitalCard25SavedCC() throws ParseException {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = ComponentFactory.create(LandingView.class);
 
@@ -105,7 +109,7 @@ public class PeetsCardsTest extends BaseTest {
 
     logger.info("User should be taken to check in screen");
     softAssert.assertNotNull(checkInView, "User does not taken to Check In view");
-    int oldBalance = Integer.parseInt(checkInView.getBalance());
+    int oldBalance = NumberFormat.getNumberInstance(Locale.US).parse(checkInView.getBalance()).intValue();
 
     logger.info("Tap Add Value button from Peet's Card Balance tile");
     checkInView.addValue();
@@ -129,7 +133,7 @@ public class PeetsCardsTest extends BaseTest {
 
     logger.info("Tap Confirm Value button");
     checkInView = checkInView.confirm();
-    int newBalance = Integer.parseInt(checkInView.getBalance());
+    int newBalance = NumberFormat.getNumberInstance(Locale.US).parse(checkInView.getBalance()).intValue();
 
     logger.info(
         "Make sure user is able to successfully add value to card and peet's card screen shows card balance of $25.00");
@@ -149,7 +153,7 @@ public class PeetsCardsTest extends BaseTest {
             + "\n");
     softAssert.assertEquals(
         accountHistory.getTransactionDate(0),
-        new SimpleDateFormat("MMM d, yyyy").format(new Date()),
+        new SimpleDateFormat("MMMM d, yyyy").format(new Date()),
         "Incorrect transaction date");
     softAssert.assertEquals(
         accountHistory.getTransactionAmount(0).replace(" ", ""),
@@ -161,7 +165,7 @@ public class PeetsCardsTest extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.PEETS_CARDS},
-      description = "625913")
+      description = "1292907")
   public void transferBalanceFromPhysicalCardDigitalCardWithNoBalance() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = ComponentFactory.create(LandingView.class);
@@ -310,7 +314,7 @@ public class PeetsCardsTest extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.PEETS_CARDS},
-      description = "1026052")
+      description = "1959019")
   public void negativeTestTransferBalance() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = ComponentFactory.create(LandingView.class);
