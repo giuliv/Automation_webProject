@@ -34,7 +34,7 @@ public class PayFasterView extends AbstractDeviceView {
 	 */
 	public OrderAheadView swipeLeftOnScreen() {
 		LOGGER.info("Swiping left to get to next tutorial view");
-		MobileHelper.swipeLeft();
+		MobileHelper.swipeLeft(getHeadingText().getCenterY());
 		return DeviceViewFactory.create(OrderAheadView.class);
 	}
 
