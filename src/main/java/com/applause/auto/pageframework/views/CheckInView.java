@@ -133,8 +133,22 @@ class AndroidCheckInView extends CheckInView {
 		return getAmountButton(amount).getMobileElement().isSelected();
 	}
 
+	protected void waitUntilVisible() {
+		if (syncHelper.isElementDisplayed(getLocator(this, "getLovePeetsYesButton")))
+			getLovePeetsYesButton().pressButton();
+		if (syncHelper.isElementDisplayed(getLocator(this, "getReviewNoThanksButton")))
+			getReviewNoThanksButton().pressButton();
+		syncHelper.waitForElementToAppear(getSignature(), 120000);
+	}
+
 	public String getBalance() {
 		return getBalanceText().getStringValue();
 	}
+
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/yes")
+	protected Button getLovePeetsYesButton() { return new Button(getLocator(this, "getLovePeetsYesButton")); }
+
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/decline")
+	protected Button getReviewNoThanksButton() { return new Button(getLocator(this, "getReviewNoThanksButton")); }
 
 }

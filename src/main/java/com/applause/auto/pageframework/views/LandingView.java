@@ -34,7 +34,7 @@ public class LandingView extends AbstractDeviceView {
 	 */
 	public ExploreOffersView swipeLeftOnScreen() {
 		LOGGER.info("Swiping left to get to next tutorial view");
-		MobileHelper.swipeLeft();
+		MobileHelper.swipeLeft(getHeadingText().getCenterY());
 		return DeviceViewFactory.create(ExploreOffersView.class);
 	}
 
