@@ -69,6 +69,7 @@ public class SelectCoffeeBarView extends AbstractDeviceView {
 	 */
 	public void search(String searchTxt) {
 		LOGGER.info("Searching for store: " + searchTxt);
+		getChangeStoreButton().pressButton();
 		getSearchButton().pressButton();
 		getSearchTextBox().enterText(searchTxt + "\n");
 	}
@@ -95,7 +96,7 @@ public class SelectCoffeeBarView extends AbstractDeviceView {
 	 * Protected Getters
 	 */
 
-	@MobileElementLocator(android = "//android.widget.TextView[@text='Select Coffeebar']", iOS = "//XCUIElementTypeNavigationBar[@name='Select Coffeebar']")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/storeContainer", iOS = "//XCUIElementTypeNavigationBar[@name='Select Coffeebar']")
 	protected BaseDeviceControl getSignature() {
 		return new BaseDeviceControl(getLocator(this, "getSignature"));
 	}
@@ -110,7 +111,12 @@ public class SelectCoffeeBarView extends AbstractDeviceView {
 		return new Button(getLocator(this, "getEnableLocationButton"));
 	}
 
-	@MobileElementLocator(android = "com.wearehathway.peets.development:id/action_search", iOS = "search magnifier")
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/changeTextView", iOS = "TODO")
+	protected Button getChangeStoreButton() {
+		return new Button(getLocator(this, "getChangeStoreButton"));
+	}
+
+	@MobileElementLocator(android = "com.wearehathway.peets.development:id/storeSearchIcon", iOS = "search magnifier")
 	protected Button getSearchButton() {
 		return new Button(getLocator(this, "getSearchButton"));
 	}
@@ -141,6 +147,7 @@ class AndroidSelectCoffeeBarView extends SelectCoffeeBarView {
 
 	public void search(String searchTxt) {
 		LOGGER.info("Searching for store: " + searchTxt);
+		getChangeStoreButton().pressButton();
 		getSearchButton().pressButton();
 		getSearchTextBox().enterText(searchTxt);
 		getDriver().executeScript("mobile: performEditorAction", ImmutableMap.of("action", "search"));

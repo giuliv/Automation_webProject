@@ -177,7 +177,11 @@ public class OrderAheadTest extends BaseTest {
 		Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
 		LOGGER.info("Tap Order icon on the bottom nav bar");
-		NewOrderView newOrderView = dashboardView.getBottomNavigationMenu().order(NewOrderView.class);
+		SelectCoffeeBarView selectCoffeeBarView = dashboardView.getBottomNavigationMenu()
+				.order(SelectCoffeeBarView.class);
+
+		selectCoffeeBarView.search("94608");
+		NewOrderView newOrderView = selectCoffeeBarView.openCoffeebarFromSearchResults(1);
 
 		LOGGER.info("Tap a category");
 		newOrderView.selectCategory("Espresso Beverages");
