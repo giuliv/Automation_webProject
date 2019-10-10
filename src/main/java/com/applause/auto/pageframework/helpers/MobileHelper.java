@@ -1504,7 +1504,7 @@ public class MobileHelper {
     }
 
     public static void swipeAcrossScreenCoordinates(double startX, double startY, double endX, double endY, long millis) {
-        LOGGER.info(String.format("Swiping from [%d, %d] to [%d, %d].", startX, startY, endX, endY));
+        LOGGER.info(String.format("Swiping from [%s, %s] to [%s, %s].", startX, startY, endX, endY));
         Dimension size = getDriver().manage().window().getSize();
 
         int startX_ = (int) (size.getWidth() * startX);
@@ -1513,8 +1513,7 @@ public class MobileHelper {
         int endY_ = (int) (size.getHeight() * endY);
 
         PointOption<?> startPoint = PointOption.point(startX_, startY_);
-        PointOption<?> endPoint = PointOption.point(endX_, endY_
-        );
+        PointOption<?> endPoint = PointOption.point(endX_, endY_);
         WaitOptions time = WaitOptions.waitOptions(Duration.ofMillis(millis));
         (new TouchAction(getDriver())).press(startPoint).waitAction(time).moveTo(endPoint).release().perform();
     }
