@@ -140,7 +140,7 @@ public class SelectCoffeeBarView extends AbstractDeviceView {
         return new TextBox(getLocator(this, "getSearchTextBox"));
     }
 
-    @MobileElementLocator(android = "(//android.widget.RelativeLayout[@resource-id='com.wearehathway.peets.development:id/storeDetail'])[%s]", iOS = "(//XCUIElementTypeStaticText[@value='AppInt Sandbox 1']/..//XCUIElementTypeButton[@name=\"Order\"])[%s]")
+    @MobileElementLocator(android = "(//android.widget.RelativeLayout[@resource-id='com.wearehathway.peets.development:id/storeDetail'])[%s]", iOS = "(//XCUIElementTypeStaticText[@value='AppInt Sandbox 1']/../..//XCUIElementTypeButton[@name=\"Order\"])[%s]")
     protected TextBox getSearchResultText(int index) {
         return new TextBox(getLocator(this, "getSearchResultText", index));
     }
