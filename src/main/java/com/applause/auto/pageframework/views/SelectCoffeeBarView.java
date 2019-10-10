@@ -14,6 +14,7 @@ import com.applause.auto.framework.pageframework.devicecontrols.Text;
 import com.applause.auto.framework.pageframework.devicecontrols.TextBox;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
 import com.applause.auto.pageframework.chunks.mobile.AllowLocationServicesPopupChunk;
+import com.applause.auto.pageframework.helpers.MobileHelper;
 
 import java.lang.invoke.MethodHandles;
 
@@ -86,7 +87,17 @@ public class SelectCoffeeBarView extends AbstractDeviceView {
      */
     public NewOrderView openCoffeebarFromSearchResults(int index) {
         LOGGER.info("Tap on Search result" + ">>>>>>>>>>>" + getDriver().getPageSource());
-        getSearchResultText(index).tapCenterOfElement();
+        int counter = 5;
+        while (counter-- != 0) {
+            if (getSearchResultText(index).isDisplayed()) {
+                getSearchResultText(index).tapCenterOfElement();
+            } else {
+                MobileHelper.getSnapshotManager().takeRemoteDeviceScreenshot("" + System.currentTimeMillis());
+                MobileHelper.swipeAcrossScreenCoordinates(0.8, 0.8,
+                        0.2, 0.8, 2000);
+                MobileHelper.getSnapshotManager().takeRemoteDeviceScreenshot("" + System.currentTimeMillis());
+            }
+        }
         return DeviceViewFactory.create(NewOrderView.class);
     }
 
@@ -129,7 +140,7 @@ public class SelectCoffeeBarView extends AbstractDeviceView {
         return new TextBox(getLocator(this, "getSearchTextBox"));
     }
 
-    @MobileElementLocator(android = "(//android.widget.RelativeLayout[@resource-id='com.wearehathway.peets.development:id/storeDetail'])[%s]", iOS = "(//XCUIElementTypeButton[@name=\"Order\"])[%s]")
+    @MobileElementLocator(android = "(//android.widget.RelativeLayout[@resource-id='com.wearehathway.peets.development:id/storeDetail'])[%s]", iOS = "(//XCUIElementTypeStaticText[@value='AppInt Sandbox 1']/..//XCUIElementTypeButton[@name=\"Order\"])[%s]")
     protected TextBox getSearchResultText(int index) {
         return new TextBox(getLocator(this, "getSearchResultText", index));
     }

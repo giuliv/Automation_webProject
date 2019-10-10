@@ -1513,7 +1513,8 @@ public class MobileHelper {
         int endY_ = (int) (size.getHeight() * endY);
 
         PointOption<?> startPoint = PointOption.point(startX_, startY_);
-        PointOption<?> endPoint = PointOption.point(endX_, endY_);
+        PointOption<?> endPoint = PointOption.point(endX_, endY_
+        );
         WaitOptions time = WaitOptions.waitOptions(Duration.ofMillis(millis));
         (new TouchAction(getDriver())).press(startPoint).waitAction(time).moveTo(endPoint).release().perform();
     }
