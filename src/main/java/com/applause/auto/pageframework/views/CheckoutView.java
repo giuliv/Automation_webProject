@@ -12,7 +12,7 @@ import com.applause.auto.pageframework.helpers.MobileHelper;
 
 import java.lang.invoke.MethodHandles;
 
-@AndroidImplementation(CheckoutView.class)
+@AndroidImplementation(AndroidCheckoutView.class)
 @IosImplementation(CheckoutView.class)
 public class CheckoutView extends AbstractDeviceView {
 
@@ -42,6 +42,16 @@ public class CheckoutView extends AbstractDeviceView {
     public <T extends AbstractDeviceView> T placeOrder(Class<T> clazz) {
         LOGGER.info("Tap place order");
         MobileHelper.scrollDownCloseToMiddle(5);
+        getPlaceOrderButton().pressButton();
+        return DeviceViewFactory.create(clazz);
+    }
+}
+
+class AndroidCheckoutView extends CheckoutView {
+    @Override
+    public <T extends AbstractDeviceView> T placeOrder(Class<T> clazz) {
+        LOGGER.info("Tap place order");
+        MobileHelper.androidScrollTo(getLocator(this, "getPlaceOrderButton"));
         getPlaceOrderButton().pressButton();
         return DeviceViewFactory.create(clazz);
     }
