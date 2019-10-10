@@ -91,6 +91,7 @@ public class SelectCoffeeBarView extends AbstractDeviceView {
         while (counter-- != 0) {
             if (getSearchResultText(index).isDisplayed()) {
                 getSearchResultText(index).tapCenterOfElement();
+                break;
             } else {
                 MobileHelper.getSnapshotManager().takeRemoteDeviceScreenshot("" + System.currentTimeMillis());
                 MobileHelper.swipeAcrossScreenCoordinates(0.8, 0.8,
