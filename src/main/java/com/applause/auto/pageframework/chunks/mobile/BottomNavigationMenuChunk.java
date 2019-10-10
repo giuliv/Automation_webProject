@@ -8,6 +8,7 @@ import com.applause.auto.framework.pageframework.device.factory.AndroidImplement
 import com.applause.auto.framework.pageframework.device.factory.IosImplementation;
 import com.applause.auto.framework.pageframework.devicecontrols.Button;
 import com.applause.auto.framework.pageframework.util.logger.LogController;
+import com.applause.auto.pageframework.helpers.MobileHelper;
 import com.applause.auto.pageframework.views.CheckInView;
 import com.applause.auto.pageframework.views.DashboardView;
 import com.applause.auto.pageframework.views.OrderAheadView;
@@ -120,6 +121,7 @@ class IosBottomNavigationMenuChunk extends BottomNavigationMenuChunk {
         SelectCoffeeBarView selectCoffeeBarView = super.order(SelectCoffeeBarView.class);
         selectCoffeeBarView = selectCoffeeBarView.enableLocation().allow();
         selectCoffeeBarView.search("Emeryville, CA, 94608, 1400 park avenue");
+        MobileHelper.getSnapshotManager().takeRemoteDeviceScreenshot("" + System.currentTimeMillis());
         selectCoffeeBarView.openCoffeebarFromSearchResults(1);
         return DeviceViewFactory.create(clazz);
     }
