@@ -85,7 +85,7 @@ public class SelectCoffeeBarView extends AbstractDeviceView {
      * @return the new order view
      */
     public NewOrderView openCoffeebarFromSearchResults(int index) {
-        LOGGER.info("Tap on Search result");
+        LOGGER.info("Tap on Search result" + ">>>>>>>>>>>" + getDriver().getPageSource());
         getSearchResultText(index).tapCenterOfElement();
         return DeviceViewFactory.create(NewOrderView.class);
     }
