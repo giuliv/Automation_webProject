@@ -122,6 +122,7 @@ class IosBottomNavigationMenuChunk extends BottomNavigationMenuChunk {
         selectCoffeeBarView = selectCoffeeBarView.enableLocation().allow();
         selectCoffeeBarView.search("Emeryville, CA, 94608, 1400 park avenue");
         MobileHelper.getSnapshotManager().takeRemoteDeviceScreenshot("" + System.currentTimeMillis());
+        syncHelper.suspend(10000);
         selectCoffeeBarView.openCoffeebarFromSearchResults(1);
         return DeviceViewFactory.create(clazz);
     }
