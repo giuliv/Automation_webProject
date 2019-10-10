@@ -51,7 +51,7 @@ class AndroidCheckoutView extends CheckoutView {
     @Override
     public <T extends AbstractDeviceView> T placeOrder(Class<T> clazz) {
         LOGGER.info("Tap place order");
-        MobileHelper.androidScrollTo(getLocator(this, "getPlaceOrderButton"));
+        MobileHelper.swipeAcrossScreenCoordinates(0.5, 0.8, 0.5, 0.2, 10000);
         getPlaceOrderButton().pressButton();
         return DeviceViewFactory.create(clazz);
     }
