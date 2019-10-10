@@ -41,7 +41,7 @@ public class CheckoutView extends AbstractDeviceView {
 
     public <T extends AbstractDeviceView> T placeOrder(Class<T> clazz) {
         LOGGER.info("Tap place order");
-        MobileHelper.scrollDown(5);
+        MobileHelper.scrollDownCloseToMiddle(5);
         getPlaceOrderButton().pressButton();
         return DeviceViewFactory.create(clazz);
     }
