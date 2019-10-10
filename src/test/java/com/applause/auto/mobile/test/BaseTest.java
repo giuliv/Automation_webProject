@@ -9,11 +9,15 @@ import com.applause.auto.framework.pageframework.util.queryhelpers.DeviceElement
 import com.applause.auto.framework.pageframework.util.synchronization.MobileNativeSyncHelper;
 import com.applause.auto.framework.test.listeners.TestListener;
 import com.applause.auto.pageframework.helpers.PeetsMobileHelper;
+import com.applause.auto.pageframework.helpers.RetryAnalyzer;
 import com.applause.auto.pageframework.helpers.TemplateTestHelper;
 import com.applause.auto.pageframework.testdata.CustomerConfig;
 
+import org.testng.ITestContext;
+import org.testng.ITestNGMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Listeners;
 import org.testng.asserts.SoftAssert;
 
@@ -77,12 +81,13 @@ public class BaseTest {
 
     /**
      * Retry Failure Functionality
+     *
      * @param context
      */
-//	@BeforeSuite(alwaysRun = true)
-//	public void retestFailures(ITestContext context) {
-//		for (ITestNGMethod method : context.getAllTestMethods()) {
-//			method.setRetryAnalyzer(new RetryAnalyzer());
-//		}
-//	}
+    @BeforeSuite(alwaysRun = true)
+    public void retestFailures(ITestContext context) {
+        for (ITestNGMethod method : context.getAllTestMethods()) {
+            method.setRetryAnalyzer(new RetryAnalyzer());
+        }
+    }
 }

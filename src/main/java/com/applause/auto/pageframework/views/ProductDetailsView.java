@@ -63,6 +63,19 @@ public class ProductDetailsView extends AbstractDeviceView {
         return DeviceViewFactory.create(clazz);
     }
 
+    /**
+     * Add to order t.
+     *
+     * @param <T>   the type parameter
+     * @param clazz the clazz
+     * @return the t
+     */
+    public <T extends AbstractDeviceView> T addToOrder(Class<T> clazz) {
+        LOGGER.info("Tap Add to Order");
+        getAddToOrderButton().pressButton();
+        return DeviceViewFactory.create(clazz);
+    }
+
     /*
      * Protected Getters
      */
@@ -92,17 +105,11 @@ public class ProductDetailsView extends AbstractDeviceView {
         return new Button(getLocator(this, "getBackButton"));
     }
 
-    public <T extends AbstractDeviceView> T addToOrder(Class<T> clazz) {
-        LOGGER.info("Tap Add to Order");
-        getAddToOrderButton().pressButton();
-        return DeviceViewFactory.create(clazz);
-    }
 }
 
 class AndroidProductDetailsView extends ProductDetailsView {
     @Override
     protected void waitUntilVisible() {
-//		getDriver().runAppInBackground(Duration.ofSeconds(1));
         syncHelper.waitForElementToAppear(getHeadingText(), 120000);
     }
 }
