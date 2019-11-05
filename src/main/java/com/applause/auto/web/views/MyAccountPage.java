@@ -20,7 +20,7 @@ public class MyAccountPage extends BaseComponent {
   @Locate(css = ".welcome-msg .title", on = Platform.WEB)
   private Text getViewSignature;
 
-  @Locate(css = "[title='Payment']", on = Platform.WEB)
+  @Locate(css = "div.left-nav.left-nav-account > ul > li:nth-child(5) > a", on = Platform.WEB)
   private Button getPaymentButton;
 
   @Locate(css = ".close-button", on = Platform.WEB)
@@ -89,7 +89,7 @@ public class MyAccountPage extends BaseComponent {
       on = Platform.WEB)
   private Text getShippingAddressSection;
 
-  @Locate(css = "[title='My Subscriptions']", on = Platform.WEB)
+  @Locate(css = "div.left-nav.left-nav-account > ul > li:nth-child(3) > a", on = Platform.WEB)
   private Link getMySuscriptionsLink;
 
   @Locate(
