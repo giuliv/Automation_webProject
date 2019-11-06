@@ -21,8 +21,8 @@ cd ./sc-${SC_VERSION}-linux/bin
 ./sc \
   -u ${SC_USERNAME} \
   -k ${SC_API_KEY} \
-  -p ${SC_HOST} \
-  -w ${SC_PROXY_CREDENTIALS} \
+  -p "${SC_HOST}" \
+  -w "${SC_PROXY_CREDENTIALS}" \
   -i ${SC_TUNNEL_IDENTIFIER} \
   --no-remove-colliding-tunnels \
   &
