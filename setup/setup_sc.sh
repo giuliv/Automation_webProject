@@ -24,6 +24,7 @@ cd ./sc-${SC_VERSION}-linux/bin
   -p ${SC_HOST} \
   -w ${SC_PROXY_CREDENTIALS} \
   -i ${SC_TUNNEL_IDENTIFIER} \
+  --no-remove-colliding-tunnels \
   &
 
 wget --retry-connrefused --no-check-certificate -T 60 localhost:4445
