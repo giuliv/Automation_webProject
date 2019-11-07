@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-while getopts ":v:u:k:h:c:t:" opt; do
+while getopts ":v:u:k:p:w:i:" opt; do
   case ${opt} in
     v) SC_VERSION=$OPTARG;;
     u) SC_USERNAME=$OPTARG;;
