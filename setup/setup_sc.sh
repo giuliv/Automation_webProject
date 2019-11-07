@@ -6,9 +6,9 @@ while getopts ":v:u:k:h:c:t:" opt; do
     v) SC_VERSION=$OPTARG;;
     u) SC_USERNAME=$OPTARG;;
     k) SC_API_KEY=$OPTARG;;
-    h) SC_HOST=$OPTARG;;
-    c) SC_PROXY_CREDENTIALS=$OPTARG;;
-    t) SC_TUNNEL_IDENTIFIER=$OPTARG;;
+    p) SC_HOST=$OPTARG;;
+    w) SC_PROXY_CREDENTIALS=$OPTARG;;
+    i) SC_TUNNEL_IDENTIFIER=$OPTARG;;
   esac
 done
 
