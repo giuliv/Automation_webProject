@@ -1,0 +1,28 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Web Monitoring Test Suite" verbose="1" parallel="classes"
+       thread-count="1">
+    <test name="web-monitoring">
+        <packages>
+            <package name="com.applause.auto.test.web" />
+        </packages>
+        <classes>
+            <class name="com.applause.auto.test.web.MyAccountTest">
+                <methods>
+                    <include name="myAccountCreateNewAccountTest"/>
+                    <include name="myAccountDashboard"/>
+                </methods>
+            </class>
+            <class name="com.applause.auto.test.web.LoginTest"/>
+            <class name="com.applause.auto.test.web.GuestCheckoutTest">
+                <methods>
+                    <include name="guestCheckoutCoffeeTest"/>
+                </methods>
+            </class>
+            <class name="com.applause.auto.test.web.ExistingUserCheckoutTest">
+                <methods>
+                    <include name="userCheckoutPaypalWednesdayRoastCoffee"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
