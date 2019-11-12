@@ -50,7 +50,7 @@ public class CoffeeKCupsProductPage extends BaseComponent {
   /** Click Add to Cart Button */
   public void waitForAddingToCartSpinner() {
     logger.info("Adding item to Shopping Cart...");
-    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).present());
-    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).notPresent());
+    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).visible());
+    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).notVisible());
   }
 }
