@@ -348,7 +348,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
     logger.info("5. Select 'Proceed to Checkout'");
     CheckoutShippingInfoPage shippingInfoPage = miniCartContainer.clickSignedInCheckout();
     CheckoutPaymentMethodPage paymentMethodPage =
-        shippingInfoPage.setShippingMethod(TestData.SHIPPING_METHOD_GROUND);
+        shippingInfoPage.setShippingMethod();
     CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterEnteringPIN();
 
     logger.info("6. Click 'Place Order'");
