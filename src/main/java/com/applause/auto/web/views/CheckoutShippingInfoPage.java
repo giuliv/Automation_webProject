@@ -16,10 +16,6 @@ import com.applause.auto.web.components.DatePickerChunk;
 import com.applause.auto.web.components.ShopRunnerChunk;
 import com.applause.auto.web.components.VerifyYourAddressDetailsChunk;
 import com.applause.auto.web.helpers.WebHelper;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import org.openqa.selenium.WebElement;
 
 @Implementation(is = CheckoutShippingInfoPage.class, on = Platform.WEB)
 public class CheckoutShippingInfoPage extends BaseComponent {
@@ -200,6 +196,7 @@ public class CheckoutShippingInfoPage extends BaseComponent {
   public void selectShippingMethod(String shippingMethod) {
     logger.info("Select Shipping Method");
     getShippingMethodButton.initializeWithFormat(shippingMethod);
+    getShippingMethodButton.scrollToElement();
     getShippingMethodButton.click();
   }
 
