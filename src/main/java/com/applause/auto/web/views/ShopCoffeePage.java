@@ -17,7 +17,7 @@ public class ShopCoffeePage extends BaseComponent {
   private Text getViewSignature;
 
   @Locate(
-      xpath = "//ul[@class='prod-list']//li[strong[@class='product-name' and contains(.,'%s')]]",
+      xpath = "//ul[contains(@class, 'products-grid')]//li[contains(@class, 'item') and contains(.,'%s')]//form",
       on = Platform.WEB)
   private Button productNameButton;
 
@@ -31,6 +31,7 @@ public class ShopCoffeePage extends BaseComponent {
   public CoffeeProductPage clickProductName(String productName) {
     logger.info(String.format("Tap on Product Name: %s", productName));
     productNameButton.initializeWithFormat(productName);
+    productNameButton.scrollToElement();
     productNameButton.click();
     return ComponentFactory.create(CoffeeProductPage.class);
   }
