@@ -58,7 +58,6 @@ public class CoffeeProductPage extends BaseComponent {
   public CreateSubscriptionChunk clickAddToSubscription() {
     logger.info("Tap on Add To Subscription Button");
     SyncHelper.wait(Until.uiElement(getAddToSubscriptionCart).clickable()).click();
-    waitForAddingToCartSpinner();
     return ComponentFactory.create(CreateSubscriptionChunk.class);
   }
 
