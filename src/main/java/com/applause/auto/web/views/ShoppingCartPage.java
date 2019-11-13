@@ -87,7 +87,7 @@ public class ShoppingCartPage extends BaseComponent {
   private Text getProductDiscountPriceText;
 
   @Locate(
-      xpath = "//tr[th[contains(text(),'Shipping Discount')]]//*[@class='price']",
+      xpath = "//tr[th[contains(text(),'Shipping Discount')]]",
       on = Platform.WEB)
   private Text getShippingDiscountPriceText;
 
@@ -186,6 +186,21 @@ public class ShoppingCartPage extends BaseComponent {
       WebHelper.jsClick(getPaypalButton.getWebElement());
     }
     return ComponentFactory.create(CheckoutPlaceOrderPage.class);
+  }
+
+  /**
+   * Click Pay with Paypal Button for a signed user
+   *
+   * @return CheckoutPlaceOrderPage
+   */
+  public CheckoutShippingInfoPage clickPayWithPaypalSignedUserLoggedIn() {
+    logger.info("Clicking Pay with Paypal for Signed User");
+    getPaypalButton.click();
+    SyncHelper.sleep(5000); // Required due a change of focus after leaving gift-message
+    if (getPaypalButton.exists()) {
+      WebHelper.jsClick(getPaypalButton.getWebElement());
+    }
+    return ComponentFactory.create(CheckoutShippingInfoPage.class);
   }
 
   /**
