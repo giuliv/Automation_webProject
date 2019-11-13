@@ -125,7 +125,7 @@ public class GuestCheckoutTest extends BaseTest {
     logger.info("8. Use credit card for payment");
     // Cant use Peets Card as it is limited to $50 so wont be a stable test
     CheckoutPlaceOrderPage placeOrderPage =
-        paymentMethodPage.continueAfterFillingRequiredBillingInfo();
+        paymentMethodPage.continueAfterFillingRequiredBillingInfoLoggedIn();
 
     logger.info("9. Click 'Place Order'");
     CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();

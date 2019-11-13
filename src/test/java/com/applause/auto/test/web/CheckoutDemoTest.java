@@ -30,7 +30,7 @@ public class CheckoutDemoTest extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.DEMO_CHECKOUT},
-      description = "19501")
+      description = "19501", enabled = false)
   public void guestCheckoutTeaTest() {
 
     logger.info("1. Navigate to landing page");
