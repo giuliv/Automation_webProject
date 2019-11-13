@@ -388,7 +388,6 @@ public class MyAccountTest extends BaseTest {
     editAccountInformationPage.enterFirstName(Constants.MyAccountTestData.FIRST_NAME);
     String email = String.format(Constants.TestData.EMAIL, WebHelper.returnTimestamp());
     editAccountInformationPage.enterEmail(email);
-    editAccountInformationPage.enterCurrentPassword(Constants.MyAccountTestData.PASSWORD);
     myAccountPage = editAccountInformationPage.clickSave();
 
     logger.info("5. Verify Information Changed");
@@ -404,7 +403,6 @@ public class MyAccountTest extends BaseTest {
         Constants.MyAccountTestData.MODIFY_ACCOUNT_EMAIL,
         Constants.MyAccountTestData.SAFARI_ACCOUNT_EMAIL);
     editAccountInformationPage.enterFirstName(Constants.TestData.FIRST_NAME);
-    editAccountInformationPage.enterCurrentPassword(Constants.MyAccountTestData.PASSWORD);
     editAccountInformationPage.clickSave();
   }
 
