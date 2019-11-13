@@ -49,9 +49,9 @@ public class Constants {
 
     public static final String EQUIPMENT_NAME = "Fellow Kettle, Silver";
 
-    public static final String COFFEE_KCUP_NAME = "Colombia Luminosa";
+    public static final String COFFEE_KCUP_NAME = "Decaf Especial K-Cup® Pack";
     public static final String COFFEE_ARABIAN_MOCHA_JAVA_NAME = "Arabian Mocha-Java";
-    public static final String COFFEE_KCUP_COUNT = "16 count";
+    public static final String COFFEE_KCUP_COUNT = "10 count";
 
     public static final String GIFT_MESSAGE = "This is a test message for the gift-message field";
 

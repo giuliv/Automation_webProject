@@ -38,7 +38,7 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
   @Locate(css = "#custompayment_pc_amount", on = Platform.WEB)
   private TextBox getPeetsCardAmountTextBox;
 
-  @Locate(css = "#cc_checkbox", on = Platform.WEB)
+  @Locate(css = "#cc-title > label", on = Platform.WEB)
   private Checkbox getDebitCreditCardCheckbox;
 
   @Locate(css = "#custompayment_cc_number", on = Platform.WEB)
@@ -187,6 +187,8 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     logger.info("Clicking Continue after filling Peets Card and Credit Card info");
     selectPeetsCardOption();
     fillPeetsCardInfo(Constants.TestData.PEETS_CARD_LOWEST_AMOUNT);
+    SyncHelper.sleep(5000);
+    selectDebitCreditCardOption();
     fillBillingInfo();
     fillEmailField();
     continueAfterBillingInfo();
