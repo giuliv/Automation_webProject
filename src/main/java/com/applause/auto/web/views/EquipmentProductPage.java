@@ -47,7 +47,6 @@ public class EquipmentProductPage extends BaseComponent {
     logger.info("Tap on Shop Coffee Button");
     SyncHelper.sleep(5000);
     getAddToCartButton.click();
-    waitForAddingToCartSpinner();
     return ComponentFactory.create(MiniCartContainerChunk.class);
   }
 
