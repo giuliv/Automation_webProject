@@ -380,7 +380,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("3. Select a coffee from grid view and add to cart");
     MainMenuChunk mainMenu = myAccountPage.getMainMenu();
-    MiniCartContainerChunk miniCartContainer;
+    MiniCartContainerChunk miniCartContainer = mainMenu.clickMiniCart();
     if (mainMenu.getCartItemsCount() == "0") {
       landing = mainMenu.clickHeaderLogo();
 

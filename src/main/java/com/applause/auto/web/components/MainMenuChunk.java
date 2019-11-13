@@ -48,7 +48,7 @@ public class MainMenuChunk extends BaseComponent {
   @Locate(css = "#top-cart-container", on = Platform.WEB)
   protected Button getHeaderMinicart;
 
-  @Locate(css = "span.count", on = Platform.WEB)
+  @Locate(css = "#minicart-container.count", on = Platform.WEB)
   protected Button getCartItemsText;
 
   /* -------- Actions -------- */
