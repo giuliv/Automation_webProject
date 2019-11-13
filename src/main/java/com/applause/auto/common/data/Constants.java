@@ -38,13 +38,14 @@ public class Constants {
     public static final String USERNAME_SAFARI = "appautosvc+peetscoffeesafari@applause.com";
     public static final String PASSWORD = "password123";
     public static final String PEETS_USERNAME = "adavis@applausemail.com";
+    public static final String PEETS_PASSWORD = "p@ssword123";
 
     public static final String COFFEE_BRAND_NAME = "Big Bang";
     public static final String GRIND = "Commercial Brewer";
     public static final String GRIND_2 = "Drip";
 
     public static final String TEA_NAME = "Chamomile Citrus Loose Leaf";
-    public static final String TEA_COST_OVER_25_NAME = "Summer Solstice Loose Leaf";
+    public static final String TEA_COST_OVER_25_NAME = "Green Tea Tropical Tea Bags";
 
     public static final String EQUIPMENT_NAME = "Origin Mug with Bamboo";
 
