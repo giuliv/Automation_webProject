@@ -41,13 +41,13 @@ public class ShoppingCartPage extends BaseComponent {
   @Locate(css = "#subscription-name-view > strong", on = Platform.WEB)
   private Text getSubscriptionNameText;
 
-  @Locate(css = "#shopping-cart-please-wait", on = Platform.WEB)
+  @Locate(css = "#checkout-cart-please-wait", on = Platform.WEB)
   private ContainerElement getAddingToCartSpinner;
 
   @Locate(css = "#shopping-cart-messages", on = Platform.WEB)
   private Text getStatusMessageText;
 
-  @Locate(xpath = "//h3[contains(.,'%s')]/../../..//select[@title='Grind']", on = Platform.WEB)
+  @Locate(xpath = "//select[@title='Grind']", on = Platform.WEB)
   private SelectList getGrindForItemSelectList;
 
   @Locate(xpath = "//select[@id='shipping_method']", on = Platform.WEB)
@@ -229,7 +229,7 @@ public class ShoppingCartPage extends BaseComponent {
   public void waitForAddingToCartSpinner() {
     logger.info("Adding item to Shopping Cart...");
     SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).present());
-    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).notPresent());
+    SyncHelper.sleep(10000);
   }
 
   /**

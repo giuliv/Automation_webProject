@@ -23,7 +23,7 @@ public class Landing extends BaseComponent {
     try {
       logger.info("Attempting to dismiss popup");
       SyncHelper.wait(Until.uiElement(dismissPopupButton).present()).click();
-    } catch (TimeoutException e) {
+    } catch (Exception e) {
       logger.info("Popup not found, moving on");
     }
   }
