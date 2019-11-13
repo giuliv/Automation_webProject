@@ -35,6 +35,7 @@ public class PaypalReviewYourPurchasePage extends BaseComponent {
    */
   public CheckoutPlaceOrderPage clickAgreeAndContinue() {
     logger.info("Clicking Agree and Continue");
+    SyncHelper.sleep(10000);
     SyncHelper.wait(
             Until.uiElement(getContinueButton).clickable().setTimeout(Duration.ofSeconds(45)))
         .click();
@@ -44,7 +45,7 @@ public class PaypalReviewYourPurchasePage extends BaseComponent {
                 .setTimeout(Duration.ofSeconds(45)))
         .click();
     DriverManager.getDriver().switchTo().window("");
-    SyncHelper.sleep(45000); // just waiting sandbox to completed
+    SyncHelper.sleep(30000); // just waiting sandbox to completed
     return ComponentFactory.create(CheckoutPlaceOrderPage.class);
   }
 }
