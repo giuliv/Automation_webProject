@@ -138,6 +138,15 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     return ComponentFactory.create(CheckoutPlaceOrderPage.class);
   }
 
+  /** Continue after entering required Billing info */
+  public CheckoutPlaceOrderPage continueAfterFillingRequiredBillingInfoLoggedIn() {
+    logger.info("Clicking Continue after filling Billing info");
+    fillBillingInfo();
+    fillEmailField();
+    continueAfterBillingInfo();
+    return ComponentFactory.create(CheckoutPlaceOrderPage.class);
+  }
+
   /** Continue after entering Credit Card Billing info */
   public CheckoutPlaceOrderPage continueAfterCrediCardBillingInfo() {
     logger.info("Clicking Continue after filling Credit Card Billing info");
