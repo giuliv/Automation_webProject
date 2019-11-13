@@ -20,7 +20,7 @@ public class ShopEquipmentPage extends BaseComponent {
   private Text getViewSignature;
 
   @Locate(
-      xpath = "//ul[@class='prod-list']//li[strong[@class='product-name' and contains(.,'%s')]]",
+      xpath = "//a[@class='product-link' and contains(.,'%s')]",
       on = Platform.WEB)
   private Button productNameButton;
 

@@ -47,7 +47,7 @@ public class Constants {
     public static final String TEA_NAME = "Chamomile Citrus Loose Leaf";
     public static final String TEA_COST_OVER_25_NAME = "Green Tea Tropical Tea Bags";
 
-    public static final String EQUIPMENT_NAME = "Origin Mug with Bamboo";
+    public static final String EQUIPMENT_NAME = "Pair of Espresso Cups";
 
     public static final String COFFEE_KCUP_NAME = "Colombia Luminosa";
     public static final String COFFEE_ARABIAN_MOCHA_JAVA_NAME = "Arabian Mocha-Java";
