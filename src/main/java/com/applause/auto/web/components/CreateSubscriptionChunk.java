@@ -26,7 +26,7 @@ public class CreateSubscriptionChunk extends BaseComponent {
   @Locate(css = "li#subscription-order-new label", on = Platform.WEB)
   private Button getNewSubscriptionButton;
 
-  @Locate(css = "[title='Create subscription']", on = Platform.WEB)
+  @Locate(css = "#subscription-order-subscription-new > div.subscription-actions > a > span > span", on = Platform.WEB)
   private Button getNewSubscriptionCreateButton;
 
   @Locate(css = "#subscription_period", on = Platform.WEB)
@@ -41,8 +41,9 @@ public class CreateSubscriptionChunk extends BaseComponent {
     // SyncHelper.waitUntilElementPresent(getNewSubscriptionButton.getAbsoluteSelector());
     // WebHelper.waitForElementToBeClickable(getNewSubscriptionButton.getWebElement());
     // getNewSubscriptionButton.click();
-    SyncHelper.sleep(5000);
+    SyncHelper.sleep(10000);
     SyncHelper.wait(Until.uiElement(getNewSubscriptionButton).clickable()).click();
+    SyncHelper.sleep(10000);
   }
 
   /*

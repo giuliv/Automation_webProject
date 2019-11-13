@@ -3,6 +3,7 @@ package com.applause.auto.test.web;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.web.components.CreateSubscriptionChunk;
 import com.applause.auto.web.components.MainMenuChunk;
@@ -68,7 +69,7 @@ public class SubscriptionsTest extends BaseTest {
     MiniCartContainerChunk miniCart = createSubscriptionChunk.createSubscription();
 
     logger.info("From mini-cart, select View Cart");
-    SyncHelper.sleep(5000);
+    SyncHelper.sleep(10000);
     ShoppingCartPage cartPage = miniCart.clickEditCart();
 
     logger.info("Verify Subscription Name");
@@ -166,7 +167,12 @@ public class SubscriptionsTest extends BaseTest {
         cartPage.isShippingDiscountPriceDisplayed(), "Shipping discount does not displayed");
 
     logger.info("Select Checkout with Paypal");
-    CheckoutPlaceOrderPage checkoutPlaceOrderPage = cartPage.clickPayWithPaypalSignedUser();
+    CheckoutShippingInfoPage checkoutShippingInfoPage = cartPage.clickPayWithPaypalSignedUserLoggedIn();
+
+    logger.info("Complete Checkout");
+    CheckoutPaymentMethodPage checkoutPaymentMethodPage = checkoutShippingInfoPage.setShippingMethod();
+    checkoutPaymentMethodPage.continueAfterBillingInfo();
+    CheckoutPlaceOrderPage checkoutPlaceOrderPage = ComponentFactory.create(CheckoutPlaceOrderPage.class);
 
     logger.info("Place Order");
     CheckoutConfirmationPage checkoutConfirmationPage = checkoutPlaceOrderPage.placeOrder();

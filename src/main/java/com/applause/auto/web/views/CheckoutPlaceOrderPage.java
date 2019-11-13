@@ -11,6 +11,7 @@ import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+import com.applause.auto.web.helpers.WebHelper;
 
 @Implementation(is = CheckoutPlaceOrderPage.class, on = Platform.WEB)
 public class CheckoutPlaceOrderPage extends BaseComponent {
@@ -30,6 +31,9 @@ public class CheckoutPlaceOrderPage extends BaseComponent {
 
   @Locate(css = "span#opc-please-wait.please-wait-review", on = Platform.WEB)
   private ContainerElement getPlaceOrderSpinner;
+
+  @Locate(css = "body > div.campaign.is-email-layout > div > div.popup-close.is-solid.js-offer-close.ac-offer-close", on = Platform.WEB)
+  private Button getClosePopupButton;
 
   /* -------- Actions -------- */
 

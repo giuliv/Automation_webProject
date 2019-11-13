@@ -503,7 +503,7 @@ public class MyAccountTest extends BaseTest {
 
     logger.info("6. Use credit card for payment");
     CheckoutPlaceOrderPage placeOrderPage =
-        paymentMethodPage.continueAfterFillingRequiredBillingInfo();
+        paymentMethodPage.continueAfterFillingRequiredBillingInfoLoggedIn();
 
     logger.info("7. Click 'Place Order'");
     CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
