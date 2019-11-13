@@ -26,7 +26,7 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
   @Locate(css = "h2#checkout-title-opc-billing.active", on = Platform.WEB)
   private Text getViewSignature;
 
-  @Locate(css = "#pc-title input", on = Platform.WEB)
+  @Locate(css = "#pc-title > label", on = Platform.WEB)
   private Checkbox getPeetsCardCheckbox;
 
   @Locate(css = "#custompayment_pc_number", on = Platform.WEB)
@@ -187,7 +187,6 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     logger.info("Clicking Continue after filling Peets Card and Credit Card info");
     selectPeetsCardOption();
     fillPeetsCardInfo(Constants.TestData.PEETS_CARD_LOWEST_AMOUNT);
-    selectDebitCreditCardOption();
     fillBillingInfo();
     fillEmailField();
     continueAfterBillingInfo();
