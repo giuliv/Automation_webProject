@@ -54,6 +54,7 @@ public class ShopRunnerChunk extends BaseComponent {
    */
   public <T extends BaseComponent> T continueShopping(Class<T> clazz) {
     logger.info("Clicking Continue Shopping button");
+    SyncHelper.sleep(5000);
     getContinueShoppingButton.click();
     SyncHelper.sleep(6000);
     return ComponentFactory.create(clazz);

@@ -27,7 +27,7 @@ public class CheckoutConfirmationPage extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(css = ".popup-close.is-solid.js-offer-close.ac-offer-close", on = Platform.WEB)
+  @Locate(css = "body > div.campaign.is-email-layout > div > div.popup-close.is-solid.js-offer-close.ac-offer-close", on = Platform.WEB)
   private Button dismissPopupButton;
 
   @Locate(css = "h2.sub-title", on = Platform.WEB)
