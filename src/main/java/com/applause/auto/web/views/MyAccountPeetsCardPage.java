@@ -19,7 +19,7 @@ public class MyAccountPeetsCardPage extends BaseComponent {
   @Locate(css = "div.col-main > div > div.page-title > h1", on = Platform.WEB)
   private Text getViewSignature;
 
-  @Locate(xpath = "//*[contains(.,\"Buy a Peet's card\")]", on = Platform.WEB)
+  @Locate(xpath = "//*[contains(.,\"Buy a Peet's Card\")]", on = Platform.WEB)
   private ContainerElement getBuyPeetsCardSection;
 
   @Locate(css = ".item-content-column .item-content-box", on = Platform.WEB)

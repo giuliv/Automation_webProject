@@ -8,11 +8,27 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
 
 @Implementation(is = CheckoutConfirmationPage.class, on = Platform.WEB)
 public class CheckoutConfirmationPage extends BaseComponent {
 
+  @Override
+  public void afterInit() {
+    super.afterInit();
+    try {
+      logger.info("Attempting to dismiss popup");
+      SyncHelper.wait(Until.uiElement(dismissPopupButton).present()).click();
+    } catch (Exception e) {
+      logger.info("Popup not found, moving on");
+    }
+  }
+
   /* -------- Elements -------- */
+
+  @Locate(css = ".popup-close.is-solid.js-offer-close.ac-offer-close", on = Platform.WEB)
+  private Button dismissPopupButton;
 
   @Locate(css = "h2.sub-title", on = Platform.WEB)
   private Text getPageSubtitleText;
