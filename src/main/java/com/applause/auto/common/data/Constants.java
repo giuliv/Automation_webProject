@@ -37,6 +37,7 @@ public class Constants {
     public static final String USERNAME_625882 = "appautosvc+test625882@applause.com";
     public static final String USERNAME_SAFARI = "appautosvc+peetscoffeesafari@applause.com";
     public static final String PASSWORD = "password123";
+    public static final String PEETS_USERNAME = "adavis@applausemail.com";
 
     public static final String COFFEE_BRAND_NAME = "Big Bang";
     public static final String GRIND = "Commercial Brewer";
