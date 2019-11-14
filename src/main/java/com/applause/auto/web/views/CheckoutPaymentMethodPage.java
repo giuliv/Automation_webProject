@@ -65,7 +65,7 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
   @Locate(css = "input[id='billing:email']", on = Platform.WEB)
   private TextBox getEmailTextBox;
 
-  @Locate(css = "#payment-button-continue", on = Platform.WEB)
+  @Locate(css = "#opc-billing button[title='Continue']", on = Platform.WEB)
   private Button getContinueButton;
 
   @Locate(css = "#payment-button-continue", on = Platform.WEB)
