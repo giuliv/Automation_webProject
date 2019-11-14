@@ -22,7 +22,7 @@ public class CheckoutShippingInfoPage extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(xpath = "//div[@id='srd_so']//a[text()='sign in']", on = Platform.WEB)
+  @Locate(css = "#srd_so > div > div.srd_msg > a:nth-child(8)", on = Platform.WEB)
   private Button getSignInShopRunnerButton;
 
   @Locate(css = "input[id='shipping:firstname']", on = Platform.WEB)
@@ -104,6 +104,8 @@ public class CheckoutShippingInfoPage extends BaseComponent {
    */
   public ShopRunnerChunk signInShopRunner() {
     logger.info("Click on Sign In shop runner");
+    SyncHelper.sleep(10000);
+    WebHelper.scrollToElement(getSignInShopRunnerButton.getWebElement());
     getSignInShopRunnerButton.click();
     return ComponentFactory.create(ShopRunnerChunk.class);
   }

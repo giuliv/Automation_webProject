@@ -48,7 +48,6 @@ public class CheckoutPlaceOrderPage extends BaseComponent {
     SyncHelper.sleep(7000); // Required time to trigger spinner animation if shown
     getPlaceOrderButton.click();
     SyncHelper.sleep(2000); // Required time to trigger spinner animation if shown
-    SyncHelper.wait(Until.uiElement(getPlaceOrderSpinner).notPresent());
     return ComponentFactory.create(CheckoutConfirmationPage.class);
   }
 

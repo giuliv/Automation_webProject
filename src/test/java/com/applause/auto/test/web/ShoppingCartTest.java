@@ -44,8 +44,7 @@ public class ShoppingCartTest extends BaseTest {
     shoppingCartPage = shoppingCartPage.removeItem(TestData.COFFEE_BRAND_NAME);
 
     logger.info("Verify item is remove from cart and shopping cart is empty");
-    Assert.assertEquals(
-        shoppingCartPage.getItems().size(), 0, "Wrong product count after deletion");
+    Assert.assertTrue(shoppingCartPage.isCartEmpty(), "Cart is not empty");
   }
 
   @Test(
