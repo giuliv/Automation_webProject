@@ -133,7 +133,7 @@ public class Constants {
     public static final String SAFARI_SHIPPING_EMAIL = "peets+safarishipping@qa.utest.com";
     public static final String SAFARI_BILLING_EMAIL = "peets+safaribilling@qa.utest.com";
     public static final String SAFARI_ACCOUNT_EMAIL = "peets+safariaccountsettings@qa.utest.com";
-    public static final String MODIFY_ACCOUNT_EMAIL = "peets+modifyaccount@qa.utest.com";
+    public static final String MODIFY_ACCOUNT_EMAIL = "peets+modifyaccount1@qa.utest.com";
     public static final String UNUSED_EMAIL = "peets+unused@qa.utest.com";
     public static final String PASSWORD = "p@ssword123";
     public static final String ADDRESS_LINE_2 = "APT. 123";

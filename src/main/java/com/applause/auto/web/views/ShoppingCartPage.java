@@ -62,7 +62,7 @@ public class ShoppingCartPage extends BaseComponent {
   @Locate(css = "#gift-message-whole-message", on = Platform.WEB)
   private TextBox getGiftMessageText;
 
-  @Locate(css = "#action-checkout", on = Platform.WEB)
+  @Locate(css = "#proceed-checkout", on = Platform.WEB)
   private Button getProceedToCheckoutButton;
 
   @Locate(
@@ -70,7 +70,7 @@ public class ShoppingCartPage extends BaseComponent {
       on = Platform.WEB)
   private Button getPaypalButton;
 
-  @Locate(xpath = "//h3[contains(.,'%s')]/../../..//a[@class='btn-remove']", on = Platform.WEB)
+  @Locate(css = "#cart-table-standard > tbody > tr > td.a-center.product-cart-remove.last > a", on = Platform.WEB)
   private Button getRemoveItemButton;
 
   @Locate(css = "h3.product-name", on = Platform.WEB)
@@ -94,6 +94,10 @@ public class ShoppingCartPage extends BaseComponent {
   @Locate(css = "strong.total-price", on = Platform.WEB)
   private Text getOrderSummaryPriceText;
 
+  @Locate(css = "body > div.wrapper > div > div.main-container.full-width > div > div > div.empty-cart-holder > div.page-title > h1",
+          on = Platform.WEB)
+  private Text getCartEmptyText;
+
   /* -------- Actions -------- */
 
   /**
@@ -104,14 +108,18 @@ public class ShoppingCartPage extends BaseComponent {
   public void selectOrderAsGift() {
     logger.info("Check the Order is a Gift");
     getOrderAsGiftCheckCheckbox.scrollToElement();
-    SyncHelper.wait(Until.uiElement(getOrderAsGiftCheckCheckbox).present());
-    getOrderAsGiftCheckCheckbox.click();
+    if (!getOrderAsGiftCheckCheckbox.isChecked()) {
+      SyncHelper.wait(Until.uiElement(getOrderAsGiftCheckCheckbox).present());
+      getOrderAsGiftCheckCheckbox.click();
+    }
   }
 
   /** Enter Gift Message */
   public void enterGiftMessage(String giftMessage) {
     logger.info("Enter a Gift Message");
-    SyncHelper.wait(Until.uiElement(getGiftMessageText).present()).sendKeys(giftMessage);
+    SyncHelper.wait(Until.uiElement(getGiftMessageText).present());
+    getGiftMessageText.clearText();
+    getGiftMessageText.sendKeys(giftMessage);
   }
 
   /**
@@ -150,7 +158,14 @@ public class ShoppingCartPage extends BaseComponent {
    */
   public CheckoutShippingInfoPage defineShippingSignedUser() {
     logger.info("Click Proceed to Checkout button");
+    SyncHelper.sleep(10000);
     getProceedToCheckoutButton.click();
+    SyncHelper.sleep(5000);
+    try {
+      getProceedToCheckoutButton.click();
+    } catch (Exception ex) {
+      logger.info("Button no longer present");
+    }
     SyncHelper.sleep(2000);
     // WebHelper.jsClick(getProceedToCheckoutButton.getWebElement());
     return ComponentFactory.create(CheckoutShippingInfoPage.class);
@@ -393,5 +408,15 @@ public class ShoppingCartPage extends BaseComponent {
     logger.info("Click on Sign In shop runner");
     getSignInShopRunnerButton.click();
     return ComponentFactory.create(ShopRunnerChunk.class);
+  }
+
+  /**
+   * Check if cart is empty
+   *
+   * @return Boolean
+   */
+  public Boolean isCartEmpty() {
+    logger.info("Checking if Cart is empty");
+    return getCartEmptyText.isDisplayed();
   }
 }

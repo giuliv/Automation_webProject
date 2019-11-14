@@ -148,6 +148,7 @@ public class SubscriptionsTest extends BaseTest {
     MiniCartContainerChunk miniCart = createSubscriptionChunk.createSubscription();
 
     logger.info("From mini-cart, select View Cart");
+    SyncHelper.sleep(10000);
     ShoppingCartPage cartPage = miniCart.clickEditCart();
 
     logger.info("Verify Subscription Name");
@@ -167,12 +168,7 @@ public class SubscriptionsTest extends BaseTest {
         cartPage.isShippingDiscountPriceDisplayed(), "Shipping discount does not displayed");
 
     logger.info("Select Checkout with Paypal");
-    CheckoutShippingInfoPage checkoutShippingInfoPage = cartPage.clickPayWithPaypalSignedUserLoggedIn();
-
-    logger.info("Complete Checkout");
-    CheckoutPaymentMethodPage checkoutPaymentMethodPage = checkoutShippingInfoPage.setShippingMethod();
-    checkoutPaymentMethodPage.continueAfterBillingInfo();
-    CheckoutPlaceOrderPage checkoutPlaceOrderPage = ComponentFactory.create(CheckoutPlaceOrderPage.class);
+    CheckoutPlaceOrderPage checkoutPlaceOrderPage = cartPage.clickPayWithPaypalSignedUser();
 
     logger.info("Place Order");
     CheckoutConfirmationPage checkoutConfirmationPage = checkoutPlaceOrderPage.placeOrder();
