@@ -68,7 +68,7 @@ public class GuestCheckoutTest extends BaseTest {
 
     logger.info("6. Use credit card for payment");
     CheckoutPlaceOrderPage placeOrderPage =
-        paymentMethodPage.continueAfterFillingRequiredBillingInfo();
+        paymentMethodPage.continueAfterFillingRequiredBillingInfoLoggedIn();
 
     logger.info("7. Click 'Place Order'");
     CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
@@ -284,7 +284,7 @@ public class GuestCheckoutTest extends BaseTest {
 
     logger.info("8. Use credit card for payment");
     CheckoutPlaceOrderPage placeOrderPage =
-        paymentMethodPage.continueAfterFillingRequiredBillingInfo();
+        paymentMethodPage.continueAfterFillingRequiredBillingInfoLoggedIn();
 
     logger.info("9. Click 'Place Order'");
     CheckoutConfirmationPage confirmationPage = placeOrderPage.placeOrder();
