@@ -87,7 +87,7 @@ public class CheckoutDemoTest extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.DEMO_CHECKOUT},
-      description = "19608")
+      description = "19608", enabled = false)
   public void guestCheckoutPeetsCardTest() {
 
     logger.info("1. Navigate to landing page");
@@ -140,7 +140,7 @@ public class CheckoutDemoTest extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.DEMO_CHECKOUT},
-      description = "19503")
+      description = "19503", enabled = false)
   public void guestCheckoutTour() {
 
     logger.info("1. Navigate to landing page");
