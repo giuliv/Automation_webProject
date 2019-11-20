@@ -5,11 +5,7 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
-import com.applause.auto.pageobjectmodel.elements.Button;
-import com.applause.auto.pageobjectmodel.elements.ContainerElement;
-import com.applause.auto.pageobjectmodel.elements.SelectList;
-import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.elements.*;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.web.components.DatePickerChunk;
@@ -171,7 +167,7 @@ public class CheckoutShippingInfoPage extends BaseComponent {
   public CheckoutShippingInfoPage continueAddNewAddress() {
     logger.info("Click Continue on contact section");
     getNewAddressContinueButton.click();
-    SyncHelper.sleep(20000);
+    SyncHelper.sleep(30000);
     return ComponentFactory.create(CheckoutShippingInfoPage.class);
   }
 
