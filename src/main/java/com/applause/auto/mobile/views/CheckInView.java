@@ -8,6 +8,9 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.QueryHelper;
+import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
 
 @Implementation(is = AndroidCheckInView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CheckInView.class, on = Platform.MOBILE_IOS)
@@ -119,6 +122,16 @@ public class CheckInView extends BaseComponent {
 }
 
 class AndroidCheckInView extends CheckInView {
+
+  @Override
+  public void afterInit() {
+    if (getLovePeetsYesButton.exists())
+      getLovePeetsYesButton.click();
+    if (getReviewNoThanksButton.exists())
+      getReviewNoThanksButton.click();
+    SyncHelper.wait(Until.uiElement(getSignature).present());
+  }
+
   @Override
   public boolean isAmountSelected(String amount) {
     getAmountButton.initializeWithFormat(amount);
@@ -128,4 +141,10 @@ class AndroidCheckInView extends CheckInView {
   public String getBalance() {
     return getBalanceText.getText();
   }
+
+  @Locate(id = "com.wearehathway.peets.development:id/yes", on = Platform.MOBILE_ANDROID)
+  protected Button getLovePeetsYesButton;
+
+  @Locate(id = "com.wearehathway.peets.development:id/decline", on = Platform.MOBILE_ANDROID)
+  protected Button getReviewNoThanksButton;
 }

@@ -20,9 +20,9 @@ public class OrderAheadView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getParticipatingCoffeebarsButton;
 
-  @Locate(id = "Order Ahead.", on = Platform.MOBILE_IOS)
+  @Locate(id = "Order", on = Platform.MOBILE_IOS)
   @Locate(
-      androidUIAutomator = "new UiSelector().textContains(\"Order Ahead\")",
+      androidUIAutomator = "new UiSelector().textContains(\"Order\")",
       on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 

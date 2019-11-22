@@ -24,7 +24,7 @@ public class MyAccountMyOrdersPage extends BaseComponent {
   @Locate(css = "#my-orders-table tr:nth-child(1) td.td-bold span", on = Platform.WEB)
   private Text getOrdersDateText;
 
-  @Locate(css = "#my-orders-table tr:nth-child(6) td.td-id span", on = Platform.WEB)
+  @Locate(css = "#my-orders-table > tbody > tr:nth-child(1) > td.td-id > span > a", on = Platform.WEB)
   private Link getOrdersNumberLink;
 
   @Locate(css = "#my-orders-table > tbody > tr:nth-child(1) > td.td-items", on = Platform.WEB)
@@ -40,7 +40,7 @@ public class MyAccountMyOrdersPage extends BaseComponent {
   private Button getOrdersViewButton;
 
   @Locate(
-      xpath = "//table[@id='my-orders-table']//tr[6]//a[contains(.,'Reorder')]",
+      xpath = "//a[contains(.,'Reorder')]",
       on = Platform.WEB)
   private Button getOrdersReorderButton;
 
