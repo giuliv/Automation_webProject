@@ -8,6 +8,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.*;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
 import com.applause.auto.web.components.DatePickerChunk;
 import com.applause.auto.web.components.ShopRunnerChunk;
 import com.applause.auto.web.components.VerifyYourAddressDetailsChunk;
@@ -54,7 +55,7 @@ public class CheckoutShippingInfoPage extends BaseComponent {
   @Locate(css = ".editing button[title='Update']", on = Platform.WEB)
   private Button getModifiedAddressUpdateButton;
 
-  @Locate(css = ".opc-please-wait", on = Platform.WEB)
+  @Locate(css = "#opc-please-wait", on = Platform.WEB)
   private ContainerElement getShippingLoadingSpinner;
 
   @Locate(xpath = "//strong[@class='shipping-method-name' and contains(.,'%s')]", on = Platform.WEB)
@@ -167,7 +168,8 @@ public class CheckoutShippingInfoPage extends BaseComponent {
   public CheckoutShippingInfoPage continueAddNewAddress() {
     logger.info("Click Continue on contact section");
     getNewAddressContinueButton.click();
-    SyncHelper.sleep(30000);
+    SyncHelper.wait(Until.uiElement(getShippingLoadingSpinner).visible());
+    SyncHelper.wait(Until.uiElement(getShippingLoadingSpinner).notVisible());
     return ComponentFactory.create(CheckoutShippingInfoPage.class);
   }
 
