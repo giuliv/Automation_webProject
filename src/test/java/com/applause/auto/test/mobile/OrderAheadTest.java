@@ -203,4 +203,54 @@ public class OrderAheadTest extends BaseTest {
     logger.info("User should be taken back to search menu screen");
     Assert.assertNotNull(searchResultsView, "User does not taken back to search menu screen");
   }
+
+  @Test(groups = { TestNGGroups.ORDER_AHEAD }, description = "625897")
+  public void checkoutTest() {
+    logger.info("Launch the app and arrive at the first on boarding screen view");
+    LandingView landingView = ComponentFactory.create(LandingView.class);
+    DashboardView dashboardView = testHelper.signIn(landingView, MyAccountTestData.EMAIL,
+            MyAccountTestData.PASSWORD, DashboardView.class);
+    Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
+
+//    logger.info("Tap Order icon on the bottom nav bar");
+//    SelectCoffeeBarView selectCoffeeBarView = dashboardView.getBottomNavigationMenu()
+//            .order(SelectCoffeeBarView.class);
+//
+//    selectCoffeeBarView.search("94608");
+    NewOrderView newOrderView = dashboardView.getBottomNavigationMenu().order(NewOrderView.class);
+
+    logger.info("Tap a category");
+    newOrderView.selectCategory("Espresso Beverages");
+
+    logger.info("Sub-categories should expand downward");
+    List<String> items = newOrderView.getCategoryItems("Espresso Beverages");
+    Assert.assertTrue(items.size() > 0, "Sub categories does not expand");
+
+    logger.info("Select a sub-category");
+    newOrderView.selectSubCategory("Espresso Beverages", items.get(0));
+
+    logger.info("Select a product");
+    ProductDetailsView productDetail = newOrderView.selectProduct("Iced Espresso");
+
+    logger.info("User should be taken to product details page");
+    Assert.assertNotNull(productDetail, "User des not taken to product detail page");
+
+    logger.info("Scroll down PDP and select a modifiers");
+    productDetail = productDetail.selectModifiers("Ice", "Light Ice");
+
+    logger.info("Add to Order");
+    newOrderView = productDetail.addToOrder(NewOrderView.class);
+
+    logger.info("Proceed to Checkout");
+    CheckoutView checkout = newOrderView.checkout();
+
+    logger.info("Place Order");
+    OrderConfirmationView orderConfirmationView = checkout.placeOrder(OrderConfirmationView.class);
+
+    logger.info("Verify - Order Confirmation displayed");
+    Assert.assertNotNull(orderConfirmationView, "Something happened during order placement");
+
+  }
+
+
 }

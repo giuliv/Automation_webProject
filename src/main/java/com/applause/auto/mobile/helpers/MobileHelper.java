@@ -29,6 +29,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.RemoteWebElement;
 
+import static com.applause.auto.util.DriverManager.getDriver;
+
 public class MobileHelper {
 
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
@@ -39,7 +41,7 @@ public class MobileHelper {
   }
 
   private static AppiumDriver getMobileDriver() {
-    return (AppiumDriver) DriverManager.getDriver();
+    return (AppiumDriver) getDriver();
   }
 
   /** Activates the app */
@@ -54,7 +56,7 @@ public class MobileHelper {
   }
 
   public static void refreshDeviceSize() {
-    deviceSize = DriverManager.getDriver().manage().window().getSize();
+    deviceSize = getDriver().manage().window().getSize();
   }
 
   /**
@@ -213,7 +215,7 @@ public class MobileHelper {
         elem.sendKeys(Keys.BACK_SPACE);
         element.setValue(value);
       } else {
-        JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
         Map<String, Object> params = new HashMap<>();
         params.put("order", order);
         params.put("offset", 0.1);
@@ -240,5 +242,20 @@ public class MobileHelper {
     refreshDeviceSize();
     logger.info("Scrolling down half a screen");
     scrollDownAlgorithm(0.1, 0.6, 0.4);
+  }
+
+  public static void swipeAcrossScreenCoordinates(double startX, double startY, double endX, double endY, long millis) {
+    logger.info(String.format("Swiping from [%s, %s] to [%s, %s].", startX, startY, endX, endY));
+    Dimension size = getMobileDriver().manage().window().getSize();
+
+    int startX_ = (int) (size.getWidth() * startX);
+    int startY_ = (int) (size.getHeight() * startY);
+    int endX_ = (int) (size.getWidth() * endX);
+    int endY_ = (int) (size.getHeight() * endY);
+
+    PointOption<?> startPoint = PointOption.point(startX_, startY_);
+    PointOption<?> endPoint = PointOption.point(endX_, endY_);
+    WaitOptions time = WaitOptions.waitOptions(Duration.ofMillis(millis));
+    (new TouchAction(getMobileDriver())).press(startPoint).waitAction(time).moveTo(endPoint).release().perform();
   }
 }

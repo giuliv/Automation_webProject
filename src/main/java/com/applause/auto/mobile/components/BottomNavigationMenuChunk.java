@@ -5,14 +5,16 @@ import com.applause.auto.mobile.views.CheckInView;
 import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.OrderAheadView;
 import com.applause.auto.mobile.views.PeetsCardsView;
+import com.applause.auto.mobile.views.SelectCoffeeBarView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
 
 @Implementation(is = BottomNavigationMenuChunk.class, on = Platform.MOBILE_ANDROID)
-@Implementation(is = BottomNavigationMenuChunk.class, on = Platform.MOBILE_IOS)
+@Implementation(is = IosBottomNavigationMenuChunk.class, on = Platform.MOBILE_IOS)
 public class BottomNavigationMenuChunk extends BaseComponent {
 
   /* -------- Elements -------- */
@@ -92,5 +94,31 @@ public class BottomNavigationMenuChunk extends BaseComponent {
     logger.info("Tap on Order");
     getOrdersButton.click();
     return ComponentFactory.create(OrderAheadView.class);
+  }
+
+  /**
+   * Order Ahead view
+   *
+   * @param clazz
+   * @param <T>
+   * @return clazz
+   */
+  public <T extends BaseComponent> T order(Class<T> clazz) {
+    logger.info("Tap on Order");
+    getOrdersButton.click();
+    return ComponentFactory.create(clazz);
+  }
+}
+
+class IosBottomNavigationMenuChunk extends BottomNavigationMenuChunk {
+
+  public <T extends BaseComponent> T order(Class<T> clazz) {
+    logger.info("Tap on Order");
+    SelectCoffeeBarView selectCoffeeBarView = super.order(SelectCoffeeBarView.class);
+    selectCoffeeBarView = selectCoffeeBarView.enableLocation().allow();
+    selectCoffeeBarView.search("Emeryville, CA, 94608, 1400 park avenue");
+    SyncHelper.sleep(10000);
+    selectCoffeeBarView.openCoffeebarFromSearchResults(1);
+    return ComponentFactory.create(clazz);
   }
 }

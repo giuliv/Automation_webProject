@@ -332,7 +332,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
     MyAccountPage myAccountPage = signInPage.mainUserLogin();
     Assert.assertTrue(
         myAccountPage.getWelcomeMessage().contains("Applause"),
-        "User is not signed in or welcome name is wrong");
+        "User is not signed in or w®elcome name is wrong");
 
     logger.info("3. Navigate to Kona Coffee page");
     MainMenuChunk mainMenu = myAccountPage.getMainMenu();

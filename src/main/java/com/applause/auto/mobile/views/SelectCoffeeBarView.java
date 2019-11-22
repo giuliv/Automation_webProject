@@ -2,6 +2,7 @@ package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -27,7 +28,7 @@ public class SelectCoffeeBarView extends BaseComponent {
       xpath = "//XCUIElementTypeNavigationBar[@name='Select Coffeebar']",
       on = Platform.MOBILE_IOS)
   @Locate(
-      xpath = "//android.widget.TextView[@text='Select Coffeebar']",
+      id = "com.wearehathway.peets.development:id/storeContainer",
       on = Platform.MOBILE_ANDROID)
   protected ContainerElement getSignature;
 
@@ -44,7 +45,7 @@ public class SelectCoffeeBarView extends BaseComponent {
   protected Button getEnableLocationButton;
 
   @Locate(id = "search magnifier", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/action_search", on = Platform.MOBILE_ANDROID)
+  @Locate(id = "com.wearehathway.peets.development:id/changeTextView", on = Platform.MOBILE_ANDROID)
   protected Button getSearchButton;
 
   @Locate(id = "Search for coffeebar", on = Platform.MOBILE_IOS)
@@ -57,6 +58,10 @@ public class SelectCoffeeBarView extends BaseComponent {
           "(//android.widget.RelativeLayout[@resource-id='com.wearehathway.peets.development:id/storeDetail'])[%s]",
       on = Platform.MOBILE_ANDROID)
   protected TextBox getSearchResultText;
+
+  @Locate(id = "com.wearehathway.peets.development:id/changeTextView", on = Platform.MOBILE_ANDROID)
+  @Locate(id = "todo", on = Platform.MOBILE_IOS)
+  protected Button getChangeStoreButton;
 
   /* -------- Actions -------- */
 
@@ -96,6 +101,11 @@ public class SelectCoffeeBarView extends BaseComponent {
    */
   public void search(String searchTxt) {
     logger.info("Searching for store: " + searchTxt);
+    try {
+      getChangeStoreButton.click();
+    } catch (Throwable throwable) {
+      logger.info("Unable to Change Store");
+    }
     getSearchButton.click();
     getSearchTextBox.sendKeys(searchTxt + "\n");
   }
@@ -107,9 +117,17 @@ public class SelectCoffeeBarView extends BaseComponent {
    * @return the new order view
    */
   public NewOrderView openCoffeebarFromSearchResults(int index) {
-    logger.info("Tap on Search result");
-    getSearchResultText.initializeWithFormat(index);
-    DeviceControl.tapElementCenter(getSearchResultText);
+    logger.info("Tap on Search result" );
+    int counter = 5;
+    while (counter-- != 0) {
+      if (getSearchResultText.isDisplayed()) {
+        getSearchResultText.click();
+        break;
+      } else {
+        MobileHelper.swipeAcrossScreenCoordinates(0.8, 0.8,
+                0.2, 0.8, 2000);
+      }
+    }
     return ComponentFactory.create(NewOrderView.class);
   }
 
@@ -137,9 +155,16 @@ class AndroidSelectCoffeeBarView extends SelectCoffeeBarView {
 
   public void search(String searchTxt) {
     logger.info("Searching for store: " + searchTxt);
+    getChangeStoreButton.click();
     getSearchButton.click();
     getSearchTextBox.sendKeys(searchTxt);
     AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
     driver.executeScript("mobile: performEditorAction", ImmutableMap.of("action", "search"));
+  }
+
+  public AllowLocationServicesPopupChunk enableLocation() {
+    logger.info("Tap enable location button");
+    getEnableLocationButton.click();
+    return ComponentFactory.create(AllowLocationServicesPopupChunk.class, "");
   }
 }

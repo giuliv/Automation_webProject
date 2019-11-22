@@ -15,13 +15,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Implementation(is = NewOrderView.class, on = Platform.MOBILE_ANDROID)
-@Implementation(is = NewOrderView.class, on = Platform.MOBILE_IOS)
+@Implementation(is = IosNewOrderView.class, on = Platform.MOBILE_IOS)
 public class NewOrderView extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(xpath = "//XCUIElementTypeNavigationBar[@name=\"New Order\"]", on = Platform.MOBILE_IOS)
-  @Locate(xpath = "//android.widget.TextView[@text='New Order']", on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//XCUIElementTypeNavigationBar[@name=\"Order\"]", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//android.widget.TextView[@text='ORDER']", on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
   @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]", on = Platform.MOBILE_IOS)
@@ -58,7 +58,15 @@ public class NewOrderView extends BaseComponent {
   @Locate(
       id = "com.wearehathway.peets.development:id/search_src_text",
       on = Platform.MOBILE_ANDROID)
-  protected TextBox getSearchMenuTextBox;
+  protected TextBox getSearchMenuEditField;
+
+  @Locate(id = "com.wearehathway.peets.development:id/basketFABContainer", on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//XCUIElementTypeImage[@name=\\\"Basket\\\"]/..", on = Platform.MOBILE_IOS)
+  protected Button getCartButton;
+
+  @Locate(id = "com.wearehathway.peets.development:id/confirmButton", on = Platform.MOBILE_ANDROID)
+  @Locate(id = "Menu", on = Platform.MOBILE_IOS)
+  protected Button getConfirmStoreButton;
 
   /* -------- Actions -------- */
 
@@ -136,7 +144,28 @@ public class NewOrderView extends BaseComponent {
   public SearchResultsView search(String searchItem) {
     logger.info("Searching for: " + searchItem);
     getSearchMagnifierButton.click();
-    getSearchMenuTextBox.sendKeys(searchItem);
+    getSearchMenuEditField.sendKeys(searchItem);
     return ComponentFactory.create(SearchResultsView.class);
+  }
+
+  /**
+   * Checkout
+   *
+   * @return CheckoutView
+   */
+  public CheckoutView checkout() {
+    logger.info("Tap on Cart button");
+    getCartButton.click();
+    getConfirmStoreButton.click();
+    return ComponentFactory.create(CheckoutView.class);
+  }
+}
+
+class IosNewOrderView extends NewOrderView {
+
+  public CheckoutView checkout() {
+    logger.info("Tap on Cart button");
+    getCartButton.click();
+    return ComponentFactory.create(CheckoutView.class);
   }
 }

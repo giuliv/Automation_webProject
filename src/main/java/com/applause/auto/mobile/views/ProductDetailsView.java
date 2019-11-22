@@ -45,6 +45,10 @@ public class ProductDetailsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getBackButton;
 
+  @Locate(id = "com.wearehathway.peets.development:id/addOrUpdateProductButton", on = Platform.MOBILE_ANDROID)
+  @Locate(id = "Add to Order", on = Platform.MOBILE_IOS)
+  protected Button getAddToOrderButton;
+
   /* -------- Actions -------- */
 
   /**
@@ -88,6 +92,19 @@ public class ProductDetailsView extends BaseComponent {
     }
     return ComponentFactory.create(clazz);
   }
+
+  /**
+   * Add to Order
+   *
+   * @param clazz
+   * @param <T>
+   * @return the t
+   */
+  public <T extends BaseComponent> T addToOrder(Class<T> clazz) {
+    logger.info("Tap Add to Order");
+    getAddToOrderButton.click();
+    return ComponentFactory.create(clazz);
+  }
 }
 
 class AndroidProductDetailsView extends ProductDetailsView {
@@ -96,8 +113,6 @@ class AndroidProductDetailsView extends ProductDetailsView {
 
   @Override
   public void afterInit() {
-    AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
-    driver.runAppInBackground(Duration.ofSeconds(1));
     SyncHelper.wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(120)));
   }
 }
