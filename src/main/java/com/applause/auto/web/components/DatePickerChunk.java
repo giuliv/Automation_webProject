@@ -4,9 +4,9 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import java.util.List;
-import org.openqa.selenium.WebElement;
+import com.applause.auto.pageobjectmodel.factory.LazyList;
 
 @Implementation(is = DatePickerChunk.class, on = Platform.WEB)
 public class DatePickerChunk extends BaseComponent {
@@ -14,7 +14,7 @@ public class DatePickerChunk extends BaseComponent {
   /* -------- Elements -------- */
 
   @Locate(css = "[data-handler='selectDay']", on = Platform.WEB)
-  protected List<WebElement> getAvailableDatesText;
+  protected LazyList<Button> getAvailableDatesText;
 
   /* -------- Actions -------- */
 
