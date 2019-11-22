@@ -15,6 +15,8 @@ import com.applause.auto.web.components.ShopRunnerChunk;
 import com.applause.auto.web.components.VerifyYourAddressDetailsChunk;
 import com.applause.auto.web.helpers.WebHelper;
 
+import java.time.Duration;
+
 @Implementation(is = CheckoutShippingInfoPage.class, on = Platform.WEB)
 public class CheckoutShippingInfoPage extends BaseComponent {
 
@@ -170,14 +172,8 @@ public class CheckoutShippingInfoPage extends BaseComponent {
     logger.info("Click Continue on contact section");
     getNewAddressContinueButton.click();
 
-    // Set the default wait time on elements to 60 seconds, just for the following element
-    RunUtil.setTimeout(60);
-
-    SyncHelper.wait(Until.uiElement(getShippingLoadingSpinner).visible());
-    SyncHelper.wait(Until.uiElement(getShippingLoadingSpinner).notVisible());
-
-    // Set the default wait time on elements back to 20 seconds
-    RunUtil.setTimeout(20);
+    SyncHelper.wait(Until.uiElement(getShippingLoadingSpinner).visible().setTimeout(Duration.ofSeconds(60)));
+    SyncHelper.wait(Until.uiElement(getShippingLoadingSpinner).notVisible().setTimeout(Duration.ofSeconds(60)));
 
     return ComponentFactory.create(CheckoutShippingInfoPage.class);
   }
