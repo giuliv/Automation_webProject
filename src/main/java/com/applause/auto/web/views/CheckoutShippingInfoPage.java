@@ -2,6 +2,7 @@ package com.applause.auto.web.views;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.integrations.RunUtil;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -168,8 +169,16 @@ public class CheckoutShippingInfoPage extends BaseComponent {
   public CheckoutShippingInfoPage continueAddNewAddress() {
     logger.info("Click Continue on contact section");
     getNewAddressContinueButton.click();
+
+    // Set the default wait time on elements to 60 seconds, just for the following element
+    RunUtil.setTimeout(60);
+
     SyncHelper.wait(Until.uiElement(getShippingLoadingSpinner).visible());
     SyncHelper.wait(Until.uiElement(getShippingLoadingSpinner).notVisible());
+
+    // Set the default wait time on elements back to 20 seconds
+    RunUtil.setTimeout(20);
+
     return ComponentFactory.create(CheckoutShippingInfoPage.class);
   }
 
