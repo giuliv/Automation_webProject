@@ -268,7 +268,8 @@ public class MyAccountTest extends BaseTest {
 
     logger.info("2. Log In");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.userLogin(Constants.TestData.PEETS_USERNAME, Constants.TestData.PEETS_PASSWORD);
+    MyAccountPage myAccountPage =
+        signInPage.userLogin(Constants.TestData.PEETS_USERNAME, Constants.TestData.PEETS_PASSWORD);
     Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
     logger.info("3. Select 'Peets Cards' from Dashboard navigation bar");

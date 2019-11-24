@@ -3,7 +3,15 @@ package com.applause.auto.test.mobile;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
-import com.applause.auto.mobile.views.*;
+import com.applause.auto.mobile.views.CheckoutView;
+import com.applause.auto.mobile.views.DashboardView;
+import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.NewOrderView;
+import com.applause.auto.mobile.views.OrderAheadView;
+import com.applause.auto.mobile.views.OrderConfirmationView;
+import com.applause.auto.mobile.views.ProductDetailsView;
+import com.applause.auto.mobile.views.SearchResultsView;
+import com.applause.auto.mobile.views.SelectCoffeeBarView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import java.lang.invoke.MethodHandles;
 import java.util.List;
@@ -204,19 +212,22 @@ public class OrderAheadTest extends BaseTest {
     Assert.assertNotNull(searchResultsView, "User does not taken back to search menu screen");
   }
 
-  @Test(groups = { TestNGGroups.ORDER_AHEAD }, description = "625897")
+  @Test(
+      groups = {TestNGGroups.ORDER_AHEAD},
+      description = "625897")
   public void checkoutTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = ComponentFactory.create(LandingView.class);
-    DashboardView dashboardView = testHelper.signIn(landingView, MyAccountTestData.EMAIL,
-            MyAccountTestData.PASSWORD, DashboardView.class);
+    DashboardView dashboardView =
+        testHelper.signIn(
+            landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
     Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
-//    logger.info("Tap Order icon on the bottom nav bar");
-//    SelectCoffeeBarView selectCoffeeBarView = dashboardView.getBottomNavigationMenu()
-//            .order(SelectCoffeeBarView.class);
-//
-//    selectCoffeeBarView.search("94608");
+    //    logger.info("Tap Order icon on the bottom nav bar");
+    //    SelectCoffeeBarView selectCoffeeBarView = dashboardView.getBottomNavigationMenu()
+    //            .order(SelectCoffeeBarView.class);
+    //
+    //    selectCoffeeBarView.search("94608");
     NewOrderView newOrderView = dashboardView.getBottomNavigationMenu().order(NewOrderView.class);
 
     logger.info("Tap a category");
@@ -249,8 +260,5 @@ public class OrderAheadTest extends BaseTest {
 
     logger.info("Verify - Order Confirmation displayed");
     Assert.assertNotNull(orderConfirmationView, "Something happened during order placement");
-
   }
-
-
 }

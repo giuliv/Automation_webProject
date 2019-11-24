@@ -8,11 +8,9 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
-import io.appium.java_client.AppiumDriver;
 import java.time.Duration;
 
 @Implementation(is = ProductDetailsView.class, on = Platform.MOBILE_IOS)
@@ -45,7 +43,9 @@ public class ProductDetailsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getBackButton;
 
-  @Locate(id = "com.wearehathway.peets.development:id/addOrUpdateProductButton", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
+      on = Platform.MOBILE_ANDROID)
   @Locate(id = "Add to Order", on = Platform.MOBILE_IOS)
   protected Button getAddToOrderButton;
 

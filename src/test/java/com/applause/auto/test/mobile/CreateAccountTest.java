@@ -6,7 +6,17 @@ import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
-import com.applause.auto.mobile.views.*;
+import com.applause.auto.mobile.views.AccountHistoryView;
+import com.applause.auto.mobile.views.ChangePasswordView;
+import com.applause.auto.mobile.views.CompleteAccountView;
+import com.applause.auto.mobile.views.CreateAccountView;
+import com.applause.auto.mobile.views.DashboardView;
+import com.applause.auto.mobile.views.GeneralSettingsView;
+import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.PrivacyPolicyView;
+import com.applause.auto.mobile.views.ProfileDetailsView;
+import com.applause.auto.mobile.views.SignInView;
+import com.applause.auto.mobile.views.TermsAndConditionsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import java.lang.invoke.MethodHandles;
 import java.util.Random;
@@ -620,11 +630,11 @@ public class CreateAccountTest extends BaseTest {
     logger.info("Tap on back nav to return to more screen");
     accountMenuMobileChunk = generalSettingsView.goBack(AccountMenuMobileChunk.class);
 
-//    logger.info("Tap sign out button");
-//    AuthenticationView authenticationView = accountMenuMobileChunk.signOut();
-//
-//    logger.info("User should be signed out successfully");
-//    Assert.assertNotNull(authenticationView, "User does not signed out");
+    //    logger.info("Tap sign out button");
+    //    AuthenticationView authenticationView = accountMenuMobileChunk.signOut();
+    //
+    //    logger.info("User should be signed out successfully");
+    //    Assert.assertNotNull(authenticationView, "User does not signed out");
   }
 
   @Test(

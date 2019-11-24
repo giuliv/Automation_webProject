@@ -70,7 +70,9 @@ public class ShoppingCartPage extends BaseComponent {
       on = Platform.WEB)
   private Button getPaypalButton;
 
-  @Locate(css = "#cart-table-standard > tbody > tr > td.a-center.product-cart-remove.last > a", on = Platform.WEB)
+  @Locate(
+      css = "#cart-table-standard > tbody > tr > td.a-center.product-cart-remove.last > a",
+      on = Platform.WEB)
   private Button getRemoveItemButton;
 
   @Locate(css = "h3.product-name", on = Platform.WEB)
@@ -86,16 +88,16 @@ public class ShoppingCartPage extends BaseComponent {
       on = Platform.WEB)
   private Text getProductDiscountPriceText;
 
-  @Locate(
-      xpath = "//tr[th[contains(text(),'Shipping Discount')]]",
-      on = Platform.WEB)
+  @Locate(xpath = "//tr[th[contains(text(),'Shipping Discount')]]", on = Platform.WEB)
   private Text getShippingDiscountPriceText;
 
   @Locate(css = "strong.total-price", on = Platform.WEB)
   private Text getOrderSummaryPriceText;
 
-  @Locate(css = "body > div.wrapper > div > div.main-container.full-width > div > div > div.empty-cart-holder > div.page-title > h1",
-          on = Platform.WEB)
+  @Locate(
+      css =
+          "body > div.wrapper > div > div.main-container.full-width > div > div > div.empty-cart-holder > div.page-title > h1",
+      on = Platform.WEB)
   private Text getCartEmptyText;
 
   /* -------- Actions -------- */
