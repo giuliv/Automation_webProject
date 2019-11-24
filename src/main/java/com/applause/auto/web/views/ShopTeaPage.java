@@ -18,9 +18,7 @@ public class ShopTeaPage extends BaseComponent {
       on = Platform.WEB)
   private Text getViewSignature;
 
-  @Locate(
-      xpath = "//a[@class='product-link' and contains(.,'%s')]",
-      on = Platform.WEB)
+  @Locate(xpath = "//a[@class='product-link' and contains(.,'%s')]", on = Platform.WEB)
   private Button productNameButton;
 
   @Locate(css = "#modal-mighty-leaf-2018 > div > div > div > div.btn-holder > a", on = Platform.WEB)

@@ -5,7 +5,12 @@ import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountChunk;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountWarningChunk;
-import com.applause.auto.mobile.views.*;
+import com.applause.auto.mobile.views.AccountHistoryView;
+import com.applause.auto.mobile.views.CheckInView;
+import com.applause.auto.mobile.views.DashboardView;
+import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.PaymentMethodsView;
+import com.applause.auto.mobile.views.PeetsCardsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import java.lang.invoke.MethodHandles;
 import java.text.DecimalFormat;
@@ -14,7 +19,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -41,7 +45,8 @@ public class PeetsCardsTest extends BaseTest {
 
     logger.info("User should be taken to peet's card screen");
     Assert.assertNotNull(peetsCardsView, "User does not taken to Peets Cards view");
-    int oldBalance = NumberFormat.getNumberInstance(Locale.US).parse(peetsCardsView.getBalance()).intValue();
+    int oldBalance =
+        NumberFormat.getNumberInstance(Locale.US).parse(peetsCardsView.getBalance()).intValue();
 
     logger.info("Tap Add Value button");
     peetsCardsView.addValue();
@@ -65,7 +70,8 @@ public class PeetsCardsTest extends BaseTest {
 
     logger.info("Tap Confirm Value button");
     peetsCardsView = peetsCardsView.confirm();
-    int newBalance = NumberFormat.getNumberInstance(Locale.US).parse(peetsCardsView.getBalance()).intValue();
+    int newBalance =
+        NumberFormat.getNumberInstance(Locale.US).parse(peetsCardsView.getBalance()).intValue();
 
     logger.info(
         "Make sure user is able to successfully add value to card and peet's card screen shows card balance of $25.00");
@@ -109,7 +115,8 @@ public class PeetsCardsTest extends BaseTest {
 
     logger.info("User should be taken to check in screen");
     softAssert.assertNotNull(checkInView, "User does not taken to Check In view");
-    int oldBalance = NumberFormat.getNumberInstance(Locale.US).parse(checkInView.getBalance()).intValue();
+    int oldBalance =
+        NumberFormat.getNumberInstance(Locale.US).parse(checkInView.getBalance()).intValue();
 
     logger.info("Tap Add Value button from Peet's Card Balance tile");
     checkInView.addValue();
@@ -133,7 +140,8 @@ public class PeetsCardsTest extends BaseTest {
 
     logger.info("Tap Confirm Value button");
     checkInView = checkInView.confirm();
-    int newBalance = NumberFormat.getNumberInstance(Locale.US).parse(checkInView.getBalance()).intValue();
+    int newBalance =
+        NumberFormat.getNumberInstance(Locale.US).parse(checkInView.getBalance()).intValue();
 
     logger.info(
         "Make sure user is able to successfully add value to card and peet's card screen shows card balance of $25.00");

@@ -17,7 +17,8 @@ public class ShopCoffeePage extends BaseComponent {
   private Text getViewSignature;
 
   @Locate(
-      xpath = "//ul[contains(@class, 'products-grid')]//li[contains(@class, 'item') and contains(.,'%s')]//form",
+      xpath =
+          "//ul[contains(@class, 'products-grid')]//li[contains(@class, 'item') and contains(.,'%s')]//form",
       on = Platform.WEB)
   private Button productNameButton;
 

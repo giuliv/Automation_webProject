@@ -10,7 +10,6 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
 import com.applause.auto.web.components.MainMenuChunk;
-import org.openqa.selenium.TimeoutException;
 
 @Implementation(is = Landing.class, on = Platform.WEB)
 public class Landing extends BaseComponent {

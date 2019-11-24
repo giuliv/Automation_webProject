@@ -1,7 +1,11 @@
 package com.applause.auto.test.mobile;
 
 import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.mobile.views.*;
+import com.applause.auto.mobile.views.AuthenticationView;
+import com.applause.auto.mobile.views.ExploreOffersView;
+import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.OrderAheadView;
+import com.applause.auto.mobile.views.PayFasterView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
 import java.lang.invoke.MethodHandles;

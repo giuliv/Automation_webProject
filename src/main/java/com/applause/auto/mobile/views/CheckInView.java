@@ -8,7 +8,6 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.helper.QueryHelper;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
 
@@ -125,10 +124,8 @@ class AndroidCheckInView extends CheckInView {
 
   @Override
   public void afterInit() {
-    if (getLovePeetsYesButton.exists())
-      getLovePeetsYesButton.click();
-    if (getReviewNoThanksButton.exists())
-      getReviewNoThanksButton.click();
+    if (getLovePeetsYesButton.exists()) getLovePeetsYesButton.click();
+    if (getReviewNoThanksButton.exists()) getReviewNoThanksButton.click();
     SyncHelper.wait(Until.uiElement(getSignature).present());
   }
 

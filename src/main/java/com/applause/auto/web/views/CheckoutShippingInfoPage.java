@@ -2,11 +2,14 @@ package com.applause.auto.web.views;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.integrations.RunUtil;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
-import com.applause.auto.pageobjectmodel.elements.*;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.SelectList;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
@@ -14,7 +17,6 @@ import com.applause.auto.web.components.DatePickerChunk;
 import com.applause.auto.web.components.ShopRunnerChunk;
 import com.applause.auto.web.components.VerifyYourAddressDetailsChunk;
 import com.applause.auto.web.helpers.WebHelper;
-
 import java.time.Duration;
 
 @Implementation(is = CheckoutShippingInfoPage.class, on = Platform.WEB)
@@ -172,8 +174,10 @@ public class CheckoutShippingInfoPage extends BaseComponent {
     logger.info("Click Continue on contact section");
     getNewAddressContinueButton.click();
 
-    SyncHelper.wait(Until.uiElement(getShippingLoadingSpinner).visible().setTimeout(Duration.ofSeconds(60)));
-    SyncHelper.wait(Until.uiElement(getShippingLoadingSpinner).notVisible().setTimeout(Duration.ofSeconds(60)));
+    SyncHelper.wait(
+        Until.uiElement(getShippingLoadingSpinner).visible().setTimeout(Duration.ofSeconds(60)));
+    SyncHelper.wait(
+        Until.uiElement(getShippingLoadingSpinner).notVisible().setTimeout(Duration.ofSeconds(60)));
 
     return ComponentFactory.create(CheckoutShippingInfoPage.class);
   }

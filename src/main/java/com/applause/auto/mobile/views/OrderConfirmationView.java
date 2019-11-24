@@ -10,9 +10,11 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 @Implementation(is = OrderConfirmationView.class, on = Platform.MOBILE_IOS)
 public class OrderConfirmationView extends BaseComponent {
 
-    /* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-    @Locate(id = "com.wearehathway.peets.development:id/pickUpOrderLayout", on = Platform.MOBILE_ANDROID)
-    @Locate(id = "Your order will be ready between:", on = Platform.MOBILE_IOS)
-    protected Text geHeadingText;
+  @Locate(
+      id = "com.wearehathway.peets.development:id/pickUpOrderLayout",
+      on = Platform.MOBILE_ANDROID)
+  @Locate(id = "Your order will be ready between:", on = Platform.MOBILE_IOS)
+  protected Text geHeadingText;
 }

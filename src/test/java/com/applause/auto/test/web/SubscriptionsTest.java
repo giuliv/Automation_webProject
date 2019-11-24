@@ -3,7 +3,6 @@ package com.applause.auto.test.web;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.web.components.CreateSubscriptionChunk;
 import com.applause.auto.web.components.MainMenuChunk;

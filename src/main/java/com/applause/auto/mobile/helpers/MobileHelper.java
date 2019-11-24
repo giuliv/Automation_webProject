@@ -1,10 +1,11 @@
 package com.applause.auto.mobile.helpers;
 
+import static com.applause.auto.util.DriverManager.getDriver;
+
 import com.applause.auto.common.data.Constants.MobileApp;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
 import com.applause.auto.pageobjectmodel.elements.Picker;
-import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
@@ -28,8 +29,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.RemoteWebElement;
-
-import static com.applause.auto.util.DriverManager.getDriver;
 
 public class MobileHelper {
 
@@ -244,7 +243,8 @@ public class MobileHelper {
     scrollDownAlgorithm(0.1, 0.6, 0.4);
   }
 
-  public static void swipeAcrossScreenCoordinates(double startX, double startY, double endX, double endY, long millis) {
+  public static void swipeAcrossScreenCoordinates(
+      double startX, double startY, double endX, double endY, long millis) {
     logger.info(String.format("Swiping from [%s, %s] to [%s, %s].", startX, startY, endX, endY));
     Dimension size = getMobileDriver().manage().window().getSize();
 
@@ -256,6 +256,11 @@ public class MobileHelper {
     PointOption<?> startPoint = PointOption.point(startX_, startY_);
     PointOption<?> endPoint = PointOption.point(endX_, endY_);
     WaitOptions time = WaitOptions.waitOptions(Duration.ofMillis(millis));
-    (new TouchAction(getMobileDriver())).press(startPoint).waitAction(time).moveTo(endPoint).release().perform();
+    (new TouchAction(getMobileDriver()))
+        .press(startPoint)
+        .waitAction(time)
+        .moveTo(endPoint)
+        .release()
+        .perform();
   }
 }
