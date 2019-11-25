@@ -7,6 +7,10 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
+
+import java.time.Duration;
 
 @Implementation(is = AndroidPaymentMethodsView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = PaymentMethodsView.class, on = Platform.MOBILE_IOS)
@@ -142,6 +146,24 @@ public class PaymentMethodsView extends BaseComponent {
     logger.info("Clicking Add New Payment");
     getAddNewPaymentButton.click();
     return ComponentFactory.create(AddNewCardView.class);
+  }
+
+  /**
+   * Check whether test card is added
+   *
+   * @return boolean
+   */
+  public boolean isPaymentMethodTestCardAdded() {
+    logger.info("Checking Test Card is added");
+    try {
+      SyncHelper.wait(
+          Until.uiElement(getSavedPaymentMethodButton)
+              .notPresent()
+              .setTimeout(Duration.ofSeconds(10)));
+      return false;
+    } catch (Exception e) {
+      return true;
+    }
   }
 }
 

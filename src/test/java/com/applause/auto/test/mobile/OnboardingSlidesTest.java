@@ -8,11 +8,12 @@ import com.applause.auto.mobile.views.OrderAheadView;
 import com.applause.auto.mobile.views.PayFasterView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
-import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
 
 /**
  * This is a sample test that verifies the project is setup correctly and can execute a simple test.

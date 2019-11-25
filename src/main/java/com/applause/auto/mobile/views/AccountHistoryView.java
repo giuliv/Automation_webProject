@@ -5,7 +5,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import io.appium.java_client.MobileElement;
+
 import java.util.List;
 
 @Implementation(is = AccountHistoryView.class, on = Platform.MOBILE_ANDROID)
@@ -26,7 +26,7 @@ public class AccountHistoryView extends BaseComponent {
   @Locate(
       id = "com.wearehathway.peets.development:id/sectionHeaderText",
       on = Platform.MOBILE_ANDROID)
-  protected List<MobileElement> getTransactionDividersText;
+  protected List<Text> getTransactionDividersText;
 
   @Locate(
       xpath = "//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[3]",
@@ -34,7 +34,7 @@ public class AccountHistoryView extends BaseComponent {
   @Locate(
       id = "com.wearehathway.peets.development:id/transactionAmount",
       on = Platform.MOBILE_ANDROID)
-  protected List<MobileElement> getTransactionAmountText;
+  protected List<Text> getTransactionAmountText;
 
   @Locate(
       xpath = "//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[2]",
@@ -42,7 +42,7 @@ public class AccountHistoryView extends BaseComponent {
   @Locate(
       id = "com.wearehathway.peets.development:id/transactionTitle",
       on = Platform.MOBILE_ANDROID)
-  protected List<MobileElement> getTransactionNamesText;
+  protected List<Text> getTransactionNamesText;
 
   @Locate(
       xpath = "//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[1]",
@@ -50,7 +50,7 @@ public class AccountHistoryView extends BaseComponent {
   @Locate(
       id = "com.wearehathway.peets.development:id/transactionDate",
       on = Platform.MOBILE_ANDROID)
-  protected List<MobileElement> getTransactionDatesText;
+  protected List<Text> getTransactionDatesText;
 
   /* -------- Actions -------- */
 
@@ -71,7 +71,7 @@ public class AccountHistoryView extends BaseComponent {
    * @return the transaction date divider
    */
   public String getTransactionDateDivider(int index) {
-    return getTransactionDividersText.get(index).getAttribute("name");
+    return getTransactionDividersText.get(index).getAttributeValue("name");
   }
 
   /**

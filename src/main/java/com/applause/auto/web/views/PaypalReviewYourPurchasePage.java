@@ -10,6 +10,7 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
 import java.time.Duration;
 
 @Implementation(is = PaypalReviewYourPurchasePage.class, on = Platform.WEB)

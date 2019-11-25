@@ -6,12 +6,13 @@ import com.applause.auto.web.components.MiniCartContainerChunk;
 import com.applause.auto.web.views.CoffeeProductPage;
 import com.applause.auto.web.views.Landing;
 import com.applause.auto.web.views.ShopCoffeePage;
-import java.lang.invoke.MethodHandles;
-import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
+import java.util.List;
 
 public class MiniCartTest extends BaseTest {
 

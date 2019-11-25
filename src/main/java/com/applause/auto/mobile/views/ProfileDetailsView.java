@@ -186,7 +186,7 @@ public class ProfileDetailsView extends BaseComponent {
    * @return the phone number
    */
   public String getPhoneNumber() {
-    return getPhoneNumberTextBox.getCurrentText();
+    return getPhoneNumberTextBox.getAttributeValue("text");
   }
 
   /**
@@ -195,7 +195,8 @@ public class ProfileDetailsView extends BaseComponent {
    * @return the email address
    */
   public String getEmailAddress() {
-    return getEmailAddressTextBox.getCurrentText();
+    // probably should be overridden for iOS with get 'value' attribute
+    return getEmailAddressTextBox.getAttributeValue("text");
   }
 
   /**
@@ -204,7 +205,8 @@ public class ProfileDetailsView extends BaseComponent {
    * @return the firstname
    */
   public String getFirstname() {
-    return getFirstnameTextBox.getCurrentText();
+    // probably should be overridden for iOS with get 'value' attribute
+    return getFirstnameTextBox.getAttributeValue("text");
   }
 
   /**
@@ -213,7 +215,8 @@ public class ProfileDetailsView extends BaseComponent {
    * @return the lastname
    */
   public String getLastname() {
-    return getLastnameTextBox.getCurrentText();
+    // probably should be overridden for iOS with get 'value' attribute
+    return getLastnameTextBox.getAttributeValue("text");
   }
 
   /**
@@ -222,7 +225,7 @@ public class ProfileDetailsView extends BaseComponent {
    * @return the dob
    */
   public String getDOB() {
-    return getDOBTextBox.getCurrentText();
+    return getDOBTextBox.getAttributeValue("text");
   }
 
   /**
@@ -236,7 +239,7 @@ public class ProfileDetailsView extends BaseComponent {
     logger.info("Tap back button");
     getBackButton.click();
     SyncHelper.sleep(4000);
-    return ComponentFactory.create(clazz, "");
+    return ComponentFactory.create(clazz);
   }
 
   /**
@@ -245,7 +248,8 @@ public class ProfileDetailsView extends BaseComponent {
    * @return the zip code
    */
   public String getZipCode() {
-    return getZipCodeTextBox.getCurrentText();
+    // probably should be overridden for iOS with get 'value' attribute
+    return getZipCodeTextBox.getAttributeValue("text");
   }
 
   /**

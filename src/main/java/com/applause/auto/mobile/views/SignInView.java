@@ -171,10 +171,25 @@ class AndroidSignInView extends SignInView {
   }
 
   @Override
+  public String getPassword() {
+    return getPasswordTextBox.getAttributeValue("text");
+  }
+
+  @Override
+  public String getUnEncryptedPassword() {
+    return getUnEncryptedPasswordTextBox.getAttributeValue("text");
+  }
+
+  @Override
   public SignInView dismissMessage() {
     logger.info("Dismissing message");
     getDismissMessageButton.click();
     return this;
+  }
+
+  @Override
+  public String getMessage() {
+    return getMessageTextBox.getAttributeValue("text");
   }
 
   public <T extends BaseComponent> T signIn(Class<T> clazz) {

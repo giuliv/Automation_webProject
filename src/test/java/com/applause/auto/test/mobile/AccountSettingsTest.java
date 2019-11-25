@@ -11,10 +11,11 @@ import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.PeetsCardSettingsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
 
 public class AccountSettingsTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
@@ -48,6 +49,9 @@ public class AccountSettingsTest extends BaseTest {
 
     logger.info("Go Back to Payment Methods");
     paymentMethodsView = peetsCardSettingsView.clickBackButton();
+
+    logger.info("Delete Test card if it was already added");
+    paymentMethodsView = testHelper.deletePaymentMethodTestCardIfAdded(paymentMethodsView);
 
     logger.info("Add New Payment Method");
     AddNewCardView addNewCardView = paymentMethodsView.clickAddNewPayment();
@@ -96,7 +100,9 @@ public class AccountSettingsTest extends BaseTest {
     logger.info("Delete Payment Method");
     creditCardDetailsView.clickDeleteCard();
     paymentMethodsView = creditCardDetailsView.clickDeleteYes();
-    softAssert.assertNotNull(paymentMethodsView, "Did not delete payment method");
+    // softAssert.assertNotNull(paymentMethodsView, "Did not delete payment method");
+    softAssert.assertFalse(
+        paymentMethodsView.isPaymentMethodTestCardAdded(), "Did not delete payment method");
 
     softAssert.assertAll();
   }
