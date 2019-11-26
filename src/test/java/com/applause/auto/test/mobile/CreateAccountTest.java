@@ -3,7 +3,7 @@ package com.applause.auto.test.mobile;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.common.data.PhoneNumberDataUtils;
+import com.applause.auto.common.data.TestDataUtils;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
@@ -501,7 +501,7 @@ public class CreateAccountTest extends BaseTest {
     createAccountView.setDOB(dobDay, dobMonth, dobYear);
 
     logger.info("Enter valid ten digit phone number / Skip this field");
-    String phone = PhoneNumberDataUtils.getRandomPhoneNumber();
+    String phone = TestDataUtils.PhoneNumberDataUtils.getRandomPhoneNumber();
     createAccountView.setPhoneNumber(phone);
 
     logger.info("Enter valid email address");
@@ -618,8 +618,8 @@ public class CreateAccountTest extends BaseTest {
     Assert.assertEquals(lastNameUpd, lastname, "Lastname does not match");
     Assert.assertEquals(zipCodeUpd, zipCode, "zipcode does not match");
     Assert.assertEquals(
-        PhoneNumberDataUtils.getOnlyDigitsFromPhoneNumber(phoneUpd),
-        PhoneNumberDataUtils.getOnlyDigitsFromPhoneNumber(phone),
+        TestDataUtils.PhoneNumberDataUtils.getOnlyDigitsFromPhoneNumber(phoneUpd),
+        TestDataUtils.PhoneNumberDataUtils.getOnlyDigitsFromPhoneNumber(phone),
         "Phone does not updated");
     Assert.assertEquals(emailUpd, email, "Email does not match");
 

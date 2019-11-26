@@ -3,6 +3,7 @@ package com.applause.auto.test.mobile;
 import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.common.data.TestDataUtils;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountChunk;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountWarningChunk;
 import com.applause.auto.mobile.views.AccountHistoryView;
@@ -12,18 +13,20 @@ import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.PeetsCardsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.lang.invoke.MethodHandles;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+
+import static com.applause.auto.common.data.Constants.MobileTestData.INVALID_PEETS_CC_PIN_1;
+import static com.applause.auto.common.data.Constants.MobileTestData.INVALID_PEETS_CC_PIN_2;
+import static com.applause.auto.common.data.Constants.MobileTestData.IVALID_PEETS_CC_NUM_1;
+import static com.applause.auto.common.data.Constants.MobileTestData.VALID_PEETS_CC_NUM_1;
+import static com.applause.auto.common.data.Constants.MobileTestData.VALID_PEETS_CC_NUM_2;
 
 public class PeetsCardsTest extends BaseTest {
 
@@ -46,8 +49,7 @@ public class PeetsCardsTest extends BaseTest {
 
     logger.info("User should be taken to peet's card screen");
     Assert.assertNotNull(peetsCardsView, "User does not taken to Peets Cards view");
-    int oldBalance =
-        NumberFormat.getNumberInstance(Locale.US).parse(peetsCardsView.getBalance()).intValue();
+    int oldBalance = TestDataUtils.BillingUtils.parseBalance(peetsCardsView.getBalance());
 
     logger.info("Tap Add Value button");
     peetsCardsView.addValue();
@@ -71,8 +73,7 @@ public class PeetsCardsTest extends BaseTest {
 
     logger.info("Tap Confirm Value button");
     peetsCardsView = peetsCardsView.confirm();
-    int newBalance =
-        NumberFormat.getNumberInstance(Locale.US).parse(peetsCardsView.getBalance()).intValue();
+    int newBalance = TestDataUtils.BillingUtils.parseBalance(peetsCardsView.getBalance());
 
     logger.info(
         "Make sure user is able to successfully add value to card and peet's card screen shows card balance of $25.00");
@@ -91,11 +92,11 @@ public class PeetsCardsTest extends BaseTest {
             + "\n");
     Assert.assertEquals(
         accountHistory.getTransactionDate(0),
-        new SimpleDateFormat("MMMM d, yyyy").format(new Date()),
+        TestDataUtils.BillingUtils.getFormatCurrentTransactionDate(),
         "Incorrect transaction date");
     Assert.assertEquals(
-        accountHistory.getTransactionAmount(0).replace(" ", ""),
-        "+$" + new DecimalFormat("0.00").format(cardAmount),
+        StringUtils.deleteWhitespace(accountHistory.getTransactionAmount(0)),
+        TestDataUtils.BillingUtils.getFormatTransactionAmount(cardAmount),
         "Incorrect transaction amount");
   }
 
@@ -116,8 +117,7 @@ public class PeetsCardsTest extends BaseTest {
 
     logger.info("User should be taken to check in screen");
     softAssert.assertNotNull(checkInView, "User does not taken to Check In view");
-    int oldBalance =
-        NumberFormat.getNumberInstance(Locale.US).parse(checkInView.getBalance()).intValue();
+    int oldBalance = TestDataUtils.BillingUtils.parseBalance(checkInView.getBalance());
 
     logger.info("Tap Add Value button from Peet's Card Balance tile");
     checkInView.addValue();
@@ -141,8 +141,7 @@ public class PeetsCardsTest extends BaseTest {
 
     logger.info("Tap Confirm Value button");
     checkInView = checkInView.confirm();
-    int newBalance =
-        NumberFormat.getNumberInstance(Locale.US).parse(checkInView.getBalance()).intValue();
+    int newBalance = TestDataUtils.BillingUtils.parseBalance(checkInView.getBalance());
 
     logger.info(
         "Make sure user is able to successfully add value to card and peet's card screen shows card balance of $25.00");
@@ -162,11 +161,11 @@ public class PeetsCardsTest extends BaseTest {
             + "\n");
     softAssert.assertEquals(
         accountHistory.getTransactionDate(0),
-        new SimpleDateFormat("MMMM d, yyyy").format(new Date()),
+        TestDataUtils.BillingUtils.getFormatCurrentTransactionDate(),
         "Incorrect transaction date");
     softAssert.assertEquals(
-        accountHistory.getTransactionAmount(0).replace(" ", ""),
-        "+$" + new DecimalFormat("0.00").format(cardAmount),
+        StringUtils.deleteWhitespace(accountHistory.getTransactionAmount(0)),
+        TestDataUtils.BillingUtils.getFormatTransactionAmount(cardAmount),
         "Incorrect transaction amount");
 
     softAssert.assertAll();
@@ -200,8 +199,8 @@ public class PeetsCardsTest extends BaseTest {
 
     logger.info("Tap into Card Number field");
     logger.info("Enter invalid peet's card number");
-    peetsCardsTransferAmountChunk.enterCardNumber("12341234123412");
-    peetsCardsTransferAmountChunk.enterCardPin("9967");
+    peetsCardsTransferAmountChunk.enterCardNumber(IVALID_PEETS_CC_NUM_1);
+    peetsCardsTransferAmountChunk.enterCardPin(INVALID_PEETS_CC_PIN_1);
 
     logger.info("Tap Transfer Value button");
     PeetsCardsTransferAmountWarningChunk peetsCardsTransferAmountWarningChunk =
@@ -272,13 +271,15 @@ public class PeetsCardsTest extends BaseTest {
         peetsCardsTransferAmountChunk, "User does not navigated to Transfer value screen");
     softAssert.assertEquals(
         peetsCardsTransferAmountChunk.getCardNumber(),
-        "12341234123412",
+        IVALID_PEETS_CC_NUM_1,
         "Card number field not filled in");
     softAssert.assertEquals(
-        peetsCardsTransferAmountChunk.getPinNumber(), "9967", "Pin number field not filled in");
+        peetsCardsTransferAmountChunk.getPinNumber(),
+        INVALID_PEETS_CC_PIN_1,
+        "Pin number field not filled in");
 
     logger.info("Enter valid peet's card number\n" + "\n" + "Tap done on numeric keypad\n");
-    peetsCardsTransferAmountChunk.enterCardNumber("81001000000581");
+    peetsCardsTransferAmountChunk.enterCardNumber(VALID_PEETS_CC_NUM_1);
 
     logger.info("Tap Transfer Value button");
     peetsCardsTransferAmountWarningChunk = peetsCardsTransferAmountChunk.transfer();
@@ -349,10 +350,10 @@ public class PeetsCardsTest extends BaseTest {
 
     logger.info("Tap into Card Number field");
     logger.info("Enter valid peet's card number\n" + "\n" + "Tap done on numeric keypad\n");
-    peetsCardsTransferAmountChunk.enterCardNumber("81001000000584");
+    peetsCardsTransferAmountChunk.enterCardNumber(VALID_PEETS_CC_NUM_2);
 
     logger.info("Enter invalid peet's card pin number");
-    peetsCardsTransferAmountChunk.enterCardPin("1111");
+    peetsCardsTransferAmountChunk.enterCardPin(INVALID_PEETS_CC_PIN_2);
 
     PeetsCardsTransferAmountWarningChunk peetsCardsTransferAmountWarningChunk =
         peetsCardsTransferAmountChunk.transfer();
@@ -416,7 +417,7 @@ public class PeetsCardsTest extends BaseTest {
         peetsCardsTransferAmountWarningChunk.tapTryAgain(PeetsCardsTransferAmountChunk.class);
 
     logger.info("Enter Card number of already added card with invalid PIN");
-    peetsCardsTransferAmountChunk.enterCardNumber("81001000000581");
+    peetsCardsTransferAmountChunk.enterCardNumber(VALID_PEETS_CC_NUM_1);
 
     peetsCardsTransferAmountWarningChunk = peetsCardsTransferAmountChunk.transfer();
 

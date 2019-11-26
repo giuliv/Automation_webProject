@@ -40,8 +40,9 @@ public class OrderAheadTest extends BaseTest {
     logger.info("Tap Order icon on the bottom nav bar");
     OrderAheadView orderAhead = dashboardView.getBottomNavigationMenu().order();
 
-    logger.info("Header: Order Ahead");
-    Assert.assertEquals(orderAhead.getHeadingTextValue(), "Order Ahead", "Incorrect header");
+    logger.info("Header: Order");
+    Assert.assertEquals(
+        orderAhead.getHeadingTextValue().toLowerCase().toUpperCase(), "ORDER", "Incorrect header");
 
     logger.info("Sub-header: Bypass the line and proceed to great coffee.");
     Assert.assertEquals(
@@ -126,8 +127,9 @@ public class OrderAheadTest extends BaseTest {
     logger.info("Tap Order icon on the bottom nav bar");
     OrderAheadView orderAhead = dashboardView.getBottomNavigationMenu().order();
 
-    logger.info("Header: Order Ahead");
-    Assert.assertEquals(orderAhead.getHeadingTextValue(), "Order Ahead", "Incorrect header");
+    logger.info("Header: Order");
+    Assert.assertEquals(
+        orderAhead.getHeadingTextValue().toUpperCase(), "ORDER", "Incorrect header");
 
     logger.info("Sub-header: Bypass the line and proceed to great coffee.");
     Assert.assertEquals(
