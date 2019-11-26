@@ -26,7 +26,9 @@ public class CreateSubscriptionChunk extends BaseComponent {
   @Locate(css = "li#subscription-order-new label", on = Platform.WEB)
   private Button getNewSubscriptionButton;
 
-  @Locate(css = "#subscription-order-subscription-new > div.subscription-actions > a > span > span", on = Platform.WEB)
+  @Locate(
+      css = "#subscription-order-subscription-new > div.subscription-actions > a > span > span",
+      on = Platform.WEB)
   private Button getNewSubscriptionCreateButton;
 
   @Locate(css = "#subscription_period", on = Platform.WEB)

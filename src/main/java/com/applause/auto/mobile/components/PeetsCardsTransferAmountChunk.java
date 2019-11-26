@@ -10,6 +10,7 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
+import org.apache.commons.lang3.StringUtils;
 
 @Implementation(is = PeetsCardsTransferAmountChunk.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IOSPeetsCardsTransferAmountChunk.class, on = Platform.MOBILE_IOS)
@@ -83,7 +84,7 @@ public class PeetsCardsTransferAmountChunk extends BaseComponent {
    * @return the card number
    */
   public String getCardNumber() {
-    return getCardNumberTextBox.getCurrentText().replace(" ", "");
+    return StringUtils.deleteWhitespace(getCardNumberTextBox.getAttributeValue("text"));
   }
 
   /**
@@ -92,7 +93,7 @@ public class PeetsCardsTransferAmountChunk extends BaseComponent {
    * @return the pin number
    */
   public String getPinNumber() {
-    return getCardPinTextBox.getCurrentText().replace(" ", "");
+    return StringUtils.deleteWhitespace(getCardPinTextBox.getAttributeValue("text"));
   }
 }
 

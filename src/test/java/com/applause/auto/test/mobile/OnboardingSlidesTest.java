@@ -1,14 +1,18 @@
 package com.applause.auto.test.mobile;
 
 import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.mobile.views.*;
+import com.applause.auto.mobile.views.AuthenticationView;
+import com.applause.auto.mobile.views.ExploreOffersView;
+import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.OrderAheadView;
+import com.applause.auto.mobile.views.PayFasterView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.helper.SyncHelper;
-import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
 
 /**
  * This is a sample test that verifies the project is setup correctly and can execute a simple test.
@@ -30,7 +34,10 @@ public class OnboardingSlidesTest extends BaseTest {
         "First screen text value is not correct");
 
     logger.info("Swipe left and verify Explore Offers screen has correct title");
-    SyncHelper.sleep(5000);
+    // SyncHelper.sleep(5000); need to wait for a pop instead of sleep,
+    // since sometimes it is overlapping swiping area and appear later
+    landingView.getReportAProblemPopupChunk().waitForPopUpToDisappear();
+
     ExploreOffersView exploreOffersView = landingView.swipeLeftOnScreen();
     Assert.assertEquals(
         exploreOffersView.getHeadingTextValue(),

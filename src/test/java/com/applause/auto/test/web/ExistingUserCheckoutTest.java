@@ -26,11 +26,12 @@ import com.applause.auto.web.views.ShoppingCartPage;
 import com.applause.auto.web.views.SignInPage;
 import com.applause.auto.web.views.TeaProductPage;
 import com.applause.auto.web.views.TopSellersTeaPage;
-import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
 
 public class ExistingUserCheckoutTest extends BaseTest {
 
@@ -347,8 +348,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("5. Select 'Proceed to Checkout'");
     CheckoutShippingInfoPage shippingInfoPage = miniCartContainer.clickSignedInCheckout();
-    CheckoutPaymentMethodPage paymentMethodPage =
-        shippingInfoPage.setShippingMethod();
+    CheckoutPaymentMethodPage paymentMethodPage = shippingInfoPage.setShippingMethod();
     CheckoutPlaceOrderPage placeOrderPage = paymentMethodPage.continueAfterEnteringPIN();
 
     logger.info("6. Click 'Place Order'");

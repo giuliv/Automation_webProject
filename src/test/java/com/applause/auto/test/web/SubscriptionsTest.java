@@ -3,7 +3,6 @@ package com.applause.auto.test.web;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.web.components.CreateSubscriptionChunk;
 import com.applause.auto.web.components.MainMenuChunk;
@@ -18,11 +17,12 @@ import com.applause.auto.web.views.MyAccountPage;
 import com.applause.auto.web.views.ShopCoffeePage;
 import com.applause.auto.web.views.ShoppingCartPage;
 import com.applause.auto.web.views.SignInPage;
-import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
 
 public class SubscriptionsTest extends BaseTest {
 

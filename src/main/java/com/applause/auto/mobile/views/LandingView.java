@@ -2,6 +2,7 @@ package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
+import com.applause.auto.mobile.components.ReportAProblemPopupChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -46,6 +47,15 @@ public class LandingView extends BaseComponent {
   protected ContainerElement getViewPager;
 
   /* -------- Actions -------- */
+
+  /**
+   * Chunck for report a problem pop up
+   *
+   * @return
+   */
+  public ReportAProblemPopupChunk getReportAProblemPopupChunk() {
+    return ComponentFactory.create(ReportAProblemPopupChunk.class);
+  }
 
   /**
    * Swipe left on tutorial view and expect to arrive at next view
@@ -120,4 +130,26 @@ class AndroidLandingView extends LandingView {
     getSkipButton.click();
     SyncHelper.sleep(10000);
   }
+
+  // implemented this method for Android, but it looks like it is redundant
+  // didn't remove it, maybe it could be used somewhere in the future
+  /*@Override
+  public ExploreOffersView swipeLeftOnScreen() {
+    logger.info("Swiping left to get to next tutorial view");
+    Point viewPagerCenter = getViewPager.getMobileElement().getCenter();
+    Dimension viewPagerSize = getViewPager.getMobileElement().getSize();
+    int offset = (int) (viewPagerSize.getWidth() / 2.5);
+
+    logger.debug(String.format("View page center: %s", viewPagerCenter.toString()));
+    logger.debug(String.format("View page size: %s", viewPagerSize.toString()));
+    logger.debug(String.format("Swiping offset: %d", offset));
+
+    DeviceControl.swipeAcrossScreenCoordinates(
+        viewPagerCenter.getX() + offset,
+        viewPagerCenter.getY(),
+        viewPagerCenter.getX() - offset,
+        viewPagerCenter.getY(),
+        1000);
+    return ComponentFactory.create(ExploreOffersView.class);
+  }*/
 }

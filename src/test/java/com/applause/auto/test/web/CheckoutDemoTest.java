@@ -18,11 +18,12 @@ import com.applause.auto.web.views.ShoppingCartPage;
 import com.applause.auto.web.views.SignInPage;
 import com.applause.auto.web.views.SignUpPage;
 import com.applause.auto.web.views.TeaProductPage;
-import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
 
 public class CheckoutDemoTest extends BaseTest {
 
@@ -30,7 +31,8 @@ public class CheckoutDemoTest extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.DEMO_CHECKOUT},
-      description = "19501", enabled = false)
+      description = "19501",
+      enabled = false)
   public void guestCheckoutTeaTest() {
 
     logger.info("1. Navigate to landing page");
@@ -87,7 +89,8 @@ public class CheckoutDemoTest extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.DEMO_CHECKOUT},
-      description = "19608", enabled = false)
+      description = "19608",
+      enabled = false)
   public void guestCheckoutPeetsCardTest() {
 
     logger.info("1. Navigate to landing page");
@@ -140,7 +143,8 @@ public class CheckoutDemoTest extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.DEMO_CHECKOUT},
-      description = "19503", enabled = false)
+      description = "19503",
+      enabled = false)
   public void guestCheckoutTour() {
 
     logger.info("1. Navigate to landing page");

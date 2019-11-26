@@ -13,32 +13,32 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 @Implementation(is = CheckoutView.class, on = Platform.MOBILE_IOS)
 public class CheckoutView extends BaseComponent {
 
-    /* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-    @Locate(xpath = "//android.widget.TextView[@text='CHECKOUT']", on = Platform.MOBILE_ANDROID)
-    @Locate(xpath = "//XCUIElementTypeNavigationBar[@name=\"CHECKOUT\"]", on = Platform.MOBILE_IOS)
-    protected Text getHeadingText;
+  @Locate(xpath = "//android.widget.TextView[@text='CHECKOUT']", on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//XCUIElementTypeNavigationBar[@name=\"CHECKOUT\"]", on = Platform.MOBILE_IOS)
+  protected Text getHeadingText;
 
-    @Locate(id = "com.wearehathway.peets.development:id/checkoutButton", on = Platform.MOBILE_ANDROID)
-    @Locate(id = "Place Order", on = Platform.MOBILE_IOS)
-    protected Button getPlaceOrderButton;
+  @Locate(id = "com.wearehathway.peets.development:id/checkoutButton", on = Platform.MOBILE_ANDROID)
+  @Locate(id = "Place Order", on = Platform.MOBILE_IOS)
+  protected Button getPlaceOrderButton;
 
-    /* -------- Actions -------- */
+  /* -------- Actions -------- */
 
-    public <T extends BaseComponent> T placeOrder(Class<T> clazz) {
-        logger.info("Tap place order");
-        MobileHelper.scrollDownHalfScreen(2);
-        getPlaceOrderButton.click();
-        return ComponentFactory.create(clazz);
-    }
+  public <T extends BaseComponent> T placeOrder(Class<T> clazz) {
+    logger.info("Tap place order");
+    MobileHelper.scrollDownHalfScreen(2);
+    getPlaceOrderButton.click();
+    return ComponentFactory.create(clazz);
+  }
 }
 
 class AndroidCheckoutView extends CheckoutView {
 
-    public <T extends BaseComponent> T placeOrder(Class<T> clazz) {
-        logger.info("Tap place order");
-        MobileHelper.swipeAcrossScreenCoordinates(0.5, 0.8, 0.5, 0.2, 10000);
-        getPlaceOrderButton.click();
-        return ComponentFactory.create(clazz);
-    }
+  public <T extends BaseComponent> T placeOrder(Class<T> clazz) {
+    logger.info("Tap place order");
+    MobileHelper.swipeAcrossScreenCoordinates(0.5, 0.8, 0.5, 0.2, 10000);
+    getPlaceOrderButton.click();
+    return ComponentFactory.create(clazz);
+  }
 }

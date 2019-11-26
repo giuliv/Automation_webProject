@@ -4,7 +4,6 @@ import com.applause.auto.common.data.Constants.MobileApp;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
 import com.applause.auto.pageobjectmodel.elements.Picker;
-import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
@@ -16,18 +15,18 @@ import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
-import java.lang.invoke.MethodHandles;
-import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.RemoteWebElement;
+
+import java.lang.invoke.MethodHandles;
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.applause.auto.util.DriverManager.getDriver;
 
@@ -46,7 +45,13 @@ public class MobileHelper {
 
   /** Activates the app */
   public static void activateApp() {
-    getMobileDriver().activateApp(MobileApp.IOS_BUNDLE_ID);
+    if (EnvironmentHelper.isMobileAndroid(getMobileDriver())) {
+      getMobileDriver().activateApp(MobileApp.ANDROID_PACKAGE_ID);
+    }
+    if (EnvironmentHelper.isMobileIOS(getMobileDriver())) {
+      getMobileDriver().activateApp(MobileApp.IOS_BUNDLE_ID);
+    }
+    SyncHelper.sleep(3000);
   }
 
   /** Hide keyboard ios by press done. */
@@ -99,12 +104,19 @@ public class MobileHelper {
    */
   public static void tapOnElementWithOffset(
       BaseElement element, double xRelativeOffset, double yRelativeOffset) {
-    int x = element.getMobileElement().getCenter().x;
-    int y = element.getMobileElement().getCenter().y;
-    Dimension dimension = element.getDimension();
-    int xAbsoluteOffset = (int) (dimension.width * xRelativeOffset);
-    int yAbsoluteOffset = (int) (dimension.height * yRelativeOffset);
-    DeviceControl.tapElementCoordinates(element, xAbsoluteOffset, y + yAbsoluteOffset);
+    int xCenter = element.getMobileElement().getCenter().x;
+    int yCenter = element.getMobileElement().getCenter().y;
+    logger.info(
+        String.format(
+            "Add this offset to click: x = [%f] , y = [%f]", xRelativeOffset, yRelativeOffset));
+    logger.info(String.format("Element center is: x = [%d] , y = [%d]", xCenter, yCenter));
+    // Dimension dimension = element.getDimension();
+    int xAbsoluteOffset = (int) (xCenter + xRelativeOffset);
+    int yAbsoluteOffset = (int) (yCenter + yRelativeOffset);
+    logger.info(
+        String.format(
+            "Clicking with offset: x = [%d] , y = [%d]", xAbsoluteOffset, yAbsoluteOffset));
+    DeviceControl.tapScreenCoordinates(xAbsoluteOffset, yAbsoluteOffset);
   }
 
   private static void scrollDownCloseToMiddleAlgorithm() {
@@ -212,8 +224,9 @@ public class MobileHelper {
       logger.debug("Sending value to: " + value);
       logger.debug("Loop #" + loopCounter);
       if (!EnvironmentHelper.isMobileIOS(getMobileDriver())) {
-        elem.sendKeys(Keys.BACK_SPACE);
-        element.setValue(value);
+        // elem.sendKeys(Keys.BACK_SPACE);
+        elem.clear();
+        elem.sendKeys(value);
       } else {
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         Map<String, Object> params = new HashMap<>();
@@ -244,7 +257,8 @@ public class MobileHelper {
     scrollDownAlgorithm(0.1, 0.6, 0.4);
   }
 
-  public static void swipeAcrossScreenCoordinates(double startX, double startY, double endX, double endY, long millis) {
+  public static void swipeAcrossScreenCoordinates(
+      double startX, double startY, double endX, double endY, long millis) {
     logger.info(String.format("Swiping from [%s, %s] to [%s, %s].", startX, startY, endX, endY));
     Dimension size = getMobileDriver().manage().window().getSize();
 
@@ -256,6 +270,11 @@ public class MobileHelper {
     PointOption<?> startPoint = PointOption.point(startX_, startY_);
     PointOption<?> endPoint = PointOption.point(endX_, endY_);
     WaitOptions time = WaitOptions.waitOptions(Duration.ofMillis(millis));
-    (new TouchAction(getMobileDriver())).press(startPoint).waitAction(time).moveTo(endPoint).release().perform();
+    (new TouchAction(getMobileDriver()))
+        .press(startPoint)
+        .waitAction(time)
+        .moveTo(endPoint)
+        .release()
+        .perform();
   }
 }

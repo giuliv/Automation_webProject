@@ -3,17 +3,28 @@ package com.applause.auto.test.mobile;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.common.data.TestDataUtils;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
-import com.applause.auto.mobile.views.*;
+import com.applause.auto.mobile.views.AccountHistoryView;
+import com.applause.auto.mobile.views.ChangePasswordView;
+import com.applause.auto.mobile.views.CompleteAccountView;
+import com.applause.auto.mobile.views.CreateAccountView;
+import com.applause.auto.mobile.views.DashboardView;
+import com.applause.auto.mobile.views.GeneralSettingsView;
+import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.PrivacyPolicyView;
+import com.applause.auto.mobile.views.ProfileDetailsView;
+import com.applause.auto.mobile.views.SignInView;
+import com.applause.auto.mobile.views.TermsAndConditionsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import java.lang.invoke.MethodHandles;
-import java.util.Random;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
 
 public class CreateAccountTest extends BaseTest {
 
@@ -51,13 +62,24 @@ public class CreateAccountTest extends BaseTest {
     logger.info("Tap at top left \"Peet's\" / close browser and open Peet's to return to the app");
     MobileHelper.activateApp();
 
+    // after activate app is called on Android with app's package id - the landing view is loaded.
+    // Probably iOS will load previous state. This should be checked
+    landingView.skipOnboarding();
+
+    logger.info("Tap Create Account");
+    createAccountView = landingView.createAccount();
+
+    logger.info("Scroll down and check the footer links");
+    MobileHelper.swipeWithCount(SwipeDirection.UP, 3);
+
     logger.info("Tap on the Terms and Conditions link");
     TermsAndConditionsView termsAndConditionsView = createAccountView.termsAndConditions();
 
     logger.info("Make sure user is taken to Terms and Conditions screen");
     Assert.assertNotNull(termsAndConditionsView, "Terms And Conditions does not displayed");
 
-    logger.info("Tap at top left \"Peet's\" / close browser and open Peet's to return to the app");
+    // logger.info("Tap at top left \"Peet's\" / close browser and open Peet's to return to the
+    // app");
   }
 
   @Test(
@@ -479,11 +501,7 @@ public class CreateAccountTest extends BaseTest {
     createAccountView.setDOB(dobDay, dobMonth, dobYear);
 
     logger.info("Enter valid ten digit phone number / Skip this field");
-    Random random = new Random();
-    String phone = "2";
-    for (int i = 0; i < 9; i++) {
-      phone += "" + random.nextInt(9);
-    }
+    String phone = TestDataUtils.PhoneNumberDataUtils.getRandomPhoneNumber();
     createAccountView.setPhoneNumber(phone);
 
     logger.info("Enter valid email address");
@@ -600,8 +618,8 @@ public class CreateAccountTest extends BaseTest {
     Assert.assertEquals(lastNameUpd, lastname, "Lastname does not match");
     Assert.assertEquals(zipCodeUpd, zipCode, "zipcode does not match");
     Assert.assertEquals(
-        phoneUpd.replace("(", "").replace(")", "").replace("-", "").replace(" ", ""),
-        phone.replace("(", "").replace(")", "").replace("-", "").replace(" ", ""),
+        TestDataUtils.PhoneNumberDataUtils.getOnlyDigitsFromPhoneNumber(phoneUpd),
+        TestDataUtils.PhoneNumberDataUtils.getOnlyDigitsFromPhoneNumber(phone),
         "Phone does not updated");
     Assert.assertEquals(emailUpd, email, "Email does not match");
 
@@ -617,14 +635,14 @@ public class CreateAccountTest extends BaseTest {
     Assert.assertTrue(
         generalSettingsView.isPromoEmailOptionChecked(), "Promo email does not checked");
 
-    logger.info("Tap on back nav to return to more screen");
-    accountMenuMobileChunk = generalSettingsView.goBack(AccountMenuMobileChunk.class);
+    // logger.info("Tap on back nav to return to more screen");
+    // accountMenuMobileChunk = generalSettingsView.goBack(AccountMenuMobileChunk.class);
 
-//    logger.info("Tap sign out button");
-//    AuthenticationView authenticationView = accountMenuMobileChunk.signOut();
-//
-//    logger.info("User should be signed out successfully");
-//    Assert.assertNotNull(authenticationView, "User does not signed out");
+    //    logger.info("Tap sign out button");
+    //    AuthenticationView authenticationView = accountMenuMobileChunk.signOut();
+    //
+    //    logger.info("User should be signed out successfully");
+    //    Assert.assertNotNull(authenticationView, "User does not signed out");
   }
 
   @Test(

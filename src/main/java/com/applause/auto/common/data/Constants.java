@@ -125,6 +125,7 @@ public class Constants {
   public static final class MobileApp {
 
     public static final String IOS_BUNDLE_ID = "com.wearehathway.peets-dev";
+    public static final String ANDROID_PACKAGE_ID = "com.wearehathway.peets.development";
   }
 
   public static final class MyAccountTestData {
@@ -166,5 +167,11 @@ public class Constants {
     public static final String TRANSFER_ERROR = "One last thing";
     public static final String TRANSFER_PROCESS_ERROR =
         "Please check your card number and pin code and try again";
+
+    public static final String IVALID_PEETS_CC_NUM_1 = "12341234123412";
+    public static final String INVALID_PEETS_CC_PIN_1 = "9967";
+    public static final String INVALID_PEETS_CC_PIN_2 = "1111";
+    public static final String VALID_PEETS_CC_NUM_1 = "81001000000581";
+    public static final String VALID_PEETS_CC_NUM_2 = "81001000000584";
   }
 }

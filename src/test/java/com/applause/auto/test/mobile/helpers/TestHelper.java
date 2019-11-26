@@ -2,14 +2,20 @@ package com.applause.auto.test.mobile.helpers;
 
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.mobile.components.AccountMenuMobileChunk;
+import com.applause.auto.mobile.views.CreditCardDetailsView;
 import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
-import java.lang.invoke.MethodHandles;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.lang.invoke.MethodHandles;
 
 @Implementation(is = TestHelper.class, on = Platform.MOBILE)
 public class TestHelper extends BaseComponent {
@@ -50,5 +56,26 @@ public class TestHelper extends BaseComponent {
 
     logger.info("Tap Sign In button");
     return signInView.signIn(clazz);
+  }
+
+  public PaymentMethodsView deletePaymentMethodTestCardIfAdded(
+      PaymentMethodsView paymentMethodsView) {
+    if (paymentMethodsView.isPaymentMethodTestCardAdded()) {
+      logger.info("Deleting previously added payment test card");
+      CreditCardDetailsView creditCardDetailsView =
+          paymentMethodsView.clickSavedPaymentMethod(CreditCardDetailsView.class);
+      creditCardDetailsView.clickDeleteCard();
+      creditCardDetailsView.clickDeleteYes();
+
+      // need this workaround because payment card doesn't disappear from the view without
+      // refreshing it
+      SyncHelper.sleep(3000);
+      paymentMethodsView.clickBackButton();
+      ComponentFactory.create(AccountMenuMobileChunk.class).clickPaymentMethods();
+      SyncHelper.waitUntil(condition -> !paymentMethodsView.isPaymentMethodTestCardAdded());
+    } else {
+      logger.info("There is no test payment card added");
+    }
+    return ComponentFactory.create(PaymentMethodsView.class);
   }
 }

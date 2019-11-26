@@ -12,7 +12,6 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
 import com.google.common.collect.ImmutableMap;
@@ -27,9 +26,7 @@ public class SelectCoffeeBarView extends BaseComponent {
   @Locate(
       xpath = "//XCUIElementTypeNavigationBar[@name='Select Coffeebar']",
       on = Platform.MOBILE_IOS)
-  @Locate(
-      id = "com.wearehathway.peets.development:id/storeContainer",
-      on = Platform.MOBILE_ANDROID)
+  @Locate(id = "com.wearehathway.peets.development:id/storeContainer", on = Platform.MOBILE_ANDROID)
   protected ContainerElement getSignature;
 
   @Locate(
@@ -117,15 +114,14 @@ public class SelectCoffeeBarView extends BaseComponent {
    * @return the new order view
    */
   public NewOrderView openCoffeebarFromSearchResults(int index) {
-    logger.info("Tap on Search result" );
+    logger.info("Tap on Search result");
     int counter = 5;
     while (counter-- != 0) {
       if (getSearchResultText.isDisplayed()) {
         getSearchResultText.click();
         break;
       } else {
-        MobileHelper.swipeAcrossScreenCoordinates(0.8, 0.8,
-                0.2, 0.8, 2000);
+        MobileHelper.swipeAcrossScreenCoordinates(0.8, 0.8, 0.2, 0.8, 2000);
       }
     }
     return ComponentFactory.create(NewOrderView.class);

@@ -70,8 +70,7 @@ public class CreateAccountView extends BaseComponent {
       xpath = "//XCUIElementTypeDatePicker/XCUIElementTypeOther/XCUIElementTypePicker[3]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      xpath =
-          "//*[@resource-id='android:id/pickers']/android.widget.NumberPicker[3]/android.widget.EditText",
+      xpath = "(//*[@resource-id='android:id/numberpicker_input'])[3]",
       on = Platform.MOBILE_ANDROID)
   protected Picker getDOBYearPicker;
 
@@ -185,7 +184,7 @@ public class CreateAccountView extends BaseComponent {
   protected Button getCreateAccountButton;
 
   @Locate(id = "Terms & Conditions", on = Platform.MOBILE_IOS)
-  @Locate(xpath = "//*[contains(@text,'Conditions')]", on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//*[contains(@text,'Terms')]", on = Platform.MOBILE_ANDROID)
   protected Button getTermsAndConditionsButton;
 
   @Locate(
@@ -445,7 +444,7 @@ public class CreateAccountView extends BaseComponent {
    * @return the hidden password
    */
   public String getHiddenPassword() {
-    return getHiddenPasswordTextBox.getCurrentText();
+    return getHiddenPasswordTextBox.getAttributeValue("text");
   }
 
   /**
@@ -521,11 +520,16 @@ class AndroidCreateAccountView extends CreateAccountView {
   }
 
   @Override
-  public TermsAndConditionsView termsAndConditions() {
+  public AndroidTermsAndConditionsView termsAndConditions() {
     logger.info("Tap on Terms and Conditions");
+    // sometimes this code is throwing exception: Coordinate x =
+    // [238572] exceeds the width of element
     Dimension size = getTermsAndConditionsButton.getMobileElement().getSize();
+    logger.info(String.format("Terms label size: [%s]", size));
     MobileHelper.tapOnElementWithOffset(getTermsAndConditionsButton, size.getWidth() / 3, 0);
-    return ComponentFactory.create(TermsAndConditionsView.class);
+    // logger.info("Tap on Terms and Conditions");
+    // getTermsAndConditionsButton.click();
+    return ComponentFactory.create(AndroidTermsAndConditionsView.class);
   }
 
   @Override
@@ -575,8 +579,13 @@ class AndroidCreateAccountView extends CreateAccountView {
   }
 
   @Override
+  public String getPassword() {
+    return getPasswordTextBox.getAttributeValue("text");
+  }
+
+  @Override
   public String getHiddenPassword() {
-    return getPasswordTextBox.getCurrentText();
+    return getPasswordTextBox.getAttributeValue("text");
   }
 
   public CreateAccountView setPromo(String promo) {

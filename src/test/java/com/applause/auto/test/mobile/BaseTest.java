@@ -1,19 +1,16 @@
 package com.applause.auto.test.mobile;
 
 import com.applause.auto.base.BaseSeleniumTest;
-import com.applause.auto.common.util.RetryAnalyzer;
 import com.applause.auto.integrations.RunUtil;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.test.mobile.helpers.TestHelper;
-import java.lang.invoke.MethodHandles;
-import java.lang.reflect.Method;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.testng.ITestContext;
-import org.testng.ITestNGMethod;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
 import org.testng.asserts.SoftAssert;
+
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Method;
 
 public class BaseTest extends BaseSeleniumTest {
 
@@ -35,17 +32,5 @@ public class BaseTest extends BaseSeleniumTest {
     testHelper = ComponentFactory.create(TestHelper.class);
 
     logger.info("Test case setup complete.");
-  }
-
-  /**
-   * Retry Failure Functionality
-   *
-   * @param context
-   */
-  @BeforeSuite(alwaysRun = true)
-  public void retestFailures(ITestContext context) {
-    for (ITestNGMethod method : context.getAllTestMethods()) {
-      method.setRetryAnalyzer(new RetryAnalyzer());
-    }
   }
 }

@@ -31,11 +31,12 @@ import com.applause.auto.web.views.PaymentMethodsPage;
 import com.applause.auto.web.views.ShopCoffeePage;
 import com.applause.auto.web.views.SignInPage;
 import com.applause.auto.web.views.SignUpPage;
-import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
 
 public class MyAccountTest extends BaseTest {
 
@@ -268,7 +269,8 @@ public class MyAccountTest extends BaseTest {
 
     logger.info("2. Log In");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.userLogin(Constants.TestData.PEETS_USERNAME, Constants.TestData.PEETS_PASSWORD);
+    MyAccountPage myAccountPage =
+        signInPage.userLogin(Constants.TestData.PEETS_USERNAME, Constants.TestData.PEETS_PASSWORD);
     Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
     logger.info("3. Select 'Peets Cards' from Dashboard navigation bar");

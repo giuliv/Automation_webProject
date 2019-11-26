@@ -11,6 +11,7 @@ import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,7 +61,9 @@ public class NewOrderView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected TextBox getSearchMenuEditField;
 
-  @Locate(id = "com.wearehathway.peets.development:id/basketFABContainer", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/basketFABContainer",
+      on = Platform.MOBILE_ANDROID)
   @Locate(xpath = "//XCUIElementTypeImage[@name=\\\"Basket\\\"]/..", on = Platform.MOBILE_IOS)
   protected Button getCartButton;
 

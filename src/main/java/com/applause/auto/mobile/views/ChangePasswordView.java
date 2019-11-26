@@ -13,6 +13,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
+import org.springframework.util.StringUtils;
 
 @Implementation(is = AndroidChangePasswordView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = ChangePasswordView.class, on = Platform.MOBILE_IOS)
@@ -173,11 +174,18 @@ class AndroidChangePasswordView extends ChangePasswordView {
   @Override
   public void setCurrentPassword(String password) {
     logger.info("Set current password to: " + password);
-    // workaroud for password cleanup
-    while (getOldPasswordTextBox.getCurrentText().length() != 0) {
+    // workaround for password cleanup for android
+    while (!getOldPasswordTextBox.getAttributeValue("text").equals("Current Password")
+        && !StringUtils.isEmpty(getOldPasswordTextBox.getAttributeValue("text"))) {
       getOldPasswordTextBox.clearText();
     }
+    getOldPasswordTextBox.click();
     getOldPasswordTextBox.sendKeys(password);
+  }
+
+  @Override
+  public String getCurrentPasswordUnhide() {
+    return getOldPasswordUnhiddenTextBox.getAttributeValue("text");
   }
 
   @Override

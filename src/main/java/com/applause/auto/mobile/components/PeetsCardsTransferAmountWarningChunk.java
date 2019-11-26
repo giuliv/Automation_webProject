@@ -199,7 +199,7 @@ public class PeetsCardsTransferAmountWarningChunk extends BaseComponent {
   public <T extends BaseComponent> T tapTryAgain(Class<T> clazz) {
     logger.info("Tap Try again button");
     getTryAgainCouldNotProcessButton.click();
-    return ComponentFactory.create(clazz, "");
+    return ComponentFactory.create(clazz);
   }
 }
 
