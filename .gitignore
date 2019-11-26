@@ -1,4 +1,6 @@
-
+*.apk
+*.ipa
+*.app
 .classpath
 .project
 .settings/
