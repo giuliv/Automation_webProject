@@ -13,9 +13,8 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
-import org.openqa.selenium.Point;
-
 import java.time.Duration;
+import org.openqa.selenium.Point;
 
 @Implementation(is = AndroidAllowLocationServicesPopupChunk.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = AllowLocationServicesPopupChunk.class, on = Platform.MOBILE_IOS)
