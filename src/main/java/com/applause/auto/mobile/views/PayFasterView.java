@@ -43,10 +43,10 @@ public class PayFasterView extends BaseComponent {
    *
    * @return
    */
-  public OrderAheadView swipeLeftOnScreen() {
+  public OrderView swipeLeftOnScreen() {
     logger.info("Swiping left to get to next tutorial view");
     DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
-    return ComponentFactory.create(OrderAheadView.class);
+    return ComponentFactory.create(OrderView.class);
   }
 
   /**

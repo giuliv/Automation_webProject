@@ -4,7 +4,7 @@ import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.mobile.views.AuthenticationView;
 import com.applause.auto.mobile.views.ExploreOffersView;
 import com.applause.auto.mobile.views.LandingView;
-import com.applause.auto.mobile.views.OrderAheadView;
+import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.PayFasterView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import org.apache.logging.log4j.LogManager;
@@ -52,14 +52,12 @@ public class OnboardingSlidesTest extends BaseTest {
         "First screen text value is not correct");
 
     logger.info("Swipe left and verify Order Ahead screen has correct title");
-    OrderAheadView orderAheadView = payFasterView.swipeLeftOnScreen();
+    OrderView orderView = payFasterView.swipeLeftOnScreen();
     Assert.assertEquals(
-        orderAheadView.getHeadingTextValue(),
-        "Order Ahead.",
-        "First screen text value is not correct");
+        orderView.getHeadingTextValue(), "Order Ahead.", "First screen text value is not correct");
 
     logger.info("Press Get Started button and verify Peetnik Rewards title");
-    AuthenticationView authenticationView = orderAheadView.clickGetStartedButton();
+    AuthenticationView authenticationView = orderView.clickGetStartedButton();
     Assert.assertEquals(
         authenticationView.getRewardTitleTextValue(),
         "Peetnik Rewards",

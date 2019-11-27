@@ -3,7 +3,7 @@ package com.applause.auto.mobile.components;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.mobile.views.CheckInView;
 import com.applause.auto.mobile.views.DashboardView;
-import com.applause.auto.mobile.views.OrderAheadView;
+import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.PeetsCardsView;
 import com.applause.auto.mobile.views.SelectCoffeeBarView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -90,10 +90,10 @@ public class BottomNavigationMenuChunk extends BaseComponent {
    *
    * @return the order ahead view
    */
-  public OrderAheadView order() {
+  public OrderView order() {
     logger.info("Tap on Order");
     getOrdersButton.click();
-    return ComponentFactory.create(OrderAheadView.class);
+    return ComponentFactory.create(OrderView.class);
   }
 
   /**
@@ -115,7 +115,8 @@ class IosBottomNavigationMenuChunk extends BottomNavigationMenuChunk {
   public <T extends BaseComponent> T order(Class<T> clazz) {
     logger.info("Tap on Order");
     SelectCoffeeBarView selectCoffeeBarView = super.order(SelectCoffeeBarView.class);
-    selectCoffeeBarView = selectCoffeeBarView.enableLocation().allow();
+    // should be refactored and fixed due to UI changes
+    // selectCoffeeBarView = selectCoffeeBarView.allowLocation().allow();
     selectCoffeeBarView.search("Emeryville, CA, 94608, 1400 park avenue");
     SyncHelper.sleep(10000);
     selectCoffeeBarView.openCoffeebarFromSearchResults(1);

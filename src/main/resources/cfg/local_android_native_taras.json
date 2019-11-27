@@ -1,0 +1,17 @@
+{
+  "device_name" : "ac4a9a8c",
+  "driver_type" : "Android",
+  "factory_key" : "MOBILE_ANDROID",
+  "caps" : {
+    "platformName": "ANDROID",
+    "platformVersion": "9.0",
+    "deviceName": "Android",
+    "autoGrantPermissions": true,
+    "autoAcceptAlerts": true,
+    "newCommandTimeout": 3000,
+ 	"device": "android",
+ 	"automationName": "uiautomator2",
+    "app" : "/Users/tlytvyn/projects/peetscoffee.auto/Peet_s_18.7.3.apk",
+    "enforceAppInstall" : true
+  }
+}

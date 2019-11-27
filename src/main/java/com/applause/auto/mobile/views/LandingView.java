@@ -85,8 +85,8 @@ public class LandingView extends BaseComponent {
     MobileHelper.swipeWithCount(SwipeDirection.UP, 3);
     ExploreOffersView exploreOffersView = swipeLeftOnScreen();
     PayFasterView payFasterView = exploreOffersView.swipeLeftOnScreen();
-    OrderAheadView orderAheadView = payFasterView.swipeLeftOnScreen();
-    AuthenticationView authenticationView = orderAheadView.clickGetStartedButton();
+    OrderView orderView = payFasterView.swipeLeftOnScreen();
+    AuthenticationView authenticationView = orderView.clickGetStartedButton();
   }
 
   /**

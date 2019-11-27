@@ -1,8 +1,10 @@
 package com.applause.auto.test.mobile.helpers;
 
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.CreditCardDetailsView;
 import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.LandingView;
@@ -11,11 +13,19 @@ import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.DriverManager;
+import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
+import com.google.common.collect.ImmutableMap;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.appmanagement.ApplicationState;
+import org.aeonbits.owner.util.Collections;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebElement;
 
 import java.lang.invoke.MethodHandles;
+import java.util.List;
 
 @Implementation(is = TestHelper.class, on = Platform.MOBILE)
 public class TestHelper extends BaseComponent {
@@ -44,7 +54,6 @@ public class TestHelper extends BaseComponent {
       LandingView landingView, String username, String password, Class<T> clazz) {
 
     landingView.skipOnboarding();
-
     logger.info("Tap Sign In");
     SignInView signInView = landingView.signIn();
 
@@ -77,5 +86,54 @@ public class TestHelper extends BaseComponent {
       logger.info("There is no test payment card added");
     }
     return ComponentFactory.create(PaymentMethodsView.class);
+  }
+
+  public static void denyLocationServices() {
+    if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
+      // AndroidMobileCommandHelper.toggleLocationServicesCommand();
+      logger.info("Disabling Location permissions for Android");
+      ((AndroidDriver<WebElement>) DriverManager.getDriver())
+          .executeScript(
+              "mobile:changePermissions",
+              ImmutableMap.of(
+                  "action",
+                  "revoke",
+                  "appPackage",
+                  Constants.MobileApp.ANDROID_PACKAGE_ID,
+                  "permissions",
+                  Collections.list(
+                      "android.permission.ACCESS_COARSE_LOCATION",
+                      "android.permission.ACCESS_FINE_LOCATION")));
+      SyncHelper.sleep(4000);
+
+      if (notRunningAppStates().contains(getAppState(Constants.MobileApp.ANDROID_PACKAGE_ID))) {
+        try {
+          MobileHelper.activateApp();
+        } catch (Exception e) {
+          logger.error("Error activating app");
+        }
+      }
+    }
+  }
+
+  public static ApplicationState getAppState(String appId) {
+    logger.info("Getting app state");
+    try {
+      ApplicationState applicationState =
+          ((AndroidDriver<WebElement>) DriverManager.getDriver()).queryAppState(appId);
+      logger.info(String.format("App state is: %s", applicationState.name()));
+      return ((AndroidDriver<WebElement>) DriverManager.getDriver()).queryAppState(appId);
+    } catch (Exception e) {
+      logger.error("Error getting current app state, probably it is not running");
+      return ApplicationState.NOT_RUNNING;
+    }
+  }
+
+  private static List<ApplicationState> notRunningAppStates() {
+    return Collections.list(
+      ApplicationState.NOT_RUNNING,
+      ApplicationState.RUNNING_IN_BACKGROUND,
+      ApplicationState.RUNNING_IN_BACKGROUND_SUSPENDED
+    );
   }
 }
