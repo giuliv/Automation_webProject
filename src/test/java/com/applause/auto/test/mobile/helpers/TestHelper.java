@@ -93,11 +93,12 @@ public class TestHelper extends BaseComponent {
       logger.info("Disabling Location permissions for Android");
       ((AndroidDriver<WebElement>) DriverManager.getDriver())
           .executeScript("mobile:changePermissions",
-              ImmutableMap.of("action", "revoke",
-                  "appPackage", Constants.MobileApp.ANDROID_PACKAGE_ID,
-                  "permissions", Collections.list(
-                      "android.permission.ACCESS_COARSE_LOCATION",
-                                "android.permission.ACCESS_FINE_LOCATION")
+              ImmutableMap.of(
+            "action", "revoke",
+            "appPackage", Constants.MobileApp.ANDROID_PACKAGE_ID,
+            "permissions", Collections.list(
+        "android.permission.ACCESS_COARSE_LOCATION",
+                  "android.permission.ACCESS_FINE_LOCATION")
               )
           );
       SyncHelper.sleep(4000);
