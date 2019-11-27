@@ -31,7 +31,9 @@ public class OrderAheadTest extends BaseTest {
   public void locationServicesNotEnabled() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = ComponentFactory.create(LandingView.class);
+
     TestHelper.denyLocationServices();
+
     DashboardView dashboardView =
         testHelper.signIn(
             landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);

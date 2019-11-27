@@ -92,17 +92,14 @@ public class TestHelper extends BaseComponent {
       // AndroidMobileCommandHelper.toggleLocationServicesCommand();
       logger.info("Disabling Location permissions for Android");
       ((AndroidDriver<WebElement>) DriverManager.getDriver())
-          .executeScript(
-              "mobile:changePermissions",
-              ImmutableMap.of(
-                  "action",
-                  "revoke",
-                  "appPackage",
-                  Constants.MobileApp.ANDROID_PACKAGE_ID,
-                  "permissions",
-                  Collections.list(
+          .executeScript("mobile:changePermissions",
+              ImmutableMap.of("action", "revoke",
+                  "appPackage", Constants.MobileApp.ANDROID_PACKAGE_ID,
+                  "permissions", Collections.list(
                       "android.permission.ACCESS_COARSE_LOCATION",
-                      "android.permission.ACCESS_FINE_LOCATION")));
+                                "android.permission.ACCESS_FINE_LOCATION")
+              )
+          );
       SyncHelper.sleep(4000);
 
       if (notRunningAppStates().contains(getAppState(Constants.MobileApp.ANDROID_PACKAGE_ID))) {
@@ -119,7 +116,7 @@ public class TestHelper extends BaseComponent {
     logger.info("Getting app state");
     try {
       ApplicationState applicationState =
-          ((AndroidDriver<WebElement>) DriverManager.getDriver()).queryAppState(appId);
+        ((AndroidDriver<WebElement>) DriverManager.getDriver()).queryAppState(appId);
       logger.info(String.format("App state is: %s", applicationState.name()));
       return ((AndroidDriver<WebElement>) DriverManager.getDriver()).queryAppState(appId);
     } catch (Exception e) {
@@ -130,8 +127,9 @@ public class TestHelper extends BaseComponent {
 
   private static List<ApplicationState> notRunningAppStates() {
     return Collections.list(
-        ApplicationState.NOT_RUNNING,
-        ApplicationState.RUNNING_IN_BACKGROUND,
-        ApplicationState.RUNNING_IN_BACKGROUND_SUSPENDED);
+      ApplicationState.NOT_RUNNING,
+      ApplicationState.RUNNING_IN_BACKGROUND,
+      ApplicationState.RUNNING_IN_BACKGROUND_SUSPENDED
+    );
   }
 }
