@@ -1,5 +1,7 @@
 package com.applause.auto.common.data;
 
+import com.applause.auto.web.helpers.WebHelper;
+
 public class Constants {
 
   /** Test Groups */
@@ -23,15 +25,34 @@ public class Constants {
     public static final String ORDER_AHEAD = "order-ahead";
   }
 
+  public enum TestEnvironment {
+    uat("https://uat.aws.peets.com"),
+    production("https://peets.com");
+
+    private String environment;
+
+    TestEnvironment(String env) {
+      this.environment = env;
+    }
+
+    public String getEnvironment() {
+      return environment;
+    }
+  }
+
   /** Test Data for tests */
   public static final class TestData {
 
-    public static final String LANDING_PAGE_URL = "https://uat.aws.peets.com/";
-    public static final String SHOP_TEA_PAGE_URL = "https://uat.aws.peets.com/mighty-leaf-tea";
-    public static final String SHOP_EQUIPMENT_PAGE_URL = "https://uat.aws.peets.com/equipment";
-    public static final String SHOP_PEETS_CARD_PAGE_URL = "https://uat.aws.peets.com/peets-card";
+    public static final String LANDING_PAGE_URL =
+        TestEnvironment.valueOf(WebHelper.getTestEnvironment()).getEnvironment();
+    public static final String SHOP_TEA_PAGE_URL =
+        String.format(LANDING_PAGE_URL, "mighty-leaf-tea");
+    public static final String SHOP_EQUIPMENT_PAGE_URL =
+        String.format(LANDING_PAGE_URL, "equipment");
+    public static final String SHOP_PEETS_CARD_PAGE_URL =
+        String.format(LANDING_PAGE_URL, "peets-card");
     public static final String SHOP_COFFEE_KCUPS_PAGE_URL =
-        "https://uat.aws.peets.com/coffee/k-cups";
+        String.format(LANDING_PAGE_URL, "coffee/k-cups");
 
     public static final String USERNAME = "appautosvc+peetscoffeealternate@applause.com";
     public static final String USERNAME_625882 = "appautosvc+test625882@applause.com";

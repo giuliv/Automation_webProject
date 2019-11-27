@@ -13,13 +13,12 @@ import com.applause.auto.mobile.views.ProductDetailsView;
 import com.applause.auto.mobile.views.SearchResultsView;
 import com.applause.auto.mobile.views.SelectCoffeeBarView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import java.lang.invoke.MethodHandles;
+import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.lang.invoke.MethodHandles;
-import java.util.List;
 
 public class OrderAheadTest extends BaseTest {
 
