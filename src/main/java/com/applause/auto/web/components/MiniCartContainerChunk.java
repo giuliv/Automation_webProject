@@ -16,6 +16,7 @@ import com.applause.auto.web.views.CheckoutPlaceOrderPage;
 import com.applause.auto.web.views.CheckoutShippingInfoPage;
 import com.applause.auto.web.views.ShoppingCartPage;
 import com.applause.auto.web.views.SignInPage;
+
 import java.util.List;
 import java.util.stream.Collectors;
 

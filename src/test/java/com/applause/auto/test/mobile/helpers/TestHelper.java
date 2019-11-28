@@ -19,12 +19,13 @@ import com.applause.auto.util.helper.SyncHelper;
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.appmanagement.ApplicationState;
-import java.lang.invoke.MethodHandles;
-import java.util.List;
 import org.aeonbits.owner.util.Collections;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
+
+import java.lang.invoke.MethodHandles;
+import java.util.List;
 
 @Implementation(is = TestHelper.class, on = Platform.MOBILE)
 public class TestHelper extends BaseComponent {
@@ -92,15 +93,17 @@ public class TestHelper extends BaseComponent {
       // AndroidMobileCommandHelper.toggleLocationServicesCommand();
       logger.info("Disabling Location permissions for Android");
       ((AndroidDriver<WebElement>) DriverManager.getDriver())
-          .executeScript("mobile:changePermissions",
+          .executeScript(
+              "mobile:changePermissions",
               ImmutableMap.of(
-            "action", "revoke",
-            "appPackage", Constants.MobileApp.ANDROID_PACKAGE_ID,
-            "permissions", Collections.list(
-        "android.permission.ACCESS_COARSE_LOCATION",
-                  "android.permission.ACCESS_FINE_LOCATION")
-              )
-          );
+                  "action",
+                  "revoke",
+                  "appPackage",
+                  Constants.MobileApp.ANDROID_PACKAGE_ID,
+                  "permissions",
+                  Collections.list(
+                      "android.permission.ACCESS_COARSE_LOCATION",
+                      "android.permission.ACCESS_FINE_LOCATION")));
       SyncHelper.sleep(4000);
 
       if (notRunningAppStates().contains(getAppState(Constants.MobileApp.ANDROID_PACKAGE_ID))) {
@@ -117,7 +120,7 @@ public class TestHelper extends BaseComponent {
     logger.info("Getting app state");
     try {
       ApplicationState applicationState =
-        ((AndroidDriver<WebElement>) DriverManager.getDriver()).queryAppState(appId);
+          ((AndroidDriver<WebElement>) DriverManager.getDriver()).queryAppState(appId);
       logger.info(String.format("App state is: %s", applicationState.name()));
       return ((AndroidDriver<WebElement>) DriverManager.getDriver()).queryAppState(appId);
     } catch (Exception e) {
@@ -128,9 +131,8 @@ public class TestHelper extends BaseComponent {
 
   private static List<ApplicationState> notRunningAppStates() {
     return Collections.list(
-      ApplicationState.NOT_RUNNING,
-      ApplicationState.RUNNING_IN_BACKGROUND,
-      ApplicationState.RUNNING_IN_BACKGROUND_SUSPENDED
-    );
+        ApplicationState.NOT_RUNNING,
+        ApplicationState.RUNNING_IN_BACKGROUND,
+        ApplicationState.RUNNING_IN_BACKGROUND_SUSPENDED);
   }
 }

@@ -1,7 +1,7 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
+import com.applause.auto.mobile.components.OrderMenuChunk;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -25,27 +25,14 @@ public class OrderView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
-  @Locate(id = "Get Started", on = Platform.MOBILE_IOS)
-  @Locate(
-      id = "com.wearehathway.peets.development:id/getStartedButton",
-      on = Platform.MOBILE_ANDROID)
-  protected Button getGetStartedButton;
-
   /* -------- Actions -------- */
 
-  /**
-   * Press Get Started button
-   *
-   * @return
-   */
-  public AuthenticationView clickGetStartedButton() {
-    logger.info("Pressing Get Started button and expected to land at Peetnik Rewards auth screen");
-    getGetStartedButton.click();
-    return ComponentFactory.create(AuthenticationView.class);
+  public OrderMenuChunk getOrderMenuChunck() {
+    return ComponentFactory.create(OrderMenuChunk.class);
   }
 
   /**
-   * Get the text vaalue of the heading
+   * Get the text value of the heading
    *
    * @return
    */
@@ -63,13 +50,13 @@ public class OrderView extends BaseComponent {
   }
 
   /**
-   * Participating coffeebars select coffee bar view.
+   * Tap to locate Coffeebars.
    *
-   * @return the select coffee bar view
+   * @return the select coffee bar view by location
    */
-  public AllowLocationServicesPopupChunk locateCoffeebars() {
+  public <T extends BaseComponent> T locateCoffeebars(Class<T> clazz) {
     logger.info("Tap to locate Coffeebars");
     getLocateCoffeeBars.click();
-    return ComponentFactory.create(AllowLocationServicesPopupChunk.class);
+    return ComponentFactory.create(clazz);
   }
 }

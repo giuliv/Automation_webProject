@@ -1,7 +1,7 @@
 package com.applause.auto.mobile.components;
 
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.mobile.views.SelectCoffeeBarView;
+import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -13,8 +13,9 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
-import java.time.Duration;
 import org.openqa.selenium.Point;
+
+import java.time.Duration;
 
 @Implementation(is = AndroidAllowLocationServicesPopupChunk.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = AllowLocationServicesPopupChunk.class, on = Platform.MOBILE_IOS)
@@ -110,7 +111,7 @@ public class AllowLocationServicesPopupChunk extends BaseComponent {
    *
    * @return the select coffee bar view
    */
-  public SelectCoffeeBarView allow() {
+  public NearbySelectCoffeeBarView allow() {
     logger.info("Tap Allow button");
     getAllowButton.click();
     AllowLocationServicesSystemPopupChunk allowLocationServicesSystemPopupChunk =
@@ -118,7 +119,7 @@ public class AllowLocationServicesPopupChunk extends BaseComponent {
 
     logger.info("Tap System pop up Allow");
     allowLocationServicesSystemPopupChunk.allow();
-    return ComponentFactory.create(SelectCoffeeBarView.class);
+    return ComponentFactory.create(NearbySelectCoffeeBarView.class);
   }
 
   /**
