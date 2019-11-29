@@ -5,6 +5,8 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.util.DriverManager;
+import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
 import org.openqa.selenium.WebDriverException;
@@ -19,6 +21,10 @@ public class ReportAProblemPopupChunk extends BaseComponent {
   /* -------- Elements -------- */
 
   @Locate(
+      iOSNsPredicate =
+          "type == 'XCUIElementTypeStaticText' AND value == 'We are happy to hear your thoughts'",
+      on = Platform.MOBILE_IOS)
+  @Locate(
       id = "com.wearehathway.peets.development:id/ib_core_lyt_onboarding_pager_fragment",
       on = Platform.MOBILE_ANDROID)
   protected ContainerElement reportAProblemAdv;
@@ -29,9 +35,15 @@ public class ReportAProblemPopupChunk extends BaseComponent {
   public void waitForPopUpToDisappear() {
     if (isReportAProblemPopUpDisplayed()) {
       logger.info("Report a problem pop up is present, waiting until it will disappear");
-      SyncHelper.wait(
-          Until.uiElement(reportAProblemAdv).notPresent().setTimeout(Duration.ofSeconds(10)));
-      SyncHelper.sleep(2000);
+      if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
+        SyncHelper.wait(
+            Until.uiElement(reportAProblemAdv).notPresent().setTimeout(Duration.ofSeconds(12)));
+        SyncHelper.sleep(2000);
+      }
+      if (EnvironmentHelper.isMobileIOS(DriverManager.getDriver())) {
+        // for some reasons the pop up leave in iOS layout forever
+        SyncHelper.sleep(12000);
+      }
     }
   }
 
@@ -40,7 +52,7 @@ public class ReportAProblemPopupChunk extends BaseComponent {
     logger.info("Waiting for report a problem pop up to appear");
     try {
       SyncHelper.wait(
-          Until.uiElement(reportAProblemAdv).present().setTimeout(Duration.ofSeconds(10)));
+          Until.uiElement(reportAProblemAdv).present().setTimeout(Duration.ofSeconds(12)));
       return true;
     } catch (WebDriverException e) {
       logger.error("Report a problem pop up didn't appear");
