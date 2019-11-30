@@ -29,7 +29,7 @@ public class OrderTest extends BaseTest {
   // updated according to https://appauto.testrail.net/index.php?/cases/view/625889
   @Test(
       enabled = true,
-      groups = {TestNGGroups.ORDER_AHEAD},
+      groups = {TestNGGroups.ORDER},
       description = "625889")
   public void locationServicesNotEnabled() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
@@ -122,7 +122,7 @@ public class OrderTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ORDER_AHEAD},
+      groups = {TestNGGroups.ORDER},
       description = "625890")
   public void browseTheMenu() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
@@ -232,7 +232,7 @@ public class OrderTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ORDER_AHEAD},
+      groups = {TestNGGroups.ORDER},
       description = "625897")
   public void checkoutTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");

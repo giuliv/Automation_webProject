@@ -22,7 +22,7 @@ public class Constants {
     // Mobile
     public static final String ONBOARDING = "onboarding";
     public static final String PEETS_CARDS = "peets-cards";
-    public static final String ORDER_AHEAD = "order-ahead";
+    public static final String ORDER = "order";
   }
 
   public enum TestEnvironment {
