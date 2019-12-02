@@ -44,14 +44,17 @@ builds = json.loads(r.decode('utf-8'))
 
 # Find the latest build
 latestBuild = 0
+latestFilename = ""
 for build in builds:
     currentBuild = int(build['id'])
     filename = build['filename']
     if currentBuild > latestBuild and filename:
         latestBuild = currentBuild
+        latestFilename = filename
 
 # Print the latest build number
 print("Latest build: ", latestBuild)
+print("Filename: ", latestFilename)
 
 # Write the buildId and versionId to the supplied output file
 f = open(outFile, "a")
@@ -59,4 +62,5 @@ f.write("versionId=" + str(latestVersion))
 f.write("\n")
 f.write("buildId=" + str(latestBuild))
 f.write("\n")
+f.write("filename=" + latestFilename)
 f.close()
