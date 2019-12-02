@@ -21,7 +21,7 @@ public class OnboardingSlidesTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING},
+      groups = {TestNGGroups.DEBUG, TestNGGroups.ONBOARDING},
       description = "625878")
   public void onboardingSlidesTest() {
 
