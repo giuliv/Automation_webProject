@@ -56,6 +56,12 @@ public class LandingView extends BaseComponent {
     return ComponentFactory.create(ReportAProblemPopupChunk.class);
   }
 
+  @Override
+  public void afterInit() {
+    super.afterInit();
+    getReportAProblemPopupChunk().waitForPopUpToDisappear();
+  }
+
   /**
    * Swipe left on tutorial view and expect to arrive at next view
    *
