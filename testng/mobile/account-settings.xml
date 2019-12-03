@@ -8,7 +8,7 @@
 			</run>
 		</groups>
 		<packages>
-			<package name="com.applause.auto.mobile.test" />
+			<package name="com.applause.auto.test.mobile" />
 		</packages>
 	</test>
 </suite>
