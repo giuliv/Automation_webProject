@@ -20,6 +20,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
+import java.time.Duration;
 import org.openqa.selenium.Dimension;
 
 @Implementation(is = AndroidCreateAccountView.class, on = Platform.MOBILE_ANDROID)
@@ -389,7 +390,8 @@ public class CreateAccountView extends BaseComponent {
   public DashboardView createAccount() {
     logger.info("Create account");
     getCreateAccountButton.click();
-    SyncHelper.wait(Until.uiElement(getCreateAccountButton).notPresent());
+    SyncHelper.wait(
+        Until.uiElement(getCreateAccountButton).notPresent().setTimeout(Duration.ofSeconds(45)));
     return ComponentFactory.create(DashboardView.class);
   }
 
@@ -486,7 +488,6 @@ public class CreateAccountView extends BaseComponent {
    * @return the boolean
    */
   public boolean isPrivacyPolicyAndTermsAndConditionsChecked() {
-    DriverManager.getDriver().getPageSource();
     DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.UP);
     SyncHelper.sleep(10000);
     return MobileHelper.isAttribtuePresent(
@@ -575,6 +576,9 @@ class AndroidCreateAccountView extends CreateAccountView {
 
   @Override
   public boolean isPrivacyPolicyAndTermsAndConditionsChecked() {
+    SyncHelper.sleep(1000);
+    MobileHelper.swipeWithCount(SwipeDirection.UP, 2);
+    SyncHelper.sleep(1000);
     return getAgreePrivacyPolicyAndTermsAndConditions.getAttributeValue("checked").equals("true");
   }
 

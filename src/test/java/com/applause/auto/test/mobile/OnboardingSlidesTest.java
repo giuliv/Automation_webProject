@@ -7,12 +7,11 @@ import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.OrderAheadView;
 import com.applause.auto.mobile.views.PayFasterView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.lang.invoke.MethodHandles;
 
 /**
  * This is a sample test that verifies the project is setup correctly and can execute a simple test.
@@ -22,7 +21,7 @@ public class OnboardingSlidesTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING},
+      groups = {TestNGGroups.DEBUG, TestNGGroups.ONBOARDING},
       description = "625878")
   public void onboardingSlidesTest() {
 

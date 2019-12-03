@@ -1,6 +1,7 @@
 package com.applause.auto.mobile.components;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -11,6 +12,9 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.WebDriverException;
 
 /** The coffee store container chunk. */
 @Implementation(is = CoffeeStoreContainerChuck.class, on = Platform.MOBILE_ANDROID)
@@ -27,7 +31,11 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
 
   // TODO for iOS
   @Locate(xpath = "", on = Platform.MOBILE_IOS)
-  @Locate(id = "storeName", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//*[contains(@resource-id, 'com.wearehathway.peets.development:id/storeDetail') and descendant::*[contains(@resource-id,'storeDetailContainer')]]"
+              + "//*[contains(@resource-id, 'storeName')]",
+      on = Platform.MOBILE_ANDROID)
   protected Text getStoreName;
 
   // TODO for iOS
@@ -37,30 +45,33 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
 
   /* -------- Actions -------- */
 
-  /** Swipe search results containers to the left */
-  public void swipeCoffeeStoreContainerLeft() {
-    DeviceControl.swipeAcrossScreenCoordinates(
-        getSearchResultsContainer.getLocation().getX() + 30,
-        getSearchResultsContainer.getLocation().getY() + 30,
-        getSearchResultsContainer.getLocation().getX()
-            + getSearchResultsContainer.getDimension().width
-            - 30,
-        getSearchResultsContainer.getLocation().getY() + 30,
-        1000);
-    SyncHelper.sleep(2000);
-  }
-
-  /** Swipe search results containers to the right */
-  public void swipeCoffeeStoreContainerRight() {
-    DeviceControl.swipeAcrossScreenCoordinates(
-        getSearchResultsContainer.getLocation().getX()
-            + getSearchResultsContainer.getDimension().width
-            - 30,
-        getSearchResultsContainer.getLocation().getY() + 30,
-        getSearchResultsContainer.getLocation().getX() + 30,
-        getSearchResultsContainer.getLocation().getY() + 30,
-        1000);
-    SyncHelper.sleep(2000);
+  /** Swipe search results containers */
+  public void swipeCoffeStoreContainer(SwipeDirection swipeDirection) {
+    Point getSearchResultsContainerLocation = getSearchResultsContainer.getLocation();
+    Dimension getSearchResultsContainerDimension = getSearchResultsContainer.getDimension();
+    int offsetValue = 30;
+    long millis = 1000;
+    if (swipeDirection.equals(SwipeDirection.LEFT)) {
+      DeviceControl.swipeAcrossScreenCoordinates(
+          getSearchResultsContainerLocation.getX() + offsetValue,
+          getSearchResultsContainerLocation.getY() + offsetValue,
+          getSearchResultsContainerLocation.getX()
+              + getSearchResultsContainerDimension.width
+              - offsetValue,
+          getSearchResultsContainerLocation.getY() + offsetValue,
+          millis);
+    }
+    if (swipeDirection.equals(SwipeDirection.RIGHT)) {
+      DeviceControl.swipeAcrossScreenCoordinates(
+          getSearchResultsContainerLocation.getX()
+              + getSearchResultsContainerDimension.width
+              - offsetValue,
+          getSearchResultsContainerLocation.getY() + offsetValue,
+          getSearchResultsContainerLocation.getX() + offsetValue,
+          getSearchResultsContainerLocation.getY() + offsetValue,
+          millis);
+    }
+    SyncHelper.sleep(3000);
   }
 
   /**
@@ -78,8 +89,13 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
    * @return String
    */
   public String getStoreName() {
-    logger.info(String.format("Store name is: %s", getStoreName.getText()));
-    return getStoreName.getText();
+    try {
+      String storeName = getStoreName.getText();
+      logger.info(String.format("Store name is: %s", storeName));
+      return storeName;
+    } catch (WebDriverException e) {
+      return null;
+    }
   }
 
   /**
