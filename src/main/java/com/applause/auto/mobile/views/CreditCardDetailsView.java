@@ -9,6 +9,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
+import com.applause.auto.util.helper.SyncHelper;
 
 @Implementation(is = CreditCardDetailsView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosCreditCardDetailsView.class, on = Platform.MOBILE_IOS)
@@ -20,7 +21,8 @@ public class CreditCardDetailsView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/saveCardButton", on = Platform.MOBILE_ANDROID)
   protected Button getSaveCardButton;
 
-  @Locate(xpath = "//XCUIElementTypeOther[@name=\"MOBILE TEST\"]", on = Platform.MOBILE_IOS)
+  //  @Locate(xpath = "//XCUIElementTypeOther[@name=\"MOBILE TEST\"]", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"MOBILE TEST\"]", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/title", on = Platform.MOBILE_ANDROID)
   protected Text getHeaderText;
 
@@ -46,7 +48,7 @@ public class CreditCardDetailsView extends BaseComponent {
       on = Platform.MOBILE_IOS)
   protected Text getExpDateFieldForText;
 
-  @Locate(id = "Delete Card", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeButton[@name='Delete Card']", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/deleteCardBtn", on = Platform.MOBILE_ANDROID)
   protected Button getDeleteButton;
 
@@ -138,6 +140,7 @@ public class CreditCardDetailsView extends BaseComponent {
   public PaymentMethodsView clickDeleteYes() {
     logger.info("Confirming Deletion of Card");
     getDeleteYesButton.click();
+    SyncHelper.sleep(5000);
     return ComponentFactory.create(PaymentMethodsView.class);
   }
 

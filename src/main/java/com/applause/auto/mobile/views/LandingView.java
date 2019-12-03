@@ -28,7 +28,7 @@ public class LandingView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/skipTextView", on = Platform.MOBILE_ANDROID)
   protected Button getSkipButton;
 
-  @Locate(id = "//XCUIElementTypeButton[@name='Create Account']", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Create Account\"]", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/signUp", on = Platform.MOBILE_ANDROID)
   protected Button getCreateAccountButton;
 
@@ -86,6 +86,7 @@ public class LandingView extends BaseComponent {
   public SignInView signIn() {
     logger.info("Click on Sign In button");
     getSignInButton.click();
+    SyncHelper.sleep(1000);
     return ComponentFactory.create(SignInView.class);
   }
 
@@ -93,9 +94,10 @@ public class LandingView extends BaseComponent {
   public void skipOnboarding() {
     logger.info("Skipping Onboarding");
     // TODO: get rid of hard-coded sleep
+    // first sleep to wait for ad disappear
     SyncHelper.sleep(20000);
     getSkipButton.click();
-    SyncHelper.sleep(10000);
+    SyncHelper.sleep(1000);
   }
 
   /**
@@ -104,9 +106,13 @@ public class LandingView extends BaseComponent {
    * @return
    */
   public String getHeadingTextValue() {
-    SyncHelper.sleep(3000);
+    SyncHelper.sleep(10000);
     DriverManager.getDriver().getPageSource();
     return getHeadingText.getText();
+  }
+
+  public void createAccountAndroid() {
+    logger.info("Skipping Android Steps");
   }
 }
 
@@ -118,6 +124,12 @@ class AndroidLandingView extends LandingView {
     logger.info("Skipping Onboarding");
     getSkipButton.click();
     SyncHelper.sleep(10000);
+  }
+
+  public void createAccountAndroid() {
+    this.skipOnboarding();
+    logger.info("Tap Create Account");
+    createAccount();
   }
 
   // implemented this method for Android, but it looks like it is redundant

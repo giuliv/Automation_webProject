@@ -14,6 +14,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
+import com.applause.auto.util.helper.SyncHelper;
 
 @Implementation(is = AndroidAccountMenuMobileChunk.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = AccountMenuMobileChunk.class, on = Platform.MOBILE_IOS)
@@ -65,6 +66,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
   public ProfileDetailsView profileDetails() {
     logger.info("Click on Profile Details button");
     getProfileDetailsButton.click();
+    SyncHelper.sleep(1000);
     return ComponentFactory.create(ProfileDetailsView.class);
   }
 

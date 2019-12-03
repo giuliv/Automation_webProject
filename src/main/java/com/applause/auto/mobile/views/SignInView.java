@@ -9,6 +9,7 @@ import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
+import com.applause.auto.util.helper.SyncHelper;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -68,6 +69,7 @@ public class SignInView extends BaseComponent {
     logger.info("Set username: " + username);
     getUsernameTextBox.clearText();
     getUsernameTextBox.sendKeys(username);
+    SyncHelper.sleep(2000);
   }
 
   /**
@@ -78,7 +80,9 @@ public class SignInView extends BaseComponent {
   public void setPassword(String password) {
     logger.info("Set password: " + password);
     getPasswordTextBox.clearText();
+    SyncHelper.sleep(500);
     getPasswordTextBox.sendKeys(password);
+    SyncHelper.sleep(500);
   }
 
   /**
@@ -134,6 +138,7 @@ public class SignInView extends BaseComponent {
   public <T extends BaseComponent> T signIn(Class<T> clazz) {
     logger.info("Click on Sign In button");
     getSignInButton.click();
+    SyncHelper.sleep(1000);
     return ComponentFactory.create(clazz);
   }
 
@@ -141,6 +146,7 @@ public class SignInView extends BaseComponent {
   public void showPassword() {
     logger.info("Click on Show Password button");
     getShowPasswordButton.click();
+    SyncHelper.sleep(500);
   }
 }
 

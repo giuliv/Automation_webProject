@@ -14,7 +14,6 @@ import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
-
 import java.time.Duration;
 
 @Implementation(is = AndroidNearbySelectCoffeeBarView.class, on = Platform.MOBILE_ANDROID)
@@ -33,7 +32,8 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/changeTextView", on = Platform.MOBILE_ANDROID)
   protected Button getSearchButton;
 
-  @Locate(id = "Search for coffeebar text field", on = Platform.MOBILE_IOS)
+  @Locate(id = "Enter Zip or City, State", on = Platform.MOBILE_IOS)
+  //  @Locate(id = "Search for coffeebar text field", on = Platform.MOBILE_IOS)
   @Locate(
       androidUIAutomator =
           "new UiSelector().resourceIdMatches(\".*searchRow\"). childSelector(new UiSelector().classNameMatches(\".*TextView\"))",
@@ -50,6 +50,15 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   @Locate(id = "todo", on = Platform.MOBILE_IOS)
   protected Button getChangeStoreButton;
 
+  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Not Now\"]", on = Platform.MOBILE_IOS)
+  protected Button getLocationServicesNotAllowBtn;
+
+  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Allow\"]", on = Platform.MOBILE_IOS)
+  protected Button getLocationServicesAllowBtn;
+
+  @Locate(id = "Allow While Using App", on = Platform.MOBILE_IOS)
+  protected Button allowWhileUsing;
+
   /* -------- Actions -------- */
 
   public CoffeeStoreContainerChuck getCoffeeStoreContainerChuck() {
@@ -63,13 +72,20 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
    */
   public void search(String searchTxt) {
     logger.info("Searching for store: " + searchTxt);
-    try {
-      getChangeStoreButton.click();
-    } catch (Throwable throwable) {
-      logger.info("Unable to Change Store");
-    }
-    getSearchButton.click();
+    getSearchTextBox.click();
     getSearchTextBox.sendKeys(searchTxt + "\n");
+  }
+
+  /** Allow Location Service. */
+  public void allow() {
+    logger.info("Allow Location Services");
+    try {
+      getLocationServicesAllowBtn.click();
+      SyncHelper.sleep(2000);
+      allowWhileUsing.click();
+    } catch (Throwable throwable) {
+      logger.info("Could not Allow for Location Service");
+    }
   }
 
   /**
@@ -78,20 +94,20 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
    * @param index the index
    * @return the new order view
    */
-  //  public NewOrderView openCoffeebarFromSearchResults(int index) {
-  //    logger.info("Tap on Search result");
-  //    int counter = 5;
-  //    while (counter-- != 0) {
-  //      if (isStorePresent()) {
-  //        getSearchResults.click();
-  //        break;
-  //      } else {
-  //        MobileHelper.swipeAcrossScreenCoordinates(0.8, 0.8, 0.2, 0.8, 2000);
-  //      }
-  //    }
-  //    return ComponentFactory.create(NewOrderView.class);
-  //  }
-
+  public NewOrderView openCoffeebarFromSearchResults(int index) {
+    logger.info("Tap on Search result");
+    int counter = 5;
+    while (counter-- != 0) {
+      //        if (isStorePresent()) {
+      //          getSearchResults.click();
+      //
+      //          break;
+      //        } else {
+      //          MobileHelper.swipeAcrossScreenCoordinates(0.8, 0.8, 0.2, 0.8, 2000);
+      //        }
+    }
+    return ComponentFactory.create(NewOrderView.class);
+  }
 }
 
 class AndroidNearbySelectCoffeeBarView extends NearbySelectCoffeeBarView {

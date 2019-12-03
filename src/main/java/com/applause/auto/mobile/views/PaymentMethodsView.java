@@ -56,7 +56,7 @@ public class PaymentMethodsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getSavedPaymentMethod2Button;
 
-  @Locate(xpath = "//XCUIElementTypeTable/XCUIElementTypeCell[3]", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"MOBILE TEST\"]", on = Platform.MOBILE_IOS)
   @Locate(
       xpath = "//*[contains(@resource-id, 'id/creditCardView')][3]",
       on = Platform.MOBILE_ANDROID)
@@ -160,8 +160,10 @@ public class PaymentMethodsView extends BaseComponent {
           Until.uiElement(getSavedPaymentMethodButton)
               .notPresent()
               .setTimeout(Duration.ofSeconds(10)));
+      logger.info("Test Card is not displayed");
       return false;
     } catch (Exception e) {
+      logger.info("Test Card is displayed");
       return true;
     }
   }
