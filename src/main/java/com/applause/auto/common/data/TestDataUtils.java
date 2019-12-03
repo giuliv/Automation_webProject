@@ -1,5 +1,7 @@
 package com.applause.auto.common.data;
 
+import com.applause.auto.util.DriverManager;
+import com.applause.auto.util.helper.EnvironmentHelper;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -27,7 +29,13 @@ public class TestDataUtils {
     }
 
     public static String getFormatCurrentTransactionDate() {
-      return new SimpleDateFormat("MMM d, yyyy").format(new Date());
+      SimpleDateFormat transactionDateFormat;
+      if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
+        transactionDateFormat = new SimpleDateFormat("MMM d, yyyy");
+      } else {
+        transactionDateFormat = new SimpleDateFormat("MMMM d, yyyy");
+      }
+      return transactionDateFormat.format(new Date());
     }
 
     public static String getFormatTransactionAmount(int cardAmount) {

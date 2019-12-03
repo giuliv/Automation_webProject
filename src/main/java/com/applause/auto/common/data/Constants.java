@@ -22,7 +22,7 @@ public class Constants {
     // Mobile
     public static final String ONBOARDING = "onboarding";
     public static final String PEETS_CARDS = "peets-cards";
-    public static final String ORDER_AHEAD = "order-ahead";
+    public static final String ORDER = "order";
   }
 
   public enum TestEnvironment {
@@ -42,7 +42,6 @@ public class Constants {
 
   /** Test Data for tests */
   public static final class TestData {
-
     public static final String LANDING_PAGE_URL =
         TestEnvironment.valueOf(WebHelper.getTestEnvironment()).getEnvironment();
     public static final String SHOP_TEA_PAGE_URL =
@@ -132,7 +131,6 @@ public class Constants {
   }
 
   public static final class TestMainMenu {
-
     public static final String NAV_CATEGORY_SHOP = "Shop";
 
     public static final String NAV_SUBMENU_COFFEE = "Coffee";
@@ -144,13 +142,11 @@ public class Constants {
   }
 
   public static final class MobileApp {
-
     public static final String IOS_BUNDLE_ID = "com.wearehathway.peets-dev";
     public static final String ANDROID_PACKAGE_ID = "com.wearehathway.peets.development";
   }
 
   public static final class MyAccountTestData {
-
     public static final String EMAIL = "peets+testaccount@gmail.com";
     public static final String SAFARI_SHIPPING_EMAIL = "peets+safarishipping@qa.utest.com";
     public static final String SAFARI_BILLING_EMAIL = "peets+safaribilling@qa.utest.com";

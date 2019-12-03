@@ -1,10 +1,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Order Ahead Test Suite" verbose="1" parallel="classes"
+<suite name="Order Test Suite" verbose="1" parallel="classes"
        thread-count="1">
-    <test name="order-ahead" preserve-order="true">
+    <test name="order" preserve-order="true">
         <groups>
             <run>
-                <include name="order-ahead"/>
+                <include name="order"/>
             </run>
         </groups>
         <packages>

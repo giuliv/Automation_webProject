@@ -14,15 +14,9 @@ public class OrderAheadView extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(id = "See Participating Coffeebars", on = Platform.MOBILE_IOS)
+  @Locate(id = "Order Ahead.", on = Platform.MOBILE_IOS)
   @Locate(
-      id = "com.wearehathway.peets.development:id/seeCoffeebarsButton",
-      on = Platform.MOBILE_ANDROID)
-  protected Button getParticipatingCoffeebarsButton;
-
-  @Locate(id = "Order", on = Platform.MOBILE_IOS)
-  @Locate(
-      androidUIAutomator = "new UiSelector().textContains(\"Order\")",
+      androidUIAutomator = "new UiSelector().textContains(\"Order Ahead\")",
       on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
@@ -38,13 +32,6 @@ public class OrderAheadView extends BaseComponent {
       id = "com.wearehathway.peets.development:id/getStartedButton",
       on = Platform.MOBILE_ANDROID)
   protected Button getGetStartedButton;
-
-  @Locate(
-      xpath =
-          "//XCUIElementTypeOther[1]/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther",
-      on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/skipTextView", on = Platform.MOBILE_ANDROID)
-  protected Button getSkipButton;
 
   /* -------- Actions -------- */
 
@@ -75,25 +62,5 @@ public class OrderAheadView extends BaseComponent {
    */
   public String getSubHeaderTextValue() {
     return getSubHeaderText.getText();
-  }
-
-  /**
-   * Is participating coffeebars displayed boolean.
-   *
-   * @return the boolean
-   */
-  public boolean isParticipatingCoffeebarsDisplayed() {
-    return getParticipatingCoffeebarsButton.isDisplayed();
-  }
-
-  /**
-   * Participating coffeebars select coffee bar view.
-   *
-   * @return the select coffee bar view
-   */
-  public SelectCoffeeBarView participatingCoffeebars() {
-    logger.info("Tap See Participating Coffeebars");
-    getParticipatingCoffeebarsButton.click();
-    return ComponentFactory.create(SelectCoffeeBarView.class);
   }
 }

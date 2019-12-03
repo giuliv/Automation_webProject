@@ -3,7 +3,6 @@ package com.applause.auto.mobile.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.components.ReportAProblemPopupChunk;
-import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -77,16 +76,6 @@ public class LandingView extends BaseComponent {
     logger.info("Tap on create account button");
     getCreateAccountButton.click();
     return ComponentFactory.create(CreateAccountView.class);
-  }
-
-  /** Skip offer. */
-  public void skipOffer() {
-    logger.info("Swipe left and verify Explore Offers screen has correct title");
-    MobileHelper.swipeWithCount(SwipeDirection.UP, 3);
-    ExploreOffersView exploreOffersView = swipeLeftOnScreen();
-    PayFasterView payFasterView = exploreOffersView.swipeLeftOnScreen();
-    OrderAheadView orderAheadView = payFasterView.swipeLeftOnScreen();
-    AuthenticationView authenticationView = orderAheadView.clickGetStartedButton();
   }
 
   /**
