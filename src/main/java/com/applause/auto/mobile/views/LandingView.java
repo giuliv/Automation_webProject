@@ -98,10 +98,13 @@ public class LandingView extends BaseComponent {
   /** Skip onboarding. */
   public void skipOnboarding() {
     logger.info("Skipping Onboarding");
-    // TODO: get rid of hard-coded sleep
-    SyncHelper.sleep(20000);
-    getSkipButton.click();
-    SyncHelper.sleep(10000);
+    // this try catch is needed for iOS, since sometimes iOS test is starting on sign in/sign up
+    // view
+    try {
+      getSkipButton.click();
+    } catch (Exception e) {
+      logger.error("Error while skipping the Landing View");
+    }
   }
 
   /**
@@ -123,7 +126,6 @@ class AndroidLandingView extends LandingView {
   public void skipOnboarding() {
     logger.info("Skipping Onboarding");
     getSkipButton.click();
-    SyncHelper.sleep(10000);
   }
 
   // implemented this method for Android, but it looks like it is redundant

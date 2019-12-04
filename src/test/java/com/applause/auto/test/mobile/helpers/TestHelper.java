@@ -51,12 +51,7 @@ public class TestHelper extends BaseComponent {
    */
   public <T extends BaseComponent> T signIn(
       LandingView landingView, String username, String password, Class<T> clazz) {
-    // this try catch is needed fo iOS, since sometimes iOS test is starting on sign in/sign up view
-    try {
-      // ComponentFactory.create(ReportAProblemPopupChunk.class).waitForPopUpToDisappear();
-      landingView.skipOnboarding();
-    } catch (Exception e) {
-    }
+    landingView.skipOnboarding();
     logger.info("Tap Sign In");
     SignInView signInView = landingView.signIn();
 
