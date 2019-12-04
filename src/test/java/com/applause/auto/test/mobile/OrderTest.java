@@ -105,9 +105,11 @@ public class OrderTest extends BaseTest {
     String currentCoffeeStoreContainerName2 = coffeeStoreContainerChuck.getStoreName();
     Assert.assertNotNull(currentCoffeeStoreContainerName2, "Store name was not fetch");
 
-    /*coffeeStoreContainerChuck.swipeCoffeStoreContainer(SwipeDirection.RIGHT);
-    String currentCoffeeStoreContainerName3 = coffeeStoreContainerChuck.getStoreName();
-    Assert.assertNotNull(currentCoffeeStoreContainerName3, "Store name was not fetch");*/
+    // page sources are not being refreshed and
+    // after swiping left/right always first displayed element on the screen is only detected
+    // coffeeStoreContainerChuck.swipeCoffeStoreContainer(SwipeDirection.RIGHT);
+    // String currentCoffeeStoreContainerName3 = coffeeStoreContainerChuck.getStoreName();
+    // Assert.assertNotNull(currentCoffeeStoreContainerName3, "Store name was not fetch");
 
     orderView = coffeeStoreContainerChuck.clickOrderButton();
     logger.info("Header: Order");
@@ -237,11 +239,11 @@ public class OrderTest extends BaseTest {
             landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
     Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
-    //    logger.info("Tap Order icon on the bottom nav bar");
-    //    SelectCoffeeBarView selectCoffeeBarView = dashboardView.getBottomNavigationMenu()
+    // logger.info("Tap Order icon on the bottom nav bar");
+    // SelectCoffeeBarView selectCoffeeBarView = dashboardView.getBottomNavigationMenu()
     //            .order(SelectCoffeeBarView.class);
     //
-    //    selectCoffeeBarView.search("94608");
+    // selectCoffeeBarView.search("94608");
     NewOrderView newOrderView = dashboardView.getBottomNavigationMenu().order(NewOrderView.class);
 
     logger.info("Tap a category");

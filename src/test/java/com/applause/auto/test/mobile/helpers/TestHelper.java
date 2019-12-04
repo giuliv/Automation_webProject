@@ -93,6 +93,7 @@ public class TestHelper extends BaseComponent {
 
   public static void denyLocationServices() {
     if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
+      // toggleLocationServicesCommand is opening Android settings view
       // AndroidMobileCommandHelper.toggleLocationServicesCommand();
       logger.info("Disabling Location permissions for Android");
       ((AndroidDriver<WebElement>) DriverManager.getDriver())
