@@ -15,12 +15,10 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-import java.time.Duration;
 import org.openqa.selenium.Dimension;
 
 @Implementation(is = AndroidCreateAccountView.class, on = Platform.MOBILE_ANDROID)
@@ -59,7 +57,7 @@ public class CreateAccountView extends BaseComponent {
   protected Picker getDOBDayPicker;
 
   @Locate(
-      xpath = "//XCUIElementTypeDatePicker/XCUIElementTypeOther/XCUIElementTypePicker[1]",
+      xpath = "//XCUIElementTypeDatePicker/XCUIElementTypePicker/XCUIElementTypePickerWheel[2]",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
@@ -68,7 +66,7 @@ public class CreateAccountView extends BaseComponent {
   protected Picker getDOBMonthPicker;
 
   @Locate(
-      xpath = "//XCUIElementTypeDatePicker/XCUIElementTypeOther/XCUIElementTypePicker[3]",
+      xpath = "//XCUIElementTypeDatePicker/XCUIElementTypePicker/XCUIElementTypePickerWheel[3]",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath = "(//*[@resource-id='android:id/numberpicker_input'])[3]",
@@ -118,6 +116,9 @@ public class CreateAccountView extends BaseComponent {
       on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/emailAddress", on = Platform.MOBILE_ANDROID)
   protected TextBox getEmailAddressTextBox;
+
+  @Locate(id = "Done", on = Platform.MOBILE_IOS)
+  protected TextBox getDOBDoneBtn;
 
   @Locate(
       xpath =
@@ -204,6 +205,7 @@ public class CreateAccountView extends BaseComponent {
   public PrivacyPolicyView privacyPolicy() {
     logger.info("Tap on Privacy Policy");
     getPrivacyPolicyButton.click();
+    // wait till the page load, before it ios is not switched back to app
     SyncHelper.sleep(10000);
     return ComponentFactory.create(PrivacyPolicyView.class);
   }
@@ -283,8 +285,12 @@ public class CreateAccountView extends BaseComponent {
   public CreateAccountView setDOB(String day, String month, String year) {
     logger.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
     getDOBValueTextBox.click();
+    //    getDOBValueTextBox.clearText();
+    //    SyncHelper.sleep(500);
+    //    getDOBValueTextBox.sendKeys(month + " " + day + ", " + year);
+    SyncHelper.sleep(500);
     MobileHelper.setPickerValueReverse(year, getDOBYearPicker);
-
+    getDOBDoneBtn.click();
     return this;
   }
 
@@ -392,8 +398,12 @@ public class CreateAccountView extends BaseComponent {
   public DashboardView createAccount() {
     logger.info("Create account");
     getCreateAccountButton.click();
-    SyncHelper.wait(
-        Until.uiElement(getCreateAccountButton).notPresent().setTimeout(Duration.ofSeconds(45)));
+    // wait while dashboard view will be created and loaded
+    // temp case while waiter below is not working properly
+    SyncHelper.sleep(5000);
+    //    SyncHelper.wait(
+    //
+    // Until.uiElement(getCreateAccountButton).notPresent().setTimeout(Duration.ofSeconds(45)));
     return ComponentFactory.create(DashboardView.class);
   }
 
@@ -448,7 +458,7 @@ public class CreateAccountView extends BaseComponent {
    * @return the hidden password
    */
   public String getHiddenPassword() {
-    return getHiddenPasswordTextBox.getAttributeValue("text");
+    return getHiddenPasswordTextBox.getAttributeValue("value");
   }
 
   /**

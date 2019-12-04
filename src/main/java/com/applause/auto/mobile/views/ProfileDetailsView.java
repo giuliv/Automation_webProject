@@ -294,6 +294,15 @@ class IosProfileDetailsView extends ProfileDetailsView {
   }
 
   /**
+   * Gets phone number.
+   *
+   * @return the phone number
+   */
+  public String getPhoneNumber() {
+    return getPhoneNumberTextBox.getAttributeValue("value");
+  }
+
+  /**
    * Gets firstname.
    *
    * @return the firstname

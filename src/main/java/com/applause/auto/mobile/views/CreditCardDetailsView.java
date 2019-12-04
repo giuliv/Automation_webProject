@@ -21,7 +21,6 @@ public class CreditCardDetailsView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/saveCardButton", on = Platform.MOBILE_ANDROID)
   protected Button getSaveCardButton;
 
-  //  @Locate(xpath = "//XCUIElementTypeOther[@name=\"MOBILE TEST\"]", on = Platform.MOBILE_IOS)
   @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"MOBILE TEST\"]", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/title", on = Platform.MOBILE_ANDROID)
   protected Text getHeaderText;

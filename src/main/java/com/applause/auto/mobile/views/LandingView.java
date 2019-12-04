@@ -100,7 +100,6 @@ public class LandingView extends BaseComponent {
   public void skipOnboarding() {
     logger.info("Skipping Onboarding");
     // TODO: get rid of hard-coded sleep
-    // first sleep to wait for ad disappear
     getSkipButton.click();
     SyncHelper.sleep(1000);
   }
