@@ -1,15 +1,13 @@
 package com.applause.auto.mobile.components;
 
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.mobile.views.CheckInView;
-import com.applause.auto.mobile.views.DashboardView;
-import com.applause.auto.mobile.views.OrderView;
-import com.applause.auto.mobile.views.PeetsCardsView;
+import com.applause.auto.mobile.views.*;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
 
 @Implementation(is = BottomNavigationMenuChunk.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosBottomNavigationMenuChunk.class, on = Platform.MOBILE_IOS)
@@ -110,15 +108,15 @@ public class BottomNavigationMenuChunk extends BaseComponent {
 
 class IosBottomNavigationMenuChunk extends BottomNavigationMenuChunk {
 
-  //  public <T extends BaseComponent> T order(Class<T> clazz) {
-  //    logger.info("Tap on Order");
-  //    NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
-  //        super.order(NearbySelectCoffeeBarView.class);
-  //    // should be refactored and fixed due to UI changes
-  //    // selectCoffeeBarView = selectCoffeeBarView.allowLocation().allow();
-  //    nearbySelectCoffeeBarView.search("Emeryville, CA, 94608, 1400 park avenue");
-  //    SyncHelper.sleep(10000);
-  //    nearbySelectCoffeeBarView.openCoffeebarFromSearchResults(1);
-  //    return ComponentFactory.create(clazz);
-  //  }
+  // is crashing when searching a coffee store
+//  public <T extends BaseComponent> T order(Class<T> clazz) {
+//    logger.info("Tap on Order");
+//    NearbySelectCoffeeBarView nearbySelectCoffeeBarView = order(NearbySelectCoffeeBarView.class);
+//    // should be refactored and fixed due to UI changes
+//    nearbySelectCoffeeBarView.allow();
+//    nearbySelectCoffeeBarView.search("Emeryville, CA, 94608, 1400 park avenue");
+//    SyncHelper.sleep(10000);
+//    // nearbySelectCoffeeBarView.openCoffeebarFromSearchResults(1);
+//    return ComponentFactory.create(clazz);
+//  }
 }

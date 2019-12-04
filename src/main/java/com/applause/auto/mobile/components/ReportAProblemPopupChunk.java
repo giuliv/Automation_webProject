@@ -14,7 +14,7 @@ import org.openqa.selenium.WebDriverException;
 
 /** The report problem popup chunk. */
 @Implementation(is = ReportAProblemPopupChunk.class, on = Platform.MOBILE_ANDROID)
-@Implementation(is = ReportAProblemPopupChunk.class, on = Platform.MOBILE_IOS)
+@Implementation(is = ReportAProblemPopupChunkiOS.class, on = Platform.MOBILE_IOS)
 public class ReportAProblemPopupChunk extends BaseComponent {
 
   /* -------- Elements -------- */
@@ -34,15 +34,9 @@ public class ReportAProblemPopupChunk extends BaseComponent {
   public void waitForPopUpToDisappear() {
     if (isReportAProblemPopUpDisplayed()) {
       logger.info("Report a problem pop up is present, waiting until it will disappear");
-      if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
-        SyncHelper.wait(
-            Until.uiElement(reportAProblemAdv).notPresent().setTimeout(Duration.ofSeconds(12)));
-        SyncHelper.sleep(2000);
-      }
-      if (EnvironmentHelper.isMobileIOS(DriverManager.getDriver())) {
-        // for some reasons the pop up leave in iOS layout forever
-        SyncHelper.sleep(12000);
-      }
+      SyncHelper.wait(
+          Until.uiElement(reportAProblemAdv).notPresent().setTimeout(Duration.ofSeconds(12)));
+      SyncHelper.sleep(2000);
     }
   }
 
@@ -56,6 +50,19 @@ public class ReportAProblemPopupChunk extends BaseComponent {
     } catch (WebDriverException e) {
       logger.error("Report a problem pop up didn't appear");
       return false;
+    }
+  }
+}
+
+class ReportAProblemPopupChunkiOS extends ReportAProblemPopupChunk {
+
+  @Override
+  public void waitForPopUpToDisappear() {
+    if (isReportAProblemPopUpDisplayed()) {
+      if (EnvironmentHelper.isMobileIOS(DriverManager.getDriver())) {
+        // for some reasons the pop up leave in iOS layout forever
+        SyncHelper.sleep(12000);
+      }
     }
   }
 }

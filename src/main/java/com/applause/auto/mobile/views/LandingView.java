@@ -13,6 +13,9 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
+
+import java.time.Duration;
 
 @Implementation(is = AndroidLandingView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = LandingView.class, on = Platform.MOBILE_IOS)
@@ -28,7 +31,7 @@ public class LandingView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/skipTextView", on = Platform.MOBILE_ANDROID)
   protected Button getSkipButton;
 
-  @Locate(id = "//XCUIElementTypeButton[@name='Create Account']", on = Platform.MOBILE_IOS)
+  @Locate(iOSNsPredicate = "name='Create Account'", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/signUp", on = Platform.MOBILE_ANDROID)
   protected Button getCreateAccountButton;
 
@@ -54,6 +57,12 @@ public class LandingView extends BaseComponent {
    */
   public ReportAProblemPopupChunk getReportAProblemPopupChunk() {
     return ComponentFactory.create(ReportAProblemPopupChunk.class);
+  }
+
+  @Override
+  public void afterInit() {
+    super.afterInit();
+    getReportAProblemPopupChunk().waitForPopUpToDisappear();
   }
 
   /**
@@ -86,16 +95,15 @@ public class LandingView extends BaseComponent {
   public SignInView signIn() {
     logger.info("Click on Sign In button");
     getSignInButton.click();
+    SyncHelper.sleep(1000);
     return ComponentFactory.create(SignInView.class);
   }
 
   /** Skip onboarding. */
   public void skipOnboarding() {
     logger.info("Skipping Onboarding");
-    // TODO: get rid of hard-coded sleep
-    SyncHelper.sleep(20000);
     getSkipButton.click();
-    SyncHelper.sleep(10000);
+    SyncHelper.wait(Until.uiElement(getSkipButton).visible().setTimeout(Duration.ofSeconds(10)));
   }
 
   /**
@@ -104,9 +112,12 @@ public class LandingView extends BaseComponent {
    * @return
    */
   public String getHeadingTextValue() {
-    SyncHelper.sleep(3000);
     DriverManager.getDriver().getPageSource();
     return getHeadingText.getText();
+  }
+
+  public void createAccountAndroid() {
+    logger.info("Skipping Android Steps");
   }
 }
 
@@ -117,7 +128,13 @@ class AndroidLandingView extends LandingView {
   public void skipOnboarding() {
     logger.info("Skipping Onboarding");
     getSkipButton.click();
-    SyncHelper.sleep(10000);
+  }
+
+  @Override
+  public void createAccountAndroid() {
+    skipOnboarding();
+    logger.info("Tap Create Account");
+    createAccount();
   }
 
   // implemented this method for Android, but it looks like it is redundant
