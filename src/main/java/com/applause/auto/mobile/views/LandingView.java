@@ -13,9 +13,6 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
-
-import java.time.Duration;
 
 @Implementation(is = AndroidLandingView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = LandingView.class, on = Platform.MOBILE_IOS)
@@ -102,8 +99,13 @@ public class LandingView extends BaseComponent {
   /** Skip onboarding. */
   public void skipOnboarding() {
     logger.info("Skipping Onboarding");
-    getSkipButton.click();
-    SyncHelper.wait(Until.uiElement(getSkipButton).visible().setTimeout(Duration.ofSeconds(10)));
+    // this try catch is needed for iOS, since sometimes iOS test is starting on sign in/sign up
+    // view
+    try {
+      getSkipButton.click();
+    } catch (Exception e) {
+      logger.error("Error while skipping the Landing View");
+    }
   }
 
   /**
@@ -116,8 +118,8 @@ public class LandingView extends BaseComponent {
     return getHeadingText.getText();
   }
 
-  public void createAccountAndroid() {
-    logger.info("Skipping Android Steps");
+  public void createAccountNavigation() {
+    logger.info("Skipping create account navigation Steps");
   }
 }
 
@@ -131,7 +133,7 @@ class AndroidLandingView extends LandingView {
   }
 
   @Override
-  public void createAccountAndroid() {
+  public void createAccountNavigation() {
     skipOnboarding();
     logger.info("Tap Create Account");
     createAccount();

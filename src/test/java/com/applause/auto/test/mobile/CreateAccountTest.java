@@ -61,7 +61,7 @@ public class CreateAccountTest extends BaseTest {
 
     // after activate app is called on Android with app's package id - the landing view is loaded.
     // iOS loads previous state!
-    landingView.createAccountAndroid();
+    landingView.createAccountNavigation();
 
     logger.info("Scroll down and check the footer links");
     MobileHelper.swipeWithCount(SwipeDirection.UP, 3);
