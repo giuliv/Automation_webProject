@@ -398,11 +398,10 @@ public class CreateAccountView extends BaseComponent {
   public DashboardView createAccount() {
     logger.info("Create account");
     getCreateAccountButton.click();
-    // wait while dashboard view will be created and loaded
+    // wait while dashboard view will be created and loaded (10s!!)
     // temp case while waiter below is not working properly
-    SyncHelper.sleep(5000);
+    SyncHelper.sleep(10000);
     //    SyncHelper.wait(
-    //
     // Until.uiElement(getCreateAccountButton).notPresent().setTimeout(Duration.ofSeconds(45)));
     return ComponentFactory.create(DashboardView.class);
   }
