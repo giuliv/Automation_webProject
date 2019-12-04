@@ -80,7 +80,6 @@ public class SignInView extends BaseComponent {
   public void setPassword(String password) {
     logger.info("Set password: " + password);
     getPasswordTextBox.clearText();
-    SyncHelper.sleep(500);
     getPasswordTextBox.sendKeys(password);
     SyncHelper.sleep(500);
   }
@@ -138,7 +137,7 @@ public class SignInView extends BaseComponent {
   public <T extends BaseComponent> T signIn(Class<T> clazz) {
     logger.info("Click on Sign In button");
     getSignInButton.click();
-    SyncHelper.sleep(1000);
+    SyncHelper.sleep(500);
     return ComponentFactory.create(clazz);
   }
 
@@ -146,7 +145,6 @@ public class SignInView extends BaseComponent {
   public void showPassword() {
     logger.info("Click on Show Password button");
     getShowPasswordButton.click();
-    SyncHelper.sleep(500);
   }
 }
 

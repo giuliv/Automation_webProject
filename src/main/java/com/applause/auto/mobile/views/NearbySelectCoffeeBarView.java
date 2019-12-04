@@ -50,10 +50,10 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   @Locate(id = "todo", on = Platform.MOBILE_IOS)
   protected Button getChangeStoreButton;
 
-  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Not Now\"]", on = Platform.MOBILE_IOS)
+  @Locate(iOSNsPredicate = "name=Not Now", on = Platform.MOBILE_IOS)
   protected Button getLocationServicesNotAllowBtn;
 
-  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Allow\"]", on = Platform.MOBILE_IOS)
+  @Locate(iOSNsPredicate = "name='Allow'", on = Platform.MOBILE_IOS)
   protected Button getLocationServicesAllowBtn;
 
   @Locate(id = "Allow While Using App", on = Platform.MOBILE_IOS)
@@ -84,7 +84,7 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
       SyncHelper.sleep(2000);
       allowWhileUsing.click();
     } catch (Throwable throwable) {
-      logger.info("Could not Allow for Location Service");
+      logger.error("Could not Allow for Location Service");
     }
   }
 
