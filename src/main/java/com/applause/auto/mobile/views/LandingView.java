@@ -101,7 +101,6 @@ public class LandingView extends BaseComponent {
     logger.info("Skipping Onboarding");
     // TODO: get rid of hard-coded sleep
     // first sleep to wait for ad disappear
-    SyncHelper.sleep(20000);
     getSkipButton.click();
     SyncHelper.sleep(1000);
   }
@@ -112,7 +111,6 @@ public class LandingView extends BaseComponent {
    * @return
    */
   public String getHeadingTextValue() {
-    SyncHelper.sleep(10000);
     DriverManager.getDriver().getPageSource();
     return getHeadingText.getText();
   }
@@ -129,7 +127,6 @@ class AndroidLandingView extends LandingView {
   public void skipOnboarding() {
     logger.info("Skipping Onboarding");
     getSkipButton.click();
-    SyncHelper.sleep(10000);
   }
 
   public void createAccountAndroid() {

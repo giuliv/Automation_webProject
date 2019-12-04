@@ -204,6 +204,7 @@ public class CreateAccountView extends BaseComponent {
   public PrivacyPolicyView privacyPolicy() {
     logger.info("Tap on Privacy Policy");
     getPrivacyPolicyButton.click();
+    SyncHelper.sleep(10000);
     return ComponentFactory.create(PrivacyPolicyView.class);
   }
 
@@ -215,6 +216,7 @@ public class CreateAccountView extends BaseComponent {
   public TermsAndConditionsView termsAndConditions() {
     logger.info("Tap on Terms and Conditions");
     getTermsAndConditionsButton.click();
+    SyncHelper.sleep(10000);
     return ComponentFactory.create(TermsAndConditionsView.class);
   }
 
