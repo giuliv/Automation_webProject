@@ -2,8 +2,21 @@
 <suite name="All Web Tests" verbose="1" parallel="classes"
        thread-count="1">
     <test name="all" preserve-order="true">
+        <groups>
+            <run>
+                <exclude name="existing-user-checkout"/>
+            </run>
+        </groups>
         <packages>
             <package name="com.applause.auto.test.web" />
         </packages>
+        <classes>
+            <class name="com.applause.auto.test.web.MyAccountTest">
+                <methods>
+                    <exclude name="myAccountPaymentMethod"/>
+                    <exclude name="myAccountSubscriptionsTest"/>
+                </methods>
+            </class>
+        </classes>
     </test>
 </suite>
