@@ -11,7 +11,6 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
-
 import java.time.Duration;
 
 @Implementation(is = CreditCardDetailsView.class, on = Platform.MOBILE_ANDROID)
@@ -142,8 +141,9 @@ public class CreditCardDetailsView extends BaseComponent {
   public PaymentMethodsView clickDeleteYes() {
     logger.info("Confirming Deletion of Card");
     getDeleteYesButton.click();
-//    SyncHelper.sleep(5000);
-    SyncHelper.wait(Until.uiElement(getDeleteYesButton).present().setTimeout(Duration.ofSeconds(10)));
+    //    SyncHelper.sleep(5000);
+    SyncHelper.wait(
+        Until.uiElement(getDeleteYesButton).present().setTimeout(Duration.ofSeconds(10)));
     return ComponentFactory.create(PaymentMethodsView.class);
   }
 
