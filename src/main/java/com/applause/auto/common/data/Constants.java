@@ -45,13 +45,13 @@ public class Constants {
     public static final String LANDING_PAGE_URL =
         TestEnvironment.valueOf(WebHelper.getTestEnvironment()).getEnvironment();
     public static final String SHOP_TEA_PAGE_URL =
-        String.format(LANDING_PAGE_URL, "mighty-leaf-tea");
+        LANDING_PAGE_URL.concat("/mighty-leaf-tea");
     public static final String SHOP_EQUIPMENT_PAGE_URL =
-        String.format(LANDING_PAGE_URL, "equipment");
+        LANDING_PAGE_URL.concat("/equipment");
     public static final String SHOP_PEETS_CARD_PAGE_URL =
-        String.format(LANDING_PAGE_URL, "peets-card");
+        LANDING_PAGE_URL.concat("/peets-card");
     public static final String SHOP_COFFEE_KCUPS_PAGE_URL =
-        String.format(LANDING_PAGE_URL, "coffee/k-cups");
+        LANDING_PAGE_URL.concat("/coffee/k-cups");
 
     public static final String USERNAME = "appautosvc+peetscoffeealternate@applause.com";
     public static final String USERNAME_625882 = "appautosvc+test625882@applause.com";
@@ -64,7 +64,7 @@ public class Constants {
     public static final String GRIND = "Commercial Brewer";
     public static final String GRIND_2 = "Drip";
 
-    public static final String TEA_NAME = "Summer Solstice Loose Leaf";
+    public static final String TEA_NAME = "Organic Turmeric Ginger Tea Bags";
     public static final String TEA_COST_OVER_25_NAME = "Green Tea Tropical Tea Bags";
 
     public static final String EQUIPMENT_NAME = "Fellow Kettle, Silver";
