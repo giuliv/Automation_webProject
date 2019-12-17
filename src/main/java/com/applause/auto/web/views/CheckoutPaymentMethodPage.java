@@ -77,6 +77,9 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
   @Locate(css = "peets-card-please-wait", on = Platform.WEB)
   private ContainerElement getPeetsCardLoadingSpinner;
 
+  @Locate(css = "#cc-container", on = Platform.WEB)
+  private ContainerElement creditCardContainer;
+
   /* -------- Actions -------- */
 
   /** Continue after entering Peets Card info */
@@ -166,7 +169,7 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
   /** Select Debit/Credit Card as payment option */
   public void selectDebitCreditCardOption() {
     logger.info("Selecting the Debit/Credit card Checkbox");
-    if (!getDebitCreditCardCheckbox.isChecked()) {
+    if (!creditCardContainer.isDisplayed()) {
       getDebitCreditCardCheckbox.click();
     }
   }
