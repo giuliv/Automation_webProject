@@ -554,8 +554,8 @@ public class MyAccountTest extends BaseTest {
     EditAccountInformationPage editAccountInformationPage = myAccountPage.clickSettings();
 
     logger.info("7. Enter current password. Select checkbox for Change Password.");
-    editAccountInformationPage.enterCurrentPassword(Constants.TestData.PASSWORD);
     editAccountInformationPage.changeCurrentPassword();
+    editAccountInformationPage.enterCurrentPassword(Constants.TestData.PASSWORD);
 
     logger.info("8. Enter new password, Confirm password, Click Save");
     editAccountInformationPage.enterNewPassword("new" + Constants.MyAccountTestData.PASSWORD);
@@ -571,6 +571,6 @@ public class MyAccountTest extends BaseTest {
         signInPage.userLogin(newAccountEmail, "new" + Constants.MyAccountTestData.PASSWORD);
 
     logger.info("User should be able to log in");
-    Assert.assertNotNull(myAccountPageNew, "Use was not able to log in using new password");
+    Assert.assertNotNull(myAccountPageNew, "User was not able to log in using new password");
   }
 }
