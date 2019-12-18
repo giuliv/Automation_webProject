@@ -6,8 +6,6 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.web.views.Landing;
 
