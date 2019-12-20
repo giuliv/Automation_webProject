@@ -83,11 +83,29 @@ public class SignInPage extends BaseComponent {
   public MyAccountPage mainUserLogin() {
     logger.info("Login with main user");
     String username =
-        (EnvironmentHelper.isSafari(DriverManager.getDriver()))
-            ? Constants.TestData.USERNAME_SAFARI
-            : Constants.TestData.USERNAME;
+            (EnvironmentHelper.isSafari(DriverManager.getDriver()))
+                    ? Constants.TestData.USERNAME_SAFARI
+                    : Constants.TestData.USERNAME;
     enterEmail(username);
     enterPassword(Constants.TestData.PASSWORD);
+    SyncHelper.sleep(5000);
+    getSignInButton.click();
+    return ComponentFactory.create(MyAccountPage.class);
+  }
+
+  /**
+   * Existing User Checkout Login
+   *
+   * @return MyAccountPage
+   */
+  public MyAccountPage existingUserCheckoutLogin() {
+    logger.info("Login with existing user checkout user");
+    String username =
+            (EnvironmentHelper.isSafari(DriverManager.getDriver()))
+                    ? Constants.ExistingUserCheckoutTestData.USERNAME_SAFARI
+                    : Constants.ExistingUserCheckoutTestData.USERNAME;
+    enterEmail(username);
+    enterPassword(Constants.ExistingUserCheckoutTestData.PASSWORD);
     SyncHelper.sleep(5000);
     getSignInButton.click();
     return ComponentFactory.create(MyAccountPage.class);

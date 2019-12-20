@@ -47,9 +47,9 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("2. Log in to UAT");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    MyAccountPage myAccountPage = signInPage.existingUserCheckoutLogin();
     Assert.assertTrue(
-        myAccountPage.getWelcomeMessage().contains("Applause"),
+        myAccountPage.getWelcomeMessage().contains("Testing"),
         "User is not signed in or welcome name is wrong");
 
     logger.info("3. Select a coffee from grid view and add to cart");
@@ -90,9 +90,9 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("2. Log in to UAT");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    MyAccountPage myAccountPage = signInPage.existingUserCheckoutLogin();
     Assert.assertTrue(
-        myAccountPage.getWelcomeMessage().contains("Applause"),
+        myAccountPage.getWelcomeMessage().contains("Testing"),
         "User is not signed in or welcome name is wrong");
 
     logger.info("3. Select a tea from grid view and add to cart");
@@ -143,9 +143,9 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("2. Log in to UAT");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    MyAccountPage myAccountPage = signInPage.existingUserCheckoutLogin();
     Assert.assertTrue(
-        myAccountPage.getWelcomeMessage().contains("Applause"),
+        myAccountPage.getWelcomeMessage().contains("Testing"),
         "User is not signed in or welcome name is wrong");
 
     logger.info("3. Select a equipment from grid view and add to cart");
@@ -184,9 +184,9 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("2. Log in to UAT");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    MyAccountPage myAccountPage = signInPage.existingUserCheckoutLogin();
     Assert.assertTrue(
-        myAccountPage.getWelcomeMessage().contains("Applause"),
+        myAccountPage.getWelcomeMessage().contains("Testing"),
         "User is not signed in or welcome name is wrong");
 
     logger.info("3. Select a Peet's Card and add to cart from the product description page.");
@@ -224,9 +224,9 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("2. Log in to UAT");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    MyAccountPage myAccountPage = signInPage.existingUserCheckoutLogin();
     Assert.assertTrue(
-        myAccountPage.getWelcomeMessage().contains("Applause"),
+        myAccountPage.getWelcomeMessage().contains("Testing"),
         "User is not signed in or welcome name is wrong");
 
     logger.info("3. Select a tea from grid view and add to cart");
@@ -276,9 +276,9 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("2. Log in to UAT");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    MyAccountPage myAccountPage = signInPage.existingUserCheckoutLogin();
     Assert.assertTrue(
-        myAccountPage.getWelcomeMessage().contains("Applause"),
+        myAccountPage.getWelcomeMessage().contains("Testing"),
         "User is not signed in or welcome name is wrong");
 
     logger.info("3. Navigate to Kona Coffee page");
@@ -329,9 +329,9 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("2. Log in to UAT");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    MyAccountPage myAccountPage = signInPage.existingUserCheckoutLogin();
     Assert.assertTrue(
-        myAccountPage.getWelcomeMessage().contains("Applause"),
+        myAccountPage.getWelcomeMessage().contains("Testing"),
         "User is not signed in or w®elcome name is wrong");
 
     logger.info("3. Navigate to Kona Coffee page");
@@ -372,9 +372,9 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("2. Log in to UAT");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    MyAccountPage myAccountPage = signInPage.existingUserCheckoutLogin();
     Assert.assertTrue(
-        myAccountPage.getWelcomeMessage().contains("Applause"),
+        myAccountPage.getWelcomeMessage().contains("Testing"),
         "User is not signed in or welcome name is wrong");
 
     logger.info("3. Select a coffee from grid view and add to cart");
@@ -448,7 +448,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("2. Log in to UAT");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    MyAccountPage myAccountPage = signInPage.existingUserCheckoutLogin();
 
     logger.info("2. Select a tea from grid view and add to cart");
     TopSellersTeaPage shopTeaPage =
@@ -507,7 +507,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("2. Log in to UAT");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    MyAccountPage myAccountPage = signInPage.existingUserCheckoutLogin();
 
     logger.info("2. Select a tea from grid view and add to cart");
     TopSellersTeaPage shopTeaPage =
