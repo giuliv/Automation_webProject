@@ -114,7 +114,10 @@ public class MyAccountTest extends BaseTest {
 
     logger.info("2. Log In");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    signInPage.enterEmailByBrowser(
+            Constants.MyAccountTestData.EMAIL, Constants.MyAccountTestData.SAFARI_ACCOUNT_EMAIL);
+    signInPage.enterPassword(Constants.MyAccountTestData.PASSWORD);
+    MyAccountPage myAccountPage = signInPage.clickonSignInButton();
     Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
     logger.info("3. Select Payment");
@@ -151,13 +154,13 @@ public class MyAccountTest extends BaseTest {
     AssociateNewCardPage associateNewCardPage = paymentMethodsPage.addPeetsCard();
     String alternatePeetsCardNumber =
         (EnvironmentHelper.isSafari(DriverManager.getDriver()))
-            ? Constants.TestData.PEETS_CARD_NUMBER_SAFARI_2
-            : Constants.TestData.PEETS_CARD_NUMBER_CHROME_2;
+            ? Constants.TestData.PEETS_CARD_NUMBER_SAFARI_1
+            : Constants.TestData.PEETS_CARD_NUMBER_2;
     associateNewCardPage.enterCardNumber(alternatePeetsCardNumber);
     String alternatePeetsCardPin =
         (EnvironmentHelper.isSafari(DriverManager.getDriver()))
-            ? Constants.TestData.PEETS_CARD_PIN_SAFARI_2
-            : Constants.TestData.PEETS_CARD_PIN_CHROME_2;
+            ? Constants.TestData.PEETS_CARD_PIN_SAFARI_1
+            : Constants.TestData.PEETS_CARD_PIN_2;
     associateNewCardPage.enterPinNumber(alternatePeetsCardPin);
     paymentMethodsPage = associateNewCardPage.clickAssociateCard();
 
