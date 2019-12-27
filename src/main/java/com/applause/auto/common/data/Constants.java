@@ -159,7 +159,7 @@ public class Constants {
     public static final String LAST_NAME = "QA Test";
   }
 
-  public static final class ExistingUserCheckoutTestData {
+  public static final class CheckoutUserTestData {
     public static final String USERNAME = "app1@peets.com";
     public static final String USERNAME_SAFARI = "app1@peets.com";
     public static final String PASSWORD = "abcde1";
