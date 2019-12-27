@@ -47,7 +47,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("2. Log in to UAT");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    MyAccountPage myAccountPage = signInPage.checkoutUserLogin();
     Assert.assertTrue(
         myAccountPage.getWelcomeMessage().contains("Applause"),
         "User is not signed in or welcome name is wrong");
@@ -90,7 +90,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("2. Log in to UAT");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    MyAccountPage myAccountPage = signInPage.checkoutUserLogin();
     Assert.assertTrue(
         myAccountPage.getWelcomeMessage().contains("Applause"),
         "User is not signed in or welcome name is wrong");
@@ -143,7 +143,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("2. Log in to UAT");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    MyAccountPage myAccountPage = signInPage.checkoutUserLogin();
     Assert.assertTrue(
         myAccountPage.getWelcomeMessage().contains("Applause"),
         "User is not signed in or welcome name is wrong");
@@ -184,7 +184,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("2. Log in to UAT");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    MyAccountPage myAccountPage = signInPage.checkoutUserLogin();
     Assert.assertTrue(
         myAccountPage.getWelcomeMessage().contains("Applause"),
         "User is not signed in or welcome name is wrong");
@@ -224,7 +224,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("2. Log in to UAT");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    MyAccountPage myAccountPage = signInPage.checkoutUserLogin();
     Assert.assertTrue(
         myAccountPage.getWelcomeMessage().contains("Applause"),
         "User is not signed in or welcome name is wrong");
@@ -276,7 +276,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("2. Log in to UAT");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    MyAccountPage myAccountPage = signInPage.checkoutUserLogin();
     Assert.assertTrue(
         myAccountPage.getWelcomeMessage().contains("Applause"),
         "User is not signed in or welcome name is wrong");
@@ -329,7 +329,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("2. Log in to UAT");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    MyAccountPage myAccountPage = signInPage.checkoutUserLogin();
     Assert.assertTrue(
         myAccountPage.getWelcomeMessage().contains("Applause"),
         "User is not signed in or w®elcome name is wrong");
@@ -372,7 +372,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("2. Log in to UAT");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    MyAccountPage myAccountPage = signInPage.checkoutUserLogin();
     Assert.assertTrue(
         myAccountPage.getWelcomeMessage().contains("Applause"),
         "User is not signed in or welcome name is wrong");
@@ -448,7 +448,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("2. Log in to UAT");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    MyAccountPage myAccountPage = signInPage.checkoutUserLogin();
 
     logger.info("2. Select a tea from grid view and add to cart");
     TopSellersTeaPage shopTeaPage =
@@ -507,7 +507,7 @@ public class ExistingUserCheckoutTest extends BaseTest {
 
     logger.info("2. Log in to UAT");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    MyAccountPage myAccountPage = signInPage.checkoutUserLogin();
 
     logger.info("2. Select a tea from grid view and add to cart");
     TopSellersTeaPage shopTeaPage =

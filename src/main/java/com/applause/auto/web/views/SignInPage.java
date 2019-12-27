@@ -11,6 +11,7 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
 
 @Implementation(is = SignInPage.class, on = Platform.WEB)
 public class SignInPage extends BaseComponent {
@@ -76,7 +77,7 @@ public class SignInPage extends BaseComponent {
   }
 
   /**
-   * User Login
+   * Main User Login
    *
    * @return MyAccountPage
    */
@@ -86,10 +87,22 @@ public class SignInPage extends BaseComponent {
         (EnvironmentHelper.isSafari(DriverManager.getDriver()))
             ? Constants.TestData.USERNAME_SAFARI
             : Constants.TestData.USERNAME;
-    enterEmail(username);
-    enterPassword(Constants.TestData.PASSWORD);
-    SyncHelper.sleep(5000);
-    getSignInButton.click();
+    performUserLogin(username, Constants.TestData.PASSWORD);
+    return ComponentFactory.create(MyAccountPage.class);
+  }
+
+  /**
+   * Checkout User Login
+   *
+   * @return MyAccountPage
+   */
+  public MyAccountPage checkoutUserLogin() {
+    logger.info("Login with checkout user");
+    String username =
+        (EnvironmentHelper.isSafari(DriverManager.getDriver()))
+            ? Constants.CheckoutUserTestData.USERNAME_SAFARI
+            : Constants.CheckoutUserTestData.USERNAME;
+    performUserLogin(username, Constants.CheckoutUserTestData.PASSWORD);
     return ComponentFactory.create(MyAccountPage.class);
   }
 
@@ -102,10 +115,7 @@ public class SignInPage extends BaseComponent {
    */
   public MyAccountPage userLogin(String email, String password) {
     logger.info("Login with main user");
-    enterEmail(email);
-    enterPassword(password);
-    SyncHelper.sleep(5000);
-    getSignInButton.click();
+    performUserLogin(email, password);
     return ComponentFactory.create(MyAccountPage.class);
   }
 
@@ -118,5 +128,17 @@ public class SignInPage extends BaseComponent {
     logger.info("Click on Create Account button");
     getCreateAccountButton.click();
     return ComponentFactory.create(SignUpPage.class);
+  }
+
+  /**
+   * Perfom user login
+   *
+   * @param email the email
+   * @param password the password
+   */
+  private void performUserLogin(String email, String password) {
+    enterEmail(email);
+    enterPassword(password);
+    SyncHelper.wait(Until.uiElement(getSignInButton).clickable()).click();
   }
 }
