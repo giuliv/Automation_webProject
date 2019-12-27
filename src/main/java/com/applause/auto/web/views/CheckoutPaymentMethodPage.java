@@ -80,6 +80,12 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
   @Locate(css = "#cc-container", on = Platform.WEB)
   private ContainerElement creditCardContainer;
 
+  @Locate(css = "div.billing-address-item.highlight")
+  private ContainerElement selectedBillingAddress;
+
+  @Locate(xpath = "div.billing-address-item:first-child")
+  private ContainerElement firstBillingAddress;
+
   /* -------- Actions -------- */
 
   /** Continue after entering Peets Card info */
@@ -126,6 +132,7 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
   public CheckoutPlaceOrderPage continueAfterEnteringPIN() {
     logger.info("Entering Credit Card PIN");
     getValidateCSCTextBox.sendKeys(Constants.TestData.VISA_CC_SECURITY_CODE);
+    clickOnFirstBillingAddress();
     getContinuePaymentButton.exists();
     getContinuePaymentButton.click();
     return ComponentFactory.create(CheckoutPlaceOrderPage.class);
@@ -211,5 +218,12 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
   public void continueAfterBillingInfo() {
     logger.info("Click Continue on billing section");
     getContinueButton.click();
+  }
+
+  public void clickOnFirstBillingAddress() {
+    if (!selectedBillingAddress.isDisplayed()) {
+      logger.info("Click on first billing address");
+      SyncHelper.wait(Until.uiElement(firstBillingAddress).clickable()).click();
+    }
   }
 }
