@@ -97,7 +97,7 @@ public class SignInPage extends BaseComponent {
    * @return MyAccountPage
    */
   public MyAccountPage checkoutUserLogin() {
-    logger.info("Login with existing user checkout user");
+    logger.info("Login with checkout user");
     String username =
         (EnvironmentHelper.isSafari(DriverManager.getDriver()))
             ? Constants.ExistingUserCheckoutTestData.USERNAME_SAFARI
