@@ -86,6 +86,9 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
   @Locate(xpath = "div.billing-address-item:first-child")
   private ContainerElement firstBillingAddress;
 
+  @Locate(css = "#shopping-cart-totals-table .total-price .price")
+  private ContainerElement cartTotalPrice;
+
   /* -------- Actions -------- */
 
   /** Continue after entering Peets Card info */
@@ -205,7 +208,9 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
   public CheckoutPlaceOrderPage continueAfterFillingPeetsAndCreditInfo() {
     logger.info("Clicking Continue after filling Peets Card and Credit Card info");
     selectPeetsCardOption();
-    fillPeetsCardInfo(Constants.TestData.PEETS_CARD_LOWEST_AMOUNT);
+    // Using Peet's Card lowest amount, including order total decimals, to avoid payment issues with credit card
+    String totalPriceDecimals = cartTotalPrice.getText().split("\\.")[1];
+    fillPeetsCardInfo(Constants.TestData.PEETS_CARD_LOWEST_AMOUNT.concat("." + totalPriceDecimals));
     SyncHelper.sleep(5000);
     selectDebitCreditCardOption();
     fillBillingInfo();
