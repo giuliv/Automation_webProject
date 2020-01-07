@@ -154,13 +154,13 @@ public class MyAccountTest extends BaseTest {
     AssociateNewCardPage associateNewCardPage = paymentMethodsPage.addPeetsCard();
     String alternatePeetsCardNumber =
         (EnvironmentHelper.isSafari(DriverManager.getDriver()))
-            ? Constants.TestData.PEETS_CARD_NUMBER_SAFARI_1
-            : Constants.TestData.PEETS_CARD_NUMBER_2;
+            ? Constants.TestData.PEETS_CARD_NUMBER_SAFARI
+            : Constants.TestData.PEETS_CARD_NUMBER_CHROME;
     associateNewCardPage.enterCardNumber(alternatePeetsCardNumber);
     String alternatePeetsCardPin =
         (EnvironmentHelper.isSafari(DriverManager.getDriver()))
-            ? Constants.TestData.PEETS_CARD_PIN_SAFARI_1
-            : Constants.TestData.PEETS_CARD_PIN_2;
+            ? Constants.TestData.PEETS_CARD_PIN_SAFARI
+            : Constants.TestData.PEETS_CARD_PIN_CHROME;
     associateNewCardPage.enterPinNumber(alternatePeetsCardPin);
     paymentMethodsPage = associateNewCardPage.clickAssociateCard();
 
