@@ -91,23 +91,14 @@ public class Constants {
     public static final String STATE = "New York";
     public static final String EMAIL = "peets+%s@qa.utest.com";
 
-    public static final String PEETS_CARD_NUMBER = "81001000000583";
-    public static final String PEETS_CARD_PIN = "7038";
-    public static final String PEETS_CARD_NUMBER_2 = "81001000000748";
-    public static final String PEETS_CARD_PIN_2 = "1342";
-
     public static final String PEETS_CARD_LOWEST_AMOUNT = "1";
     public static final String PEETS_CARD_BUY_AMOUNT = "Card +$10.00";
 
-    public static final String PEETS_CARD_NUMBER_CHROME_1 = "81001000001011";
-    public static final String PEETS_CARD_PIN_CHROME_1 = "9056";
-    public static final String PEETS_CARD_NUMBER_CHROME_2 = "81001000000582";
-    public static final String PEETS_CARD_PIN_CHROME_2 = "3839";
+    public static final String PEETS_CARD_NUMBER_CHROME = "81001000000748";
+    public static final String PEETS_CARD_PIN_CHROME = "1342";
 
-    public static final String PEETS_CARD_NUMBER_SAFARI_1 = "81001000000747";
-    public static final String PEETS_CARD_PIN_SAFARI_1 = "3396";
-    public static final String PEETS_CARD_NUMBER_SAFARI_2 = "81001000000584";
-    public static final String PEETS_CARD_PIN_SAFARI_2 = "8240";
+    public static final String PEETS_CARD_NUMBER_SAFARI = "81001000000747";
+    public static final String PEETS_CARD_PIN_SAFARI = "3396";
 
     public static final String VISA_CC_NUMBER = "378282246310005";
     public static final String VISA_CC_SECURITY_CODE = "2222";

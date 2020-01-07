@@ -117,13 +117,13 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     logger.info("Filling Peets Card info");
     String peetsCardNumber =
         (EnvironmentHelper.isSafari(DriverManager.getDriver()))
-            ? Constants.TestData.PEETS_CARD_NUMBER_SAFARI_1
-            : Constants.TestData.PEETS_CARD_NUMBER_CHROME_1;
+            ? Constants.TestData.PEETS_CARD_NUMBER_SAFARI
+            : Constants.TestData.PEETS_CARD_NUMBER_CHROME;
     getPeetsCardNumberTextBox.sendKeys(peetsCardNumber);
     String peetsCardPin =
         (EnvironmentHelper.isSafari(DriverManager.getDriver()))
-            ? Constants.TestData.PEETS_CARD_PIN_SAFARI_1
-            : Constants.TestData.PEETS_CARD_PIN_CHROME_1;
+            ? Constants.TestData.PEETS_CARD_PIN_SAFARI
+            : Constants.TestData.PEETS_CARD_PIN_CHROME;
     getPeetsCardPinTextBox.sendKeys(peetsCardPin);
 
     // Peets card loads its balance after clicking outside the Peets Card fields
