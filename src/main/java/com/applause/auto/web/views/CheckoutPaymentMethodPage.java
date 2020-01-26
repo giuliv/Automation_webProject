@@ -211,9 +211,11 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
   public CheckoutPlaceOrderPage continueAfterFillingPeetsAndCreditInfo() {
     logger.info("Clicking Continue after filling Peets Card and Credit Card info");
     selectPeetsCardOption();
-    // Using Peet's Card lowest amount, including order total decimals, to avoid payment issues with credit card
+    // Using Peet's Card lowest amount, including order total decimals, to avoid payment issues with
+    // credit card
     String totalPriceDecimals = cartTotalPrice.getText().split("\\.")[1];
-    String peetsAmount = Constants.TestData.PEETS_CARD_LOWEST_AMOUNT.concat("." + totalPriceDecimals);
+    String peetsAmount =
+        Constants.TestData.PEETS_CARD_LOWEST_AMOUNT.concat("." + totalPriceDecimals);
     fillPeetsCardInfo(peetsAmount);
     SyncHelper.sleep(5000);
     selectDebitCreditCardOption();
@@ -227,9 +229,11 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
   public CheckoutPlaceOrderPage continueAfterFillingPeetsAndCreditInfoLoggedIn() {
     logger.info("Clicking Continue after filling Peets Card and Credit Card info");
     selectPeetsCardOption();
-    // Using Peet's Card lowest amount, including order total decimals, to avoid payment issues with credit card
+    // Using Peet's Card lowest amount, including order total decimals, to avoid payment issues with
+    // credit card
     String totalPriceDecimals = cartTotalPrice.getText().split("\\.")[1];
-    String peetsAmount = Constants.TestData.PEETS_CARD_LOWEST_AMOUNT.concat("." + totalPriceDecimals);
+    String peetsAmount =
+        Constants.TestData.PEETS_CARD_LOWEST_AMOUNT.concat("." + totalPriceDecimals);
     SyncHelper.wait(Until.uiElement(getStoredPeetsCardAmountTextBox).present());
     getStoredPeetsCardAmountTextBox.sendKeys(peetsAmount);
     selectDebitCreditCardOption();

@@ -66,20 +66,22 @@ public class TestHelper extends BaseComponent {
   }
 
   public PaymentMethodsView deletePaymentMethodTestCardIfAdded(
-      PaymentMethodsView paymentMethodsView) {
-    if (paymentMethodsView.isPaymentMethodTestCardAdded()) {
+      PaymentMethodsView paymentMethodsView, String methodName) {
+    if (paymentMethodsView.isPaymentMethodTestCardAdded(methodName)) {
       logger.info("Deleting previously added payment test card");
       CreditCardDetailsView creditCardDetailsView =
-          paymentMethodsView.clickSavedPaymentMethod(CreditCardDetailsView.class);
+          paymentMethodsView.clickSavedPaymentMethod(CreditCardDetailsView.class, methodName);
       creditCardDetailsView.clickDeleteCard();
       creditCardDetailsView.clickDeleteYes();
 
       // need this workaround because payment card doesn't disappear from the view without
       // refreshing it
-      SyncHelper.sleep(3000);
+      SyncHelper.sleep(10000);
       paymentMethodsView.clickBackButton();
+      SyncHelper.sleep(1000);
       ComponentFactory.create(AccountMenuMobileChunk.class).clickPaymentMethods();
-      SyncHelper.waitUntil(condition -> !paymentMethodsView.isPaymentMethodTestCardAdded());
+      SyncHelper.waitUntil(
+          condition -> !paymentMethodsView.isPaymentMethodTestCardAdded(methodName));
     } else {
       logger.info("There is no test payment card added");
     }

@@ -123,7 +123,8 @@ public class CheckoutShippingInfoPage extends BaseComponent {
   /** Fill Required Fields for Shipping */
   public void fillShippingInfo() {
     logger.info("Filling shipping info");
-    SyncHelper.wait(Until.uiElement(getFirstNameTextBox).visible().setTimeout(Duration.ofSeconds(30)));
+    SyncHelper.wait(
+        Until.uiElement(getFirstNameTextBox).visible().setTimeout(Duration.ofSeconds(30)));
     getFirstNameTextBox.sendKeys(Constants.TestData.FIRST_NAME);
     getLastNameTextBox.sendKeys(Constants.TestData.LAST_NAME);
     getPhoneNumberTextBox.sendKeys(Constants.TestData.PHONE);

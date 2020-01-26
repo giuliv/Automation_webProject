@@ -9,6 +9,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
+import com.applause.auto.util.helper.SyncHelper;
 
 @Implementation(is = AddNewCardView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosAddNewCardView.class, on = Platform.MOBILE_IOS)
@@ -123,6 +124,7 @@ public class AddNewCardView extends BaseComponent {
   public PaymentMethodsView saveCard() {
     logger.info("Saving Payment Method");
     getSaveCardButton.click();
+    SyncHelper.sleep(15000);
     return ComponentFactory.create(PaymentMethodsView.class);
   }
 }
@@ -140,5 +142,13 @@ class IosAddNewCardView extends AddNewCardView {
     logger.info("Making Card Default");
     getKeyboardDoneButton.click();
     getDefaultToggle.click();
+  }
+
+  public PaymentMethodsView saveCard() {
+    logger.info("Saving Payment Method");
+    getKeyboardDoneButton.click();
+    getSaveCardButton.click();
+    SyncHelper.sleep(10000);
+    return ComponentFactory.create(PaymentMethodsView.class);
   }
 }

@@ -10,8 +10,6 @@ import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
-import java.time.Duration;
 
 @Implementation(is = CreditCardDetailsView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosCreditCardDetailsView.class, on = Platform.MOBILE_IOS)
@@ -23,11 +21,13 @@ public class CreditCardDetailsView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/saveCardButton", on = Platform.MOBILE_ANDROID)
   protected Button getSaveCardButton;
 
-  @Locate(iOSNsPredicate = "name='MOBILE TEST'", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//XCUIElementTypeNavigationBar/XCUIElementTypeStaticText",
+      on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/title", on = Platform.MOBILE_ANDROID)
   protected Text getHeaderText;
 
-  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"MOBILE TEST\"]", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeOther/XCUIElementTypeStaticText", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/cardName", on = Platform.MOBILE_ANDROID)
   protected Text getCCNameText;
 
@@ -60,6 +60,19 @@ public class CreditCardDetailsView extends BaseComponent {
   @Locate(id = "Yes", on = Platform.MOBILE_IOS)
   @Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
   protected Button getDeleteYesButton;
+
+  @Locate(iOSClassChain = "**/XCUIElementTypeSwitch", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/defaultSwitch", on = Platform.MOBILE_ANDROID)
+  protected Button getDefaultToggle;
+
+  @Locate(id = "button back", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]",
+      on = Platform.MOBILE_ANDROID)
+  protected Button getBackButton;
+
+  @Locate(id = "Done", on = Platform.MOBILE_IOS)
+  protected Button getKeyboardDoneButton;
 
   /* -------- Actions -------- */
 
@@ -113,6 +126,7 @@ public class CreditCardDetailsView extends BaseComponent {
     logger.info("Save Payment Method");
     DeviceControl.hideKeyboard();
     getSaveCardButton.click();
+    SyncHelper.sleep(10000);
     return ComponentFactory.create(PaymentMethodsView.class);
   }
 
@@ -141,9 +155,9 @@ public class CreditCardDetailsView extends BaseComponent {
   public PaymentMethodsView clickDeleteYes() {
     logger.info("Confirming Deletion of Card");
     getDeleteYesButton.click();
-    //    SyncHelper.sleep(5000);
-    SyncHelper.wait(
-        Until.uiElement(getDeleteYesButton).present().setTimeout(Duration.ofSeconds(10)));
+    SyncHelper.sleep(15000);
+    //    SyncHelper.wait(
+    //        Until.uiElement(getDeleteYesButton).present().setTimeout(Duration.ofSeconds(10)));
     return ComponentFactory.create(PaymentMethodsView.class);
   }
 
@@ -159,6 +173,29 @@ public class CreditCardDetailsView extends BaseComponent {
     // return getExpDateField.getCurrentText();
     return getExpDateFieldForText.getText();
   }
+
+  public void setDefault() {
+    logger.info("Set CC as default");
+    if (!isDefaultSelected()) {
+      logger.info("Click CC switch to default");
+      getDefaultToggle.click();
+    } else {
+      logger.info("Already enabled");
+    }
+  }
+
+  public boolean isDefaultSelected() {
+    logger.info("Checking if default selected");
+    return getDefaultToggle.getAttributeValue("text").equals("ON");
+  }
+
+  /** Click the Back Button */
+  public PaymentMethodsView clickBackButton() {
+    logger.info("Clicking the back button");
+    getBackButton.click();
+    SyncHelper.sleep(5000);
+    return ComponentFactory.create(PaymentMethodsView.class);
+  }
 }
 
 class IosCreditCardDetailsView extends CreditCardDetailsView {
@@ -173,11 +210,22 @@ class IosCreditCardDetailsView extends CreditCardDetailsView {
 
   /* -------- Actions -------- */
 
+  public boolean isDefaultSelected() {
+    logger.info("Checking if default selected");
+    return getDefaultToggle.getAttributeValue("value").equals("1");
+  }
+
   public PaymentMethodsView saveCard() {
     logger.info("Save Payment Method");
-    getKeyboardDoneButton.click();
+    try {
+      getKeyboardDoneButton.click();
+    } catch (Throwable th) {
+      logger.info("No Done button found");
+    }
     getSaveCardButton.click();
+    SyncHelper.sleep(10000);
     getBackButton.click();
+    SyncHelper.sleep(5000);
     return ComponentFactory.create(PaymentMethodsView.class);
   }
 }

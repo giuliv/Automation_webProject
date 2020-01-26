@@ -14,7 +14,6 @@ import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
 import com.applause.auto.web.helpers.WebHelper;
-
 import java.time.Duration;
 
 @Implementation(is = CreateSubscriptionChunk.class, on = Platform.WEB)
@@ -45,7 +44,11 @@ public class CreateSubscriptionChunk extends BaseComponent {
     // SyncHelper.waitUntilElementPresent(getNewSubscriptionButton.getAbsoluteSelector());
     // WebHelper.waitForElementToBeClickable(getNewSubscriptionButton.getWebElement());
     // getNewSubscriptionButton.click();
-    SyncHelper.wait(Until.uiElement(getNewSubscriptionButton).clickable().setTimeout(Duration.ofSeconds(60))).click();
+    SyncHelper.wait(
+            Until.uiElement(getNewSubscriptionButton)
+                .clickable()
+                .setTimeout(Duration.ofSeconds(60)))
+        .click();
   }
 
   /*
