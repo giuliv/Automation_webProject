@@ -53,7 +53,7 @@ public class PaymentMethodsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getSavedPaymentMethod2Button;
 
-  @Locate(iOSNsPredicate = "name='%s'", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//*[contains(@name,'%s')]", on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
           "//android.widget.TextView[contains(@resource-id, 'id/cardName') and contains(@text,'%s')]",
