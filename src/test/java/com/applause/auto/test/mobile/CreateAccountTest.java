@@ -33,14 +33,12 @@ public class CreateAccountTest extends BaseTest {
       groups = {TestNGGroups.ONBOARDING},
       description = "625879")
   public void footerLinksTest() {
-
     logger.info("Launch the app and arrive at the first onboarding screen view");
     LandingView landingView = ComponentFactory.create(LandingView.class);
     Assert.assertEquals(
         landingView.getHeadingTextValue(),
         "Earn Rewards.",
         "First screen text value is not correct");
-
     landingView.skipOnboarding();
 
     logger.info("Tap Create Account");
@@ -62,11 +60,8 @@ public class CreateAccountTest extends BaseTest {
     MobileHelper.activateApp();
 
     // after activate app is called on Android with app's package id - the landing view is loaded.
-    // Probably iOS will load previous state. This should be checked
-    landingView.skipOnboarding();
-
-    logger.info("Tap Create Account");
-    createAccountView = landingView.createAccount();
+    // iOS loads previous state!
+    landingView.createAccountNavigation();
 
     logger.info("Scroll down and check the footer links");
     MobileHelper.swipeWithCount(SwipeDirection.UP, 3);
@@ -125,7 +120,6 @@ public class CreateAccountTest extends BaseTest {
       groups = {TestNGGroups.ONBOARDING},
       description = "625925")
   public void accountSettingsEditProfileTest() {
-
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = ComponentFactory.create(LandingView.class);
     softAssert.assertEquals(
@@ -220,7 +214,6 @@ public class CreateAccountTest extends BaseTest {
       groups = {TestNGGroups.ONBOARDING},
       description = "625927")
   public void accountSettingsGeneralSettingsTest() {
-
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = ComponentFactory.create(LandingView.class);
     Assert.assertEquals(
@@ -294,6 +287,7 @@ public class CreateAccountTest extends BaseTest {
 
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = ComponentFactory.create(LandingView.class);
+    // will fail as this view is shown randomly
     softAssert.assertEquals(
         landingView.getHeadingTextValue(),
         "Earn Rewards.",

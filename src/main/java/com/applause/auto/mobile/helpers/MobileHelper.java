@@ -44,6 +44,7 @@ public class MobileHelper {
 
   /** Activates the app */
   public static void activateApp() {
+    logger.info("Activate application");
     if (EnvironmentHelper.isMobileAndroid(getMobileDriver())) {
       getMobileDriver().activateApp(MobileApp.ANDROID_PACKAGE_ID);
     }

@@ -114,7 +114,10 @@ public class MyAccountTest extends BaseTest {
 
     logger.info("2. Log In");
     SignInPage signInPage = landing.clickSignInButton();
-    MyAccountPage myAccountPage = signInPage.mainUserLogin();
+    signInPage.enterEmailByBrowser(
+            Constants.MyAccountTestData.EMAIL, Constants.MyAccountTestData.SAFARI_ACCOUNT_EMAIL);
+    signInPage.enterPassword(Constants.MyAccountTestData.PASSWORD);
+    MyAccountPage myAccountPage = signInPage.clickonSignInButton();
     Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
     logger.info("3. Select Payment");
@@ -151,13 +154,13 @@ public class MyAccountTest extends BaseTest {
     AssociateNewCardPage associateNewCardPage = paymentMethodsPage.addPeetsCard();
     String alternatePeetsCardNumber =
         (EnvironmentHelper.isSafari(DriverManager.getDriver()))
-            ? Constants.TestData.PEETS_CARD_NUMBER_SAFARI_2
-            : Constants.TestData.PEETS_CARD_NUMBER_CHROME_2;
+            ? Constants.TestData.PEETS_CARD_NUMBER_SAFARI
+            : Constants.TestData.PEETS_CARD_NUMBER_CHROME;
     associateNewCardPage.enterCardNumber(alternatePeetsCardNumber);
     String alternatePeetsCardPin =
         (EnvironmentHelper.isSafari(DriverManager.getDriver()))
-            ? Constants.TestData.PEETS_CARD_PIN_SAFARI_2
-            : Constants.TestData.PEETS_CARD_PIN_CHROME_2;
+            ? Constants.TestData.PEETS_CARD_PIN_SAFARI
+            : Constants.TestData.PEETS_CARD_PIN_CHROME;
     associateNewCardPage.enterPinNumber(alternatePeetsCardPin);
     paymentMethodsPage = associateNewCardPage.clickAssociateCard();
 
@@ -554,8 +557,8 @@ public class MyAccountTest extends BaseTest {
     EditAccountInformationPage editAccountInformationPage = myAccountPage.clickSettings();
 
     logger.info("7. Enter current password. Select checkbox for Change Password.");
-    editAccountInformationPage.enterCurrentPassword(Constants.TestData.PASSWORD);
     editAccountInformationPage.changeCurrentPassword();
+    editAccountInformationPage.enterCurrentPassword(Constants.TestData.PASSWORD);
 
     logger.info("8. Enter new password, Confirm password, Click Save");
     editAccountInformationPage.enterNewPassword("new" + Constants.MyAccountTestData.PASSWORD);
@@ -571,6 +574,6 @@ public class MyAccountTest extends BaseTest {
         signInPage.userLogin(newAccountEmail, "new" + Constants.MyAccountTestData.PASSWORD);
 
     logger.info("User should be able to log in");
-    Assert.assertNotNull(myAccountPageNew, "Use was not able to log in using new password");
+    Assert.assertNotNull(myAccountPageNew, "User was not able to log in using new password");
   }
 }

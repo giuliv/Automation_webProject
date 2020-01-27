@@ -275,6 +275,51 @@ class IosProfileDetailsView extends ProfileDetailsView {
 
   /* -------- Actions -------- */
 
+  /**
+   * Gets zip code.
+   *
+   * @return the zip code
+   */
+  public String getZipCode() {
+    return getZipCodeTextBox.getAttributeValue("value");
+  }
+
+  /**
+   * Gets email address.
+   *
+   * @return the email address
+   */
+  public String getEmailAddress() {
+    return getEmailAddressTextBox.getAttributeValue("value");
+  }
+
+  /**
+   * Gets phone number.
+   *
+   * @return the phone number
+   */
+  public String getPhoneNumber() {
+    return getPhoneNumberTextBox.getAttributeValue("value");
+  }
+
+  /**
+   * Gets firstname.
+   *
+   * @return the firstname
+   */
+  public String getFirstname() {
+    return getFirstnameTextBox.getAttributeValue("value");
+  }
+
+  /**
+   * Gets lastname.
+   *
+   * @return the lastname
+   */
+  public String getLastname() {
+    return getLastnameTextBox.getAttributeValue("value");
+  }
+
   public AccountMenuMobileChunk save() {
     logger.info("Click on SAVE button");
     getDoneButton.click();

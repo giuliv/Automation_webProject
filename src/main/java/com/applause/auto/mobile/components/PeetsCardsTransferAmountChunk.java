@@ -26,9 +26,7 @@ public class PeetsCardsTransferAmountChunk extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/pinCode", on = Platform.MOBILE_ANDROID)
   protected TextBox getCardPinTextBox;
 
-  @Locate(
-      xpath = "(//XCUIElementTypeButton[@name=\"Transfer Value\"])[2]",
-      on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Transfer Value\"]", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/mergeCards", on = Platform.MOBILE_ANDROID)
   protected Button getTransferButton;
 
@@ -106,5 +104,24 @@ class IOSPeetsCardsTransferAmountChunk extends PeetsCardsTransferAmountChunk {
     MobileHelper.hideKeyboardIOSByPressDone();
     getTransferButton.click();
     return ComponentFactory.create(PeetsCardsTransferAmountWarningChunk.class);
+  }
+
+  /**
+   * Gets card number.
+   *
+   * @return the card number
+   */
+  @Override
+  public String getCardNumber() {
+    return StringUtils.deleteWhitespace(getCardNumberTextBox.getAttributeValue("value"));
+  }
+
+  /**
+   * Gets pin number.
+   *
+   * @return the pin number
+   */
+  public String getPinNumber() {
+    return StringUtils.deleteWhitespace(getCardPinTextBox.getAttributeValue("value"));
   }
 }

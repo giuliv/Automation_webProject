@@ -38,6 +38,9 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
   @Locate(css = "#custompayment_pc_amount", on = Platform.WEB)
   private TextBox getPeetsCardAmountTextBox;
 
+  @Locate(xpath = "//input[contains(@id, 'stored_pc_amount')]")
+  private TextBox getStoredPeetsCardAmountTextBox;
+
   @Locate(css = "#cc-title > label", on = Platform.WEB)
   private Checkbox getDebitCreditCardCheckbox;
 
@@ -77,6 +80,18 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
   @Locate(css = "peets-card-please-wait", on = Platform.WEB)
   private ContainerElement getPeetsCardLoadingSpinner;
 
+  @Locate(css = "#cc-container", on = Platform.WEB)
+  private ContainerElement creditCardContainer;
+
+  @Locate(css = "div.billing-address-item.highlight")
+  private ContainerElement selectedBillingAddress;
+
+  @Locate(xpath = "div.billing-address-item:first-child")
+  private ContainerElement firstBillingAddress;
+
+  @Locate(css = "#shopping-cart-totals-table .total-price .price")
+  private ContainerElement cartTotalPrice;
+
   /* -------- Actions -------- */
 
   /** Continue after entering Peets Card info */
@@ -102,13 +117,13 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     logger.info("Filling Peets Card info");
     String peetsCardNumber =
         (EnvironmentHelper.isSafari(DriverManager.getDriver()))
-            ? Constants.TestData.PEETS_CARD_NUMBER_SAFARI_1
-            : Constants.TestData.PEETS_CARD_NUMBER_CHROME_1;
+            ? Constants.TestData.PEETS_CARD_NUMBER_SAFARI
+            : Constants.TestData.PEETS_CARD_NUMBER_CHROME;
     getPeetsCardNumberTextBox.sendKeys(peetsCardNumber);
     String peetsCardPin =
         (EnvironmentHelper.isSafari(DriverManager.getDriver()))
-            ? Constants.TestData.PEETS_CARD_PIN_SAFARI_1
-            : Constants.TestData.PEETS_CARD_PIN_CHROME_1;
+            ? Constants.TestData.PEETS_CARD_PIN_SAFARI
+            : Constants.TestData.PEETS_CARD_PIN_CHROME;
     getPeetsCardPinTextBox.sendKeys(peetsCardPin);
 
     // Peets card loads its balance after clicking outside the Peets Card fields
@@ -123,6 +138,7 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
   public CheckoutPlaceOrderPage continueAfterEnteringPIN() {
     logger.info("Entering Credit Card PIN");
     getValidateCSCTextBox.sendKeys(Constants.TestData.VISA_CC_SECURITY_CODE);
+    clickOnFirstBillingAddress();
     getContinuePaymentButton.exists();
     getContinuePaymentButton.click();
     return ComponentFactory.create(CheckoutPlaceOrderPage.class);
@@ -166,7 +182,7 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
   /** Select Debit/Credit Card as payment option */
   public void selectDebitCreditCardOption() {
     logger.info("Selecting the Debit/Credit card Checkbox");
-    if (!getDebitCreditCardCheckbox.isChecked()) {
+    if (!creditCardContainer.isDisplayed()) {
       getDebitCreditCardCheckbox.click();
     }
   }
@@ -195,7 +211,10 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
   public CheckoutPlaceOrderPage continueAfterFillingPeetsAndCreditInfo() {
     logger.info("Clicking Continue after filling Peets Card and Credit Card info");
     selectPeetsCardOption();
-    fillPeetsCardInfo(Constants.TestData.PEETS_CARD_LOWEST_AMOUNT);
+    // Using Peet's Card lowest amount, including order total decimals, to avoid payment issues with credit card
+    String totalPriceDecimals = cartTotalPrice.getText().split("\\.")[1];
+    String peetsAmount = Constants.TestData.PEETS_CARD_LOWEST_AMOUNT.concat("." + totalPriceDecimals);
+    fillPeetsCardInfo(peetsAmount);
     SyncHelper.sleep(5000);
     selectDebitCreditCardOption();
     fillBillingInfo();
@@ -204,9 +223,30 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     return ComponentFactory.create(CheckoutPlaceOrderPage.class);
   }
 
+  /** Continue after entering Peets and Credit Card Billing Info */
+  public CheckoutPlaceOrderPage continueAfterFillingPeetsAndCreditInfoLoggedIn() {
+    logger.info("Clicking Continue after filling Peets Card and Credit Card info");
+    selectPeetsCardOption();
+    // Using Peet's Card lowest amount, including order total decimals, to avoid payment issues with credit card
+    String totalPriceDecimals = cartTotalPrice.getText().split("\\.")[1];
+    String peetsAmount = Constants.TestData.PEETS_CARD_LOWEST_AMOUNT.concat("." + totalPriceDecimals);
+    SyncHelper.wait(Until.uiElement(getStoredPeetsCardAmountTextBox).present());
+    getStoredPeetsCardAmountTextBox.sendKeys(peetsAmount);
+    selectDebitCreditCardOption();
+    continueAfterEnteringPIN();
+    return ComponentFactory.create(CheckoutPlaceOrderPage.class);
+  }
+
   /** Click continue after billing info section */
   public void continueAfterBillingInfo() {
     logger.info("Click Continue on billing section");
     getContinueButton.click();
+  }
+
+  public void clickOnFirstBillingAddress() {
+    if (!selectedBillingAddress.isDisplayed()) {
+      logger.info("Click on first billing address");
+      SyncHelper.wait(Until.uiElement(firstBillingAddress).clickable()).click();
+    }
   }
 }

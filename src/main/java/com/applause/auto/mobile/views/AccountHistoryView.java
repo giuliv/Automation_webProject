@@ -28,7 +28,8 @@ public class AccountHistoryView extends BaseComponent {
   protected List<Text> getTransactionDividersText;
 
   @Locate(
-      xpath = "//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[3]",
+      iOSClassChain =
+          "**/XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[`name MATCHES[c] '.*[\\$].*'`]",
       on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/transactionAmount",
@@ -36,15 +37,8 @@ public class AccountHistoryView extends BaseComponent {
   protected List<Text> getTransactionAmountText;
 
   @Locate(
-      xpath = "//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[2]",
-      on = Platform.MOBILE_IOS)
-  @Locate(
-      id = "com.wearehathway.peets.development:id/transactionTitle",
-      on = Platform.MOBILE_ANDROID)
-  protected List<Text> getTransactionNamesText;
-
-  @Locate(
-      xpath = "//XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[1]",
+      iOSClassChain =
+          "**/XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[`name MATCHES[c] '.*[,][ ].*'`]",
       on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/transactionDate",

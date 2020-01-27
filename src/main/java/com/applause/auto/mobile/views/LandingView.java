@@ -3,7 +3,6 @@ package com.applause.auto.mobile.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.components.ReportAProblemPopupChunk;
-import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -29,7 +28,7 @@ public class LandingView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/skipTextView", on = Platform.MOBILE_ANDROID)
   protected Button getSkipButton;
 
-  @Locate(id = "//XCUIElementTypeButton[@name='Create Account']", on = Platform.MOBILE_IOS)
+  @Locate(iOSNsPredicate = "name='Create Account'", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/signUp", on = Platform.MOBILE_ANDROID)
   protected Button getCreateAccountButton;
 
@@ -57,6 +56,12 @@ public class LandingView extends BaseComponent {
     return ComponentFactory.create(ReportAProblemPopupChunk.class);
   }
 
+  @Override
+  public void afterInit() {
+    super.afterInit();
+    getReportAProblemPopupChunk().waitForPopUpToDisappear();
+  }
+
   /**
    * Swipe left on tutorial view and expect to arrive at next view
    *
@@ -79,16 +84,6 @@ public class LandingView extends BaseComponent {
     return ComponentFactory.create(CreateAccountView.class);
   }
 
-  /** Skip offer. */
-  public void skipOffer() {
-    logger.info("Swipe left and verify Explore Offers screen has correct title");
-    MobileHelper.swipeWithCount(SwipeDirection.UP, 3);
-    ExploreOffersView exploreOffersView = swipeLeftOnScreen();
-    PayFasterView payFasterView = exploreOffersView.swipeLeftOnScreen();
-    OrderAheadView orderAheadView = payFasterView.swipeLeftOnScreen();
-    AuthenticationView authenticationView = orderAheadView.clickGetStartedButton();
-  }
-
   /**
    * Sign in sign in view.
    *
@@ -97,16 +92,20 @@ public class LandingView extends BaseComponent {
   public SignInView signIn() {
     logger.info("Click on Sign In button");
     getSignInButton.click();
+    SyncHelper.sleep(1000);
     return ComponentFactory.create(SignInView.class);
   }
 
   /** Skip onboarding. */
   public void skipOnboarding() {
     logger.info("Skipping Onboarding");
-    // TODO: get rid of hard-coded sleep
-    SyncHelper.sleep(20000);
-    getSkipButton.click();
-    SyncHelper.sleep(10000);
+    // this try catch is needed for iOS, since sometimes iOS test is starting on sign in/sign up
+    // view
+    try {
+      getSkipButton.click();
+    } catch (Exception e) {
+      logger.error("Error while skipping the Landing View");
+    }
   }
 
   /**
@@ -115,9 +114,12 @@ public class LandingView extends BaseComponent {
    * @return
    */
   public String getHeadingTextValue() {
-    SyncHelper.sleep(3000);
     DriverManager.getDriver().getPageSource();
     return getHeadingText.getText();
+  }
+
+  public void createAccountNavigation() {
+    logger.info("Skipping create account navigation Steps");
   }
 }
 
@@ -128,7 +130,13 @@ class AndroidLandingView extends LandingView {
   public void skipOnboarding() {
     logger.info("Skipping Onboarding");
     getSkipButton.click();
-    SyncHelper.sleep(10000);
+  }
+
+  @Override
+  public void createAccountNavigation() {
+    skipOnboarding();
+    logger.info("Tap Create Account");
+    createAccount();
   }
 
   // implemented this method for Android, but it looks like it is redundant

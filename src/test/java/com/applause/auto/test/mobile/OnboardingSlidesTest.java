@@ -33,10 +33,6 @@ public class OnboardingSlidesTest extends BaseTest {
         "First screen text value is not correct");
 
     logger.info("Swipe left and verify Explore Offers screen has correct title");
-    // SyncHelper.sleep(5000); need to wait for a pop instead of sleep,
-    // since sometimes it is overlapping swiping area and appear later
-    landingView.getReportAProblemPopupChunk().waitForPopUpToDisappear();
-
     ExploreOffersView exploreOffersView = landingView.swipeLeftOnScreen();
     Assert.assertEquals(
         exploreOffersView.getHeadingTextValue(),

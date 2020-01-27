@@ -6,6 +6,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.web.views.Landing;
 
 @Implementation(is = AccountMenuChunk.class, on = Platform.WEB)
@@ -28,9 +29,9 @@ public class AccountMenuChunk extends BaseComponent {
    */
   public Landing signOut() {
     logger.info("Expanding menu");
-    getExpandMenuButton.click();
+    WebHelper.jsClick(getExpandMenuButton.getWebElement());
     logger.info("Click on Sign Out button");
-    getSignOutButton.click();
+    WebHelper.jsClick(getSignOutButton.getWebElement());
     return ComponentFactory.create(Landing.class);
   }
 }
