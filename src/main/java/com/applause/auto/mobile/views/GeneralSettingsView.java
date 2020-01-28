@@ -72,7 +72,8 @@ public class GeneralSettingsView extends BaseComponent {
   public <T extends BaseComponent> T goBack(Class<T> clazz) {
     logger.info("Tap back button");
     getBackButton.click();
-    return ComponentFactory.create(clazz, "");
+    SyncHelper.sleep(2000);
+    return ComponentFactory.create(clazz);
   }
 
   /**
