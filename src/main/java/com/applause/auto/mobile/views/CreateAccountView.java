@@ -16,11 +16,13 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
+
+import org.openqa.selenium.Dimension;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-import org.openqa.selenium.Dimension;
 
 @Implementation(is = AndroidCreateAccountView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CreateAccountView.class, on = Platform.MOBILE_IOS)
@@ -169,7 +171,7 @@ public class CreateAccountView extends BaseComponent {
 
   @Locate(
       xpath =
-          "//XCUIElementTypeTextView[contains(@value,'I agree to the Privacy Policy and Terms')]/following-sibling::XCUIElementTypeButton",
+          "(//XCUIElementTypeTextView[contains(@value,'I agree to the Privacy Policy and Terms')]/following-sibling::XCUIElementTypeButton | //XCUIElementTypeTextView[contains(@value,'I agree to the Privacy Policy and Terms')]/preceding-sibling::XCUIElementTypeButton)[1]",
       on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/agreePrivacyPolicyCheckBox",
