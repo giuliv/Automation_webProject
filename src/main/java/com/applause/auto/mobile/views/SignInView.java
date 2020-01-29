@@ -5,15 +5,19 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
+
+import java.time.Duration;
 
 @Implementation(is = AndroidSignInView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = SignInView.class, on = Platform.MOBILE_IOS)
@@ -57,6 +61,29 @@ public class SignInView extends BaseComponent {
       on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/password", on = Platform.MOBILE_ANDROID)
   protected TextBox getUnEncryptedPasswordTextBox;
+
+  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Forgot Password?\"]", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/forgotPassword", on = Platform.MOBILE_ANDROID)
+  protected Button getForgotPasswordButton;
+
+  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"At least 6 characters\"]", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/passwordRule1TextView", on = Platform.MOBILE_ANDROID)
+  protected TextBox getPasswordLengthRequirementTextBox;
+
+  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"At least 1 number\"]", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/passwordRule2TextView", on = Platform.MOBILE_ANDROID)
+  protected TextBox getPasswordContainsNumbersRequirementTextBox;
+
+  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"At least 1 letter\"]", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/passwordRule3TextView", on = Platform.MOBILE_ANDROID)
+  protected TextBox getPasswordContainsLettersRequirementTextBox;
+
+  @Locate(
+      xpath =
+          "//XCUIElementTypeApplication[@name=\"Peets-Sandbox\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther",
+          on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/loader", on = Platform.MOBILE_ANDROID)
+  protected ContainerElement getLoader;
 
   /* -------- Actions -------- */
 
@@ -137,7 +164,8 @@ public class SignInView extends BaseComponent {
   public <T extends BaseComponent> T signIn(Class<T> clazz) {
     logger.info("Click on Sign In button");
     getSignInButton.click();
-    SyncHelper.sleep(500);
+    SyncHelper.wait(Until.uiElement(getLoader).visible());
+    SyncHelper.wait(Until.uiElement(getLoader).notVisible());
     return ComponentFactory.create(clazz);
   }
 
@@ -145,6 +173,78 @@ public class SignInView extends BaseComponent {
   public void showPassword() {
     logger.info("Click on Show Password button");
     getShowPasswordButton.click();
+  }
+
+  /**
+   * Is email field displayed
+   *
+   * @return boolean
+   */
+  public boolean isEmailFieldDisplayed() {
+    return getUsernameTextBox.isDisplayed();
+  }
+
+  /**
+   * Is password field displayed
+   *
+   * @return boolean
+   */
+  public boolean isPasswordFieldDisplayed() {
+    return getPasswordTextBox.isDisplayed();
+  }
+
+  /**
+   * Is show password button displayed
+   *
+   * @return boolean
+   */
+  public boolean isShowPasswordButtonDisplayed() {
+    return getShowPasswordButton.isDisplayed();
+  }
+
+  /**
+   * Is forgot password link displayed
+   *
+   * @return boolean
+   */
+  public boolean isForgotPasswordLinkDisplayed() {
+    return getForgotPasswordButton.isDisplayed();
+  }
+
+  /**
+   * Is sign in button enabled
+   *
+   * @return boolean
+   */
+  public boolean isSignInButtonEnabled() {
+    return getSignInButton.isEnabled();
+  }
+
+  /**
+   * Is password length requirement displayed
+   *
+   * @return boolean
+   */
+  public boolean isPasswordLengthRequirementDisplayed() {
+    return getPasswordLengthRequirementTextBox.isDisplayed();
+  }
+
+  /**
+   * Is password contains numbers requirement displayed
+   *
+   * @return boolean
+   */
+  public boolean isPasswordContainsNumbersRequirementDisplayed() {
+    return getPasswordContainsNumbersRequirementTextBox.isDisplayed();
+  }
+
+  /**
+   * Is password contains letters requirement displayed
+   *
+   * @return boolean
+   */
+  public boolean isPasswordContainsLettersRequirementDisplayed() {
+    return getPasswordContainsLettersRequirementTextBox.isDisplayed();
   }
 }
 
@@ -196,10 +296,18 @@ class AndroidSignInView extends SignInView {
     return getMessageTextBox.getAttributeValue("text");
   }
 
+  @Override
+  public boolean isShowPasswordButtonDisplayed() {
+    // There's no show password element id for Android
+    return true;
+  }
+
   public <T extends BaseComponent> T signIn(Class<T> clazz) {
     logger.info("Click on Sign In button");
     DeviceControl.hideKeyboard();
     getSignInButton.click();
+    SyncHelper.wait(Until.uiElement(getLoader).present());
+    SyncHelper.wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(30)));
     return ComponentFactory.create(clazz);
   }
 }
