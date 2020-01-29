@@ -93,6 +93,21 @@ public class CreateAccountTest extends BaseTest {
     logger.info("Tap Sign In");
     SignInView signInView = landingView.signIn();
 
+    logger.info("Make sure email field is displayed to user");
+    Assert.assertTrue(signInView.isEmailFieldDisplayed(), "Email field is not displayed");
+
+    logger.info("Make sure password field is displayed to user");
+    Assert.assertTrue(signInView.isPasswordFieldDisplayed(), "Password field is not displayed");
+
+    logger.info("Make sure show password button is displayed to user");
+    Assert.assertTrue(signInView.isShowPasswordButtonDisplayed(), "Show password button is not displayed");
+
+    logger.info("Make sure forgot password link is displayed to user");
+    Assert.assertTrue(signInView.isForgotPasswordLinkDisplayed(), "Forgot password link is not displayed");
+
+    logger.info("Make sure sign in button is disabled");
+    Assert.assertFalse(signInView.isSignInButtonEnabled(), "Sign in button is not disabled");
+
     logger.info("Tap on Email Address field and enter valid email address");
     String username = MyAccountTestData.EMAIL;
     signInView.setUsername(username);
@@ -108,6 +123,21 @@ public class CreateAccountTest extends BaseTest {
     logger.info("Make sure password entered is displayed to user");
     Assert.assertEquals(
         signInView.getUnEncryptedPassword(), MyAccountTestData.PASSWORD, "Password does not shown");
+
+    logger.info("Make sure password length requirement is displayed");
+    Assert.assertTrue(signInView.isPasswordLengthRequirementDisplayed(),
+            "Password length requirement is not displayed");
+
+    logger.info("Make sure password contains numbers requirement is displayed");
+    Assert.assertTrue(signInView.isPasswordContainsNumbersRequirementDisplayed(),
+            "Password contains numbers requirement is not displayed");
+
+    logger.info("Make sure password contains letters requirement is displayed");
+    Assert.assertTrue(signInView.isPasswordContainsLettersRequirementDisplayed(),
+            "Password contains letters requirement is not displayed");
+
+    logger.info("Make sure sign in button is enabled");
+    Assert.assertTrue(signInView.isSignInButtonEnabled(), "Sign in button is not enabled");
 
     logger.info("Tap Sign In button");
     DashboardView dashboardView = signInView.signIn();
