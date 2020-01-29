@@ -44,12 +44,9 @@ public class Constants {
   public static final class TestData {
     public static final String LANDING_PAGE_URL =
         TestEnvironment.valueOf(WebHelper.getTestEnvironment()).getEnvironment();
-    public static final String SHOP_TEA_PAGE_URL =
-        LANDING_PAGE_URL.concat("/mighty-leaf-tea");
-    public static final String SHOP_EQUIPMENT_PAGE_URL =
-        LANDING_PAGE_URL.concat("/equipment");
-    public static final String SHOP_PEETS_CARD_PAGE_URL =
-        LANDING_PAGE_URL.concat("/peets-card");
+    public static final String SHOP_TEA_PAGE_URL = LANDING_PAGE_URL.concat("/mighty-leaf-tea");
+    public static final String SHOP_EQUIPMENT_PAGE_URL = LANDING_PAGE_URL.concat("/equipment");
+    public static final String SHOP_PEETS_CARD_PAGE_URL = LANDING_PAGE_URL.concat("/peets-card");
     public static final String SHOP_COFFEE_KCUPS_PAGE_URL =
         LANDING_PAGE_URL.concat("/coffee/k-cups");
 

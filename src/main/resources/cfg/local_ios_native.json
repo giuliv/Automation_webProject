@@ -1,12 +1,13 @@
 {
-  "device_name" : "Local iOS Native",
+  "device_name" : "Taras's iPhone",
   "driver_type" : "iOS",
   "factory_key" : "MOBILE_IOS",
   "caps" : {
     "platformName": "iOS",
-    "platformVersion": "11.4",
-    "deviceName": "R2D2",
-    "udid": "48b55bb923a1001e8e9e8ec9e7b116ba75a3d9f7",
-    "automationName": "XCUITest"
+    "platformVersion": "13.2.3",
+    "deviceName": "Taras's iPhone",
+    "udid": "fcc180e805c87c8e3e6317331a77d63428e6b841",
+    "automationName": "XCUITest",
+    "app" : "/Users/tlytvyn/projects/peetscoffee.auto/Peets-Sandbox_18.7.4.ipa"
   }
 }

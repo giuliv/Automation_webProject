@@ -45,7 +45,11 @@ public class CreateSubscriptionChunk extends BaseComponent {
     // SyncHelper.waitUntilElementPresent(getNewSubscriptionButton.getAbsoluteSelector());
     // WebHelper.waitForElementToBeClickable(getNewSubscriptionButton.getWebElement());
     // getNewSubscriptionButton.click();
-    SyncHelper.wait(Until.uiElement(getNewSubscriptionButton).clickable().setTimeout(Duration.ofSeconds(60))).click();
+    SyncHelper.wait(
+            Until.uiElement(getNewSubscriptionButton)
+                .clickable()
+                .setTimeout(Duration.ofSeconds(60)))
+        .click();
   }
 
   /*

@@ -11,8 +11,6 @@ import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Implementation(is = NewOrderView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosNewOrderView.class, on = Platform.MOBILE_IOS)
@@ -29,24 +27,13 @@ public class NewOrderView extends BaseComponent {
   protected ContainerElement getCategoryItem;
 
   @Locate(
-      xpath =
-          "//XCUIElementTypeStaticText[@name=\"%s\"]/preceding-sibling::XCUIElementTypeStaticText",
+      xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]/preceding-sibling::*[@name='%s']",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "//android.widget.TextView[@text=\"%s\"]/../following-sibling::android.support.v7.widget.RecyclerView/android.support.v7.widget.LinearLayoutCompat/android.widget.TextView",
+          "//android.widget.TextView[@text=\"%s\"]//parent::*/following-sibling::*[contains(@resource-id, 'subcategories')]//*[contains(@text, '%s')]",
       on = Platform.MOBILE_ANDROID)
-  protected List<ContainerElement> getCategoryItemsElements;
-
-  @Locate(
-      xpath =
-          "//XCUIElementTypeStaticText[@name=\"%s\"]/preceding-sibling::XCUIElementTypeStaticText[@name=\"%s\"]",
-      on = Platform.MOBILE_IOS)
-  @Locate(
-      xpath =
-          "//android.widget.TextView[@text=\"%s\"]/../following-sibling::android.support.v7.widget.RecyclerView/android.support.v7.widget.LinearLayoutCompat/android.widget.TextView[@text=\"%s\"]",
-      on = Platform.MOBILE_ANDROID)
-  protected ContainerElement getSubCategoryItem;
+  protected ContainerElement getCategorySubItem;
 
   @Locate(id = "Menu", on = Platform.MOBILE_IOS)
   @Locate(
@@ -82,15 +69,18 @@ public class NewOrderView extends BaseComponent {
   }
 
   /**
-   * Select category.
+   * Select category and subcategory.
    *
    * @param category the category
+   * @param category the subCategory
    */
-  public void selectCategory(String category) {
+  public void selectCategoryAndSubCategory(String category, String subCategory) {
     logger.info("Select category: " + category);
     getCategoryItem.initializeWithFormat(category);
     DeviceControl.tapElementCenter(getCategoryItem);
     SyncHelper.sleep(1000);
+    getCategorySubItem.initializeWithFormat(category, subCategory);
+    getCategorySubItem.click();
   }
 
   /**
@@ -104,37 +94,6 @@ public class NewOrderView extends BaseComponent {
     getCategoryItem.initializeWithFormat(category);
     DeviceControl.tapElementCenter(getCategoryItem);
     return ComponentFactory.create(ProductDetailsView.class);
-  }
-
-  /**
-   * Gets category items.
-   *
-   * @param category the category
-   * @return the category items
-   */
-  public List<String> getCategoryItems(String category) {
-    logger.info("Select category: " + category);
-    return getCategoryItemsElements
-        .stream()
-        .filter(
-            item -> {
-              item.initializeWithFormat(category);
-              return item.isDisplayed();
-            })
-        .map(item -> item.getText())
-        .collect(Collectors.toList());
-  }
-
-  /**
-   * Select sub category.
-   *
-   * @param category the category
-   * @param subcategory the subcategory
-   */
-  public void selectSubCategory(String category, String subcategory) {
-    logger.info(String.format("Select subcategory: %s %s", category, subcategory));
-    getSubCategoryItem.initializeWithFormat(category, subcategory);
-    DeviceControl.tapElementCenter(getSubCategoryItem);
   }
 
   /**

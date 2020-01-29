@@ -14,12 +14,12 @@ import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.ProductDetailsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.test.mobile.helpers.TestHelper;
-import java.lang.invoke.MethodHandles;
-import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
 
 public class OrderTest extends BaseTest {
 
@@ -231,12 +231,13 @@ public class OrderTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ORDER},
       description = "625897")
-  public void checkoutTest() {
+  public void checkoutTest() throws InterruptedException {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = ComponentFactory.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
             landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
+    //Thread.sleep(20000);
     Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
     // logger.info("Tap Order icon on the bottom nav bar");
@@ -246,15 +247,15 @@ public class OrderTest extends BaseTest {
     // selectCoffeeBarView.search("94608");
     NewOrderView newOrderView = dashboardView.getBottomNavigationMenu().order(NewOrderView.class);
 
-    logger.info("Tap a category");
-    newOrderView.selectCategory("Espresso Beverages");
+    logger.info("Tap a category and subcategory");
+    newOrderView.selectCategoryAndSubCategory("Espresso Beverages", "Espresso");
 
-    logger.info("Sub-categories should expand downward");
-    List<String> items = newOrderView.getCategoryItems("Espresso Beverages");
-    Assert.assertTrue(items.size() > 0, "Sub categories does not expand");
+    // logger.info("Sub-categories should expand downward");
+    // List<String> items = newOrderView.getCategoryItems("Espresso Beverages");
+    // Assert.assertFalse(items.isEmpty(), "Sub categories does not expand");
 
-    logger.info("Select a sub-category");
-    newOrderView.selectSubCategory("Espresso Beverages", items.get(0));
+    // logger.info("Select a sub-category");
+    // newOrderView.selectSubCategory("Espresso Beverages", items.get(0));
 
     logger.info("Select a product");
     ProductDetailsView productDetail = newOrderView.selectProduct("Iced Espresso");
@@ -270,6 +271,9 @@ public class OrderTest extends BaseTest {
 
     logger.info("Proceed to Checkout");
     CheckoutView checkout = newOrderView.checkout();
+
+    logger.info("Navigate to Available Rewards");
+    checkout = checkout.clickOnAwardItem("Free Beverage");
 
     logger.info("Place Order");
     OrderConfirmationView orderConfirmationView = checkout.placeOrder(OrderConfirmationView.class);
