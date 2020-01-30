@@ -17,11 +17,12 @@ import com.applause.auto.web.views.MyAccountPage;
 import com.applause.auto.web.views.ShopCoffeePage;
 import com.applause.auto.web.views.ShoppingCartPage;
 import com.applause.auto.web.views.SignInPage;
-import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
 
 public class SubscriptionsTest extends BaseTest {
 
