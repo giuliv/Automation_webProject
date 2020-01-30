@@ -1,5 +1,7 @@
 package com.applause.auto.mobile.views;
 
+import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
+
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -11,10 +13,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
-
 import java.util.List;
-
-import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
 
 @Implementation(is = AndroidCheckoutView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CheckoutView.class, on = Platform.MOBILE_IOS)
@@ -54,6 +53,12 @@ public class CheckoutView extends BaseComponent {
   @Locate(xpath = "//XCUIElementTypeButton[@name='Ok']", on = Platform.MOBILE_IOS)
   protected Button okayPopUpButton;
 
+  @Locate(
+      xpath = "//*[contains(@resource-id, 'totalLabel')]/following-sibling::*[1]",
+      on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//*[@name='Order Total']/following-sibling::*[1]", on = Platform.MOBILE_IOS)
+  protected Text orderTotal;
+
   /* -------- Actions -------- */
 
   public <T extends BaseComponent> T placeOrder(Class<T> clazz) {
@@ -64,13 +69,13 @@ public class CheckoutView extends BaseComponent {
   }
 
   /**
-   * Gets reward items.
+   * Click on reward item.
    *
    * @param awardText the reward
    */
   public CheckoutView clickOnAwardItem(String awardText) {
-    logger.info("Select reward: " + awardText);
-    SyncHelper.sleep(5000);
+    logger.info("Selecting reward: " + awardText);
+    SyncHelper.sleep(3000);
     MobileHelper.swipeAcrossScreenCoordinates(0.5, 0.8, 0.5, 0.5, 100);
 
     boolean areAvailableRewardsDisplayed;
@@ -92,13 +97,22 @@ public class CheckoutView extends BaseComponent {
           .click();
       SyncHelper.waitUntil(condition -> radeemButton.isEnabled());
       radeemButton.click();
-
-      waitForRewardIsNotValid();
+      SyncHelper.sleep(5000);
     }
 
     return ComponentFactory.create(CheckoutView.class);
   }
 
+  /**
+   * Get total order value
+   *
+   * @return order total value in $
+   */
+  public String getOrderTotal() {
+    return orderTotal.getAttributeValue("value");
+  }
+
+  /** unused */
   private void waitForRewardIsNotValid() {
     logger.info("Waiting for 'reward not valid' message");
     try {
@@ -121,5 +135,14 @@ class AndroidCheckoutView extends CheckoutView {
     MobileHelper.swipeAcrossScreenCoordinates(0.5, 0.8, 0.5, 0.2, 100);
     getPlaceOrderButton.click();
     return ComponentFactory.create(clazz);
+  }
+
+  /**
+   * Get total order value
+   *
+   * @return order total value in $
+   */
+  public String getOrderTotal() {
+    return orderTotal.getText();
   }
 }

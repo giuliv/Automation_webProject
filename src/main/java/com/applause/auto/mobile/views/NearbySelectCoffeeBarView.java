@@ -14,7 +14,6 @@ import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
-
 import java.time.Duration;
 
 @Implementation(is = AndroidNearbySelectCoffeeBarView.class, on = Platform.MOBILE_ANDROID)
@@ -59,6 +58,9 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
 
   @Locate(id = "Allow While Using App", on = Platform.MOBILE_IOS)
   protected Button allowWhileUsing;
+
+  @Locate(iOSClassChain = "**/*[`label == 'Recents'`]", on = Platform.MOBILE_IOS)
+  protected TextBox recentTab;
 
   /* -------- Actions -------- */
 
@@ -108,6 +110,17 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
       //        }
     }
     return ComponentFactory.create(NewOrderView.class);
+  }
+
+  /**
+   * Open recent tab
+   *
+   * @return
+   */
+  public FindACoffeeBarView openRecentTab() {
+    logger.info("Tap on Recent Tab");
+    recentTab.click();
+    return ComponentFactory.create(FindACoffeeBarView.class);
   }
 }
 

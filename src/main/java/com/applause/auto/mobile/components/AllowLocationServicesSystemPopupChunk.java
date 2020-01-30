@@ -21,7 +21,7 @@ public class AllowLocationServicesSystemPopupChunk extends BaseComponent {
   @Locate(id = "com.android.packageinstaller:id/permission_message", on = Platform.MOBILE_ANDROID)
   protected Text getImageAltTextText;
 
-  @Locate(id = "Allow", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//*[@label='Allow While Using App']", on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.android.packageinstaller:id/permission_allow_button",
       on = Platform.MOBILE_ANDROID)

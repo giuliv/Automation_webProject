@@ -50,7 +50,10 @@ public class NewOrderView extends BaseComponent {
   @Locate(
       id = "com.wearehathway.peets.development:id/basketFABContainer",
       on = Platform.MOBILE_ANDROID)
-  @Locate(xpath = "//XCUIElementTypeImage[@name=\\\"Basket\\\"]/..", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//XCUIElementTypeOther[child:: XCUIElementTypeImage and XCUIElementTypeStaticText[@name>0]]",
+      on = Platform.MOBILE_IOS)
   protected Button getCartButton;
 
   @Locate(id = "com.wearehathway.peets.development:id/confirmButton", on = Platform.MOBILE_ANDROID)

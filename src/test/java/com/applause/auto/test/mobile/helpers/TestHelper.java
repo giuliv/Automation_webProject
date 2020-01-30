@@ -4,10 +4,14 @@ import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
+import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.CreditCardDetailsView;
 import com.applause.auto.mobile.views.DashboardView;
+import com.applause.auto.mobile.views.FindACoffeeBarView;
 import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
+import com.applause.auto.mobile.views.NewOrderView;
 import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -19,13 +23,12 @@ import com.applause.auto.util.helper.SyncHelper;
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.appmanagement.ApplicationState;
+import java.lang.invoke.MethodHandles;
+import java.util.List;
 import org.aeonbits.owner.util.Collections;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
-
-import java.lang.invoke.MethodHandles;
-import java.util.List;
 
 @Implementation(is = TestHelper.class, on = Platform.MOBILE)
 public class TestHelper extends BaseComponent {
@@ -127,6 +130,17 @@ public class TestHelper extends BaseComponent {
       logger.error("Error getting current app state, probably it is not running");
       return ApplicationState.NOT_RUNNING;
     }
+  }
+
+  public static NewOrderView openOrderMenuForRecentCoffeeBar(DashboardView dashboardView) {
+    if (EnvironmentHelper.isMobileIOS(DriverManager.getDriver())) {
+      AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
+          dashboardView.getBottomNavigationMenu().order(AllowLocationServicesPopupChunk.class);
+      NearbySelectCoffeeBarView nearbySelectCoffeeBarView = allowLocationServicesPopupChunk.allow();
+      FindACoffeeBarView findACoffeeBarView = nearbySelectCoffeeBarView.openRecentTab();
+      return findACoffeeBarView.selectFirstRecentCoffeeBar();
+    }
+    return dashboardView.getBottomNavigationMenu().order(NewOrderView.class);
   }
 
   private static List<ApplicationState> notRunningAppStates() {
