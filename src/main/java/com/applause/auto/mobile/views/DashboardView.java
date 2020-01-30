@@ -1,6 +1,7 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.components.BottomNavigationMenuChunk;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -10,9 +11,13 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
+import com.applause.auto.util.control.DeviceControl;
+import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
+import java.time.Duration;
 import org.openqa.selenium.Point;
 
 @Implementation(is = DashboardView.class, on = Platform.MOBILE_ANDROID)
@@ -31,7 +36,15 @@ public class DashboardView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/actionMore", on = Platform.MOBILE_ANDROID)
   protected Button getMoreScreenButton;
 
+  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//android.widget.TextView[@text='%s']", on = Platform.MOBILE_ANDROID)
+  protected Button offerTitleText;
+
   /* -------- Actions -------- */
+
+  public void afterInit() {
+    SyncHelper.wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
+  }
 
   /**
    * Gets account profile menu.
@@ -53,5 +66,22 @@ public class DashboardView extends BaseComponent {
    */
   public BottomNavigationMenuChunk getBottomNavigationMenu() {
     return ComponentFactory.create(BottomNavigationMenuChunk.class);
+  }
+
+  public boolean lookUpOffer(String offerName) {
+    int swipeLimit = 10;
+    while ((swipeLimit-- != 0) && (!isOfferDisplayed(offerName))) {
+      DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
+    }
+    return swipeLimit != 0;
+  }
+
+  private boolean isOfferDisplayed(String offerName) {
+    try {
+      offerTitleText.format(offerName);
+      return offerTitleText.isDisplayed();
+    } catch (Throwable th) {
+      return false;
+    }
   }
 }

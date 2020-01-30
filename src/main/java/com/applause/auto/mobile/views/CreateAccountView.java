@@ -8,6 +8,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Checkbox;
+import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Picker;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
@@ -15,11 +16,13 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
+
+import org.openqa.selenium.Dimension;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-import org.openqa.selenium.Dimension;
 
 @Implementation(is = AndroidCreateAccountView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CreateAccountView.class, on = Platform.MOBILE_IOS)
@@ -48,11 +51,10 @@ public class CreateAccountView extends BaseComponent {
   protected Button getHideConfirmationPasswordButton;
 
   @Locate(
-      xpath = "//XCUIElementTypeDatePicker/XCUIElementTypeOther/XCUIElementTypePicker[2]",
+      xpath = "//XCUIElementTypeDatePicker/XCUIElementTypePicker/XCUIElementTypePickerWheel[1]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      xpath =
-          "//*[@resource-id='android:id/pickers']/android.widget.NumberPicker[2]/android.widget.EditText",
+      xpath = "(//*[@resource-id='android:id/numberpicker_input'])[2]",
       on = Platform.MOBILE_ANDROID)
   protected Picker getDOBDayPicker;
 
@@ -60,8 +62,7 @@ public class CreateAccountView extends BaseComponent {
       xpath = "//XCUIElementTypeDatePicker/XCUIElementTypePicker/XCUIElementTypePickerWheel[2]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      xpath =
-          "//*[@resource-id='android:id/pickers']/android.widget.NumberPicker[1]/android.widget.EditText",
+      xpath = "(//*[@resource-id='android:id/numberpicker_input'])[1]",
       on = Platform.MOBILE_ANDROID)
   protected Picker getDOBMonthPicker;
 
@@ -170,7 +171,7 @@ public class CreateAccountView extends BaseComponent {
 
   @Locate(
       xpath =
-          "//XCUIElementTypeTextView[contains(@value,'I agree to the Privacy Policy and Terms')]/following-sibling::XCUIElementTypeButton",
+          "(//XCUIElementTypeTextView[contains(@value,'I agree to the Privacy Policy and Terms')]/following-sibling::XCUIElementTypeButton | //XCUIElementTypeTextView[contains(@value,'I agree to the Privacy Policy and Terms')]/preceding-sibling::XCUIElementTypeButton)[1]",
       on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/agreePrivacyPolicyCheckBox",
@@ -194,6 +195,13 @@ public class CreateAccountView extends BaseComponent {
       on = Platform.MOBILE_IOS)
   @Locate(xpath = "//android.widget.TextView[@text='CREATE ACCOUNT']", on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
+
+  @Locate(
+      xpath =
+          "//XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[@width='45']",
+      on = Platform.MOBILE_IOS)
+  @Locate(xpath = "TBD", on = Platform.MOBILE_ANDROID)
+  protected Image loadingSpinner;
 
   /* -------- Actions -------- */
 
@@ -285,10 +293,9 @@ public class CreateAccountView extends BaseComponent {
   public CreateAccountView setDOB(String day, String month, String year) {
     logger.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
     getDOBValueTextBox.click();
-    //    getDOBValueTextBox.clearText();
-    //    SyncHelper.sleep(500);
-    //    getDOBValueTextBox.sendKeys(month + " " + day + ", " + year);
     SyncHelper.sleep(500);
+    MobileHelper.setPickerValueBasic(day, getDOBDayPicker, "next");
+    MobileHelper.setPickerValueBasic(month, getDOBMonthPicker, "next");
     MobileHelper.setPickerValueReverse(year, getDOBYearPicker);
     getDOBDoneBtn.click();
     return this;
@@ -400,9 +407,10 @@ public class CreateAccountView extends BaseComponent {
     getCreateAccountButton.click();
     // wait while dashboard view will be created and loaded (10s!!)
     // temp case while waiter below is not working properly
+
     SyncHelper.sleep(10000);
     //    SyncHelper.wait(
-    // Until.uiElement(getCreateAccountButton).notPresent().setTimeout(Duration.ofSeconds(45)));
+    //        Until.uiElement(loadingSpinner).notPresent().setTimeout(Duration.ofSeconds(45)));
     return ComponentFactory.create(DashboardView.class);
   }
 
@@ -530,6 +538,7 @@ class AndroidCreateAccountView extends CreateAccountView {
   public DashboardView createAccount() {
     logger.info("Create account");
     getCreateAccountButton.click();
+    SyncHelper.sleep(35000);
     return ComponentFactory.create(DashboardView.class);
   }
 
@@ -550,10 +559,10 @@ class AndroidCreateAccountView extends CreateAccountView {
   public CreateAccountView setDOB(String day, String month, String year) {
     logger.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
     getDOBValueTextBox.click();
+    MobileHelper.setPickerValueBasic(day, getDOBDayPicker, "next");
+    MobileHelper.setPickerValueBasic(month.substring(0, 3), getDOBMonthPicker, "next");
     MobileHelper.setPickerValueReverse(year, getDOBYearPicker);
-    getDOBYearPicker.getMobileElement().click();
-    getDOBDayPicker.getMobileElement().click();
-    DeviceControl.hideKeyboard();
+    //    DeviceControl.hideKeyboard();
     getDOBOkButton.click();
     return ComponentFactory.create(CreateAccountView.class);
   }

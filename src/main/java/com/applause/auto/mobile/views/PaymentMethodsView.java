@@ -8,8 +8,6 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
-import java.time.Duration;
 
 @Implementation(is = AndroidPaymentMethodsView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = PaymentMethodsView.class, on = Platform.MOBILE_IOS)
@@ -55,9 +53,10 @@ public class PaymentMethodsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getSavedPaymentMethod2Button;
 
-  @Locate(iOSNsPredicate = "name='MOBILE TEST'", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//*[contains(@name,'%s')]", on = Platform.MOBILE_IOS)
   @Locate(
-      xpath = "//*[contains(@resource-id, 'id/creditCardView')][3]",
+      xpath =
+          "//android.widget.TextView[contains(@resource-id, 'id/cardName') and contains(@text,'%s')]",
       on = Platform.MOBILE_ANDROID)
   protected Button getSavedPaymentMethodButton;
 
@@ -68,9 +67,9 @@ public class PaymentMethodsView extends BaseComponent {
   protected Button getSaveChangesButton;
 
   @Locate(
-      xpath = "(//XCUIElementTypeStaticText[@name=\"Add New Payment\"])[3]",
+      xpath = "(//XCUIElementTypeStaticText[@name=\"Add New Payment\"])[last()]",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/addPaymentView", on = Platform.MOBILE_ANDROID)
+  @Locate(id = "com.wearehathway.peets.development:id/addCardText", on = Platform.MOBILE_ANDROID)
   protected Button getAddNewPaymentButton;
 
   /* -------- Actions -------- */
@@ -110,6 +109,7 @@ public class PaymentMethodsView extends BaseComponent {
   public void clickBackButton() {
     logger.info("Clicking the back button");
     getBackButton.click();
+    SyncHelper.sleep(5000);
   }
 
   /**
@@ -117,8 +117,9 @@ public class PaymentMethodsView extends BaseComponent {
    *
    * @return CreditCardDetailsView
    */
-  public <T extends BaseComponent> T clickSavedPaymentMethod(Class<T> clazz) {
+  public <T extends BaseComponent> T clickSavedPaymentMethod(Class<T> clazz, String methodName) {
     logger.info("Clicking Payment Method");
+    getSavedPaymentMethodButton.format(methodName);
     getSavedPaymentMethodButton.click();
     return ComponentFactory.create(clazz);
   }
@@ -152,18 +153,14 @@ public class PaymentMethodsView extends BaseComponent {
    *
    * @return boolean
    */
-  public boolean isPaymentMethodTestCardAdded() {
+  public boolean isPaymentMethodTestCardAdded(String method) {
     logger.info("Checking Test Card is added");
     try {
-      SyncHelper.wait(
-          Until.uiElement(getSavedPaymentMethodButton)
-              .notPresent()
-              .setTimeout(Duration.ofSeconds(10)));
-      logger.info("Test Card is not displayed");
+      getSavedPaymentMethodButton.format(method);
+      return getSavedPaymentMethodButton.isDisplayed();
+    } catch (Throwable throwable) {
+      logger.error("Test Card is not displayed");
       return false;
-    } catch (Exception e) {
-      logger.error("Test Card is displayed");
-      return true;
     }
   }
 }
