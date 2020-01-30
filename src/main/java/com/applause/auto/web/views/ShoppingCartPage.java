@@ -18,7 +18,6 @@ import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
 import com.applause.auto.web.components.ShopRunnerChunk;
 import com.applause.auto.web.helpers.WebHelper;
-
 import java.util.List;
 import java.util.stream.Collectors;
 

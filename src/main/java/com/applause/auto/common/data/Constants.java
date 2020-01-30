@@ -97,8 +97,8 @@ public class Constants {
     public static final String PEETS_CARD_NUMBER_SAFARI = "81001000000747";
     public static final String PEETS_CARD_PIN_SAFARI = "3396";
 
-    public static final String VISA_CC_NUMBER = "378282246310005";
-    public static final String VISA_CC_SECURITY_CODE = "2222";
+    public static final String VISA_CC_NUMBER = "4788 2500 0002 8291";
+    public static final String VISA_CC_SECURITY_CODE = "111";
     public static final String VISA_CC_MONTH = "12";
     public static final String VISA_CC_YEAR = "2020";
     public static final String VISA_CC_NAME = "QA Test Applause Auto";
@@ -108,6 +108,16 @@ public class Constants {
     public static final String AMEX_CC_CODE = "2222";
     public static final String AMEX_CC_MONTH = "12";
     public static final String AMEX_CC_YEAR = "2020";
+
+    public static final String DISCOVERY_CC_NUM = "6011869900245897";
+    public static final String DISCOVERY_CC_CODE = "111";
+    public static final String DISCOVERY_CC_MONTH = "12";
+    public static final String DISCOVERY_CC_YEAR = "2020";
+
+    public static final String MASTER_CC_NUM = "5405222222222226";
+    public static final String MASTER_CC_CODE = "111";
+    public static final String MASTER_CC_MONTH = "12";
+    public static final String MASTER_CC_YEAR = "2020";
 
     public static final String TOUR_SEARCH_TERMS = "Tour";
     public static final String WEDNES_ROAST_SEARCH = "Kona";
@@ -174,7 +184,10 @@ public class Constants {
     public static final String CC_MODIFIED_EXP_DATE = "12/22";
     public static final String CC_CVV = "111";
     public static final String CC_ZIP = "94608";
-    public static final String CC_NAME = "MOBILE TEST";
+    public static final String CC_VISA_NAME = "VISA TEST";
+    public static final String CC_AMEX_NAME = "AMEX TEST";
+    public static final String CC_MASTER_NAME = "MASTER TEST";
+    public static final String CC_DISCO_NAME = "DISCO TEST";
     public static final String TRANSFER_ERROR = "One last thing";
     public static final String TRANSFER_PROCESS_ERROR =
         "Please check your card number and pin code and try again";

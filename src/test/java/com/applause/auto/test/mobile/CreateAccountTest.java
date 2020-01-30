@@ -8,6 +8,7 @@ import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.AccountHistoryView;
+import com.applause.auto.mobile.views.AuthenticationView;
 import com.applause.auto.mobile.views.ChangePasswordView;
 import com.applause.auto.mobile.views.CompleteAccountView;
 import com.applause.auto.mobile.views.CreateAccountView;
@@ -19,12 +20,11 @@ import com.applause.auto.mobile.views.ProfileDetailsView;
 import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.mobile.views.TermsAndConditionsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.lang.invoke.MethodHandles;
 
 public class CreateAccountTest extends BaseTest {
 
@@ -440,40 +440,9 @@ public class CreateAccountTest extends BaseTest {
     CreateAccountView createAccountView = landingView.createAccount();
 
     logger.info(
-        "Fields:\n"
+        "VERIFY - User is taken to CREATE ACCOUNT screen:\n"
             + "\n"
-            + "* First Name\n"
-            + "\n"
-            + "* Last Name\n"
-            + "\n"
-            + "* Zip Code (Optional)\n"
-            + "\n"
-            + "* Date of Birth\n"
-            + "\n"
-            + "      o Text: Your birthday drink is on us\n"
-            + "\n"
-            + "* Phone Number (Optional)\n"
-            + "\n"
-            + "      o Text: Forgot your phone? Check in with this number.\n"
-            + "\n"
-            + "* Email Address"
-            + "* Password with show/hide password icon\n"
-            + "\n"
-            + "      o Triggered Text: (x/_) At least 6 characters\n"
-            + "\n"
-            + "      o (x/_) At least 1 number\n"
-            + "\n"
-            + "      o (x/_) At least 1 letter\n"
-            + "\n"
-            + "Email opt in/out checkbox (checked by default)\n"
-            + "\n"
-            + "* Text: Yes, please send me emails with exclusive offers, rewards, news, and more.\n"
-            + "\n"
-            + "Privacy Policy/T&C checkbox (not checked by default)\n"
-            + "\n"
-            + "* Text: I agree to the Privacy Policy and Terms & Conditions\n"
-            + "\n"
-            + "[Button] Create Account (grey until all required fields are entered)");
+            + "Verify the Header: CREATE ACCOUNT  ");
 
     logger.info("Tap on First Name field and enter valid first name");
 
@@ -490,7 +459,7 @@ public class CreateAccountTest extends BaseTest {
 
     logger.info("Scroll through and select birthday");
     String dobDay = "27";
-    String dobMonth = "December";
+    String dobMonth = "May";
     String dobYear = "2000";
     createAccountView.setDOB(dobDay, dobMonth, dobYear);
 
@@ -501,11 +470,15 @@ public class CreateAccountTest extends BaseTest {
     logger.info("Enter valid email address");
     String email = String.format("a+%s@gmail.com", uniq);
     createAccountView.setEmailAddress(email);
+
+    logger.info("Enter confirm email address");
     createAccountView.setConfirmEmailAddress(email);
 
     logger.info("Enter valid password");
     String password = "Password1";
     createAccountView.setPassword(password);
+
+    logger.info("Enter confirm password");
     createAccountView.setConfirmationPassword(password);
 
     logger.info("Tap on show password icon");
@@ -522,7 +495,7 @@ public class CreateAccountTest extends BaseTest {
     Assert.assertNotEquals(
         createAccountView.getHiddenPassword(), password, "Password does not hidden");
 
-    createAccountView.setPromo("");
+    createAccountView.setPromo("TEST1966");
 
     logger.info(
         "At email opt in/out checkbox:\n"
@@ -561,6 +534,7 @@ public class CreateAccountTest extends BaseTest {
     Assert.assertFalse(
         createAccountView.isPrivacyPolicyAndTermsAndConditionsChecked(),
         "Privacy Policy and Terms and Conditions does not checked does not marked by default");
+
     Assert.assertFalse(
         createAccountView.isCreateAccountButtonEnabled(),
         "Create Account button does not disabled");
@@ -577,45 +551,55 @@ public class CreateAccountTest extends BaseTest {
         createAccountView.isCreateAccountButtonEnabled(), "Create Account button does not enabled");
 
     logger.info("Tap Create Account button");
+    logger.info(
+        "User sees a loading dial, then a check mark to indicate successful account creation");
     DashboardView dashboardView = createAccountView.createAccount();
 
-    logger.info(
-        "User account should be created successfully:\n"
-            + "\n"
-            + "* User will see a loading dial, then a check mark to indicate successful account creation\n"
-            + "\n"
-            + "User should then see Peet's loading page briefly:\n"
-            + "\n"
-            + "* P-cup logo + Peet_s Coffee\n"
-            + "\n"
-            + "* Greeting [Good morning/afternoon/evening], <User_s first name>\n"
-            + "\n"
-            + "* Loading dial \n"
-            + "\n"
-            + "* Text: Loading your latest rewards_\n"
-            + "\n"
-            + "User should see home/dashboard screen\n");
+    logger.info("User sees Peet's loading page briefly then user sees home/dashboard screen");
     Assert.assertNotNull(dashboardView, "Users dashboard does not displayed");
+
+    logger.info("Swipe through dashboard feed");
+    logger.info("User sees offer $2 OFF OA TEST in dashboard");
+    Assert.assertTrue(
+        dashboardView.lookUpOffer("$2 OFF OA TEST"), "User does not see 'offer $2 OFF OA TEST'");
 
     logger.info("Tap on ... at top right corner of home/dashboard screen");
     logger.info("Tap on Profile Details");
     ProfileDetailsView profileDetailsView = dashboardView.getAccountProfileMenu().profileDetails();
 
     logger.info(
-        "Make sure all user info on account settings screen matches what was entered during sign up process");
+        "All user info on profile details screen matches what was entered during create account process:\n"
+            + "\n"
+            + "First Name\n"
+            + "Last Name\n"
+            + "Zip Code (Optional)\n"
+            + "Date of Birth > This field should be uneditable ** Text: Your birthday drink is on us\n"
+            + "Phone Number (Optional) ** Text: Forgot your phone? Check in with this number.\n"
+            + "Email Address\n"
+            + "Change Password link\n"
+            + "[Button] Save");
     String firstNameUpd = profileDetailsView.getFirstname();
     String lastNameUpd = profileDetailsView.getLastname();
     String zipCodeUpd = profileDetailsView.getZipCode();
+    String dateOfBirthday = profileDetailsView.getDOB();
     String phoneUpd = profileDetailsView.getPhoneNumber();
     String emailUpd = profileDetailsView.getEmailAddress();
     Assert.assertEquals(firstNameUpd, firstname, "Firstname does not match");
     Assert.assertEquals(lastNameUpd, lastname, "Lastname does not match");
     Assert.assertEquals(zipCodeUpd, zipCode, "zipcode does not match");
     Assert.assertEquals(
+        dateOfBirthday,
+        String.format("%s %s, %s", dobMonth, dobDay, dobYear),
+        "Date does not match");
+    Assert.assertEquals(
         TestDataUtils.PhoneNumberDataUtils.getOnlyDigitsFromPhoneNumber(phoneUpd),
         TestDataUtils.PhoneNumberDataUtils.getOnlyDigitsFromPhoneNumber(phone),
         "Phone does not updated");
     Assert.assertEquals(emailUpd, email, "Email does not match");
+    Assert.assertTrue(
+        profileDetailsView.isChangePasswordLinkAvailable(),
+        "Change password link does not available");
+    Assert.assertTrue(profileDetailsView.isSaveButtonAvailable(), "Save button does not available");
 
     logger.info("Tap arrow at top left to return to more screen");
     AccountMenuMobileChunk accountMenuMobileChunk =
@@ -625,18 +609,18 @@ public class CreateAccountTest extends BaseTest {
     GeneralSettingsView generalSettingsView = accountMenuMobileChunk.generalSettings();
 
     logger.info(
-        "Make sure promotional emails toggle reflects whatever selection user chose at step 11");
+        "Make sure promotional emails toggle reflects whatever selection user chose at step 14");
     Assert.assertTrue(
         generalSettingsView.isPromoEmailOptionChecked(), "Promo email does not checked");
 
-    // logger.info("Tap on back nav to return to more screen");
-    // accountMenuMobileChunk = generalSettingsView.goBack(AccountMenuMobileChunk.class);
+    logger.info("Tap on back nav to return to more screen");
+    accountMenuMobileChunk = generalSettingsView.goBack(AccountMenuMobileChunk.class);
 
-    //    logger.info("Tap sign out button");
-    //    AuthenticationView authenticationView = accountMenuMobileChunk.signOut();
-    //
-    //    logger.info("User should be signed out successfully");
-    //    Assert.assertNotNull(authenticationView, "User does not signed out");
+    logger.info("Tap sign out button");
+    AuthenticationView authenticationView = accountMenuMobileChunk.signOut();
+
+    logger.info("User should be signed out successfully");
+    Assert.assertNotNull(authenticationView.isUserSignedOut(), "User does not signed out");
   }
 
   @Test(

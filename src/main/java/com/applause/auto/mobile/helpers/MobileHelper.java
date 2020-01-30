@@ -1,5 +1,7 @@
 package com.applause.auto.mobile.helpers;
 
+import static com.applause.auto.util.DriverManager.getDriver;
+
 import com.applause.auto.common.data.Constants.MobileApp;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
@@ -16,20 +18,18 @@ import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import java.lang.invoke.MethodHandles;
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.RemoteWebElement;
-
-import java.lang.invoke.MethodHandles;
-import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.applause.auto.util.DriverManager.getDriver;
 
 public class MobileHelper {
 
@@ -226,9 +226,17 @@ public class MobileHelper {
       logger.debug("Sending value to: " + value);
       logger.debug("Loop #" + loopCounter);
       if (!EnvironmentHelper.isMobileIOS(getMobileDriver())) {
-        // elem.sendKeys(Keys.BACK_SPACE);
-        elem.clear();
-        elem.sendKeys(value);
+        if (value.matches("\\d+")) {
+          elem.click();
+          elem.sendKeys(Keys.BACK_SPACE + value);
+          elem.sendKeys(Keys.BACK_SPACE + value);
+          ((AndroidDriver) getDriver()).pressKeyCode(66);
+        } else {
+          elem.sendKeys(Keys.BACK_SPACE);
+          elem.click();
+          elem.sendKeys(value);
+          ((AndroidDriver) getDriver()).pressKeyCode(66);
+        }
       } else {
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         Map<String, Object> params = new HashMap<>();
