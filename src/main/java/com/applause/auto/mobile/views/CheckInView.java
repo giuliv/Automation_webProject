@@ -8,6 +8,8 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.DriverManager;
+import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
 
@@ -107,6 +109,12 @@ public class CheckInView extends BaseComponent {
   public CheckInView confirm() {
     logger.info("Tap on confirm button");
     getConfirmButton.click();
+
+    if (EnvironmentHelper.isiOS(DriverManager.getDriver())) {
+      // need this sleep since iOS is updating view very slowly
+      SyncHelper.sleep(20000);
+    }
+
     return ComponentFactory.create(CheckInView.class);
   }
 
