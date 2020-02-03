@@ -9,15 +9,14 @@ import com.applause.auto.mobile.components.PeetsCardsTransferAmountChunk;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountWarningChunk;
 import com.applause.auto.mobile.views.*;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import java.lang.invoke.MethodHandles;
-import java.text.ParseException;
-
-import com.applause.auto.util.helper.SyncHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
+import java.text.ParseException;
 
 import static com.applause.auto.common.data.Constants.MobileTestData.*;
 
