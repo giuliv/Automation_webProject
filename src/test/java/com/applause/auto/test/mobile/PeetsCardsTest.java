@@ -1,31 +1,25 @@
 package com.applause.auto.test.mobile;
 
-import static com.applause.auto.common.data.Constants.MobileTestData.INVALID_PEETS_CC_PIN_1;
-import static com.applause.auto.common.data.Constants.MobileTestData.INVALID_PEETS_CC_PIN_2;
-import static com.applause.auto.common.data.Constants.MobileTestData.IVALID_PEETS_CC_NUM_1;
-import static com.applause.auto.common.data.Constants.MobileTestData.VALID_PEETS_CC_NUM_1;
-import static com.applause.auto.common.data.Constants.MobileTestData.VALID_PEETS_CC_NUM_2;
-
 import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.TestDataUtils;
+import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountChunk;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountWarningChunk;
-import com.applause.auto.mobile.views.AccountHistoryView;
-import com.applause.auto.mobile.views.CheckInView;
-import com.applause.auto.mobile.views.DashboardView;
-import com.applause.auto.mobile.views.LandingView;
-import com.applause.auto.mobile.views.PaymentMethodsView;
-import com.applause.auto.mobile.views.PeetsCardsView;
+import com.applause.auto.mobile.views.*;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import java.lang.invoke.MethodHandles;
 import java.text.ParseException;
+
+import com.applause.auto.util.helper.SyncHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import static com.applause.auto.common.data.Constants.MobileTestData.*;
 
 public class PeetsCardsTest extends BaseTest {
 
@@ -43,6 +37,36 @@ public class PeetsCardsTest extends BaseTest {
             landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
     Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
+    logger.info("Tap on ... at top right of home screen");
+    AccountMenuMobileChunk accountProfileMenu = dashboardView.getAccountProfileMenu();
+
+    logger.info("Tap on Payment Methods field/row");
+    PaymentMethodsView paymentMethodsView = accountProfileMenu.clickPaymentMethods();
+
+    logger.info("Tap on a saved payment method");
+    CreditCardDetailsView creditCardDetailsView =
+            paymentMethodsView.clickSavedPaymentMethod(CreditCardDetailsView.class, CC_MASTER_NAME);
+
+    logger.info("Tap on expiration date field and update expiration date");
+    if (creditCardDetailsView.getExpDate().equals(CC_EXP_DATE)) {
+      // If CC exp date is the valid one, modify it and then update it back to the valid one, to avoid transaction error
+      creditCardDetailsView.enterExpDate(CC_MODIFIED_EXP_DATE);
+      paymentMethodsView = creditCardDetailsView.saveCard();
+      creditCardDetailsView = paymentMethodsView.clickSavedPaymentMethod(CreditCardDetailsView.class, CC_MASTER_NAME);
+      creditCardDetailsView.enterExpDate(CC_EXP_DATE);
+    } else {
+      creditCardDetailsView.enterExpDate(CC_EXP_DATE);
+    }
+
+    logger.info("Tap Save Card button");
+    paymentMethodsView = creditCardDetailsView.saveCard();
+
+    logger.info("Tap back arrow to return to Payment Methods screen");
+    paymentMethodsView.clickBackButton();
+
+    logger.info("Tap X on more screen");
+    accountProfileMenu.clickBackButton();
+
     logger.info("Tap Peet's Card icon on bottom nav bar");
     PeetsCardsView peetsCardsView = dashboardView.getBottomNavigationMenu().peetsCards();
 
@@ -54,13 +78,13 @@ public class PeetsCardsTest extends BaseTest {
     peetsCardsView.addValue();
 
     logger.info("Tap pencil icon");
-    PaymentMethodsView paymentMethodsView = peetsCardsView.edit();
+    paymentMethodsView = peetsCardsView.edit();
 
     logger.info("User should be taken to payment method screen");
     Assert.assertNotNull(paymentMethodsView, "User does not taken to payment method view");
 
     logger.info("Select a saved credit card");
-    peetsCardsView = paymentMethodsView.clickSavedPaymentMethod2(PeetsCardsView.class);
+    peetsCardsView = paymentMethodsView.clickSavedPaymentMethodAndSaveChanges(PeetsCardsView.class, CC_MASTER_NAME);
 
     logger.info("User should return to add value to my peet's card screen");
     Assert.assertNotNull(paymentMethodsView, "User does taken to Peets Cards screen");
@@ -77,26 +101,6 @@ public class PeetsCardsTest extends BaseTest {
     logger.info(
         "Make sure user is able to successfully add value to card and peet's card screen shows card balance of $25.00");
     Assert.assertEquals(newBalance - oldBalance, cardAmount, "Balance does not changed properly");
-
-    logger.info("Check account history");
-    dashboardView = peetsCardsView.getBottomNavigationMenu().home();
-    AccountHistoryView accountHistory = dashboardView.getAccountProfileMenu().accountHistory();
-
-    logger.info(
-        "Make sure it shows Peet's Card transaction details:\n"
-            + "\n"
-            + "* Peet's Card Load + $25.00\n"
-            + "\n"
-            + "* Date [Month Day, Year]\n"
-            + "\n");
-    Assert.assertEquals(
-        accountHistory.getTransactionDate(0),
-        TestDataUtils.BillingUtils.getFormatCurrentTransactionDate(),
-        "Incorrect transaction date");
-    Assert.assertEquals(
-        StringUtils.deleteWhitespace(accountHistory.getTransactionAmount(0)),
-        TestDataUtils.BillingUtils.getFormatTransactionAmount(cardAmount),
-        "Incorrect transaction amount");
   }
 
   @Test(
