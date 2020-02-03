@@ -9,6 +9,10 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
+
+import java.time.Duration;
 
 @Implementation(is = AndroidPeetsCardsView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = PeetsCardsView.class, on = Platform.MOBILE_IOS)
@@ -84,6 +88,7 @@ public class PeetsCardsView extends BaseComponent {
   }
 
   public String getBalance() {
+    SyncHelper.wait(Until.uiElement(getBalanceText).visible().setTimeout(Duration.ofSeconds(30)));
     return getBalanceText.getText();
   }
 
