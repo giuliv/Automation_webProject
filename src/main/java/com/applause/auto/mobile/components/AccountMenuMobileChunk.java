@@ -56,6 +56,12 @@ public class AccountMenuMobileChunk extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/paymentMethods", on = Platform.MOBILE_ANDROID)
   protected Button getPaymentMethodsButton;
 
+  @Locate(id = "button cross", on = Platform.MOBILE_IOS)
+  @Locate(
+          xpath = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]",
+          on = Platform.MOBILE_ANDROID)
+  protected Button getBackButton;
+
   /* -------- Actions -------- */
 
   /**
@@ -128,6 +134,12 @@ public class AccountMenuMobileChunk extends BaseComponent {
     logger.info("Click Account History");
     getAccountHistoryButton.click();
     return ComponentFactory.create(AccountHistoryView.class);
+  }
+
+  /** Click the Back Button */
+  public void clickBackButton() {
+    logger.info("Clicking the back button");
+    getBackButton.click();
   }
 }
 
