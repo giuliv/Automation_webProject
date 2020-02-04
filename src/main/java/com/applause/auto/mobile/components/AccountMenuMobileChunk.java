@@ -60,7 +60,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
   @Locate(
           xpath = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]",
           on = Platform.MOBILE_ANDROID)
-  protected Button getBackButton;
+  protected Button getCrossButton;
 
   /* -------- Actions -------- */
 
@@ -136,10 +136,10 @@ public class AccountMenuMobileChunk extends BaseComponent {
     return ComponentFactory.create(AccountHistoryView.class);
   }
 
-  /** Click the Back Button */
-  public void clickBackButton() {
-    logger.info("Clicking the back button");
-    getBackButton.click();
+  /** Click the Cross Button */
+  public void clickCrossButton() {
+    logger.info("Clicking the cross button");
+    getCrossButton.click();
   }
 }
 

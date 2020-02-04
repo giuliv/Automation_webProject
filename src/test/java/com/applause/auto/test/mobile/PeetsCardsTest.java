@@ -64,7 +64,7 @@ public class PeetsCardsTest extends BaseTest {
     paymentMethodsView.clickBackButton();
 
     logger.info("Tap X on more screen");
-    accountProfileMenu.clickBackButton();
+    accountProfileMenu.clickCrossButton();
 
     logger.info("Tap Peet's Card icon on bottom nav bar");
     PeetsCardsView peetsCardsView = dashboardView.getBottomNavigationMenu().peetsCards();
