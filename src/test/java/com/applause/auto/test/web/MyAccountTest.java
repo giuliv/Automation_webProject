@@ -115,7 +115,7 @@ public class MyAccountTest extends BaseTest {
     logger.info("2. Log In");
     SignInPage signInPage = landing.clickSignInButton();
     signInPage.enterEmailByBrowser(
-            Constants.MyAccountTestData.EMAIL, Constants.MyAccountTestData.SAFARI_ACCOUNT_EMAIL);
+        Constants.MyAccountTestData.EMAIL, Constants.MyAccountTestData.SAFARI_ACCOUNT_EMAIL);
     signInPage.enterPassword(Constants.MyAccountTestData.PASSWORD);
     MyAccountPage myAccountPage = signInPage.clickonSignInButton();
     Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");

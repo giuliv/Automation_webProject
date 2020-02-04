@@ -264,6 +264,28 @@ public class ProfileDetailsView extends BaseComponent {
     SyncHelper.sleep(5000);
     return ComponentFactory.create(AccountMenuMobileChunk.class);
   }
+
+  public boolean isChangePasswordLinkAvailable() {
+    logger.info("Checking if password link available");
+    try {
+      getChangePasswordButton.initialize();
+      return getChangePasswordButton.isDisplayed();
+    } catch (Throwable throwable) {
+      logger.info("Password change button does not found");
+    }
+    return false;
+  }
+
+  public boolean isSaveButtonAvailable() {
+    logger.info("Checking if Save link available");
+    try {
+      getSaveButton.initialize();
+      return getSaveButton.isDisplayed();
+    } catch (Throwable throwable) {
+      logger.info("Save button does not found");
+    }
+    return false;
+  }
 }
 
 class IosProfileDetailsView extends ProfileDetailsView {
@@ -326,6 +348,11 @@ class IosProfileDetailsView extends ProfileDetailsView {
     getSaveButton.click();
     SyncHelper.sleep(5000);
     return ComponentFactory.create(AccountMenuMobileChunk.class);
+  }
+
+  @Override
+  public String getDOB() {
+    return getDOBTextBox.getAttributeValue("value");
   }
 
   public ProfileDetailsView setConfirmEmailAddress(String emailAddress) {

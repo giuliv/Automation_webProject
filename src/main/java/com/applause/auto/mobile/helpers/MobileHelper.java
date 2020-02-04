@@ -26,6 +26,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.RemoteWebElement;
 
@@ -224,9 +225,17 @@ public class MobileHelper {
       logger.debug("Sending value to: " + value);
       logger.debug("Loop #" + loopCounter);
       if (!EnvironmentHelper.isMobileIOS(getMobileDriver())) {
-        // elem.sendKeys(Keys.BACK_SPACE);
-        elem.clear();
-        elem.sendKeys(value);
+        if (value.matches("\\d+")) {
+          elem.click();
+          elem.sendKeys(Keys.BACK_SPACE + value);
+          elem.sendKeys(Keys.BACK_SPACE + value);
+          ((AndroidDriver) getDriver()).pressKeyCode(66);
+        } else {
+          elem.sendKeys(Keys.BACK_SPACE);
+          elem.click();
+          elem.sendKeys(value);
+          ((AndroidDriver) getDriver()).pressKeyCode(66);
+        }
       } else {
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         Map<String, Object> params = new HashMap<>();

@@ -31,4 +31,14 @@ public class AuthenticationView extends BaseComponent {
   public String getRewardTitleTextValue() {
     return getRewardTitleText.getText();
   }
+
+  /**
+   * Is user signed out boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isUserSignedOut() {
+    logger.info("Checking if user signed out");
+    return getCreateAccountButton.exists();
+  }
 }
