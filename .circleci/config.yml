@@ -1,5 +1,8 @@
 version: 2.1
+orbs:
+  sumologic: circleci/sumologic@1.0.4
 jobs:
+  - sumologic/workflow-collector
   test:
     docker:
       - image: circleci/openjdk:8-jdk
