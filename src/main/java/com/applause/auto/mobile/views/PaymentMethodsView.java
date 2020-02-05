@@ -138,6 +138,16 @@ public class PaymentMethodsView extends BaseComponent {
   }
 
   /**
+   * Click Payment Method and Save Changes
+   *
+   * @return CreditCardDetailsView
+   */
+  public <T extends BaseComponent> T clickSavedPaymentMethodAndSaveChanges(Class<T> clazz, String methodName) {
+    clickSavedPaymentMethod(clazz, methodName);
+    return ComponentFactory.create(clazz);
+  }
+
+  /**
    * Click Add New Payment Button
    *
    * @return AddNewCardView
@@ -172,6 +182,17 @@ class AndroidPaymentMethodsView extends PaymentMethodsView {
   public <T extends BaseComponent> T clickSavedPaymentMethod2(Class<T> clazz) {
     logger.info("Selecting Saved card");
     getSavedPaymentMethod2Button.click();
+    getSaveChangesButton.click();
+    return ComponentFactory.create(clazz);
+  }
+
+  /**
+   * Click Payment Method and Save Changes
+   *
+   * @return CreditCardDetailsView
+   */
+  public <T extends BaseComponent> T clickSavedPaymentMethodAndSaveChanges(Class<T> clazz, String methodName) {
+    clickSavedPaymentMethod(clazz, methodName);
     getSaveChangesButton.click();
     return ComponentFactory.create(clazz);
   }
