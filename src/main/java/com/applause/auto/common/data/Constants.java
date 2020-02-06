@@ -192,7 +192,7 @@ public class Constants {
     public static final String TRANSFER_PROCESS_ERROR =
         "Please check your card number and pin code and try again";
 
-    public static final String IVALID_PEETS_CC_NUM_1 = "12341234123412";
+    public static final String INVALID_PEETS_CC_NUM_1 = "12341234123412";
     public static final String INVALID_PEETS_CC_PIN_1 = "9967";
     public static final String INVALID_PEETS_CC_PIN_2 = "1111";
     public static final String VALID_PEETS_CC_NUM_1 = "81001000000581";
