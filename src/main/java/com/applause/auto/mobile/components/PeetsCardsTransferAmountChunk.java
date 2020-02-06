@@ -10,6 +10,8 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
+import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
 import org.apache.commons.lang3.StringUtils;
 
 @Implementation(is = PeetsCardsTransferAmountChunk.class, on = Platform.MOBILE_ANDROID)
@@ -97,11 +99,18 @@ public class PeetsCardsTransferAmountChunk extends BaseComponent {
 
 class IOSPeetsCardsTransferAmountChunk extends PeetsCardsTransferAmountChunk {
 
+  /* -------- Elements -------- */
+
+  @Locate(id = "Next", on = Platform.MOBILE_IOS)
+  protected Button getKeyboardNextButton;
+
+  @Locate(id = "Done", on = Platform.MOBILE_IOS)
+  protected Button getKeyboardDoneButton;
+
   /* -------- Actions -------- */
 
   public PeetsCardsTransferAmountWarningChunk transfer() {
     logger.info("Tap on transfer button");
-    MobileHelper.hideKeyboardIOSByPressDone();
     getTransferButton.click();
     return ComponentFactory.create(PeetsCardsTransferAmountWarningChunk.class);
   }
@@ -123,5 +132,33 @@ class IOSPeetsCardsTransferAmountChunk extends PeetsCardsTransferAmountChunk {
    */
   public String getPinNumber() {
     return StringUtils.deleteWhitespace(getCardPinTextBox.getAttributeValue("value"));
+  }
+
+  /**
+   * Enter card number.
+   *
+   * @param cardNumber the card number
+   */
+  @Override
+  public void enterCardNumber(String cardNumber) {
+    logger.info("Enter card number: " + cardNumber);
+    getCardNumberTextBox.click();
+    getCardNumberTextBox.clearText();
+    getCardNumberTextBox.sendKeys(cardNumber);
+    getKeyboardNextButton.click();
+  }
+
+  /**
+   * Enter card pin.
+   *
+   * @param cardNumber the card number
+   */
+  @Override
+  public void enterCardPin(String cardNumber) {
+    logger.info("Enter card pin: " + cardNumber);
+    getCardPinTextBox.click();
+    getCardPinTextBox.clearText();
+    getCardPinTextBox.sendKeys(cardNumber);
+    getKeyboardDoneButton.click();
   }
 }
