@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  sumologic: circleci/sumologic@1.0.4
 jobs:
   test:
     docker:
@@ -6,21 +8,21 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Run Automated Tests
+          name: Run Automated iOS Tests
           command: |
             mvn test-compile \
               -Pss_run \
               -DapiKey=${APPLAUSE_API_KEY} \
-              -DdriverId=1304 \
+              -DdriverId=2252 \
               -Dexecution=serverside \
-              -DsuiteFile=testng/web/login.xml \
-              -DproductId=19830 \
-              -DdownloadResults=always \
-              -DsetupCommand='bash ./setup/setup_sc.sh -v4.5.3 -upeetscoffee-auto -k${SC_API_KEY} -hproxy.utest.com:9999 -cutest:${APPLAUSE_PROXY_PASSWORD} -tsc.peetscoffee-auto'
+              -DsuiteFile=testng/mobile/debug.xml \
+              -DproductId=20270 \
+              -DdownloadResults=never \
+              -DtestRetryCount=0
 workflows:
-  version: 2
   test:
     jobs:
+      - sumologic/workflow-collector
       - test:
           filters:
             branches:
