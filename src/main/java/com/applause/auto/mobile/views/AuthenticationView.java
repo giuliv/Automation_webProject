@@ -39,6 +39,7 @@ public class AuthenticationView extends BaseComponent {
    */
   public boolean isUserSignedOut() {
     logger.info("Checking if user signed out");
+    getCreateAccountButton.initialize();
     return getCreateAccountButton.exists();
   }
 }

@@ -142,7 +142,8 @@ public class PaymentMethodsView extends BaseComponent {
    *
    * @return CreditCardDetailsView
    */
-  public <T extends BaseComponent> T clickSavedPaymentMethodAndSaveChanges(Class<T> clazz, String methodName) {
+  public <T extends BaseComponent> T clickSavedPaymentMethodAndSaveChanges(
+      Class<T> clazz, String methodName) {
     clickSavedPaymentMethod(clazz, methodName);
     return ComponentFactory.create(clazz);
   }
@@ -191,7 +192,8 @@ class AndroidPaymentMethodsView extends PaymentMethodsView {
    *
    * @return CreditCardDetailsView
    */
-  public <T extends BaseComponent> T clickSavedPaymentMethodAndSaveChanges(Class<T> clazz, String methodName) {
+  public <T extends BaseComponent> T clickSavedPaymentMethodAndSaveChanges(
+      Class<T> clazz, String methodName) {
     clickSavedPaymentMethod(clazz, methodName);
     getSaveChangesButton.click();
     return ComponentFactory.create(clazz);

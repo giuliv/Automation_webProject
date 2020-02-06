@@ -16,13 +16,13 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
-
-import org.openqa.selenium.Dimension;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.openqa.selenium.Dimension;
 
 @Implementation(is = AndroidCreateAccountView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CreateAccountView.class, on = Platform.MOBILE_IOS)
@@ -105,6 +105,14 @@ public class CreateAccountView extends BaseComponent {
   protected TextBox getDOBValueTextBox;
 
   @Locate(
+      xpath = "//XCUIElementTypeStaticText[@name=\"Your birthday drink is on us\"]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//android.widget.TextView[@text='Your birthday drink is on us']",
+      on = Platform.MOBILE_ANDROID)
+  protected TextBox getDOBGiftTextBox;
+
+  @Locate(
       xpath =
           "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[5]/XCUIElementTypeTextField",
       on = Platform.MOBILE_IOS)
@@ -152,6 +160,23 @@ public class CreateAccountView extends BaseComponent {
       id = "com.wearehathway.peets.development:id/confirmPassword",
       on = Platform.MOBILE_ANDROID)
   protected TextBox getConfirmPasswordTextBox;
+
+  @Locate(
+      xpath =
+          "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[8]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeImage/following-sibling::XCUIElementTypeStaticText",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//android.widget.TextView[contains(@resource-id,'id/passwordRule')]",
+      on = Platform.MOBILE_ANDROID)
+  protected List<Text> getPasswordHintTextBox;
+
+  @Locate(
+      xpath = "//XCUIElementTypeStaticText[@name='Enter your promo code here for special offers.']",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//android.widget.TextView[@text='Enter your promo code here for special offers.']",
+      on = Platform.MOBILE_ANDROID)
+  protected Text getPromoCodeHintTextBox;
 
   @Locate(
       xpath =
@@ -523,6 +548,70 @@ public class CreateAccountView extends BaseComponent {
   public String getZipCode() {
     return getZipCodeTextBox.getCurrentText();
   }
+
+  public boolean isFirstnameDisplayed() {
+    logger.info("Checking firstname field displayed");
+    return getFirstnameTextBox.isDisplayed();
+  }
+
+  public boolean isLastDisplayed() {
+    logger.info("Checking lastname field displayed");
+    return getLastnameTextBox.isDisplayed();
+  }
+
+  public boolean isZipCodeDisplayed() {
+    logger.info("Checking zip code field displayed");
+    return getZipCodeTextBox.isDisplayed();
+  }
+
+  public boolean isDobTextDisplayed() {
+    logger.info("Checking dob text field displayed");
+    return getDOBGiftTextBox.isDisplayed();
+  }
+
+  public boolean isEmailAddressDisplayed() {
+    logger.info("Checking email address field displayed");
+    return getEmailAddressTextBox.isDisplayed();
+  }
+
+  public boolean isConfirmEmailAddressDisplayed() {
+    logger.info("Checking confirm email field displayed");
+    return getConfirmEmailAddressTextBox.isDisplayed();
+  }
+
+  public boolean isPhoneNumberDisplayed() {
+    logger.info("Checking phone field displayed");
+    return getPhoneNumberTextBox.isDisplayed();
+  }
+
+  public boolean isPasswordDisplayed() {
+    logger.info("Checking password field displayed");
+    return getHiddenPasswordTextBox.isDisplayed();
+  }
+
+  public boolean isConfirmPasswordDisplayed() {
+    logger.info("Checking confirm password field displayed");
+    return getConfirmPasswordTextBox.isDisplayed();
+  }
+
+  public boolean isPasswordTextDisplayed() {
+    logger.info("Checking password text displayed");
+    getHiddenPasswordTextBox.sendKeys(" ");
+    boolean result =
+        getPasswordHintTextBox
+            .stream()
+            .map(item -> item.getText())
+            .collect(Collectors.joining("\n"))
+            .equals("At least 6 characters\n" + "At least 1 number\n" + "At least 1 letter");
+    getHiddenPasswordTextBox.clearText();
+    getHiddenPasswordTextBox.sendKeys("\n");
+    return result;
+  }
+
+  public boolean isPromocodeTextDisplayed() {
+    logger.info("Checking promocode text displayed");
+    return getPromoCodeHintTextBox.isDisplayed();
+  }
 }
 
 class AndroidCreateAccountView extends CreateAccountView {
@@ -661,5 +750,18 @@ class AndroidCreateAccountView extends CreateAccountView {
     getConfirmEmailAddressTextBox.sendKeys(emailAddress);
     DeviceControl.hideKeyboard();
     return this;
+  }
+
+  public boolean isPasswordTextDisplayed() {
+    logger.info("Checking password text displayed");
+    getHiddenPasswordTextBox.sendKeys(" ");
+    boolean result =
+        getPasswordHintTextBox
+            .stream()
+            .map(item -> item.getText())
+            .collect(Collectors.joining("\n"))
+            .equals("At least 6 characters\n" + "At least 1 number\n" + "At least 1 letter");
+    getHiddenPasswordTextBox.clearText();
+    return result;
   }
 }
