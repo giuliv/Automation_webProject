@@ -906,7 +906,7 @@ public class CreateAccountTest extends BaseTest {
     AuthenticationView authenticationView = accountMenuMobileChunk.signOut();
 
     logger.info("User should be signed out successfully");
-    Assert.assertNotNull(authenticationView, "User does not signed out");
+    Assert.assertTrue(authenticationView.isUserSignedOut(), "User does not signed out");
   }
 
   @Test(
