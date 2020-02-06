@@ -10,7 +10,6 @@
     "autoAcceptAlerts": true,
     "newCommandTimeout": 3000,
  	"device": "android",
- 	"automationName": "uiautomator2",
-    "app": "/Users/tlytvyn/projects/peetscoffee.auto/Peet_18.7.4.apk"
+ 	"automationName": "uiautomator2"
   }
 }

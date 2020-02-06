@@ -1,5 +1,8 @@
 package com.applause.auto.test.mobile;
 
+import static com.applause.auto.common.data.Constants.MobileTestData.*;
+
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
@@ -9,16 +12,13 @@ import com.applause.auto.mobile.components.PeetsCardsTransferAmountChunk;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountWarningChunk;
 import com.applause.auto.mobile.views.*;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import java.lang.invoke.MethodHandles;
+import java.text.ParseException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.lang.invoke.MethodHandles;
-import java.text.ParseException;
-
-import static com.applause.auto.common.data.Constants.MobileTestData.*;
 
 public class PeetsCardsTest extends BaseTest {
 
@@ -44,14 +44,16 @@ public class PeetsCardsTest extends BaseTest {
 
     logger.info("Tap on a saved payment method");
     CreditCardDetailsView creditCardDetailsView =
-            paymentMethodsView.clickSavedPaymentMethod(CreditCardDetailsView.class, CC_MASTER_NAME);
+        paymentMethodsView.clickSavedPaymentMethod(CreditCardDetailsView.class, CC_MASTER_NAME);
 
     logger.info("Tap on expiration date field and update expiration date");
     if (creditCardDetailsView.getExpDate().equals(CC_EXP_DATE)) {
-      // If CC exp date is the valid one, modify it and then update it back to the valid one, to avoid transaction error
+      // If CC exp date is the valid one, modify it and then update it back to the valid one, to
+      // avoid transaction error
       creditCardDetailsView.enterExpDate(CC_MODIFIED_EXP_DATE);
       paymentMethodsView = creditCardDetailsView.saveCard();
-      creditCardDetailsView = paymentMethodsView.clickSavedPaymentMethod(CreditCardDetailsView.class, CC_MASTER_NAME);
+      creditCardDetailsView =
+          paymentMethodsView.clickSavedPaymentMethod(CreditCardDetailsView.class, CC_MASTER_NAME);
       creditCardDetailsView.enterExpDate(CC_EXP_DATE);
     } else {
       creditCardDetailsView.enterExpDate(CC_EXP_DATE);
@@ -83,7 +85,9 @@ public class PeetsCardsTest extends BaseTest {
     Assert.assertNotNull(paymentMethodsView, "User does not taken to payment method view");
 
     logger.info("Select a saved credit card");
-    peetsCardsView = paymentMethodsView.clickSavedPaymentMethodAndSaveChanges(PeetsCardsView.class, CC_MASTER_NAME);
+    peetsCardsView =
+        paymentMethodsView.clickSavedPaymentMethodAndSaveChanges(
+            PeetsCardsView.class, CC_MASTER_NAME);
 
     logger.info("User should return to add value to my peet's card screen");
     Assert.assertNotNull(paymentMethodsView, "User does taken to Peets Cards screen");
@@ -111,7 +115,10 @@ public class PeetsCardsTest extends BaseTest {
 
     DashboardView dashboardView =
         testHelper.signIn(
-            landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
+            landingView,
+            Constants.TestData.USERNAME,
+            Constants.TestData.PASSWORD,
+            DashboardView.class);
     softAssert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
     logger.info("Tap Check In icon on bottom nav bar");

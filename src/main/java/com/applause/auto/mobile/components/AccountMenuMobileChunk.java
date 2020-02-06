@@ -58,8 +58,8 @@ public class AccountMenuMobileChunk extends BaseComponent {
 
   @Locate(id = "button cross", on = Platform.MOBILE_IOS)
   @Locate(
-          xpath = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]",
-          on = Platform.MOBILE_ANDROID)
+      xpath = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]",
+      on = Platform.MOBILE_ANDROID)
   protected Button getCrossButton;
 
   /* -------- Actions -------- */
