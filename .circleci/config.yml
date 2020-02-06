@@ -10,14 +10,15 @@ jobs:
       - run:
           name: Run Automated iOS Tests
           command: |
-            mvn clean compile test \
+            mvn test-compile \
+              -Pss_run \
               -DapiKey=${APPLAUSE_API_KEY} \
-              -DdriverId=2301 \
-              -Dexecution=clientside \
+              -DdriverId=2252 \
+              -Dexecution=serverside \
               -DsuiteFile=testng/mobile/debug.xml \
-              -DproductId=20269 \
-              -DtestRetryCount=0 \
-              -DdownloadResults=never
+              -DproductId=20270 \
+              -DdownloadResults=never \
+              -DtestRetryCount=0
 workflows:
   test:
     jobs:
