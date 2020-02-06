@@ -2,7 +2,7 @@ package com.applause.auto.test.mobile;
 
 import static com.applause.auto.common.data.Constants.MobileTestData.INVALID_PEETS_CC_PIN_1;
 import static com.applause.auto.common.data.Constants.MobileTestData.INVALID_PEETS_CC_PIN_2;
-import static com.applause.auto.common.data.Constants.MobileTestData.IVALID_PEETS_CC_NUM_1;
+import static com.applause.auto.common.data.Constants.MobileTestData.INVALID_PEETS_CC_NUM_1;
 import static com.applause.auto.common.data.Constants.MobileTestData.VALID_PEETS_CC_NUM_1;
 import static com.applause.auto.common.data.Constants.MobileTestData.VALID_PEETS_CC_NUM_2;
 
@@ -198,7 +198,7 @@ public class PeetsCardsTest extends BaseTest {
 
     logger.info("Tap into Card Number field");
     logger.info("Enter invalid peet's card number");
-    peetsCardsTransferAmountChunk.enterCardNumber(IVALID_PEETS_CC_NUM_1);
+    peetsCardsTransferAmountChunk.enterCardNumber(INVALID_PEETS_CC_NUM_1);
     peetsCardsTransferAmountChunk.enterCardPin(INVALID_PEETS_CC_PIN_1);
 
     logger.info("Tap Transfer Value button");
@@ -270,7 +270,7 @@ public class PeetsCardsTest extends BaseTest {
         peetsCardsTransferAmountChunk, "User does not navigated to Transfer value screen");
     softAssert.assertEquals(
         peetsCardsTransferAmountChunk.getCardNumber(),
-        IVALID_PEETS_CC_NUM_1,
+        INVALID_PEETS_CC_NUM_1,
         "Card number field not filled in");
     softAssert.assertEquals(
         peetsCardsTransferAmountChunk.getPinNumber(),
@@ -348,11 +348,11 @@ public class PeetsCardsTest extends BaseTest {
         "User does not taken to transfer value overlay that appears from bottom");
 
     logger.info("Tap into Card Number field");
-    logger.info("Enter valid peet's card number\n" + "\n" + "Tap done on numeric keypad\n");
-    peetsCardsTransferAmountChunk.enterCardNumber(VALID_PEETS_CC_NUM_2);
+    logger.info("Enter invalid Peet's Card number" + "Tap next on numeric keypad");
+    peetsCardsTransferAmountChunk.enterCardNumber(INVALID_PEETS_CC_NUM_1);
 
-    logger.info("Enter invalid peet's card pin number");
-    peetsCardsTransferAmountChunk.enterCardPin(INVALID_PEETS_CC_PIN_2);
+    logger.info("Enter valid Peet's Card PIN number" + "Tap Done on numeric keypad");
+    peetsCardsTransferAmountChunk.enterCardPin(VALID_PEETS_CC_NUM_1);
 
     PeetsCardsTransferAmountWarningChunk peetsCardsTransferAmountWarningChunk =
         peetsCardsTransferAmountChunk.transfer();
@@ -415,8 +415,11 @@ public class PeetsCardsTest extends BaseTest {
     peetsCardsTransferAmountChunk =
         peetsCardsTransferAmountWarningChunk.tapTryAgain(PeetsCardsTransferAmountChunk.class);
 
-    logger.info("Enter Card number of already added card with invalid PIN");
+    logger.info("Enter valid Peet's Card number" + "Tap next on numeric keypad");
     peetsCardsTransferAmountChunk.enterCardNumber(VALID_PEETS_CC_NUM_1);
+
+    logger.info("Enter invalid Peet's Card PIN number" + "Tap Done on numeric keypad");
+    peetsCardsTransferAmountChunk.enterCardPin(INVALID_PEETS_CC_PIN_1);
 
     peetsCardsTransferAmountWarningChunk = peetsCardsTransferAmountChunk.transfer();
 
