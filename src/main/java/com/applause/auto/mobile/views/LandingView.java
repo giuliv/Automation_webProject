@@ -80,6 +80,7 @@ public class LandingView extends BaseComponent {
    */
   public CreateAccountView createAccount() {
     logger.info("Tap on create account button");
+    SyncHelper.sleep(10000);
     getCreateAccountButton.click();
     return ComponentFactory.create(CreateAccountView.class);
   }

@@ -75,6 +75,7 @@ public class MobileHelper {
     logger.info("Scrolling to bottom of page");
     for (int i = 0; i < swipeCount; i++) {
       DeviceControl.swipeAcrossScreenWithDirection(swipeDirection);
+      SyncHelper.sleep(3000);
     }
   }
 
@@ -265,6 +266,12 @@ public class MobileHelper {
     refreshDeviceSize();
     logger.info("Scrolling down half a screen");
     scrollDownAlgorithm(0.1, 0.6, 0.4);
+  }
+
+  public static void scrollUpHalfScreen(int swipeLimit) {
+    refreshDeviceSize();
+    logger.info("Scrolling down half a screen");
+    scrollDownAlgorithm(0.1, 0.4, 0.6);
   }
 
   public static void swipeAcrossScreenCoordinates(
