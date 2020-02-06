@@ -1,7 +1,6 @@
 package com.applause.auto.mobile.components;
 
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -97,11 +96,18 @@ public class PeetsCardsTransferAmountChunk extends BaseComponent {
 
 class IOSPeetsCardsTransferAmountChunk extends PeetsCardsTransferAmountChunk {
 
+  /* -------- Elements -------- */
+
+  @Locate(id = "Next", on = Platform.MOBILE_IOS)
+  protected Button getKeyboardNextButton;
+
+  @Locate(id = "Done", on = Platform.MOBILE_IOS)
+  protected Button getKeyboardDoneButton;
+
   /* -------- Actions -------- */
 
   public PeetsCardsTransferAmountWarningChunk transfer() {
     logger.info("Tap on transfer button");
-    MobileHelper.hideKeyboardIOSByPressDone();
     getTransferButton.click();
     return ComponentFactory.create(PeetsCardsTransferAmountWarningChunk.class);
   }
@@ -123,5 +129,33 @@ class IOSPeetsCardsTransferAmountChunk extends PeetsCardsTransferAmountChunk {
    */
   public String getPinNumber() {
     return StringUtils.deleteWhitespace(getCardPinTextBox.getAttributeValue("value"));
+  }
+
+  /**
+   * Enter card number.
+   *
+   * @param cardNumber the card number
+   */
+  @Override
+  public void enterCardNumber(String cardNumber) {
+    logger.info("Enter card number: " + cardNumber);
+    getCardNumberTextBox.click();
+    getCardNumberTextBox.clearText();
+    getCardNumberTextBox.sendKeys(cardNumber);
+    getKeyboardNextButton.click();
+  }
+
+  /**
+   * Enter card pin.
+   *
+   * @param cardNumber the card number
+   */
+  @Override
+  public void enterCardPin(String cardNumber) {
+    logger.info("Enter card pin: " + cardNumber);
+    getCardPinTextBox.click();
+    getCardPinTextBox.clearText();
+    getCardPinTextBox.sendKeys(cardNumber);
+    getKeyboardDoneButton.click();
   }
 }
