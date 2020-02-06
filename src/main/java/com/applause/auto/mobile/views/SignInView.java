@@ -16,7 +16,6 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-
 import java.time.Duration;
 
 @Implementation(is = AndroidSignInView.class, on = Platform.MOBILE_ANDROID)
@@ -62,26 +61,40 @@ public class SignInView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/password", on = Platform.MOBILE_ANDROID)
   protected TextBox getUnEncryptedPasswordTextBox;
 
-  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Forgot Password?\"]", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//XCUIElementTypeStaticText[@name=\"Forgot Password?\"]",
+      on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/forgotPassword", on = Platform.MOBILE_ANDROID)
   protected Button getForgotPasswordButton;
 
-  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"At least 6 characters\"]", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/passwordRule1TextView", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath = "//XCUIElementTypeStaticText[@name=\"At least 6 characters\"]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/passwordRule1TextView",
+      on = Platform.MOBILE_ANDROID)
   protected TextBox getPasswordLengthRequirementTextBox;
 
-  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"At least 1 number\"]", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/passwordRule2TextView", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath = "//XCUIElementTypeStaticText[@name=\"At least 1 number\"]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/passwordRule2TextView",
+      on = Platform.MOBILE_ANDROID)
   protected TextBox getPasswordContainsNumbersRequirementTextBox;
 
-  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"At least 1 letter\"]", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/passwordRule3TextView", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath = "//XCUIElementTypeStaticText[@name=\"At least 1 letter\"]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/passwordRule3TextView",
+      on = Platform.MOBILE_ANDROID)
   protected TextBox getPasswordContainsLettersRequirementTextBox;
 
   @Locate(
       xpath =
           "//XCUIElementTypeApplication[@name=\"Peets-Sandbox\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther",
-          on = Platform.MOBILE_IOS)
+      on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/loader", on = Platform.MOBILE_ANDROID)
   protected ContainerElement getLoader;
 
