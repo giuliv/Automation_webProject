@@ -1,3 +1,6 @@
+version: 2.1
+orbs:
+  sumologic: circleci/sumologic@1.0.4
 jobs:
   test:
     docker:
@@ -7,28 +10,14 @@ jobs:
       - run:
           name: Run Automated iOS Tests
           command: |
-            mvn test-compile \
-              -Pss_run \
+            mvn clean compile test \
               -DapiKey=${APPLAUSE_API_KEY} \
               -DdriverId=2301 \
-              -Dexecution=serverside \
+              -Dexecution=clientside \
               -DsuiteFile=testng/mobile/debug.xml \
               -DproductId=20269 \
+              -DtestRetryCount=0 \
               -DdownloadResults=never
-      - run:
-          name: Run Automated Android Tests
-          command: |
-            mvn test-compile \
-              -Pss_run \
-              -DapiKey=${APPLAUSE_API_KEY} \
-              -DdriverId=2252 \
-              -Dexecution=serverside \
-              -DsuiteFile=testng/mobile/debug.xml \
-              -DproductId=20270 \
-              -DdownloadResults=never
-orbs:
-  sumologic: circleci/sumologic@1.0.4
-version: 2.1
 workflows:
   test:
     jobs:
