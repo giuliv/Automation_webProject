@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="All Mobile Tests" verbose="1" parallel="classes"
        thread-count="1">
-    <test name="all" preserve-order="true">
+    <test name="all-mobile" preserve-order="true">
         <packages>
             <package name="com.applause.auto.test.mobile" />
         </packages>
