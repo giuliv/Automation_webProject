@@ -59,6 +59,9 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   @Locate(id = "Allow While Using App", on = Platform.MOBILE_IOS)
   protected Button allowWhileUsing;
 
+  @Locate(iOSClassChain = "**/*[`label == 'Recents'`]", on = Platform.MOBILE_IOS)
+  protected TextBox recentTab;
+
   /* -------- Actions -------- */
 
   public CoffeeStoreContainerChuck getCoffeeStoreContainerChuck() {
@@ -107,6 +110,17 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
       //        }
     }
     return ComponentFactory.create(NewOrderView.class);
+  }
+
+  /**
+   * Open recent tab
+   *
+   * @return
+   */
+  public FindACoffeeBarView openRecentTab() {
+    logger.info("Tap on Recent Tab");
+    recentTab.click();
+    return ComponentFactory.create(FindACoffeeBarView.class);
   }
 }
 

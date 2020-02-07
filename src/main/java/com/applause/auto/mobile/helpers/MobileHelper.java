@@ -6,6 +6,7 @@ import com.applause.auto.common.data.Constants.MobileApp;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
 import com.applause.auto.pageobjectmodel.elements.Picker;
+import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
@@ -283,6 +284,9 @@ public class MobileHelper {
     int endX_ = (int) (size.getWidth() * endX);
     int endY_ = (int) (size.getHeight() * endY);
 
+    logger.info(
+        "Scrolling from: [" + startX_ + " , " + startY_ + "] to [" + endX_ + " , " + endY_ + "]");
+
     PointOption<?> startPoint = PointOption.point(startX_, startY_);
     PointOption<?> endPoint = PointOption.point(endX_, endY_);
     WaitOptions time = WaitOptions.waitOptions(Duration.ofMillis(millis));
@@ -292,5 +296,13 @@ public class MobileHelper {
         .moveTo(endPoint)
         .release()
         .perform();
+  }
+
+  public static String getElementTextAttribute(BaseElement baseElement) {
+    String textAttribute = "text";
+    if (EnvironmentHelper.isMobileIOS(DriverManager.getDriver())) {
+      textAttribute = "value";
+    }
+    return baseElement.getAttributeValue(textAttribute);
   }
 }
