@@ -102,7 +102,7 @@ public class Constants {
     public static final String VISA_CC_MONTH = "12";
     public static final String VISA_CC_YEAR = "2020";
     public static final String VISA_CC_NAME = "QA Test Applause Auto";
-    public static final String VISA_CC_ZIP = "90404";
+    public static final String VISA_CC_ZIP = "66666";
 
     public static final String AMEX_CC_NUM = "378282246310005";
     public static final String AMEX_CC_CODE = "2222";
@@ -184,7 +184,7 @@ public class Constants {
     public static final String CC_EXP_DATE = "12/20";
     public static final String CC_MODIFIED_EXP_DATE = "12/22";
     public static final String CC_CVV = "111";
-    public static final String CC_ZIP = "94608";
+    public static final String CC_ZIP = "66666";
     public static final String CC_VISA_NAME = "VISA TEST";
     public static final String CC_AMEX_NAME = "AMEX TEST";
     public static final String CC_MASTER_NAME = "MASTER TEST";
