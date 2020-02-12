@@ -1,0 +1,27 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Monitoring Test Suite" verbose="1" parallel="classes"
+       thread-count="1">
+    <test name="monitoring">
+        <groups>
+            <run>
+                <include name="onboarding" />
+            </run>
+        </groups>
+        <packages>
+            <package name="com.applause.auto.test" />
+        </packages>
+        <classes>
+            <class name="com.applause.auto.mobile.test.CreateAccountTest">
+                <methods>
+                    <include name="createAccountEmailPassword"/>
+                    <include name="signInEmailPasswordTest"/>
+                </methods>
+            </class>
+            <class name="com.applause.auto.mobile.test.OrderAheadTest">
+                <methods>
+                    <include name="checkoutTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>
