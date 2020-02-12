@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Account Settings Suite" verbose="1" parallel="classes"
+	thread-count="1">
+	<test name="account-settings" preserve-order="true">
+		<groups>
+			<run>
+				<include name="account-settings"/>
+			</run>
+		</groups>
+		<packages>
+			<package name="com.applause.auto.test.mobile" />
+		</packages>
+	</test>
+</suite>

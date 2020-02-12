@@ -1,140 +1,29 @@
 version: 2.1
-commands:
-  install_tunnel:
-    parameters:
-      version:
-        description: You can specify which version of Sauce Connect Proxy to use.
-        type: string
-        default: "4.5.3"
-    steps:
-      - run:
-          name: Install Sauce Connect Proxy
-          command: |
-            cd /tmp
-            curl https://saucelabs.com/downloads/sc-<<parameters.version>>-linux.tar.gz -o saucelabs.tar.gz
-            tar -xzf saucelabs.tar.gz
-            chmod a+x sc-<<parameters.version>>-linux/bin/sc
-            sudo cp sc-<<parameters.version>>-linux/bin/sc /usr/local/bin
-            sc --version
-
-  open_tunnel:
-    parameters:
-      username:
-        description: The username used for Sauce Connect to use when authenticating against the Sauce Labs API
-        type: string
-        default: ""
-      api_key:
-        description: The api key used for Sauce Connect to use when authenticating against the Sauce Labs API
-        type: string
-        default: ""
-      proxy_host:
-        description: An FQDN (or IP) with port for allowing Sauce Connect to run through a proxy (e.g. proxy.example.com:1234)
-        type: string
-        default: ""
-      proxy_upw:
-        description: A username and pasword combination for the proxy that Sauce Connect will use for proxy authentication (e.g. username:password)
-        type: string
-        default: ""
-      tunnel_identifier:
-        description: This desired capability will let the test job use any shared tunnels available from the specified parent account. i.e. any account that is upstream in the hierarchy. If using a shared tunnel, you must specify both tunnelIdentifier and parentTunnel.
-        type: string
-        default: ""
-    steps:
-      - run:
-          name: Open Sauce Connect Proxy Tunnel
-          command: |
-            sc \
-              <<# parameters.username >> -u <<parameters.username>> <</ parameters.username>> \
-              <<# parameters.api_key >> -k <<parameters.api_key>> <</ parameters.api_key>> \
-              <<# parameters.proxy_host >> -p <<parameters.proxy_host>> <</ parameters.proxy_host>> \
-              <<# parameters.proxy_upw >> -w <<parameters.proxy_upw>> <</ parameters.proxy_upw>> \
-              <<# parameters.tunnel_identifier >> -i <<parameters.tunnel_identifier>> <</ parameters.tunnel_identifier>> \
-              &
-            wget --retry-connrefused --no-check-certificate -T 60 localhost:4445
-
-  close_tunnel:
-    steps:
-      - run:
-          name: Close Sauce Connect Tunnels
-          command: killall sc
-
+orbs:
+  sumologic: circleci/sumologic@1.0.4
 jobs:
-  test_with_sc:
-    description: Use Sauce Connect with a Proxy
-    parameters:
-      docker:
-        type: string
-        default: "circleci/openjdk:8"
-      username:
-        description: The username used for Sauce Connect to use when authenticating against the Sauce Labs API
-        type: string
-        default: ""
-      api_key:
-        description: The api key used for Sauce Connect to use when authenticating against the Sauce Labs API
-        type: string
-        default: ""
-      proxy_host:
-        description: An FQDN (or IP) with port for allowing Sauce Connect to run through a proxy (e.g. proxy.example.com:1234)
-        type: string
-        default: ""
-      proxy_upw:
-        description: A username and pasword combination for the proxy that Sauce Connect will use for proxy authentication (e.g. username:password)
-        type: string
-        default: ""
-      tunnel_identifier:
-        description: This desired capability will let the test job use any shared tunnels available from the specified parent account. i.e. any account that is upstream in the hierarchy. If using a shared tunnel, you must specify both tunnelIdentifier and parentTunnel.
-        type: string
-        default: ""
-      version:
-        type: string
-        default: "4.5.3"
-      steps:
-        type: steps
-        description: Steps to execute once the Sauce Connect Tunnel is available
-    docker:
-      - image: <<parameters.docker>>
-    steps:
-      - checkout
-      - install_tunnel:
-          version: <<parameters.version>>
-      - open_tunnel:
-          username: <<parameters.username>>
-          api_key: <<parameters.api_key>>
-          tunnel_identifier: <<parameters.tunnel_identifier>>
-          proxy_host: <<parameters.proxy_host>>
-          proxy_upw: <<parameters.proxy_upw>>
-      - steps: << parameters.steps >>
-      - close_tunnel
-  build:
+  test:
     docker:
       - image: circleci/openjdk:8-jdk
     steps:
       - checkout
-      - run: mvn clean compile
+      - run:
+          name: Run Automated iOS Tests
+          command: |
+            mvn test-compile \
+              -Pss_run \
+              -DapiKey=${APPLAUSE_API_KEY} \
+              -DdriverId=2252 \
+              -Dexecution=serverside \
+              -DsuiteFile=testng/mobile/debug.xml \
+              -DproductId=20270 \
+              -DdownloadResults=never \
+              -DtestRetryCount=0
 workflows:
-  version: 2
   test:
     jobs:
-      - test_with_sc:
+      - sumologic/workflow-collector
+      - test:
           filters:
             branches:
-              only: v2
-
-          username: peetscoffee-auto
-          api_key: ${SC_API_KEY}
-          proxy_host: proxy.utest.com:9999
-          proxy_upw: utest:${APPLAUSE_PROXY_PASSWORD}
-          tunnel_identifier: sc.peetscoffee-auto
-
-          steps:
-            - run:
-                name: Run Automated Tests
-                command: |
-                  mvn clean compile test \
-                    -DapiKey=${APPLAUSE_API_KEY} \
-                    -DdriverId=1304 \
-                    -Dexecution=clientside \
-                    -DsuiteFile=testng/web/login.xml \
-                    -DproductId=19830 \
-                    -DdesiredCaps=tunnelIdentifier:sc.peetscoffee-auto \
-                    -DdownloadResults=never
+              only: v2-conversion
