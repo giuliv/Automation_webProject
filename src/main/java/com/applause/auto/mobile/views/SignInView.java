@@ -120,6 +120,7 @@ public class SignInView extends BaseComponent {
   public void setPassword(String password) {
     logger.info("Set password: " + password);
     getPasswordTextBox.clearText();
+    SyncHelper.sleep(500);
     getPasswordTextBox.sendKeys(password);
     SyncHelper.sleep(500);
   }
