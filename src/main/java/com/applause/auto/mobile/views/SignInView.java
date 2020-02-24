@@ -31,8 +31,7 @@ public class SignInView extends BaseComponent {
   protected TextBox getUsernameTextBox;
 
   @Locate(
-      xpath =
-          "//XCUIElementTypeAlert//XCUIElementTypeStaticText[@name=\"The email and password you entered don't match. Please try again.\"]",
+      xpath = "//XCUIElementTypeAlert//XCUIElementTypeStaticText/XCUIElementTypeStaticText",
       on = Platform.MOBILE_IOS)
   @Locate(id = "android:id/message", on = Platform.MOBILE_ANDROID)
   protected TextBox getMessageTextBox;
