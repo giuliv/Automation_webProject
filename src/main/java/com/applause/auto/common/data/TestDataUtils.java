@@ -2,13 +2,15 @@ package com.applause.auto.common.data;
 
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.EnvironmentHelper;
+
+import org.apache.commons.lang3.RandomStringUtils;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import org.apache.commons.lang3.RandomStringUtils;
 
 public class TestDataUtils {
   public static class PhoneNumberDataUtils {
@@ -31,9 +33,9 @@ public class TestDataUtils {
     public static String getFormatCurrentTransactionDate() {
       SimpleDateFormat transactionDateFormat;
       if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
-        transactionDateFormat = new SimpleDateFormat("MMM d, yyyy");
+        transactionDateFormat = new SimpleDateFormat("MMM d, yyyy", Locale.getDefault());
       } else {
-        transactionDateFormat = new SimpleDateFormat("MMMM d, yyyy");
+        transactionDateFormat = new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault());
       }
       return transactionDateFormat.format(new Date());
     }
