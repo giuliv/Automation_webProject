@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class TestDataUtils {
   public static class PhoneNumberDataUtils {
@@ -37,6 +38,7 @@ public class TestDataUtils {
       } else {
         transactionDateFormat = new SimpleDateFormat("MMMM d, yyyy", Locale.getDefault());
       }
+      transactionDateFormat.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
       return transactionDateFormat.format(new Date());
     }
 
