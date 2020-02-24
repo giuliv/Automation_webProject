@@ -183,7 +183,6 @@ public class SignInView extends BaseComponent {
     logger.info("Click on Sign In button");
     getSignInButton.initialize();
     getSignInButton.click();
-    SyncHelper.wait(Until.uiElement(getLoader).notVisible());
     return ComponentFactory.create(clazz);
   }
 
