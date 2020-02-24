@@ -199,4 +199,11 @@ public class Constants {
     public static final String VALID_PEETS_CC_NUM_1 = "81001000000581";
     public static final String VALID_PEETS_CC_NUM_2 = "81001000000584";
   }
+
+  public static final class OCR {
+    public static final String OCR_IMAGES_COMMON_PATH = "src/main/resources/ocr-images/";
+
+    public static final String PRIVACY_LINK_PATH = OCR_IMAGES_COMMON_PATH + "privacy-link.png";
+    public static final String TERMS_LINK_PATH = OCR_IMAGES_COMMON_PATH + "terms-link.png";
+  }
 }

@@ -20,11 +20,12 @@ import com.applause.auto.mobile.views.ProfileDetailsView;
 import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.mobile.views.TermsAndConditionsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
 
 public class CreateAccountTest extends BaseTest {
 
@@ -333,7 +334,7 @@ public class CreateAccountTest extends BaseTest {
     SignInView signInView = landingView.signIn();
 
     logger.info("Tap on Email Address field and enter valid email address");
-    String VALID_USERNAME = "a+625926@a.com";
+    String VALID_USERNAME = "a+6259261@a.com";
     signInView.setUsername(VALID_USERNAME);
 
     logger.info("Enter valid password");

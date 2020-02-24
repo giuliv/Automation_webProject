@@ -16,6 +16,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
+
 import java.time.Duration;
 
 @Implementation(is = AndroidSignInView.class, on = Platform.MOBILE_ANDROID)

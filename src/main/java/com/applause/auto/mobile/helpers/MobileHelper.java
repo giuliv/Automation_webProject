@@ -1,7 +1,5 @@
 package com.applause.auto.mobile.helpers;
 
-import static com.applause.auto.util.DriverManager.getDriver;
-
 import com.applause.auto.common.data.Constants.MobileApp;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
@@ -18,18 +16,27 @@ import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
-import java.lang.invoke.MethodHandles;
-import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.RemoteWebElement;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.lang.invoke.MethodHandles;
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.applause.auto.util.DriverManager.getDriver;
 
 public class MobileHelper {
 
@@ -176,6 +183,16 @@ public class MobileHelper {
     }
 
     logger.debug(String.format("Tapping at %s, %s", (int) tapX, (int) tapY));
+    tapByCoordinates((int) tapX, (int) tapY);
+  }
+
+  /**
+   * Tapping by coordinates on mobile screen
+   *
+   * @param tapX
+   * @param tapY
+   */
+  public static void tapByCoordinates(int tapX, int tapY) {
     new TouchAction(getMobileDriver()).tap(PointOption.point((int) tapX, (int) tapY)).perform();
   }
 
@@ -304,5 +321,18 @@ public class MobileHelper {
       textAttribute = "value";
     }
     return baseElement.getAttributeValue(textAttribute);
+  }
+
+  public static BufferedImage getMobileScreenshotBufferedImage() {
+    byte[] screenShot = getMobileDriver().getScreenshotAs(OutputType.BYTES);
+    if (ArrayUtils.isNotEmpty(screenShot)) {
+      ByteArrayInputStream bais = new ByteArrayInputStream(screenShot);
+      try {
+        return ImageIO.read(bais);
+      } catch (IOException e) {
+        logger.info("Error reading input stream for screenshot image");
+        throw new RuntimeException(e);
+      }
+    } else throw new IllegalStateException("Was not able to get mobile screenshot");
   }
 }
