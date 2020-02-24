@@ -40,7 +40,7 @@ public class PaymentMethodsView extends BaseComponent {
   protected Button getPeetsCard;
 
   @Locate(
-      xpath = "//XCUIElementTypeStaticText[@name=\"Saved Payment Methods\"]",
+      xpath = "//XCUIElementTypeNavigationBar//XCUIElementTypeStaticText[@value='PAYMENT METHODS']",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath = "//android.widget.TextView[@text='Saved Payment Methods']",

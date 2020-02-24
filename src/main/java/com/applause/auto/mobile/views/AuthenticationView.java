@@ -13,7 +13,7 @@ public class AuthenticationView extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(id = "//XCUIElementTypeButton[@name='Create Account']", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeButton[@name='Create Account']", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/signUp", on = Platform.MOBILE_ANDROID)
   protected Button getCreateAccountButton;
 

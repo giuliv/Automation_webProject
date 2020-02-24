@@ -12,11 +12,13 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
+import java.time.Duration;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-import java.time.Duration;
 
 @Implementation(is = AndroidSignInView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = SignInView.class, on = Platform.MOBILE_IOS)
@@ -29,8 +31,7 @@ public class SignInView extends BaseComponent {
   protected TextBox getUsernameTextBox;
 
   @Locate(
-      xpath =
-          "//XCUIElementTypeAlert//XCUIElementTypeStaticText[@name=\"The email and password you entered don't match. Please try again.\"]",
+      xpath = "//XCUIElementTypeAlert//XCUIElementTypeStaticText/XCUIElementTypeStaticText",
       on = Platform.MOBILE_IOS)
   @Locate(id = "android:id/message", on = Platform.MOBILE_ANDROID)
   protected TextBox getMessageTextBox;
@@ -120,6 +121,9 @@ public class SignInView extends BaseComponent {
   public void setPassword(String password) {
     logger.info("Set password: " + password);
     getPasswordTextBox.clearText();
+    getPasswordTextBox.initialize();
+    getPasswordTextBox.click();
+    SyncHelper.sleep(500);
     getPasswordTextBox.sendKeys(password);
     SyncHelper.sleep(500);
   }
@@ -176,9 +180,8 @@ public class SignInView extends BaseComponent {
    */
   public <T extends BaseComponent> T signIn(Class<T> clazz) {
     logger.info("Click on Sign In button");
+    getSignInButton.initialize();
     getSignInButton.click();
-    SyncHelper.wait(Until.uiElement(getLoader).visible());
-    SyncHelper.wait(Until.uiElement(getLoader).notVisible());
     return ComponentFactory.create(clazz);
   }
 
