@@ -109,7 +109,7 @@ public class Constants {
     public static final String AMEX_CC_MONTH = "12";
     public static final String AMEX_CC_YEAR = "2020";
 
-    public static final String DISCOVERY_CC_NUM = "6011869900245897";
+    public static final String DISCOVERY_CC_NUM = "6011000995500000";
     public static final String DISCOVERY_CC_CODE = "111";
     public static final String DISCOVERY_CC_MONTH = "12";
     public static final String DISCOVERY_CC_YEAR = "2020";
