@@ -1,7 +1,5 @@
 package com.applause.auto.test.mobile;
 
-import static com.applause.auto.common.data.Constants.MobileTestData.*;
-
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
@@ -13,10 +11,16 @@ import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.PeetsCardSettingsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
+
+import static com.applause.auto.common.data.Constants.MobileTestData.CC_AMEX_NAME;
+import static com.applause.auto.common.data.Constants.MobileTestData.CC_DISCO_NAME;
+import static com.applause.auto.common.data.Constants.MobileTestData.CC_MASTER_NAME;
+import static com.applause.auto.common.data.Constants.MobileTestData.CC_VISA_NAME;
 
 public class AccountSettingsTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());

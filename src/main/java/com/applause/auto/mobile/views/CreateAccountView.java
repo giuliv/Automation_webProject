@@ -1,11 +1,8 @@
 package com.applause.auto.mobile.views;
 
-import static com.applause.auto.common.data.Constants.OCR.PRIVACY_LINK_PATH;
-import static com.applause.auto.common.data.Constants.OCR.TERMS_LINK_PATH;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
-import com.applause.auto.mobile.helpers.ImageRecognitionUtility;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -19,13 +16,11 @@ import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
-import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.openqa.selenium.Dimension;
@@ -243,16 +238,8 @@ public class CreateAccountView extends BaseComponent {
    */
   public PrivacyPolicyView privacyPolicy() {
     logger.info("Tap on Privacy Policy");
-    if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
-      SyncHelper.sleep(2000);
-      Point2D privacyPolicyLinkCoordinates =
-          ImageRecognitionUtility.getCoords(
-              MobileHelper.getMobileScreenshotBufferedImage(), PRIVACY_LINK_PATH, 1, 0.6);
-      MobileHelper.tapByCoordinates(
-          (int) privacyPolicyLinkCoordinates.getX(), (int) privacyPolicyLinkCoordinates.getY());
-    } else {
-      getPrivacyPolicyButton.click();
-    }
+    getPrivacyPolicyButton.click();
+
     // wait till the page load, before it ios is not switched back to app
     SyncHelper.sleep(10000);
     return ComponentFactory.create(PrivacyPolicyView.class);
@@ -265,16 +252,7 @@ public class CreateAccountView extends BaseComponent {
    */
   public TermsAndConditionsView termsAndConditions() {
     logger.info("Tap on Terms and Conditions");
-    if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
-      SyncHelper.sleep(2000);
-      Point2D termsLinkCoordinates =
-          ImageRecognitionUtility.getCoords(
-              MobileHelper.getMobileScreenshotBufferedImage(), TERMS_LINK_PATH, 1, 0.6);
-      MobileHelper.tapByCoordinates(
-          (int) termsLinkCoordinates.getX(), (int) termsLinkCoordinates.getY());
-    } else {
-      getTermsAndConditionsButton.click();
-    }
+    getTermsAndConditionsButton.click();
     SyncHelper.sleep(10000);
     return ComponentFactory.create(TermsAndConditionsView.class);
   }
