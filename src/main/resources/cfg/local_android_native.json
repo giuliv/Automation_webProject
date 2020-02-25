@@ -9,7 +9,7 @@
     "autoGrantPermissions": true,
     "autoAcceptAlerts": true,
     "newCommandTimeout": 3000,
- 	"device": "android",
- 	"automationName": "uiautomator2"
+    "device": "android",
+    "automationName": "uiautomator2"
   }
 }

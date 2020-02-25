@@ -136,9 +136,13 @@ class AndroidLandingView extends LandingView {
 
   @Override
   public void createAccountNavigation() {
-    skipOnboarding();
-    logger.info("Tap Create Account");
-    createAccount();
+    try {
+      skipOnboarding();
+      logger.info("Tap Create Account");
+      createAccount();
+    } catch (Exception e) {
+      logger.info("Skipping Onboarding was not successful. Probably skip is not present.");
+    }
   }
 
   // implemented this method for Android, but it looks like it is redundant

@@ -9,6 +9,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
+import com.applause.auto.util.helper.SyncHelper;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -143,6 +144,8 @@ public class ChangePasswordView extends BaseComponent {
   public <T extends BaseComponent> T changePassword(Class<T> clazz) {
     logger.info("Tap on change password button");
     getChangePasswordButton.click();
+    // wait change password is applied
+    SyncHelper.sleep(5000);
     return ComponentFactory.create(clazz);
   }
 

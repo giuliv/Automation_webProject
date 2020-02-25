@@ -1,5 +1,7 @@
 package com.applause.auto.test.mobile;
 
+import static com.applause.auto.common.data.Constants.MobileTestData.*;
+
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
@@ -17,22 +19,13 @@ import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.PeetsCardsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
+import java.lang.invoke.MethodHandles;
+import java.text.ParseException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.lang.invoke.MethodHandles;
-import java.text.ParseException;
-
-import static com.applause.auto.common.data.Constants.MobileTestData.CC_EXP_DATE;
-import static com.applause.auto.common.data.Constants.MobileTestData.CC_MASTER_NAME;
-import static com.applause.auto.common.data.Constants.MobileTestData.CC_MODIFIED_EXP_DATE;
-import static com.applause.auto.common.data.Constants.MobileTestData.INVALID_PEETS_CC_NUM_1;
-import static com.applause.auto.common.data.Constants.MobileTestData.INVALID_PEETS_CC_PIN_1;
-import static com.applause.auto.common.data.Constants.MobileTestData.VALID_PEETS_CC_NUM_1;
 
 public class PeetsCardsTest extends BaseTest {
 

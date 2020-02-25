@@ -7,24 +7,20 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Text;
 
 /** Order Menu chunk. */
-@Implementation(is = CoffeeStoreContainerChuck.class, on = Platform.MOBILE_ANDROID)
-@Implementation(is = CoffeeStoreContainerChuck.class, on = Platform.MOBILE_IOS)
+@Implementation(is = OrderMenuChunk.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = OrderMenuChunk.class, on = Platform.MOBILE_IOS)
 public class OrderMenuChunk extends BaseComponent {
 
   /* -------- Elements -------- */
 
   // TODO for iOS
   @Locate(id = "", on = Platform.MOBILE_IOS)
-  @Locate(
-      id = "com.wearehathway.peets.development:id/getStartedButton",
-      on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//*[@text='Seasonal Favorites']", on = Platform.MOBILE_ANDROID)
   protected Text seasonalFavoritesSubHeader;
 
   // TODO for iOS
   @Locate(id = "", on = Platform.MOBILE_IOS)
-  @Locate(
-      id = "com.wearehathway.peets.development:id/getStartedButton",
-      on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//*[@text='Menu']", on = Platform.MOBILE_ANDROID)
   protected Text menuSubheader;
 
   /* -------- Actions -------- */

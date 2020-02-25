@@ -109,7 +109,7 @@ public class Constants {
     public static final String AMEX_CC_MONTH = "12";
     public static final String AMEX_CC_YEAR = "2020";
 
-    public static final String DISCOVERY_CC_NUM = "6011869900245897";
+    public static final String DISCOVERY_CC_NUM = "6011000995500000";
     public static final String DISCOVERY_CC_CODE = "111";
     public static final String DISCOVERY_CC_MONTH = "12";
     public static final String DISCOVERY_CC_YEAR = "2020";
@@ -198,5 +198,12 @@ public class Constants {
     public static final String INVALID_PEETS_CC_PIN_2 = "1111";
     public static final String VALID_PEETS_CC_NUM_1 = "81001000000581";
     public static final String VALID_PEETS_CC_NUM_2 = "81001000000584";
+  }
+
+  public static final class OCR {
+    public static final String OCR_IMAGES_COMMON_PATH = "src/main/resources/ocr-images/";
+
+    public static final String PRIVACY_LINK_PATH = OCR_IMAGES_COMMON_PATH + "privacy-link.png";
+    public static final String TERMS_LINK_PATH = OCR_IMAGES_COMMON_PATH + "terms-link.png";
   }
 }
