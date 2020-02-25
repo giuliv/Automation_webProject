@@ -31,11 +31,12 @@ import com.applause.auto.web.views.PaymentMethodsPage;
 import com.applause.auto.web.views.ShopCoffeePage;
 import com.applause.auto.web.views.SignInPage;
 import com.applause.auto.web.views.SignUpPage;
-import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
 
 public class MyAccountTest extends BaseTest {
 

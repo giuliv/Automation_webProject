@@ -20,11 +20,12 @@ import com.applause.auto.mobile.views.ProfileDetailsView;
 import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.mobile.views.TermsAndConditionsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
 
 public class CreateAccountTest extends BaseTest {
 

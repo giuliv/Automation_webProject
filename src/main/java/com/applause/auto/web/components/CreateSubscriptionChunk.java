@@ -14,6 +14,7 @@ import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
 import com.applause.auto.web.helpers.WebHelper;
+
 import java.time.Duration;
 
 @Implementation(is = CreateSubscriptionChunk.class, on = Platform.WEB)

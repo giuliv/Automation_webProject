@@ -14,6 +14,7 @@ import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
+
 import java.time.Duration;
 
 @Implementation(is = AndroidNearbySelectCoffeeBarView.class, on = Platform.MOBILE_ANDROID)
