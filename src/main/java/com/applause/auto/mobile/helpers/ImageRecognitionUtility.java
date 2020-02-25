@@ -1,14 +1,13 @@
 package com.applause.auto.mobile.helpers;
 
+import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.sikuli.basics.Settings;
 import org.sikuli.script.Finder;
 import org.sikuli.script.Match;
-
-import java.awt.geom.Point2D;
-import java.awt.image.BufferedImage;
-import java.lang.invoke.MethodHandles;
 
 public class ImageRecognitionUtility {
 

@@ -11,12 +11,11 @@ import com.applause.auto.web.views.PeetsCardProductPage;
 import com.applause.auto.web.views.ShopCoffeeKCupsPage;
 import com.applause.auto.web.views.ShopEquipmentPage;
 import com.applause.auto.web.views.ShopTeaPage;
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Method;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.BeforeMethod;
-
-import java.lang.invoke.MethodHandles;
-import java.lang.reflect.Method;
 
 public class BaseTest extends BaseSeleniumTest {
 

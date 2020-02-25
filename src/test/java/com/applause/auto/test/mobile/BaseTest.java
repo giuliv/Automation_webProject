@@ -4,13 +4,12 @@ import com.applause.auto.base.BaseSeleniumTest;
 import com.applause.auto.integrations.RunUtil;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.test.mobile.helpers.TestHelper;
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Method;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.BeforeMethod;
 import org.testng.asserts.SoftAssert;
-
-import java.lang.invoke.MethodHandles;
-import java.lang.reflect.Method;
 
 public class BaseTest extends BaseSeleniumTest {
 

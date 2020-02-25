@@ -2,12 +2,11 @@ package com.applause.auto.test.web;
 
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.web.views.Landing;
+import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.lang.invoke.MethodHandles;
 
 /**
  * This is a sample test that verifies the project is setup correctly and can execute a simple test.

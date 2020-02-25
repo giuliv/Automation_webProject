@@ -383,4 +383,12 @@ class IosProfileDetailsView extends ProfileDetailsView {
     getFirstnameTextBox.sendKeys(firstname);
     return this;
   }
+
+  public ChangePasswordView changePassword() {
+    logger.info("Tap on change password button");
+    DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.UP);
+    getChangePasswordButton.initialize();
+    DeviceControl.tapElementCenter(getChangePasswordButton);
+    return ComponentFactory.create(ChangePasswordView.class);
+  }
 }

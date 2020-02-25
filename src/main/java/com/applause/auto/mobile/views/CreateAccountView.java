@@ -1,5 +1,8 @@
 package com.applause.auto.mobile.views;
 
+import static com.applause.auto.common.data.Constants.OCR.PRIVACY_LINK_PATH;
+import static com.applause.auto.common.data.Constants.OCR.TERMS_LINK_PATH;
+
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.helpers.ImageRecognitionUtility;
@@ -22,14 +25,10 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-import org.openqa.selenium.Dimension;
-
 import java.awt.geom.Point2D;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.applause.auto.common.data.Constants.OCR.PRIVACY_LINK_PATH;
-import static com.applause.auto.common.data.Constants.OCR.TERMS_LINK_PATH;
+import org.openqa.selenium.Dimension;
 
 @Implementation(is = AndroidCreateAccountView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CreateAccountView.class, on = Platform.MOBILE_IOS)
