@@ -375,6 +375,9 @@ public class CreateAccountTest extends BaseTest {
     logger.info("Enter valid current password");
     changePasswordView.setCurrentPassword(INITIAL_PASSWORD);
 
+    logger.info("Enter new password");
+    changePasswordView.setNewPassword(UPDATED_PASSWORD);
+
     logger.info("Make sure password entered is displayed");
     softAssert.assertEquals(
         changePasswordView.getCurrentPasswordUnhide(),
