@@ -168,7 +168,7 @@ public class CreateAccountTest extends BaseTest {
     SignInView signInView = landingView.signIn();
 
     logger.info("Tap on Email Address field and enter valid email address");
-    String username = MyAccountTestData.EMAIL;
+    String username = MyAccountTestData.EMAIL_EDIT_PROFILE;
     signInView.setUsername(username);
 
     logger.info("Enter valid password");
