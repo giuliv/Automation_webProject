@@ -339,7 +339,7 @@ public class CreateAccountTest extends BaseTest {
     signInView.setUsername(VALID_USERNAME);
 
     logger.info("Enter valid password");
-    String INITIAL_PASSWORD = "Password1";
+    String INITIAL_PASSWORD = "newPassword1";
     signInView.setPassword(INITIAL_PASSWORD);
 
     logger.info("Tap Sign In button");
@@ -358,7 +358,7 @@ public class CreateAccountTest extends BaseTest {
     changePasswordView.setCurrentPassword("somewrongpassword1");
 
     logger.info("Enter new password");
-    String UPDATED_PASSWORD = "newPassword1";
+    String UPDATED_PASSWORD = "Password1";
     changePasswordView.setNewPassword(UPDATED_PASSWORD);
 
     logger.info("Tap Change Password button");
