@@ -148,6 +148,7 @@ public class Constants {
 
   public static final class MyAccountTestData {
     public static final String EMAIL = "peets+testaccount@gmail.com";
+    public static final String EMAIL_PEETS_REWARDS = "peets+rewards@gmail.com";
     public static final String EMAIL_EDIT_PROFILE = "peets+testeditprofile@gmail.com";
     public static final String EMAIL_ORDERING = "peets2+testaccount@gmail.com";
     public static final String SAFARI_SHIPPING_EMAIL = "peets+safarishipping@qa.utest.com";

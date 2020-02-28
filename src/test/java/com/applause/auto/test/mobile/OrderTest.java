@@ -238,7 +238,7 @@ public class OrderTest extends BaseTest {
     LandingView landingView = ComponentFactory.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
-            landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
+            landingView, MyAccountTestData.EMAIL_PEETS_REWARDS, MyAccountTestData.PASSWORD, DashboardView.class);
 
     Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
