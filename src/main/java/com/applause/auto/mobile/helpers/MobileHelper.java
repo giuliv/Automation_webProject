@@ -8,6 +8,7 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -187,6 +188,17 @@ public class MobileHelper {
   }
 
   /**
+   * Tapping by coordinates on mobile element center
+   *
+   * @param element
+   */
+  public static void tapByCoordinatesOnElementCenter(BaseElement element) {
+    tapByCoordinates(
+        element.getLocation().x + element.getDimension().getWidth() / 2,
+        element.getLocation().y + element.getDimension().getHeight() / 2);
+  }
+
+  /**
    * Tapping by coordinates on mobile screen
    *
    * @param tapX
@@ -313,6 +325,34 @@ public class MobileHelper {
         .moveTo(endPoint)
         .release()
         .perform();
+  }
+
+  /** Scrolling down view until 'element' will be available on the screen */
+  public static void scrollUntilElementSectionWillBeAvailableOnTheScreenInWebView(
+      BaseElement element, String elementName, int maxSwipingAttempts) {
+    int currentSwipingAttempts = 1;
+    int screenHeight = DeviceControl.getScreenSize().getHeight();
+    int screenWidth = DeviceControl.getScreenSize().getWidth();
+
+    logger.info("Scrolling down to element: ", elementName);
+    while (currentSwipingAttempts <= maxSwipingAttempts) {
+      try {
+        SyncHelper.wait(Until.uiElement(element).present().setTimeout(Duration.ofSeconds(2)));
+        logger.info(elementName + " is present");
+        SyncHelper.sleep(2000);
+        break;
+      } catch (WebDriverException e) {
+        logger.info(elementName + " is not present");
+        logger.info("Swipe attempt: " + currentSwipingAttempts);
+        DeviceControl.swipeAcrossScreenCoordinates(
+            screenWidth / 2,
+            (int) (screenHeight * 0.75),
+            screenWidth / 2,
+            (int) (screenHeight * 0.4),
+            1000);
+        currentSwipingAttempts++;
+      }
+    }
   }
 
   public static String getElementTextAttribute(BaseElement baseElement) {

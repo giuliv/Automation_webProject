@@ -98,7 +98,7 @@ public class AccountSettingsTest extends BaseTest {
             Constants.TestData.DISCOVERY_CC_CODE,
             MobileTestData.CC_DISCO_NAME,
             Constants.MobileTestData.CC_EXP_DATE,
-                Constants.TestData.DISCOVERY_CC_ZIP);
+            Constants.TestData.DISCOVERY_CC_ZIP);
 
     logger.info("Add New Payment Method MASTER");
     addNewCardView = paymentMethodsView.clickAddNewPayment();
