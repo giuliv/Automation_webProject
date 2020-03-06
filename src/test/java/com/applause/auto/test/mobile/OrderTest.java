@@ -233,7 +233,7 @@ public class OrderTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ORDER},
       description = "625897")
-  public void checkoutTest() throws InterruptedException {
+  public void checkoutTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = ComponentFactory.create(LandingView.class);
     DashboardView dashboardView =
@@ -270,6 +270,58 @@ public class OrderTest extends BaseTest {
 
     logger.info("Verify - Order Summary is '$0.00'");
     Assert.assertEquals(checkout.getOrderTotal(), "$0.00", "Order total was not changed by reward");
+
+    logger.info("Place Order");
+    OrderConfirmationView orderConfirmationView = checkout.placeOrder(OrderConfirmationView.class);
+
+    logger.info("Verify - Order Confirmation displayed");
+    Assert.assertNotNull(orderConfirmationView, "Something happened during order placement");
+  }
+
+  @Test(
+      groups = {TestNGGroups.ORDER},
+      description = "2879930")
+  public void orderAhead() {
+    logger.info("Launch the app and arrive at the first on boarding screen view");
+    LandingView landingView = ComponentFactory.create(LandingView.class);
+    DashboardView dashboardView =
+        testHelper.signIn(
+            landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
+
+    Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
+
+    NewOrderView newOrderView = openOrderMenuForRecentCoffeeBar(dashboardView);
+
+    logger.info("Tap a category and subcategory");
+    newOrderView.selectCategoryAndSubCategory("Espresso Beverages", "Espresso");
+
+    logger.info("Select a product");
+    ProductDetailsView productDetail = newOrderView.selectProduct("Iced Espresso");
+
+    logger.info("User should be taken to product details page");
+    Assert.assertNotNull(productDetail, "User des not taken to product detail page");
+
+    logger.info("Scroll down PDP and select a modifiers");
+    productDetail = productDetail.selectModifiers("Ice", "Light Ice");
+
+    logger.info("Add to Order");
+    newOrderView = productDetail.addToOrder(NewOrderView.class);
+
+    logger.info("Proceed to Checkout");
+    CheckoutView checkout = newOrderView.checkout();
+
+    logger.info("Navigate to You might also like section. Tap on a product.");
+    productDetail = checkout.clickYouMightAlsoLikeItem();
+    Assert.assertNotNull(productDetail, "User does not taken to product detail page");
+
+    logger.info("Add to Order");
+    newOrderView = productDetail.addToOrder(NewOrderView.class);
+
+    logger.info("Proceed to Checkout");
+    checkout = TestHelper.checkoutOnItemsYouMightLike(newOrderView);
+
+    logger.info("Checking total order items count");
+    Assert.assertEquals(checkout.getOrderedItemsCount(), 2, "Ordered items count is incorrect");
 
     logger.info("Place Order");
     OrderConfirmationView orderConfirmationView = checkout.placeOrder(OrderConfirmationView.class);
