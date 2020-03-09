@@ -6,6 +6,7 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
+import com.applause.auto.mobile.views.CheckoutView;
 import com.applause.auto.mobile.views.CreditCardDetailsView;
 import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.FindACoffeeBarView;
@@ -144,6 +145,14 @@ public class TestHelper extends BaseComponent {
       return findACoffeeBarView.selectFirstRecentCoffeeBar();
     }
     return dashboardView.getBottomNavigationMenu().order(NewOrderView.class);
+  }
+
+  public static CheckoutView checkoutOnItemsYouMightLike(NewOrderView newOrderView) {
+    if (EnvironmentHelper.isMobileIOS(DriverManager.getDriver())) {
+      return ComponentFactory.create(CheckoutView.class);
+    } else {
+      return newOrderView.checkout();
+    }
   }
 
   private static List<ApplicationState> notRunningAppStates() {

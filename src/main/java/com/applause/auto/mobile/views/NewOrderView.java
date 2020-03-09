@@ -11,6 +11,9 @@ import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
+
+import java.time.Duration;
 
 @Implementation(is = NewOrderView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosNewOrderView.class, on = Platform.MOBILE_IOS)
@@ -120,7 +123,14 @@ public class NewOrderView extends BaseComponent {
   public CheckoutView checkout() {
     logger.info("Tap on Cart button");
     getCartButton.click();
-    getConfirmStoreButton.click();
+    try {
+      logger.info("Waiting for confirmation button");
+      SyncHelper.wait(
+          Until.uiElement(getConfirmStoreButton).present().setTimeout(Duration.ofSeconds(5)));
+      getConfirmStoreButton.click();
+    } catch (Exception e) {
+      logger.info("Confirmation button is not present");
+    }
     return ComponentFactory.create(CheckoutView.class);
   }
 }
@@ -130,6 +140,9 @@ class IosNewOrderView extends NewOrderView {
   public CheckoutView checkout() {
     logger.info("Tap on Cart button");
     getCartButton.click();
+    // for some reasons iOS is getting stuck here for couple of secs
+    logger.info("10 sec wait for checkout on iOS");
+    SyncHelper.sleep(10000);
     return ComponentFactory.create(CheckoutView.class);
   }
 }

@@ -6,6 +6,7 @@ import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.AccountHistoryView;
 import com.applause.auto.mobile.views.AuthenticationView;
 import com.applause.auto.mobile.views.GeneralSettingsView;
+import com.applause.auto.mobile.views.HelpAndFeedbackView;
 import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.ProfileDetailsView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -51,6 +52,12 @@ public class AccountMenuMobileChunk extends BaseComponent {
       id = "com.wearehathway.peets.development:id/accountActivity",
       on = Platform.MOBILE_ANDROID)
   protected Button getAccountHistoryButton;
+
+  @Locate(
+      xpath = "//XCUIElementTypeStaticText[@name=\"Help & Feedback\"]",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/helpFeedback", on = Platform.MOBILE_ANDROID)
+  protected Button getHelpAndFeedbackButton;
 
   @Locate(id = "Payment Methods", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/paymentMethods", on = Platform.MOBILE_ANDROID)
@@ -134,6 +141,17 @@ public class AccountMenuMobileChunk extends BaseComponent {
     logger.info("Click Account History");
     getAccountHistoryButton.click();
     return ComponentFactory.create(AccountHistoryView.class);
+  }
+
+  /**
+   * Help & Feedback view.
+   *
+   * @return the help and feedback view
+   */
+  public HelpAndFeedbackView helpAndFeedback() {
+    logger.info("Click Help & Feedback");
+    getHelpAndFeedbackButton.click();
+    return ComponentFactory.create(HelpAndFeedbackView.class);
   }
 
   /** Click the Cross Button */

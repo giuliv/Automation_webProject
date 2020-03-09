@@ -5,7 +5,7 @@
   "caps" : {
     "platformName": "iOS",
     "platformVersion": "13.2.3",
-    "deviceName": "Taras's iPhone",
+    "deviceName": "iphone",
     "udid": "iphone",
     "automationName": "XCUITest"
   }
