@@ -14,6 +14,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.SyncHelper;
@@ -90,7 +91,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
 
   @Locate(xpath = "//XCUIElementTypeOther[@name=\"URL\"]", on = Platform.MOBILE_IOS)
   @Locate(id = "com.android.chrome:id/url_bar", on = Platform.MOBILE_ANDROID)
-  protected ContainerElement urlBar;
+  protected Text urlBar;
 
   @Locate(xpath = "//XCUIElementTypeButton[@name='Done']", on = Platform.MOBILE_IOS)
   protected Button getDoneButton;
@@ -183,7 +184,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
 
   public Boolean isOnSocialMediaPage() {
     logger.info("Checking if URL exists");
-    return urlBar.isDisplayed();
+    return urlBar.exists();
   }
 
   public AccountMenuMobileChunk clickDoneButton() {
