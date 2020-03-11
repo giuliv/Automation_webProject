@@ -183,7 +183,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
 
   public Boolean isOnSocialMediaPage() {
     logger.info("Checking if URL exists");
-    return urlBar.exists();
+    return urlBar.isDisplayed();
   }
 
   public AccountMenuMobileChunk clickDoneButton() {
