@@ -23,6 +23,7 @@ public class Constants {
     public static final String ONBOARDING = "onboarding";
     public static final String PEETS_CARDS = "peets-cards";
     public static final String ORDER = "order";
+    public static final String COMPANY_INFORMATION = "company-information";
   }
 
   public enum TestEnvironment {
@@ -114,7 +115,6 @@ public class Constants {
     public static final String DISCOVERY_CC_MONTH = "12";
     public static final String DISCOVERY_CC_YEAR = "2020";
     public static final String DISCOVERY_CC_ZIP = "11111";
-
 
     public static final String MASTER_CC_NUM = "5405222222222226";
     public static final String MASTER_CC_CODE = "111";

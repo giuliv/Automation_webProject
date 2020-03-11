@@ -32,13 +32,38 @@ public class CheckoutView extends BaseComponent {
 
   @Locate(
       xpath =
-          "//*[@text='Available Rewards']/following-sibling::*[contains(@resource-id, 'rewardRecyclerView')]//*[contains(@resource-id, 'rewardTitle')]",
+          "//*[contains(@resource-id, 'productRecyclerView')]//*[contains(@resource-id, 'productImage')]",
       on = Platform.MOBILE_ANDROID)
   @Locate(
       xpath =
-          "//XCUIElementTypeOther[@name='Available Rewards']/following-sibling::*[1]//XCUIElementTypeStaticText",
+          "//XCUIElementTypeOther[@name='Your Order']/following-sibling::*[child::*[contains(@name,'$')]"
+              + " and following-sibling::*[@name='Payment Method']]",
+      on = Platform.MOBILE_IOS)
+  protected List<ContainerElement> orderedItems;
+
+  @Locate(
+      xpath =
+          "//*[@text='Available Rewards']/following-sibling::*[contains(@resource-id, 'rewardRecyclerView')]"
+              + "//*[contains(@resource-id, 'rewardTitle')]",
+      on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//XCUIElementTypeOther[@name='Available Rewards']/following-sibling::*[1]"
+              + "//XCUIElementTypeStaticText",
       on = Platform.MOBILE_IOS)
   protected List<ContainerElement> availableRewards;
+
+  @Locate(
+      xpath =
+          "//*[@text='You might also like']/following-sibling::*//*[contains(@resource-id, 'image')]",
+      on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//*[@name='You might also like']/following-sibling::*[contains(@type, 'XCUIElementTypeCell')"
+              + " and following-sibling::*[contains(@name, 'Payment Method')]"
+              + " and not(child::*[contains(@name, 'free')])]/*[last()]",
+      on = Platform.MOBILE_IOS)
+  protected List<ContainerElement> youMightAlsoLikeProducts;
 
   @Locate(id = "detailButton", on = Platform.MOBILE_ANDROID)
   @Locate(xpath = "//*[@name='Redeem']", on = Platform.MOBILE_IOS)
@@ -104,6 +129,17 @@ public class CheckoutView extends BaseComponent {
     return ComponentFactory.create(CheckoutView.class);
   }
 
+  /** Click on you might also like item. */
+  public ProductDetailsView clickYouMightAlsoLikeItem() {
+    logger.info("Clicking on you might also like item");
+    if (youMightAlsoLikeProducts.isEmpty()) {
+      throw new IllegalStateException("No 'You Might Also Like' items were found");
+    }
+    youMightAlsoLikeProducts.get(0).click();
+
+    return ComponentFactory.create(ProductDetailsView.class);
+  }
+
   /**
    * Get total order value
    *
@@ -111,6 +147,11 @@ public class CheckoutView extends BaseComponent {
    */
   public String getOrderTotal() {
     return orderTotal.getAttributeValue("value");
+  }
+
+  /** Get total ordered items count */
+  public int getOrderedItemsCount() {
+    return orderedItems.size();
   }
 
   /** unused */
