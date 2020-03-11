@@ -3,15 +3,12 @@ package com.applause.auto.mobile.components;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.helpers.MobileHelper;
-import com.applause.auto.mobile.views.AccountHistoryView;
-import com.applause.auto.mobile.views.AuthenticationView;
-import com.applause.auto.mobile.views.GeneralSettingsView;
-import com.applause.auto.mobile.views.PaymentMethodsView;
-import com.applause.auto.mobile.views.ProfileDetailsView;
+import com.applause.auto.mobile.views.*;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.SyncHelper;
@@ -62,6 +59,31 @@ public class AccountMenuMobileChunk extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getCrossButton;
 
+  @Locate(
+      xpath = "(//XCUIElementTypeButton[@name=\"social facebook\"])[1]",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/facebook", on = Platform.MOBILE_ANDROID)
+  protected Button getFacebookIcon;
+
+  @Locate(
+      xpath = "(//XCUIElementTypeButton[@name=\"social instagram\"])[1]",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/instagram", on = Platform.MOBILE_ANDROID)
+  protected Button getInstagramIcon;
+
+  @Locate(
+      xpath = "(//XCUIElementTypeButton[@name=\"social twitter\"])[1]",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/twitter", on = Platform.MOBILE_ANDROID)
+  protected Button getTwitterIcon;
+
+  @Locate(xpath = "//XCUIElementTypeOther[@name=\"URL\"]", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.android.chrome:id/url_bar", on = Platform.MOBILE_ANDROID)
+  protected Text urlBar;
+
+  @Locate(xpath = "//XCUIElementTypeButton[@name='Done']", on = Platform.MOBILE_IOS)
+  protected Button getDoneButton;
+
   /* -------- Actions -------- */
 
   /**
@@ -109,6 +131,54 @@ public class AccountMenuMobileChunk extends BaseComponent {
     getPaymentMethodsButton.click();
     SyncHelper.sleep(5000);
     return ComponentFactory.create(PaymentMethodsView.class);
+  }
+
+  /**
+   * Click Facebook Icon
+   *
+   * @return SocialMediaView
+   */
+  public AccountMenuMobileChunk clickFacebookIcon() {
+    logger.info("Click Facebook");
+    MobileHelper.swipeWithCount(SwipeDirection.UP, 1);
+    getFacebookIcon.click();
+    SyncHelper.sleep(2000);
+    return ComponentFactory.create(AccountMenuMobileChunk.class);
+  }
+
+  /**
+   * Click Instagram Icon
+   *
+   * @return SocialMediaView
+   */
+  public AccountMenuMobileChunk clickInstagramIcon() {
+    logger.info("Click Instagram");
+    getInstagramIcon.click();
+    SyncHelper.sleep(2000);
+    return ComponentFactory.create(AccountMenuMobileChunk.class);
+  }
+
+  /**
+   * Click Twitter Icon
+   *
+   * @return SocialMediaView
+   */
+  public AccountMenuMobileChunk clickTwitterIcon() {
+    logger.info("Click Twitter");
+    getTwitterIcon.click();
+    SyncHelper.sleep(2000);
+    return ComponentFactory.create(AccountMenuMobileChunk.class);
+  }
+
+  public Boolean isOnSocialMediaPage() {
+    logger.info("Checking if URL exists");
+    return urlBar.exists();
+  }
+
+  public AccountMenuMobileChunk clickDoneButton() {
+    logger.info("Clicking Done Button to go back");
+    getDoneButton.click();
+    return ComponentFactory.create(AccountMenuMobileChunk.class);
   }
 
   /**
@@ -168,5 +238,12 @@ class AndroidAccountMenuMobileChunk extends AccountMenuMobileChunk {
     getSignOutButton.click();
     getLogOutButton.click();
     return ComponentFactory.create(clazz);
+  }
+
+  @Override
+  public AccountMenuMobileChunk clickDoneButton() {
+    logger.info("Clicking Done Button to go back");
+    MobileHelper.tapAndroidDeviceBackButton();
+    return ComponentFactory.create(AccountMenuMobileChunk.class);
   }
 }

@@ -1,30 +1,27 @@
 package com.applause.auto.test.mobile;
 
-import com.applause.auto.common.data.Constants;
-import com.applause.auto.common.data.Constants.MobileTestData;
-import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.mobile.components.AccountMenuMobileChunk;
-import com.applause.auto.mobile.views.AddNewCardView;
-import com.applause.auto.mobile.views.CreditCardDetailsView;
-import com.applause.auto.mobile.views.DashboardView;
-import com.applause.auto.mobile.views.LandingView;
-import com.applause.auto.mobile.views.PaymentMethodsView;
-import com.applause.auto.mobile.views.PeetsCardSettingsView;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.testng.annotations.Test;
-
-import java.lang.invoke.MethodHandles;
-
 import static com.applause.auto.common.data.Constants.MobileTestData.CC_AMEX_NAME;
 import static com.applause.auto.common.data.Constants.MobileTestData.CC_DISCO_NAME;
 import static com.applause.auto.common.data.Constants.MobileTestData.CC_MASTER_NAME;
 import static com.applause.auto.common.data.Constants.MobileTestData.CC_VISA_NAME;
 
+import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.Constants.MobileTestData;
+import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.mobile.components.AccountMenuMobileChunk;
+import com.applause.auto.mobile.views.*;
+import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import java.lang.invoke.MethodHandles;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.testng.Assert;
+import org.testng.annotations.Ignore;
+import org.testng.annotations.Test;
+
 public class AccountSettingsTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
+  @Ignore
   @Test(
       groups = {TestNGGroups.ACCOUNT_SETTINGS},
       description = "625928")
@@ -98,7 +95,7 @@ public class AccountSettingsTest extends BaseTest {
             Constants.TestData.DISCOVERY_CC_CODE,
             MobileTestData.CC_DISCO_NAME,
             Constants.MobileTestData.CC_EXP_DATE,
-                Constants.TestData.DISCOVERY_CC_ZIP);
+            Constants.TestData.DISCOVERY_CC_ZIP);
 
     logger.info("Add New Payment Method MASTER");
     addNewCardView = paymentMethodsView.clickAddNewPayment();
@@ -165,5 +162,34 @@ public class AccountSettingsTest extends BaseTest {
         "Did not delete payment method");
 
     softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {TestNGGroups.ACCOUNT_SETTINGS},
+      description = "625939")
+  public void socialEngagementTest() {
+    logger.info("Launch the app and arrive at the first on boarding screen view");
+    LandingView landingView = ComponentFactory.create(LandingView.class);
+
+    DashboardView dashboardView = testHelper.signIn(landingView);
+
+    logger.info("Navigate to Social Media icons and click Facebook icon");
+    AccountMenuMobileChunk accountProfileMenu = dashboardView.getAccountProfileMenu();
+    AccountMenuMobileChunk socialMediaOne = ComponentFactory.create(AccountMenuMobileChunk.class);
+    AccountMenuMobileChunk socialMediaTwo = ComponentFactory.create(AccountMenuMobileChunk.class);
+    AccountMenuMobileChunk socialMediaThree = ComponentFactory.create(AccountMenuMobileChunk.class);
+    accountProfileMenu.clickFacebookIcon();
+    Assert.assertTrue(socialMediaOne.isOnSocialMediaPage(), "Not On social Media URL");
+    socialMediaOne.clickDoneButton();
+
+    logger.info("Navigate to Social Media icons and click Instagram icon");
+    accountProfileMenu.clickInstagramIcon();
+    Assert.assertTrue(socialMediaOne.isOnSocialMediaPage(), "Not On social Media URL");
+    socialMediaTwo.clickDoneButton();
+
+    logger.info("Navigate to Social Media icons and click Twitter icon");
+    accountProfileMenu.clickTwitterIcon();
+    Assert.assertTrue(socialMediaOne.isOnSocialMediaPage(), "Not On social Media URL");
+    socialMediaThree.clickDoneButton();
   }
 }
