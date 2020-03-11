@@ -153,7 +153,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
     logger.info("Click Facebook");
     MobileHelper.swipeWithCount(SwipeDirection.UP, 1);
     getFacebookIcon.click();
-    SyncHelper.sleep(2000);
+    SyncHelper.sleep(3000);
     return ComponentFactory.create(AccountMenuMobileChunk.class);
   }
 
@@ -165,7 +165,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
   public AccountMenuMobileChunk clickInstagramIcon() {
     logger.info("Click Instagram");
     getInstagramIcon.click();
-    SyncHelper.sleep(2000);
+    SyncHelper.sleep(3000);
     return ComponentFactory.create(AccountMenuMobileChunk.class);
   }
 
@@ -177,7 +177,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
   public AccountMenuMobileChunk clickTwitterIcon() {
     logger.info("Click Twitter");
     getTwitterIcon.click();
-    SyncHelper.sleep(2000);
+    SyncHelper.sleep(3000);
     return ComponentFactory.create(AccountMenuMobileChunk.class);
   }
 

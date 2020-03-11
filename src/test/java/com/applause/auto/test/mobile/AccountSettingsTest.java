@@ -15,13 +15,11 @@ import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 public class AccountSettingsTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
-  @Ignore
   @Test(
       groups = {TestNGGroups.ACCOUNT_SETTINGS},
       description = "625928")
