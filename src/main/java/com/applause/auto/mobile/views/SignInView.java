@@ -321,8 +321,9 @@ class AndroidSignInView extends SignInView {
     logger.info("Click on Sign In button");
     DeviceControl.hideKeyboard();
     getSignInButton.click();
-    SyncHelper.wait(Until.uiElement(getLoader).present());
-    SyncHelper.wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(30)));
+    if (getLoader.exists()) {
+      SyncHelper.wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(30)));
+    }
     return ComponentFactory.create(clazz);
   }
 }

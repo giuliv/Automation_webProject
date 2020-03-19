@@ -335,11 +335,11 @@ public class CreateAccountTest extends BaseTest {
 
     logger.info("Tap on Email Address field and enter valid email address");
 
-    String VALID_USERNAME = "a+6259261@a.com";
+    String VALID_USERNAME = TestData.USERNAME;
     signInView.setUsername(VALID_USERNAME);
 
     logger.info("Enter valid password");
-    String INITIAL_PASSWORD = "newPassword1";
+    String INITIAL_PASSWORD = TestData.PASSWORD;
     signInView.setPassword(INITIAL_PASSWORD);
 
     logger.info("Tap Sign In button");
@@ -358,7 +358,7 @@ public class CreateAccountTest extends BaseTest {
     changePasswordView.setCurrentPassword("somewrongpassword1");
 
     logger.info("Enter new password");
-    String UPDATED_PASSWORD = "Password1";
+    String UPDATED_PASSWORD = "newPassword1";
     changePasswordView.setNewPassword(UPDATED_PASSWORD);
 
     logger.info("Tap Change Password button");
