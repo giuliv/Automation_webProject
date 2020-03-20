@@ -30,7 +30,7 @@ public class SignInView extends BaseComponent {
   protected TextBox getUsernameTextBox;
 
   @Locate(
-      xpath = "//XCUIElementTypeAlert//XCUIElementTypeStaticText/XCUIElementTypeStaticText",
+      xpath = "//XCUIElementTypeStaticText[2]",
       on = Platform.MOBILE_IOS)
   @Locate(id = "android:id/message", on = Platform.MOBILE_ANDROID)
   protected TextBox getMessageTextBox;
