@@ -11,11 +11,15 @@ import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.PeetsCardSettingsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.DriverManager;
+import com.applause.auto.util.helper.EnvironmentHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
 
 import java.lang.invoke.MethodHandles;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import static com.applause.auto.common.data.Constants.MobileTestData.CC_AMEX_NAME;
 import static com.applause.auto.common.data.Constants.MobileTestData.CC_DISCO_NAME;
@@ -43,9 +47,14 @@ public class AccountSettingsTest extends BaseTest {
         paymentMethodsView.getPeetsCardHeader(),
         MobileTestData.PEETS_CARD_HEADER,
         "Peets Card header is not displayed");
+
+    String savedPaymentMethodsHeaderText = MobileTestData.SAVED_PAYMENT_HEADER_ANDROID;
+    if (EnvironmentHelper.isMobileIOS(DriverManager.getDriver())) {
+        savedPaymentMethodsHeaderText = MobileTestData.SAVED_PAYMENT_HEADER_IOS;
+    }
     softAssert.assertEquals(
         paymentMethodsView.getSavedPaymentHeader(),
-        MobileTestData.SAVED_PAYMENT_HEADER,
+        savedPaymentMethodsHeaderText,
         "Saved Payment Methods header is not displayed");
 
     logger.info("Click Peets Card");
