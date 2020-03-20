@@ -98,7 +98,7 @@ public class Constants {
     public static final String PEETS_CARD_NUMBER_SAFARI = "81001000000747";
     public static final String PEETS_CARD_PIN_SAFARI = "3396";
 
-    public static final String VISA_CC_NUMBER = "4788 2500 0002 8291";
+    public static final String VISA_CC_NUMBER = "4788250000028291";
     public static final String VISA_CC_SECURITY_CODE = "111";
     public static final String VISA_CC_MONTH = "12";
     public static final String VISA_CC_YEAR = "2020";
@@ -182,7 +182,7 @@ public class Constants {
 
   public static final class MobileTestData {
     public static final String PEETS_CARD_HEADER = "Your Peet's Card";
-    public static final String SAVED_PAYMENT_HEADER = "PAYMENT METHODS";
+    public static final String SAVED_PAYMENT_HEADER = "Saved Payment Methods";
     public static final String SAVED_CC_NAME = "Applause Test";
     public static final String CC_NUM = "5105105105105100";
     public static final String CC_EXP_DATE = "12/20";
