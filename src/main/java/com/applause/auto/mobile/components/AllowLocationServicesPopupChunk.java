@@ -41,6 +41,10 @@ public class AllowLocationServicesPopupChunk extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/textView4", on = Platform.MOBILE_ANDROID)
   protected Text getSubTitleText;
 
+  @Locate(id = "cancel", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/cancelButton", on = Platform.MOBILE_ANDROID)
+  protected Button getCancelButton;
+
   @Locate(
       xpath =
           "(//XCUIElementTypeStaticText[@name=\"Location Services will:\"]/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText)[1]",
@@ -130,6 +134,14 @@ public class AllowLocationServicesPopupChunk extends BaseComponent {
   public void notNow() {
     logger.info("Tap Not Now button");
     getNotNowButton.click();
+  }
+
+  /**
+   * Click on Cancel button
+   */
+  public void clickCancelButton() {
+    logger.info("Click Cancel button");
+    getCancelButton.click();
   }
 }
 
