@@ -112,7 +112,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "//android.view.View[@class='android.view.View' and contains(@text, 'Get the most out of Twitter')]",
+          "//android.view.View[@text='Get the most out of Twitter']",
       on = Platform.MOBILE_ANDROID)
   protected Text twitterPage;
 
@@ -320,7 +320,6 @@ class AndroidAccountMenuMobileChunk extends AccountMenuMobileChunk {
 
   @Override
   public Boolean isOnTwitterPage() {
-    SyncHelper.sleep(60000);
     SyncHelper.wait(Until.uiElement(twitterPage).visible());
     return twitterPage.isDisplayed();
   }
