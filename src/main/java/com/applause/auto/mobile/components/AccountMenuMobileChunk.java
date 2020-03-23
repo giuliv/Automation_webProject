@@ -17,6 +17,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
 
 @Implementation(is = AndroidAccountMenuMobileChunk.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = AccountMenuMobileChunk.class, on = Platform.MOBILE_IOS)
@@ -88,24 +89,32 @@ public class AccountMenuMobileChunk extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/twitter", on = Platform.MOBILE_ANDROID)
   protected Button getTwitterIcon;
 
-  @Locate(xpath = "//XCUIElementTypeOther[@name=\"URL\"]", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.android.chrome:id/url_bar", on = Platform.MOBILE_ANDROID)
-  protected Text urlBar;
-
   @Locate(
       xpath = "(//XCUIElementTypeStaticText[@name=\"Peet's Coffee is on Facebook.\"])[1]",
       on = Platform.MOBILE_IOS)
-  protected Text iOSFacebookPage;
+  @Locate(
+      xpath =
+          "//android.widget.Button[@class='android.widget.Button' and contains(@text, 'Log In')]",
+      on = Platform.MOBILE_ANDROID)
+  protected Text facebookPage;
 
   @Locate(
       xpath = "//XCUIElementTypeStaticText[@name=\"Share your photos with\"]",
       on = Platform.MOBILE_IOS)
-  protected Text iOSInstagramPage;
+  @Locate(
+      xpath =
+          "//android.widget.Button[@class='android.widget.Button' and contains(@text, 'Follow')]",
+      on = Platform.MOBILE_ANDROID)
+  protected Text instagramPage;
 
   @Locate(
       xpath = "//XCUIElementTypeStaticText[@name=\"Get the most out of Twitter\"]",
       on = Platform.MOBILE_IOS)
-  protected Text iOSTwitterPage;
+  @Locate(
+      xpath =
+          "//android.view.View[@class='android.view.View' and contains(@text, 'Get the most out of Twitter')]",
+      on = Platform.MOBILE_ANDROID)
+  protected Text twitterPage;
 
   @Locate(xpath = "//XCUIElementTypeButton[@name='Done']", on = Platform.MOBILE_IOS)
   protected Button getDoneButton;
@@ -197,19 +206,19 @@ public class AccountMenuMobileChunk extends BaseComponent {
   }
 
   public Boolean isOnFacebookPage() {
-    String s = iOSFacebookPage.getText();
+    String s = facebookPage.getText();
     String e = "Peet's Coffee is on Facebook.";
     return s.equals(e);
   }
 
   public Boolean isOnInstagramPage() {
-    String s = iOSInstagramPage.getText();
+    String s = instagramPage.getText();
     String e = "Share your photos with";
     return s.equals(e);
   }
 
   public Boolean isOnTwitterPage() {
-    String s = iOSTwitterPage.getText();
+    String s = twitterPage.getText();
     String e = "Get the most out of Twitter";
     return s.equals(e);
   }
@@ -299,25 +308,19 @@ class AndroidAccountMenuMobileChunk extends AccountMenuMobileChunk {
 
   @Override
   public Boolean isOnFacebookPage() {
-    SyncHelper.sleep(4000);
-    String s = urlBar.getText();
-    logger.info("The URL text is: " + s);
-    return s.equals("https://m.facebook.com/peets");
+    SyncHelper.wait(Until.uiElement(facebookPage).visible());
+    return facebookPage.isDisplayed();
   }
 
   @Override
   public Boolean isOnInstagramPage() {
-    SyncHelper.sleep(4000);
-    String s = urlBar.getText();
-    logger.info("The URL text is: " + s);
-    return s.equals("https://www.instagram.com/peetscoffee/");
+    SyncHelper.wait(Until.uiElement(instagramPage).visible());
+    return instagramPage.isDisplayed();
   }
 
   @Override
   public Boolean isOnTwitterPage() {
-    SyncHelper.sleep(4000);
-    String s = urlBar.getText();
-    logger.info("The URL text is: " + s);
-    return s.equals("https://mobile.twitter.com/PeetsCoffee");
+    SyncHelper.wait(Until.uiElement(twitterPage).visible());
+    return twitterPage.isDisplayed();
   }
 }
