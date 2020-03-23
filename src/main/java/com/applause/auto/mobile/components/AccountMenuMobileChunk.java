@@ -112,7 +112,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "//android.view.View[@text='Get the most out of Twitter']",
+          "//android.widget.EditText[@class='android.widget.EditText' and contains(@text, 'https://mobile.twitter.com/PeetsCoffee')]",
       on = Platform.MOBILE_ANDROID)
   protected Text twitterPage;
 
