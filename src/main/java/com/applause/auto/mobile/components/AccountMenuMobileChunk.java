@@ -96,10 +96,6 @@ public class AccountMenuMobileChunk extends BaseComponent {
       xpath =
           "//android.view.View[@text='facebook']",
       on = Platform.MOBILE_ANDROID)
-//  @Locate(
-//          xpath =
-//                  "//android.widget.EditText[@class='android.widget.EditText' and contains(@text, 'https://m.facebook.com/peets')]",
-//          on = Platform.MOBILE_ANDROID)
   protected Text facebookPage;
 
   @Locate(
@@ -109,10 +105,6 @@ public class AccountMenuMobileChunk extends BaseComponent {
       xpath =
           "//android.widget.Button[@class='android.widget.Button' and contains(@text, 'Follow')]",
       on = Platform.MOBILE_ANDROID)
-//  @Locate(
-//          xpath =
-//                  "//android.widget.EditText[@class='android.widget.EditText' and contains(@text, 'https://www.instagram.com/peetscoffee/')]",
-//          on = Platform.MOBILE_ANDROID)
   protected Text instagramPage;
 
   @Locate(
