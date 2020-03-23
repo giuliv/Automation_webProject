@@ -4,23 +4,17 @@ import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
-import com.applause.auto.mobile.views.AddNewCardView;
-import com.applause.auto.mobile.views.CreditCardDetailsView;
-import com.applause.auto.mobile.views.DashboardView;
-import com.applause.auto.mobile.views.LandingView;
-import com.applause.auto.mobile.views.PaymentMethodsView;
-import com.applause.auto.mobile.views.PeetsCardSettingsView;
+import com.applause.auto.mobile.views.*;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.DriverManager;
+import com.applause.auto.util.helper.EnvironmentHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
 
 import java.lang.invoke.MethodHandles;
 
-import static com.applause.auto.common.data.Constants.MobileTestData.CC_AMEX_NAME;
-import static com.applause.auto.common.data.Constants.MobileTestData.CC_DISCO_NAME;
-import static com.applause.auto.common.data.Constants.MobileTestData.CC_MASTER_NAME;
-import static com.applause.auto.common.data.Constants.MobileTestData.CC_VISA_NAME;
+import static com.applause.auto.common.data.Constants.MobileTestData.*;
 
 public class AccountSettingsTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
@@ -43,9 +37,14 @@ public class AccountSettingsTest extends BaseTest {
         paymentMethodsView.getPeetsCardHeader(),
         MobileTestData.PEETS_CARD_HEADER,
         "Peets Card header is not displayed");
+
+    String savedPaymentMethodsHeaderText = MobileTestData.SAVED_PAYMENT_HEADER_ANDROID;
+    if (EnvironmentHelper.isMobileIOS(DriverManager.getDriver())) {
+        savedPaymentMethodsHeaderText = MobileTestData.SAVED_PAYMENT_HEADER_IOS;
+    }
     softAssert.assertEquals(
         paymentMethodsView.getSavedPaymentHeader(),
-        MobileTestData.SAVED_PAYMENT_HEADER,
+        savedPaymentMethodsHeaderText,
         "Saved Payment Methods header is not displayed");
 
     logger.info("Click Peets Card");
