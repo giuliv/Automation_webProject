@@ -94,7 +94,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "//android.widget.Button[@class='android.widget.Button' and contains(@text, 'Log In')]",
+          "//android.view.View[@text='facebook']",
       on = Platform.MOBILE_ANDROID)
   protected Text facebookPage;
 
