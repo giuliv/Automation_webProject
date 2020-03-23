@@ -320,6 +320,7 @@ class AndroidAccountMenuMobileChunk extends AccountMenuMobileChunk {
 
   @Override
   public Boolean isOnTwitterPage() {
+    SyncHelper.sleep(15000);
     SyncHelper.wait(Until.uiElement(twitterPage).visible());
     return twitterPage.isDisplayed();
   }
