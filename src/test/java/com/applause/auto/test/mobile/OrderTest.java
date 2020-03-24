@@ -140,8 +140,8 @@ public class OrderTest extends BaseTest {
     logger.info("Checking if Allow Location Services Popup is displayed");
     AllowLocationServicesPopupChunk allowLocationServicesPopupChunk = ComponentFactory.create(AllowLocationServicesPopupChunk.class);
     if (allowLocationServicesPopupChunk.isNotNowButtonDisplayed()) {
-      logger.info("Allow Location Services Popup displayed. Skipping it");
-      allowLocationServicesPopupChunk.notNow();
+      logger.info("Allow Location Services Popup displayed");
+      allowLocationServicesPopupChunk.allow();
       allowLocationServicesPopupChunk.clickCancelButton();
 
       logger.info("Tap Order icon on the bottom nav bar");
