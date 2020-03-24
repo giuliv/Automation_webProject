@@ -180,18 +180,18 @@ public class AccountSettingsTest extends BaseTest {
 
     logger.info("Navigate to Social Media icons and click Facebook icon");
     AccountMenuMobileChunk accountProfileMenu = dashboardView.getAccountProfileMenu();
-    AccountMenuMobileChunk socialMediaFacebook = accountProfileMenu.clickFacebookIcon();
-    Assert.assertTrue(socialMediaFacebook.isOnFacebookPage(), "Not On social Media URL");
-    socialMediaFacebook.clickDoneButton();
+    AccountMenuMobileChunk socialMedia = accountProfileMenu.clickFacebookIcon();
+    Assert.assertTrue(socialMedia.isOnFacebookPage(), "Not On social Media URL");
+    socialMedia.clickDoneButton();
 
     logger.info("Navigate to Social Media icons and click Instagram icon");
-    AccountMenuMobileChunk socialMediaInstagram = accountProfileMenu.clickInstagramIcon();
-    Assert.assertTrue(socialMediaInstagram.isOnInstagramPage(), "Not On social Media URL");
-    socialMediaInstagram.clickDoneButton();
+    socialMedia = accountProfileMenu.clickInstagramIcon();
+    Assert.assertTrue(socialMedia.isOnInstagramPage(), "Not On social Media URL");
+    socialMedia.clickDoneButton();
 
     logger.info("Navigate to Social Media icons and click Twitter icon");
-    AccountMenuMobileChunk socialMediaTwitter = accountProfileMenu.clickTwitterIcon();
-    Assert.assertTrue(socialMediaTwitter.isOnTwitterPage(), "Not On social Media URL");
-    socialMediaTwitter.clickDoneButton();
+    socialMedia = accountProfileMenu.clickTwitterIcon();
+    Assert.assertTrue(socialMedia.isOnTwitterPage(), "Not On social Media URL");
+    socialMedia.clickDoneButton();
   }
 }
