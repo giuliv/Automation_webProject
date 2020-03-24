@@ -1,20 +1,23 @@
 package com.applause.auto.test.mobile;
 
+import static com.applause.auto.common.data.Constants.MobileTestData.CC_AMEX_NAME;
+import static com.applause.auto.common.data.Constants.MobileTestData.CC_DISCO_NAME;
+import static com.applause.auto.common.data.Constants.MobileTestData.CC_MASTER_NAME;
+import static com.applause.auto.common.data.Constants.MobileTestData.CC_VISA_NAME;
+
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.views.*;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import java.lang.invoke.MethodHandles;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.EnvironmentHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.lang.invoke.MethodHandles;
-
-import static com.applause.auto.common.data.Constants.MobileTestData.*;
 
 public class AccountSettingsTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
@@ -164,5 +167,31 @@ public class AccountSettingsTest extends BaseTest {
         "Did not delete payment method");
 
     softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {TestNGGroups.ACCOUNT_SETTINGS},
+      description = "625939")
+  public void socialEngagementTest() {
+    logger.info("Launch the app and arrive at the first on boarding screen view");
+    LandingView landingView = ComponentFactory.create(LandingView.class);
+
+    DashboardView dashboardView = testHelper.signIn(landingView);
+
+    logger.info("Navigate to Social Media icons and click Facebook icon");
+    AccountMenuMobileChunk accountProfileMenu = dashboardView.getAccountProfileMenu();
+    AccountMenuMobileChunk socialMedia = accountProfileMenu.clickFacebookIcon();
+    Assert.assertTrue(socialMedia.isOnFacebookPage(), "Not On social Media URL");
+    socialMedia.clickDoneButton();
+
+    logger.info("Navigate to Social Media icons and click Instagram icon");
+    socialMedia = accountProfileMenu.clickInstagramIcon();
+    Assert.assertTrue(socialMedia.isOnInstagramPage(), "Not On social Media URL");
+    socialMedia.clickDoneButton();
+
+    logger.info("Navigate to Social Media icons and click Twitter icon");
+    socialMedia = accountProfileMenu.clickTwitterIcon();
+    Assert.assertTrue(socialMedia.isOnTwitterPage(), "Not On social Media URL");
+    socialMedia.clickDoneButton();
   }
 }

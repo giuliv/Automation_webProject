@@ -13,9 +13,11 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
 
 @Implementation(is = AndroidAccountMenuMobileChunk.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = AccountMenuMobileChunk.class, on = Platform.MOBILE_IOS)
@@ -69,6 +71,54 @@ public class AccountMenuMobileChunk extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getCrossButton;
 
+  @Locate(
+      xpath = "(//XCUIElementTypeButton[@name=\"social facebook\"])[1]",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/facebook", on = Platform.MOBILE_ANDROID)
+  protected Button getFacebookIcon;
+
+  @Locate(
+      xpath = "(//XCUIElementTypeButton[@name=\"social instagram\"])[1]",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/instagram", on = Platform.MOBILE_ANDROID)
+  protected Button getInstagramIcon;
+
+  @Locate(
+      xpath = "(//XCUIElementTypeButton[@name=\"social twitter\"])[1]",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/twitter", on = Platform.MOBILE_ANDROID)
+  protected Button getTwitterIcon;
+
+  @Locate(
+      xpath = "(//XCUIElementTypeStaticText[@name=\"Peet's Coffee is on Facebook.\"])[1]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//android.view.View[@text='facebook']",
+      on = Platform.MOBILE_ANDROID)
+  protected Text facebookPage;
+
+  @Locate(
+      xpath = "//XCUIElementTypeStaticText[@name=\"Share your photos with\"]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//android.widget.Button[@class='android.widget.Button' and contains(@text, 'Follow')]",
+      on = Platform.MOBILE_ANDROID)
+  protected Text instagramPage;
+
+  @Locate(
+      xpath = "//XCUIElementTypeStaticText[@name=\"Get the most out of Twitter\"]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//android.widget.EditText[@class='android.widget.EditText' and contains(@text, 'https://mobile.twitter.com/PeetsCoffee')]",
+      on = Platform.MOBILE_ANDROID)
+  protected Text twitterPage;
+
+  @Locate(xpath = "//XCUIElementTypeButton[@name='Done']", on = Platform.MOBILE_IOS)
+  protected Button getDoneButton;
+
   /* -------- Actions -------- */
 
   /**
@@ -116,6 +166,67 @@ public class AccountMenuMobileChunk extends BaseComponent {
     getPaymentMethodsButton.click();
     SyncHelper.sleep(5000);
     return ComponentFactory.create(PaymentMethodsView.class);
+  }
+
+  /**
+   * Click Facebook Icon
+   *
+   * @return SocialMediaView
+   */
+  public AccountMenuMobileChunk clickFacebookIcon() {
+    logger.info("Click Facebook");
+    MobileHelper.swipeWithCount(SwipeDirection.UP, 1);
+    getFacebookIcon.click();
+    SyncHelper.sleep(3000);
+    return ComponentFactory.create(AccountMenuMobileChunk.class);
+  }
+
+  /**
+   * Click Instagram Icon
+   *
+   * @return SocialMediaView
+   */
+  public AccountMenuMobileChunk clickInstagramIcon() {
+    logger.info("Click Instagram");
+    getInstagramIcon.click();
+    SyncHelper.sleep(3000);
+    return ComponentFactory.create(AccountMenuMobileChunk.class);
+  }
+
+  /**
+   * Click Twitter Icon
+   *
+   * @return SocialMediaView
+   */
+  public AccountMenuMobileChunk clickTwitterIcon() {
+    logger.info("Click Twitter");
+    getTwitterIcon.click();
+    SyncHelper.sleep(3000);
+    return ComponentFactory.create(AccountMenuMobileChunk.class);
+  }
+
+  public Boolean isOnFacebookPage() {
+    String s = facebookPage.getText();
+    String e = "Peet's Coffee is on Facebook.";
+    return s.equals(e);
+  }
+
+  public Boolean isOnInstagramPage() {
+    String s = instagramPage.getText();
+    String e = "Share your photos with";
+    return s.equals(e);
+  }
+
+  public Boolean isOnTwitterPage() {
+    String s = twitterPage.getText();
+    String e = "Get the most out of Twitter";
+    return s.equals(e);
+  }
+
+  public AccountMenuMobileChunk clickDoneButton() {
+    logger.info("Clicking Done Button to go back");
+    getDoneButton.click();
+    return ComponentFactory.create(AccountMenuMobileChunk.class);
   }
 
   /**
@@ -186,5 +297,30 @@ class AndroidAccountMenuMobileChunk extends AccountMenuMobileChunk {
     getSignOutButton.click();
     getLogOutButton.click();
     return ComponentFactory.create(clazz);
+  }
+
+  @Override
+  public AccountMenuMobileChunk clickDoneButton() {
+    logger.info("Clicking Done Button to go back");
+    MobileHelper.tapAndroidDeviceBackButton();
+    return ComponentFactory.create(AccountMenuMobileChunk.class);
+  }
+
+  @Override
+  public Boolean isOnFacebookPage() {
+    SyncHelper.wait(Until.uiElement(facebookPage).visible());
+    return facebookPage.isDisplayed();
+  }
+
+  @Override
+  public Boolean isOnInstagramPage() {
+    SyncHelper.wait(Until.uiElement(instagramPage).visible());
+    return instagramPage.isDisplayed();
+  }
+
+  @Override
+  public Boolean isOnTwitterPage() {
+    SyncHelper.wait(Until.uiElement(twitterPage).visible());
+    return twitterPage.isDisplayed();
   }
 }
