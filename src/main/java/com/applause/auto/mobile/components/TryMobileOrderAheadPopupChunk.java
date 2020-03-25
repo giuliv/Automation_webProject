@@ -35,7 +35,7 @@ public class TryMobileOrderAheadPopupChunk extends BaseComponent {
   /**
    * Verify if Dismiss button is displayed
    *
-   * @return
+   * @return boolean
    */
   public boolean isDismissButtonDisplayed() {
     return dismissButton.isDisplayed();

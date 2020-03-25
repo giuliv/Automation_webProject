@@ -60,7 +60,7 @@ public class LandingView extends BaseComponent {
   /**
    * Chunck for try mobile order ahead popup
    *
-   * @return
+   * @return TryMobileOrderAheadPopupChunk
    */
   public TryMobileOrderAheadPopupChunk getTryMobileOrderAheadPopupChunk() {
     return ComponentFactory.create(TryMobileOrderAheadPopupChunk.class);
