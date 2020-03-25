@@ -70,7 +70,10 @@ public class LandingView extends BaseComponent {
   public void afterInit() {
     super.afterInit();
     getReportAProblemPopupChunk().waitForPopUpToDisappear();
-    getTryMobileOrderAheadPopupChunk().clickDismissButton();
+
+    if (getTryMobileOrderAheadPopupChunk().isDismissButtonDisplayed()) {
+      getTryMobileOrderAheadPopupChunk().clickDismissButton();
+    }
   }
 
   /**

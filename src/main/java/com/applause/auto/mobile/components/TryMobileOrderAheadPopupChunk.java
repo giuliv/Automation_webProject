@@ -31,4 +31,13 @@ public class TryMobileOrderAheadPopupChunk extends BaseComponent {
     logger.info("Click on Try Mobile Order Ahead Popup Dismiss button");
     dismissButton.click();
   }
+
+  /**
+   * Verify if Dismiss button is displayed
+   *
+   * @return
+   */
+  public boolean isDismissButtonDisplayed() {
+    return dismissButton.isDisplayed();
+  }
 }
