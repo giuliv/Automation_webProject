@@ -3,6 +3,7 @@ package com.applause.auto.mobile.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.components.ReportAProblemPopupChunk;
+import com.applause.auto.mobile.components.TryMobileOrderAheadPopupChunk;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -56,10 +57,20 @@ public class LandingView extends BaseComponent {
     return ComponentFactory.create(ReportAProblemPopupChunk.class);
   }
 
+  /**
+   * Chunck for try mobile order ahead popup
+   *
+   * @return
+   */
+  public TryMobileOrderAheadPopupChunk getTryMobileOrderAheadPopupChunk() {
+    return ComponentFactory.create(TryMobileOrderAheadPopupChunk.class);
+  }
+
   @Override
   public void afterInit() {
     super.afterInit();
     getReportAProblemPopupChunk().waitForPopUpToDisappear();
+    getTryMobileOrderAheadPopupChunk().clickDismissButton();
   }
 
   /**
