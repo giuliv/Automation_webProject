@@ -14,6 +14,9 @@ import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.ProductDetailsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.test.mobile.helpers.TestHelper;
+import com.applause.auto.util.DriverManager;
+import com.applause.auto.util.helper.EnvironmentHelper;
+import com.applause.auto.util.helper.SyncHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -133,6 +136,18 @@ public class OrderTest extends BaseTest {
 
     logger.info("Tap Order icon on the bottom nav bar");
     OrderView orderView = dashboardView.getBottomNavigationMenu().order();
+
+    logger.info("Checking if Allow Location Services Popup is displayed");
+    AllowLocationServicesPopupChunk allowLocationServicesPopupChunk = ComponentFactory.create(AllowLocationServicesPopupChunk.class);
+    if (allowLocationServicesPopupChunk.isNotNowButtonDisplayed()) {
+      logger.info("Allow Location Services Popup displayed");
+      // TODO: allowing location services is not working for iOS, so skipping for now
+      allowLocationServicesPopupChunk.notNow();
+      allowLocationServicesPopupChunk.clickCancelButton();
+
+      logger.info("Tap Order icon on the bottom nav bar");
+      orderView = dashboardView.getBottomNavigationMenu().order();
+    }
 
     logger.info("Header: Order");
     Assert.assertEquals(orderView.getHeadingTextValue().toUpperCase(), "ORDER", "Incorrect header");

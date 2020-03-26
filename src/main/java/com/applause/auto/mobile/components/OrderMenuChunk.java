@@ -14,12 +14,12 @@ public class OrderMenuChunk extends BaseComponent {
   /* -------- Elements -------- */
 
   // TODO for iOS
-  @Locate(id = "", on = Platform.MOBILE_IOS)
+  @Locate(id = "Seasonal Favorites", on = Platform.MOBILE_IOS)
   @Locate(xpath = "//*[@text='Seasonal Favorites']", on = Platform.MOBILE_ANDROID)
   protected Text seasonalFavoritesSubHeader;
 
   // TODO for iOS
-  @Locate(id = "", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "(//XCUIElementTypeStaticText[@name=\"Menu\"])[2]", on = Platform.MOBILE_IOS)
   @Locate(xpath = "//*[@text='Menu']", on = Platform.MOBILE_ANDROID)
   protected Text menuSubheader;
 

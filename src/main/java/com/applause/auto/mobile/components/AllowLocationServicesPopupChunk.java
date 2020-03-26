@@ -1,6 +1,7 @@
 package com.applause.auto.mobile.components;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -40,6 +41,10 @@ public class AllowLocationServicesPopupChunk extends BaseComponent {
   @Locate(id = "Location Services will:", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/textView4", on = Platform.MOBILE_ANDROID)
   protected Text getSubTitleText;
+
+  @Locate(id = "cancel", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/cancelButton", on = Platform.MOBILE_ANDROID)
+  protected Button getCancelButton;
 
   @Locate(
       xpath =
@@ -103,7 +108,7 @@ public class AllowLocationServicesPopupChunk extends BaseComponent {
    * @return the boolean
    */
   public boolean isNotNowButtonDisplayed() {
-    return getNotNowButton.isDisplayed();
+    return MobileHelper.isDisplayed(getNotNowButton);
   }
 
   /**
@@ -130,6 +135,14 @@ public class AllowLocationServicesPopupChunk extends BaseComponent {
   public void notNow() {
     logger.info("Tap Not Now button");
     getNotNowButton.click();
+  }
+
+  /**
+   * Click on Cancel button
+   */
+  public void clickCancelButton() {
+    logger.info("Click Cancel button");
+    getCancelButton.click();
   }
 }
 

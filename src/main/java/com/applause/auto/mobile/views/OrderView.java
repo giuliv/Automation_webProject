@@ -15,13 +15,16 @@ public class OrderView extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(id = "See Participating Coffeebars", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]",
+      on = Platform.MOBILE_IOS
+  )
   @Locate(id = "com.wearehathway.peets.development:id/storePinImage", on = Platform.MOBILE_ANDROID)
   protected Button getLocateCoffeeBars;
 
-  @Locate(iOSNsPredicate = "name='ORDER'", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeStaticText[@name='ORDER']", on = Platform.MOBILE_IOS)
   @Locate(
-      androidUIAutomator = "new UiSelector().textContains(\"Order\")",
+      androidUIAutomator = "new UiSelector().textContains('Order')",
       on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
