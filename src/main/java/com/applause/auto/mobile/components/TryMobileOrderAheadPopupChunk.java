@@ -1,6 +1,7 @@
 package com.applause.auto.mobile.components;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -38,6 +39,6 @@ public class TryMobileOrderAheadPopupChunk extends BaseComponent {
    * @return boolean
    */
   public boolean isDismissButtonDisplayed() {
-    return dismissButton.isDisplayed();
+    return MobileHelper.isDisplayed(dismissButton);
   }
 }
