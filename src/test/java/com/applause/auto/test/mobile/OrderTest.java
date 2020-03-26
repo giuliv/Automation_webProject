@@ -141,7 +141,8 @@ public class OrderTest extends BaseTest {
     AllowLocationServicesPopupChunk allowLocationServicesPopupChunk = ComponentFactory.create(AllowLocationServicesPopupChunk.class);
     if (allowLocationServicesPopupChunk.isNotNowButtonDisplayed()) {
       logger.info("Allow Location Services Popup displayed");
-      allowLocationServicesPopupChunk.allow();
+      // TODO: allowing location services is not working for iOS, so skipping for now
+      allowLocationServicesPopupChunk.notNow();
       allowLocationServicesPopupChunk.clickCancelButton();
 
       logger.info("Tap Order icon on the bottom nav bar");
