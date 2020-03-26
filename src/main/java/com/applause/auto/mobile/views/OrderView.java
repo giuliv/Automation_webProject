@@ -22,9 +22,9 @@ public class OrderView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/storePinImage", on = Platform.MOBILE_ANDROID)
   protected Button getLocateCoffeeBars;
 
-  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"ORDER\"]", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeStaticText[@name='ORDER']", on = Platform.MOBILE_IOS)
   @Locate(
-      androidUIAutomator = "new UiSelector().textContains(\"Order\")",
+      androidUIAutomator = "new UiSelector().textContains('Order')",
       on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
