@@ -1,6 +1,7 @@
 package com.applause.auto.mobile.components;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -107,7 +108,7 @@ public class AllowLocationServicesPopupChunk extends BaseComponent {
    * @return the boolean
    */
   public boolean isNotNowButtonDisplayed() {
-    return getNotNowButton.isDisplayed();
+    return MobileHelper.isDisplayed(getNotNowButton);
   }
 
   /**

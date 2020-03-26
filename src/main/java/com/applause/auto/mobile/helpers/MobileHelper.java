@@ -7,6 +7,7 @@ import com.applause.auto.pageobjectmodel.elements.Picker;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.EnvironmentHelper;
+import com.applause.auto.util.helper.QueryHelper;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
 import io.appium.java_client.AppiumDriver;
@@ -374,5 +375,19 @@ public class MobileHelper {
         throw new RuntimeException(e);
       }
     } else throw new IllegalStateException("Was not able to get mobile screenshot");
+  }
+
+  /**
+   * Checks whether an element is displayed.
+   *
+   * @param element
+   * @return true, if the element is displayed
+   */
+  public static boolean isDisplayed(BaseElement element) {
+    try {
+      return QueryHelper.findElement(element.getLocator()).isDisplayed();
+    } catch (Exception ex) {
+      return false;
+    }
   }
 }
