@@ -23,15 +23,16 @@ import org.openqa.selenium.WebDriverException;
 public class CoffeeStoreContainerChuck extends BaseComponent {
 
   /* -------- Elements -------- */
-  @Locate(xpath = "//XCUIElementTypeTable/XCUIElementTypeCell[%s]", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "(//XCUIElementTypeButton[@name=\"Order\"])[1]", on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
           "//*[contains(@resource-id, 'com.wearehathway.peets.development:id/storeDetail') and descendant::*[contains(@resource-id,'storeDetailContainer')]]",
       on = Platform.MOBILE_ANDROID)
   protected ContainerElement getSearchResultsContainer;
 
-  // TODO for iOS
-  @Locate(xpath = "", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "(//XCUIElementTypeButton[@name=\"Order\"])[1]/../XCUIElementTypeStaticText[1]",
+      on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
           "//*[contains(@resource-id, 'com.wearehathway.peets.development:id/storeDetail') and descendant::*[contains(@resource-id,'storeDetailContainer')]]"
@@ -39,8 +40,7 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Text getStoreName;
 
-  // TODO for iOS
-  @Locate(xpath = "", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "(//XCUIElementTypeButton[@name=\"Order\"])[1]", on = Platform.MOBILE_IOS)
   @Locate(id = "acceptMobileOrderIcon", on = Platform.MOBILE_ANDROID)
   protected Button getOrderButton;
 

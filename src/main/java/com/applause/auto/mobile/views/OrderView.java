@@ -28,6 +28,13 @@ public class OrderView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
+  @Locate(
+      xpath =
+          "//XCUIElementTypeStaticText[@name=\"Change\"]/preceding-sibling::XCUIElementTypeStaticText",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/storeTextView", on = Platform.MOBILE_ANDROID)
+  protected Text storeName;
+
   /* -------- Actions -------- */
 
   public OrderMenuChunk getOrderMenuChunck() {
@@ -61,5 +68,9 @@ public class OrderView extends BaseComponent {
     logger.info("Tap to locate Coffeebars");
     getLocateCoffeeBars.click();
     return ComponentFactory.create(clazz);
+  }
+
+  public String getStoreName() {
+    return storeName.getText();
   }
 }

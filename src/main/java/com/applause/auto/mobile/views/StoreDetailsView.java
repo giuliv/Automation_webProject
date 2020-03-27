@@ -36,118 +36,211 @@ public class StoreDetailsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected TextBox getSearchMenuTextBox;
 
-  @Locate(xpath = "TBD", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeNavigationBar/XCUIElementTypeButton", on = Platform.MOBILE_IOS)
   @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
   protected Button navigateBackButton;
 
-  @Locate(xpath = "TBD", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//XCUIElementTypeNavigationBar/XCUIElementTypeStaticText",
+      on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/title", on = Platform.MOBILE_ANDROID)
   protected Text coffeebarHeaderText;
 
-  @Locate(xpath = "TBD", on = Platform.MOBILE_IOS)
-  @Locate(id = "TBD", on = Platform.MOBILE_ANDROID)
-  protected Image coffeebarPinDisplayedOnMapIcon;
-
-  @Locate(xpath = "TBD", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "(//XCUIElementTypeMap/../../following-sibling::XCUIElementTypeOther)[1]/XCUIElementTypeStaticText",
+      on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/storeName", on = Platform.MOBILE_ANDROID)
   protected Text coffeebarSubHeaderNameText;
 
-  @Locate(xpath = "TBD", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeButton[@name='fave store']", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/faveStoreIcon", on = Platform.MOBILE_ANDROID)
   protected Image coffeebarFavoriteIcon;
 
-  @Locate(xpath = "TBD", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "(//XCUIElementTypeMap/../../following-sibling::XCUIElementTypeOther)[2]/XCUIElementTypeStaticText[1]",
+      on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/storeAddress", on = Platform.MOBILE_ANDROID)
   protected Text coffeebarLocationText;
 
-  @Locate(xpath = "TBD", on = Platform.MOBILE_IOS)
+  @Locate(accessibilityId = "HOURS", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/hourTitle", on = Platform.MOBILE_ANDROID)
   protected TextBox coffeebarSubHeaderHoursText;
 
-  @Locate(xpath = "TBD", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//XCUIElementTypeStaticText[starts-with(@name,'Open until ')]",
+      on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
           "(//android.widget.TextView[@text='HOURS']/following-sibling::android.widget.TextView)[1]",
       on = Platform.MOBILE_ANDROID)
   protected Text coffeebarOpenHoursText;
 
-  @Locate(xpath = "TBD", on = Platform.MOBILE_IOS)
+  @Locate(accessibilityId = "Sunday", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/hoursContainer", on = Platform.MOBILE_ANDROID)
   protected Text coffeebarDayAndStoreHoursText;
 
-  @Locate(xpath = "TBD", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeButton[@name='Directions']", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/direction", on = Platform.MOBILE_ANDROID)
   protected Button directionsButton;
 
-  @Locate(xpath = "TBD", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeButton[@name='Order']", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/startNewOrder", on = Platform.MOBILE_ANDROID)
   protected Text orderButton;
 
   /* -------- Actions -------- */
 
+  /**
+   * Select search result by index product details view.
+   *
+   * @param index the index
+   * @return the product details view
+   */
   public ProductDetailsView selectSearchResultByIndex(int index) {
     logger.info("Select search result");
     getSearchResultsElements.get(index).click();
     return ComponentFactory.create(ProductDetailsView.class);
   }
 
+  /**
+   * Gets results.
+   *
+   * @return the results
+   */
   public List<String> getResults() {
+    logger.info("Looking for results");
     return getSearchResultsElements.stream()
         .map(item -> item.getText())
         .collect(Collectors.toList());
   }
 
+  /**
+   * Is navigate back displayed boolean.
+   *
+   * @return the boolean
+   */
   public boolean isNavigateBackDisplayed() {
+    logger.info("Checking Back navigation button");
     return navigateBackButton.isDisplayed();
   }
 
+  /**
+   * Gets coffeebar header.
+   *
+   * @return the coffeebar header
+   */
   public String getCoffeebarHeader() {
+    logger.info("Checking Coffeebar main header");
     return coffeebarHeaderText.getText();
   }
 
+  /**
+   * Is coffeebar pin displayed on map boolean.
+   *
+   * @return the boolean
+   */
   public boolean isCoffeebarPinDisplayedOnMap() {
     //    Pin does not show on map DOM. Unable to verify
     return true;
   }
 
+  /**
+   * Gets coffeebar sub header name.
+   *
+   * @return the coffeebar sub header name
+   */
   public String getCoffeebarSubHeaderName() {
+    logger.info("Checking coffeebar sub-header name");
     return coffeebarSubHeaderNameText.getText();
   }
 
+  /**
+   * Is coffeebar favorite boolean.
+   *
+   * @return the boolean
+   */
   public boolean isCoffeebarFavorite() {
+    logger.info("Checking Coffeebar tagged as favorite");
     return coffeebarFavoriteIcon.isDisplayed();
   }
 
+  /**
+   * Gets coffeebar location.
+   *
+   * @return the coffeebar location
+   */
   public String getCoffeebarLocation() {
+    logger.info("Checking Coffeebar location");
     return coffeebarLocationText.getText();
   }
 
+  /**
+   * Is coffeebar sub header hours displayed boolean.
+   *
+   * @return the boolean
+   */
   public boolean isCoffeebarSubHeaderHoursDisplayed() {
+    logger.info("Checking Coffeebar sub-header section");
     return coffeebarSubHeaderHoursText.isDisplayed();
   }
 
+  /**
+   * Is coffeebar open hours displayed boolean.
+   *
+   * @return the boolean
+   */
   public boolean isCoffeebarOpenHoursDisplayed() {
+    logger.info("Checking Coffeebar open hours");
     return coffeebarOpenHoursText.isDisplayed();
   }
 
+  /**
+   * Is coffeebar day and store hours displayed boolean.
+   *
+   * @return the boolean
+   */
   public boolean isCoffeebarDayAndStoreHoursDisplayed() {
+    logger.info("Checking Coffeebar day and store hours");
     return coffeebarDayAndStoreHoursText.isDisplayed();
   }
 
+  /**
+   * Is directions button displayed boolean.
+   *
+   * @return the boolean
+   */
   public boolean isDirectionsButtonDisplayed() {
+    logger.info("Checking Directions button");
     return directionsButton.isDisplayed();
   }
 
+  /**
+   * Is order button displayed boolean.
+   *
+   * @return the boolean
+   */
   public boolean isOrderButtonDisplayed() {
+    logger.info("Checking Order button");
     return orderButton.isDisplayed();
   }
 
+  /**
+   * Directions map view.
+   *
+   * @return the map view
+   */
   public MapView directions() {
     logger.info("Tap directions button");
     directionsButton.click();
     return ComponentFactory.create(MapView.class);
   }
 
+  /**
+   * Order order view.
+   *
+   * @return the order view
+   */
   public OrderView order() {
     logger.info("Tap order button");
     orderButton.click();

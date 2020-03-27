@@ -12,14 +12,11 @@ import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
 import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.StoreDetailsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-
+import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.lang.invoke.MethodHandles;
 
 public class FindACoffeeBarTest extends BaseTest {
 
@@ -62,40 +59,57 @@ public class FindACoffeeBarTest extends BaseTest {
     Assert.assertNotNull(storeDetails, "User does not taken to store details screen");
 
     logger.info("VERIFY - Arrow on the left corner to navigate back to the previous screen");
-    storeDetails.isNavigateBackDisplayed();
+    Assert.assertTrue(
+        storeDetails.isNavigateBackDisplayed(),
+        "Arrow on the left corner to navigate back to the previous screen does not displayed");
 
     logger.info("VERIFY - Header: [COFFEEBAR NAME]");
-    storeDetails.getCoffeebarHeader();
+    String storeName = storeDetails.getCoffeebarHeader();
+    Assert.assertTrue(storeName.length() > 0, "Header: [COFFEEBAR NAME] does not displayed");
 
     logger.info("VERIFY - Map view of coffeebar and a brown pin indicating location on the map");
-    storeDetails.isCoffeebarPinDisplayedOnMap();
+    Assert.assertTrue(
+        storeDetails.isCoffeebarPinDisplayedOnMap(),
+        "Map view of coffeebar and a brown pin indicating location on the map does not displayed");
 
     logger.info("VERIFY - Sub header: [Coffeebar Name]");
-    storeDetails.getCoffeebarSubHeaderName();
+    Assert.assertTrue(
+        storeDetails.getCoffeebarSubHeaderName().length() > 0,
+        "Sub header: [Coffeebar Name] does not displayed");
 
     logger.info(
         "VERIFY - Heart icon for user to mark favorite store at top right corner (if it's marked favorite, the heart is filled in red; if it's not marked favorite, the heart is outlined in gold)");
-    storeDetails.isCoffeebarFavorite();
+    Assert.assertTrue(
+        storeDetails.isCoffeebarFavorite(),
+        "Heart icon for user to mark favorite store does not displayed");
 
     logger.info("VERIFY - Address of the coffeebar and distance [x.x miles away]");
-    storeDetails.getCoffeebarLocation();
+    Assert.assertTrue(
+        storeDetails.getCoffeebarLocation().length() > 0,
+        "Address of the coffeebar and distance [x.x miles away] field does not displayed");
 
     logger.info("VERIFY - Sub header: HOURS");
-    storeDetails.isCoffeebarSubHeaderHoursDisplayed();
+    Assert.assertTrue(
+        storeDetails.isCoffeebarSubHeaderHoursDisplayed(), "Sub header: HOURS does not displayed");
 
     logger.info("VERIFY - Open until x:xx PM");
-    storeDetails.isCoffeebarOpenHoursDisplayed();
+    Assert.assertTrue(
+        storeDetails.isCoffeebarOpenHoursDisplayed(), "Open until x:xx PM does not displayed");
 
     logger.info("VERIFY - Table with columns: Day and Store Hours (or Closed if applicable)");
-    storeDetails.isCoffeebarDayAndStoreHoursDisplayed();
+    Assert.assertTrue(
+        storeDetails.isCoffeebarDayAndStoreHoursDisplayed(),
+        "Table with columns: Day and Store Hours (or Closed if applicable) does not displayed");
 
     logger.info("VERIFY - Current day is highlighted in gold");
+    // TODO Unable to verify colors
 
     logger.info("VERIFY - [Button] Directions");
-    storeDetails.isDirectionsButtonDisplayed();
+    Assert.assertTrue(
+        storeDetails.isDirectionsButtonDisplayed(), "[Button] Directions does not displayed");
 
     logger.info("VERIFY - [Button] Order");
-    storeDetails.isOrderButtonDisplayed();
+    Assert.assertTrue(storeDetails.isOrderButtonDisplayed(), "[Button] Order does not displayed");
 
     logger.info("STEP - Tap Directions button");
     MapView map = storeDetails.directions();
@@ -121,8 +135,10 @@ public class FindACoffeeBarTest extends BaseTest {
         "ORDER",
         "User does not navigate to main order screen");
 
-    logger.info(
-        "VERIFY - Make sure coffeebar name is correct on location field of order screen"
-            + DriverManager.getDriver().getPageSource());
+    logger.info("VERIFY - Make sure coffeebar name is correct on location field of order screen");
+    Assert.assertEquals(
+        orderView.getStoreName(),
+        storeName,
+        "Coffeebar name is correct on location field of order screen");
   }
 }
