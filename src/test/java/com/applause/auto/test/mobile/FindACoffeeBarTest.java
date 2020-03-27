@@ -4,6 +4,7 @@ import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
+import com.applause.auto.mobile.components.MapView;
 import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.FindACoffeeBarView;
 import com.applause.auto.mobile.views.LandingView;
@@ -11,11 +12,14 @@ import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
 import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.StoreDetailsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import java.lang.invoke.MethodHandles;
+import com.applause.auto.util.DriverManager;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
 
 public class FindACoffeeBarTest extends BaseTest {
 
@@ -94,14 +98,31 @@ public class FindACoffeeBarTest extends BaseTest {
     storeDetails.isOrderButtonDisplayed();
 
     logger.info("STEP - Tap Directions button");
-    storeDetails.directions();
+    MapView map = storeDetails.directions();
 
     logger.info(
         "VERIFY - User is taken to device's native map app with directions to coffeebar from user's current location maps");
+    Assert.assertNotNull(
+        map,
+        "User does not taken to device's native map app with directions to coffeebar from user's current location maps");
+
     logger.info("STEP - Tap on \"Peet's\" at the top left corner to return to Peet's app");
+    storeDetails = map.returnToPeetsApp(StoreDetailsView.class);
+
     logger.info("VERIFY - User is taken back to store details screen");
+    Assert.assertNotNull(storeDetails, "User dies not taken back to store details screen");
+
     logger.info("STEP - Tap Order button");
+    OrderView orderView = storeDetails.order();
+
     logger.info("VERIFY - User will navigate to main order screen");
-    logger.info("VERIFY - Make sure coffeebar name is correct on location field of order screen");
+    Assert.assertEquals(
+        orderView.getHeadingTextValue().toLowerCase().toUpperCase(),
+        "ORDER",
+        "User does not navigate to main order screen");
+
+    logger.info(
+        "VERIFY - Make sure coffeebar name is correct on location field of order screen"
+            + DriverManager.getDriver().getPageSource());
   }
 }
