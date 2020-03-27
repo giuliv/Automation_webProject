@@ -17,9 +17,8 @@ import com.applause.auto.util.helper.sync.Until;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-import org.openqa.selenium.Point;
-
 import java.time.Duration;
+import org.openqa.selenium.Point;
 
 @Implementation(is = DashboardView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = DashboardView.class, on = Platform.MOBILE_IOS)

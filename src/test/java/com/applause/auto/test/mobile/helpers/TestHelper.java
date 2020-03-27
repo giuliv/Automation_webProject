@@ -24,13 +24,12 @@ import com.applause.auto.util.helper.SyncHelper;
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.appmanagement.ApplicationState;
+import java.lang.invoke.MethodHandles;
+import java.util.List;
 import org.aeonbits.owner.util.Collections;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.WebElement;
-
-import java.lang.invoke.MethodHandles;
-import java.util.List;
 
 @Implementation(is = TestHelper.class, on = Platform.MOBILE)
 public class TestHelper extends BaseComponent {

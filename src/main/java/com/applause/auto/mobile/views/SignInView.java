@@ -16,7 +16,6 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-
 import java.time.Duration;
 
 @Implementation(is = AndroidSignInView.class, on = Platform.MOBILE_ANDROID)
@@ -29,9 +28,7 @@ public class SignInView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/emailAddress", on = Platform.MOBILE_ANDROID)
   protected TextBox getUsernameTextBox;
 
-  @Locate(
-      xpath = "//XCUIElementTypeStaticText[2]",
-      on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeStaticText[2]", on = Platform.MOBILE_IOS)
   @Locate(id = "android:id/message", on = Platform.MOBILE_ANDROID)
   protected TextBox getMessageTextBox;
 
@@ -322,7 +319,7 @@ class AndroidSignInView extends SignInView {
     DeviceControl.hideKeyboard();
     getSignInButton.click();
     if (getLoader.exists()) {
-      SyncHelper.wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(30)));
+      SyncHelper.wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(60)));
     }
     return ComponentFactory.create(clazz);
   }

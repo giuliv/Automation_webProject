@@ -3,6 +3,7 @@ package com.applause.auto.mobile.components;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.views.OrderView;
+import com.applause.auto.mobile.views.StoreDetailsView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -109,5 +110,16 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
       return ComponentFactory.create(OrderView.class);
     }
     throw new IllegalStateException("Order button is not enabled for click");
+  }
+
+  /**
+   * Open store details store details view.
+   *
+   * @return the store details view
+   */
+  public StoreDetailsView openStoreDetails() {
+    logger.info("Tap on store name");
+    getStoreName.click();
+    return ComponentFactory.create(StoreDetailsView.class);
   }
 }

@@ -5,7 +5,6 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Text;
-
 import java.util.List;
 
 @Implementation(is = AccountHistoryView.class, on = Platform.MOBILE_ANDROID)
