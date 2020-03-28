@@ -3,7 +3,6 @@ package com.applause.auto.mobile.components;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.mobile.views.CheckInView;
 import com.applause.auto.mobile.views.DashboardView;
-import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
 import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.PeetsCardsView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -112,11 +111,15 @@ public class BottomNavigationMenuChunk extends BaseComponent {
 class IosBottomNavigationMenuChunk extends BottomNavigationMenuChunk {
 
   // is crashing when searching a coffee store
-  public <T extends BaseComponent> T order(Class<T> clazz) {
-    logger.info("Tap on Order");
-    NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
-        super.order(NearbySelectCoffeeBarView.class);
-    nearbySelectCoffeeBarView.allow();
-    return ComponentFactory.create(clazz);
-  }
+  //  public <T extends BaseComponent> T order(Class<T> clazz) {
+  //    logger.info("Tap on Order");
+  //    NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
+  // order(NearbySelectCoffeeBarView.class);
+  //    // should be refactored and fixed due to UI changes
+  //    nearbySelectCoffeeBarView.allow();
+  //    nearbySelectCoffeeBarView.search("Emeryville, CA, 94608, 1400 park avenue");
+  //    SyncHelper.sleep(10000);
+  //    // nearbySelectCoffeeBarView.openCoffeebarFromSearchResults(1);
+  //    return ComponentFactory.create(clazz);
+  //  }
 }

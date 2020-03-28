@@ -2,6 +2,7 @@ package com.applause.auto.test.mobile;
 
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
 import com.applause.auto.mobile.components.MapView;
 import com.applause.auto.mobile.views.DashboardView;
@@ -41,11 +42,12 @@ public class FindACoffeeBarTest extends BaseTest {
             landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
 
     logger.info("STEP - Tap on any of the three tabs: Nearby, Recents, Favorites");
-    NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
+    AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
         dashboardView
             .getBottomNavigationMenu()
             .order(OrderView.class)
-            .locateCoffeebars(NearbySelectCoffeeBarView.class);
+            .locateCoffeebars(AllowLocationServicesPopupChunk.class);
+    NearbySelectCoffeeBarView nearbySelectCoffeeBarView = allowLocationServicesPopupChunk.allow();
     FindACoffeeBarView findACoffeeBarView = nearbySelectCoffeeBarView.openRecentTab();
 
     logger.info("VERIFY - User sees store location cards");
