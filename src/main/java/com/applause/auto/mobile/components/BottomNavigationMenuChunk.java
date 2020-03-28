@@ -114,7 +114,8 @@ class IosBottomNavigationMenuChunk extends BottomNavigationMenuChunk {
   // is crashing when searching a coffee store
   public <T extends BaseComponent> T order(Class<T> clazz) {
     logger.info("Tap on Order");
-    NearbySelectCoffeeBarView nearbySelectCoffeeBarView = order(NearbySelectCoffeeBarView.class);
+    NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
+        super.order(NearbySelectCoffeeBarView.class);
     nearbySelectCoffeeBarView.allow();
     return ComponentFactory.create(clazz);
   }
