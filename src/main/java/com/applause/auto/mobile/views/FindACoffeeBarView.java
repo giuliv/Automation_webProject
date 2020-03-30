@@ -1,6 +1,7 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -28,5 +29,14 @@ public class FindACoffeeBarView extends BaseComponent {
     orderButton.click();
 
     return ComponentFactory.create(NewOrderView.class);
+  }
+
+  /**
+   * Gets coffee store container chuck.
+   *
+   * @return the coffee store container chuck
+   */
+  public CoffeeStoreContainerChuck getCoffeeStoreContainerChuck() {
+    return ComponentFactory.create(CoffeeStoreContainerChuck.class);
   }
 }

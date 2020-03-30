@@ -14,20 +14,15 @@ public class TryMobileOrderAheadPopupChunk extends BaseComponent {
   /* -------- Elements -------- */
 
   @Locate(
-    xpath =
-      "//XCUIElementTypeAlert[@name=\"Try Mobile Order Ahead\"]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeScrollView[2]",
-    on = Platform.MOBILE_IOS)
-  @Locate(
-    xpath =
-      "//android.widget.Button",
-    on = Platform.MOBILE_ANDROID)
+      xpath =
+          "//XCUIElementTypeAlert[@name=\"Try Mobile Order Ahead\"]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeScrollView[2]",
+      on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//android.widget.Button", on = Platform.MOBILE_ANDROID)
   protected Button dismissButton;
 
   /* -------- Actions -------- */
 
-  /**
-   * Click dismiss button
-   */
+  /** Click dismiss button */
   public void clickDismissButton() {
     logger.info("Click on Try Mobile Order Ahead Popup Dismiss button");
     dismissButton.click();

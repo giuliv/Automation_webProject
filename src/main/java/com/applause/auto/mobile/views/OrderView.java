@@ -16,9 +16,9 @@ public class OrderView extends BaseComponent {
   /* -------- Elements -------- */
 
   @Locate(
-      xpath = "//XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]",
-      on = Platform.MOBILE_IOS
-  )
+      xpath =
+          "//XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]",
+      on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/storePinImage", on = Platform.MOBILE_ANDROID)
   protected Button getLocateCoffeeBars;
 
@@ -27,6 +27,13 @@ public class OrderView extends BaseComponent {
       androidUIAutomator = "new UiSelector().textContains('Order')",
       on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
+
+  @Locate(
+      xpath =
+          "//XCUIElementTypeStaticText[@name=\"Change\"]/preceding-sibling::XCUIElementTypeStaticText",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/storeTextView", on = Platform.MOBILE_ANDROID)
+  protected Text storeName;
 
   /* -------- Actions -------- */
 
@@ -61,5 +68,9 @@ public class OrderView extends BaseComponent {
     logger.info("Tap to locate Coffeebars");
     getLocateCoffeeBars.click();
     return ComponentFactory.create(clazz);
+  }
+
+  public String getStoreName() {
+    return storeName.getText();
   }
 }

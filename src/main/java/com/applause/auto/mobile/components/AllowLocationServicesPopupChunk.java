@@ -10,13 +10,15 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
+
+import org.openqa.selenium.Point;
+
+import java.time.Duration;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
-import org.openqa.selenium.Point;
-
-import java.time.Duration;
 
 @Implementation(is = AndroidAllowLocationServicesPopupChunk.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = AllowLocationServicesPopupChunk.class, on = Platform.MOBILE_IOS)
@@ -128,6 +130,26 @@ public class AllowLocationServicesPopupChunk extends BaseComponent {
   }
 
   /**
+   * Allow if request displayed nearby select coffee bar view.
+   *
+   * @return the nearby select coffee bar view
+   */
+  public NearbySelectCoffeeBarView allowIfRequestDisplayed() {
+    logger.info("Tap Allow button");
+    try {
+      getAllowButton.click();
+      AllowLocationServicesSystemPopupChunk allowLocationServicesSystemPopupChunk =
+          ComponentFactory.create(AllowLocationServicesSystemPopupChunk.class);
+
+      logger.info("Tap System pop up Allow");
+      allowLocationServicesSystemPopupChunk.allow();
+    } catch (Throwable throwable) {
+      logger.info("Popup not displayed");
+    }
+    return ComponentFactory.create(NearbySelectCoffeeBarView.class);
+  }
+
+  /**
    * Not now allow location services system popup chunk.
    *
    * @return the allow location services system popup chunk
@@ -137,9 +159,7 @@ public class AllowLocationServicesPopupChunk extends BaseComponent {
     getNotNowButton.click();
   }
 
-  /**
-   * Click on Cancel button
-   */
+  /** Click on Cancel button */
   public void clickCancelButton() {
     logger.info("Click Cancel button");
     getCancelButton.click();

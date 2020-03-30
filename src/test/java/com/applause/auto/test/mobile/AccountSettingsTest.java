@@ -11,9 +11,9 @@ import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.views.*;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import java.lang.invoke.MethodHandles;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.EnvironmentHelper;
+import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -43,7 +43,7 @@ public class AccountSettingsTest extends BaseTest {
 
     String savedPaymentMethodsHeaderText = MobileTestData.SAVED_PAYMENT_HEADER_ANDROID;
     if (EnvironmentHelper.isMobileIOS(DriverManager.getDriver())) {
-        savedPaymentMethodsHeaderText = MobileTestData.SAVED_PAYMENT_HEADER_IOS;
+      savedPaymentMethodsHeaderText = MobileTestData.SAVED_PAYMENT_HEADER_IOS;
     }
     softAssert.assertEquals(
         paymentMethodsView.getSavedPaymentHeader(),
