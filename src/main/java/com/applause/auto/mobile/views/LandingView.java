@@ -70,6 +70,8 @@ public class LandingView extends BaseComponent {
   public void afterInit() {
     super.afterInit();
     getReportAProblemPopupChunk().waitForPopUpToDisappear();
+
+    dismissTryMobileOrderAhead();
   }
 
   /**
@@ -103,6 +105,7 @@ public class LandingView extends BaseComponent {
   public SignInView signIn() {
     logger.info("Click on Sign In button");
     SyncHelper.sleep(3000);
+    dismissTryMobileOrderAhead();
     getSignInButton.click();
     SyncHelper.sleep(1000);
     return ComponentFactory.create(SignInView.class);
@@ -110,12 +113,6 @@ public class LandingView extends BaseComponent {
 
   /** Skip onboarding. */
   public void skipOnboarding() {
-    logger.info("Looking for Try Mobile Order Ahead popup");
-    if (getTryMobileOrderAheadPopupChunk().isDismissButtonDisplayed()) {
-        logger.info("Popup found. Clicking on dismiss button");
-        getTryMobileOrderAheadPopupChunk().clickDismissButton();
-    }
-
     logger.info("Skipping Onboarding");
     // this try catch is needed for iOS, since sometimes iOS test is starting on sign in/sign up
     // view
@@ -123,6 +120,16 @@ public class LandingView extends BaseComponent {
       getSkipButton.click();
     } catch (Exception e) {
       logger.error("Error while skipping the Landing View");
+    }
+  }
+
+  public void dismissTryMobileOrderAhead() {
+    logger.info("Looking for Try Mobile Order Ahead popup");
+    if (getTryMobileOrderAheadPopupChunk().isDismissButtonDisplayed()) {
+      logger.info("Popup found. Clicking on dismiss button");
+      getTryMobileOrderAheadPopupChunk().clickDismissButton();
+    } else {
+      logger.info("Popup not found. Moving on");
     }
   }
 
