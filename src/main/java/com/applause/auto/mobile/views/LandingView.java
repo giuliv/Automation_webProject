@@ -123,6 +123,9 @@ public class LandingView extends BaseComponent {
     }
   }
 
+  /**
+   * Dismiss Try Mobile Order Ahead
+   */
   public void dismissTryMobileOrderAhead() {
     logger.info("Looking for Try Mobile Order Ahead popup");
     if (getTryMobileOrderAheadPopupChunk().isDismissButtonDisplayed()) {
