@@ -7,16 +7,17 @@ import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.HelpAndFeedbackView;
 import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.LegalInfoView;
 import com.applause.auto.mobile.views.PeetnikRewardsLandingView;
+import com.applause.auto.mobile.views.PeetnikRewardsTermsAndConditionsView;
+import com.applause.auto.mobile.views.PrivacyPolicyView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
-
+import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.lang.invoke.MethodHandles;
 
 public class CompanyInformationTest extends BaseTest {
 
@@ -62,6 +63,79 @@ public class CompanyInformationTest extends BaseTest {
 
     // logger.info("Navigate back on device");
     // MobileHelper.activateApp();
+  }
+
+  @Test(
+      groups = {TestNGGroups.COMPANY_INFORMATION},
+      description = "625938")
+  public void termsAndPrivacyPolicyTest() {
+    logger.info("Launch the app and arrive at the first on boarding screen view");
+    LandingView landingView = ComponentFactory.create(LandingView.class);
+    DashboardView dashboardView =
+        testHelper.signIn(
+            landingView,
+            Constants.MyAccountTestData.EMAIL,
+            Constants.MyAccountTestData.PASSWORD,
+            DashboardView.class);
+
+    Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
+
+    logger.info("STEP - Tap on ... at top right of home screen");
+    AccountMenuMobileChunk accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
+
+    logger.info("STEP - Tap on Terms and Privacy Policy field/row");
+    LegalInfoView legalInfoView = accountMenuMobileChunk.termsAndPrivacyPolicy();
+
+    logger.info("VERIFY - User is taken to LEGAL INFO screen");
+    Assert.assertNotNull(legalInfoView, "User does not taken to LEGAL INFO screen");
+
+    logger.info("VERIFY - Header: Legal Info");
+    Assert.assertEquals(
+        legalInfoView.getHeader(), "LEGAL INFO", "Header: Legal Info does not found");
+
+    logger.info("VERIFY - Back arrow at op left corner");
+    Assert.assertTrue(
+        legalInfoView.isBackArrowDisplayed(), "Back arrow at op left corner does not displayed");
+
+    logger.info("VERIFY - Fields: Peetnik Rewards Terms & Conditions");
+    Assert.assertTrue(
+        legalInfoView.isPeetnikRewardsTermsAndConditionsDisplayed(),
+        "Fields: Peetnik Rewards Terms & Conditions does not displayed");
+
+    logger.info("VERIFY - Fields: Privacy Policy");
+    Assert.assertTrue(
+        legalInfoView.isPrivacyPolicyDisplayed(), "Fields: Privacy Policy does not displayed");
+
+    logger.info("STEP - Tap on Peetnik Rewards Terms & Conditions field/arrow");
+    PeetnikRewardsTermsAndConditionsView peetnikRewardsTermsAndConditionsView =
+        legalInfoView.peetnikRewardsTermsAndConditions();
+
+    logger.info(
+        "VERIFY - User is taken to The Peetnik Rewards Program Terms and Conditions screen on Peet's mobile site");
+    Assert.assertNotNull(
+        peetnikRewardsTermsAndConditionsView,
+        "User does not taken to The Peetnik Rewards Program Terms and Conditions screen on Peet's mobile site");
+
+    logger.info("STEP - Tap done");
+    legalInfoView = peetnikRewardsTermsAndConditionsView.done();
+
+    logger.info("VERIFY - Browser closes and user is back on legal info screen of app");
+    Assert.assertNotNull(legalInfoView, "User does not on Legal Info view");
+
+    logger.info("STEP - Tap on Privacy Policy field/row");
+    PrivacyPolicyView privacyPolicyView = legalInfoView.privacyPolicy();
+
+    logger.info(
+        "VERIFY - User is taken to Peet's Coffee Privacy Policy screen on Peet's mobile site");
+    Assert.assertNotNull(
+        privacyPolicyView,
+        "User does not taken to Peet's Coffee Privacy Policy screen on Peet's mobile site");
+
+    logger.info("STEP - Tap done");
+    legalInfoView = privacyPolicyView.done();
+
+    logger.info("VERIFY - Browser closes and user is back on legal info screen of app");
+    Assert.assertNotNull(legalInfoView, "User does not on Legal Info view");
   }
 
   @Test(

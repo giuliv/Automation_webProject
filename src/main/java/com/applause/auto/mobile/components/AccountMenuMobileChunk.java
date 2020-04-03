@@ -7,6 +7,7 @@ import com.applause.auto.mobile.views.AccountHistoryView;
 import com.applause.auto.mobile.views.AuthenticationView;
 import com.applause.auto.mobile.views.GeneralSettingsView;
 import com.applause.auto.mobile.views.HelpAndFeedbackView;
+import com.applause.auto.mobile.views.LegalInfoView;
 import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.ProfileDetailsView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -34,6 +35,12 @@ public class AccountMenuMobileChunk extends BaseComponent {
   @Locate(id = "Sign Out", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/logoutButton", on = Platform.MOBILE_ANDROID)
   protected Button getSignOutButton;
+
+  @Locate(accessibilityId = "Terms and Privacy Policy", on = Platform.MOBILE_IOS)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/termsAndPrivacy",
+      on = Platform.MOBILE_ANDROID)
+  protected Button termsAndPrivacyPolicyButton;
 
   @Locate(xpath = "//XCUIElementTypeButton[@value='Log Out']", on = Platform.MOBILE_IOS)
   @Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
@@ -468,6 +475,12 @@ public class AccountMenuMobileChunk extends BaseComponent {
   public boolean isSignOutButtonDisplayed() {
     logger.info("Checking if Sign Out button displayed");
     return getSignOutButton.isDisplayed();
+  }
+
+  public LegalInfoView termsAndPrivacyPolicy() {
+    logger.info("Click on Terms and Privacy Policy");
+    termsAndPrivacyPolicyButton.click();
+    return ComponentFactory.create(LegalInfoView.class);
   }
 }
 
