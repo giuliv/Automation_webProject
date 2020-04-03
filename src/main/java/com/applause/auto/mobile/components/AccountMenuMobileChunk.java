@@ -116,6 +116,38 @@ public class AccountMenuMobileChunk extends BaseComponent {
   @Locate(xpath = "//XCUIElementTypeButton[@name='Done']", on = Platform.MOBILE_IOS)
   protected Button getDoneButton;
 
+  @Locate(
+      xpath = "//XCUIElementTypeNavigationBar/XCUIElementTypeStaticText",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/title", on = Platform.MOBILE_ANDROID)
+  protected Text titleText;
+
+  @Locate(
+      xpath = "//XCUIElementTypeStaticText[@name=\"Account Settings\"]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//android.widget.TextView[@text='Account Settings']",
+      on = Platform.MOBILE_ANDROID)
+  protected Text accountSettingsSubHeaderText;
+
+  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Peet's Coffee\"]", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//android.widget.TextView[@text=\"Peet's Coffee\"]",
+      on = Platform.MOBILE_ANDROID)
+  protected Text peetsCoffeeSubHeaderText;
+
+  @Locate(
+      xpath = "//XCUIElementTypeStaticText[contains(@name,'Version')]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//android.widget.TextView[contains(@text,'Version')]",
+      on = Platform.MOBILE_ANDROID)
+  protected Text versionText;
+
+  @Locate(accessibilityId = "About Us", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//android.widget.TextView[@text=\"About Us\"]", on = Platform.MOBILE_ANDROID)
+  protected Button aboutUsButton;
+
   /* -------- Actions -------- */
 
   /**
@@ -266,6 +298,81 @@ public class AccountMenuMobileChunk extends BaseComponent {
   public void clickCrossButton() {
     logger.info("Clicking the cross button");
     getCrossButton.click();
+  }
+
+  public String getTitle() {
+    logger.info("Obtaining title");
+    return titleText.getText();
+  }
+
+  public boolean isCloseButtonDisplayed() {
+    logger.info("Checking if close button displayed");
+    return getCrossButton.isDisplayed();
+  }
+
+  public boolean isAccountSettingsSubHeaderDisplayed() {
+    logger.info("Checking if account settings button displayed");
+    return accountSettingsSubHeaderText.isDisplayed();
+  }
+
+  public boolean isProfileDetailsMenuItemDisplayed() {
+    logger.info("Checking if profile details menu item displayed");
+    return getProfileDetailsButton.isDisplayed();
+  }
+
+  public boolean isGeneralSettingsMenuItemDisplayed() {
+    logger.info("Checking if general settings menu item displayed");
+    return getGeneralSettingsButton.isDisplayed();
+  }
+
+  public boolean isPaymentsMethodsMenuItemDisplayed() {
+    logger.info("Checking if payment methods menu item displayed");
+    return getPaymentMethodsButton.isDisplayed();
+  }
+
+  public boolean isAccountHistoryMenuItemDisplayed() {
+    logger.info("Checking if account history menu item displayed");
+    return getAccountHistoryButton.isDisplayed();
+  }
+
+  public boolean isSubHeaderPeetsCoffeeDisplayed() {
+    logger.info("Checking if sub header Peets Coffee displayed");
+    return peetsCoffeeSubHeaderText.isDisplayed();
+  }
+
+  public boolean isAboutUsMenuItemDisplayed() {
+    logger.info("Checking if About Us menu item displayed");
+    return aboutUsButton.isDisplayed();
+  }
+
+  public boolean isHelpAndFeedback() {
+    logger.info("Checking if Help and Feedback displayed");
+    return getHelpAndFeedbackButton.isDisplayed();
+  }
+
+  public boolean isFacebookIconDisplayed() {
+    logger.info("Checking if Facebook Icon displayed");
+    return getFacebookIcon.isDisplayed();
+  }
+
+  public boolean isInstagramIconDisplayed() {
+    logger.info("Checking if Instagram Icon displayed");
+    return getInstagramIcon.isDisplayed();
+  }
+
+  public boolean isTwitterIconDisplayed() {
+    logger.info("Checking if Twitter icon displayed");
+    return getTwitterIcon.isDisplayed();
+  }
+
+  public String getVersion() {
+    logger.info("Obtaining version");
+    return versionText.getText().replace("\n", " ");
+  }
+
+  public boolean isSignOutButtonDisplayed() {
+    logger.info("Checking if Sign Out button displayed");
+    return getSignOutButton.isDisplayed();
   }
 }
 
