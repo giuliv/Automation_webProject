@@ -2,17 +2,21 @@ package com.applause.auto.test.mobile;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.HelpAndFeedbackView;
 import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.PeetnikRewardsLandingView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import java.lang.invoke.MethodHandles;
+import com.applause.auto.util.control.DeviceControl;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
 
 public class CompanyInformationTest extends BaseTest {
 
@@ -117,6 +121,8 @@ public class CompanyInformationTest extends BaseTest {
         accountMenuMobileChunk.isSubHeaderPeetsCoffeeDisplayed(),
         "Sub header: Peet's Coffee does not displayed");
 
+    DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.UP);
+
     logger.info("VERIFY - About Us");
     Assert.assertTrue(
         accountMenuMobileChunk.isAboutUsMenuItemDisplayed(), "About Us does not displayed");
@@ -139,9 +145,7 @@ public class CompanyInformationTest extends BaseTest {
 
     logger.info("VERIFY - Text: Peetnik Rewards\n" + "Version xx.x.x.xxx");
     Assert.assertTrue(
-        accountMenuMobileChunk
-            .getVersion()
-            .matches("Peetnik Rewards Version \\d+\\.\\d+\\.\\d+\\.\\d+"),
+        accountMenuMobileChunk.getVersion().matches("Peetnik Rewards Version \\d+\\.\\d+\\.\\d+.*"),
         "Text: Peetnik Rewards\\n\" + \"Version xx.x.x.xxx does not displayed");
 
     logger.info("VERIFY - [Button] Sign Out");

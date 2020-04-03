@@ -105,7 +105,8 @@ public class CreateAccountView extends BaseComponent {
   protected TextBox getDOBValueTextBox;
 
   @Locate(
-      xpath = "//XCUIElementTypeStaticText[@name='Intended for users 13+ years old. Plus, get a birthday drink on us!']",
+      xpath =
+          "//XCUIElementTypeStaticText[@name='Intended for users 13+ years old. Plus, get a birthday drink on us!']",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath = "//android.widget.TextView[@text='Your birthday drink is on us']",
