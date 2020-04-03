@@ -234,24 +234,44 @@ public class AccountMenuMobileChunk extends BaseComponent {
     return ComponentFactory.create(AccountMenuMobileChunk.class);
   }
 
+  /**
+   * Is on facebook page boolean.
+   *
+   * @return the boolean
+   */
   public Boolean isOnFacebookPage() {
     String s = facebookPage.getText();
     String e = "Peet's Coffee is on Facebook.";
     return s.equals(e);
   }
 
+  /**
+   * Is on instagram page boolean.
+   *
+   * @return the boolean
+   */
   public Boolean isOnInstagramPage() {
     String s = instagramPage.getText();
     String e = "Share your photos with";
     return s.equals(e);
   }
 
+  /**
+   * Is on twitter page boolean.
+   *
+   * @return the boolean
+   */
   public Boolean isOnTwitterPage() {
     String s = twitterPage.getText();
     String e = "Get the most out of Twitter";
     return s.equals(e);
   }
 
+  /**
+   * Click done button account menu mobile chunk.
+   *
+   * @return the account menu mobile chunk
+   */
   public AccountMenuMobileChunk clickDoneButton() {
     logger.info("Clicking Done Button to go back");
     getDoneButton.click();
@@ -300,76 +320,151 @@ public class AccountMenuMobileChunk extends BaseComponent {
     getCrossButton.click();
   }
 
+  /**
+   * Gets title.
+   *
+   * @return the title
+   */
   public String getTitle() {
     logger.info("Obtaining title");
     return titleText.getText();
   }
 
+  /**
+   * Is close button displayed boolean.
+   *
+   * @return the boolean
+   */
   public boolean isCloseButtonDisplayed() {
     logger.info("Checking if close button displayed");
     return getCrossButton.isDisplayed();
   }
 
+  /**
+   * Is account settings sub header displayed boolean.
+   *
+   * @return the boolean
+   */
   public boolean isAccountSettingsSubHeaderDisplayed() {
     logger.info("Checking if account settings button displayed");
     return accountSettingsSubHeaderText.isDisplayed();
   }
 
+  /**
+   * Is profile details menu item displayed boolean.
+   *
+   * @return the boolean
+   */
   public boolean isProfileDetailsMenuItemDisplayed() {
     logger.info("Checking if profile details menu item displayed");
     return getProfileDetailsButton.isDisplayed();
   }
 
+  /**
+   * Is general settings menu item displayed boolean.
+   *
+   * @return the boolean
+   */
   public boolean isGeneralSettingsMenuItemDisplayed() {
     logger.info("Checking if general settings menu item displayed");
     return getGeneralSettingsButton.isDisplayed();
   }
 
+  /**
+   * Is payments methods menu item displayed boolean.
+   *
+   * @return the boolean
+   */
   public boolean isPaymentsMethodsMenuItemDisplayed() {
     logger.info("Checking if payment methods menu item displayed");
     return getPaymentMethodsButton.isDisplayed();
   }
 
+  /**
+   * Is account history menu item displayed boolean.
+   *
+   * @return the boolean
+   */
   public boolean isAccountHistoryMenuItemDisplayed() {
     logger.info("Checking if account history menu item displayed");
     return getAccountHistoryButton.isDisplayed();
   }
 
+  /**
+   * Is sub header peets coffee displayed boolean.
+   *
+   * @return the boolean
+   */
   public boolean isSubHeaderPeetsCoffeeDisplayed() {
     logger.info("Checking if sub header Peets Coffee displayed");
     return peetsCoffeeSubHeaderText.isDisplayed();
   }
 
+  /**
+   * Is about us menu item displayed boolean.
+   *
+   * @return the boolean
+   */
   public boolean isAboutUsMenuItemDisplayed() {
     logger.info("Checking if About Us menu item displayed");
     return aboutUsButton.isDisplayed();
   }
 
+  /**
+   * Is help and feedback boolean.
+   *
+   * @return the boolean
+   */
   public boolean isHelpAndFeedback() {
     logger.info("Checking if Help and Feedback displayed");
     return getHelpAndFeedbackButton.isDisplayed();
   }
 
+  /**
+   * Is facebook icon displayed boolean.
+   *
+   * @return the boolean
+   */
   public boolean isFacebookIconDisplayed() {
     logger.info("Checking if Facebook Icon displayed");
     return getFacebookIcon.isDisplayed();
   }
 
+  /**
+   * Is instagram icon displayed boolean.
+   *
+   * @return the boolean
+   */
   public boolean isInstagramIconDisplayed() {
     logger.info("Checking if Instagram Icon displayed");
     return getInstagramIcon.isDisplayed();
   }
 
+  /**
+   * Is twitter icon displayed boolean.
+   *
+   * @return the boolean
+   */
   public boolean isTwitterIconDisplayed() {
     logger.info("Checking if Twitter icon displayed");
     return getTwitterIcon.isDisplayed();
   }
 
+  /**
+   * Gets version.
+   *
+   * @return the version
+   */
   public String getVersion() {
     logger.info("Obtaining version");
     return versionText.getText().replace("\n", " ");
   }
 
+  /**
+   * Is sign out button displayed boolean.
+   *
+   * @return the boolean
+   */
   public boolean isSignOutButtonDisplayed() {
     logger.info("Checking if Sign Out button displayed");
     return getSignOutButton.isDisplayed();
