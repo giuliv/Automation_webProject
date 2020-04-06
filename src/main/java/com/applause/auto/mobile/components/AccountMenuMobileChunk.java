@@ -105,7 +105,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
   protected Text instagramPage;
 
   @Locate(
-      xpath = "//XCUIElementTypeStaticText[@name=\"Get the most out of Twitter\"]",
+      xpath = "//XCUIElementTypeStaticText[@name='The Original Craft Coffee.™ Since 1966.']",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
@@ -216,7 +216,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
 
   public Boolean isOnTwitterPage() {
     String s = twitterPage.getText();
-    String e = "Get the most out of Twitter";
+    String e = "The Original Craft Coffee.™ Since 1966.";
     return s.equals(e);
   }
 
