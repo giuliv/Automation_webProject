@@ -66,4 +66,16 @@ public class HelpAndFeedbackView extends BaseComponent {
     SyncHelper.sleep(10000);
     return ComponentFactory.create(PeetnikRewardsLandingView.class);
   }
+
+  /**
+   * Contact customer service customer support screen view.
+   *
+   * @return the customer support screen view
+   */
+  public CustomerSupportScreenView contactCustomerService() {
+    logger.info("Click Customer Support");
+    contactCustomerService.click();
+    SyncHelper.sleep(10000);
+    return ComponentFactory.create(CustomerSupportScreenView.class);
+  }
 }
