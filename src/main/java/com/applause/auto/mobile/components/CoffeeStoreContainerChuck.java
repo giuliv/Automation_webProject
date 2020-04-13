@@ -13,7 +13,6 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
-
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriverException;
@@ -32,7 +31,8 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
   protected ContainerElement getSearchResultsContainer;
 
   @Locate(
-      xpath = "(//XCUIElementTypeButton[@name=\"Order\"])[1]/../XCUIElementTypeStaticText[1]",
+      xpath =
+          "((//XCUIElementTypeButton[@name=\"Order\"])[1]/../../XCUIElementTypeOther[1]/XCUIElementTypeStaticText[1])|((//XCUIElementTypeTable[@visible='true']/XCUIElementTypeCell/XCUIElementTypeButton[@name=\"Order\"])[1]/../XCUIElementTypeStaticText[2])",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
@@ -92,7 +92,11 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
    * @return boolean
    */
   public boolean isStorePresent() {
-    return getSearchResultsContainer.isDisplayed();
+    try {
+      return getSearchResultsContainer.isDisplayed();
+    } catch (Throwable th) {
+      return false;
+    }
   }
 
   /**
@@ -130,6 +134,7 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
    */
   public StoreDetailsView openStoreDetails() {
     logger.info("Tap on store name");
+    getStoreName.initialize();
     getStoreName.click();
     return ComponentFactory.create(StoreDetailsView.class);
   }

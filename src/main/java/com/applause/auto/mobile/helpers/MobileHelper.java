@@ -22,6 +22,7 @@ import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
 import java.time.Duration;
@@ -36,6 +37,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.RemoteWebElement;
 
@@ -374,6 +376,39 @@ public class MobileHelper {
         throw new RuntimeException(e);
       }
     } else throw new IllegalStateException("Was not able to get mobile screenshot");
+  }
+
+  public static RGB getMobileElementColour(MobileElement element) {
+
+    org.openqa.selenium.Point point = element.getCenter();
+
+    Dimension dimension = getDriver().manage().window().getSize();
+
+    double centerX0 = (double) point.getX() / (double) dimension.width;
+    double centerY0 =
+        (double) point.getY()
+            / (EnvironmentHelper.isMobileIOS(DriverManager.getDriver())
+                ? (double) dimension.height
+                : (double) dimension.height + 100); // correction due to top nav bar
+
+    File scrFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
+
+    BufferedImage image = null;
+    try {
+      image = ImageIO.read(scrFile);
+    } catch (IOException e) {
+      logger.error("Error during image reading");
+    }
+
+    // Getting pixel color by position x and y
+    int clr =
+        image.getRGB((int) (image.getWidth() * centerX0), ((int) (image.getHeight() * centerY0)));
+    RGB result = new RGB(clr);
+
+    logger.debug("Red Color value = " + result.getRed());
+    logger.debug("Green Color value = " + result.getGreen());
+    logger.debug("Blue Color value = " + result.getBlue());
+    return result;
   }
 
   /**

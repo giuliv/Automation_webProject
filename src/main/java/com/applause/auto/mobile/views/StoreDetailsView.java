@@ -2,6 +2,7 @@ package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.mobile.components.MapView;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -10,6 +11,7 @@ import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -125,6 +127,12 @@ public class StoreDetailsView extends BaseComponent {
     return navigateBackButton.isDisplayed();
   }
 
+  public <T extends BaseComponent> T navigateBack(Class<T> clazz) {
+    logger.info("Click on Back navigation button");
+    navigateBackButton.click();
+    return ComponentFactory.create(clazz);
+  }
+
   /**
    * Gets coffeebar header.
    *
@@ -162,7 +170,10 @@ public class StoreDetailsView extends BaseComponent {
    */
   public boolean isCoffeebarFavorite() {
     logger.info("Checking Coffeebar tagged as favorite");
-    return coffeebarFavoriteIcon.isDisplayed();
+    coffeebarFavoriteIcon.initialize();
+    int colourRed =
+        MobileHelper.getMobileElementColour(coffeebarFavoriteIcon.getMobileElement()).getRed();
+    return (colourRed == 199) || (colourRed == 200);
   }
 
   /**
@@ -245,5 +256,17 @@ public class StoreDetailsView extends BaseComponent {
     logger.info("Tap order button");
     orderButton.click();
     return ComponentFactory.create(OrderView.class);
+  }
+
+  /**
+   * Add to favorite store details view.
+   *
+   * @return the store details view
+   */
+  public StoreDetailsView tapFavorite() {
+    logger.info("Tap favorite icon");
+    coffeebarFavoriteIcon.click();
+    SyncHelper.sleep(5000);
+    return this;
   }
 }
