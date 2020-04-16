@@ -23,9 +23,7 @@ public class OrderView extends BaseComponent {
   protected Button getLocateCoffeeBars;
 
   @Locate(xpath = "//XCUIElementTypeStaticText[@name='ORDER']", on = Platform.MOBILE_IOS)
-  @Locate(
-      androidUIAutomator = "new UiSelector().textContains('Order')",
-      on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//android.view.ViewGroup[1]/android.widget.TextView", on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
   @Locate(
