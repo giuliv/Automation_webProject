@@ -106,7 +106,7 @@ public class CreateAccountView extends BaseComponent {
 
   @Locate(
       xpath =
-          "//XCUIElementTypeStaticText[@name='Intended for users 13+ years old. Plus, get a birthday drink on us!']",
+          "//XCUIElementTypeStaticText[@name='Your birthday drink is on us']",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath = "//android.widget.TextView[@text='Your birthday drink is on us']",
