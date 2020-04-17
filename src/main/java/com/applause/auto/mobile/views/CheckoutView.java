@@ -58,9 +58,7 @@ public class CheckoutView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   @Locate(
       xpath =
-          "//*[@name='You might also like']/following-sibling::*[contains(@type, 'XCUIElementTypeCell')"
-              + " and following-sibling::*[contains(@name, 'Payment Method')]"
-              + " and not(child::*[contains(@name, 'free')])]/*[last()]",
+          "//*[@name='You might also like']/following-sibling::*[contains(@type, 'XCUIElementTypeCell') and following-sibling::*[contains(@name, 'Available Rewards')]]/*[last()]",
       on = Platform.MOBILE_IOS)
   protected List<ContainerElement> youMightAlsoLikeProducts;
 

@@ -7,7 +7,6 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
-
 import java.time.Duration;
 
 @Implementation(is = OrderConfirmationView.class, on = Platform.MOBILE_ANDROID)
