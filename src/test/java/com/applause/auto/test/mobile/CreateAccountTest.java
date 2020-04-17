@@ -334,11 +334,11 @@ public class CreateAccountTest extends BaseTest {
 
     logger.info("Tap on Email Address field and enter valid email address");
 
-    String VALID_USERNAME = TestData.USERNAME;
+    String VALID_USERNAME = MyAccountTestData.EMAIL_CHANGE_PWD;
     signInView.setUsername(VALID_USERNAME);
 
     logger.info("Enter valid password");
-    String INITIAL_PASSWORD = TestData.PASSWORD;
+    String INITIAL_PASSWORD = MyAccountTestData.PASSWORD;
     signInView.setPassword(INITIAL_PASSWORD);
 
     logger.info("Tap Sign In button");
