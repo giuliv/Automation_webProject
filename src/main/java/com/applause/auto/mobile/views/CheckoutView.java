@@ -1,8 +1,7 @@
 package com.applause.auto.mobile.views;
 
-import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
-
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -13,7 +12,10 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
+
 import java.util.List;
+
+import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
 
 @Implementation(is = AndroidCheckoutView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CheckoutView.class, on = Platform.MOBILE_IOS)
@@ -58,9 +60,7 @@ public class CheckoutView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   @Locate(
       xpath =
-          "//*[@name='You might also like']/following-sibling::*[contains(@type, 'XCUIElementTypeCell')"
-              + " and following-sibling::*[contains(@name, 'Payment Method')]"
-              + " and not(child::*[contains(@name, 'free')])]/*[last()]",
+          "//*[@name='You might also like']/following-sibling::*[contains(@type, 'XCUIElementTypeCell') and following-sibling::*[contains(@name, 'Available Rewards')]]/*[last()]",
       on = Platform.MOBILE_IOS)
   protected List<ContainerElement> youMightAlsoLikeProducts;
 
@@ -111,8 +111,7 @@ public class CheckoutView extends BaseComponent {
     }
 
     if (areAvailableRewardsDisplayed) {
-      availableRewards
-          .stream()
+      availableRewards.stream()
           .filter(item -> getElementTextAttribute(item).startsWith(awardText))
           .findAny()
           .orElseThrow(
@@ -173,7 +172,7 @@ class AndroidCheckoutView extends CheckoutView {
 
   public <T extends BaseComponent> T placeOrder(Class<T> clazz) {
     logger.info("Tap place order");
-    MobileHelper.swipeAcrossScreenCoordinates(0.5, 0.8, 0.5, 0.2, 100);
+    MobileHelper.swipeWithCount(SwipeDirection.UP, 4);
     getPlaceOrderButton.click();
     return ComponentFactory.create(clazz);
   }
