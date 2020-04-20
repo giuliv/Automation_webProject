@@ -9,9 +9,13 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 
+import org.openqa.selenium.JavascriptExecutor;
+
+import java.util.HashMap;
 import java.util.List;
 
 import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
@@ -171,8 +175,15 @@ class AndroidCheckoutView extends CheckoutView {
 
   public <T extends BaseComponent> T placeOrder(Class<T> clazz) {
     logger.info("Tap place order");
-    SyncHelper.sleep(5000);
-    MobileHelper.scrollDownHalfScreen(3);
+    try {
+      JavascriptExecutor js = (JavascriptExecutor) DriverManager.getDriver();
+      HashMap scrollObject = new HashMap();
+      scrollObject.put("direction", "down");
+      js.executeScript("mobile: scroll", scrollObject);
+      System.out.println("Swipe down was Successfully done");
+    } catch (Exception e) {
+      System.out.println("swipe down was not successfull");
+    }
     getPlaceOrderButton.click();
     return ComponentFactory.create(clazz);
   }
