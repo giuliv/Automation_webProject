@@ -12,6 +12,7 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
 import java.time.Duration;
 
 @Implementation(is = NewOrderView.class, on = Platform.MOBILE_ANDROID)
@@ -83,7 +84,7 @@ public class NewOrderView extends BaseComponent {
     logger.info("Select category: " + category);
     getCategoryItem.initializeWithFormat(category);
     DeviceControl.tapElementCenter(getCategoryItem);
-    SyncHelper.sleep(1000);
+    SyncHelper.sleep(2000);
     getCategorySubItem.initializeWithFormat(category, subCategory);
     getCategorySubItem.click();
   }
