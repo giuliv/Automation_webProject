@@ -171,8 +171,7 @@ class AndroidCheckoutView extends CheckoutView {
 
   public <T extends BaseComponent> T placeOrder(Class<T> clazz) {
     logger.info("Tap place order");
-    MobileHelper.swipeAcrossScreenCoordinates(0.5, 0.8, 0.5, 0.2, 100);
-    MobileHelper.swipeAcrossScreenCoordinates(0.5, 0.8, 0.5, 0.2, 100);
+    MobileHelper.scrollDownHalfScreen(2);
     getPlaceOrderButton.click();
     return ComponentFactory.create(clazz);
   }
