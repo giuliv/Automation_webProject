@@ -142,4 +142,144 @@ public class FindACoffeeBarTest extends BaseTest {
         storeName,
         "Coffeebar name is correct on location field of order screen");
   }
+
+  @Test(
+      groups = {TestNGGroups.ORDER},
+      description = "1687261")
+  public void recentCoffeeBarTest() {
+    logger.info(
+        "PRECONDITION - User is signed in to app\n"
+            + "User is on find a coffeebar screen\n"
+            + "User has previously placed orders in at least two different coffeebars");
+
+    logger.info("Launch the app and arrive at the first on boarding screen view");
+    LandingView landingView = ComponentFactory.create(LandingView.class);
+    DashboardView dashboardView =
+        testHelper.signIn(
+            landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
+
+    logger.info("STEP - Tap on Recents tab");
+    AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
+        dashboardView
+            .getBottomNavigationMenu()
+            .order(OrderView.class)
+            .locateCoffeebars(AllowLocationServicesPopupChunk.class);
+    NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
+        allowLocationServicesPopupChunk.allowIfRequestDisplayed();
+    FindACoffeeBarView findACoffeeBarView = nearbySelectCoffeeBarView.openRecentTab();
+
+    logger.info(
+        "VERIFY - Coffeebars where user recently placed orders appear vertically below recents tab");
+    CoffeeStoreContainerChuck recent = findACoffeeBarView.getCoffeeStoreContainerChuck();
+    Assert.assertNotNull(
+        recent,
+        " Coffeebars where user recently placed orders does not appear vertically below recents tab");
+
+    logger.info("VERIFY - Coffeebar location Details:");
+    logger.info("VERIFY - Store name");
+    Assert.assertTrue(
+        recent.isCoffeebarStoreNameDisplayed("AppInt Sandbox 1"), "Store name does not displayed");
+
+    logger.info("VERIFY - x.x Miles away on the right of the store name");
+    Assert.assertTrue(recent.isCoffeebarDistanceDisplayed(), "Distance does not displayed");
+
+    logger.info("VERIFY - Store Address");
+    Assert.assertTrue(
+        recent.isCoffeebarLocationDisplayed("1400 Park Avenue\nEmeryville, CA 94608"),
+        "Address does not displayed");
+
+    logger.info("VERIFY - Open Untill xx.xx AM /Pm");
+    Assert.assertTrue(recent.isCoffeebarOpenHoursDisplayed(), "Open hours does not displayed");
+
+    logger.info("VERIFY - [Button] Order");
+    Assert.assertTrue(recent.isCoffeebarOrderButtonDisplayed(), "Order button does not displayed");
+
+    logger.info("STEP - Tap Order");
+    OrderView order = recent.clickOrderButton();
+
+    logger.info("VERIFY - User will navigate to main order screen");
+    Assert.assertNotNull(order, "Order vies does not displayed");
+
+    logger.info("VERIFY - Make sure coffeebar name is correct on location field of order screen");
+    Assert.assertEquals(
+        order.getStoreName().toUpperCase(),
+        "AppInt Sandbox 1".toUpperCase(),
+        "Wrong storename displayed");
+  }
+
+  @Test(
+      groups = {TestNGGroups.ORDER},
+      description = "1687262")
+  public void favoriteCoffeebarsTest() {
+    logger.info("PRECONDITION - User is on find a coffeebar screen");
+
+    logger.info("Launch the app and arrive at the first on boarding screen view");
+    LandingView landingView = ComponentFactory.create(LandingView.class);
+    DashboardView dashboardView =
+        testHelper.signIn(
+            landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
+
+    AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
+        dashboardView
+            .getBottomNavigationMenu()
+            .order(OrderView.class)
+            .locateCoffeebars(AllowLocationServicesPopupChunk.class);
+    NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
+        allowLocationServicesPopupChunk.allowIfRequestDisplayed();
+
+    logger.info("STEP - Search for any store either by nearby, recent tabs, or by zip code");
+    nearbySelectCoffeeBarView.search("94608");
+
+    logger.info("STEP - Tap on the store location card to view store details screen");
+    CoffeeStoreContainerChuck coffeeStore =
+        nearbySelectCoffeeBarView.getCoffeeStoreContainerChuck();
+    StoreDetailsView storeDetailsView = coffeeStore.openStoreDetails();
+    String storeName = storeDetailsView.getCoffeebarSubHeaderName();
+
+    logger.info("STEP - Tap on the gold outline heart icon to the right of the coffeebar name");
+    storeDetailsView.tapFavorite();
+    logger.info(
+        "VERIFY - User sees a loading dial and then the gold heart icon changes to a red filled in heart icon");
+    logger.info("VERIFY - The brown pin on the map also changes to a red and white heart pin");
+    Assert.assertTrue(
+        storeDetailsView.isCoffeebarFavorite(), "Favorite was not enabled for coffee store");
+
+    logger.info("STEP - Tap on back arrow to return to find a coffeebar screen");
+    nearbySelectCoffeeBarView = storeDetailsView.navigateBack(NearbySelectCoffeeBarView.class);
+    nearbySelectCoffeeBarView.cancelSearch();
+
+    logger.info("STEP - Tap on Favorites tab");
+    FindACoffeeBarView findACoffeeBarView = nearbySelectCoffeeBarView.openFavoritesTab();
+
+    logger.info(
+        "VERIFY - The coffeebar that was favorited in step 3 should appear in the list of favorite stores");
+    CoffeeStoreContainerChuck favStore = findACoffeeBarView.getCoffeeStoreContainerChuck();
+    Assert.assertEquals(
+        favStore.getStoreName(), storeName, "Wrong store shown under favorites tab");
+
+    logger.info("STEP - Select the same store just favorited to view store details screen");
+    storeDetailsView = favStore.openStoreDetails();
+
+    logger.info("VERIFY - Heart icon should still be filled in red since it's been favorited");
+    Assert.assertTrue(
+        storeDetailsView.isCoffeebarFavorite(), "Favorite was not enabled for coffee store");
+
+    logger.info("STEP - Tap on the red filled in heart icon next to the coffeebar name");
+    storeDetailsView.tapFavorite();
+
+    logger.info(
+        "VERIFY - User sees a loading dial and then the red heart icon changes to the gold outline heart icon");
+    logger.info("VERIFY - The red and white heart icon pin on the map changes to a brown pin");
+    Assert.assertFalse(
+        storeDetailsView.isCoffeebarFavorite(), "Favorite was not disabled for coffee store");
+
+    logger.info("STEP - Tap on back arrow to return to find a coffeebar screen");
+    findACoffeeBarView = storeDetailsView.navigateBack(FindACoffeeBarView.class);
+
+    logger.info(
+        "VERIFY - The coffeebar that was un-favorited in step 7 should no longer appear in the list of favorite stores");
+    Assert.assertFalse(
+        findACoffeeBarView.getCoffeeStoreContainerChuck().isStorePresent(),
+        "The coffeebar that was un-favorited in step 7 still remains in the favorite stores");
+  }
 }

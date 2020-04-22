@@ -18,7 +18,7 @@ import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriverException;
 
 /** The coffee store container chunk. */
-@Implementation(is = CoffeeStoreContainerChuck.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = AndroidCoffeeStoreContainerChuck.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CoffeeStoreContainerChuck.class, on = Platform.MOBILE_IOS)
 public class CoffeeStoreContainerChuck extends BaseComponent {
 
@@ -31,7 +31,8 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
   protected ContainerElement getSearchResultsContainer;
 
   @Locate(
-      xpath = "(//XCUIElementTypeButton[@name=\"Order\"])[1]/../XCUIElementTypeStaticText[1]",
+      xpath =
+          "((//XCUIElementTypeButton[@name=\"Order\"])[1]/../../XCUIElementTypeOther[1]/XCUIElementTypeStaticText[1])|((//XCUIElementTypeTable[@visible='true']/XCUIElementTypeCell/XCUIElementTypeButton[@name=\"Order\"])[1]/../XCUIElementTypeStaticText[2])",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
@@ -39,6 +40,16 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
               + "//*[contains(@resource-id, 'storeName')]",
       on = Platform.MOBILE_ANDROID)
   protected Text getStoreName;
+
+  @Locate(
+      xpath =
+          "(//XCUIElementTypeButton[@name=\"Order\"])[1]/../XCUIElementTypeStaticText[contains(@name,'%s')]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//android.widget.RelativeLayout[contains(@resource-id,'storeDetail')]//android.widget.TextView[contains(@text,'%s')]",
+      on = Platform.MOBILE_ANDROID)
+  protected Text getStoreDetailsItem;
 
   @Locate(xpath = "(//XCUIElementTypeButton[@name=\"Order\"])[1]", on = Platform.MOBILE_IOS)
   @Locate(id = "acceptMobileOrderIcon", on = Platform.MOBILE_ANDROID)
@@ -81,7 +92,11 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
    * @return boolean
    */
   public boolean isStorePresent() {
-    return getSearchResultsContainer.isDisplayed();
+    try {
+      return getSearchResultsContainer.isDisplayed();
+    } catch (Throwable th) {
+      return false;
+    }
   }
 
   /**
@@ -119,7 +134,79 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
    */
   public StoreDetailsView openStoreDetails() {
     logger.info("Tap on store name");
+    getStoreName.initialize();
     getStoreName.click();
     return ComponentFactory.create(StoreDetailsView.class);
+  }
+
+  /**
+   * Is coffeebar store name displayed boolean.
+   *
+   * @param storeName the store name
+   * @return the boolean
+   */
+  public boolean isCoffeebarStoreNameDisplayed(String storeName) {
+    logger.info("Verifying if store name displayed: " + storeName);
+    getStoreDetailsItem.format(storeName);
+    getStoreDetailsItem.initialize();
+    return getStoreDetailsItem.isDisplayed();
+  }
+
+  /**
+   * Is coffeebar distance displayed boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isCoffeebarDistanceDisplayed() {
+    logger.info("Verifying if store distance displayed");
+    getStoreDetailsItem.format("miles away");
+    getStoreDetailsItem.initialize();
+    return getStoreDetailsItem.isDisplayed();
+  }
+
+  /**
+   * Is coffeebar location displayed boolean.
+   *
+   * @param address the address
+   * @return the boolean
+   */
+  public boolean isCoffeebarLocationDisplayed(String address) {
+    logger.info("Verifying if store location displayed");
+    getStoreDetailsItem.format(address.replace("\n", " "));
+    getStoreDetailsItem.initialize();
+    return getStoreDetailsItem.isDisplayed();
+  }
+
+  /**
+   * Is coffeebar open hours displayed boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isCoffeebarOpenHoursDisplayed() {
+    logger.info("Verifying if open hours displayed");
+    getStoreDetailsItem.format("Open until");
+    getStoreDetailsItem.initialize();
+    return getStoreDetailsItem.isDisplayed();
+  }
+
+  /**
+   * Is coffeebar order button displayed boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isCoffeebarOrderButtonDisplayed() {
+    logger.info("Verifying if Order button displayed");
+    return getOrderButton.isDisplayed();
+  }
+}
+
+class AndroidCoffeeStoreContainerChuck extends CoffeeStoreContainerChuck {
+
+  @Override
+  public boolean isCoffeebarLocationDisplayed(String address) {
+    logger.info("Verifying if store location displayed");
+    getStoreDetailsItem.format(address);
+    getStoreDetailsItem.initialize();
+    return getStoreDetailsItem.isDisplayed();
   }
 }

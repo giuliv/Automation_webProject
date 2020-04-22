@@ -4,6 +4,7 @@ import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
+import com.applause.auto.mobile.views.CustomerSupportScreenView;
 import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.HelpAndFeedbackView;
 import com.applause.auto.mobile.views.LandingView;
@@ -225,5 +226,42 @@ public class CompanyInformationTest extends BaseTest {
     logger.info("VERIFY - [Button] Sign Out");
     Assert.assertTrue(
         accountMenuMobileChunk.isSignOutButtonDisplayed(), "[Button] Sign Out does not displayed");
+  }
+
+  @Test(
+      groups = {TestNGGroups.COMPANY_INFORMATION},
+      description = "625937")
+  public void contactCustomerServiceTest() {
+    logger.info("Launch the app and arrive at the first on boarding screen view");
+    LandingView landingView = ComponentFactory.create(LandingView.class);
+    DashboardView dashboardView =
+        testHelper.signIn(
+            landingView,
+            Constants.MyAccountTestData.EMAIL,
+            Constants.MyAccountTestData.PASSWORD,
+            DashboardView.class);
+
+    Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
+
+    logger.info("STEP - Tap on ... at top right of home screen");
+    AccountMenuMobileChunk accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
+
+    logger.info("STEP - Tap on Help & Feedback field/row");
+    HelpAndFeedbackView helpAndFeedbackView = accountMenuMobileChunk.helpAndFeedback();
+
+    logger.info("STEP - Tap on Contact Customer Service field");
+    CustomerSupportScreenView customerSupportScreenView =
+        helpAndFeedbackView.contactCustomerService();
+
+    logger.info("VERIFY - User is taken to Customer Support screen on Peet's mobile site");
+    Assert.assertNotNull(
+        customerSupportScreenView,
+        "User does not taken to Customer Support screen on Peet's mobile site");
+
+    logger.info("STEP - Tap done");
+    helpAndFeedbackView = customerSupportScreenView.done();
+
+    logger.info("VERIFY - In-app browser closes");
+    Assert.assertNotNull(helpAndFeedbackView, "Browser does not closed in proper way");
   }
 }

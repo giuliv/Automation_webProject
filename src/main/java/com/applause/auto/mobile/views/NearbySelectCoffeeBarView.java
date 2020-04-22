@@ -65,6 +65,16 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   @Locate(iOSClassChain = "**/*[`label == 'Recents'`]", on = Platform.MOBILE_IOS)
   protected TextBox recentTab;
 
+  @Locate(
+      xpath = "//android.support.v7.app.ActionBar.Tab[@content-desc=\"Favorites\"]",
+      on = Platform.MOBILE_ANDROID)
+  @Locate(iOSClassChain = "**/*[`label == 'Favorites'`]", on = Platform.MOBILE_IOS)
+  protected TextBox favoritesTab;
+
+  @Locate(id = "com.wearehathway.peets.development:id/cancelButton", on = Platform.MOBILE_ANDROID)
+  @Locate(iOSClassChain = "**/*[`label == 'Cancel'`]", on = Platform.MOBILE_IOS)
+  protected Button cancelSearchButton;
+
   /* -------- Actions -------- */
 
   public CoffeeStoreContainerChuck getCoffeeStoreContainerChuck() {
@@ -79,6 +89,7 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   public void search(String searchTxt) {
     logger.info("Searching for store: " + searchTxt);
     getSearchTextBox.click();
+    getSearchTextBox.initialize();
     getSearchTextBox.sendKeys(searchTxt + "\n");
   }
 
@@ -125,12 +136,36 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
     recentTab.click();
     return ComponentFactory.create(FindACoffeeBarView.class);
   }
+
+  /**
+   * Open favorites tab find a coffee bar view.
+   *
+   * @return the find a coffee bar view
+   */
+  public FindACoffeeBarView openFavoritesTab() {
+    logger.info("Tap on Favorites Tab");
+    favoritesTab.click();
+    return ComponentFactory.create(FindACoffeeBarView.class);
+  }
+
+  /** Cancel search. */
+  public void cancelSearch() {
+    logger.info("Tap on Cancel search");
+    cancelSearchButton.click();
+    cancelSearchButton.click();
+  }
 }
 
 class AndroidNearbySelectCoffeeBarView extends NearbySelectCoffeeBarView {
 
   /* -------- Actions -------- */
+  @Override
+  public void cancelSearch() {
+    logger.info("Tap on Cancel search");
+    cancelSearchButton.click();
+  }
 
+  @Override
   public void search(String searchTxt) {
     logger.info("Searching for store: " + searchTxt);
     getSearchTextBox.click();
