@@ -24,7 +24,7 @@ public class OrderView extends BaseComponent {
 
   @Locate(xpath = "//XCUIElementTypeStaticText[@name='ORDER']", on = Platform.MOBILE_IOS)
   @Locate(
-      androidUIAutomator = "new UiSelector().textContains('Order')",
+      androidUIAutomator = "new UiSelector().textContains('ORDER')",
       on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
