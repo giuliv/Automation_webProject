@@ -45,13 +45,11 @@ public class FindACoffeeBarTest extends BaseTest {
             DashboardView.class);
 
     logger.info("STEP - Tap on any of the three tabs: Nearby, Recents, Favorites");
-    AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
+    NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
         dashboardView
             .getBottomNavigationMenu()
-            .order(OrderView.class)
-            .locateCoffeebars(AllowLocationServicesPopupChunk.class);
-    NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
-        allowLocationServicesPopupChunk.allowIfRequestDisplayed();
+            .order(AllowLocationServicesPopupChunk.class)
+            .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class);
     FindACoffeeBarView findACoffeeBarView = nearbySelectCoffeeBarView.openRecentTab();
 
     logger.info("VERIFY - User sees store location cards");
