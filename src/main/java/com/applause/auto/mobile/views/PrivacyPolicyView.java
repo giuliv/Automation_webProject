@@ -28,6 +28,9 @@ public class PrivacyPolicyView extends BaseComponent {
   @Locate(id = "android:id/button_once", on = Platform.MOBILE_ANDROID)
   protected Text chromeBrowserOptionButton;
 
+  @Locate(id = "com.android.chrome:id/positive_button", on = Platform.MOBILE_ANDROID)
+  protected Text allowLocationToBrowser;
+
   @Locate(xpath = "//XCUIElementTypeButton[@name=\"Done\"]", on = Platform.MOBILE_IOS)
   protected Text doneButton;
 
@@ -57,6 +60,11 @@ class AndroidPrivacyPolicyView extends PrivacyPolicyView {
       chromeBrowserOptionButton.click();
     } catch (Throwable th) {
       logger.info("No browser popup overlay found");
+    }
+    try {
+      allowLocationToBrowser.click();
+    } catch (Throwable th) {
+      logger.info("No location popup overlay found");
     }
     SyncHelper.sleep(5000);
     SyncHelper.wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(30)));
