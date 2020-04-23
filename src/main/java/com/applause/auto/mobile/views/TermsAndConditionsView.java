@@ -7,6 +7,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
 import java.time.Duration;
 
 @Implementation(is = AndroidTermsAndConditionsView.class, on = Platform.MOBILE_ANDROID)
@@ -22,6 +23,12 @@ public class TermsAndConditionsView extends BaseComponent {
       xpath = "//*[contains(@text, 'THE PEETNIK REWARDS PROGRAM TERMS AND CONDITIONS')]",
       on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
+
+  @Locate(id = "android:id/button_once", on = Platform.MOBILE_ANDROID)
+  protected Text chromeBrowserOptionButton;
+
+  @Locate(id = "com.android.chrome:id/positive_button", on = Platform.MOBILE_ANDROID)
+  protected Text allowLocationToBrowser;
 
   /* -------- Actions -------- */
 
@@ -41,6 +48,16 @@ class AndroidTermsAndConditionsView extends TermsAndConditionsView {
 
   @Override
   public void afterInit() {
+    try {
+      chromeBrowserOptionButton.click();
+    } catch (Throwable th) {
+      logger.info("No browser popup overlay found");
+    }
+    try {
+      allowLocationToBrowser.click();
+    } catch (Throwable th) {
+      logger.info("No location popup overlay found");
+    }
     SyncHelper.sleep(5000);
     // throw new RuntimeException("Not Yet Implemeted. Blocked by WEB context switching issue");
     SyncHelper.wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(12)));
