@@ -72,7 +72,7 @@ public class LandingView extends BaseComponent {
   @Override
   public void afterInit() {
     super.afterInit();
-    SyncHelper.wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(120)));
+    SyncHelper.wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
     getReportAProblemPopupChunk().waitForPopUpToDisappear();
 
     if (getTryMobileOrderAheadPopupChunk().isDismissButtonDisplayed()) {
