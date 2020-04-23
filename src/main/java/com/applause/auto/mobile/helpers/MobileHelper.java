@@ -397,13 +397,17 @@ public class MobileHelper {
     } catch (IOException e) {
       logger.error("Error during image reading");
     }
+    int screenHeight = DeviceControl.getScreenSize().height;
+    int screenShotHeight = image.getHeight();
+    logger.debug("Screen height = " + screenHeight);
+    logger.debug("Screenshot height = " + screenShotHeight);
     double centerY0 =
         (double) point.getY()
             / (EnvironmentHelper.isMobileIOS(DriverManager.getDriver())
                 ? (double) dimension.height
-                : (double) dimension.height
-                    + image.getHeight()
-                    - DeviceControl.getScreenSize().height); // correction due to top nav bar
+                : ((double) dimension.height
+                    + screenShotHeight
+                    - screenHeight)); // correction due to top nav bar
 
     // Getting pixel color by position x and y
     int clr =
