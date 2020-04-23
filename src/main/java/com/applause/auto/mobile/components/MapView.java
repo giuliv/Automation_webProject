@@ -8,6 +8,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 
 /** Order Menu chunk. */
@@ -35,7 +36,7 @@ public class MapView extends BaseComponent {
 
   public <T extends BaseComponent> T returnToPeetsApp(Class<T> clazz) {
     logger.info("Return back to app");
-    navigateBackToApp.click();
+    DeviceControl.pressAndroidKeyBack();
     return ComponentFactory.create(clazz);
   }
 }
