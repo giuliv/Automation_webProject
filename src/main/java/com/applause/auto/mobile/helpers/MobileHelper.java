@@ -1,7 +1,5 @@
 package com.applause.auto.mobile.helpers;
 
-import static com.applause.auto.util.DriverManager.getDriver;
-
 import com.applause.auto.common.data.Constants.MobileApp;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
@@ -12,23 +10,7 @@ import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.QueryHelper;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.nativekey.AndroidKey;
-import io.appium.java_client.android.nativekey.KeyEvent;
-import io.appium.java_client.touch.WaitOptions;
-import io.appium.java_client.touch.offset.PointOption;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.lang.invoke.MethodHandles;
-import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
-import javax.imageio.ImageIO;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,6 +22,28 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.RemoteWebElement;
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.lang.invoke.MethodHandles;
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.imageio.ImageIO;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
+
+import static com.applause.auto.util.DriverManager.getDriver;
 
 public class MobileHelper {
 
@@ -385,12 +389,6 @@ public class MobileHelper {
     Dimension dimension = getDriver().manage().window().getSize();
 
     double centerX0 = (double) point.getX() / (double) dimension.width;
-    double centerY0 =
-        (double) point.getY()
-            / (EnvironmentHelper.isMobileIOS(DriverManager.getDriver())
-                ? (double) dimension.height
-                : (double) dimension.height + 100); // correction due to top nav bar
-
     File scrFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
 
     BufferedImage image = null;
@@ -399,6 +397,13 @@ public class MobileHelper {
     } catch (IOException e) {
       logger.error("Error during image reading");
     }
+    double centerY0 =
+        (double) point.getY()
+            / (EnvironmentHelper.isMobileIOS(DriverManager.getDriver())
+                ? (double) dimension.height
+                : (double) dimension.height
+                    + image.getHeight()
+                    - DeviceControl.getScreenSize().height); // correction due to top nav bar
 
     // Getting pixel color by position x and y
     int clr =
