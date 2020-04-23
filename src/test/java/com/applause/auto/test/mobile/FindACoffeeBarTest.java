@@ -161,10 +161,7 @@ public class FindACoffeeBarTest extends BaseTest {
     LandingView landingView = ComponentFactory.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
-            landingView,
-            MyAccountTestData.EMAIL_FAVORITES,
-            MyAccountTestData.PASSWORD,
-            DashboardView.class);
+            landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
 
     logger.info("STEP - Tap on Recents tab");
     AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
@@ -225,7 +222,10 @@ public class FindACoffeeBarTest extends BaseTest {
     LandingView landingView = ComponentFactory.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
-            landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
+            landingView,
+            MyAccountTestData.EMAIL_FAVORITES,
+            MyAccountTestData.PASSWORD,
+            DashboardView.class);
 
     AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
         dashboardView
