@@ -65,7 +65,6 @@ class AndroidPrivacyPolicyView extends PrivacyPolicyView {
     } catch (Throwable th) {
       logger.info("No location popup overlay found");
     }
-    SyncHelper.sleep(5000);
     SyncHelper.wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(30)));
   }
 
