@@ -36,7 +36,6 @@ public class PrivacyPolicyView extends BaseComponent {
 
   @Override
   public void afterInit() {
-    SyncHelper.sleep(5000);
     SyncHelper.wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(30)));
   }
 
