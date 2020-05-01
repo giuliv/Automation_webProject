@@ -37,7 +37,8 @@ public class CheckoutView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   @Locate(
       xpath =
-          "//XCUIElementTypeOther[@name='Your Order']/following-sibling::XCUIElementTypeCell/XCUIElementTypeStaticText[contains(@name,'$')]/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeOther[@name='Available Rewards']",
+          "//XCUIElementTypeOther[@name='Your Order']/following-sibling::*[child::*[contains(@name,'$')]"
+              + " and following-sibling::*[@name='Available Rewards']]",
       on = Platform.MOBILE_IOS)
   protected List<ContainerElement> orderedItems;
 
