@@ -353,6 +353,7 @@ public class CreateAccountTest extends BaseTest {
       INITIAL_PASSWORD = "newPassword1";
       UPDATED_PASSWORD = MyAccountTestData.PASSWORD;
       signInView.dismissOkMessage();
+      signInView.setPassword(INITIAL_PASSWORD);
       dashboardView = signInView.signIn();
       isCleanUp = false;
     }
