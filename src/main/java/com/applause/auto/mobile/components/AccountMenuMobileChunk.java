@@ -269,7 +269,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
    * @return the boolean
    */
   public Boolean isOnTwitterPage() {
-    String s = twitterPage.getText();
+    String s = twitterPage.getText().trim();
     String e = "The Original Craft Coffee.™ Since 1966.";
     return s.equals(e);
   }
