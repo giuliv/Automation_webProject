@@ -110,7 +110,7 @@ public class LandingView extends BaseComponent {
    */
   public SignInView signIn() {
     logger.info("Click on Sign In button");
-    SyncHelper.sleep(3000);
+    SyncHelper.sleep(5000);
     getSignInButton.initialize();
     getSignInButton.click();
     SyncHelper.sleep(1000);
