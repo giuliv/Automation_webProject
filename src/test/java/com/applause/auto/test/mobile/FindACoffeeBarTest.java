@@ -40,7 +40,7 @@ public class FindACoffeeBarTest extends BaseTest {
     DashboardView dashboardView =
         testHelper.signIn(
             landingView,
-            MyAccountTestData.EMAIL_FAVORITES,
+            MyAccountTestData.EMAIL_HAS_FAVORITES,
             MyAccountTestData.PASSWORD,
             DashboardView.class);
 
