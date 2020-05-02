@@ -50,7 +50,7 @@ public class FindACoffeeBarTest extends BaseTest {
             .getBottomNavigationMenu()
             .order(AllowLocationServicesPopupChunk.class)
             .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class);
-    FindACoffeeBarView findACoffeeBarView = nearbySelectCoffeeBarView.openRecentTab();
+    FindACoffeeBarView findACoffeeBarView = nearbySelectCoffeeBarView.openFavoritesTab();
 
     logger.info("VERIFY - User sees store location cards");
     CoffeeStoreContainerChuck store = findACoffeeBarView.getCoffeeStoreContainerChuck();
