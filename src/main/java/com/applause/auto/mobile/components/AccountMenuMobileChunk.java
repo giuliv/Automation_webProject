@@ -258,7 +258,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
    * @return the boolean
    */
   public Boolean isOnInstagramPage() {
-    String s = instagramPage.getText();
+    String s = instagramPage.getText().trim();
     String e = "Share your photos with";
     return s.equals(e);
   }
