@@ -28,6 +28,8 @@ import org.testng.annotations.Test;
 
 import java.lang.invoke.MethodHandles;
 
+import static com.applause.auto.common.data.Constants.MyAccountTestData.EMAIL_HAS_FAVORITES;
+
 public class CreateAccountTest extends BaseTest {
 
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
@@ -521,6 +523,8 @@ public class CreateAccountTest extends BaseTest {
 
     logger.info("Enter valid email address");
     String email = String.format("a+%s@gmail.com", uniq);
+    email = EMAIL_HAS_FAVORITES;
+
     createAccountView.setEmailAddress(email);
 
     logger.info("Enter confirm email address");
