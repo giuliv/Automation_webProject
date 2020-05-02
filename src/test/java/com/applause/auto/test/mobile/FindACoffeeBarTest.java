@@ -39,10 +39,7 @@ public class FindACoffeeBarTest extends BaseTest {
     LandingView landingView = ComponentFactory.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
-            landingView,
-            MyAccountTestData.EMAIL_HAS_FAVORITES,
-            MyAccountTestData.PASSWORD,
-            DashboardView.class);
+            landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
 
     logger.info("STEP - Tap on any of the three tabs: Nearby, Recents, Favorites");
     NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
@@ -50,7 +47,7 @@ public class FindACoffeeBarTest extends BaseTest {
             .getBottomNavigationMenu()
             .order(AllowLocationServicesPopupChunk.class)
             .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class);
-    FindACoffeeBarView findACoffeeBarView = nearbySelectCoffeeBarView.openFavoritesTab();
+    FindACoffeeBarView findACoffeeBarView = nearbySelectCoffeeBarView.openRecentTab();
 
     logger.info("VERIFY - User sees store location cards");
     CoffeeStoreContainerChuck store = findACoffeeBarView.getCoffeeStoreContainerChuck();
