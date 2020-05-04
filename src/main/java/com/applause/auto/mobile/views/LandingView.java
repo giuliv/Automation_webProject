@@ -70,8 +70,6 @@ public class LandingView extends BaseComponent {
   public void afterInit() {
     super.afterInit();
     getReportAProblemPopupChunk().waitForPopUpToDisappear();
-
-    dismissTryMobileOrderAhead();
   }
 
   /**
@@ -105,7 +103,6 @@ public class LandingView extends BaseComponent {
   public SignInView signIn() {
     logger.info("Click on Sign In button");
     SyncHelper.sleep(3000);
-    dismissTryMobileOrderAhead();
     getSignInButton.click();
     SyncHelper.sleep(1000);
     return ComponentFactory.create(SignInView.class);
