@@ -13,10 +13,7 @@ public class TryMobileOrderAheadPopupChunk extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(
-      xpath =
-          "//XCUIElementTypeAlert[@name=\"Try Mobile Order Ahead\"]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeScrollView[2]",
-      on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeButton[@name='Dismiss']", on = Platform.MOBILE_IOS)
   @Locate(xpath = "//android.widget.Button", on = Platform.MOBILE_ANDROID)
   protected Button dismissButton;
 
