@@ -9,6 +9,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
 import java.time.Duration;
 
 @Implementation(is = AndroidCustomerSupportScreenView.class, on = Platform.MOBILE_ANDROID)
@@ -18,7 +19,7 @@ public class CustomerSupportScreenView extends BaseComponent {
   /* -------- Elements -------- */
 
   @Locate(
-      xpath = "//XCUIElementTypeNavigationBar[@name=\"LEGAL INFO\"]/XCUIElementTypeStaticText",
+      xpath = "//XCUIElementTypeOther[@name=\"Contact us | Peet's Coffee\"]",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
