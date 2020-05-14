@@ -6,7 +6,7 @@
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 	<name>peetscoffee.auto</name>
-	<url>http://maven.apache.org</url>
+	<url>https://maven.apache.org</url>
 	<properties>
 		<com.applause.sdk.java.version>2.1.922</com.applause.sdk.java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
