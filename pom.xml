@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="https://maven.apache.org/POM/4.0.0" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.applause</groupId>
 	<artifactId>peetscoffee.auto</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 	<name>peetscoffee.auto</name>
-	<url>https://maven.apache.org</url>
+	<url>http://maven.apache.org</url>
 	<properties>
 		<com.applause.sdk.java.version>2.1.922</com.applause.sdk.java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -160,6 +160,11 @@
 		</profile>
 	</profiles>
 	<repositories>
+	<repository>
+        	<id>Central Maven repository</id>
+      		<name>Central Maven repository https</name>
+      		<url>https://repo.maven.apache.org/maven2</url>
+	</repository>
 		<repository>
 			<id>auto-sdk-java-dist-mvn-repo</id>
 			<url>https://raw.github.com/applauseauto/auto-sdk-java-dist/mvn-repo/</url>
