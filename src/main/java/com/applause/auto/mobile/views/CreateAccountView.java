@@ -568,7 +568,7 @@ public class CreateAccountView extends BaseComponent {
 
   public boolean isDobTextDisplayed() {
     logger.info("Checking dob text field displayed");
-    return getDOBGiftTextBox.equals(Constants.TestData.BIRTHDAY_MESSAGE_IOS);
+    return getDOBGiftTextBox.getCurrentText().equals(Constants.TestData.BIRTHDAY_MESSAGE_IOS);
   }
 
   public boolean isEmailAddressDisplayed() {
@@ -769,6 +769,6 @@ class AndroidCreateAccountView extends CreateAccountView {
 
   public boolean isDobTextDisplayed() {
     logger.info("Checking dob text field displayed");
-    return getDOBGiftTextBox.equals(Constants.TestData.BIRTHDAY_MESSAGE_ANDROID);
+    return getDOBGiftTextBox.getCurrentText().equals(Constants.TestData.BIRTHDAY_MESSAGE_ANDROID);
   }
 }
