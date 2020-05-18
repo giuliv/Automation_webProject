@@ -59,9 +59,7 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   @Locate(id = "Allow While Using App", on = Platform.MOBILE_IOS)
   protected Button allowWhileUsing;
 
-  @Locate(
-      xpath = "//android.support.v7.app.ActionBar.Tab[@content-desc=\"Recents\"]",
-      on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//android.widget.TextView[@text='Recents']", on = Platform.MOBILE_ANDROID)
   @Locate(iOSClassChain = "**/*[`label == 'Recents'`]", on = Platform.MOBILE_IOS)
   protected TextBox recentTab;
 

@@ -1,5 +1,7 @@
 package com.applause.auto.mobile.views;
 
+import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
+
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.helpers.MobileHelper;
@@ -12,10 +14,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
-
 import java.util.List;
-
-import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
 
 @Implementation(is = AndroidCheckoutView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CheckoutView.class, on = Platform.MOBILE_IOS)
@@ -111,7 +110,8 @@ public class CheckoutView extends BaseComponent {
     }
 
     if (areAvailableRewardsDisplayed) {
-      availableRewards.stream()
+      availableRewards
+          .stream()
           .filter(item -> getElementTextAttribute(item).startsWith(awardText))
           .findAny()
           .orElseThrow(
@@ -183,6 +183,7 @@ class AndroidCheckoutView extends CheckoutView {
    * @return order total value in $
    */
   public String getOrderTotal() {
+    MobileHelper.swipeWithCount(SwipeDirection.UP, 2);
     return orderTotal.getText();
   }
 }
