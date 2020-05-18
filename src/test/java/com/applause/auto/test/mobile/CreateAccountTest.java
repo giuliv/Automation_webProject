@@ -735,7 +735,7 @@ public class CreateAccountTest extends BaseTest {
     Assert.assertTrue(createAccountView.isZipCodeDisplayed(), "Zip code field does not displayed");
     Assert.assertTrue(
         createAccountView.isDobTextDisplayed(),
-        "Your birthday drink is on us text does not displayed");
+        "Birthday drink text does not displayed");
     Assert.assertTrue(
         createAccountView.isEmailAddressDisplayed(), "Email address field does not displayed");
     Assert.assertTrue(
