@@ -25,7 +25,8 @@ public class OrderView extends BaseComponent {
   @Locate(xpath = "//XCUIElementTypeStaticText[@name='ORDER']", on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "//android.widget.ImageButton[@content-desc='Navigate up']/following-sibling::android.widget.TextView[@text='ORDER']",
+          "//android.widget.ImageButton[@content-desc='Navigate up']/following-sibling::android.widget.TextView[@text='ORDER'] |"
+              + "//android.widget.TextView[@text='ORDER']",
       on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
@@ -35,6 +36,12 @@ public class OrderView extends BaseComponent {
       on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/storeTextView", on = Platform.MOBILE_ANDROID)
   protected Text storeName;
+
+  @Locate(xpath = "//XCUIElementTypeButton[@name='Order']", on = Platform.MOBILE_IOS)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/acceptMobileOrderIcon",
+      on = Platform.MOBILE_ANDROID)
+  protected Text orderButton;
 
   /* -------- Actions -------- */
 
@@ -48,6 +55,8 @@ public class OrderView extends BaseComponent {
    * @return
    */
   public String getHeadingTextValue() {
+    // This is required to navigate from 'Find a Coffee Bar' screen to 'ORDER' screen
+    orderButton.click();
     return getHeadingText.getText();
   }
 

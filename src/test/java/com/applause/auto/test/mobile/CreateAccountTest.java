@@ -1,5 +1,10 @@
 package com.applause.auto.test.mobile;
 
+import java.lang.invoke.MethodHandles;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
@@ -20,13 +25,6 @@ import com.applause.auto.mobile.views.ProfileDetailsView;
 import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.mobile.views.TermsAndConditionsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
-import java.lang.invoke.MethodHandles;
 
 public class CreateAccountTest extends BaseTest {
 
@@ -510,7 +508,7 @@ public class CreateAccountTest extends BaseTest {
     createAccountView.setZipCode(zipCode);
 
     logger.info("Scroll through and select birthday");
-    String dobDay = "27";
+    String dobDay = "19";
     String dobMonth = "May";
     String dobYear = "2000";
     createAccountView.setDOB(dobDay, dobMonth, dobYear);
@@ -734,8 +732,7 @@ public class CreateAccountTest extends BaseTest {
     Assert.assertTrue(createAccountView.isLastDisplayed(), "Lastname field does not displayed");
     Assert.assertTrue(createAccountView.isZipCodeDisplayed(), "Zip code field does not displayed");
     Assert.assertTrue(
-        createAccountView.isDobTextDisplayed(),
-        "Birthday drink text does not displayed");
+        createAccountView.isDobTextDisplayed(), "Birthday drink text does not displayed");
     Assert.assertTrue(
         createAccountView.isEmailAddressDisplayed(), "Email address field does not displayed");
     Assert.assertTrue(
