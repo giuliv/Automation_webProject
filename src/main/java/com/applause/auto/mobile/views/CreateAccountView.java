@@ -1,8 +1,5 @@
 package com.applause.auto.mobile.views;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import org.openqa.selenium.Dimension;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
@@ -24,6 +21,9 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.openqa.selenium.Dimension;
 
 @Implementation(is = AndroidCreateAccountView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CreateAccountView.class, on = Platform.MOBILE_IOS)
@@ -106,8 +106,7 @@ public class CreateAccountView extends BaseComponent {
   protected TextBox getDOBValueTextBox;
 
   @Locate(
-      xpath =
-          "//XCUIElementTypeStaticText[@name='Intended for users 13+ years old. Plus, get a birthday drink on us!']",
+      xpath = "//XCUIElementTypeStaticText[@name='Your birthday drink is on us']",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath = "//android.widget.TextView[@text='Your birthday drink is on us']",

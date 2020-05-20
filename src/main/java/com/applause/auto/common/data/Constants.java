@@ -129,10 +129,8 @@ public class Constants {
     public static final String PAYPAL_EMAIL = "sraju@peets.com";
     public static final String PAYPAL_PASSWORD = "123456789";
 
-    public static final String BIRTHDAY_MESSAGE_ANDROID =
-        "Your birthday drink is on us text does not displayed";
-    public static final String BIRTHDAY_MESSAGE_IOS =
-        "Intended for users 13+ years old. Plus, get a birthday drink on us!";
+    public static final String BIRTHDAY_MESSAGE_ANDROID = "Your birthday drink is on us text does not displayed";
+    public static final String BIRTHDAY_MESSAGE_IOS = "Intented for users 13+years old. Plus get a birthday drink";
   }
 
   public static final class TestMainMenu {
