@@ -45,12 +45,11 @@ public class BottomNavigationMenuChunk extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getCheckInButton;
 
-  @Locate(xpath = "//android.widget.Button[@text=\"DISMISS\"]", on = Platform.MOBILE_ANDROID)
+  @Locate(
+          xpath =
+                  "//android.widget.Button[@text=\"DISMISS\"]",
+          on = Platform.MOBILE_ANDROID)
   protected Button getDismissButton;
-
-  @Locate(id = "com.wearehathway.peets.development:id/changeTextView", on = Platform.MOBILE_ANDROID)
-  @Locate(id = "todo", on = Platform.MOBILE_IOS)
-  protected Button getChangeStoreButton;
 
   /* -------- Actions -------- */
 
@@ -112,8 +111,6 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   public <T extends BaseComponent> T order(Class<T> clazz) {
     logger.info("Tap on Order");
     getOrdersButton.click();
-    // This  is required to get the 'AllowLocation' pop-up for identifying the Coffee Stores
-    getChangeStoreButton.click();
     return ComponentFactory.create(clazz);
   }
 }
