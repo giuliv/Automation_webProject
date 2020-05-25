@@ -769,6 +769,6 @@ class AndroidCreateAccountView extends CreateAccountView {
 
   public boolean isDobTextDisplayed() {
     logger.info("Checking dob text field displayed");
-    return getDOBGiftTextBox.getCurrentText().equals(Constants.TestData.BIRTHDAY_MESSAGE_ANDROID);
+    return getDOBGiftTextBox.isDisplayed();
   }
 }
