@@ -106,7 +106,7 @@ public class CreateAccountView extends BaseComponent {
   protected TextBox getDOBValueTextBox;
 
   @Locate(
-      xpath = "//XCUIElementTypeStaticText[@name='Your birthday drink is on us']",
+      xpath = "//XCUIElementTypeStaticText[@name=\"Intended for users 13+ years old. Plus, get a birthday drink on us!\"]",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath = "//android.widget.TextView[@text='Your birthday drink is on us']",
@@ -769,6 +769,6 @@ class AndroidCreateAccountView extends CreateAccountView {
 
   public boolean isDobTextDisplayed() {
     logger.info("Checking dob text field displayed");
-    return getDOBGiftTextBox.getCurrentText().equals(Constants.TestData.BIRTHDAY_MESSAGE_ANDROID);
+    return getDOBGiftTextBox.isDisplayed();
   }
 }

@@ -22,6 +22,7 @@ public class AllowLocationServicesSystemPopupChunk extends BaseComponent {
   protected Text getImageAltTextText;
 
   @Locate(xpath = "//*[@label='Allow While Using App']", on = Platform.MOBILE_IOS)
+//  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Enable Location\"]", on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.android.packageinstaller:id/permission_allow_button",
       on = Platform.MOBILE_ANDROID)
