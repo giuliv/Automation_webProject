@@ -52,6 +52,10 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   @Locate(id = "todo", on = Platform.MOBILE_IOS)
   protected Button getChangeStoreButton;
 
+  @Locate(id = "Allow", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/allowButton", on = Platform.MOBILE_ANDROID)
+  protected Button getAllowButton;
+
   /* -------- Actions -------- */
 
   /**
@@ -99,6 +103,8 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   public OrderView order() {
     logger.info("Tap on Order");
     getOrdersButton.click();
+    // Handle Allow Location pop-up
+    getAllowButton.click();
     return ComponentFactory.create(OrderView.class);
   }
 
