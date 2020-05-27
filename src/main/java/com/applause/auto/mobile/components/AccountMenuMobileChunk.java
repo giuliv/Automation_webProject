@@ -102,9 +102,12 @@ public class AccountMenuMobileChunk extends BaseComponent {
   @Locate(xpath = "//android.view.View[@text='facebook']", on = Platform.MOBILE_ANDROID)
   protected Text facebookPage;
 
+//  @Locate(
+//      xpath = "//XCUIElementTypeStaticText[@name=\"Share your photos with\"]",
+//      on = Platform.MOBILE_IOS)
   @Locate(
-      xpath = "//XCUIElementTypeStaticText[@name=\"Share your photos with\"]",
-      on = Platform.MOBILE_IOS)
+          xpath = "//XCUIElementTypeButton[@name=\"Follow\"]",
+          on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
           "//android.widget.Button[@class='android.widget.Button' and contains(@text, 'Follow')]",
@@ -258,9 +261,8 @@ public class AccountMenuMobileChunk extends BaseComponent {
    * @return the boolean
    */
   public Boolean isOnInstagramPage() {
-    String s = instagramPage.getText().trim();
-    String e = "Share your photos with";
-    return s.equals(e);
+    SyncHelper.wait(Until.uiElement(instagramPage).visible());
+    return instagramPage.isDisplayed();
   }
 
   /**
@@ -522,12 +524,6 @@ class AndroidAccountMenuMobileChunk extends AccountMenuMobileChunk {
   public Boolean isOnFacebookPage() {
     SyncHelper.wait(Until.uiElement(facebookPage).visible());
     return facebookPage.isDisplayed();
-  }
-
-  @Override
-  public Boolean isOnInstagramPage() {
-    SyncHelper.wait(Until.uiElement(instagramPage).visible());
-    return instagramPage.isDisplayed();
   }
 
   @Override

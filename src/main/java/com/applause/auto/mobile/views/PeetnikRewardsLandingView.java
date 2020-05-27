@@ -37,7 +37,7 @@ public class PeetnikRewardsLandingView extends BaseComponent {
       xpath = "//XCUIElementTypeStaticText[@name=\"Peetnik Rewards & Order Ahead\"]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      xpath = "//android.view.View[@text='Peetnik Rewards & Order Ahead ']",
+      xpath = "//android.view.View[@text='Peetnik Rewards & Order Ahead']",
       on = Platform.MOBILE_ANDROID)
   protected Button getPeetnikRewardsAndOrderAheadButton;
 
