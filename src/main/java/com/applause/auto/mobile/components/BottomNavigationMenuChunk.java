@@ -119,7 +119,7 @@ public class BottomNavigationMenuChunk extends BaseComponent {
     logger.info("Tap on Order");
     getOrdersButton.click();
     // This has to be clicked to get the 'Allow Location' pop-up
-    getChangeStoreButton.click();
+//    getChangeStoreButton.click();
     return ComponentFactory.create(clazz);
   }
 }
