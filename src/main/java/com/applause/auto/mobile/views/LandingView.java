@@ -70,10 +70,6 @@ public class LandingView extends BaseComponent {
   public void afterInit() {
     super.afterInit();
     getReportAProblemPopupChunk().waitForPopUpToDisappear();
-
-    if (getTryMobileOrderAheadPopupChunk().isDismissButtonDisplayed()) {
-      getTryMobileOrderAheadPopupChunk().clickDismissButton();
-    }
   }
 
   /**
@@ -121,6 +117,19 @@ public class LandingView extends BaseComponent {
       getSkipButton.click();
     } catch (Exception e) {
       logger.error("Error while skipping the Landing View");
+    }
+  }
+
+  /**
+   * Dismiss Try Mobile Order Ahead
+   */
+  public void dismissTryMobileOrderAhead() {
+    logger.info("Looking for Try Mobile Order Ahead popup");
+    if (getTryMobileOrderAheadPopupChunk().isDismissButtonDisplayed()) {
+      logger.info("Popup found. Clicking on dismiss button");
+      getTryMobileOrderAheadPopupChunk().clickDismissButton();
+    } else {
+      logger.info("Popup not found. Moving on");
     }
   }
 
