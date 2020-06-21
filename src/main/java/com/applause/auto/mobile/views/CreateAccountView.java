@@ -597,6 +597,7 @@ public class CreateAccountView extends BaseComponent {
 
   public boolean isConfirmPasswordDisplayed() {
     logger.info("Checking confirm password field displayed");
+    MobileHelper.scrollDownHalfScreen(1);
     return getConfirmPasswordTextBox.isDisplayed();
   }
 
