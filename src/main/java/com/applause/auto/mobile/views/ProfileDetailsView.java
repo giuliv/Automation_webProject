@@ -12,6 +12,9 @@ import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
+
+import java.time.Duration;
 
 @Implementation(is = ProfileDetailsView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosProfileDetailsView.class, on = Platform.MOBILE_IOS)
@@ -237,6 +240,7 @@ public class ProfileDetailsView extends BaseComponent {
    */
   public <T extends BaseComponent> T goBack(Class<T> clazz) {
     logger.info("Tap back button");
+    SyncHelper.wait(Until.uiElement(getBackButton).present().setTimeout(Duration.ofSeconds(15)));
     getBackButton.click();
     SyncHelper.sleep(4000);
     return ComponentFactory.create(clazz);

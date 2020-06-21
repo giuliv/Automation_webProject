@@ -1,5 +1,8 @@
 package com.applause.auto.mobile.views;
 
+import java.time.Duration;
+import java.util.List;
+import org.openqa.selenium.WebDriverException;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -12,9 +15,6 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
-import java.time.Duration;
-import java.util.List;
-import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = PeetnikRewardsLandingView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = PeetnikRewardsLandingView.class, on = Platform.MOBILE_IOS)
@@ -36,7 +36,9 @@ public class PeetnikRewardsLandingView extends BaseComponent {
   @Locate(
       xpath = "//XCUIElementTypeStaticText[@name=\"Peetnik Rewards & Order Ahead\"]",
       on = Platform.MOBILE_IOS)
-  @Locate(xpath = "//*[@text='Peetnik Rewards & Order Ahead']", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath = "//android.view.View[@text='Peetnik Rewards & Order Ahead']",
+      on = Platform.MOBILE_ANDROID)
   protected Button getPeetnikRewardsAndOrderAheadButton;
 
   @Locate(
@@ -61,8 +63,11 @@ public class PeetnikRewardsLandingView extends BaseComponent {
    */
   public PeetnikRewardsLandingView clickGetAnswers() {
     logger.info("Click 'Get Answers'");
+    // this method is not swiping to the required locator
     MobileHelper.scrollUntilElementSectionWillBeAvailableOnTheScreenInWebView(
         getAnswersButton, "'Get Answers'", 25);
+    // so used the basic swipe method with count
+    // MobileHelper.swipeWithCount(SwipeDirection.UP, 8);
     getAnswersButton.click();
     SyncHelper.sleep(10000);
     // return this

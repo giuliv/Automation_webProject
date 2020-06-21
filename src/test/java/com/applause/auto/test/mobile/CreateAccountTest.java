@@ -20,11 +20,13 @@ import com.applause.auto.mobile.views.ProfileDetailsView;
 import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.mobile.views.TermsAndConditionsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import java.lang.invoke.MethodHandles;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
 
 public class CreateAccountTest extends BaseTest {
 
@@ -339,10 +341,22 @@ public class CreateAccountTest extends BaseTest {
 
     logger.info("Enter valid password");
     String INITIAL_PASSWORD = MyAccountTestData.PASSWORD;
+    String UPDATED_PASSWORD = "newPassword1";
+    boolean isCleanUp = true;
     signInView.setPassword(INITIAL_PASSWORD);
 
-    logger.info("Tap Sign In button");
-    DashboardView dashboardView = signInView.signIn();
+    DashboardView dashboardView = null;
+    try {
+      logger.info("Tap Sign In button");
+      dashboardView = signInView.signIn();
+    } catch (Throwable throwable) {
+      INITIAL_PASSWORD = "newPassword1";
+      UPDATED_PASSWORD = MyAccountTestData.PASSWORD;
+      signInView.dismissOkMessage();
+      signInView.setPassword(INITIAL_PASSWORD);
+      dashboardView = signInView.signIn();
+      isCleanUp = false;
+    }
 
     logger.info("Tap on ... at top right of home screen to view more screen");
     AccountMenuMobileChunk accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
@@ -357,7 +371,6 @@ public class CreateAccountTest extends BaseTest {
     changePasswordView.setCurrentPassword("somewrongpassword1");
 
     logger.info("Enter new password");
-    String UPDATED_PASSWORD = "newPassword1";
     changePasswordView.setNewPassword(UPDATED_PASSWORD);
 
     logger.info("Tap Change Password button");
@@ -406,7 +419,7 @@ public class CreateAccountTest extends BaseTest {
     softAssert.assertNotNull(accountMenuMobileChunk, "User does not directed to more screen");
 
     logger.info("Scroll down and tap sign out button");
-    accountMenuMobileChunk.signOut();
+    accountMenuMobileChunk.signOut().isUserSignedOut();
 
     signInView = landingView.signIn();
 
@@ -437,23 +450,25 @@ public class CreateAccountTest extends BaseTest {
     softAssert.assertNotNull(dashboardView, "User does not logged in");
 
     // cleanup
-    logger.info("Tap on ... at top right of home screen to view more screen");
-    accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
+    if (isCleanUp) {
+      logger.info("Tap on ... at top right of home screen to view more screen");
+      accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
 
-    logger.info("Tap on Profile Details field/row");
-    profileDetailsView = accountMenuMobileChunk.profileDetails();
+      logger.info("Tap on Profile Details field/row");
+      profileDetailsView = accountMenuMobileChunk.profileDetails();
 
-    logger.info("Tap on Change Password link");
-    changePasswordView = profileDetailsView.changePassword();
+      logger.info("Tap on Change Password link");
+      changePasswordView = profileDetailsView.changePassword();
 
-    logger.info("Enter current updated password");
-    changePasswordView.setCurrentPassword(UPDATED_PASSWORD);
+      logger.info("Enter current updated password");
+      changePasswordView.setCurrentPassword(UPDATED_PASSWORD);
 
-    logger.info("Enter initial password");
-    changePasswordView.setNewPassword(INITIAL_PASSWORD);
+      logger.info("Enter initial password");
+      changePasswordView.setNewPassword(INITIAL_PASSWORD);
 
-    logger.info("Tap Change Password button");
-    changePasswordView = changePasswordView.changePassword(ChangePasswordView.class);
+      logger.info("Tap Change Password button");
+      changePasswordView = changePasswordView.changePassword(ChangePasswordView.class);
+    }
 
     softAssert.assertAll();
   }
@@ -506,6 +521,7 @@ public class CreateAccountTest extends BaseTest {
 
     logger.info("Enter valid email address");
     String email = String.format("a+%s@gmail.com", uniq);
+
     createAccountView.setEmailAddress(email);
 
     logger.info("Enter confirm email address");
@@ -689,7 +705,10 @@ public class CreateAccountTest extends BaseTest {
             + "\n"
             + "* Date of Birth\n"
             + "\n"
-            + "      o Text: Your birthday drink is on us\n"
+            + "      o Android Text: Your birthday drink is on us\n"
+            + "\n"
+            + "\n"
+            + "      o iOS Text: Intended for users 13+ years old. Plus, get a birthday drink on us!\n"
             + "\n"
             + "* Phone Number (Optional)\n"
             + "\n"
@@ -719,7 +738,7 @@ public class CreateAccountTest extends BaseTest {
     Assert.assertTrue(createAccountView.isZipCodeDisplayed(), "Zip code field does not displayed");
     Assert.assertTrue(
         createAccountView.isDobTextDisplayed(),
-        "Your birthday drink is on us text does not displayed");
+        "Birthday drink text does not displayed");
     Assert.assertTrue(
         createAccountView.isEmailAddressDisplayed(), "Email address field does not displayed");
     Assert.assertTrue(

@@ -1,7 +1,11 @@
 package com.applause.auto.test.mobile;
 
 import static com.applause.auto.test.mobile.helpers.TestHelper.openOrderMenuForRecentCoffeeBar;
-
+import java.lang.invoke.MethodHandles;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
@@ -16,11 +20,6 @@ import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.ProductDetailsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.test.mobile.helpers.TestHelper;
-import java.lang.invoke.MethodHandles;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.testng.Assert;
-import org.testng.annotations.Test;
 
 public class OrderTest extends BaseTest {
 
@@ -35,10 +34,9 @@ public class OrderTest extends BaseTest {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = ComponentFactory.create(LandingView.class);
 
-    // since autoGrantPermissions are set to ture in capabilities, we have to deny location in this
+    // since autoGrantPermissions are set to true in capabilities, we have to deny location in this
     // test method to get Allow location pop up
     TestHelper.denyLocationServices();
-
     DashboardView dashboardView =
         testHelper.signIn(
             landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);

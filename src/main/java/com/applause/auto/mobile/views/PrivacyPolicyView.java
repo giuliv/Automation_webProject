@@ -9,6 +9,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
 import java.time.Duration;
 
 /** The type Privacy policy view. */
@@ -24,12 +25,17 @@ public class PrivacyPolicyView extends BaseComponent {
   @Locate(xpath = "//*[contains(@text, \"PRIVACY POLICY\")]", on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
+  @Locate(id = "android:id/button_once", on = Platform.MOBILE_ANDROID)
+  protected Text chromeBrowserOptionButton;
+
+  @Locate(id = "com.android.chrome:id/positive_button", on = Platform.MOBILE_ANDROID)
+  protected Text allowLocationToBrowser;
+
   @Locate(xpath = "//XCUIElementTypeButton[@name=\"Done\"]", on = Platform.MOBILE_IOS)
   protected Text doneButton;
 
   @Override
   public void afterInit() {
-    SyncHelper.sleep(5000);
     SyncHelper.wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(30)));
   }
 
@@ -46,6 +52,21 @@ public class PrivacyPolicyView extends BaseComponent {
 }
 
 class AndroidPrivacyPolicyView extends PrivacyPolicyView {
+
+  @Override
+  public void afterInit() {
+    try {
+      chromeBrowserOptionButton.click();
+    } catch (Throwable th) {
+      logger.info("No browser popup overlay found");
+    }
+    try {
+      allowLocationToBrowser.click();
+    } catch (Throwable th) {
+      logger.info("No location popup overlay found");
+    }
+    SyncHelper.wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(30)));
+  }
 
   /* -------- Lifecycle Methods -------- */
 

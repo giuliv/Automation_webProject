@@ -1,5 +1,6 @@
 package com.applause.auto.mobile.views;
 
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.helpers.MobileHelper;
@@ -105,7 +106,7 @@ public class CreateAccountView extends BaseComponent {
   protected TextBox getDOBValueTextBox;
 
   @Locate(
-      xpath = "//XCUIElementTypeStaticText[@name='Your birthday drink is on us']",
+      xpath = "//XCUIElementTypeStaticText[@name=\"Intended for users 13+ years old. Plus, get a birthday drink on us!\"]",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath = "//android.widget.TextView[@text='Your birthday drink is on us']",
@@ -567,7 +568,7 @@ public class CreateAccountView extends BaseComponent {
 
   public boolean isDobTextDisplayed() {
     logger.info("Checking dob text field displayed");
-    return getDOBGiftTextBox.isDisplayed();
+    return getDOBGiftTextBox.getCurrentText().equals(Constants.TestData.BIRTHDAY_MESSAGE_IOS);
   }
 
   public boolean isEmailAddressDisplayed() {
@@ -764,5 +765,10 @@ class AndroidCreateAccountView extends CreateAccountView {
             .equals("At least 6 characters\n" + "At least 1 number\n" + "At least 1 letter");
     getHiddenPasswordTextBox.clearText();
     return result;
+  }
+
+  public boolean isDobTextDisplayed() {
+    logger.info("Checking dob text field displayed");
+    return getDOBGiftTextBox.isDisplayed();
   }
 }
