@@ -26,8 +26,9 @@ public class OrderTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
   // updated according to https://appauto.testrail.net/index.php?/cases/view/625889
+  //ToDo: Disabled until order section is updated
   @Test(
-      enabled = true,
+      enabled = false,
       groups = {TestNGGroups.ORDER},
       description = "625889")
   public void locationServicesNotEnabled() {
@@ -117,9 +118,10 @@ public class OrderTest extends BaseTest {
   }
 
   // TODO should be rewritten due to test case/UI changes
+  //ToDo: Disabled until order section is updated
   @Test(
       groups = {TestNGGroups.ORDER},
-      description = "625890")
+      description = "625890", enabled = false)
   public void browseTheMenu() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = ComponentFactory.create(LandingView.class);
@@ -240,9 +242,10 @@ public class OrderTest extends BaseTest {
     // screen");
   }
 
+  //ToDo: Disabled until order section is updated
   @Test(
       groups = {TestNGGroups.ORDER},
-      description = "625897")
+      description = "625897", enabled = false)
   public void checkoutTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = ComponentFactory.create(LandingView.class);
@@ -288,9 +291,10 @@ public class OrderTest extends BaseTest {
     Assert.assertNotNull(orderConfirmationView, "Something happened during order placement");
   }
 
+  //ToDo: Disabled until order section is updated
   @Test(
       groups = {TestNGGroups.ORDER},
-      description = "2879930")
+      description = "2879930", enabled = false)
   public void orderAhead() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = ComponentFactory.create(LandingView.class);
@@ -303,7 +307,7 @@ public class OrderTest extends BaseTest {
     NewOrderView newOrderView = openOrderMenuForRecentCoffeeBar(dashboardView);
 
     logger.info("Tap a category and subcategory");
-    newOrderView.selectCategoryAndSubCategory("Espresso Beverages", "Espresso");
+    newOrderView.selectCategoryAndSubCategory("Beans & Espresso Capsules", "Espresso");
 
     logger.info("Select a product");
     ProductDetailsView productDetail = newOrderView.selectProduct("Iced Espresso");
