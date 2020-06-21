@@ -17,13 +17,16 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
+
+import org.openqa.selenium.Dimension;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-import java.util.List;
-import java.util.stream.Collectors;
-import org.openqa.selenium.Dimension;
 
 @Implementation(is = AndroidCreateAccountView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CreateAccountView.class, on = Platform.MOBILE_IOS)
@@ -106,7 +109,8 @@ public class CreateAccountView extends BaseComponent {
   protected TextBox getDOBValueTextBox;
 
   @Locate(
-      xpath = "//XCUIElementTypeStaticText[@name=\"Intended for users 13+ years old. Plus, get a birthday drink on us!\"]",
+      xpath =
+          "//XCUIElementTypeStaticText[@name=\"Intended for users 13+ years old. Plus, get a birthday drink on us!\"]",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath = "//android.widget.TextView[@text='Your birthday drink is on us']",
@@ -593,6 +597,7 @@ public class CreateAccountView extends BaseComponent {
 
   public boolean isConfirmPasswordDisplayed() {
     logger.info("Checking confirm password field displayed");
+    MobileHelper.scrollDownHalfScreen(1);
     return getConfirmPasswordTextBox.isDisplayed();
   }
 
@@ -600,8 +605,7 @@ public class CreateAccountView extends BaseComponent {
     logger.info("Checking password text displayed");
     getHiddenPasswordTextBox.sendKeys(" ");
     boolean result =
-        getPasswordHintTextBox
-            .stream()
+        getPasswordHintTextBox.stream()
             .map(item -> item.getText())
             .collect(Collectors.joining("\n"))
             .equals("At least 6 characters\n" + "At least 1 number\n" + "At least 1 letter");
@@ -650,8 +654,19 @@ class AndroidCreateAccountView extends CreateAccountView {
   public CreateAccountView setDOB(String day, String month, String year) {
     logger.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
     getDOBValueTextBox.click();
-    MobileHelper.setPickerValueBasic(day, getDOBDayPicker, "next");
-    MobileHelper.setPickerValueBasic(month.substring(0, 3), getDOBMonthPicker, "next");
+
+    Picker dayPicker = getDOBDayPicker;
+    Picker monthPicker = getDOBMonthPicker;
+    try {
+      Integer.parseInt(dayPicker.getValue());
+    } catch (Throwable throwable) {
+      logger.info("swapping pickers....");
+      dayPicker = getDOBMonthPicker;
+      monthPicker = getDOBDayPicker;
+    }
+
+    MobileHelper.setPickerValueBasic(day, dayPicker, "next");
+    MobileHelper.setPickerValueBasic(month.substring(0, 3), monthPicker, "next");
     MobileHelper.setPickerValueReverse(year, getDOBYearPicker);
     //    DeviceControl.hideKeyboard();
     getDOBOkButton.click();
@@ -758,8 +773,7 @@ class AndroidCreateAccountView extends CreateAccountView {
     logger.info("Checking password text displayed");
     getHiddenPasswordTextBox.sendKeys(" ");
     boolean result =
-        getPasswordHintTextBox
-            .stream()
+        getPasswordHintTextBox.stream()
             .map(item -> item.getText())
             .collect(Collectors.joining("\n"))
             .equals("At least 6 characters\n" + "At least 1 number\n" + "At least 1 letter");

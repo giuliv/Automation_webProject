@@ -25,7 +25,7 @@ public class OrderView extends BaseComponent {
   @Locate(xpath = "//XCUIElementTypeStaticText[@name='ORDER']", on = Platform.MOBILE_IOS)
   @Locate(
       className =
-          "//android.widget.ImageButton[@content-desc='Navigate up']/following-sibling::android.widget.TextView[@text='ORDER']|"
+          "//android.widget.ImageButton[contains(@content-desc,\"Navigate up\") or contains(@content-desc,\"Nach oben\")]/following-sibling::android.widget.TextView[@text='ORDER']|"
               + "android.widget.TextView[@text='ORDER']",
       on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
