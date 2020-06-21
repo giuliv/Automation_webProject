@@ -20,6 +20,8 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
 
+import org.openqa.selenium.NoAlertPresentException;
+
 @Implementation(is = AndroidAccountMenuMobileChunk.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = AccountMenuMobileChunk.class, on = Platform.MOBILE_IOS)
 public class AccountMenuMobileChunk extends BaseComponent {
@@ -188,7 +190,11 @@ public class AccountMenuMobileChunk extends BaseComponent {
     logger.info("Click on Sign Out button");
     MobileHelper.swipeWithCount(SwipeDirection.UP, 5);
     getSignOutButton.click();
-    DriverManager.getDriver().switchTo().alert().accept();
+    try {
+      DriverManager.getDriver().switchTo().alert().accept();
+    } catch (NoAlertPresentException noAlertPresentException) {
+      logger.warn("No alert found, probably because TestObect cloud accept it");
+    }
     return ComponentFactory.create(AuthenticationView.class);
   }
 
