@@ -41,7 +41,7 @@ public class ProductDetailsView extends BaseComponent {
   @Locate(id = "button back", on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "//android.widget.ImageButton[@content-desc='Navigate up' or @content-desc='Nach oben']",
+          "//android.widget.ImageButton[contains(@content-desc,\"Navigate up\") or contains(@content-desc,\"Nach oben\")]",
       on = Platform.MOBILE_ANDROID)
   protected Button getBackButton;
 
