@@ -19,7 +19,8 @@ public class GeneralSettingsView extends BaseComponent {
 
   @Locate(id = "button back", on = Platform.MOBILE_IOS)
   @Locate(
-      xpath = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]",
+      xpath =
+          "//android.widget.ImageButton[@content-desc=\"Navigate up\" or @content-desc=\"Nach oben\"]",
       on = Platform.MOBILE_ANDROID)
   protected Button getBackButton;
 

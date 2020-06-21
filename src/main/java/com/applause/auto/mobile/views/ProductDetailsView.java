@@ -11,6 +11,7 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
 import java.time.Duration;
 
 @Implementation(is = ProductDetailsView.class, on = Platform.MOBILE_IOS)
@@ -39,7 +40,8 @@ public class ProductDetailsView extends BaseComponent {
 
   @Locate(id = "button back", on = Platform.MOBILE_IOS)
   @Locate(
-      xpath = "//android.widget.ImageButton[@content-desc='Navigate up']",
+      xpath =
+          "//android.widget.ImageButton[@content-desc='Navigate up' or @content-desc='Nach oben']",
       on = Platform.MOBILE_ANDROID)
   protected Button getBackButton;
 
