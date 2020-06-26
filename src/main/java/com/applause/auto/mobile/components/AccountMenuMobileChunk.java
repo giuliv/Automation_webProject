@@ -108,7 +108,10 @@ public class AccountMenuMobileChunk extends BaseComponent {
   //  @Locate(
   //      xpath = "//XCUIElementTypeStaticText[@name=\"Share your photos with\"]",
   //      on = Platform.MOBILE_IOS)
-  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Follow\"]", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//XCUIElementTypeButton[@name=\"Follow\"] | //XCUIElementTypeStaticText[@name=\"Instagram\" and @visible=\"true\"]",
+      on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
           "//android.widget.Button[@class='android.widget.Button' and contains(@text, 'Follow')]",
