@@ -102,7 +102,10 @@ public class AccountMenuMobileChunk extends BaseComponent {
   @Locate(
       xpath = "(//XCUIElementTypeStaticText[@name=\"Peet's Coffee is on Facebook.\"])[1]",
       on = Platform.MOBILE_IOS)
-  @Locate(xpath = "//android.view.View[@text='facebook']", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//android.view.View[@text='facebook'] | //android.widget.LinearLayout[contains(@resource-id,'com.facebook.katana:id')]",
+      on = Platform.MOBILE_ANDROID)
   protected Text facebookPage;
 
   //  @Locate(
