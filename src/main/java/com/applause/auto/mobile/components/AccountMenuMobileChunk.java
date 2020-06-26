@@ -117,7 +117,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "//android.widget.Button[@class='android.widget.Button' and contains(@text, 'Follow')]",
+          "//android.widget.Button[@class='android.widget.Button' and contains(@text, 'Follow')] | //android.webkit.WebView[@text='Login • Instagram']",
       on = Platform.MOBILE_ANDROID)
   protected Text instagramPage;
 
