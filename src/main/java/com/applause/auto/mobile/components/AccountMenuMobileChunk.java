@@ -125,8 +125,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
       xpath = "//XCUIElementTypeStaticText[@name='The Original Craft Coffee.™ Since 1966.']",
       on = Platform.MOBILE_IOS)
   @Locate(
-      xpath =
-          "//android.widget.EditText[@class='android.widget.EditText' and contains(@text, 'https://mobile.twitter.com/PeetsCoffee')]",
+      xpath = "//android.webkit.WebView[contains(@text, 'Peet's Coffee (@peetscoffee) / Twitter')]",
       on = Platform.MOBILE_ANDROID)
   protected Text twitterPage;
 
