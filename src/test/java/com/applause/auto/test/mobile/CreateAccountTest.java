@@ -169,7 +169,10 @@ public class CreateAccountTest extends BaseTest {
     SignInView signInView = landingView.signIn();
 
     logger.info("Tap on Email Address field and enter valid email address");
-    String username = MyAccountTestData.EMAIL_EDIT_PROFILE;
+
+    String username = MyAccountTestData.EMAIL_FAVORITES;
+    // TODO
+    //    String username = MyAccountTestData.EMAIL_EDIT_PROFILE;
     signInView.setUsername(username);
 
     logger.info("Enter valid password");
@@ -737,8 +740,7 @@ public class CreateAccountTest extends BaseTest {
     Assert.assertTrue(createAccountView.isLastDisplayed(), "Lastname field does not displayed");
     Assert.assertTrue(createAccountView.isZipCodeDisplayed(), "Zip code field does not displayed");
     Assert.assertTrue(
-        createAccountView.isDobTextDisplayed(),
-        "Birthday drink text does not displayed");
+        createAccountView.isDobTextDisplayed(), "Birthday drink text does not displayed");
     Assert.assertTrue(
         createAccountView.isEmailAddressDisplayed(), "Email address field does not displayed");
     Assert.assertTrue(

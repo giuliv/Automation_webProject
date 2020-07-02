@@ -102,16 +102,22 @@ public class AccountMenuMobileChunk extends BaseComponent {
   @Locate(
       xpath = "(//XCUIElementTypeStaticText[@name=\"Peet's Coffee is on Facebook.\"])[1]",
       on = Platform.MOBILE_IOS)
-  @Locate(xpath = "//android.view.View[@text='facebook']", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//android.view.View[@text='facebook'] | //android.widget.LinearLayout[contains(@resource-id,'com.facebook.katana:id')]",
+      on = Platform.MOBILE_ANDROID)
   protected Text facebookPage;
 
   //  @Locate(
   //      xpath = "//XCUIElementTypeStaticText[@name=\"Share your photos with\"]",
   //      on = Platform.MOBILE_IOS)
-  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Follow\"]", on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "//android.widget.Button[@class='android.widget.Button' and contains(@text, 'Follow')]",
+          "//XCUIElementTypeButton[@name=\"Follow\"] | //XCUIElementTypeStaticText[@name=\"Instagram\" and @visible=\"true\"]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//android.widget.Button[@class='android.widget.Button' and contains(@text, 'Follow')] | //android.webkit.WebView[@text='Login • Instagram']",
       on = Platform.MOBILE_ANDROID)
   protected Text instagramPage;
 
@@ -120,7 +126,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "//android.widget.EditText[@class='android.widget.EditText' and contains(@text, 'https://mobile.twitter.com/PeetsCoffee')]",
+          "//android.webkit.WebView[contains(@text, \"Peet's Coffee (@peetscoffee) / Twitter\")]",
       on = Platform.MOBILE_ANDROID)
   protected Text twitterPage;
 
