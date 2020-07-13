@@ -5,6 +5,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Text;
+
 import java.util.List;
 
 @Implementation(is = AccountHistoryView.class, on = Platform.MOBILE_ANDROID)
@@ -38,7 +39,7 @@ public class AccountHistoryView extends BaseComponent {
 
   @Locate(
       iOSClassChain =
-          "**/XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[`name MATCHES[c] '.*[,][ ].*'`]",
+          "**/XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[`name MATCHES[c] '.*[,\\.][ ].*'`]",
       on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/transactionDate",
