@@ -65,6 +65,8 @@ public class CheckInView extends BaseComponent {
   /** Add value. */
   public void addValue() {
     logger.info("Tap on Add Value");
+    logger.info("Wait for Cart Info Loaded");
+    SyncHelper.sleep(10000);
     getAddValueButton.click();
   }
 
