@@ -29,7 +29,7 @@ public class CheckInView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Text getSignature;
 
-  @Locate(id = "Add Value", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeButton[@name='Add Value']", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/addValue", on = Platform.MOBILE_ANDROID)
   protected Button getAddValueButton;
 
