@@ -201,7 +201,7 @@ public class CreateAccountView extends BaseComponent {
 
   @Locate(
       xpath =
-          "(//XCUIElementTypeWebView[.//*[contains(@value,'I agree to the')]])[1]/following-sibling::XCUIElementTypeButton",
+          "(//XCUIElementTypeWebView[.//*[contains(@value,'I agree to the')]])[1]/following-sibling::XCUIElementTypeButton | (//XCUIElementTypeWebView[.//*[contains(@value,'I agree to the')]])[1]/preceding-sibling::XCUIElementTypeButton[1]",
       on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/agreePrivacyPolicyCheckBox",
