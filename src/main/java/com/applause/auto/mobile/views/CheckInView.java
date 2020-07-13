@@ -66,6 +66,7 @@ public class CheckInView extends BaseComponent {
   /** Add value. */
   public void addValue() {
     logger.info("Tap on Add Value");
+    SyncHelper.sleep(10000);
     MobileHelper.tapByCoordinatesOnElementCenter(getAddValueButton);
   }
 
