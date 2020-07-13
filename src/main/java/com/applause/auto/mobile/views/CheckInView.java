@@ -76,6 +76,7 @@ public class CheckInView extends BaseComponent {
    */
   public PaymentMethodsView edit() {
     logger.info("Tap pencil icon");
+    getPencilIconButton.initialize();
     getPencilIconButton.click();
     return ComponentFactory.create(PaymentMethodsView.class);
   }
