@@ -2,6 +2,7 @@ package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.mobile.components.BottomNavigationMenuChunk;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -65,9 +66,7 @@ public class CheckInView extends BaseComponent {
   /** Add value. */
   public void addValue() {
     logger.info("Tap on Add Value");
-    logger.info("Wait for Cart Info Loaded");
-    SyncHelper.sleep(10000);
-    getAddValueButton.click();
+    MobileHelper.tapByCoordinatesOnElementCenter(getAddValueButton);
   }
 
   /**
