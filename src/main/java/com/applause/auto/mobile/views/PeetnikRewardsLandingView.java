@@ -31,6 +31,9 @@ public class PeetnikRewardsLandingView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button closeAdvPopUpButton;
 
+  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Close banner\"]", on = Platform.MOBILE_IOS)
+  protected Button closeDownloadPopUpButton;
+
   @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"GET ANSWERS\"]", on = Platform.MOBILE_IOS)
   @Locate(xpath = "//*[@text='GET ANSWERS']", on = Platform.MOBILE_ANDROID)
   protected Button getAnswersButton;
@@ -123,6 +126,8 @@ public class PeetnikRewardsLandingView extends BaseComponent {
         closeAdvPopUpButton.click();
       } else {
         // for ios simple click doesn't work on [X] button
+        logger.info("Close Download popup");
+        closeDownloadPopUpButton.click();
         logger.info(">>>" + DriverManager.getDriver().getPageSource());
         MobileHelper.tapByCoordinatesOnElementCenter(closeAdvPopUpButton);
       }
