@@ -5,6 +5,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.util.DriverManager;
 
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class AccountHistoryView extends BaseComponent {
 
   @Locate(
       iOSClassChain =
-          "**/XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[`name MATCHES[c] '.*[,\\.][ ].*'`]",
+          "**/XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[`name MATCHES[c] '.*[,][ ].*'`]",
       on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/transactionDate",
@@ -55,6 +56,7 @@ public class AccountHistoryView extends BaseComponent {
    * @return the transaction date
    */
   public String getTransactionDate(int index) {
+    logger.info(">>>>>" + DriverManager.getDriver().getPageSource());
     return getTransactionDatesText.get(index).getText();
   }
 
