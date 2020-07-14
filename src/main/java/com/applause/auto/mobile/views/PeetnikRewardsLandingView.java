@@ -1,8 +1,5 @@
 package com.applause.auto.mobile.views;
 
-import java.time.Duration;
-import java.util.List;
-import org.openqa.selenium.WebDriverException;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -15,6 +12,11 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
+import org.openqa.selenium.WebDriverException;
+
+import java.time.Duration;
+import java.util.List;
 
 @Implementation(is = PeetnikRewardsLandingView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = PeetnikRewardsLandingView.class, on = Platform.MOBILE_IOS)
@@ -121,6 +123,7 @@ public class PeetnikRewardsLandingView extends BaseComponent {
         closeAdvPopUpButton.click();
       } else {
         // for ios simple click doesn't work on [X] button
+        logger.info(">>>" + DriverManager.getDriver().getPageSource());
         MobileHelper.tapByCoordinatesOnElementCenter(closeAdvPopUpButton);
       }
     } catch (WebDriverException e) {
