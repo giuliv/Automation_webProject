@@ -74,7 +74,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/paymentMethods", on = Platform.MOBILE_ANDROID)
   protected Button getPaymentMethodsButton;
 
-  @Locate(id = "button cross", on = Platform.MOBILE_IOS)
+  @Locate(id = "Close", on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
           "//android.widget.ImageButton[contains(@content-desc,\"Navigate up\") or contains(@content-desc,\"Nach oben\")]",

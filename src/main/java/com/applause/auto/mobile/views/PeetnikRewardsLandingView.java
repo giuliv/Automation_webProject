@@ -1,8 +1,5 @@
 package com.applause.auto.mobile.views;
 
-import java.time.Duration;
-import java.util.List;
-import org.openqa.selenium.WebDriverException;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -16,6 +13,11 @@ import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
 
+import org.openqa.selenium.WebDriverException;
+
+import java.time.Duration;
+import java.util.List;
+
 @Implementation(is = PeetnikRewardsLandingView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = PeetnikRewardsLandingView.class, on = Platform.MOBILE_IOS)
 public class PeetnikRewardsLandingView extends BaseComponent {
@@ -28,6 +30,9 @@ public class PeetnikRewardsLandingView extends BaseComponent {
           "(//android.webkit.WebView//android.widget.Button[@text='Close'])[1] | //*[@resource-id='svg-close-button']",
       on = Platform.MOBILE_ANDROID)
   protected Button closeAdvPopUpButton;
+
+  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Close banner\"]", on = Platform.MOBILE_IOS)
+  protected Button closeDownloadPopUpButton;
 
   @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"GET ANSWERS\"]", on = Platform.MOBILE_IOS)
   @Locate(xpath = "//*[@text='GET ANSWERS']", on = Platform.MOBILE_ANDROID)
@@ -121,6 +126,9 @@ public class PeetnikRewardsLandingView extends BaseComponent {
         closeAdvPopUpButton.click();
       } else {
         // for ios simple click doesn't work on [X] button
+        logger.info("Close Download popup");
+        closeDownloadPopUpButton.click();
+        logger.info(">>>" + DriverManager.getDriver().getPageSource());
         MobileHelper.tapByCoordinatesOnElementCenter(closeAdvPopUpButton);
       }
     } catch (WebDriverException e) {

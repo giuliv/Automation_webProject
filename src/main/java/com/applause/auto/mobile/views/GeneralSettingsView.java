@@ -147,6 +147,7 @@ public class GeneralSettingsView extends BaseComponent {
   public GeneralSettingsView enablePromotionalEmails() {
     logger.info("Checking Promo emails services");
     if (!isPromoEmailOptionChecked()) getPromotionalEmailsButton.click();
+    SyncHelper.sleep(15000);
     return ComponentFactory.create(GeneralSettingsView.class);
   }
 
@@ -158,6 +159,7 @@ public class GeneralSettingsView extends BaseComponent {
   public GeneralSettingsView disablePromotionalEmails() {
     logger.info("Unchecking Promo emails services");
     if (isPromoEmailOptionChecked()) getPromotionalEmailsButton.click();
+    SyncHelper.sleep(15000);
     return ComponentFactory.create(GeneralSettingsView.class);
   }
 }

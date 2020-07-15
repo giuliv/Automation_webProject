@@ -14,11 +14,14 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
+import org.openqa.selenium.Point;
+
+import java.time.Duration;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-import java.time.Duration;
-import org.openqa.selenium.Point;
 
 @Implementation(is = DashboardView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = DashboardView.class, on = Platform.MOBILE_IOS)
@@ -32,7 +35,7 @@ public class DashboardView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected TextBox getSignature;
 
-  @Locate(id = "button more", on = Platform.MOBILE_IOS)
+  @Locate(id = "Settings", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/actionMore", on = Platform.MOBILE_ANDROID)
   protected Button getMoreScreenButton;
 

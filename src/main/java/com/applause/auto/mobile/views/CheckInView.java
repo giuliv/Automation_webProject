@@ -2,6 +2,7 @@ package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.mobile.components.BottomNavigationMenuChunk;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -29,7 +30,7 @@ public class CheckInView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Text getSignature;
 
-  @Locate(id = "Add Value", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeButton[@name='Add Value']", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/addValue", on = Platform.MOBILE_ANDROID)
   protected Button getAddValueButton;
 
@@ -65,7 +66,8 @@ public class CheckInView extends BaseComponent {
   /** Add value. */
   public void addValue() {
     logger.info("Tap on Add Value");
-    getAddValueButton.click();
+    SyncHelper.sleep(15000);
+    MobileHelper.tapByCoordinatesOnElementCenter(getAddValueButton);
   }
 
   /**
@@ -75,6 +77,7 @@ public class CheckInView extends BaseComponent {
    */
   public PaymentMethodsView edit() {
     logger.info("Tap pencil icon");
+    getPencilIconButton.initialize();
     getPencilIconButton.click();
     return ComponentFactory.create(PaymentMethodsView.class);
   }
