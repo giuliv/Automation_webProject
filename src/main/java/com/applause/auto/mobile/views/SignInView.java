@@ -167,7 +167,8 @@ public class SignInView extends BaseComponent {
    * @return the un encrypted password
    */
   public String getUnEncryptedPassword() {
-    return getUnEncryptedPasswordTextBox.getCurrentText();
+    logger.info("UnEncrypted password:  " + getUnEncryptedPasswordTextBox.getCurrentText().replace("Password ",""));
+    return getUnEncryptedPasswordTextBox.getCurrentText().replace("Password ","");
   }
 
   /** Sign in. */
@@ -301,7 +302,8 @@ class AndroidSignInView extends SignInView {
 
   @Override
   public String getUnEncryptedPassword() {
-    return getUnEncryptedPasswordTextBox.getAttributeValue("text");
+    logger.info("UnEncrypted password:  " + getUnEncryptedPasswordTextBox.getAttributeValue("text").replace("Password ",""));
+    return getUnEncryptedPasswordTextBox.getAttributeValue("text").replace("Password ","");
   }
 
   @Override
