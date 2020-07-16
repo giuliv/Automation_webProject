@@ -171,6 +171,8 @@ class AndroidLandingView extends LandingView {
       SyncHelper.wait(
               Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
 //      getSkipButton.click();
+      DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
+      SyncHelper.sleep(2000);
       MobileHelper.tapOnElementWithOffset(getSkipButton, 0.5, 0.5);
       logger.info("Skip button was clicked correctly");
     } catch (Exception e) {
