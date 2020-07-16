@@ -4,6 +4,7 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.components.ReportAProblemPopupChunk;
 import com.applause.auto.mobile.components.TryMobileOrderAheadPopupChunk;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -15,6 +16,7 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+import com.applause.auto.web.helpers.WebHelper;
 import org.openqa.selenium.NoSuchElementException;
 
 import java.time.Duration;
@@ -122,8 +124,7 @@ public class LandingView extends BaseComponent {
     // view
     try {
       SyncHelper.wait(
-              Until.uiElement(getSkipButton).visible().setTimeout(Duration.ofSeconds(20)));
-      getSkipButton.initialize();
+              Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
       getSkipButton.click();
       logger.info("Skip button was clicked correctly");
     } catch (Exception e) {
@@ -164,13 +165,13 @@ class AndroidLandingView extends LandingView {
   /* -------- Actions -------- */
 
   public void skipOnboarding() {
-    logger.info("Skipping Onboarding");
+    logger.info("Android Skipping Onboarding");
 
     try {
       SyncHelper.wait(
-              Until.uiElement(getSkipButton).visible().setTimeout(Duration.ofSeconds(20)));
-      getSkipButton.initialize();
-      getSkipButton.click();
+              Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
+//      getSkipButton.click();
+      MobileHelper.tapOnElementWithOffset(getSkipButton, 0.5, 0.5);
       logger.info("Skip button was clicked correctly");
     } catch (Exception e) {
       logger.error("Error while skipping the Landing View");
