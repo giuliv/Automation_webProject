@@ -35,6 +35,9 @@ public class LandingView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/skipTextView", on = Platform.MOBILE_ANDROID)
   protected Button getSkipButton;
 
+  @Locate(id = "com.wearehathway.peets.development:id/getStartedButton", on = Platform.MOBILE_ANDROID)
+  protected Button getStartedButton;
+
   @Locate(iOSNsPredicate = "name='Create Account'", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/signUp", on = Platform.MOBILE_ANDROID)
   protected Button getCreateAccountButton;
@@ -98,7 +101,9 @@ public class LandingView extends BaseComponent {
    */
   public CreateAccountView createAccount() {
     logger.info("Tap on create account button");
-    SyncHelper.sleep(10000);
+//    SyncHelper.sleep(10000);
+    SyncHelper.wait(
+            Until.uiElement(getCreateAccountButton).clickable().setTimeout(Duration.ofSeconds(20)));
     getCreateAccountButton.click();
     return ComponentFactory.create(CreateAccountView.class);
   }
@@ -173,7 +178,14 @@ class AndroidLandingView extends LandingView {
 //      getSkipButton.click();
       DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
       SyncHelper.sleep(2000);
-      MobileHelper.tapOnElementWithOffset(getSkipButton, 0.5, 0.5);
+      DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
+      SyncHelper.sleep(2000);
+      DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
+      SyncHelper.sleep(2000);
+      SyncHelper.wait(
+              Until.uiElement(getStartedButton).clickable().setTimeout(Duration.ofSeconds(20)));
+      getStartedButton.click();
+//      MobileHelper.tapOnElementWithOffset(getSkipButton, 0.5, 0.5);
       logger.info("Skip button was clicked correctly");
     } catch (Exception e) {
       logger.error("Error while skipping the Landing View");
