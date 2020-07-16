@@ -15,6 +15,7 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+import org.openqa.selenium.NoSuchElementException;
 
 import java.time.Duration;
 
@@ -120,7 +121,11 @@ public class LandingView extends BaseComponent {
     // this try catch is needed for iOS, since sometimes iOS test is starting on sign in/sign up
     // view
     try {
+      SyncHelper.wait(
+              Until.uiElement(getSkipButton).visible().setTimeout(Duration.ofSeconds(20)));
+      getSkipButton.initialize();
       getSkipButton.click();
+      logger.info("Skip button was clicked correctly");
     } catch (Exception e) {
       logger.error("Error while skipping the Landing View");
     }
@@ -160,7 +165,16 @@ class AndroidLandingView extends LandingView {
 
   public void skipOnboarding() {
     logger.info("Skipping Onboarding");
-    getSkipButton.click();
+
+    try {
+      SyncHelper.wait(
+              Until.uiElement(getSkipButton).visible().setTimeout(Duration.ofSeconds(20)));
+      getSkipButton.initialize();
+      getSkipButton.click();
+      logger.info("Skip button was clicked correctly");
+    } catch (Exception e) {
+      logger.error("Error while skipping the Landing View");
+    }
   }
 
   @Override
