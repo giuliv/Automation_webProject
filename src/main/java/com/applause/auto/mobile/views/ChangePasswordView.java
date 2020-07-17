@@ -188,7 +188,8 @@ class AndroidChangePasswordView extends ChangePasswordView {
 
   @Override
   public String getCurrentPasswordUnhide() {
-    return getOldPasswordUnhiddenTextBox.getAttributeValue("text");
+    logger.info("My password: " + getOldPasswordUnhiddenTextBox.getAttributeValue("text"));
+    return getOldPasswordUnhiddenTextBox.getAttributeValue("text").replace("Current Password ", "");
   }
 
   @Override

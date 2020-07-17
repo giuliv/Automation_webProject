@@ -200,7 +200,7 @@ public class ProfileDetailsView extends BaseComponent {
    */
   public String getEmailAddress() {
     // probably should be overridden for iOS with get 'value' attribute
-    return getEmailAddressTextBox.getAttributeValue("text");
+    return getEmailAddressTextBox.getAttributeValue("text").replace("Email Address ", "");
   }
 
   /**
