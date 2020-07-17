@@ -712,7 +712,8 @@ class AndroidCreateAccountView extends CreateAccountView {
 
   @Override
   public String getPassword() {
-    return getPasswordTextBox.getAttributeValue("text");
+    logger.info("Password: " + getPasswordTextBox.getAttributeValue("text").replace("Password ", ""));
+    return getPasswordTextBox.getAttributeValue("text").replace("Password ", "");
   }
 
   @Override
