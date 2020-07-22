@@ -175,18 +175,15 @@ class AndroidLandingView extends LandingView {
     try {
       SyncHelper.wait(
               Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
-//      getSkipButton.click();
-      DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
-      SyncHelper.sleep(2000);
-      DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
-      SyncHelper.sleep(2000);
-      DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
-      SyncHelper.sleep(2000);
+
+      for(int i = 0; i < 3; i++){
+        DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
+        SyncHelper.sleep(2000);
+      }
+
       SyncHelper.wait(
               Until.uiElement(getStartedButton).clickable().setTimeout(Duration.ofSeconds(20)));
       getStartedButton.click();
-//      MobileHelper.tapOnElementWithOffset(getSkipButton, 0.5, 0.5);
-      logger.info("Skip button was clicked correctly");
     } catch (Exception e) {
       logger.error("Error while skipping the Landing View");
     }
