@@ -170,13 +170,11 @@ public class CreateAccountTest extends BaseTest {
 
     logger.info("Tap on Email Address field and enter valid email address");
 
-    String username = MyAccountTestData.EMAIL_FAVORITES;
-    // TODO
-    //    String username = MyAccountTestData.EMAIL_EDIT_PROFILE;
+    String username = MyAccountTestData.EDIT_EMAIL;
     signInView.setUsername(username);
 
     logger.info("Enter valid password");
-    signInView.setPassword(MyAccountTestData.PASSWORD);
+    signInView.setPassword(MyAccountTestData.EDIT_EMAIL_PWD);
 
     logger.info("Tap Sign In button");
     DashboardView dashboardView = signInView.signIn();
@@ -205,19 +203,19 @@ public class CreateAccountTest extends BaseTest {
     String firstNameOrig = profileDetailsView.getFirstname();
     String lastNameOrig = profileDetailsView.getLastname();
     String zipCodeOrig = profileDetailsView.getZipCode();
-    String emailOrig = profileDetailsView.getEmailAddress();
+//    String emailOrig = profileDetailsView.getEmailAddress();
 
     String firstNameNew = "ApplauseUpdated";
     String lastNameNew = "QAUpdated";
     String zipCodeNew = "11214";
 
-    String emailNew = emailOrig.replace(".com", ".net");
+//    String emailNew = emailOrig.replace(".net", ".com");
 
     profileDetailsView.setFirstname(firstNameNew);
     profileDetailsView.setLastname(lastNameNew);
     profileDetailsView.setZipCode(zipCodeNew);
-    profileDetailsView.setEmailAddress(emailNew);
-    profileDetailsView.setConfirmEmailAddress(emailNew);
+//    profileDetailsView.setEmailAddress(emailNew);
+//    profileDetailsView.setConfirmEmailAddress(emailNew);
 
     logger.info("Tap Save button");
     accountMenuMobileChunk = profileDetailsView.save();
@@ -236,14 +234,14 @@ public class CreateAccountTest extends BaseTest {
     softAssert.assertEquals(firstNameUpd, firstNameNew, "Firstname does not updated");
     softAssert.assertEquals(lastNameUpd, lastNameNew, "Lastname does not updated");
     softAssert.assertEquals(zipCodeUpd, zipCodeNew, "zipcode does not updated");
-    softAssert.assertEquals(emailUpd, emailNew, "email does not updated");
+//    softAssert.assertEquals(emailUpd, emailNew, "email does not updated");
 
     logger.info("Cleanup Restore original");
     profileDetailsView.setFirstname(firstNameOrig);
     profileDetailsView.setLastname(lastNameOrig);
     profileDetailsView.setZipCode(zipCodeOrig);
-    profileDetailsView.setEmailAddress(emailOrig);
-    profileDetailsView.setConfirmEmailAddress(emailOrig);
+//    profileDetailsView.setEmailAddress(emailOrig);
+//    profileDetailsView.setConfirmEmailAddress(emailOrig);
     profileDetailsView.save();
 
     softAssert.assertAll();

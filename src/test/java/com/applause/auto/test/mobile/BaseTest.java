@@ -25,7 +25,7 @@ public class BaseTest extends BaseSeleniumTest {
     System.setProperty("runId", runId);
 
     // Set the default wait time on elements to 20 seconds
-    RunUtil.setTimeout(20);
+    RunUtil.setTimeout(30);
 
     // Set the custom mobile test helper
     testHelper = ComponentFactory.create(TestHelper.class);

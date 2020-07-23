@@ -4,6 +4,7 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.components.ReportAProblemPopupChunk;
 import com.applause.auto.mobile.components.TryMobileOrderAheadPopupChunk;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -15,6 +16,8 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+import com.applause.auto.web.helpers.WebHelper;
+import org.openqa.selenium.NoSuchElementException;
 
 import java.time.Duration;
 
@@ -31,6 +34,9 @@ public class LandingView extends BaseComponent {
   @Locate(id = "Skip", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/skipTextView", on = Platform.MOBILE_ANDROID)
   protected Button getSkipButton;
+
+  @Locate(id = "com.wearehathway.peets.development:id/getStartedButton", on = Platform.MOBILE_ANDROID)
+  protected Button getStartedButton;
 
   @Locate(iOSNsPredicate = "name='Create Account'", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/signUp", on = Platform.MOBILE_ANDROID)
@@ -95,7 +101,9 @@ public class LandingView extends BaseComponent {
    */
   public CreateAccountView createAccount() {
     logger.info("Tap on create account button");
-    SyncHelper.sleep(10000);
+//    SyncHelper.sleep(10000);
+    SyncHelper.wait(
+            Until.uiElement(getCreateAccountButton).clickable().setTimeout(Duration.ofSeconds(20)));
     getCreateAccountButton.click();
     return ComponentFactory.create(CreateAccountView.class);
   }
@@ -120,7 +128,10 @@ public class LandingView extends BaseComponent {
     // this try catch is needed for iOS, since sometimes iOS test is starting on sign in/sign up
     // view
     try {
+      SyncHelper.wait(
+              Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
       getSkipButton.click();
+      logger.info("Skip button was clicked correctly");
     } catch (Exception e) {
       logger.error("Error while skipping the Landing View");
     }
@@ -159,8 +170,23 @@ class AndroidLandingView extends LandingView {
   /* -------- Actions -------- */
 
   public void skipOnboarding() {
-    logger.info("Skipping Onboarding");
-    getSkipButton.click();
+    logger.info("Android Skipping Onboarding");
+
+    try {
+      SyncHelper.wait(
+              Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
+
+      for(int i = 0; i < 3; i++){
+        DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
+        SyncHelper.sleep(2000);
+      }
+
+      SyncHelper.wait(
+              Until.uiElement(getStartedButton).clickable().setTimeout(Duration.ofSeconds(20)));
+      getStartedButton.click();
+    } catch (Exception e) {
+      logger.error("Error while skipping the Landing View");
+    }
   }
 
   @Override

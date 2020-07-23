@@ -109,6 +109,7 @@ public class PeetsCardsView extends BaseComponent {
    */
   public PeetsCardsView confirm() {
     logger.info("Tap on confirm button");
+    SyncHelper.wait(Until.uiElement(getConfirmButton).clickable().setTimeout(Duration.ofSeconds(30)));
     getConfirmButton.click();
     return ComponentFactory.create(PeetsCardsView.class);
   }

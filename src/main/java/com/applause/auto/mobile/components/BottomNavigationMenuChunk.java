@@ -10,6 +10,8 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
 
 @Implementation(is = BottomNavigationMenuChunk.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosBottomNavigationMenuChunk.class, on = Platform.MOBILE_IOS)
@@ -68,6 +70,7 @@ public class BottomNavigationMenuChunk extends BaseComponent {
    */
   public PeetsCardsView peetsCards() {
     logger.info("Tap on Peeds Cards");
+    SyncHelper.wait(Until.uiElement(getPeetsCardsButton).clickable());
     getPeetsCardsButton.click();
     return ComponentFactory.create(PeetsCardsView.class);
   }

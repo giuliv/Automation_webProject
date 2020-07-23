@@ -218,8 +218,8 @@ public class FindACoffeeBarTest extends BaseTest {
     DashboardView dashboardView =
         testHelper.signIn(
             landingView,
-            MyAccountTestData.EMAIL_FAVORITES,
-            MyAccountTestData.PASSWORD,
+            MyAccountTestData.EDIT_EMAIL,
+            MyAccountTestData.EDIT_EMAIL_PWD,
             DashboardView.class);
 
     NearbySelectCoffeeBarView nearbySelectCoffeeBarView =

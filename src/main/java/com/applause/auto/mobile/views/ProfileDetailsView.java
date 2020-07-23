@@ -200,7 +200,7 @@ public class ProfileDetailsView extends BaseComponent {
    */
   public String getEmailAddress() {
     // probably should be overridden for iOS with get 'value' attribute
-    return getEmailAddressTextBox.getAttributeValue("text");
+    return getEmailAddressTextBox.getAttributeValue("text").replace("Email Address ", "");
   }
 
   /**
@@ -210,7 +210,7 @@ public class ProfileDetailsView extends BaseComponent {
    */
   public String getFirstname() {
     // probably should be overridden for iOS with get 'value' attribute
-    return getFirstnameTextBox.getAttributeValue("text");
+    return getFirstnameTextBox.getAttributeValue("text").replace("First Name ", "");
   }
 
   /**
@@ -220,7 +220,7 @@ public class ProfileDetailsView extends BaseComponent {
    */
   public String getLastname() {
     // probably should be overridden for iOS with get 'value' attribute
-    return getLastnameTextBox.getAttributeValue("text");
+    return getLastnameTextBox.getAttributeValue("text").replace("Last Name ", "");
   }
 
   /**
@@ -229,7 +229,7 @@ public class ProfileDetailsView extends BaseComponent {
    * @return the dob
    */
   public String getDOB() {
-    return getDOBTextBox.getAttributeValue("text");
+    return getDOBTextBox.getAttributeValue("text").replace("Date of Birth ", "");
   }
 
   /**
@@ -254,7 +254,7 @@ public class ProfileDetailsView extends BaseComponent {
    */
   public String getZipCode() {
     // probably should be overridden for iOS with get 'value' attribute
-    return getZipCodeTextBox.getAttributeValue("text");
+    return getZipCodeTextBox.getAttributeValue("text").replace("Zip Code (Optional) ", "");
   }
 
   /**

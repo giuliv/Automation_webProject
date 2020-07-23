@@ -116,7 +116,7 @@ public class Constants {
     public static final String DISCOVERY_CC_YEAR = "2020";
     public static final String DISCOVERY_CC_ZIP = "11111";
 
-    public static final String MASTER_CC_NUM = "5405222222222226";
+    public static final String MASTER_CC_NUM = "5454545454545454";
     public static final String MASTER_CC_CODE = "111";
     public static final String MASTER_CC_MONTH = "12";
     public static final String MASTER_CC_YEAR = "2020";
@@ -152,7 +152,7 @@ public class Constants {
   public static final class MyAccountTestData {
     public static final String EMAIL = "peets+testaccount@gmail.com";
     public static final String EMAIL_HAS_FAVORITES = "peets+testhasfavorites3@gmail.com";
-    public static final String EMAIL_FAVORITES = "peets+testfavorites@gmail.com";
+//    public static final String EMAIL_FAVORITES = "peets+testfavorites@gmail.com";
     public static final String EMAIL_CHANGE_PWD = "appautosvc+peetscoffee1@applause.com";
     public static final String EMAIL_PEETS_REWARDS = "peets+rewards@gmail.com";
     public static final String EMAIL_EDIT_PROFILE = "peets+testeditprofile@gmail.com";
@@ -166,6 +166,8 @@ public class Constants {
     public static final String ADDRESS_LINE_2 = "APT. 123";
     public static final String FIRST_NAME = "UTest";
     public static final String LAST_NAME = "QA Test";
+    public static final String EDIT_EMAIL = "peets.auto01@gmail.com";
+    public static final String EDIT_EMAIL_PWD = "p4ssword!";
   }
 
   public static final class CheckoutUserTestData {
