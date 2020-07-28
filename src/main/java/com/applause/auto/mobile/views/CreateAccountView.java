@@ -192,7 +192,7 @@ public class CreateAccountView extends BaseComponent {
 
   @Locate(
       xpath =
-          "//XCUIElementTypeTextView[@value='Yes, please send me emails with exclusive offers, rewards, news, and more.']/following-sibling::XCUIElementTypeButton",
+          "//XCUIElementTypeButton[@value='Yes, please send me emails with exclusive offers, rewards, news, and more.']",
       on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/receiveMessageFromPeetCheckBox",
@@ -201,7 +201,7 @@ public class CreateAccountView extends BaseComponent {
 
   @Locate(
       xpath =
-          "(//XCUIElementTypeWebView[.//*[contains(@value,'I agree to the')]])[1]/following-sibling::XCUIElementTypeButton | (//XCUIElementTypeWebView[.//*[contains(@value,'I agree to the')]])[1]/preceding-sibling::XCUIElementTypeButton[1]",
+          "(//XCUIElementTypeWebView[.//*[contains(@value,'I agree to the')]])[1]/following-sibling::XCUIElementTypeButton | (//XCUIElementTypeWebView[.//XCUIElementTypeButton[contains(@value,'I agree to the')]])",
       on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/agreePrivacyPolicyCheckBox",
