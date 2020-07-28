@@ -657,6 +657,7 @@ class AndroidCreateAccountView extends CreateAccountView {
     Picker dayPicker = getDOBDayPicker;
     Picker monthPicker = getDOBMonthPicker;
     try {
+      logger.info(">>>>>>.." + DriverManager.getDriver().getPageSource());
       logger.info("day picker keep: " + dayPicker.getValue());
       Integer.parseInt(dayPicker.getValue());
     } catch (Throwable throwable) {
