@@ -528,8 +528,10 @@ public class CreateAccountView extends BaseComponent {
 
   /** Tap email opt in. */
   public void tapEmailOptIn() {
-    logger.info("Tap on email opt in checkbo");
+    logger.info("Tap on email opt in checkbox");
+    logger.info(">>>>>" + DriverManager.getDriver().getPageSource());
     getEmailsWithOffersCheckBox.click();
+    logger.info(">>>>>" + DriverManager.getDriver().getPageSource());
   }
 
   /**
