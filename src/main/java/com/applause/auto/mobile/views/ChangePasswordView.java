@@ -24,6 +24,12 @@ import io.appium.java_client.touch.offset.PointOption;
 public class ChangePasswordView extends BaseComponent {
 
   /* -------- Elements -------- */
+  @Locate(id = "button back", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//android.widget.ImageButton[contains(@content-desc,\"Navigate up\") or contains(@content-desc,\"Nach oben\")]",
+      on = Platform.MOBILE_ANDROID)
+  protected Button getBackButton;
 
   @Locate(
       xpath =
@@ -165,6 +171,7 @@ public class ChangePasswordView extends BaseComponent {
 class AndroidChangePasswordView extends ChangePasswordView {
 
   /* -------- Actions -------- */
+
   @Override
   public void setNewPassword(String password) {
     logger.info("Set new password to: " + password);
@@ -206,6 +213,7 @@ class AndroidChangePasswordView extends ChangePasswordView {
   public <T extends BaseComponent> T dismissMessage(Class<T> clazz) {
     logger.info("Tap on OKAY to dismiss message");
     getMessageOkButton.click();
+    getBackButton.click();
     return ComponentFactory.create(clazz);
   }
 
