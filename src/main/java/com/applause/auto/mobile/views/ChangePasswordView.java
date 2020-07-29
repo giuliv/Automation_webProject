@@ -11,8 +11,11 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
 
 import org.springframework.util.StringUtils;
+
+import java.time.Duration;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -93,6 +96,14 @@ public class ChangePasswordView extends BaseComponent {
     logger.info("Set current password to: " + password);
     getOldPasswordTextBox.clearText();
     getOldPasswordTextBox.sendKeys(password);
+  }
+
+  public <T extends BaseComponent> T goBack(Class<T> clazz) {
+    logger.info("Tap back button");
+    SyncHelper.wait(Until.uiElement(getBackButton).present().setTimeout(Duration.ofSeconds(15)));
+    getBackButton.click();
+    SyncHelper.sleep(4000);
+    return ComponentFactory.create(clazz);
   }
 
   /**
@@ -213,7 +224,6 @@ class AndroidChangePasswordView extends ChangePasswordView {
   public <T extends BaseComponent> T dismissMessage(Class<T> clazz) {
     logger.info("Tap on OKAY to dismiss message");
     getMessageOkButton.click();
-    getBackButton.click();
     return ComponentFactory.create(clazz);
   }
 
