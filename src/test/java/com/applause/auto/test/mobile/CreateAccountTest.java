@@ -414,8 +414,7 @@ public class CreateAccountTest extends BaseTest {
     changePasswordView = changePasswordView.dismissMessage(ChangePasswordView.class);
 
     logger.info("Tap back arrow");
-    accountMenuMobileChunk =
-        changePasswordView.goBack(ProfileDetailsView.class).goBack(AccountMenuMobileChunk.class);
+    accountMenuMobileChunk = changePasswordView.goBack(AccountMenuMobileChunk.class);
 
     logger.info("Make sure user is directed to more screen");
     softAssert.assertNotNull(accountMenuMobileChunk, "User does not directed to more screen");
