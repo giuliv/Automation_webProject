@@ -20,7 +20,6 @@ import com.applause.auto.util.helper.SyncHelper;
 
 import org.openqa.selenium.Dimension;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,10 +27,6 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.remote.RemoteWebElement;
-
-import static com.applause.auto.util.DriverManager.getDriver;
 
 @Implementation(is = AndroidCreateAccountView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CreateAccountView.class, on = Platform.MOBILE_IOS)
@@ -197,7 +192,7 @@ public class CreateAccountView extends BaseComponent {
 
   @Locate(
       xpath =
-          "//XCUIElementTypeTextView[@value='Yes, please send me emails with exclusive offers, rewards, news, and more.']/following-sibling::XCUIElementTypeButton",
+          "//XCUIElementTypeButton[@name='Yes, please send me emails with exclusive offers, rewards, news, and more.']",
       on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/receiveMessageFromPeetCheckBox",
@@ -206,7 +201,7 @@ public class CreateAccountView extends BaseComponent {
 
   @Locate(
       xpath =
-          "(//XCUIElementTypeWebView[.//*[contains(@value,'I agree to the')]])[1]/following-sibling::XCUIElementTypeButton | (//XCUIElementTypeWebView[.//*[contains(@value,'I agree to the')]])[1]/preceding-sibling::XCUIElementTypeButton[1]",
+          "(//XCUIElementTypeWebView[.//*[contains(@value,'I agree to the')]])[1]/following-sibling::XCUIElementTypeButton | (//XCUIElementTypeWebView[.//XCUIElementTypeButton[contains(@name,'I agree to the')]])",
       on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/agreePrivacyPolicyCheckBox",
@@ -533,7 +528,7 @@ public class CreateAccountView extends BaseComponent {
 
   /** Tap email opt in. */
   public void tapEmailOptIn() {
-    logger.info("Tap on email opt in checkbo");
+    logger.info("Tap on email opt in checkbox");
     getEmailsWithOffersCheckBox.click();
   }
 
@@ -659,12 +654,23 @@ class AndroidCreateAccountView extends CreateAccountView {
   public CreateAccountView setDOB(String day, String month, String year) {
     logger.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
     getDOBValueTextBox.click();
+    Picker dayPicker = getDOBDayPicker;
+    Picker monthPicker = getDOBMonthPicker;
+    try {
+      logger.info("day picker keep: " + dayPicker.getAttributeValue("text"));
+      Integer.parseInt(dayPicker.getAttributeValue("text"));
+    } catch (Throwable throwable) {
+      logger.info("swapping pickers....");
+      dayPicker = getDOBMonthPicker;
+      monthPicker = getDOBDayPicker;
+    }
 
-    MobileHelper.setPickerValueBasic(day, getDOBDayPicker, "next");
-    MobileHelper.setPickerValueBasic(month.substring(0, 3), getDOBMonthPicker, "next");
+    MobileHelper.setPickerValueBasic(day, dayPicker, "next");
+    MobileHelper.setPickerValueBasic(month.substring(0, 3), monthPicker, "next");
     MobileHelper.setPickerValueReverse(year, getDOBYearPicker);
-
+    //    DeviceControl.hideKeyboard();
     getDOBOkButton.click();
+
     return ComponentFactory.create(CreateAccountView.class);
   }
 
@@ -707,7 +713,8 @@ class AndroidCreateAccountView extends CreateAccountView {
 
   @Override
   public String getPassword() {
-    logger.info("Password: " + getPasswordTextBox.getAttributeValue("text").replace("Password ", ""));
+    logger.info(
+        "Password: " + getPasswordTextBox.getAttributeValue("text").replace("Password ", ""));
     return getPasswordTextBox.getAttributeValue("text").replace("Password ", "");
   }
 

@@ -203,19 +203,19 @@ public class CreateAccountTest extends BaseTest {
     String firstNameOrig = profileDetailsView.getFirstname();
     String lastNameOrig = profileDetailsView.getLastname();
     String zipCodeOrig = profileDetailsView.getZipCode();
-//    String emailOrig = profileDetailsView.getEmailAddress();
+    //    String emailOrig = profileDetailsView.getEmailAddress();
 
     String firstNameNew = "ApplauseUpdated";
     String lastNameNew = "QAUpdated";
     String zipCodeNew = "11214";
 
-//    String emailNew = emailOrig.replace(".net", ".com");
+    //    String emailNew = emailOrig.replace(".net", ".com");
 
     profileDetailsView.setFirstname(firstNameNew);
     profileDetailsView.setLastname(lastNameNew);
     profileDetailsView.setZipCode(zipCodeNew);
-//    profileDetailsView.setEmailAddress(emailNew);
-//    profileDetailsView.setConfirmEmailAddress(emailNew);
+    //    profileDetailsView.setEmailAddress(emailNew);
+    //    profileDetailsView.setConfirmEmailAddress(emailNew);
 
     logger.info("Tap Save button");
     accountMenuMobileChunk = profileDetailsView.save();
@@ -234,14 +234,14 @@ public class CreateAccountTest extends BaseTest {
     softAssert.assertEquals(firstNameUpd, firstNameNew, "Firstname does not updated");
     softAssert.assertEquals(lastNameUpd, lastNameNew, "Lastname does not updated");
     softAssert.assertEquals(zipCodeUpd, zipCodeNew, "zipcode does not updated");
-//    softAssert.assertEquals(emailUpd, emailNew, "email does not updated");
+    //    softAssert.assertEquals(emailUpd, emailNew, "email does not updated");
 
     logger.info("Cleanup Restore original");
     profileDetailsView.setFirstname(firstNameOrig);
     profileDetailsView.setLastname(lastNameOrig);
     profileDetailsView.setZipCode(zipCodeOrig);
-//    profileDetailsView.setEmailAddress(emailOrig);
-//    profileDetailsView.setConfirmEmailAddress(emailOrig);
+    //    profileDetailsView.setEmailAddress(emailOrig);
+    //    profileDetailsView.setConfirmEmailAddress(emailOrig);
     profileDetailsView.save();
 
     softAssert.assertAll();
@@ -411,10 +411,10 @@ public class CreateAccountTest extends BaseTest {
         "Wrong success password change message");
 
     logger.info("Tap okay to dismiss UI alert");
-    profileDetailsView = changePasswordView.dismissMessage(ProfileDetailsView.class);
+    changePasswordView = changePasswordView.dismissMessage(ChangePasswordView.class);
 
     logger.info("Tap back arrow");
-    accountMenuMobileChunk = profileDetailsView.goBack(AccountMenuMobileChunk.class);
+    accountMenuMobileChunk = changePasswordView.goBack(AccountMenuMobileChunk.class);
 
     logger.info("Make sure user is directed to more screen");
     softAssert.assertNotNull(accountMenuMobileChunk, "User does not directed to more screen");

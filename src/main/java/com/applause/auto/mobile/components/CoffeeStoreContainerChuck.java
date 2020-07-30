@@ -46,7 +46,7 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
 
   @Locate(
       xpath =
-          "(//XCUIElementTypeButton[@name=\"Order\"])[1]/../XCUIElementTypeStaticText[contains(@name,'%s')]",
+          "//XCUIElementTypeNavigationBar[@name='ORDER']/following-sibling::XCUIElementTypeOther//XCUIElementTypeStaticText[@value='Pickup at:']/following-sibling::XCUIElementTypeStaticText[@name='%s']",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
@@ -150,7 +150,7 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
    */
   public boolean isCoffeebarStoreNameDisplayed(String storeName) {
     logger.info("Verifying if store name displayed: " + storeName);
-    getStoreDetailsItem.format(storeName);
+    getStoreDetailsItem.format(storeName.toUpperCase());
     getStoreDetailsItem.initialize();
     return getStoreDetailsItem.isDisplayed();
   }
@@ -209,6 +209,14 @@ class AndroidCoffeeStoreContainerChuck extends CoffeeStoreContainerChuck {
   public boolean isCoffeebarLocationDisplayed(String address) {
     logger.info("Verifying if store location displayed");
     getStoreDetailsItem.format(address);
+    getStoreDetailsItem.initialize();
+    return getStoreDetailsItem.isDisplayed();
+  }
+
+  @Override
+  public boolean isCoffeebarStoreNameDisplayed(String storeName) {
+    logger.info("Verifying if store name displayed: " + storeName);
+    getStoreDetailsItem.format(storeName);
     getStoreDetailsItem.initialize();
     return getStoreDetailsItem.isDisplayed();
   }

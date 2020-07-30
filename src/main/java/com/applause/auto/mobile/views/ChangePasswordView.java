@@ -9,18 +9,30 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
+import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
+
+import org.springframework.util.StringUtils;
+
+import java.time.Duration;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-import org.springframework.util.StringUtils;
 
 @Implementation(is = AndroidChangePasswordView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = ChangePasswordView.class, on = Platform.MOBILE_IOS)
 public class ChangePasswordView extends BaseComponent {
 
   /* -------- Elements -------- */
+  @Locate(id = "button back", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//android.widget.ImageButton[contains(@content-desc,\"Navigate up\") or contains(@content-desc,\"Nach oben\")]",
+      on = Platform.MOBILE_ANDROID)
+  protected Button getBackButton;
 
   @Locate(
       xpath =
@@ -84,6 +96,14 @@ public class ChangePasswordView extends BaseComponent {
     logger.info("Set current password to: " + password);
     getOldPasswordTextBox.clearText();
     getOldPasswordTextBox.sendKeys(password);
+  }
+
+  public <T extends BaseComponent> T goBack(Class<T> clazz) {
+    logger.info("Tap back button");
+    SyncHelper.wait(Until.uiElement(getBackButton).present().setTimeout(Duration.ofSeconds(15)));
+    getBackButton.click();
+    SyncHelper.sleep(4000);
+    return ComponentFactory.create(clazz);
   }
 
   /**
@@ -162,6 +182,14 @@ public class ChangePasswordView extends BaseComponent {
 class AndroidChangePasswordView extends ChangePasswordView {
 
   /* -------- Actions -------- */
+
+  @Override
+  public void setNewPassword(String password) {
+    logger.info("Set new password to: " + password);
+    getNewPasswordTextBox.clearText();
+    getNewPasswordTextBox.sendKeys(password);
+    DeviceControl.hideKeyboard();
+  }
 
   @Override
   public void showPassword() {
