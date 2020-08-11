@@ -285,7 +285,8 @@ public class FindACoffeeBarTest extends BaseTest {
     logger.info(
         "VERIFY - The coffeebar that was un-favorited in step 7 should no longer appear in the list of favorite stores");
     Assert.assertFalse(
-        findACoffeeBarView.getCoffeeStoreContainerChuck().isStorePresent(),
+        findACoffeeBarView.getCoffeeStoreContainerChuck().isStorePresent()
+            && favStore.getStoreName().equals(storeName),
         "The coffeebar that was un-favorited in step 7 still remains in the favorite stores");
   }
 }
