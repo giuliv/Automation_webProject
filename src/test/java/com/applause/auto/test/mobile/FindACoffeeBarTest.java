@@ -238,6 +238,10 @@ public class FindACoffeeBarTest extends BaseTest {
     StoreDetailsView storeDetailsView = coffeeStore.openStoreDetails();
     String storeName = storeDetailsView.getCoffeebarSubHeaderName();
 
+    if (storeDetailsView.isCoffeebarFavorite()) {
+      storeDetailsView.tapFavorite();
+    }
+
     logger.info("STEP - Tap on the gold outline heart icon to the right of the coffeebar name");
     storeDetailsView.tapFavorite();
     logger.info(
