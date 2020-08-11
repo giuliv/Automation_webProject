@@ -150,7 +150,7 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
    */
   public boolean isCoffeebarStoreNameDisplayed(String storeName) {
     logger.info("Verifying if store name displayed: " + storeName);
-    getStoreDetailsItem.format(storeName.toUpperCase());
+    getStoreDetailsItem.format(storeName);
     getStoreDetailsItem.initialize();
     return getStoreDetailsItem.isDisplayed();
   }
@@ -209,14 +209,6 @@ class AndroidCoffeeStoreContainerChuck extends CoffeeStoreContainerChuck {
   public boolean isCoffeebarLocationDisplayed(String address) {
     logger.info("Verifying if store location displayed");
     getStoreDetailsItem.format(address);
-    getStoreDetailsItem.initialize();
-    return getStoreDetailsItem.isDisplayed();
-  }
-
-  @Override
-  public boolean isCoffeebarStoreNameDisplayed(String storeName) {
-    logger.info("Verifying if store name displayed: " + storeName);
-    getStoreDetailsItem.format(storeName);
     getStoreDetailsItem.initialize();
     return getStoreDetailsItem.isDisplayed();
   }
