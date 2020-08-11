@@ -162,7 +162,8 @@ public class FindACoffeeBarTest extends BaseTest {
     AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
         dashboardView
             .getBottomNavigationMenu()
-            .order(OrderView.class)
+            .order(AllowLocationServicesPopupChunk.class)
+            .allowIfRequestDisplayed(OrderView.class)
             .locateCoffeebars(AllowLocationServicesPopupChunk.class);
     NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
         allowLocationServicesPopupChunk.allowIfRequestDisplayed();
