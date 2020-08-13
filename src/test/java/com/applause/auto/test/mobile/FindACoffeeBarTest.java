@@ -17,6 +17,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import java.lang.invoke.MethodHandles;
 
@@ -162,7 +163,8 @@ public class FindACoffeeBarTest extends BaseTest {
     AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
         dashboardView
             .getBottomNavigationMenu()
-            .order(OrderView.class)
+            .order(AllowLocationServicesPopupChunk.class)
+            .allowIfRequestDisplayed(OrderView.class)
             .locateCoffeebars(AllowLocationServicesPopupChunk.class);
     NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
         allowLocationServicesPopupChunk.allowIfRequestDisplayed();
@@ -237,6 +239,10 @@ public class FindACoffeeBarTest extends BaseTest {
     StoreDetailsView storeDetailsView = coffeeStore.openStoreDetails();
     String storeName = storeDetailsView.getCoffeebarSubHeaderName();
 
+    if (storeDetailsView.isCoffeebarFavorite()) {
+      storeDetailsView.tapFavorite();
+    }
+
     logger.info("STEP - Tap on the gold outline heart icon to the right of the coffeebar name");
     storeDetailsView.tapFavorite();
     logger.info(
@@ -255,14 +261,15 @@ public class FindACoffeeBarTest extends BaseTest {
     logger.info(
         "VERIFY - The coffeebar that was favorited in step 3 should appear in the list of favorite stores");
     CoffeeStoreContainerChuck favStore = findACoffeeBarView.getCoffeeStoreContainerChuck();
-    Assert.assertEquals(
+    SoftAssert softAssert = new SoftAssert();
+    softAssert.assertEquals(
         favStore.getStoreName(), storeName, "Wrong store shown under favorites tab");
 
     logger.info("STEP - Select the same store just favorited to view store details screen");
     storeDetailsView = favStore.openStoreDetails();
 
     logger.info("VERIFY - Heart icon should still be filled in red since it's been favorited");
-    Assert.assertTrue(
+    softAssert.assertTrue(
         storeDetailsView.isCoffeebarFavorite(), "Favorite was not enabled for coffee store");
 
     logger.info("STEP - Tap on the red filled in heart icon next to the coffeebar name");
@@ -271,7 +278,7 @@ public class FindACoffeeBarTest extends BaseTest {
     logger.info(
         "VERIFY - User sees a loading dial and then the red heart icon changes to the gold outline heart icon");
     logger.info("VERIFY - The red and white heart icon pin on the map changes to a brown pin");
-    Assert.assertFalse(
+    softAssert.assertFalse(
         storeDetailsView.isCoffeebarFavorite(), "Favorite was not disabled for coffee store");
 
     logger.info("STEP - Tap on back arrow to return to find a coffeebar screen");
@@ -279,8 +286,11 @@ public class FindACoffeeBarTest extends BaseTest {
 
     logger.info(
         "VERIFY - The coffeebar that was un-favorited in step 7 should no longer appear in the list of favorite stores");
-    Assert.assertFalse(
-        findACoffeeBarView.getCoffeeStoreContainerChuck().isStorePresent(),
+    softAssert.assertFalse(
+        findACoffeeBarView.getCoffeeStoreContainerChuck().isStorePresent()
+            && favStore.getStoreName().equals(storeName),
         "The coffeebar that was un-favorited in step 7 still remains in the favorite stores");
+
+    softAssert.assertAll();
   }
 }
