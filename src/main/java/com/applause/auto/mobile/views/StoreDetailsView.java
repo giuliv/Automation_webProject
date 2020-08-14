@@ -12,6 +12,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -111,8 +112,7 @@ public class StoreDetailsView extends BaseComponent {
    */
   public List<String> getResults() {
     logger.info("Looking for results");
-    return getSearchResultsElements
-        .stream()
+    return getSearchResultsElements.stream()
         .map(item -> item.getText())
         .collect(Collectors.toList());
   }
@@ -160,6 +160,7 @@ public class StoreDetailsView extends BaseComponent {
    */
   public String getCoffeebarSubHeaderName() {
     logger.info("Checking coffeebar sub-header name");
+    SyncHelper.sleep(10000);
     return coffeebarSubHeaderNameText.getText();
   }
 
