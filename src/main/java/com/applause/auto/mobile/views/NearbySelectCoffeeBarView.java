@@ -134,6 +134,7 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
    */
   public FindACoffeeBarView openRecentTab() {
     logger.info("Tap on Recent Tab");
+    SyncHelper.sleep(5000);
     recentTab.click();
     return ComponentFactory.create(FindACoffeeBarView.class);
   }
@@ -145,6 +146,7 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
    */
   public FindACoffeeBarView openFavoritesTab() {
     logger.info("Tap on Favorites Tab");
+    SyncHelper.sleep(5000);
     favoritesTab.click();
     return ComponentFactory.create(FindACoffeeBarView.class);
   }
