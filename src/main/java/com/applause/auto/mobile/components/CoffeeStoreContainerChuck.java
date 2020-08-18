@@ -25,7 +25,8 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
 
   /* -------- Elements -------- */
   @Locate(
-      xpath = "(//XCUIElementTypeButton[@name=\"ORDER\" or @name=\"Reorder\"])[1]",
+      xpath =
+          "(//XCUIElementTypeButton[(@name=\"Order\" or @name=\"Reorder\") and @visible=\"true\"])[1]",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
@@ -46,7 +47,7 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
 
   @Locate(
       xpath =
-          "//XCUIElementTypeNavigationBar[@name='ORDER']/following-sibling::XCUIElementTypeOther//XCUIElementTypeStaticText[@value='Pickup at:']/following-sibling::XCUIElementTypeStaticText[contains(@name,'%s')]",
+          "//XCUIElementTypeNavigationBar[@name='Order']/following-sibling::XCUIElementTypeOther//XCUIElementTypeStaticText[@value='Pickup at:']/following-sibling::XCUIElementTypeStaticText[contains(@name,'%s')]",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
