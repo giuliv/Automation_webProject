@@ -24,7 +24,7 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
 
 @Implementation(is = DashboardView.class, on = Platform.MOBILE_ANDROID)
-@Implementation(is = DashboardView.class, on = Platform.MOBILE_IOS)
+@Implementation(is = IosDashboardView.class, on = Platform.MOBILE_IOS)
 public class DashboardView extends BaseComponent {
 
   /* -------- Elements -------- */
@@ -43,9 +43,17 @@ public class DashboardView extends BaseComponent {
   @Locate(xpath = "//android.widget.TextView[@text='%s']", on = Platform.MOBILE_ANDROID)
   protected Button offerTitleText;
 
+  @Locate(accessibilityId = "NO THANKS", on = Platform.MOBILE_ANDROID)
+  protected Button dismissFreeDeliveryButton;
+
   /* -------- Actions -------- */
 
   public void afterInit() {
+    try {
+      dismissFreeDeliveryButton.click();
+    } catch (Throwable throwable) {
+      logger.info("No free delivery popup found");
+    }
     SyncHelper.wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
   }
 
@@ -86,5 +94,11 @@ public class DashboardView extends BaseComponent {
     } catch (Throwable th) {
       return false;
     }
+  }
+}
+
+class IosDashboardView extends DashboardView {
+  public void afterInit() {
+    SyncHelper.wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
   }
 }
