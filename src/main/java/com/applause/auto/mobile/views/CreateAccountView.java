@@ -324,9 +324,20 @@ public class CreateAccountView extends BaseComponent {
   public CreateAccountView setDOB(String day, String month, String year) {
     logger.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
     getDOBValueTextBox.click();
+    Picker dayPicker = getDOBDayPicker;
+    Picker monthPicker = getDOBMonthPicker;
+    try {
+      logger.info("day picker keep: " + dayPicker.getAttributeValue("text"));
+      Integer.parseInt(dayPicker.getAttributeValue("text"));
+    } catch (Throwable throwable) {
+      logger.info("swapping pickers....");
+      dayPicker = getDOBMonthPicker;
+      monthPicker = getDOBDayPicker;
+    }
+
     SyncHelper.sleep(500);
-    MobileHelper.setPickerValueBasic(day, getDOBDayPicker, "next");
-    MobileHelper.setPickerValueBasic(month, getDOBMonthPicker, "next");
+    MobileHelper.setPickerValueBasic(day, dayPicker, "next");
+    MobileHelper.setPickerValueBasic(month, monthPicker, "next");
     MobileHelper.setPickerValueReverse(year, getDOBYearPicker);
     getDOBDoneBtn.click();
     return this;
