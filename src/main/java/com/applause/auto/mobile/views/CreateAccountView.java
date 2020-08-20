@@ -192,7 +192,7 @@ public class CreateAccountView extends BaseComponent {
 
   @Locate(
       xpath =
-          "//XCUIElementTypeButton[@name='Yes, please send me emails with exclusive offers, rewards, news, and more.']",
+          "(//XCUIElementTypeTextView[@name='Yes, please send me emails with exclusive offers, rewards, news, and more.']/following-sibling::XCUIElementTypeButton)[1]",
       on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/receiveMessageFromPeetCheckBox",
