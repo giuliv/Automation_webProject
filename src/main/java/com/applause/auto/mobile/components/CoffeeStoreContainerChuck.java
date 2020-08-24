@@ -47,11 +47,14 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
 
   @Locate(
       xpath =
-          "//XCUIElementTypeNavigationBar[@name='Order']/following-sibling::XCUIElementTypeOther//XCUIElementTypeStaticText[@value='Pickup at:']/following-sibling::XCUIElementTypeStaticText[contains(@name,'%s')] | //XCUIElementTypeNavigationBar[@name='FIND A COFFEEBAR']/following-sibling::XCUIElementTypeOther//XCUIElementTypeButton[@value='user location']/following-sibling::XCUIElementTypeCollectionView//XCUIElementTypeStaticText[contains(@name,'%s')]",
+          "//XCUIElementTypeNavigationBar[@name='Order']/following-sibling::XCUIElementTypeOther//XCUIElementTypeStaticText[@value='Pickup at:']/following-sibling::XCUIElementTypeStaticText[contains(@name,'%s')]",
+      // " | //XCUIElementTypeNavigationBar[@name='FIND A
+      // COFFEEBAR']/following-sibling::XCUIElementTypeOther//XCUIElementTypeButton[@value='user
+      // location']/following-sibling::XCUIElementTypeCollectionView//XCUIElementTypeStaticText[contains(@name,'%s')]"
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "//android.widget.RelativeLayout[contains(@resource-id,'storeDetail')]//android.widget.TextView[contains(@text,'%s')] | //android.widget.RelativeLayout[contains(@resource-id,'storeDetail')]//android.widget.TextView[contains(@text,'%s')]",
+          "//android.widget.RelativeLayout[contains(@resource-id,'storeDetail')]//android.widget.TextView[contains(@text,'%s')]",
       on = Platform.MOBILE_ANDROID)
   protected Text getStoreDetailsItem;
 
