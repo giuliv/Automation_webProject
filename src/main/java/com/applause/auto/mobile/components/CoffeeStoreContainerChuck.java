@@ -51,7 +51,7 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "//android.widget.RelativeLayout[contains(@resource-id,'storeDetail')]//android.widget.TextView[contains(@text,'%s')]",
+          "//android.widget.RelativeLayout[contains(@resource-id,'storeDetail')]//android.widget.TextView[contains(@text,'%s')] | //android.widget.RelativeLayout[contains(@resource-id,'storeDetail')]//android.widget.TextView[contains(@text,'%s')]",
       on = Platform.MOBILE_ANDROID)
   protected Text getStoreDetailsItem;
 
@@ -209,7 +209,7 @@ class AndroidCoffeeStoreContainerChuck extends CoffeeStoreContainerChuck {
   @Override
   public boolean isCoffeebarLocationDisplayed(String address) {
     logger.info("Verifying if store location displayed");
-    getStoreDetailsItem.format(address);
+    getStoreDetailsItem.format(address, address);
     getStoreDetailsItem.initialize();
     return getStoreDetailsItem.isDisplayed();
   }
