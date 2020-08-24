@@ -151,7 +151,7 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
    */
   public boolean isCoffeebarStoreNameDisplayed(String storeName) {
     logger.info("Verifying if store name displayed: " + storeName);
-    getStoreDetailsItem.format(storeName);
+    getStoreDetailsItem.format(storeName, storeName);
     getStoreDetailsItem.initialize();
     return getStoreDetailsItem.isDisplayed();
   }
