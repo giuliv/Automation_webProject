@@ -320,6 +320,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
   public AccountHistoryView accountHistory() {
     logger.info("Click Account History");
     getAccountHistoryButton.click();
+    SyncHelper.sleep(15000);
     return ComponentFactory.create(AccountHistoryView.class);
   }
 

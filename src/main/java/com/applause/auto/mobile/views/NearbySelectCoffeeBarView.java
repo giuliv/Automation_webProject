@@ -26,7 +26,7 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   /* -------- Elements -------- */
 
   @Locate(
-      xpath = "//XCUIElementTypeNavigationBar[@name='Select Coffeebar']",
+      xpath = "//XCUIElementTypeButton[@value='1' and @name='Nearby']",
       on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/storeContainer", on = Platform.MOBILE_ANDROID)
   protected ContainerElement getSignature;
@@ -76,7 +76,19 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   @Locate(iOSClassChain = "**/*[`label == 'Cancel'`]", on = Platform.MOBILE_IOS)
   protected Button cancelSearchButton;
 
+  @Locate(accessibilityId = "No Thanks", on = Platform.MOBILE_IOS)
+  protected Button dismissFreeDeliveryButton;
+
   /* -------- Actions -------- */
+
+  public void afterInit() {
+    try {
+      dismissFreeDeliveryButton.click();
+    } catch (Throwable throwable) {
+      logger.info("No free delivery popup found");
+    }
+    SyncHelper.wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
+  }
 
   public CoffeeStoreContainerChuck getCoffeeStoreContainerChuck() {
     return ComponentFactory.create(CoffeeStoreContainerChuck.class);
@@ -162,6 +174,9 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
 class AndroidNearbySelectCoffeeBarView extends NearbySelectCoffeeBarView {
 
   /* -------- Actions -------- */
+  @Override
+  public void afterInit() {}
+
   @Override
   public void cancelSearch() {
     logger.info("Tap on Cancel search");

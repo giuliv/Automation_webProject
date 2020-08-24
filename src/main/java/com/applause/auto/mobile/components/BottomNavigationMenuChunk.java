@@ -83,7 +83,7 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   public CheckInView checkIn() {
     logger.info("Tap on Check In");
     getCheckInButton.click();
-    getDismissButton.click();
+    //    getDismissButton.click();
     return ComponentFactory.create(CheckInView.class);
   }
 
@@ -122,7 +122,7 @@ public class BottomNavigationMenuChunk extends BaseComponent {
     logger.info("Tap on Order");
     getOrdersButton.click();
     // This has to be clicked to get the 'Allow Location' pop-up
-//    getChangeStoreButton.click();
+    //    getChangeStoreButton.click();
     return ComponentFactory.create(clazz);
   }
 }

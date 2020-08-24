@@ -192,7 +192,7 @@ public class CreateAccountView extends BaseComponent {
 
   @Locate(
       xpath =
-          "//XCUIElementTypeButton[@name='Yes, please send me emails with exclusive offers, rewards, news, and more.']",
+          "(//XCUIElementTypeTextView[@value='Yes, please send me emails with exclusive offers, rewards, news, and more.']/following-sibling::XCUIElementTypeButton)[1]",
       on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/receiveMessageFromPeetCheckBox",
@@ -201,7 +201,7 @@ public class CreateAccountView extends BaseComponent {
 
   @Locate(
       xpath =
-          "(//XCUIElementTypeWebView[.//*[contains(@value,'I agree to the')]])[1]/following-sibling::XCUIElementTypeButton | (//XCUIElementTypeWebView[.//XCUIElementTypeButton[contains(@name,'I agree to the')]])",
+          "(//XCUIElementTypeTextView[contains(@value,'I agree to the Privacy Policy and Terms')]/following-sibling::XCUIElementTypeButton | //XCUIElementTypeTextView[contains(@value,'I agree to the Privacy Policy and Terms')]/preceding-sibling::XCUIElementTypeButton)[1]",
       on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/agreePrivacyPolicyCheckBox",
@@ -324,9 +324,20 @@ public class CreateAccountView extends BaseComponent {
   public CreateAccountView setDOB(String day, String month, String year) {
     logger.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
     getDOBValueTextBox.click();
+    Picker dayPicker = getDOBDayPicker;
+    Picker monthPicker = getDOBMonthPicker;
+    try {
+      logger.info("day picker keep: " + dayPicker.getAttributeValue("text"));
+      Integer.parseInt(dayPicker.getAttributeValue("text"));
+    } catch (Throwable throwable) {
+      logger.info("swapping pickers....");
+      dayPicker = getDOBMonthPicker;
+      monthPicker = getDOBDayPicker;
+    }
+
     SyncHelper.sleep(500);
-    MobileHelper.setPickerValueBasic(day, getDOBDayPicker, "next");
-    MobileHelper.setPickerValueBasic(month, getDOBMonthPicker, "next");
+    MobileHelper.setPickerValueBasic(day, dayPicker, "next");
+    MobileHelper.setPickerValueBasic(month, monthPicker, "next");
     MobileHelper.setPickerValueReverse(year, getDOBYearPicker);
     getDOBDoneBtn.click();
     return this;

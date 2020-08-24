@@ -36,7 +36,7 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
 
   @Locate(
       xpath =
-          "((//XCUIElementTypeButton[@name=\"Order\" or @name=\"Reorder\"])[1]/../../XCUIElementTypeOther[1]/XCUIElementTypeStaticText[1])|((//XCUIElementTypeTable[@visible='true']/XCUIElementTypeCell/XCUIElementTypeButton[@name=\"Order\" or @name=\"Reorder\"])[1]/../XCUIElementTypeStaticText[2])",
+          "(//XCUIElementTypeButton[@name=\"Order\" and @visible=\"true\"])[1]/../XCUIElementTypeButton[1]",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
@@ -47,7 +47,9 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
 
   @Locate(
       xpath =
-          "//XCUIElementTypeNavigationBar[@name='Order']/following-sibling::XCUIElementTypeOther//XCUIElementTypeStaticText[@value='Pickup at:']/following-sibling::XCUIElementTypeStaticText[contains(@name,'%s')]",
+          //
+          // "//XCUIElementTypeNavigationBar[@name='Order']/following-sibling::XCUIElementTypeOther//XCUIElementTypeStaticText[@value='Pickup at:']/following-sibling::XCUIElementTypeStaticText[contains(@name,'%s')]",
+          "//*[contains(@name,'%s') and @visible='true']",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
@@ -176,7 +178,7 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
    */
   public boolean isCoffeebarLocationDisplayed(String address) {
     logger.info("Verifying if store location displayed");
-    getStoreDetailsItem.format(address.replace("\n", " "));
+    getStoreDetailsItem.format(address.replace("\n", " "), address.replace("\n", " "));
     getStoreDetailsItem.initialize();
     return getStoreDetailsItem.isDisplayed();
   }
@@ -209,7 +211,7 @@ class AndroidCoffeeStoreContainerChuck extends CoffeeStoreContainerChuck {
   @Override
   public boolean isCoffeebarLocationDisplayed(String address) {
     logger.info("Verifying if store location displayed");
-    getStoreDetailsItem.format(address);
+    getStoreDetailsItem.format(address, address);
     getStoreDetailsItem.initialize();
     return getStoreDetailsItem.isDisplayed();
   }
