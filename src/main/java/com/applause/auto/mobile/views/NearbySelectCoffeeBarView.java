@@ -25,7 +25,9 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(xpath = "//XCUIElementTypeButton[@name='Recents']", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//XCUIElementTypeButton[@value='1' and @name='Nearby']",
+      on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/storeContainer", on = Platform.MOBILE_ANDROID)
   protected ContainerElement getSignature;
 
