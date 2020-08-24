@@ -176,7 +176,7 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
    */
   public boolean isCoffeebarLocationDisplayed(String address) {
     logger.info("Verifying if store location displayed");
-    getStoreDetailsItem.format(address.replace("\n", " "));
+    getStoreDetailsItem.format(address.replace("\n", " "), address.replace("\n", " "));
     getStoreDetailsItem.initialize();
     return getStoreDetailsItem.isDisplayed();
   }
