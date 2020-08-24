@@ -36,7 +36,7 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
 
   @Locate(
       xpath =
-          "((//XCUIElementTypeButton[@name=\"Order\" or @name=\"Reorder\"])[1]/../../XCUIElementTypeOther[1]/XCUIElementTypeStaticText[1])|((//XCUIElementTypeTable[@visible='true']/XCUIElementTypeCell/XCUIElementTypeButton[@name=\"Order\" or @name=\"Reorder\"])[1]/../XCUIElementTypeStaticText[2])",
+          "((//XCUIElementTypeButton[@name=\"Order\"])[1]/../../XCUIElementTypeOther[1]/XCUIElementTypeStaticText[1])|((//XCUIElementTypeTable[@visible='true']/XCUIElementTypeCell/XCUIElementTypeButton[@name=\"Order\"])[1]/../XCUIElementTypeStaticText[2])",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
