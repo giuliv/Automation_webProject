@@ -35,7 +35,7 @@ public class DashboardView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected TextBox getSignature;
 
-  @Locate(id = "button more", on = Platform.MOBILE_IOS)
+  @Locate(id = "Settings", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/actionMore", on = Platform.MOBILE_ANDROID)
   protected Button getMoreScreenButton;
 
