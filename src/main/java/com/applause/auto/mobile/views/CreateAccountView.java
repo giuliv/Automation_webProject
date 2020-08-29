@@ -329,9 +329,9 @@ public class CreateAccountView extends BaseComponent {
     Picker monthPicker = getDOBMonthPicker;
     SyncHelper.wait(Until.uiElement(getDOBDayPicker).visible());
 
-    logger.info("day picker keep: " + dayPicker.getAttributeValue("text"));
+    logger.info("day picker keep: " + dayPicker.getAttributeValue("value"));
     try {
-      Integer.parseInt(dayPicker.getAttributeValue("text"));
+      Integer.parseInt(dayPicker.getAttributeValue("value"));
     } catch (Throwable throwable) {
       logger.info("swapping pickers....");
       dayPicker = getDOBMonthPicker;
@@ -671,9 +671,9 @@ class AndroidCreateAccountView extends CreateAccountView {
     Picker dayPicker = getDOBDayPicker;
     Picker monthPicker = getDOBMonthPicker;
     SyncHelper.wait(Until.uiElement(getDOBDayPicker).visible());
-    logger.info("day picker keep: " + dayPicker.getAttributeValue("text"));
+    logger.info("day picker keep: " + dayPicker.getAttributeValue("value"));
     try {
-      Integer.parseInt(dayPicker.getAttributeValue("text"));
+      Integer.parseInt(dayPicker.getAttributeValue("value"));
     } catch (Throwable throwable) {
       logger.info("swapping pickers....");
       dayPicker = getDOBMonthPicker;
