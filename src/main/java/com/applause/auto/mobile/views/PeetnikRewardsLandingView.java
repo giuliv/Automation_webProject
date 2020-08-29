@@ -12,11 +12,9 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
-
-import org.openqa.selenium.WebDriverException;
-
 import java.time.Duration;
 import java.util.List;
+import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = PeetnikRewardsLandingView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = PeetnikRewardsLandingView.class, on = Platform.MOBILE_IOS)

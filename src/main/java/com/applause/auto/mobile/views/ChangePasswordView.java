@@ -12,15 +12,12 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
-
-import org.springframework.util.StringUtils;
-
-import java.time.Duration;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
+import java.time.Duration;
+import org.springframework.util.StringUtils;
 
 @Implementation(is = AndroidChangePasswordView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = ChangePasswordView.class, on = Platform.MOBILE_IOS)

@@ -146,7 +146,7 @@ public class PeetsCardsTest extends BaseTest {
         testHelper.signIn(
             landingView,
             Constants.MyAccountTestData.EMAIL_PEETS_REWARDS,
-                Constants.MyAccountTestData.PASSWORD,
+            Constants.MyAccountTestData.PASSWORD,
             DashboardView.class);
     softAssert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
