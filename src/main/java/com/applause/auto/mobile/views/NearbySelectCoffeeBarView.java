@@ -1,5 +1,7 @@
 package com.applause.auto.mobile.views;
 
+import com.google.common.collect.ImmutableMap;
+
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -12,9 +14,10 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
-import com.google.common.collect.ImmutableMap;
-import io.appium.java_client.AppiumDriver;
+
 import java.time.Duration;
+
+import io.appium.java_client.AppiumDriver;
 
 @Implementation(is = AndroidNearbySelectCoffeeBarView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = NearbySelectCoffeeBarView.class, on = Platform.MOBILE_IOS)
@@ -98,6 +101,7 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
    */
   public void search(String searchTxt) {
     logger.info("Searching for store: " + searchTxt);
+    logger.info("" + DriverManager.getDriver().getPageSource());
     getSearchTextBox.click();
     getSearchTextBox.initialize();
     getSearchTextBox.sendKeys(searchTxt + "\n");
