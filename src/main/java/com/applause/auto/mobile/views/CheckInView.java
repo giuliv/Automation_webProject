@@ -47,7 +47,7 @@ public class CheckInView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getConfirmButton;
 
-  @Locate(id = "button edit pen", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Edit\"]", on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/editCreditCardBtn",
       on = Platform.MOBILE_ANDROID)
