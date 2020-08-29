@@ -19,6 +19,7 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
 import org.openqa.selenium.NoAlertPresentException;
 
 @Implementation(is = AndroidAccountMenuMobileChunk.class, on = Platform.MOBILE_ANDROID)
@@ -73,7 +74,9 @@ public class AccountMenuMobileChunk extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/paymentMethods", on = Platform.MOBILE_ANDROID)
   protected Button getPaymentMethodsButton;
 
-  @Locate(id = "button cross", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//XCUIElementTypeButton[@name='Close' and @visible='true']",
+      on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
           "//android.widget.ImageButton[contains(@content-desc,\"Navigate up\") or contains(@content-desc,\"Nach oben\")]",
