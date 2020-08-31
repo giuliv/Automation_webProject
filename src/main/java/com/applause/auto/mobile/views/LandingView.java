@@ -4,7 +4,6 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.components.ReportAProblemPopupChunk;
 import com.applause.auto.mobile.components.TryMobileOrderAheadPopupChunk;
-import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -16,9 +15,6 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
-import com.applause.auto.web.helpers.WebHelper;
-import org.openqa.selenium.NoSuchElementException;
-
 import java.time.Duration;
 
 @Implementation(is = AndroidLandingView.class, on = Platform.MOBILE_ANDROID)
@@ -35,14 +31,16 @@ public class LandingView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/skipTextView", on = Platform.MOBILE_ANDROID)
   protected Button getSkipButton;
 
-  @Locate(id = "com.wearehathway.peets.development:id/getStartedButton", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/getStartedButton",
+      on = Platform.MOBILE_ANDROID)
   protected Button getStartedButton;
 
   @Locate(iOSNsPredicate = "name='Create Account'", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/signUp", on = Platform.MOBILE_ANDROID)
   protected Button getCreateAccountButton;
 
-//  @Locate(id = "Sign In", on = Platform.MOBILE_IOS)
+  //  @Locate(id = "Sign In", on = Platform.MOBILE_IOS)
   @Locate(xpath = "//XCUIElementTypeButton[@name=\"Sign In\"]", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/logIn", on = Platform.MOBILE_ANDROID)
   protected Button getSignInButton;
@@ -101,9 +99,9 @@ public class LandingView extends BaseComponent {
    */
   public CreateAccountView createAccount() {
     logger.info("Tap on create account button");
-//    SyncHelper.sleep(10000);
+    //    SyncHelper.sleep(10000);
     SyncHelper.wait(
-            Until.uiElement(getCreateAccountButton).clickable().setTimeout(Duration.ofSeconds(20)));
+        Until.uiElement(getCreateAccountButton).clickable().setTimeout(Duration.ofSeconds(20)));
     getCreateAccountButton.click();
     return ComponentFactory.create(CreateAccountView.class);
   }
@@ -129,7 +127,7 @@ public class LandingView extends BaseComponent {
     // view
     try {
       SyncHelper.wait(
-              Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
+          Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
       getSkipButton.click();
       logger.info("Skip button was clicked correctly");
     } catch (Exception e) {
@@ -137,9 +135,7 @@ public class LandingView extends BaseComponent {
     }
   }
 
-  /**
-   * Dismiss Try Mobile Order Ahead
-   */
+  /** Dismiss Try Mobile Order Ahead */
   public void dismissTryMobileOrderAhead() {
     logger.info("Looking for Try Mobile Order Ahead popup");
     if (getTryMobileOrderAheadPopupChunk().isDismissButtonDisplayed()) {
@@ -174,15 +170,15 @@ class AndroidLandingView extends LandingView {
 
     try {
       SyncHelper.wait(
-              Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
+          Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
 
-      for(int i = 0; i < 3; i++){
+      for (int i = 0; i < 3; i++) {
         DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
         SyncHelper.sleep(2000);
       }
 
       SyncHelper.wait(
-              Until.uiElement(getStartedButton).clickable().setTimeout(Duration.ofSeconds(20)));
+          Until.uiElement(getStartedButton).clickable().setTimeout(Duration.ofSeconds(20)));
       getStartedButton.click();
     } catch (Exception e) {
       logger.error("Error while skipping the Landing View");

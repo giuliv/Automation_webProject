@@ -35,7 +35,9 @@ public class DashboardView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected TextBox getSignature;
 
-  @Locate(id = "button more", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "(//*[@name=\"Settings\" and @visible=\"true\"])[last()]",
+      on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/actionMore", on = Platform.MOBILE_ANDROID)
   protected Button getMoreScreenButton;
 
@@ -63,7 +65,7 @@ public class DashboardView extends BaseComponent {
    * @return the account profile menu
    */
   public AccountMenuMobileChunk getAccountProfileMenu() {
-    logger.info("Open account profile menu");
+    logger.info("Open account profile menu\n" + DriverManager.getDriver().getPageSource());
     Point elemCoord = getMoreScreenButton.getMobileElement().getCenter();
     AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
     new TouchAction(driver).tap(PointOption.point(elemCoord.getX(), elemCoord.getY())).perform();

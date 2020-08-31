@@ -1,11 +1,7 @@
 package com.applause.auto.test.mobile;
 
 import static com.applause.auto.test.mobile.helpers.TestHelper.openOrderMenuForRecentCoffeeBar;
-import java.lang.invoke.MethodHandles;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
@@ -20,13 +16,18 @@ import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.ProductDetailsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.test.mobile.helpers.TestHelper;
+import java.lang.invoke.MethodHandles;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 public class OrderTest extends BaseTest {
 
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
   // updated according to https://appauto.testrail.net/index.php?/cases/view/625889
-  //ToDo: Disabled until order section is updated
+  // ToDo: Disabled until order section is updated
   @Test(
       enabled = false,
       groups = {TestNGGroups.ORDER},
@@ -118,10 +119,11 @@ public class OrderTest extends BaseTest {
   }
 
   // TODO should be rewritten due to test case/UI changes
-  //ToDo: Disabled until order section is updated
+  // ToDo: Disabled until order section is updated
   @Test(
       groups = {TestNGGroups.ORDER},
-      description = "625890", enabled = false)
+      description = "625890",
+      enabled = false)
   public void browseTheMenu() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = ComponentFactory.create(LandingView.class);
@@ -242,10 +244,11 @@ public class OrderTest extends BaseTest {
     // screen");
   }
 
-  //ToDo: Disabled until order section is updated
+  // ToDo: Disabled until order section is updated
   @Test(
       groups = {TestNGGroups.ORDER},
-      description = "625897", enabled = false)
+      description = "625897",
+      enabled = false)
   public void checkoutTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = ComponentFactory.create(LandingView.class);
@@ -291,10 +294,11 @@ public class OrderTest extends BaseTest {
     Assert.assertNotNull(orderConfirmationView, "Something happened during order placement");
   }
 
-  //ToDo: Disabled until order section is updated
+  // ToDo: Disabled until order section is updated
   @Test(
       groups = {TestNGGroups.ORDER},
-      description = "2879930", enabled = false)
+      description = "2879930",
+      enabled = false)
   public void orderAhead() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = ComponentFactory.create(LandingView.class);

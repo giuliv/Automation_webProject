@@ -568,10 +568,10 @@ public class CreateAccountTest extends BaseTest {
         "Email opt in checkbox does not marked by default");
     createAccountView.tapEmailOptIn();
     Assert.assertFalse(
-        createAccountView.isEmailOptInChecked(), "Email opt in checkbox does not marked");
+        createAccountView.isEmailOptInChecked(), "Email opt in checkbox remains marked");
     createAccountView.tapEmailOptIn();
     Assert.assertTrue(
-        createAccountView.isEmailOptInChecked(), "Email opt in checkbox remains marked");
+        createAccountView.isEmailOptInChecked(), "Email opt in checkbox does not marked");
 
     logger.info(
         "At Privacy Policy and Terms & Conditions\n"

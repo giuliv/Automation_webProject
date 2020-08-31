@@ -232,6 +232,7 @@ public class MobileHelper {
    * @return the boolean
    */
   public static boolean isAttribtuePresent(MobileElement element, String attribute) {
+    SyncHelper.sleep(5000);
     Boolean result = false;
     try {
       String value = element.getAttribute(attribute);

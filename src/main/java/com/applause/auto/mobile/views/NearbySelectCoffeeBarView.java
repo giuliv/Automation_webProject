@@ -101,6 +101,7 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
    */
   public void search(String searchTxt) {
     logger.info("Searching for store: " + searchTxt);
+    logger.info("" + DriverManager.getDriver().getPageSource());
     getSearchTextBox.click();
     getSearchTextBox.initialize();
     getSearchTextBox.sendKeys(searchTxt + "\n");

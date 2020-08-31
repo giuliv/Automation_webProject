@@ -17,6 +17,7 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.util.helper.sync.Until;
 
 import org.openqa.selenium.Dimension;
 
@@ -326,9 +327,11 @@ public class CreateAccountView extends BaseComponent {
     getDOBValueTextBox.click();
     Picker dayPicker = getDOBDayPicker;
     Picker monthPicker = getDOBMonthPicker;
+    SyncHelper.wait(Until.uiElement(getDOBDayPicker).visible());
+
+    logger.info("day picker keep: " + dayPicker.getAttributeValue("value"));
     try {
-      logger.info("day picker keep: " + dayPicker.getAttributeValue("text"));
-      Integer.parseInt(dayPicker.getAttributeValue("text"));
+      Integer.parseInt(dayPicker.getAttributeValue("value"));
     } catch (Throwable throwable) {
       logger.info("swapping pickers....");
       dayPicker = getDOBMonthPicker;
@@ -667,9 +670,10 @@ class AndroidCreateAccountView extends CreateAccountView {
     getDOBValueTextBox.click();
     Picker dayPicker = getDOBDayPicker;
     Picker monthPicker = getDOBMonthPicker;
+    SyncHelper.wait(Until.uiElement(getDOBDayPicker).visible());
+    logger.info("day picker keep: " + dayPicker.getAttributeValue("value"));
     try {
-      logger.info("day picker keep: " + dayPicker.getAttributeValue("text"));
-      Integer.parseInt(dayPicker.getAttributeValue("text"));
+      Integer.parseInt(dayPicker.getAttributeValue("value"));
     } catch (Throwable throwable) {
       logger.info("swapping pickers....");
       dayPicker = getDOBMonthPicker;

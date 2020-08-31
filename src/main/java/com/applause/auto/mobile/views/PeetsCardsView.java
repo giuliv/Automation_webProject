@@ -11,6 +11,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
 import java.time.Duration;
 
 @Implementation(is = AndroidPeetsCardsView.class, on = Platform.MOBILE_ANDROID)
@@ -53,7 +54,7 @@ public class PeetsCardsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getConfirmButton;
 
-  @Locate(id = "button edit pen", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Edit\"]", on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/editCreditCardBtn",
       on = Platform.MOBILE_ANDROID)
@@ -109,7 +110,8 @@ public class PeetsCardsView extends BaseComponent {
    */
   public PeetsCardsView confirm() {
     logger.info("Tap on confirm button");
-    SyncHelper.wait(Until.uiElement(getConfirmButton).clickable().setTimeout(Duration.ofSeconds(30)));
+    SyncHelper.wait(
+        Until.uiElement(getConfirmButton).clickable().setTimeout(Duration.ofSeconds(30)));
     getConfirmButton.click();
     return ComponentFactory.create(PeetsCardsView.class);
   }

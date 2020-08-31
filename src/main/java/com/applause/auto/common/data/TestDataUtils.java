@@ -10,20 +10,22 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import com.applause.auto.util.helper.SyncHelper;
-import org.apache.commons.lang3.RandomStringUtils;
-
 public class TestDataUtils {
   public static class PhoneNumberDataUtils {
     public static String getRandomPhoneNumber() {
       String current = String.valueOf(System.currentTimeMillis());
-//      return "2" + RandomStringUtils.randomNumeric(9);
+      //      return "2" + RandomStringUtils.randomNumeric(9);
       return "2" + current.substring(current.length() - 9);
     }
 
     public static String getOnlyDigitsFromPhoneNumber(String phoneNumber) {
       String updatedNumber =
-          phoneNumber.replace("(", "").replace(")", "").replace("-", "").replace(" ", "").replace("PhoneNumberOptional", "");
+          phoneNumber
+              .replace("(", "")
+              .replace(")", "")
+              .replace("-", "")
+              .replace(" ", "")
+              .replace("PhoneNumberOptional", "");
       return updatedNumber;
     }
   }
