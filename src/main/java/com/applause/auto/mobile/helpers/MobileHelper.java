@@ -65,7 +65,10 @@ public class MobileHelper {
       getMobileDriver().activateApp(MobileApp.ANDROID_PACKAGE_ID);
     }
     if (EnvironmentHelper.isMobileIOS(getMobileDriver())) {
-      getMobileDriver().activateApp("com.apple.Preferences");
+      SyncHelper.sleep(13000);
+      logger.info(getMobileDriver().getPageSource());
+      logger.info(getMobileDriver().getContextHandles());
+      getMobileDriver().findElement(By.xpath("//*[@name='Done']")).click();
       getMobileDriver().activateApp(MobileApp.IOS_BUNDLE_ID);
     }
     SyncHelper.sleep(3000);
