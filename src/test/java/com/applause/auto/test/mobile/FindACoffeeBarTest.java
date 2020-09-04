@@ -265,8 +265,9 @@ public class FindACoffeeBarTest extends BaseTest {
         "VERIFY - The coffeebar that was favorited in step 3 should appear in the list of favorite stores");
     CoffeeStoreContainerChuck favStore = findACoffeeBarView.getCoffeeStoreContainerChuck();
 
-    Assert.assertEquals(
-        favStore.getStoreName(), storeName, "Wrong store shown under favorites tab");
+    Assert.assertTrue(
+        favStore.getStoreName().toUpperCase().contains(storeName.toUpperCase()),
+        "Wrong store shown under favorites tab");
     SoftAssert softAssert = new SoftAssert();
 
     logger.info("STEP - Select the same store just favorited to view store details screen");
