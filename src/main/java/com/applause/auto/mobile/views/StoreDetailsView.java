@@ -56,7 +56,8 @@ public class StoreDetailsView extends BaseComponent {
   protected Text coffeebarSubHeaderNameText;
 
   @Locate(
-      xpath = "//XCUIElementTypeButton[@name='Unmark as favorite Coffeebar']",
+      xpath =
+          "//XCUIElementTypeButton[@name='Unmark as favorite Coffeebar'] | //XCUIElementTypeButton[@name='Mark as favorite Coffeebar']",
       on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/faveStoreIcon", on = Platform.MOBILE_ANDROID)
   protected Image coffeebarFavoriteIcon;
