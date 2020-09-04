@@ -13,6 +13,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
+
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriverException;
@@ -25,7 +26,7 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
   /* -------- Elements -------- */
   @Locate(
       xpath =
-          "(//XCUIElementTypeButton[(@name=\"Order\" or @name=\"Reorder\") and @visible=\"true\"])[1]",
+          "(//XCUIElementTypeButton[(@name=\"Order\" or @name=\"Reorder\") and @visible=\"true\"])[last()]",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
