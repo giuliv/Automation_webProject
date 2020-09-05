@@ -671,9 +671,16 @@ class AndroidCreateAccountView extends CreateAccountView {
     Picker dayPicker = getDOBDayPicker;
     Picker monthPicker = getDOBMonthPicker;
     SyncHelper.wait(Until.uiElement(getDOBDayPicker).visible());
-    logger.info("day picker keep: " + dayPicker.getAttributeValue("value"));
+    String dataSource;
     try {
-      Integer.parseInt(dayPicker.getAttributeValue("value"));
+      logger.info("day picker keep: " + dayPicker.getAttributeValue("value"));
+      dataSource = "value";
+    } catch (Throwable throwable) {
+      logger.info("day picker keep: " + dayPicker.getAttributeValue("text"));
+      dataSource = "text";
+    }
+    try {
+      Integer.parseInt(dayPicker.getAttributeValue(dataSource));
     } catch (Throwable throwable) {
       logger.info("swapping pickers....");
       dayPicker = getDOBMonthPicker;
