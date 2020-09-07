@@ -65,6 +65,8 @@ public class MobileHelper {
       getMobileDriver().activateApp(MobileApp.ANDROID_PACKAGE_ID);
     }
     if (EnvironmentHelper.isMobileIOS(getMobileDriver())) {
+      SyncHelper.sleep(5000);
+      hideKeyboardIOSByPressDone();
       getMobileDriver().activateApp(MobileApp.IOS_BUNDLE_ID);
     }
     SyncHelper.sleep(3000);
