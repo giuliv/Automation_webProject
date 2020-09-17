@@ -340,6 +340,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
   /** Click the Cross Button */
   public void clickCrossButton() {
     logger.info("Clicking the cross button");
+    SyncHelper.sleep(5000);
     getCrossButton.click();
   }
 
