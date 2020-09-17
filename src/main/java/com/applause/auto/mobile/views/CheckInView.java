@@ -69,6 +69,8 @@ public class CheckInView extends BaseComponent {
     SyncHelper.sleep(20000);
     DriverManager.getDriver().getPageSource();
     SyncHelper.sleep(20000);
+    DriverManager.getDriver().getPageSource();
+    SyncHelper.sleep(20000);
     MobileHelper.tapByCoordinatesOnElementCenter(getAddValueButton);
   }
 
