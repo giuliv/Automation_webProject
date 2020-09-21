@@ -201,8 +201,7 @@ public class CreateAccountView extends BaseComponent {
   protected Checkbox getEmailsWithOffersCheckBox;
 
   @Locate(
-      xpath =
-          "(//XCUIElementTypeTextView[contains(@value,'I agree to the Privacy Policy and Terms')]/following-sibling::XCUIElementTypeButton | //XCUIElementTypeTextView[contains(@value,'I agree to the Privacy Policy and Terms')]/preceding-sibling::XCUIElementTypeButton)[1]",
+      xpath = "//XCUIElementTypeStaticText[contains(@value,'I agree to the')]",
       on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/agreePrivacyPolicyCheckBox",
