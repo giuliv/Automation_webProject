@@ -38,6 +38,7 @@ import javax.imageio.ImageIO;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
@@ -79,12 +80,12 @@ public class MobileHelper {
 
     logger.info("Chrome detected: " + isAppInstalled);
     if (EnvironmentHelper.isMobileAndroid(getMobileDriver())) {
-      getMobileDriver().activateApp(MobileApp.ANDROID_PACKAGE_ID);
       if (!isAppInstalled) {
         Assert.assertTrue(false, "Device is not ready");
       } else {
         try {
-          ((AppiumDriver) DriverManager.getDriver()).activateApp("com.android.chrome");
+          ((AndroidDriver) DriverManager.getDriver())
+              .startActivity(new Activity("android.intent.action.VIEW", "https://m.peets.com"));
           ((AppiumDriver) DriverManager.getDriver()).findElementByAccessibilityId("Chrome").click();
           ((AppiumDriver) DriverManager.getDriver())
               .findElementByAccessibilityId("Just once")
