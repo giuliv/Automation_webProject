@@ -20,7 +20,6 @@ import com.applause.auto.mobile.views.ProfileDetailsView;
 import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.mobile.views.TermsAndConditionsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,8 +27,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.lang.invoke.MethodHandles;
-
-import io.appium.java_client.AppiumDriver;
 
 public class CreateAccountTest extends BaseTest {
 
@@ -40,18 +37,7 @@ public class CreateAccountTest extends BaseTest {
       description = "625879")
   public void footerLinksTest() {
     logger.info("Launch the app and arrive at the first onboarding screen view");
-    boolean isAppInstalled =
-        ((AppiumDriver) DriverManager.getDriver()).isAppInstalled("com.android.chrome");
-
-    logger.info("Chrome detected: " + isAppInstalled);
-    if (!isAppInstalled) {
-      Assert.assertTrue(false, "Device is not ready");
-    } else {
-      ((AppiumDriver) DriverManager.getDriver()).activateApp("com.android.chrome");
-      ((AppiumDriver) DriverManager.getDriver()).findElementByAccessibilityId("Chrome").click();
-      ((AppiumDriver) DriverManager.getDriver()).findElementByAccessibilityId("Just once").click();
-      MobileHelper.activateApp();
-    }
+    MobileHelper.initMobileBrowser();
 
     LandingView landingView = ComponentFactory.create(LandingView.class);
     Assert.assertEquals(

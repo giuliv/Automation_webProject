@@ -22,6 +22,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.testng.Assert;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -70,6 +71,30 @@ public class MobileHelper {
       getMobileDriver().activateApp(MobileApp.IOS_BUNDLE_ID);
     }
     SyncHelper.sleep(3000);
+  }
+
+  public static void initMobileBrowser() {
+    boolean isAppInstalled =
+        ((AppiumDriver) DriverManager.getDriver()).isAppInstalled("com.android.chrome");
+
+    logger.info("Chrome detected: " + isAppInstalled);
+    if (EnvironmentHelper.isMobileAndroid(getMobileDriver())) {
+      getMobileDriver().activateApp(MobileApp.ANDROID_PACKAGE_ID);
+      if (!isAppInstalled) {
+        Assert.assertTrue(false, "Device is not ready");
+      } else {
+        try {
+          ((AppiumDriver) DriverManager.getDriver()).activateApp("com.android.chrome");
+          ((AppiumDriver) DriverManager.getDriver()).findElementByAccessibilityId("Chrome").click();
+          ((AppiumDriver) DriverManager.getDriver())
+              .findElementByAccessibilityId("Just once")
+              .click();
+        } catch (Throwable throwable) {
+          logger.info("Something happend during chrome default init");
+        }
+      }
+      MobileHelper.activateApp();
+    }
   }
 
   /** Hide keyboard ios by press done. */
