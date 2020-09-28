@@ -89,9 +89,11 @@ public class MobileHelper {
       logger.info("Current activity: " + currentActivity);
 
       if (isIntentActionStarted) {
-        ((AppiumDriver) DriverManager.getDriver()).findElementByAccessibilityId("Chrome").click();
         ((AppiumDriver) DriverManager.getDriver())
-            .findElementByAccessibilityId("Just once")
+            .findElementByXPath("//android.widget.TextView[@text='Chrome']")
+            .click();
+        ((AppiumDriver) DriverManager.getDriver())
+            .findElementById("android:id/button_once")
             .click();
         return;
       } else if (isSamsungBrowserStarted) {
