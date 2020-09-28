@@ -68,7 +68,7 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   protected TextBox recentTab;
 
   @Locate(
-      xpath = "//android.support.v7.app.ActionBar.Tab[contains(@content-desc,\"Favorites\")]",
+      xpath = "//android.widget.TextView[contains(@text,\"Favorites\")]",
       on = Platform.MOBILE_ANDROID)
   @Locate(iOSClassChain = "**/*[`label == 'Favorites'`]", on = Platform.MOBILE_IOS)
   protected TextBox favoritesTab;
