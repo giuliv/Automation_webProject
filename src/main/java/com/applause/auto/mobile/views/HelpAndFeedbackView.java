@@ -1,6 +1,7 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -76,6 +77,7 @@ public class HelpAndFeedbackView extends BaseComponent {
     logger.info("Click Customer Support");
     contactCustomerService.click();
     SyncHelper.sleep(10000);
+    MobileHelper.initMobileBrowser();
     return ComponentFactory.create(CustomerSupportScreenView.class);
   }
 }

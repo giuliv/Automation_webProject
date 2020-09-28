@@ -22,6 +22,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.RemoteWebElement;
+import org.testng.Assert;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -70,6 +71,45 @@ public class MobileHelper {
       getMobileDriver().activateApp(MobileApp.IOS_BUNDLE_ID);
     }
     SyncHelper.sleep(3000);
+  }
+
+  public static void initMobileBrowser() {
+    if (EnvironmentHelper.isMobileAndroid(getMobileDriver())) {
+      SyncHelper.sleep(5000);
+      String currentActivity = ((AndroidDriver) getDriver()).currentActivity();
+      boolean isSamsungBrowserStarted =
+          currentActivity.equals("com.sec.android.app.sbrowser")
+              || currentActivity.contains("help_intro.HelpIntroActivity");
+      boolean isChromeBrowserStarted =
+          currentActivity.equals("com.android.chrome")
+              || currentActivity.contains("ChromeTabbedActivity");
+      boolean isIntentActionStarted =
+          currentActivity.equals("com.android.internal.app.ResolverActivity");
+
+      logger.info("Current activity: " + currentActivity);
+
+      if (isIntentActionStarted) {
+        ((AppiumDriver) DriverManager.getDriver()).findElementByAccessibilityId("Chrome").click();
+        ((AppiumDriver) DriverManager.getDriver())
+            .findElementByAccessibilityId("Just once")
+            .click();
+        return;
+      } else if (isSamsungBrowserStarted) {
+        throw new RuntimeException("Only Samsung browser suggested. Exiting");
+        //        ((AppiumDriver) DriverManager.getDriver())
+        //
+        // .findElementById("com.sec.android.app.sbrowser:id/help_intro_legal_optional_checkbox")
+        //            .click();
+        //        ((AppiumDriver) DriverManager.getDriver())
+        //
+        // .findElementById("com.sec.android.app.sbrowser:id/help_intro_legal_agree_button")
+        //            .click();
+        //        SyncHelper.sleep(10000);
+      } else if (isChromeBrowserStarted) {
+        return;
+      }
+      Assert.assertTrue(false, "Something happens during browser init");
+    }
   }
 
   /** Hide keyboard ios by press done. */

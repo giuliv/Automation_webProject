@@ -242,8 +242,10 @@ public class CreateAccountView extends BaseComponent {
    */
   public PrivacyPolicyView privacyPolicy() {
     logger.info("Tap on Privacy Policy");
+    SyncHelper.sleep(5000);
     getPrivacyPolicyButton.click();
-
+    SyncHelper.sleep(10000);
+    MobileHelper.initMobileBrowser();
     // wait till the page load, before it ios is not switched back to app
     SyncHelper.sleep(10000);
     return ComponentFactory.create(PrivacyPolicyView.class);
