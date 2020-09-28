@@ -98,9 +98,7 @@ public class MobileHelper {
         ((AppiumDriver) DriverManager.getDriver())
             .findElementById("com.sec.android.app.sbrowser:id/help_intro_legal_optional_checkbox")
             .click();
-        ((AppiumDriver) DriverManager.getDriver())
-            .findElementByAccessibilityId("Just once")
-            .click();
+        ((AppiumDriver) DriverManager.getDriver()).findElementByAccessibilityId("Continue").click();
         MobileHelper.activateApp();
         return;
       } else if (isChromeBrowserStarted) {
