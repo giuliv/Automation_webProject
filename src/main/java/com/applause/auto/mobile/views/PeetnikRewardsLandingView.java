@@ -12,9 +12,11 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
+import org.openqa.selenium.WebDriverException;
+
 import java.time.Duration;
 import java.util.List;
-import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = PeetnikRewardsLandingView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = PeetnikRewardsLandingView.class, on = Platform.MOBILE_IOS)
@@ -91,6 +93,7 @@ public class PeetnikRewardsLandingView extends BaseComponent {
       // for ios simple click doesn't work on getPeetnikRewardsAndOrderAheadButton button
       MobileHelper.tapByCoordinatesOnElementCenter(getPeetnikRewardsAndOrderAheadButton);
     }
+    MobileHelper.initMobileBrowser();
     logger.info("Checking list of questions is loaded'");
     SyncHelper.waitUntil(condition -> !getQuestions.isEmpty());
     logger.info("Click first available question");
