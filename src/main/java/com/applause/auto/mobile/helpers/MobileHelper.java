@@ -101,6 +101,9 @@ public class MobileHelper {
         ((AppiumDriver) DriverManager.getDriver())
             .findElementById("com.sec.android.app.sbrowser:id/help_intro_legal_agree_button")
             .click();
+        SyncHelper.sleep(10000);
+        logger.info("Contexts: " + ((AppiumDriver) DriverManager.getDriver()).getContextHandles());
+        logger.info(">>>>>>" + DriverManager.getDriver().getPageSource());
         return;
       } else if (isChromeBrowserStarted) {
         return;
