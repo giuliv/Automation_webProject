@@ -77,7 +77,9 @@ public class MobileHelper {
     if (EnvironmentHelper.isMobileAndroid(getMobileDriver())) {
       SyncHelper.sleep(5000);
       String currentActivity = ((AndroidDriver) getDriver()).currentActivity();
-      boolean isSamsungBrowserStarted = currentActivity.equals("com.sec.android.app.sbrowser");
+      boolean isSamsungBrowserStarted =
+          currentActivity.equals("com.sec.android.app.sbrowser")
+              || currentActivity.contains("help_intro.HelpIntroActivity");
       boolean isChromeBrowserStarted =
           currentActivity.equals("com.android.chrome")
               || currentActivity.contains("ChromeTabbedActivity");
