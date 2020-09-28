@@ -76,21 +76,14 @@ public class MobileHelper {
   public static void initMobileBrowser() {
     if (EnvironmentHelper.isMobileAndroid(getMobileDriver())) {
       SyncHelper.sleep(5000);
-      boolean isSamsungBrowserStarted =
-          ((AndroidDriver) DriverManager.getDriver())
-              .currentActivity()
-              .equals("com.sec.android.app.sbrowser");
+      String currentActivity = ((AndroidDriver) getDriver()).currentActivity();
+      boolean isSamsungBrowserStarted = currentActivity.equals("com.sec.android.app.sbrowser");
       boolean isChromeBrowserStarted =
-          ((AndroidDriver) DriverManager.getDriver())
-              .currentActivity()
-              .equals("com.android.chrome");
-      boolean isIntentActionStarted =
-          ((AndroidDriver) DriverManager.getDriver())
-              .currentActivity()
-              .equals("com.android.chrome");
+          currentActivity.equals("com.android.chrome")
+              || currentActivity.contains("ChromeTabbedActivity");
+      boolean isIntentActionStarted = currentActivity.equals("com.android.chrome");
 
-      logger.info(
-          "Current activity: " + ((AndroidDriver) DriverManager.getDriver()).currentActivity());
+      logger.info("Current activity: " + currentActivity);
 
       if (isIntentActionStarted) {
         ((AppiumDriver) DriverManager.getDriver()).findElementByAccessibilityId("Chrome").click();
