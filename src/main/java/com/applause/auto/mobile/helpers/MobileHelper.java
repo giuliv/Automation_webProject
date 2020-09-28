@@ -93,27 +93,19 @@ public class MobileHelper {
         ((AppiumDriver) DriverManager.getDriver())
             .findElementByAccessibilityId("Just once")
             .click();
-        logger.info("Contexts: " + ((AppiumDriver) DriverManager.getDriver()).getContextHandles());
-        logger.info(">>>>>>" + DriverManager.getDriver().getPageSource());
         return;
       } else if (isSamsungBrowserStarted) {
-        logger.info("Contexts: " + ((AppiumDriver) DriverManager.getDriver()).getContextHandles());
-        ((AppiumDriver) DriverManager.getDriver())
-            .findElementById("com.sec.android.app.sbrowser:id/help_intro_legal_optional_checkbox")
-            .click();
-        ((AppiumDriver) DriverManager.getDriver())
-            .findElementById("com.sec.android.app.sbrowser:id/help_intro_legal_agree_button")
-            .click();
-        SyncHelper.sleep(10000);
-        logger.info("Contexts: " + ((AppiumDriver) DriverManager.getDriver()).getContextHandles());
-        ((AppiumDriver) DriverManager.getDriver()).context("WEBVIEW_Terrace");
-        SyncHelper.sleep(3000);
-        logger.info(">>>>>>" + DriverManager.getDriver().getPageSource());
-        return;
+        throw new RuntimeException("Only Samsung browser suggested. Exiting");
+        //        ((AppiumDriver) DriverManager.getDriver())
+        //
+        // .findElementById("com.sec.android.app.sbrowser:id/help_intro_legal_optional_checkbox")
+        //            .click();
+        //        ((AppiumDriver) DriverManager.getDriver())
+        //
+        // .findElementById("com.sec.android.app.sbrowser:id/help_intro_legal_agree_button")
+        //            .click();
+        //        SyncHelper.sleep(10000);
       } else if (isChromeBrowserStarted) {
-        logger.info("Contexts: " + ((AppiumDriver) DriverManager.getDriver()).getContextHandles());
-        logger.info(">>>>>>" + DriverManager.getDriver().getPageSource());
-
         return;
       }
       Assert.assertTrue(false, "Something happens during browser init");
