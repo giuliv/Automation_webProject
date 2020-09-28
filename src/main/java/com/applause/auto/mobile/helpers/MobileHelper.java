@@ -83,7 +83,8 @@ public class MobileHelper {
       boolean isChromeBrowserStarted =
           currentActivity.equals("com.android.chrome")
               || currentActivity.contains("ChromeTabbedActivity");
-      boolean isIntentActionStarted = currentActivity.equals("com.android.chrome");
+      boolean isIntentActionStarted =
+          currentActivity.equals("com.android.internal.app.ResolverActivity");
 
       logger.info("Current activity: " + currentActivity);
 
