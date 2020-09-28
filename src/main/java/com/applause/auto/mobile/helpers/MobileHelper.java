@@ -92,7 +92,6 @@ public class MobileHelper {
         ((AppiumDriver) DriverManager.getDriver())
             .findElementByAccessibilityId("Just once")
             .click();
-        MobileHelper.activateApp();
         return;
       } else if (isSamsungBrowserStarted) {
         ((AppiumDriver) DriverManager.getDriver())
@@ -101,10 +100,8 @@ public class MobileHelper {
         ((AppiumDriver) DriverManager.getDriver())
             .findElementById("com.sec.android.app.sbrowser:id/help_intro_legal_agree_button")
             .click();
-        MobileHelper.activateApp();
         return;
       } else if (isChromeBrowserStarted) {
-        MobileHelper.activateApp();
         return;
       }
       Assert.assertTrue(false, "Something happens during browser init");
