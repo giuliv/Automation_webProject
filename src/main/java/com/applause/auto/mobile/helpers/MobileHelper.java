@@ -105,6 +105,8 @@ public class MobileHelper {
             .click();
         SyncHelper.sleep(10000);
         logger.info("Contexts: " + ((AppiumDriver) DriverManager.getDriver()).getContextHandles());
+        ((AppiumDriver) DriverManager.getDriver()).context("WEBVIEW_Terrace");
+        SyncHelper.sleep(3000);
         logger.info(">>>>>>" + DriverManager.getDriver().getPageSource());
         return;
       } else if (isChromeBrowserStarted) {
