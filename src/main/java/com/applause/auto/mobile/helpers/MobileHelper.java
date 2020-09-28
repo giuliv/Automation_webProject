@@ -92,6 +92,8 @@ public class MobileHelper {
         ((AppiumDriver) DriverManager.getDriver())
             .findElementByAccessibilityId("Just once")
             .click();
+        logger.info("Contexts: " + ((AppiumDriver) DriverManager.getDriver()).getContextHandles());
+        logger.info(">>>>>>" + DriverManager.getDriver().getPageSource());
         return;
       } else if (isSamsungBrowserStarted) {
         logger.info("Contexts: " + ((AppiumDriver) DriverManager.getDriver()).getContextHandles());
@@ -106,6 +108,9 @@ public class MobileHelper {
         logger.info(">>>>>>" + DriverManager.getDriver().getPageSource());
         return;
       } else if (isChromeBrowserStarted) {
+        logger.info("Contexts: " + ((AppiumDriver) DriverManager.getDriver()).getContextHandles());
+        logger.info(">>>>>>" + DriverManager.getDriver().getPageSource());
+
         return;
       }
       Assert.assertTrue(false, "Something happens during browser init");
