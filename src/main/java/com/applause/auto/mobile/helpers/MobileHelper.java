@@ -38,7 +38,6 @@ import javax.imageio.ImageIO;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
@@ -75,55 +74,45 @@ public class MobileHelper {
   }
 
   public static void initMobileBrowser() {
-    boolean isAppInstalled =
-        ((AppiumDriver) DriverManager.getDriver()).isAppInstalled("com.android.chrome");
-
-    logger.info("Chrome detected: " + isAppInstalled);
     if (EnvironmentHelper.isMobileAndroid(getMobileDriver())) {
-      if (!isAppInstalled) {
-        Assert.assertTrue(false, "Device is not ready");
-      } else {
-        ((AndroidDriver) DriverManager.getDriver())
-            .startActivity(new Activity("android.intent.action.VIEW", "https://m.peets.com"));
-        SyncHelper.sleep(5000);
-        boolean isSamsungBrowserStarted =
-            ((AndroidDriver) DriverManager.getDriver())
-                .currentActivity()
-                .equals("com.sec.android.app.sbrowser");
-        boolean isChromeBrowserStarted =
-            ((AndroidDriver) DriverManager.getDriver())
-                .currentActivity()
-                .equals("com.android.chrome");
-        boolean isIntentActionStarted =
-            ((AndroidDriver) DriverManager.getDriver())
-                .currentActivity()
-                .equals("com.android.chrome");
+      SyncHelper.sleep(5000);
+      boolean isSamsungBrowserStarted =
+          ((AndroidDriver) DriverManager.getDriver())
+              .currentActivity()
+              .equals("com.sec.android.app.sbrowser");
+      boolean isChromeBrowserStarted =
+          ((AndroidDriver) DriverManager.getDriver())
+              .currentActivity()
+              .equals("com.android.chrome");
+      boolean isIntentActionStarted =
+          ((AndroidDriver) DriverManager.getDriver())
+              .currentActivity()
+              .equals("com.android.chrome");
 
-        logger.info(
-            "Current activity: " + ((AndroidDriver) DriverManager.getDriver()).currentActivity());
+      logger.info(
+          "Current activity: " + ((AndroidDriver) DriverManager.getDriver()).currentActivity());
 
-        if (isIntentActionStarted) {
-          ((AppiumDriver) DriverManager.getDriver()).findElementByAccessibilityId("Chrome").click();
-          ((AppiumDriver) DriverManager.getDriver())
-              .findElementByAccessibilityId("Just once")
-              .click();
-          MobileHelper.activateApp();
-          return;
-        } else if (isSamsungBrowserStarted) {
-          ((AppiumDriver) DriverManager.getDriver())
-              .findElementById("com.sec.android.app.sbrowser:id/help_intro_legal_optional_checkbox")
-              .click();
-          ((AppiumDriver) DriverManager.getDriver())
-              .findElementByAccessibilityId("Continue")
-              .click();
-          MobileHelper.activateApp();
-          return;
-        } else if (isChromeBrowserStarted) {
-          MobileHelper.activateApp();
-          return;
-        }
-        Assert.assertTrue(false, "Something happens during browser init");
+      if (isIntentActionStarted) {
+        ((AppiumDriver) DriverManager.getDriver()).findElementByAccessibilityId("Chrome").click();
+        ((AppiumDriver) DriverManager.getDriver())
+            .findElementByAccessibilityId("Just once")
+            .click();
+        MobileHelper.activateApp();
+        return;
+      } else if (isSamsungBrowserStarted) {
+        ((AppiumDriver) DriverManager.getDriver())
+            .findElementById("com.sec.android.app.sbrowser:id/help_intro_legal_optional_checkbox")
+            .click();
+        ((AppiumDriver) DriverManager.getDriver())
+            .findElementByAccessibilityId("Just once")
+            .click();
+        MobileHelper.activateApp();
+        return;
+      } else if (isChromeBrowserStarted) {
+        MobileHelper.activateApp();
+        return;
       }
+      Assert.assertTrue(false, "Something happens during browser init");
     }
   }
 

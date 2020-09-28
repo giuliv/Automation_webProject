@@ -37,7 +37,6 @@ public class CreateAccountTest extends BaseTest {
       description = "625879")
   public void footerLinksTest() {
     logger.info("Launch the app and arrive at the first onboarding screen view");
-    MobileHelper.initMobileBrowser();
 
     LandingView landingView = ComponentFactory.create(LandingView.class);
     Assert.assertEquals(
