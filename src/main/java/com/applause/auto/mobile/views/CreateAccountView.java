@@ -340,8 +340,8 @@ public class CreateAccountView extends BaseComponent {
     }
 
     SyncHelper.sleep(500);
-    MobileHelper.setPickerValueBasic(day, dayPicker, "next");
     MobileHelper.setPickerValueBasic(month, monthPicker, "next");
+    MobileHelper.setPickerValueBasic(day, dayPicker, "next");
     MobileHelper.setPickerValueReverse(year, getDOBYearPicker);
     getDOBDoneBtn.click();
     return this;
