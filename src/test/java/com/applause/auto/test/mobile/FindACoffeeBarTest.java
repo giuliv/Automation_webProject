@@ -185,9 +185,9 @@ public class FindACoffeeBarTest extends BaseTest {
     Assert.assertTrue(
         recent.isCoffeebarStoreNameDisplayed("AppInt Sandbox 1"), "Store name does not displayed");
 
-    //Commented on request by Jyothi, 30.09.2020
-//    logger.info("VERIFY - x.x Miles away on the right of the store name");
-//    Assert.assertTrue(recent.isCoffeebarDistanceDisplayed(), "Distance does not displayed");
+    // Commented on request by Jyothi, 30.09.2020
+    //    logger.info("VERIFY - x.x Miles away on the right of the store name");
+    //    Assert.assertTrue(recent.isCoffeebarDistanceDisplayed(), "Distance does not displayed");
 
     logger.info("VERIFY - Store Address");
     Assert.assertTrue(
