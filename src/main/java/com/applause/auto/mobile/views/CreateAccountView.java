@@ -201,7 +201,7 @@ public class CreateAccountView extends BaseComponent {
   protected Checkbox getEmailsWithOffersCheckBox;
 
   @Locate(
-      xpath = "//XCUIElementTypeStaticText[contains(@value,'I agree to the')]",
+      xpath = "//XCUIElementTypeButton[contains(@name,'I agree to the')]",
       on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/agreePrivacyPolicyCheckBox",
@@ -340,8 +340,8 @@ public class CreateAccountView extends BaseComponent {
     }
 
     SyncHelper.sleep(500);
-    MobileHelper.setPickerValueBasic(day, dayPicker, "next");
     MobileHelper.setPickerValueBasic(month, monthPicker, "next");
+    MobileHelper.setPickerValueBasic(day, dayPicker, "next");
     MobileHelper.setPickerValueReverse(year, getDOBYearPicker);
     getDOBDoneBtn.click();
     return this;
@@ -529,7 +529,8 @@ public class CreateAccountView extends BaseComponent {
    * @return the boolean
    */
   public boolean isEmailOptInChecked() {
-    return MobileHelper.isAttribtuePresent(getEmailsWithOffersCheckBox.getMobileElement(), "value");
+    logger.info("Checking if checkbox checked by color");
+    return MobileHelper.isIosCheckboxChecked(getEmailsWithOffersCheckBox.getMobileElement());
   }
 
   /**
@@ -557,8 +558,8 @@ public class CreateAccountView extends BaseComponent {
     SyncHelper.sleep(1000);
     DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.UP);
     SyncHelper.sleep(1000);
-    return MobileHelper.isAttribtuePresent(
-        getAgreePrivacyPolicyAndTermsAndConditions.getMobileElement(), "value");
+    return MobileHelper.isIosCheckboxChecked(
+        getAgreePrivacyPolicyAndTermsAndConditions.getMobileElement());
   }
 
   /**
