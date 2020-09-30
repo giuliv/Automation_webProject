@@ -529,7 +529,8 @@ public class CreateAccountView extends BaseComponent {
    * @return the boolean
    */
   public boolean isEmailOptInChecked() {
-    return MobileHelper.isAttribtuePresent(getEmailsWithOffersCheckBox.getMobileElement(), "value");
+    logger.info("Checking if checkbox checked by color");
+    return MobileHelper.isIosCheckboxChecked(getEmailsWithOffersCheckBox.getMobileElement());
   }
 
   /**

@@ -465,6 +465,11 @@ public class MobileHelper {
     return result;
   }
 
+  public static boolean isIosCheckboxChecked(MobileElement element) {
+    logger.info("Checking if checkbox checked by color");
+    return MobileHelper.getMobileElementColour(element).getBlue() != 0;
+  }
+
   /**
    * Checks whether an element is displayed.
    *
