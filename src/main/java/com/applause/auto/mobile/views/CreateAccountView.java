@@ -558,8 +558,8 @@ public class CreateAccountView extends BaseComponent {
     SyncHelper.sleep(1000);
     DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.UP);
     SyncHelper.sleep(1000);
-    return MobileHelper.isAttribtuePresent(
-        getAgreePrivacyPolicyAndTermsAndConditions.getMobileElement(), "value");
+    return MobileHelper.isIosCheckboxChecked(
+        getAgreePrivacyPolicyAndTermsAndConditions.getMobileElement());
   }
 
   /**
