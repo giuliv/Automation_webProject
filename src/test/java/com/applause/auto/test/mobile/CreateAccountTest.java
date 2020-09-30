@@ -33,7 +33,7 @@ public class CreateAccountTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING},
+      groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625879")
   public void footerLinksTest() {
     logger.info("Launch the app and arrive at the first onboarding screen view");
@@ -81,7 +81,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING},
+      groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625883")
   public void signInEmailPasswordTest() {
 
@@ -154,7 +154,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING},
+      groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625925")
   public void accountSettingsEditProfileTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
@@ -249,7 +249,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING},
+      groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625927")
   public void accountSettingsGeneralSettingsTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
@@ -319,7 +319,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING},
+      groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625926")
   public void accountSettingsChangePasswordTest() {
 
@@ -476,7 +476,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING},
+      groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625880")
   public void createAccountEmailPassword() {
 
@@ -679,7 +679,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING},
+      groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "2980586")
   public void createAccountFieldValidation() {
 
@@ -934,7 +934,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING},
+      groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625929")
   public void accountSettingsAccountHistoryTest() {
 
@@ -975,7 +975,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING},
+      groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625882")
   public void createAccountExistingWebUserTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");

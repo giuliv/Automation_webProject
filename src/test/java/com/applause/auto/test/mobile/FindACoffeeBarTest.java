@@ -26,7 +26,7 @@ public class FindACoffeeBarTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
   @Test(
-      groups = {TestNGGroups.ORDER},
+      groups = {TestNGGroups.ORDER, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "1687260")
   public void findACoffeeBarTest() {
     logger.info(
@@ -148,7 +148,7 @@ public class FindACoffeeBarTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ORDER},
+      groups = {TestNGGroups.ORDER, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "1687261")
   public void recentCoffeeBarTest() {
     logger.info(
@@ -185,8 +185,9 @@ public class FindACoffeeBarTest extends BaseTest {
     Assert.assertTrue(
         recent.isCoffeebarStoreNameDisplayed("AppInt Sandbox 1"), "Store name does not displayed");
 
-    logger.info("VERIFY - x.x Miles away on the right of the store name");
-    Assert.assertTrue(recent.isCoffeebarDistanceDisplayed(), "Distance does not displayed");
+    //Commented on request by Jyothi, 30.09.2020
+//    logger.info("VERIFY - x.x Miles away on the right of the store name");
+//    Assert.assertTrue(recent.isCoffeebarDistanceDisplayed(), "Distance does not displayed");
 
     logger.info("VERIFY - Store Address");
     Assert.assertTrue(
@@ -213,7 +214,7 @@ public class FindACoffeeBarTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ORDER},
+      groups = {TestNGGroups.ORDER, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "1687262")
   public void favoriteCoffeebarsTest() {
     logger.info("PRECONDITION - User is on find a coffeebar screen");

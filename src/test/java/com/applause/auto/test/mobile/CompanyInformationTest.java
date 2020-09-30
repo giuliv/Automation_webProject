@@ -25,7 +25,7 @@ public class CompanyInformationTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
   @Test(
-      groups = {TestNGGroups.COMPANY_INFORMATION},
+      groups = {TestNGGroups.COMPANY_INFORMATION, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625936")
   public void faqsTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
@@ -67,7 +67,7 @@ public class CompanyInformationTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.COMPANY_INFORMATION},
+      groups = {TestNGGroups.COMPANY_INFORMATION, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625938")
   public void termsAndPrivacyPolicyTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
@@ -140,7 +140,7 @@ public class CompanyInformationTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.COMPANY_INFORMATION},
+      groups = {TestNGGroups.COMPANY_INFORMATION, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625933")
   public void moreScreenTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
@@ -229,7 +229,7 @@ public class CompanyInformationTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.COMPANY_INFORMATION},
+      groups = {TestNGGroups.COMPANY_INFORMATION, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625937")
   public void contactCustomerServiceTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");

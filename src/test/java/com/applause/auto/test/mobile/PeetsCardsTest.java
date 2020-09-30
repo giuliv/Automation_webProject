@@ -37,7 +37,7 @@ public class PeetsCardsTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
   @Test(
-      groups = {TestNGGroups.PEETS_CARDS},
+      groups = {TestNGGroups.PEETS_CARDS, TestNGGroups.REGRESSION},
       description = "1957258")
   public void addValueToNewDigitalCard25SavedCC() throws ParseException {
     logger.info("Launch the app and arrive at the first on boarding screen view");
@@ -136,7 +136,7 @@ public class PeetsCardsTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.PEETS_CARDS},
+      groups = {TestNGGroups.PEETS_CARDS, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "1292900")
   public void reloadDigitalCard25SavedCC() throws ParseException {
     logger.info("Launch the app and arrive at the first on boarding screen view");
@@ -210,7 +210,7 @@ public class PeetsCardsTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.PEETS_CARDS},
+      groups = {TestNGGroups.PEETS_CARDS, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "1959019")
   public void negativeTestTransferBalance() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
