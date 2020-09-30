@@ -23,7 +23,7 @@ public class AccountSettingsTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
   @Test(
-      groups = {TestNGGroups.ACCOUNT_SETTINGS},
+      groups = {TestNGGroups.ACCOUNT_SETTINGS, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625928")
   public void paymentMethodsTest() {
 
@@ -170,7 +170,7 @@ public class AccountSettingsTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ACCOUNT_SETTINGS},
+      groups = {TestNGGroups.ACCOUNT_SETTINGS, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625939")
   public void socialEngagementTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");

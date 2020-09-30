@@ -26,7 +26,7 @@ public class FindACoffeeBarTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
   @Test(
-      groups = {TestNGGroups.ORDER},
+      groups = {TestNGGroups.ORDER, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "1687260")
   public void findACoffeeBarTest() {
     logger.info(
@@ -148,7 +148,7 @@ public class FindACoffeeBarTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ORDER},
+      groups = {TestNGGroups.ORDER, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "1687261")
   public void recentCoffeeBarTest() {
     logger.info(
@@ -213,7 +213,7 @@ public class FindACoffeeBarTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ORDER},
+      groups = {TestNGGroups.ORDER, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "1687262")
   public void favoriteCoffeebarsTest() {
     logger.info("PRECONDITION - User is on find a coffeebar screen");
