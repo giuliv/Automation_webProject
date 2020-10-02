@@ -66,6 +66,7 @@ public class DashboardView extends BaseComponent {
    */
   public AccountMenuMobileChunk getAccountProfileMenu() {
     logger.info("Open account profile menu\n" + DriverManager.getDriver().getPageSource());
+    getMoreScreenButton.initialize();
     Point elemCoord = getMoreScreenButton.getMobileElement().getCenter();
     AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
     new TouchAction(driver).tap(PointOption.point(elemCoord.getX(), elemCoord.getY())).perform();
