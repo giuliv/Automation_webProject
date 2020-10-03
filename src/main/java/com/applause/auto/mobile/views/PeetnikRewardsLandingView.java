@@ -129,8 +129,10 @@ public class PeetnikRewardsLandingView extends BaseComponent {
         // for ios simple click doesn't work on [X] button
         logger.info("Close Download popup");
         SyncHelper.sleep(10000);
+        closeDownloadPopUpButton.initialize();
         closeDownloadPopUpButton.click();
         logger.info(">>>" + DriverManager.getDriver().getPageSource());
+        closeAdvPopUpButton.initialize();
         MobileHelper.tapByCoordinatesOnElementCenter(closeAdvPopUpButton);
       }
     } catch (WebDriverException e) {
