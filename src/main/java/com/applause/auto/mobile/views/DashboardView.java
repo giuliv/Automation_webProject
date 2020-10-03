@@ -108,8 +108,15 @@ class IosDashboardView extends DashboardView {
   public AccountMenuMobileChunk getAccountProfileMenu() {
     logger.info("Open account profile menu\n" + DriverManager.getDriver().getPageSource());
     int x = DriverManager.getDriver().manage().window().getSize().width;
+    int y = DriverManager.getDriver().manage().window().getSize().height;
+    getMoreScreenButton.initialize();
     AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
-    new TouchAction(driver).tap(PointOption.point((int) (x * 0.95), 20)).perform();
+    if (!getMoreScreenButton.isDisplayed()) {
+      new TouchAction(driver).tap(PointOption.point((int) (x * 0.9), (int) (y * 0.05))).perform();
+    } else {
+      Point elemCoord = getMoreScreenButton.getMobileElement().getCenter();
+      new TouchAction(driver).tap(PointOption.point(elemCoord.getX(), elemCoord.getY())).perform();
+    }
     return ComponentFactory.create(AccountMenuMobileChunk.class);
   }
 }
