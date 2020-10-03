@@ -114,8 +114,7 @@ class IosDashboardView extends DashboardView {
     if (!getMoreScreenButton.isDisplayed()) {
       new TouchAction(driver).tap(PointOption.point((int) (x * 0.9), (int) (y * 0.05))).perform();
     } else {
-      Point elemCoord = getMoreScreenButton.getMobileElement().getCenter();
-      new TouchAction(driver).tap(PointOption.point(elemCoord.getX(), elemCoord.getY())).perform();
+      getMoreScreenButton.click();
     }
     return ComponentFactory.create(AccountMenuMobileChunk.class);
   }
