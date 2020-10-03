@@ -104,4 +104,12 @@ class IosDashboardView extends DashboardView {
   public void afterInit() {
     SyncHelper.wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
   }
+
+  public AccountMenuMobileChunk getAccountProfileMenu() {
+    logger.info("Open account profile menu\n" + DriverManager.getDriver().getPageSource());
+    int x = DriverManager.getDriver().manage().window().getSize().width;
+    AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
+    new TouchAction(driver).tap(PointOption.point((int) (x * 0.95), 20)).perform();
+    return ComponentFactory.create(AccountMenuMobileChunk.class);
+  }
 }
