@@ -67,7 +67,9 @@ public class CheckInView extends BaseComponent {
   public void addValue() {
     logger.info("Tap on Add Value");
     SyncHelper.sleep(20000);
-    while (getAddValueButton.exists() && getAddValueButton.isDisplayed()) {
+    int retryCounter = 0;
+    while (getAddValueButton.exists() && getAddValueButton.isDisplayed() && retryCounter++ < 5) {
+      getAddValueButton.initialize();
       MobileHelper.tapByCoordinatesOnElementCenter(getAddValueButton);
       SyncHelper.sleep(20000);
     }

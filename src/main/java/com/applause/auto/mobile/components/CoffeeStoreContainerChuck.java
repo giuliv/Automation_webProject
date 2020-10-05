@@ -49,7 +49,7 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
       xpath =
           //
           // "//XCUIElementTypeNavigationBar[@name='Order']/following-sibling::XCUIElementTypeOther//XCUIElementTypeStaticText[@value='Pickup at:']/following-sibling::XCUIElementTypeStaticText[contains(@name,'%s')]",
-          "//*[contains(@name,'%s') and @visible='true']",
+          "//*[contains(normalize-space(@name),'%s') and @visible='true']",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
@@ -57,7 +57,9 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Text getStoreDetailsItem;
 
-  @Locate(xpath = "(//XCUIElementTypeButton[@name=\"Order\"])[1]", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//XCUIElementTypeButton[@name=\"Order\" and @visible=\"true\"]",
+      on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/order_button", on = Platform.MOBILE_ANDROID)
   protected Button getOrderButton;
 
@@ -202,6 +204,7 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
    */
   public boolean isCoffeebarOrderButtonDisplayed() {
     logger.info("Verifying if Order button displayed");
+    getOrderButton.initialize();
     return getOrderButton.isDisplayed();
   }
 }

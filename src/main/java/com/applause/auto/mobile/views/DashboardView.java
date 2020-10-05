@@ -35,9 +35,7 @@ public class DashboardView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected TextBox getSignature;
 
-  @Locate(
-      xpath = "(//*[@name=\"Settings\" and @visible=\"true\"])[last()]",
-      on = Platform.MOBILE_IOS)
+  @Locate(xpath = "(//*[@name=\"Settings\"])[last()]", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/actionMore", on = Platform.MOBILE_ANDROID)
   protected Button getMoreScreenButton;
 
@@ -66,6 +64,7 @@ public class DashboardView extends BaseComponent {
    */
   public AccountMenuMobileChunk getAccountProfileMenu() {
     logger.info("Open account profile menu\n" + DriverManager.getDriver().getPageSource());
+    getMoreScreenButton.initialize();
     Point elemCoord = getMoreScreenButton.getMobileElement().getCenter();
     AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
     new TouchAction(driver).tap(PointOption.point(elemCoord.getX(), elemCoord.getY())).perform();
@@ -102,5 +101,18 @@ public class DashboardView extends BaseComponent {
 class IosDashboardView extends DashboardView {
   public void afterInit() {
     SyncHelper.wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
+  }
+
+  public AccountMenuMobileChunk getAccountProfileMenu() {
+    logger.info("Open account profile menu\n" + DriverManager.getDriver().getPageSource());
+    int x = DriverManager.getDriver().manage().window().getSize().width;
+    int y = DriverManager.getDriver().manage().window().getSize().height;
+    AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
+    if (!getMoreScreenButton.isDisplayed()) {
+      new TouchAction(driver).tap(PointOption.point((int) (x * 0.9), (int) (y * 0.05))).perform();
+    } else {
+      getMoreScreenButton.click();
+    }
+    return ComponentFactory.create(AccountMenuMobileChunk.class);
   }
 }
