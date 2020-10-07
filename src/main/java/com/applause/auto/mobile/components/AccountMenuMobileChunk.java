@@ -334,6 +334,10 @@ public class AccountMenuMobileChunk extends BaseComponent {
   public HelpAndFeedbackView helpAndFeedback() {
     logger.info("Click Help & Feedback");
     getHelpAndFeedbackButton.click();
+    SyncHelper.sleep(10000);
+    MobileHelper.initMobileBrowser();
+    // wait till the page load, before it ios is not switched back to app
+    SyncHelper.sleep(10000);
     return ComponentFactory.create(HelpAndFeedbackView.class);
   }
 
