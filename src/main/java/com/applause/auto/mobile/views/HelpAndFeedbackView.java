@@ -65,6 +65,9 @@ public class HelpAndFeedbackView extends BaseComponent {
     logger.info("Click View Our FAQs");
     viewOurFAQs.click();
     SyncHelper.sleep(10000);
+    MobileHelper.initMobileBrowser();
+    // wait till the page load, before it ios is not switched back to app
+    SyncHelper.sleep(10000);
     return ComponentFactory.create(PeetnikRewardsLandingView.class);
   }
 
