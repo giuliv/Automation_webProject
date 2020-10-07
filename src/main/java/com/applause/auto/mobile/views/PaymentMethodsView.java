@@ -19,7 +19,7 @@ public class PaymentMethodsView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/title", on = Platform.MOBILE_ANDROID)
   protected Text getViewSignature;
 
-  @Locate(id = "button back", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeButton[@name='Back']", on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
           "//android.widget.ImageButton[contains(@content-desc,\"Navigate up\") or contains(@content-desc,\"Nach oben\")]",
