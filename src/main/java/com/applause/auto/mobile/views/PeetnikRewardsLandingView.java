@@ -124,6 +124,8 @@ public class PeetnikRewardsLandingView extends BaseComponent {
     logger.info("Waiting for adv. pop up");
     try {
       logger.info("Contexts: " + ((AppiumDriver) DriverManager.getDriver()).getContextHandles());
+      ((AppiumDriver) DriverManager.getDriver()).context("WEBVIEW_chrome");
+      logger.info("Xml: " + ((AppiumDriver) DriverManager.getDriver()).getPageSource());
       SyncHelper.wait(
           Until.uiElement(closeAdvPopUpButton).present().setTimeout(Duration.ofSeconds(10)));
       if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
