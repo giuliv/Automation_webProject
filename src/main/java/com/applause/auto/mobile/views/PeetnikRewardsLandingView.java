@@ -18,6 +18,8 @@ import org.openqa.selenium.WebDriverException;
 import java.time.Duration;
 import java.util.List;
 
+import io.appium.java_client.AppiumDriver;
+
 @Implementation(is = PeetnikRewardsLandingView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = PeetnikRewardsLandingView.class, on = Platform.MOBILE_IOS)
 public class PeetnikRewardsLandingView extends BaseComponent {
@@ -121,6 +123,7 @@ public class PeetnikRewardsLandingView extends BaseComponent {
   public PeetnikRewardsLandingView closeReportAProblemPopUpDisplayed() {
     logger.info("Waiting for adv. pop up");
     try {
+      logger.info("Contexts: " + ((AppiumDriver) DriverManager.getDriver()).getContextHandles());
       SyncHelper.wait(
           Until.uiElement(closeAdvPopUpButton).present().setTimeout(Duration.ofSeconds(10)));
       if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
