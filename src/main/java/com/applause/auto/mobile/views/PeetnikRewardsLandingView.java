@@ -18,6 +18,8 @@ import org.openqa.selenium.WebDriverException;
 import java.time.Duration;
 import java.util.List;
 
+import io.appium.java_client.AppiumDriver;
+
 @Implementation(is = PeetnikRewardsLandingView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = PeetnikRewardsLandingView.class, on = Platform.MOBILE_IOS)
 public class PeetnikRewardsLandingView extends BaseComponent {
@@ -27,7 +29,7 @@ public class PeetnikRewardsLandingView extends BaseComponent {
   @Locate(xpath = "//XCUIElementTypeOther[@name=\"Close\"]", on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "(//android.webkit.WebView//android.widget.Button[@text='Close'])[1] | //*[@resource-id='svg-close-button']",
+          "(//android.webkit.WebView//android.widget.Button[@text='Close'])[1] | //*[@resource-id='svg-close-button'] | //span[@class='close-button']",
       on = Platform.MOBILE_ANDROID)
   protected Button closeAdvPopUpButton;
 
@@ -121,10 +123,17 @@ public class PeetnikRewardsLandingView extends BaseComponent {
   public PeetnikRewardsLandingView closeReportAProblemPopUpDisplayed() {
     logger.info("Waiting for adv. pop up");
     try {
+      logger.info("Contexts: " + ((AppiumDriver) DriverManager.getDriver()).getContextHandles());
+      if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
+        logger.info("Switching to WebContext");
+        ((AppiumDriver) DriverManager.getDriver()).context("WEBVIEW_chrome");
+      }
+      logger.info("Xml: " + ((AppiumDriver) DriverManager.getDriver()).getPageSource());
       SyncHelper.wait(
           Until.uiElement(closeAdvPopUpButton).present().setTimeout(Duration.ofSeconds(10)));
       if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
         closeAdvPopUpButton.click();
+        ((AppiumDriver) DriverManager.getDriver()).context("NATIVE_APP");
       } else {
         // for ios simple click doesn't work on [X] button
         logger.info("Close Download popup");

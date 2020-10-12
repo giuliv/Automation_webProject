@@ -390,7 +390,6 @@ public class MobileHelper {
       try {
         SyncHelper.wait(Until.uiElement(element).present().setTimeout(Duration.ofSeconds(2)));
         logger.info(elementName + " is present");
-        SyncHelper.sleep(2000);
         break;
       } catch (WebDriverException e) {
         logger.info(elementName + " is not present");
@@ -401,7 +400,9 @@ public class MobileHelper {
             screenWidth / 2,
             (int) (screenHeight * 0.4),
             1000);
+        SyncHelper.sleep(2000);
         currentSwipingAttempts++;
+        logger.info("XML Dump: ", DriverManager.getDriver().getPageSource());
       }
     }
   }
