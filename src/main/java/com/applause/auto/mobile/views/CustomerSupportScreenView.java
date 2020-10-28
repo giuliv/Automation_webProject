@@ -39,7 +39,9 @@ public class CustomerSupportScreenView extends BaseComponent {
   @Locate(id = "com.android.chrome:id/positive_button", on = Platform.MOBILE_ANDROID)
   protected Text allowLocationToBrowser;
 
-  @Locate(id = "permission_allow_foreground_only_button", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      id = "com.android.permissioncontroller:id/permission_allow_foreground_only_button",
+      on = Platform.MOBILE_ANDROID)
   protected Text allowLocationToBrowser2;
 
   @Locate(xpath = "//XCUIElementTypeButton[@name=\"Close\"]", on = Platform.MOBILE_IOS)
