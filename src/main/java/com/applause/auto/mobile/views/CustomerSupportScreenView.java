@@ -28,8 +28,7 @@ public class CustomerSupportScreenView extends BaseComponent {
       xpath = "//XCUIElementTypeOther[@name=\"Contact us | Peet's Coffee\"]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      xpath =
-          "//*[@text=\"Feel free to contact us using the email form. We'll respond to you shortly.\"]",
+      xpath = "//android.webkit.WebView[@text=\"Contact us | Peet's Coffee\"]",
       on = Platform.MOBILE_ANDROID)
   protected Text headingText;
 
