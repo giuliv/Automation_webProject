@@ -7,9 +7,15 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
+import org.openqa.selenium.ScreenOrientation;
+
 import java.time.Duration;
+
+import io.appium.java_client.android.AndroidDriver;
 
 /** The type Privacy policy view. */
 @Implementation(is = AndroidPrivacyPolicyView.class, on = Platform.MOBILE_ANDROID)
@@ -29,6 +35,9 @@ public class PrivacyPolicyView extends BaseComponent {
 
   @Locate(id = "com.android.chrome:id/positive_button", on = Platform.MOBILE_ANDROID)
   protected Text allowLocationToBrowser;
+
+  @Locate(id = "permission_allow_foreground_only_button", on = Platform.MOBILE_ANDROID)
+  protected Text allowLocationToBrowser2;
 
   @Locate(xpath = "//XCUIElementTypeButton[@name=\"Done\"]", on = Platform.MOBILE_IOS)
   protected Text doneButton;
@@ -59,8 +68,18 @@ class AndroidPrivacyPolicyView extends PrivacyPolicyView {
     } catch (Throwable th) {
       logger.info("No browser popup overlay found");
     }
+    AndroidDriver androidDriver = ((AndroidDriver) DriverManager.getDriver());
+    logger.info("Orientation: " + androidDriver.getOrientation());
+    logger.info("Orientation: Forcing to PORTRAIT");
+    androidDriver.rotate(ScreenOrientation.PORTRAIT);
+    logger.info("Orientation: " + androidDriver.getOrientation());
     try {
       allowLocationToBrowser.click();
+    } catch (Throwable th) {
+      logger.info("No location popup overlay found");
+    }
+    try {
+      allowLocationToBrowser2.click();
     } catch (Throwable th) {
       logger.info("No location popup overlay found");
     }

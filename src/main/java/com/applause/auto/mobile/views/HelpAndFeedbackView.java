@@ -7,7 +7,12 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.SyncHelper;
+
+import org.openqa.selenium.ScreenOrientation;
+
+import io.appium.java_client.android.AndroidDriver;
 
 @Implementation(is = HelpAndFeedbackView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = HelpAndFeedbackView.class, on = Platform.MOBILE_IOS)
@@ -64,7 +69,12 @@ public class HelpAndFeedbackView extends BaseComponent {
   public PeetnikRewardsLandingView clickViewOurFAQs() {
     logger.info("Click View Our FAQs");
     viewOurFAQs.click();
-    SyncHelper.sleep(10000);
+    SyncHelper.sleep(5000);
+    AndroidDriver androidDriver = ((AndroidDriver) DriverManager.getDriver());
+    logger.info("Orientation: " + androidDriver.getOrientation());
+    logger.info("Orientation: Forcing to PORTRAIT");
+    androidDriver.rotate(ScreenOrientation.PORTRAIT);
+    logger.info("Orientation: " + androidDriver.getOrientation());
     MobileHelper.initMobileBrowser();
     // wait till the page load, before it ios is not switched back to app
     SyncHelper.sleep(10000);
