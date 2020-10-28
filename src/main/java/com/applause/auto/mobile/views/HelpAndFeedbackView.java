@@ -39,7 +39,7 @@ public class HelpAndFeedbackView extends BaseComponent {
   protected Text allowLocationToBrowser;
 
   @Locate(
-      id = "com.android.permissioncontroller:id/permission_allow_foreground_only_button",
+      xpath = "//android.widget.Button[@text='Allow only while using the app']",
       on = Platform.MOBILE_ANDROID)
   protected Text allowLocationToBrowser2;
 
