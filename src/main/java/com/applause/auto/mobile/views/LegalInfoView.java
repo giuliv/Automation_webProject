@@ -7,11 +7,17 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
+import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
+import org.openqa.selenium.ScreenOrientation;
+
 import java.time.Duration;
 
-@Implementation(is = LegalInfoView.class, on = Platform.MOBILE_ANDROID)
+import io.appium.java_client.android.AndroidDriver;
+
+@Implementation(is = AndroidLegalInfoView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = LegalInfoView.class, on = Platform.MOBILE_IOS)
 public class LegalInfoView extends BaseComponent {
 
@@ -100,5 +106,16 @@ public class LegalInfoView extends BaseComponent {
   public boolean isPrivacyPolicyDisplayed() {
     logger.info("Checking if Privacy Policy button displayed");
     return privacyPolicyButton.isDisplayed();
+  }
+}
+
+class AndroidLegalInfoView extends LegalInfoView {
+  public void afterInit() {
+    AndroidDriver androidDriver = ((AndroidDriver) DriverManager.getDriver());
+    logger.info("Orientation: " + androidDriver.getOrientation());
+    logger.info("Orientation: Forcing to PORTRAIT");
+    androidDriver.rotate(ScreenOrientation.PORTRAIT);
+    logger.info("Orientation: " + androidDriver.getOrientation());
+    SyncHelper.wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(12)));
   }
 }

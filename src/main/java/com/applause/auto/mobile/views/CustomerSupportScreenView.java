@@ -5,6 +5,7 @@ import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
@@ -40,6 +41,13 @@ public class CustomerSupportScreenView extends BaseComponent {
 
   @Locate(id = "permission_allow_foreground_only_button", on = Platform.MOBILE_ANDROID)
   protected Text allowLocationToBrowser2;
+
+  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Close\"]", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "(//android.webkit.WebView//android.widget.Button[@text='Close'])[1] | //*[@resource-id='svg-close-button'] | //span[@class='close-button']",
+      on = Platform.MOBILE_ANDROID)
+  protected Button closeAdvPopUpButton;
 
   /* -------- Actions -------- */
 
@@ -85,6 +93,8 @@ class AndroidCustomerSupportScreenView extends CustomerSupportScreenView {
     } catch (Throwable th) {
       logger.info("No location popup overlay found");
     }
+    logger.info("Close popup");
+    closeAdvPopUpButton.click();
     SyncHelper.wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(12)));
   }
 
