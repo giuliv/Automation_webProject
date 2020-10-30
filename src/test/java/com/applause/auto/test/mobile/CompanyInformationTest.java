@@ -14,20 +14,23 @@ import com.applause.auto.mobile.views.PeetnikRewardsTermsAndConditionsView;
 import com.applause.auto.mobile.views.PrivacyPolicyView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
-
+import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.lang.invoke.MethodHandles;
 
 public class CompanyInformationTest extends BaseTest {
 
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
   @Test(
-      groups = {TestNGGroups.COMPANY_INFORMATION, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
+      groups = {
+        TestNGGroups.COMPANY_INFORMATION,
+        TestNGGroups.DAILY,
+        TestNGGroups.REGRESSION,
+        TestNGGroups.WEB_UI
+      },
       description = "625936")
   public void faqsTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
@@ -69,7 +72,12 @@ public class CompanyInformationTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.COMPANY_INFORMATION, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
+      groups = {
+        TestNGGroups.COMPANY_INFORMATION,
+        TestNGGroups.DAILY,
+        TestNGGroups.REGRESSION,
+        TestNGGroups.WEB_UI
+      },
       description = "625938")
   public void termsAndPrivacyPolicyTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
@@ -231,7 +239,12 @@ public class CompanyInformationTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.COMPANY_INFORMATION, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
+      groups = {
+        TestNGGroups.COMPANY_INFORMATION,
+        TestNGGroups.DAILY,
+        TestNGGroups.REGRESSION,
+        TestNGGroups.WEB_UI
+      },
       description = "625937")
   public void contactCustomerServiceTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");

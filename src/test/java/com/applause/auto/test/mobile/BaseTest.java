@@ -1,17 +1,18 @@
 package com.applause.auto.test.mobile;
 
 import com.applause.auto.base.BaseSeleniumTest;
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.integrations.RunUtil;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.test.mobile.helpers.TestHelper;
-
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-
-import java.lang.invoke.MethodHandles;
-import java.lang.reflect.Method;
 
 public class BaseTest extends BaseSeleniumTest {
 
@@ -22,6 +23,7 @@ public class BaseTest extends BaseSeleniumTest {
   /** Get a new Appium driver at the start of each test. */
   @BeforeMethod(alwaysRun = true)
   public void beforeMethod(Method method) {
+
     String runId = String.format("%s:%s", method.getName(), System.currentTimeMillis());
     logger.debug(String.format("Setting runId to %s", runId));
     System.setProperty("runId", runId);
@@ -32,10 +34,24 @@ public class BaseTest extends BaseSeleniumTest {
     // Set the custom mobile test helper
     testHelper = ComponentFactory.create(TestHelper.class);
 
-    try {
-      testHelper.setupChrome();
-    } catch (Throwable th) {
-      logger.info("Something happened during Chrome setup");
+    logger.info("Test case setup complete.");
+  }
+
+  /** Get a new Appium driver at the start of each test. */
+  @BeforeMethod(
+      alwaysRun = true,
+      dependsOnMethods = {"beforeMethod"})
+  public void beforeMethodWebUI(Method method) {
+    if (Arrays.stream(method.getAnnotation(Test.class).groups())
+        .anyMatch(Constants.TestNGGroups.WEB_UI::equals)) {
+      logger.info("Chrome setup started...");
+      try {
+        testHelper.setupChrome();
+      } catch (Throwable th) {
+        logger.info("Something happened during Chrome setup");
+      }
+    } else {
+      logger.info("Chrome setup not needed");
     }
 
     logger.info("Test case setup complete.");

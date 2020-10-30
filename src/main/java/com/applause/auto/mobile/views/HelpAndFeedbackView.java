@@ -10,10 +10,8 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.SyncHelper;
-
-import org.openqa.selenium.ScreenOrientation;
-
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.ScreenOrientation;
 
 @Implementation(is = AndroidHelpAndFeedbackView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = HelpAndFeedbackView.class, on = Platform.MOBILE_IOS)

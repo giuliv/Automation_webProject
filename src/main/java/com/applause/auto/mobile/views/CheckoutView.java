@@ -110,7 +110,8 @@ public class CheckoutView extends BaseComponent {
     }
 
     if (areAvailableRewardsDisplayed) {
-      availableRewards.stream()
+      availableRewards
+          .stream()
           .filter(item -> getElementTextAttribute(item).startsWith(awardText))
           .findAny()
           .orElseThrow(
