@@ -4,6 +4,7 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.components.BottomNavigationMenuChunk;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -14,11 +15,14 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
+import org.openqa.selenium.Point;
+
+import java.time.Duration;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-import java.time.Duration;
-import org.openqa.selenium.Point;
 
 @Implementation(is = DashboardView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosDashboardView.class, on = Platform.MOBILE_IOS)
@@ -51,6 +55,8 @@ public class DashboardView extends BaseComponent {
     } catch (Throwable throwable) {
       logger.info("No free delivery popup found");
     }
+    SyncHelper.sleep(5000);
+    MobileHelper.activateApp();
     SyncHelper.wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
   }
 
