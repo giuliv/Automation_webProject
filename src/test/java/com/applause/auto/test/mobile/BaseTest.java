@@ -3,16 +3,24 @@ package com.applause.auto.test.mobile;
 import com.applause.auto.base.BaseSeleniumTest;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.integrations.RunUtil;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.test.mobile.helpers.TestHelper;
-import java.lang.invoke.MethodHandles;
-import java.lang.reflect.Method;
-import java.util.Arrays;
+import com.applause.auto.util.DriverManager;
+import com.applause.auto.util.helper.EnvironmentHelper;
+import com.applause.auto.util.helper.SyncHelper;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+
+import io.appium.java_client.android.AndroidDriver;
 
 public class BaseTest extends BaseSeleniumTest {
 
@@ -53,7 +61,13 @@ public class BaseTest extends BaseSeleniumTest {
     } else {
       logger.info("Chrome setup not needed");
     }
-
+    if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
+      SyncHelper.sleep(5000);
+      String currentActivity = ((AndroidDriver) DriverManager.getDriver()).currentActivity();
+      logger.info("Current activity: " + currentActivity);
+      logger.info("Reactivating app");
+      MobileHelper.activateApp();
+    }
     logger.info("Test case setup complete.");
   }
 }
