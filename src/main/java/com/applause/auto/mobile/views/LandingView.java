@@ -172,8 +172,8 @@ class AndroidLandingView extends LandingView {
     logger.info("Android Skipping Onboarding");
     MobileHelper.activateApp();
     try {
-
-      SyncHelper.wait(Until.uiElement(getSkipButton).present().setTimeout(Duration.ofSeconds(20)));
+      SyncHelper.wait(
+          Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
 
       for (int i = 0; i < 3; i++) {
         DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
