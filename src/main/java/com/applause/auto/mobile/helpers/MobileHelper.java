@@ -20,6 +20,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.UnsupportedCommandException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.Assert;
@@ -382,18 +383,33 @@ public class MobileHelper {
   public static void scrollUntilElementSectionWillBeAvailableOnTheScreenInWebView(
       BaseElement element, String elementName, int maxSwipingAttempts) {
     int currentSwipingAttempts = 1;
-
+    SyncHelper.sleep(10000);
+    int screenHeight = 0;
+    int screenWidth = 0;
     logger.info("Scrolling down to element: ", elementName);
     while (currentSwipingAttempts <= maxSwipingAttempts) {
       try {
-        SyncHelper.wait(Until.uiElement(element).present().setTimeout(Duration.ofSeconds(2)));
+        SyncHelper.wait(Until.uiElement(element).present().setTimeout(Duration.ofSeconds(5)));
         logger.info(elementName + " is present");
+        screenHeight = DeviceControl.getScreenSize().getHeight();
+        screenWidth = DeviceControl.getScreenSize().getWidth();
         break;
+      } catch (UnsupportedCommandException uce) {
+        logger.info("UnsupportedCommandException catched");
+        DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.UP);
+        SyncHelper.sleep(5000);
+        currentSwipingAttempts++;
+        logger.info("XML Dump: ", DriverManager.getDriver().getPageSource());
       } catch (WebDriverException e) {
         logger.info(elementName + " is not present");
         logger.info("Swipe attempt: " + currentSwipingAttempts);
-        MobileHelper.scrollDownCloseToMiddleAlgorithm();
-        SyncHelper.sleep(2000);
+        DeviceControl.swipeAcrossScreenCoordinates(
+            screenWidth / 2,
+            (int) (screenHeight * 0.75),
+            screenWidth / 2,
+            (int) (screenHeight * 0.4),
+            1000);
+        SyncHelper.sleep(5000);
         currentSwipingAttempts++;
         logger.info("XML Dump: ", DriverManager.getDriver().getPageSource());
       }
