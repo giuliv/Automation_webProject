@@ -15,6 +15,7 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
 import java.time.Duration;
 
 @Implementation(is = AndroidLandingView.class, on = Platform.MOBILE_ANDROID)
@@ -152,7 +153,7 @@ public class LandingView extends BaseComponent {
    * @return
    */
   public String getHeadingTextValue() {
-    DriverManager.getDriver().getPageSource();
+    logger.info("" + DriverManager.getDriver().getPageSource());
     return getHeadingText.getText();
   }
 
