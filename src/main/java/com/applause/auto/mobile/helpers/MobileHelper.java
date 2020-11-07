@@ -65,8 +65,7 @@ public class MobileHelper {
     logger.info("Activate application");
     if (EnvironmentHelper.isMobileAndroid(getMobileDriver())) {
       getMobileDriver().activateApp(MobileApp.ANDROID_PACKAGE_ID);
-      SyncHelper.sleep(1000);
-      DeviceControl.pressAndHoldScreenCenter(500);
+      SyncHelper.sleep(5000);
       DeviceControl.pressAndHoldScreenCenter(500);
     }
     if (EnvironmentHelper.isMobileIOS(getMobileDriver())) {
