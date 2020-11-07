@@ -153,7 +153,8 @@ public class LandingView extends BaseComponent {
    * @return
    */
   public String getHeadingTextValue() {
-    logger.info("" + DriverManager.getDriver().getPageSource());
+    logger.info(">>>>>>>>." + DriverManager.getDriver().getPageSource());
+    getHeadingText.initialize();
     return getHeadingText.getText();
   }
 
