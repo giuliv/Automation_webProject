@@ -22,28 +22,28 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   @Locate(xpath = "//XCUIElementTypeButton[@name=\"Home\"]", on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[contains(@text,\"Home\")]/..",
+          "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[contains(@text,\"Home\") or contains(@content-desc,\"Home\")]/..",
       on = Platform.MOBILE_ANDROID)
   protected Button getHomeButton;
 
   @Locate(xpath = "//XCUIElementTypeButton[@name=\"Peet's Card\"]", on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[contains(@text,\"Peet's Card\")]/..",
+          "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[contains(@text,\"Peet's Card\") or contains(@content-desc,\"Peet's Card\")]/..",
       on = Platform.MOBILE_ANDROID)
   protected Button getPeetsCardsButton;
 
   @Locate(xpath = "//XCUIElementTypeButton[@name=\"Order\"]", on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[contains(@text,\"Order\")]/..",
+          "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[contains(@text,\"Order\") or contains(@content-desc,\"Order\")]/..",
       on = Platform.MOBILE_ANDROID)
   protected Button getOrdersButton;
 
   @Locate(xpath = "//XCUIElementTypeButton[@name=\"Check In\"]", on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[contains(@text,\"Check In\")]/..",
+          "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[contains(@text,\"Check In\") or contains(@content-desc,\"Check In\")]/..",
       on = Platform.MOBILE_ANDROID)
   protected Button getCheckInButton;
 
