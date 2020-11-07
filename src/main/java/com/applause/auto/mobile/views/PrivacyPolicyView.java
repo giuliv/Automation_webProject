@@ -10,9 +10,12 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
-import io.appium.java_client.android.AndroidDriver;
-import java.time.Duration;
+
 import org.openqa.selenium.ScreenOrientation;
+
+import java.time.Duration;
+
+import io.appium.java_client.android.AndroidDriver;
 
 /** The type Privacy policy view. */
 @Implementation(is = AndroidPrivacyPolicyView.class, on = Platform.MOBILE_ANDROID)
@@ -71,6 +74,7 @@ class AndroidPrivacyPolicyView extends PrivacyPolicyView {
     logger.info("Orientation: " + androidDriver.getOrientation());
     logger.info("Orientation: Forcing to PORTRAIT");
     androidDriver.rotate(ScreenOrientation.PORTRAIT);
+    SyncHelper.sleep(5000);
     logger.info("Orientation: " + androidDriver.getOrientation());
     try {
       allowLocationToBrowser.click();
