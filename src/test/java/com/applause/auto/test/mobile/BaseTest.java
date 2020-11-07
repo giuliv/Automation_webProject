@@ -53,13 +53,14 @@ public class BaseTest extends BaseSeleniumTest {
         .anyMatch(Constants.TestNGGroups.WEB_UI::equals)) {
       logger.info("Chrome setup started...");
       try {
-        testHelper.setupChrome();
+        //        testHelper.setupChrome();
       } catch (Throwable th) {
         logger.info("Something happened during Chrome setup");
       }
     } else {
       logger.info("Chrome setup not needed");
     }
+    testHelper.setupChrome();
     if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
       SyncHelper.sleep(5000);
       String currentActivity = ((AndroidDriver) DriverManager.getDriver()).currentActivity();
