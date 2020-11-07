@@ -60,7 +60,6 @@ public class BaseTest extends BaseSeleniumTest {
     } else {
       logger.info("Chrome setup not needed");
     }
-    testHelper.setupChrome();
     if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
       SyncHelper.sleep(5000);
       String currentActivity = ((AndroidDriver) DriverManager.getDriver()).currentActivity();

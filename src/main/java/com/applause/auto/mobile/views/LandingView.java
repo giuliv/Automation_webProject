@@ -4,7 +4,6 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.components.ReportAProblemPopupChunk;
 import com.applause.auto.mobile.components.TryMobileOrderAheadPopupChunk;
-import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -170,7 +169,6 @@ class AndroidLandingView extends LandingView {
 
   public void skipOnboarding() {
     logger.info("Android Skipping Onboarding");
-    MobileHelper.activateApp();
     try {
       SyncHelper.wait(
           Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
