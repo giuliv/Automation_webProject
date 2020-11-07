@@ -3,7 +3,6 @@ package com.applause.auto.test.mobile;
 import com.applause.auto.base.BaseSeleniumTest;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.integrations.RunUtil;
-import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.test.mobile.helpers.TestHelper;
 import com.applause.auto.util.DriverManager;
@@ -65,8 +64,6 @@ public class BaseTest extends BaseSeleniumTest {
       SyncHelper.sleep(5000);
       String currentActivity = ((AndroidDriver) DriverManager.getDriver()).currentActivity();
       logger.info("Current activity: " + currentActivity);
-      logger.info("Reactivating app");
-      MobileHelper.activateApp();
     }
     logger.info("Test case setup complete.");
   }
