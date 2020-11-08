@@ -77,7 +77,6 @@ public class LandingView extends BaseComponent {
 
   @Override
   public void afterInit() {
-    SyncHelper.sleep(15000);
     SyncHelper.wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
     getReportAProblemPopupChunk().waitForPopUpToDisappear();
   }
