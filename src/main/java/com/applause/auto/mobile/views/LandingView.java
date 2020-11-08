@@ -220,7 +220,8 @@ class AndroidLandingView extends LandingView {
 
   @Override
   public void afterInit() {
-    SyncHelper.wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
+    //
+    // SyncHelper.wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
     SyncHelper.sleep(20000);
   }
 }
