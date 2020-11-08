@@ -36,7 +36,6 @@ public class ReportAProblemPopupChunk extends BaseComponent {
   public void waitForPopUpToDisappear() {
     if (isReportAProblemPopUpDisplayed()) {
       logger.info("Report a problem pop up is present, waiting until it will disappear");
-      SyncHelper.sleep(15000);
       SyncHelper.wait(
           Until.uiElement(reportAProblemAdv).notPresent().setTimeout(Duration.ofSeconds(12)));
       SyncHelper.sleep(2000);

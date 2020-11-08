@@ -53,7 +53,7 @@ public class BaseTest extends BaseSeleniumTest {
         .anyMatch(Constants.TestNGGroups.WEB_UI::equals)) {
       logger.info("Chrome setup started...");
       try {
-        //        testHelper.setupChrome();
+        testHelper.setupChrome();
       } catch (Throwable th) {
         logger.info("Something happened during Chrome setup");
       }
