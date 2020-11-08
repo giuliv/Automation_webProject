@@ -169,8 +169,8 @@ class AndroidLandingView extends LandingView {
   public void skipOnboarding() {
     logger.info("Android Skipping Onboarding");
     try {
-      SyncHelper.wait(
-          Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
+      //      SyncHelper.wait(
+      //          Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
 
       for (int i = 0; i < 3; i++) {
         DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
@@ -217,4 +217,10 @@ class AndroidLandingView extends LandingView {
         1000);
     return ComponentFactory.create(ExploreOffersView.class);
   }*/
+
+  @Override
+  public void afterInit() {
+    SyncHelper.wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
+    SyncHelper.sleep(20000);
+  }
 }
