@@ -26,6 +26,7 @@ public class Constants {
     public static final String COMPANY_INFORMATION = "company-information";
     public static final String DAILY = "daily";
     public static final String REGRESSION = "regression";
+    public static final String WEB_UI = "web-ui";
   }
 
   public enum TestEnvironment {

@@ -181,8 +181,7 @@ class AndroidNearbySelectCoffeeBarView extends NearbySelectCoffeeBarView {
 
   @Override
   public void cancelSearch() {
-    logger.info("Tap on Cancel search");
-    cancelSearchButton.click();
+    logger.info("Do nothing for android");
   }
 
   @Override

@@ -1,8 +1,11 @@
 package com.applause.auto.test.mobile.helpers;
 
+import com.google.common.collect.ImmutableMap;
+
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
@@ -19,17 +22,24 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
+import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
-import com.google.common.collect.ImmutableMap;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.appmanagement.ApplicationState;
-import java.lang.invoke.MethodHandles;
-import java.util.List;
+
 import org.aeonbits.owner.util.Collections;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
+
+import java.lang.invoke.MethodHandles;
+import java.util.List;
+
+import io.appium.java_client.MobileBy;
+import io.appium.java_client.android.Activity;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.appmanagement.ApplicationState;
 
 @Implementation(is = TestHelper.class, on = Platform.MOBILE)
 public class TestHelper extends BaseComponent {
@@ -159,5 +169,65 @@ public class TestHelper extends BaseComponent {
         ApplicationState.NOT_RUNNING,
         ApplicationState.RUNNING_IN_BACKGROUND,
         ApplicationState.RUNNING_IN_BACKGROUND_SUSPENDED);
+  }
+
+  public void setupChrome() {
+    logger.info("Submitting search form");
+    if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
+      // if Samsung browser installed
+
+      AndroidDriver androidDriver = ((AndroidDriver) DriverManager.getDriver());
+      String currentPackage = androidDriver.getCurrentPackage();
+      try {
+        androidDriver.activateApp("com.sec.android.app.sbrowser");
+        logger.info("Orientation: " + androidDriver.getOrientation());
+        logger.info("Orientation: Forcing to PORTRAIT");
+        androidDriver.rotate(ScreenOrientation.PORTRAIT);
+        SyncHelper.sleep(5000);
+        logger.info("Orientation: " + androidDriver.getOrientation());
+        androidDriver.startActivity(
+            new Activity("com.android.settings", ".Settings")
+                .setAppWaitPackage("com.android.settings")
+                .setAppWaitActivity(".Settings")
+                .setStopApp(false));
+      } catch (Throwable th) {
+        logger.info("No  Samsung browser found");
+      }
+      selectMenuItem("Apps");
+
+      selectMenuItem("Chrome");
+
+      selectMenuItem("Browser app");
+
+      selectMenuItem("Chrome");
+      androidDriver.activateApp(currentPackage);
+      logger.info("Orientation: " + androidDriver.getOrientation());
+      logger.info("Orientation: Forcing to PORTRAIT");
+      androidDriver.rotate(ScreenOrientation.PORTRAIT);
+      SyncHelper.sleep(5000);
+      logger.info("Orientation: " + androidDriver.getOrientation());
+      logger.info("Chrome default successfully configured");
+    } else {
+    }
+  }
+
+  private static void selectMenuItem(String key) {
+    AndroidDriver androidDriver = ((AndroidDriver) DriverManager.getDriver());
+    int i = 5;
+    while (i-- > 0) {
+      try {
+        androidDriver
+            .findElement(
+                MobileBy.xpath(
+                    String.format(
+                        "//*[contains(@resource-id,'content_layout') or contains(@resource-id,'list_container')]//android.widget.TextView[@text='%s']",
+                        key)))
+            .click();
+        SyncHelper.sleep(2000);
+        break;
+      } catch (NoSuchElementException nse) {
+        DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.UP);
+      }
+    }
   }
 }

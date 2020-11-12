@@ -20,20 +20,23 @@ import com.applause.auto.mobile.views.ProfileDetailsView;
 import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.mobile.views.TermsAndConditionsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
+import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.lang.invoke.MethodHandles;
 
 public class CreateAccountTest extends BaseTest {
 
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
+      groups = {
+        TestNGGroups.ONBOARDING,
+        TestNGGroups.DAILY,
+        TestNGGroups.REGRESSION,
+        TestNGGroups.WEB_UI
+      },
       description = "625879")
   public void footerLinksTest() {
     logger.info("Launch the app and arrive at the first onboarding screen view");

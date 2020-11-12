@@ -15,6 +15,7 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
 import java.time.Duration;
 
 @Implementation(is = AndroidLandingView.class, on = Platform.MOBILE_ANDROID)
@@ -76,7 +77,6 @@ public class LandingView extends BaseComponent {
 
   @Override
   public void afterInit() {
-    super.afterInit();
     SyncHelper.wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
     getReportAProblemPopupChunk().waitForPopUpToDisappear();
   }
@@ -152,7 +152,8 @@ public class LandingView extends BaseComponent {
    * @return
    */
   public String getHeadingTextValue() {
-    DriverManager.getDriver().getPageSource();
+    logger.info(">>>>>>>>." + DriverManager.getDriver().getPageSource());
+    getHeadingText.initialize();
     return getHeadingText.getText();
   }
 
@@ -167,7 +168,6 @@ class AndroidLandingView extends LandingView {
 
   public void skipOnboarding() {
     logger.info("Android Skipping Onboarding");
-
     try {
       SyncHelper.wait(
           Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
@@ -181,7 +181,7 @@ class AndroidLandingView extends LandingView {
           Until.uiElement(getStartedButton).clickable().setTimeout(Duration.ofSeconds(20)));
       getStartedButton.click();
     } catch (Exception e) {
-      logger.error("Error while skipping the Landing View");
+      throw new RuntimeException("Error while skipping the Landing View");
     }
   }
 
@@ -217,4 +217,9 @@ class AndroidLandingView extends LandingView {
         1000);
     return ComponentFactory.create(ExploreOffersView.class);
   }*/
+
+  @Override
+  public void afterInit() {
+    SyncHelper.wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
+  }
 }

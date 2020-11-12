@@ -191,7 +191,7 @@ public class FindACoffeeBarTest extends BaseTest {
 
     logger.info("VERIFY - Store Address");
     Assert.assertTrue(
-        recent.isCoffeebarLocationDisplayed("1400 Park Avenue\nEmeryville, CA 94608"),
+        recent.isCoffeebarLocationDisplayed("3518 Mount Diablo Blvd, #E\nLafayette, CA 94549"),
         "Address does not displayed");
 
     logger.info("VERIFY - Open Untill xx.xx AM /Pm");
