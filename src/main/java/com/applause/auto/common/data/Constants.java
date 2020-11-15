@@ -33,7 +33,7 @@ public class Constants {
     uat("https://uat.aws.peets.com"),
     production("https://peets.com");
 
-    private String environment;
+    private final String environment;
 
     TestEnvironment(String env) {
       this.environment = env;

@@ -73,7 +73,6 @@ public class HelpAndFeedbackView extends BaseComponent {
       logger.info("Contact Customer service element is not present");
       return false;
     }
-
     return true;
   }
 
@@ -85,7 +84,6 @@ public class HelpAndFeedbackView extends BaseComponent {
   public PeetnikRewardsLandingView clickViewOurFAQs() {
     logger.info("Click View Our FAQs");
     viewOurFAQs.click();
-    SyncHelper.sleep(5000);
     MobileHelper.initMobileBrowser();
     // wait till the page load, before it ios is not switched back to app
     SyncHelper.sleep(10000);

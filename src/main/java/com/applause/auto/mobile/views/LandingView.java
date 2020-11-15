@@ -41,7 +41,6 @@ public class LandingView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/signUp", on = Platform.MOBILE_ANDROID)
   protected Button getCreateAccountButton;
 
-  //  @Locate(id = "Sign In", on = Platform.MOBILE_IOS)
   @Locate(xpath = "//XCUIElementTypeButton[@name=\"Sign In\"]", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/logIn", on = Platform.MOBILE_ANDROID)
   protected Button getSignInButton;
@@ -99,7 +98,6 @@ public class LandingView extends BaseComponent {
    */
   public CreateAccountView createAccount() {
     logger.info("Tap on create account button");
-    //    SyncHelper.sleep(10000);
     SyncHelper.wait(
         Until.uiElement(getCreateAccountButton).clickable().setTimeout(Duration.ofSeconds(20)));
     getCreateAccountButton.click();
@@ -113,10 +111,8 @@ public class LandingView extends BaseComponent {
    */
   public SignInView signIn() {
     logger.info("Click on Sign In button");
-    SyncHelper.sleep(5000);
     getSignInButton.initialize();
     getSignInButton.click();
-    SyncHelper.sleep(1000);
     return ComponentFactory.create(SignInView.class);
   }
 
@@ -195,28 +191,6 @@ class AndroidLandingView extends LandingView {
       logger.info("Skipping Onboarding was not successful. Probably skip is not present.");
     }
   }
-
-  // implemented this method for Android, but it looks like it is redundant
-  // didn't remove it, maybe it could be used somewhere in the future
-  /*@Override
-  public ExploreOffersView swipeLeftOnScreen() {
-    logger.info("Swiping left to get to next tutorial view");
-    Point viewPagerCenter = getViewPager.getMobileElement().getCenter();
-    Dimension viewPagerSize = getViewPager.getMobileElement().getSize();
-    int offset = (int) (viewPagerSize.getWidth() / 2.5);
-
-    logger.debug(String.format("View page center: %s", viewPagerCenter.toString()));
-    logger.debug(String.format("View page size: %s", viewPagerSize.toString()));
-    logger.debug(String.format("Swiping offset: %d", offset));
-
-    DeviceControl.swipeAcrossScreenCoordinates(
-        viewPagerCenter.getX() + offset,
-        viewPagerCenter.getY(),
-        viewPagerCenter.getX() - offset,
-        viewPagerCenter.getY(),
-        1000);
-    return ComponentFactory.create(ExploreOffersView.class);
-  }*/
 
   @Override
   public void afterInit() {

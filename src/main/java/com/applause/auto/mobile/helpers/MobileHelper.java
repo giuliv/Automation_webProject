@@ -22,7 +22,6 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.UnsupportedCommandException;
 import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.remote.RemoteWebElement;
 import org.testng.Assert;
 
 import java.awt.image.BufferedImage;
@@ -256,7 +255,7 @@ public class MobileHelper {
    * @param tapY
    */
   public static void tapByCoordinates(int tapX, int tapY) {
-    new TouchAction(getMobileDriver()).tap(PointOption.point((int) tapX, (int) tapY)).perform();
+    new TouchAction(getMobileDriver()).tap(PointOption.point(tapX, tapY)).perform();
   }
 
   /**
@@ -324,7 +323,7 @@ public class MobileHelper {
         Map<String, Object> params = new HashMap<>();
         params.put("order", order);
         params.put("offset", 0.1);
-        params.put("element", ((RemoteWebElement) elem).getId());
+        params.put("element", elem.getId());
         try {
           js.executeScript("mobile: selectPickerWheelValue", params);
         } catch (WebDriverException wex) {

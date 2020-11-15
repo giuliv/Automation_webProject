@@ -19,6 +19,7 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
 import org.openqa.selenium.NoAlertPresentException;
 
 @Implementation(is = AndroidAccountMenuMobileChunk.class, on = Platform.MOBILE_ANDROID)
@@ -109,9 +110,6 @@ public class AccountMenuMobileChunk extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Text facebookPage;
 
-  //  @Locate(
-  //      xpath = "//XCUIElementTypeStaticText[@name=\"Share your photos with\"]",
-  //      on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
           "//XCUIElementTypeButton[@name=\"Follow\"] | //XCUIElementTypeStaticText[@name=\"Instagram\" and @visible=\"true\"]",
@@ -505,11 +503,7 @@ class AndroidAccountMenuMobileChunk extends AccountMenuMobileChunk {
   /* -------- Actions -------- */
 
   public AuthenticationView signOut() {
-    logger.info("Click on Sign Out button");
-    MobileHelper.swipeWithCount(SwipeDirection.UP, 5);
-    getSignOutButton.click();
-    getLogOutButton.click();
-    return ComponentFactory.create(AuthenticationView.class);
+    return signOut(AuthenticationView.class);
   }
 
   /**

@@ -37,7 +37,6 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   protected Button getSearchButton;
 
   @Locate(id = "Enter Zip or City, State", on = Platform.MOBILE_IOS)
-  //  @Locate(id = "Search for coffeebar text field", on = Platform.MOBILE_IOS)
   @Locate(
       androidUIAutomator =
           "new UiSelector().resourceIdMatches(\".*searchRow\"). childSelector(new UiSelector().classNameMatches(\".*TextView\"))",
@@ -91,6 +90,11 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
     SyncHelper.wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
   }
 
+  /**
+   * Gets coffee store container chuck.
+   *
+   * @return the coffee store container chuck
+   */
   public CoffeeStoreContainerChuck getCoffeeStoreContainerChuck() {
     return ComponentFactory.create(CoffeeStoreContainerChuck.class);
   }
@@ -118,27 +122,6 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
     } catch (Throwable throwable) {
       logger.error("Could not Allow for Location Service");
     }
-  }
-
-  /**
-   * Open coffeebar from search results new order view.
-   *
-   * @param index the index
-   * @return the new order view
-   */
-  public NewOrderView openCoffeebarFromSearchResults(int index) {
-    logger.info("Tap on Search result");
-    int counter = 5;
-    while (counter-- != 0) {
-      //        if (isStorePresent()) {
-      //          getSearchResults.click();
-      //
-      //          break;
-      //        } else {
-      //          MobileHelper.swipeAcrossScreenCoordinates(0.8, 0.8, 0.2, 0.8, 2000);
-      //        }
-    }
-    return ComponentFactory.create(NewOrderView.class);
   }
 
   /**
