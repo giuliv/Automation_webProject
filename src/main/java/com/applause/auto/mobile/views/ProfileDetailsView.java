@@ -13,6 +13,7 @@ import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
 import java.time.Duration;
 
 @Implementation(is = ProfileDetailsView.class, on = Platform.MOBILE_ANDROID)
@@ -269,6 +270,11 @@ public class ProfileDetailsView extends BaseComponent {
     return ComponentFactory.create(AccountMenuMobileChunk.class);
   }
 
+  /**
+   * Is change password link available boolean.
+   *
+   * @return the boolean
+   */
   public boolean isChangePasswordLinkAvailable() {
     logger.info("Checking if password link available");
     try {
@@ -280,6 +286,11 @@ public class ProfileDetailsView extends BaseComponent {
     return false;
   }
 
+  /**
+   * Is save button available boolean.
+   *
+   * @return the boolean
+   */
   public boolean isSaveButtonAvailable() {
     logger.info("Checking if Save link available");
     try {

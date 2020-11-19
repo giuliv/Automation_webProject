@@ -54,7 +54,7 @@ public class DashboardView extends BaseComponent {
     } catch (Throwable throwable) {
       logger.info("No free delivery popup found");
     }
-    logger.info(">>>>>>>>>>>>>>>>>>>" + ((AppiumDriver) DriverManager.getDriver()).getPageSource());
+    logger.info(">>>>>" + DriverManager.getDriver().getPageSource());
     SyncHelper.wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
   }
 

@@ -7,6 +7,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
 import java.time.Duration;
 
 @Implementation(is = AndroidTermsAndConditionsView.class, on = Platform.MOBILE_ANDROID)
@@ -58,7 +59,6 @@ class AndroidTermsAndConditionsView extends TermsAndConditionsView {
       logger.info("No location popup overlay found");
     }
     SyncHelper.sleep(5000);
-    // throw new RuntimeException("Not Yet Implemeted. Blocked by WEB context switching issue");
     SyncHelper.wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(12)));
   }
 }

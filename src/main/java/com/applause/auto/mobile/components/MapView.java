@@ -34,6 +34,13 @@ public class MapView extends BaseComponent {
     SyncHelper.waitUntil(condition -> mapSignature.isDisplayed());
   }
 
+  /**
+   * Return to peets app t.
+   *
+   * @param <T> the type parameter
+   * @param clazz the clazz
+   * @return the t
+   */
   public <T extends BaseComponent> T returnToPeetsApp(Class<T> clazz) {
     logger.info("Return back to app");
     DeviceControl.pressAndroidKeyBack();

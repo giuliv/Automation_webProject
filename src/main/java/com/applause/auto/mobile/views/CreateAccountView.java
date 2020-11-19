@@ -18,13 +18,16 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
+import org.openqa.selenium.Dimension;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-import java.util.List;
-import java.util.stream.Collectors;
-import org.openqa.selenium.Dimension;
 
 @Implementation(is = AndroidCreateAccountView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CreateAccountView.class, on = Platform.MOBILE_IOS)
@@ -618,8 +621,7 @@ public class CreateAccountView extends BaseComponent {
     logger.info("Checking password text displayed");
     getHiddenPasswordTextBox.sendKeys(" ");
     boolean result =
-        getPasswordHintTextBox
-            .stream()
+        getPasswordHintTextBox.stream()
             .map(item -> item.getText())
             .collect(Collectors.joining("\n"))
             .equals("At least 6 characters\n" + "At least 1 number\n" + "At least 1 letter");
@@ -629,7 +631,7 @@ public class CreateAccountView extends BaseComponent {
   }
 
   public boolean isPromocodeTextDisplayed() {
-    logger.info("Checking promocode text displayed");
+    logger.info("Checking promo code text displayed");
     return getPromoCodeHintTextBox.isDisplayed();
   }
 }
@@ -647,7 +649,7 @@ class AndroidCreateAccountView extends CreateAccountView {
   public DashboardView createAccount() {
     logger.info("Create account");
     getCreateAccountButton.click();
-    SyncHelper.sleep(35000);
+    SyncHelper.wait(Until.uiElement(getCreateAccountButton).notPresent());
     return ComponentFactory.create(DashboardView.class);
   }
 
@@ -729,7 +731,6 @@ class AndroidCreateAccountView extends CreateAccountView {
   public boolean isPrivacyPolicyAndTermsAndConditionsChecked() {
     SyncHelper.sleep(1000);
     MobileHelper.swipeWithCount(SwipeDirection.UP, 2);
-    SyncHelper.sleep(1000);
     return getAgreePrivacyPolicyAndTermsAndConditions.getAttributeValue("checked").equals("true");
   }
 
@@ -798,8 +799,7 @@ class AndroidCreateAccountView extends CreateAccountView {
     logger.info("Checking password text displayed");
     getHiddenPasswordTextBox.sendKeys(" ");
     boolean result =
-        getPasswordHintTextBox
-            .stream()
+        getPasswordHintTextBox.stream()
             .map(item -> item.getText())
             .collect(Collectors.joining("\n"))
             .equals("At least 6 characters\n" + "At least 1 number\n" + "At least 1 letter");

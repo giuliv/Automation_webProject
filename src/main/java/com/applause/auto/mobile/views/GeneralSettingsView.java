@@ -8,7 +8,6 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Checkbox;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.SyncHelper;
 
 @Implementation(is = AndroidGeneralSettingsView.class, on = Platform.MOBILE_ANDROID)
@@ -105,41 +104,6 @@ public class GeneralSettingsView extends BaseComponent {
   }
 
   /**
-   * Enable location services general settings view.
-   *
-   * @return the general settings view
-   */
-  public GeneralSettingsView enableLocationServices() {
-    logger.info("Checking Location services");
-    if (!isLocationServicesChecked()) getLocationSetvicesButton.click();
-    logger.info("Tap Allow button");
-    getAllowLocationServicesButton.click();
-    SyncHelper.sleep(5000);
-    logger.info("Accept alert");
-    try {
-      DriverManager.getDriver().switchTo().alert().accept();
-    } catch (Throwable throwable) {
-      logger.info("Alert not found");
-    }
-    return this;
-  }
-
-  /**
-   * Disable location services peets settings view.
-   *
-   * @return the peets settings view
-   */
-  public PeetsSettingsView disableLocationServices() {
-    logger.info("Unchecking Location services");
-    if (isLocationServicesChecked()) getLocationSetvicesButton.click();
-    logger.info("Accept alert");
-    SyncHelper.sleep(5000);
-    logger.info("Accepting alert");
-    DriverManager.getDriver().switchTo().alert().accept();
-    return ComponentFactory.create(PeetsSettingsView.class);
-  }
-
-  /**
    * Enable promotional emails general settings view.
    *
    * @return the general settings view
@@ -188,22 +152,5 @@ class AndroidGeneralSettingsView extends GeneralSettingsView {
   @Override
   public boolean isLocationServicesChecked() {
     return getLocationSetvicesButton.getAttributeValue("checked").equals("true");
-  }
-
-  @Override
-  public GeneralSettingsView enableLocationServices() {
-    logger.info("Checking Location services");
-    if (!isLocationServicesChecked()) getLocationSetvicesButton.click();
-    logger.info("Tap Allow button");
-    getAllowLocationServicesButton.click();
-    getAllowLocationServices2Button.click();
-    SyncHelper.sleep(5000);
-    return this;
-  }
-
-  public PeetsSettingsView disableLocationServices() {
-    logger.info("Unchecking Location services");
-    if (isLocationServicesChecked()) getLocationSetvicesButton.click();
-    return ComponentFactory.create(PeetsSettingsView.class);
   }
 }

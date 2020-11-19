@@ -3,7 +3,6 @@ package com.applause.auto.mobile.components;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.mobile.views.CheckInView;
 import com.applause.auto.mobile.views.DashboardView;
-import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.PeetsCardsView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -83,7 +82,6 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   public CheckInView checkIn() {
     logger.info("Tap on Check In");
     getCheckInButton.click();
-    //    getDismissButton.click();
     return ComponentFactory.create(CheckInView.class);
   }
 
@@ -99,19 +97,6 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   }
 
   /**
-   * Order order ahead view.
-   *
-   * @return the order ahead view
-   */
-  public OrderView order() {
-    logger.info("Tap on Order");
-    getOrdersButton.click();
-    // Handle Allow Location pop-up
-    getAllowButton.click();
-    return ComponentFactory.create(OrderView.class);
-  }
-
-  /**
    * Order Ahead view
    *
    * @param clazz
@@ -121,8 +106,6 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   public <T extends BaseComponent> T order(Class<T> clazz) {
     logger.info("Tap on Order");
     getOrdersButton.click();
-    // This has to be clicked to get the 'Allow Location' pop-up
-    //    getChangeStoreButton.click();
     return ComponentFactory.create(clazz);
   }
 }

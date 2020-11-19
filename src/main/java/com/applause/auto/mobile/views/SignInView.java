@@ -12,11 +12,13 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
+import java.time.Duration;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-import java.time.Duration;
 
 @Implementation(is = AndroidSignInView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = SignInView.class, on = Platform.MOBILE_IOS)
@@ -153,6 +155,11 @@ public class SignInView extends BaseComponent {
     return this;
   }
 
+  /**
+   * Dismiss ok message sign in view.
+   *
+   * @return the sign in view
+   */
   public SignInView dismissOkMessage() {
     logger.info("Dismissing OK message");
     getDismissMessageButton.click();

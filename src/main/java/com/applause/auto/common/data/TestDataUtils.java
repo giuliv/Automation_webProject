@@ -2,6 +2,7 @@ package com.applause.auto.common.data;
 
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.EnvironmentHelper;
+
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -12,12 +13,22 @@ import java.util.TimeZone;
 
 public class TestDataUtils {
   public static class PhoneNumberDataUtils {
+    /**
+     * Gets random phone number.
+     *
+     * @return the random phone number
+     */
     public static String getRandomPhoneNumber() {
       String current = String.valueOf(System.currentTimeMillis());
-      //      return "2" + RandomStringUtils.randomNumeric(9);
       return "2" + current.substring(current.length() - 9);
     }
 
+    /**
+     * Gets only digits from phone number.
+     *
+     * @param phoneNumber the phone number
+     * @return the only digits from phone number
+     */
     public static String getOnlyDigitsFromPhoneNumber(String phoneNumber) {
       String updatedNumber =
           phoneNumber
@@ -31,10 +42,22 @@ public class TestDataUtils {
   }
 
   public static class BillingUtils {
+    /**
+     * Parse balance int.
+     *
+     * @param balance the balance
+     * @return the int
+     * @throws ParseException the parse exception
+     */
     public static int parseBalance(String balance) throws ParseException {
       return NumberFormat.getNumberInstance(Locale.US).parse(balance).intValue();
     }
 
+    /**
+     * Gets format current transaction date.
+     *
+     * @return the format current transaction date
+     */
     public static String getFormatCurrentTransactionDate() {
       SimpleDateFormat transactionDateFormat;
       if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
@@ -46,6 +69,12 @@ public class TestDataUtils {
       return transactionDateFormat.format(new Date());
     }
 
+    /**
+     * Gets format transaction amount.
+     *
+     * @param cardAmount the card amount
+     * @return the format transaction amount
+     */
     public static String getFormatTransactionAmount(int cardAmount) {
       return "+$" + new DecimalFormat("0.00").format(cardAmount);
     }

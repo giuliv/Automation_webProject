@@ -1,7 +1,5 @@
 package com.applause.auto.test.mobile;
 
-import static com.applause.auto.test.mobile.helpers.TestHelper.openOrderMenuForRecentCoffeeBar;
-
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
@@ -16,11 +14,15 @@ import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.ProductDetailsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.test.mobile.helpers.TestHelper;
-import java.lang.invoke.MethodHandles;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
+
+import static com.applause.auto.test.mobile.helpers.TestHelper.openOrderMenuForRecentCoffeeBar;
 
 public class OrderTest extends BaseTest {
 
@@ -45,7 +47,11 @@ public class OrderTest extends BaseTest {
     Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
     logger.info("Tap Order icon on the bottom nav bar");
-    OrderView orderView = dashboardView.getBottomNavigationMenu().order();
+    OrderView orderView =
+        dashboardView
+            .getBottomNavigationMenu()
+            .order(AllowLocationServicesPopupChunk.class)
+            .allow(OrderView.class);
 
     logger.info("Header: Order");
     Assert.assertEquals(
@@ -133,7 +139,11 @@ public class OrderTest extends BaseTest {
     Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
     logger.info("Tap Order icon on the bottom nav bar");
-    OrderView orderView = dashboardView.getBottomNavigationMenu().order();
+    OrderView orderView =
+        dashboardView
+            .getBottomNavigationMenu()
+            .order(AllowLocationServicesPopupChunk.class)
+            .allow(OrderView.class);
 
     logger.info("Checking if Allow Location Services Popup is displayed");
     AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
@@ -145,7 +155,11 @@ public class OrderTest extends BaseTest {
       allowLocationServicesPopupChunk.clickCancelButton();
 
       logger.info("Tap Order icon on the bottom nav bar");
-      orderView = dashboardView.getBottomNavigationMenu().order();
+      orderView =
+          dashboardView
+              .getBottomNavigationMenu()
+              .order(AllowLocationServicesPopupChunk.class)
+              .allow(OrderView.class);
     }
 
     logger.info("Header: Order");

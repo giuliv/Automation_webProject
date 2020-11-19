@@ -11,6 +11,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
+
 import java.time.Duration;
 
 @Implementation(is = AndroidPeetsCardsView.class, on = Platform.MOBILE_ANDROID)
@@ -134,7 +135,7 @@ public class PeetsCardsView extends BaseComponent {
 class AndroidPeetsCardsView extends PeetsCardsView {
   @Override
   public boolean isAmountSelected(String amount) {
-    getAmountButton.initializeWithFormat(amount);
+    getAmountButton.format(amount);
     return getAmountButton.getMobileElement().isSelected();
   }
 }

@@ -59,6 +59,16 @@ public class AddNewCardView extends BaseComponent {
 
   /* -------- Actions -------- */
 
+  /**
+   * Add new card payment methods view.
+   *
+   * @param ccNumber the cc number
+   * @param ccSecurityCode the cc security code
+   * @param ccNameOnCard the cc name on card
+   * @param ccExpDate the cc exp date
+   * @param ccZip the cc zip
+   * @return the payment methods view
+   */
   public PaymentMethodsView addNewCard(
       String ccNumber, String ccSecurityCode, String ccNameOnCard, String ccExpDate, String ccZip) {
     enterCardNumber(ccNumber);

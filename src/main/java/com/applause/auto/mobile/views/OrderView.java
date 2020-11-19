@@ -71,6 +71,11 @@ public class OrderView extends BaseComponent {
     return ComponentFactory.create(clazz);
   }
 
+  /**
+   * Gets store name.
+   *
+   * @return the store name
+   */
   public String getStoreName() {
     return storeName.getText();
   }

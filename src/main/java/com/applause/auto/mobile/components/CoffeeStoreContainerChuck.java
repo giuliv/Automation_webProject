@@ -1,7 +1,6 @@
 package com.applause.auto.mobile.components;
 
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.StoreDetailsView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -11,10 +10,7 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.control.DeviceControl;
-import com.applause.auto.util.helper.SyncHelper;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.Point;
+
 import org.openqa.selenium.WebDriverException;
 
 /** The coffee store container chunk. */
@@ -63,35 +59,6 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
   protected Button getOrderButton;
 
   /* -------- Actions -------- */
-
-  /** Swipe search results containers */
-  public void swipeCoffeStoreContainer(SwipeDirection swipeDirection) {
-    Point getSearchResultsContainerLocation = getSearchResultsContainer.getLocation();
-    Dimension getSearchResultsContainerDimension = getSearchResultsContainer.getDimension();
-    int offsetValue = 30;
-    long millis = 1000;
-    if (swipeDirection.equals(SwipeDirection.LEFT)) {
-      DeviceControl.swipeAcrossScreenCoordinates(
-          getSearchResultsContainerLocation.getX() + offsetValue,
-          getSearchResultsContainerLocation.getY() + offsetValue,
-          getSearchResultsContainerLocation.getX()
-              + getSearchResultsContainerDimension.width
-              - offsetValue,
-          getSearchResultsContainerLocation.getY() + offsetValue,
-          millis);
-    }
-    if (swipeDirection.equals(SwipeDirection.RIGHT)) {
-      DeviceControl.swipeAcrossScreenCoordinates(
-          getSearchResultsContainerLocation.getX()
-              + getSearchResultsContainerDimension.width
-              - offsetValue,
-          getSearchResultsContainerLocation.getY() + offsetValue,
-          getSearchResultsContainerLocation.getX() + offsetValue,
-          getSearchResultsContainerLocation.getY() + offsetValue,
-          millis);
-    }
-    SyncHelper.sleep(3000);
-  }
 
   /**
    * Is store persent

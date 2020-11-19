@@ -27,7 +27,6 @@ public class FindACoffeeBarView extends BaseComponent {
   public NewOrderView selectFirstRecentCoffeeBar() {
     logger.info("Select First Recent Coffee Bar");
     orderButton.click();
-
     return ComponentFactory.create(NewOrderView.class);
   }
 

@@ -12,10 +12,13 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
-import io.appium.java_client.AppiumDriver;
+
+import org.openqa.selenium.WebDriverException;
+
 import java.time.Duration;
 import java.util.List;
-import org.openqa.selenium.WebDriverException;
+
+import io.appium.java_client.AppiumDriver;
 
 @Implementation(is = PeetnikRewardsLandingView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = PeetnikRewardsLandingView.class, on = Platform.MOBILE_IOS)
@@ -125,7 +128,7 @@ public class PeetnikRewardsLandingView extends BaseComponent {
         logger.info("Switching to WebContext");
         ((AppiumDriver) DriverManager.getDriver()).context("WEBVIEW_chrome");
       }
-      logger.info("Xml: " + ((AppiumDriver) DriverManager.getDriver()).getPageSource());
+      logger.info("Xml: " + DriverManager.getDriver().getPageSource());
       SyncHelper.wait(
           Until.uiElement(closeAdvPopUpButton).present().setTimeout(Duration.ofSeconds(10)));
       if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
