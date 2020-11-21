@@ -390,11 +390,12 @@ public class MobileHelper {
       try {
         SyncHelper.wait(Until.uiElement(element).present().setTimeout(Duration.ofSeconds(5)));
         logger.info(elementName + " is present");
-        screenHeight = DeviceControl.getScreenSize().getHeight();
-        screenWidth = DeviceControl.getScreenSize().getWidth();
-        break;
+        return;
       } catch (UnsupportedCommandException uce) {
         logger.info("UnsupportedCommandException catched");
+        ((AppiumDriver) DriverManager.getDriver()).context("NATIVE_APP");
+        screenHeight = DeviceControl.getScreenSize().getHeight();
+        screenWidth = DeviceControl.getScreenSize().getWidth();
         DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.UP);
         SyncHelper.sleep(5000);
         currentSwipingAttempts++;

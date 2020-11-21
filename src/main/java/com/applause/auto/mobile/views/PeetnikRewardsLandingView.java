@@ -71,8 +71,8 @@ public class PeetnikRewardsLandingView extends BaseComponent {
   public PeetnikRewardsLandingView clickGetAnswers() {
     logger.info("Click 'Get Answers'");
     // this method is not swiping to the required locator
-    MobileHelper.scrollUntilElementSectionWillBeAvailableOnTheScreenInWebView(
-        getAnswersButton, "'Get Answers'", 25);
+    //    MobileHelper.scrollUntilElementSectionWillBeAvailableOnTheScreenInWebView(
+    //        getAnswersButton, "'Get Answers'", 25);
     // so used the basic swipe method with count
     // MobileHelper.swipeWithCount(SwipeDirection.UP, 8);
     getAnswersButton.click();
