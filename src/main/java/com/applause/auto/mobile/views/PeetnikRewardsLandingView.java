@@ -46,7 +46,7 @@ public class PeetnikRewardsLandingView extends BaseComponent {
       xpath = "//XCUIElementTypeStaticText[@name=\"Peetnik Rewards & Order Ahead\"]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      xpath = "//android.view.View[@text='Peetnik Rewards & Order Ahead']",
+      xpath = "//android.view.View[@text='Peetnik Rewards &amp; Order Ahead']",
       on = Platform.MOBILE_ANDROID)
   protected Button getPeetnikRewardsAndOrderAheadButton;
 
@@ -91,7 +91,6 @@ public class PeetnikRewardsLandingView extends BaseComponent {
   public PeetnikRewardsLandingView clickGetPeetnikRewardsAndOrderAheadQuestion() {
     logger.info("Click 'Peetnik Rewards & Order Ahead'");
     MobileHelper.tapByCoordinatesOnElementCenter(getPeetnikRewardsAndOrderAheadButton);
-    MobileHelper.initMobileBrowser();
     logger.info("Checking list of questions is loaded'");
     SyncHelper.waitUntil(condition -> !getQuestions.isEmpty());
     // for ios simple click doesn't work on getQuestions's item link
@@ -147,6 +146,7 @@ class AndroidPeetnikRewardsLandingView extends PeetnikRewardsLandingView {
     ((AppiumDriver) DriverManager.getDriver()).context("NATIVE_APP");
     logger.info(
         "Click 'Peetnik Rewards & Order Ahead'" + DriverManager.getDriver().getPageSource());
+    MobileHelper.scrollDownToElementCloseToMiddle(getPeetnikRewardsAndOrderAheadButton, 2);
     getPeetnikRewardsAndOrderAheadButton.click();
     logger.info("Checking list of questions is loaded'");
     SyncHelper.waitUntil(condition -> !getQuestions.isEmpty());
