@@ -90,7 +90,7 @@ public class PeetnikRewardsLandingView extends BaseComponent {
    */
   public PeetnikRewardsLandingView clickGetPeetnikRewardsAndOrderAheadQuestion() {
     logger.info("Click 'Peetnik Rewards & Order Ahead'");
-    MobileHelper.scrollDownHalfScreen(1);
+    //    MobileHelper.scrollDownHalfScreen(1);
     if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
       getPeetnikRewardsAndOrderAheadButton.click();
     } else {
