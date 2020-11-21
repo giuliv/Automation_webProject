@@ -1,7 +1,5 @@
 package com.applause.auto.test.mobile.helpers;
 
-import com.google.common.collect.ImmutableMap;
-
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.data.enums.Platform;
@@ -25,21 +23,19 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
-
+import com.google.common.collect.ImmutableMap;
+import io.appium.java_client.MobileBy;
+import io.appium.java_client.android.Activity;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.appmanagement.ApplicationState;
+import java.lang.invoke.MethodHandles;
+import java.util.List;
 import org.aeonbits.owner.util.Collections;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
-
-import java.lang.invoke.MethodHandles;
-import java.util.List;
-
-import io.appium.java_client.MobileBy;
-import io.appium.java_client.android.Activity;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.appmanagement.ApplicationState;
 
 @Implementation(is = TestHelper.class, on = Platform.MOBILE)
 public class TestHelper extends BaseComponent {

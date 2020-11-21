@@ -122,12 +122,6 @@ public class PeetnikRewardsLandingView extends BaseComponent {
   /** Close adv. pop up is present if present */
   public PeetnikRewardsLandingView closeReportAProblemPopUpDisplayed() {
     logger.info("Waiting for adv. pop up");
-    logger.info("Close Download popup");
-    SyncHelper.sleep(20000);
-    closeDownloadPopUpButton.initialize();
-    closeDownloadPopUpButton.click();
-    logger.info(">>>" + DriverManager.getDriver().getPageSource());
-
     try {
       logger.info("Contexts: " + ((AppiumDriver) DriverManager.getDriver()).getContextHandles());
       if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
@@ -142,6 +136,11 @@ public class PeetnikRewardsLandingView extends BaseComponent {
         ((AppiumDriver) DriverManager.getDriver()).context("NATIVE_APP");
       } else {
         // for ios simple click doesn't work on [X] button
+        logger.info("Close Download popup");
+        SyncHelper.sleep(20000);
+        //        closeDownloadPopUpButton.initialize();
+        //        closeDownloadPopUpButton.click();
+        //        logger.info(">>>" + DriverManager.getDriver().getPageSource());
         closeAdvPopUpButton.initialize();
         MobileHelper.tapByCoordinatesOnElementCenter(closeAdvPopUpButton);
       }

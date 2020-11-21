@@ -14,14 +14,11 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
-
-import org.openqa.selenium.Point;
-
-import java.time.Duration;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
+import java.time.Duration;
+import org.openqa.selenium.Point;
 
 @Implementation(is = DashboardView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosDashboardView.class, on = Platform.MOBILE_IOS)
@@ -105,15 +102,7 @@ class IosDashboardView extends DashboardView {
   }
 
   public AccountMenuMobileChunk getAccountProfileMenu() {
-    logger.info("Open account profile menu\n" + DriverManager.getDriver().getPageSource());
-    int x = DriverManager.getDriver().manage().window().getSize().width;
-    int y = DriverManager.getDriver().manage().window().getSize().height;
-    AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
-    if (!getMoreScreenButton.isDisplayed()) {
-      new TouchAction(driver).tap(PointOption.point((int) (x * 0.9), (int) (y * 0.05))).perform();
-    } else {
-      getMoreScreenButton.click();
-    }
+    logger.info("Open account profile menu\n");
     return ComponentFactory.create(AccountMenuMobileChunk.class);
   }
 }

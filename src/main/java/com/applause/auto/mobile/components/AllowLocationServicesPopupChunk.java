@@ -10,15 +10,12 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
-
-import org.openqa.selenium.Point;
-
-import java.time.Duration;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import java.time.Duration;
+import org.openqa.selenium.Point;
 
 @Implementation(is = AndroidAllowLocationServicesPopupChunk.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = AllowLocationServicesPopupChunk.class, on = Platform.MOBILE_IOS)

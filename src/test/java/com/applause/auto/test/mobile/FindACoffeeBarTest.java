@@ -12,14 +12,12 @@ import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
 import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.StoreDetailsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
+import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-
-import java.lang.invoke.MethodHandles;
 
 public class FindACoffeeBarTest extends BaseTest {
 

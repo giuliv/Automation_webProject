@@ -2,7 +2,6 @@ package com.applause.auto.common.data;
 
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.EnvironmentHelper;
-
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;

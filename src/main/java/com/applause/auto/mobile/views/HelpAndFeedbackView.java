@@ -10,10 +10,8 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.SyncHelper;
-
-import org.openqa.selenium.ScreenOrientation;
-
 import io.appium.java_client.android.AndroidDriver;
+import org.openqa.selenium.ScreenOrientation;
 
 @Implementation(is = AndroidHelpAndFeedbackView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = HelpAndFeedbackView.class, on = Platform.MOBILE_IOS)
@@ -24,6 +22,12 @@ public class HelpAndFeedbackView extends BaseComponent {
   @Locate(iOSNsPredicate = "name == 'button back'", on = Platform.MOBILE_IOS)
   @Locate(xpath = "//*[contains(@content-desc, 'Navigate up')]", on = Platform.MOBILE_ANDROID)
   protected Button backArrow;
+
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeNavigationBar[`name == \"HELP & FEEDBACK\"`]",
+      on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//*[contains(@content-desc, 'Navigate up')]", on = Platform.MOBILE_ANDROID)
+  protected Button helpAndFeedback;
 
   @Locate(iOSNsPredicate = "name == 'View Our FAQs'", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/faqs", on = Platform.MOBILE_ANDROID)
