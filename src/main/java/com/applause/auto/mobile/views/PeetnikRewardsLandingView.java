@@ -91,6 +91,7 @@ public class PeetnikRewardsLandingView extends BaseComponent {
   public PeetnikRewardsLandingView clickGetPeetnikRewardsAndOrderAheadQuestion() {
     logger.info("Click 'Peetnik Rewards & Order Ahead'");
     MobileHelper.tapByCoordinatesOnElementCenter(getPeetnikRewardsAndOrderAheadButton);
+    SyncHelper.sleep(10000);
     logger.info("Checking list of questions is loaded'");
     SyncHelper.waitUntil(condition -> !getQuestions.isEmpty());
     // for ios simple click doesn't work on getQuestions's item link
@@ -148,6 +149,7 @@ class AndroidPeetnikRewardsLandingView extends PeetnikRewardsLandingView {
         "Click 'Peetnik Rewards & Order Ahead'" + DriverManager.getDriver().getPageSource());
     MobileHelper.scrollDownToElementCloseToMiddle(getPeetnikRewardsAndOrderAheadButton, 2);
     getPeetnikRewardsAndOrderAheadButton.click();
+    SyncHelper.sleep(10000);
     logger.info("Checking list of questions is loaded'");
     SyncHelper.waitUntil(condition -> !getQuestions.isEmpty());
     logger.info("Click first available question");
