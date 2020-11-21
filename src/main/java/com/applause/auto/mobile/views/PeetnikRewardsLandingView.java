@@ -1,6 +1,7 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -9,6 +10,7 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
+import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
@@ -122,6 +124,7 @@ public class PeetnikRewardsLandingView extends BaseComponent {
   /** Close adv. pop up is present if present */
   public PeetnikRewardsLandingView closeReportAProblemPopUpDisplayed() {
     logger.info("Waiting for adv. pop up");
+    DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.UP);
     try {
       logger.info("Contexts: " + ((AppiumDriver) DriverManager.getDriver()).getContextHandles());
       if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
@@ -137,7 +140,6 @@ public class PeetnikRewardsLandingView extends BaseComponent {
       } else {
         // for ios simple click doesn't work on [X] button
         logger.info("Close Download popup");
-        SyncHelper.sleep(20000);
         //        closeDownloadPopUpButton.initialize();
         //        closeDownloadPopUpButton.click();
         //        logger.info(">>>" + DriverManager.getDriver().getPageSource());

@@ -105,16 +105,8 @@ class IosDashboardView extends DashboardView {
   }
 
   public AccountMenuMobileChunk getAccountProfileMenu() {
-    logger.info("Open account profile menu\n" + DriverManager.getDriver().getPageSource());
-    //    int x = DriverManager.getDriver().manage().window().getSize().width;
-    //    int y = DriverManager.getDriver().manage().window().getSize().height;
-    //    AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
-    //    if (!getMoreScreenButton.isDisplayed()) {
-    //      new TouchAction(driver).tap(PointOption.point((int) (x * 0.9), (int) (y *
-    // 0.05))).perform();
-    //    } else {
+    logger.info("Open account profile menu");
     getMoreScreenButton.click();
-    //    }
     return ComponentFactory.create(AccountMenuMobileChunk.class);
   }
 }
