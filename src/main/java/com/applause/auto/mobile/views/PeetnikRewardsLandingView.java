@@ -9,6 +9,7 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
+import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
@@ -37,7 +38,7 @@ public class PeetnikRewardsLandingView extends BaseComponent {
   protected Button closeDownloadPopUpButton;
 
   @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"GET ANSWERS\"]", on = Platform.MOBILE_IOS)
-  @Locate(xpath = "//*[@text='GET ANSWERS']", on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//*[text()='Get answers']", on = Platform.MOBILE_ANDROID)
   protected Button getAnswersButton;
 
   @Locate(
@@ -69,6 +70,8 @@ public class PeetnikRewardsLandingView extends BaseComponent {
    * @return PeetnikRewardsLandingView
    */
   public PeetnikRewardsLandingView clickGetAnswers() {
+    logger.info("Tap on the center of the screen to bypass feedback");
+    DeviceControl.pressAndHoldScreenCenter(500);
     logger.info("Click 'Get Answers'");
     // this method is not swiping to the required locator
     MobileHelper.scrollUntilElementSectionWillBeAvailableOnTheScreenInWebView(

@@ -195,7 +195,7 @@ public class Constants {
 
   public static final class MobileTestData {
     public static final String PEETS_CARD_HEADER = "Your Peet's Card";
-    public static final String SAVED_PAYMENT_HEADER_ANDROID = "Saved Payment Methods";
+    public static final String SAVED_PAYMENT_HEADER_ANDROID = "Payment Methods";
     public static final String SAVED_PAYMENT_HEADER_IOS = "PAYMENT METHODS";
     public static final String SAVED_CC_NAME = "Applause Test";
     public static final String CC_NUM = "5105105105105100";
