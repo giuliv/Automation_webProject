@@ -139,7 +139,7 @@ public class PeetnikRewardsLandingView extends BaseComponent {
         logger.info("Close Download popup");
         SyncHelper.sleep(20000);
         closeDownloadPopUpButton.initialize();
-        closeDownloadPopUpButton.click();
+        MobileHelper.tapByCoordinatesOnElementCenter(closeDownloadPopUpButton);
         logger.info(">>>" + DriverManager.getDriver().getPageSource());
         closeAdvPopUpButton.initialize();
         MobileHelper.tapByCoordinatesOnElementCenter(closeAdvPopUpButton);
