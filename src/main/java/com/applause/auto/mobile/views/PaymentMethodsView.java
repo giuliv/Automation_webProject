@@ -44,7 +44,7 @@ public class PaymentMethodsView extends BaseComponent {
       xpath = "//XCUIElementTypeNavigationBar//XCUIElementTypeStaticText[@value='PAYMENT METHODS']",
       on = Platform.MOBILE_IOS)
   @Locate(
-      xpath = "//android.widget.TextView[@text='Payment Methods']",
+      xpath = "//android.widget.TextView[@content-desc='Payment Methods']",
       on = Platform.MOBILE_ANDROID)
   protected Text getSavedPaymentMethodHeaderText;
 
