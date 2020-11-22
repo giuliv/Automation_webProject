@@ -46,7 +46,7 @@ public class PeetnikRewardsLandingView extends BaseComponent {
       xpath = "//XCUIElementTypeStaticText[@name=\"Peetnik Rewards & Order Ahead\"]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      xpath = "//android.view.View[@content-desc='Peetnik Rewards &amp; Order Ahead']",
+      xpath = "//android.view.View[@text='Peetnik Rewards &amp; Order Ahead']",
       on = Platform.MOBILE_ANDROID)
   protected Button getPeetnikRewardsAndOrderAheadButton;
 
@@ -147,8 +147,12 @@ class AndroidPeetnikRewardsLandingView extends PeetnikRewardsLandingView {
     ((AppiumDriver) DriverManager.getDriver()).context("NATIVE_APP");
     logger.info(
         "Click 'Peetnik Rewards & Order Ahead'" + DriverManager.getDriver().getPageSource());
-    MobileHelper.scrollDownToElementCloseToMiddle(getPeetnikRewardsAndOrderAheadButton, 2);
-    getPeetnikRewardsAndOrderAheadButton.click();
+    try {
+      getPeetnikRewardsAndOrderAheadButton.click();
+    } catch (Throwable th) {
+      MobileHelper.scrollDownToElementCloseToMiddle(getPeetnikRewardsAndOrderAheadButton, 2);
+      getPeetnikRewardsAndOrderAheadButton.click();
+    }
     SyncHelper.sleep(10000);
     logger.info("Checking list of questions is loaded'");
     SyncHelper.waitUntil(condition -> !getQuestions.isEmpty());
