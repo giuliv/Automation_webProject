@@ -67,8 +67,8 @@ public class PeetsCardsTest extends BaseTest {
             MobileTestData.CC_MASTER_NAME,
             Constants.MobileTestData.CC_EXP_DATE,
             MobileTestData.CC_ZIP);
-    //    paymentMethodsView.clickBackButton();
-    //    accountProfileMenu.clickPaymentMethods();
+    paymentMethodsView.clickBackButton();
+    accountProfileMenu.clickPaymentMethods();
 
     logger.info("Tap on a saved payment method");
     CreditCardDetailsView creditCardDetailsView =
