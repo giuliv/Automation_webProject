@@ -18,16 +18,13 @@ import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
-
-import org.openqa.selenium.Dimension;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.openqa.selenium.Dimension;
 
 @Implementation(is = AndroidCreateAccountView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CreateAccountView.class, on = Platform.MOBILE_IOS)
@@ -621,7 +618,8 @@ public class CreateAccountView extends BaseComponent {
     logger.info("Checking password text displayed");
     getHiddenPasswordTextBox.sendKeys(" ");
     boolean result =
-        getPasswordHintTextBox.stream()
+        getPasswordHintTextBox
+            .stream()
             .map(item -> item.getText())
             .collect(Collectors.joining("\n"))
             .equals("At least 6 characters\n" + "At least 1 number\n" + "At least 1 letter");
@@ -799,7 +797,8 @@ class AndroidCreateAccountView extends CreateAccountView {
     logger.info("Checking password text displayed");
     getHiddenPasswordTextBox.sendKeys(" ");
     boolean result =
-        getPasswordHintTextBox.stream()
+        getPasswordHintTextBox
+            .stream()
             .map(item -> item.getText())
             .collect(Collectors.joining("\n"))
             .equals("At least 6 characters\n" + "At least 1 number\n" + "At least 1 letter");

@@ -8,18 +8,15 @@ import com.applause.auto.test.mobile.helpers.TestHelper;
 import com.applause.auto.util.DriverManager;
 import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
-
+import io.appium.java_client.android.AndroidDriver;
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-
-import java.lang.invoke.MethodHandles;
-import java.lang.reflect.Method;
-import java.util.Arrays;
-
-import io.appium.java_client.android.AndroidDriver;
 
 public class BaseTest extends BaseSeleniumTest {
 

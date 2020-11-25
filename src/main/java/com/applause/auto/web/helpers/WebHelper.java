@@ -1,14 +1,12 @@
 package com.applause.auto.web.helpers;
 
 import com.applause.auto.util.DriverManager;
-
+import java.lang.invoke.MethodHandles;
+import java.util.Date;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-
-import java.lang.invoke.MethodHandles;
-import java.util.Date;
 
 public class WebHelper {
 

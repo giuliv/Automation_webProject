@@ -1,6 +1,7 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -9,6 +10,7 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.util.DriverManager;
+import com.applause.auto.util.control.DeviceControl;
 import com.applause.auto.util.helper.EnvironmentHelper;
 import com.applause.auto.util.helper.SyncHelper;
 import com.applause.auto.util.helper.sync.Until;
@@ -20,7 +22,7 @@ import java.util.List;
 
 import io.appium.java_client.AppiumDriver;
 
-@Implementation(is = PeetnikRewardsLandingView.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = AndroidPeetnikRewardsLandingView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = PeetnikRewardsLandingView.class, on = Platform.MOBILE_IOS)
 public class PeetnikRewardsLandingView extends BaseComponent {
 
@@ -37,14 +39,14 @@ public class PeetnikRewardsLandingView extends BaseComponent {
   protected Button closeDownloadPopUpButton;
 
   @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"GET ANSWERS\"]", on = Platform.MOBILE_IOS)
-  @Locate(xpath = "//*[@text='GET ANSWERS']", on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//*[text()='Get answers']", on = Platform.MOBILE_ANDROID)
   protected Button getAnswersButton;
 
   @Locate(
       xpath = "//XCUIElementTypeStaticText[@name=\"Peetnik Rewards & Order Ahead\"]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      xpath = "//android.view.View[@text='Peetnik Rewards & Order Ahead']",
+      xpath = "//android.view.View[contains(@text,'Peetnik Rewards')]",
       on = Platform.MOBILE_ANDROID)
   protected Button getPeetnikRewardsAndOrderAheadButton;
 
@@ -71,8 +73,8 @@ public class PeetnikRewardsLandingView extends BaseComponent {
   public PeetnikRewardsLandingView clickGetAnswers() {
     logger.info("Click 'Get Answers'");
     // this method is not swiping to the required locator
-    MobileHelper.scrollUntilElementSectionWillBeAvailableOnTheScreenInWebView(
-        getAnswersButton, "'Get Answers'", 25);
+    //    MobileHelper.scrollUntilElementSectionWillBeAvailableOnTheScreenInWebView(
+    //        getAnswersButton, "'Get Answers'", 25);
     // so used the basic swipe method with count
     // MobileHelper.swipeWithCount(SwipeDirection.UP, 8);
     getAnswersButton.click();
@@ -88,23 +90,12 @@ public class PeetnikRewardsLandingView extends BaseComponent {
    */
   public PeetnikRewardsLandingView clickGetPeetnikRewardsAndOrderAheadQuestion() {
     logger.info("Click 'Peetnik Rewards & Order Ahead'");
-    MobileHelper.scrollDownHalfScreen(1);
-    if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
-      getPeetnikRewardsAndOrderAheadButton.click();
-    } else {
-      // for ios simple click doesn't work on getPeetnikRewardsAndOrderAheadButton button
-      MobileHelper.tapByCoordinatesOnElementCenter(getPeetnikRewardsAndOrderAheadButton);
-    }
-    MobileHelper.initMobileBrowser();
+    MobileHelper.tapByCoordinatesOnElementCenter(getPeetnikRewardsAndOrderAheadButton);
+    SyncHelper.sleep(10000);
     logger.info("Checking list of questions is loaded'");
     SyncHelper.waitUntil(condition -> !getQuestions.isEmpty());
-    logger.info("Click first available question");
-    if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
-      getQuestions.get(0).click();
-    } else {
-      // for ios simple click doesn't work on getQuestions's item link
-      MobileHelper.tapByCoordinatesOnElementCenter(getQuestions.get(0));
-    }
+    // for ios simple click doesn't work on getQuestions's item link
+    MobileHelper.tapByCoordinatesOnElementCenter(getQuestions.get(0));
     SyncHelper.sleep(10000);
     // return this
     return ComponentFactory.create(PeetnikRewardsLandingView.class);
@@ -122,6 +113,7 @@ public class PeetnikRewardsLandingView extends BaseComponent {
   /** Close adv. pop up is present if present */
   public PeetnikRewardsLandingView closeReportAProblemPopUpDisplayed() {
     logger.info("Waiting for adv. pop up");
+    DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.UP);
     try {
       logger.info("Contexts: " + ((AppiumDriver) DriverManager.getDriver()).getContextHandles());
       if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
@@ -130,23 +122,44 @@ public class PeetnikRewardsLandingView extends BaseComponent {
       }
       logger.info("Xml: " + DriverManager.getDriver().getPageSource());
       SyncHelper.wait(
-          Until.uiElement(closeAdvPopUpButton).present().setTimeout(Duration.ofSeconds(10)));
+          Until.uiElement(closeAdvPopUpButton).present().setTimeout(Duration.ofSeconds(30)));
       if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
         closeAdvPopUpButton.click();
         ((AppiumDriver) DriverManager.getDriver()).context("NATIVE_APP");
       } else {
         // for ios simple click doesn't work on [X] button
         logger.info("Close Download popup");
-        SyncHelper.sleep(20000);
-        closeDownloadPopUpButton.initialize();
-        closeDownloadPopUpButton.click();
-        logger.info(">>>" + DriverManager.getDriver().getPageSource());
+        //        closeDownloadPopUpButton.initialize();
+        //        closeDownloadPopUpButton.click();
+        //        logger.info(">>>" + DriverManager.getDriver().getPageSource());
         closeAdvPopUpButton.initialize();
         MobileHelper.tapByCoordinatesOnElementCenter(closeAdvPopUpButton);
       }
     } catch (WebDriverException e) {
       logger.info("Sign Up adv. pop up is not present");
     }
+    return ComponentFactory.create(PeetnikRewardsLandingView.class);
+  }
+}
+
+class AndroidPeetnikRewardsLandingView extends PeetnikRewardsLandingView {
+  public PeetnikRewardsLandingView clickGetPeetnikRewardsAndOrderAheadQuestion() {
+    ((AppiumDriver) DriverManager.getDriver()).context("NATIVE_APP");
+    logger.info(
+        "Click 'Peetnik Rewards & Order Ahead'" + DriverManager.getDriver().getPageSource());
+    try {
+      getPeetnikRewardsAndOrderAheadButton.click();
+    } catch (Throwable th) {
+      MobileHelper.scrollDownToElementCloseToMiddle(getPeetnikRewardsAndOrderAheadButton, 2);
+      getPeetnikRewardsAndOrderAheadButton.click();
+    }
+    SyncHelper.sleep(10000);
+    logger.info("Checking list of questions is loaded'");
+    SyncHelper.waitUntil(condition -> !getQuestions.isEmpty());
+    logger.info("Click first available question");
+    getQuestions.get(0).click();
+    SyncHelper.sleep(10000);
+    // return this
     return ComponentFactory.create(PeetnikRewardsLandingView.class);
   }
 }

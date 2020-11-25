@@ -168,7 +168,7 @@ class IosAddNewCardView extends AddNewCardView {
     logger.info("Saving Payment Method");
     getKeyboardDoneButton.click();
     getSaveCardButton.click();
-    SyncHelper.sleep(10000);
+    SyncHelper.sleep(15000);
     return ComponentFactory.create(PaymentMethodsView.class);
   }
 }

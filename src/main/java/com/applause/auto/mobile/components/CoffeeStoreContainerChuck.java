@@ -10,7 +10,6 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
 import org.openqa.selenium.WebDriverException;
 
 /** The coffee store container chunk. */

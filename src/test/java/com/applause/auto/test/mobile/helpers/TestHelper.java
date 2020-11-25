@@ -91,9 +91,9 @@ public class TestHelper extends BaseComponent {
 
       // need this workaround because payment card doesn't disappear from the view without
       // refreshing it
-      SyncHelper.sleep(10000);
+      SyncHelper.sleep(15000);
       paymentMethodsView.clickBackButton();
-      SyncHelper.sleep(1000);
+      SyncHelper.sleep(5000);
       ComponentFactory.create(AccountMenuMobileChunk.class).clickPaymentMethods();
       SyncHelper.waitUntil(
           condition -> !paymentMethodsView.isPaymentMethodTestCardAdded(methodName));
