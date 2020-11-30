@@ -8,10 +8,10 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.control.DeviceControl;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -97,10 +97,10 @@ public class ChangePasswordView extends BaseComponent {
 
   public <T extends BaseComponent> T goBack(Class<T> clazz) {
     logger.info("Tap back button");
-    SyncHelper.wait(Until.uiElement(getBackButton).present().setTimeout(Duration.ofSeconds(15)));
+    getSyncHelper().wait(Until.uiElement(getBackButton).present().setTimeout(Duration.ofSeconds(15)));
     getBackButton.click();
-    SyncHelper.sleep(4000);
-    return ComponentFactory.create(clazz);
+    getSyncHelper().sleep(4000);
+    return this.create(clazz);
   }
 
   /**
@@ -136,8 +136,8 @@ public class ChangePasswordView extends BaseComponent {
    */
   public <T extends BaseComponent> T dismissMessage(Class<T> clazz) {
     logger.info("Alert should be accepted");
-    DriverManager.getDriver().switchTo().alert().accept();
-    return ComponentFactory.create(clazz);
+    getDriver().switchTo().alert().accept();
+    return this.create(clazz);
   }
 
   /**
@@ -162,8 +162,8 @@ public class ChangePasswordView extends BaseComponent {
     logger.info("Tap on change password button");
     getChangePasswordButton.click();
     // wait change password is applied
-    SyncHelper.sleep(5000);
-    return ComponentFactory.create(clazz);
+    getSyncHelper().sleep(5000);
+    return this.create(clazz);
   }
 
   /**
@@ -185,7 +185,7 @@ class AndroidChangePasswordView extends ChangePasswordView {
     logger.info("Set new password to: " + password);
     getNewPasswordTextBox.clearText();
     getNewPasswordTextBox.sendKeys(password);
-    DeviceControl.hideKeyboard();
+    getDeviceControl().hideKeyboard();
   }
 
   @Override
@@ -195,7 +195,7 @@ class AndroidChangePasswordView extends ChangePasswordView {
     int x = element.getCenter().getX();
     int y = element.getCenter().getY();
     int width = element.getSize().getWidth();
-    AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
+    AppiumDriver driver = (AppiumDriver) getDriver();
     (new TouchAction(driver)).tap(PointOption.point(x + width / 2 - 5, y)).perform();
   }
 
@@ -221,7 +221,7 @@ class AndroidChangePasswordView extends ChangePasswordView {
   public <T extends BaseComponent> T dismissMessage(Class<T> clazz) {
     logger.info("Tap on OKAY to dismiss message");
     getMessageOkButton.click();
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 
   public Boolean verifyMessage() {

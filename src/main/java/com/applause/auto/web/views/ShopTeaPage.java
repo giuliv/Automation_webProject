@@ -41,6 +41,6 @@ public class ShopTeaPage extends BaseComponent {
     productNameButton.initializeWithFormat(productName);
     productNameButton.scrollToElement();
     productNameButton.click();
-    return ComponentFactory.create(TeaProductPage.class);
+    return this.create(TeaProductPage.class);
   }
 }

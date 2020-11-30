@@ -1,5 +1,6 @@
 package com.applause.auto.test.mobile.helpers;
 
+import com.applause.auto.integrations.helpers.SdkHelper;
 import com.google.common.collect.ImmutableMap;
 
 import com.applause.auto.common.data.Constants;
@@ -20,11 +21,11 @@ import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.control.DeviceControl;
-import com.applause.auto.util.helper.EnvironmentHelper;
-import com.applause.auto.util.helper.SyncHelper;
+import com.applause.auto.integrations.helpers.SdkHelper;
+
+
+
+
 
 import org.aeonbits.owner.util.Collections;
 import org.apache.logging.log4j.LogManager;
@@ -91,24 +92,24 @@ public class TestHelper extends BaseComponent {
 
       // need this workaround because payment card doesn't disappear from the view without
       // refreshing it
-      SyncHelper.sleep(15000);
+      getSyncHelper().sleep(15000);
       paymentMethodsView.clickBackButton();
-      SyncHelper.sleep(5000);
-      ComponentFactory.create(AccountMenuMobileChunk.class).clickPaymentMethods();
-      SyncHelper.waitUntil(
+      getSyncHelper().sleep(5000);
+      this.create(AccountMenuMobileChunk.class).clickPaymentMethods();
+      getSyncHelper().waitUntil(
           condition -> !paymentMethodsView.isPaymentMethodTestCardAdded(methodName));
     } else {
       logger.info("There is no test payment card added");
     }
-    return ComponentFactory.create(PaymentMethodsView.class);
+    return this.create(PaymentMethodsView.class);
   }
 
   public static void denyLocationServices() {
-    if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
+    if (SdkHelper.getEnvironmentHelper().isMobileAndroid()) {
       // toggleLocationServicesCommand is opening Android settings view
       // AndroidMobileCommandHelper.toggleLocationServicesCommand();
       logger.info("Disabling Location permissions for Android");
-      ((AndroidDriver<WebElement>) DriverManager.getDriver())
+      ((AndroidDriver<WebElement>) SdkHelper.getDriver())
           .executeScript(
               "mobile:changePermissions",
               ImmutableMap.of(
@@ -120,7 +121,7 @@ public class TestHelper extends BaseComponent {
                   Collections.list(
                       "android.permission.ACCESS_COARSE_LOCATION",
                       "android.permission.ACCESS_FINE_LOCATION")));
-      SyncHelper.sleep(4000);
+      SdkHelper.getSyncHelper().sleep(4000);
 
       if (notRunningAppStates().contains(getAppState(Constants.MobileApp.ANDROID_PACKAGE_ID))) {
         try {
@@ -136,9 +137,9 @@ public class TestHelper extends BaseComponent {
     logger.info("Getting app state");
     try {
       ApplicationState applicationState =
-          ((AndroidDriver<WebElement>) DriverManager.getDriver()).queryAppState(appId);
+          ((AndroidDriver<WebElement>) SdkHelper.getDriver()).queryAppState(appId);
       logger.info(String.format("App state is: %s", applicationState.name()));
-      return ((AndroidDriver<WebElement>) DriverManager.getDriver()).queryAppState(appId);
+      return ((AndroidDriver<WebElement>) SdkHelper.getDriver()).queryAppState(appId);
     } catch (Exception e) {
       logger.error("Error getting current app state, probably it is not running");
       return ApplicationState.NOT_RUNNING;
@@ -146,7 +147,7 @@ public class TestHelper extends BaseComponent {
   }
 
   public static NewOrderView openOrderMenuForRecentCoffeeBar(DashboardView dashboardView) {
-    if (EnvironmentHelper.isMobileIOS(DriverManager.getDriver())) {
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
       AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
           dashboardView.getBottomNavigationMenu().order(AllowLocationServicesPopupChunk.class);
       NearbySelectCoffeeBarView nearbySelectCoffeeBarView = allowLocationServicesPopupChunk.allow();
@@ -157,8 +158,8 @@ public class TestHelper extends BaseComponent {
   }
 
   public static CheckoutView checkoutOnItemsYouMightLike(NewOrderView newOrderView) {
-    if (EnvironmentHelper.isMobileIOS(DriverManager.getDriver())) {
-      return ComponentFactory.create(CheckoutView.class);
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      return SdkHelper.create(CheckoutView.class);
     } else {
       return newOrderView.checkout();
     }
@@ -173,17 +174,17 @@ public class TestHelper extends BaseComponent {
 
   public void setupChrome() {
     logger.info("Submitting search form");
-    if (EnvironmentHelper.isMobileAndroid(DriverManager.getDriver())) {
+    if (SdkHelper.getEnvironmentHelper().isMobileAndroid()) {
       // if Samsung browser installed
 
-      AndroidDriver androidDriver = ((AndroidDriver) DriverManager.getDriver());
+      AndroidDriver androidDriver = ((AndroidDriver) getDriver());
       String currentPackage = androidDriver.getCurrentPackage();
       try {
         androidDriver.activateApp("com.sec.android.app.sbrowser");
         logger.info("Orientation: " + androidDriver.getOrientation());
         logger.info("Orientation: Forcing to PORTRAIT");
         androidDriver.rotate(ScreenOrientation.PORTRAIT);
-        SyncHelper.sleep(5000);
+        getSyncHelper().sleep(5000);
         logger.info("Orientation: " + androidDriver.getOrientation());
         androidDriver.startActivity(
             new Activity("com.android.settings", ".Settings")
@@ -204,7 +205,7 @@ public class TestHelper extends BaseComponent {
       logger.info("Orientation: " + androidDriver.getOrientation());
       logger.info("Orientation: Forcing to PORTRAIT");
       androidDriver.rotate(ScreenOrientation.PORTRAIT);
-      SyncHelper.sleep(5000);
+      getSyncHelper().sleep(5000);
       logger.info("Orientation: " + androidDriver.getOrientation());
       logger.info("Chrome default successfully configured");
     } else {
@@ -212,7 +213,7 @@ public class TestHelper extends BaseComponent {
   }
 
   private static void selectMenuItem(String key) {
-    AndroidDriver androidDriver = ((AndroidDriver) DriverManager.getDriver());
+    AndroidDriver androidDriver = ((AndroidDriver) SdkHelper.getDriver());
     int i = 5;
     while (i-- > 0) {
       try {
@@ -223,10 +224,10 @@ public class TestHelper extends BaseComponent {
                         "//*[contains(@resource-id,'content_layout') or contains(@resource-id,'list_container')]//android.widget.TextView[@text='%s']",
                         key)))
             .click();
-        SyncHelper.sleep(2000);
+        SdkHelper.getSyncHelper().sleep(2000);
         break;
       } catch (NoSuchElementException nse) {
-        DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.UP);
+        SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
       }
     }
   }

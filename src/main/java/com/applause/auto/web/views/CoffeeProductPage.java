@@ -8,9 +8,9 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import com.applause.auto.web.components.CreateSubscriptionChunk;
 import com.applause.auto.web.components.MiniCartContainerChunk;
 import com.applause.auto.web.helpers.WebHelper;
@@ -50,22 +50,22 @@ public class CoffeeProductPage extends BaseComponent {
    */
   public MiniCartContainerChunk clickAddToCart() {
     logger.info("Tap on Shop Coffee Button");
-    SyncHelper.wait(Until.uiElement(getAddToCartButton).clickable()).click();
+    getSyncHelper().wait(Until.uiElement(getAddToCartButton).clickable()).click();
     waitForAddingToCartSpinner();
-    return ComponentFactory.create(MiniCartContainerChunk.class);
+    return this.create(MiniCartContainerChunk.class);
   }
 
   public CreateSubscriptionChunk clickAddToSubscription() {
     logger.info("Tap on Add To Subscription Button");
-    SyncHelper.wait(Until.uiElement(getAddToSubscriptionCart).clickable()).click();
-    return ComponentFactory.create(CreateSubscriptionChunk.class);
+    getSyncHelper().wait(Until.uiElement(getAddToSubscriptionCart).clickable()).click();
+    return this.create(CreateSubscriptionChunk.class);
   }
 
   /** Click Add to Cart Button */
   public void waitForAddingToCartSpinner() {
     logger.info("Adding item to Shopping Cart...");
-    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).visible());
-    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).notVisible());
+    getSyncHelper().wait(Until.uiElement(getAddingToCartSpinner).visible());
+    getSyncHelper().wait(Until.uiElement(getAddingToCartSpinner).notVisible());
   }
 
   /**
@@ -77,8 +77,8 @@ public class CoffeeProductPage extends BaseComponent {
    */
   public <T extends BaseComponent> T navigateBack(Class<T> clazz) {
     logger.info("Navigate back");
-    DriverManager.getDriver().navigate().back();
-    return ComponentFactory.create(clazz);
+    getDriver().navigate().back();
+    return this.create(clazz);
   }
 
   public void selectSubscription() {

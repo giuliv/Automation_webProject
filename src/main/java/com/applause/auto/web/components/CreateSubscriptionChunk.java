@@ -2,6 +2,7 @@ package com.applause.auto.web.components;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.integrations.helpers.SdkHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -9,10 +10,10 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.helper.EnvironmentHelper;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import com.applause.auto.web.helpers.WebHelper;
 import java.time.Duration;
 
@@ -41,10 +42,10 @@ public class CreateSubscriptionChunk extends BaseComponent {
     logger.info("Select New Subscription");
 
     // TODO: DO we really need an absolute selector here?
-    // SyncHelper.waitUntilElementPresent(getNewSubscriptionButton.getAbsoluteSelector());
+    // getSyncHelper().waitUntilElementPresent(getNewSubscriptionButton.getAbsoluteSelector());
     // WebHelper.waitForElementToBeClickable(getNewSubscriptionButton.getWebElement());
     // getNewSubscriptionButton.click();
-    SyncHelper.wait(
+    getSyncHelper().wait(
             Until.uiElement(getNewSubscriptionButton)
                 .clickable()
                 .setTimeout(Duration.ofSeconds(60)))
@@ -72,7 +73,7 @@ public class CreateSubscriptionChunk extends BaseComponent {
    */
   public void selectFrequency(Constants.SubscriptionTerm frequency) {
     logger.info("Set frequency: " + frequency);
-    if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
+    if (SdkHelper.getEnvironmentHelper().isSafari()) {
 
       WebHelper.jsSelect(
           getNewSubscriptionFrequencySelectList.getWebElement(), frequency.miniCartSpell);
@@ -89,6 +90,6 @@ public class CreateSubscriptionChunk extends BaseComponent {
   public MiniCartContainerChunk createSubscription() {
     logger.info("Create subscription");
     getNewSubscriptionCreateButton.click();
-    return ComponentFactory.create(MiniCartContainerChunk.class);
+    return this.create(MiniCartContainerChunk.class);
   }
 }

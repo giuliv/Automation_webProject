@@ -5,7 +5,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.util.DriverManager;
+
 import java.util.List;
 
 @Implementation(is = AccountHistoryView.class, on = Platform.MOBILE_ANDROID)
@@ -55,7 +55,7 @@ public class AccountHistoryView extends BaseComponent {
    * @return the transaction date
    */
   public String getTransactionDate(int index) {
-    logger.info(">>>>>" + DriverManager.getDriver().getPageSource());
+    logger.info(">>>>>" + getDriver().getPageSource());
     return getTransactionDatesText.get(index).getText();
   }
 

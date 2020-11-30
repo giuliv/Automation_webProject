@@ -30,6 +30,6 @@ public class VerifyYourAddressDetailsChunk extends BaseComponent {
   public CheckoutShippingInfoPage clickEnteredAddressButton() {
     logger.info("Clicking Use Entered Address Button");
     getUseEnteredAddressButton.click();
-    return ComponentFactory.create(CheckoutShippingInfoPage.class);
+    return this.create(CheckoutShippingInfoPage.class);
   }
 }

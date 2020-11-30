@@ -34,6 +34,6 @@ public class ShopGiftSubscriptionsPage extends BaseComponent {
   public CoffeeProductDescriptionPage clickFirstProduct() {
     logger.info("Clicking First Product");
     getFirstProduct.click();
-    return ComponentFactory.create(CoffeeProductDescriptionPage.class);
+    return this.create(CoffeeProductDescriptionPage.class);
   }
 }

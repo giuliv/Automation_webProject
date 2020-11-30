@@ -34,6 +34,6 @@ public class ShopCoffeePage extends BaseComponent {
     productNameButton.initializeWithFormat(productName);
     productNameButton.scrollToElement();
     productNameButton.click();
-    return ComponentFactory.create(CoffeeProductPage.class);
+    return this.create(CoffeeProductPage.class);
   }
 }

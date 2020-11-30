@@ -32,6 +32,6 @@ public class AccountMenuChunk extends BaseComponent {
     WebHelper.jsClick(getExpandMenuButton.getWebElement());
     logger.info("Click on Sign Out button");
     WebHelper.jsClick(getSignOutButton.getWebElement());
-    return ComponentFactory.create(Landing.class);
+    return this.create(Landing.class);
   }
 }

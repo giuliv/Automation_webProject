@@ -34,7 +34,7 @@ public class OrderTest extends BaseTest {
       description = "625889")
   public void locationServicesNotEnabled() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
 
     // since autoGrantPermissions are set to true in capabilities, we have to deny location in this
     // test method to get Allow location pop up
@@ -130,7 +130,7 @@ public class OrderTest extends BaseTest {
       enabled = false)
   public void browseTheMenu() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
             landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
@@ -145,7 +145,7 @@ public class OrderTest extends BaseTest {
 
     logger.info("Checking if Allow Location Services Popup is displayed");
     AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
-        ComponentFactory.create(AllowLocationServicesPopupChunk.class);
+        this.create(AllowLocationServicesPopupChunk.class);
     if (allowLocationServicesPopupChunk.isNotNowButtonDisplayed()) {
       logger.info("Allow Location Services Popup displayed");
       // TODO: allowing location services is not working for iOS, so skipping for now
@@ -263,7 +263,7 @@ public class OrderTest extends BaseTest {
       enabled = false)
   public void checkoutTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
             landingView,
@@ -313,7 +313,7 @@ public class OrderTest extends BaseTest {
       enabled = false)
   public void orderAhead() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
             landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);

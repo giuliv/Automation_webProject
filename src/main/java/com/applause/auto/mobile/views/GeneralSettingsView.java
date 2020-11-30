@@ -8,7 +8,7 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Checkbox;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.helper.SyncHelper;
+
 
 @Implementation(is = AndroidGeneralSettingsView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = GeneralSettingsView.class, on = Platform.MOBILE_IOS)
@@ -72,8 +72,8 @@ public class GeneralSettingsView extends BaseComponent {
   public <T extends BaseComponent> T goBack(Class<T> clazz) {
     logger.info("Tap back button");
     getBackButton.click();
-    SyncHelper.sleep(2000);
-    return ComponentFactory.create(clazz);
+    getSyncHelper().sleep(2000);
+    return this.create(clazz);
   }
 
   /**
@@ -111,8 +111,8 @@ public class GeneralSettingsView extends BaseComponent {
   public GeneralSettingsView enablePromotionalEmails() {
     logger.info("Checking Promo emails services");
     if (!isPromoEmailOptionChecked()) getPromotionalEmailsButton.click();
-    SyncHelper.sleep(15000);
-    return ComponentFactory.create(GeneralSettingsView.class);
+    getSyncHelper().sleep(15000);
+    return this.create(GeneralSettingsView.class);
   }
 
   /**
@@ -123,8 +123,8 @@ public class GeneralSettingsView extends BaseComponent {
   public GeneralSettingsView disablePromotionalEmails() {
     logger.info("Unchecking Promo emails services");
     if (isPromoEmailOptionChecked()) getPromotionalEmailsButton.click();
-    SyncHelper.sleep(15000);
-    return ComponentFactory.create(GeneralSettingsView.class);
+    getSyncHelper().sleep(15000);
+    return this.create(GeneralSettingsView.class);
   }
 }
 

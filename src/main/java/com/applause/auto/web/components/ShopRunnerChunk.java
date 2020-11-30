@@ -8,7 +8,7 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.helper.SyncHelper;
+
 
 @Implementation(is = ShopRunnerChunk.class, on = Platform.WEB)
 public class ShopRunnerChunk extends BaseComponent {
@@ -54,9 +54,9 @@ public class ShopRunnerChunk extends BaseComponent {
    */
   public <T extends BaseComponent> T continueShopping(Class<T> clazz) {
     logger.info("Clicking Continue Shopping button");
-    SyncHelper.sleep(5000);
+    getSyncHelper().sleep(5000);
     getContinueShoppingButton.click();
-    SyncHelper.sleep(6000);
-    return ComponentFactory.create(clazz);
+    getSyncHelper().sleep(6000);
+    return this.create(clazz);
   }
 }

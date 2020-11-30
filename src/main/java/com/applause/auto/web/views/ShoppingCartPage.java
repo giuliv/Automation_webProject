@@ -1,6 +1,7 @@
 package com.applause.auto.web.views;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.integrations.helpers.SdkHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -11,11 +12,11 @@ import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.control.BrowserControl;
-import com.applause.auto.util.helper.EnvironmentHelper;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+
+
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import com.applause.auto.web.components.ShopRunnerChunk;
 import com.applause.auto.web.helpers.WebHelper;
 import java.util.List;
@@ -111,7 +112,7 @@ public class ShoppingCartPage extends BaseComponent {
     logger.info("Check the Order is a Gift");
     getOrderAsGiftCheckCheckbox.scrollToElement();
     if (!getOrderAsGiftCheckCheckbox.isChecked()) {
-      SyncHelper.wait(Until.uiElement(getOrderAsGiftCheckCheckbox).present());
+      getSyncHelper().wait(Until.uiElement(getOrderAsGiftCheckCheckbox).present());
       getOrderAsGiftCheckCheckbox.click();
     }
   }
@@ -119,7 +120,7 @@ public class ShoppingCartPage extends BaseComponent {
   /** Enter Gift Message */
   public void enterGiftMessage(String giftMessage) {
     logger.info("Enter a Gift Message");
-    SyncHelper.wait(Until.uiElement(getGiftMessageText).present());
+    getSyncHelper().wait(Until.uiElement(getGiftMessageText).present());
     getGiftMessageText.clearText();
     getGiftMessageText.sendKeys(giftMessage);
   }
@@ -135,9 +136,9 @@ public class ShoppingCartPage extends BaseComponent {
 
     // TODO: Investigate further why click is not working
     // getProceedToCheckoutButton.click();
-    // SyncHelper.sleep(2000);
+    // getSyncHelper().sleep(2000);
     WebHelper.jsClick(getProceedToCheckoutButton.getWebElement());
-    return ComponentFactory.create(CheckoutPage.class);
+    return this.create(CheckoutPage.class);
   }
 
   /**
@@ -148,9 +149,9 @@ public class ShoppingCartPage extends BaseComponent {
   public CheckoutPlaceOrderPage checkoutSignedUser() {
     logger.info("Click Proceed to Checkout button");
     getProceedToCheckoutButton.click();
-    SyncHelper.sleep(2000);
+    getSyncHelper().sleep(2000);
     WebHelper.jsClick(getProceedToCheckoutButton.getWebElement());
-    return ComponentFactory.create(CheckoutPlaceOrderPage.class);
+    return this.create(CheckoutPlaceOrderPage.class);
   }
 
   /**
@@ -160,17 +161,17 @@ public class ShoppingCartPage extends BaseComponent {
    */
   public CheckoutShippingInfoPage defineShippingSignedUser() {
     logger.info("Click Proceed to Checkout button");
-    SyncHelper.sleep(10000);
+    getSyncHelper().sleep(10000);
     getProceedToCheckoutButton.click();
-    SyncHelper.sleep(5000);
+    getSyncHelper().sleep(5000);
     try {
       getProceedToCheckoutButton.click();
     } catch (Exception ex) {
       logger.info("Button no longer present");
     }
-    SyncHelper.sleep(2000);
+    getSyncHelper().sleep(2000);
     // WebHelper.jsClick(getProceedToCheckoutButton.getWebElement());
-    return ComponentFactory.create(CheckoutShippingInfoPage.class);
+    return this.create(CheckoutShippingInfoPage.class);
   }
 
   /**
@@ -181,13 +182,13 @@ public class ShoppingCartPage extends BaseComponent {
   public PaypalLoginPage clickPayWithPaypal() {
     logger.info("Clicking Pay with Paypal");
     getPaypalButton.click();
-    SyncHelper.sleep(5000);
+    getSyncHelper().sleep(5000);
     try {
       getPaypalButton.click();
     } catch (Exception ex) {
       logger.info("Already clicked Paypal button");
     }
-    return ComponentFactory.create(PaypalLoginPage.class);
+    return this.create(PaypalLoginPage.class);
   }
 
   /**
@@ -198,11 +199,11 @@ public class ShoppingCartPage extends BaseComponent {
   public CheckoutPlaceOrderPage clickPayWithPaypalSignedUser() {
     logger.info("Clicking Pay with Paypal for Signed User");
     getPaypalButton.click();
-    SyncHelper.sleep(5000); // Required due a change of focus after leaving gift-message
+    getSyncHelper().sleep(5000); // Required due a change of focus after leaving gift-message
     if (getPaypalButton.exists()) {
       WebHelper.jsClick(getPaypalButton.getWebElement());
     }
-    return ComponentFactory.create(CheckoutPlaceOrderPage.class);
+    return this.create(CheckoutPlaceOrderPage.class);
   }
 
   /**
@@ -213,11 +214,11 @@ public class ShoppingCartPage extends BaseComponent {
   public CheckoutShippingInfoPage clickPayWithPaypalSignedUserLoggedIn() {
     logger.info("Clicking Pay with Paypal for Signed User");
     getPaypalButton.click();
-    SyncHelper.sleep(5000); // Required due a change of focus after leaving gift-message
+    getSyncHelper().sleep(5000); // Required due a change of focus after leaving gift-message
     if (getPaypalButton.exists()) {
       WebHelper.jsClick(getPaypalButton.getWebElement());
     }
-    return ComponentFactory.create(CheckoutShippingInfoPage.class);
+    return this.create(CheckoutShippingInfoPage.class);
   }
 
   /**
@@ -246,22 +247,22 @@ public class ShoppingCartPage extends BaseComponent {
    */
   public ShoppingCartPage removeItem(String itemName) {
     logger.info("Removing item: " + itemName);
-    if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
+    if (SdkHelper.getEnvironmentHelper().isSafari()) {
       getRemoveItemButton.initializeWithFormat(itemName);
-      BrowserControl.jsClick(getRemoveItemButton);
+      getBrowserControl().jsClick(getRemoveItemButton);
     } else {
       getRemoveItemButton.click();
     }
     waitForAddingToCartSpinner();
-    SyncHelper.sleep(5000);
+    getSyncHelper().sleep(5000);
     return this;
   }
 
   /** Click Add to Cart Button */
   public void waitForAddingToCartSpinner() {
     logger.info("Adding item to Shopping Cart...");
-    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).present());
-    SyncHelper.sleep(10000);
+    getSyncHelper().wait(Until.uiElement(getAddingToCartSpinner).present());
+    getSyncHelper().sleep(10000);
   }
 
   /**
@@ -273,7 +274,7 @@ public class ShoppingCartPage extends BaseComponent {
    */
   public ShoppingCartPage setGrindForItem(String itemName, String grind) {
     logger.info("Change grind value");
-    if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
+    if (SdkHelper.getEnvironmentHelper().isSafari()) {
       getGrindForItemSelectList.initializeWithFormat(itemName);
       getGrindForItemSelectList.getWebElement().sendKeys(grind + "\n");
     } else {
@@ -289,7 +290,7 @@ public class ShoppingCartPage extends BaseComponent {
    * @return the status message
    */
   public String getStatusMessage() {
-    SyncHelper.wait(Until.uiElement(getStatusMessageText).present());
+    getSyncHelper().wait(Until.uiElement(getStatusMessageText).present());
     return getStatusMessageText.getText().replace("  ", " ");
   }
 
@@ -316,7 +317,7 @@ public class ShoppingCartPage extends BaseComponent {
     logger.info("Click Update cart button");
     getUpdateCartButton.click();
     waitForAddingToCartSpinner();
-    return ComponentFactory.create(ShoppingCartPage.class);
+    return this.create(ShoppingCartPage.class);
   }
 
   /**
@@ -327,15 +328,15 @@ public class ShoppingCartPage extends BaseComponent {
    */
   public ShoppingCartPage selectShippingMethod(String method) {
     logger.info("Select shipping method: " + method);
-    if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
+    if (SdkHelper.getEnvironmentHelper().isSafari()) {
       getShippingMethodSelectList.click();
       getShippingMethodSelectList.getWebElement().sendKeys(method + "\n");
     } else {
       getShippingMethodSelectList.select(method);
     }
     waitForAddingToCartSpinner();
-    SyncHelper.sleep(5000);
-    return ComponentFactory.create(ShoppingCartPage.class);
+    getSyncHelper().sleep(5000);
+    return this.create(ShoppingCartPage.class);
   }
 
   /**
@@ -409,7 +410,7 @@ public class ShoppingCartPage extends BaseComponent {
   public ShopRunnerChunk signInShopRunner() {
     logger.info("Click on Sign In shop runner");
     getSignInShopRunnerButton.click();
-    return ComponentFactory.create(ShopRunnerChunk.class);
+    return this.create(ShopRunnerChunk.class);
   }
 
   /**

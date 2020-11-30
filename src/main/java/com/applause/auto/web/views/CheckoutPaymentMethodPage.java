@@ -2,6 +2,7 @@ package com.applause.auto.web.views;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.integrations.helpers.SdkHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -12,10 +13,10 @@ import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.helper.EnvironmentHelper;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import com.applause.auto.web.helpers.WebHelper;
 
 @Implementation(is = CheckoutPaymentMethodPage.class, on = Platform.WEB)
@@ -101,7 +102,7 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     fillPeetsCardInfo(amount);
     fillEmailField();
     continueAfterBillingInfo();
-    return ComponentFactory.create(CheckoutPlaceOrderPage.class);
+    return this.create(CheckoutPlaceOrderPage.class);
   }
 
   /** Select Peets Card as payment option */
@@ -116,12 +117,12 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
   public void fillPeetsCardInfo(String amount) {
     logger.info("Filling Peets Card info");
     String peetsCardNumber =
-        (EnvironmentHelper.isSafari(DriverManager.getDriver()))
+        (SdkHelper.getEnvironmentHelper().isSafari())
             ? Constants.TestData.PEETS_CARD_NUMBER_SAFARI
             : Constants.TestData.PEETS_CARD_NUMBER_CHROME;
     getPeetsCardNumberTextBox.sendKeys(peetsCardNumber);
     String peetsCardPin =
-        (EnvironmentHelper.isSafari(DriverManager.getDriver()))
+        (SdkHelper.getEnvironmentHelper().isSafari())
             ? Constants.TestData.PEETS_CARD_PIN_SAFARI
             : Constants.TestData.PEETS_CARD_PIN_CHROME;
     getPeetsCardPinTextBox.sendKeys(peetsCardPin);
@@ -130,7 +131,7 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     getPeetsCardNumberTextBox.click();
 
     // Waits for an animation while the element is displayed
-    SyncHelper.wait(Until.uiElement(getPeetsCardAmountTextBox).present());
+    getSyncHelper().wait(Until.uiElement(getPeetsCardAmountTextBox).present());
     getPeetsCardAmountTextBox.sendKeys(amount);
   }
 
@@ -141,7 +142,7 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     clickOnFirstBillingAddress();
     getContinuePaymentButton.exists();
     getContinuePaymentButton.click();
-    return ComponentFactory.create(CheckoutPlaceOrderPage.class);
+    return this.create(CheckoutPlaceOrderPage.class);
   }
 
   /** Continue after entering required Billing info */
@@ -151,7 +152,7 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     fillBillingInfo();
     fillEmailField();
     continueAfterBillingInfo();
-    return ComponentFactory.create(CheckoutPlaceOrderPage.class);
+    return this.create(CheckoutPlaceOrderPage.class);
   }
 
   /** Continue after entering required Billing info */
@@ -160,7 +161,7 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     fillBillingInfo();
     fillEmailField();
     continueAfterBillingInfo();
-    return ComponentFactory.create(CheckoutPlaceOrderPage.class);
+    return this.create(CheckoutPlaceOrderPage.class);
   }
 
   /** Continue after entering Credit Card Billing info */
@@ -169,7 +170,7 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     selectDebitCreditCardOption();
     fillBillingInfo();
     getContinuePaymentButton.click();
-    return ComponentFactory.create(CheckoutPlaceOrderPage.class);
+    return this.create(CheckoutPlaceOrderPage.class);
   }
 
   /** Enter an email-alias based on email seed */
@@ -217,12 +218,12 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     String peetsAmount =
         Constants.TestData.PEETS_CARD_LOWEST_AMOUNT.concat("." + totalPriceDecimals);
     fillPeetsCardInfo(peetsAmount);
-    SyncHelper.sleep(5000);
+    getSyncHelper().sleep(5000);
     selectDebitCreditCardOption();
     fillBillingInfo();
     fillEmailField();
     continueAfterBillingInfo();
-    return ComponentFactory.create(CheckoutPlaceOrderPage.class);
+    return this.create(CheckoutPlaceOrderPage.class);
   }
 
   /** Continue after entering Peets and Credit Card Billing Info */
@@ -234,11 +235,11 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     String totalPriceDecimals = cartTotalPrice.getText().split("\\.")[1];
     String peetsAmount =
         Constants.TestData.PEETS_CARD_LOWEST_AMOUNT.concat("." + totalPriceDecimals);
-    SyncHelper.wait(Until.uiElement(getStoredPeetsCardAmountTextBox).present());
+    getSyncHelper().wait(Until.uiElement(getStoredPeetsCardAmountTextBox).present());
     getStoredPeetsCardAmountTextBox.sendKeys(peetsAmount);
     selectDebitCreditCardOption();
     continueAfterEnteringPIN();
-    return ComponentFactory.create(CheckoutPlaceOrderPage.class);
+    return this.create(CheckoutPlaceOrderPage.class);
   }
 
   /** Click continue after billing info section */
@@ -250,7 +251,7 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
   public void clickOnFirstBillingAddress() {
     if (!selectedBillingAddress.isDisplayed()) {
       logger.info("Click on first billing address");
-      SyncHelper.wait(Until.uiElement(firstBillingAddress).clickable()).click();
+      getSyncHelper().wait(Until.uiElement(firstBillingAddress).clickable()).click();
     }
   }
 }

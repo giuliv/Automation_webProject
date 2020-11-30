@@ -9,8 +9,8 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import java.time.Duration;
 
 @Implementation(is = AndroidPeetsCardsView.class, on = Platform.MOBILE_ANDROID)
@@ -83,11 +83,11 @@ public class PeetsCardsView extends BaseComponent {
   public PaymentMethodsView edit() {
     logger.info("Tap pencil icon");
     getPencilIconButton.click();
-    return ComponentFactory.create(PaymentMethodsView.class);
+    return this.create(PaymentMethodsView.class);
   }
 
   public String getBalance() {
-    SyncHelper.wait(Until.uiElement(getBalanceText).visible().setTimeout(Duration.ofSeconds(30)));
+    getSyncHelper().wait(Until.uiElement(getBalanceText).visible().setTimeout(Duration.ofSeconds(30)));
     return getBalanceText.getText();
   }
 
@@ -109,10 +109,10 @@ public class PeetsCardsView extends BaseComponent {
    */
   public PeetsCardsView confirm() {
     logger.info("Tap on confirm button");
-    SyncHelper.wait(
+    getSyncHelper().wait(
         Until.uiElement(getConfirmButton).clickable().setTimeout(Duration.ofSeconds(30)));
     getConfirmButton.click();
-    return ComponentFactory.create(PeetsCardsView.class);
+    return this.create(PeetsCardsView.class);
   }
 
   /**
@@ -121,13 +121,13 @@ public class PeetsCardsView extends BaseComponent {
    * @return the bottom navigation menu
    */
   public BottomNavigationMenuChunk getBottomNavigationMenu() {
-    return ComponentFactory.create(BottomNavigationMenuChunk.class);
+    return this.create(BottomNavigationMenuChunk.class);
   }
 
   public PeetsCardsTransferAmountChunk transferValue() {
     logger.info("Tap on transfer value button");
     getTransferButton.click();
-    return ComponentFactory.create(PeetsCardsTransferAmountChunk.class);
+    return this.create(PeetsCardsTransferAmountChunk.class);
   }
 }
 

@@ -93,7 +93,7 @@ public class MyAccountMySuscriptionsPage extends BaseComponent {
   public MyAccountManageSubscriptionPage clickManageSubscription() {
     logger.info("Clicking Manage Subscription");
     getManageSubscriptionButton.click();
-    return ComponentFactory.create(MyAccountManageSubscriptionPage.class);
+    return this.create(MyAccountManageSubscriptionPage.class);
   }
 
   /**

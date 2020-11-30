@@ -7,7 +7,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.helper.SyncHelper;
+
 import com.applause.auto.web.helpers.WebHelper;
 
 @Implementation(is = EditShippingAddressPage.class, on = Platform.WEB)
@@ -55,10 +55,10 @@ public class EditShippingAddressPage extends BaseComponent {
   public AddressBookPage clickSaveAddress() {
     logger.info("Clicking Save Address");
     getSaveAddressButton.click();
-    SyncHelper.sleep(3000);
+    getSyncHelper().sleep(3000);
     if (getUseAddressAsEnteredButton.isDisplayed()) {
       getUseAddressAsEnteredButton.click();
     }
-    return ComponentFactory.create(AddressBookPage.class);
+    return this.create(AddressBookPage.class);
   }
 }

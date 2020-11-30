@@ -8,10 +8,10 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.control.DeviceControl;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -106,7 +106,7 @@ public class SignInView extends BaseComponent {
     logger.info("Set username: " + username);
     getUsernameTextBox.clearText();
     getUsernameTextBox.sendKeys(username);
-    SyncHelper.sleep(2000);
+    getSyncHelper().sleep(2000);
   }
 
   /**
@@ -119,9 +119,9 @@ public class SignInView extends BaseComponent {
     getPasswordTextBox.clearText();
     getPasswordTextBox.initialize();
     getPasswordTextBox.click();
-    SyncHelper.sleep(500);
+    getSyncHelper().sleep(500);
     getPasswordTextBox.sendKeys(password);
-    SyncHelper.sleep(500);
+    getSyncHelper().sleep(500);
   }
 
   /**
@@ -149,7 +149,7 @@ public class SignInView extends BaseComponent {
    */
   public SignInView dismissMessage() {
     logger.info("Dismissing message");
-    DriverManager.getDriver().switchTo().alert().accept();
+    getDriver().switchTo().alert().accept();
     return this;
   }
 
@@ -190,7 +190,7 @@ public class SignInView extends BaseComponent {
     logger.info("Click on Sign In button");
     getSignInButton.initialize();
     getSignInButton.click();
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 
   /** Show password. */
@@ -283,7 +283,7 @@ class AndroidSignInView extends SignInView {
     int x = element.getCenter().getX();
     int y = element.getCenter().getY();
     int width = element.getSize().getWidth();
-    AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
+    AppiumDriver driver = (AppiumDriver) getDriver();
     (new TouchAction(driver)).tap(PointOption.point(x + width / 2 - 5, y)).perform();
   }
 
@@ -331,11 +331,11 @@ class AndroidSignInView extends SignInView {
 
   public <T extends BaseComponent> T signIn(Class<T> clazz) {
     logger.info("Click on Sign In button");
-    DeviceControl.hideKeyboard();
+    getDeviceControl().hideKeyboard();
     getSignInButton.click();
     if (getLoader.exists()) {
-      SyncHelper.wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(60)));
+      getSyncHelper().wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(60)));
     }
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 }

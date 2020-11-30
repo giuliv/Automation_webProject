@@ -12,8 +12,8 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.control.DeviceControl;
-import com.applause.auto.util.helper.SyncHelper;
+
+
 import java.util.List;
 
 @Implementation(is = AndroidCheckoutView.class, on = Platform.MOBILE_ANDROID)
@@ -96,7 +96,7 @@ public class CheckoutView extends BaseComponent {
     logger.info("Tap place order");
     MobileHelper.scrollDownHalfScreen(2);
     getPlaceOrderButton.click();
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 
   /**
@@ -106,7 +106,7 @@ public class CheckoutView extends BaseComponent {
    */
   public CheckoutView clickOnAwardItem(String awardText) {
     logger.info("Selecting reward: " + awardText);
-    SyncHelper.sleep(3000);
+    getSyncHelper().sleep(3000);
     MobileHelper.swipeAcrossScreenCoordinates(0.5, 0.8, 0.5, 0.5, 100);
 
     boolean areAvailableRewardsDisplayed;
@@ -126,12 +126,12 @@ public class CheckoutView extends BaseComponent {
                   new IllegalStateException(
                       String.format("Award starting with %s was not found", awardText)))
           .click();
-      SyncHelper.waitUntil(condition -> radeemButton.isEnabled());
+      getSyncHelper().waitUntil(condition -> radeemButton.isEnabled());
       radeemButton.click();
-      SyncHelper.sleep(5000);
+      getSyncHelper().sleep(5000);
     }
 
-    return ComponentFactory.create(CheckoutView.class);
+    return this.create(CheckoutView.class);
   }
 
   /** Click on you might also like item. */
@@ -142,7 +142,7 @@ public class CheckoutView extends BaseComponent {
     }
     youMightAlsoLikeProducts.get(0).click();
 
-    return ComponentFactory.create(ProductDetailsView.class);
+    return this.create(ProductDetailsView.class);
   }
 
   /**
@@ -163,15 +163,15 @@ public class CheckoutView extends BaseComponent {
   private void waitForRewardIsNotValid() {
     logger.info("Waiting for 'reward not valid' message");
     try {
-      SyncHelper.waitUntil(condition -> selectedRewardIsNotValid.isEnabled());
+      getSyncHelper().waitUntil(condition -> selectedRewardIsNotValid.isEnabled());
       logger.info("'reward not valid' message appeared");
-      SyncHelper.sleep(1000);
+      getSyncHelper().sleep(1000);
       okayPopUpButton.click();
-      DeviceControl.tapElementCenter(okayPopUpButton);
+      getDeviceControl().tapElementCenter(okayPopUpButton);
     } catch (Exception e) {
       logger.info("'reward not valid' message didn't appear");
     }
-    SyncHelper.sleep(1000);
+    getSyncHelper().sleep(1000);
   }
 }
 
@@ -181,7 +181,7 @@ class AndroidCheckoutView extends CheckoutView {
     logger.info("Tap place order");
     MobileHelper.swipeWithCount(SwipeDirection.UP, 4);
     getPlaceOrderButton.click();
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 
   /**

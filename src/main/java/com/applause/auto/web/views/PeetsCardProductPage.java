@@ -9,8 +9,8 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import com.applause.auto.web.components.MiniCartContainerChunk;
 import com.applause.auto.web.helpers.WebHelper;
 
@@ -48,14 +48,14 @@ public class PeetsCardProductPage extends BaseComponent {
     logger.info("Tap on Shop Coffee Button");
     getAddToCartButton.click();
     waitForAddingToCartSpinner();
-    return ComponentFactory.create(MiniCartContainerChunk.class);
+    return this.create(MiniCartContainerChunk.class);
   }
 
   /** Click Add to Cart Button */
   public void waitForAddingToCartSpinner() {
     logger.info("Adding item to Shopping Cart...");
-    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).present());
+    getSyncHelper().wait(Until.uiElement(getAddingToCartSpinner).present());
     // TODO: Doesn't seem to be needed anymore, but confirm on tests other than GuestCheckoutTest
-    // SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).notPresent());
+    // getSyncHelper().wait(Until.uiElement(getAddingToCartSpinner).notPresent());
   }
 }

@@ -147,7 +147,7 @@ public class MyAccountPage extends BaseComponent {
   public PaymentMethodsPage clickPayment() {
     logger.info("Clicking Payment button");
     getPaymentButton.click();
-    return ComponentFactory.create(PaymentMethodsPage.class);
+    return this.create(PaymentMethodsPage.class);
   }
 
   /**
@@ -308,7 +308,7 @@ public class MyAccountPage extends BaseComponent {
   public EditBillingAddressPage clickEditBillingAddress() {
     logger.info("Clicking Edit Billing Address");
     getBillingAddressEditLink.click();
-    return ComponentFactory.create(EditBillingAddressPage.class);
+    return this.create(EditBillingAddressPage.class);
   }
 
   /**
@@ -329,7 +329,7 @@ public class MyAccountPage extends BaseComponent {
   public EditShippingAddressPage clickEditShippingAddress() {
     logger.info("Clicking Edit Shipping Address");
     getShippingAddressEditLink.click();
-    return ComponentFactory.create(EditShippingAddressPage.class);
+    return this.create(EditShippingAddressPage.class);
   }
 
   /**
@@ -339,7 +339,7 @@ public class MyAccountPage extends BaseComponent {
    */
   public MainMenuChunk getMainMenu() {
     logger.info("Getting Main Menu");
-    return ComponentFactory.create(MainMenuChunk.class);
+    return this.create(MainMenuChunk.class);
   }
 
   /**
@@ -350,7 +350,7 @@ public class MyAccountPage extends BaseComponent {
   public MyAccountMySuscriptionsPage clickMySuscriptions() {
     logger.info("Clicking My Suscriptions");
     getMySuscriptionsLink.click();
-    return ComponentFactory.create(MyAccountMySuscriptionsPage.class);
+    return this.create(MyAccountMySuscriptionsPage.class);
   }
 
   /**
@@ -361,7 +361,7 @@ public class MyAccountPage extends BaseComponent {
   public MyAccountPeetsCardPage clickPeetsCardsTab() {
     logger.info("Clicking Peet's Cards button");
     getPeetsCardButton.click();
-    return ComponentFactory.create(MyAccountPeetsCardPage.class);
+    return this.create(MyAccountPeetsCardPage.class);
   }
 
   /**
@@ -372,7 +372,7 @@ public class MyAccountPage extends BaseComponent {
   public MyAccountMyOrdersPage clickMyOrdersTab() {
     logger.info("Clicking My Orders button");
     getMyOrdersButton.click();
-    return ComponentFactory.create(MyAccountMyOrdersPage.class);
+    return this.create(MyAccountMyOrdersPage.class);
   }
 
   /**
@@ -383,7 +383,7 @@ public class MyAccountPage extends BaseComponent {
   public EditAccountInformationPage clickSettings() {
     logger.info("Clicking Settings");
     getSettingButton.click();
-    return ComponentFactory.create(EditAccountInformationPage.class);
+    return this.create(EditAccountInformationPage.class);
   }
 
   /**
@@ -414,7 +414,7 @@ public class MyAccountPage extends BaseComponent {
   public EditAccountInformationPage clickEditContactInformation() {
     logger.info("Clicking Edit Contact Information");
     getContactInformationEditLink.click();
-    return ComponentFactory.create(EditAccountInformationPage.class);
+    return this.create(EditAccountInformationPage.class);
   }
 
   /**
@@ -423,7 +423,7 @@ public class MyAccountPage extends BaseComponent {
    * @return the account menu
    */
   public AccountMenuChunk getAccountMenu() {
-    return ComponentFactory.create(AccountMenuChunk.class);
+    return this.create(AccountMenuChunk.class);
   }
 
   /** Dismiss popup. */

@@ -712,18 +712,18 @@ def convert_miscellaneous(contents):
         ('snapshotManager', 'ScreenshotHelper'),
 
         # Util methods - SELECTORS HAVE TO BECOME ARRAYS OF LOCATORS, some functions have no equivalent
-        ('SyncHelper.waitForElementToAppear', 'SyncHelper.waitUntilElementPresent'),
-        ('SyncHelper.waitForElementToDisappear', 'SyncHelper.waitUntilElementNotPresent'),
-        ('SyncHelper.waitForElementTextToAppear', 'SyncHelper.waitUntilElementTextAppears'),
-        ('SyncHelper.waitForTextToAppear', 'SyncHelper.waitUntilElementTextAppears'),
-        ('SyncHelper.suspend', 'SyncHelper.sleep'),
+        ('getSyncHelper().waitForElementToAppear', 'getSyncHelper().waitUntilElementPresent'),
+        ('getSyncHelper().waitForElementToDisappear', 'getSyncHelper().waitUntilElementNotPresent'),
+        ('getSyncHelper().waitForElementTextToAppear', 'getSyncHelper().waitUntilElementTextAppears'),
+        ('getSyncHelper().waitForTextToAppear', 'getSyncHelper().waitUntilElementTextAppears'),
+        ('getSyncHelper().suspend', 'getSyncHelper().sleep'),
 
-        ('QueryHelper.getElementCount', 'QueryHelper.elementCount'),
-        ('QueryHelper.getMobileElementCount', 'QueryHelper.elementCount'),
-        ('QueryHelper.findIosElement', 'QueryHelper.findElement'),
-        ('QueryHelper.findIosElements', 'QueryHelper.findElements'),
-        ('QueryHelper.findAndroidElement', 'QueryHelper.findElement'),
-        ('QueryHelper.findAndroidElements', 'QueryHelper.findElements'),
+        ('getQueryHelper().getElementCount', 'getQueryHelper().elementCount'),
+        ('getQueryHelper().getMobileElementCount', 'getQueryHelper().elementCount'),
+        ('getQueryHelper().findIosElement', 'getQueryHelper().findElement'),
+        ('getQueryHelper().findIosElements', 'getQueryHelper().findElements'),
+        ('getQueryHelper().findAndroidElement', 'getQueryHelper().findElement'),
+        ('getQueryHelper().findAndroidElements', 'getQueryHelper().findElements'),
 
         ('ScreenshotHelper.takeRemoteDeviceScreenshot', 'ScreenshotHelper.takeScreenshot'),
 
@@ -768,7 +768,7 @@ def add_missing_imports(contents):
     lines = contents.split("\n")
     lines.insert(2, "import com.applause.auto.data.enums.Platform;")
     if "SyncHelper" in contents and "com.applause.auto.util.helper.SyncHelper" not in contents:
-        lines.insert(2, "import com.applause.auto.util.helper.SyncHelper;")
+        lines.insert(2, "")
     if "QueryHelper" in contents and "com.applause.auto.util.helper.QueryHelper" not in contents:
         lines.insert(2, "import com.applause.auto.util.helper.QueryHelper;")
     if "ScreenshotHelper" in contents and "com.applause.auto.util.helper.ScreenshotHelper" not in contents:

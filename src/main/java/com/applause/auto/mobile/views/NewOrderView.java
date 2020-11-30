@@ -9,9 +9,9 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.control.DeviceControl;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import java.time.Duration;
 
 @Implementation(is = NewOrderView.class, on = Platform.MOBILE_ANDROID)
@@ -82,8 +82,8 @@ public class NewOrderView extends BaseComponent {
   public void selectCategoryAndSubCategory(String category, String subCategory) {
     logger.info("Select category: " + category);
     getCategoryItem.initializeWithFormat(category);
-    DeviceControl.tapElementCenter(getCategoryItem);
-    SyncHelper.sleep(2000);
+    getDeviceControl().tapElementCenter(getCategoryItem);
+    getSyncHelper().sleep(2000);
     getCategorySubItem.initializeWithFormat(category, subCategory);
     getCategorySubItem.click();
   }
@@ -97,8 +97,8 @@ public class NewOrderView extends BaseComponent {
   public ProductDetailsView selectProduct(String category) {
     logger.info("Select product: " + category);
     getCategoryItem.initializeWithFormat(category);
-    DeviceControl.tapElementCenter(getCategoryItem);
-    return ComponentFactory.create(ProductDetailsView.class);
+    getDeviceControl().tapElementCenter(getCategoryItem);
+    return this.create(ProductDetailsView.class);
   }
 
   /**
@@ -111,7 +111,7 @@ public class NewOrderView extends BaseComponent {
     logger.info("Searching for: " + searchItem);
     getSearchMagnifierButton.click();
     getSearchMenuEditField.sendKeys(searchItem);
-    return ComponentFactory.create(SearchResultsView.class);
+    return this.create(SearchResultsView.class);
   }
 
   /**
@@ -124,13 +124,13 @@ public class NewOrderView extends BaseComponent {
     getCartButton.click();
     try {
       logger.info("Waiting for confirmation button");
-      SyncHelper.wait(
+      getSyncHelper().wait(
           Until.uiElement(getConfirmStoreButton).present().setTimeout(Duration.ofSeconds(5)));
       getConfirmStoreButton.click();
     } catch (Exception e) {
       logger.info("Confirmation button is not present");
     }
-    return ComponentFactory.create(CheckoutView.class);
+    return this.create(CheckoutView.class);
   }
 }
 
@@ -141,7 +141,7 @@ class IosNewOrderView extends NewOrderView {
     getCartButton.click();
     // for some reasons iOS is getting stuck here for couple of secs
     logger.info("10 sec wait for checkout on iOS");
-    SyncHelper.sleep(10000);
-    return ComponentFactory.create(CheckoutView.class);
+    getSyncHelper().sleep(10000);
+    return this.create(CheckoutView.class);
   }
 }

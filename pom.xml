@@ -8,7 +8,7 @@
 	<name>peetscoffee.auto</name>
 	<url>http://maven.apache.org</url>
 	<properties>
-		<com.applause.sdk.java.version>2.1.1023</com.applause.sdk.java.version>
+		<com.applause.sdk.java.version>3.0.4-SNAPSHOT</com.applause.sdk.java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<surefire.version>2.19</surefire.version>
 		<surefire.suiteXmlFiles>${suiteFile}</surefire.suiteXmlFiles>
@@ -161,6 +161,14 @@
 	</profiles>
 	<repositories>
 	<repository>
+		<id>applause-public-snapshots</id>
+		<url>https://repo.applause.com/repository/snapshots</url>
+		<snapshots>
+			<enabled>true</enabled>
+			<updatePolicy>always</updatePolicy>
+		</snapshots>
+	</repository>
+	<repository>
         	<id>Central Maven repository</id>
       		<name>Central Maven repository https</name>
       		<url>https://repo.maven.apache.org/maven2</url>
@@ -201,6 +209,10 @@
 		<dependency>
 			<groupId>com.applause</groupId>
 			<artifactId>auto-sdk-java-elements</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.applause</groupId>
+			<artifactId>auto-sdk-java-integrations</artifactId>
 		</dependency>
 		<!--
 		<dependency>

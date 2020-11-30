@@ -43,7 +43,7 @@ public class OrderAheadView extends BaseComponent {
   public AuthenticationView clickGetStartedButton() {
     logger.info("Pressing Get Started button and expected to land at Peetnik Rewards auth screen");
     getGetStartedButton.click();
-    return ComponentFactory.create(AuthenticationView.class);
+    return this.create(AuthenticationView.class);
   }
 
   /**

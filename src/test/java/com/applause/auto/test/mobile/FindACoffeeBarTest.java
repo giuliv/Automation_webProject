@@ -35,7 +35,7 @@ public class FindACoffeeBarTest extends BaseTest {
             + "User has no items in basket");
 
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
             landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
@@ -155,7 +155,7 @@ public class FindACoffeeBarTest extends BaseTest {
             + "User has previously placed orders in at least two different coffeebars");
 
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
             landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
@@ -218,7 +218,7 @@ public class FindACoffeeBarTest extends BaseTest {
     logger.info("PRECONDITION - User is on find a coffeebar screen");
 
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
             landingView,

@@ -16,9 +16,9 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import org.openqa.selenium.NoAlertPresentException;
 
 @Implementation(is = AndroidAccountMenuMobileChunk.class, on = Platform.MOBILE_ANDROID)
@@ -173,7 +173,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
   public ProfileDetailsView profileDetails() {
     logger.info("Click on Profile Details button");
     getProfileDetailsButton.click();
-    return ComponentFactory.create(ProfileDetailsView.class);
+    return this.create(ProfileDetailsView.class);
   }
 
   /**
@@ -184,7 +184,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
   public GeneralSettingsView generalSettings() {
     logger.info("Click on General Settings button");
     getGeneralSettingsButton.click();
-    return ComponentFactory.create(GeneralSettingsView.class);
+    return this.create(GeneralSettingsView.class);
   }
 
   /**
@@ -197,11 +197,11 @@ public class AccountMenuMobileChunk extends BaseComponent {
     MobileHelper.swipeWithCount(SwipeDirection.UP, 5);
     getSignOutButton.click();
     try {
-      DriverManager.getDriver().switchTo().alert().accept();
+      getDriver().switchTo().alert().accept();
     } catch (NoAlertPresentException noAlertPresentException) {
       logger.warn("No alert found, probably because TestObect cloud accept it");
     }
-    return ComponentFactory.create(AuthenticationView.class);
+    return this.create(AuthenticationView.class);
   }
 
   /**
@@ -212,8 +212,8 @@ public class AccountMenuMobileChunk extends BaseComponent {
   public PaymentMethodsView clickPaymentMethods() {
     logger.info("Click Payment Methods");
     getPaymentMethodsButton.click();
-    SyncHelper.sleep(5000);
-    return ComponentFactory.create(PaymentMethodsView.class);
+    getSyncHelper().sleep(5000);
+    return this.create(PaymentMethodsView.class);
   }
 
   /**
@@ -225,8 +225,8 @@ public class AccountMenuMobileChunk extends BaseComponent {
     logger.info("Click Facebook");
     MobileHelper.swipeWithCount(SwipeDirection.UP, 1);
     getFacebookIcon.click();
-    SyncHelper.sleep(3000);
-    return ComponentFactory.create(AccountMenuMobileChunk.class);
+    getSyncHelper().sleep(3000);
+    return this.create(AccountMenuMobileChunk.class);
   }
 
   /**
@@ -237,8 +237,8 @@ public class AccountMenuMobileChunk extends BaseComponent {
   public AccountMenuMobileChunk clickInstagramIcon() {
     logger.info("Click Instagram");
     getInstagramIcon.click();
-    SyncHelper.sleep(3000);
-    return ComponentFactory.create(AccountMenuMobileChunk.class);
+    getSyncHelper().sleep(3000);
+    return this.create(AccountMenuMobileChunk.class);
   }
 
   /**
@@ -249,8 +249,8 @@ public class AccountMenuMobileChunk extends BaseComponent {
   public AccountMenuMobileChunk clickTwitterIcon() {
     logger.info("Click Twitter");
     getTwitterIcon.click();
-    SyncHelper.sleep(3000);
-    return ComponentFactory.create(AccountMenuMobileChunk.class);
+    getSyncHelper().sleep(3000);
+    return this.create(AccountMenuMobileChunk.class);
   }
 
   /**
@@ -270,7 +270,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
    * @return the boolean
    */
   public Boolean isOnInstagramPage() {
-    SyncHelper.wait(Until.uiElement(instagramPage).visible());
+    getSyncHelper().wait(Until.uiElement(instagramPage).visible());
     return instagramPage.isDisplayed();
   }
 
@@ -293,7 +293,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
   public AccountMenuMobileChunk clickDoneButton() {
     logger.info("Clicking Done Button to go back");
     getDoneButton.click();
-    return ComponentFactory.create(AccountMenuMobileChunk.class);
+    return this.create(AccountMenuMobileChunk.class);
   }
 
   /**
@@ -307,7 +307,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
     logger.info("Click on Sign Out button");
     MobileHelper.swipeWithCount(SwipeDirection.UP, 5);
     getSignOutButton.click();
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 
   /**
@@ -318,8 +318,8 @@ public class AccountMenuMobileChunk extends BaseComponent {
   public AccountHistoryView accountHistory() {
     logger.info("Click Account History");
     getAccountHistoryButton.click();
-    SyncHelper.sleep(15000);
-    return ComponentFactory.create(AccountHistoryView.class);
+    getSyncHelper().sleep(15000);
+    return this.create(AccountHistoryView.class);
   }
 
   /**
@@ -330,13 +330,13 @@ public class AccountMenuMobileChunk extends BaseComponent {
   public HelpAndFeedbackView helpAndFeedback() {
     logger.info("Click Help & Feedback");
     getHelpAndFeedbackButton.click();
-    return ComponentFactory.create(HelpAndFeedbackView.class);
+    return this.create(HelpAndFeedbackView.class);
   }
 
   /** Click the Cross Button */
   public void clickCrossButton() {
     logger.info("Clicking the cross button");
-    SyncHelper.sleep(5000);
+    getSyncHelper().sleep(5000);
     getCrossButton.click();
   }
 
@@ -493,7 +493,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
   public LegalInfoView termsAndPrivacyPolicy() {
     logger.info("Click on Terms and Privacy Policy");
     termsAndPrivacyPolicyButton.click();
-    return ComponentFactory.create(LegalInfoView.class);
+    return this.create(LegalInfoView.class);
   }
 }
 
@@ -517,25 +517,25 @@ class AndroidAccountMenuMobileChunk extends AccountMenuMobileChunk {
     MobileHelper.swipeWithCount(SwipeDirection.UP, 5);
     getSignOutButton.click();
     getLogOutButton.click();
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 
   @Override
   public AccountMenuMobileChunk clickDoneButton() {
     logger.info("Clicking Done Button to go back");
     MobileHelper.tapAndroidDeviceBackButton();
-    return ComponentFactory.create(AccountMenuMobileChunk.class);
+    return this.create(AccountMenuMobileChunk.class);
   }
 
   @Override
   public Boolean isOnFacebookPage() {
-    SyncHelper.wait(Until.uiElement(facebookPage).visible());
+    getSyncHelper().wait(Until.uiElement(facebookPage).visible());
     return facebookPage.isDisplayed();
   }
 
   @Override
   public Boolean isOnTwitterPage() {
-    SyncHelper.wait(Until.uiElement(twitterPage).visible());
+    getSyncHelper().wait(Until.uiElement(twitterPage).visible());
     return twitterPage.isDisplayed();
   }
 }

@@ -8,9 +8,9 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.control.DeviceControl;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import java.time.Duration;
 
 @Implementation(is = ProductDetailsView.class, on = Platform.MOBILE_IOS)
@@ -71,11 +71,11 @@ public class ProductDetailsView extends BaseComponent {
   public ProductDetailsView selectModifiers(String category, String subCategory) {
     logger.info("Select category: " + category + " | " + subCategory);
     getCategoryItem.initializeWithFormat(category);
-    DeviceControl.tapElementCenter(getCategoryItem);
+    getDeviceControl().tapElementCenter(getCategoryItem);
     getCategoryItem.initializeWithFormat(subCategory);
-    DeviceControl.tapElementCenter(getCategoryItem);
+    getDeviceControl().tapElementCenter(getCategoryItem);
     getSaveChangesButton.click();
-    return ComponentFactory.create(ProductDetailsView.class);
+    return this.create(ProductDetailsView.class);
   }
 
   /**
@@ -91,7 +91,7 @@ public class ProductDetailsView extends BaseComponent {
     if (!clazz.equals(SearchResultsView.class)) {
       getBackButton.click();
     }
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 
   /**
@@ -104,7 +104,7 @@ public class ProductDetailsView extends BaseComponent {
   public <T extends BaseComponent> T addToOrder(Class<T> clazz) {
     logger.info("Tap Add to Order");
     getAddToOrderButton.click();
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 }
 
@@ -114,6 +114,6 @@ class AndroidProductDetailsView extends ProductDetailsView {
 
   @Override
   public void afterInit() {
-    SyncHelper.wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(120)));
+    getSyncHelper().wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(120)));
   }
 }

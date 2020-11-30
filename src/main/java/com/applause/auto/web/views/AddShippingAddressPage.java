@@ -2,6 +2,7 @@ package com.applause.auto.web.views;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.integrations.helpers.SdkHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -9,9 +10,9 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.helper.EnvironmentHelper;
-import com.applause.auto.util.helper.SyncHelper;
+
+
+
 import com.applause.auto.web.helpers.WebHelper;
 
 @Implementation(is = AddShippingAddressPage.class, on = Platform.WEB)
@@ -85,7 +86,7 @@ public class AddShippingAddressPage extends BaseComponent {
    */
   public void selectState(String state) {
     logger.info("Selecting State");
-    if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
+    if (SdkHelper.getEnvironmentHelper().isSafari()) {
       WebHelper.jsSelect(getStateSelectList.getWebElement(), Constants.TestData.STATE);
     } else {
       getStateSelectList.select(state);
@@ -120,10 +121,10 @@ public class AddShippingAddressPage extends BaseComponent {
   public AddressBookPage clickSaveAddress() {
     logger.info("Clicking Save Address");
     getSaveAddressButton.click();
-    SyncHelper.sleep(3000);
+    getSyncHelper().sleep(3000);
     if (getUseAddressAsEnteredButton.isDisplayed()) {
       getUseAddressAsEnteredButton.click();
     }
-    return ComponentFactory.create(AddressBookPage.class);
+    return this.create(AddressBookPage.class);
   }
 }

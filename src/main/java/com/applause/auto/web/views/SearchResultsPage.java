@@ -37,7 +37,7 @@ public class SearchResultsPage extends BaseComponent {
   public CoffeeProductDescriptionPage clickFirstProduct() {
     logger.info("Clicking First Product");
     getFirstProduct.click();
-    return ComponentFactory.create(CoffeeProductDescriptionPage.class);
+    return this.create(CoffeeProductDescriptionPage.class);
   }
 
   /**
@@ -48,6 +48,6 @@ public class SearchResultsPage extends BaseComponent {
   public CoffeeProductDescriptionPage clickKona() {
     logger.info("Clicking First Product");
     getKonaProduct.click();
-    return ComponentFactory.create(CoffeeProductDescriptionPage.class);
+    return this.create(CoffeeProductDescriptionPage.class);
   }
 }

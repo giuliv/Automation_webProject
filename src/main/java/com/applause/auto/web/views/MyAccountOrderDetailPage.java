@@ -7,7 +7,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.control.BrowserControl;
+
 
 @Implementation(is = MyAccountOrderDetailPage.class, on = Platform.WEB)
 public class MyAccountOrderDetailPage extends BaseComponent {
@@ -90,8 +90,8 @@ public class MyAccountOrderDetailPage extends BaseComponent {
    */
   public MyAccountMyOrdersPage clickBackToMyOrders() {
     logger.info("Clicking back to my orders button");
-    BrowserControl.hoverOverElement(getBackToMyOrdersButton);
+    getBrowserControl().hoverOverElement(getBackToMyOrdersButton);
     getBackToMyOrdersButton.click();
-    return ComponentFactory.create(MyAccountMyOrdersPage.class);
+    return this.create(MyAccountMyOrdersPage.class);
   }
 }

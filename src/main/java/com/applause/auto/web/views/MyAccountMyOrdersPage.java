@@ -84,7 +84,7 @@ public class MyAccountMyOrdersPage extends BaseComponent {
   public MyAccountOrderDetailPage clickOrderNumber() {
     logger.info("Clicking first Order's Number");
     getOrdersNumberLink.click();
-    return ComponentFactory.create(MyAccountOrderDetailPage.class);
+    return this.create(MyAccountOrderDetailPage.class);
   }
 
   /**

@@ -11,7 +11,7 @@ import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.helper.SyncHelper;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -104,7 +104,7 @@ public class StoreDetailsView extends BaseComponent {
   public ProductDetailsView selectSearchResultByIndex(int index) {
     logger.info("Select search result");
     getSearchResultsElements.get(index).click();
-    return ComponentFactory.create(ProductDetailsView.class);
+    return this.create(ProductDetailsView.class);
   }
 
   /**
@@ -140,7 +140,7 @@ public class StoreDetailsView extends BaseComponent {
   public <T extends BaseComponent> T navigateBack(Class<T> clazz) {
     logger.info("Click on Back navigation button");
     navigateBackButton.click();
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 
   /**
@@ -170,7 +170,7 @@ public class StoreDetailsView extends BaseComponent {
    */
   public String getCoffeebarSubHeaderName() {
     logger.info("Checking coffeebar sub-header name");
-    SyncHelper.sleep(10000);
+    getSyncHelper().sleep(10000);
     return coffeebarSubHeaderNameText.getText();
   }
 
@@ -255,7 +255,7 @@ public class StoreDetailsView extends BaseComponent {
   public MapView directions() {
     logger.info("Tap directions button");
     directionsButton.click();
-    return ComponentFactory.create(MapView.class);
+    return this.create(MapView.class);
   }
 
   /**
@@ -266,7 +266,7 @@ public class StoreDetailsView extends BaseComponent {
   public OrderView order() {
     logger.info("Tap order button");
     orderButton.click();
-    return ComponentFactory.create(OrderView.class);
+    return this.create(OrderView.class);
   }
 
   /**
@@ -277,7 +277,7 @@ public class StoreDetailsView extends BaseComponent {
   public StoreDetailsView tapFavorite() {
     logger.info("Tap favorite icon");
     coffeebarFavoriteIcon.click();
-    SyncHelper.sleep(5000);
+    getSyncHelper().sleep(5000);
     return this;
   }
 }

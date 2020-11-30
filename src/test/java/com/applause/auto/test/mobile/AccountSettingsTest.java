@@ -8,6 +8,7 @@ import static com.applause.auto.common.data.Constants.MobileTestData.CC_VISA_NAM
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.integrations.helpers.SdkHelper;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.views.AddNewCardView;
 import com.applause.auto.mobile.views.CreditCardDetailsView;
@@ -16,8 +17,9 @@ import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.PeetsCardSettingsView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.helper.EnvironmentHelper;
+
+
+
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -33,7 +35,7 @@ public class AccountSettingsTest extends BaseTest {
   public void paymentMethodsTest() {
 
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
 
     DashboardView dashboardView = testHelper.signIn(landingView);
 
@@ -47,7 +49,7 @@ public class AccountSettingsTest extends BaseTest {
         "Peets Card header is not displayed");
 
     String savedPaymentMethodsHeaderText = MobileTestData.SAVED_PAYMENT_HEADER_ANDROID;
-    if (EnvironmentHelper.isMobileIOS(DriverManager.getDriver())) {
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
       savedPaymentMethodsHeaderText = MobileTestData.SAVED_PAYMENT_HEADER_IOS;
     }
     softAssert.assertEquals(
@@ -118,7 +120,7 @@ public class AccountSettingsTest extends BaseTest {
             MobileTestData.CC_ZIP);
     // TODO - Revert back to swiping and figure out why it's not working
     // for now, go back, and then forward
-    // DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.DOWN);
+    // getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.DOWN);
     paymentMethodsView.clickBackButton();
     accountProfileMenu.clickPaymentMethods();
 
@@ -184,7 +186,7 @@ public class AccountSettingsTest extends BaseTest {
       description = "625939")
   public void socialEngagementTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
 
     DashboardView dashboardView = testHelper.signIn(landingView);
 

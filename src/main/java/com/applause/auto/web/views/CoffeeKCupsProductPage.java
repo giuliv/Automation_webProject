@@ -8,8 +8,8 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import com.applause.auto.web.components.MiniCartContainerChunk;
 import com.applause.auto.web.helpers.WebHelper;
 
@@ -44,13 +44,13 @@ public class CoffeeKCupsProductPage extends BaseComponent {
     logger.info("Tap on Shop Coffee Button");
     getAddToCartButton.click();
     waitForAddingToCartSpinner();
-    return ComponentFactory.create(MiniCartContainerChunk.class);
+    return this.create(MiniCartContainerChunk.class);
   }
 
   /** Click Add to Cart Button */
   public void waitForAddingToCartSpinner() {
     logger.info("Adding item to Shopping Cart...");
-    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).visible());
-    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).notVisible());
+    getSyncHelper().wait(Until.uiElement(getAddingToCartSpinner).visible());
+    getSyncHelper().wait(Until.uiElement(getAddingToCartSpinner).notVisible());
   }
 }

@@ -1,6 +1,7 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.integrations.helpers.SdkHelper;
 import com.applause.auto.mobile.components.BottomNavigationMenuChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -9,10 +10,10 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.helper.EnvironmentHelper;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 
 @Implementation(is = AndroidCheckInView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CheckInView.class, on = Platform.MOBILE_IOS)
@@ -66,12 +67,12 @@ public class CheckInView extends BaseComponent {
   /** Add value. */
   public void addValue() {
     logger.info("Tap on Add Value");
-    SyncHelper.sleep(20000);
+    getSyncHelper().sleep(20000);
     int retryCounter = 0;
     while (getAddValueButton.exists() && getAddValueButton.isDisplayed() && retryCounter++ < 5) {
       getAddValueButton.initialize();
       MobileHelper.tapByCoordinatesOnElementCenter(getAddValueButton);
-      SyncHelper.sleep(20000);
+      getSyncHelper().sleep(20000);
     }
   }
 
@@ -84,7 +85,7 @@ public class CheckInView extends BaseComponent {
     logger.info("Tap pencil icon");
     getPencilIconButton.initialize();
     getPencilIconButton.click();
-    return ComponentFactory.create(PaymentMethodsView.class);
+    return this.create(PaymentMethodsView.class);
   }
 
   /**
@@ -118,12 +119,12 @@ public class CheckInView extends BaseComponent {
     logger.info("Tap on confirm button");
     getConfirmButton.click();
 
-    if (EnvironmentHelper.isiOS(DriverManager.getDriver())) {
+    if (SdkHelper.getEnvironmentHelper().isiOS()) {
       // need this sleep since iOS is updating view very slowly
-      SyncHelper.sleep(20000);
+      getSyncHelper().sleep(20000);
     }
 
-    return ComponentFactory.create(CheckInView.class);
+    return this.create(CheckInView.class);
   }
 
   /**
@@ -132,7 +133,7 @@ public class CheckInView extends BaseComponent {
    * @return the bottom navigation menu
    */
   public BottomNavigationMenuChunk getBottomNavigationMenu() {
-    return ComponentFactory.create(BottomNavigationMenuChunk.class);
+    return this.create(BottomNavigationMenuChunk.class);
   }
 }
 
@@ -142,7 +143,7 @@ class AndroidCheckInView extends CheckInView {
   public void afterInit() {
     if (getLovePeetsYesButton.exists()) getLovePeetsYesButton.click();
     if (getReviewNoThanksButton.exists()) getReviewNoThanksButton.click();
-    SyncHelper.wait(Until.uiElement(getSignature).present());
+    getSyncHelper().wait(Until.uiElement(getSignature).present());
   }
 
   @Override

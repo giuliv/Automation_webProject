@@ -9,7 +9,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
@@ -130,11 +130,11 @@ public class AllowLocationServicesPopupChunk extends BaseComponent {
     logger.info("Tap Allow button");
     getAllowButton.click();
     AllowLocationServicesSystemPopupChunk allowLocationServicesSystemPopupChunk =
-        ComponentFactory.create(AllowLocationServicesSystemPopupChunk.class);
+        this.create(AllowLocationServicesSystemPopupChunk.class);
 
     logger.info("Tap System pop up Allow");
     allowLocationServicesSystemPopupChunk.allow();
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 
   /**
@@ -159,14 +159,14 @@ public class AllowLocationServicesPopupChunk extends BaseComponent {
     try {
       getAllowButton.click();
       AllowLocationServicesSystemPopupChunk allowLocationServicesSystemPopupChunk =
-          ComponentFactory.create(AllowLocationServicesSystemPopupChunk.class);
+          this.create(AllowLocationServicesSystemPopupChunk.class);
 
       logger.info("Tap System pop up Allow");
       allowLocationServicesSystemPopupChunk.allow();
     } catch (Throwable throwable) {
       logger.info("Popup not displayed");
     }
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 
   /**
@@ -193,7 +193,7 @@ class AndroidAllowLocationServicesPopupChunk extends AllowLocationServicesPopupC
   public void notNow() {
     logger.info("Tap Not Now button");
     Point point = getNotNowButton.getMobileElement().getCenter();
-    AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
+    AppiumDriver driver = (AppiumDriver) getDriver();
     new TouchAction(driver)
         .tap(PointOption.point(point.x, point.y))
         .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(3)))

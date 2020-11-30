@@ -30,6 +30,6 @@ public class ShopCoffeeKCupsPage extends BaseComponent {
     logger.info(String.format("Tap on Product Name: %s", productName));
     productNameButton.initializeWithFormat(productName);
     productNameButton.click();
-    return ComponentFactory.create(CoffeeKCupsProductPage.class);
+    return this.create(CoffeeKCupsProductPage.class);
   }
 }

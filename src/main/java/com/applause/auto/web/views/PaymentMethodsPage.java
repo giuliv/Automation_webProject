@@ -7,7 +7,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
+
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 
@@ -121,7 +121,7 @@ public class PaymentMethodsPage extends BaseComponent {
   public EditPaymentMethodPage clickEditCreditCard() {
     logger.info("Clicking Edit Credit Card");
     getEditCreditCardButton.click();
-    return ComponentFactory.create(EditPaymentMethodPage.class);
+    return this.create(EditPaymentMethodPage.class);
   }
 
   /**
@@ -137,10 +137,10 @@ public class PaymentMethodsPage extends BaseComponent {
   /** Click Delete Credit Card */
   public void clickDeletePeetsCard() {
     logger.info("Clicking Delete Credit Card");
-    JavascriptExecutor jse = (JavascriptExecutor) DriverManager.getDriver();
+    JavascriptExecutor jse = (JavascriptExecutor) getDriver();
     jse.executeScript("scroll(0,250)", "");
     getDeletePeetsCardButton.click();
-    Alert alert = DriverManager.getDriver().switchTo().alert();
+    Alert alert = getDriver().switchTo().alert();
     alert.accept();
   }
 
@@ -162,6 +162,6 @@ public class PaymentMethodsPage extends BaseComponent {
   public AssociateNewCardPage addPeetsCard() {
     logger.info("Clicking Add New Peets Card");
     getAddPeetsCardButton.click();
-    return ComponentFactory.create(AssociateNewCardPage.class);
+    return this.create(AssociateNewCardPage.class);
   }
 }

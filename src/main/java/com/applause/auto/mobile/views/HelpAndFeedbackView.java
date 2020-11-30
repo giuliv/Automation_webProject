@@ -8,8 +8,8 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.helper.SyncHelper;
+
+
 import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.ScreenOrientation;
 
@@ -90,8 +90,8 @@ public class HelpAndFeedbackView extends BaseComponent {
     viewOurFAQs.click();
     MobileHelper.initMobileBrowser();
     // wait till the page load, before it ios is not switched back to app
-    SyncHelper.sleep(10000);
-    return ComponentFactory.create(PeetnikRewardsLandingView.class);
+    getSyncHelper().sleep(10000);
+    return this.create(PeetnikRewardsLandingView.class);
   }
 
   /**
@@ -102,9 +102,9 @@ public class HelpAndFeedbackView extends BaseComponent {
   public CustomerSupportScreenView contactCustomerService() {
     logger.info("Click Customer Support");
     contactCustomerService.click();
-    SyncHelper.sleep(10000);
+    getSyncHelper().sleep(10000);
     MobileHelper.initMobileBrowser();
-    return ComponentFactory.create(CustomerSupportScreenView.class);
+    return this.create(CustomerSupportScreenView.class);
   }
 }
 
@@ -112,12 +112,12 @@ class AndroidHelpAndFeedbackView extends HelpAndFeedbackView {
   public PeetnikRewardsLandingView clickViewOurFAQs() {
     logger.info("Click View Our FAQs");
     viewOurFAQs.click();
-    SyncHelper.sleep(5000);
-    AndroidDriver androidDriver = ((AndroidDriver) DriverManager.getDriver());
+    getSyncHelper().sleep(5000);
+    AndroidDriver androidDriver = ((AndroidDriver) getDriver());
     logger.info("Orientation: " + androidDriver.getOrientation());
     logger.info("Orientation: Forcing to PORTRAIT");
     androidDriver.rotate(ScreenOrientation.PORTRAIT);
-    SyncHelper.sleep(5000);
+    getSyncHelper().sleep(5000);
     logger.info("Orientation: " + androidDriver.getOrientation());
     try {
       allowLocationToBrowser.click();
@@ -134,7 +134,7 @@ class AndroidHelpAndFeedbackView extends HelpAndFeedbackView {
 
     MobileHelper.initMobileBrowser();
     // wait till the page load, before it ios is not switched back to app
-    SyncHelper.sleep(10000);
-    return ComponentFactory.create(PeetnikRewardsLandingView.class);
+    getSyncHelper().sleep(10000);
+    return this.create(PeetnikRewardsLandingView.class);
   }
 }

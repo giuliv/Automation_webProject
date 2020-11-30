@@ -35,6 +35,6 @@ public class PeetsCardSettingsView extends BaseComponent {
   public PaymentMethodsView clickBackButton() {
     logger.info("Click Back Button");
     getBackButton.click();
-    return ComponentFactory.create(PaymentMethodsView.class);
+    return this.create(PaymentMethodsView.class);
   }
 }
