@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Shopping Cart Suite" verbose="1" parallel="classes"
-	thread-count="1">
+	thread-count="8">
 	<test name="shopping-cart" preserve-order="true">
 		<groups>
 			<run>
