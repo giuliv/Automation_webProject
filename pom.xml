@@ -204,10 +204,6 @@
 		</dependency>
 		<dependency>
 			<groupId>com.applause</groupId>
-			<artifactId>auto-sdk-java-helpers</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.applause</groupId>
 			<artifactId>auto-sdk-java-elements</artifactId>
 		</dependency>
 		<dependency>
