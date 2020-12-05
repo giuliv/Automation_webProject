@@ -1,14 +1,13 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Checkbox;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
 
 @Implementation(is = AndroidGeneralSettingsView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = GeneralSettingsView.class, on = Platform.MOBILE_IOS)
@@ -110,7 +109,8 @@ public class GeneralSettingsView extends BaseComponent {
    */
   public GeneralSettingsView enablePromotionalEmails() {
     logger.info("Checking Promo emails services");
-    if (!isPromoEmailOptionChecked()) getPromotionalEmailsButton.click();
+    if (!isPromoEmailOptionChecked())
+      MobileHelper.tapByCoordinatesOnElementCenter(getPromotionalEmailsButton);
     getSyncHelper().sleep(15000);
     return this.create(GeneralSettingsView.class);
   }
@@ -122,7 +122,8 @@ public class GeneralSettingsView extends BaseComponent {
    */
   public GeneralSettingsView disablePromotionalEmails() {
     logger.info("Unchecking Promo emails services");
-    if (isPromoEmailOptionChecked()) getPromotionalEmailsButton.click();
+    if (isPromoEmailOptionChecked())
+      MobileHelper.tapByCoordinatesOnElementCenter(getPromotionalEmailsButton);
     getSyncHelper().sleep(15000);
     return this.create(GeneralSettingsView.class);
   }
