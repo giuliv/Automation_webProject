@@ -142,16 +142,19 @@ class AndroidGeneralSettingsView extends GeneralSettingsView {
 
   @Override
   public boolean isPromoEmailOptionChecked() {
+    getSyncHelper().sleep(7000);
     return getPromotionalEmailsButton.getAttributeValue("checked").equals("true");
   }
 
   @Override
   public boolean isPushNotificationChecked() {
+    getSyncHelper().sleep(7000);
     return getPushNotificationButton.getAttributeValue("checked").equals("true");
   }
 
   @Override
   public boolean isLocationServicesChecked() {
+    getSyncHelper().sleep(7000);
     return getLocationSetvicesButton.getAttributeValue("checked").equals("true");
   }
 }
