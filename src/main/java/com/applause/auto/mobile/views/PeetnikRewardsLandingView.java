@@ -86,12 +86,12 @@ public class PeetnikRewardsLandingView extends BaseComponent {
    */
   public PeetnikRewardsLandingView clickGetPeetnikRewardsAndOrderAheadQuestion() {
     logger.info("Click 'Peetnik Rewards & Order Ahead'");
-    try {
+    if (!(getPeetnikRewardsAndOrderAheadButton.exists()
+        && getPeetnikRewardsAndOrderAheadButton.isDisplayed())) {
       getPeetnikRewardsAndOrderAheadButton.click();
-    } catch (Throwable th) {
       MobileHelper.scrollDownToElementCloseToMiddle(getPeetnikRewardsAndOrderAheadButton, 2);
-      getPeetnikRewardsAndOrderAheadButton.click();
     }
+    MobileHelper.tapByCoordinatesOnElementCenter(getPeetnikRewardsAndOrderAheadButton);
     getSyncHelper().sleep(10000);
     logger.info("Checking list of questions is loaded'");
     getSyncHelper().waitUntil(condition -> !getQuestions.isEmpty());
