@@ -9,11 +9,6 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
-
-
-
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 
 import org.openqa.selenium.WebDriverException;
@@ -91,7 +86,12 @@ public class PeetnikRewardsLandingView extends BaseComponent {
    */
   public PeetnikRewardsLandingView clickGetPeetnikRewardsAndOrderAheadQuestion() {
     logger.info("Click 'Peetnik Rewards & Order Ahead'");
-    MobileHelper.tapByCoordinatesOnElementCenter(getPeetnikRewardsAndOrderAheadButton);
+    try {
+      getPeetnikRewardsAndOrderAheadButton.click();
+    } catch (Throwable th) {
+      MobileHelper.scrollDownToElementCloseToMiddle(getPeetnikRewardsAndOrderAheadButton, 2);
+      getPeetnikRewardsAndOrderAheadButton.click();
+    }
     getSyncHelper().sleep(10000);
     logger.info("Checking list of questions is loaded'");
     getSyncHelper().waitUntil(condition -> !getQuestions.isEmpty());
@@ -122,8 +122,8 @@ public class PeetnikRewardsLandingView extends BaseComponent {
         ((AppiumDriver) getDriver()).context("WEBVIEW_chrome");
       }
       logger.info("Xml: " + getDriver().getPageSource());
-      getSyncHelper().wait(
-          Until.uiElement(closeAdvPopUpButton).present().setTimeout(Duration.ofSeconds(30)));
+      getSyncHelper()
+          .wait(Until.uiElement(closeAdvPopUpButton).present().setTimeout(Duration.ofSeconds(30)));
       if (SdkHelper.getEnvironmentHelper().isMobileAndroid()) {
         closeAdvPopUpButton.click();
         ((AppiumDriver) getDriver()).context("NATIVE_APP");
@@ -146,8 +146,7 @@ public class PeetnikRewardsLandingView extends BaseComponent {
 class AndroidPeetnikRewardsLandingView extends PeetnikRewardsLandingView {
   public PeetnikRewardsLandingView clickGetPeetnikRewardsAndOrderAheadQuestion() {
     ((AppiumDriver) getDriver()).context("NATIVE_APP");
-    logger.info(
-        "Click 'Peetnik Rewards & Order Ahead'" + getDriver().getPageSource());
+    logger.info("Click 'Peetnik Rewards & Order Ahead'" + getDriver().getPageSource());
     try {
       getPeetnikRewardsAndOrderAheadButton.click();
     } catch (Throwable th) {
