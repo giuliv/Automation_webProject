@@ -9,10 +9,6 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
-
-
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 
 import org.openqa.selenium.Point;
@@ -55,7 +51,8 @@ public class DashboardView extends BaseComponent {
       logger.info("No free delivery popup found");
     }
     logger.info(">>>>>" + getDriver().getPageSource());
-    getSyncHelper().wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
+    getSyncHelper()
+        .wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
   }
 
   /**
@@ -69,6 +66,7 @@ public class DashboardView extends BaseComponent {
     Point elemCoord = getMoreScreenButton.getMobileElement().getCenter();
     AppiumDriver driver = (AppiumDriver) getDriver();
     new TouchAction(driver).tap(PointOption.point(elemCoord.getX(), elemCoord.getY())).perform();
+    getSyncHelper().sleep(5000);
     return this.create(AccountMenuMobileChunk.class);
   }
 
@@ -101,7 +99,8 @@ public class DashboardView extends BaseComponent {
 
 class IosDashboardView extends DashboardView {
   public void afterInit() {
-    getSyncHelper().wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
+    getSyncHelper()
+        .wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
   }
 
   public AccountMenuMobileChunk getAccountProfileMenu() {
@@ -114,6 +113,7 @@ class IosDashboardView extends DashboardView {
     } else {
       getMoreScreenButton.click();
     }
+    getSyncHelper().sleep(5000);
     return this.create(AccountMenuMobileChunk.class);
   }
 }
