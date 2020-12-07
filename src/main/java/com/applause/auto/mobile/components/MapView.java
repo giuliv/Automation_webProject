@@ -8,8 +8,8 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.control.DeviceControl;
-import com.applause.auto.util.helper.SyncHelper;
+
+
 
 /** Order Menu chunk. */
 @Implementation(is = MapView.class, on = Platform.MOBILE_ANDROID)
@@ -31,7 +31,7 @@ public class MapView extends BaseComponent {
   /* -------- Actions -------- */
 
   public void afterInit() {
-    SyncHelper.waitUntil(condition -> mapSignature.isDisplayed());
+    getSyncHelper().waitUntil(condition -> mapSignature.isDisplayed());
   }
 
   /**
@@ -43,8 +43,8 @@ public class MapView extends BaseComponent {
    */
   public <T extends BaseComponent> T returnToPeetsApp(Class<T> clazz) {
     logger.info("Return back to app");
-    DeviceControl.pressAndroidKeyBack();
-    return ComponentFactory.create(clazz);
+    getDeviceControl().pressAndroidKeyBack();
+    return this.create(clazz);
   }
 }
 
@@ -53,6 +53,6 @@ class IosMapView extends MapView {
   public <T extends BaseComponent> T returnToPeetsApp(Class<T> clazz) {
     logger.info("Return back to app");
     MobileHelper.tap(0.01, 0.01);
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 }

@@ -41,7 +41,7 @@ public class CreateAccountTest extends BaseTest {
   public void footerLinksTest() {
     logger.info("Launch the app and arrive at the first onboarding screen view");
 
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
     Assert.assertEquals(
         landingView.getHeadingTextValue(),
         "Earn Rewards.",
@@ -89,7 +89,7 @@ public class CreateAccountTest extends BaseTest {
   public void signInEmailPasswordTest() {
 
     logger.info("Launch the app and arrive at the first onboarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
     Assert.assertEquals(
         landingView.getHeadingTextValue(),
         "Earn Rewards.",
@@ -161,7 +161,7 @@ public class CreateAccountTest extends BaseTest {
       description = "625925")
   public void accountSettingsEditProfileTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
     softAssert.assertEquals(
         landingView.getHeadingTextValue(),
         "Earn Rewards.",
@@ -256,7 +256,7 @@ public class CreateAccountTest extends BaseTest {
       description = "625927")
   public void accountSettingsGeneralSettingsTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
     Assert.assertEquals(
         landingView.getHeadingTextValue(),
         "Earn Rewards.",
@@ -327,7 +327,7 @@ public class CreateAccountTest extends BaseTest {
   public void accountSettingsChangePasswordTest() {
 
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
     // will fail as this view is shown randomly
     softAssert.assertEquals(
         landingView.getHeadingTextValue(),
@@ -484,7 +484,7 @@ public class CreateAccountTest extends BaseTest {
   public void createAccountEmailPassword() {
 
     logger.info("Launch the app and arrive at the first onboarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
     Assert.assertEquals(
         landingView.getHeadingTextValue(),
         "Earn Rewards.",
@@ -687,7 +687,7 @@ public class CreateAccountTest extends BaseTest {
   public void createAccountFieldValidation() {
 
     logger.info("Launch the app and arrive at the first onboarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
     Assert.assertEquals(
         landingView.getHeadingTextValue(),
         "Earn Rewards.",
@@ -942,7 +942,7 @@ public class CreateAccountTest extends BaseTest {
   public void accountSettingsAccountHistoryTest() {
 
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
     Assert.assertEquals(
         landingView.getHeadingTextValue(),
         "Earn Rewards.",
@@ -982,7 +982,7 @@ public class CreateAccountTest extends BaseTest {
       description = "625882")
   public void createAccountExistingWebUserTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
 
     CompleteAccountView completeAccountView =
         testHelper.signIn(

@@ -1,8 +1,9 @@
 package com.applause.auto.test.web;
 
 import com.applause.auto.common.data.Constants;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.helper.EnvironmentHelper;
+
+
+import com.applause.auto.integrations.helpers.SdkHelper;
 import com.applause.auto.web.components.MiniCartContainerChunk;
 import com.applause.auto.web.components.VerifyYourAddressDetailsChunk;
 import com.applause.auto.web.helpers.WebHelper;
@@ -153,12 +154,12 @@ public class MyAccountTest extends BaseTest {
     logger.info("7. Add New Payment Method");
     AssociateNewCardPage associateNewCardPage = paymentMethodsPage.addPeetsCard();
     String alternatePeetsCardNumber =
-        (EnvironmentHelper.isSafari(DriverManager.getDriver()))
+        (SdkHelper.getEnvironmentHelper().isSafari())
             ? Constants.TestData.PEETS_CARD_NUMBER_SAFARI
             : Constants.TestData.PEETS_CARD_NUMBER_CHROME;
     associateNewCardPage.enterCardNumber(alternatePeetsCardNumber);
     String alternatePeetsCardPin =
-        (EnvironmentHelper.isSafari(DriverManager.getDriver()))
+        (SdkHelper.getEnvironmentHelper().isSafari())
             ? Constants.TestData.PEETS_CARD_PIN_SAFARI
             : Constants.TestData.PEETS_CARD_PIN_CHROME;
     associateNewCardPage.enterPinNumber(alternatePeetsCardPin);

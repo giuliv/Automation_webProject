@@ -7,8 +7,8 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import com.applause.auto.web.components.MainMenuChunk;
 
 @Implementation(is = Landing.class, on = Platform.WEB)
@@ -21,7 +21,7 @@ public class Landing extends BaseComponent {
     super.afterInit();
     try {
       logger.info("Attempting to dismiss popup");
-      SyncHelper.wait(Until.uiElement(dismissPopupButton).present()).click();
+      getSyncHelper().wait(Until.uiElement(dismissPopupButton).present()).click();
     } catch (Exception e) {
       logger.info("Popup not found, moving on");
     }
@@ -64,8 +64,8 @@ public class Landing extends BaseComponent {
     logger.info("Tap on SignIn Button");
     // TODO: Do we really need this?
     // WebHelper.waitForElementToBeClickable(signInButton.getWebElement());
-    SyncHelper.wait(Until.uiElement(signInButton).clickable()).click();
-    return ComponentFactory.create(SignInPage.class);
+    getSyncHelper().wait(Until.uiElement(signInButton).clickable()).click();
+    return this.create(SignInPage.class);
   }
 
   /**
@@ -76,7 +76,7 @@ public class Landing extends BaseComponent {
   public ShopCoffeePage clickShopCoffeeButton() {
     logger.info("Tap on Shop Coffee Button");
     shopCoffeeButton.click();
-    return ComponentFactory.create(ShopCoffeePage.class);
+    return this.create(ShopCoffeePage.class);
   }
 
   /**
@@ -87,7 +87,7 @@ public class Landing extends BaseComponent {
   public ShopTeaPage clickShopTeaButton() {
     logger.info("Tap on Shop Tea Button");
     shopTeaButton.click();
-    return ComponentFactory.create(ShopTeaPage.class);
+    return this.create(ShopTeaPage.class);
   }
 
   /**
@@ -98,7 +98,7 @@ public class Landing extends BaseComponent {
   public ShopEquipmentPage clickShopEquipmentButton() {
     logger.info("Tap on Shop Equipment Button");
     shopEquipmentButton.click();
-    return ComponentFactory.create(ShopEquipmentPage.class);
+    return this.create(ShopEquipmentPage.class);
   }
 
   /**
@@ -108,7 +108,7 @@ public class Landing extends BaseComponent {
    */
   public MainMenuChunk mainMenu() {
     logger.info("ting Main Menu");
-    return ComponentFactory.create(MainMenuChunk.class);
+    return this.create(MainMenuChunk.class);
   }
 
   /**
@@ -122,6 +122,6 @@ public class Landing extends BaseComponent {
     showSearchButton.click();
     searchTextBox.sendKeys(searchTerms);
     searchButton.click();
-    return ComponentFactory.create(SearchResultsPage.class);
+    return this.create(SearchResultsPage.class);
   }
 }

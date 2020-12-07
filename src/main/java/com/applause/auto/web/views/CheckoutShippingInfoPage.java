@@ -11,8 +11,8 @@ import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import com.applause.auto.web.components.DatePickerChunk;
 import com.applause.auto.web.components.ShopRunnerChunk;
 import com.applause.auto.web.components.VerifyYourAddressDetailsChunk;
@@ -106,10 +106,10 @@ public class CheckoutShippingInfoPage extends BaseComponent {
    */
   public ShopRunnerChunk signInShopRunner() {
     logger.info("Click on Sign In shop runner");
-    SyncHelper.sleep(10000);
+    getSyncHelper().sleep(10000);
     WebHelper.scrollToElement(getSignInShopRunnerButton.getWebElement());
     getSignInShopRunnerButton.click();
-    return ComponentFactory.create(ShopRunnerChunk.class);
+    return this.create(ShopRunnerChunk.class);
   }
 
   /** Continue after entering required Shipping info */
@@ -117,13 +117,13 @@ public class CheckoutShippingInfoPage extends BaseComponent {
     logger.info("Clicking Continue after filling shipping info");
     fillShippingInfo();
     continueAfterContactInfo();
-    return ComponentFactory.create(VerifyYourAddressDetailsChunk.class);
+    return this.create(VerifyYourAddressDetailsChunk.class);
   }
 
   /** Fill Required Fields for Shipping */
   public void fillShippingInfo() {
     logger.info("Filling shipping info");
-    SyncHelper.wait(
+    getSyncHelper().wait(
         Until.uiElement(getFirstNameTextBox).visible().setTimeout(Duration.ofSeconds(30)));
     getFirstNameTextBox.sendKeys(Constants.TestData.FIRST_NAME);
     getLastNameTextBox.sendKeys(Constants.TestData.LAST_NAME);
@@ -176,12 +176,12 @@ public class CheckoutShippingInfoPage extends BaseComponent {
     logger.info("Click Continue on contact section");
     getNewAddressContinueButton.click();
 
-    SyncHelper.wait(
+    getSyncHelper().wait(
         Until.uiElement(getShippingLoadingSpinner).visible().setTimeout(Duration.ofSeconds(60)));
-    SyncHelper.wait(
+    getSyncHelper().wait(
         Until.uiElement(getShippingLoadingSpinner).notVisible().setTimeout(Duration.ofSeconds(60)));
 
-    return ComponentFactory.create(CheckoutShippingInfoPage.class);
+    return this.create(CheckoutShippingInfoPage.class);
   }
 
   /** Continue after selecting Shipping Method */
@@ -189,7 +189,7 @@ public class CheckoutShippingInfoPage extends BaseComponent {
     logger.info("Set Shipping Method");
     selectShippingMethod(shippingMethod);
     continueAfterShippingInfo();
-    return ComponentFactory.create(CheckoutPaymentMethodPage.class);
+    return this.create(CheckoutPaymentMethodPage.class);
   }
 
   /**
@@ -200,7 +200,7 @@ public class CheckoutShippingInfoPage extends BaseComponent {
   public CheckoutPaymentMethodPage setShippingMethod() {
     logger.info("Click continue");
     continueAfterShippingInfo();
-    return ComponentFactory.create(CheckoutPaymentMethodPage.class);
+    return this.create(CheckoutPaymentMethodPage.class);
   }
 
   /** Select Shipping Method */
@@ -215,7 +215,7 @@ public class CheckoutShippingInfoPage extends BaseComponent {
   public void continueAfterShippingInfo() {
     logger.info("Click Continue on shipping section");
     WebHelper.scrollToElement(getShippingInfoContinueButton.getWebElement());
-    SyncHelper.sleep(10000);
+    getSyncHelper().sleep(10000);
     getShippingInfoContinueButton.click();
   }
 
@@ -238,7 +238,7 @@ public class CheckoutShippingInfoPage extends BaseComponent {
   public CheckoutShippingInfoPage addNewAddress() {
     logger.info("Click on Add new address button");
     getAddNewAddressButton.click();
-    return ComponentFactory.create(CheckoutShippingInfoPage.class);
+    return this.create(CheckoutShippingInfoPage.class);
   }
 
   /**
@@ -251,7 +251,7 @@ public class CheckoutShippingInfoPage extends BaseComponent {
    *     edit link for address: " + addressKey); List<String> addresses = getAddresses(); int index
    *     = IntStream.range(0, addresses.size()) .filter(i -> addresses.get(i).contains(addressKey))
    *     .findFirst() .getAsInt(); getAddressesEditButton.get(index).click(); return
-   *     ComponentFactory.create(CheckoutShippingInfoPage.class); }
+   *     this.create(CheckoutShippingInfoPage.class); }
    */
 
   /**
@@ -262,7 +262,7 @@ public class CheckoutShippingInfoPage extends BaseComponent {
   public DatePickerChunk editShippingDate() {
     logger.info("Click on edit shipping date");
     getEditShippingDateButton.click();
-    return ComponentFactory.create(DatePickerChunk.class);
+    return this.create(DatePickerChunk.class);
   }
 
   /**
@@ -291,6 +291,6 @@ public class CheckoutShippingInfoPage extends BaseComponent {
   public CheckoutShippingInfoPage updateAfterShippingInfoModification() {
     logger.info("Click on Update button");
     getModifiedAddressUpdateButton.click();
-    return ComponentFactory.create(CheckoutShippingInfoPage.class);
+    return this.create(CheckoutShippingInfoPage.class);
   }
 }

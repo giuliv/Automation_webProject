@@ -10,10 +10,10 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.control.DeviceControl;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 
 import org.openqa.selenium.Point;
 
@@ -54,8 +54,8 @@ public class DashboardView extends BaseComponent {
     } catch (Throwable throwable) {
       logger.info("No free delivery popup found");
     }
-    logger.info(">>>>>" + DriverManager.getDriver().getPageSource());
-    SyncHelper.wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
+    logger.info(">>>>>" + getDriver().getPageSource());
+    getSyncHelper().wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
   }
 
   /**
@@ -64,12 +64,12 @@ public class DashboardView extends BaseComponent {
    * @return the account profile menu
    */
   public AccountMenuMobileChunk getAccountProfileMenu() {
-    logger.info("Open account profile menu\n" + DriverManager.getDriver().getPageSource());
+    logger.info("Open account profile menu\n" + getDriver().getPageSource());
     getMoreScreenButton.initialize();
     Point elemCoord = getMoreScreenButton.getMobileElement().getCenter();
-    AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
+    AppiumDriver driver = (AppiumDriver) getDriver();
     new TouchAction(driver).tap(PointOption.point(elemCoord.getX(), elemCoord.getY())).perform();
-    return ComponentFactory.create(AccountMenuMobileChunk.class);
+    return this.create(AccountMenuMobileChunk.class);
   }
 
   /**
@@ -78,13 +78,13 @@ public class DashboardView extends BaseComponent {
    * @return the bottom navigation menu
    */
   public BottomNavigationMenuChunk getBottomNavigationMenu() {
-    return ComponentFactory.create(BottomNavigationMenuChunk.class);
+    return this.create(BottomNavigationMenuChunk.class);
   }
 
   public boolean lookUpOffer(String offerName) {
     int swipeLimit = 10;
     while ((swipeLimit-- != 0) && (!isOfferDisplayed(offerName))) {
-      DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
+      getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
     }
     return swipeLimit != 0;
   }
@@ -101,19 +101,19 @@ public class DashboardView extends BaseComponent {
 
 class IosDashboardView extends DashboardView {
   public void afterInit() {
-    SyncHelper.wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
+    getSyncHelper().wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
   }
 
   public AccountMenuMobileChunk getAccountProfileMenu() {
-    logger.info("Open account profile menu\n" + DriverManager.getDriver().getPageSource());
-    int x = DriverManager.getDriver().manage().window().getSize().width;
-    int y = DriverManager.getDriver().manage().window().getSize().height;
-    AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
+    logger.info("Open account profile menu\n" + getDriver().getPageSource());
+    int x = getDriver().manage().window().getSize().width;
+    int y = getDriver().manage().window().getSize().height;
+    AppiumDriver driver = (AppiumDriver) getDriver();
     if (!getMoreScreenButton.isDisplayed()) {
       new TouchAction(driver).tap(PointOption.point((int) (x * 0.9), (int) (y * 0.05))).perform();
     } else {
       getMoreScreenButton.click();
     }
-    return ComponentFactory.create(AccountMenuMobileChunk.class);
+    return this.create(AccountMenuMobileChunk.class);
   }
 }

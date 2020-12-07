@@ -7,7 +7,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
+
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 
@@ -94,20 +94,20 @@ public class AddressBookPage extends BaseComponent {
   /** Delete Billing Address */
   public void deleteBillingAddress() {
     logger.info("Deleting Billing Address");
-    JavascriptExecutor jse = (JavascriptExecutor) DriverManager.getDriver();
+    JavascriptExecutor jse = (JavascriptExecutor) getDriver();
     jse.executeScript("scroll(0,450)", "");
     getDeleteBillingAddressButton.click();
-    Alert alert = DriverManager.getDriver().switchTo().alert();
+    Alert alert = getDriver().switchTo().alert();
     alert.accept();
   }
 
   /** Delete Shipping Address */
   public void deleteShippingAddress() {
     logger.info("Deleting Shipping Address");
-    JavascriptExecutor jse = (JavascriptExecutor) DriverManager.getDriver();
+    JavascriptExecutor jse = (JavascriptExecutor) getDriver();
     jse.executeScript("scroll(0,450)", "");
     getDeleteShippingAddressButton.click();
-    Alert alert = DriverManager.getDriver().switchTo().alert();
+    Alert alert = getDriver().switchTo().alert();
     alert.accept();
   }
 
@@ -139,7 +139,7 @@ public class AddressBookPage extends BaseComponent {
   public AddBillingAddressPage clickAddNewBillingAddress() {
     logger.info("Clicking Add a New Billing Address");
     getAddBillingAddressButton.click();
-    return ComponentFactory.create(AddBillingAddressPage.class);
+    return this.create(AddBillingAddressPage.class);
   }
 
   /**
@@ -150,6 +150,6 @@ public class AddressBookPage extends BaseComponent {
   public AddShippingAddressPage clickAddNewShippingAddress() {
     logger.info("Clicking Add a New Shipping Address");
     getAddShippingAddressButton.click();
-    return ComponentFactory.create(AddShippingAddressPage.class);
+    return this.create(AddShippingAddressPage.class);
   }
 }

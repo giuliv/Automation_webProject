@@ -95,7 +95,7 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
   public OrderView clickOrderButton() {
     if (getOrderButton.isEnabled()) {
       getOrderButton.click();
-      return ComponentFactory.create(OrderView.class);
+      return this.create(OrderView.class);
     }
     throw new IllegalStateException("Order button is not enabled for click");
   }
@@ -109,7 +109,7 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
     logger.info("Tap on store name");
     getStoreName.initialize();
     getStoreName.click();
-    return ComponentFactory.create(StoreDetailsView.class);
+    return this.create(StoreDetailsView.class);
   }
 
   /**

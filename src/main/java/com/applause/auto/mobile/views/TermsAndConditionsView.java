@@ -5,8 +5,8 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import java.time.Duration;
 
 @Implementation(is = AndroidTermsAndConditionsView.class, on = Platform.MOBILE_ANDROID)
@@ -57,7 +57,7 @@ class AndroidTermsAndConditionsView extends TermsAndConditionsView {
     } catch (Throwable th) {
       logger.info("No location popup overlay found");
     }
-    SyncHelper.sleep(5000);
-    SyncHelper.wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(12)));
+    getSyncHelper().sleep(5000);
+    getSyncHelper().wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(12)));
   }
 }

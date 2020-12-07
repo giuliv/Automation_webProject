@@ -9,8 +9,8 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import com.applause.auto.web.components.MiniCartContainerChunk;
 
 @Implementation(is = EquipmentProductPage.class, on = Platform.WEB)
@@ -45,15 +45,15 @@ public class EquipmentProductPage extends BaseComponent {
    */
   public MiniCartContainerChunk clickAddToCart() {
     logger.info("Tap on Shop Coffee Button");
-    SyncHelper.sleep(5000);
+    getSyncHelper().sleep(5000);
     getAddToCartButton.click();
-    return ComponentFactory.create(MiniCartContainerChunk.class);
+    return this.create(MiniCartContainerChunk.class);
   }
 
   /** Wait for load spinner */
   public void waitForAddingToCartSpinner() {
     logger.info("Checkout loading-spinner...");
-    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).present());
-    SyncHelper.wait(Until.uiElement(getAddingToCartSpinner).notPresent());
+    getSyncHelper().wait(Until.uiElement(getAddingToCartSpinner).present());
+    getSyncHelper().wait(Until.uiElement(getAddingToCartSpinner).notPresent());
   }
 }

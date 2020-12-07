@@ -52,6 +52,6 @@ public class AssociateNewCardPage extends BaseComponent {
   public PaymentMethodsPage clickAssociateCard() {
     logger.info("Clicking Associate Card");
     getAssociateCardButton.click();
-    return ComponentFactory.create(PaymentMethodsPage.class);
+    return this.create(PaymentMethodsPage.class);
   }
 }

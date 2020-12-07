@@ -1,14 +1,15 @@
 package com.applause.auto.mobile.components;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.integrations.helpers.SdkHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.helper.EnvironmentHelper;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import java.time.Duration;
 import org.openqa.selenium.WebDriverException;
 
@@ -34,9 +35,9 @@ public class ReportAProblemPopupChunk extends BaseComponent {
   public void waitForPopUpToDisappear() {
     if (isReportAProblemPopUpDisplayed()) {
       logger.info("Report a problem pop up is present, waiting until it will disappear");
-      SyncHelper.wait(
+      getSyncHelper().wait(
           Until.uiElement(reportAProblemAdv).notPresent().setTimeout(Duration.ofSeconds(12)));
-      SyncHelper.sleep(2000);
+      getSyncHelper().sleep(2000);
     }
   }
 
@@ -44,7 +45,7 @@ public class ReportAProblemPopupChunk extends BaseComponent {
   public boolean isReportAProblemPopUpDisplayed() {
     logger.info("Waiting for report a problem pop up to appear");
     try {
-      SyncHelper.wait(
+      getSyncHelper().wait(
           Until.uiElement(reportAProblemAdv).present().setTimeout(Duration.ofSeconds(12)));
       return true;
     } catch (WebDriverException e) {
@@ -59,9 +60,9 @@ class ReportAProblemPopupChunkiOS extends ReportAProblemPopupChunk {
   @Override
   public void waitForPopUpToDisappear() {
     if (isReportAProblemPopUpDisplayed()) {
-      if (EnvironmentHelper.isMobileIOS(DriverManager.getDriver())) {
+      if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
         // for some reasons the pop up leave in iOS layout forever
-        SyncHelper.sleep(12000);
+        getSyncHelper().sleep(12000);
       }
     }
   }

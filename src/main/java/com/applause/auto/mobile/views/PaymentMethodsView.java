@@ -7,7 +7,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.helper.SyncHelper;
+
 
 @Implementation(is = AndroidPaymentMethodsView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = PaymentMethodsView.class, on = Platform.MOBILE_IOS)
@@ -103,14 +103,14 @@ public class PaymentMethodsView extends BaseComponent {
   public PeetsCardSettingsView clickPeetsCard() {
     logger.info("Clicking Peets Card");
     getPeetsCard.click();
-    return ComponentFactory.create(PeetsCardSettingsView.class);
+    return this.create(PeetsCardSettingsView.class);
   }
 
   /** Click the Back Button */
   public void clickBackButton() {
     logger.info("Clicking the back button");
     getBackButton.click();
-    SyncHelper.sleep(5000);
+    getSyncHelper().sleep(5000);
   }
 
   /**
@@ -122,7 +122,7 @@ public class PaymentMethodsView extends BaseComponent {
     logger.info("Clicking Payment Method");
     getSavedPaymentMethodButton.format(methodName);
     getSavedPaymentMethodButton.click();
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 
   /**
@@ -135,7 +135,7 @@ public class PaymentMethodsView extends BaseComponent {
   public <T extends BaseComponent> T clickSavedPaymentMethod2(Class<T> clazz) {
     logger.info("Clicking Payment Method");
     getSavedPaymentMethod2Button.click();
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 
   /**
@@ -146,7 +146,7 @@ public class PaymentMethodsView extends BaseComponent {
   public <T extends BaseComponent> T clickSavedPaymentMethodAndSaveChanges(
       Class<T> clazz, String methodName) {
     clickSavedPaymentMethod(clazz, methodName);
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 
   /**
@@ -157,7 +157,7 @@ public class PaymentMethodsView extends BaseComponent {
   public AddNewCardView clickAddNewPayment() {
     logger.info("Clicking Add New Payment");
     getAddNewPaymentButton.click();
-    return ComponentFactory.create(AddNewCardView.class);
+    return this.create(AddNewCardView.class);
   }
 
   /**
@@ -185,7 +185,7 @@ class AndroidPaymentMethodsView extends PaymentMethodsView {
     logger.info("Selecting Saved card");
     getSavedPaymentMethod2Button.click();
     getSaveChangesButton.click();
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 
   /**
@@ -197,6 +197,6 @@ class AndroidPaymentMethodsView extends PaymentMethodsView {
       Class<T> clazz, String methodName) {
     clickSavedPaymentMethod(clazz, methodName);
     getSaveChangesButton.click();
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 }

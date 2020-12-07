@@ -29,7 +29,7 @@ public class DashboardModalChunk extends BaseComponent {
   public DashboardPage clickExploreDashboard() {
     logger.info("Clicking Explore Dashboard Button");
     getExploreDashboardButton.click();
-    return ComponentFactory.create(DashboardPage.class);
+    return this.create(DashboardPage.class);
   }
 
   /**
@@ -40,6 +40,6 @@ public class DashboardModalChunk extends BaseComponent {
   public DashboardPage clickCloseModal() {
     logger.info("Clicking Close button on Dashboard Modal");
     getCloseDashboardModalButton.click();
-    return ComponentFactory.create(DashboardPage.class);
+    return this.create(DashboardPage.class);
   }
 }

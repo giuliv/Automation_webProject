@@ -37,7 +37,7 @@ public class SearchResultsView extends BaseComponent {
   public ProductDetailsView selectSearchResultByIndex(int index) {
     logger.info("Select search result");
     getSearchResultsElements.get(index).click();
-    return ComponentFactory.create(ProductDetailsView.class);
+    return this.create(ProductDetailsView.class);
   }
 
   public List<String> getResults() {

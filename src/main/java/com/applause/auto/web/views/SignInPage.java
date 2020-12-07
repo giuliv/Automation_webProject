@@ -2,16 +2,17 @@ package com.applause.auto.web.views;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.integrations.helpers.SdkHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.helper.EnvironmentHelper;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 
 @Implementation(is = SignInPage.class, on = Platform.WEB)
 public class SignInPage extends BaseComponent {
@@ -50,7 +51,7 @@ public class SignInPage extends BaseComponent {
    */
   public void enterEmailByBrowser(String email, String safariEmail) {
     logger.info("Enter email");
-    if (EnvironmentHelper.isSafari(DriverManager.getDriver()))
+    if (SdkHelper.getEnvironmentHelper().isSafari())
       getEmailTextBox.sendKeys(safariEmail);
     else getEmailTextBox.sendKeys(email);
   }
@@ -73,7 +74,7 @@ public class SignInPage extends BaseComponent {
   public MyAccountPage clickonSignInButton() {
     logger.info("Click on sign in button");
     getSignInButton.click();
-    return ComponentFactory.create(MyAccountPage.class);
+    return this.create(MyAccountPage.class);
   }
 
   /**
@@ -84,11 +85,11 @@ public class SignInPage extends BaseComponent {
   public MyAccountPage mainUserLogin() {
     logger.info("Login with main user");
     String username =
-        (EnvironmentHelper.isSafari(DriverManager.getDriver()))
+        (SdkHelper.getEnvironmentHelper().isSafari())
             ? Constants.TestData.USERNAME_SAFARI
             : Constants.TestData.USERNAME;
     performUserLogin(username, Constants.TestData.PASSWORD);
-    return ComponentFactory.create(MyAccountPage.class);
+    return this.create(MyAccountPage.class);
   }
 
   /**
@@ -99,11 +100,11 @@ public class SignInPage extends BaseComponent {
   public MyAccountPage checkoutUserLogin() {
     logger.info("Login with checkout user");
     String username =
-        (EnvironmentHelper.isSafari(DriverManager.getDriver()))
+        (SdkHelper.getEnvironmentHelper().isSafari())
             ? Constants.CheckoutUserTestData.USERNAME_SAFARI
             : Constants.CheckoutUserTestData.USERNAME;
     performUserLogin(username, Constants.CheckoutUserTestData.PASSWORD);
-    return ComponentFactory.create(MyAccountPage.class);
+    return this.create(MyAccountPage.class);
   }
 
   /**
@@ -116,7 +117,7 @@ public class SignInPage extends BaseComponent {
   public MyAccountPage userLogin(String email, String password) {
     logger.info("Login with main user");
     performUserLogin(email, password);
-    return ComponentFactory.create(MyAccountPage.class);
+    return this.create(MyAccountPage.class);
   }
 
   /**
@@ -127,7 +128,7 @@ public class SignInPage extends BaseComponent {
   public SignUpPage clickonCreateAccountButton() {
     logger.info("Click on Create Account button");
     getCreateAccountButton.click();
-    return ComponentFactory.create(SignUpPage.class);
+    return this.create(SignUpPage.class);
   }
 
   /**
@@ -139,6 +140,6 @@ public class SignInPage extends BaseComponent {
   private void performUserLogin(String email, String password) {
     enterEmail(email);
     enterPassword(password);
-    SyncHelper.wait(Until.uiElement(getSignInButton).clickable()).click();
+    getSyncHelper().wait(Until.uiElement(getSignInButton).clickable()).click();
   }
 }

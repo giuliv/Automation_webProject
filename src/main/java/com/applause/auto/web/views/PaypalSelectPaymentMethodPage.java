@@ -41,6 +41,6 @@ public class PaypalSelectPaymentMethodPage extends BaseComponent {
   public PaypalReviewYourPurchasePage clickContinue() {
     logger.info("Clicking Continue");
     getContinueButton.click();
-    return ComponentFactory.create(PaypalReviewYourPurchasePage.class);
+    return this.create(PaypalReviewYourPurchasePage.class);
   }
 }

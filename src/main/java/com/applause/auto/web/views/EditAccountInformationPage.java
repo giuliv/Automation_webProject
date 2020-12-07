@@ -1,14 +1,15 @@
 package com.applause.auto.web.views;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.integrations.helpers.SdkHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.helper.EnvironmentHelper;
+
+
 
 @Implementation(is = EditAccountInformationPage.class, on = Platform.WEB)
 public class EditAccountInformationPage extends BaseComponent {
@@ -68,7 +69,7 @@ public class EditAccountInformationPage extends BaseComponent {
    */
   public void enterEmailByBrowser(String email, String safariEmail) {
     logger.info("Entering Email");
-    if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
+    if (SdkHelper.getEnvironmentHelper().isSafari()) {
       enterEmail(safariEmail);
     } else {
       enterEmail(email);
@@ -93,7 +94,7 @@ public class EditAccountInformationPage extends BaseComponent {
   public MyAccountPage clickSave() {
     logger.info("Clicking Save");
     getSaveButton.click();
-    return ComponentFactory.create(MyAccountPage.class);
+    return this.create(MyAccountPage.class);
   }
 
   /** Change current password. */

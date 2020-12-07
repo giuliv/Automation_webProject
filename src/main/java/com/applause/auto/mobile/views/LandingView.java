@@ -11,10 +11,10 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.control.DeviceControl;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import java.time.Duration;
 
 @Implementation(is = AndroidLandingView.class, on = Platform.MOBILE_ANDROID)
@@ -61,7 +61,7 @@ public class LandingView extends BaseComponent {
    * @return
    */
   public ReportAProblemPopupChunk getReportAProblemPopupChunk() {
-    return ComponentFactory.create(ReportAProblemPopupChunk.class);
+    return this.create(ReportAProblemPopupChunk.class);
   }
 
   /**
@@ -70,12 +70,12 @@ public class LandingView extends BaseComponent {
    * @return TryMobileOrderAheadPopupChunk
    */
   public TryMobileOrderAheadPopupChunk getTryMobileOrderAheadPopupChunk() {
-    return ComponentFactory.create(TryMobileOrderAheadPopupChunk.class);
+    return this.create(TryMobileOrderAheadPopupChunk.class);
   }
 
   @Override
   public void afterInit() {
-    SyncHelper.wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
+    getSyncHelper().wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
     getReportAProblemPopupChunk().waitForPopUpToDisappear();
   }
 
@@ -86,8 +86,8 @@ public class LandingView extends BaseComponent {
    */
   public ExploreOffersView swipeLeftOnScreen() {
     logger.info("Swiping left to get to next tutorial view");
-    DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
-    return ComponentFactory.create(ExploreOffersView.class);
+    getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
+    return this.create(ExploreOffersView.class);
   }
 
   /**
@@ -97,10 +97,10 @@ public class LandingView extends BaseComponent {
    */
   public CreateAccountView createAccount() {
     logger.info("Tap on create account button");
-    SyncHelper.wait(
+    getSyncHelper().wait(
         Until.uiElement(getCreateAccountButton).clickable().setTimeout(Duration.ofSeconds(20)));
     getCreateAccountButton.click();
-    return ComponentFactory.create(CreateAccountView.class);
+    return this.create(CreateAccountView.class);
   }
 
   /**
@@ -112,7 +112,7 @@ public class LandingView extends BaseComponent {
     logger.info("Click on Sign In button");
     getSignInButton.initialize();
     getSignInButton.click();
-    return ComponentFactory.create(SignInView.class);
+    return this.create(SignInView.class);
   }
 
   /** Skip onboarding. */
@@ -121,7 +121,7 @@ public class LandingView extends BaseComponent {
     // this try catch is needed for iOS, since sometimes iOS test is starting on sign in/sign up
     // view
     try {
-      SyncHelper.wait(
+      getSyncHelper().wait(
           Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
       getSkipButton.click();
       logger.info("Skip button was clicked correctly");
@@ -147,7 +147,7 @@ public class LandingView extends BaseComponent {
    * @return
    */
   public String getHeadingTextValue() {
-    logger.info(">>>>>>>>." + DriverManager.getDriver().getPageSource());
+    logger.info(">>>>>>>>." + getDriver().getPageSource());
     getHeadingText.initialize();
     return getHeadingText.getText();
   }
@@ -164,15 +164,15 @@ class AndroidLandingView extends LandingView {
   public void skipOnboarding() {
     logger.info("Android Skipping Onboarding");
     try {
-      SyncHelper.wait(
+      getSyncHelper().wait(
           Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
 
       for (int i = 0; i < 3; i++) {
-        DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
-        SyncHelper.sleep(2000);
+        getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
+        getSyncHelper().sleep(2000);
       }
 
-      SyncHelper.wait(
+      getSyncHelper().wait(
           Until.uiElement(getStartedButton).clickable().setTimeout(Duration.ofSeconds(20)));
       getStartedButton.click();
     } catch (Exception e) {
@@ -193,6 +193,6 @@ class AndroidLandingView extends LandingView {
 
   @Override
   public void afterInit() {
-    SyncHelper.wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
+    getSyncHelper().wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
   }
 }

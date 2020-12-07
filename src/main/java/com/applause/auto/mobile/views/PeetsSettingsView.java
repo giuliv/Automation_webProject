@@ -7,9 +7,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.helper.QueryHelper;
-import com.applause.auto.util.helper.SyncHelper;
+
 
 @Implementation(is = AndroidPeetsSettingsView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = PeetsSettingsView.class, on = Platform.MOBILE_IOS)
@@ -37,7 +35,7 @@ public class PeetsSettingsView extends BaseComponent {
 
   /** Open location. */
   public void openLocation() {
-    if (QueryHelper.elementCount(getLocationButton.getLocator()) == 0) {
+    if (getQueryHelper().elementCount(getLocationButton.getLocator()) == 0) {
       MobileHelper.scrollDownToElementCloseToMiddle(getPeetsAppMenuItem, 30);
       getPeetsAppMenuItem.click();
     }
@@ -47,7 +45,7 @@ public class PeetsSettingsView extends BaseComponent {
 
   /** Select never. */
   public void selectNever() {
-    SyncHelper.sleep(5000);
+    getSyncHelper().sleep(5000);
     logger.info("Select Never");
 
     getNeverButton.click();
@@ -61,7 +59,7 @@ public class PeetsSettingsView extends BaseComponent {
   public GeneralSettingsView backToApp() {
     logger.info("Returning to application");
     MobileHelper.activateApp();
-    return ComponentFactory.create(GeneralSettingsView.class);
+    return this.create(GeneralSettingsView.class);
   }
 }
 
@@ -79,6 +77,6 @@ class AndroidPeetsSettingsView extends PeetsSettingsView {
   public GeneralSettingsView backToApp() {
     logger.info("Returning to application");
     MobileHelper.tapAndroidDeviceBackButton();
-    return ComponentFactory.create(GeneralSettingsView.class);
+    return this.create(GeneralSettingsView.class);
   }
 }

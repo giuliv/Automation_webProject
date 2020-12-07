@@ -33,6 +33,6 @@ public class ShopEquipmentPage extends BaseComponent {
     logger.info(String.format("Tap on Product Name: %s", productName));
     productNameButton.initializeWithFormat(productName);
     productNameButton.click();
-    return ComponentFactory.create(EquipmentProductPage.class);
+    return this.create(EquipmentProductPage.class);
   }
 }

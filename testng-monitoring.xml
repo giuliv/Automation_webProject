@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Monitoring Test Suite" verbose="1" parallel="classes"
-       thread-count="1">
+       thread-count="8">
     <test name="monitoring">
         <groups>
             <run>

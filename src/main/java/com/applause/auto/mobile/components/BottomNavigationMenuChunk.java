@@ -9,8 +9,8 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 
 @Implementation(is = BottomNavigationMenuChunk.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosBottomNavigationMenuChunk.class, on = Platform.MOBILE_IOS)
@@ -69,9 +69,9 @@ public class BottomNavigationMenuChunk extends BaseComponent {
    */
   public PeetsCardsView peetsCards() {
     logger.info("Tap on Peeds Cards");
-    SyncHelper.wait(Until.uiElement(getPeetsCardsButton).clickable());
+    getSyncHelper().wait(Until.uiElement(getPeetsCardsButton).clickable());
     getPeetsCardsButton.click();
-    return ComponentFactory.create(PeetsCardsView.class);
+    return this.create(PeetsCardsView.class);
   }
 
   /**
@@ -82,7 +82,7 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   public CheckInView checkIn() {
     logger.info("Tap on Check In");
     getCheckInButton.click();
-    return ComponentFactory.create(CheckInView.class);
+    return this.create(CheckInView.class);
   }
 
   /**
@@ -93,7 +93,7 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   public DashboardView home() {
     logger.info("Tap on Home");
     getHomeButton.click();
-    return ComponentFactory.create(DashboardView.class);
+    return this.create(DashboardView.class);
   }
 
   /**
@@ -106,7 +106,7 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   public <T extends BaseComponent> T order(Class<T> clazz) {
     logger.info("Tap on Order");
     getOrdersButton.click();
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 }
 
@@ -120,7 +120,7 @@ class IosBottomNavigationMenuChunk extends BottomNavigationMenuChunk {
   public CheckInView checkIn() {
     logger.info("Tap on Check In");
     getCheckInButton.click();
-    return ComponentFactory.create(CheckInView.class);
+    return this.create(CheckInView.class);
   }
 
   // is crashing when searching a coffee store
@@ -131,8 +131,8 @@ class IosBottomNavigationMenuChunk extends BottomNavigationMenuChunk {
   //    // should be refactored and fixed due to UI changes
   //    nearbySelectCoffeeBarView.allow();
   //    nearbySelectCoffeeBarView.search("Emeryville, CA, 94608, 1400 park avenue");
-  //    SyncHelper.sleep(10000);
+  //    getSyncHelper().sleep(10000);
   //    // nearbySelectCoffeeBarView.openCoffeebarFromSearchResults(1);
-  //    return ComponentFactory.create(clazz);
+  //    return this.create(clazz);
   //  }
 }

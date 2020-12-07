@@ -2,6 +2,7 @@ package com.applause.auto.web.views;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.integrations.helpers.SdkHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -10,10 +11,10 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.helper.EnvironmentHelper;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import com.applause.auto.web.helpers.WebHelper;
 import org.openqa.selenium.By;
 
@@ -66,7 +67,7 @@ public class PaypalLoginPage extends BaseComponent {
    */
   public void enterPassword(String password) {
     logger.info("Entering password");
-    SyncHelper.wait(Until.uiElement(getPasswordField).present()).sendKeys(password);
+    getSyncHelper().wait(Until.uiElement(getPasswordField).present()).sendKeys(password);
   }
 
   /**
@@ -79,15 +80,15 @@ public class PaypalLoginPage extends BaseComponent {
     getLogInButton.click();
 
     // SAFARI flow
-    if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
+    if (SdkHelper.getEnvironmentHelper().isSafari()) {
       // Move to iFrame
-      SyncHelper.sleep(45000);
-      DriverManager.getDriver().switchTo().defaultContent();
+      getSyncHelper().sleep(45000);
+      getDriver().switchTo().defaultContent();
       try {
-        SyncHelper.wait(Until.uiElement(getIFrame).present());
-        DriverManager.getDriver()
+        getSyncHelper().wait(Until.uiElement(getIFrame).present());
+        getDriver()
             .switchTo()
-            .frame(DriverManager.getDriver().findElement(By.cssSelector("[name='injectedUl']")));
+            .frame(getDriver().findElement(By.cssSelector("[name='injectedUl']")));
         logger.info("Switched to Iframe successfully");
       } catch (Throwable throwable) {
         logger.info("Switching to iFrame failed");
@@ -95,14 +96,14 @@ public class PaypalLoginPage extends BaseComponent {
       }
       getPasswordField.clearText();
       getPasswordField.sendKeys(Constants.TestData.PAYPAL_PASSWORD);
-      if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
+      if (SdkHelper.getEnvironmentHelper().isSafari()) {
         WebHelper.jsClick(getLogInButton.getWebElement());
       } else {
         getLogInButton.click();
       }
-      DriverManager.getDriver().switchTo().defaultContent();
+      getDriver().switchTo().defaultContent();
     }
 
-    return ComponentFactory.create(PaypalReviewYourPurchasePage.class);
+    return this.create(PaypalReviewYourPurchasePage.class);
   }
 }

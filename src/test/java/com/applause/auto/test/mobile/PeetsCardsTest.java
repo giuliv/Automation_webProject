@@ -43,7 +43,7 @@ public class PeetsCardsTest extends BaseTest {
       description = "1957258")
   public void addValueToNewDigitalCard25SavedCC() throws ParseException {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
 
     DashboardView dashboardView =
         testHelper.signIn(
@@ -139,7 +139,7 @@ public class PeetsCardsTest extends BaseTest {
       description = "1292900")
   public void reloadDigitalCard25SavedCC() throws ParseException {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
 
     DashboardView dashboardView =
         testHelper.signIn(
@@ -213,7 +213,7 @@ public class PeetsCardsTest extends BaseTest {
       description = "1959019")
   public void negativeTestTransferBalance() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
 
     DashboardView dashboardView =
         testHelper.signIn(

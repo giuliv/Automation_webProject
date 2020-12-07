@@ -3,7 +3,7 @@ package com.applause.auto.test.web;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.util.helper.SyncHelper;
+
 import com.applause.auto.web.components.CreateSubscriptionChunk;
 import com.applause.auto.web.components.MainMenuChunk;
 import com.applause.auto.web.components.MiniCartContainerChunk;
@@ -68,7 +68,7 @@ public class SubscriptionsTest extends BaseTest {
     MiniCartContainerChunk miniCart = createSubscriptionChunk.createSubscription();
 
     logger.info("From mini-cart, select View Cart");
-    SyncHelper.sleep(10000);
+    getSyncHelper().sleep(10000);
     ShoppingCartPage cartPage = miniCart.clickEditCart();
 
     logger.info("Verify Subscription Name");
@@ -147,7 +147,7 @@ public class SubscriptionsTest extends BaseTest {
     MiniCartContainerChunk miniCart = createSubscriptionChunk.createSubscription();
 
     logger.info("From mini-cart, select View Cart");
-    SyncHelper.sleep(10000);
+    getSyncHelper().sleep(10000);
     ShoppingCartPage cartPage = miniCart.clickEditCart();
 
     logger.info("Verify Subscription Name");

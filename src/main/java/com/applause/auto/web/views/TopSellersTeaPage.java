@@ -37,6 +37,6 @@ public class TopSellersTeaPage extends BaseComponent {
     getAddProductToCartButton.click();
     getAddProductToCart2Button.initializeWithFormat(productName);
     getAddProductToCart2Button.click();
-    return ComponentFactory.create(MiniCartContainerChunk.class);
+    return this.create(MiniCartContainerChunk.class);
   }
 }

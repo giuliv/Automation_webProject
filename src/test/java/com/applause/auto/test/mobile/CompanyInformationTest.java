@@ -13,7 +13,7 @@ import com.applause.auto.mobile.views.PeetnikRewardsLandingView;
 import com.applause.auto.mobile.views.PeetnikRewardsTermsAndConditionsView;
 import com.applause.auto.mobile.views.PrivacyPolicyView;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.control.DeviceControl;
+
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,7 +34,7 @@ public class CompanyInformationTest extends BaseTest {
       description = "625936")
   public void faqsTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
             landingView,
@@ -81,7 +81,7 @@ public class CompanyInformationTest extends BaseTest {
       description = "625938")
   public void termsAndPrivacyPolicyTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
             landingView,
@@ -154,7 +154,7 @@ public class CompanyInformationTest extends BaseTest {
       description = "625933")
   public void moreScreenTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
             landingView,
@@ -206,7 +206,7 @@ public class CompanyInformationTest extends BaseTest {
         accountMenuMobileChunk.isSubHeaderPeetsCoffeeDisplayed(),
         "Sub header: Peet's Coffee does not displayed");
 
-    DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.UP);
+    getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
 
     logger.info("VERIFY - About Us");
     Assert.assertTrue(
@@ -248,7 +248,7 @@ public class CompanyInformationTest extends BaseTest {
       description = "625937")
   public void contactCustomerServiceTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
             landingView,

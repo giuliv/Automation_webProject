@@ -11,7 +11,7 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.helper.SyncHelper;
+
 
 @Implementation(is = SignUpPage.class, on = Platform.WEB)
 public class SignUpPage extends BaseComponent {
@@ -65,13 +65,13 @@ public class SignUpPage extends BaseComponent {
     logger.info("Clicking Submit after filling sign-up info");
     fillSignUpInfo();
     clickSubmit();
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 
   /** Fill Required Fields for Shipping */
   public void fillSignUpInfo() {
     logger.info("Filling Sign up info");
-    SyncHelper.sleep(5000);
+    getSyncHelper().sleep(5000);
     long timeStamp = System.currentTimeMillis();
     email = String.format(Constants.TestData.EMAIL, timeStamp);
     getFirstNameTextBox.sendKeys(Constants.TestData.FIRST_NAME);

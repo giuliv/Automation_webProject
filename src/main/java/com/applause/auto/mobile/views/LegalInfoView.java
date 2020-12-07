@@ -7,9 +7,9 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import io.appium.java_client.android.AndroidDriver;
 import java.time.Duration;
 import org.openqa.selenium.ScreenOrientation;
@@ -41,7 +41,7 @@ public class LegalInfoView extends BaseComponent {
   /* -------- Actions -------- */
 
   public void afterInit() {
-    SyncHelper.wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(12)));
+    getSyncHelper().wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(12)));
   }
 
   /**
@@ -52,7 +52,7 @@ public class LegalInfoView extends BaseComponent {
   public PeetnikRewardsTermsAndConditionsView peetnikRewardsTermsAndConditions() {
     logger.info("Click on Peetnik Rewards Terms And Conditions");
     peetnikRewardsTermsAndConditionsButton.click();
-    return ComponentFactory.create(PeetnikRewardsTermsAndConditionsView.class);
+    return this.create(PeetnikRewardsTermsAndConditionsView.class);
   }
 
   /**
@@ -63,7 +63,7 @@ public class LegalInfoView extends BaseComponent {
   public PrivacyPolicyView privacyPolicy() {
     logger.info("Click on PPrivacy Policy");
     privacyPolicyButton.click();
-    return ComponentFactory.create(PrivacyPolicyView.class);
+    return this.create(PrivacyPolicyView.class);
   }
 
   /**
@@ -108,12 +108,12 @@ public class LegalInfoView extends BaseComponent {
 
 class AndroidLegalInfoView extends LegalInfoView {
   public void afterInit() {
-    AndroidDriver androidDriver = ((AndroidDriver) DriverManager.getDriver());
+    AndroidDriver androidDriver = ((AndroidDriver) getDriver());
     logger.info("Orientation: " + androidDriver.getOrientation());
     logger.info("Orientation: Forcing to PORTRAIT");
     androidDriver.rotate(ScreenOrientation.PORTRAIT);
-    SyncHelper.sleep(5000);
+    getSyncHelper().sleep(5000);
     logger.info("Orientation: " + androidDriver.getOrientation());
-    SyncHelper.wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(12)));
+    getSyncHelper().wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(12)));
   }
 }

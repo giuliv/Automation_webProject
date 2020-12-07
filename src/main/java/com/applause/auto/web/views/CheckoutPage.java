@@ -29,6 +29,6 @@ public class CheckoutPage extends BaseComponent {
   public CheckoutShippingInfoPage clickContinueAsGuest() {
     logger.info("Click Continue as Guest");
     getClickContinueAsGuestButton.click();
-    return ComponentFactory.create(CheckoutShippingInfoPage.class);
+    return this.create(CheckoutShippingInfoPage.class);
   }
 }

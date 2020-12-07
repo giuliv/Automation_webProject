@@ -1,17 +1,14 @@
 package com.applause.auto.mobile.helpers;
 
-import static com.applause.auto.util.DriverManager.getDriver;
+
 
 import com.applause.auto.common.data.Constants.MobileApp;
 import com.applause.auto.data.enums.SwipeDirection;
+import com.applause.auto.integrations.helpers.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
 import com.applause.auto.pageobjectmodel.elements.Picker;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.control.DeviceControl;
-import com.applause.auto.util.helper.EnvironmentHelper;
-import com.applause.auto.util.helper.QueryHelper;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -42,7 +39,7 @@ import org.openqa.selenium.UnsupportedCommandException;
 import org.openqa.selenium.WebDriverException;
 import org.testng.Assert;
 
-public class MobileHelper {
+public class MobileHelper extends SdkHelper {
 
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
   private static Dimension deviceSize;
@@ -58,20 +55,20 @@ public class MobileHelper {
   /** Activates the app */
   public static void activateApp() {
     logger.info("Activate application");
-    if (EnvironmentHelper.isMobileAndroid(getMobileDriver())) {
+    if (SdkHelper.getEnvironmentHelper().isMobileAndroid()) {
       getMobileDriver().activateApp(MobileApp.ANDROID_PACKAGE_ID);
     }
-    if (EnvironmentHelper.isMobileIOS(getMobileDriver())) {
-      SyncHelper.sleep(5000);
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      getSyncHelper().sleep(5000);
       hideKeyboardIOSByPressDone();
       getMobileDriver().activateApp(MobileApp.IOS_BUNDLE_ID);
     }
-    SyncHelper.sleep(3000);
+    getSyncHelper().sleep(3000);
   }
 
   public static void initMobileBrowser() {
-    if (EnvironmentHelper.isMobileAndroid(getMobileDriver())) {
-      SyncHelper.sleep(5000);
+    if (SdkHelper.getEnvironmentHelper().isMobileAndroid()) {
+      getSyncHelper().sleep(5000);
       String currentActivity = ((AndroidDriver) getDriver()).currentActivity();
       boolean isSamsungBrowserStarted =
           currentActivity.equals("com.sec.android.app.sbrowser")
@@ -85,24 +82,24 @@ public class MobileHelper {
       logger.info("Current activity: " + currentActivity);
 
       if (isIntentActionStarted) {
-        ((AppiumDriver) DriverManager.getDriver())
+        ((AppiumDriver) getDriver())
             .findElementByXPath("//android.widget.TextView[@text='Chrome']")
             .click();
-        ((AppiumDriver) DriverManager.getDriver())
+        ((AppiumDriver) getDriver())
             .findElementById("android:id/button_once")
             .click();
         return;
       } else if (isSamsungBrowserStarted) {
         throw new RuntimeException("Only Samsung browser suggested. Exiting");
-        //        ((AppiumDriver) DriverManager.getDriver())
+        //        ((AppiumDriver) getDriver())
         //
         // .findElementById("com.sec.android.app.sbrowser:id/help_intro_legal_optional_checkbox")
         //            .click();
-        //        ((AppiumDriver) DriverManager.getDriver())
+        //        ((AppiumDriver) getDriver())
         //
         // .findElementById("com.sec.android.app.sbrowser:id/help_intro_legal_agree_button")
         //            .click();
-        //        SyncHelper.sleep(10000);
+        //        getSyncHelper().sleep(10000);
       } else if (isChromeBrowserStarted) {
         return;
       }
@@ -128,8 +125,8 @@ public class MobileHelper {
   public static void swipeWithCount(SwipeDirection swipeDirection, int swipeCount) {
     logger.info("Scrolling to bottom of page");
     for (int i = 0; i < swipeCount; i++) {
-      DeviceControl.swipeAcrossScreenWithDirection(swipeDirection);
-      SyncHelper.sleep(3000);
+      getDeviceControl().swipeAcrossScreenWithDirection(swipeDirection);
+      getSyncHelper().sleep(3000);
     }
   }
 
@@ -145,7 +142,7 @@ public class MobileHelper {
     int count = 0;
     while (!element.isDisplayed() && (count < retries)) {
       scrollDownCloseToMiddleAlgorithm();
-      SyncHelper.sleep(2000);
+      getSyncHelper().sleep(2000);
       count++;
     }
   }
@@ -173,13 +170,13 @@ public class MobileHelper {
     logger.info(
         String.format(
             "Clicking with offset: x = [%d] , y = [%d]", xAbsoluteOffset, yAbsoluteOffset));
-    DeviceControl.tapScreenCoordinates(xAbsoluteOffset, yAbsoluteOffset);
+    getDeviceControl().tapScreenCoordinates(xAbsoluteOffset, yAbsoluteOffset);
   }
 
   private static void scrollDownCloseToMiddleAlgorithm() {
     double pStartY = 0;
     double pEndY = 0;
-    if (EnvironmentHelper.isMobileIOS(getMobileDriver())) {
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
       pStartY = 0.6;
       pEndY = -0.4;
     } else { // Android scrolls faster so the start and end must be gentler
@@ -272,7 +269,7 @@ public class MobileHelper {
    * @return the boolean
    */
   public static boolean isAttribtuePresent(MobileElement element, String attribute) {
-    SyncHelper.sleep(5000);
+    getSyncHelper().sleep(5000);
     Boolean result = false;
     try {
       String value = element.getAttribute(attribute);
@@ -302,7 +299,7 @@ public class MobileHelper {
       logger.debug("Initial picker wheel value: " + pickerWheel);
       logger.debug("Sending value to: " + value);
       logger.debug("Loop #" + loopCounter);
-      if (!EnvironmentHelper.isMobileIOS(getMobileDriver())) {
+      if (!SdkHelper.getEnvironmentHelper().isMobileIOS()) {
         if (value.matches("\\d+")) {
           elem.click();
           elem.sendKeys(Keys.BACK_SPACE + value);
@@ -378,43 +375,43 @@ public class MobileHelper {
   public static void scrollUntilElementSectionWillBeAvailableOnTheScreenInWebView(
       BaseElement element, String elementName, int maxSwipingAttempts) {
     int currentSwipingAttempts = 1;
-    SyncHelper.sleep(10000);
+    getSyncHelper().sleep(10000);
     int screenHeight = 0;
     int screenWidth = 0;
     logger.info("Scrolling down to element: ", elementName);
     while (currentSwipingAttempts <= maxSwipingAttempts) {
       try {
-        SyncHelper.wait(Until.uiElement(element).present().setTimeout(Duration.ofSeconds(5)));
+        getSyncHelper().wait(Until.uiElement(element).present().setTimeout(Duration.ofSeconds(5)));
         logger.info(elementName + " is present");
         return;
       } catch (UnsupportedCommandException uce) {
         logger.info("UnsupportedCommandException catched");
-        ((AppiumDriver) DriverManager.getDriver()).context("NATIVE_APP");
-        screenHeight = DeviceControl.getScreenSize().getHeight();
-        screenWidth = DeviceControl.getScreenSize().getWidth();
-        DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.UP);
-        SyncHelper.sleep(5000);
+        ((AppiumDriver) getDriver()).context("NATIVE_APP");
+        screenHeight = getDeviceControl().getScreenSize().getHeight();
+        screenWidth = getDeviceControl().getScreenSize().getWidth();
+        getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+        getSyncHelper().sleep(5000);
         currentSwipingAttempts++;
-        logger.info("XML Dump: ", DriverManager.getDriver().getPageSource());
+        logger.info("XML Dump: ", getDriver().getPageSource());
       } catch (WebDriverException e) {
         logger.info(elementName + " is not present");
         logger.info("Swipe attempt: " + currentSwipingAttempts);
-        DeviceControl.swipeAcrossScreenCoordinates(
+        getDeviceControl().swipeAcrossScreenCoordinates(
             screenWidth / 2,
             (int) (screenHeight * 0.75),
             screenWidth / 2,
             (int) (screenHeight * 0.4),
             1000);
-        SyncHelper.sleep(5000);
+        getSyncHelper().sleep(5000);
         currentSwipingAttempts++;
-        logger.info("XML Dump: ", DriverManager.getDriver().getPageSource());
+        logger.info("XML Dump: ", getDriver().getPageSource());
       }
     }
   }
 
   public static String getElementTextAttribute(BaseElement baseElement) {
     String textAttribute = "text";
-    if (EnvironmentHelper.isMobileIOS(DriverManager.getDriver())) {
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
       textAttribute = "value";
     }
     return baseElement.getAttributeValue(textAttribute);
@@ -448,13 +445,13 @@ public class MobileHelper {
     } catch (IOException e) {
       logger.error("Error during image reading");
     }
-    int screenHeight = DeviceControl.getScreenSize().height;
+    int screenHeight = getDeviceControl().getScreenSize().height;
     int screenShotHeight = image.getHeight();
     logger.debug("Screen height = " + screenHeight);
     logger.debug("Screenshot height = " + screenShotHeight);
     double centerY0 =
         (double) point.getY()
-            / (EnvironmentHelper.isMobileIOS(DriverManager.getDriver())
+            / (SdkHelper.getEnvironmentHelper().isMobileIOS()
                 ? (double) dimension.height
                 : ((double) dimension.height
                     + screenShotHeight
@@ -484,7 +481,7 @@ public class MobileHelper {
    */
   public static boolean isDisplayed(BaseElement element) {
     try {
-      return QueryHelper.findElement(element.getLocator()).isDisplayed();
+      return getQueryHelper().findElement(element.getLocator()).isDisplayed();
     } catch (Exception ex) {
       return false;
     }

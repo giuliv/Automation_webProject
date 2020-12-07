@@ -10,9 +10,9 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.control.DeviceControl;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import java.time.Duration;
 
 @Implementation(is = ProfileDetailsView.class, on = Platform.MOBILE_ANDROID)
@@ -114,8 +114,8 @@ public class ProfileDetailsView extends BaseComponent {
    */
   public ChangePasswordView changePassword() {
     logger.info("Tap on change password button");
-    DeviceControl.tapElementCenter(getChangePasswordButton);
-    return ComponentFactory.create(ChangePasswordView.class);
+    getDeviceControl().tapElementCenter(getChangePasswordButton);
+    return this.create(ChangePasswordView.class);
   }
 
   /**
@@ -176,8 +176,8 @@ public class ProfileDetailsView extends BaseComponent {
    */
   public ProfileDetailsView setConfirmEmailAddress(String emailAddress) {
     logger.info("Set email address to: " + emailAddress);
-    DeviceControl.hideKeyboard();
-    DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.DOWN);
+    getDeviceControl().hideKeyboard();
+    getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.DOWN);
     getConfirmEmailAddressTextBox.clearText();
     getConfirmEmailAddressTextBox.sendKeys(emailAddress);
     return this;
@@ -240,10 +240,10 @@ public class ProfileDetailsView extends BaseComponent {
    */
   public <T extends BaseComponent> T goBack(Class<T> clazz) {
     logger.info("Tap back button");
-    SyncHelper.wait(Until.uiElement(getBackButton).present().setTimeout(Duration.ofSeconds(15)));
+    getSyncHelper().wait(Until.uiElement(getBackButton).present().setTimeout(Duration.ofSeconds(15)));
     getBackButton.click();
-    SyncHelper.sleep(4000);
-    return ComponentFactory.create(clazz);
+    getSyncHelper().sleep(4000);
+    return this.create(clazz);
   }
 
   /**
@@ -263,10 +263,10 @@ public class ProfileDetailsView extends BaseComponent {
    */
   public AccountMenuMobileChunk save() {
     logger.info("Click on SAVE button");
-    DeviceControl.hideKeyboard();
+    getDeviceControl().hideKeyboard();
     getSaveButton.click();
-    SyncHelper.sleep(5000);
-    return ComponentFactory.create(AccountMenuMobileChunk.class);
+    getSyncHelper().sleep(5000);
+    return this.create(AccountMenuMobileChunk.class);
   }
 
   /**
@@ -360,8 +360,8 @@ class IosProfileDetailsView extends ProfileDetailsView {
     logger.info("Click on SAVE button");
     getDoneButton.click();
     getSaveButton.click();
-    SyncHelper.sleep(5000);
-    return ComponentFactory.create(AccountMenuMobileChunk.class);
+    getSyncHelper().sleep(5000);
+    return this.create(AccountMenuMobileChunk.class);
   }
 
   @Override
@@ -400,9 +400,9 @@ class IosProfileDetailsView extends ProfileDetailsView {
 
   public ChangePasswordView changePassword() {
     logger.info("Tap on change password button");
-    DeviceControl.swipeAcrossScreenWithDirection(SwipeDirection.UP);
+    getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
     getChangePasswordButton.initialize();
-    DeviceControl.tapElementCenter(getChangePasswordButton);
-    return ComponentFactory.create(ChangePasswordView.class);
+    getDeviceControl().tapElementCenter(getChangePasswordButton);
+    return this.create(ChangePasswordView.class);
   }
 }

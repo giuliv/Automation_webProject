@@ -8,9 +8,9 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import org.openqa.selenium.WebDriver;
 
 @Implementation(is = CheckoutConfirmationPage.class, on = Platform.WEB)
@@ -21,10 +21,10 @@ public class CheckoutConfirmationPage extends BaseComponent {
     super.afterInit();
     try {
       logger.info("Attempting to dismiss popup");
-      SyncHelper.sleep(15000);
-      WebDriver driver = DriverManager.getDriver();
+      getSyncHelper().sleep(15000);
+      WebDriver driver = getDriver();
       driver.switchTo().frame("talkable-offer-iframe");
-      SyncHelper.wait(Until.uiElement(dismissPopupButton).present()).click();
+      getSyncHelper().wait(Until.uiElement(dismissPopupButton).present()).click();
       driver.switchTo().defaultContent();
     } catch (Exception e) {
       logger.info("Popup not found, moving on");
@@ -114,7 +114,7 @@ public class CheckoutConfirmationPage extends BaseComponent {
   public MyAccountPage createAccount() {
     logger.info("Click on Create Account button");
     getCreateAccountButton.click();
-    return ComponentFactory.create(MyAccountPage.class);
+    return this.create(MyAccountPage.class);
   }
 
   /**

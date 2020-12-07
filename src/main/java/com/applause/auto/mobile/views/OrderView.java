@@ -39,7 +39,7 @@ public class OrderView extends BaseComponent {
   /* -------- Actions -------- */
 
   public OrderMenuChunk getOrderMenuChunck() {
-    return ComponentFactory.create(OrderMenuChunk.class);
+    return this.create(OrderMenuChunk.class);
   }
 
   /**
@@ -68,7 +68,7 @@ public class OrderView extends BaseComponent {
   public <T extends BaseComponent> T locateCoffeebars(Class<T> clazz) {
     logger.info("Tap to locate Coffeebars");
     getLocateCoffeeBars.click();
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 
   /**

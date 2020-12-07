@@ -8,8 +8,8 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.control.DeviceControl;
-import com.applause.auto.util.helper.SyncHelper;
+
+
 
 @Implementation(is = CreditCardDetailsView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosCreditCardDetailsView.class, on = Platform.MOBILE_IOS)
@@ -125,10 +125,10 @@ public class CreditCardDetailsView extends BaseComponent {
    */
   public PaymentMethodsView saveCard() {
     logger.info("Save Payment Method");
-    DeviceControl.hideKeyboard();
+    getDeviceControl().hideKeyboard();
     getSaveCardButton.click();
-    SyncHelper.sleep(10000);
-    return ComponentFactory.create(PaymentMethodsView.class);
+    getSyncHelper().sleep(10000);
+    return this.create(PaymentMethodsView.class);
   }
 
   /** Click Delete Card */
@@ -145,7 +145,7 @@ public class CreditCardDetailsView extends BaseComponent {
   public CreditCardDetailsView clickDeleteNo() {
     logger.info("Cancel Deleting Payment Method");
     getDeleteNoButton.click();
-    return ComponentFactory.create(CreditCardDetailsView.class);
+    return this.create(CreditCardDetailsView.class);
   }
 
   /**
@@ -156,10 +156,10 @@ public class CreditCardDetailsView extends BaseComponent {
   public PaymentMethodsView clickDeleteYes() {
     logger.info("Confirming Deletion of Card");
     getDeleteYesButton.click();
-    SyncHelper.sleep(15000);
-    //    SyncHelper.wait(
+    getSyncHelper().sleep(15000);
+    //    getSyncHelper().wait(
     //        Until.uiElement(getDeleteYesButton).present().setTimeout(Duration.ofSeconds(10)));
-    return ComponentFactory.create(PaymentMethodsView.class);
+    return this.create(PaymentMethodsView.class);
   }
 
   /**
@@ -194,8 +194,8 @@ public class CreditCardDetailsView extends BaseComponent {
   public PaymentMethodsView clickBackButton() {
     logger.info("Clicking the back button");
     getBackButton.click();
-    SyncHelper.sleep(5000);
-    return ComponentFactory.create(PaymentMethodsView.class);
+    getSyncHelper().sleep(5000);
+    return this.create(PaymentMethodsView.class);
   }
 }
 
@@ -224,9 +224,9 @@ class IosCreditCardDetailsView extends CreditCardDetailsView {
       logger.info("No Done button found");
     }
     getSaveCardButton.click();
-    SyncHelper.sleep(10000);
+    getSyncHelper().sleep(10000);
     getBackButton.click();
-    SyncHelper.sleep(5000);
-    return ComponentFactory.create(PaymentMethodsView.class);
+    getSyncHelper().sleep(5000);
+    return this.create(PaymentMethodsView.class);
   }
 }

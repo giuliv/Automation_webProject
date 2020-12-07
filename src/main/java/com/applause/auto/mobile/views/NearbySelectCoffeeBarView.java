@@ -9,9 +9,9 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.helper.SyncHelper;
-import com.applause.auto.util.helper.sync.Until;
+
+
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
 import java.time.Duration;
@@ -84,7 +84,7 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
     } catch (Throwable throwable) {
       logger.info("No free delivery popup found");
     }
-    SyncHelper.wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
+    getSyncHelper().wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
   }
 
   /**
@@ -93,7 +93,7 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
    * @return the coffee store container chuck
    */
   public CoffeeStoreContainerChuck getCoffeeStoreContainerChuck() {
-    return ComponentFactory.create(CoffeeStoreContainerChuck.class);
+    return this.create(CoffeeStoreContainerChuck.class);
   }
 
   /**
@@ -103,7 +103,7 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
    */
   public void search(String searchTxt) {
     logger.info("Searching for store: " + searchTxt);
-    logger.info("" + DriverManager.getDriver().getPageSource());
+    logger.info("" + getDriver().getPageSource());
     getSearchTextBox.click();
     getSearchTextBox.initialize();
     getSearchTextBox.sendKeys(searchTxt + "\n");
@@ -114,7 +114,7 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
     logger.info("Allow Location Services");
     try {
       getLocationServicesAllowBtn.click();
-      SyncHelper.sleep(2000);
+      getSyncHelper().sleep(2000);
       allowWhileUsing.click();
     } catch (Throwable throwable) {
       logger.error("Could not Allow for Location Service");
@@ -128,9 +128,9 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
    */
   public FindACoffeeBarView openRecentTab() {
     logger.info("Tap on Recent Tab");
-    SyncHelper.sleep(5000);
+    getSyncHelper().sleep(5000);
     recentTab.click();
-    return ComponentFactory.create(FindACoffeeBarView.class);
+    return this.create(FindACoffeeBarView.class);
   }
 
   /**
@@ -140,9 +140,9 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
    */
   public FindACoffeeBarView openFavoritesTab() {
     logger.info("Tap on Favorites Tab");
-    SyncHelper.sleep(5000);
+    getSyncHelper().sleep(5000);
     favoritesTab.click();
-    return ComponentFactory.create(FindACoffeeBarView.class);
+    return this.create(FindACoffeeBarView.class);
   }
 
   /** Cancel search. */
@@ -168,11 +168,11 @@ class AndroidNearbySelectCoffeeBarView extends NearbySelectCoffeeBarView {
   public void search(String searchTxt) {
     logger.info("Searching for store: " + searchTxt);
     getSearchTextBox.click();
-    SyncHelper.wait(
+    getSyncHelper().wait(
         Until.uiElement(getSearchTextBoxEdit).present().setTimeout(Duration.ofSeconds(3)));
     getSearchTextBoxEdit.sendKeys(searchTxt);
-    SyncHelper.sleep(2000);
-    AppiumDriver driver = (AppiumDriver) DriverManager.getDriver();
+    getSyncHelper().sleep(2000);
+    AppiumDriver driver = (AppiumDriver) getDriver();
     driver.executeScript("mobile: performEditorAction", ImmutableMap.of("action", "search"));
   }
 }

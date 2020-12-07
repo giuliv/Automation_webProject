@@ -29,6 +29,6 @@ public class DatePickerChunk extends BaseComponent {
   public <T extends BaseComponent> T selectDate(Class<T> clazz, int index) {
     logger.info("Clicking available day by index: " + index);
     getAvailableDatesText.get(index).click();
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 }

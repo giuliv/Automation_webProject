@@ -2,14 +2,15 @@ package com.applause.auto.web.components;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.integrations.helpers.SdkHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import com.applause.auto.util.DriverManager;
-import com.applause.auto.util.helper.EnvironmentHelper;
+
+
 import com.applause.auto.web.views.Landing;
 import com.applause.auto.web.views.PeetsCardProductPage;
 import com.applause.auto.web.views.ShopEquipmentPage;
@@ -57,7 +58,7 @@ public class MainMenuChunk extends BaseComponent {
   public void hoverCategory(String category) {
     logger.info("Hover a category in the main menu");
     getMainMenuCategoryButton.initializeWithFormat(category);
-    Actions actions = new Actions(DriverManager.getDriver());
+    Actions actions = new Actions(getDriver());
     actions.moveToElement(getMainMenuCategoryButton.getWebElement()).build().perform();
   }
 
@@ -92,15 +93,15 @@ public class MainMenuChunk extends BaseComponent {
     logger.info(
         String.format(
             "Accessing category [%s] subcategory [%s] option [%s]", category, column, option));
-    if (EnvironmentHelper.isSafari(DriverManager.getDriver())) {
+    if (SdkHelper.getEnvironmentHelper().isSafari()) {
       hoverCategory(category);
       getCategoryColumnOptionButton.initializeWithFormat(column, option);
       getCategoryColumnOptionButton.click();
     } else {
       getCategoryColumnOptionButton.initializeWithFormat(column, option);
-      DriverManager.getDriver().get(getCategoryColumnOptionButton.getAttributeValue("href"));
+      getDriver().get(getCategoryColumnOptionButton.getAttributeValue("href"));
     }
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 
   /** Access Sub-Menu Tea under Category Shop from main menu */
@@ -108,7 +109,7 @@ public class MainMenuChunk extends BaseComponent {
     logger.info("Accessing Shop-Tea");
     clickCategorySubmenu(
         Constants.TestMainMenu.NAV_CATEGORY_SHOP, Constants.TestMainMenu.NAV_SUBMENU_TEA);
-    return ComponentFactory.create(ShopTeaPage.class);
+    return this.create(ShopTeaPage.class);
   }
 
   /**
@@ -122,7 +123,7 @@ public class MainMenuChunk extends BaseComponent {
     getSubcategoryButton.initializeWithFormat(
         Constants.TestMainMenu.NAV_SUBMENU_GIFT_SUBSCRIPTIONS);
     getSubcategoryButton.click();
-    return ComponentFactory.create(ShopGiftSubscriptionsPage.class);
+    return this.create(ShopGiftSubscriptionsPage.class);
   }
 
   /** Access Sub-Menu Equipment under Category Shop from main menu */
@@ -130,7 +131,7 @@ public class MainMenuChunk extends BaseComponent {
     logger.info("Accessing Shop-Equipment");
     clickCategorySubmenu(
         Constants.TestMainMenu.NAV_CATEGORY_SHOP, Constants.TestMainMenu.NAV_SUBMENU_EQUIPMENT);
-    return ComponentFactory.create(ShopEquipmentPage.class);
+    return this.create(ShopEquipmentPage.class);
   }
 
   /**
@@ -141,7 +142,7 @@ public class MainMenuChunk extends BaseComponent {
   public Landing clickHeaderLogo() {
     logger.info("Click Peets Coffee logo");
     getHeaderLogo.click();
-    return ComponentFactory.create(Landing.class);
+    return this.create(Landing.class);
   }
 
   /** Access Sub-Menu Equipment under Category Shop from main menu */
@@ -149,7 +150,7 @@ public class MainMenuChunk extends BaseComponent {
     logger.info("Accessing Shop-Equipment");
     clickCategorySubmenu(
         Constants.TestMainMenu.NAV_CATEGORY_SHOP, Constants.TestMainMenu.NAV_OPTION_CARDS_BY_MAIL);
-    return ComponentFactory.create(PeetsCardProductPage.class);
+    return this.create(PeetsCardProductPage.class);
   }
 
   /**
@@ -160,7 +161,7 @@ public class MainMenuChunk extends BaseComponent {
   public MiniCartContainerChunk clickMiniCart() {
     logger.info("Click mini-cart icon");
     getHeaderMinicart.click();
-    return ComponentFactory.create(MiniCartContainerChunk.class);
+    return this.create(MiniCartContainerChunk.class);
   }
 
   /**
@@ -173,7 +174,7 @@ public class MainMenuChunk extends BaseComponent {
   public <T extends BaseComponent> T closeMiniCart(Class<T> clazz) {
     logger.info("Click mini-cart icon");
     getHeaderMinicart.click();
-    return ComponentFactory.create(clazz);
+    return this.create(clazz);
   }
 
   /**

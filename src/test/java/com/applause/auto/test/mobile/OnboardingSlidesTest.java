@@ -31,7 +31,7 @@ public class OnboardingSlidesTest extends BaseTest {
   public void onboardingSlidesTest() {
 
     logger.info("Launch the app and arrive at the first onboarding screen view");
-    LandingView landingView = ComponentFactory.create(LandingView.class);
+    LandingView landingView = this.create(LandingView.class);
     Assert.assertEquals(
         landingView.getHeadingTextValue(),
         "Earn Rewards.",
