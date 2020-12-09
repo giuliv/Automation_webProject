@@ -28,7 +28,7 @@ public class RetryAnalyzer implements IRetryAnalyzer {
 
   @Override
   public boolean retry(ITestResult result) {
-    logger.info("TEST METHOD TESTNG STATUS IS: " + result.getStatus());
+    logger.info("TEST METHOD TESTING STATUS IS: " + result.getStatus());
     printTestNGTestCaseStatuses();
     if (retryCounter.get() <= retryCountLimit && isRetryTestExceptionThrown(result)) {
       retryCounter.incrementAndGet();
