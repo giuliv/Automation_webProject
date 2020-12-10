@@ -6,7 +6,6 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
-import com.applause.auto.pageobjectmodel.elements.Checkbox;
 import com.applause.auto.pageobjectmodel.elements.Text;
 
 @Implementation(is = AndroidGeneralSettingsView.class, on = Platform.MOBILE_ANDROID)
@@ -26,7 +25,7 @@ public class GeneralSettingsView extends BaseComponent {
   @Locate(
       id = "com.wearehathway.peets.development:id/emailSubscription",
       on = Platform.MOBILE_ANDROID)
-  protected Checkbox getPromotionalEmailsButton;
+  protected Button getPromotionalEmailsButton;
 
   @Locate(
       id = "Push Notifications, Receive alerts about offers, news, and more",
@@ -34,11 +33,11 @@ public class GeneralSettingsView extends BaseComponent {
   @Locate(
       id = "com.wearehathway.peets.development:id/pushNotifications",
       on = Platform.MOBILE_ANDROID)
-  protected Checkbox getPushNotificationButton;
+  protected Button getPushNotificationButton;
 
   @Locate(id = "Location Services, Helps us locate your nearest Peet’s", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/enableLocation", on = Platform.MOBILE_ANDROID)
-  protected Checkbox getLocationSetvicesButton;
+  protected Button getLocationSetvicesButton;
 
   @Locate(id = "Allow", on = Platform.MOBILE_IOS)
   @Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
@@ -147,21 +146,29 @@ class AndroidGeneralSettingsView extends GeneralSettingsView {
   @Override
   public boolean isPromoEmailOptionChecked() {
     getSyncHelper().sleep(7000);
-    getPromotionalEmailsButton.initialize();
     return getPromotionalEmailsButton.getAttributeValue("checked").equals("true");
   }
 
   @Override
   public boolean isPushNotificationChecked() {
     getSyncHelper().sleep(7000);
-    getPromotionalEmailsButton.initialize();
     return getPushNotificationButton.getAttributeValue("checked").equals("true");
   }
 
   @Override
   public boolean isLocationServicesChecked() {
     getSyncHelper().sleep(7000);
-    getPromotionalEmailsButton.initialize();
     return getLocationSetvicesButton.getAttributeValue("checked").equals("true");
+  }
+
+  @Override
+  public GeneralSettingsView disablePromotionalEmails() {
+    logger.info("Unchecking Promo emails services");
+    if (isPromoEmailOptionChecked()) {
+      getPromotionalEmailsButton.initialize();
+      getPromotionalEmailsButton.click();
+      getSyncHelper().sleep(20000);
+    }
+    return this.create(GeneralSettingsView.class);
   }
 }
