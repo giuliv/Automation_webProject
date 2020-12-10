@@ -46,7 +46,6 @@
                         <property>
                             <name>listener</name>
                             <value>
-                                com.applause.auto.listeners.TestFailureOutputListener,
                                 com.applause.auto.listeners.retry.RetryAnnotationTransformer
                             </value>
                         </property>
