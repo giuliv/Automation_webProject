@@ -205,10 +205,13 @@ public class CreateAccountTest extends BaseTest {
     softAssert.assertNotNull(profileDetailsView, "Profile details view does not passed validation");
 
     logger.info("Edit the fields that are editable");
-    String firstNameOrig = profileDetailsView.getFirstname();
-    String lastNameOrig = profileDetailsView.getLastname();
-    String zipCodeOrig = profileDetailsView.getZipCode();
+    String firstNameOrig = profileDetailsView.getFirstname().trim();
+    String lastNameOrig = profileDetailsView.getLastname().trim();
+    String zipCodeOrig = profileDetailsView.getZipCode().trim();
     //    String emailOrig = profileDetailsView.getEmailAddress();
+    logger.info("Firstname: " + firstNameOrig);
+    logger.info("Lastname: " + lastNameOrig);
+    logger.info("Zip: " + zipCodeOrig);
 
     String firstNameNew = firstNameOrig.equals("ApplauseUpdated") ? "Applause" : "ApplauseUpdated";
     String lastNameNew = lastNameOrig.equals("QAUpdated") ? "QA" : "QAUpdated";
