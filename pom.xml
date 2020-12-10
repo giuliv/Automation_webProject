@@ -46,7 +46,7 @@
                         <property>
                             <name>listener</name>
                             <value>
-                                com.applause.auto.listeners.retry.RetryAnnotationTransformer
+                                com.applause.auto.util.RetryAnnotationTransformer
                             </value>
                         </property>
                     </properties>
