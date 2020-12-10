@@ -6,7 +6,11 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
+
+import java.time.Duration;
 
 @Implementation(is = AndroidGeneralSettingsView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = GeneralSettingsView.class, on = Platform.MOBILE_IOS)
@@ -48,6 +52,13 @@ public class GeneralSettingsView extends BaseComponent {
       xpath = "//android.widget.TextView[@text='GENERAL SETTINGS']",
       on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
+
+  @Locate(
+      xpath =
+          "//XCUIElementTypeApplication[@name=\"Peets-Sandbox\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/loader", on = Platform.MOBILE_ANDROID)
+  protected ContainerElement getLoader;
 
   /* -------- Actions -------- */
 
@@ -111,7 +122,8 @@ public class GeneralSettingsView extends BaseComponent {
     if (!isPromoEmailOptionChecked()) {
       getPromotionalEmailsButton.initialize();
       MobileHelper.tapByCoordinatesOnElementCenter(getPromotionalEmailsButton);
-      getSyncHelper().sleep(20000);
+      getSyncHelper()
+          .wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(30)));
     }
     return this.create(GeneralSettingsView.class);
   }
@@ -126,7 +138,8 @@ public class GeneralSettingsView extends BaseComponent {
     if (isPromoEmailOptionChecked()) {
       getPromotionalEmailsButton.initialize();
       MobileHelper.tapByCoordinatesOnElementCenter(getPromotionalEmailsButton);
-      getSyncHelper().sleep(20000);
+      getSyncHelper()
+          .wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(30)));
     }
     return this.create(GeneralSettingsView.class);
   }
@@ -166,12 +179,8 @@ class AndroidGeneralSettingsView extends GeneralSettingsView {
     logger.info("Unchecking Promo emails services");
     if (isPromoEmailOptionChecked()) {
       getPromotionalEmailsButton.click();
-      logger.info(">>>>1" + getDriver().getPageSource());
-      getSyncHelper().sleep(2000);
-      logger.info(">>>>2" + getDriver().getPageSource());
-      getSyncHelper().sleep(2000);
-      logger.info(">>>>3" + getDriver().getPageSource());
-      getSyncHelper().sleep(20000);
+      getSyncHelper()
+          .wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(30)));
     }
     return this.create(GeneralSettingsView.class);
   }
