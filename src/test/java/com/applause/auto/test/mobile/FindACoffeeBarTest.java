@@ -2,6 +2,7 @@ package com.applause.auto.test.mobile;
 
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.integrations.annotation.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
 import com.applause.auto.mobile.components.MapView;
@@ -26,6 +27,7 @@ public class FindACoffeeBarTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ORDER, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "1687260")
+  @ApplauseTestCaseId({"674542","674541"})
   public void findACoffeeBarTest() {
     logger.info(
         "PRECONDITION - User is signed in to app\n"
@@ -148,6 +150,7 @@ public class FindACoffeeBarTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ORDER, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "1687261")
+  @ApplauseTestCaseId({"674550","674549"})
   public void recentCoffeeBarTest() {
     logger.info(
         "PRECONDITION - User is signed in to app\n"
@@ -214,6 +217,7 @@ public class FindACoffeeBarTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ORDER, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "1687262")
+  @ApplauseTestCaseId({"674552","674551"})
   public void favoriteCoffeebarsTest() {
     logger.info("PRECONDITION - User is on find a coffeebar screen");
 
