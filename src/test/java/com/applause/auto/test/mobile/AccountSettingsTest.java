@@ -8,6 +8,7 @@ import static com.applause.auto.common.data.Constants.MobileTestData.CC_VISA_NAM
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.integrations.annotation.testidentification.ApplauseTestCaseId;
 import com.applause.auto.integrations.helpers.SdkHelper;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.views.AddNewCardView;
@@ -32,6 +33,7 @@ public class AccountSettingsTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ACCOUNT_SETTINGS, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625928")
+  @ApplauseTestCaseId({"674509", "674508"})
   public void paymentMethodsTest() {
 
     logger.info("Launch the app and arrive at the first on boarding screen view");
@@ -184,6 +186,7 @@ public class AccountSettingsTest extends BaseTest {
         TestNGGroups.WEB_UI
       },
       description = "625939")
+  @ApplauseTestCaseId({"625939", "674528"})
   public void socialEngagementTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = this.create(LandingView.class);

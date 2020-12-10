@@ -4,6 +4,7 @@ import static com.applause.auto.test.mobile.helpers.TestHelper.openOrderMenuForR
 
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.integrations.annotation.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
 import com.applause.auto.mobile.views.CheckoutView;
@@ -32,6 +33,7 @@ public class OrderTest extends BaseTest {
       enabled = false,
       groups = {TestNGGroups.ORDER},
       description = "625889")
+  @ApplauseTestCaseId({"674196", "674195"})
   public void locationServicesNotEnabled() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = this.create(LandingView.class);
@@ -128,6 +130,7 @@ public class OrderTest extends BaseTest {
       groups = {TestNGGroups.ORDER},
       description = "625890",
       enabled = false)
+  @ApplauseTestCaseId({"674198", "674197"})
   public void browseTheMenu() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = this.create(LandingView.class);
@@ -261,6 +264,7 @@ public class OrderTest extends BaseTest {
       groups = {TestNGGroups.ORDER},
       description = "625897",
       enabled = false)
+  @ApplauseTestCaseId({"674214", "674213"})
   public void checkoutTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = this.create(LandingView.class);
@@ -311,6 +315,7 @@ public class OrderTest extends BaseTest {
       groups = {TestNGGroups.ORDER},
       description = "2879930",
       enabled = false)
+  @ApplauseTestCaseId({"674356", "674355"})
   public void orderAhead() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = this.create(LandingView.class);

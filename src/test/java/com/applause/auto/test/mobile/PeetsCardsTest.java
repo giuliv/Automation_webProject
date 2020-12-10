@@ -5,6 +5,7 @@ import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.TestDataUtils;
+import com.applause.auto.integrations.annotation.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountChunk;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountWarningChunk;
@@ -41,6 +42,7 @@ public class PeetsCardsTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.PEETS_CARDS, TestNGGroups.REGRESSION},
       description = "1957258")
+  @ApplauseTestCaseId({"674486", "674485"})
   public void addValueToNewDigitalCard25SavedCC() throws ParseException {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = this.create(LandingView.class);
@@ -137,6 +139,7 @@ public class PeetsCardsTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.PEETS_CARDS, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "1292900")
+  @ApplauseTestCaseId({"674378", "674377"})
   public void reloadDigitalCard25SavedCC() throws ParseException {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = this.create(LandingView.class);
@@ -211,6 +214,7 @@ public class PeetsCardsTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.PEETS_CARDS, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "1959019")
+  @ApplauseTestCaseId({"674488", "674487"})
   public void negativeTestTransferBalance() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = this.create(LandingView.class);
