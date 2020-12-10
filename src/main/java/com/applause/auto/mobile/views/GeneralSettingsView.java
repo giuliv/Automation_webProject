@@ -112,7 +112,7 @@ public class GeneralSettingsView extends BaseComponent {
     if (!isPromoEmailOptionChecked()) {
       getPromotionalEmailsButton.initialize();
       MobileHelper.tapByCoordinatesOnElementCenter(getPromotionalEmailsButton);
-      getSyncHelper().sleep(7000);
+      getSyncHelper().sleep(20000);
     }
     return this.create(GeneralSettingsView.class);
   }
@@ -127,7 +127,7 @@ public class GeneralSettingsView extends BaseComponent {
     if (isPromoEmailOptionChecked()) {
       getPromotionalEmailsButton.initialize();
       MobileHelper.tapByCoordinatesOnElementCenter(getPromotionalEmailsButton);
-      getSyncHelper().sleep(7000);
+      getSyncHelper().sleep(20000);
     }
     return this.create(GeneralSettingsView.class);
   }
