@@ -109,9 +109,11 @@ public class GeneralSettingsView extends BaseComponent {
    */
   public GeneralSettingsView enablePromotionalEmails() {
     logger.info("Checking Promo emails services");
-    if (!isPromoEmailOptionChecked())
+    if (!isPromoEmailOptionChecked()) {
+      getPromotionalEmailsButton.initialize();
       MobileHelper.tapByCoordinatesOnElementCenter(getPromotionalEmailsButton);
-    getSyncHelper().sleep(15000);
+      getSyncHelper().sleep(7000);
+    }
     return this.create(GeneralSettingsView.class);
   }
 
@@ -122,9 +124,11 @@ public class GeneralSettingsView extends BaseComponent {
    */
   public GeneralSettingsView disablePromotionalEmails() {
     logger.info("Unchecking Promo emails services");
-    if (isPromoEmailOptionChecked())
+    if (isPromoEmailOptionChecked()) {
+      getPromotionalEmailsButton.initialize();
       MobileHelper.tapByCoordinatesOnElementCenter(getPromotionalEmailsButton);
-    getSyncHelper().sleep(15000);
+      getSyncHelper().sleep(7000);
+    }
     return this.create(GeneralSettingsView.class);
   }
 }
