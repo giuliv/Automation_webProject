@@ -1,9 +1,6 @@
 package com.applause.auto.common.data;
 
-
-
 import com.applause.auto.integrations.helpers.SdkHelper;
-
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -11,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-
 
 public class TestDataUtils {
   public static class PhoneNumberDataUtils {

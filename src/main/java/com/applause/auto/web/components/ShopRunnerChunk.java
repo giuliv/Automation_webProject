@@ -7,8 +7,6 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
 
 @Implementation(is = ShopRunnerChunk.class, on = Platform.WEB)
 public class ShopRunnerChunk extends BaseComponent {

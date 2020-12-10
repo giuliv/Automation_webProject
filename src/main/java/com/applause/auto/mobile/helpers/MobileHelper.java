@@ -1,13 +1,10 @@
 package com.applause.auto.mobile.helpers;
 
-
-
 import com.applause.auto.common.data.Constants.MobileApp;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.integrations.helpers.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
 import com.applause.auto.pageobjectmodel.elements.Picker;
-
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -85,9 +82,7 @@ public class MobileHelper extends SdkHelper {
         ((AppiumDriver) getDriver())
             .findElementByXPath("//android.widget.TextView[@text='Chrome']")
             .click();
-        ((AppiumDriver) getDriver())
-            .findElementById("android:id/button_once")
-            .click();
+        ((AppiumDriver) getDriver()).findElementById("android:id/button_once").click();
         return;
       } else if (isSamsungBrowserStarted) {
         throw new RuntimeException("Only Samsung browser suggested. Exiting");
@@ -396,12 +391,13 @@ public class MobileHelper extends SdkHelper {
       } catch (WebDriverException e) {
         logger.info(elementName + " is not present");
         logger.info("Swipe attempt: " + currentSwipingAttempts);
-        getDeviceControl().swipeAcrossScreenCoordinates(
-            screenWidth / 2,
-            (int) (screenHeight * 0.75),
-            screenWidth / 2,
-            (int) (screenHeight * 0.4),
-            1000);
+        getDeviceControl()
+            .swipeAcrossScreenCoordinates(
+                screenWidth / 2,
+                (int) (screenHeight * 0.75),
+                screenWidth / 2,
+                (int) (screenHeight * 0.4),
+                1000);
         getSyncHelper().sleep(5000);
         currentSwipingAttempts++;
         logger.info("XML Dump: ", getDriver().getPageSource());

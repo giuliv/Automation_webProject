@@ -19,12 +19,13 @@ import com.applause.auto.mobile.views.PrivacyPolicyView;
 import com.applause.auto.mobile.views.ProfileDetailsView;
 import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.mobile.views.TermsAndConditionsView;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import java.lang.invoke.MethodHandles;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
 
 public class CreateAccountTest extends BaseTest {
 
@@ -209,9 +210,9 @@ public class CreateAccountTest extends BaseTest {
     String zipCodeOrig = profileDetailsView.getZipCode();
     //    String emailOrig = profileDetailsView.getEmailAddress();
 
-    String firstNameNew = "ApplauseUpdated";
-    String lastNameNew = "QAUpdated";
-    String zipCodeNew = "11214";
+    String firstNameNew = firstNameOrig.equals("ApplauseUpdated") ? "Applause" : "ApplauseUpdated";
+    String lastNameNew = lastNameOrig.equals("QAUpdated") ? "QA" : "QAUpdated";
+    String zipCodeNew = zipCodeOrig.equals("11214") ? "11215" : "11214";
 
     //    String emailNew = emailOrig.replace(".net", ".com");
 
@@ -240,12 +241,12 @@ public class CreateAccountTest extends BaseTest {
     softAssert.assertEquals(zipCodeUpd, zipCodeNew, "zipcode does not updated");
     //    softAssert.assertEquals(emailUpd, emailNew, "email does not updated");
 
-    logger.info("Cleanup Restore original");
-    profileDetailsView.setFirstname(firstNameOrig);
-    profileDetailsView.setLastname(lastNameOrig);
-    profileDetailsView.setZipCode(zipCodeOrig);
-    //    profileDetailsView.setEmailAddress(emailOrig);
-    //    profileDetailsView.setConfirmEmailAddress(emailOrig);
+    //    logger.info("Cleanup Restore original");
+    //    profileDetailsView.setFirstname(firstNameOrig);
+    //    profileDetailsView.setLastname(lastNameOrig);
+    //    profileDetailsView.setZipCode(zipCodeOrig);
+    //    //    profileDetailsView.setEmailAddress(emailOrig);
+    //    //    profileDetailsView.setConfirmEmailAddress(emailOrig);
     profileDetailsView.save();
 
     softAssert.assertAll();

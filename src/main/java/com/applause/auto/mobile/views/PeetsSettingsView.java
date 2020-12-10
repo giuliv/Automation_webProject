@@ -8,7 +8,6 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 
-
 @Implementation(is = AndroidPeetsSettingsView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = PeetsSettingsView.class, on = Platform.MOBILE_IOS)
 public class PeetsSettingsView extends BaseComponent {

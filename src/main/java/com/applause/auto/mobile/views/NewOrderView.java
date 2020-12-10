@@ -8,9 +8,6 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
-
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import java.time.Duration;
 
@@ -124,8 +121,8 @@ public class NewOrderView extends BaseComponent {
     getCartButton.click();
     try {
       logger.info("Waiting for confirmation button");
-      getSyncHelper().wait(
-          Until.uiElement(getConfirmStoreButton).present().setTimeout(Duration.ofSeconds(5)));
+      getSyncHelper()
+          .wait(Until.uiElement(getConfirmStoreButton).present().setTimeout(Duration.ofSeconds(5)));
       getConfirmStoreButton.click();
     } catch (Exception e) {
       logger.info("Confirmation button is not present");

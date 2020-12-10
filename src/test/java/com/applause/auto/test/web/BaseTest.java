@@ -1,12 +1,8 @@
 package com.applause.auto.test.web;
 
-import com.applause.auto.integrations.base.BaseSeleniumTest;
 import com.applause.auto.common.data.Constants.TestData;
-
+import com.applause.auto.integrations.base.BaseSeleniumTest;
 import com.applause.auto.integrations.helpers.SdkHelper;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
-
 import com.applause.auto.web.views.Landing;
 import com.applause.auto.web.views.PeetsCardProductPage;
 import com.applause.auto.web.views.ShopCoffeeKCupsPage;

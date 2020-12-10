@@ -5,7 +5,6 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 
 @Implementation(is = DatePickerChunk.class, on = Platform.WEB)

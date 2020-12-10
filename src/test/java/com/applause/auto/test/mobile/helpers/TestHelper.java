@@ -1,12 +1,10 @@
 package com.applause.auto.test.mobile.helpers;
 
-import com.applause.auto.integrations.helpers.SdkHelper;
-import com.google.common.collect.ImmutableMap;
-
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
+import com.applause.auto.integrations.helpers.SdkHelper;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
@@ -21,26 +19,19 @@ import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
-import com.applause.auto.integrations.helpers.SdkHelper;
-
-
-
-
-
+import com.google.common.collect.ImmutableMap;
+import io.appium.java_client.MobileBy;
+import io.appium.java_client.android.Activity;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.appmanagement.ApplicationState;
+import java.lang.invoke.MethodHandles;
+import java.util.List;
 import org.aeonbits.owner.util.Collections;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.WebElement;
-
-import java.lang.invoke.MethodHandles;
-import java.util.List;
-
-import io.appium.java_client.MobileBy;
-import io.appium.java_client.android.Activity;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.appmanagement.ApplicationState;
 
 @Implementation(is = TestHelper.class, on = Platform.MOBILE)
 public class TestHelper extends BaseComponent {
@@ -96,8 +87,8 @@ public class TestHelper extends BaseComponent {
       paymentMethodsView.clickBackButton();
       getSyncHelper().sleep(5000);
       this.create(AccountMenuMobileChunk.class).clickPaymentMethods();
-      getSyncHelper().waitUntil(
-          condition -> !paymentMethodsView.isPaymentMethodTestCardAdded(methodName));
+      getSyncHelper()
+          .waitUntil(condition -> !paymentMethodsView.isPaymentMethodTestCardAdded(methodName));
     } else {
       logger.info("There is no test payment card added");
     }

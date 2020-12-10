@@ -8,9 +8,6 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
-
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
@@ -84,7 +81,8 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
     } catch (Throwable throwable) {
       logger.info("No free delivery popup found");
     }
-    getSyncHelper().wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
+    getSyncHelper()
+        .wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
   }
 
   /**
@@ -168,8 +166,8 @@ class AndroidNearbySelectCoffeeBarView extends NearbySelectCoffeeBarView {
   public void search(String searchTxt) {
     logger.info("Searching for store: " + searchTxt);
     getSearchTextBox.click();
-    getSyncHelper().wait(
-        Until.uiElement(getSearchTextBoxEdit).present().setTimeout(Duration.ofSeconds(3)));
+    getSyncHelper()
+        .wait(Until.uiElement(getSearchTextBoxEdit).present().setTimeout(Duration.ofSeconds(3)));
     getSearchTextBoxEdit.sendKeys(searchTxt);
     getSyncHelper().sleep(2000);
     AppiumDriver driver = (AppiumDriver) getDriver();

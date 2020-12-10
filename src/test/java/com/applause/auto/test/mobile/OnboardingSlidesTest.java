@@ -6,7 +6,6 @@ import com.applause.auto.mobile.views.ExploreOffersView;
 import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.OrderAheadView;
 import com.applause.auto.mobile.views.PayFasterView;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

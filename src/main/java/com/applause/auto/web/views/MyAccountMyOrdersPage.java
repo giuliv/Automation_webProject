@@ -8,7 +8,6 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 
 @Implementation(is = MyAccountMyOrdersPage.class, on = Platform.WEB)
 public class MyAccountMyOrdersPage extends BaseComponent {

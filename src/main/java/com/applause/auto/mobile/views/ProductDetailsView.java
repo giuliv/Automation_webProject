@@ -7,9 +7,6 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
-
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import java.time.Duration;
 
@@ -114,6 +111,7 @@ class AndroidProductDetailsView extends ProductDetailsView {
 
   @Override
   public void afterInit() {
-    getSyncHelper().wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(120)));
+    getSyncHelper()
+        .wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(120)));
   }
 }

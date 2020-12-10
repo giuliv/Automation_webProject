@@ -7,10 +7,6 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
-
-
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
@@ -334,7 +330,8 @@ class AndroidSignInView extends SignInView {
     getDeviceControl().hideKeyboard();
     getSignInButton.click();
     if (getLoader.exists()) {
-      getSyncHelper().wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(60)));
+      getSyncHelper()
+          .wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(60)));
     }
     return this.create(clazz);
   }

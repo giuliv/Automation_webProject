@@ -14,7 +14,6 @@ import com.applause.auto.mobile.views.NewOrderView;
 import com.applause.auto.mobile.views.OrderConfirmationView;
 import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.ProductDetailsView;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.test.mobile.helpers.TestHelper;
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;

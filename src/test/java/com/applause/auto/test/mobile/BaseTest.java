@@ -1,20 +1,13 @@
 package com.applause.auto.test.mobile;
 
-import com.applause.auto.integrations.base.BaseSeleniumTest;
 import com.applause.auto.common.data.Constants;
-
+import com.applause.auto.integrations.base.BaseSeleniumTest;
 import com.applause.auto.integrations.helpers.SdkHelper;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.test.mobile.helpers.TestHelper;
-
-
-
 import io.appium.java_client.android.AndroidDriver;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
 import java.util.stream.Stream;
-
-import org.apache.groovy.util.Arrays;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.BeforeMethod;

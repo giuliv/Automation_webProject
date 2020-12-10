@@ -6,9 +6,6 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Image;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
-
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import java.time.Duration;
 
@@ -36,10 +33,11 @@ public class PaypalReviewYourPurchasePage extends BaseComponent {
   public CheckoutPlaceOrderPage clickAgreeAndContinue() {
     logger.info("Clicking Agree and Continue");
     getSyncHelper().sleep(10000);
-    getSyncHelper().wait(
-            Until.uiElement(getContinueButton).clickable().setTimeout(Duration.ofSeconds(45)))
+    getSyncHelper()
+        .wait(Until.uiElement(getContinueButton).clickable().setTimeout(Duration.ofSeconds(45)))
         .click();
-    getSyncHelper().wait(
+    getSyncHelper()
+        .wait(
             Until.uiElement(getAgreeAndContinueButton)
                 .clickable()
                 .setTimeout(Duration.ofSeconds(45)))

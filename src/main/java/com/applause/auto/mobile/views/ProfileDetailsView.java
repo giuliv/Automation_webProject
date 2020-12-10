@@ -9,9 +9,6 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
-
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import java.time.Duration;
 
@@ -240,7 +237,8 @@ public class ProfileDetailsView extends BaseComponent {
    */
   public <T extends BaseComponent> T goBack(Class<T> clazz) {
     logger.info("Tap back button");
-    getSyncHelper().wait(Until.uiElement(getBackButton).present().setTimeout(Duration.ofSeconds(15)));
+    getSyncHelper()
+        .wait(Until.uiElement(getBackButton).present().setTimeout(Duration.ofSeconds(15)));
     getBackButton.click();
     getSyncHelper().sleep(4000);
     return this.create(clazz);

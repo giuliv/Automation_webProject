@@ -16,10 +16,6 @@ import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.PeetsCardSettingsView;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
-
-
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
