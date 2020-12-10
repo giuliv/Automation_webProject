@@ -12,7 +12,7 @@ public class RetryAnalyzer implements IRetryAnalyzer {
   private static final Logger logger = LogManager.getLogger(RetryAnalyzer.class);
 
   private AtomicInteger retryCounter = new AtomicInteger(1);
-  private int retryCountLimit = 2;
+  private int retryCountLimit = 3;
   /*
    * (non-Javadoc)
    * @see org.testng.IRetryAnalyzer#retry(org.testng.ITestResult)
@@ -30,7 +30,8 @@ public class RetryAnalyzer implements IRetryAnalyzer {
   public boolean retry(ITestResult result) {
     logger.info("TEST METHOD TESTING STATUS IS: " + result.getStatus());
     printTestNGTestCaseStatuses();
-    if (retryCounter.get() <= retryCountLimit && isRetryTestExceptionThrown(result)) {
+    if (retryCounter.get() <= retryCountLimit) {
+      //    if (retryCounter.get() <= retryCountLimit && isRetryTestExceptionThrown(result)) {
       retryCounter.incrementAndGet();
       return true;
     }
