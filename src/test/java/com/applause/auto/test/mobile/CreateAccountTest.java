@@ -214,9 +214,9 @@ public class CreateAccountTest extends BaseTest {
     logger.info("Zip: " + zipCodeOrig);
 
     String firstNameNew =
-        firstNameOrig.matches("\\sApplauseUpdated$") ? "Applause" : "ApplauseUpdated";
-    String lastNameNew = lastNameOrig.matches("\\sQAUpdated$") ? "QA" : "QAUpdated";
-    String zipCodeNew = zipCodeOrig.matches("\\s11214$") ? "11215" : "11214";
+        firstNameOrig.matches("ApplauseUpdated$") ? "Applause" : "ApplauseUpdated";
+    String lastNameNew = lastNameOrig.matches("QAUpdated$") ? "QA" : "QAUpdated";
+    String zipCodeNew = zipCodeOrig.matches("11214$") ? "11215" : "11214";
 
     //    String emailNew = emailOrig.replace(".net", ".com");
 
