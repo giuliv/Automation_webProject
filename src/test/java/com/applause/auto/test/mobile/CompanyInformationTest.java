@@ -13,8 +13,6 @@ import com.applause.auto.mobile.views.LegalInfoView;
 import com.applause.auto.mobile.views.PeetnikRewardsLandingView;
 import com.applause.auto.mobile.views.PeetnikRewardsTermsAndConditionsView;
 import com.applause.auto.mobile.views.PrivacyPolicyView;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

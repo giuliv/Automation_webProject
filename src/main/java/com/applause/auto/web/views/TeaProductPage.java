@@ -8,8 +8,6 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import com.applause.auto.web.components.MiniCartContainerChunk;
 

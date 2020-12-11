@@ -6,8 +6,11 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
-import com.applause.auto.pageobjectmodel.elements.Checkbox;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
+
+import java.time.Duration;
 
 @Implementation(is = AndroidGeneralSettingsView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = GeneralSettingsView.class, on = Platform.MOBILE_IOS)
@@ -26,7 +29,7 @@ public class GeneralSettingsView extends BaseComponent {
   @Locate(
       id = "com.wearehathway.peets.development:id/emailSubscription",
       on = Platform.MOBILE_ANDROID)
-  protected Checkbox getPromotionalEmailsButton;
+  protected Button getPromotionalEmailsButton;
 
   @Locate(
       id = "Push Notifications, Receive alerts about offers, news, and more",
@@ -34,11 +37,11 @@ public class GeneralSettingsView extends BaseComponent {
   @Locate(
       id = "com.wearehathway.peets.development:id/pushNotifications",
       on = Platform.MOBILE_ANDROID)
-  protected Checkbox getPushNotificationButton;
+  protected Button getPushNotificationButton;
 
   @Locate(id = "Location Services, Helps us locate your nearest Peet’s", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/enableLocation", on = Platform.MOBILE_ANDROID)
-  protected Checkbox getLocationSetvicesButton;
+  protected Button getLocationSetvicesButton;
 
   @Locate(id = "Allow", on = Platform.MOBILE_IOS)
   @Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
@@ -49,6 +52,13 @@ public class GeneralSettingsView extends BaseComponent {
       xpath = "//android.widget.TextView[@text='GENERAL SETTINGS']",
       on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
+
+  @Locate(
+      xpath =
+          "//XCUIElementTypeApplication[@name=\"Peets-Sandbox\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/loader", on = Platform.MOBILE_ANDROID)
+  protected ContainerElement getLoader;
 
   /* -------- Actions -------- */
 
@@ -109,9 +119,12 @@ public class GeneralSettingsView extends BaseComponent {
    */
   public GeneralSettingsView enablePromotionalEmails() {
     logger.info("Checking Promo emails services");
-    if (!isPromoEmailOptionChecked())
+    if (!isPromoEmailOptionChecked()) {
+      getPromotionalEmailsButton.initialize();
       MobileHelper.tapByCoordinatesOnElementCenter(getPromotionalEmailsButton);
-    getSyncHelper().sleep(15000);
+      getSyncHelper()
+          .wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(30)));
+    }
     return this.create(GeneralSettingsView.class);
   }
 
@@ -122,9 +135,12 @@ public class GeneralSettingsView extends BaseComponent {
    */
   public GeneralSettingsView disablePromotionalEmails() {
     logger.info("Unchecking Promo emails services");
-    if (isPromoEmailOptionChecked())
+    if (isPromoEmailOptionChecked()) {
+      getPromotionalEmailsButton.initialize();
       MobileHelper.tapByCoordinatesOnElementCenter(getPromotionalEmailsButton);
-    getSyncHelper().sleep(15000);
+      getSyncHelper()
+          .wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(30)));
+    }
     return this.create(GeneralSettingsView.class);
   }
 }
@@ -156,5 +172,16 @@ class AndroidGeneralSettingsView extends GeneralSettingsView {
   public boolean isLocationServicesChecked() {
     getSyncHelper().sleep(7000);
     return getLocationSetvicesButton.getAttributeValue("checked").equals("true");
+  }
+
+  @Override
+  public GeneralSettingsView disablePromotionalEmails() {
+    logger.info("Unchecking Promo emails services");
+    if (isPromoEmailOptionChecked()) {
+      getPromotionalEmailsButton.click();
+      getSyncHelper()
+          .wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(30)));
+    }
+    return this.create(GeneralSettingsView.class);
   }
 }

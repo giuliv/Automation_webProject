@@ -6,9 +6,6 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
-
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import io.appium.java_client.android.AndroidDriver;
 import java.time.Duration;

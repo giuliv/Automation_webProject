@@ -5,7 +5,6 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Text;
-
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import java.time.Duration;
 
@@ -22,6 +21,7 @@ public class OrderConfirmationView extends BaseComponent {
   protected Text getHeadingText;
 
   public void afterInit() {
-    getSyncHelper().wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(120)));
+    getSyncHelper()
+        .wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(120)));
   }
 }

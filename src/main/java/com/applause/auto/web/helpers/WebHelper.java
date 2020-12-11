@@ -1,10 +1,8 @@
 package com.applause.auto.web.helpers;
 
-
+import com.applause.auto.integrations.helpers.SdkHelper;
 import java.lang.invoke.MethodHandles;
 import java.util.Date;
-
-import com.applause.auto.integrations.helpers.SdkHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;

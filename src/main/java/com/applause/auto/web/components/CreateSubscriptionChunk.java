@@ -9,10 +9,6 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
-
-
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import com.applause.auto.web.helpers.WebHelper;
 import java.time.Duration;
@@ -45,7 +41,8 @@ public class CreateSubscriptionChunk extends BaseComponent {
     // getSyncHelper().waitUntilElementPresent(getNewSubscriptionButton.getAbsoluteSelector());
     // WebHelper.waitForElementToBeClickable(getNewSubscriptionButton.getWebElement());
     // getNewSubscriptionButton.click();
-    getSyncHelper().wait(
+    getSyncHelper()
+        .wait(
             Until.uiElement(getNewSubscriptionButton)
                 .clickable()
                 .setTimeout(Duration.ofSeconds(60)))

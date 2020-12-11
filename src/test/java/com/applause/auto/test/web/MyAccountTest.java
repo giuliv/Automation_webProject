@@ -1,8 +1,6 @@
 package com.applause.auto.test.web;
 
 import com.applause.auto.common.data.Constants;
-
-
 import com.applause.auto.integrations.helpers.SdkHelper;
 import com.applause.auto.web.components.MiniCartContainerChunk;
 import com.applause.auto.web.components.VerifyYourAddressDetailsChunk;

@@ -20,12 +20,13 @@ import com.applause.auto.mobile.views.PrivacyPolicyView;
 import com.applause.auto.mobile.views.ProfileDetailsView;
 import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.mobile.views.TermsAndConditionsView;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-import java.lang.invoke.MethodHandles;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
 
 public class CreateAccountTest extends BaseTest {
 
@@ -208,14 +209,18 @@ public class CreateAccountTest extends BaseTest {
     softAssert.assertNotNull(profileDetailsView, "Profile details view does not passed validation");
 
     logger.info("Edit the fields that are editable");
-    String firstNameOrig = profileDetailsView.getFirstname();
-    String lastNameOrig = profileDetailsView.getLastname();
-    String zipCodeOrig = profileDetailsView.getZipCode();
+    String firstNameOrig = profileDetailsView.getFirstname().trim();
+    String lastNameOrig = profileDetailsView.getLastname().trim();
+    String zipCodeOrig = profileDetailsView.getZipCode().trim();
     //    String emailOrig = profileDetailsView.getEmailAddress();
+    logger.info("Firstname: " + firstNameOrig);
+    logger.info("Lastname: " + lastNameOrig);
+    logger.info("Zip: " + zipCodeOrig);
 
-    String firstNameNew = "ApplauseUpdated";
-    String lastNameNew = "QAUpdated";
-    String zipCodeNew = "11214";
+    String firstNameNew =
+        firstNameOrig.matches("ApplauseUpdated$") ? "Applause" : "ApplauseUpdated";
+    String lastNameNew = lastNameOrig.matches("QAUpdated$") ? "QA" : "QAUpdated";
+    String zipCodeNew = zipCodeOrig.matches("11214$") ? "11215" : "11214";
 
     //    String emailNew = emailOrig.replace(".net", ".com");
 
@@ -244,12 +249,12 @@ public class CreateAccountTest extends BaseTest {
     softAssert.assertEquals(zipCodeUpd, zipCodeNew, "zipcode does not updated");
     //    softAssert.assertEquals(emailUpd, emailNew, "email does not updated");
 
-    logger.info("Cleanup Restore original");
-    profileDetailsView.setFirstname(firstNameOrig);
-    profileDetailsView.setLastname(lastNameOrig);
-    profileDetailsView.setZipCode(zipCodeOrig);
-    //    profileDetailsView.setEmailAddress(emailOrig);
-    //    profileDetailsView.setConfirmEmailAddress(emailOrig);
+    //    logger.info("Cleanup Restore original");
+    //    profileDetailsView.setFirstname(firstNameOrig);
+    //    profileDetailsView.setLastname(lastNameOrig);
+    //    profileDetailsView.setZipCode(zipCodeOrig);
+    //    //    profileDetailsView.setEmailAddress(emailOrig);
+    //    //    profileDetailsView.setConfirmEmailAddress(emailOrig);
     profileDetailsView.save();
 
     softAssert.assertAll();

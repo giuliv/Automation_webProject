@@ -10,11 +10,8 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
-
-
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.util.RetryTestException;
 import java.time.Duration;
 
 @Implementation(is = AndroidLandingView.class, on = Platform.MOBILE_ANDROID)
@@ -75,7 +72,8 @@ public class LandingView extends BaseComponent {
 
   @Override
   public void afterInit() {
-    getSyncHelper().wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
+    getSyncHelper()
+        .wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
     getReportAProblemPopupChunk().waitForPopUpToDisappear();
   }
 
@@ -97,8 +95,9 @@ public class LandingView extends BaseComponent {
    */
   public CreateAccountView createAccount() {
     logger.info("Tap on create account button");
-    getSyncHelper().wait(
-        Until.uiElement(getCreateAccountButton).clickable().setTimeout(Duration.ofSeconds(20)));
+    getSyncHelper()
+        .wait(
+            Until.uiElement(getCreateAccountButton).clickable().setTimeout(Duration.ofSeconds(20)));
     getCreateAccountButton.click();
     return this.create(CreateAccountView.class);
   }
@@ -121,8 +120,8 @@ public class LandingView extends BaseComponent {
     // this try catch is needed for iOS, since sometimes iOS test is starting on sign in/sign up
     // view
     try {
-      getSyncHelper().wait(
-          Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
+      getSyncHelper()
+          .wait(Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
       getSkipButton.click();
       logger.info("Skip button was clicked correctly");
     } catch (Exception e) {
@@ -164,19 +163,19 @@ class AndroidLandingView extends LandingView {
   public void skipOnboarding() {
     logger.info("Android Skipping Onboarding");
     try {
-      getSyncHelper().wait(
-          Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
+      getSyncHelper()
+          .wait(Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
 
       for (int i = 0; i < 3; i++) {
         getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
         getSyncHelper().sleep(2000);
       }
 
-      getSyncHelper().wait(
-          Until.uiElement(getStartedButton).clickable().setTimeout(Duration.ofSeconds(20)));
+      getSyncHelper()
+          .wait(Until.uiElement(getStartedButton).clickable().setTimeout(Duration.ofSeconds(20)));
       getStartedButton.click();
     } catch (Exception e) {
-      throw new RuntimeException("Error while skipping the Landing View");
+      throw new RetryTestException("Error while skipping the Landing View");
     }
   }
 
@@ -193,6 +192,7 @@ class AndroidLandingView extends LandingView {
 
   @Override
   public void afterInit() {
-    getSyncHelper().wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
+    getSyncHelper()
+        .wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
   }
 }

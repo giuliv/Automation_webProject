@@ -7,9 +7,6 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
-
 
 @Implementation(is = CreditCardDetailsView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosCreditCardDetailsView.class, on = Platform.MOBILE_IOS)

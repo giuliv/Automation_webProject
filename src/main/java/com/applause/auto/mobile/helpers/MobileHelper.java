@@ -1,31 +1,12 @@
 package com.applause.auto.mobile.helpers;
 
-
-
 import com.applause.auto.common.data.Constants.MobileApp;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.integrations.helpers.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
 import com.applause.auto.pageobjectmodel.elements.Picker;
-
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.nativekey.AndroidKey;
-import io.appium.java_client.android.nativekey.KeyEvent;
-import io.appium.java_client.touch.WaitOptions;
-import io.appium.java_client.touch.offset.PointOption;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.lang.invoke.MethodHandles;
-import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
-import javax.imageio.ImageIO;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,10 +15,31 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.UnsupportedCommandException;
 import org.openqa.selenium.WebDriverException;
 import org.testng.Assert;
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.lang.invoke.MethodHandles;
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.imageio.ImageIO;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 
 public class MobileHelper extends SdkHelper {
 
@@ -85,9 +87,7 @@ public class MobileHelper extends SdkHelper {
         ((AppiumDriver) getDriver())
             .findElementByXPath("//android.widget.TextView[@text='Chrome']")
             .click();
-        ((AppiumDriver) getDriver())
-            .findElementById("android:id/button_once")
-            .click();
+        ((AppiumDriver) getDriver()).findElementById("android:id/button_once").click();
         return;
       } else if (isSamsungBrowserStarted) {
         throw new RuntimeException("Only Samsung browser suggested. Exiting");
@@ -236,9 +236,9 @@ public class MobileHelper extends SdkHelper {
    * @param element
    */
   public static void tapByCoordinatesOnElementCenter(BaseElement element) {
-    tapByCoordinates(
-        element.getLocation().x + element.getDimension().getWidth() / 2,
-        element.getLocation().y + element.getDimension().getHeight() / 2);
+    Point location = element.getLocation();
+    Dimension dimension = element.getDimension();
+    tapByCoordinates(location.x + dimension.getWidth() / 2, location.y + dimension.getHeight() / 2);
   }
 
   /**
@@ -396,12 +396,13 @@ public class MobileHelper extends SdkHelper {
       } catch (WebDriverException e) {
         logger.info(elementName + " is not present");
         logger.info("Swipe attempt: " + currentSwipingAttempts);
-        getDeviceControl().swipeAcrossScreenCoordinates(
-            screenWidth / 2,
-            (int) (screenHeight * 0.75),
-            screenWidth / 2,
-            (int) (screenHeight * 0.4),
-            1000);
+        getDeviceControl()
+            .swipeAcrossScreenCoordinates(
+                screenWidth / 2,
+                (int) (screenHeight * 0.75),
+                screenWidth / 2,
+                (int) (screenHeight * 0.4),
+                1000);
         getSyncHelper().sleep(5000);
         currentSwipingAttempts++;
         logger.info("XML Dump: ", getDriver().getPageSource());

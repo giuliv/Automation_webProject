@@ -8,10 +8,6 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
-
-
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 
 @Implementation(is = SignInPage.class, on = Platform.WEB)
@@ -51,8 +47,7 @@ public class SignInPage extends BaseComponent {
    */
   public void enterEmailByBrowser(String email, String safariEmail) {
     logger.info("Enter email");
-    if (SdkHelper.getEnvironmentHelper().isSafari())
-      getEmailTextBox.sendKeys(safariEmail);
+    if (SdkHelper.getEnvironmentHelper().isSafari()) getEmailTextBox.sendKeys(safariEmail);
     else getEmailTextBox.sendKeys(email);
   }
 

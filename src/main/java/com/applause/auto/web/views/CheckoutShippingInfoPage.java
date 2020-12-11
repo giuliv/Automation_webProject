@@ -10,8 +10,6 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import com.applause.auto.web.components.DatePickerChunk;
 import com.applause.auto.web.components.ShopRunnerChunk;
@@ -123,8 +121,8 @@ public class CheckoutShippingInfoPage extends BaseComponent {
   /** Fill Required Fields for Shipping */
   public void fillShippingInfo() {
     logger.info("Filling shipping info");
-    getSyncHelper().wait(
-        Until.uiElement(getFirstNameTextBox).visible().setTimeout(Duration.ofSeconds(30)));
+    getSyncHelper()
+        .wait(Until.uiElement(getFirstNameTextBox).visible().setTimeout(Duration.ofSeconds(30)));
     getFirstNameTextBox.sendKeys(Constants.TestData.FIRST_NAME);
     getLastNameTextBox.sendKeys(Constants.TestData.LAST_NAME);
     getPhoneNumberTextBox.sendKeys(Constants.TestData.PHONE);
@@ -176,10 +174,16 @@ public class CheckoutShippingInfoPage extends BaseComponent {
     logger.info("Click Continue on contact section");
     getNewAddressContinueButton.click();
 
-    getSyncHelper().wait(
-        Until.uiElement(getShippingLoadingSpinner).visible().setTimeout(Duration.ofSeconds(60)));
-    getSyncHelper().wait(
-        Until.uiElement(getShippingLoadingSpinner).notVisible().setTimeout(Duration.ofSeconds(60)));
+    getSyncHelper()
+        .wait(
+            Until.uiElement(getShippingLoadingSpinner)
+                .visible()
+                .setTimeout(Duration.ofSeconds(60)));
+    getSyncHelper()
+        .wait(
+            Until.uiElement(getShippingLoadingSpinner)
+                .notVisible()
+                .setTimeout(Duration.ofSeconds(60)));
 
     return this.create(CheckoutShippingInfoPage.class);
   }

@@ -7,9 +7,6 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
-
 
 @Implementation(is = EditAccountInformationPage.class, on = Platform.WEB)
 public class EditAccountInformationPage extends BaseComponent {

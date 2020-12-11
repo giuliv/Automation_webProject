@@ -10,8 +10,6 @@ import com.applause.auto.pageobjectmodel.elements.Checkbox;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
-
 
 @Implementation(is = SignUpPage.class, on = Platform.WEB)
 public class SignUpPage extends BaseComponent {

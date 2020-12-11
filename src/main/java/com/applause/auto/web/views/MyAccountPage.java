@@ -8,7 +8,6 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.factory.ComponentFactory;
 import com.applause.auto.web.components.AccountMenuChunk;
 import com.applause.auto.web.components.MainMenuChunk;
 
