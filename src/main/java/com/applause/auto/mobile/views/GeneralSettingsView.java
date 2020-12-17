@@ -138,10 +138,7 @@ public class GeneralSettingsView extends BaseComponent {
     if (isPromoEmailOptionChecked()) {
       getPromotionalEmailsButton.initialize();
       MobileHelper.tapByCoordinatesOnElementCenter(getPromotionalEmailsButton);
-      if (getLoader.exists()) {
-        getSyncHelper()
-            .wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(30)));
-      }
+      getSyncHelper().sleep(10000);
     }
     return this.create(GeneralSettingsView.class);
   }
