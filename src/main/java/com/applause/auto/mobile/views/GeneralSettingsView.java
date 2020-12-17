@@ -178,8 +178,10 @@ class AndroidGeneralSettingsView extends GeneralSettingsView {
     logger.info("Unchecking Promo emails services");
     if (isPromoEmailOptionChecked()) {
       getPromotionalEmailsButton.click();
-      getSyncHelper()
-          .wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(30)));
+      if (getLoader.exists()) {
+        getSyncHelper()
+            .wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(30)));
+      }
     }
     return this.create(GeneralSettingsView.class);
   }
