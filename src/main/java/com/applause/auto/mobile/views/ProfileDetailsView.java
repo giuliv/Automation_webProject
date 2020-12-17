@@ -10,6 +10,7 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
+
 import java.time.Duration;
 
 @Implementation(is = ProfileDetailsView.class, on = Platform.MOBILE_ANDROID)
@@ -356,7 +357,9 @@ class IosProfileDetailsView extends ProfileDetailsView {
 
   public AccountMenuMobileChunk save() {
     logger.info("Click on SAVE button");
-    getDoneButton.click();
+    if (getDoneButton.exists()) {
+      getDoneButton.click();
+    }
     getSaveButton.click();
     getSyncHelper().sleep(5000);
     return this.create(AccountMenuMobileChunk.class);
