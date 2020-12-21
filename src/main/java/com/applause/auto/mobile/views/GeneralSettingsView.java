@@ -138,8 +138,7 @@ public class GeneralSettingsView extends BaseComponent {
     if (isPromoEmailOptionChecked()) {
       getPromotionalEmailsButton.initialize();
       MobileHelper.tapByCoordinatesOnElementCenter(getPromotionalEmailsButton);
-      getSyncHelper()
-          .wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(30)));
+      getSyncHelper().sleep(10000);
     }
     return this.create(GeneralSettingsView.class);
   }
@@ -179,8 +178,10 @@ class AndroidGeneralSettingsView extends GeneralSettingsView {
     logger.info("Unchecking Promo emails services");
     if (isPromoEmailOptionChecked()) {
       getPromotionalEmailsButton.click();
-      getSyncHelper()
-          .wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(30)));
+      if (getLoader.exists()) {
+        getSyncHelper()
+            .wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(30)));
+      }
     }
     return this.create(GeneralSettingsView.class);
   }
