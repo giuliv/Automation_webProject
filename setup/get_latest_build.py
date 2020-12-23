@@ -14,7 +14,7 @@ productId = args.productId
 outFile= args.outFile
 
 # Get the set of versions for this product
-url = 'https://api.applause.com/versions?product_id=' + productId
+url = 'https://api.applause.com/v2/builds?productId=' + productId + "&sort=id,desc"
 hdr = { 'X-Api-Key' : apiKey  }
 req = urllib.request.Request(url, headers=hdr)
 
@@ -24,9 +24,10 @@ versions = json.loads(r.decode('utf-8'))
 
 # Find the latest version
 latestVersion = 0
+versions=versions['content']
 for version in versions:
     currentVersion = int(version['id'])
-    releaseUrl = version['release_url']
+    releaseUrl = version['releaseUrls']
     if currentVersion > latestVersion and not releaseUrl:
         latestVersion = currentVersion
 
@@ -34,7 +35,7 @@ for version in versions:
 print("Latest version: ", latestVersion)
 
 # Get the latest build for this version
-url = 'https://api.applause.com/versions/' + str(latestVersion) + '/builds'
+url = 'https://api.applause.com/v2/builds/' + str(latestVersion)
 hdr = { 'X-Api-Key' : apiKey }
 req = urllib.request.Request(url, headers=hdr)
 
@@ -45,9 +46,10 @@ builds = json.loads(r.decode('utf-8'))
 # Find the latest build
 latestBuild = 0
 latestFilename = ""
+builds = builds['attachments']
 for build in builds:
     currentBuild = int(build['id'])
-    filename = build['filename']
+    filename = build['fileName']
     if currentBuild > latestBuild and filename:
         latestBuild = currentBuild
         latestFilename = filename
