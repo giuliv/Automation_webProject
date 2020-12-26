@@ -8,10 +8,12 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
+
 import org.openqa.selenium.WebDriverException;
 
 /** The coffee store container chunk. */
 @Implementation(is = CoffeeStoreItemChuck.class, on = Platform.MOBILE)
+@Implementation(is = AndroidCoffeeStoreItemChuck.class, on = Platform.MOBILE)
 public class CoffeeStoreItemChuck extends BaseComponent {
 
   /* -------- Elements -------- */
@@ -30,6 +32,12 @@ public class CoffeeStoreItemChuck extends BaseComponent {
       on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/order_button", on = Platform.MOBILE_ANDROID)
   protected Button getOrderButton;
+
+  @Locate(id = "com.wearehathway.peets.development:id/storeName", on = Platform.MOBILE_ANDROID)
+  protected Text getStoreNameText;
+
+  @Locate(id = "com.wearehathway.peets.development:id/distance", on = Platform.MOBILE_ANDROID)
+  protected Text getStoreDistanceText;
 
   /* -------- Actions -------- */
 
@@ -100,5 +108,25 @@ public class CoffeeStoreItemChuck extends BaseComponent {
    */
   public int getXposition() {
     return this.getParent().getMobileElement().getLocation().x;
+  }
+}
+
+class AndroidCoffeeStoreItemChuck extends CoffeeStoreItemChuck {
+  @Override
+  public String getStoreName() {
+    try {
+      getStoreNameText.initialize();
+      String storeName = getStoreNameText.getText();
+      logger.info(String.format("Store name is: %s", storeName));
+      return storeName;
+    } catch (WebDriverException e) {
+      return null;
+    }
+  }
+
+  @Override
+  public boolean isCoffeebarDistanceDisplayed() {
+    logger.info("Verifying if store distance displayed");
+    return getStoreDistanceText.getText().matches("(?s).*\\d miles away");
   }
 }

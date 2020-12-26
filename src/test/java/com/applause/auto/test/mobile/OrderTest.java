@@ -514,7 +514,7 @@ public class OrderTest extends BaseTest {
     //    store.isCoffeebarOrderButtonDisplayed();
     String storeName = store.getStoreName();
 
-    storeName.length();
+    Assert.assertFalse(storeName.isEmpty(), "Store name is empty");
     Assert.assertTrue(store.isCoffeebarDistanceDisplayed(), "Distance  does not displayed");
     Assert.assertTrue(store.isCoffeebarOpenHoursDisplayed(), "Open hours does not displayed");
 
