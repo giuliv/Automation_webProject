@@ -138,6 +138,6 @@ class AndroidCoffeeStoreItemChuck extends CoffeeStoreItemChuck {
     logger.info("Verifying if open hours displayed");
     String hours = getStoreOpenHoursText.getText();
     logger.info("Working hours: " + hours);
-    return getStoreOpenHoursText.getText().toUpperCase().matches("(?s).*\\d:\\d\\d\\S(AM|PM).*");
+    return getStoreOpenHoursText.getText().toUpperCase().matches("(?s).*\\d:\\d\\d\\s(AM|PM).*");
   }
 }
