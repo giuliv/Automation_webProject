@@ -130,6 +130,7 @@ class IosDashboardView extends DashboardView {
         .wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
   }
 
+  @Override
   public AccountMenuMobileChunk getAccountProfileMenu() {
     logger.info("Open account profile menu\n" + getDriver().getPageSource());
     int x = getDriver().manage().window().getSize().width;
@@ -142,5 +143,13 @@ class IosDashboardView extends DashboardView {
     }
     getSyncHelper().sleep(5000);
     return this.create(AccountMenuMobileChunk.class);
+  }
+
+  @Override
+  public <T extends BaseComponent> T location(Class<T> clazz) {
+    logger.info("Click on Location button");
+    getSyncHelper().wait(Until.uiElement(locationButton).visible());
+    getDeviceControl().tapElementCenter(locationButton);
+    return this.create(clazz);
   }
 }
