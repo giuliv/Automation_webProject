@@ -100,9 +100,7 @@ public class NewOrderView extends BaseComponent {
       on = Platform.MOBILE_IOS)
   protected Button startNewOrderFavoritesButton;
 
-  @Locate(
-      id = "com.wearehathway.peets.development:id/menuTitleContainer",
-      on = Platform.MOBILE_ANDROID)
+  @Locate(id = "com.wearehathway.peets.development:id/orderTabLayout", on = Platform.MOBILE_ANDROID)
   @Locate(
       iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Menu\"`][2]",
       on = Platform.MOBILE_IOS)
