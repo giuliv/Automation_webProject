@@ -12,7 +12,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import org.openqa.selenium.WebDriverException;
 
 /** The coffee store container chunk. */
-@Implementation(is = CoffeeStoreItemChuck.class, on = Platform.MOBILE)
+@Implementation(is = CoffeeStoreItemChuck.class, on = Platform.MOBILE_IOS)
 @Implementation(is = AndroidCoffeeStoreItemChuck.class, on = Platform.MOBILE_ANDROID)
 public class CoffeeStoreItemChuck extends BaseComponent {
 
