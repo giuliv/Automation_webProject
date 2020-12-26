@@ -456,9 +456,6 @@ public class CreateAccountView extends BaseComponent {
     getSyncHelper()
         .wait(Until.uiElement(loadingSpinner).notPresent().setTimeout(Duration.ofSeconds(45)));
     getSyncHelper().sleep(10000);
-    getSyncHelper()
-        .wait(Until.uiElement(loadingSpinner).notPresent().setTimeout(Duration.ofSeconds(45)));
-
     return this.create(DashboardView.class);
   }
 
