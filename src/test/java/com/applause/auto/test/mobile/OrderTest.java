@@ -1,7 +1,5 @@
 package com.applause.auto.test.mobile;
 
-import static com.applause.auto.test.mobile.helpers.TestHelper.openOrderMenuForRecentCoffeeBar;
-
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.integrations.annotation.testidentification.ApplauseTestCaseId;
@@ -18,11 +16,15 @@ import com.applause.auto.mobile.views.OrderConfirmationView;
 import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.ProductDetailsView;
 import com.applause.auto.test.mobile.helpers.TestHelper;
-import java.lang.invoke.MethodHandles;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.lang.invoke.MethodHandles;
+
+import static com.applause.auto.test.mobile.helpers.TestHelper.openOrderMenuForRecentCoffeeBar;
 
 public class OrderTest extends BaseTest {
 
@@ -458,19 +460,19 @@ public class OrderTest extends BaseTest {
         "Precondition: User is already signed in to app\n"
             + "User is on main order screen and menu tab is highlighted\n"
             + "User has no recent orders\n"
-            + "User has no favorite orders");
-
-    logger.info("Launch the app and arrive at the first on boarding screen view");
+            + "User has no favorite orders\n"
+            + "Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = this.create(LandingView.class);
     DashboardView dashboardView = testHelper.createNewAccountWithDefaults(landingView);
-    OrderView orderView =
-        dashboardView
-            .location(AllowLocationServicesPopupChunk.class)
-            .allowIfRequestDisplayed(OrderView.class);
+
+    //    OrderView orderView =
+    //        dashboardView
+    //            .location(AllowLocationServicesPopupChunk.class)
+    //            .allowIfRequestDisplayed(OrderView.class);
 
     logger.info("STEP 1. Tap on store locator icon in top right corner");
     NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
-        orderView.locateCoffeebars(AllowLocationServicesPopupChunk.class).allowIfRequestDisplayed();
+        dashboardView.location(AllowLocationServicesPopupChunk.class).allowIfRequestDisplayed();
 
     logger.info(
         "User is taken to find a coffeebar screen:\n"
