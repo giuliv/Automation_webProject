@@ -9,6 +9,7 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
+
 import java.time.Duration;
 
 @Implementation(is = NewOrderView.class, on = Platform.MOBILE_ANDROID)
@@ -59,43 +60,49 @@ public class NewOrderView extends BaseComponent {
   @Locate(id = "Menu", on = Platform.MOBILE_IOS)
   protected Button getConfirmStoreButton;
 
-  @Locate(id = "com.wearehathway.peets.development:id/confirmButton", on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//android.widget.TextView[@text='Recents']", on = Platform.MOBILE_ANDROID)
   @Locate(
       iOSClassChain = "**/XCUIElementTypeButton[`label == \"Recents\"`]",
       on = Platform.MOBILE_IOS)
   protected Button recentsTabButton;
 
-  @Locate(id = "com.wearehathway.peets.development:id/confirmButton", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath = "//android.widget.TextView[@text='No Recent Orders']",
+      on = Platform.MOBILE_ANDROID)
   @Locate(
       iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"No Recent Orders\"`]",
       on = Platform.MOBILE_IOS)
   protected Button titleNoRecentOrdersText;
 
-  @Locate(id = "com.wearehathway.peets.development:id/confirmButton", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath = "//android.widget.TextView[@text='No Favorited Orders']",
+      on = Platform.MOBILE_ANDROID)
   @Locate(
       iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"No Favorited Orders\"`]",
       on = Platform.MOBILE_IOS)
   protected Button titleNoFavoriteOrders;
 
-  @Locate(id = "com.wearehathway.peets.development:id/confirmButton", on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//android.widget.TextView[@text='Favorites']", on = Platform.MOBILE_ANDROID)
   @Locate(
       iOSClassChain = "**/XCUIElementTypeButton[`label == \"Favorites\"`]",
       on = Platform.MOBILE_IOS)
   protected Button favoritesTabButton;
 
-  @Locate(id = "com.wearehathway.peets.development:id/confirmButton", on = Platform.MOBILE_ANDROID)
+  @Locate(id = "TODO", on = Platform.MOBILE_ANDROID)
   @Locate(
       iOSClassChain = "**/XCUIElementTypeButton[`label == \"Start New Order\"`][1]",
       on = Platform.MOBILE_IOS)
   protected Button startNewOrderRecentsButton;
 
-  @Locate(id = "com.wearehathway.peets.development:id/confirmButton", on = Platform.MOBILE_ANDROID)
+  @Locate(id = "TODO", on = Platform.MOBILE_ANDROID)
   @Locate(
       iOSClassChain = "**/XCUIElementTypeButton[`label == \"Start New Order\"`][2]",
       on = Platform.MOBILE_IOS)
   protected Button startNewOrderFavoritesButton;
 
-  @Locate(id = "com.wearehathway.peets.development:id/confirmButton", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/menuTitleContainer",
+      on = Platform.MOBILE_ANDROID)
   @Locate(
       iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Menu\"`][2]",
       on = Platform.MOBILE_IOS)
