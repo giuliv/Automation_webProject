@@ -136,6 +136,8 @@ class AndroidCoffeeStoreItemChuck extends CoffeeStoreItemChuck {
   @Override
   public boolean isCoffeebarOpenHoursDisplayed() {
     logger.info("Verifying if open hours displayed");
-    return getStoreOpenHoursText.getText().matches("(?s).*\\d:\\d\\d\\S(AM|PM).*");
+    String hours = getStoreOpenHoursText.getText();
+    logger.info("Working hours: " + hours);
+    return getStoreOpenHoursText.getText().toUpperCase().matches("(?s).*\\d:\\d\\d\\S(AM|PM).*");
   }
 }
