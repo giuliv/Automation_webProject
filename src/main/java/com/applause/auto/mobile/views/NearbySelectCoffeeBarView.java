@@ -1,5 +1,7 @@
 package com.applause.auto.mobile.views;
 
+import com.google.common.collect.ImmutableMap;
+
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
 import com.applause.auto.mobile.components.CoffeeStoreItemChuck;
@@ -12,9 +14,10 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
-import com.google.common.collect.ImmutableMap;
-import io.appium.java_client.AppiumDriver;
+
 import java.time.Duration;
+
+import io.appium.java_client.AppiumDriver;
 
 /** The type Nearby select coffee bar view. */
 @Implementation(is = AndroidNearbySelectCoffeeBarView.class, on = Platform.MOBILE_ANDROID)
@@ -107,14 +110,17 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
       xpath =
           "//XCUIElementTypeMap/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther[@value='Store']",
       on = Platform.MOBILE_IOS)
-  @Locate(xpath = "TODO", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//android.view.View[@content-desc='Google Map. Use standard google maps touch gestures to move the map. Location details are located after the map.']/android.view.View[ends-with(@content-desc,'Location. ')]",
+      on = Platform.MOBILE_ANDROID)
   protected LazyList<Button> pinsOnMapButton;
 
   @Locate(
       xpath =
           "//XCUIElementTypeButton[@name=\"user location\"]/following-sibling::XCUIElementTypeCollectionView/XCUIElementTypeCell",
       on = Platform.MOBILE_IOS)
-  @Locate(xpath = "TODO", on = Platform.MOBILE_ANDROID)
+  @Locate(id = "com.wearehathway.peets.development:id/storeDetail", on = Platform.MOBILE_ANDROID)
   protected LazyList<CoffeeStoreItemChuck> coffeeStoreItemChucks;
 
   @Locate(accessibilityId = "user location", on = Platform.MOBILE_IOS)
