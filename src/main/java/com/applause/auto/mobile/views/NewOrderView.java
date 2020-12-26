@@ -88,13 +88,17 @@ public class NewOrderView extends BaseComponent {
       on = Platform.MOBILE_IOS)
   protected Button favoritesTabButton;
 
-  @Locate(id = "TODO", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath = "//android.widget.Button[@text=\"Start New Order\"]",
+      on = Platform.MOBILE_ANDROID)
   @Locate(
       iOSClassChain = "**/XCUIElementTypeButton[`label == \"Start New Order\"`][1]",
       on = Platform.MOBILE_IOS)
   protected Button startNewOrderRecentsButton;
 
-  @Locate(id = "TODO", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath = "//android.widget.Button[@text=\"Start New Order\"]",
+      on = Platform.MOBILE_ANDROID)
   @Locate(
       iOSClassChain = "**/XCUIElementTypeButton[`label == \"Start New Order\"`][2]",
       on = Platform.MOBILE_IOS)
