@@ -437,6 +437,7 @@ public class CreateAccountView extends BaseComponent {
   /** Check privacy policy and terms and conditions. */
   public void checkPrivacyPolicyAndTermsAndConditions() {
     logger.info("Click on Privacy Policy button");
+    getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
     getAgreePrivacyPolicyAndTermsAndConditions.click();
   }
 
@@ -454,6 +455,10 @@ public class CreateAccountView extends BaseComponent {
     getSyncHelper().sleep(10000);
     getSyncHelper()
         .wait(Until.uiElement(loadingSpinner).notPresent().setTimeout(Duration.ofSeconds(45)));
+    getSyncHelper().sleep(10000);
+    getSyncHelper()
+        .wait(Until.uiElement(loadingSpinner).notPresent().setTimeout(Duration.ofSeconds(45)));
+
     return this.create(DashboardView.class);
   }
 
@@ -647,6 +652,7 @@ class AndroidCreateAccountView extends CreateAccountView {
     logger.info("Create account");
     getCreateAccountButton.click();
     getSyncHelper().wait(Until.uiElement(getCreateAccountButton).notPresent());
+    getSyncHelper().sleep(10000);
     return this.create(DashboardView.class);
   }
 
