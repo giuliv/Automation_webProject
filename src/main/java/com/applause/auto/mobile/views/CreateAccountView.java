@@ -650,6 +650,7 @@ class AndroidCreateAccountView extends CreateAccountView {
   @Override
   public DashboardView createAccount() {
     logger.info("Create account");
+    getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
     getCreateAccountButton.click();
     getSyncHelper().wait(Until.uiElement(getCreateAccountButton).notPresent());
     getSyncHelper().sleep(10000);
