@@ -13,7 +13,7 @@ import org.openqa.selenium.WebDriverException;
 
 /** The coffee store container chunk. */
 @Implementation(is = CoffeeStoreItemChuck.class, on = Platform.MOBILE)
-@Implementation(is = AndroidCoffeeStoreItemChuck.class, on = Platform.MOBILE)
+@Implementation(is = AndroidCoffeeStoreItemChuck.class, on = Platform.MOBILE_ANDROID)
 public class CoffeeStoreItemChuck extends BaseComponent {
 
   /* -------- Elements -------- */
