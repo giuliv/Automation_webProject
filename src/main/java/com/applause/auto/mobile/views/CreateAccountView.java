@@ -17,7 +17,6 @@ import com.applause.auto.pageobjectmodel.helper.sync.Until;
 
 import org.openqa.selenium.Dimension;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -452,10 +451,7 @@ public class CreateAccountView extends BaseComponent {
     // wait while dashboard view will be created and loaded (10s!!)
     // temp case while waiter below is not working properly
 
-    getSyncHelper().sleep(10000);
-    getSyncHelper()
-        .wait(Until.uiElement(loadingSpinner).notPresent().setTimeout(Duration.ofSeconds(45)));
-    getSyncHelper().sleep(10000);
+    getSyncHelper().sleep(26000);
     return this.create(DashboardView.class);
   }
 
