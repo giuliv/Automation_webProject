@@ -106,7 +106,7 @@ public class NewOrderView extends BaseComponent {
       on = Platform.MOBILE_IOS)
   protected Text menuSignatureText;
 
-  @Locate(id = "com.wearehathway.peets.development:id/confirmButton", on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//android.widget.TextView[@text='%s']", on = Platform.MOBILE_ANDROID)
   @Locate(
       iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"%s\"`]",
       on = Platform.MOBILE_IOS)
