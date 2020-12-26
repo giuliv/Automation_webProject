@@ -20,13 +20,11 @@ import com.applause.auto.mobile.views.PrivacyPolicyView;
 import com.applause.auto.mobile.views.ProfileDetailsView;
 import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.mobile.views.TermsAndConditionsView;
-
+import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.lang.invoke.MethodHandles;
 
 public class CreateAccountTest extends BaseTest {
 
@@ -163,7 +161,7 @@ public class CreateAccountTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625925")
-  @ApplauseTestCaseId({"674505","674504"})
+  @ApplauseTestCaseId({"674505", "674504"})
   public void accountSettingsEditProfileTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = this.create(LandingView.class);
@@ -263,7 +261,7 @@ public class CreateAccountTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625927")
-  @ApplauseTestCaseId({"674507","674506"})
+  @ApplauseTestCaseId({"674507", "674506"})
   public void accountSettingsGeneralSettingsTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = this.create(LandingView.class);
@@ -334,7 +332,7 @@ public class CreateAccountTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625926")
-  @ApplauseTestCaseId({"674511","674510"})
+  @ApplauseTestCaseId({"674511", "674510"})
   public void accountSettingsChangePasswordTest() {
 
     logger.info("Launch the app and arrive at the first on boarding screen view");
@@ -492,7 +490,7 @@ public class CreateAccountTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625880")
-  @ApplauseTestCaseId({"674130","674129"})
+  @ApplauseTestCaseId({"674130", "674129"})
   public void createAccountEmailPassword() {
 
     logger.info("Launch the app and arrive at the first onboarding screen view");
@@ -696,7 +694,7 @@ public class CreateAccountTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "2980586")
-  @ApplauseTestCaseId({"674182","674181"})
+  @ApplauseTestCaseId({"674182", "674181"})
   public void createAccountFieldValidation() {
 
     logger.info("Launch the app and arrive at the first onboarding screen view");
@@ -952,7 +950,7 @@ public class CreateAccountTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625929")
-  @ApplauseTestCaseId({"674513","674512"})
+  @ApplauseTestCaseId({"674513", "674512"})
   public void accountSettingsAccountHistoryTest() {
 
     logger.info("Launch the app and arrive at the first on boarding screen view");
@@ -994,7 +992,7 @@ public class CreateAccountTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625882")
-  @ApplauseTestCaseId({"674184","674183"})
+  @ApplauseTestCaseId({"674184", "674183"})
   public void createAccountExistingWebUserTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = this.create(LandingView.class);

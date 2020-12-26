@@ -98,6 +98,7 @@ public class LandingView extends BaseComponent {
     getSyncHelper()
         .wait(
             Until.uiElement(getCreateAccountButton).clickable().setTimeout(Duration.ofSeconds(20)));
+    getSyncHelper().sleep(3000);
     getCreateAccountButton.click();
     return this.create(CreateAccountView.class);
   }
@@ -168,7 +169,7 @@ class AndroidLandingView extends LandingView {
 
       for (int i = 0; i < 3; i++) {
         getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
-        getSyncHelper().sleep(2000);
+        getSyncHelper().sleep(10000);
       }
 
       getSyncHelper()

@@ -31,7 +31,7 @@ public class CompanyInformationTest extends BaseTest {
         TestNGGroups.WEB_UI
       },
       description = "625936")
-  @ApplauseTestCaseId({"674523","674522"})
+  @ApplauseTestCaseId({"674523", "674522"})
   public void faqsTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = this.create(LandingView.class);
@@ -79,7 +79,7 @@ public class CompanyInformationTest extends BaseTest {
         TestNGGroups.WEB_UI
       },
       description = "625938")
-  @ApplauseTestCaseId({"674527","674526"})
+  @ApplauseTestCaseId({"674527", "674526"})
   public void termsAndPrivacyPolicyTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = this.create(LandingView.class);
@@ -153,7 +153,7 @@ public class CompanyInformationTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.COMPANY_INFORMATION, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625933")
-  @ApplauseTestCaseId({"674517","674514"})
+  @ApplauseTestCaseId({"674517", "674514"})
   public void moreScreenTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = this.create(LandingView.class);
@@ -248,7 +248,7 @@ public class CompanyInformationTest extends BaseTest {
         TestNGGroups.WEB_UI
       },
       description = "625937")
-  @ApplauseTestCaseId({"674525","625937"})
+  @ApplauseTestCaseId({"674525", "625937"})
   public void contactCustomerServiceTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = this.create(LandingView.class);

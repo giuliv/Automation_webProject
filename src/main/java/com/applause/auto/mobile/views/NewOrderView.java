@@ -59,7 +59,59 @@ public class NewOrderView extends BaseComponent {
   @Locate(id = "Menu", on = Platform.MOBILE_IOS)
   protected Button getConfirmStoreButton;
 
+  @Locate(id = "com.wearehathway.peets.development:id/confirmButton", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`label == \"Recents\"`]",
+      on = Platform.MOBILE_IOS)
+  protected Button recentsTabButton;
+
+  @Locate(id = "com.wearehathway.peets.development:id/confirmButton", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"No Recent Orders\"`]",
+      on = Platform.MOBILE_IOS)
+  protected Button titleNoRecentOrdersText;
+
+  @Locate(id = "com.wearehathway.peets.development:id/confirmButton", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"No Favorited Orders\"`]",
+      on = Platform.MOBILE_IOS)
+  protected Button titleNoFavoriteOrders;
+
+  @Locate(id = "com.wearehathway.peets.development:id/confirmButton", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`label == \"Favorites\"`]",
+      on = Platform.MOBILE_IOS)
+  protected Button favoritesTabButton;
+
+  @Locate(id = "com.wearehathway.peets.development:id/confirmButton", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`label == \"Start New Order\"`][1]",
+      on = Platform.MOBILE_IOS)
+  protected Button startNewOrderRecentsButton;
+
+  @Locate(id = "com.wearehathway.peets.development:id/confirmButton", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`label == \"Start New Order\"`][2]",
+      on = Platform.MOBILE_IOS)
+  protected Button startNewOrderFavoritesButton;
+
+  @Locate(id = "com.wearehathway.peets.development:id/confirmButton", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Menu\"`][2]",
+      on = Platform.MOBILE_IOS)
+  protected Text menuSignatureText;
+
+  @Locate(id = "com.wearehathway.peets.development:id/confirmButton", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"%s\"`]",
+      on = Platform.MOBILE_IOS)
+  protected Text messageText;
+
   /* -------- Actions -------- */
+  public void afterInit() {
+    getSyncHelper()
+        .wait(Until.uiElement(menuSignatureText).present().setTimeout(Duration.ofSeconds(15)));
+  }
 
   /**
    * Get the text vaalue of the heading
@@ -128,6 +180,111 @@ public class NewOrderView extends BaseComponent {
       logger.info("Confirmation button is not present");
     }
     return this.create(CheckoutView.class);
+  }
+
+  /**
+   * Recents new order view.
+   *
+   * @return the new order view
+   */
+  public NewOrderView recents() {
+    logger.info("Click on recents tab");
+    recentsTabButton.click();
+    return this.create(NewOrderView.class);
+  }
+
+  /**
+   * Is title no recent orders displayed boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isTitleNoRecentOrdersDisplayed() {
+    logger.info("Checking if title <No recent orders> displayed");
+    return titleNoRecentOrdersText.isDisplayed();
+  }
+
+  /**
+   * Is message displayed boolean.
+   *
+   * @param message the message
+   * @return the boolean
+   */
+  public boolean isMessageDisplayed(String message) {
+    logger.info("Checking if message displayed: " + message);
+    return messageText.format(message).isDisplayed();
+  }
+
+  /**
+   * Is start new order button displayed boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isStartNewOrderRecentsButtonDisplayed() {
+    logger.info("Checking if <start new order> button displayed");
+    return startNewOrderRecentsButton.isDisplayed();
+  }
+
+  /**
+   * Is start new order favorites button displayed boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isStartNewOrderFavoritesButtonDisplayed() {
+    logger.info("Checking if <start new order> button displayed");
+    return startNewOrderFavoritesButton.isDisplayed();
+  }
+
+  /**
+   * Start new order new order view.
+   *
+   * @return the new order view
+   */
+  public NewOrderView startNewOrderRecents() {
+    logger.info("Click <start new order> button");
+    startNewOrderRecentsButton.click();
+    return this.create(NewOrderView.class);
+  }
+
+  /**
+   * Start new order favorites new order view.
+   *
+   * @return the new order view
+   */
+  public NewOrderView startNewOrderFavorites() {
+    logger.info("Click <start new order> button");
+    startNewOrderFavoritesButton.click();
+    return this.create(NewOrderView.class);
+  }
+
+  /**
+   * Is menu categories displayed boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isMenuCategoriesDisplayed() {
+    logger.info("Checking if Menu categories are visible");
+    return menuSignatureText.isDisplayed();
+  }
+
+  /**
+   * Favorites new order view.
+   *
+   * @return the new order view
+   */
+  public NewOrderView favorites() {
+    logger.info("Click Favorites tab");
+    favoritesTabButton.click();
+    return this.create(NewOrderView.class);
+  }
+
+  /**
+   * Is title no favorite orders displayed boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isTitleNoFavoriteOrdersDisplayed() {
+    logger.info("Checking if favourite tab displayed");
+    return titleNoFavoriteOrders.isDisplayed();
   }
 }
 

@@ -39,6 +39,12 @@ public class DashboardView extends BaseComponent {
   @Locate(accessibilityId = "NO THANKS", on = Platform.MOBILE_ANDROID)
   protected Button dismissFreeDeliveryButton;
 
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`label == \"Store locator\"`]",
+      on = Platform.MOBILE_IOS)
+  @Locate(accessibilityId = "Stores button", on = Platform.MOBILE_ANDROID)
+  protected Button locationButton;
+
   /* -------- Actions -------- */
 
   public void afterInit() {
@@ -76,6 +82,12 @@ public class DashboardView extends BaseComponent {
     return this.create(BottomNavigationMenuChunk.class);
   }
 
+  /**
+   * Look up offer boolean.
+   *
+   * @param offerName the offer name
+   * @return the boolean
+   */
   public boolean lookUpOffer(String offerName) {
     int swipeLimit = 10;
     while ((swipeLimit-- != 0) && (!isOfferDisplayed(offerName))) {
@@ -85,12 +97,26 @@ public class DashboardView extends BaseComponent {
   }
 
   private boolean isOfferDisplayed(String offerName) {
+    logger.info("Checking if order displayed");
     try {
       offerTitleText.format(offerName);
       return offerTitleText.isDisplayed();
     } catch (Throwable th) {
       return false;
     }
+  }
+
+  /**
+   * Location t.
+   *
+   * @param <T> the type parameter
+   * @param clazz the clazz
+   * @return the t
+   */
+  public <T extends BaseComponent> T location(Class<T> clazz) {
+    logger.info("Click on Location button");
+    locationButton.click();
+    return this.create(clazz);
   }
 }
 

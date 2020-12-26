@@ -7,8 +7,10 @@ import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.integrations.annotation.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
+import com.applause.auto.mobile.components.CoffeeStoreItemChuck;
 import com.applause.auto.mobile.views.CheckoutView;
 import com.applause.auto.mobile.views.DashboardView;
+import com.applause.auto.mobile.views.FindACoffeeBarView;
 import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
 import com.applause.auto.mobile.views.NewOrderView;
@@ -128,7 +130,7 @@ public class OrderTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ORDER},
       description = "625890",
-      enabled = false)
+      enabled = true)
   @ApplauseTestCaseId({"674198", "674197"})
   public void browseTheMenu() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
@@ -362,5 +364,234 @@ public class OrderTest extends BaseTest {
 
     logger.info("Verify - Order Confirmation displayed");
     Assert.assertNotNull(orderConfirmationView, "Something happened during order placement");
+  }
+
+  @Test(
+      groups = {TestNGGroups.ORDER},
+      description = "1687255",
+      enabled = true)
+  @ApplauseTestCaseId({"674356", "674355"})
+  public void recentsFavoriteOrdersEmptyStateTest() {
+    logger.info(
+        "Precondition: User is already signed in to app\n"
+            + "User is on main order screen and menu tab is highlighted\n"
+            + "User has no recent orders\n"
+            + "User has no favorite orders");
+
+    logger.info("Launch the app and arrive at the first on boarding screen view");
+    LandingView landingView = this.create(LandingView.class);
+    DashboardView dashboardView = testHelper.createNewAccountWithDefaults(landingView);
+
+    NewOrderView order =
+        dashboardView
+            .getBottomNavigationMenu()
+            .order(AllowLocationServicesPopupChunk.class)
+            .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class)
+            .close(DashboardView.class)
+            .getBottomNavigationMenu()
+            .order(NewOrderView.class);
+
+    logger.info("STEP 1. Tap on Recents tab");
+    order = order.recents();
+
+    logger.info("EXPECTED 1. Recents tab is highlighted in gold");
+    logger.info(
+        "No recent orders card is displayed:\n"
+            + "* Clock icon\n"
+            + "* Title: No Recent Orders\n"
+            + "* Text: Your recent orders will appear here to quickly order again.\n"
+            + "* [Button] Start New Order");
+    // TODO Gold color verification
+    // TODO Clock icon verification
+    Assert.assertTrue(
+        order.isTitleNoRecentOrdersDisplayed(), "Title <No recent orders> does not displayed");
+    Assert.assertTrue(
+        order.isMessageDisplayed("Your recent orders will appear here to quickly order again."),
+        "Expected message <Your recent orders will appear here to quickly order again.> does not displayed");
+    Assert.assertTrue(
+        order.isStartNewOrderRecentsButtonDisplayed(), "Button <Start New Order> does not found>");
+
+    logger.info("STEP 2. Tap Start New Order button");
+    order = order.startNewOrderRecents();
+
+    logger.info(
+        "EXPECTED 2. User returns to menu tab on order screen and can view the menu categories");
+    Assert.assertTrue(order.isMenuCategoriesDisplayed(), "User does not returned to menu");
+
+    logger.info("STEP 3. Tap on Favorites tab");
+    order = order.favorites();
+
+    logger.info(
+        "EXPECTED 3. Favorites tab is highlighted in gold\n"
+            + "No favorited orders card is displayed:\n"
+            + "* Heart icon* Title: No Favorited Orders\n"
+            + "* Text: Favorite an order to save customizations and make your next coffee run even faster!\n"
+            + "* [Button] Start New Order");
+
+    // TODO Gold color verification
+    // TODO Heart icon verification
+
+    Assert.assertTrue(
+        order.isMessageDisplayed(
+            "Favorite an order to save customizations and make your next coffee run even faster!"),
+        "Expected message <Favorite an order to save customizations and make your next coffee run even faster!> does not displayed");
+    Assert.assertTrue(
+        order.isTitleNoFavoriteOrdersDisplayed(), "Title <No favorite orders> does not displayed");
+    Assert.assertTrue(
+        order.isStartNewOrderFavoritesButtonDisplayed(),
+        "Button <Start New Order> does not found>");
+
+    logger.info("STEP 4. Tap Start New Order button");
+    order = order.startNewOrderFavorites();
+
+    logger.info(
+        "EXPECTED 4. User returns to menu tab on order screen and can view the menu categories");
+    Assert.assertTrue(order.isMenuCategoriesDisplayed(), "User does not returned to menu");
+  }
+
+  @Test(
+      groups = {TestNGGroups.ORDER},
+      description = "625930",
+      enabled = true)
+  public void recentsFavoriteCoffeebarsEmptyStateTest() {
+    logger.info(
+        "Precondition: User is already signed in to app\n"
+            + "User is on main order screen and menu tab is highlighted\n"
+            + "User has no recent orders\n"
+            + "User has no favorite orders");
+
+    logger.info("Launch the app and arrive at the first on boarding screen view");
+    LandingView landingView = this.create(LandingView.class);
+    DashboardView dashboardView = testHelper.createNewAccountWithDefaults(landingView);
+    OrderView orderView =
+        dashboardView
+            .location(AllowLocationServicesPopupChunk.class)
+            .allowIfRequestDisplayed(OrderView.class);
+
+    logger.info("STEP 1. Tap on store locator icon in top right corner");
+    NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
+        orderView.locateCoffeebars(AllowLocationServicesPopupChunk.class).allowIfRequestDisplayed();
+
+    logger.info(
+        "User is taken to find a coffeebar screen:\n"
+            + ""
+            + "* Header: FIND A COFFEEBAR"
+            + "* X at top left corner to close screen"
+            + "* Search field      "
+            + "o Text: Enter Zip or City, State"
+            + "* Search icon on the right of the text"
+            + "* Current location icon on the map"
+            + "* Three tabs: Nearby (default selected in gold), Recents, Favorites"
+            + "* Map indicating nearest coffeebar with gold pin"
+            + "Coffeebar location details (Scroll horizontally to see all nearby stores)\n"
+            + ""
+            + "* Coffeebar name* xx.x miles away on the right side of the store name"
+            + "* Store Address* Open until x:xx PM"
+            + "* [Button] Order");
+    Assert.assertEquals(
+        nearbySelectCoffeeBarView.getTitle(),
+        "FIND A COFFEEBAR",
+        "<FIND A COFFEEBAR> title does not displayed");
+    Assert.assertTrue(
+        nearbySelectCoffeeBarView.isCloseButtonDisplayed(), "Close button does not displayed");
+    Assert.assertTrue(
+        nearbySelectCoffeeBarView.isSearchFieldDisplayed(), "Search field does not displayed");
+    Assert.assertTrue(
+        nearbySelectCoffeeBarView.isSearchIconDisplayed(), "Search icon does not displayed");
+
+    Assert.assertTrue(
+        nearbySelectCoffeeBarView.isNearbyTabDisplayed(), "Nearby Tab does not displayed");
+    Assert.assertTrue(
+        nearbySelectCoffeeBarView.isRecentsTabDisplayed(), "Recents Tab does not displayed");
+    Assert.assertTrue(
+        nearbySelectCoffeeBarView.isFavoritesTabDisplayed(), "Favorites does not displayed");
+
+    CoffeeStoreItemChuck store = nearbySelectCoffeeBarView.getCoffeeStoreContainerChucks().get(0);
+
+    // TODO Order button related to working hours
+    //    store.isCoffeebarOrderButtonDisplayed();
+    String storeName = store.getStoreName();
+
+    storeName.length();
+    Assert.assertTrue(store.isCoffeebarDistanceDisplayed(), "Distance  does not displayed");
+    Assert.assertTrue(store.isCoffeebarOpenHoursDisplayed(), "Open hours does not displayed");
+
+    logger.info("STEP 2. Tap on current location icon on the map");
+    nearbySelectCoffeeBarView.location();
+    logger.info(
+        "User sees blue dot on map and nearby store locations are indicated on the map as brown pins");
+    Assert.assertTrue(
+        nearbySelectCoffeeBarView.getPinsCount() > 0, "User does not see PINS on the map");
+
+    logger.info("STEP 3. Swipe left to view more nearby store location cards");
+    int x = store.getXposition();
+    store = nearbySelectCoffeeBarView.getCoffeeStoreContainerChucks().get(0).swipeLeft();
+    int x1 = store.getXposition();
+    CoffeeStoreItemChuck store2 = nearbySelectCoffeeBarView.getCoffeeStoreContainerChucks().get(1);
+    int x2 = store2.getXposition();
+    logger.info(
+        "User sees the store location update on the map as user swipes through the nearby stores");
+    Assert.assertNotEquals(x, x1, "Store does not changed, initial store remains on the screen");
+    Assert.assertEquals(
+        x2,
+        x,
+        "Store does not changed, second store does not displayed on same position as was for first");
+
+    logger.info(
+        "User can see displayed coffeebar location on the map indicated by the gold pin on the map");
+    // TODO Unable to validate change pin colour
+
+    logger.info("STEP 4. Tap on a brown pin on the map");
+    logger.info(
+        "Brown pin on map turns to a gold pin and store location card updates to the selected store");
+
+    // TODO Blocked because order button visibility relay on working hours
+    //    logger.info("STEP 5. Tap Order button");
+    //    OrderView order = store2.clickOrderButton();
+    //    logger.info("User is taken to main order screen");
+    //    Assert.assertNotNull(order, "User does not taken to main order screen");
+    //
+    //    logger.info("STEP 6. Tap back arrow");
+    //    dashboardView = order.back(DashboardView.class);
+    //    logger.info("User is taken to home screen");
+    //    Assert.assertNotNull(nearbySelectCoffeeBarView, "User does not taken to home ");
+    //
+    //    logger.info("STEP 7. Tap on store locator icon again");
+    //    nearbySelectCoffeeBarView = dashboardView.location(NearbySelectCoffeeBarView.class);
+    //    logger.info("User is taken to find a coffeebar screen");
+    //    Assert.assertNotNull(nearbySelectCoffeeBarView, "User does not taken to find coffeebar
+    // screen");
+
+    logger.info("STEP 8. Tap on Recents tab");
+    FindACoffeeBarView findACoffeeBarView = nearbySelectCoffeeBarView.openRecentTab();
+    logger.info(
+        "Recents tab is highlighted in gold and the empty state shows:\n"
+            + ""
+            + "* Clock symbol"
+            + "* Title: No recent coffeebars."
+            + "* Text: Once you place your first order, you'll find the coffeebar here.");
+    Assert.assertTrue(
+        findACoffeeBarView.isTitleNoRecentCoffeebarsDisplayed(),
+        "<Title: No recent coffeebars> does not displayed");
+    Assert.assertTrue(
+        findACoffeeBarView.isMessageDisplayed(
+            "Once you place your first order, you'll find the coffeebar here."),
+        "Message <Once you place your first order, you'll find the coffeebar here.> does not displayed on the recent tab");
+
+    logger.info("STEP 8. Tap on Favorites tab");
+    findACoffeeBarView = findACoffeeBarView.openFavoritesTab();
+    logger.info(
+        "Favorites tab is highlighted in gold and the empty state shows:\n"
+            + ""
+            + "* Heart symbol"
+            + "* Title: No favorited coffeebars."
+            + "* Text: Find a coffeebar and click on the heart to save it for later.");
+    Assert.assertTrue(
+        findACoffeeBarView.isTitleNoFavoriteCoffeebarsDisplayed(),
+        "<Title: No favourite coffeebars> does not displayed");
+    Assert.assertTrue(
+        findACoffeeBarView.isMessageDisplayed(
+            "Find a coffeebar and click on the heart to save it for later."),
+        "Message <Find a coffeebar and click on the heart to save it for later.> does not displayed on the favorites tab");
   }
 }
