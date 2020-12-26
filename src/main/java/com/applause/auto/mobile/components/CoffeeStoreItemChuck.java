@@ -39,6 +39,9 @@ public class CoffeeStoreItemChuck extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/distance", on = Platform.MOBILE_ANDROID)
   protected Text getStoreDistanceText;
 
+  @Locate(id = "com.wearehathway.peets.development:id/orderType", on = Platform.MOBILE_ANDROID)
+  protected Text getStoreOpenHoursText;
+
   /* -------- Actions -------- */
 
   /**
@@ -128,5 +131,11 @@ class AndroidCoffeeStoreItemChuck extends CoffeeStoreItemChuck {
   public boolean isCoffeebarDistanceDisplayed() {
     logger.info("Verifying if store distance displayed");
     return getStoreDistanceText.getText().matches("(?s).*\\d miles away");
+  }
+
+  @Override
+  public boolean isCoffeebarOpenHoursDisplayed() {
+    logger.info("Verifying if open hours displayed");
+    return getStoreOpenHoursText.getText().matches("(?s).*\\d:\\d\\d\\S(AM|PM).*");
   }
 }
