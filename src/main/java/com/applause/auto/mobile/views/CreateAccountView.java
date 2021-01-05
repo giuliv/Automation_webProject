@@ -14,13 +14,16 @@ import com.applause.auto.pageobjectmodel.elements.Picker;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
+
+import org.openqa.selenium.Dimension;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-import java.util.List;
-import java.util.stream.Collectors;
-import org.openqa.selenium.Dimension;
 
 @Implementation(is = AndroidCreateAccountView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CreateAccountView.class, on = Platform.MOBILE_IOS)
@@ -433,6 +436,7 @@ public class CreateAccountView extends BaseComponent {
   /** Check privacy policy and terms and conditions. */
   public void checkPrivacyPolicyAndTermsAndConditions() {
     logger.info("Click on Privacy Policy button");
+    getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
     getAgreePrivacyPolicyAndTermsAndConditions.click();
   }
 
@@ -447,9 +451,7 @@ public class CreateAccountView extends BaseComponent {
     // wait while dashboard view will be created and loaded (10s!!)
     // temp case while waiter below is not working properly
 
-    getSyncHelper().sleep(10000);
-    //    getSyncHelper().wait(
-    //        Until.uiElement(loadingSpinner).notPresent().setTimeout(Duration.ofSeconds(45)));
+    getSyncHelper().sleep(26000);
     return this.create(DashboardView.class);
   }
 
@@ -614,8 +616,7 @@ public class CreateAccountView extends BaseComponent {
     logger.info("Checking password text displayed");
     getHiddenPasswordTextBox.sendKeys(" ");
     boolean result =
-        getPasswordHintTextBox
-            .stream()
+        getPasswordHintTextBox.stream()
             .map(item -> item.getText())
             .collect(Collectors.joining("\n"))
             .equals("At least 6 characters\n" + "At least 1 number\n" + "At least 1 letter");
@@ -642,8 +643,10 @@ class AndroidCreateAccountView extends CreateAccountView {
   @Override
   public DashboardView createAccount() {
     logger.info("Create account");
+    getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
     getCreateAccountButton.click();
     getSyncHelper().wait(Until.uiElement(getCreateAccountButton).notPresent());
+    getSyncHelper().sleep(10000);
     return this.create(DashboardView.class);
   }
 
@@ -793,8 +796,7 @@ class AndroidCreateAccountView extends CreateAccountView {
     logger.info("Checking password text displayed");
     getHiddenPasswordTextBox.sendKeys(" ");
     boolean result =
-        getPasswordHintTextBox
-            .stream()
+        getPasswordHintTextBox.stream()
             .map(item -> item.getText())
             .collect(Collectors.joining("\n"))
             .equals("At least 6 characters\n" + "At least 1 number\n" + "At least 1 letter");

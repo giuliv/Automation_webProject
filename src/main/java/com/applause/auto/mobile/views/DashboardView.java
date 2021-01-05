@@ -10,11 +10,14 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
+
+import org.openqa.selenium.Point;
+
+import java.time.Duration;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-import java.time.Duration;
-import org.openqa.selenium.Point;
 
 @Implementation(is = DashboardView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosDashboardView.class, on = Platform.MOBILE_IOS)
@@ -38,6 +41,12 @@ public class DashboardView extends BaseComponent {
 
   @Locate(accessibilityId = "NO THANKS", on = Platform.MOBILE_ANDROID)
   protected Button dismissFreeDeliveryButton;
+
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`label == \"Store locator\"`]",
+      on = Platform.MOBILE_IOS)
+  @Locate(accessibilityId = "Stores button", on = Platform.MOBILE_ANDROID)
+  protected Button locationButton;
 
   /* -------- Actions -------- */
 
@@ -76,6 +85,12 @@ public class DashboardView extends BaseComponent {
     return this.create(BottomNavigationMenuChunk.class);
   }
 
+  /**
+   * Look up offer boolean.
+   *
+   * @param offerName the offer name
+   * @return the boolean
+   */
   public boolean lookUpOffer(String offerName) {
     int swipeLimit = 10;
     while ((swipeLimit-- != 0) && (!isOfferDisplayed(offerName))) {
@@ -85,12 +100,27 @@ public class DashboardView extends BaseComponent {
   }
 
   private boolean isOfferDisplayed(String offerName) {
+    logger.info("Checking if order displayed");
     try {
       offerTitleText.format(offerName);
       return offerTitleText.isDisplayed();
     } catch (Throwable th) {
       return false;
     }
+  }
+
+  /**
+   * Location t.
+   *
+   * @param <T> the type parameter
+   * @param clazz the clazz
+   * @return the t
+   */
+  public <T extends BaseComponent> T location(Class<T> clazz) {
+    logger.info("Click on Location button");
+    getSyncHelper().wait(Until.uiElement(locationButton).clickable());
+    locationButton.click();
+    return this.create(clazz);
   }
 }
 
@@ -100,6 +130,7 @@ class IosDashboardView extends DashboardView {
         .wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
   }
 
+  @Override
   public AccountMenuMobileChunk getAccountProfileMenu() {
     logger.info("Open account profile menu\n" + getDriver().getPageSource());
     int x = getDriver().manage().window().getSize().width;
@@ -112,5 +143,13 @@ class IosDashboardView extends DashboardView {
     }
     getSyncHelper().sleep(5000);
     return this.create(AccountMenuMobileChunk.class);
+  }
+
+  @Override
+  public <T extends BaseComponent> T location(Class<T> clazz) {
+    logger.info("Click on Location button");
+    getSyncHelper().wait(Until.uiElement(locationButton).visible());
+    getDeviceControl().tapElementCenter(locationButton);
+    return this.create(clazz);
   }
 }

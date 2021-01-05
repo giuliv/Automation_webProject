@@ -2,6 +2,7 @@ package com.applause.auto.test.mobile.helpers;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
+import com.applause.auto.common.data.TestDataUtils;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.integrations.helpers.SdkHelper;
@@ -9,6 +10,7 @@ import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.CheckoutView;
+import com.applause.auto.mobile.views.CreateAccountView;
 import com.applause.auto.mobile.views.CreditCardDetailsView;
 import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.FindACoffeeBarView;
@@ -93,6 +95,59 @@ public class TestHelper extends BaseComponent {
       logger.info("There is no test payment card added");
     }
     return this.create(PaymentMethodsView.class);
+  }
+
+  public DashboardView createNewAccountWithDefaults(LandingView landingView) {
+    logger.info("Creating account");
+    long uniq = System.currentTimeMillis();
+
+    landingView.skipOnboarding();
+
+    logger.info("Tap Create Account");
+    CreateAccountView createAccountView = landingView.createAccount();
+
+    logger.info("Tap on First Name field and enter valid first name");
+    String firstname = "Firstname";
+    createAccountView.setFirstname(firstname);
+
+    logger.info("Enter valid last name");
+    String lastname = "Lastname";
+    createAccountView.setLastname(lastname);
+
+    logger.info("Enter valid zip code / Skip this field");
+    String zipCode = "11214";
+    createAccountView.setZipCode(zipCode);
+
+    logger.info("Scroll through and select birthday");
+    String dobDay = "27";
+    String dobMonth = "May";
+    String dobYear = "2000";
+    createAccountView.setDOB(dobDay, dobMonth, dobYear);
+
+    logger.info("Enter valid ten digit phone number / Skip this field");
+    String phone = TestDataUtils.PhoneNumberDataUtils.getRandomPhoneNumber();
+    createAccountView.setPhoneNumber(phone);
+
+    logger.info("Enter valid email address");
+    String email = String.format("a+%s@gmail.com", uniq);
+
+    createAccountView.setEmailAddress(email);
+
+    logger.info("Enter confirm email address");
+    createAccountView.setConfirmEmailAddress(email);
+
+    logger.info("Enter valid password");
+    String password = "Password1";
+    createAccountView.setPassword(password);
+
+    logger.info("Enter confirm password");
+    createAccountView.setConfirmationPassword(password);
+
+    logger.info("Tap on checkbox to agree to terms of service");
+    createAccountView.checkPrivacyPolicyAndTermsAndConditions();
+
+    logger.info("Tap Create Account button");
+    return createAccountView.createAccount();
   }
 
   public static void denyLocationServices() {

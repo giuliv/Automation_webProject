@@ -1,18 +1,25 @@
 package com.applause.auto.mobile.views;
 
+import com.google.common.collect.ImmutableMap;
+
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
+import com.applause.auto.mobile.components.CoffeeStoreItemChuck;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.LazyList;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
-import com.google.common.collect.ImmutableMap;
-import io.appium.java_client.AppiumDriver;
+
 import java.time.Duration;
 
+import io.appium.java_client.AppiumDriver;
+
+/** The type Nearby select coffee bar view. */
 @Implementation(is = AndroidNearbySelectCoffeeBarView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = NearbySelectCoffeeBarView.class, on = Platform.MOBILE_IOS)
 public class NearbySelectCoffeeBarView extends BaseComponent {
@@ -26,7 +33,13 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/storeContainer", on = Platform.MOBILE_ANDROID)
   protected ContainerElement getSignature;
 
-  @Locate(id = "search magnifier", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//XCUIElementTypeStaticText[@name=\"Enter Zip or City, State\"]/following-sibling::XCUIElementTypeImage",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/storeSearchIcon",
+      on = Platform.MOBILE_ANDROID)
   @Locate(id = "com.wearehathway.peets.development:id/changeTextView", on = Platform.MOBILE_ANDROID)
   protected Button getSearchButton;
 
@@ -60,6 +73,12 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   @Locate(iOSClassChain = "**/*[`label == 'Recents'`]", on = Platform.MOBILE_IOS)
   protected TextBox recentTab;
 
+  @Locate(xpath = "//android.widget.TextView[@text='Nearby']", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`label == \"Nearby\"`]",
+      on = Platform.MOBILE_IOS)
+  protected TextBox nearbyTab;
+
   @Locate(
       xpath = "//android.widget.TextView[contains(@text,\"Favorites\")]",
       on = Platform.MOBILE_ANDROID)
@@ -73,14 +92,51 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   @Locate(accessibilityId = "No Thanks", on = Platform.MOBILE_IOS)
   protected Button dismissFreeDeliveryButton;
 
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeNavigationBar/XCUIElementTypeStaticText",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/title", on = Platform.MOBILE_ANDROID)
+  protected Text titleText;
+
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`label == \"Close\"`]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]",
+      on = Platform.MOBILE_ANDROID)
+  protected Button closeButton;
+
+  @Locate(
+      xpath =
+          "//XCUIElementTypeMap/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther[@value='Store']",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//android.view.View[@content-desc='Google Map. Use standard google maps touch gestures to move the map. Location details are located after the map.']/android.view.View[ends-with(@content-desc,'Location. ')]",
+      on = Platform.MOBILE_ANDROID)
+  protected LazyList<Button> pinsOnMapButton;
+
+  @Locate(
+      xpath =
+          "//XCUIElementTypeButton[@name=\"user location\"]/following-sibling::XCUIElementTypeCollectionView/XCUIElementTypeCell",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/storeDetail", on = Platform.MOBILE_ANDROID)
+  protected LazyList<CoffeeStoreItemChuck> coffeeStoreItemChucks;
+
+  @Locate(accessibilityId = "user location", on = Platform.MOBILE_IOS)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/directionButton",
+      on = Platform.MOBILE_ANDROID)
+  protected Button mapLocationButton;
+
   /* -------- Actions -------- */
 
   public void afterInit() {
-    try {
-      dismissFreeDeliveryButton.click();
-    } catch (Throwable throwable) {
-      logger.info("No free delivery popup found");
-    }
+    //    try {
+    //      dismissFreeDeliveryButton.click();
+    //    } catch (Throwable throwable) {
+    //      logger.info("No free delivery popup found");
+    //    }
     getSyncHelper()
         .wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
   }
@@ -92,6 +148,15 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
    */
   public CoffeeStoreContainerChuck getCoffeeStoreContainerChuck() {
     return this.create(CoffeeStoreContainerChuck.class);
+  }
+
+  /**
+   * Gets coffee store container chucks.
+   *
+   * @return the coffee store container chucks
+   */
+  public LazyList<CoffeeStoreItemChuck> getCoffeeStoreContainerChucks() {
+    return coffeeStoreItemChucks;
   }
 
   /**
@@ -148,6 +213,115 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
     logger.info("Tap on Cancel search");
     cancelSearchButton.click();
     cancelSearchButton.click();
+  }
+
+  /**
+   * Gets title.
+   *
+   * @return the title
+   */
+  public String getTitle() {
+    logger.info("Getting title...");
+    return titleText.getText();
+  }
+
+  /**
+   * Is close button displayed boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isCloseButtonDisplayed() {
+    logger.info("Check if close button displayed");
+    return closeButton.isDisplayed();
+  }
+
+  /**
+   * Is search field displayed boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isSearchFieldDisplayed() {
+    logger.info("Check if search field displayed");
+    return getSearchTextBox.isDisplayed();
+  }
+
+  /**
+   * Is search icon displayed boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isSearchIconDisplayed() {
+    logger.info("Check if search button displayed");
+    return getSearchButton.exists();
+  }
+
+  /**
+   * Is nearby tab displayed boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isNearbyTabDisplayed() {
+    logger.info("Check if NearBy tab displayed");
+    return nearbyTab.isDisplayed();
+  }
+
+  /**
+   * Is recents tab displayed boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isRecentsTabDisplayed() {
+    logger.info("Check if Recents tab displayed");
+    return recentTab.isDisplayed();
+  }
+
+  /**
+   * Is favorites tab displayed boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isFavoritesTabDisplayed() {
+    logger.info("Check if Favorite tab displayed");
+    return favoritesTab.isDisplayed();
+  }
+
+  /**
+   * Select store.
+   *
+   * @param index the index
+   */
+  public void selectStore(int index) {
+    logger.info("Click on Store's pin: " + index);
+    pinsOnMapButton.get(index).click();
+  }
+
+  /** Location. */
+  public void location() {
+    logger.info("Click on store location button");
+    mapLocationButton.click();
+  }
+
+  /**
+   * Gets pins count.
+   *
+   * @return the pins count
+   */
+  public int getPinsCount() {
+    logger.info("Getting pins on map quantity");
+    return pinsOnMapButton.size();
+  }
+
+  /**
+   * Close t.
+   *
+   * @param <T> the type parameter
+   * @param clazz the clazz
+   * @return the t
+   */
+  public <T extends BaseComponent> T close(Class<T> clazz) {
+    logger.info("Click <Close> button");
+    closeButton.click();
+    return this.create(clazz);
   }
 }
 
