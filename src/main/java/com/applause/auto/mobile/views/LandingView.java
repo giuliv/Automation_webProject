@@ -148,7 +148,10 @@ public class LandingView extends BaseComponent {
    */
   public String getHeadingTextValue() {
     logger.info(">>>>>>>>." + getDriver().getPageSource());
+    getSyncHelper()
+        .wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(30)));
     getHeadingText.initialize();
+    logger.info("Heading text: " + getHeadingText.getText());
     return getHeadingText.getText();
   }
 
