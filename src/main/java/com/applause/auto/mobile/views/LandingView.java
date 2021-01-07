@@ -163,12 +163,20 @@ class AndroidLandingView extends LandingView {
 
   public void skipOnboarding() {
     logger.info("Android Skipping OnBoarding");
+
     try {
+      logger.info("Clicking on Skip button, if its found");
       getSyncHelper()
           .wait(Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
       getSkipButton.click();
+    } catch (Exception e) {
+      logger.info("Skip button was not found!");
+    }
+
+    try {
 
       if (!getCreateAccountButton.exists()) {
+        logger.info("Swiping left until start button its displayed");
         for (int i = 0; i < 4; i++) {
           getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
           getSyncHelper().sleep(10000);
