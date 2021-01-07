@@ -1,0 +1,19 @@
+{
+  "device_name": "android",
+  "driver_type": "Android",
+  "factory_key": "MOBILE_ANDROID",
+  "caps": {
+    "driverName": "Peet's Coffee - Any US Android 9 Galaxy/Pixel New1",
+    "platformName": "ANDROID",
+    "platformVersion": "9",
+    "deviceName": "emulator-5554",
+    "autoGrantPermissions": true,
+    "autoAcceptAlerts": true,
+    "newCommandTimeout": 3000,
+    "device": "android",
+    "automationName": "uiautomator2",
+    "app": "https://utest-dl.s3.amazonaws.com/11841/product/20270/productVersion/210140/application/Android_UAT_18.7.16_2232.apk?AWSAccessKeyId=AKIAJ2UIWMJ2OMC3UCQQ&Expires=1641487331&Signature=jfxuV8qtcw4kUXu%2FCU56QywG4lc%3D",
+    "appWaitActivity": "com.wearehathway.apps.stock.views.onboarding.OnBoardingActivity",
+    "appWaitPackage": "com.wearehathway.peets.development"
+  }
+}

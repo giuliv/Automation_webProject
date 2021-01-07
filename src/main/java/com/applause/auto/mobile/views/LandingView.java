@@ -162,19 +162,22 @@ class AndroidLandingView extends LandingView {
   /* -------- Actions -------- */
 
   public void skipOnboarding() {
-    logger.info("Android Skipping Onboarding");
+    logger.info("Android Skipping OnBoarding");
     try {
       getSyncHelper()
           .wait(Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
+      getSkipButton.click();
 
-      for (int i = 0; i < 3; i++) {
-        getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
-        getSyncHelper().sleep(10000);
+      if (!getCreateAccountButton.exists()) {
+        for (int i = 0; i < 4; i++) {
+          getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
+          getSyncHelper().sleep(10000);
+        }
+        getSyncHelper()
+            .wait(Until.uiElement(getStartedButton).clickable().setTimeout(Duration.ofSeconds(20)));
+        getStartedButton.click();
       }
 
-      getSyncHelper()
-          .wait(Until.uiElement(getStartedButton).clickable().setTimeout(Duration.ofSeconds(20)));
-      getStartedButton.click();
     } catch (Exception e) {
       throw new RetryTestException("Error while skipping the Landing View");
     }
