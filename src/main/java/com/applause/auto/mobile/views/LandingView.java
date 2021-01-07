@@ -72,6 +72,7 @@ public class LandingView extends BaseComponent {
 
   @Override
   public void afterInit() {
+    logger.info("Landing View init");
     getSyncHelper()
         .wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
     getReportAProblemPopupChunk().waitForPopUpToDisappear();
@@ -148,8 +149,10 @@ public class LandingView extends BaseComponent {
    */
   public String getHeadingTextValue() {
     logger.info(">>>>>>>>." + getDriver().getPageSource());
+    logger.info("Waiting for header text");
     getSyncHelper()
-        .wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(30)));
+        .wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(60)));
+
     getHeadingText.initialize();
     logger.info("Heading text: " + getHeadingText.getText());
     return getHeadingText.getText();
@@ -207,6 +210,7 @@ class AndroidLandingView extends LandingView {
 
   @Override
   public void afterInit() {
+    logger.info("Landing View init");
     getSyncHelper()
         .wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
   }
