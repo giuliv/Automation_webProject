@@ -369,7 +369,7 @@ public class OrderTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ORDER},
+      groups = {TestNGGroups.ORDER, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "1687255",
       enabled = true)
   @ApplauseTestCaseId({"674356", "674355"})
@@ -452,7 +452,7 @@ public class OrderTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ORDER},
+      groups = {TestNGGroups.ORDER, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "625930",
       enabled = true)
   public void recentsFavoriteCoffeebarsEmptyStateTest() {
