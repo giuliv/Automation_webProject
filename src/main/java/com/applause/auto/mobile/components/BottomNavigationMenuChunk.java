@@ -82,6 +82,12 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   public CheckInView checkIn() {
     logger.info("Tap on Check In");
     getCheckInButton.click();
+
+    if (getDismissButton.exists()) {
+      logger.info("Tap on Dismiss button");
+      getDismissButton.click();
+    }
+
     return this.create(CheckInView.class);
   }
 
