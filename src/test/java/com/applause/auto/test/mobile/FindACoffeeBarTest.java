@@ -217,8 +217,8 @@ public class FindACoffeeBarTest extends BaseTest {
       groups = {TestNGGroups.ORDER, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
       description = "1687262")
   @ApplauseTestCaseId({"674552", "674551"})
-  public void favoriteCoffeebarsTest() {
-    logger.info("PRECONDITION - User is on find a coffeebar screen");
+  public void favoriteCoffeeBarsTest() {
+    logger.info("PRECONDITION - User is on find a coffeeBar screen");
 
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = this.create(LandingView.class);
@@ -248,7 +248,7 @@ public class FindACoffeeBarTest extends BaseTest {
       storeDetailsView.tapFavorite();
     }
 
-    logger.info("STEP - Tap on the gold outline heart icon to the right of the coffeebar name");
+    logger.info("STEP - Tap on the gold outline heart icon to the right of the coffeeBar name");
     storeDetailsView.tapFavorite();
     logger.info(
         "VERIFY - User sees a loading dial and then the gold heart icon changes to a red filled in heart icon");
@@ -256,7 +256,7 @@ public class FindACoffeeBarTest extends BaseTest {
     Assert.assertTrue(
         storeDetailsView.isCoffeebarFavorite(), "Favorite was not enabled for coffee store");
 
-    logger.info("STEP - Tap on back arrow to return to find a coffeebar screen");
+    logger.info("STEP - Tap on back arrow to return to find a coffeeBar screen");
     nearbySelectCoffeeBarView = storeDetailsView.navigateBack(NearbySelectCoffeeBarView.class);
     nearbySelectCoffeeBarView.cancelSearch();
 
@@ -264,7 +264,7 @@ public class FindACoffeeBarTest extends BaseTest {
     FindACoffeeBarView findACoffeeBarView = nearbySelectCoffeeBarView.openFavoritesTab();
 
     logger.info(
-        "VERIFY - The coffeebar that was favorited in step 3 should appear in the list of favorite stores");
+        "VERIFY - The coffeeBar that was favorited in step 3 should appear in the list of favorite stores");
     CoffeeStoreContainerChuck favStore = findACoffeeBarView.getCoffeeStoreContainerChuck();
 
     Assert.assertTrue(
@@ -279,7 +279,7 @@ public class FindACoffeeBarTest extends BaseTest {
     softAssert.assertTrue(
         storeDetailsView.isCoffeebarFavorite(), "Favorite was not enabled for coffee store");
 
-    logger.info("STEP - Tap on the red filled in heart icon next to the coffeebar name");
+    logger.info("STEP - Tap on the red filled in heart icon next to the coffeeBar name");
     storeDetailsView.tapFavorite();
 
     logger.info(
@@ -288,15 +288,15 @@ public class FindACoffeeBarTest extends BaseTest {
     softAssert.assertFalse(
         storeDetailsView.isCoffeebarFavorite(), "Favorite was not disabled for coffee store");
 
-    logger.info("STEP - Tap on back arrow to return to find a coffeebar screen");
+    logger.info("STEP - Tap on back arrow to return to find a coffeeBar screen");
     findACoffeeBarView = storeDetailsView.navigateBack(FindACoffeeBarView.class);
 
     logger.info(
-        "VERIFY - The coffeebar that was un-favorited in step 7 should no longer appear in the list of favorite stores");
+        "VERIFY - The coffeeBar that was un-favorited in step 7 should no longer appear in the list of favorite stores");
     softAssert.assertFalse(
         findACoffeeBarView.getCoffeeStoreContainerChuck().isStorePresent()
             && favStore.getStoreName().equals(storeName),
-        "The coffeebar that was un-favorited in step 7 still remains in the favorite stores");
+        "The coffeeBar that was un-favorited in step 7 still remains in the favorite stores");
 
     softAssert.assertAll();
   }
