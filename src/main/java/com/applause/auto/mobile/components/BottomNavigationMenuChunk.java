@@ -10,6 +10,8 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 
+import java.time.Duration;
+
 @Implementation(is = BottomNavigationMenuChunk.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosBottomNavigationMenuChunk.class, on = Platform.MOBILE_IOS)
 public class BottomNavigationMenuChunk extends BaseComponent {
@@ -80,6 +82,12 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   public CheckInView checkIn() {
     logger.info("Tap on Check In");
     getCheckInButton.click();
+
+    if (getDismissButton.exists()) {
+      logger.info("Tap on Dismiss button");
+      getDismissButton.click();
+    }
+
     return this.create(CheckInView.class);
   }
 
@@ -103,6 +111,8 @@ public class BottomNavigationMenuChunk extends BaseComponent {
    */
   public <T extends BaseComponent> T order(Class<T> clazz) {
     logger.info("Tap on Order");
+    getSyncHelper()
+        .wait(Until.uiElement(getOrdersButton).clickable().setTimeout(Duration.ofSeconds(30)));
     getOrdersButton.click();
     return this.create(clazz);
   }

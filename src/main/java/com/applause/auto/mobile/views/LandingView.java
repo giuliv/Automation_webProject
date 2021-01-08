@@ -72,6 +72,7 @@ public class LandingView extends BaseComponent {
 
   @Override
   public void afterInit() {
+    logger.info("Landing View init");
     getSyncHelper()
         .wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
     getReportAProblemPopupChunk().waitForPopUpToDisappear();
@@ -148,7 +149,12 @@ public class LandingView extends BaseComponent {
    */
   public String getHeadingTextValue() {
     logger.info(">>>>>>>>." + getDriver().getPageSource());
+    logger.info("Waiting for header text");
+    getSyncHelper()
+        .wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(60)));
+
     getHeadingText.initialize();
+    logger.info("Heading text: " + getHeadingText.getText());
     return getHeadingText.getText();
   }
 
@@ -162,19 +168,30 @@ class AndroidLandingView extends LandingView {
   /* -------- Actions -------- */
 
   public void skipOnboarding() {
-    logger.info("Android Skipping Onboarding");
+    logger.info("Android Skipping OnBoarding");
+
     try {
+      logger.info("Clicking on Skip button, if its found");
       getSyncHelper()
           .wait(Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
+      getSkipButton.click();
+    } catch (Exception e) {
+      logger.info("Skip button was not found!");
+    }
 
-      for (int i = 0; i < 3; i++) {
-        getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
-        getSyncHelper().sleep(10000);
+    try {
+
+      if (!getCreateAccountButton.exists()) {
+        logger.info("Swiping left until start button its displayed");
+        for (int i = 0; i < 4; i++) {
+          getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
+          getSyncHelper().sleep(10000);
+        }
+        getSyncHelper()
+            .wait(Until.uiElement(getStartedButton).clickable().setTimeout(Duration.ofSeconds(20)));
+        getStartedButton.click();
       }
 
-      getSyncHelper()
-          .wait(Until.uiElement(getStartedButton).clickable().setTimeout(Duration.ofSeconds(20)));
-      getStartedButton.click();
     } catch (Exception e) {
       throw new RetryTestException("Error while skipping the Landing View");
     }
@@ -193,6 +210,7 @@ class AndroidLandingView extends LandingView {
 
   @Override
   public void afterInit() {
+    logger.info("Landing View init");
     getSyncHelper()
         .wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
   }
