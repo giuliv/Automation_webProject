@@ -18,6 +18,8 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import org.openqa.selenium.NoAlertPresentException;
 
+import java.time.Duration;
+
 @Implementation(is = AndroidAccountMenuMobileChunk.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = AccountMenuMobileChunk.class, on = Platform.MOBILE_IOS)
 public class AccountMenuMobileChunk extends BaseComponent {
@@ -208,6 +210,9 @@ public class AccountMenuMobileChunk extends BaseComponent {
    */
   public PaymentMethodsView clickPaymentMethods() {
     logger.info("Click Payment Methods");
+    getSyncHelper()
+        .wait(
+            Until.uiElement(getPaymentMethodsButton).visible().setTimeout(Duration.ofSeconds(50)));
     getPaymentMethodsButton.click();
     getSyncHelper().sleep(5000);
     return this.create(PaymentMethodsView.class);
