@@ -90,7 +90,7 @@ public class PaymentMethodsView extends BaseComponent {
    */
   public String getSavedPaymentHeader() {
     logger.info("Getting Saved Payment Method Header");
-    return getSavedPaymentMethodHeaderText.getText();
+    return getSavedPaymentMethodHeaderText.getText().toLowerCase();
   }
 
   /**
