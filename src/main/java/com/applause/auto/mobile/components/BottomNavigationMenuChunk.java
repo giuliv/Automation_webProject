@@ -68,8 +68,9 @@ public class BottomNavigationMenuChunk extends BaseComponent {
    * Public actions
    */
   public PeetsCardsView peetsCards() {
-    logger.info("Tap on Peeds Cards");
-    getSyncHelper().wait(Until.uiElement(getPeetsCardsButton).clickable());
+    logger.info("Tap on Peets Cards");
+    getSyncHelper()
+        .wait(Until.uiElement(getPeetsCardsButton).clickable().setTimeout(Duration.ofSeconds(50)));
     getPeetsCardsButton.click();
     return this.create(PeetsCardsView.class);
   }
