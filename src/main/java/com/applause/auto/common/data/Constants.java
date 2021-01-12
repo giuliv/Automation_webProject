@@ -195,11 +195,10 @@ public class Constants {
 
   public static final class MobileTestData {
     public static final String PEETS_CARD_HEADER = "Your Peet's Card";
-    public static final String SAVED_PAYMENT_HEADER_ANDROID = "Payment Methods";
-    public static final String SAVED_PAYMENT_HEADER_IOS = "PAYMENT METHODS";
+    public static final String SAVED_PAYMENT_HEADER = "payment methods";
     public static final String SAVED_CC_NAME = "Applause Test";
     public static final String CC_NUM = "5105105105105100";
-    public static final String CC_EXP_DATE = "12/20";
+    public static final String CC_EXP_DATE = "12/21";
     public static final String CC_MODIFIED_EXP_DATE = "12/22";
     public static final String CC_CVV = "111";
     public static final String CC_ZIP = "66666";
