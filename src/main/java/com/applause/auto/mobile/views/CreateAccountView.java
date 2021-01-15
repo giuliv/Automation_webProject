@@ -799,7 +799,8 @@ class AndroidCreateAccountView extends CreateAccountView {
         getPasswordHintTextBox.stream()
             .map(item -> item.getText())
             .collect(Collectors.joining("\n"))
-            .equals("At least 6 characters\n" + "At least 1 number\n" + "At least 1 letter");
+            .equals(
+                "At least 6 characters\n" + "At least 1 number\n" + "At least 1 lowercase letter");
     getHiddenPasswordTextBox.clearText();
     return result;
   }
