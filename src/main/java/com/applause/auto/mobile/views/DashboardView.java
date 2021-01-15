@@ -25,13 +25,15 @@ public class DashboardView extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(id = "Your Feed", on = Platform.MOBILE_IOS)
+  @Locate(accessibilityId = "Your Feed", on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/yourFeedTextView",
       on = Platform.MOBILE_ANDROID)
   protected TextBox getSignature;
 
-  @Locate(xpath = "(//*[@name=\"Settings\"])[last()]", on = Platform.MOBILE_IOS)
+  //  @Locate(xpath = "(//*[@name=\"Settings\"])[last()]", on = Platform.MOBILE_IOS)
+  // //Commented[15.01.2021]
+  @Locate(accessibilityId = "Settings", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/actionMore", on = Platform.MOBILE_ANDROID)
   protected Button getMoreScreenButton;
 

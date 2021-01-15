@@ -6,6 +6,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 
 @Implementation(is = AndroidPaymentMethodsView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = PaymentMethodsView.class, on = Platform.MOBILE_IOS)
@@ -154,6 +155,7 @@ public class PaymentMethodsView extends BaseComponent {
    */
   public AddNewCardView clickAddNewPayment() {
     logger.info("Clicking Add New Payment");
+    getSyncHelper().wait(Until.uiElement(getAddNewPaymentButton).visible());
     getAddNewPaymentButton.click();
     return this.create(AddNewCardView.class);
   }
