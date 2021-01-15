@@ -135,10 +135,13 @@ class IosDashboardView extends DashboardView {
     logger.info("Open account profile menu\n" + getDriver().getPageSource());
     int x = getDriver().manage().window().getSize().width;
     int y = getDriver().manage().window().getSize().height;
+
     AppiumDriver driver = (AppiumDriver) getDriver();
     if (!getMoreScreenButton.isDisplayed()) {
+      logger.info("Clicking settings icon from coordinates");
       new TouchAction(driver).tap(PointOption.point((int) (x * 0.9), (int) (y * 0.05))).perform();
     } else {
+      logger.info("Clicking settings icon");
       getMoreScreenButton.click();
     }
     getSyncHelper().sleep(5000);
