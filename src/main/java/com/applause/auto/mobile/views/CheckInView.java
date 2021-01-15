@@ -11,6 +11,8 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 
+import java.time.Duration;
+
 @Implementation(is = AndroidCheckInView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CheckInView.class, on = Platform.MOBILE_IOS)
 public class CheckInView extends BaseComponent {
@@ -58,7 +60,25 @@ public class CheckInView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getAmountButton;
 
+  @Locate(accessibilityId = "No Thanks", on = Platform.MOBILE_IOS)
+  protected Button dismissFreeDeliveryButton;
+
   /* -------- Actions -------- */
+
+  public void afterInit() {
+    try {
+      logger.info("Click 'No Thanks' popUp, if displayed");
+      getSyncHelper()
+          .wait(
+              Until.uiElement(dismissFreeDeliveryButton)
+                  .present()
+                  .setTimeout(Duration.ofSeconds(30)));
+      dismissFreeDeliveryButton.click();
+    } catch (Throwable throwable) {
+      logger.info("No popup found");
+    }
+    getSyncHelper().wait(Until.uiElement(getSignature).present());
+  }
 
   /** Add value. */
   public void addValue() {

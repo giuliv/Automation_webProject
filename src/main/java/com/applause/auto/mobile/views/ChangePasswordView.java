@@ -20,7 +20,9 @@ import org.springframework.util.StringUtils;
 public class ChangePasswordView extends BaseComponent {
 
   /* -------- Elements -------- */
-  @Locate(id = "button back", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//XCUIElementTypeNavigationBar[@name=\"PROFILE DETAILS\"]/XCUIElementTypeButton",
+      on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
           "//android.widget.ImageButton[contains(@content-desc,\"Navigate up\") or contains(@content-desc,\"Nach oben\")]",
