@@ -135,17 +135,23 @@ class IosDashboardView extends DashboardView {
   @Override
   public AccountMenuMobileChunk getAccountProfileMenu() {
     logger.info("Open account profile menu\n" + getDriver().getPageSource());
-    int x = getDriver().manage().window().getSize().width;
-    int y = getDriver().manage().window().getSize().height;
+    //    int x = getDriver().manage().window().getSize().width;
+    //    int y = getDriver().manage().window().getSize().height;
 
-    AppiumDriver driver = (AppiumDriver) getDriver();
-    if (!getMoreScreenButton.isDisplayed()) {
-      logger.info("Clicking settings icon from coordinates");
-      new TouchAction(driver).tap(PointOption.point((int) (x * 0.9), (int) (y * 0.05))).perform();
-    } else {
-      logger.info("Clicking settings icon");
-      getMoreScreenButton.click();
-    }
+    //    AppiumDriver driver = (AppiumDriver) getDriver();
+    //    if (!getMoreScreenButton.isDisplayed()) {
+    //      logger.info("Clicking settings icon from coordinates");
+    //      new TouchAction(driver).tap(PointOption.point((int) (x * 0.9), (int) (y *
+    // 0.05))).perform();
+    //    } else {
+    //      logger.info("Clicking settings icon");
+    //      getMoreScreenButton.click();
+    //    }
+
+    getSyncHelper()
+        .wait(Until.uiElement(getMoreScreenButton).present().setTimeout(Duration.ofSeconds(45)));
+    getMoreScreenButton.click();
+
     getSyncHelper().sleep(5000);
     return this.create(AccountMenuMobileChunk.class);
   }
