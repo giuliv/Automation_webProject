@@ -16,7 +16,9 @@ public class HelpAndFeedbackView extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(iOSNsPredicate = "name == 'button back'", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//XCUIElementTypeNavigationBar[@name=\"HELP & FEEDBACK\"]/XCUIElementTypeButton",
+      on = Platform.MOBILE_IOS)
   @Locate(xpath = "//*[contains(@content-desc, 'Navigate up')]", on = Platform.MOBILE_ANDROID)
   protected Button backArrow;
 

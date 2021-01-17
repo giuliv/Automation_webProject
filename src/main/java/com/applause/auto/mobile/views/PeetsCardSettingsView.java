@@ -13,11 +13,16 @@ public class PeetsCardSettingsView extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(xpath = "//XCUIElementTypeOther[@name=\"CARD SETTINGS\"]", on = Platform.MOBILE_IOS)
+  //  @Locate(xpath = "//XCUIElementTypeOther[@name=\"CARD SETTINGS\"]", on = Platform.MOBILE_IOS)
+  // //Commented[15.01.2021]
+  @Locate(accessibilityId = "Settings", on = Platform.MOBILE_IOS)
   @Locate(xpath = "//android.widget.TextView[@text='CARD SETTINGS']", on = Platform.MOBILE_ANDROID)
   protected Text getViewSignature;
 
-  @Locate(id = "button back", on = Platform.MOBILE_IOS)
+  //  @Locate(id = "button back", on = Platform.MOBILE_IOS) //Commented[15.01.2021]
+  @Locate(
+      xpath = "//XCUIElementTypeNavigationBar[@name=\"CARD SETTINGS\"]/XCUIElementTypeButton",
+      on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
           "//android.widget.ImageButton[contains(@content-desc,\"Navigate up\") or contains(@content-desc,\"Nach oben\")]",

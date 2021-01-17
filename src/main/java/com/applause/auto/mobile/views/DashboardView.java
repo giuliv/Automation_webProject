@@ -25,13 +25,15 @@ public class DashboardView extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(id = "Your Feed", on = Platform.MOBILE_IOS)
+  @Locate(accessibilityId = "Your Feed", on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/yourFeedTextView",
       on = Platform.MOBILE_ANDROID)
   protected TextBox getSignature;
 
-  @Locate(xpath = "(//*[@name=\"Settings\"])[last()]", on = Platform.MOBILE_IOS)
+  //  @Locate(xpath = "(//*[@name=\"Settings\"])[last()]", on = Platform.MOBILE_IOS)
+  // //Commented[15.01.2021]
+  @Locate(accessibilityId = "Settings", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/actionMore", on = Platform.MOBILE_ANDROID)
   protected Button getMoreScreenButton;
 
@@ -133,14 +135,24 @@ class IosDashboardView extends DashboardView {
   @Override
   public AccountMenuMobileChunk getAccountProfileMenu() {
     logger.info("Open account profile menu\n" + getDriver().getPageSource());
-    int x = getDriver().manage().window().getSize().width;
-    int y = getDriver().manage().window().getSize().height;
-    AppiumDriver driver = (AppiumDriver) getDriver();
-    if (!getMoreScreenButton.isDisplayed()) {
-      new TouchAction(driver).tap(PointOption.point((int) (x * 0.9), (int) (y * 0.05))).perform();
-    } else {
-      getMoreScreenButton.click();
-    }
+    //    int x = getDriver().manage().window().getSize().width;
+    //    int y = getDriver().manage().window().getSize().height;
+
+    //    AppiumDriver driver = (AppiumDriver) getDriver();
+    //    if (!getMoreScreenButton.isDisplayed()) {
+    //      logger.info("Clicking settings icon from coordinates");
+    //      new TouchAction(driver).tap(PointOption.point((int) (x * 0.9), (int) (y *
+    // 0.05))).perform();
+    //    } else {
+    //      logger.info("Clicking settings icon");
+    //      getMoreScreenButton.click();
+    //    }
+
+    getSyncHelper().sleep(8000);
+    getSyncHelper()
+        .wait(Until.uiElement(getMoreScreenButton).clickable().setTimeout(Duration.ofSeconds(45)));
+    getMoreScreenButton.click();
+
     getSyncHelper().sleep(5000);
     return this.create(AccountMenuMobileChunk.class);
   }

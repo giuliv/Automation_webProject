@@ -26,10 +26,7 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(
-      xpath =
-          "//XCUIElementTypeButton[@value='1' and @name='Nearby'] | //XCUIElementTypeSearchField[@name='Enter Zip or City, State']",
-      on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"ORDER\"]", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/storeContainer", on = Platform.MOBILE_ANDROID)
   protected ContainerElement getSignature;
 
@@ -132,11 +129,17 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   /* -------- Actions -------- */
 
   public void afterInit() {
-    //    try {
-    //      dismissFreeDeliveryButton.click();
-    //    } catch (Throwable throwable) {
-    //      logger.info("No free delivery popup found");
-    //    }
+    try {
+      logger.info("Click 'No Thanks' popUp, if displayed");
+      getSyncHelper()
+          .wait(
+              Until.uiElement(dismissFreeDeliveryButton)
+                  .present()
+                  .setTimeout(Duration.ofSeconds(30)));
+      dismissFreeDeliveryButton.click();
+    } catch (Throwable throwable) {
+      logger.info("No free delivery popup found");
+    }
     getSyncHelper()
         .wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
   }

@@ -78,7 +78,10 @@ public class ProfileDetailsView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/changePassword", on = Platform.MOBILE_ANDROID)
   protected Button getChangePasswordButton;
 
-  @Locate(id = "button back", on = Platform.MOBILE_IOS)
+  //  @Locate(id = "button back", on = Platform.MOBILE_IOS) //Review if changed indeed [15.01.2021]
+  @Locate(
+      xpath = "//XCUIElementTypeNavigationBar[@name=\"PROFILE DETAILS\"]/XCUIElementTypeButton",
+      on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
           "//android.widget.ImageButton[contains(@content-desc,\"Navigate up\") or contains(@content-desc,\"Nach oben\")]",
