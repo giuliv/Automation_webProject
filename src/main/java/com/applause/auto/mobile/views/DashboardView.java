@@ -10,14 +10,11 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
-
-import org.openqa.selenium.Point;
-
-import java.time.Duration;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
+import java.time.Duration;
+import org.openqa.selenium.Point;
 
 @Implementation(is = DashboardView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosDashboardView.class, on = Platform.MOBILE_IOS)

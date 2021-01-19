@@ -10,7 +10,6 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
-
 import java.time.Duration;
 
 @Implementation(is = ProfileDetailsView.class, on = Platform.MOBILE_ANDROID)

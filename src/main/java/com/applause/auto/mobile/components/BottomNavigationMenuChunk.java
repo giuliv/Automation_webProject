@@ -9,7 +9,6 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
-
 import java.time.Duration;
 
 @Implementation(is = BottomNavigationMenuChunk.class, on = Platform.MOBILE_ANDROID)
@@ -33,9 +32,14 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   protected Button getPeetsCardsButton;
 
   @Locate(xpath = "//XCUIElementTypeButton[@name=\"Order\"]", on = Platform.MOBILE_IOS)
+  //  @Locate(
+  //      xpath =
+  //
+  // "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[contains(@text,\"Order\") or contains(@content-desc,\"Order\")]/..",
+  //      on = Platform.MOBILE_ANDROID)
   @Locate(
       xpath =
-          "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[contains(@text,\"Order\") or contains(@content-desc,\"Order\")]/..",
+          "//android.widget.RelativeLayout[@content-desc=\"Order, tab, 3 of 5\"]/android.widget.ImageView",
       on = Platform.MOBILE_ANDROID)
   protected Button getOrdersButton;
 

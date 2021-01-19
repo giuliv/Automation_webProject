@@ -8,6 +8,7 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
+
 import java.time.Duration;
 
 @Implementation(is = ProductDetailsView.class, on = Platform.MOBILE_IOS)
@@ -46,6 +47,46 @@ public class ProductDetailsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   @Locate(id = "Add to Order", on = Platform.MOBILE_IOS)
   protected Button getAddToOrderButton;
+
+  @Locate(
+      xpath = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
+      on = Platform.MOBILE_ANDROID)
+  protected Button sizeButton;
+
+  @Locate(
+      xpath = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
+      on = Platform.MOBILE_ANDROID)
+  protected Button selectMilkPrepButton;
+
+  @Locate(
+      xpath = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
+      on = Platform.MOBILE_ANDROID)
+  protected Button selectSyrupsAndSaucesButton;
+
+  @Locate(
+      xpath = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
+      on = Platform.MOBILE_ANDROID)
+  protected Button selectShotOptionsButton;
+
+  @Locate(
+      xpath = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
+      on = Platform.MOBILE_ANDROID)
+  protected Button selectToppingsButton;
+
+  @Locate(
+      xpath = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
+      on = Platform.MOBILE_ANDROID)
+  protected Button selectSweetenersButton;
+
+  @Locate(
+      xpath = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
+      on = Platform.MOBILE_ANDROID)
+  protected Button increaseQuantityButton;
+
+  @Locate(
+      xpath = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
+      on = Platform.MOBILE_ANDROID)
+  protected Text quantityText;
 
   /* -------- Actions -------- */
 
@@ -102,6 +143,46 @@ public class ProductDetailsView extends BaseComponent {
     logger.info("Tap Add to Order");
     getAddToOrderButton.click();
     return this.create(clazz);
+  }
+
+  public String getSize() {
+    return null;
+  }
+
+  public void selectSize(String size) {
+    sizeButton.format(size);
+    sizeButton.click();
+  }
+
+  public MilkPrepView selectMilkPrep() {
+    selectMilkPrepButton.click();
+    return this.create(MilkPrepView.class);
+  }
+
+  public ShotOptionsView selectShotOptions() {
+    selectShotOptionsButton.click();
+    return this.create(ShotOptionsView.class);
+  }
+
+  public SweetenersView selectSweeteners() {
+    selectSweetenersButton.click();
+    return this.create(SweetenersView.class);
+  }
+
+  public ToppingsView selectToppings() {
+    selectToppingsButton.click();
+    return this.create(ToppingsView.class);
+  }
+
+  public void selectQuantity(String quantity) {
+    while (!quantityText.equals(quantity)) {
+      increaseQuantityButton.click();
+    }
+  }
+
+  public SyrupsAndSaucesView selectSyrups() {
+    selectSyrupsAndSaucesButton.click();
+    return this.create(SyrupsAndSaucesView.class);
   }
 }
 

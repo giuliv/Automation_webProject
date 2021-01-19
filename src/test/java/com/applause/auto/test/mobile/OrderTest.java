@@ -596,4 +596,135 @@ public class OrderTest extends BaseTest {
             "Find a coffeebar and click on the heart to save it for later."),
         "Message <Find a coffeebar and click on the heart to save it for later.> does not displayed on the favorites tab");
   }
+
+  @Test(
+      groups = {TestNGGroups.ORDER, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
+      description = "625891",
+      enabled = true)
+  public void customizeOrderBeveragesTest() {
+    logger.info(
+        "Precondition: User is already signed in to app\n"
+            + "User is on main order screen and pickup order mode is default selected\n"
+            + "User has no items in basket");
+    LandingView landingView = this.create(LandingView.class);
+    DashboardView dashboardView = testHelper.createNewAccountWithDefaults(landingView);
+
+    NewOrderView orderView =
+        dashboardView
+            .getBottomNavigationMenu()
+            .order(AllowLocationServicesPopupChunk.class)
+            .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class)
+            .close(DashboardView.class)
+            .getBottomNavigationMenu()
+            .order(NewOrderView.class);
+
+    logger.info("Step 1. Tap on Hot Coffee category to expand");
+    logger.info("Expected 1. Sub-categories should expand downward");
+    logger.info("Step 2. Select sub-category Lattes");
+    logger.info("Expected 2. Lattes menu should open up");
+    orderView.selectCategoryAndSubCategory("Hot Coffee", "Lattes");
+
+    logger.info("Step 3. Select a beverage");
+    ProductDetailsView productDetailsView = orderView.selectProduct("Mapple Latte");
+
+    logger.info("Expected 3. User is taken to PDP");
+    Assert.assertNotNull(productDetailsView, "PDP does not displayed");
+
+    logger.info(
+        "Step 4. Scroll down PDP and customize beverage by selecting modifiers (where applicable based on item selected):\n"
+            + ""
+            + "* Size"
+            + "* Milk Prep / Add Milk"
+            + "* Shot Options"
+            + "* Ice"
+            + "* Syrups & Sauces"
+            + "* Add Sweeteners"
+            + "* Add Toppings"
+            + "* Quantity");
+    String defaultSize = productDetailsView.getSize();
+    productDetailsView.selectSize("Large");
+
+    productDetailsView.selectSyrups();
+    productDetailsView.selectMilkPrep();
+    productDetailsView.selectShotOptions();
+    productDetailsView.selectSweeteners();
+    productDetailsView.selectToppings();
+
+    productDetailsView.selectQuantity("2");
+
+    logger.info(
+        "Expected 4. f applicable:\n"
+            + ""
+            + "* Make sure for multiple-sized items medium size is default selected"
+            + "* Make sure tapping different sizes changes the price and calorie information for the product"
+            + "* User should be able to select and save different modifiers and it should be reflected on the PDP under the modifier selection"
+            + "* The price on PDP should reflect any additional costs from customizing the beverage");
+
+    logger.info("Step 5. Tap Add to Order button");
+    orderView.addToOrders();
+
+    logger.info(
+        "Expected 5. User is returned to main order screen and item added to order appears in the FAB (floating action button) with the correct quantity displayed in the cup icon");
+
+    logger.info("Step 6. Swipe through Seasonal Favorites category and select a beverage");
+    logger.info("Expected 6. User is taken to PDP");
+    logger.info(
+        "Step 7. Scroll down PDP and customize beverage by selecting modifiers (where applicable based on item selected):\n"
+            + ""
+            + "* Size"
+            + "* Milk Prep / Add Milk"
+            + "* Shot Options"
+            + "* Ice* Syrups & Sauces"
+            + "* Add Sweeteners"
+            + "* Add Toppings"
+            + "* Quantity ");
+    logger.info(
+        "Expected 7. User should be able to select and save different modifiers and it should be reflected on the PDP under the modifier selection");
+    logger.info("Step 8. Tap Add to Order button");
+    logger.info(
+        "Expected 8. User is returned to main order screen and the FAB updates with the correct quantity of item(s)");
+    logger.info("Step 9. Tap on Signature Beverages category");
+    logger.info("Expected 9. Sub-categories should expand downward");
+    logger.info("Step 10. Select sub-cateogry Cold Brew Black Tie");
+    logger.info(
+        "Expected 10. Make sure FAB is displayed on sub-category screen and shows correct quantity of item(s) previously added to order");
+
+    logger.info("Step 11. Select a beverage");
+    logger.info("Expected 11. User is taken to PDP");
+    logger.info(
+        "Step 12. Scroll down PDP and customize beverage by selecting modifiers (where applicable based on item selected):\n"
+            + ""
+            + "* Size"
+            + "* Room for Milk"
+            + "* 1/2 Decaf"
+            + "* Shot Options* Syrups & Sauces* Add Milk"
+            + "* Add Sweeteners"
+            + "* Add Toppings"
+            + "* Cup"
+            + "* Quantity");
+    logger.info(
+        "Expected 12. User should be able to select and save different modifiers and it should be reflected on the PDP under the modifier selection");
+
+    logger.info("Step 13. Tap Add to Order button");
+    logger.info(
+        "Expected 13. User is returned to main order screen and the FAB updates with the correct quantity of item(s)");
+
+    logger.info("Step 14. Tap on the FAB");
+    logger.info(
+        "Expected 14. User sees confirm coffeebar location UI alert:\n"
+            + ""
+            + "* Location pin icon"
+            + "* Title: Confirm Coffeebar"
+            + "* Text: [Coffeebar name]"
+            + "* [Button] Change [Button] Confirm");
+
+    logger.info("Step 15. Tap Confirm button");
+    logger.info("Expected 15. User is taken to checkout screen");
+    logger.info("Step 15. Review beverage order details on checkout screen");
+    logger.info(
+        "Expected 15. Make sure beverage customizations flow through correctly to checkout screen");
+    logger.info(
+        "Step 16. Tap X at top left corner of Checkout screen to return to main order screen");
+    logger.info("Expected 16. User is taken back to main order screen");
+  }
 }

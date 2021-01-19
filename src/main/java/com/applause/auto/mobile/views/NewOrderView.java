@@ -9,7 +9,6 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
-
 import java.time.Duration;
 
 @Implementation(is = NewOrderView.class, on = Platform.MOBILE_ANDROID)
@@ -294,6 +293,10 @@ public class NewOrderView extends BaseComponent {
   public boolean isTitleNoFavoriteOrdersDisplayed() {
     logger.info("Checking if favourite tab displayed");
     return titleNoFavoriteOrders.isDisplayed();
+  }
+
+  public NewOrderView addToOrders() {
+    return this.create(NewOrderView.class);
   }
 }
 
