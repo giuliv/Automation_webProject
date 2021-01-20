@@ -22,10 +22,10 @@ public class CustomerSupportScreenView extends BaseComponent {
   /* -------- Elements -------- */
 
   @Locate(
-      xpath = "//XCUIElementTypeOther[@name=\"Contact us | Peet's Coffee\"]",
+      xpath = "//XCUIElementTypeOther[@name=\"Contact Us | Peet's Coffee\"]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      xpath = "//android.webkit.WebView[@text=\"Contact us | Peet's Coffee\"]",
+      xpath = "//android.webkit.WebView[@text=\"Contact Us | Peet's Coffee\"]",
       on = Platform.MOBILE_ANDROID)
   protected Text headingText;
 
