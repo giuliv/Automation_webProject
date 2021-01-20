@@ -7,8 +7,10 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import io.appium.java_client.android.AndroidDriver;
+
 import org.openqa.selenium.ScreenOrientation;
+
+import io.appium.java_client.android.AndroidDriver;
 
 @Implementation(is = AndroidHelpAndFeedbackView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = HelpAndFeedbackView.class, on = Platform.MOBILE_IOS)
@@ -128,8 +130,8 @@ class AndroidHelpAndFeedbackView extends HelpAndFeedbackView {
     } catch (Throwable th) {
       logger.info("No location popup overlay found");
     }
-    logger.info("Close popup");
-    closeAdvPopUpButton.click();
+    //    logger.info("Close popup");
+    //    closeAdvPopUpButton.click();
 
     MobileHelper.initMobileBrowser();
     // wait till the page load, before it ios is not switched back to app

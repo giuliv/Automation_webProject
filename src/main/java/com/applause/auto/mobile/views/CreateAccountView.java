@@ -795,6 +795,7 @@ class AndroidCreateAccountView extends CreateAccountView {
 
   public boolean isPasswordTextDisplayed() {
     logger.info("Checking password text displayed");
+    getHiddenPasswordTextBox.click();
     getHiddenPasswordTextBox.sendKeys(" ");
     boolean result =
         getPasswordHintTextBox.stream()

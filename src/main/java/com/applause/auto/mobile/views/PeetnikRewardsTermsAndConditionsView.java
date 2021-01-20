@@ -8,9 +8,12 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
-import io.appium.java_client.android.AndroidDriver;
-import java.time.Duration;
+
 import org.openqa.selenium.ScreenOrientation;
+
+import java.time.Duration;
+
+import io.appium.java_client.android.AndroidDriver;
 
 @Implementation(
     is = AndroidPeetnikRewardsTermsAndConditionsView.class,
@@ -22,10 +25,11 @@ public class PeetnikRewardsTermsAndConditionsView extends BaseComponent {
 
   @Locate(
       xpath =
-          "//XCUIElementTypeStaticText[@name=\"Peet's Coffee & Tea Terms and Conditions of Use\"]",
+          "//XCUIElementTypeStaticText[@name=\"PEET'S COFFEE &amp; TEA TERMS AND CONDITIONS OF USE\"]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      xpath = "//*[contains(@text, \"Peet's Coffee & Tea Terms and Conditions of Use\")]",
+      xpath =
+          "//android.widget.TextView[contains(@text, \"PEET'S COFFEE &amp; TEA TERMS AND CONDITIONS OF USE\")]",
       on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
