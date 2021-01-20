@@ -73,7 +73,7 @@ public class PeetnikRewardsLandingView extends BaseComponent {
     //        getAnswersButton, "'Get Answers'", 25);
     // so used the basic swipe method with count
     // MobileHelper.swipeWithCount(SwipeDirection.UP, 8);
-    getAnswersButton.click();
+    //    getAnswersButton.click();
     getSyncHelper().sleep(10000);
     // return this
     return this.create(PeetnikRewardsLandingView.class);

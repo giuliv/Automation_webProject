@@ -806,8 +806,7 @@ class AndroidCreateAccountView extends CreateAccountView {
                   return i;
                 })
             .collect(Collectors.joining("\n"))
-            .equals(
-                "At least 6 characters\n" + "At least 1 number\n" + "At least 1 lowercase letter");
+            .equals("At least 6 characters\n" + "At least 1 number\n" + "At least 1 letter");
     getHiddenPasswordTextBox.clearText();
     return result;
   }

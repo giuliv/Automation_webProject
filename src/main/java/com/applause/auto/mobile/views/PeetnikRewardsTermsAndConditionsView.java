@@ -29,7 +29,7 @@ public class PeetnikRewardsTermsAndConditionsView extends BaseComponent {
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "//android.widget.TextView[contains(@text, \"PEET'S COFFEE &amp; TEA TERMS AND CONDITIONS OF USE\")]",
+          "//android.widget.TextView[contains(@text, \"PEET'S COFFEE & TEA TERMS AND CONDITIONS OF USE\")]",
       on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
