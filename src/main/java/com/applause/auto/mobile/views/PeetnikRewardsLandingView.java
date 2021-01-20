@@ -10,10 +10,13 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
-import io.appium.java_client.AppiumDriver;
+
+import org.openqa.selenium.WebDriverException;
+
 import java.time.Duration;
 import java.util.List;
-import org.openqa.selenium.WebDriverException;
+
+import io.appium.java_client.AppiumDriver;
 
 @Implementation(is = AndroidPeetnikRewardsLandingView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = PeetnikRewardsLandingView.class, on = Platform.MOBILE_IOS)
@@ -144,12 +147,12 @@ class AndroidPeetnikRewardsLandingView extends PeetnikRewardsLandingView {
   public PeetnikRewardsLandingView clickGetPeetnikRewardsAndOrderAheadQuestion() {
     ((AppiumDriver) getDriver()).context("NATIVE_APP");
     logger.info("Click 'Peetnik Rewards & Order Ahead'" + getDriver().getPageSource());
-    try {
-      getPeetnikRewardsAndOrderAheadButton.click();
-    } catch (Throwable th) {
-      MobileHelper.scrollDownToElementCloseToMiddle(getPeetnikRewardsAndOrderAheadButton, 2);
-      getPeetnikRewardsAndOrderAheadButton.click();
-    }
+    //    try {
+    //      getPeetnikRewardsAndOrderAheadButton.click();
+    //    } catch (Throwable th) {
+    //      MobileHelper.scrollDownToElementCloseToMiddle(getPeetnikRewardsAndOrderAheadButton, 2);
+    //      getPeetnikRewardsAndOrderAheadButton.click();
+    //    }
     getSyncHelper().sleep(10000);
     logger.info("Checking list of questions is loaded'");
     getSyncHelper().waitUntil(condition -> !getQuestions.isEmpty());
