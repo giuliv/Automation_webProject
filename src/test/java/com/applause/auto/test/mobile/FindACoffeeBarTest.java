@@ -228,11 +228,14 @@ public class FindACoffeeBarTest extends BaseTest {
         testHelper.signIn(
             landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
 
-    NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
+    AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
         dashboardView
             .getBottomNavigationMenu()
             .order(AllowLocationServicesPopupChunk.class)
-            .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class);
+            .allowIfRequestDisplayed(OrderView.class)
+            .locateCoffeebars(AllowLocationServicesPopupChunk.class);
+    NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
+        allowLocationServicesPopupChunk.allowIfRequestDisplayed();
 
     logger.info("STEP - Search for any store either by nearby, recent tabs, or by zip code");
     nearbySelectCoffeeBarView.search("94608");
