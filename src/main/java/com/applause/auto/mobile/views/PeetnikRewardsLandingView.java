@@ -51,7 +51,7 @@ public class PeetnikRewardsLandingView extends BaseComponent {
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "(//*[@text='Peetnik Rewards & Order Ahead'])[last()]/parent::android.view.View/following-sibling::android.view.View[1]//android.widget.ListView/*",
+          "(//*[@text=\"Peetnik Rewards & Order Ahead – Peet's Coffee\"])[last()]//android.view.View/following-sibling::android.view.View[1]//android.widget.ListView/*",
       on = Platform.MOBILE_ANDROID)
   protected List<Button> getQuestions;
 
