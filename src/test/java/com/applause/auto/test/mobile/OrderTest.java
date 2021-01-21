@@ -132,7 +132,7 @@ public class OrderTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ORDER},
       description = "625890",
-      enabled = true)
+      enabled = false)
   @ApplauseTestCaseId({"674198", "674197"})
   public void browseTheMenu() {
     logger.info("Launch the app and arrive at the first on boarding screen view");

@@ -8,7 +8,9 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 
-@Implementation(is = OrderView.class, on = Platform.MOBILE_ANDROID)
+import org.openqa.selenium.NoSuchElementException;
+
+@Implementation(is = AndroidOrderView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = OrderView.class, on = Platform.MOBILE_IOS)
 public class OrderView extends BaseComponent {
 
@@ -41,7 +43,18 @@ public class OrderView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/storeTextView", on = Platform.MOBILE_ANDROID)
   protected Text backButton;
 
+  @Locate(xpath = "//XCUIElementTypeButton[@name=\"No Thanks\"]", on = Platform.MOBILE_IOS)
+  protected Text noThanksButton;
+
   /* -------- Actions -------- */
+  @Override
+  public void afterInit() {
+    try {
+      noThanksButton.click();
+    } catch (NoSuchElementException nse) {
+
+    }
+  }
 
   public OrderMenuChunk getOrderMenuChunck() {
     return this.create(OrderMenuChunk.class);
@@ -89,4 +102,9 @@ public class OrderView extends BaseComponent {
     backButton.click();
     return this.create(clazz);
   }
+}
+
+class AndroidOrderView extends OrderView {
+  @Override
+  public void afterInit() {}
 }
