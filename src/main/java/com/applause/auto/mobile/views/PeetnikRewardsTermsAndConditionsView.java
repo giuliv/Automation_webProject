@@ -25,7 +25,7 @@ public class PeetnikRewardsTermsAndConditionsView extends BaseComponent {
 
   @Locate(
       xpath =
-          "//XCUIElementTypeStaticText[@name=\"PEET'S COFFEE &amp; TEA TERMS AND CONDITIONS OF USE\"]",
+          "//XCUIElementTypeStaticText[@name=\"PEET'S COFFEE & TEA TERMS AND CONDITIONS OF USE\"]",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =

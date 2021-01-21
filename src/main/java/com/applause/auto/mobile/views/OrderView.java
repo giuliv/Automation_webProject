@@ -42,6 +42,10 @@ public class OrderView extends BaseComponent {
   protected Text backButton;
 
   /* -------- Actions -------- */
+  @Override
+  public void afterInit() {
+    logger.info(">>>>" + getDriver().getPageSource());
+  }
 
   public OrderMenuChunk getOrderMenuChunck() {
     return this.create(OrderMenuChunk.class);
