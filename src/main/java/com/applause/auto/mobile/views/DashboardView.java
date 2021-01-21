@@ -150,7 +150,7 @@ class IosDashboardView extends DashboardView {
 
     getSyncHelper().sleep(8000);
     getSyncHelper()
-        .wait(Until.uiElement(getMoreScreenButton).clickable().setTimeout(Duration.ofSeconds(45)));
+        .wait(Until.uiElement(getMoreScreenButton).visible().setTimeout(Duration.ofSeconds(45)));
     getMoreScreenButton.click();
 
     getSyncHelper().sleep(5000);
