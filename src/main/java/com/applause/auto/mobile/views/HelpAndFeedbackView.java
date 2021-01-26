@@ -128,8 +128,8 @@ class AndroidHelpAndFeedbackView extends HelpAndFeedbackView {
     } catch (Throwable th) {
       logger.info("No location popup overlay found");
     }
-    logger.info("Close popup");
-    closeAdvPopUpButton.click();
+    //    logger.info("Close popup");
+    //    closeAdvPopUpButton.click();
 
     MobileHelper.initMobileBrowser();
     // wait till the page load, before it ios is not switched back to app

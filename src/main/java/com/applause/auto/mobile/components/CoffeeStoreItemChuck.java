@@ -27,7 +27,8 @@ public class CoffeeStoreItemChuck extends BaseComponent {
   protected Text getStoreDetailsItem;
 
   @Locate(
-      xpath = "//XCUIElementTypeButton[@name=\"Order\" and @visible=\"true\"]",
+      xpath =
+          "//XCUIElementTypeButton[(@name=\"Order\" or @name=\"Reorder\") and @visible=\"true\"]",
       on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/order_button", on = Platform.MOBILE_ANDROID)
   protected Button getOrderButton;

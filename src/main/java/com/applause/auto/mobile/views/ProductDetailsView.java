@@ -1,6 +1,8 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.data.enums.SwipeDirection;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -8,8 +10,8 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
-
 import java.time.Duration;
+import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = ProductDetailsView.class, on = Platform.MOBILE_IOS)
 @Implementation(is = AndroidProductDetailsView.class, on = Platform.MOBILE_ANDROID)
@@ -49,44 +51,66 @@ public class ProductDetailsView extends BaseComponent {
   protected Button getAddToOrderButton;
 
   @Locate(
-      xpath = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
+      xpath =
+          "//android.widget.Button[@resource-id='com.wearehathway.peets.development:id/modifierButton' and @text='%s']",
       on = Platform.MOBILE_ANDROID)
   protected Button sizeButton;
 
   @Locate(
-      xpath = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
+      xpath =
+          "//android.widget.TextView[starts-with(@text,'Milk Prep') or starts-with(@text,'Milk')]",
       on = Platform.MOBILE_ANDROID)
   protected Button selectMilkPrepButton;
 
   @Locate(
-      xpath = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
+      xpath = "//android.widget.TextView[starts-with(@text,'Syrups & Sauces')]",
       on = Platform.MOBILE_ANDROID)
   protected Button selectSyrupsAndSaucesButton;
 
   @Locate(
-      xpath = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
+      id = "com.wearehathway.peets.development:id/productCostTextView",
+      on = Platform.MOBILE_ANDROID)
+  protected Text costText;
+
+  @Locate(
+      xpath = "//android.widget.TextView[starts-with(@text,'Shot Options')]",
       on = Platform.MOBILE_ANDROID)
   protected Button selectShotOptionsButton;
 
   @Locate(
-      xpath = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
+      xpath =
+          "//android.widget.TextView[starts-with(@text,'Add Toppings') or starts-with(@text,'Toppings')]",
       on = Platform.MOBILE_ANDROID)
   protected Button selectToppingsButton;
 
   @Locate(
-      xpath = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
+      xpath = "//android.widget.TextView[starts-with(@text,'Sweeteners')]",
       on = Platform.MOBILE_ANDROID)
   protected Button selectSweetenersButton;
 
   @Locate(
-      xpath = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
+      xpath =
+          "//android.widget.RelativeLayout[@resource-id='com.wearehathway.peets.development:id/quantity']//android.widget.ImageButton[@resource-id='com.wearehathway.peets.development:id/increaseQuantity']",
       on = Platform.MOBILE_ANDROID)
   protected Button increaseQuantityButton;
 
   @Locate(
-      xpath = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
+      xpath =
+          "//android.widget.RelativeLayout[@resource-id='com.wearehathway.peets.development:id/quantity']//android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productQuantity']",
       on = Platform.MOBILE_ANDROID)
   protected Text quantityText;
+
+  @Locate(
+      xpath =
+          "//android.widget.Button[@resource-id='com.wearehathway.peets.development:id/modifierButton' and @selected='true']",
+      on = Platform.MOBILE_ANDROID)
+  protected Button defaultSizeButton;
+
+  @Locate(
+      xpath =
+          "//android.widget.TextView[starts-with(@text,'%s') and @resource-id='com.wearehathway.peets.development:id/categoryNameTextView']/following-sibling::android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/categorySelectionsTextView']",
+      on = Platform.MOBILE_ANDROID)
+  protected Text modifiersText;
 
   /* -------- Actions -------- */
 
@@ -146,7 +170,7 @@ public class ProductDetailsView extends BaseComponent {
   }
 
   public String getSize() {
-    return null;
+    return defaultSizeButton.getText();
   }
 
   public void selectSize(String size) {
@@ -165,17 +189,29 @@ public class ProductDetailsView extends BaseComponent {
   }
 
   public SweetenersView selectSweeteners() {
-    selectSweetenersButton.click();
+    try {
+      selectSweetenersButton.click();
+    } catch (NoSuchElementException nse) {
+      MobileHelper.scrollDownCloseToMiddleAlgorithm();
+      selectSweetenersButton.click();
+    }
     return this.create(SweetenersView.class);
   }
 
   public ToppingsView selectToppings() {
-    selectToppingsButton.click();
+    try {
+      selectToppingsButton.click();
+    } catch (NoSuchElementException nse) {
+      MobileHelper.scrollDownCloseToMiddleAlgorithm();
+      selectToppingsButton.click();
+    }
     return this.create(ToppingsView.class);
   }
 
   public void selectQuantity(String quantity) {
-    while (!quantityText.equals(quantity)) {
+    getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+    int attempts = 3;
+    while (!quantityText.getText().equals(quantity) && attempts-- > 0) {
       increaseQuantityButton.click();
     }
   }
@@ -183,6 +219,25 @@ public class ProductDetailsView extends BaseComponent {
   public SyrupsAndSaucesView selectSyrups() {
     selectSyrupsAndSaucesButton.click();
     return this.create(SyrupsAndSaucesView.class);
+  }
+
+  public String getCost() {
+    String result = costText.getText();
+    logger.info("Cost: " + result);
+    return result;
+  }
+
+  public String getModifies(String modifier) {
+    MobileHelper.scrollUpCloseToMiddleAlgorithm();
+    try {
+      modifiersText.format(modifier).initialize();
+    } catch (NoSuchElementException nse) {
+      MobileHelper.scrollDownCloseToMiddleAlgorithm();
+      modifiersText.format(modifier).initialize();
+    }
+    String result = modifiersText.getText();
+    logger.info("Modifiers for " + modifier + " found: " + result);
+    return result;
   }
 }
 

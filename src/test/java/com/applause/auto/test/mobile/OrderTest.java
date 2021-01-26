@@ -1,5 +1,7 @@
 package com.applause.auto.test.mobile;
 
+import static com.applause.auto.test.mobile.helpers.TestHelper.openOrderMenuForRecentCoffeeBar;
+
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.integrations.annotation.testidentification.ApplauseTestCaseId;
@@ -16,15 +18,12 @@ import com.applause.auto.mobile.views.OrderConfirmationView;
 import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.ProductDetailsView;
 import com.applause.auto.test.mobile.helpers.TestHelper;
-
+import java.lang.invoke.MethodHandles;
+import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.lang.invoke.MethodHandles;
-
-import static com.applause.auto.test.mobile.helpers.TestHelper.openOrderMenuForRecentCoffeeBar;
 
 public class OrderTest extends BaseTest {
 
@@ -132,7 +131,7 @@ public class OrderTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ORDER},
       description = "625890",
-      enabled = true)
+      enabled = false)
   @ApplauseTestCaseId({"674198", "674197"})
   public void browseTheMenu() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
@@ -625,7 +624,7 @@ public class OrderTest extends BaseTest {
     orderView.selectCategoryAndSubCategory("Hot Coffee", "Lattes");
 
     logger.info("Step 3. Select a beverage");
-    ProductDetailsView productDetailsView = orderView.selectProduct("Mapple Latte");
+    ProductDetailsView productDetailsView = orderView.selectProduct("Maple Latte");
 
     logger.info("Expected 3. User is taken to PDP");
     Assert.assertNotNull(productDetailsView, "PDP does not displayed");
@@ -642,15 +641,30 @@ public class OrderTest extends BaseTest {
             + "* Add Toppings"
             + "* Quantity");
     String defaultSize = productDetailsView.getSize();
+    String cost = productDetailsView.getCost();
     productDetailsView.selectSize("Large");
+    productDetailsView
+        .selectSyrups()
+        .selectSyrup("Vanilla Syrup")
+        .saveChanges(ProductDetailsView.class);
 
-    productDetailsView.selectSyrups();
-    productDetailsView.selectMilkPrep();
-    productDetailsView.selectShotOptions();
-    productDetailsView.selectSweeteners();
-    productDetailsView.selectToppings();
+    productDetailsView.selectMilkPrep().chooseMilk("2% Milk").saveChanges(ProductDetailsView.class);
+
+    productDetailsView
+        .selectShotOptions()
+        .selectShotPrep("Short Pull")
+        .saveChanges(ProductDetailsView.class);
+
+    productDetailsView
+        .selectSweeteners()
+        .setRawSugarAmount("5")
+        .saveChanges(ProductDetailsView.class);
+
+    productDetailsView.selectToppings().setWhippedCream().saveChanges(ProductDetailsView.class);
 
     productDetailsView.selectQuantity("2");
+
+    String[] modifier = productDetailsView.getModifies("Syrups & Sauces").split("\n");
 
     logger.info(
         "Expected 4. f applicable:\n"
@@ -661,12 +675,14 @@ public class OrderTest extends BaseTest {
             + "* The price on PDP should reflect any additional costs from customizing the beverage");
 
     logger.info("Step 5. Tap Add to Order button");
-    orderView.addToOrders();
+    orderView = orderView.addToOrders();
 
     logger.info(
         "Expected 5. User is returned to main order screen and item added to order appears in the FAB (floating action button) with the correct quantity displayed in the cup icon");
+    String fabAmount = orderView.getFabAmount();
 
     logger.info("Step 6. Swipe through Seasonal Favorites category and select a beverage");
+    orderView.selectSeasonalFavorites("Snowcap Iced Mint Matcha Latte");
     logger.info("Expected 6. User is taken to PDP");
     logger.info(
         "Step 7. Scroll down PDP and customize beverage by selecting modifiers (where applicable based on item selected):\n"
@@ -678,18 +694,55 @@ public class OrderTest extends BaseTest {
             + "* Add Sweeteners"
             + "* Add Toppings"
             + "* Quantity ");
+    defaultSize = productDetailsView.getSize();
+    cost = productDetailsView.getCost();
+    productDetailsView.selectSize("Large");
+    productDetailsView
+        .selectSyrups()
+        .selectSyrup("Vanilla Syrup")
+        .selectOption("Light")
+        .saveChanges(ProductDetailsView.class);
+
+    productDetailsView.selectMilkPrep().chooseMilk("2% Milk").saveChanges(ProductDetailsView.class);
+
+    productDetailsView
+        .selectShotOptions()
+        .selectShotPrep("Short Pull")
+        .saveChanges(ProductDetailsView.class);
+
+    productDetailsView
+        .selectSweeteners()
+        .setRawSugarAmount("5")
+        .saveChanges(ProductDetailsView.class);
+
+    productDetailsView.selectToppings().setWhippedCream().saveChanges(ProductDetailsView.class);
+
+    productDetailsView.selectQuantity("2");
+
+    modifier = productDetailsView.getModifies("Syrups & Sauces").split("\n");
+
     logger.info(
         "Expected 7. User should be able to select and save different modifiers and it should be reflected on the PDP under the modifier selection");
+
     logger.info("Step 8. Tap Add to Order button");
+    orderView = orderView.addToOrders();
+
     logger.info(
         "Expected 8. User is returned to main order screen and the FAB updates with the correct quantity of item(s)");
+    fabAmount = orderView.getFabAmount();
+
     logger.info("Step 9. Tap on Signature Beverages category");
-    logger.info("Expected 9. Sub-categories should expand downward");
     logger.info("Step 10. Select sub-cateogry Cold Brew Black Tie");
+    orderView.selectCategoryAndSubCategory("Signature Beverages", "Cold Brew Black Tie");
+
+    logger.info("Expected 9. Sub-categories should expand downward");
     logger.info(
         "Expected 10. Make sure FAB is displayed on sub-category screen and shows correct quantity of item(s) previously added to order");
+    fabAmount = orderView.getFabAmount();
 
     logger.info("Step 11. Select a beverage");
+    productDetailsView = orderView.selectProduct("The Black Tie");
+
     logger.info("Expected 11. User is taken to PDP");
     logger.info(
         "Step 12. Scroll down PDP and customize beverage by selecting modifiers (where applicable based on item selected):\n"
@@ -697,19 +750,52 @@ public class OrderTest extends BaseTest {
             + "* Size"
             + "* Room for Milk"
             + "* 1/2 Decaf"
-            + "* Shot Options* Syrups & Sauces* Add Milk"
+            + "* Shot Options* Syrups & Sauces"
+            + "* Add Milk"
             + "* Add Sweeteners"
             + "* Add Toppings"
             + "* Cup"
             + "* Quantity");
+    defaultSize = productDetailsView.getSize();
+    cost = productDetailsView.getCost();
+    productDetailsView.selectSize("Large");
+    productDetailsView
+        .selectSyrups()
+        .selectSyrup("Vanilla Syrup")
+        .selectOption("Light")
+        .saveChanges(ProductDetailsView.class);
+
+    productDetailsView.selectMilkPrep().chooseMilk("2% Milk").saveChanges(ProductDetailsView.class);
+
+    productDetailsView
+        .selectShotOptions()
+        .selectShotPrep("Short Pull")
+        .saveChanges(ProductDetailsView.class);
+
+    productDetailsView
+        .selectSweeteners()
+        .setRawSugarAmount("5")
+        .saveChanges(ProductDetailsView.class);
+
+    productDetailsView.selectToppings().setWhippedCream().saveChanges(ProductDetailsView.class);
+
+    productDetailsView.selectQuantity("2");
+
+    modifier = productDetailsView.getModifies("Syrups & Sauces").split("\n");
+
     logger.info(
         "Expected 12. User should be able to select and save different modifiers and it should be reflected on the PDP under the modifier selection");
 
     logger.info("Step 13. Tap Add to Order button");
+    orderView = orderView.addToOrders();
+
     logger.info(
         "Expected 13. User is returned to main order screen and the FAB updates with the correct quantity of item(s)");
+    fabAmount = orderView.getFabAmount();
 
     logger.info("Step 14. Tap on the FAB");
+    orderView = orderView.checkoutAtom();
+
     logger.info(
         "Expected 14. User sees confirm coffeebar location UI alert:\n"
             + ""
@@ -717,14 +803,32 @@ public class OrderTest extends BaseTest {
             + "* Title: Confirm Coffeebar"
             + "* Text: [Coffeebar name]"
             + "* [Button] Change [Button] Confirm");
+    Assert.assertTrue(
+        orderView.isChangeStoreButtonDisplayed(),
+        "User  does not sees confirm coffeebar location UI alert change button");
+    Assert.assertTrue(
+        orderView.isConfirmStoreButtonDisplayed(),
+        "User does not sees confirm coffeebar location UI alert confirm button");
 
     logger.info("Step 15. Tap Confirm button");
+    CheckoutView checkoutView = orderView.confirmStore();
+
     logger.info("Expected 15. User is taken to checkout screen");
+    Assert.assertNotNull(checkoutView, "User does not taken to checkout screen");
+
     logger.info("Step 15. Review beverage order details on checkout screen");
+    List<String> maple = checkoutView.getItemOptions("Maple Latte");
+    List<String> snowcap = checkoutView.getItemOptions("Snowcap Iced Mint Matcha Latte");
+    List<String> blackTie = checkoutView.getItemOptions("The Black Tie");
+
     logger.info(
         "Expected 15. Make sure beverage customizations flow through correctly to checkout screen");
+
     logger.info(
         "Step 16. Tap X at top left corner of Checkout screen to return to main order screen");
+    orderView = checkoutView.close();
+
     logger.info("Expected 16. User is taken back to main order screen");
+    Assert.assertNotNull(orderView, "User does not taken back to main order screen");
   }
 }

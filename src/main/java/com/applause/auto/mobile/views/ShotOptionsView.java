@@ -16,22 +16,25 @@ public class ShotOptionsView extends BaseComponent {
   @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
   protected Button navigateBackButton;
 
-  @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//android.widget.TextView[@text='Shot Prep']", on = Platform.MOBILE_ANDROID)
   protected Button shotPrepButton;
 
-  @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//android.widget.TextView[@text='%s']", on = Platform.MOBILE_ANDROID)
   protected Button shotPrepOptionButton;
 
-  @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/saveChangesButton",
+      on = Platform.MOBILE_ANDROID)
   protected Button saveChangesButton;
 
   /* -------- Actions -------- */
-  public void selectShotPrep(String shotPrep) {
+  public ShotOptionsView selectShotPrep(String shotPrep) {
     shotPrepButton.click();
-    shotPrepOptionButton.format(shotPrep);
+    shotPrepOptionButton.format(shotPrep).click();
+    return this;
   }
 
-  public <T extends BaseComponent> T save(Class<T> clazz) {
+  public <T extends BaseComponent> T saveChanges(Class<T> clazz) {
     saveChangesButton.click();
     return this.create(clazz);
   }

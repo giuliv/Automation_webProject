@@ -16,15 +16,26 @@ public class MilkPrepView extends BaseComponent {
   @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
   protected Button navigateBackButton;
 
-  @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//android.widget.TextView[@text='Choose Milk']", on = Platform.MOBILE_ANDROID)
   protected Button chooseMilkMenuItemButton;
 
-  @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
-  protected Button milkTypeButton;
+  @Locate(xpath = "//android.widget.TextView[@text='%s']", on = Platform.MOBILE_ANDROID)
+  protected Button chooseMilkMenuOptionsButton;
+
+  @Locate(
+      id = "com.wearehathway.peets.development:id/saveChangesButton",
+      on = Platform.MOBILE_ANDROID)
+  protected Button saveChangesButton;
 
   /* -------- Actions -------- */
-  public void chooseMilk(String milkType) {
+  public MilkPrepView chooseMilk(String milkType) {
     chooseMilkMenuItemButton.click();
-    milkTypeButton.click();
+    chooseMilkMenuOptionsButton.format(milkType).click();
+    return this;
+  }
+
+  public <T extends BaseComponent> T saveChanges(Class<T> clazz) {
+    saveChangesButton.click();
+    return this.create(clazz);
   }
 }

@@ -15,10 +15,10 @@ public class TermsAndConditionsView extends BaseComponent {
   /* -------- Elements -------- */
 
   @Locate(
-      xpath = "//XCUIElementTypeOther[@name=\"THE PEETNIK REWARDS PROGRAM TERMS AND CONDITIONS\"]",
+      xpath = "//XCUIElementTypeOther[@name=\"Terms And Conditions | Peet's Coffee\"]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      xpath = "//*[contains(@text, 'THE PEETNIK REWARDS PROGRAM TERMS AND CONDITIONS')]",
+      xpath = "//*[contains(@text, \"Terms And Conditions | Peet's Coffee\")]",
       on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 

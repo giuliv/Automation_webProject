@@ -22,10 +22,11 @@ public class PeetnikRewardsTermsAndConditionsView extends BaseComponent {
 
   @Locate(
       xpath =
-          "//XCUIElementTypeStaticText[@name=\"Peet's Coffee & Tea Terms and Conditions of Use\"]",
+          "//XCUIElementTypeStaticText[@name=\"PEET'S COFFEE & TEA TERMS AND CONDITIONS OF USE\"]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      xpath = "//*[contains(@text, \"Peet's Coffee & Tea Terms and Conditions of Use\")]",
+      xpath =
+          "//android.widget.TextView[contains(@text, \"PEET'S COFFEE & TEA TERMS AND CONDITIONS OF USE\")]",
       on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 

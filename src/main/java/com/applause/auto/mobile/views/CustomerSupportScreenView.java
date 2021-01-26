@@ -19,10 +19,10 @@ public class CustomerSupportScreenView extends BaseComponent {
   /* -------- Elements -------- */
 
   @Locate(
-      xpath = "//XCUIElementTypeOther[@name=\"Contact us | Peet's Coffee\"]",
+      xpath = "//XCUIElementTypeOther[@name=\"Contact Us | Peet's Coffee\"]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      xpath = "//android.webkit.WebView[@text=\"Contact us | Peet's Coffee\"]",
+      xpath = "//android.webkit.WebView[@text=\"Contact Us | Peet's Coffee\"]",
       on = Platform.MOBILE_ANDROID)
   protected Text headingText;
 
@@ -89,8 +89,8 @@ class AndroidCustomerSupportScreenView extends CustomerSupportScreenView {
     } catch (Throwable th) {
       logger.info("No location popup overlay found");
     }
-    logger.info("Close popup");
-    closeAdvPopUpButton.click();
+    //    logger.info("Close popup");
+    //    closeAdvPopUpButton.click();
     getSyncHelper().wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(12)));
   }
 

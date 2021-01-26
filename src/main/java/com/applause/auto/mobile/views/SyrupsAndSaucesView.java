@@ -16,15 +16,25 @@ public class SyrupsAndSaucesView extends BaseComponent {
   @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
   protected Button navigateBackButton;
 
-  @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//android.widget.TextView[@text='%s']", on = Platform.MOBILE_ANDROID)
   protected Button syrupItemButton;
 
-  @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//android.widget.TextView[@text='%s']", on = Platform.MOBILE_ANDROID)
+  protected Button syrupOptionButton;
+
+  @Locate(
+      id = "com.wearehathway.peets.development:id/saveChangesButton",
+      on = Platform.MOBILE_ANDROID)
   protected Button saveChangesButton;
 
   /* -------- Actions -------- */
   public SyrupsAndSaucesView selectSyrup(String syrup) {
-    syrupItemButton.format(syrup);
+    syrupItemButton.format(syrup).click();
+    return this;
+  }
+
+  public SyrupsAndSaucesView selectOption(String syrup) {
+    syrupOptionButton.format(syrup).click();
     return this;
   }
 

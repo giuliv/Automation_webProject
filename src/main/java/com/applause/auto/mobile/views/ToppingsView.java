@@ -16,18 +16,21 @@ public class ToppingsView extends BaseComponent {
   @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
   protected Button navigateBackButton;
 
-  @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/saveChangesButton",
+      on = Platform.MOBILE_ANDROID)
   protected Button saveChangesButton;
 
-  @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//android.widget.TextView[@text='Whipped Cream']", on = Platform.MOBILE_ANDROID)
   protected Button whippedCreamButton;
 
   /* -------- Actions -------- */
-  public void setWhippedCream() {
+  public ToppingsView setWhippedCream() {
     whippedCreamButton.click();
+    return this;
   }
 
-  public <T extends BaseComponent> T save(Class<T> clazz) {
+  public <T extends BaseComponent> T saveChanges(Class<T> clazz) {
     saveChangesButton.click();
     return this.create(clazz);
   }

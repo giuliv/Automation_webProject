@@ -1,6 +1,7 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -59,6 +60,11 @@ public class NewOrderView extends BaseComponent {
   @Locate(id = "Menu", on = Platform.MOBILE_IOS)
   protected Button getConfirmStoreButton;
 
+  @Locate(
+      id = "com.wearehathway.peets.development:id/changeLocationButton",
+      on = Platform.MOBILE_ANDROID)
+  protected Button getChangeStoreButton;
+
   @Locate(xpath = "//android.widget.TextView[@text='Recents']", on = Platform.MOBILE_ANDROID)
   @Locate(
       iOSClassChain = "**/XCUIElementTypeButton[`label == \"Recents\"`]",
@@ -115,6 +121,20 @@ public class NewOrderView extends BaseComponent {
       on = Platform.MOBILE_IOS)
   protected Text messageText;
 
+  @Locate(
+      id = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
+      on = Platform.MOBILE_ANDROID)
+  protected Button addToOrderButton;
+
+  @Locate(id = "com.wearehathway.peets.development:id/basketFABText", on = Platform.MOBILE_ANDROID)
+  protected Text fabAmountText;
+
+  @Locate(
+      xpath =
+          "//androidx.appcompat.widget.LinearLayoutCompat[@resource-id='com.wearehathway.peets.development:id/seasonalProductContainer']/android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productNameTextView' and @text='%s']",
+      on = Platform.MOBILE_ANDROID)
+  protected Text seasonalFavoriteProductItemText;
+
   /* -------- Actions -------- */
   public void afterInit() {
     getSyncHelper()
@@ -153,7 +173,8 @@ public class NewOrderView extends BaseComponent {
    */
   public ProductDetailsView selectProduct(String category) {
     logger.info("Select product: " + category);
-    getCategoryItem.initializeWithFormat(category);
+    getCategoryItem.format(category);
+    getCategoryItem.initialize();
     getDeviceControl().tapElementCenter(getCategoryItem);
     return this.create(ProductDetailsView.class);
   }
@@ -188,6 +209,25 @@ public class NewOrderView extends BaseComponent {
       logger.info("Confirmation button is not present");
     }
     return this.create(CheckoutView.class);
+  }
+
+  public NewOrderView checkoutAtom() {
+    logger.info("Tap on Cart button");
+    getCartButton.click();
+    return this;
+  }
+
+  public CheckoutView confirmStore() {
+    getConfirmStoreButton.click();
+    return this.create(CheckoutView.class);
+  }
+
+  public boolean isConfirmStoreButtonDisplayed() {
+    return getConfirmStoreButton.exists() && getConfirmStoreButton.isDisplayed();
+  }
+
+  public boolean isChangeStoreButtonDisplayed() {
+    return getChangeStoreButton.exists() && getChangeStoreButton.isDisplayed();
   }
 
   /**
@@ -296,7 +336,18 @@ public class NewOrderView extends BaseComponent {
   }
 
   public NewOrderView addToOrders() {
+    addToOrderButton.click();
     return this.create(NewOrderView.class);
+  }
+
+  public String getFabAmount() {
+    return fabAmountText.getText();
+  }
+
+  public ProductDetailsView selectSeasonalFavorites(String name) {
+    MobileHelper.scrollUpCloseToMiddleAlgorithm();
+    seasonalFavoriteProductItemText.format(name).click();
+    return this.create(ProductDetailsView.class);
   }
 }
 

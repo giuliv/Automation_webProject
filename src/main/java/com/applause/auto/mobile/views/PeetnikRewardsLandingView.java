@@ -48,7 +48,7 @@ public class PeetnikRewardsLandingView extends BaseComponent {
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "(//*[@text='Peetnik Rewards & Order Ahead'])[last()]/parent::android.view.View/following-sibling::android.view.View[1]//android.widget.ListView/*",
+          "(//*[@text=\"Peetnik Rewards & Order Ahead – Peet's Coffee\"])[last()]//android.view.View/following-sibling::android.view.View[1]//android.widget.ListView/*",
       on = Platform.MOBILE_ANDROID)
   protected List<Button> getQuestions;
 
@@ -70,7 +70,7 @@ public class PeetnikRewardsLandingView extends BaseComponent {
     //        getAnswersButton, "'Get Answers'", 25);
     // so used the basic swipe method with count
     // MobileHelper.swipeWithCount(SwipeDirection.UP, 8);
-    getAnswersButton.click();
+    //    getAnswersButton.click();
     getSyncHelper().sleep(10000);
     // return this
     return this.create(PeetnikRewardsLandingView.class);
@@ -144,12 +144,12 @@ class AndroidPeetnikRewardsLandingView extends PeetnikRewardsLandingView {
   public PeetnikRewardsLandingView clickGetPeetnikRewardsAndOrderAheadQuestion() {
     ((AppiumDriver) getDriver()).context("NATIVE_APP");
     logger.info("Click 'Peetnik Rewards & Order Ahead'" + getDriver().getPageSource());
-    try {
-      getPeetnikRewardsAndOrderAheadButton.click();
-    } catch (Throwable th) {
-      MobileHelper.scrollDownToElementCloseToMiddle(getPeetnikRewardsAndOrderAheadButton, 2);
-      getPeetnikRewardsAndOrderAheadButton.click();
-    }
+    //    try {
+    //      getPeetnikRewardsAndOrderAheadButton.click();
+    //    } catch (Throwable th) {
+    //      MobileHelper.scrollDownToElementCloseToMiddle(getPeetnikRewardsAndOrderAheadButton, 2);
+    //      getPeetnikRewardsAndOrderAheadButton.click();
+    //    }
     getSyncHelper().sleep(10000);
     logger.info("Checking list of questions is loaded'");
     getSyncHelper().waitUntil(condition -> !getQuestions.isEmpty());

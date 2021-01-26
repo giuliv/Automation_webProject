@@ -117,7 +117,7 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   public <T extends BaseComponent> T order(Class<T> clazz) {
     logger.info("Tap on Order");
     getSyncHelper()
-        .wait(Until.uiElement(getOrdersButton).clickable().setTimeout(Duration.ofSeconds(30)));
+        .wait(Until.uiElement(getOrdersButton).visible().setTimeout(Duration.ofSeconds(30)));
     getOrdersButton.click();
     return this.create(clazz);
   }

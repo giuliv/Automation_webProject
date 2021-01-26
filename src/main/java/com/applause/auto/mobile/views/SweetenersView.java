@@ -17,23 +17,33 @@ public class SweetenersView extends BaseComponent {
   @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
   protected Button navigateBackButton;
 
-  @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//android.widget.TextView[@text='Raw Sugar']/../..//android.widget.ImageButton[@resource-id='com.wearehathway.peets.development:id/increaseQuantity']",
+      on = Platform.MOBILE_ANDROID)
   protected Button addRawSugarAmountButton;
 
-  @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//android.widget.TextView[@text='Raw Sugar']/../..//android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/modifierQuantity']",
+      on = Platform.MOBILE_ANDROID)
   protected Text rawSugarAmountText;
 
-  @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/saveChangesButton",
+      on = Platform.MOBILE_ANDROID)
   protected Button saveChangesButton;
 
   /* -------- Actions -------- */
-  public void setRawSugarAmount(String amount) {
-    while (!rawSugarAmountText.getText().equals(amount)) {
+  public SweetenersView setRawSugarAmount(String amount) {
+    int counter = 5;
+    while (!rawSugarAmountText.getText().equals(amount) && counter-- > 0) {
       addRawSugarAmountButton.click();
     }
+    return this;
   }
 
-  public <T extends BaseComponent> T save(Class<T> clazz) {
+  public <T extends BaseComponent> T saveChanges(Class<T> clazz) {
     saveChangesButton.click();
     return this.create(clazz);
   }
