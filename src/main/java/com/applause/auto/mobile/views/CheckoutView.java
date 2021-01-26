@@ -11,7 +11,10 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Implementation(is = AndroidCheckoutView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CheckoutView.class, on = Platform.MOBILE_IOS)
@@ -26,6 +29,9 @@ public class CheckoutView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/checkoutButton", on = Platform.MOBILE_ANDROID)
   @Locate(id = "Place Order", on = Platform.MOBILE_IOS)
   protected Button getPlaceOrderButton;
+
+  @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
+  protected Button closeButton;
 
   @Locate(
       xpath =
@@ -79,6 +85,18 @@ public class CheckoutView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   @Locate(xpath = "//*[@name='Order Total']/following-sibling::*[1]", on = Platform.MOBILE_IOS)
   protected Text orderTotal;
+
+  @Locate(
+      xpath =
+          "//android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productName' and @text='%s']/following-sibling::android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productOptions']",
+      on = Platform.MOBILE_ANDROID)
+  protected Text itemOptionsText;
+
+  @Locate(
+      xpath =
+          "//android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productName' and @text='%s']/following-sibling::android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productQuantity']",
+      on = Platform.MOBILE_ANDROID)
+  protected Text itemQtyText;
 
   /* -------- Actions -------- */
 
@@ -169,6 +187,32 @@ public class CheckoutView extends BaseComponent {
       logger.info("'reward not valid' message didn't appear");
     }
     getSyncHelper().sleep(1000);
+  }
+
+  public List<String> getItemOptions(String itemName) {
+    int attempt = 5;
+    IntStream.range(0, attempt)
+        .forEach(
+            i -> {
+              MobileHelper.scrollUpCloseToMiddleAlgorithm();
+            });
+    while (attempt++ > 0 && !itemOptionsText.format(itemName).exists()) {
+      MobileHelper.scrollDownCloseToMiddleAlgorithm();
+    }
+    List<String> result =
+        new ArrayList<String>(Arrays.asList(itemOptionsText.getText().split("\n")));
+    itemQtyText.format(itemName);
+    result.add(itemQtyText.getText());
+    result.forEach(
+        i -> {
+          logger.info("Found option: " + i);
+        });
+    return result;
+  }
+
+  public NewOrderView close() {
+    closeButton.click();
+    return this.create(NewOrderView.class);
   }
 }
 

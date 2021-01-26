@@ -6,7 +6,6 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
-
 import java.time.Duration;
 
 @Implementation(is = AndroidTermsAndConditionsView.class, on = Platform.MOBILE_ANDROID)

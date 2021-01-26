@@ -1,7 +1,5 @@
 package com.applause.auto.mobile.views;
 
-import com.google.common.collect.ImmutableMap;
-
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
 import com.applause.auto.mobile.components.CoffeeStoreItemChuck;
@@ -14,10 +12,9 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
-
-import java.time.Duration;
-
+import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
+import java.time.Duration;
 
 /** The type Nearby select coffee bar view. */
 @Implementation(is = AndroidNearbySelectCoffeeBarView.class, on = Platform.MOBILE_ANDROID)

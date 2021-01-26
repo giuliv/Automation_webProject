@@ -169,7 +169,7 @@ public class MobileHelper extends SdkHelper {
     getDeviceControl().tapScreenCoordinates(xAbsoluteOffset, yAbsoluteOffset);
   }
 
-  private static void scrollDownCloseToMiddleAlgorithm() {
+  public static void scrollDownCloseToMiddleAlgorithm() {
     double pStartY = 0;
     double pEndY = 0;
     if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
@@ -178,6 +178,19 @@ public class MobileHelper extends SdkHelper {
     } else { // Android scrolls faster so the start and end must be gentler
       pStartY = 0.60;
       pEndY = 0.40;
+    }
+    scrollDownAlgorithm(0.1, pStartY, pEndY);
+  }
+
+  public static void scrollUpCloseToMiddleAlgorithm() {
+    double pStartY = 0;
+    double pEndY = 0;
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      pStartY = 0.6;
+      pEndY = -0.4;
+    } else { // Android scrolls faster so the start and end must be gentler
+      pStartY = 0.40;
+      pEndY = 0.60;
     }
     scrollDownAlgorithm(0.1, pStartY, pEndY);
   }
@@ -191,9 +204,8 @@ public class MobileHelper extends SdkHelper {
     try {
       new TouchAction(getMobileDriver())
           .press(PointOption.point((int) startX, startY))
-          .waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
+          .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500)))
           .moveTo(PointOption.point((int) startX, endY))
-          .waitAction(WaitOptions.waitOptions(Duration.ofMillis(1000)))
           .release()
           .perform();
     } catch (WebDriverException wex) {

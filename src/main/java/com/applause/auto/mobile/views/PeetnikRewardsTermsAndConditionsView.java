@@ -8,12 +8,9 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
-
-import org.openqa.selenium.ScreenOrientation;
-
-import java.time.Duration;
-
 import io.appium.java_client.android.AndroidDriver;
+import java.time.Duration;
+import org.openqa.selenium.ScreenOrientation;
 
 @Implementation(
     is = AndroidPeetnikRewardsTermsAndConditionsView.class,

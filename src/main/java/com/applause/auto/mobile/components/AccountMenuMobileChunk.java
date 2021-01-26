@@ -16,9 +16,8 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
-import org.openqa.selenium.NoAlertPresentException;
-
 import java.time.Duration;
+import org.openqa.selenium.NoAlertPresentException;
 
 @Implementation(is = AndroidAccountMenuMobileChunk.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = AccountMenuMobileChunk.class, on = Platform.MOBILE_IOS)
