@@ -729,7 +729,8 @@ public class OrderTest extends BaseTest {
         .setRawSugarAmount("3")
         .saveChanges(ProductDetailsView.class);
 
-    productDetailsView.selectToppings().setWhippedCream().saveChanges(ProductDetailsView.class);
+    // Disabled because not available
+    // productDetailsView.selectToppings().setWhippedCream().saveChanges(ProductDetailsView.class);
 
     productDetailsView.selectQuantity("3");
 
@@ -900,9 +901,9 @@ public class OrderTest extends BaseTest {
     softAssert.assertTrue(
         snowcap.contains("Raw Sugar (x3)"),
         "Snowcap Iced Mint Matcha Latte have wrong raw sugar: Raw Sugar (x3)");
-    softAssert.assertTrue(
-        snowcap.contains("Whipped Cream"),
-        "Snowcap Iced Mint Matcha Latte have wrong cream: Whipped Cream");
+    //    softAssert.assertTrue(
+    //        snowcap.contains("Whipped Cream"),
+    //        "Snowcap Iced Mint Matcha Latte have wrong cream: Whipped Cream");
     softAssert.assertTrue(
         snowcap.contains("Qty: 3"), "Snowcap Iced Mint Matcha Latte have wrong Qty: 3");
 
