@@ -860,7 +860,8 @@ public class OrderTest extends BaseTest {
     //        maple.contains("Maple Syrup: Regular"),
     //        "Mapple Drink have wrong base syrup: Maple Syrup: Regular");
     softAssert.assertTrue(
-        maple.contains("Vanilla Syrup"), "Mapple Drink have wrong syrup addon: Vanilla Syrup");
+        maple.contains("Vanilla Syrup: Extra"),
+        "Mapple Drink have wrong syrup addon: Vanilla Syrup: Extra");
     softAssert.assertTrue(
         maple.contains("Choose Milk: 2% Milk"),
         "Mapple Drink have wrong milk: Choose Milk: 2% Milk");
