@@ -836,7 +836,7 @@ public class OrderTest extends BaseTest {
     Assert.assertNotNull(checkoutView, "User does not taken to checkout screen");
 
     logger.info("Step 15. Review beverage order details on checkout screen");
-    List<String> maple = checkoutView.getItemOptions("Maple Latte");
+    List<String> maple = checkoutView.getItemOptions("Caffe Latte");
     List<String> snowcap = checkoutView.getItemOptions("Snowcap Iced Mint Matcha Latte");
     List<String> blackTie = checkoutView.getItemOptions("The Black Tie");
 
