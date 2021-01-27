@@ -949,25 +949,8 @@ public class OrderTest extends BaseTest {
         "User is already signed in to app\n"
             + "User is on main order screen and pickup order mode is default selected\n"
             + "User continues this test case from previous test case (so user will have items added to order already)");
-    //    customizeOrderBeveragesTest();
-    //    NewOrderView orderView = this.create(NewOrderView.class);
-    /////////
-    ////////
-
-    LandingView landingView = this.create(LandingView.class);
-    DashboardView dashboardView = testHelper.createNewAccountWithDefaults(landingView);
-
-    NewOrderView orderView =
-        dashboardView
-            .getBottomNavigationMenu()
-            .order(AllowLocationServicesPopupChunk.class)
-            .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class)
-            .close(DashboardView.class)
-            .getBottomNavigationMenu()
-            .order(NewOrderView.class);
-
-    ///////
-    //////
+    customizeOrderBeveragesTest();
+    NewOrderView orderView = this.create(NewOrderView.class);
     logger.info("STEP 1. Tap on Food category to expand");
     logger.info("STEP 2. Select sub-category Baked Goods");
     orderView.selectCategoryAndSubCategory("Food", "Baked Goods");
