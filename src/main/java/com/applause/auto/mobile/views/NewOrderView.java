@@ -165,6 +165,12 @@ public class NewOrderView extends BaseComponent {
     getCategorySubItem.click();
   }
 
+  public void selectSubCategoryUnderCategory(String category, String subCategory) {
+    logger.info("Select sub-category: " + subCategory);
+    getCategorySubItem.initializeWithFormat(category, subCategory);
+    getCategorySubItem.click();
+  }
+
   /**
    * Select product product details view.
    *
@@ -215,6 +221,19 @@ public class NewOrderView extends BaseComponent {
     logger.info("Tap on Cart button");
     getCartButton.click();
     return this;
+  }
+
+  /**
+   * Checkout atom t.
+   *
+   * @param <T> the type parameter
+   * @param clazz the clazz
+   * @return the t
+   */
+  public <T extends BaseComponent> T checkoutAtom(Class<T> clazz) {
+    logger.info("Tap on Cart button");
+    getCartButton.click();
+    return this.create(clazz);
   }
 
   public CheckoutView confirmStore() {
