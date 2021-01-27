@@ -1,17 +1,18 @@
 package com.applause.auto.util;
 
-import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class RetryAnalyzer implements IRetryAnalyzer {
 
   private static final Logger logger = LogManager.getLogger(RetryAnalyzer.class);
 
   private AtomicInteger retryCounter = new AtomicInteger(1);
-  private int retryCountLimit = 2;
+  private int retryCountLimit = 1;
   /*
    * (non-Javadoc)
    * @see org.testng.IRetryAnalyzer#retry(org.testng.ITestResult)
