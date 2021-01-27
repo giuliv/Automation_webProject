@@ -397,7 +397,11 @@ public class NewOrderView extends BaseComponent {
   }
 
   public ProductDetailsView selectSeasonalFavorites(String name) {
-    MobileHelper.scrollUpCloseToMiddleAlgorithm();
+    IntStream.range(0, 5)
+        .forEach(
+            i -> {
+              MobileHelper.scrollUpCloseToMiddleAlgorithm();
+            });
     seasonalFavoriteProductItemText.format(name).click();
     return this.create(ProductDetailsView.class);
   }
