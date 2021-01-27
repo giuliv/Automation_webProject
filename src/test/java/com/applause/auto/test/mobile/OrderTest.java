@@ -631,7 +631,7 @@ public class OrderTest extends BaseTest {
     //////////////
 
     logger.info("Step 3. Select a beverage");
-    ProductDetailsView productDetailsView = orderView.selectProduct("Maple Latte");
+    ProductDetailsView productDetailsView = orderView.selectProduct("Caffe Latte");
 
     logger.info("Expected 3. User is taken to PDP");
     Assert.assertNotNull(productDetailsView, "PDP does not displayed");
