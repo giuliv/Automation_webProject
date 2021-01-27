@@ -733,7 +733,7 @@ public class OrderTest extends BaseTest {
     // Disabled because not available
     // productDetailsView.selectToppings().setWhippedCream().saveChanges(ProductDetailsView.class);
 
-    productDetailsView.selectQuantity("3");
+    productDetailsView.selectQuantity("2");
 
     logger.info(
         "Expected 7. User should be able to select and save different modifiers and it should be reflected on the PDP under the modifier selection");
@@ -802,7 +802,7 @@ public class OrderTest extends BaseTest {
 
     productDetailsView.selectToppings().setWhippedCream().saveChanges(ProductDetailsView.class);
 
-    productDetailsView.selectQuantity("4");
+    productDetailsView.selectQuantity("2");
 
     logger.info(
         "Expected 12. User should be able to select and save different modifiers and it should be reflected on the PDP under the modifier selection");
@@ -907,7 +907,7 @@ public class OrderTest extends BaseTest {
     //        snowcap.contains("Whipped Cream"),
     //        "Snowcap Iced Mint Matcha Latte have wrong cream: Whipped Cream");
     softAssert.assertTrue(
-        snowcap.contains("Qty: 3"), "Snowcap Iced Mint Matcha Latte have wrong Qty: 3");
+        snowcap.contains("Qty: 2"), "Snowcap Iced Mint Matcha Latte have wrong Qty: 2");
 
     softAssert.assertTrue(
         blackTie.contains("Medium"), "The Black Tie Drink have wrong cup size: Medium expected");
@@ -932,7 +932,7 @@ public class OrderTest extends BaseTest {
         blackTie.contains("Raw Sugar (x4)"), "The Black Tie have wrong raw sugar: Raw Sugar (x4)");
     softAssert.assertTrue(
         blackTie.contains("Whipped Cream"), "The Black Tie have wrong cream: Whipped Cream");
-    softAssert.assertTrue(blackTie.contains("Qty: 4"), "The Black Tie have wrong Qty: 4");
+    softAssert.assertTrue(blackTie.contains("Qty: 2"), "The Black Tie have wrong Qty: 2");
     softAssert.assertAll();
     logger.info(
         "Step 16. Tap X at top left corner of Checkout screen to return to main order screen");
@@ -1013,7 +1013,7 @@ public class OrderTest extends BaseTest {
             .decreaseCount("Brown Sugar", "0")
             .incereaseCount("Almonds", "2")
             .saveChanges(ProductDetailsView.class)
-            .selectQuantity("3");
+            .selectQuantity("2");
 
     logger.info(
         "EXPECTED 8. User should be able to select modifier and it should be reflected on the PDP under the modifier selection");
@@ -1045,7 +1045,7 @@ public class OrderTest extends BaseTest {
         plainBagel.contains("Warm"), "Plain Bagel: Wrong warm option: Expected Warm");
 
     softAssert.assertEquals(oatmeal.size(), 3, "Oatmeal: Wrong amount of options");
-    softAssert.assertTrue(oatmeal.contains("Qty: 3"), "Oatmeal: Wrong quantity: Expected Qty: 3");
+    softAssert.assertTrue(oatmeal.contains("Qty: 2"), "Oatmeal: Wrong quantity: Expected Qty: 2");
     softAssert.assertTrue(
         oatmeal.contains("Almonds (x2)"), "Oatmeal: Wrong topping option: Expected Almonds (x2)");
     softAssert.assertTrue(
