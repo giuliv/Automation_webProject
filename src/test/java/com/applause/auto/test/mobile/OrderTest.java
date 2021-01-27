@@ -653,6 +653,7 @@ public class OrderTest extends BaseTest {
     productDetailsView
         .selectSyrups()
         .selectSyrup("Vanilla Syrup")
+        .selectOption("Extra")
         .saveChanges(ProductDetailsView.class);
 
     productDetailsView.selectMilkPrep().chooseMilk("2% Milk").saveChanges(ProductDetailsView.class);
@@ -892,9 +893,9 @@ public class OrderTest extends BaseTest {
     softAssert.assertTrue(
         snowcap.contains("Shot Prep: Long Pull"),
         "Snowcap Iced Mint Matcha Latte have wrong shop prep: Shot Prep: Long Pull");
-    softAssert.assertTrue(
-        snowcap.contains("Milk Temp: Regular"),
-        "Snowcap Iced Mint Matcha Latte have wrong milk temp: Milk Temp: Regular");
+    //    softAssert.assertTrue(
+    //        snowcap.contains("Milk Temp: Regular"),
+    //        "Snowcap Iced Mint Matcha Latte have wrong milk temp: Milk Temp: Regular");
     softAssert.assertTrue(
         snowcap.contains("Foam: Regular Foam"),
         "Snowcap Iced Mint Matcha Latte have wrong foam: Foam: Regular Foam");
@@ -919,14 +920,13 @@ public class OrderTest extends BaseTest {
         blackTie.contains("Choose Milk: Nonfat Milk"),
         "The Black Tie have wrong milk: Nonfat Milk");
     softAssert.assertTrue(
-        blackTie.contains("Shot Prep: Long Pull"),
-        "The Black Tie have wrong shop prep: Shot Prep: Long Pull");
+        blackTie.contains("Shot Prep: Short Pull"),
+        "The Black Tie have wrong shop prep: Shot Prep: Short Pull");
+    //    softAssert.assertTrue(
+    //        blackTie.contains("Milk Temp: Regular"),
+    //        "The Black Tie have wrong milk temp: Milk Temp: Regular");
     softAssert.assertTrue(
-        blackTie.contains("Milk Temp: Regular"),
-        "The Black Tie have wrong milk temp: Milk Temp: Regular");
-    softAssert.assertTrue(
-        blackTie.contains("Foam: Regular Foam"),
-        "The Black Tie have wrong foam: Foam: Regular Foam");
+        blackTie.contains("Regular Ice"), "The Black Tie have wrong foam: Ice: Regular Ice");
     softAssert.assertTrue(
         blackTie.contains("Raw Sugar (x4)"), "The Black Tie have wrong raw sugar: Raw Sugar (x4)");
     softAssert.assertTrue(

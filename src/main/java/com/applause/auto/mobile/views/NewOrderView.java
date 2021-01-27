@@ -180,7 +180,7 @@ public class NewOrderView extends BaseComponent {
 
     getDeviceControl().tapElementCenter(getCategoryItem);
     getSyncHelper().sleep(2000);
-    getCategorySubItem.initializeWithFormat(category, subCategory);
+    getCategorySubItem.format(category, subCategory).initialize();
     getCategorySubItem.click();
   }
 
