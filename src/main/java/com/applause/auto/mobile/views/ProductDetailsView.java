@@ -10,8 +10,11 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
-import java.time.Duration;
+
 import org.openqa.selenium.NoSuchElementException;
+
+import java.time.Duration;
+import java.util.stream.IntStream;
 
 @Implementation(is = ProductDetailsView.class, on = Platform.MOBILE_IOS)
 @Implementation(is = AndroidProductDetailsView.class, on = Platform.MOBILE_ANDROID)
@@ -210,10 +213,20 @@ public class ProductDetailsView extends BaseComponent {
   }
 
   public ToppingsView selectToppings() {
+    int attempt = 5;
     try {
       selectToppingsButton.click();
     } catch (NoSuchElementException nse) {
-      MobileHelper.scrollDownCloseToMiddleAlgorithm();
+      IntStream.range(0, attempt)
+          .forEach(
+              i -> {
+                MobileHelper.scrollUpCloseToMiddleAlgorithm();
+              });
+      getSyncHelper().sleep(1000);
+      while (attempt++ > 0 && !selectToppingsButton.exists()) {
+        MobileHelper.scrollDownCloseToMiddleAlgorithm();
+        getSyncHelper().sleep(1000);
+      }
       selectToppingsButton.click();
     }
     return this.create(ToppingsView.class);
