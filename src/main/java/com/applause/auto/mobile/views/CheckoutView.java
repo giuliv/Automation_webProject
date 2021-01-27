@@ -204,9 +204,9 @@ public class CheckoutView extends BaseComponent {
     getSyncHelper().sleep(1000);
     while (attempt-- > 0 && !itemOptionsText.exists()) {
       MobileHelper.scrollDownCloseToMiddleAlgorithm();
-      getSyncHelper().sleep(1000);
     }
     getSyncHelper().sleep(1000);
+    itemOptionsText.format(itemName).initialize();
     List<String> result =
         new ArrayList<String>(Arrays.asList(itemOptionsText.getText().split("\n")));
     itemQtyText.format(itemName).initialize();

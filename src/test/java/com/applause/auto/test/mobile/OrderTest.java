@@ -855,9 +855,9 @@ public class OrderTest extends BaseTest {
     SoftAssert softAssert = new SoftAssert();
     softAssert.assertTrue(
         maple.contains("Large"), "Mapple Drink have wrong cup size: Large expected");
-    softAssert.assertTrue(
-        maple.contains("Maple Syrup: Regular"),
-        "Mapple Drink have wrong base syrup: Maple Syrup: Regular");
+    //    softAssert.assertTrue(
+    //        maple.contains("Maple Syrup: Regular"),
+    //        "Mapple Drink have wrong base syrup: Maple Syrup: Regular");
     softAssert.assertTrue(
         maple.contains("Vanilla Syrup"), "Mapple Drink have wrong syrup addon: Vanilla Syrup");
     softAssert.assertTrue(
