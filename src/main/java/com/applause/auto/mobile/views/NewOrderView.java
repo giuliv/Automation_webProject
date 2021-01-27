@@ -177,8 +177,7 @@ public class NewOrderView extends BaseComponent {
         getSyncHelper().sleep(1000);
       }
     }
-
-    getDeviceControl().tapElementCenter(getCategoryItem);
+    getCategoryItem.click();
     getSyncHelper().sleep(2000);
     getCategorySubItem.format(category, subCategory).initialize();
     getCategorySubItem.click();
@@ -389,6 +388,7 @@ public class NewOrderView extends BaseComponent {
 
   public NewOrderView addToOrders() {
     addToOrderButton.click();
+    getSyncHelper().sleep(2000);
     return this.create(NewOrderView.class);
   }
 
