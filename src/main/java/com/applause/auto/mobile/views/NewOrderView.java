@@ -172,7 +172,7 @@ public class NewOrderView extends BaseComponent {
                 MobileHelper.scrollUpCloseToMiddleAlgorithm();
               });
       getSyncHelper().sleep(1000);
-      while (attempt++ > 0 && !getCategoryItem.exists()) {
+      while (attempt-- > 0 && !getCategoryItem.exists()) {
         MobileHelper.scrollDownCloseToMiddleAlgorithm();
         getSyncHelper().sleep(1000);
       }
@@ -209,7 +209,7 @@ public class NewOrderView extends BaseComponent {
                 MobileHelper.scrollUpCloseToMiddleAlgorithm();
               });
       getSyncHelper().sleep(1000);
-      while (attempt++ > 0 && !getCategoryItem.exists()) {
+      while (attempt-- > 0 && !getCategoryItem.exists()) {
         MobileHelper.scrollDownCloseToMiddleAlgorithm();
         getSyncHelper().sleep(1000);
       }

@@ -223,7 +223,7 @@ public class ProductDetailsView extends BaseComponent {
                 MobileHelper.scrollUpCloseToMiddleAlgorithm();
               });
       getSyncHelper().sleep(1000);
-      while (attempt++ > 0 && !selectToppingsButton.exists()) {
+      while (attempt-- > 0 && !selectToppingsButton.exists()) {
         MobileHelper.scrollDownCloseToMiddleAlgorithm();
         getSyncHelper().sleep(1000);
       }
