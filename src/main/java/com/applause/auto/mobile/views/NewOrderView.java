@@ -198,8 +198,22 @@ public class NewOrderView extends BaseComponent {
    */
   public ProductDetailsView selectProduct(String category) {
     logger.info("Select product: " + category);
+    int attempt = 5;
     getCategoryItem.format(category);
-    getCategoryItem.initialize();
+    try {
+      getCategoryItem.initialize();
+    } catch (NoSuchElementException nse) {
+      IntStream.range(0, attempt)
+          .forEach(
+              i -> {
+                MobileHelper.scrollUpCloseToMiddleAlgorithm();
+              });
+      getSyncHelper().sleep(1000);
+      while (attempt++ > 0 && !getCategoryItem.exists()) {
+        MobileHelper.scrollDownCloseToMiddleAlgorithm();
+        getSyncHelper().sleep(1000);
+      }
+    }
     getDeviceControl().tapElementCenter(getCategoryItem);
     return this.create(ProductDetailsView.class);
   }
