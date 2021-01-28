@@ -102,6 +102,9 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button closeButton;
 
+  @Locate(id = "com.wearehathway.peets.development:id/order_button", on = Platform.MOBILE_ANDROID)
+  protected Button orderButton;
+
   @Locate(
       xpath =
           "//XCUIElementTypeMap/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther[@value='Store']",
@@ -166,12 +169,13 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
    *
    * @param searchTxt the search txt
    */
-  public void search(String searchTxt) {
+  public NearbySelectCoffeeBarView search(String searchTxt) {
     logger.info("Searching for store: " + searchTxt);
     logger.info("" + getDriver().getPageSource());
     getSearchTextBox.click();
     getSearchTextBox.initialize();
     getSearchTextBox.sendKeys(searchTxt + "\n");
+    return this.create(NearbySelectCoffeeBarView.class);
   }
 
   /** Allow Location Service. */
@@ -325,6 +329,12 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
     closeButton.click();
     return this.create(clazz);
   }
+
+  public NewOrderView openDefault() {
+    logger.info("Open default store");
+    orderButton.click();
+    return this.create(NewOrderView.class);
+  }
 }
 
 class AndroidNearbySelectCoffeeBarView extends NearbySelectCoffeeBarView {
@@ -339,7 +349,7 @@ class AndroidNearbySelectCoffeeBarView extends NearbySelectCoffeeBarView {
   }
 
   @Override
-  public void search(String searchTxt) {
+  public NearbySelectCoffeeBarView search(String searchTxt) {
     logger.info("Searching for store: " + searchTxt);
     getSearchTextBox.click();
     getSyncHelper()
@@ -348,5 +358,6 @@ class AndroidNearbySelectCoffeeBarView extends NearbySelectCoffeeBarView {
     getSyncHelper().sleep(2000);
     AppiumDriver driver = (AppiumDriver) getDriver();
     driver.executeScript("mobile: performEditorAction", ImmutableMap.of("action", "search"));
+    return this.create(NearbySelectCoffeeBarView.class);
   }
 }

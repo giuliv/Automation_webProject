@@ -616,9 +616,8 @@ public class OrderTest extends BaseTest {
             .getBottomNavigationMenu()
             .order(AllowLocationServicesPopupChunk.class)
             .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class)
-            .close(DashboardView.class)
-            .getBottomNavigationMenu()
-            .order(NewOrderView.class);
+            .search("94549")
+            .openDefault();
 
     logger.info("Step 1. Tap on Hot Coffee category to expand");
     logger.info("Expected 1. Sub-categories should expand downward");
@@ -631,7 +630,7 @@ public class OrderTest extends BaseTest {
     //////////////
 
     logger.info("Step 3. Select a beverage");
-    ProductDetailsView productDetailsView = orderView.selectProduct("Caffe Latte");
+    ProductDetailsView productDetailsView = orderView.selectProduct("Maple Latte");
 
     logger.info("Expected 3. User is taken to PDP");
     Assert.assertNotNull(productDetailsView, "PDP does not displayed");
@@ -653,7 +652,7 @@ public class OrderTest extends BaseTest {
     productDetailsView
         .selectSyrups()
         .selectSyrup("Vanilla Syrup")
-        .selectOption("Extra")
+        //        .selectOption("Extra")
         .saveChanges(ProductDetailsView.class);
 
     productDetailsView.selectMilkPrep().chooseMilk("2% Milk").saveChanges(ProductDetailsView.class);
@@ -815,30 +814,31 @@ public class OrderTest extends BaseTest {
     fabAmount = orderView.getFabAmount();
 
     logger.info("Step 14. Tap on the FAB");
-    orderView = orderView.checkoutAtom();
+    CheckoutView checkoutView = orderView.checkoutAtom(CheckoutView.class);
 
-    logger.info(
-        "Expected 14. User sees confirm coffeebar location UI alert:\n"
-            + ""
-            + "* Location pin icon"
-            + "* Title: Confirm Coffeebar"
-            + "* Text: [Coffeebar name]"
-            + "* [Button] Change [Button] Confirm");
-    Assert.assertTrue(
-        orderView.isChangeStoreButtonDisplayed(),
-        "User  does not sees confirm coffeebar location UI alert change button");
-    Assert.assertTrue(
-        orderView.isConfirmStoreButtonDisplayed(),
-        "User does not sees confirm coffeebar location UI alert confirm button");
-
-    logger.info("Step 15. Tap Confirm button");
-    CheckoutView checkoutView = orderView.confirmStore();
+    // disabled because we forcing change store on previous step
+    //    logger.info(
+    //        "Expected 14. User sees confirm coffeebar location UI alert:\n"
+    //            + ""
+    //            + "* Location pin icon"
+    //            + "* Title: Confirm Coffeebar"
+    //            + "* Text: [Coffeebar name]"
+    //            + "* [Button] Change [Button] Confirm");
+    //    Assert.assertTrue(
+    //        orderView.isChangeStoreButtonDisplayed(),
+    //        "User  does not sees confirm coffeebar location UI alert change button");
+    //    Assert.assertTrue(
+    //        orderView.isConfirmStoreButtonDisplayed(),
+    //        "User does not sees confirm coffeebar location UI alert confirm button");
+    //
+    //    logger.info("Step 15. Tap Confirm button");
+    //    CheckoutView checkoutView = orderView.confirmStore();
 
     logger.info("Expected 15. User is taken to checkout screen");
     Assert.assertNotNull(checkoutView, "User does not taken to checkout screen");
 
     logger.info("Step 15. Review beverage order details on checkout screen");
-    List<String> maple = checkoutView.getItemOptions("Caffe Latte");
+    List<String> maple = checkoutView.getItemOptions("Maple Latte");
     List<String> snowcap = checkoutView.getItemOptions("Snowcap Iced Mint Matcha Latte");
     List<String> blackTie = checkoutView.getItemOptions("The Black Tie");
 
@@ -856,12 +856,11 @@ public class OrderTest extends BaseTest {
     SoftAssert softAssert = new SoftAssert();
     softAssert.assertTrue(
         maple.contains("Large"), "Mapple Drink have wrong cup size: Large expected");
-    //    softAssert.assertTrue(
-    //        maple.contains("Maple Syrup: Regular"),
-    //        "Mapple Drink have wrong base syrup: Maple Syrup: Regular");
     softAssert.assertTrue(
-        maple.contains("Vanilla Syrup: Extra"),
-        "Mapple Drink have wrong syrup addon: Vanilla Syrup: Extra");
+        maple.contains("Maple Syrup: Regular"),
+        "Mapple Drink have wrong base syrup: Maple Syrup: Regular");
+    softAssert.assertTrue(
+        maple.contains("Vanilla Syrup"), "Mapple Drink have wrong syrup addon: Vanilla Syrup");
     softAssert.assertTrue(
         maple.contains("Choose Milk: 2% Milk"),
         "Mapple Drink have wrong milk: Choose Milk: 2% Milk");
@@ -880,34 +879,31 @@ public class OrderTest extends BaseTest {
     softAssert.assertTrue(maple.contains("Qty: 2"), "Mapple Drink have wrong Qty: Qty: 2");
 
     softAssert.assertTrue(
-        snowcap.contains("Small"),
-        "Snowcap Iced Mint Matcha Latte Drink have wrong cup size: Small expected");
+        snowcap.contains("Small"), "Snowcap Iced Mint Drink have wrong cup size: Small expected");
     softAssert.assertTrue(
         snowcap.contains("Peppermint Syrup: Regular"),
-        "Snowcap Iced Mint Matcha Latte have wrong base syrup: Peppermint Syrup: Regular");
+        "Snowcap Iced Mint have wrong base syrup: Peppermint Syrup: Regular");
     softAssert.assertTrue(
         snowcap.contains("Chocolate Sauce: Extra"),
-        "Snowcap Iced Mint Matcha Latte have wrong syrup addon: Chocolate Sauce: Extra");
+        "Snowcap Iced Mint have wrong syrup addon: Chocolate Sauce: Extra");
     softAssert.assertTrue(
         snowcap.contains("Choose Milk: Whole Milk"),
-        "Snowcap Iced Mint Matcha Latte have wrong milk: Choose Milk: Whole Milk");
+        "Snowcap Iced Mint have wrong milk: Choose Milk: Whole Milk");
     softAssert.assertTrue(
         snowcap.contains("Shot Prep: Long Pull"),
-        "Snowcap Iced Mint Matcha Latte have wrong shop prep: Shot Prep: Long Pull");
+        "Snowcap Iced Mint have wrong shop prep: Shot Prep: Long Pull");
     //    softAssert.assertTrue(
     //        snowcap.contains("Milk Temp: Regular"),
     //        "Snowcap Iced Mint Matcha Latte have wrong milk temp: Milk Temp: Regular");
     softAssert.assertTrue(
         snowcap.contains("Foam: Regular Foam"),
-        "Snowcap Iced Mint Matcha Latte have wrong foam: Foam: Regular Foam");
+        "Snowcap Iced Mint have wrong foam: Foam: Regular Foam");
     softAssert.assertTrue(
         snowcap.contains("Raw Sugar (x3)"),
-        "Snowcap Iced Mint Matcha Latte have wrong raw sugar: Raw Sugar (x3)");
-    //    softAssert.assertTrue(
-    //        snowcap.contains("Whipped Cream"),
-    //        "Snowcap Iced Mint Matcha Latte have wrong cream: Whipped Cream");
+        "Snowcap Iced Mint have wrong raw sugar: Raw Sugar (x3)");
     softAssert.assertTrue(
-        snowcap.contains("Qty: 2"), "Snowcap Iced Mint Matcha Latte have wrong Qty: 2");
+        snowcap.contains("Whipped Cream"), "Snowcap Iced Mint have wrong cream: Whipped Cream");
+    softAssert.assertTrue(snowcap.contains("Qty: 2"), "Snowcap Iced Mint have wrong Qty: 2");
 
     softAssert.assertTrue(
         blackTie.contains("Medium"), "The Black Tie Drink have wrong cup size: Medium expected");

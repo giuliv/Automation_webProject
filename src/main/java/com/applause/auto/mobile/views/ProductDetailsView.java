@@ -10,11 +10,9 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
-
-import org.openqa.selenium.NoSuchElementException;
-
 import java.time.Duration;
 import java.util.stream.IntStream;
+import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = ProductDetailsView.class, on = Platform.MOBILE_IOS)
 @Implementation(is = AndroidProductDetailsView.class, on = Platform.MOBILE_ANDROID)
