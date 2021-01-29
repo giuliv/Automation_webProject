@@ -201,7 +201,7 @@ public class CheckoutView extends BaseComponent {
               });
     }
 
-    while (attempt-- > 0 && !itemOptionsText.exists()) {
+    while (attempt-- > 0 && !itemOptionsText.exists() && itemOptionsText.isDisplayed()) {
       MobileHelper.scrollDownCloseToMiddleAlgorithm();
       getSyncHelper().sleep(1000);
     }
