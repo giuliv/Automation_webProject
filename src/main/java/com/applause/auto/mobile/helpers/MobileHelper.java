@@ -6,23 +6,7 @@ import com.applause.auto.integrations.helpers.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
 import com.applause.auto.pageobjectmodel.elements.Picker;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.TouchAction;
-import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.android.nativekey.AndroidKey;
-import io.appium.java_client.android.nativekey.KeyEvent;
-import io.appium.java_client.touch.WaitOptions;
-import io.appium.java_client.touch.offset.PointOption;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.lang.invoke.MethodHandles;
-import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
-import javax.imageio.ImageIO;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,6 +20,26 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.UnsupportedCommandException;
 import org.openqa.selenium.WebDriverException;
 import org.testng.Assert;
+
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.lang.invoke.MethodHandles;
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.imageio.ImageIO;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 
 public class MobileHelper extends SdkHelper {
 
@@ -176,8 +180,8 @@ public class MobileHelper extends SdkHelper {
       pStartY = 0.6;
       pEndY = -0.4;
     } else { // Android scrolls faster so the start and end must be gentler
-      pStartY = 0.60;
-      pEndY = 0.40;
+      pStartY = 0.50;
+      pEndY = 0.30;
     }
     scrollDownAlgorithm(0.1, pStartY, pEndY);
   }
@@ -189,8 +193,8 @@ public class MobileHelper extends SdkHelper {
       pStartY = 0.6;
       pEndY = -0.4;
     } else { // Android scrolls faster so the start and end must be gentler
-      pStartY = 0.40;
-      pEndY = 0.60;
+      pStartY = 0.50;
+      pEndY = 0.70;
     }
     scrollDownAlgorithm(0.1, pStartY, pEndY);
   }
