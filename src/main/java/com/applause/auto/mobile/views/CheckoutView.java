@@ -10,8 +10,6 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 
-import org.apache.commons.lang3.reflect.FieldUtils;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -194,7 +192,6 @@ public class CheckoutView extends BaseComponent {
   public List<String> getItemOptions(String itemName) {
     int attempt = 5;
     try {
-      FieldUtils.writeField(itemOptionsText, "underlying", null, true);
       itemOptionsText.format(itemName).initialize();
     } catch (Throwable th) {
       IntStream.range(0, attempt)
@@ -203,12 +200,11 @@ public class CheckoutView extends BaseComponent {
                 MobileHelper.scrollUpCloseToMiddleAlgorithm();
               });
     }
-    while (attempt-- > 0 && !itemOptionsText.exists()) {
+
+    while (attempt-- > 0 && !itemOptionsText.exists() && !itemOptionsText.isDisplayed()) {
       MobileHelper.scrollDownCloseToMiddleAlgorithm();
       getSyncHelper().sleep(1000);
     }
-    getSyncHelper().sleep(1000);
-    itemOptionsText.format(itemName).initialize();
     List<String> result =
         new ArrayList<String>(Arrays.asList(itemOptionsText.getText().split("\n")));
     itemQtyText.format(itemName).initialize();
