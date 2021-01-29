@@ -9,6 +9,9 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.LazyWebElement;
+
+import org.apache.commons.lang3.reflect.FieldUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -192,6 +195,9 @@ public class CheckoutView extends BaseComponent {
   public List<String> getItemOptions(String itemName) {
     int attempt = 5;
     try {
+      LazyWebElement oldElement =
+          (LazyWebElement) FieldUtils.readField(itemOptionsText, "element", true);
+      FieldUtils.writeField(oldElement, "underlying", null, true);
       itemOptionsText.format(itemName).initialize();
     } catch (Throwable th) {
       IntStream.range(0, attempt)
@@ -201,7 +207,7 @@ public class CheckoutView extends BaseComponent {
               });
     }
 
-    while (attempt-- > 0 && !itemOptionsText.exists() && !itemOptionsText.isDisplayed()) {
+    while (attempt-- > 0 && !itemOptionsText.isInitialized()) {
       MobileHelper.scrollDownCloseToMiddleAlgorithm();
       getSyncHelper().sleep(1000);
     }
