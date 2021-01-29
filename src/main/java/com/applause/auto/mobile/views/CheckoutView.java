@@ -190,18 +190,16 @@ public class CheckoutView extends BaseComponent {
   }
 
   public List<String> getItemOptions(String itemName) {
+    int attempt = 5;
     try {
       itemOptionsText.format(itemName).initialize();
     } catch (Throwable th) {
-
+      IntStream.range(0, attempt)
+          .forEach(
+              i -> {
+                MobileHelper.scrollUpCloseToMiddleAlgorithm();
+              });
     }
-    int attempt = 5;
-    IntStream.range(0, attempt)
-        .forEach(
-            i -> {
-              MobileHelper.scrollUpCloseToMiddleAlgorithm();
-            });
-    getSyncHelper().sleep(2000);
     while (attempt-- > 0 && !itemOptionsText.exists()) {
       MobileHelper.scrollDownCloseToMiddleAlgorithm();
       getSyncHelper().sleep(1000);

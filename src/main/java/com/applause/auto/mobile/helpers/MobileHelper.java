@@ -200,7 +200,7 @@ public class MobileHelper extends SdkHelper {
     int startY = (int) (size.getHeight() * pStartY);
     int endY = (int) (size.getHeight() * pEndY);
     startX = (int) (size.getWidth() * startX);
-    logger.info("Swiping Down...");
+    logger.info("Swiping startX:" + startX + " startY:" + pStartY + " end Y:" + endY);
     try {
       new TouchAction(getMobileDriver())
           .press(PointOption.point((int) startX, startY))
