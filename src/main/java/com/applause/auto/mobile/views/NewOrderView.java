@@ -10,9 +10,11 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
+
+import org.openqa.selenium.NoSuchElementException;
+
 import java.time.Duration;
 import java.util.stream.IntStream;
-import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = NewOrderView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosNewOrderView.class, on = Platform.MOBILE_IOS)
@@ -175,16 +177,19 @@ public class NewOrderView extends BaseComponent {
         getSyncHelper().sleep(1000);
       }
     }
+    getSyncHelper().sleep(1000);
     getCategoryItem.click();
     getSyncHelper().sleep(2000);
     getCategorySubItem.format(category, subCategory).initialize();
     getCategorySubItem.click();
+    getSyncHelper().sleep(1000);
   }
 
   public void selectSubCategoryUnderCategory(String category, String subCategory) {
     logger.info("Select sub-category: " + subCategory);
-    getCategorySubItem.initializeWithFormat(category, subCategory);
+    getCategorySubItem.format(category, subCategory);
     getCategorySubItem.click();
+    getSyncHelper().sleep(1000);
   }
 
   /**
@@ -211,6 +216,7 @@ public class NewOrderView extends BaseComponent {
         getSyncHelper().sleep(1000);
       }
     }
+    getSyncHelper().sleep(1000);
     getDeviceControl().tapElementCenter(getCategoryItem);
     return this.create(ProductDetailsView.class);
   }
