@@ -839,7 +839,9 @@ public class OrderTest extends BaseTest {
 
     logger.info("Step 15. Review beverage order details on checkout screen");
     List<String> maple = checkoutView.getItemOptions("Maple Latte");
+    checkoutView = checkoutView.refreshView();
     List<String> snowcap = checkoutView.getItemOptions("Snowcap Iced Mint Matcha Latte");
+    checkoutView = checkoutView.refreshView();
     List<String> blackTie = checkoutView.getItemOptions("The Black Tie");
 
     logger.info(
@@ -1030,7 +1032,7 @@ public class OrderTest extends BaseTest {
 
     logger.info("STEP 11. Review food order details on checkout screen");
     List<String> plainBagel = checkoutView.getItemOptions("Plain Bagel");
-    checkoutView = this.create(CheckoutView.class);
+    checkoutView = checkoutView.refreshView();
     List<String> oatmeal = checkoutView.getItemOptions("Oatmeal");
     logger.info(
         "EXPECTED 11. Make sure food customizations flow through correctly to checkout screen");

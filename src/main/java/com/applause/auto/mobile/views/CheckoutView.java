@@ -216,6 +216,10 @@ public class CheckoutView extends BaseComponent {
     return result;
   }
 
+  public CheckoutView refreshView() {
+    return this.create(CheckoutView.class);
+  }
+
   public NewOrderView close() {
     closeButton.click();
     return this.create(NewOrderView.class);
