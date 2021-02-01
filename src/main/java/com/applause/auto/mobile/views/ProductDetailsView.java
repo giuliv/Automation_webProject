@@ -11,6 +11,7 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import java.time.Duration;
+import java.util.stream.IntStream;
 import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = ProductDetailsView.class, on = Platform.MOBILE_IOS)
@@ -78,6 +79,16 @@ public class ProductDetailsView extends BaseComponent {
   protected Button selectShotOptionsButton;
 
   @Locate(
+      xpath = "//android.widget.TextView[starts-with(@text,'Warming')]",
+      on = Platform.MOBILE_ANDROID)
+  protected Button warmingButton;
+
+  @Locate(
+      xpath = "//android.widget.TextView[starts-with(@text,'Oatmeal Toppings')]",
+      on = Platform.MOBILE_ANDROID)
+  protected Button oatmealToppingsButton;
+
+  @Locate(
       xpath =
           "//android.widget.TextView[starts-with(@text,'Add Toppings') or starts-with(@text,'Toppings')]",
       on = Platform.MOBILE_ANDROID)
@@ -132,9 +143,9 @@ public class ProductDetailsView extends BaseComponent {
    */
   public ProductDetailsView selectModifiers(String category, String subCategory) {
     logger.info("Select category: " + category + " | " + subCategory);
-    getCategoryItem.initializeWithFormat(category);
+    getCategoryItem.format(category);
     getDeviceControl().tapElementCenter(getCategoryItem);
-    getCategoryItem.initializeWithFormat(subCategory);
+    getCategoryItem.format(subCategory);
     getDeviceControl().tapElementCenter(getCategoryItem);
     getSaveChangesButton.click();
     return this.create(ProductDetailsView.class);
@@ -175,6 +186,7 @@ public class ProductDetailsView extends BaseComponent {
 
   public void selectSize(String size) {
     sizeButton.format(size);
+    sizeButton.initialize();
     sizeButton.click();
   }
 
@@ -199,21 +211,32 @@ public class ProductDetailsView extends BaseComponent {
   }
 
   public ToppingsView selectToppings() {
+    int attempt = 5;
     try {
       selectToppingsButton.click();
     } catch (NoSuchElementException nse) {
-      MobileHelper.scrollDownCloseToMiddleAlgorithm();
+      IntStream.range(0, attempt)
+          .forEach(
+              i -> {
+                MobileHelper.scrollUpCloseToMiddleAlgorithm();
+              });
+      getSyncHelper().sleep(1000);
+      while (attempt-- > 0 && !selectToppingsButton.exists()) {
+        MobileHelper.scrollDownCloseToMiddleAlgorithm();
+        getSyncHelper().sleep(1000);
+      }
       selectToppingsButton.click();
     }
     return this.create(ToppingsView.class);
   }
 
-  public void selectQuantity(String quantity) {
+  public ProductDetailsView selectQuantity(String quantity) {
     getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
     int attempts = 3;
     while (!quantityText.getText().equals(quantity) && attempts-- > 0) {
       increaseQuantityButton.click();
     }
+    return this;
   }
 
   public SyrupsAndSaucesView selectSyrups() {
@@ -238,6 +261,18 @@ public class ProductDetailsView extends BaseComponent {
     String result = modifiersText.getText();
     logger.info("Modifiers for " + modifier + " found: " + result);
     return result;
+  }
+
+  public FoodWarmingView warming() {
+    logger.info("Select Warming");
+    warmingButton.click();
+    return this.create(FoodWarmingView.class);
+  }
+
+  public OatmealToppingsView selectOatmealToppings() {
+    logger.info("Select Oatmeal Toppings");
+    oatmealToppingsButton.click();
+    return this.create(OatmealToppingsView.class);
   }
 }
 

@@ -1,7 +1,5 @@
 package com.applause.auto.test.mobile;
 
-import static com.applause.auto.test.mobile.helpers.TestHelper.openOrderMenuForRecentCoffeeBar;
-
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.integrations.annotation.testidentification.ApplauseTestCaseId;
@@ -18,12 +16,17 @@ import com.applause.auto.mobile.views.OrderConfirmationView;
 import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.ProductDetailsView;
 import com.applause.auto.test.mobile.helpers.TestHelper;
-import java.lang.invoke.MethodHandles;
-import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
+import java.lang.invoke.MethodHandles;
+import java.util.List;
+
+import static com.applause.auto.test.mobile.helpers.TestHelper.openOrderMenuForRecentCoffeeBar;
 
 public class OrderTest extends BaseTest {
 
@@ -613,15 +616,18 @@ public class OrderTest extends BaseTest {
             .getBottomNavigationMenu()
             .order(AllowLocationServicesPopupChunk.class)
             .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class)
-            .close(DashboardView.class)
-            .getBottomNavigationMenu()
-            .order(NewOrderView.class);
+            .search("94549")
+            .openDefault();
 
     logger.info("Step 1. Tap on Hot Coffee category to expand");
     logger.info("Expected 1. Sub-categories should expand downward");
     logger.info("Step 2. Select sub-category Lattes");
     logger.info("Expected 2. Lattes menu should open up");
     orderView.selectCategoryAndSubCategory("Hot Coffee", "Lattes");
+
+    //////////////
+    //// Maple - Large - Vanilla Syrup - 2% Milk - Short Pull - Sugar 5 - Qty 2
+    //////////////
 
     logger.info("Step 3. Select a beverage");
     ProductDetailsView productDetailsView = orderView.selectProduct("Maple Latte");
@@ -646,6 +652,7 @@ public class OrderTest extends BaseTest {
     productDetailsView
         .selectSyrups()
         .selectSyrup("Vanilla Syrup")
+        //        .selectOption("Extra")
         .saveChanges(ProductDetailsView.class);
 
     productDetailsView.selectMilkPrep().chooseMilk("2% Milk").saveChanges(ProductDetailsView.class);
@@ -663,8 +670,6 @@ public class OrderTest extends BaseTest {
     productDetailsView.selectToppings().setWhippedCream().saveChanges(ProductDetailsView.class);
 
     productDetailsView.selectQuantity("2");
-
-    String[] modifier = productDetailsView.getModifies("Syrups & Sauces").split("\n");
 
     logger.info(
         "Expected 4. f applicable:\n"
@@ -681,6 +686,12 @@ public class OrderTest extends BaseTest {
         "Expected 5. User is returned to main order screen and item added to order appears in the FAB (floating action button) with the correct quantity displayed in the cup icon");
     String fabAmount = orderView.getFabAmount();
 
+    //////////////
+    //// Snowcap Iced Mint Matcha Latte - Small - Chocolate Sauce: Extra - Whole Milk - Long Pull -
+    // Sugar 3 -
+    // Qty 3
+    //////////////
+
     logger.info("Step 6. Swipe through Seasonal Favorites category and select a beverage");
     orderView.selectSeasonalFavorites("Snowcap Iced Mint Matcha Latte");
     logger.info("Expected 6. User is taken to PDP");
@@ -696,30 +707,32 @@ public class OrderTest extends BaseTest {
             + "* Quantity ");
     defaultSize = productDetailsView.getSize();
     cost = productDetailsView.getCost();
-    productDetailsView.selectSize("Large");
+    productDetailsView.selectSize("Small");
     productDetailsView
         .selectSyrups()
-        .selectSyrup("Vanilla Syrup")
-        .selectOption("Light")
+        .selectSyrup("Chocolate Sauce")
+        .selectOption("Extra")
         .saveChanges(ProductDetailsView.class);
 
-    productDetailsView.selectMilkPrep().chooseMilk("2% Milk").saveChanges(ProductDetailsView.class);
+    productDetailsView
+        .selectMilkPrep()
+        .chooseMilk("Whole Milk")
+        .saveChanges(ProductDetailsView.class);
 
     productDetailsView
         .selectShotOptions()
-        .selectShotPrep("Short Pull")
+        .selectShotPrep("Long Pull")
         .saveChanges(ProductDetailsView.class);
 
     productDetailsView
         .selectSweeteners()
-        .setRawSugarAmount("5")
+        .setRawSugarAmount("3")
         .saveChanges(ProductDetailsView.class);
 
-    productDetailsView.selectToppings().setWhippedCream().saveChanges(ProductDetailsView.class);
+    // Disabled because not available
+    // productDetailsView.selectToppings().setWhippedCream().saveChanges(ProductDetailsView.class);
 
     productDetailsView.selectQuantity("2");
-
-    modifier = productDetailsView.getModifies("Syrups & Sauces").split("\n");
 
     logger.info(
         "Expected 7. User should be able to select and save different modifiers and it should be reflected on the PDP under the modifier selection");
@@ -740,6 +753,12 @@ public class OrderTest extends BaseTest {
         "Expected 10. Make sure FAB is displayed on sub-category screen and shows correct quantity of item(s) previously added to order");
     fabAmount = orderView.getFabAmount();
 
+    //////////////
+    //// The Black Tie - Medium - Coconut Syrup: No - Nonfat Milk - Long Pull -
+    // Sugar 4 -
+    // Qty 4
+    //////////////
+
     logger.info("Step 11. Select a beverage");
     productDetailsView = orderView.selectProduct("The Black Tie");
 
@@ -758,14 +777,17 @@ public class OrderTest extends BaseTest {
             + "* Quantity");
     defaultSize = productDetailsView.getSize();
     cost = productDetailsView.getCost();
-    productDetailsView.selectSize("Large");
+    productDetailsView.selectSize("Medium");
     productDetailsView
         .selectSyrups()
-        .selectSyrup("Vanilla Syrup")
-        .selectOption("Light")
+        .selectSyrup("Coconut Syrup")
+        .selectOption("No")
         .saveChanges(ProductDetailsView.class);
 
-    productDetailsView.selectMilkPrep().chooseMilk("2% Milk").saveChanges(ProductDetailsView.class);
+    productDetailsView
+        .selectMilkPrep()
+        .chooseMilk("Nonfat Milk")
+        .saveChanges(ProductDetailsView.class);
 
     productDetailsView
         .selectShotOptions()
@@ -774,14 +796,12 @@ public class OrderTest extends BaseTest {
 
     productDetailsView
         .selectSweeteners()
-        .setRawSugarAmount("5")
+        .setRawSugarAmount("4")
         .saveChanges(ProductDetailsView.class);
 
     productDetailsView.selectToppings().setWhippedCream().saveChanges(ProductDetailsView.class);
 
     productDetailsView.selectQuantity("2");
-
-    modifier = productDetailsView.getModifies("Syrups & Sauces").split("\n");
 
     logger.info(
         "Expected 12. User should be able to select and save different modifiers and it should be reflected on the PDP under the modifier selection");
@@ -794,41 +814,243 @@ public class OrderTest extends BaseTest {
     fabAmount = orderView.getFabAmount();
 
     logger.info("Step 14. Tap on the FAB");
-    orderView = orderView.checkoutAtom();
+    CheckoutView checkoutView = orderView.checkoutAtom(CheckoutView.class);
 
-    logger.info(
-        "Expected 14. User sees confirm coffeebar location UI alert:\n"
-            + ""
-            + "* Location pin icon"
-            + "* Title: Confirm Coffeebar"
-            + "* Text: [Coffeebar name]"
-            + "* [Button] Change [Button] Confirm");
-    Assert.assertTrue(
-        orderView.isChangeStoreButtonDisplayed(),
-        "User  does not sees confirm coffeebar location UI alert change button");
-    Assert.assertTrue(
-        orderView.isConfirmStoreButtonDisplayed(),
-        "User does not sees confirm coffeebar location UI alert confirm button");
-
-    logger.info("Step 15. Tap Confirm button");
-    CheckoutView checkoutView = orderView.confirmStore();
+    // disabled because we forcing change store on previous step
+    //    logger.info(
+    //        "Expected 14. User sees confirm coffeebar location UI alert:\n"
+    //            + ""
+    //            + "* Location pin icon"
+    //            + "* Title: Confirm Coffeebar"
+    //            + "* Text: [Coffeebar name]"
+    //            + "* [Button] Change [Button] Confirm");
+    //    Assert.assertTrue(
+    //        orderView.isChangeStoreButtonDisplayed(),
+    //        "User  does not sees confirm coffeebar location UI alert change button");
+    //    Assert.assertTrue(
+    //        orderView.isConfirmStoreButtonDisplayed(),
+    //        "User does not sees confirm coffeebar location UI alert confirm button");
+    //
+    //    logger.info("Step 15. Tap Confirm button");
+    //    CheckoutView checkoutView = orderView.confirmStore();
 
     logger.info("Expected 15. User is taken to checkout screen");
     Assert.assertNotNull(checkoutView, "User does not taken to checkout screen");
 
     logger.info("Step 15. Review beverage order details on checkout screen");
     List<String> maple = checkoutView.getItemOptions("Maple Latte");
+    checkoutView = checkoutView.refreshView();
     List<String> snowcap = checkoutView.getItemOptions("Snowcap Iced Mint Matcha Latte");
+    checkoutView = checkoutView.refreshView();
     List<String> blackTie = checkoutView.getItemOptions("The Black Tie");
 
     logger.info(
         "Expected 15. Make sure beverage customizations flow through correctly to checkout screen");
+    //////////////
+    //// Maple - Large - Vanilla Syrup - 2% Milk - Short Pull - Sugar 5 - Qty 2
+    //// Snowcap Iced Mint Matcha Latte - Small - Chocolate Sauce: Extra - Whole Milk - Long Pull -
+    // Sugar 3 -
+    // Qty 3
+    //// The Black Tie - Medium - Coconut Syrup: No - Nonfat Milk - Long Pull -
+    // Sugar 4 -
+    // Qty 4
+    //////////////
+    SoftAssert softAssert = new SoftAssert();
+    softAssert.assertTrue(
+        maple.contains("Large"), "Mapple Drink have wrong cup size: Large expected");
+    softAssert.assertTrue(
+        maple.contains("Maple Syrup: Regular"),
+        "Mapple Drink have wrong base syrup: Maple Syrup: Regular");
+    softAssert.assertTrue(
+        maple.contains("Vanilla Syrup"), "Mapple Drink have wrong syrup addon: Vanilla Syrup");
+    softAssert.assertTrue(
+        maple.contains("Choose Milk: 2% Milk"),
+        "Mapple Drink have wrong milk: Choose Milk: 2% Milk");
+    softAssert.assertTrue(
+        maple.contains("Shot Prep: Short Pull"),
+        "Mapple Drink have wrong shop prep: Shot Prep: Short Pull");
+    softAssert.assertTrue(
+        maple.contains("Milk Temp: Regular"),
+        "Mapple Drink have wrong milk temp: Milk Temp: Regular");
+    softAssert.assertTrue(
+        maple.contains("Foam: Regular Foam"), "Mapple Drink have wrong foam: Foam: Regular Foam");
+    softAssert.assertTrue(
+        maple.contains("Raw Sugar (x5)"), "Mapple Drink have wrong raw sugar: Raw Sugar (x5)");
+    softAssert.assertTrue(
+        maple.contains("Whipped Cream"), "Mapple Drink have wrong cream: Whipped Cream");
+    softAssert.assertTrue(maple.contains("Qty: 2"), "Mapple Drink have wrong Qty: Qty: 2");
 
+    softAssert.assertTrue(
+        snowcap.contains("Small"), "Snowcap Iced Mint Drink have wrong cup size: Small expected");
+    softAssert.assertTrue(
+        snowcap.contains("Peppermint Syrup: Regular"),
+        "Snowcap Iced Mint have wrong base syrup: Peppermint Syrup: Regular");
+    softAssert.assertTrue(
+        snowcap.contains("Chocolate Sauce: Extra"),
+        "Snowcap Iced Mint have wrong syrup addon: Chocolate Sauce: Extra");
+    softAssert.assertTrue(
+        snowcap.contains("Choose Milk: Whole Milk"),
+        "Snowcap Iced Mint have wrong milk: Choose Milk: Whole Milk");
+    softAssert.assertTrue(
+        snowcap.contains("Shot Prep: Long Pull"),
+        "Snowcap Iced Mint have wrong shop prep: Shot Prep: Long Pull");
+    //    softAssert.assertTrue(
+    //        snowcap.contains("Milk Temp: Regular"),
+    //        "Snowcap Iced Mint Matcha Latte have wrong milk temp: Milk Temp: Regular");
+    softAssert.assertTrue(
+        snowcap.contains("Foam: Regular Foam"),
+        "Snowcap Iced Mint have wrong foam: Foam: Regular Foam");
+    softAssert.assertTrue(
+        snowcap.contains("Raw Sugar (x3)"),
+        "Snowcap Iced Mint have wrong raw sugar: Raw Sugar (x3)");
+    softAssert.assertTrue(
+        snowcap.contains("Whipped Cream"), "Snowcap Iced Mint have wrong cream: Whipped Cream");
+    softAssert.assertTrue(snowcap.contains("Qty: 2"), "Snowcap Iced Mint have wrong Qty: 2");
+
+    softAssert.assertTrue(
+        blackTie.contains("Medium"), "The Black Tie Drink have wrong cup size: Medium expected");
+    softAssert.assertTrue(
+        blackTie.contains("Chicory Syrup: Regular"),
+        "The Black Tie have wrong base syrup: Chicory Syrup: Regular");
+    softAssert.assertTrue(
+        blackTie.contains("Coconut Syrup: No"),
+        "The Black Tie have wrong syrup addon: Coconut Syrup: No");
+    softAssert.assertTrue(
+        blackTie.contains("Choose Milk: Nonfat Milk"),
+        "The Black Tie have wrong milk: Nonfat Milk");
+    softAssert.assertTrue(
+        blackTie.contains("Shot Prep: Short Pull"),
+        "The Black Tie have wrong shop prep: Shot Prep: Short Pull");
+    //    softAssert.assertTrue(
+    //        blackTie.contains("Milk Temp: Regular"),
+    //        "The Black Tie have wrong milk temp: Milk Temp: Regular");
+    softAssert.assertTrue(
+        blackTie.contains("Regular Ice"), "The Black Tie have wrong foam: Ice: Regular Ice");
+    softAssert.assertTrue(
+        blackTie.contains("Raw Sugar (x4)"), "The Black Tie have wrong raw sugar: Raw Sugar (x4)");
+    softAssert.assertTrue(
+        blackTie.contains("Whipped Cream"), "The Black Tie have wrong cream: Whipped Cream");
+    softAssert.assertTrue(blackTie.contains("Qty: 2"), "The Black Tie have wrong Qty: 2");
+    softAssert.assertAll();
     logger.info(
         "Step 16. Tap X at top left corner of Checkout screen to return to main order screen");
     orderView = checkoutView.close();
 
     logger.info("Expected 16. User is taken back to main order screen");
     Assert.assertNotNull(orderView, "User does not taken back to main order screen");
+  }
+
+  @Test(
+      groups = {TestNGGroups.ORDER, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
+      description = "625892",
+      enabled = true)
+  public void customizeOrderFoodTest() {
+    logger.info(
+        "User is already signed in to app\n"
+            + "User is on main order screen and pickup order mode is default selected\n"
+            + "User continues this test case from previous test case (so user will have items added to order already)");
+    customizeOrderBeveragesTest();
+    NewOrderView orderView = this.create(NewOrderView.class);
+    logger.info("STEP 1. Tap on Food category to expand");
+    logger.info("STEP 2. Select sub-category Baked Goods");
+    orderView.selectCategoryAndSubCategory("Food", "Baked Goods");
+
+    logger.info("EXPECTED 1. Sub-categories should expand downward");
+    logger.info(
+        "EXPECTED 2. Make sure FAB is displayed on sub-category screen and shows correct quantity of item(s)");
+    logger.info("EXPECTED 2. User is taken to Baked Goods Menu");
+
+    logger.info("STEP 3. Select any baked goods item");
+    ProductDetailsView productDetailsView = orderView.selectProduct("Plain Bagel");
+
+    logger.info("EXPECTED 3. User is taken to PDP");
+    Assert.assertNotNull(productDetailsView, " User does not taken to PDP");
+
+    logger.info(
+        "STEP 4. Scroll down PDP and customize item by selecting modifiers:\n"
+            + "* Warm"
+            + "* Quantity");
+    productDetailsView =
+        productDetailsView
+            .warming()
+            .warm()
+            .saveChanges(ProductDetailsView.class)
+            .selectQuantity("2");
+    logger.info(
+        "EXPECTED 4. User should be able to select warm modifier and it should be reflected on the PDP under the modifier selection");
+
+    logger.info("STEP 5. Tap Add to Order button");
+    orderView = productDetailsView.addToOrder(NewOrderView.class);
+
+    logger.info(
+        "EXPECTED 5. User is returned to main order screen and the FAB updates with the correct quantity of item(s)");
+    Assert.assertNotNull(orderView, "User does not returned to main order screen");
+    logger.info(
+        "EXPECTED 5. User should also feel haptics feedback on device as item is added to basket");
+
+    logger.info("STEP 6. Select sub-category Warm Breakfast");
+    orderView.selectSubCategoryUnderCategory("Food", "Warm Breakfast");
+
+    logger.info(
+        "EXPECTED 6. Make sure FAB is displayed on sub-category screen and shows correct quantity of item(s)");
+    logger.info("EXPECTED 6. User is taken to Warm Breakfast menu");
+
+    logger.info("STEP 7. Select any warm breakfast item");
+    productDetailsView = orderView.selectProduct("Oatmeal");
+
+    logger.info("EXPECTED 7. User is taken to PDP");
+    Assert.assertNotNull(productDetailsView, "User does not taken to PDP");
+
+    logger.info(
+        "STEP 8. Scroll down PDP and customize item by selecting modifiers (where applicable based on item selected):\n"
+            + "* Oatmeal toppings"
+            + "* Quantity");
+    productDetailsView =
+        productDetailsView
+            .selectOatmealToppings()
+            .decreaseCount("Brown Sugar", "0")
+            .incereaseCount("Almonds", "2")
+            .saveChanges(ProductDetailsView.class)
+            .selectQuantity("2");
+
+    logger.info(
+        "EXPECTED 8. User should be able to select modifier and it should be reflected on the PDP under the modifier selection");
+
+    logger.info("STEP 9. Tap Add to Order button");
+    orderView = productDetailsView.addToOrder(NewOrderView.class);
+    logger.info(
+        "EXPECTED 9. User is returned to main order screen and the FAB updates with the correct quantity of item(s)");
+    Assert.assertNotNull(orderView, "User does not returned to main order screen");
+    logger.info(
+        "EXPECTED 9. User should also feel haptics feedback on device as item is added to basket");
+
+    logger.info("STEP 10. Tap on the FAB");
+    CheckoutView checkoutView = orderView.checkoutAtom(CheckoutView.class);
+
+    logger.info("EXPECTED 10. User is taken to checkout screen");
+    Assert.assertNotNull(checkoutView, "User does not returned to checkout screen");
+
+    logger.info("STEP 11. Review food order details on checkout screen");
+    List<String> plainBagel = checkoutView.getItemOptions("Plain Bagel");
+    checkoutView = checkoutView.refreshView();
+    List<String> oatmeal = checkoutView.getItemOptions("Oatmeal");
+    logger.info(
+        "EXPECTED 11. Make sure food customizations flow through correctly to checkout screen");
+    SoftAssert softAssert = new SoftAssert();
+    softAssert.assertEquals(plainBagel.size(), 2, "Plain Bagel: Wrong amount of options");
+    softAssert.assertTrue(
+        plainBagel.contains("Qty: 2"), "Plain Bagel: Wrong quantity: Expected Qty:2");
+    softAssert.assertTrue(
+        plainBagel.contains("Warm"), "Plain Bagel: Wrong warm option: Expected Warm");
+
+    softAssert.assertEquals(oatmeal.size(), 3, "Oatmeal: Wrong amount of options");
+    softAssert.assertTrue(oatmeal.contains("Qty: 2"), "Oatmeal: Wrong quantity: Expected Qty: 2");
+    softAssert.assertTrue(
+        oatmeal.contains("Almonds (x2)"), "Oatmeal: Wrong topping option: Expected Almonds (x2)");
+    softAssert.assertTrue(
+        oatmeal.contains("Wild Blueberries"),
+        "Oatmeal: Wrong topping option: Expected Wild Blueberries");
+
+    softAssert.assertAll();
   }
 }

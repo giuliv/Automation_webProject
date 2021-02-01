@@ -176,8 +176,8 @@ public class MobileHelper extends SdkHelper {
       pStartY = 0.6;
       pEndY = -0.4;
     } else { // Android scrolls faster so the start and end must be gentler
-      pStartY = 0.60;
-      pEndY = 0.40;
+      pStartY = 0.50;
+      pEndY = 0.30;
     }
     scrollDownAlgorithm(0.1, pStartY, pEndY);
   }
@@ -189,8 +189,8 @@ public class MobileHelper extends SdkHelper {
       pStartY = 0.6;
       pEndY = -0.4;
     } else { // Android scrolls faster so the start and end must be gentler
-      pStartY = 0.40;
-      pEndY = 0.60;
+      pStartY = 0.50;
+      pEndY = 0.70;
     }
     scrollDownAlgorithm(0.1, pStartY, pEndY);
   }
@@ -200,7 +200,7 @@ public class MobileHelper extends SdkHelper {
     int startY = (int) (size.getHeight() * pStartY);
     int endY = (int) (size.getHeight() * pEndY);
     startX = (int) (size.getWidth() * startX);
-    logger.info("Swiping Down...");
+    logger.info("Swiping startX:" + startX + " startY:" + pStartY + " end Y:" + pEndY);
     try {
       new TouchAction(getMobileDriver())
           .press(PointOption.point((int) startX, startY))

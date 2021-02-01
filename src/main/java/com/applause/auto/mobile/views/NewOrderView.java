@@ -11,6 +11,8 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import java.time.Duration;
+import java.util.stream.IntStream;
+import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = NewOrderView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosNewOrderView.class, on = Platform.MOBILE_IOS)
@@ -158,11 +160,34 @@ public class NewOrderView extends BaseComponent {
    */
   public void selectCategoryAndSubCategory(String category, String subCategory) {
     logger.info("Select category: " + category);
-    getCategoryItem.initializeWithFormat(category);
-    getDeviceControl().tapElementCenter(getCategoryItem);
+    int attempt = 5;
+    try {
+      getCategoryItem.format(category).initialize();
+    } catch (NoSuchElementException nse) {
+      IntStream.range(0, attempt)
+          .forEach(
+              i -> {
+                MobileHelper.scrollUpCloseToMiddleAlgorithm();
+              });
+      getSyncHelper().sleep(1000);
+      while (attempt-- > 0 && !getCategoryItem.exists()) {
+        MobileHelper.scrollDownCloseToMiddleAlgorithm();
+        getSyncHelper().sleep(1000);
+      }
+    }
+    getSyncHelper().sleep(1000);
+    getCategoryItem.click();
     getSyncHelper().sleep(2000);
-    getCategorySubItem.initializeWithFormat(category, subCategory);
+    getCategorySubItem.format(category, subCategory).initialize();
     getCategorySubItem.click();
+    getSyncHelper().sleep(1000);
+  }
+
+  public void selectSubCategoryUnderCategory(String category, String subCategory) {
+    logger.info("Select sub-category: " + subCategory);
+    getCategorySubItem.format(category, subCategory);
+    getCategorySubItem.click();
+    getSyncHelper().sleep(1000);
   }
 
   /**
@@ -173,8 +198,23 @@ public class NewOrderView extends BaseComponent {
    */
   public ProductDetailsView selectProduct(String category) {
     logger.info("Select product: " + category);
+    int attempt = 5;
     getCategoryItem.format(category);
-    getCategoryItem.initialize();
+    try {
+      getCategoryItem.initialize();
+    } catch (NoSuchElementException nse) {
+      IntStream.range(0, attempt)
+          .forEach(
+              i -> {
+                MobileHelper.scrollUpCloseToMiddleAlgorithm();
+              });
+      getSyncHelper().sleep(1000);
+      while (attempt-- > 0 && !getCategoryItem.exists()) {
+        MobileHelper.scrollDownCloseToMiddleAlgorithm();
+        getSyncHelper().sleep(1000);
+      }
+    }
+    getSyncHelper().sleep(1000);
     getDeviceControl().tapElementCenter(getCategoryItem);
     return this.create(ProductDetailsView.class);
   }
@@ -215,6 +255,19 @@ public class NewOrderView extends BaseComponent {
     logger.info("Tap on Cart button");
     getCartButton.click();
     return this;
+  }
+
+  /**
+   * Checkout atom t.
+   *
+   * @param <T> the type parameter
+   * @param clazz the clazz
+   * @return the t
+   */
+  public <T extends BaseComponent> T checkoutAtom(Class<T> clazz) {
+    logger.info("Tap on Cart button");
+    getCartButton.click();
+    return this.create(clazz);
   }
 
   public CheckoutView confirmStore() {
@@ -337,6 +390,7 @@ public class NewOrderView extends BaseComponent {
 
   public NewOrderView addToOrders() {
     addToOrderButton.click();
+    getSyncHelper().sleep(2000);
     return this.create(NewOrderView.class);
   }
 
@@ -345,7 +399,11 @@ public class NewOrderView extends BaseComponent {
   }
 
   public ProductDetailsView selectSeasonalFavorites(String name) {
-    MobileHelper.scrollUpCloseToMiddleAlgorithm();
+    IntStream.range(0, 5)
+        .forEach(
+            i -> {
+              MobileHelper.scrollUpCloseToMiddleAlgorithm();
+            });
     seasonalFavoriteProductItemText.format(name).click();
     return this.create(ProductDetailsView.class);
   }
