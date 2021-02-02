@@ -236,7 +236,7 @@ public class FindACoffeeBarTest extends BaseTest {
         allowLocationServicesPopupChunk.allowIfRequestDisplayed();
 
     logger.info("STEP - Search for any store either by nearby, recent tabs, or by zip code");
-    nearbySelectCoffeeBarView.search("94608");
+    nearbySelectCoffeeBarView.search("94549");
 
     logger.info("STEP - Tap on the store location card to view store details screen");
     CoffeeStoreContainerChuck coffeeStore =
