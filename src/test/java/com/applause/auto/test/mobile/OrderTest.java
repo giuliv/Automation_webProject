@@ -386,6 +386,20 @@ public class OrderTest extends BaseTest {
     LandingView landingView = this.create(LandingView.class);
     DashboardView dashboardView = testHelper.createNewAccountWithDefaults(landingView);
 
+    if (getEnvironmentHelper().isMobileIOS()) {
+      AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
+          dashboardView
+              .getBottomNavigationMenu()
+              .order(AllowLocationServicesPopupChunk.class)
+              .allowIfRequestDisplayed(OrderView.class)
+              .locateCoffeebars(AllowLocationServicesPopupChunk.class);
+      NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
+          allowLocationServicesPopupChunk.allowIfRequestDisplayed();
+
+      logger.info("STEP - Search for any store either by nearby, recent tabs, or by zip code");
+      nearbySelectCoffeeBarView.search("94549");
+    }
+
     NewOrderView order =
         dashboardView
             .getBottomNavigationMenu()
