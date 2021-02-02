@@ -112,8 +112,7 @@ public class StoreDetailsView extends BaseComponent {
    */
   public List<String> getResults() {
     logger.info("Looking for results");
-    return getSearchResultsElements
-        .stream()
+    return getSearchResultsElements.stream()
         .map(item -> item.getText())
         .collect(Collectors.toList());
   }
@@ -167,8 +166,8 @@ public class StoreDetailsView extends BaseComponent {
    * @return the coffeebar sub header name
    */
   public String getCoffeebarSubHeaderName() {
-    logger.info("Checking coffeebar sub-header name");
     getSyncHelper().sleep(10000);
+    logger.info("Checking coffeebar sub-header name:" + coffeebarSubHeaderNameText.getText());
     return coffeebarSubHeaderNameText.getText();
   }
 

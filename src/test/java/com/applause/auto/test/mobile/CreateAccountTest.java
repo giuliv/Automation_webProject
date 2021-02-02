@@ -1,5 +1,6 @@
 package com.applause.auto.test.mobile;
 
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
@@ -276,11 +277,10 @@ public class CreateAccountTest extends BaseTest {
     SignInView signInView = landingView.signIn();
 
     logger.info("Tap on Email Address field and enter valid email address");
-    String username = "a+test625927@a.com";
-    signInView.setUsername(username);
+    signInView.setUsername(Constants.MyAccountTestData.EMAIL);
 
     logger.info("Enter valid password");
-    signInView.setPassword(TestData.PASSWORD);
+    signInView.setPassword(Constants.MyAccountTestData.PASSWORD);
 
     logger.info("Tap Sign In button");
     DashboardView dashboardView = signInView.signIn();
