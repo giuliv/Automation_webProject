@@ -522,6 +522,11 @@ public class OrderTest extends BaseTest {
     Assert.assertTrue(
         nearbySelectCoffeeBarView.isFavoritesTabDisplayed(), "Favorites does not displayed");
 
+    if (getEnvironmentHelper().isMobileIOS()) {
+      logger.info("STEP - Search for any store either by nearby, recent tabs, or by zip code");
+      nearbySelectCoffeeBarView = nearbySelectCoffeeBarView.search("94608");
+    }
+
     CoffeeStoreItemChuck store = nearbySelectCoffeeBarView.getCoffeeStoreContainerChucks().get(0);
 
     // TODO Order button related to working hours
