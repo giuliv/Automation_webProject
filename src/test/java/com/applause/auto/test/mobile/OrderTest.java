@@ -387,14 +387,9 @@ public class OrderTest extends BaseTest {
     DashboardView dashboardView = testHelper.createNewAccountWithDefaults(landingView);
 
     if (getEnvironmentHelper().isMobileIOS()) {
-      AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
-          dashboardView
-              .getBottomNavigationMenu()
-              .order(AllowLocationServicesPopupChunk.class)
-              .allowIfRequestDisplayed(OrderView.class)
-              .locateCoffeebars(AllowLocationServicesPopupChunk.class);
+      logger.info("Tap on store locator icon in top right corner");
       NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
-          allowLocationServicesPopupChunk.allowIfRequestDisplayed();
+          dashboardView.location(AllowLocationServicesPopupChunk.class).allowIfRequestDisplayed();
 
       logger.info("STEP - Search for any store either by nearby, recent tabs, or by zip code");
       nearbySelectCoffeeBarView.search("94549");
