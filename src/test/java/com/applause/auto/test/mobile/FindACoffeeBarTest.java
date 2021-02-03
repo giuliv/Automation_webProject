@@ -81,6 +81,9 @@ public class FindACoffeeBarTest extends BaseTest {
         storeDetails.getCoffeebarSubHeaderName().length() > 0,
         "Sub header: [Coffeebar Name] does not displayed");
 
+    logger.info("Add store to favorites");
+    storeDetails.tapFavorite();
+
     logger.info(
         "VERIFY - Heart icon for user to mark favorite store at top right corner (if it's marked favorite, the heart is filled in red; if it's not marked favorite, the heart is outlined in gold)");
     Assert.assertTrue(
