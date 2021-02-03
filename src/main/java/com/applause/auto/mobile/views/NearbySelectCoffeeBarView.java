@@ -30,6 +30,12 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   protected ContainerElement getSignature;
 
   @Locate(
+      xpath = "//XCUIElementTypeNavigationBar[@name=\"FIND A COFFEEBAR\"]",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/storeContainer", on = Platform.MOBILE_ANDROID)
+  protected ContainerElement getSignatureForFindCoffee;
+
+  @Locate(
       xpath =
           "//XCUIElementTypeStaticText[@name=\"Enter Zip or City, State\"]/following-sibling::XCUIElementTypeImage",
       on = Platform.MOBILE_IOS)
@@ -142,8 +148,18 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
     } catch (Throwable throwable) {
       logger.info("No free delivery popup found");
     }
-    getSyncHelper()
-        .wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
+
+    try {
+      getSyncHelper()
+          .wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
+    } catch (Throwable throwable) {
+      getSyncHelper()
+          .wait(
+              Until.uiElement(getSignatureForFindCoffee)
+                  .present()
+                  .setTimeout(Duration.ofSeconds(45)));
+      logger.info("You are on Find CoffeeBar Section");
+    }
   }
 
   /**
