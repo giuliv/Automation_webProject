@@ -23,11 +23,18 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(
-      xpath = "//XCUIElementTypeButton[(@name='ORDER' or @name='Order') and @visible='true']",
-      on = Platform.MOBILE_IOS)
+  //  @Locate(
+  //      xpath = "//XCUIElementTypeButton[(@name='ORDER' or @name='Order') and @visible='true']",
+  //      on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeNavigationBar[@name=\"ORDER\"]", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/storeContainer", on = Platform.MOBILE_ANDROID)
   protected ContainerElement getSignature;
+
+  @Locate(
+      xpath = "//XCUIElementTypeNavigationBar[@name=\"FIND A COFFEEBAR\"]",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/storeContainer", on = Platform.MOBILE_ANDROID)
+  protected ContainerElement getSignatureForFindCoffee;
 
   @Locate(
       xpath =
@@ -142,8 +149,18 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
     } catch (Throwable throwable) {
       logger.info("No free delivery popup found");
     }
-    getSyncHelper()
-        .wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
+
+    try {
+      getSyncHelper()
+          .wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
+    } catch (Throwable throwable) {
+      getSyncHelper()
+          .wait(
+              Until.uiElement(getSignatureForFindCoffee)
+                  .present()
+                  .setTimeout(Duration.ofSeconds(45)));
+      logger.info("You are on Find CoffeeBar Section");
+    }
   }
 
   /**

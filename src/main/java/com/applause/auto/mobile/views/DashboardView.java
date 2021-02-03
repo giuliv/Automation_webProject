@@ -41,9 +41,10 @@ public class DashboardView extends BaseComponent {
   @Locate(accessibilityId = "NO THANKS", on = Platform.MOBILE_ANDROID)
   protected Button dismissFreeDeliveryButton;
 
-  @Locate(
-      iOSClassChain = "**/XCUIElementTypeButton[`label == \"Store locator\"`]",
-      on = Platform.MOBILE_IOS)
+  //  @Locate(
+  //      iOSClassChain = "**/XCUIElementTypeButton[`label == \"Store locator\"`]",
+  //      on = Platform.MOBILE_IOS)
+  @Locate(accessibilityId = "Store locator", on = Platform.MOBILE_IOS)
   @Locate(accessibilityId = "Stores button", on = Platform.MOBILE_ANDROID)
   protected Button locationButton;
 
@@ -117,7 +118,8 @@ public class DashboardView extends BaseComponent {
    */
   public <T extends BaseComponent> T location(Class<T> clazz) {
     logger.info("Click on Location button");
-    getSyncHelper().wait(Until.uiElement(locationButton).clickable());
+    getSyncHelper()
+        .wait(Until.uiElement(locationButton).clickable().setTimeout(Duration.ofSeconds(50)));
     locationButton.click();
     return this.create(clazz);
   }
@@ -157,7 +159,8 @@ class IosDashboardView extends DashboardView {
   @Override
   public <T extends BaseComponent> T location(Class<T> clazz) {
     logger.info("Click on Location button");
-    getSyncHelper().wait(Until.uiElement(locationButton).visible());
+    getSyncHelper()
+        .wait(Until.uiElement(locationButton).visible().setTimeout(Duration.ofSeconds(50)));
     getDeviceControl().tapElementCenter(locationButton);
     return this.create(clazz);
   }

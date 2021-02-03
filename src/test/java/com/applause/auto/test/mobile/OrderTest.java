@@ -386,14 +386,26 @@ public class OrderTest extends BaseTest {
     LandingView landingView = this.create(LandingView.class);
     DashboardView dashboardView = testHelper.createNewAccountWithDefaults(landingView);
 
-    NewOrderView order =
-        dashboardView
-            .getBottomNavigationMenu()
-            .order(AllowLocationServicesPopupChunk.class)
-            .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class)
-            .close(DashboardView.class)
-            .getBottomNavigationMenu()
-            .order(NewOrderView.class);
+    NewOrderView order;
+    if (getEnvironmentHelper().isMobileIOS()) {
+      logger.info("Tap on store locator icon in top right corner");
+      NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
+          dashboardView.location(AllowLocationServicesPopupChunk.class).allowIfRequestDisplayed();
+
+      logger.info("STEP - Search for any store either by nearby, recent tabs, or by zip code");
+      nearbySelectCoffeeBarView.search("94549");
+
+      order = dashboardView.getBottomNavigationMenu().order(NewOrderView.class);
+    } else {
+      order =
+          dashboardView
+              .getBottomNavigationMenu()
+              .order(AllowLocationServicesPopupChunk.class)
+              .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class)
+              .close(DashboardView.class)
+              .getBottomNavigationMenu()
+              .order(NewOrderView.class);
+    }
 
     logger.info("STEP 1. Tap on Recents tab");
     order = order.recents();
