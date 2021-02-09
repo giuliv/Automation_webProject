@@ -24,7 +24,7 @@ public class RemoveFromOrderChunk extends BaseComponent {
   @Locate(id = "android:id/button2", on = Platform.MOBILE_ANDROID)
   protected Button cancelButton;
 
-  @Locate(id = "android:id/button2", on = Platform.MOBILE_ANDROID)
+  @Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
   protected Button removeButton;
 
   /* -------- Actions -------- */
