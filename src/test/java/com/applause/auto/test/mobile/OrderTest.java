@@ -1,11 +1,14 @@
 package com.applause.auto.test.mobile;
 
+import static com.applause.auto.test.mobile.helpers.TestHelper.openOrderMenuForRecentCoffeeBar;
+
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.integrations.annotation.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
 import com.applause.auto.mobile.components.CoffeeStoreItemChuck;
+import com.applause.auto.mobile.components.RemoveFromOrderChunk;
 import com.applause.auto.mobile.views.CheckoutView;
 import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.FindACoffeeBarView;
@@ -16,17 +19,13 @@ import com.applause.auto.mobile.views.OrderConfirmationView;
 import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.ProductDetailsView;
 import com.applause.auto.test.mobile.helpers.TestHelper;
-
+import java.lang.invoke.MethodHandles;
+import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-
-import java.lang.invoke.MethodHandles;
-import java.util.List;
-
-import static com.applause.auto.test.mobile.helpers.TestHelper.openOrderMenuForRecentCoffeeBar;
 
 public class OrderTest extends BaseTest {
 
@@ -1073,5 +1072,125 @@ public class OrderTest extends BaseTest {
         "Oatmeal: Wrong topping option: Expected Wild Blueberries");
 
     softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {TestNGGroups.ORDER, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
+      description = "625893",
+      enabled = true)
+  public void editOrderTest() {
+    logger.info(
+        "User is already signed in to app\n"
+            + "User is on the checkout screen\n"
+            + "User continues this test case from previous test case (so user will have items added to order already)");
+    customizeOrderFoodTest();
+    CheckoutView checkoutView = this.create(CheckoutView.class);
+
+    String productName = "Snowcap Iced Mint Matcha Latte";
+
+    logger.info("STEP 1. Tap on an item under Your Order section");
+    ProductDetailsView productDetailsView = checkoutView.selectProduct(productName);
+    logger.info(
+        "EXPECTED 1. User is directed to PDP for that item:\n"
+            + "EXPECTED 1a. * Back arrow to close/exit the screen at top left corner\n"
+            + "EXPECTED 1b. * Garbage can icon at top right corner to delete the item\n"
+            + "EXPECTED 1c. * Customizations selected\n"
+            + "EXPECTED 1d *[Button] Update Order");
+    Assert.assertNotNull(productDetailsView, "User does not directed to PDP");
+    Assert.assertTrue(
+        productDetailsView.isBackButtonDisplayed(),
+        "Back arrow to close/exit the screen at top left corner does not displayed");
+    Assert.assertTrue(
+        productDetailsView.isGarbageIconDisplayed(),
+        "Garbage can icon at top right corner does not displayed");
+    //    Assert.assertEquals(
+    //        productDetailsView.getModifies("Milk Prep"), "Choose Milk: Whole Milk
+    // Foam: Regular Foam", "Customizations does not
+    // displayed");
+    Assert.assertTrue(
+        productDetailsView.isUpdateOrderButtonDisplayed(), "Update Order does not displayed");
+
+    logger.info(
+        "STEP 2. Edit/update order by selecting different modifiers and/or adding new modifiers");
+    String oldPrice = productDetailsView.getCost();
+    productDetailsView =
+        productDetailsView
+            .selectMilkPrep()
+            .chooseMilk("Soy Milk")
+            .saveChanges(ProductDetailsView.class);
+    String newPrice = productDetailsView.getCost();
+
+    logger.info(
+        "EXPECTED 2. The price on PDP should reflect any additional or deducted costs (depending on the changes made to the order)");
+    Assert.assertNotEquals(
+        oldPrice, newPrice, "The price on PDP does not reflect any additional or deducted costs");
+
+    logger.info("STEP 3. Tap Update Order button");
+    checkoutView = productDetailsView.updateOrder();
+
+    logger.info(
+        "EXPECTED 3. User is directed back to checkout screen with updated item reflected correctly");
+    Assert.assertNotNull(checkoutView, "User does not directed back to checkout screen");
+    Assert.assertEquals(
+        checkoutView.costOf(productName), newPrice, "Updated item does not reflected correctly");
+
+    if (getEnvironmentHelper().isMobileIOS()) {
+      logger.info(
+          "STEP 4. To delete item(s) from your order:\n"
+              + "THIS FLOW APPLICABLE ONLY ON IOS:\n"
+              + "* Swipe left on the item in the basket\n"
+              + "* Tap red delete button");
+
+      logger.info(
+          "EXPECTED 4. \n"
+              + "* User sees red delete button to the right of the item\n"
+              + "* Item is removed from basket");
+    }
+
+    logger.info(
+        "STEP 5. To delete item(s) from your order:\n"
+            + "* Tap on item in basket to go to PDP\n"
+            + "* Tap on garbage can icon\n"
+            + "* Tap remove");
+    productDetailsView = checkoutView.selectProduct("Snowcap Iced Mint Matcha Latte");
+    RemoveFromOrderChunk removeFromOrderChunk = productDetailsView.delete();
+
+    logger.info(
+        "EXPECTED 5. * User sees garbage can icon at top right corner of screen* User sees a UI alert:\n"
+            + "Title: Remove from Order\n"
+            + "Text: Are you sure you like to remove this product from your order?\n"
+            + "[Cancel] [Remove]\n"
+            + "* Item is removed from basket");
+    Assert.assertNotNull(removeFromOrderChunk, "Remove from order dialog does not displayed");
+    Assert.assertTrue(
+        removeFromOrderChunk.isTitleDisplayed(), "Title: Remove from Order does not displayed");
+    Assert.assertEquals(
+        removeFromOrderChunk.messageText(),
+        "Are you sure you would like to remove this product from your order?",
+        "Wrong text message displayed");
+    Assert.assertTrue(
+        removeFromOrderChunk.isCancelButtonDisplayed(), "Cancel button does not displayed");
+    Assert.assertTrue(
+        removeFromOrderChunk.isRemoveButtonDisplayed(), "Remove button does not displayed");
+
+    checkoutView = removeFromOrderChunk.remove();
+    Assert.assertFalse(
+        checkoutView.isProductDisplayed(productName),
+        "Product remains in the cart and not deleted");
+
+    if (getEnvironmentHelper().isMobileIOS()) {
+
+      logger.info(
+          "STEP 6. To delete item(s) from your order::\n"
+              + "* Tap edit link at the top right corner of the CHECKOUT screen\n"
+              + "* Tap red (-) delete icon to the left of item\n"
+              + "* THIS STEP IS APPLICABLE ONLY ON IOS: Tap red delete button\n"
+              + "* Tap done at top right corner\n");
+
+      logger.info(
+          "EXPECTED 6. "
+              + "* User sees red (-) delete icon to the left of the items in basket\n"
+              + "* THIS IS APPLICABLE ONLY ON IOS: User sees red delete button to the right of the item* Item is removed from basket");
+    }
   }
 }

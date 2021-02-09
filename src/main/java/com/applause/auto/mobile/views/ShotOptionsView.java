@@ -30,6 +30,7 @@ public class ShotOptionsView extends BaseComponent {
   /* -------- Actions -------- */
   public ShotOptionsView selectShotPrep(String shotPrep) {
     shotPrepButton.click();
+    getSyncHelper().sleep(500);
     shotPrepOptionButton.format(shotPrep).click();
     return this;
   }

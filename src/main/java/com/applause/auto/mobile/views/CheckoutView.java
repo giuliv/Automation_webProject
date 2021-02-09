@@ -95,9 +95,21 @@ public class CheckoutView extends BaseComponent {
 
   @Locate(
       xpath =
+          "//android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productName' and @text='%s']",
+      on = Platform.MOBILE_ANDROID)
+  protected Text productItemElement;
+
+  @Locate(
+      xpath =
           "//android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productName' and @text='%s']/following-sibling::android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productQuantity']",
       on = Platform.MOBILE_ANDROID)
   protected Text itemQtyText;
+
+  @Locate(
+      xpath =
+          "//android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productName' and @text='%s']/../..//android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productCost']",
+      on = Platform.MOBILE_ANDROID)
+  protected Text itemCostText;
 
   /* -------- Actions -------- */
 
@@ -223,6 +235,68 @@ public class CheckoutView extends BaseComponent {
   public NewOrderView close() {
     closeButton.click();
     return this.create(NewOrderView.class);
+  }
+
+  public ProductDetailsView selectProduct(String productName) {
+    int attempt = 5;
+    try {
+      productItemElement.format(productName).initialize();
+    } catch (Throwable th) {
+      IntStream.range(0, attempt)
+          .forEach(
+              i -> {
+                MobileHelper.scrollUpCloseToMiddleAlgorithm();
+              });
+    }
+    while (attempt-- > 0 && !productItemElement.exists()) {
+      MobileHelper.scrollDownCloseToMiddleAlgorithm();
+      getSyncHelper().sleep(1000);
+    }
+    productItemElement.format(productName).click();
+    return this.create(ProductDetailsView.class);
+  }
+
+  public boolean isProductDisplayed(String productName) {
+    int attempt = 5;
+    try {
+      productItemElement.format(productName).initialize();
+    } catch (Throwable th) {
+      IntStream.range(0, attempt)
+          .forEach(
+              i -> {
+                MobileHelper.scrollUpCloseToMiddleAlgorithm();
+              });
+    }
+    while (attempt-- > 0 && !productItemElement.exists()) {
+      MobileHelper.scrollDownCloseToMiddleAlgorithm();
+      getSyncHelper().sleep(1000);
+    }
+    try {
+      return productItemElement.exists();
+    } catch (Throwable th) {
+      return false;
+    }
+  }
+
+  public String costOf(String productName) {
+    int attempt = 5;
+    try {
+      itemCostText.format(productName).initialize();
+    } catch (Throwable th) {
+      IntStream.range(0, attempt)
+          .forEach(
+              i -> {
+                MobileHelper.scrollUpCloseToMiddleAlgorithm();
+              });
+    }
+
+    while (attempt-- > 0 && !itemCostText.exists()) {
+      MobileHelper.scrollDownCloseToMiddleAlgorithm();
+      getSyncHelper().sleep(1000);
+    }
+
+    itemCostText.format(productName).initialize();
+    return itemCostText.getText();
   }
 }
 
