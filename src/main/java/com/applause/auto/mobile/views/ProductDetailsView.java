@@ -2,6 +2,7 @@ package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
+import com.applause.auto.mobile.components.RemoveFromOrderChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -44,6 +45,14 @@ public class ProductDetailsView extends BaseComponent {
           "//android.widget.ImageButton[contains(@content-desc,\"Navigate up\") or contains(@content-desc,\"Nach oben\")]",
       on = Platform.MOBILE_ANDROID)
   protected Button getBackButton;
+
+  @Locate(id = "com.wearehathway.peets.development:id/delete", on = Platform.MOBILE_ANDROID)
+  protected Button garbageButton;
+
+  @Locate(
+      id = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
+      on = Platform.MOBILE_ANDROID)
+  protected Button updateOrderButton;
 
   @Locate(
       id = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
@@ -273,6 +282,28 @@ public class ProductDetailsView extends BaseComponent {
     logger.info("Select Oatmeal Toppings");
     oatmealToppingsButton.click();
     return this.create(OatmealToppingsView.class);
+  }
+
+  public boolean isBackButtonDisplayed() {
+    return getBackButton.isDisplayed();
+  }
+
+  public boolean isGarbageIconDisplayed() {
+    return garbageButton.isDisplayed();
+  }
+
+  public boolean isUpdateOrderButtonDisplayed() {
+    return updateOrderButton.isDisplayed();
+  }
+
+  public CheckoutView updateOrder() {
+    updateOrderButton.click();
+    return this.create(CheckoutView.class);
+  }
+
+  public RemoveFromOrderChunk delete() {
+    garbageButton.click();
+    return this.create(RemoveFromOrderChunk.class);
   }
 }
 
