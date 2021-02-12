@@ -511,24 +511,28 @@ public class MobileHelper extends SdkHelper {
       IntStream.range(1, 6).forEach(i -> scrollUpCloseToMiddleAlgorithm());
     }
     int screenHeight = getDeviceControl().getScreenSize().height;
+    Dimension dimension = element.getDimension();
     IntStream.range(1, 6)
         .filter(
             i -> {
               try {
                 element.initialize();
                 Point location = element.getLocation();
-                Dimension dimension = element.getDimension();
                 if (location.y + dimension.height + Constants.BOTTOM_BORDER_SIZE > screenHeight) {
                   swipeAcrossMiddleScreenUp();
                   return false;
                 } else {
-                  logger.info("Slider is in visible part, continue");
-                  return true;
+                  if (location.y < screenHeight / 4) {
+                    swipeAcrossMiddleScreenDown();
+                  } else {
+                    logger.info("Slider is in visible part, continue");
+                    return true;
+                  }
                 }
               } catch (NoSuchElementException nse) {
                 swipeAcrossMiddleScreenUp();
-                return false;
               }
+              return false;
             })
         .findFirst();
   }
@@ -537,5 +541,11 @@ public class MobileHelper extends SdkHelper {
     Dimension size = getDeviceControl().getScreenSize();
     logger.debug(String.format("Screen size is [%d x %d].", size.width, size.height));
     swipeAcrossScreenCoordinates(0.5, 0.5, 0.5, 0.3, 2000L);
+  }
+
+  public static void swipeAcrossMiddleScreenDown() {
+    Dimension size = getDeviceControl().getScreenSize();
+    logger.debug(String.format("Screen size is [%d x %d].", size.width, size.height));
+    swipeAcrossScreenCoordinates(0.5, 0.5, 0.5, 0.8, 2000L);
   }
 }
