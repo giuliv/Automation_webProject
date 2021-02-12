@@ -433,6 +433,7 @@ public class NewOrderView extends BaseComponent {
 
 class IosNewOrderView extends NewOrderView {
 
+  @Override
   public CheckoutView checkout() {
     logger.info("Tap on Cart button");
     getCartButton.click();
@@ -444,7 +445,7 @@ class IosNewOrderView extends NewOrderView {
 
   @Override
   public void selectCategoryAndSubCategory(String category, String subCategory) {
-    logger.info("Select category: " + category);
+    logger.info("Select category ios: " + category);
     int attempt = 5;
     try {
       getCategoryItem.format(category).initialize();
@@ -460,8 +461,7 @@ class IosNewOrderView extends NewOrderView {
       MobileHelper.scrollDownCloseToMiddleAlgorithm();
       getSyncHelper().sleep(2000);
     }
-    getSyncHelper().sleep(1000);
-    getCategoryItem.click();
+    getDeviceControl().tapElementCenter(getCategoryItem);
     getSyncHelper().sleep(2000);
     getCategorySubItem.format(category, subCategory).initialize();
     getCategorySubItem.click();
