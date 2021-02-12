@@ -10,9 +10,11 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
+
+import org.openqa.selenium.NoSuchElementException;
+
 import java.time.Duration;
 import java.util.stream.IntStream;
-import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = NewOrderView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosNewOrderView.class, on = Platform.MOBILE_IOS)
@@ -450,11 +452,11 @@ class IosNewOrderView extends NewOrderView {
 
     }
     MobileHelper.scrollElementIntoView(getCategoryItem);
-    getCategoryItem.click();
+    getDeviceControl().tapElementCenter(getCategoryItem);
     getSyncHelper().sleep(2000);
     getCategorySubItem.format(category, subCategory).initialize();
     MobileHelper.scrollElementIntoView(getCategorySubItem);
-    getCategorySubItem.click();
+    getDeviceControl().tapElementCenter(getCategorySubItem);
     getSyncHelper().sleep(1000);
   }
 
@@ -464,14 +466,10 @@ class IosNewOrderView extends NewOrderView {
     try {
       getProductItem.format(category).initialize();
     } catch (NoSuchElementException nse) {
-      IntStream.range(0, 6)
-          .forEach(
-              i -> {
-                MobileHelper.scrollUpCloseToMiddleAlgorithm();
-              });
+
     }
-    getSyncHelper().sleep(1000);
     MobileHelper.scrollElementIntoView(getProductItem);
+    getSyncHelper().sleep(1000);
     getProductItem.click();
     return this.create(ProductDetailsView.class);
   }
