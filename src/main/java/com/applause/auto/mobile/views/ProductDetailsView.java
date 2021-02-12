@@ -287,7 +287,7 @@ public class ProductDetailsView extends BaseComponent {
 
   public SyrupsAndSaucesView selectSyrups() {
     MobileHelper.scrollElementIntoView(selectSyrupsAndSaucesButton);
-    selectSyrupsAndSaucesButton.click();
+    getDeviceControl().tapElementCenter(selectSyrupsAndSaucesButton);
     return this.create(SyrupsAndSaucesView.class);
   }
 
