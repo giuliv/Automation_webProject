@@ -457,7 +457,9 @@ class IosNewOrderView extends NewOrderView {
               });
       getSyncHelper().sleep(1000);
     }
-    while (attempt-- > 0 && !(getCategoryItem.exists() && getCategoryItem.isClickable())) {
+    while (attempt-- > 0
+        && !(getCategoryItem.exists()
+            && getCategoryItem.getAttributeValue("visible").equalsIgnoreCase("true"))) {
       MobileHelper.scrollDownCloseToMiddleAlgorithm();
       logger.info(">>>>>>>>" + getDriver().getPageSource());
       getSyncHelper().sleep(2000);
@@ -465,6 +467,14 @@ class IosNewOrderView extends NewOrderView {
     getCategoryItem.click();
     getSyncHelper().sleep(2000);
     getCategorySubItem.format(category, subCategory).initialize();
+    attempt = 3;
+    while (attempt-- > 0
+        && !(getCategorySubItem.exists()
+            && getCategorySubItem.getAttributeValue("visible").equalsIgnoreCase("true"))) {
+      MobileHelper.scrollDownCloseToMiddleAlgorithm();
+      logger.info(">>>>>>>>" + getDriver().getPageSource());
+      getSyncHelper().sleep(2000);
+    }
     getCategorySubItem.click();
     getSyncHelper().sleep(1000);
   }
