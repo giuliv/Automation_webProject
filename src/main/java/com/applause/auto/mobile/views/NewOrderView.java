@@ -432,6 +432,12 @@ public class NewOrderView extends BaseComponent {
 }
 
 class IosNewOrderView extends NewOrderView {
+  @Override
+  public <T extends BaseComponent> T checkoutAtom(Class<T> clazz) {
+    logger.info("Tap on Cart button");
+    getDeviceControl().tapElementCenter(getCartButton);
+    return this.create(clazz);
+  }
 
   @Override
   public CheckoutView checkout() {
