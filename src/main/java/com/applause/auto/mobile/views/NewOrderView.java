@@ -464,6 +464,7 @@ class IosNewOrderView extends NewOrderView {
       logger.info(">>>>>>>>" + getDriver().getPageSource());
       getSyncHelper().sleep(2000);
     }
+    MobileHelper.scrollDownCloseToMiddleAlgorithm();
     getCategoryItem.click();
     getSyncHelper().sleep(2000);
     getCategorySubItem.format(category, subCategory).initialize();
