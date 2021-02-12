@@ -10,9 +10,11 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
+
+import org.openqa.selenium.NoSuchElementException;
+
 import java.time.Duration;
 import java.util.stream.IntStream;
-import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = NewOrderView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosNewOrderView.class, on = Platform.MOBILE_IOS)
@@ -438,5 +440,31 @@ class IosNewOrderView extends NewOrderView {
     logger.info("10 sec wait for checkout on iOS");
     getSyncHelper().sleep(10000);
     return this.create(CheckoutView.class);
+  }
+
+  @Override
+  public void selectCategoryAndSubCategory(String category, String subCategory) {
+    logger.info("Select category: " + category);
+    int attempt = 5;
+    try {
+      getCategoryItem.format(category).initialize();
+    } catch (NoSuchElementException nse) {
+      IntStream.range(0, attempt)
+          .forEach(
+              i -> {
+                MobileHelper.scrollUpCloseToMiddleAlgorithm();
+              });
+      getSyncHelper().sleep(1000);
+    }
+    while (attempt-- > 0 && !(getCategoryItem.exists() && getCategoryItem.isDisplayed())) {
+      MobileHelper.scrollDownCloseToMiddleAlgorithm();
+      getSyncHelper().sleep(1000);
+    }
+    getSyncHelper().sleep(1000);
+    getCategoryItem.click();
+    getSyncHelper().sleep(2000);
+    getCategorySubItem.format(category, subCategory).initialize();
+    getCategorySubItem.click();
+    getSyncHelper().sleep(1000);
   }
 }
