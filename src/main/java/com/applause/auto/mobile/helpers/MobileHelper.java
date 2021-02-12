@@ -1,5 +1,6 @@
 package com.applause.auto.mobile.helpers;
 
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileApp;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.integrations.helpers.SdkHelper;
@@ -22,6 +23,7 @@ import java.lang.invoke.MethodHandles;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.IntStream;
 import javax.imageio.ImageIO;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
@@ -30,6 +32,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
@@ -494,5 +497,35 @@ public class MobileHelper extends SdkHelper {
     } catch (Exception ex) {
       return false;
     }
+  }
+
+  public static void scrollElementIntoView(BaseElement element) {
+    logger.info("Trying to get first element into view area");
+    try {
+      element.initialize();
+    } catch (NoSuchElementException nse) {
+      IntStream.range(1, 6).forEach(i -> scrollUpCloseToMiddleAlgorithm());
+    }
+    int screenHeight = getDeviceControl().getScreenSize().height;
+    IntStream.range(1, 6)
+        .filter(
+            i -> {
+              Point location = element.getLocation();
+              Dimension dimension = element.getDimension();
+              if (location.y + dimension.height + Constants.BOTTOM_BORDER_SIZE > screenHeight) {
+                swipeAcrossMiddleScreenUp();
+                return false;
+              } else {
+                logger.info("Slider is in visible part, continue");
+                return true;
+              }
+            })
+        .findFirst();
+  }
+
+  public static void swipeAcrossMiddleScreenUp() {
+    Dimension size = getDeviceControl().getScreenSize();
+    logger.debug(String.format("Screen size is [%d x %d].", size.width, size.height));
+    swipeAcrossScreenCoordinates(0.5, 0.5, 0.5, 0.3, 2000L);
   }
 }

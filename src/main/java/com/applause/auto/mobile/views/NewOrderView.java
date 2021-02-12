@@ -446,37 +446,35 @@ class IosNewOrderView extends NewOrderView {
   @Override
   public void selectCategoryAndSubCategory(String category, String subCategory) {
     logger.info("Select category ios: " + category);
-    int attempt = 5;
     try {
       getCategoryItem.format(category).initialize();
     } catch (NoSuchElementException nse) {
-      IntStream.range(0, attempt)
+
+    }
+    MobileHelper.scrollElementIntoView(getCategoryItem);
+    getCategoryItem.click();
+    getSyncHelper().sleep(2000);
+    getCategorySubItem.format(category, subCategory).initialize();
+    MobileHelper.scrollElementIntoView(getCategorySubItem);
+    getCategorySubItem.click();
+    getSyncHelper().sleep(1000);
+  }
+
+  @Override
+  public ProductDetailsView selectProduct(String category) {
+    logger.info("Select product ios: " + category);
+    try {
+      getProductItem.format(category).initialize();
+    } catch (NoSuchElementException nse) {
+      IntStream.range(0, 6)
           .forEach(
               i -> {
                 MobileHelper.scrollUpCloseToMiddleAlgorithm();
               });
-      getSyncHelper().sleep(1000);
     }
-    while (attempt-- > 0
-        && !(getCategoryItem.exists()
-            && getCategoryItem.getAttributeValue("visible").equalsIgnoreCase("true"))) {
-      MobileHelper.scrollDownCloseToMiddleAlgorithm();
-      logger.info(">>>>>>>>" + getDriver().getPageSource());
-      getSyncHelper().sleep(2000);
-    }
-    MobileHelper.scrollDownCloseToMiddleAlgorithm();
-    getCategoryItem.click();
-    getSyncHelper().sleep(2000);
-    getCategorySubItem.format(category, subCategory).initialize();
-    attempt = 3;
-    while (attempt-- > 0
-        && !(getCategorySubItem.exists()
-            && getCategorySubItem.getAttributeValue("visible").equalsIgnoreCase("true"))) {
-      MobileHelper.scrollDownCloseToMiddleAlgorithm();
-      logger.info(">>>>>>>>" + getDriver().getPageSource());
-      getSyncHelper().sleep(2000);
-    }
-    getCategorySubItem.click();
     getSyncHelper().sleep(1000);
+    MobileHelper.scrollElementIntoView(getProductItem);
+    getProductItem.click();
+    return this.create(ProductDetailsView.class);
   }
 }

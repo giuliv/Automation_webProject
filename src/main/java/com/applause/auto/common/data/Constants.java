@@ -4,6 +4,8 @@ import com.applause.auto.web.helpers.WebHelper;
 
 public class Constants {
 
+  public static final int BOTTOM_BORDER_SIZE = 150;
+
   /** Test Groups */
   public static final class TestNGGroups {
 
