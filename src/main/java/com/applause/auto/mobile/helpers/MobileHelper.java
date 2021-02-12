@@ -525,7 +525,7 @@ public class MobileHelper extends SdkHelper {
                   swipeAcrossMiddleScreenUp();
                   return false;
                 } else {
-                  if (location.y < screenHeight / 3) {
+                  if (location.y < screenHeight / 2) {
                     logger.info("Element is on top");
                     swipeAcrossMiddleScreenDown();
                     return false;
