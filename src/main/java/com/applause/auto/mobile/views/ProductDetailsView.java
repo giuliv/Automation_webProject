@@ -377,12 +377,15 @@ class AndroidProductDetailsView extends ProductDetailsView {
 
   @Override
   public SweetenersView selectSweeteners() {
-    if (selectSweetenersButton.exists() && selectSweetenersButton.isDisplayed()) {
-      selectSweetenersButton.click();
-    } else {
-      MobileHelper.scrollDownCloseToMiddleAlgorithm();
-      selectSweetenersButton.click();
-    }
+    MobileHelper.scrollElementIntoView(selectSweetenersButton);
+    selectSweetenersButton.click();
     return this.create(SweetenersView.class);
+  }
+
+  @Override
+  public SyrupsAndSaucesView selectSyrups() {
+    MobileHelper.scrollElementIntoView(selectSyrupsAndSaucesButton);
+    selectSyrupsAndSaucesButton.click();
+    return this.create(SyrupsAndSaucesView.class);
   }
 }
