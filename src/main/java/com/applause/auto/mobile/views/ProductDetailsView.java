@@ -286,6 +286,7 @@ public class ProductDetailsView extends BaseComponent {
   }
 
   public SyrupsAndSaucesView selectSyrups() {
+    MobileHelper.scrollElementIntoView(selectSyrupsAndSaucesButton);
     selectSyrupsAndSaucesButton.click();
     return this.create(SyrupsAndSaucesView.class);
   }
@@ -377,14 +378,17 @@ class AndroidProductDetailsView extends ProductDetailsView {
 
   @Override
   public SweetenersView selectSweeteners() {
-    MobileHelper.scrollElementIntoView(selectSweetenersButton);
-    selectSweetenersButton.click();
+    if (selectSweetenersButton.exists() && selectSweetenersButton.isDisplayed()) {
+      selectSweetenersButton.click();
+    } else {
+      MobileHelper.scrollDownCloseToMiddleAlgorithm();
+      selectSweetenersButton.click();
+    }
     return this.create(SweetenersView.class);
   }
 
   @Override
   public SyrupsAndSaucesView selectSyrups() {
-    MobileHelper.scrollElementIntoView(selectSyrupsAndSaucesButton);
     selectSyrupsAndSaucesButton.click();
     return this.create(SyrupsAndSaucesView.class);
   }
