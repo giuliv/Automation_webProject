@@ -518,14 +518,19 @@ public class MobileHelper extends SdkHelper {
               try {
                 element.initialize();
                 Point location = element.getLocation();
+                logger.info(
+                    String.format("Location [%s] height [%s]", location.y, dimension.height));
                 if (location.y + dimension.height + Constants.BOTTOM_BORDER_SIZE > screenHeight) {
+                  logger.info("Element is on bottom");
                   swipeAcrossMiddleScreenUp();
                   return false;
                 } else {
                   if (location.y < screenHeight / 3) {
+                    logger.info("Element is on top");
                     swipeAcrossMiddleScreenDown();
+                    return false;
                   } else {
-                    logger.info("Slider is in visible part, continue");
+                    logger.info("Element is in visible part, continue");
                     return true;
                   }
                 }
