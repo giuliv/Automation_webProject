@@ -458,7 +458,7 @@ class IosNewOrderView extends NewOrderView {
     }
     while (attempt-- > 0 && !(getCategoryItem.exists() && getCategoryItem.isDisplayed())) {
       MobileHelper.scrollDownCloseToMiddleAlgorithm();
-      getSyncHelper().sleep(1000);
+      getSyncHelper().sleep(2000);
     }
     getSyncHelper().sleep(1000);
     getCategoryItem.click();
