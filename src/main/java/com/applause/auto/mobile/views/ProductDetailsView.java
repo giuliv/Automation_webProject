@@ -102,11 +102,17 @@ public class ProductDetailsView extends BaseComponent {
   @Locate(
       xpath = "//android.widget.TextView[starts-with(@text,'Warming')]",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Warming\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button warmingButton;
 
   @Locate(
       xpath = "//android.widget.TextView[starts-with(@text,'Oatmeal Toppings')]",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Oatmeal Toppings\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button oatmealToppingsButton;
 
   @Locate(

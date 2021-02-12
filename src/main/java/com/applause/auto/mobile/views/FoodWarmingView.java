@@ -17,11 +17,17 @@ public class FoodWarmingView extends BaseComponent {
   protected Button navigateBackButton;
 
   @Locate(xpath = "//android.widget.TextView[@text='Warm']", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Warm\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button chooseWarmButton;
 
   @Locate(
       id = "com.wearehathway.peets.development:id/saveChangesButton",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Save Changes\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button saveChangesButton;
 
   /* -------- Actions -------- */
