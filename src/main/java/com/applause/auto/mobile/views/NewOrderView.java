@@ -6,7 +6,6 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
-import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
@@ -28,13 +27,13 @@ public class NewOrderView extends BaseComponent {
 
   @Locate(iOSClassChain = "**/XCUIElementTypeButton[`label == \"%s\"`]", on = Platform.MOBILE_IOS)
   @Locate(xpath = "//android.widget.TextView[@text=\"%s\"]", on = Platform.MOBILE_ANDROID)
-  protected ContainerElement getCategoryItem;
+  protected Button getCategoryItem;
 
   @Locate(
       iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"%s\"`]",
       on = Platform.MOBILE_IOS)
   @Locate(xpath = "//android.widget.TextView[@text=\"%s\"]", on = Platform.MOBILE_ANDROID)
-  protected ContainerElement getProductItem;
+  protected Button getProductItem;
 
   @Locate(
       xpath =
@@ -44,7 +43,7 @@ public class NewOrderView extends BaseComponent {
       xpath =
           "//android.widget.TextView[@text=\"%s\"]//parent::*/following-sibling::*[contains(@resource-id, 'subcategories')]//*[contains(@text, '%s')]",
       on = Platform.MOBILE_ANDROID)
-  protected ContainerElement getCategorySubItem;
+  protected Button getCategorySubItem;
 
   @Locate(id = "Menu", on = Platform.MOBILE_IOS)
   @Locate(
