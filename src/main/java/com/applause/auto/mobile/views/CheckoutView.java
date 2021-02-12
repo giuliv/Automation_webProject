@@ -1,9 +1,8 @@
 package com.applause.auto.mobile.views;
 
-import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
-
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
+import com.applause.auto.mobile.helpers.ItemOptions;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -11,10 +10,13 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
+
+import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
 
 @Implementation(is = AndroidCheckoutView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CheckoutView.class, on = Platform.MOBILE_IOS)
@@ -31,6 +33,9 @@ public class CheckoutView extends BaseComponent {
   protected Button getPlaceOrderButton;
 
   @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`label == \"Close\"`]",
+      on = Platform.MOBILE_ANDROID)
   protected Button closeButton;
 
   @Locate(
@@ -90,6 +95,10 @@ public class CheckoutView extends BaseComponent {
       xpath =
           "//android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productName' and @text='%s']/following-sibling::android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productOptions']",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//XCUIElementTypeStaticText[@name=\"%s\"]/preceding-sibling::XCUIElementTypeStaticText[1]",
+      on = Platform.MOBILE_IOS)
   protected Text itemOptionsText;
 
   @Locate(
@@ -102,6 +111,10 @@ public class CheckoutView extends BaseComponent {
       xpath =
           "//android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productName' and @text='%s']/following-sibling::android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productQuantity']",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//XCUIElementTypeStaticText[@name=\"%s\"]/preceding-sibling::XCUIElementTypeStaticText[2]",
+      on = Platform.MOBILE_IOS)
   protected Text itemQtyText;
 
   @Locate(
@@ -144,8 +157,7 @@ public class CheckoutView extends BaseComponent {
     }
 
     if (areAvailableRewardsDisplayed) {
-      availableRewards
-          .stream()
+      availableRewards.stream()
           .filter(item -> getElementTextAttribute(item).startsWith(awardText))
           .findAny()
           .orElseThrow(
@@ -201,7 +213,7 @@ public class CheckoutView extends BaseComponent {
     getSyncHelper().sleep(1000);
   }
 
-  public List<String> getItemOptions(String itemName) {
+  public ItemOptions getItemOptions(String itemName) {
     int attempt = 5;
     try {
       itemOptionsText.format(itemName).initialize();
@@ -217,15 +229,13 @@ public class CheckoutView extends BaseComponent {
       MobileHelper.scrollDownCloseToMiddleAlgorithm();
       getSyncHelper().sleep(1000);
     }
-    List<String> result =
-        new ArrayList<String>(Arrays.asList(itemOptionsText.getText().split("\n")));
+    String result = itemOptionsText.getText();
     itemQtyText.format(itemName).initialize();
-    result.add(itemQtyText.getText());
-    result.forEach(
-        i -> {
-          logger.info("Found option: " + i);
-        });
-    return result;
+    String result2 = itemQtyText.getText();
+    logger.info("Found options: " + result);
+    logger.info("Found qty: " + result2);
+
+    return new ItemOptions(result, result2);
   }
 
   public CheckoutView refreshView() {
@@ -318,5 +328,32 @@ class AndroidCheckoutView extends CheckoutView {
   public String getOrderTotal() {
     MobileHelper.swipeWithCount(SwipeDirection.UP, 2);
     return orderTotal.getText();
+  }
+
+  public ItemOptions getItemOptions(String itemName) {
+    int attempt = 5;
+    try {
+      itemOptionsText.format(itemName).initialize();
+    } catch (Throwable th) {
+      IntStream.range(0, attempt)
+          .forEach(
+              i -> {
+                MobileHelper.scrollUpCloseToMiddleAlgorithm();
+              });
+    }
+
+    while (attempt-- > 0 && !itemOptionsText.exists()) {
+      MobileHelper.scrollDownCloseToMiddleAlgorithm();
+      getSyncHelper().sleep(1000);
+    }
+    List<String> result =
+        new ArrayList<String>(Arrays.asList(itemOptionsText.getText().split("\n")));
+    itemQtyText.format(itemName).initialize();
+    result.add(itemQtyText.getText());
+    result.forEach(
+        i -> {
+          logger.info("Found option: " + i);
+        });
+    return new ItemOptions(result);
   }
 }

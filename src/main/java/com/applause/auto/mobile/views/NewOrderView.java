@@ -24,12 +24,19 @@ public class NewOrderView extends BaseComponent {
   @Locate(xpath = "//android.widget.TextView[@text='ORDER']", on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
-  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]", on = Platform.MOBILE_IOS)
+  @Locate(iOSClassChain = "**/XCUIElementTypeButton[`label == \"%s\"`]", on = Platform.MOBILE_IOS)
   @Locate(xpath = "//android.widget.TextView[@text=\"%s\"]", on = Platform.MOBILE_ANDROID)
   protected ContainerElement getCategoryItem;
 
   @Locate(
-      xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]/preceding-sibling::*[@name='%s']",
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"%s\"`]",
+      on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//android.widget.TextView[@text=\"%s\"]", on = Platform.MOBILE_ANDROID)
+  protected ContainerElement getProductItem;
+
+  @Locate(
+      xpath =
+          "//XCUIElementTypeButton[@name=\"%s\"]/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeButton[@name='%s']",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
@@ -126,11 +133,22 @@ public class NewOrderView extends BaseComponent {
   @Locate(
       id = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`label == \"Add to Order\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button addToOrderButton;
 
   @Locate(id = "com.wearehathway.peets.development:id/basketFABText", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//XCUIElementTypeNavigationBar/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeStaticText",
+      on = Platform.MOBILE_IOS)
   protected Text fabAmountText;
 
+  @Locate(
+      xpath =
+          "//XCUIElementTypeStaticText[@name=\"Seasonal Favorites\"]/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeCollectionView/XCUIElementTypeCell[@name=\"%s\"]",
+      on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
           "//androidx.appcompat.widget.LinearLayoutCompat[@resource-id='com.wearehathway.peets.development:id/seasonalProductContainer']/android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productNameTextView' and @text='%s']",
@@ -199,9 +217,9 @@ public class NewOrderView extends BaseComponent {
   public ProductDetailsView selectProduct(String category) {
     logger.info("Select product: " + category);
     int attempt = 5;
-    getCategoryItem.format(category);
+    getProductItem.format(category);
     try {
-      getCategoryItem.initialize();
+      getProductItem.initialize();
     } catch (NoSuchElementException nse) {
       IntStream.range(0, attempt)
           .forEach(
@@ -209,13 +227,13 @@ public class NewOrderView extends BaseComponent {
                 MobileHelper.scrollUpCloseToMiddleAlgorithm();
               });
       getSyncHelper().sleep(1000);
-      while (attempt-- > 0 && !getCategoryItem.exists()) {
+      while (attempt-- > 0 && !getProductItem.exists()) {
         MobileHelper.scrollDownCloseToMiddleAlgorithm();
         getSyncHelper().sleep(1000);
       }
     }
     getSyncHelper().sleep(1000);
-    getDeviceControl().tapElementCenter(getCategoryItem);
+    getDeviceControl().tapElementCenter(getProductItem);
     return this.create(ProductDetailsView.class);
   }
 
@@ -395,7 +413,9 @@ public class NewOrderView extends BaseComponent {
   }
 
   public String getFabAmount() {
-    return fabAmountText.getText();
+    String result = fabAmountText.getText();
+    logger.info("Cart items amout: " + result);
+    return result;
   }
 
   public ProductDetailsView selectSeasonalFavorites(String name) {

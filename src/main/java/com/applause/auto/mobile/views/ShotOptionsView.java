@@ -17,14 +17,21 @@ public class ShotOptionsView extends BaseComponent {
   protected Button navigateBackButton;
 
   @Locate(xpath = "//android.widget.TextView[@text='Shot Prep']", on = Platform.MOBILE_ANDROID)
+  @Locate(accessibilityId = "Shot Prep", on = Platform.MOBILE_IOS)
   protected Button shotPrepButton;
 
   @Locate(xpath = "//android.widget.TextView[@text='%s']", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"%s\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button shotPrepOptionButton;
 
   @Locate(
       id = "com.wearehathway.peets.development:id/saveChangesButton",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Save Changes\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button saveChangesButton;
 
   /* -------- Actions -------- */

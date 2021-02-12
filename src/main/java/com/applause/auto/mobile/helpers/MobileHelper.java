@@ -173,8 +173,8 @@ public class MobileHelper extends SdkHelper {
     double pStartY = 0;
     double pEndY = 0;
     if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
-      pStartY = 0.6;
-      pEndY = -0.4;
+      pStartY = 0.5;
+      pEndY = 0.3;
     } else { // Android scrolls faster so the start and end must be gentler
       pStartY = 0.50;
       pEndY = 0.30;
@@ -186,8 +186,8 @@ public class MobileHelper extends SdkHelper {
     double pStartY = 0;
     double pEndY = 0;
     if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
-      pStartY = 0.6;
-      pEndY = -0.4;
+      pStartY = 0.5;
+      pEndY = 0.7;
     } else { // Android scrolls faster so the start and end must be gentler
       pStartY = 0.50;
       pEndY = 0.70;

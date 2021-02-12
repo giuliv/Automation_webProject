@@ -64,17 +64,26 @@ public class ProductDetailsView extends BaseComponent {
       xpath =
           "//android.widget.Button[@resource-id='com.wearehathway.peets.development:id/modifierButton' and @text='%s']",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"%s\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button sizeButton;
 
   @Locate(
       xpath =
           "//android.widget.TextView[starts-with(@text,'Milk Prep') or starts-with(@text,'Milk')]",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Milk Prep\" OR label == \"Milk\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button selectMilkPrepButton;
 
   @Locate(
       xpath = "//android.widget.TextView[starts-with(@text,'Syrups & Sauces')]",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label CONTAINS \"Syrups & Sauces\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button selectSyrupsAndSaucesButton;
 
   @Locate(
@@ -85,6 +94,9 @@ public class ProductDetailsView extends BaseComponent {
   @Locate(
       xpath = "//android.widget.TextView[starts-with(@text,'Shot Options')]",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Shot Options\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button selectShotOptionsButton;
 
   @Locate(
@@ -101,23 +113,37 @@ public class ProductDetailsView extends BaseComponent {
       xpath =
           "//android.widget.TextView[starts-with(@text,'Add Toppings') or starts-with(@text,'Toppings')]",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Add Toppings\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button selectToppingsButton;
 
   @Locate(
       xpath = "//android.widget.TextView[starts-with(@text,'Sweeteners')]",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label CONTAINS \"Sweeteners\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button selectSweetenersButton;
 
   @Locate(
       xpath =
           "//android.widget.RelativeLayout[@resource-id='com.wearehathway.peets.development:id/quantity']//android.widget.ImageButton[@resource-id='com.wearehathway.peets.development:id/increaseQuantity']",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//XCUIElementTypeStaticText[@name=\"Quantity\"]/../XCUIElementTypeButton[@name=\"+\"]",
+      on = Platform.MOBILE_IOS)
   protected Button increaseQuantityButton;
 
   @Locate(
       xpath =
           "//android.widget.RelativeLayout[@resource-id='com.wearehathway.peets.development:id/quantity']//android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productQuantity']",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//XCUIElementTypeStaticText[@name=\"Quantity\"]/following-sibling::XCUIElementTypeStaticText",
+      on = Platform.MOBILE_IOS)
   protected Text quantityText;
 
   @Locate(
@@ -200,7 +226,12 @@ public class ProductDetailsView extends BaseComponent {
   }
 
   public MilkPrepView selectMilkPrep() {
-    selectMilkPrepButton.click();
+    if (selectMilkPrepButton.exists() && selectMilkPrepButton.isDisplayed()) {
+      selectMilkPrepButton.click();
+    } else {
+      MobileHelper.scrollDownCloseToMiddleAlgorithm();
+      selectMilkPrepButton.click();
+    }
     return this.create(MilkPrepView.class);
   }
 
@@ -210,9 +241,9 @@ public class ProductDetailsView extends BaseComponent {
   }
 
   public SweetenersView selectSweeteners() {
-    try {
+    if (selectSweetenersButton.exists() && selectSweetenersButton.isDisplayed()) {
       selectSweetenersButton.click();
-    } catch (NoSuchElementException nse) {
+    } else {
       MobileHelper.scrollDownCloseToMiddleAlgorithm();
       selectSweetenersButton.click();
     }
@@ -221,16 +252,17 @@ public class ProductDetailsView extends BaseComponent {
 
   public ToppingsView selectToppings() {
     int attempt = 5;
-    try {
+    if (selectToppingsButton.exists() && selectToppingsButton.isDisplayed()) {
       selectToppingsButton.click();
-    } catch (NoSuchElementException nse) {
+    } else {
       IntStream.range(0, attempt)
           .forEach(
               i -> {
                 MobileHelper.scrollUpCloseToMiddleAlgorithm();
               });
       getSyncHelper().sleep(1000);
-      while (attempt-- > 0 && !selectToppingsButton.exists()) {
+      while (attempt-- > 0
+          && !(selectToppingsButton.exists() && selectToppingsButton.isDisplayed())) {
         MobileHelper.scrollDownCloseToMiddleAlgorithm();
         getSyncHelper().sleep(1000);
       }
@@ -241,6 +273,7 @@ public class ProductDetailsView extends BaseComponent {
 
   public ProductDetailsView selectQuantity(String quantity) {
     getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+    getSyncHelper().sleep(2000);
     int attempts = 3;
     while (!quantityText.getText().equals(quantity) && attempts-- > 0) {
       increaseQuantityButton.click();
@@ -315,5 +348,26 @@ class AndroidProductDetailsView extends ProductDetailsView {
   public void afterInit() {
     getSyncHelper()
         .wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(120)));
+  }
+
+  @Override
+  public ToppingsView selectToppings() {
+    int attempt = 5;
+    try {
+      selectToppingsButton.click();
+    } catch (NoSuchElementException nse) {
+      IntStream.range(0, attempt)
+          .forEach(
+              i -> {
+                MobileHelper.scrollUpCloseToMiddleAlgorithm();
+              });
+      getSyncHelper().sleep(1000);
+      while (attempt-- > 0 && !selectToppingsButton.exists()) {
+        MobileHelper.scrollDownCloseToMiddleAlgorithm();
+        getSyncHelper().sleep(1000);
+      }
+      selectToppingsButton.click();
+    }
+    return this.create(ToppingsView.class);
   }
 }
