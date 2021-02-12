@@ -234,12 +234,8 @@ public class ProductDetailsView extends BaseComponent {
   }
 
   public MilkPrepView selectMilkPrep() {
-    if (selectMilkPrepButton.exists() && selectMilkPrepButton.isDisplayed()) {
-      selectMilkPrepButton.click();
-    } else {
-      MobileHelper.scrollDownCloseToMiddleAlgorithm();
-      selectMilkPrepButton.click();
-    }
+    MobileHelper.scrollElementIntoView(selectMilkPrepButton);
+    getDeviceControl().tapElementCenter(selectMilkPrepButton);
     return this.create(MilkPrepView.class);
   }
 
@@ -391,5 +387,15 @@ class AndroidProductDetailsView extends ProductDetailsView {
   public SyrupsAndSaucesView selectSyrups() {
     selectSyrupsAndSaucesButton.click();
     return this.create(SyrupsAndSaucesView.class);
+  }
+
+  public MilkPrepView selectMilkPrep() {
+    if (selectMilkPrepButton.exists() && selectMilkPrepButton.isDisplayed()) {
+      selectMilkPrepButton.click();
+    } else {
+      MobileHelper.scrollDownCloseToMiddleAlgorithm();
+      selectMilkPrepButton.click();
+    }
+    return this.create(MilkPrepView.class);
   }
 }
