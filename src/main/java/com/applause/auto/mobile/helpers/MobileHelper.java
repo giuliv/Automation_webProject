@@ -522,7 +522,7 @@ public class MobileHelper extends SdkHelper {
                   swipeAcrossMiddleScreenUp();
                   return false;
                 } else {
-                  if (location.y < screenHeight / 4) {
+                  if (location.y < screenHeight / 3) {
                     swipeAcrossMiddleScreenDown();
                   } else {
                     logger.info("Slider is in visible part, continue");
