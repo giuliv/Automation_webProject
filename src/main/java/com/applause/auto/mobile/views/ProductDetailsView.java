@@ -11,9 +11,11 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
+
+import org.openqa.selenium.NoSuchElementException;
+
 import java.time.Duration;
 import java.util.stream.IntStream;
-import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = ProductDetailsView.class, on = Platform.MOBILE_IOS)
 @Implementation(is = AndroidProductDetailsView.class, on = Platform.MOBILE_ANDROID)
@@ -247,12 +249,8 @@ public class ProductDetailsView extends BaseComponent {
   }
 
   public SweetenersView selectSweeteners() {
-    if (selectSweetenersButton.exists() && selectSweetenersButton.isDisplayed()) {
-      selectSweetenersButton.click();
-    } else {
-      MobileHelper.scrollDownCloseToMiddleAlgorithm();
-      selectSweetenersButton.click();
-    }
+    MobileHelper.scrollElementIntoView(selectSweetenersButton);
+    selectSweetenersButton.click();
     return this.create(SweetenersView.class);
   }
 
@@ -375,5 +373,16 @@ class AndroidProductDetailsView extends ProductDetailsView {
       selectToppingsButton.click();
     }
     return this.create(ToppingsView.class);
+  }
+
+  @Override
+  public SweetenersView selectSweeteners() {
+    if (selectSweetenersButton.exists() && selectSweetenersButton.isDisplayed()) {
+      selectSweetenersButton.click();
+    } else {
+      MobileHelper.scrollDownCloseToMiddleAlgorithm();
+      selectSweetenersButton.click();
+    }
+    return this.create(SweetenersView.class);
   }
 }
