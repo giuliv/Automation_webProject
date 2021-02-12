@@ -459,6 +459,7 @@ class IosNewOrderView extends NewOrderView {
     }
     while (attempt-- > 0 && !(getCategoryItem.exists() && getCategoryItem.isDisplayed())) {
       MobileHelper.scrollDownCloseToMiddleAlgorithm();
+      logger.info(">>>>>>>>" + getDriver().getPageSource());
       getSyncHelper().sleep(2000);
     }
     getDeviceControl().tapElementCenter(getCategoryItem);
