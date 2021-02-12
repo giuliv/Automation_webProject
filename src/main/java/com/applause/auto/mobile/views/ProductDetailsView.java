@@ -240,7 +240,8 @@ public class ProductDetailsView extends BaseComponent {
   }
 
   public ShotOptionsView selectShotOptions() {
-    selectShotOptionsButton.click();
+    MobileHelper.scrollElementIntoView(selectShotOptionsButton);
+    getDeviceControl().tapElementCenter(selectShotOptionsButton);
     return this.create(ShotOptionsView.class);
   }
 
@@ -389,6 +390,7 @@ class AndroidProductDetailsView extends ProductDetailsView {
     return this.create(SyrupsAndSaucesView.class);
   }
 
+  @Override
   public MilkPrepView selectMilkPrep() {
     if (selectMilkPrepButton.exists() && selectMilkPrepButton.isDisplayed()) {
       selectMilkPrepButton.click();
@@ -397,5 +399,11 @@ class AndroidProductDetailsView extends ProductDetailsView {
       selectMilkPrepButton.click();
     }
     return this.create(MilkPrepView.class);
+  }
+
+  @Override
+  public ShotOptionsView selectShotOptions() {
+    selectShotOptionsButton.click();
+    return this.create(ShotOptionsView.class);
   }
 }
