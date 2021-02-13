@@ -16,6 +16,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import io.appium.java_client.ios.IOSDriver;
+
 import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
 
 @Implementation(is = AndroidCheckoutView.class, on = Platform.MOBILE_ANDROID)
@@ -214,6 +216,7 @@ public class CheckoutView extends BaseComponent {
   }
 
   public ItemOptions getItemOptions(String itemName) {
+    ((IOSDriver) getDriver()).setSetting("snapshotMaxDepth", 99);
 
     MobileHelper.scrollElementIntoView(itemOptionsText.format(itemName));
     String result = itemOptionsText.getText();
