@@ -37,7 +37,8 @@ public class ToppingsView extends BaseComponent {
   }
 
   public <T extends BaseComponent> T saveChanges(Class<T> clazz) {
-    saveChangesButton.click();
+    getSyncHelper().sleep(1000);
+    getDeviceControl().tapElementCenter(saveChangesButton);
     getSyncHelper().sleep(2000);
     return this.create(clazz);
   }
