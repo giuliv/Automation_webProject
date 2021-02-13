@@ -217,9 +217,8 @@ public class CheckoutView extends BaseComponent {
   }
 
   public ItemOptions getItemOptions(String itemName) {
-    ((IOSDriver) getDriver()).setSetting("snapshotMaxDepth", 99);
-    logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
-    ((IOSDriver) getDriver()).runAppInBackground(Duration.ofSeconds(10));
+    ((IOSDriver) getDriver()).runAppInBackground(Duration.ofSeconds(5));
+    getSyncHelper().sleep(5000);
     MobileHelper.scrollElementIntoView(itemOptionsText.format(itemName));
     String result = itemOptionsText.getText();
     itemQtyText.format(itemName).initialize();
