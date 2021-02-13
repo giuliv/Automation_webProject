@@ -54,8 +54,10 @@ class IosMilkPrepView extends MilkPrepView {
     chooseMilkMenuOptionsButton
         .format(milkType.equals("2% Milk") ? "Whole Milk" : "2% Milk")
         .click();
+    getSyncHelper().sleep(1000);
     chooseMilkMenuItemButton.click();
-    chooseMilkMenuOptionsButton.format(milkType).click();
+    chooseMilkMenuOptionsButton.format(milkType).initialize();
+    chooseMilkMenuItemButton.click();
     return this;
   }
 }

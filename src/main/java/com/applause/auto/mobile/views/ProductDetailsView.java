@@ -273,11 +273,10 @@ public class ProductDetailsView extends BaseComponent {
   }
 
   public ProductDetailsView selectQuantity(String quantity) {
-    getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
-    getSyncHelper().sleep(2000);
-    int attempts = 3;
+    MobileHelper.scrollElementIntoView(quantityText);
+    int attempts = 5;
     while (!quantityText.getText().equals(quantity) && attempts-- > 0) {
-      increaseQuantityButton.click();
+      getDeviceControl().tapElementCenter(increaseQuantityButton);
     }
     return this;
   }
@@ -405,5 +404,16 @@ class AndroidProductDetailsView extends ProductDetailsView {
   public ShotOptionsView selectShotOptions() {
     selectShotOptionsButton.click();
     return this.create(ShotOptionsView.class);
+  }
+
+  @Override
+  public ProductDetailsView selectQuantity(String quantity) {
+    getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+    getSyncHelper().sleep(2000);
+    int attempts = 3;
+    while (!quantityText.getText().equals(quantity) && attempts-- > 0) {
+      increaseQuantityButton.click();
+    }
+    return this;
   }
 }
