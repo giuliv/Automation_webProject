@@ -273,10 +273,10 @@ public class ProductDetailsView extends BaseComponent {
   }
 
   public ProductDetailsView selectQuantity(String quantity) {
-    MobileHelper.scrollElementIntoView(quantityText);
+    MobileHelper.scrollElementIntoView(increaseQuantityButton);
     int attempts = 5;
     while (!quantityText.getText().equals(quantity) && attempts-- > 0) {
-      getDeviceControl().tapElementCenter(increaseQuantityButton);
+      increaseQuantityButton.click();
     }
     return this;
   }
