@@ -512,12 +512,12 @@ public class MobileHelper extends SdkHelper {
       IntStream.range(1, 6).forEach(i -> scrollUpCloseToMiddleAlgorithm());
     }
     int screenHeight = getDeviceControl().getScreenSize().height;
-    Dimension dimension = element.getDimension();
     IntStream.range(1, 6)
         .filter(
             i -> {
               try {
                 element.initialize();
+                Dimension dimension = element.getDimension();
                 Point location = element.getLocation();
                 logger.info(
                     String.format("Location [%s] height [%s]", location.y, dimension.height));
