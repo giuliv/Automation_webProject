@@ -217,8 +217,7 @@ public class CheckoutView extends BaseComponent {
   }
 
   public ItemOptions getItemOptions(String itemName) {
-    ((IOSDriver) getDriver()).runAppInBackground(Duration.ofSeconds(5));
-    getSyncHelper().sleep(5000);
+    ((IOSDriver) getDriver()).runAppInBackground(Duration.ofSeconds(10));
     MobileHelper.scrollElementIntoView(itemOptionsText.format(itemName));
     String result = itemOptionsText.getText();
     itemQtyText.format(itemName).initialize();

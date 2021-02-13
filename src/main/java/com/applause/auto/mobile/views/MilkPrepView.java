@@ -1,6 +1,7 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -51,13 +52,12 @@ class IosMilkPrepView extends MilkPrepView {
   @Override
   public MilkPrepView chooseMilk(String milkType) {
     chooseMilkMenuItemButton.click();
-    chooseMilkMenuOptionsButton
-        .format(milkType.equals("2% Milk") ? "Whole Milk" : "2% Milk")
-        .click();
+    chooseMilkMenuOptionsButton.format(milkType.equals("2% Milk") ? "Whole Milk" : "2% Milk");
+    MobileHelper.scrollElementIntoView(chooseMilkMenuOptionsButton);
     getSyncHelper().sleep(1000);
     chooseMilkMenuItemButton.click();
     chooseMilkMenuOptionsButton.format(milkType).initialize();
-    chooseMilkMenuItemButton.click();
+    MobileHelper.scrollElementIntoView(chooseMilkMenuOptionsButton);
     return this;
   }
 }
