@@ -11,6 +11,7 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -218,6 +219,7 @@ public class CheckoutView extends BaseComponent {
   public ItemOptions getItemOptions(String itemName) {
     ((IOSDriver) getDriver()).setSetting("snapshotMaxDepth", 99);
     logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
+    ((IOSDriver) getDriver()).runAppInBackground(Duration.ofSeconds(10));
     MobileHelper.scrollElementIntoView(itemOptionsText.format(itemName));
     String result = itemOptionsText.getText();
     itemQtyText.format(itemName).initialize();
