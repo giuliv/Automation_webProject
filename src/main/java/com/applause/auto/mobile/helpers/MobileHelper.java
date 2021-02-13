@@ -319,12 +319,13 @@ public class MobileHelper extends SdkHelper {
           elem.click();
           elem.sendKeys(Keys.BACK_SPACE + value);
           elem.sendKeys(Keys.BACK_SPACE + value);
-          ((AndroidDriver) getDriver()).pressKeyCode(66);
+          ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.ENTER));
+
         } else {
           elem.sendKeys(Keys.BACK_SPACE);
           elem.click();
           elem.sendKeys(value);
-          ((AndroidDriver) getDriver()).pressKeyCode(66);
+          ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.ENTER));
         }
       } else {
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
