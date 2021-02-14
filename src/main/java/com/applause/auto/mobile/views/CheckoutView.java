@@ -11,6 +11,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.LazyList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -103,6 +104,12 @@ public class CheckoutView extends BaseComponent {
           "//XCUIElementTypeStaticText[@name=\"%s\"]/preceding-sibling::XCUIElementTypeStaticText[1]",
       on = Platform.MOBILE_IOS)
   protected Text itemOptionsText;
+
+  @Locate(
+      xpath =
+          "//XCUIElementTypeStaticText[@name=\"%s\"]/preceding-sibling::XCUIElementTypeStaticText",
+      on = Platform.MOBILE_IOS)
+  protected LazyList<Text> itemOptionsList;
 
   @Locate(
       xpath =
@@ -220,19 +227,23 @@ public class CheckoutView extends BaseComponent {
     ((IOSDriver) getDriver()).setSetting("snapshotMaxDepth", 99);
     logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
     ((IOSDriver) getDriver()).activateApp(Constants.MobileApp.IOS_SETTINGS);
+    getSyncHelper().sleep(3000);
     logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
     ((IOSDriver) getDriver()).activateApp(Constants.MobileApp.IOS_BUNDLE_ID);
+    getSyncHelper().sleep(3000);
     logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
     logger.info(">>>1" + getDriver().getPageSource());
+    logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
     logger.info(">>>2" + getDriver().getPageSource());
+    logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
     MobileHelper.scrollElementIntoView(itemOptionsText.format(itemName));
-    String result = itemOptionsText.getText();
-    itemQtyText.format(itemName).initialize();
-    String result2 = itemQtyText.getText();
-    logger.info("Found options: " + result);
-    logger.info("Found qty: " + result2);
-
-    return new ItemOptions(result, result2);
+    itemOptionsList.format(itemName).initialize();
+    itemOptionsList.stream()
+        .forEach(
+            i -> {
+              logger.info("Found options: " + i.getText());
+            });
+    return new ItemOptions(itemOptionsList);
   }
 
   public CheckoutView refreshView() {

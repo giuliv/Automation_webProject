@@ -1,29 +1,24 @@
 package com.applause.auto.mobile.helpers;
 
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.LazyList;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ItemOptions {
-  private String iosOptions;
-  private String iosQty;
-  private List<String> androidOptions;
+  private List<String> options;
   private boolean isAndroid = true;
 
   public ItemOptions(List<String> androidOptions) {
-    this.androidOptions = androidOptions;
-    this.isAndroid = true;
+    this.options = androidOptions;
   }
 
-  public ItemOptions(String iosOptions, String iosQty) {
-    this.iosOptions = iosOptions;
-    this.iosQty = iosQty;
-    isAndroid = false;
+  public ItemOptions(LazyList<Text> item) {
+    this.options = item.stream().map(i -> i.getText()).collect(Collectors.toList());
   }
 
   public boolean contains(String item) {
-    if (isAndroid) {
-      return this.androidOptions.contains(item);
-    } else {
-      return (this.iosOptions.contains(item) || this.iosQty.contains(item));
-    }
+    return options.contains(item);
   }
 }
