@@ -275,6 +275,7 @@ public class ProductDetailsView extends BaseComponent {
   public ProductDetailsView selectQuantity(String quantity) {
     MobileHelper.scrollElementIntoView(increaseQuantityButton);
     int attempts = 5;
+    quantityText.initialize();
     while (!quantityText.getText().equals(quantity) && (attempts-- > 0)) {
       logger.info("Increasing quantity. Current: " + quantityText.getText());
       logger.info("Increasing quantity. Expected: " + quantity);
