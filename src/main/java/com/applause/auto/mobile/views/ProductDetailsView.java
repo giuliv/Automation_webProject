@@ -278,6 +278,7 @@ public class ProductDetailsView extends BaseComponent {
     while (!quantityText.getText().equals(quantity) && (attempts-- > 0)) {
       logger.info("Increasing quantity. Current: " + quantityText.getText());
       logger.info("Increasing quantity. Expected: " + quantity);
+      logger.info(">>>DOM" + getDriver().getPageSource());
       increaseQuantityButton.click();
       getSyncHelper().sleep(1000);
     }
