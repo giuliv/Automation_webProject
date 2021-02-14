@@ -153,6 +153,7 @@ public class Constants {
 
   public static final class MobileApp {
     public static final String IOS_BUNDLE_ID = "com.peets.loyalty.uat";
+    public static final String IOS_SETTINGS = "com.apple.Preferences";
     public static final String ANDROID_PACKAGE_ID = "com.wearehathway.peets.development";
   }
 

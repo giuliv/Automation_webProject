@@ -1,5 +1,6 @@
 package com.applause.auto.mobile.views;
 
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.helpers.ItemOptions;
@@ -11,7 +12,6 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -219,8 +219,12 @@ public class CheckoutView extends BaseComponent {
   public ItemOptions getItemOptions(String itemName) {
     ((IOSDriver) getDriver()).setSetting("snapshotMaxDepth", 99);
     logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
-    ((IOSDriver) getDriver()).runAppInBackground(Duration.ofSeconds(10));
+    ((IOSDriver) getDriver()).activateApp(Constants.MobileApp.IOS_SETTINGS);
     logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
+    ((IOSDriver) getDriver()).activateApp(Constants.MobileApp.IOS_BUNDLE_ID);
+    logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
+    logger.info(">>>1" + getDriver().getPageSource());
+    logger.info(">>>2" + getDriver().getPageSource());
     MobileHelper.scrollElementIntoView(itemOptionsText.format(itemName));
     String result = itemOptionsText.getText();
     itemQtyText.format(itemName).initialize();
