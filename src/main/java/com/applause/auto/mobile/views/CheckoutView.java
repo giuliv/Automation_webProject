@@ -1,5 +1,6 @@
 package com.applause.auto.mobile.views;
 
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.helpers.ItemOptions;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
+
+import io.appium.java_client.ios.IOSDriver;
 
 import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
 
@@ -221,18 +224,20 @@ public class CheckoutView extends BaseComponent {
   }
 
   public ItemOptions getItemOptions(String itemName) {
-    //    ((IOSDriver) getDriver()).setSetting("snapshotMaxDepth", 99);
-    //    logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
-    //    ((IOSDriver) getDriver()).activateApp(Constants.MobileApp.IOS_SETTINGS);
-    //    getSyncHelper().sleep(3000);
-    //    logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
-    //    ((IOSDriver) getDriver()).activateApp(Constants.MobileApp.IOS_BUNDLE_ID);
-    //    getSyncHelper().sleep(3000);
-    //    logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
-    //    logger.info(">>>1" + getDriver().getPageSource());
-    //    logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
-    //    logger.info(">>>2" + getDriver().getPageSource());
-    //    logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
+    ((IOSDriver) getDriver()).setSetting("snapshotMaxDepth", 99);
+    logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
+    ((IOSDriver) getDriver()).activateApp(Constants.MobileApp.IOS_SETTINGS);
+    getSyncHelper().sleep(3000);
+    logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
+    ((IOSDriver) getDriver()).activateApp(Constants.MobileApp.IOS_BUNDLE_ID);
+    getSyncHelper().sleep(3000);
+    logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
+    logger.info(">>>1" + getDriver().getPageSource());
+    logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
+    logger.info(">>>2" + getDriver().getPageSource());
+    logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
+    logger.info(">>>>>3" + getDriver().getPageSource());
+    logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
     MobileHelper.scrollElementIntoView(itemOptionsText.format(itemName));
     itemOptionsList.format(itemName).initialize();
     itemOptionsList.stream()
