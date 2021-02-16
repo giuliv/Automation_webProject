@@ -12,7 +12,6 @@ import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import com.applause.auto.web.helpers.WebHelper;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 

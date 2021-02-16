@@ -228,16 +228,11 @@ public class CheckoutView extends BaseComponent {
     logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
     ((IOSDriver) getDriver()).activateApp(Constants.MobileApp.IOS_SETTINGS);
     getSyncHelper().sleep(3000);
-    logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
+    logger.info(">>>1" + getDriver().getPageSource());
     ((IOSDriver) getDriver()).activateApp(Constants.MobileApp.IOS_BUNDLE_ID);
     getSyncHelper().sleep(3000);
     logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
-    logger.info(">>>1" + getDriver().getPageSource());
-    logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
     logger.info(">>>2" + getDriver().getPageSource());
-    logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
-    logger.info(">>>>>3" + getDriver().getPageSource());
-    logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
     MobileHelper.scrollElementIntoView(itemOptionsText.format(itemName));
     itemOptionsList.format(itemName).initialize();
     itemOptionsList.stream()

@@ -2,7 +2,6 @@ package com.applause.auto.mobile.helpers;
 
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
