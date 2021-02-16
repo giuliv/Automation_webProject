@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 public class ItemOptions {
   private List<String> options;
+  private String iosOptions;
   private boolean isAndroid = true;
 
   public ItemOptions(List<String> androidOptions) {
@@ -15,10 +16,10 @@ public class ItemOptions {
   }
 
   public ItemOptions(LazyList<Text> item) {
-    this.options = item.stream().map(i -> i.getText()).collect(Collectors.toList());
+    this.iosOptions = item.stream().map(i -> i.getText()).collect(Collectors.joining());
   }
 
   public boolean contains(String item) {
-    return options.contains(item);
+    return isAndroid ? options.contains(item) : iosOptions.contains(item);
   }
 }
