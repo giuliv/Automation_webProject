@@ -1,5 +1,6 @@
 package com.applause.auto.mobile.helpers;
 
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileApp;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.integrations.helpers.SdkHelper;
@@ -22,6 +23,7 @@ import java.lang.invoke.MethodHandles;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.IntStream;
 import javax.imageio.ImageIO;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
@@ -30,6 +32,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
@@ -173,8 +176,8 @@ public class MobileHelper extends SdkHelper {
     double pStartY = 0;
     double pEndY = 0;
     if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
-      pStartY = 0.6;
-      pEndY = -0.4;
+      pStartY = 0.5;
+      pEndY = 0.3;
     } else { // Android scrolls faster so the start and end must be gentler
       pStartY = 0.50;
       pEndY = 0.30;
@@ -186,8 +189,8 @@ public class MobileHelper extends SdkHelper {
     double pStartY = 0;
     double pEndY = 0;
     if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
-      pStartY = 0.6;
-      pEndY = -0.4;
+      pStartY = 0.5;
+      pEndY = 0.7;
     } else { // Android scrolls faster so the start and end must be gentler
       pStartY = 0.50;
       pEndY = 0.70;
@@ -312,12 +315,13 @@ public class MobileHelper extends SdkHelper {
           elem.click();
           elem.sendKeys(Keys.BACK_SPACE + value);
           elem.sendKeys(Keys.BACK_SPACE + value);
-          ((AndroidDriver) getDriver()).pressKeyCode(66);
+          ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.ENTER));
+
         } else {
           elem.sendKeys(Keys.BACK_SPACE);
           elem.click();
           elem.sendKeys(value);
-          ((AndroidDriver) getDriver()).pressKeyCode(66);
+          ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.ENTER));
         }
       } else {
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
@@ -494,5 +498,56 @@ public class MobileHelper extends SdkHelper {
     } catch (Exception ex) {
       return false;
     }
+  }
+
+  public static void scrollElementIntoView(BaseElement element) {
+    logger.info("Trying to get first element into view area");
+    try {
+      element.initialize();
+    } catch (NoSuchElementException nse) {
+      IntStream.range(1, 6).forEach(i -> scrollUpCloseToMiddleAlgorithm());
+    }
+    int screenHeight = getDeviceControl().getScreenSize().height;
+    IntStream.range(1, 6)
+        .filter(
+            i -> {
+              try {
+                element.initialize();
+                Dimension dimension = element.getDimension();
+                Point location = element.getLocation();
+                logger.info(
+                    String.format("Location [%s] height [%s]", location.y, dimension.height));
+                if (location.y + dimension.height + Constants.BOTTOM_BORDER_SIZE > screenHeight) {
+                  logger.info("Element is on bottom");
+                  swipeAcrossMiddleScreenUp();
+                  return false;
+                } else {
+                  if (location.y < screenHeight / 2.5) {
+                    logger.info("Element is on top");
+                    swipeAcrossMiddleScreenDown();
+                    return false;
+                  } else {
+                    logger.info("Element is in visible part, continue");
+                    return true;
+                  }
+                }
+              } catch (NoSuchElementException nse) {
+                swipeAcrossMiddleScreenUp();
+              }
+              return false;
+            })
+        .findFirst();
+  }
+
+  public static void swipeAcrossMiddleScreenUp() {
+    Dimension size = getDeviceControl().getScreenSize();
+    logger.debug(String.format("Screen size is [%d x %d].", size.width, size.height));
+    swipeAcrossScreenCoordinates(0.5, 0.5, 0.5, 0.3, 2000L);
+  }
+
+  public static void swipeAcrossMiddleScreenDown() {
+    Dimension size = getDeviceControl().getScreenSize();
+    logger.debug(String.format("Screen size is [%d x %d].", size.width, size.height));
+    swipeAcrossScreenCoordinates(0.5, 0.5, 0.5, 0.8, 2000L);
   }
 }

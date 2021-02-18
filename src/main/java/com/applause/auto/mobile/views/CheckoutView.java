@@ -1,9 +1,9 @@
 package com.applause.auto.mobile.views;
 
-import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
-
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
+import com.applause.auto.mobile.helpers.ItemOptions;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -11,10 +11,16 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.LazyList;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
+
+import io.appium.java_client.ios.IOSDriver;
+
+import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
 
 @Implementation(is = AndroidCheckoutView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CheckoutView.class, on = Platform.MOBILE_IOS)
@@ -31,6 +37,9 @@ public class CheckoutView extends BaseComponent {
   protected Button getPlaceOrderButton;
 
   @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`label == \"Close\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button closeButton;
 
   @Locate(
@@ -90,7 +99,17 @@ public class CheckoutView extends BaseComponent {
       xpath =
           "//android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productName' and @text='%s']/following-sibling::android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productOptions']",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//XCUIElementTypeStaticText[@name=\"%s\"]/preceding-sibling::XCUIElementTypeStaticText[1]",
+      on = Platform.MOBILE_IOS)
   protected Text itemOptionsText;
+
+  @Locate(
+      xpath =
+          "//XCUIElementTypeStaticText[@name=\"%s\"]/preceding-sibling::XCUIElementTypeStaticText",
+      on = Platform.MOBILE_IOS)
+  protected LazyList<Text> itemOptionsList;
 
   @Locate(
       xpath =
@@ -102,6 +121,10 @@ public class CheckoutView extends BaseComponent {
       xpath =
           "//android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productName' and @text='%s']/following-sibling::android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productQuantity']",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//XCUIElementTypeStaticText[@name=\"%s\"]/preceding-sibling::XCUIElementTypeStaticText[2]",
+      on = Platform.MOBILE_IOS)
   protected Text itemQtyText;
 
   @Locate(
@@ -144,8 +167,7 @@ public class CheckoutView extends BaseComponent {
     }
 
     if (areAvailableRewardsDisplayed) {
-      availableRewards
-          .stream()
+      availableRewards.stream()
           .filter(item -> getElementTextAttribute(item).startsWith(awardText))
           .findAny()
           .orElseThrow(
@@ -201,31 +223,24 @@ public class CheckoutView extends BaseComponent {
     getSyncHelper().sleep(1000);
   }
 
-  public List<String> getItemOptions(String itemName) {
-    int attempt = 5;
-    try {
-      itemOptionsText.format(itemName).initialize();
-    } catch (Throwable th) {
-      IntStream.range(0, attempt)
-          .forEach(
-              i -> {
-                MobileHelper.scrollUpCloseToMiddleAlgorithm();
-              });
-    }
-
-    while (attempt-- > 0 && !itemOptionsText.exists()) {
-      MobileHelper.scrollDownCloseToMiddleAlgorithm();
-      getSyncHelper().sleep(1000);
-    }
-    List<String> result =
-        new ArrayList<String>(Arrays.asList(itemOptionsText.getText().split("\n")));
-    itemQtyText.format(itemName).initialize();
-    result.add(itemQtyText.getText());
-    result.forEach(
-        i -> {
-          logger.info("Found option: " + i);
-        });
-    return result;
+  public ItemOptions getItemOptions(String itemName) {
+    ((IOSDriver) getDriver()).setSetting("snapshotMaxDepth", 99);
+    logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
+    ((IOSDriver) getDriver()).activateApp(Constants.MobileApp.IOS_SETTINGS);
+    getSyncHelper().sleep(3000);
+    logger.info(">>>1" + getDriver().getPageSource());
+    ((IOSDriver) getDriver()).activateApp(Constants.MobileApp.IOS_BUNDLE_ID);
+    getSyncHelper().sleep(3000);
+    logger.info("Contexts: " + ((IOSDriver) getDriver()).getContextHandles());
+    logger.info(">>>2" + getDriver().getPageSource());
+    MobileHelper.scrollElementIntoView(itemOptionsText.format(itemName));
+    itemOptionsList.format(itemName).initialize();
+    itemOptionsList.stream()
+        .forEach(
+            i -> {
+              logger.info("Found options: " + i.getText());
+            });
+    return new ItemOptions(itemOptionsList);
   }
 
   public CheckoutView refreshView() {
@@ -318,5 +333,32 @@ class AndroidCheckoutView extends CheckoutView {
   public String getOrderTotal() {
     MobileHelper.swipeWithCount(SwipeDirection.UP, 2);
     return orderTotal.getText();
+  }
+
+  public ItemOptions getItemOptions(String itemName) {
+    int attempt = 5;
+    try {
+      itemOptionsText.format(itemName).initialize();
+    } catch (Throwable th) {
+      IntStream.range(0, attempt)
+          .forEach(
+              i -> {
+                MobileHelper.scrollUpCloseToMiddleAlgorithm();
+              });
+    }
+
+    while (attempt-- > 0 && !itemOptionsText.exists()) {
+      MobileHelper.scrollDownCloseToMiddleAlgorithm();
+      getSyncHelper().sleep(1000);
+    }
+    List<String> result =
+        new ArrayList<String>(Arrays.asList(itemOptionsText.getText().split("\n")));
+    itemQtyText.format(itemName).initialize();
+    result.add(itemQtyText.getText());
+    result.forEach(
+        i -> {
+          logger.info("Found option: " + i);
+        });
+    return new ItemOptions(result);
   }
 }

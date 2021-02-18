@@ -9,6 +9,7 @@ import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
 import com.applause.auto.mobile.components.CoffeeStoreItemChuck;
 import com.applause.auto.mobile.components.RemoveFromOrderChunk;
+import com.applause.auto.mobile.helpers.ItemOptions;
 import com.applause.auto.mobile.views.CheckoutView;
 import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.FindACoffeeBarView;
@@ -20,7 +21,6 @@ import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.ProductDetailsView;
 import com.applause.auto.test.mobile.helpers.TestHelper;
 import java.lang.invoke.MethodHandles;
-import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -666,8 +666,8 @@ public class OrderTest extends BaseTest {
             + "* Add Sweeteners"
             + "* Add Toppings"
             + "* Quantity");
-    String defaultSize = productDetailsView.getSize();
-    String cost = productDetailsView.getCost();
+    //        String defaultSize = productDetailsView.getSize();
+    //    String cost = productDetailsView.getCost();
     productDetailsView.selectSize("Large");
     productDetailsView
         .selectSyrups()
@@ -725,8 +725,8 @@ public class OrderTest extends BaseTest {
             + "* Add Sweeteners"
             + "* Add Toppings"
             + "* Quantity ");
-    defaultSize = productDetailsView.getSize();
-    cost = productDetailsView.getCost();
+    //    defaultSize = productDetailsView.getSize();
+    //    cost = productDetailsView.getCost();
     productDetailsView.selectSize("Small");
     productDetailsView
         .selectSyrups()
@@ -769,9 +769,6 @@ public class OrderTest extends BaseTest {
     orderView.selectCategoryAndSubCategory("Signature Beverages", "Cold Brew Black Tie");
 
     logger.info("Expected 9. Sub-categories should expand downward");
-    logger.info(
-        "Expected 10. Make sure FAB is displayed on sub-category screen and shows correct quantity of item(s) previously added to order");
-    fabAmount = orderView.getFabAmount();
 
     //////////////
     //// The Black Tie - Medium - Coconut Syrup: No - Nonfat Milk - Long Pull -
@@ -795,8 +792,8 @@ public class OrderTest extends BaseTest {
             + "* Add Toppings"
             + "* Cup"
             + "* Quantity");
-    defaultSize = productDetailsView.getSize();
-    cost = productDetailsView.getCost();
+    //    defaultSize = productDetailsView.getSize();
+    //    cost = productDetailsView.getCost();
     productDetailsView.selectSize("Medium");
     productDetailsView
         .selectSyrups()
@@ -858,11 +855,11 @@ public class OrderTest extends BaseTest {
     Assert.assertNotNull(checkoutView, "User does not taken to checkout screen");
 
     logger.info("Step 15. Review beverage order details on checkout screen");
-    List<String> maple = checkoutView.getItemOptions("Maple Latte");
+    ItemOptions maple = checkoutView.getItemOptions("Maple Latte");
     checkoutView = checkoutView.refreshView();
-    List<String> snowcap = checkoutView.getItemOptions("Snowcap Iced Mint Matcha Latte");
+    ItemOptions snowcap = checkoutView.getItemOptions("Snowcap Iced Mint Matcha Latte");
     checkoutView = checkoutView.refreshView();
-    List<String> blackTie = checkoutView.getItemOptions("The Black Tie");
+    ItemOptions blackTie = checkoutView.getItemOptions("The Black Tie");
 
     logger.info(
         "Expected 15. Make sure beverage customizations flow through correctly to checkout screen");
@@ -971,6 +968,8 @@ public class OrderTest extends BaseTest {
             + "User continues this test case from previous test case (so user will have items added to order already)");
     customizeOrderBeveragesTest();
     NewOrderView orderView = this.create(NewOrderView.class);
+
+    /////
     logger.info("STEP 1. Tap on Food category to expand");
     logger.info("STEP 2. Select sub-category Baked Goods");
     orderView.selectCategoryAndSubCategory("Food", "Baked Goods");
@@ -1051,19 +1050,17 @@ public class OrderTest extends BaseTest {
     Assert.assertNotNull(checkoutView, "User does not returned to checkout screen");
 
     logger.info("STEP 11. Review food order details on checkout screen");
-    List<String> plainBagel = checkoutView.getItemOptions("Plain Bagel");
+    ItemOptions plainBagel = checkoutView.getItemOptions("Plain Bagel");
     checkoutView = checkoutView.refreshView();
-    List<String> oatmeal = checkoutView.getItemOptions("Oatmeal");
+    ItemOptions oatmeal = checkoutView.getItemOptions("Oatmeal");
     logger.info(
         "EXPECTED 11. Make sure food customizations flow through correctly to checkout screen");
     SoftAssert softAssert = new SoftAssert();
-    softAssert.assertEquals(plainBagel.size(), 2, "Plain Bagel: Wrong amount of options");
     softAssert.assertTrue(
         plainBagel.contains("Qty: 2"), "Plain Bagel: Wrong quantity: Expected Qty:2");
     softAssert.assertTrue(
         plainBagel.contains("Warm"), "Plain Bagel: Wrong warm option: Expected Warm");
 
-    softAssert.assertEquals(oatmeal.size(), 3, "Oatmeal: Wrong amount of options");
     softAssert.assertTrue(oatmeal.contains("Qty: 2"), "Oatmeal: Wrong quantity: Expected Qty: 2");
     softAssert.assertTrue(
         oatmeal.contains("Almonds (x2)"), "Oatmeal: Wrong topping option: Expected Almonds (x2)");

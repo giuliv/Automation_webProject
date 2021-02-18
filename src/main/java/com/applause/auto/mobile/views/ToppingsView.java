@@ -19,9 +19,15 @@ public class ToppingsView extends BaseComponent {
   @Locate(
       id = "com.wearehathway.peets.development:id/saveChangesButton",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Save Changes\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button saveChangesButton;
 
   @Locate(xpath = "//android.widget.TextView[@text='Whipped Cream']", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Whipped Cream\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button whippedCreamButton;
 
   /* -------- Actions -------- */
@@ -31,7 +37,9 @@ public class ToppingsView extends BaseComponent {
   }
 
   public <T extends BaseComponent> T saveChanges(Class<T> clazz) {
-    saveChangesButton.click();
+    getSyncHelper().sleep(1000);
+    getDeviceControl().tapElementCenter(saveChangesButton);
+    getSyncHelper().sleep(2000);
     return this.create(clazz);
   }
 }

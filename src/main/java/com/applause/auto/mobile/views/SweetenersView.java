@@ -21,17 +21,28 @@ public class SweetenersView extends BaseComponent {
       xpath =
           "//android.widget.TextView[@text='Raw Sugar']/../..//android.widget.ImageButton[@resource-id='com.wearehathway.peets.development:id/increaseQuantity']",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//XCUIElementTypeStaticText[@name=\"Raw Sugar\"]/../XCUIElementTypeButton[@label = '+']",
+      on = Platform.MOBILE_IOS)
   protected Button addRawSugarAmountButton;
 
   @Locate(
       xpath =
           "//android.widget.TextView[@text='Raw Sugar']/../..//android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/modifierQuantity']",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//XCUIElementTypeStaticText[@name=\"Raw Sugar\"]/following-sibling::XCUIElementTypeStaticText[2]",
+      on = Platform.MOBILE_IOS)
   protected Text rawSugarAmountText;
 
   @Locate(
       id = "com.wearehathway.peets.development:id/saveChangesButton",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Save Changes\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button saveChangesButton;
 
   /* -------- Actions -------- */

@@ -13,6 +13,7 @@ import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import com.applause.auto.web.helpers.WebHelper;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 @Implementation(is = PaypalLoginPage.class, on = Platform.WEB)
 public class PaypalLoginPage extends BaseComponent {
@@ -84,7 +85,7 @@ public class PaypalLoginPage extends BaseComponent {
         getSyncHelper().wait(Until.uiElement(getIFrame).present());
         getDriver()
             .switchTo()
-            .frame(getDriver().findElement(By.cssSelector("[name='injectedUl']")));
+            .frame((WebElement) getDriver().findElement(By.cssSelector("[name='injectedUl']")));
         logger.info("Switched to Iframe successfully");
       } catch (Throwable throwable) {
         logger.info("Switching to iFrame failed");

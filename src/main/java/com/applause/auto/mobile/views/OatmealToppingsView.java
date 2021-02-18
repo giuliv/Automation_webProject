@@ -20,23 +20,36 @@ public class OatmealToppingsView extends BaseComponent {
       xpath =
           "//android.widget.TextView[@text='%s' and @resource-id='com.wearehathway.peets.development:id/productModifierName']/../..//android.widget.ImageButton[@resource-id='com.wearehathway.peets.development:id/decreaseQuantity']",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]/../XCUIElementTypeButton[@name=\"-\"]",
+      on = Platform.MOBILE_IOS)
   protected Button decreaseAmountButton;
 
   @Locate(
       xpath =
           "//android.widget.TextView[@text='%s' and @resource-id='com.wearehathway.peets.development:id/productModifierName']/../..//android.widget.ImageButton[@resource-id='com.wearehathway.peets.development:id/increaseQuantity']",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]/../XCUIElementTypeButton[@name=\"+\"]",
+      on = Platform.MOBILE_IOS)
   protected Button increaseAmountButton;
 
   @Locate(
       xpath =
           "//android.widget.TextView[@text='%s' and @resource-id='com.wearehathway.peets.development:id/productModifierName']/../..//android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/modifierQuantity']",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//XCUIElementTypeStaticText[@name=\"%s\"]/../XCUIElementTypeButton[@name=\"-\"]/preceding-sibling::XCUIElementTypeStaticText[1]",
+      on = Platform.MOBILE_IOS)
   protected Button amountText;
 
   @Locate(
       id = "com.wearehathway.peets.development:id/saveChangesButton",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Save Changes\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button saveChangesButton;
 
   /* -------- Actions -------- */

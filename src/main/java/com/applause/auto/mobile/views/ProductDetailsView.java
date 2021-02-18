@@ -64,17 +64,26 @@ public class ProductDetailsView extends BaseComponent {
       xpath =
           "//android.widget.Button[@resource-id='com.wearehathway.peets.development:id/modifierButton' and @text='%s']",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"%s\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button sizeButton;
 
   @Locate(
       xpath =
           "//android.widget.TextView[starts-with(@text,'Milk Prep') or starts-with(@text,'Milk')]",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Milk Prep\" OR label == \"Milk\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button selectMilkPrepButton;
 
   @Locate(
       xpath = "//android.widget.TextView[starts-with(@text,'Syrups & Sauces')]",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label CONTAINS \"Syrups & Sauces\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button selectSyrupsAndSaucesButton;
 
   @Locate(
@@ -85,39 +94,62 @@ public class ProductDetailsView extends BaseComponent {
   @Locate(
       xpath = "//android.widget.TextView[starts-with(@text,'Shot Options')]",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Shot Options\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button selectShotOptionsButton;
 
   @Locate(
       xpath = "//android.widget.TextView[starts-with(@text,'Warming')]",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Warming\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button warmingButton;
 
   @Locate(
       xpath = "//android.widget.TextView[starts-with(@text,'Oatmeal Toppings')]",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Oatmeal Toppings\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button oatmealToppingsButton;
 
   @Locate(
       xpath =
           "//android.widget.TextView[starts-with(@text,'Add Toppings') or starts-with(@text,'Toppings')]",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Add Toppings\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button selectToppingsButton;
 
   @Locate(
       xpath = "//android.widget.TextView[starts-with(@text,'Sweeteners')]",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label CONTAINS \"Sweeteners\"`]",
+      on = Platform.MOBILE_IOS)
   protected Button selectSweetenersButton;
 
   @Locate(
       xpath =
           "//android.widget.RelativeLayout[@resource-id='com.wearehathway.peets.development:id/quantity']//android.widget.ImageButton[@resource-id='com.wearehathway.peets.development:id/increaseQuantity']",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//XCUIElementTypeStaticText[@name=\"Quantity\"]/../XCUIElementTypeButton[@name=\"+\"]",
+      on = Platform.MOBILE_IOS)
   protected Button increaseQuantityButton;
 
   @Locate(
       xpath =
           "//android.widget.RelativeLayout[@resource-id='com.wearehathway.peets.development:id/quantity']//android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productQuantity']",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//XCUIElementTypeStaticText[@name=\"Quantity\"]/following-sibling::XCUIElementTypeStaticText",
+      on = Platform.MOBILE_IOS)
   protected Text quantityText;
 
   @Locate(
@@ -200,37 +232,36 @@ public class ProductDetailsView extends BaseComponent {
   }
 
   public MilkPrepView selectMilkPrep() {
-    selectMilkPrepButton.click();
+    MobileHelper.scrollElementIntoView(selectMilkPrepButton);
+    getDeviceControl().tapElementCenter(selectMilkPrepButton);
     return this.create(MilkPrepView.class);
   }
 
   public ShotOptionsView selectShotOptions() {
-    selectShotOptionsButton.click();
+    MobileHelper.scrollElementIntoView(selectShotOptionsButton);
+    getDeviceControl().tapElementCenter(selectShotOptionsButton);
     return this.create(ShotOptionsView.class);
   }
 
   public SweetenersView selectSweeteners() {
-    try {
-      selectSweetenersButton.click();
-    } catch (NoSuchElementException nse) {
-      MobileHelper.scrollDownCloseToMiddleAlgorithm();
-      selectSweetenersButton.click();
-    }
+    MobileHelper.scrollElementIntoView(selectSweetenersButton);
+    selectSweetenersButton.click();
     return this.create(SweetenersView.class);
   }
 
   public ToppingsView selectToppings() {
     int attempt = 5;
-    try {
+    if (selectToppingsButton.exists() && selectToppingsButton.isDisplayed()) {
       selectToppingsButton.click();
-    } catch (NoSuchElementException nse) {
+    } else {
       IntStream.range(0, attempt)
           .forEach(
               i -> {
                 MobileHelper.scrollUpCloseToMiddleAlgorithm();
               });
       getSyncHelper().sleep(1000);
-      while (attempt-- > 0 && !selectToppingsButton.exists()) {
+      while (attempt-- > 0
+          && !(selectToppingsButton.exists() && selectToppingsButton.isDisplayed())) {
         MobileHelper.scrollDownCloseToMiddleAlgorithm();
         getSyncHelper().sleep(1000);
       }
@@ -240,16 +271,22 @@ public class ProductDetailsView extends BaseComponent {
   }
 
   public ProductDetailsView selectQuantity(String quantity) {
-    getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
-    int attempts = 3;
-    while (!quantityText.getText().equals(quantity) && attempts-- > 0) {
+    MobileHelper.scrollElementIntoView(increaseQuantityButton);
+    int attempts = 5;
+    quantityText.initialize();
+    while (!quantityText.getText().equals(quantity) && (attempts-- > 0)) {
+      logger.info("Increasing quantity. Current: " + quantityText.getText());
+      logger.info("Increasing quantity. Expected: " + quantity);
+      logger.info(">>>DOM" + getDriver().getPageSource());
       increaseQuantityButton.click();
+      getSyncHelper().sleep(1000);
     }
     return this;
   }
 
   public SyrupsAndSaucesView selectSyrups() {
-    selectSyrupsAndSaucesButton.click();
+    MobileHelper.scrollElementIntoView(selectSyrupsAndSaucesButton);
+    getDeviceControl().tapElementCenter(selectSyrupsAndSaucesButton);
     return this.create(SyrupsAndSaucesView.class);
   }
 
@@ -315,5 +352,71 @@ class AndroidProductDetailsView extends ProductDetailsView {
   public void afterInit() {
     getSyncHelper()
         .wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(120)));
+  }
+
+  @Override
+  public ToppingsView selectToppings() {
+    int attempt = 5;
+    try {
+      selectToppingsButton.click();
+    } catch (NoSuchElementException nse) {
+      IntStream.range(0, attempt)
+          .forEach(
+              i -> {
+                MobileHelper.scrollUpCloseToMiddleAlgorithm();
+              });
+      getSyncHelper().sleep(1000);
+      while (attempt-- > 0 && !selectToppingsButton.exists()) {
+        MobileHelper.scrollDownCloseToMiddleAlgorithm();
+        getSyncHelper().sleep(1000);
+      }
+      selectToppingsButton.click();
+    }
+    return this.create(ToppingsView.class);
+  }
+
+  @Override
+  public SweetenersView selectSweeteners() {
+    if (selectSweetenersButton.exists() && selectSweetenersButton.isDisplayed()) {
+      selectSweetenersButton.click();
+    } else {
+      MobileHelper.scrollDownCloseToMiddleAlgorithm();
+      selectSweetenersButton.click();
+    }
+    return this.create(SweetenersView.class);
+  }
+
+  @Override
+  public SyrupsAndSaucesView selectSyrups() {
+    selectSyrupsAndSaucesButton.click();
+    return this.create(SyrupsAndSaucesView.class);
+  }
+
+  @Override
+  public MilkPrepView selectMilkPrep() {
+    if (selectMilkPrepButton.exists() && selectMilkPrepButton.isDisplayed()) {
+      selectMilkPrepButton.click();
+    } else {
+      MobileHelper.scrollDownCloseToMiddleAlgorithm();
+      selectMilkPrepButton.click();
+    }
+    return this.create(MilkPrepView.class);
+  }
+
+  @Override
+  public ShotOptionsView selectShotOptions() {
+    selectShotOptionsButton.click();
+    return this.create(ShotOptionsView.class);
+  }
+
+  @Override
+  public ProductDetailsView selectQuantity(String quantity) {
+    getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+    getSyncHelper().sleep(2000);
+    int attempts = 3;
+    while (!quantityText.getText().equals(quantity) && attempts-- > 0) {
+      increaseQuantityButton.click();
+    }
+    return this;
   }
 }
