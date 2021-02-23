@@ -18,7 +18,9 @@ public class TermsAndConditionsView extends BaseComponent {
   @Locate(
       xpath = "//XCUIElementTypeOther[@name=\"Terms And Conditions | Peet's Coffee\"]",
       on = Platform.MOBILE_IOS)
-  @Locate(xpath = "(//*[contains(@text, \"Terms & Conditions\")])[2]", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath = "//*[contains(@text, \"Terms &amp; Conditions | Peet's Coffee\")][1]",
+      on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
   @Locate(id = "android:id/button_once", on = Platform.MOBILE_ANDROID)
