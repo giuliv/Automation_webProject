@@ -810,7 +810,8 @@ class AndroidCreateAccountView extends CreateAccountView {
             .trim();
     logger.info("pHint: " + pHint);
     boolean result =
-        pHint.equals("At least 6 characters\n" + "At least 1 number\n" + "At least 1 letter");
+        pHint.equals(
+            "At least 6 characters\n" + "At least 1 number\n" + "At least 1 lowercase letter");
     return result;
   }
 
