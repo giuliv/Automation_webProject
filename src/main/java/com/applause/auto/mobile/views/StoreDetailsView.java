@@ -276,14 +276,8 @@ public class StoreDetailsView extends BaseComponent {
   public StoreDetailsView tapFavorite() {
     logger.info("Tap favorite icon");
     coffeebarFavoriteIcon.initialize();
-    int colourRed =
-        MobileHelper.getMobileElementColour(coffeebarFavoriteIcon.getMobileElement()).getRed();
-
-    if ((colourRed != 199) && (colourRed != 200)) {
-      coffeebarFavoriteIcon.click();
-      getSyncHelper().sleep(5000);
-    }
-
+    coffeebarFavoriteIcon.click();
+    getSyncHelper().sleep(5000);
     return this;
   }
 }
