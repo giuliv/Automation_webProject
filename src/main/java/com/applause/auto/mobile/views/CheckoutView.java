@@ -1,5 +1,7 @@
 package com.applause.auto.mobile.views;
 
+import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
+
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
@@ -12,15 +14,11 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
-
+import io.appium.java_client.ios.IOSDriver;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
-
-import io.appium.java_client.ios.IOSDriver;
-
-import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
 
 @Implementation(is = AndroidCheckoutView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CheckoutView.class, on = Platform.MOBILE_IOS)
@@ -167,7 +165,8 @@ public class CheckoutView extends BaseComponent {
     }
 
     if (areAvailableRewardsDisplayed) {
-      availableRewards.stream()
+      availableRewards
+          .stream()
           .filter(item -> getElementTextAttribute(item).startsWith(awardText))
           .findAny()
           .orElseThrow(
@@ -235,7 +234,8 @@ public class CheckoutView extends BaseComponent {
     logger.info(">>>2" + getDriver().getPageSource());
     MobileHelper.scrollElementIntoView(itemOptionsText.format(itemName));
     itemOptionsList.format(itemName).initialize();
-    itemOptionsList.stream()
+    itemOptionsList
+        .stream()
         .forEach(
             i -> {
               logger.info("Found options: " + i.getText());
