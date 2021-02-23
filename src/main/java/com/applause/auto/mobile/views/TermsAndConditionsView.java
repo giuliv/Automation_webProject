@@ -6,6 +6,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
+
 import java.time.Duration;
 
 @Implementation(is = AndroidTermsAndConditionsView.class, on = Platform.MOBILE_ANDROID)
@@ -17,9 +18,7 @@ public class TermsAndConditionsView extends BaseComponent {
   @Locate(
       xpath = "//XCUIElementTypeOther[@name=\"Terms And Conditions | Peet's Coffee\"]",
       on = Platform.MOBILE_IOS)
-  @Locate(
-      xpath = "(//*[contains(text(), \"Terms & Conditions\")])[2]",
-      on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "(//*[contains(@text, \"Terms & Conditions\")])[2]", on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
   @Locate(id = "android:id/button_once", on = Platform.MOBILE_ANDROID)
