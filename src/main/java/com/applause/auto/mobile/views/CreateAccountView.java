@@ -798,7 +798,7 @@ class AndroidCreateAccountView extends CreateAccountView {
     getHiddenPasswordTextBox.click();
     getHiddenPasswordTextBox.sendKeys("A");
     getDeviceControl().hideKeyboard();
-    boolean result =
+    String pHint =
         getPasswordHintTextBox.stream()
             .map(
                 item -> {
@@ -806,9 +806,10 @@ class AndroidCreateAccountView extends CreateAccountView {
                   logger.info("Password hint = " + i);
                   return i;
                 })
-            .collect(Collectors.joining("\n"))
-            .equals("At least 6 characters\n" + "At least 1 number\n" + "At least 1 letter");
-    getHiddenPasswordTextBox.clearText();
+            .collect(Collectors.joining("\n"));
+    logger.info("pHint: " + pHint);
+    boolean result =
+        pHint.equals("At least 6 characters\n" + "At least 1 number\n" + "At least 1 letter");
     return result;
   }
 
