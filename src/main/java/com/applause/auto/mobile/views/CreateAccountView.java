@@ -806,7 +806,8 @@ class AndroidCreateAccountView extends CreateAccountView {
                   logger.info("Password hint = " + i);
                   return i;
                 })
-            .collect(Collectors.joining("\n"));
+            .collect(Collectors.joining("\n"))
+            .trim();
     logger.info("pHint: " + pHint);
     boolean result =
         pHint.equals("At least 6 characters\n" + "At least 1 number\n" + "At least 1 letter");
