@@ -5,6 +5,7 @@ import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import io.appium.java_client.android.AndroidDriver;
@@ -34,6 +35,12 @@ public class PrivacyPolicyView extends BaseComponent {
       xpath = "//android.widget.Button[@text='Allow only while using the app']",
       on = Platform.MOBILE_ANDROID)
   protected Text allowLocationToBrowser2;
+
+  @Locate(xpath = "//*[text()='Accept']", on = Platform.MOBILE_ANDROID)
+  protected Button acceptCookiesButton;
+
+  @Locate(xpath = "//*[text()='Close & Continue']", on = Platform.MOBILE_ANDROID)
+  protected Button closeAndContinueButton;
 
   @Locate(xpath = "//XCUIElementTypeButton[@name=\"Done\"]", on = Platform.MOBILE_IOS)
   protected Text doneButton;
@@ -80,6 +87,16 @@ class AndroidPrivacyPolicyView extends PrivacyPolicyView {
       allowLocationToBrowser2.click();
     } catch (Throwable th) {
       logger.info("No location popup overlay found");
+    }
+    try {
+      acceptCookiesButton.click();
+    } catch (Throwable th) {
+      logger.info("No cookies popup overlay found");
+    }
+    try {
+      closeAndContinueButton.click();
+    } catch (Throwable th) {
+      logger.info("No cookies popup overlay found");
     }
     getSyncHelper()
         .wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(30)));

@@ -10,6 +10,7 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -112,8 +113,7 @@ public class StoreDetailsView extends BaseComponent {
    */
   public List<String> getResults() {
     logger.info("Looking for results");
-    return getSearchResultsElements
-        .stream()
+    return getSearchResultsElements.stream()
         .map(item -> item.getText())
         .collect(Collectors.toList());
   }
@@ -182,6 +182,7 @@ public class StoreDetailsView extends BaseComponent {
     coffeebarFavoriteIcon.initialize();
     int colourRed =
         MobileHelper.getMobileElementColour(coffeebarFavoriteIcon.getMobileElement()).getRed();
+    logger.info("Color: " + colourRed);
     return (colourRed == 199) || (colourRed == 200);
   }
 
@@ -275,14 +276,8 @@ public class StoreDetailsView extends BaseComponent {
   public StoreDetailsView tapFavorite() {
     logger.info("Tap favorite icon");
     coffeebarFavoriteIcon.initialize();
-    int colourRed =
-        MobileHelper.getMobileElementColour(coffeebarFavoriteIcon.getMobileElement()).getRed();
-
-    if ((colourRed != 199) && (colourRed != 200)) {
-      coffeebarFavoriteIcon.click();
-      getSyncHelper().sleep(5000);
-    }
-
+    coffeebarFavoriteIcon.click();
+    getSyncHelper().sleep(5000);
     return this;
   }
 }

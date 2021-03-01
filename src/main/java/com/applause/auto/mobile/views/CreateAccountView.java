@@ -14,13 +14,16 @@ import com.applause.auto.pageobjectmodel.elements.Picker;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
+
+import org.openqa.selenium.Dimension;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-import java.util.List;
-import java.util.stream.Collectors;
-import org.openqa.selenium.Dimension;
 
 @Implementation(is = AndroidCreateAccountView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CreateAccountView.class, on = Platform.MOBILE_IOS)
@@ -613,8 +616,7 @@ public class CreateAccountView extends BaseComponent {
     logger.info("Checking password text displayed");
     getHiddenPasswordTextBox.sendKeys(" ");
     boolean result =
-        getPasswordHintTextBox
-            .stream()
+        getPasswordHintTextBox.stream()
             .map(item -> item.getText())
             .collect(Collectors.joining("\n"))
             .equals(
@@ -794,10 +796,10 @@ class AndroidCreateAccountView extends CreateAccountView {
   public boolean isPasswordTextDisplayed() {
     logger.info("Checking password text displayed");
     getHiddenPasswordTextBox.click();
-    getHiddenPasswordTextBox.sendKeys(" ");
-    boolean result =
-        getPasswordHintTextBox
-            .stream()
+    getHiddenPasswordTextBox.sendKeys("A");
+    getDeviceControl().hideKeyboard();
+    String pHint =
+        getPasswordHintTextBox.stream()
             .map(
                 item -> {
                   String i = item.getText();
@@ -805,8 +807,11 @@ class AndroidCreateAccountView extends CreateAccountView {
                   return i;
                 })
             .collect(Collectors.joining("\n"))
-            .equals("At least 6 characters\n" + "At least 1 number\n" + "At least 1 letter");
-    getHiddenPasswordTextBox.clearText();
+            .trim();
+    logger.info("pHint: " + pHint);
+    boolean result =
+        pHint.equals(
+            "At least 6 characters\n" + "At least 1 number\n" + "At least 1 lowercase letter");
     return result;
   }
 
