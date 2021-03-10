@@ -40,7 +40,7 @@ public class PeetnikRewardsTermsAndConditionsView extends BaseComponent {
 	@Override
 	public void afterInit() {
 		getSyncHelper().sleep(5000);
-		getSyncHelper().wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(12)));
+		getSyncHelper().wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(60)));
 	}
 
 	/**
