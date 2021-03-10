@@ -43,7 +43,7 @@ public class LegalInfoView extends BaseComponent {
 	/* -------- Actions -------- */
 
 	public void afterInit() {
-		getSyncHelper().wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(12)));
+		getSyncHelper().wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(60)));
 	}
 
 	/**
