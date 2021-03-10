@@ -7,12 +7,14 @@ import org.apache.logging.log4j.Logger;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
 
+import com.applause.auto.web.helpers.WebHelper;
+
 public class RetryAnalyzer implements IRetryAnalyzer {
 
 	private static final Logger logger = LogManager.getLogger(RetryAnalyzer.class);
 
 	private AtomicInteger retryCounter = new AtomicInteger(1);
-	private int retryCountLimit = 3;
+	private int retryCountLimit = WebHelper.useRetry() ? 3 : 1;
 	/*
 	 * (non-Javadoc)
 	 * 
