@@ -430,10 +430,10 @@ public class OrderTest extends BaseTest {
 		Assert.assertTrue(nearbySelectCoffeeBarView.isRecentsTabDisplayed(), "Recents Tab does not displayed");
 		Assert.assertTrue(nearbySelectCoffeeBarView.isFavoritesTabDisplayed(), "Favorites does not displayed");
 
-		if (getEnvironmentHelper().isMobileIOS()) {
-			logger.info("STEP - Search for any store either by nearby, recent tabs, or by zip code");
-			nearbySelectCoffeeBarView = nearbySelectCoffeeBarView.search("78717");
-		}
+		// if (getEnvironmentHelper().isMobileIOS()) {
+		logger.info("STEP - Search for any store either by nearby, recent tabs, or by zip code");
+		nearbySelectCoffeeBarView = nearbySelectCoffeeBarView.search("78717");
+		// }
 
 		CoffeeStoreItemChuck store = nearbySelectCoffeeBarView.getCoffeeStoreContainerChucks().get(0);
 
