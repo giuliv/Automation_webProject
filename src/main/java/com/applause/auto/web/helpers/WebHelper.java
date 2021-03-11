@@ -24,7 +24,7 @@ public class WebHelper extends SdkHelper {
 	}
 
 	public static boolean useRetry() {
-		return System.getProperty("useRetry", "yes").toLowerCase().equals("no");
+		return !System.getProperty("useRetry", "yes").toLowerCase().equals("no");
 	}
 
 	/**
