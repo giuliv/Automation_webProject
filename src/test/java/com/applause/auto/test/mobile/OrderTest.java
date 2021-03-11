@@ -450,7 +450,7 @@ public class OrderTest extends BaseTest {
 		Assert.assertTrue(store.isCoffeebarOpenHoursDisplayed(), "Open hours does not displayed");
 
 		logger.info("STEP 2. Tap on current location icon on the map");
-		nearbySelectCoffeeBarView.location();
+		nearbySelectCoffeeBarView.location(AllowLocationServicesPopupChunk.class).allowIfRequestDisplayed();
 		logger.info("User sees blue dot on map and nearby store locations are indicated on the map as brown pins");
 		Assert.assertTrue(nearbySelectCoffeeBarView.getPinsCount() > 0, "User does not see PINS on the map");
 

@@ -283,9 +283,10 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
 	}
 
 	/** Location. */
-	public void location() {
+	public <T extends BaseComponent> T location(Class<T> clazz) {
 		logger.info("Click on store location button");
 		mapLocationButton.click();
+		return this.create(clazz);
 	}
 
 	/**
