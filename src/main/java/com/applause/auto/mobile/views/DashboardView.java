@@ -1,5 +1,9 @@
 package com.applause.auto.mobile.views;
 
+import java.time.Duration;
+
+import org.openqa.selenium.Point;
+
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
@@ -10,159 +14,154 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-import java.time.Duration;
-import org.openqa.selenium.Point;
 
 @Implementation(is = DashboardView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosDashboardView.class, on = Platform.MOBILE_IOS)
 public class DashboardView extends BaseComponent {
 
-  /* -------- Elements -------- */
+	/* -------- Elements -------- */
 
-  @Locate(accessibilityId = "Your Feed", on = Platform.MOBILE_IOS)
-  @Locate(
-      id = "com.wearehathway.peets.development:id/yourFeedTextView",
-      on = Platform.MOBILE_ANDROID)
-  protected TextBox getSignature;
+	@Locate(accessibilityId = "Your Feed", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/yourFeedTextView", on = Platform.MOBILE_ANDROID)
+	protected TextBox getSignature;
 
-  //  @Locate(xpath = "(//*[@name=\"Settings\"])[last()]", on = Platform.MOBILE_IOS)
-  // //Commented[15.01.2021]
-  @Locate(accessibilityId = "Settings", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/actionMore", on = Platform.MOBILE_ANDROID)
-  protected Button getMoreScreenButton;
+	// @Locate(xpath = "(//*[@name=\"Settings\"])[last()]", on = Platform.MOBILE_IOS)
+	// //Commented[15.01.2021]
+	@Locate(accessibilityId = "Settings", on = Platform.MOBILE_IOS)
+	@Locate(id = "com.wearehathway.peets.development:id/actionMore", on = Platform.MOBILE_ANDROID)
+	protected Button getMoreScreenButton;
 
-  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]", on = Platform.MOBILE_IOS)
-  @Locate(xpath = "//android.widget.TextView[@text='%s']", on = Platform.MOBILE_ANDROID)
-  protected Button offerTitleText;
+	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//android.widget.TextView[@text='%s']", on = Platform.MOBILE_ANDROID)
+	protected Button offerTitleText;
 
-  @Locate(accessibilityId = "NO THANKS", on = Platform.MOBILE_ANDROID)
-  protected Button dismissFreeDeliveryButton;
+	@Locate(accessibilityId = "NO THANKS", on = Platform.MOBILE_ANDROID)
+	protected Button dismissFreeDeliveryButton;
 
-  //  @Locate(
-  //      iOSClassChain = "**/XCUIElementTypeButton[`label == \"Store locator\"`]",
-  //      on = Platform.MOBILE_IOS)
-  @Locate(accessibilityId = "Store locator", on = Platform.MOBILE_IOS)
-  @Locate(accessibilityId = "Stores button", on = Platform.MOBILE_ANDROID)
-  protected Button locationButton;
+	// @Locate(
+	// iOSClassChain = "**/XCUIElementTypeButton[`label == \"Store locator\"`]",
+	// on = Platform.MOBILE_IOS)
+	@Locate(accessibilityId = "Store locator", on = Platform.MOBILE_IOS)
+	@Locate(accessibilityId = "Stores button", on = Platform.MOBILE_ANDROID)
+	protected Button locationButton;
 
-  /* -------- Actions -------- */
+	/* -------- Actions -------- */
 
-  public void afterInit() {
-    try {
-      dismissFreeDeliveryButton.click();
-    } catch (Throwable throwable) {
-      logger.info("No free delivery popup found");
-    }
-    logger.info(">>>>>" + getDriver().getPageSource());
-    getSyncHelper()
-        .wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
-  }
+	public void afterInit() {
+		try {
+			dismissFreeDeliveryButton.click();
+		} catch (Throwable throwable) {
+			logger.info("No free delivery popup found");
+		}
+		logger.info(">>>>>" + getDriver().getPageSource());
+		getSyncHelper().wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
+	}
 
-  /**
-   * Gets account profile menu.
-   *
-   * @return the account profile menu
-   */
-  public AccountMenuMobileChunk getAccountProfileMenu() {
-    logger.info("Open account profile menu\n" + getDriver().getPageSource());
-    getMoreScreenButton.initialize();
-    Point elemCoord = getMoreScreenButton.getMobileElement().getCenter();
-    AppiumDriver driver = (AppiumDriver) getDriver();
-    new TouchAction(driver).tap(PointOption.point(elemCoord.getX(), elemCoord.getY())).perform();
-    getSyncHelper().sleep(5000);
-    return this.create(AccountMenuMobileChunk.class);
-  }
+	/**
+	 * Gets account profile menu.
+	 *
+	 * @return the account profile menu
+	 */
+	public AccountMenuMobileChunk getAccountProfileMenu() {
+		logger.info("Open account profile menu\n" + getDriver().getPageSource());
+		getMoreScreenButton.initialize();
+		Point elemCoord = getMoreScreenButton.getMobileElement().getCenter();
+		AppiumDriver driver = (AppiumDriver) getDriver();
+		new TouchAction(driver).tap(PointOption.point(elemCoord.getX(), elemCoord.getY())).perform();
+		getSyncHelper().sleep(5000);
+		return this.create(AccountMenuMobileChunk.class);
+	}
 
-  /**
-   * Gets bottom navigation menu.
-   *
-   * @return the bottom navigation menu
-   */
-  public BottomNavigationMenuChunk getBottomNavigationMenu() {
-    return this.create(BottomNavigationMenuChunk.class);
-  }
+	/**
+	 * Gets bottom navigation menu.
+	 *
+	 * @return the bottom navigation menu
+	 */
+	public BottomNavigationMenuChunk getBottomNavigationMenu() {
+		return this.create(BottomNavigationMenuChunk.class);
+	}
 
-  /**
-   * Look up offer boolean.
-   *
-   * @param offerName the offer name
-   * @return the boolean
-   */
-  public boolean lookUpOffer(String offerName) {
-    int swipeLimit = 10;
-    while ((swipeLimit-- != 0) && (!isOfferDisplayed(offerName))) {
-      getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
-    }
-    return swipeLimit != 0;
-  }
+	/**
+	 * Look up offer boolean.
+	 *
+	 * @param offerName
+	 *            the offer name
+	 * @return the boolean
+	 */
+	public boolean lookUpOffer(String offerName) {
+		int swipeLimit = 10;
+		while ((swipeLimit-- != 0) && (!isOfferDisplayed(offerName))) {
+			getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
+		}
+		return swipeLimit != 0;
+	}
 
-  private boolean isOfferDisplayed(String offerName) {
-    logger.info("Checking if order displayed");
-    try {
-      offerTitleText.format(offerName);
-      return offerTitleText.isDisplayed();
-    } catch (Throwable th) {
-      return false;
-    }
-  }
+	private boolean isOfferDisplayed(String offerName) {
+		logger.info("Checking if order displayed");
+		try {
+			offerTitleText.format(offerName);
+			return offerTitleText.isDisplayed();
+		} catch (Throwable th) {
+			return false;
+		}
+	}
 
-  /**
-   * Location t.
-   *
-   * @param <T> the type parameter
-   * @param clazz the clazz
-   * @return the t
-   */
-  public <T extends BaseComponent> T location(Class<T> clazz) {
-    logger.info("Click on Location button");
-    getSyncHelper()
-        .wait(Until.uiElement(locationButton).clickable().setTimeout(Duration.ofSeconds(50)));
-    locationButton.click();
-    return this.create(clazz);
-  }
+	/**
+	 * Location t.
+	 *
+	 * @param <T>
+	 *            the type parameter
+	 * @param clazz
+	 *            the clazz
+	 * @return the t
+	 */
+	public <T extends BaseComponent> T location(Class<T> clazz) {
+		logger.info("Click on Location button");
+		getSyncHelper().wait(Until.uiElement(locationButton).clickable().setTimeout(Duration.ofSeconds(50)));
+		locationButton.click();
+		return this.create(clazz);
+	}
 }
 
 class IosDashboardView extends DashboardView {
-  public void afterInit() {
-    getSyncHelper()
-        .wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
-  }
+	public void afterInit() {
+		getSyncHelper().wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
+	}
 
-  @Override
-  public AccountMenuMobileChunk getAccountProfileMenu() {
-    logger.info("Open account profile menu\n" + getDriver().getPageSource());
-    //    int x = getDriver().manage().window().getSize().width;
-    //    int y = getDriver().manage().window().getSize().height;
+	@Override
+	public AccountMenuMobileChunk getAccountProfileMenu() {
+		logger.info("Open account profile menu\n" + getDriver().getPageSource());
+		// int x = getDriver().manage().window().getSize().width;
+		// int y = getDriver().manage().window().getSize().height;
 
-    //    AppiumDriver driver = (AppiumDriver) getDriver();
-    //    if (!getMoreScreenButton.isDisplayed()) {
-    //      logger.info("Clicking settings icon from coordinates");
-    //      new TouchAction(driver).tap(PointOption.point((int) (x * 0.9), (int) (y *
-    // 0.05))).perform();
-    //    } else {
-    //      logger.info("Clicking settings icon");
-    //      getMoreScreenButton.click();
-    //    }
+		// AppiumDriver driver = (AppiumDriver) getDriver();
+		// if (!getMoreScreenButton.isDisplayed()) {
+		// logger.info("Clicking settings icon from coordinates");
+		// new TouchAction(driver).tap(PointOption.point((int) (x * 0.9), (int) (y *
+		// 0.05))).perform();
+		// } else {
+		// logger.info("Clicking settings icon");
+		// getMoreScreenButton.click();
+		// }
 
-    getSyncHelper().sleep(8000);
-    getMoreScreenButton.initialize();
-    getSyncHelper()
-        .wait(Until.uiElement(getMoreScreenButton).present().setTimeout(Duration.ofSeconds(45)));
-    getMoreScreenButton.click();
+		getSyncHelper().sleep(8000);
+		getMoreScreenButton.initialize();
+		getSyncHelper().wait(Until.uiElement(getMoreScreenButton).present().setTimeout(Duration.ofSeconds(45)));
+		getMoreScreenButton.click();
 
-    getSyncHelper().sleep(5000);
-    return this.create(AccountMenuMobileChunk.class);
-  }
+		getSyncHelper().sleep(5000);
+		return this.create(AccountMenuMobileChunk.class);
+	}
 
-  @Override
-  public <T extends BaseComponent> T location(Class<T> clazz) {
-    logger.info("Click on Location button");
-    getSyncHelper()
-        .wait(Until.uiElement(locationButton).visible().setTimeout(Duration.ofSeconds(50)));
-    getDeviceControl().tapElementCenter(locationButton);
-    return this.create(clazz);
-  }
+	@Override
+	public <T extends BaseComponent> T location(Class<T> clazz) {
+		logger.info("Click on Location button");
+		getSyncHelper().wait(Until.uiElement(locationButton).present().setTimeout(Duration.ofSeconds(50)));
+		getDeviceControl().tapElementCenter(locationButton);
+		return this.create(clazz);
+	}
 }
