@@ -433,7 +433,7 @@ public class OrderTest extends BaseTest {
 
 		// if (getEnvironmentHelper().isMobileIOS()) {
 		logger.info("STEP - Search for any store either by nearby, recent tabs, or by zip code");
-		nearbySelectCoffeeBarView.search("78717").cancelSearch();
+		nearbySelectCoffeeBarView.search("78717");
 		// }
 
 		CoffeeStoreItemChuck store = nearbySelectCoffeeBarView.getCoffeeStoreContainerChucks().get(0);
