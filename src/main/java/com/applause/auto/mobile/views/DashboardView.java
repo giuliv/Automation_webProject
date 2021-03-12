@@ -151,7 +151,7 @@ class IosDashboardView extends DashboardView {
 		getSyncHelper().sleep(8000);
 		getMoreScreenButton.initialize();
 		getSyncHelper().wait(Until.uiElement(getMoreScreenButton).present().setTimeout(Duration.ofSeconds(45)));
-		getMoreScreenButton.click();
+		getDeviceControl().tapElementCenter(getMoreScreenButton);
 
 		getSyncHelper().sleep(5000);
 		return this.create(AccountMenuMobileChunk.class);
