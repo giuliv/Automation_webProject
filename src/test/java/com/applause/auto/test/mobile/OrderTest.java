@@ -341,7 +341,7 @@ public class OrderTest extends BaseTest {
 					.location(AllowLocationServicesPopupChunk.class).allowIfRequestDisplayed();
 
 			logger.info("STEP - Search for any store either by nearby, recent tabs, or by zip code");
-			nearbySelectCoffeeBarView.search("78717").cancelSearch();
+			nearbySelectCoffeeBarView.search("78717");
 
 			order = dashboardView.getBottomNavigationMenu().order(NewOrderView.class);
 		} else {
