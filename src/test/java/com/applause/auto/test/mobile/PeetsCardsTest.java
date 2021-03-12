@@ -147,16 +147,19 @@ public class PeetsCardsTest extends BaseTest {
 		int oldBalance = TestDataUtils.BillingUtils.parseBalance(checkInView.getBalance());
 
 		logger.info("Tap Add Value button from Peet's Card Balance tile");
-		checkInView.addValue();
+		PaymentMethodsView paymentMethodsView = checkInView.addValue(PaymentMethodsView.class);
 
-		logger.info("Tap pencil icon to view Payment Method screen");
-		PaymentMethodsView paymentMethodsView = checkInView.edit();
+		// logger.info("Tap pencil icon to view Payment Method screen");
+		// PaymentMethodsView paymentMethodsView = checkInView.edit();
 
 		logger.info("User should be taken to payment method screen");
 		softAssert.assertNotNull(paymentMethodsView, "User does not taken to payment method view");
 
-		logger.info("Select a saved credit card");
-		checkInView = paymentMethodsView.clickSavedPaymentMethod2(CheckInView.class);
+		// logger.info("Select a saved credit card");
+		// checkInView = paymentMethodsView.clickSavedPaymentMethod2(CheckInView.class);
+		paymentMethodsView = paymentMethodsView.clickAddNewPayment().addNewCard(Constants.TestData.DISCOVERY_CC_NUM,
+				Constants.TestData.DISCOVERY_CC_CODE, MobileTestData.CC_DISCO_NAME,
+				Constants.MobileTestData.CC_EXP_DATE, Constants.TestData.DISCOVERY_CC_ZIP);
 
 		logger.info("User should return to add value to my peet's card screen");
 		softAssert.assertNotNull(paymentMethodsView, "User does taken to Peets Cards screen");
