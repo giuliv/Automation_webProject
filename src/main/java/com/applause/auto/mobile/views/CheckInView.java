@@ -63,12 +63,12 @@ public class CheckInView extends BaseComponent {
 	/** Add value. */
 	public void addValue() {
 		logger.info("Tap on Add Value");
-		getSyncHelper().sleep(20000);
+		getSyncHelper().sleep(5000);
 		int retryCounter = 0;
 		while (getAddValueButton.exists() && getAddValueButton.isDisplayed() && retryCounter++ < 5) {
 			getAddValueButton.initialize();
 			MobileHelper.tapByCoordinatesOnElementCenter(getAddValueButton);
-			getSyncHelper().sleep(20000);
+			getSyncHelper().sleep(5000);
 		}
 	}
 
@@ -124,7 +124,7 @@ public class CheckInView extends BaseComponent {
 
 		if (SdkHelper.getEnvironmentHelper().isiOS()) {
 			// need this sleep since iOS is updating view very slowly
-			getSyncHelper().sleep(20000);
+			getSyncHelper().sleep(5000);
 		}
 
 		return this.create(CheckInView.class);
