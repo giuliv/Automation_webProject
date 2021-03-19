@@ -81,7 +81,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION, TestNGGroups.MONITORING},
       description = "625883")
   @ApplauseTestCaseId({"674186", "674185"})
   public void signInEmailPasswordTest() {
@@ -483,7 +483,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION, TestNGGroups.MONITORING},
       description = "625880")
   @ApplauseTestCaseId({"674130", "674129"})
   public void createAccountEmailPassword() {
