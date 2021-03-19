@@ -32,12 +32,7 @@ public class CreateAccountTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
   @Test(
-      groups = {
-        TestNGGroups.ONBOARDING,
-        TestNGGroups.DAILY,
-        TestNGGroups.REGRESSION,
-        TestNGGroups.WEB_UI
-      },
+      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION, TestNGGroups.WEB_UI},
       description = "625879")
   @ApplauseTestCaseId({"673972", "673971"})
   public void footerLinksTest() {
@@ -86,7 +81,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION, TestNGGroups.MONITORING},
       description = "625883")
   @ApplauseTestCaseId({"674186", "674185"})
   public void signInEmailPasswordTest() {
@@ -160,7 +155,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
       description = "625925")
   @ApplauseTestCaseId({"674505", "674504"})
   public void accountSettingsEditProfileTest() {
@@ -260,7 +255,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
       description = "625927")
   @ApplauseTestCaseId({"674507", "674506"})
   public void accountSettingsGeneralSettingsTest() {
@@ -330,7 +325,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
       description = "625926")
   @ApplauseTestCaseId({"674511", "674510"})
   public void accountSettingsChangePasswordTest() {
@@ -488,7 +483,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION, TestNGGroups.MONITORING},
       description = "625880")
   @ApplauseTestCaseId({"674130", "674129"})
   public void createAccountEmailPassword() {
@@ -692,7 +687,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
       description = "2980586")
   @ApplauseTestCaseId({"674182", "674181"})
   public void createAccountFieldValidation() {
@@ -948,7 +943,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
       description = "625929")
   @ApplauseTestCaseId({"674513", "674512"})
   public void accountSettingsAccountHistoryTest() {
@@ -990,7 +985,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
       description = "625882")
   @ApplauseTestCaseId({"674184", "674183"})
   public void createAccountExistingWebUserTest() {
