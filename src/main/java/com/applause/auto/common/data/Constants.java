@@ -26,7 +26,6 @@ public class Constants {
     public static final String PEETS_CARDS = "peets-cards";
     public static final String ORDER = "order";
     public static final String COMPANY_INFORMATION = "company-information";
-    public static final String DAILY = "daily";
     public static final String REGRESSION = "regression";
     public static final String WEB_UI = "web-ui";
   }

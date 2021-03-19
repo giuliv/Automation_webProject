@@ -1,27 +1,14 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Monitoring Test Suite" verbose="1" parallel="classes"
+<suite name="Monitoring Run Test Suite" verbose="1" parallel="classes"
        thread-count="8">
-    <test name="monitoring">
+    <test name="Monitoring" preserve-order="true">
         <groups>
             <run>
-                <include name="onboarding" />
+                <include name="monitoring"/>
             </run>
         </groups>
         <packages>
-            <package name="com.applause.auto.test.mobile" />
+            <package name="com.applause.auto.test.mobile"/>
         </packages>
-        <classes>
-            <class name="com.applause.auto.test.mobile.CreateAccountTest">
-                <methods>
-                    <include name="createAccountEmailPassword"/>
-                    <include name="signInEmailPasswordTest"/>
-                </methods>
-            </class>
-            <class name="com.applause.auto.test.mobile.OrderTest">
-                <methods>
-                    <include name="checkoutTest"/>
-                </methods>
-            </class>
-        </classes>
     </test>
 </suite>

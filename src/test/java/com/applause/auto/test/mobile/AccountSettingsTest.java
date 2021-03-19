@@ -26,7 +26,7 @@ public class AccountSettingsTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
   @Test(
-      groups = {TestNGGroups.ACCOUNT_SETTINGS, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.ACCOUNT_SETTINGS, TestNGGroups.REGRESSION},
       description = "625928")
   @ApplauseTestCaseId({"674509", "674508"})
   public void paymentMethodsTest() {
@@ -172,12 +172,7 @@ public class AccountSettingsTest extends BaseTest {
   }
 
   @Test(
-      groups = {
-        TestNGGroups.ACCOUNT_SETTINGS,
-        TestNGGroups.DAILY,
-        TestNGGroups.REGRESSION,
-        TestNGGroups.WEB_UI
-      },
+      groups = {TestNGGroups.ACCOUNT_SETTINGS, TestNGGroups.REGRESSION, TestNGGroups.WEB_UI},
       description = "625939")
   @ApplauseTestCaseId({"625939", "674528"})
   public void socialEngagementTest() {

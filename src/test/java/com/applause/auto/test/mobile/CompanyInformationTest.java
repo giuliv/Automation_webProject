@@ -24,12 +24,7 @@ public class CompanyInformationTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
   @Test(
-      groups = {
-        TestNGGroups.COMPANY_INFORMATION,
-        TestNGGroups.DAILY,
-        TestNGGroups.REGRESSION,
-        TestNGGroups.WEB_UI
-      },
+      groups = {TestNGGroups.COMPANY_INFORMATION, TestNGGroups.REGRESSION, TestNGGroups.WEB_UI},
       description = "625936")
   @ApplauseTestCaseId({"674523", "674522"})
   public void faqsTest() {
@@ -72,12 +67,7 @@ public class CompanyInformationTest extends BaseTest {
   }
 
   @Test(
-      groups = {
-        TestNGGroups.COMPANY_INFORMATION,
-        TestNGGroups.DAILY,
-        TestNGGroups.REGRESSION,
-        TestNGGroups.WEB_UI
-      },
+      groups = {TestNGGroups.COMPANY_INFORMATION, TestNGGroups.REGRESSION, TestNGGroups.WEB_UI},
       description = "625938")
   @ApplauseTestCaseId({"674527", "674526"})
   public void termsAndPrivacyPolicyTest() {
@@ -151,7 +141,7 @@ public class CompanyInformationTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.COMPANY_INFORMATION, TestNGGroups.DAILY, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.COMPANY_INFORMATION, TestNGGroups.REGRESSION},
       description = "625933")
   @ApplauseTestCaseId({"674517", "674514"})
   public void moreScreenTest() {
@@ -241,12 +231,7 @@ public class CompanyInformationTest extends BaseTest {
   }
 
   @Test(
-      groups = {
-        TestNGGroups.COMPANY_INFORMATION,
-        TestNGGroups.DAILY,
-        TestNGGroups.REGRESSION,
-        TestNGGroups.WEB_UI
-      },
+      groups = {TestNGGroups.COMPANY_INFORMATION, TestNGGroups.REGRESSION, TestNGGroups.WEB_UI},
       description = "625937")
   @ApplauseTestCaseId({"674525", "625937"})
   public void contactCustomerServiceTest() {
