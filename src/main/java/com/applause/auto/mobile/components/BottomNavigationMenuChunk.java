@@ -27,16 +27,17 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   @Locate(xpath = "//XCUIElementTypeButton[@name=\"Peet's Card\"]", on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[contains(@text,\"Peet's Card\") or contains(@content-desc,\"Peet's Card\")]/..",
+          "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\" and (contains(@text,\"Peet's Card\") or contains(@content-desc,\"Peet's Card\"))]",
       on = Platform.MOBILE_ANDROID)
   protected Button getPeetsCardsButton;
 
   @Locate(xpath = "//XCUIElementTypeButton[@name=\"Order\"]", on = Platform.MOBILE_IOS)
-  //  @Locate(
-  //      xpath =
+  // @Locate(
+  // xpath =
   //
-  // "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[contains(@text,\"Order\") or contains(@content-desc,\"Order\")]/..",
-  //      on = Platform.MOBILE_ANDROID)
+  // "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[contains(@text,\"Order\")
+  // or contains(@content-desc,\"Order\")]/..",
+  // on = Platform.MOBILE_ANDROID)
   @Locate(
       xpath =
           "//android.widget.RelativeLayout[@content-desc=\"Order, tab, 3 of 5\"]/android.widget.ImageView",
@@ -137,15 +138,15 @@ class IosBottomNavigationMenuChunk extends BottomNavigationMenuChunk {
   }
 
   // is crashing when searching a coffee store
-  //  public <T extends BaseComponent> T order(Class<T> clazz) {
-  //    logger.info("Tap on Order");
-  //    NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
+  // public <T extends BaseComponent> T order(Class<T> clazz) {
+  // logger.info("Tap on Order");
+  // NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
   // order(NearbySelectCoffeeBarView.class);
-  //    // should be refactored and fixed due to UI changes
-  //    nearbySelectCoffeeBarView.allow();
-  //    nearbySelectCoffeeBarView.search("Emeryville, CA, 94608, 1400 park avenue");
-  //    getSyncHelper().sleep(10000);
-  //    // nearbySelectCoffeeBarView.openCoffeebarFromSearchResults(1);
-  //    return this.create(clazz);
-  //  }
+  // // should be refactored and fixed due to UI changes
+  // nearbySelectCoffeeBarView.allow();
+  // nearbySelectCoffeeBarView.search("Emeryville, CA, 94608, 1400 park avenue");
+  // getSyncHelper().sleep(10000);
+  // // nearbySelectCoffeeBarView.openCoffeebarFromSearchResults(1);
+  // return this.create(clazz);
+  // }
 }

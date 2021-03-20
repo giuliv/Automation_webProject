@@ -1,11 +1,6 @@
 package com.applause.auto.test.mobile;
 
-import static com.applause.auto.common.data.Constants.MobileTestData.CC_EXP_DATE;
-import static com.applause.auto.common.data.Constants.MobileTestData.CC_MASTER_NAME;
-import static com.applause.auto.common.data.Constants.MobileTestData.CC_MODIFIED_EXP_DATE;
-import static com.applause.auto.common.data.Constants.MobileTestData.INVALID_PEETS_CC_NUM_1;
-import static com.applause.auto.common.data.Constants.MobileTestData.INVALID_PEETS_CC_PIN_1;
-import static com.applause.auto.common.data.Constants.MobileTestData.VALID_PEETS_CC_NUM_1;
+import static com.applause.auto.common.data.Constants.MobileTestData.*;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileTestData;
@@ -16,14 +11,7 @@ import com.applause.auto.integrations.annotation.testidentification.ApplauseTest
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountChunk;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountWarningChunk;
-import com.applause.auto.mobile.views.AccountHistoryView;
-import com.applause.auto.mobile.views.AddNewCardView;
-import com.applause.auto.mobile.views.CheckInView;
-import com.applause.auto.mobile.views.CreditCardDetailsView;
-import com.applause.auto.mobile.views.DashboardView;
-import com.applause.auto.mobile.views.LandingView;
-import com.applause.auto.mobile.views.PaymentMethodsView;
-import com.applause.auto.mobile.views.PeetsCardsView;
+import com.applause.auto.mobile.views.*;
 import java.lang.invoke.MethodHandles;
 import java.text.ParseException;
 import org.apache.commons.lang3.StringUtils;
@@ -44,9 +32,7 @@ public class PeetsCardsTest extends BaseTest {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = this.create(LandingView.class);
 
-    DashboardView dashboardView =
-        testHelper.signIn(
-            landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
+    DashboardView dashboardView = testHelper.createNewAccountWithDefaults(landingView);
     Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
     logger.info("Tap on ... at top right of home screen");
@@ -54,8 +40,10 @@ public class PeetsCardsTest extends BaseTest {
 
     logger.info("Tap on Payment Methods field/row");
     PaymentMethodsView paymentMethodsView = accountProfileMenu.clickPaymentMethods();
-    paymentMethodsView =
-        testHelper.deletePaymentMethodTestCardIfAdded(paymentMethodsView, CC_MASTER_NAME);
+
+    // Disabled because new account created
+    // paymentMethodsView =
+    // testHelper.deletePaymentMethodTestCardIfAdded(paymentMethodsView, CC_MASTER_NAME);
 
     logger.info("Add New Payment Method MASTER");
     AddNewCardView addNewCardView = paymentMethodsView.clickAddNewPayment();
