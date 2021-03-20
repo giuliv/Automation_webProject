@@ -490,6 +490,8 @@ class AndroidAccountMenuMobileChunk extends AccountMenuMobileChunk {
 		logger.info("Clicking the cross button");
 		getSyncHelper().sleep(5000);
 		getDeviceControl().tapElementCenter(getCrossButton);
+		getSyncHelper().sleep(5000);
+		getDeviceControl().tapElementCenter(getCrossButton);
 	}
 
 }
