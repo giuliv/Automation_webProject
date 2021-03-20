@@ -491,7 +491,5 @@ class AndroidAccountMenuMobileChunk extends AccountMenuMobileChunk {
 		getSyncHelper().sleep(5000);
 		getDeviceControl().tapElementCenter(getCrossButton);
 		getSyncHelper().sleep(5000);
-		getDeviceControl().tapElementCenter(getCrossButton);
 	}
-
 }
