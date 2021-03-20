@@ -7,15 +7,6 @@ import static com.applause.auto.common.data.Constants.MobileTestData.INVALID_PEE
 import static com.applause.auto.common.data.Constants.MobileTestData.INVALID_PEETS_CC_PIN_1;
 import static com.applause.auto.common.data.Constants.MobileTestData.VALID_PEETS_CC_NUM_1;
 
-import java.lang.invoke.MethodHandles;
-import java.text.ParseException;
-
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
@@ -33,6 +24,13 @@ import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.PeetsCardsView;
+import java.lang.invoke.MethodHandles;
+import java.text.ParseException;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 public class PeetsCardsTest extends BaseTest {
 

@@ -1,13 +1,5 @@
 package com.applause.auto.test.mobile;
 
-import java.lang.invoke.MethodHandles;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.testng.Assert;
-import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
-
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.integrations.annotation.testidentification.ApplauseTestCaseId;
@@ -20,6 +12,12 @@ import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
 import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.StoreDetailsView;
+import java.lang.invoke.MethodHandles;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class FindACoffeeBarTest extends BaseTest {
 

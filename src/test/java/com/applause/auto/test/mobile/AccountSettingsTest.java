@@ -1,7 +1,5 @@
 package com.applause.auto.test.mobile;
 
-import static com.applause.auto.common.data.Constants.MobileTestData.CC_AMEX_NAME;
-import static com.applause.auto.common.data.Constants.MobileTestData.CC_DISCO_NAME;
 import static com.applause.auto.common.data.Constants.MobileTestData.CC_MASTER_NAME;
 import static com.applause.auto.common.data.Constants.MobileTestData.CC_VISA_NAME;
 
@@ -10,12 +8,7 @@ import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.integrations.annotation.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
-import com.applause.auto.mobile.views.AddNewCardView;
-import com.applause.auto.mobile.views.CreditCardDetailsView;
-import com.applause.auto.mobile.views.DashboardView;
-import com.applause.auto.mobile.views.LandingView;
-import com.applause.auto.mobile.views.PaymentMethodsView;
-import com.applause.auto.mobile.views.PeetsCardSettingsView;
+import com.applause.auto.mobile.views.*;
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,7 +27,7 @@ public class AccountSettingsTest extends BaseTest {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     LandingView landingView = this.create(LandingView.class);
 
-    DashboardView dashboardView = testHelper.signIn(landingView);
+    DashboardView dashboardView = testHelper.createNewAccountWithDefaults(landingView);
 
     logger.info("Navigate to Payment Methods");
     AccountMenuMobileChunk accountProfileMenu = dashboardView.getAccountProfileMenu();
@@ -58,15 +51,16 @@ public class AccountSettingsTest extends BaseTest {
     logger.info("Go Back to Payment Methods");
     paymentMethodsView = peetsCardSettingsView.clickBackButton();
 
-    logger.info("Delete Test card if it was already added");
-    paymentMethodsView =
-        testHelper.deletePaymentMethodTestCardIfAdded(paymentMethodsView, CC_VISA_NAME);
-    paymentMethodsView =
-        testHelper.deletePaymentMethodTestCardIfAdded(paymentMethodsView, CC_AMEX_NAME);
-    paymentMethodsView =
-        testHelper.deletePaymentMethodTestCardIfAdded(paymentMethodsView, CC_DISCO_NAME);
-    paymentMethodsView =
-        testHelper.deletePaymentMethodTestCardIfAdded(paymentMethodsView, CC_MASTER_NAME);
+    // disabled because new account created
+    // logger.info("Delete Test card if it was already added");
+    // paymentMethodsView =
+    // testHelper.deletePaymentMethodTestCardIfAdded(paymentMethodsView, CC_VISA_NAME);
+    // paymentMethodsView =
+    // testHelper.deletePaymentMethodTestCardIfAdded(paymentMethodsView, CC_AMEX_NAME);
+    // paymentMethodsView =
+    // testHelper.deletePaymentMethodTestCardIfAdded(paymentMethodsView, CC_DISCO_NAME);
+    // paymentMethodsView =
+    // testHelper.deletePaymentMethodTestCardIfAdded(paymentMethodsView, CC_MASTER_NAME);
 
     logger.info("Add New Payment Method VISA");
     AddNewCardView addNewCardView = paymentMethodsView.clickAddNewPayment();
@@ -80,19 +74,19 @@ public class AccountSettingsTest extends BaseTest {
     // TODO - Revert back to swiping and figure out why it's not working
     // for now, go back, and then forward
 
-    //    paymentMethodsView.clickBackButton();
-    //    accountProfileMenu.clickPaymentMethods();
+    // paymentMethodsView.clickBackButton();
+    // accountProfileMenu.clickPaymentMethods();
 
     // TODO - AMEX Cards are not working, review with Jyothi
-    //    logger.info("Add New Payment Method AMEX");
-    //    addNewCardView = paymentMethodsView.clickAddNewPayment();
-    //    paymentMethodsView =
-    //        addNewCardView.addNewCard(
-    //            Constants.TestData.AMEX_CC_NUM,
-    //            Constants.TestData.AMEX_CC_CODE,
-    //            MobileTestData.CC_AMEX_NAME,
-    //            Constants.MobileTestData.CC_EXP_DATE,
-    //            MobileTestData.CC_ZIP);
+    // logger.info("Add New Payment Method AMEX");
+    // addNewCardView = paymentMethodsView.clickAddNewPayment();
+    // paymentMethodsView =
+    // addNewCardView.addNewCard(
+    // Constants.TestData.AMEX_CC_NUM,
+    // Constants.TestData.AMEX_CC_CODE,
+    // MobileTestData.CC_AMEX_NAME,
+    // Constants.MobileTestData.CC_EXP_DATE,
+    // MobileTestData.CC_ZIP);
 
     logger.info("Add New Payment Method DISCO");
     addNewCardView = paymentMethodsView.clickAddNewPayment();
