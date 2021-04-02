@@ -27,7 +27,7 @@ public class LandingView extends BaseComponent {
 	@Locate(id = "com.wearehathway.peets.development:id/headingText", on = Platform.MOBILE_ANDROID)
 	protected Text getHeadingText;
 
-	@Locate(iOSClassChain = "**/XCUIElementTypeButton[`label == \"Allow\"]", on = Platform.MOBILE_IOS)
+	@Locate(iOSClassChain = "**/XCUIElementTypeButton[`label == \"Allow\"`]", on = Platform.MOBILE_IOS)
 	protected Text allowButton;
 
 	@Locate(id = "Skip", on = Platform.MOBILE_IOS)
@@ -73,7 +73,6 @@ public class LandingView extends BaseComponent {
 	public void afterInit() {
 		logger.info("Landing View init");
 		try {
-			getSyncHelper().wait(Until.uiElement(allowButton).visible().setTimeout(Duration.ofSeconds(60)));
 			allowButton.click();
 		} catch (NoSuchElementException nse) {
 			logger.info("Popup 'Allow tracking' does not found");
