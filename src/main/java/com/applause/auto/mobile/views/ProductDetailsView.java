@@ -89,6 +89,11 @@ public class ProductDetailsView extends BaseComponent {
   @Locate(
       id = "com.wearehathway.peets.development:id/productCostTextView",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "\t\n"
+              + "//XCUIElementTypeButton[@name=\"Add to Order\"]/../XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText[last()]",
+      on = Platform.MOBILE_IOS)
   protected Text costText;
 
   @Locate(
