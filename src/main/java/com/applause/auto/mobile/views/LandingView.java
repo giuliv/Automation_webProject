@@ -73,9 +73,10 @@ public class LandingView extends BaseComponent {
 	public void afterInit() {
 		logger.info("Landing View init");
 		try {
+			getSyncHelper().wait(Until.uiElement(allowButton).visible().setTimeout(Duration.ofSeconds(60)));
 			allowButton.click();
 		} catch (NoSuchElementException nse) {
-
+			logger.info("Popup 'Allow tracking' does not found");
 		}
 		getSyncHelper().wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
 		getReportAProblemPopupChunk().waitForPopUpToDisappear();
