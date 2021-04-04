@@ -616,7 +616,7 @@ public class OrderTest extends BaseTest {
 
 		String cost = productDetailsView.getCost();
 		logger.info("STEP 4. Add cream");
-		productDetailsView.selectModifiers("", "");
+		productDetailsView.selectModifiers("Add Cream Cheese", "");
 		String costAfterSizeChanged = productDetailsView.getCost();
 		Assert.assertNotEquals(cost, costAfterSizeChanged, "Price does not updated");
 
