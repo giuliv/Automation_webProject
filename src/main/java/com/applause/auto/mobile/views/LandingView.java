@@ -27,7 +27,7 @@ public class LandingView extends BaseComponent {
 	@Locate(id = "com.wearehathway.peets.development:id/headingText", on = Platform.MOBILE_ANDROID)
 	protected Text getHeadingText;
 
-	@Locate(iOSClassChain = "**/XCUIElementTypeButton[`label == \"Allow\"`]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//XCUIElementTypeButton[contains(@label,'Allow')]", on = Platform.MOBILE_IOS)
 	protected Text allowButton;
 
 	@Locate(id = "Skip", on = Platform.MOBILE_IOS)
