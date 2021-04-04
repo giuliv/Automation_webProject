@@ -96,6 +96,24 @@ public class CheckoutView extends BaseComponent {
 		getSyncHelper().sleep(10000);
 		logger.info(">>>>>>" + ((AppiumDriver) getDriver()).getContextHandles());
 		getSyncHelper().sleep(10000);
+		logger.info(">>>>>>" + ((AppiumDriver) getDriver()).getContextHandles());
+		getSyncHelper().sleep(10000);
+		logger.info(">>>>>>" + ((AppiumDriver) getDriver()).getContextHandles());
+		getSyncHelper().sleep(10000);
+		logger.info(">>>>>>" + ((AppiumDriver) getDriver()).getContextHandles());
+		getSyncHelper().sleep(10000);
+		logger.info(">>>>>>" + ((AppiumDriver) getDriver()).getContextHandles());
+		getSyncHelper().sleep(10000);
+		logger.info(">>>>>>" + ((AppiumDriver) getDriver()).getContextHandles());
+		getSyncHelper().sleep(10000);
+		logger.info(">>>>>>" + ((AppiumDriver) getDriver()).getContextHandles());
+		getSyncHelper().sleep(10000);
+		logger.info(">>>>>>" + ((AppiumDriver) getDriver()).getContextHandles());
+		getSyncHelper().sleep(10000);
+		logger.info(">>>>>>" + ((AppiumDriver) getDriver()).getContextHandles());
+		getSyncHelper().sleep(10000);
+		logger.info(">>>>>>" + ((AppiumDriver) getDriver()).getContextHandles());
+		getSyncHelper().sleep(10000);
 	}
 
 	/* -------- Actions -------- */
