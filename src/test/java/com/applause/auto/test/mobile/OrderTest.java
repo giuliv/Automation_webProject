@@ -584,13 +584,19 @@ public class OrderTest extends BaseTest {
 		Assert.assertNotNull(orderView, "User does not taken back to main order screen");
 	}
 
-	@Test(groups = { TestNGGroups.ORDER, TestNGGroups.REGRESSION }, description = "625892", enabled = true)
+	@Test(groups = { TestNGGroups.ORDER, TestNGGroups.REGRESSION }, description = "11051165", enabled = true)
 	public void customizeOrderFoodTest() {
 		logger.info("User is already signed in to app\n"
 				+ "User is on main order screen and pickup order mode is default selected\n"
 				+ "User continues this test case from previous test case (so user will have items added to order already)");
-		customizeOrderBeveragesTest();
-		NewOrderView orderView = this.create(NewOrderView.class);
+		LandingView landingView = this.create(LandingView.class);
+		DashboardView dashboardView = testHelper.signIn(landingView, "peets.auto01@gmail.com", "p4ssword!",
+				DashboardView.class);
+		// testHelper.signIn(
+		// landingView, "peets_order_beverages_ios@gmail.com", "P@ssword1!", DashboardView.class);
+
+		NewOrderView orderView = dashboardView.getBottomNavigationMenu().order(AllowLocationServicesPopupChunk.class)
+				.allowIfRequestDisplayed(NearbySelectCoffeeBarView.class).search("78717").openDefault();
 
 		/////
 		logger.info("STEP 1. Tap on Food category to expand");
@@ -608,48 +614,18 @@ public class OrderTest extends BaseTest {
 		logger.info("EXPECTED 3. User is taken to PDP");
 		Assert.assertNotNull(productDetailsView, " User does not taken to PDP");
 
-		logger.info("STEP 4. Scroll down PDP and customize item by selecting modifiers:\n" + "* Warm" + "* Quantity");
-		productDetailsView = productDetailsView.warming().warm().saveChanges(ProductDetailsView.class)
-				.selectQuantity("2");
-		logger.info(
-				"EXPECTED 4. User should be able to select warm modifier and it should be reflected on the PDP under the modifier selection");
+		String cost = productDetailsView.getCost();
+		logger.info("STEP 4. Add cream");
+		productDetailsView.selectModifiers("", "");
+		String costAfterSizeChanged = productDetailsView.getCost();
+		Assert.assertNotEquals(cost, costAfterSizeChanged, "Price does not updated");
+
+		logger.info(" STEP 5. Select warming");
+		productDetailsView = productDetailsView.warming().warm().saveChanges(ProductDetailsView.class);
+		logger.info("EXPECTED 4. price should be updated");
 
 		logger.info("STEP 5. Tap Add to Order button");
 		orderView = productDetailsView.addToOrder(NewOrderView.class);
-
-		logger.info(
-				"EXPECTED 5. User is returned to main order screen and the FAB updates with the correct quantity of item(s)");
-		Assert.assertNotNull(orderView, "User does not returned to main order screen");
-		logger.info("EXPECTED 5. User should also feel haptics feedback on device as item is added to basket");
-
-		logger.info("STEP 6. Select sub-category Warm Breakfast");
-		orderView.selectSubCategoryUnderCategory("Food", "Warm Breakfast");
-
-		logger.info(
-				"EXPECTED 6. Make sure FAB is displayed on sub-category screen and shows correct quantity of item(s)");
-		logger.info("EXPECTED 6. User is taken to Warm Breakfast menu");
-
-		logger.info("STEP 7. Select any warm breakfast item");
-		productDetailsView = orderView.selectProduct("Oatmeal");
-
-		logger.info("EXPECTED 7. User is taken to PDP");
-		Assert.assertNotNull(productDetailsView, "User does not taken to PDP");
-
-		logger.info(
-				"STEP 8. Scroll down PDP and customize item by selecting modifiers (where applicable based on item selected):\n"
-						+ "* Oatmeal toppings" + "* Quantity");
-		productDetailsView = productDetailsView.selectOatmealToppings().decreaseCount("Brown Sugar", "0")
-				.incereaseCount("Almonds", "2").saveChanges(ProductDetailsView.class).selectQuantity("2");
-
-		logger.info(
-				"EXPECTED 8. User should be able to select modifier and it should be reflected on the PDP under the modifier selection");
-
-		logger.info("STEP 9. Tap Add to Order button");
-		orderView = productDetailsView.addToOrder(NewOrderView.class);
-		logger.info(
-				"EXPECTED 9. User is returned to main order screen and the FAB updates with the correct quantity of item(s)");
-		Assert.assertNotNull(orderView, "User does not returned to main order screen");
-		logger.info("EXPECTED 9. User should also feel haptics feedback on device as item is added to basket");
 
 		logger.info("STEP 10. Tap on the FAB");
 		CheckoutView checkoutView = orderView.checkoutAtom(CheckoutView.class);
@@ -659,17 +635,11 @@ public class OrderTest extends BaseTest {
 
 		logger.info("STEP 11. Review food order details on checkout screen");
 		ItemOptions plainBagel = checkoutView.getItemOptions("Plain Bagel");
-		checkoutView = checkoutView.refreshView();
-		ItemOptions oatmeal = checkoutView.getItemOptions("Oatmeal");
+
 		logger.info("EXPECTED 11. Make sure food customizations flow through correctly to checkout screen");
 		SoftAssert softAssert = new SoftAssert();
-		softAssert.assertTrue(plainBagel.contains("Qty: 2"), "Plain Bagel: Wrong quantity: Expected Qty:2");
+		softAssert.assertTrue(plainBagel.contains("Qty: 1"), "Plain Bagel: Wrong quantity: Expected Qty:1");
 		softAssert.assertTrue(plainBagel.contains("Warm"), "Plain Bagel: Wrong warm option: Expected Warm");
-
-		softAssert.assertTrue(oatmeal.contains("Qty: 2"), "Oatmeal: Wrong quantity: Expected Qty: 2");
-		softAssert.assertTrue(oatmeal.contains("Almonds (x2)"), "Oatmeal: Wrong topping option: Expected Almonds (x2)");
-		softAssert.assertTrue(oatmeal.contains("Wild Blueberries"),
-				"Oatmeal: Wrong topping option: Expected Wild Blueberries");
 
 		softAssert.assertAll();
 	}
