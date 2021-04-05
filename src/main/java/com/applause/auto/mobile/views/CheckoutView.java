@@ -2,6 +2,7 @@ package com.applause.auto.mobile.views;
 
 import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +19,7 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
@@ -100,15 +102,8 @@ public class CheckoutView extends BaseComponent {
 
 	@Override
 	public void afterInit() {
-		logger.info(">>>>>>" + ((AppiumDriver) getDriver()).getContextHandles());
-		getSyncHelper().sleep(10000);
-		logger.info(">>>>>>" + ((AppiumDriver) getDriver()).getContextHandles());
-
-		((AppiumDriver) getDriver()).getContextHandles().stream().forEach(i -> {
-			((AppiumDriver) getDriver()).context((String) i);
-			logger.info(">>>>>>>>>" + getDriver().getPageSource());
-		});
 		((AppiumDriver) getDriver()).context("NATIVE_APP");
+		getSyncHelper().wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofMinutes(2)));
 	}
 
 	/* -------- Actions -------- */
