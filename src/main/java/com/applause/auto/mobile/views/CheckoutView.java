@@ -171,7 +171,21 @@ public class CheckoutView extends BaseComponent {
 	 * @return order total value in $
 	 */
 	public String getOrderTotal() {
-		return orderTotal.getAttributeValue("value");
+		int attempt = 5;
+		try {
+			orderTotal.initialize();
+		} catch (Throwable th) {
+			IntStream.range(0, attempt).forEach(i -> {
+				MobileHelper.scrollUpCloseToMiddleAlgorithm();
+			});
+		}
+		while (attempt-- > 0 && !orderTotal.exists()) {
+			MobileHelper.scrollDownCloseToMiddleAlgorithm();
+			getSyncHelper().sleep(1000);
+		}
+		String result = orderTotal.getAttributeValue("value");
+		IntStream.range(0, 5).forEach((i) -> MobileHelper.scrollUpCloseToMiddleAlgorithm());
+		return result;
 	}
 
 	/** Get total ordered items count */
