@@ -208,11 +208,23 @@ public class CheckoutView extends BaseComponent {
 		return this.create(CheckoutView.class);
 	}
 
+	/**
+	 * Close new order view.
+	 *
+	 * @return the new order view
+	 */
 	public NewOrderView close() {
 		closeButton.click();
 		return this.create(NewOrderView.class);
 	}
 
+	/**
+	 * Select product product details view.
+	 *
+	 * @param productName
+	 *            the product name
+	 * @return the product details view
+	 */
 	public ProductDetailsView selectProduct(String productName) {
 		int attempt = 5;
 		try {
@@ -230,6 +242,13 @@ public class CheckoutView extends BaseComponent {
 		return this.create(ProductDetailsView.class);
 	}
 
+	/**
+	 * Is product displayed boolean.
+	 *
+	 * @param productName
+	 *            the product name
+	 * @return the boolean
+	 */
 	public boolean isProductDisplayed(String productName) {
 		int attempt = 5;
 		try {
@@ -251,6 +270,13 @@ public class CheckoutView extends BaseComponent {
 		}
 	}
 
+	/**
+	 * Cost of string.
+	 *
+	 * @param productName
+	 *            the product name
+	 * @return the string
+	 */
 	public String costOf(String productName) {
 		int attempt = 5;
 		try {
@@ -270,6 +296,13 @@ public class CheckoutView extends BaseComponent {
 		return itemCostText.getText();
 	}
 
+	/**
+	 * Delete by swipe checkout view.
+	 *
+	 * @param productName
+	 *            the product name
+	 * @return the checkout view
+	 */
 	public CheckoutView deleteBySwipe(String productName) {
 		logger.info("Swiping product: " + productName);
 		getDeviceControl().swipeAcrossElementWithDirection(productItemElement.format(productName), SwipeDirection.LEFT);
@@ -277,6 +310,13 @@ public class CheckoutView extends BaseComponent {
 		return this.create(CheckoutView.class);
 	}
 
+	/**
+	 * Delete by edit button checkout view.
+	 *
+	 * @param productName
+	 *            the product name
+	 * @return the checkout view
+	 */
 	public CheckoutView deleteByEditButton(String productName) {
 		logger.info("Click edit button");
 		IntStream.range(0, 5).forEach(i -> {
