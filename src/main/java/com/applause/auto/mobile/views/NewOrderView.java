@@ -139,7 +139,8 @@ public class NewOrderView extends BaseComponent {
 			}
 		}
 		getSyncHelper().sleep(1000);
-		getDeviceControl().tapElementCenter(getCategoryItem);
+		MobileHelper.scrollElementIntoView(getCategoryItem);
+		getCategoryItem.click();
 		getSyncHelper().sleep(2000);
 		getCategorySubItem.format(category, subCategory).initialize();
 		getCategorySubItem.click();
