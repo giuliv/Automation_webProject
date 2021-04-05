@@ -657,7 +657,19 @@ public class OrderTest extends BaseTest {
 		logger.info("STEP 3. Tap Add to Order button");
 		orderView = productDetailsView.addToOrder(NewOrderView.class);
 
+		logger.info("### Deleting first item!");
+
+		logger.info("Step Tap FAB");
+		CheckoutView checkoutView = orderView.checkout();
+		productDetailsView = checkoutView.selectProduct(productName);
+
+		logger.info("STEP 5. To delete item(s) from your order:\n" + "* Tap on item in basket to go to PDP\n"
+				+ "* Tap on garbage can icon\n" + "* Tap remove");
+		checkoutView = productDetailsView.delete().remove();
+		Assert.assertFalse(checkoutView.isProductDisplayed(productName), "Product remains in the cart and not deleted");
+
 		logger.info("Add Drink");
+		orderView = checkoutView.close();
 		orderView.selectCategoryAndSubCategory("Hot Coffee", "Lattes");
 		orderView = orderView.selectProduct("Maple Latte").addToOrder(NewOrderView.class);
 
@@ -669,7 +681,7 @@ public class OrderTest extends BaseTest {
 		orderView = productDetailsView.addToOrder(NewOrderView.class);
 
 		logger.info("Step Tap FAB");
-		CheckoutView checkoutView = orderView.checkout();
+		checkoutView = orderView.checkout();
 
 		logger.info("STEP Click item from your order > Edit size > Update Order > price changes");
 		String oldTotal = checkoutView.getOrderTotal();
@@ -689,13 +701,6 @@ public class OrderTest extends BaseTest {
 			Assert.assertFalse(checkoutView.isProductDisplayed("Mapple Latte"),
 					"Product Mapple latte seems does not removed");
 		}
-
-		logger.info("STEP 5. To delete item(s) from your order:\n" + "* Tap on item in basket to go to PDP\n"
-				+ "* Tap on garbage can icon\n" + "* Tap remove");
-		productDetailsView = checkoutView.selectProduct(productName);
-		checkoutView = productDetailsView.delete().remove();
-
-		Assert.assertFalse(checkoutView.isProductDisplayed(productName), "Product remains in the cart and not deleted");
 
 		if (getEnvironmentHelper().isMobileIOS()) {
 
