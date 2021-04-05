@@ -102,7 +102,14 @@ public class CheckoutView extends BaseComponent {
 
 	@Override
 	public void afterInit() {
-		((AppiumDriver) getDriver()).context("NATIVE_APP");
+		((AppiumDriver) getDriver()).getContextHandles();
+		getSyncHelper().sleep(25000);
+		((AppiumDriver) getDriver()).getContextHandles();
+		getSyncHelper().sleep(25000);
+		((AppiumDriver) getDriver()).getContextHandles();
+		getSyncHelper().sleep(25000);
+		((AppiumDriver) getDriver()).getContextHandles();
+		getSyncHelper().sleep(25000);
 		getSyncHelper().wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofMinutes(2)));
 	}
 
