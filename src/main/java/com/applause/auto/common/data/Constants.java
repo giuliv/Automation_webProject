@@ -4,8 +4,8 @@ import static com.applause.auto.integrations.helpers.SdkHelper.getEnvironmentHel
 
 import com.applause.auto.web.helpers.WebHelper;
 
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.Setter;
 
 public class Constants {
@@ -160,9 +160,9 @@ public class Constants {
 	}
 
 	public static final class MyAccountTestData {
-		public static final UserTestData CHECKOUT_ACCOUNT = getEnvironmentHelper().isMobileIOS()
-				? UserTestData.builder().username("peets_order_beverages_ios@gmail.com").password("P@ssword1!").build()
-				: UserTestData.builder().username("peets.auto01@gmail.com").password("p4ssword!").build();
+		public static UserTestData CHECKOUT_ACCOUNT = getEnvironmentHelper().isMobileIOS()
+				? new UserTestData("peets_order_beverages_ios@gmail.com", "P@ssword1!")
+				: new UserTestData("peets.auto01@gmail.com", "p4ssword!");
 		public static final String EMAIL = "peets+testaccount@gmail.com";
 		public static final String EMAIL_HAS_FAVORITES = "peets+testhasfavorites3@gmail.com";
 		// public static final String EMAIL_FAVORITES = "peets+testfavorites@gmail.com";
@@ -187,14 +187,6 @@ public class Constants {
 		public static String USERNAME = "app1@peets.com";
 		public static String USERNAME_SAFARI = "app1@peets.com";
 		public static String PASSWORD = "abcde1";
-	}
-
-	@Setter
-	@Builder
-	@NoArgsConstructor
-	public class UserTestData {
-		public String username;
-		public String password;
 	}
 
 	public enum SubscriptionTerm {
@@ -237,5 +229,13 @@ public class Constants {
 
 		public static final String PRIVACY_LINK_PATH = OCR_IMAGES_COMMON_PATH + "privacy-link.png";
 		public static final String TERMS_LINK_PATH = OCR_IMAGES_COMMON_PATH + "terms-link.png";
+	}
+
+	@Setter
+	@Getter
+	@AllArgsConstructor
+	public static class UserTestData {
+		private String username;
+		private String password;
 	}
 }

@@ -516,7 +516,7 @@ public class OrderTest extends BaseTest {
 				+ "User has no items in basket" + "peets_order_beverages_ios@gmail.com/P@ssword1!");
 		LandingView landingView = this.create(LandingView.class);
 		Constants.UserTestData account = MyAccountTestData.CHECKOUT_ACCOUNT;
-		DashboardView dashboardView = testHelper.signIn(landingView, account.username, account.password,
+		DashboardView dashboardView = testHelper.signIn(landingView, account.getUsername(), account.getPassword(),
 				DashboardView.class);
 
 		NewOrderView orderView = dashboardView.getBottomNavigationMenu().order(AllowLocationServicesPopupChunk.class)
@@ -583,7 +583,7 @@ public class OrderTest extends BaseTest {
 				+ "User continues this test case from previous test case (so user will have items added to order already)");
 		LandingView landingView = this.create(LandingView.class);
 		Constants.UserTestData account = MyAccountTestData.CHECKOUT_ACCOUNT;
-		DashboardView dashboardView = testHelper.signIn(landingView, account.username, account.password,
+		DashboardView dashboardView = testHelper.signIn(landingView, account.getUsername(), account.getPassword(),
 				DashboardView.class);
 		NewOrderView orderView = dashboardView.getBottomNavigationMenu().order(AllowLocationServicesPopupChunk.class)
 				.allowIfRequestDisplayed(NearbySelectCoffeeBarView.class).search("78717").openDefault();
@@ -642,7 +642,7 @@ public class OrderTest extends BaseTest {
 
 		LandingView landingView = this.create(LandingView.class);
 		Constants.UserTestData account = MyAccountTestData.CHECKOUT_ACCOUNT;
-		DashboardView dashboardView = testHelper.signIn(landingView, account.username, account.password,
+		DashboardView dashboardView = testHelper.signIn(landingView, account.getUsername(), account.getPassword(),
 				DashboardView.class);
 
 		NewOrderView orderView = dashboardView.getBottomNavigationMenu().order(AllowLocationServicesPopupChunk.class)
