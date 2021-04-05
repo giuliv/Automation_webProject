@@ -171,7 +171,7 @@ public class CheckoutView extends BaseComponent {
 	 * @return order total value in $
 	 */
 	public String getOrderTotal() {
-		int attempt = 2;
+		int attempt = 5;
 		try {
 			orderTotal.initialize();
 		} catch (Throwable th) {
@@ -181,10 +181,9 @@ public class CheckoutView extends BaseComponent {
 		}
 		while (attempt-- > 0 && !orderTotal.exists()) {
 			MobileHelper.scrollDownCloseToMiddleAlgorithm();
-			getSyncHelper().sleep(1000);
 		}
 		String result = orderTotal.getAttributeValue("value");
-		IntStream.range(0, 3).forEach((i) -> MobileHelper.scrollUpCloseToMiddleAlgorithm());
+		IntStream.range(0, 5).forEach((i) -> MobileHelper.scrollUpCloseToMiddleAlgorithm());
 		return result;
 	}
 
