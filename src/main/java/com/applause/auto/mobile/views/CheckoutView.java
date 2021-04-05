@@ -103,6 +103,12 @@ public class CheckoutView extends BaseComponent {
 		logger.info(">>>>>>" + ((AppiumDriver) getDriver()).getContextHandles());
 		getSyncHelper().sleep(10000);
 		logger.info(">>>>>>" + ((AppiumDriver) getDriver()).getContextHandles());
+
+		((AppiumDriver) getDriver()).getContextHandles().stream().forEach(i -> {
+			((AppiumDriver) getDriver()).context((String) i);
+			logger.info(">>>>>>>>>" + getDriver().getPageSource());
+		});
+		((AppiumDriver) getDriver()).context("NATIVE_APP");
 	}
 
 	/* -------- Actions -------- */
