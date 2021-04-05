@@ -85,7 +85,7 @@ public class CheckoutView extends BaseComponent {
 	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]/following-sibling::XCUIElementTypeButton[@name=\"DELETE\"]", on = Platform.MOBILE_IOS)
 	protected Button productItemDeleteButton;
 
-	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]/following-sibling::XCUIElementTypeButton[contains(@name,\"Delete \")]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]/following-sibling::XCUIElementTypeButton[contains(@name,\"Delete\")]", on = Platform.MOBILE_IOS)
 	protected Button productItemDeleteByEditButton;
 
 	@Locate(accessibilityId = "Edit", on = Platform.MOBILE_IOS)
