@@ -694,7 +694,7 @@ public class OrderTest extends BaseTest {
 		if (getEnvironmentHelper().isMobileIOS()) {
 			logger.info("STEP 4. To delete item(s) from your order:\n" + "THIS FLOW APPLICABLE ONLY ON IOS:\n"
 					+ "* Swipe left on the item in the basket\n" + "* Tap red delete button");
-			checkoutView.deleteBySwipe("Maple Latte");
+			checkoutView = checkoutView.deleteBySwipe("Maple Latte");
 
 			logger.info("EXPECTED 4. \n" + "* User sees red delete button to the right of the item\n"
 					+ "* Item is removed from basket");
@@ -709,7 +709,7 @@ public class OrderTest extends BaseTest {
 					+ "* Tap red (-) delete icon to the left of item\n"
 					+ "* THIS STEP IS APPLICABLE ONLY ON IOS: Tap red delete button\n"
 					+ "* Tap done at top right corner\n");
-			checkoutView.deleteByEditButton("Oatmeal");
+			checkoutView = checkoutView.deleteByEditButton("Oatmeal");
 
 			logger.info("EXPECTED 6. " + "* User sees red (-) delete icon to the left of the items in basket\n"
 					+ "* THIS IS APPLICABLE ONLY ON IOS: User sees red delete button to the right of the item* Item is removed from basket");
