@@ -171,7 +171,7 @@ public class CheckoutView extends BaseComponent {
 	 * @return order total value in $
 	 */
 	public String getOrderTotal() {
-		int attempt = 5;
+		int attempt = 2;
 		try {
 			orderTotal.initialize();
 		} catch (Throwable th) {
@@ -184,7 +184,7 @@ public class CheckoutView extends BaseComponent {
 			getSyncHelper().sleep(1000);
 		}
 		String result = orderTotal.getAttributeValue("value");
-		IntStream.range(0, 5).forEach((i) -> MobileHelper.scrollUpCloseToMiddleAlgorithm());
+		IntStream.range(0, 3).forEach((i) -> MobileHelper.scrollUpCloseToMiddleAlgorithm());
 		return result;
 	}
 
@@ -240,7 +240,7 @@ public class CheckoutView extends BaseComponent {
 	 * @return the product details view
 	 */
 	public ProductDetailsView selectProduct(String productName) {
-		int attempt = 5;
+		int attempt = 2;
 		try {
 			productItemElement.format(productName).initialize();
 		} catch (Throwable th) {
@@ -264,7 +264,7 @@ public class CheckoutView extends BaseComponent {
 	 * @return the boolean
 	 */
 	public boolean isProductDisplayed(String productName) {
-		int attempt = 5;
+		int attempt = 2;
 		try {
 			productItemElement.format(productName).initialize();
 		} catch (Throwable th) {
@@ -292,7 +292,7 @@ public class CheckoutView extends BaseComponent {
 	 * @return the string
 	 */
 	public String costOf(String productName) {
-		int attempt = 5;
+		int attempt = 2;
 		try {
 			itemCostText.format(productName).initialize();
 		} catch (Throwable th) {
@@ -333,7 +333,7 @@ public class CheckoutView extends BaseComponent {
 	 */
 	public CheckoutView deleteByEditButton(String productName) {
 		logger.info("Click edit button");
-		IntStream.range(0, 5).forEach(i -> {
+		IntStream.range(0, 2).forEach(i -> {
 			MobileHelper.scrollUpCloseToMiddleAlgorithm();
 		});
 		editButton.click();
@@ -363,7 +363,7 @@ class AndroidCheckoutView extends CheckoutView {
 	}
 
 	public ItemOptions getItemOptions(String itemName) {
-		int attempt = 5;
+		int attempt = 2;
 		try {
 			itemOptionsText.format(itemName).initialize();
 		} catch (Throwable th) {
