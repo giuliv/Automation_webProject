@@ -78,8 +78,18 @@ public class CheckoutView extends BaseComponent {
 	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]/preceding-sibling::XCUIElementTypeStaticText", on = Platform.MOBILE_IOS)
 	protected LazyList<Text> itemOptionsList;
 
+	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]", on = Platform.MOBILE_IOS)
 	@Locate(xpath = "//android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productName' and @text='%s']", on = Platform.MOBILE_ANDROID)
 	protected Text productItemElement;
+
+	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]/following-sibling::XCUIElementTypeButton[@name=\"DELETE\"]", on = Platform.MOBILE_IOS)
+	protected Button productItemDeleteButton;
+
+	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]/following-sibling::XCUIElementTypeButton[contains(@name,\"Delete \")]", on = Platform.MOBILE_IOS)
+	protected Button productItemDeleteByEditButton;
+
+	@Locate(accessibilityId = "Edit", on = Platform.MOBILE_IOS)
+	protected Button editButton;
 
 	@Locate(xpath = "//android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productName' and @text='%s']/following-sibling::android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productQuantity']", on = Platform.MOBILE_ANDROID)
 	@Locate(xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]/preceding-sibling::XCUIElementTypeStaticText[2]", on = Platform.MOBILE_IOS)
@@ -258,6 +268,24 @@ public class CheckoutView extends BaseComponent {
 
 		itemCostText.format(productName).initialize();
 		return itemCostText.getText();
+	}
+
+	public CheckoutView deleteBySwipe(String productName) {
+		logger.info("Swiping product: " + productName);
+		getDeviceControl().swipeAcrossElementWithDirection(productItemElement.format(productName), SwipeDirection.LEFT);
+		productItemDeleteButton.format(productName).click();
+		return this.create(CheckoutView.class);
+	}
+
+	public CheckoutView deleteByEditButton(String productName) {
+		logger.info("Click edit button");
+		IntStream.range(0, 5).forEach(i -> {
+			MobileHelper.scrollUpCloseToMiddleAlgorithm();
+		});
+		editButton.click();
+		productItemDeleteByEditButton.format(productName).click();
+		productItemDeleteButton.format(productName).click();
+		return this.create(CheckoutView.class);
 	}
 }
 

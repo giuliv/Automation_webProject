@@ -16,15 +16,23 @@ public class RemoveFromOrderChunk extends BaseComponent {
   /* -------- Elements -------- */
 
   @Locate(id = "android:id/alertTitle", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeAlert/**/XCUIElementTypeStaticText[1]",
+      on = Platform.MOBILE_IOS)
   protected Text titleText;
 
   @Locate(id = "android:id/message", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeAlert/**/XCUIElementTypeStaticText[2]",
+      on = Platform.MOBILE_IOS)
   protected Text dialogMessageText;
 
   @Locate(id = "android:id/button2", on = Platform.MOBILE_ANDROID)
+  @Locate(accessibilityId = "Cancel", on = Platform.MOBILE_IOS)
   protected Button cancelButton;
 
   @Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
+  @Locate(accessibilityId = "Remove", on = Platform.MOBILE_IOS)
   protected Button removeButton;
 
   /* -------- Actions -------- */
