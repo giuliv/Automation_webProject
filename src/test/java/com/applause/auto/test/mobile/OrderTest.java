@@ -672,6 +672,7 @@ public class OrderTest extends BaseTest {
 		orderView = orderView.selectProduct("Maple Latte").addToOrder(NewOrderView.class);
 
 		logger.info("Add drink #2");
+		orderView.selectSubCategoryUnderCategory("Food", "Warm Breakfast");
 		productDetailsView = orderView.selectProduct("Oatmeal");
 
 		logger.info("STEP 9. Tap Add to Order button");
