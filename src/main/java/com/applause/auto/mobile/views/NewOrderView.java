@@ -133,7 +133,7 @@ public class NewOrderView extends BaseComponent {
 				MobileHelper.scrollUpCloseToMiddleAlgorithm();
 			});
 		}
-		getSyncHelper().sleep(1000);
+		getSyncHelper().sleep(5000);
 		MobileHelper.scrollElementIntoView(getCategoryItem);
 		getCategoryItem.click();
 		getSyncHelper().sleep(2000);
