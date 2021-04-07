@@ -1,6 +1,11 @@
 package com.applause.auto.common.data;
 
+import static com.applause.auto.integrations.helpers.SdkHelper.getEnvironmentHelper;
+
 import com.applause.auto.web.helpers.WebHelper;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 public class Constants {
 
@@ -158,9 +163,13 @@ public class Constants {
   }
 
   public static final class MyAccountTestData {
+    public static UserTestData CHECKOUT_ACCOUNT =
+        getEnvironmentHelper().isMobileIOS()
+            ? new UserTestData("peets_order_beverages_ios@gmail.com", "P@ssword1!")
+            : new UserTestData("peets.auto01@gmail.com", "p4ssword!");
     public static final String EMAIL = "peets+testaccount@gmail.com";
     public static final String EMAIL_HAS_FAVORITES = "peets+testhasfavorites3@gmail.com";
-    //    public static final String EMAIL_FAVORITES = "peets+testfavorites@gmail.com";
+    // public static final String EMAIL_FAVORITES = "peets+testfavorites@gmail.com";
     public static final String EMAIL_CHANGE_PWD = "appautosvc+peetscoffee1@applause.com";
     public static final String EMAIL_PEETS_REWARDS = "peets+rewards@gmail.com";
     public static final String EMAIL_EDIT_PROFILE = "peets+testeditprofile@gmail.com";
@@ -178,10 +187,10 @@ public class Constants {
     public static final String EDIT_EMAIL_PWD = "p4ssword!";
   }
 
-  public static final class CheckoutUserTestData {
-    public static final String USERNAME = "app1@peets.com";
-    public static final String USERNAME_SAFARI = "app1@peets.com";
-    public static final String PASSWORD = "abcde1";
+  public static class CheckoutUserTestData {
+    public static String USERNAME = "app1@peets.com";
+    public static String USERNAME_SAFARI = "app1@peets.com";
+    public static String PASSWORD = "abcde1";
   }
 
   public enum SubscriptionTerm {
@@ -225,5 +234,13 @@ public class Constants {
 
     public static final String PRIVACY_LINK_PATH = OCR_IMAGES_COMMON_PATH + "privacy-link.png";
     public static final String TERMS_LINK_PATH = OCR_IMAGES_COMMON_PATH + "terms-link.png";
+  }
+
+  @Setter
+  @Getter
+  @AllArgsConstructor
+  public static class UserTestData {
+    private String username;
+    private String password;
   }
 }

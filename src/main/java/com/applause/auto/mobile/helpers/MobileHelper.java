@@ -28,16 +28,7 @@ import javax.imageio.ImageIO;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.UnsupportedCommandException;
-import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.*;
 import org.testng.Assert;
 
 public class MobileHelper extends SdkHelper {
@@ -90,15 +81,15 @@ public class MobileHelper extends SdkHelper {
         return;
       } else if (isSamsungBrowserStarted) {
         throw new RuntimeException("Only Samsung browser suggested. Exiting");
-        //        ((AppiumDriver) getDriver())
+        // ((AppiumDriver) getDriver())
         //
         // .findElementById("com.sec.android.app.sbrowser:id/help_intro_legal_optional_checkbox")
-        //            .click();
-        //        ((AppiumDriver) getDriver())
+        // .click();
+        // ((AppiumDriver) getDriver())
         //
         // .findElementById("com.sec.android.app.sbrowser:id/help_intro_legal_agree_button")
-        //            .click();
-        //        getSyncHelper().sleep(10000);
+        // .click();
+        // getSyncHelper().sleep(10000);
       } else if (isChromeBrowserStarted) {
         return;
       }
@@ -468,7 +459,8 @@ public class MobileHelper extends SdkHelper {
                 ? (double) dimension.height
                 : ((double) dimension.height
                     + screenShotHeight
-                    - screenHeight)); // correction due to top nav bar
+                    - screenHeight)); // correction due to top nav
+    // bar
 
     // Getting pixel color by position x and y
     int clr =
@@ -512,6 +504,7 @@ public class MobileHelper extends SdkHelper {
         .filter(
             i -> {
               try {
+                getSyncHelper().sleep(2000);
                 element.initialize();
                 Dimension dimension = element.getDimension();
                 Point location = element.getLocation();

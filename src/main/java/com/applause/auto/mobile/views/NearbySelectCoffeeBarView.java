@@ -147,7 +147,7 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
           .wait(
               Until.uiElement(dismissFreeDeliveryButton)
                   .present()
-                  .setTimeout(Duration.ofSeconds(30)));
+                  .setTimeout(Duration.ofSeconds(10)));
       dismissFreeDeliveryButton.click();
     } catch (Throwable throwable) {
       logger.info("No free delivery popup found");

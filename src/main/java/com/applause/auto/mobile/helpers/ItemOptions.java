@@ -11,10 +11,12 @@ public class ItemOptions {
   private boolean isAndroid = true;
 
   public ItemOptions(List<String> androidOptions) {
+    this.isAndroid = true;
     this.options = androidOptions;
   }
 
   public ItemOptions(LazyList<Text> item) {
+    this.isAndroid = false;
     this.iosOptions = item.stream().map(i -> i.getText()).collect(Collectors.joining());
   }
 

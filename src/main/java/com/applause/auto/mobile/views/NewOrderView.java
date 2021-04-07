@@ -187,13 +187,9 @@ public class NewOrderView extends BaseComponent {
               i -> {
                 MobileHelper.scrollUpCloseToMiddleAlgorithm();
               });
-      getSyncHelper().sleep(1000);
-      while (attempt-- > 0 && !getCategoryItem.exists()) {
-        MobileHelper.scrollDownCloseToMiddleAlgorithm();
-        getSyncHelper().sleep(1000);
-      }
     }
-    getSyncHelper().sleep(1000);
+    getSyncHelper().sleep(5000);
+    MobileHelper.scrollElementIntoView(getCategoryItem);
     getCategoryItem.click();
     getSyncHelper().sleep(2000);
     getCategorySubItem.format(category, subCategory).initialize();

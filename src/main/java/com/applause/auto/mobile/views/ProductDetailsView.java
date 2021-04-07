@@ -46,9 +46,13 @@ public class ProductDetailsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getBackButton;
 
+  @Locate(accessibilityId = "Delete", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/delete", on = Platform.MOBILE_ANDROID)
   protected Button garbageButton;
 
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`label == \"Update Order\"`]",
+      on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/addOrUpdateProductButton",
       on = Platform.MOBILE_ANDROID)
@@ -89,6 +93,11 @@ public class ProductDetailsView extends BaseComponent {
   @Locate(
       id = "com.wearehathway.peets.development:id/productCostTextView",
       on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "\t\n"
+              + "//XCUIElementTypeButton[@name=\"Add to Order\"]/../XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText[last()]",
+      on = Platform.MOBILE_IOS)
   protected Text costText;
 
   @Locate(
@@ -114,6 +123,14 @@ public class ProductDetailsView extends BaseComponent {
       iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Oatmeal Toppings\"`]",
       on = Platform.MOBILE_IOS)
   protected Button oatmealToppingsButton;
+
+  @Locate(
+      xpath = "//android.widget.TextView[starts-with(@text,'Add Cream Cheese')]",
+      on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Add Cream Cheese\"`]",
+      on = Platform.MOBILE_IOS)
+  protected Button addCreamCheeseButton;
 
   @Locate(
       xpath =
@@ -319,6 +336,12 @@ public class ProductDetailsView extends BaseComponent {
     logger.info("Select Oatmeal Toppings");
     oatmealToppingsButton.click();
     return this.create(OatmealToppingsView.class);
+  }
+
+  public AddCreamCheeseView selectAddCreamCheese() {
+    logger.info("Select Add Cream Cheese");
+    addCreamCheeseButton.click();
+    return this.create(AddCreamCheeseView.class);
   }
 
   public boolean isBackButtonDisplayed() {

@@ -331,7 +331,7 @@ class AndroidSignInView extends SignInView {
     getSignInButton.click();
     if (getLoader.exists()) {
       getSyncHelper()
-          .wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(60)));
+          .wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(120)));
     }
     return this.create(clazz);
   }

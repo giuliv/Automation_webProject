@@ -13,6 +13,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import com.applause.auto.util.RetryTestException;
 import java.time.Duration;
+import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = AndroidLandingView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = LandingView.class, on = Platform.MOBILE_IOS)
@@ -23,6 +24,9 @@ public class LandingView extends BaseComponent {
   @Locate(id = "Earn Rewards.", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/headingText", on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
+
+  @Locate(xpath = "//XCUIElementTypeButton[contains(@label,'Allow')]", on = Platform.MOBILE_IOS)
+  protected Text allowButton;
 
   @Locate(id = "Skip", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/skipTextView", on = Platform.MOBILE_ANDROID)
@@ -73,6 +77,11 @@ public class LandingView extends BaseComponent {
   @Override
   public void afterInit() {
     logger.info("Landing View init");
+    try {
+      allowButton.click();
+    } catch (NoSuchElementException nse) {
+      logger.info("Popup 'Allow tracking' does not found");
+    }
     getSyncHelper()
         .wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
     getReportAProblemPopupChunk().waitForPopUpToDisappear();
