@@ -336,6 +336,8 @@ public class CheckoutView extends BaseComponent {
 			MobileHelper.scrollUpCloseToMiddleAlgorithm();
 		});
 		editButton.click();
+		getSyncHelper().sleep(2000);
+
 		productItemDeleteByEditButton.format(productName).click();
 		productItemDeleteButton.format(productName).click();
 		return this.create(CheckoutView.class);
