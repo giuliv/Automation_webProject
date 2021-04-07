@@ -19,6 +19,7 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 
+import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
 
@@ -336,9 +337,19 @@ public class CheckoutView extends BaseComponent {
 			MobileHelper.scrollUpCloseToMiddleAlgorithm();
 		});
 		editButton.click();
-		getSyncHelper().sleep(2000);
+
+		logger.info("Scroll down and up [in Order to elements be populated]");
+		getSyncHelper().sleep(2000); //Wait for action
+		MobileHelper.scrollDownHalfScreen(3);
+
+		getSyncHelper().sleep(2000); //Wait for scroll
+		MobileHelper.scrollElementIntoView(productItemDeleteByEditButton.format(productName));
+		getSyncHelper().sleep(2000); //Wait for scroll
 
 		productItemDeleteByEditButton.format(productName).click();
+
+		getSyncHelper()
+				.wait(Until.uiElement(productItemDeleteButton.format(productName)).present());
 		productItemDeleteButton.format(productName).click();
 		return this.create(CheckoutView.class);
 	}
