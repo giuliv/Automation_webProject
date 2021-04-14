@@ -141,9 +141,13 @@ public class NewOrderView extends BaseComponent {
 		}
 		getSyncHelper().sleep(5000);
 		MobileHelper.scrollElementIntoView(getCategoryItem);
-		getCategoryItem.click();
-		getSyncHelper().sleep(2000);
-		getCategorySubItem.format(category, subCategory).initialize();
+		try {
+			getCategorySubItem.format(category, subCategory).initialize();
+		} catch (NoSuchElementException nse) {
+			getCategoryItem.click();
+			getSyncHelper().sleep(2000);
+			getCategorySubItem.format(category, subCategory).initialize();
+		}
 		getCategorySubItem.click();
 		getSyncHelper().sleep(1000);
 	}
