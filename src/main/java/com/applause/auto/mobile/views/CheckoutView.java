@@ -361,6 +361,7 @@ class AndroidCheckoutView extends CheckoutView {
 	public void afterInit() {
 		try {
 			logger.info("Trying to click OKAY if present");
+			getSyncHelper().sleep(3000);
 			okayPopUpButton.initialize();
 			okayPopUpButton.click();
 		} catch (NoSuchElementException nse) {
