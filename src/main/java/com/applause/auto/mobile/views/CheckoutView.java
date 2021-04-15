@@ -357,6 +357,14 @@ public class CheckoutView extends BaseComponent {
 }
 
 class AndroidCheckoutView extends CheckoutView {
+	@Override
+	public void afterInit() {
+		try {
+			okayPopUpButton.click();
+		} catch (NoSuchElementException nse) {
+
+		}
+	}
 
 	public <T extends BaseComponent> T placeOrder(Class<T> clazz) {
 		logger.info("Tap place order");

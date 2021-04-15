@@ -81,8 +81,6 @@ public class RemoveFromOrderChunk extends BaseComponent {
 	 */
 	public CheckoutView remove() {
 		removeButton.click();
-		getSyncHelper().sleep(10000);
-		logger.info(">>>>>>>>>>>>>" + getDriver().getPageSource());
 		return this.create(CheckoutView.class);
 	}
 }
