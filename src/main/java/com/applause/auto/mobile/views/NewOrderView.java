@@ -34,7 +34,7 @@ public class NewOrderView extends BaseComponent {
 	@Locate(xpath = "//android.widget.TextView[@text=\"%s\"]", on = Platform.MOBILE_ANDROID)
 	protected ContainerElement getProductItem;
 
-	@Locate(xpath = "//XCUIElementTypeButton[@name=\"%s\"]/following-sibling::XCUIElementTypeOther/XCUIElementTypeButton[@name='%s']", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//XCUIElementTypeButton[@name=\"%s\"]/following-sibling::XCUIElementTypeButton[@name='%s']", on = Platform.MOBILE_IOS)
 	@Locate(xpath = "//android.widget.TextView[@text=\"%s\"]//parent::*/following-sibling::*[contains(@resource-id, 'subcategories')]//*[contains(@text, '%s')]", on = Platform.MOBILE_ANDROID)
 	protected ContainerElement getCategorySubItem;
 
