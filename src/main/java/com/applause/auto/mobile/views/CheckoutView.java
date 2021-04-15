@@ -360,6 +360,8 @@ class AndroidCheckoutView extends CheckoutView {
 	@Override
 	public void afterInit() {
 		try {
+			logger.info("Trying to click OKAY if present");
+			okayPopUpButton.initialize();
 			okayPopUpButton.click();
 		} catch (NoSuchElementException nse) {
 
