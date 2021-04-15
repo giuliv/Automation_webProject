@@ -410,17 +410,17 @@ class IosNewOrderView extends NewOrderView {
 		getSyncHelper().sleep(1000);
 	}
 
-	@Override
-	public ProductDetailsView selectProduct(String category) {
-		logger.info("Select product ios: " + category);
-		try {
-			getProductItem.format(category).initialize();
-		} catch (NoSuchElementException nse) {
-
-		}
-		MobileHelper.scrollElementIntoView(getProductItem);
-		getSyncHelper().sleep(1000);
-		getProductItem.click();
-		return this.create(ProductDetailsView.class);
-	}
+	// @Override
+	// public ProductDetailsView selectProduct(String category) {
+	// logger.info("Select product ios: " + category);
+	// try {
+	// getProductItem.format(category).initialize();
+	// } catch (NoSuchElementException nse) {
+	//
+	// }
+	// MobileHelper.scrollElementIntoView(getProductItem);
+	// getSyncHelper().sleep(1000);
+	// getProductItem.click();
+	// return this.create(ProductDetailsView.class);
+	// }
 }
