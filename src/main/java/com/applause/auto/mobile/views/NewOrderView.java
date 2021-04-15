@@ -393,22 +393,22 @@ class IosNewOrderView extends NewOrderView {
 		return this.create(CheckoutView.class);
 	}
 
-	@Override
-	public void selectCategoryAndSubCategory(String category, String subCategory) {
-		logger.info("Select category ios: " + category);
-		try {
-			getCategoryItem.format(category).initialize();
-		} catch (NoSuchElementException nse) {
-
-		}
-		MobileHelper.scrollElementIntoView(getCategoryItem);
-		getDeviceControl().tapElementCenter(getCategoryItem);
-		getSyncHelper().sleep(2000);
-		getCategorySubItem.format(category, subCategory).initialize();
-		MobileHelper.scrollElementIntoView(getCategorySubItem);
-		getDeviceControl().tapElementCenter(getCategorySubItem);
-		getSyncHelper().sleep(1000);
-	}
+	// @Override
+	// public void selectCategoryAndSubCategory(String category, String subCategory) {
+	// logger.info("Select category ios: " + category);
+	// try {
+	// getCategoryItem.format(category).initialize();
+	// } catch (NoSuchElementException nse) {
+	//
+	// }
+	// MobileHelper.scrollElementIntoView(getCategoryItem);
+	// getDeviceControl().tapElementCenter(getCategoryItem);
+	// getSyncHelper().sleep(2000);
+	// getCategorySubItem.format(category, subCategory).initialize();
+	// MobileHelper.scrollElementIntoView(getCategorySubItem);
+	// getDeviceControl().tapElementCenter(getCategorySubItem);
+	// getSyncHelper().sleep(1000);
+	// }
 
 	// @Override
 	// public ProductDetailsView selectProduct(String category) {
