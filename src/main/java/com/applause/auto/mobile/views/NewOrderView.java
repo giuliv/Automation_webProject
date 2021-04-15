@@ -133,18 +133,13 @@ public class NewOrderView extends BaseComponent {
 		try {
 			getCategoryItem.format(category).initialize();
 		} catch (NoSuchElementException nse) {
-			// IntStream.range(0, attempt)
-			// .forEach(
-			// i -> {
-			// MobileHelper.scrollUpCloseToMiddleAlgorithm();
-			// });
 		}
 		getSyncHelper().sleep(5000);
 		MobileHelper.scrollElementIntoView(getCategoryItem);
 		try {
 			getCategorySubItem.format(category, subCategory).initialize();
 		} catch (NoSuchElementException nse) {
-			getCategoryItem.click();
+			getDeviceControl().tapElementCenter(getCategoryItem);
 			getSyncHelper().sleep(2000);
 			getCategorySubItem.format(category, subCategory).initialize();
 		}

@@ -367,9 +367,6 @@ class AndroidCheckoutView extends CheckoutView {
 			getSyncHelper().sleep(3000);
 			okayPopUpButton.initialize();
 			okayPopUpButton.click();
-			getSyncHelper().sleep(3000);
-			okayPopUpButton.initialize();
-			okayPopUpButton.click();
 		} catch (NoSuchElementException nse) {
 
 		}
