@@ -7,6 +7,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 
+import org.openqa.selenium.NoSuchElementException;
+
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.helpers.ItemOptions;
@@ -18,8 +20,8 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
-
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
+
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
 
@@ -339,23 +341,36 @@ public class CheckoutView extends BaseComponent {
 		editButton.click();
 
 		logger.info("Scroll down and up [in Order to elements be populated]");
-		getSyncHelper().sleep(2000); //Wait for action
+		getSyncHelper().sleep(2000); // Wait for action
 		MobileHelper.scrollDownHalfScreen(3);
 
-		getSyncHelper().sleep(2000); //Wait for scroll
+		getSyncHelper().sleep(2000); // Wait for scroll
 		MobileHelper.scrollElementIntoView(productItemDeleteByEditButton.format(productName));
-		getSyncHelper().sleep(2000); //Wait for scroll
+		getSyncHelper().sleep(2000); // Wait for scroll
 
 		productItemDeleteByEditButton.format(productName).click();
 
-		getSyncHelper()
-				.wait(Until.uiElement(productItemDeleteButton.format(productName)).present());
+		getSyncHelper().wait(Until.uiElement(productItemDeleteButton.format(productName)).present());
 		productItemDeleteButton.format(productName).click();
 		return this.create(CheckoutView.class);
 	}
 }
 
 class AndroidCheckoutView extends CheckoutView {
+	@Override
+	public void afterInit() {
+		try {
+			logger.info("Trying to click OKAY if present");
+			getSyncHelper().sleep(3000);
+			okayPopUpButton.initialize();
+			okayPopUpButton.click();
+			getSyncHelper().sleep(3000);
+			okayPopUpButton.initialize();
+			okayPopUpButton.click();
+		} catch (NoSuchElementException nse) {
+
+		}
+	}
 
 	public <T extends BaseComponent> T placeOrder(Class<T> clazz) {
 		logger.info("Tap place order");
@@ -389,8 +404,12 @@ class AndroidCheckoutView extends CheckoutView {
 			getSyncHelper().sleep(1000);
 		}
 		List<String> result = new ArrayList<String>(Arrays.asList(itemOptionsText.getText().split("\n")));
-		itemQtyText.format(itemName).initialize();
-		result.add(itemQtyText.getText());
+		try {
+			itemQtyText.format(itemName).initialize();
+			result.add(itemQtyText.getText());
+		} catch (NoSuchElementException nse) {
+			logger.warn("Item quantity option does not found");
+		}
 		result.forEach(i -> {
 			logger.info("Found option: " + i);
 		});
