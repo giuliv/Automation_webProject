@@ -33,6 +33,8 @@ public class ProductionOrderTest extends BaseTest {
 				// TODO change to 99723 on prod
 				.allowIfRequestDisplayed(NearbySelectCoffeeBarView.class).search("78717").openDefault();
 
+		// Ensure that correct store opened
+
 		logger.info("Tap on Hot Coffee button from menu bar > All Hot coffee options are displayed");
 		logger.info("Tap on Lattes under hot coffee bar");
 		orderView.selectCategoryAndSubCategory("Hot Coffee", "Lattes");
