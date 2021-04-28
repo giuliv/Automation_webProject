@@ -29,9 +29,14 @@ public class ProductionOrderTest extends BaseTest {
 		DashboardView dashboardView = testHelper.signIn(landingView, account.getUsername(), account.getPassword(),
 				DashboardView.class);
 
-		NewOrderView orderView = dashboardView.getBottomNavigationMenu().order(AllowLocationServicesPopupChunk.class)
+		NearbySelectCoffeeBarView nearbySelectCoffeeBarView = dashboardView.getBottomNavigationMenu()
+				.order(AllowLocationServicesPopupChunk.class)
 				// TODO change to 99723 on prod
-				.allowIfRequestDisplayed(NearbySelectCoffeeBarView.class).search("78717").openDefault();
+				.allowIfRequestDisplayed(NearbySelectCoffeeBarView.class).search("78717");
+		String storeName = nearbySelectCoffeeBarView.getCoffeeStoreContainerChuck().getStoreName();
+		// TODO fill store name on prod
+		Assert.assertEquals("", "", "Incorrect store selected");
+		NewOrderView orderView = nearbySelectCoffeeBarView.openDefault();
 
 		// Ensure that correct store opened
 
