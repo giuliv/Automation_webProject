@@ -1,63 +1,64 @@
 package com.applause.auto.test.mobile;
 
-import com.applause.auto.common.data.Constants;
-import com.applause.auto.integrations.base.BaseSeleniumTest;
-import com.applause.auto.integrations.helpers.SdkHelper;
-import com.applause.auto.test.mobile.helpers.TestHelper;
-import io.appium.java_client.android.AndroidDriver;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
 import java.util.stream.Stream;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import com.applause.auto.common.data.Constants;
+import com.applause.auto.integrations.base.BaseSeleniumTest;
+import com.applause.auto.integrations.helpers.SdkHelper;
+import com.applause.auto.test.mobile.helpers.TestHelper;
+
+import io.appium.java_client.android.AndroidDriver;
+
 public class BaseTest extends BaseSeleniumTest {
 
-  private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
-  static TestHelper testHelper;
-  SoftAssert softAssert = new SoftAssert();
+	private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
+	protected static TestHelper testHelper;
+	SoftAssert softAssert = new SoftAssert();
 
-  /** Get a new Appium driver at the start of each test. */
-  @BeforeMethod(alwaysRun = true)
-  public void beforeMethod(Method method) {
+	/** Get a new Appium driver at the start of each test. */
+	@BeforeMethod(alwaysRun = true)
+	public void beforeMethod(Method method) {
 
-    String runId = String.format("%s:%s", method.getName(), System.currentTimeMillis());
-    logger.debug(String.format("Setting runId to %s", runId));
-    System.setProperty("runId", runId);
+		String runId = String.format("%s:%s", method.getName(), System.currentTimeMillis());
+		logger.debug(String.format("Setting runId to %s", runId));
+		System.setProperty("runId", runId);
 
-    // Set the default wait time on elements to 20 seconds
-    setTimeout(30);
+		// Set the default wait time on elements to 20 seconds
+		setTimeout(30);
 
-    // Set the custom mobile test helper
-    testHelper = this.create(TestHelper.class);
+		// Set the custom mobile test helper
+		testHelper = this.create(TestHelper.class);
 
-    logger.info("Test case setup complete.");
-  }
+		logger.info("Test case setup complete.");
+	}
 
-  /** Get a new Appium driver at the start of each test. */
-  @BeforeMethod(
-      alwaysRun = true,
-      dependsOnMethods = {"beforeMethod"})
-  public void beforeMethodWebUI(Method method) {
-    Stream<String> stream = Stream.of(method.getAnnotation(Test.class).groups());
-    if (stream.anyMatch(Constants.TestNGGroups.WEB_UI::equals)) {
-      logger.info("Chrome setup started...");
-      try {
-        testHelper.setupChrome();
-      } catch (Throwable th) {
-        logger.info("Something happened during Chrome setup");
-      }
-    } else {
-      logger.info("Chrome setup not needed");
-    }
-    if (SdkHelper.getEnvironmentHelper().isMobileAndroid()) {
-      getSyncHelper().sleep(5000);
-      String currentActivity = ((AndroidDriver) getDriver()).currentActivity();
-      logger.info("Current activity: " + currentActivity);
-    }
-    logger.info("Test case setup complete.");
-  }
+	/** Get a new Appium driver at the start of each test. */
+	@BeforeMethod(alwaysRun = true, dependsOnMethods = { "beforeMethod" })
+	public void beforeMethodWebUI(Method method) {
+		Stream<String> stream = Stream.of(method.getAnnotation(Test.class).groups());
+		if (stream.anyMatch(Constants.TestNGGroups.WEB_UI::equals)) {
+			logger.info("Chrome setup started...");
+			try {
+				testHelper.setupChrome();
+			} catch (Throwable th) {
+				logger.info("Something happened during Chrome setup");
+			}
+		} else {
+			logger.info("Chrome setup not needed");
+		}
+		if (SdkHelper.getEnvironmentHelper().isMobileAndroid()) {
+			getSyncHelper().sleep(5000);
+			String currentActivity = ((AndroidDriver) getDriver()).currentActivity();
+			logger.info("Current activity: " + currentActivity);
+		}
+		logger.info("Test case setup complete.");
+	}
 }
