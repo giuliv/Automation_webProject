@@ -13,74 +13,78 @@ import com.applause.auto.pageobjectmodel.helper.sync.Until;
 @Implementation(is = RemoveFromOrderChunk.class, on = Platform.MOBILE_IOS)
 public class RemoveFromOrderChunk extends BaseComponent {
 
-	/* -------- Elements -------- */
+  /* -------- Elements -------- */
 
-	@Locate(id = "android:id/alertTitle", on = Platform.MOBILE_ANDROID)
-	@Locate(iOSClassChain = "**/XCUIElementTypeAlert/**/XCUIElementTypeStaticText[1]", on = Platform.MOBILE_IOS)
-	protected Text titleText;
+  @Locate(id = "android:id/alertTitle", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeAlert/**/XCUIElementTypeStaticText[1]",
+      on = Platform.MOBILE_IOS)
+  protected Text titleText;
 
-	@Locate(id = "android:id/message", on = Platform.MOBILE_ANDROID)
-	@Locate(iOSClassChain = "**/XCUIElementTypeAlert/**/XCUIElementTypeStaticText[2]", on = Platform.MOBILE_IOS)
-	protected Text dialogMessageText;
+  @Locate(id = "android:id/message", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeAlert/**/XCUIElementTypeStaticText[2]",
+      on = Platform.MOBILE_IOS)
+  protected Text dialogMessageText;
 
-	@Locate(id = "android:id/button2", on = Platform.MOBILE_ANDROID)
-	@Locate(accessibilityId = "Cancel", on = Platform.MOBILE_IOS)
-	protected Button cancelButton;
+  @Locate(id = "android:id/button2", on = Platform.MOBILE_ANDROID)
+  @Locate(accessibilityId = "Cancel", on = Platform.MOBILE_IOS)
+  protected Button cancelButton;
 
-	@Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
-	@Locate(accessibilityId = "Remove", on = Platform.MOBILE_IOS)
-	protected Button removeButton;
+  @Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
+  @Locate(accessibilityId = "Remove", on = Platform.MOBILE_IOS)
+  protected Button removeButton;
 
-	/* -------- Actions -------- */
+  /* -------- Actions -------- */
 
-	/** Click dismiss button */
-	public void afterInit() {
-		getSyncHelper().wait(Until.uiElement(titleText).visible());
-	}
+  /** Click dismiss button */
+  public void afterInit() {
+    getSyncHelper().wait(Until.uiElement(titleText).visible());
+  }
 
-	/**
-	 * Is title displayed boolean.
-	 *
-	 * @return the boolean
-	 */
-	public boolean isTitleDisplayed() {
-		return titleText.isDisplayed();
-	}
+  /**
+   * Is title displayed boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isTitleDisplayed() {
+    return titleText.isDisplayed();
+  }
 
-	/**
-	 * Message text string.
-	 *
-	 * @return the string
-	 */
-	public String messageText() {
-		return dialogMessageText.getText();
-	}
+  /**
+   * Message text string.
+   *
+   * @return the string
+   */
+  public String messageText() {
+    return dialogMessageText.getText();
+  }
 
-	/**
-	 * Is cancel button displayed boolean.
-	 *
-	 * @return the boolean
-	 */
-	public boolean isCancelButtonDisplayed() {
-		return cancelButton.isDisplayed();
-	}
+  /**
+   * Is cancel button displayed boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isCancelButtonDisplayed() {
+    return cancelButton.isDisplayed();
+  }
 
-	/**
-	 * Is remove button displayed boolean.
-	 *
-	 * @return the boolean
-	 */
-	public boolean isRemoveButtonDisplayed() {
-		return removeButton.isDisplayed();
-	}
+  /**
+   * Is remove button displayed boolean.
+   *
+   * @return the boolean
+   */
+  public boolean isRemoveButtonDisplayed() {
+    return removeButton.isDisplayed();
+  }
 
-	/**
-	 * Remove checkout view.
-	 *
-	 * @return the checkout view
-	 */
-	public CheckoutView remove() {
-		removeButton.click();
-		return this.create(CheckoutView.class);
-	}
+  /**
+   * Remove checkout view.
+   *
+   * @return the checkout view
+   */
+  public CheckoutView remove() {
+    removeButton.click();
+    return this.create(CheckoutView.class);
+  }
 }

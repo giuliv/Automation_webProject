@@ -32,6 +32,7 @@ public class Constants {
     public static final String ORDER = "order";
     public static final String COMPANY_INFORMATION = "company-information";
     public static final String REGRESSION = "regression";
+    public static final String PROD_MONITORING = "prod_monitoring";
     public static final String MONITORING = "monitoring";
     public static final String WEB_UI = "web-ui";
   }
