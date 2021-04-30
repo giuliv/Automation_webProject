@@ -168,7 +168,7 @@ public class Constants {
         getEnvironmentHelper().isMobileIOS()
             ? new UserTestData("peets_order_beverages_ios@gmail.com", "P@ssword1!")
             : new UserTestData("peets.auto01@gmail.com", "p4ssword!");
-    public static final String EMAIL = "peets+testaccount@gmail.com";
+    public static final String EMAIL = "mp+20@peets.com";
     public static final String EMAIL_HAS_FAVORITES = "peets+testhasfavorites3@gmail.com";
     // public static final String EMAIL_FAVORITES = "peets+testfavorites@gmail.com";
     public static final String EMAIL_CHANGE_PWD = "appautosvc+peetscoffee1@applause.com";
@@ -180,7 +180,7 @@ public class Constants {
     public static final String SAFARI_ACCOUNT_EMAIL = "peets+safariaccountsettings@qa.utest.com";
     public static final String MODIFY_ACCOUNT_EMAIL = "peets+modifyaccount1@qa.utest.com";
     public static final String UNUSED_EMAIL = "peets+unused@qa.utest.com";
-    public static final String PASSWORD = "p@ssword123";
+    public static final String PASSWORD = "abcde1";
     public static final String ADDRESS_LINE_2 = "APT. 123";
     public static final String FIRST_NAME = "UTest";
     public static final String LAST_NAME = "QA Test";
