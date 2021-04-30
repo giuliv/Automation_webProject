@@ -613,8 +613,7 @@ public class CreateAccountView extends BaseComponent {
     logger.info("Checking password text displayed");
     getHiddenPasswordTextBox.sendKeys(" ");
     boolean result =
-        getPasswordHintTextBox
-            .stream()
+        getPasswordHintTextBox.stream()
             .map(item -> item.getText())
             .collect(Collectors.joining("\n"))
             .equals(
@@ -797,8 +796,7 @@ class AndroidCreateAccountView extends CreateAccountView {
     getHiddenPasswordTextBox.sendKeys("A");
     getDeviceControl().hideKeyboard();
     String pHint =
-        getPasswordHintTextBox
-            .stream()
+        getPasswordHintTextBox.stream()
             .map(
                 item -> {
                   String i = item.getText();
