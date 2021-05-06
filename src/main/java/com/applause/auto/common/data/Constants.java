@@ -62,6 +62,8 @@ public class Constants {
     public static final String SHOP_COFFEE_KCUPS_PAGE_URL =
         LANDING_PAGE_URL.concat("/coffee/k-cups");
 
+    public static final String WEB_USERNAME = "peets.automation01@applause.com";
+    public static final String WEB_PASSWORD = "Pa55word!";
     public static final String USERNAME = "appautosvc+peetscoffeealternate@applause.com";
     public static final String USERNAME_625882 = "appautosvc+test625882@applause.com";
     public static final String USERNAME_SAFARI = "appautosvc+peetscoffeesafari@applause.com";

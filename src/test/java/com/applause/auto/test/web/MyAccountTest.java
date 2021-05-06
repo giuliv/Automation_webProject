@@ -116,7 +116,7 @@ public class MyAccountTest extends BaseTest {
     signInPage.enterEmailByBrowser(
         Constants.MyAccountTestData.EMAIL, Constants.MyAccountTestData.SAFARI_ACCOUNT_EMAIL);
     signInPage.enterPassword(Constants.MyAccountTestData.PASSWORD);
-    MyAccountPage myAccountPage = signInPage.clickonSignInButton();
+    MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
     Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
     logger.info("3. Select Payment");
@@ -180,7 +180,7 @@ public class MyAccountTest extends BaseTest {
     signInPage.enterEmailByBrowser(
         Constants.MyAccountTestData.EMAIL, Constants.MyAccountTestData.SAFARI_BILLING_EMAIL);
     signInPage.enterPassword(Constants.MyAccountTestData.PASSWORD);
-    MyAccountPage myAccountPage = signInPage.clickonSignInButton();
+    MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
     Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
     logger.info("3. Edit Billing Address");
@@ -226,7 +226,7 @@ public class MyAccountTest extends BaseTest {
     signInPage.enterEmailByBrowser(
         Constants.MyAccountTestData.EMAIL, Constants.MyAccountTestData.SAFARI_SHIPPING_EMAIL);
     signInPage.enterPassword(Constants.MyAccountTestData.PASSWORD);
-    MyAccountPage myAccountPage = signInPage.clickonSignInButton();
+    MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
     Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
     logger.info("3. Edit Shipping Address");
@@ -379,7 +379,7 @@ public class MyAccountTest extends BaseTest {
         Constants.MyAccountTestData.MODIFY_ACCOUNT_EMAIL,
         Constants.MyAccountTestData.SAFARI_ACCOUNT_EMAIL);
     signInPage.enterPassword(Constants.MyAccountTestData.PASSWORD);
-    MyAccountPage myAccountPage = signInPage.clickonSignInButton();
+    MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
     Assert.assertNotNull(myAccountPage, "Account Dashboard did not display");
 
     logger.info("3. Select Settings");

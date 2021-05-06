@@ -27,7 +27,7 @@ public class Landing extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(css = ".account-link", on = Platform.WEB)
+  @Locate(css = "#header a[href*='/login']", on = Platform.WEB)
   private Button signInButton;
 
   @Locate(css = ".close-button", on = Platform.WEB)
@@ -60,9 +60,8 @@ public class Landing extends BaseComponent {
    */
   public SignInPage clickSignInButton() {
     logger.info("Tap on SignIn Button");
-    // TODO: Do we really need this?
-    // WebHelper.waitForElementToBeClickable(signInButton.getWebElement());
     getSyncHelper().wait(Until.uiElement(signInButton).clickable()).click();
+
     return this.create(SignInPage.class);
   }
 

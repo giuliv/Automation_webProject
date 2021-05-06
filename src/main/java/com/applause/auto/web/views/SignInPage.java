@@ -15,13 +15,13 @@ public class SignInPage extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(css = "#email", on = Platform.WEB)
+  @Locate(id = "Email", on = Platform.WEB)
   private TextBox getEmailTextBox;
 
-  @Locate(css = "#pass", on = Platform.WEB)
+  @Locate(id = "Password", on = Platform.WEB)
   private TextBox getPasswordTextBox;
 
-  @Locate(css = "#send2", on = Platform.WEB)
+  @Locate(css = "input[value='Sign In']", on = Platform.WEB)
   private Button getSignInButton;
 
   @Locate(css = ".new-users button", on = Platform.WEB)
@@ -36,6 +36,7 @@ public class SignInPage extends BaseComponent {
    */
   public void enterEmail(String text) {
     logger.info("Enter email : " + text);
+    getSyncHelper().wait(Until.uiElement(getEmailTextBox).visible());
     getEmailTextBox.sendKeys(text);
   }
 
@@ -66,7 +67,7 @@ public class SignInPage extends BaseComponent {
    *
    * @return My Account page
    */
-  public MyAccountPage clickonSignInButton() {
+  public MyAccountPage clickOnSignInButton() {
     logger.info("Click on sign in button");
     getSignInButton.click();
     return this.create(MyAccountPage.class);

@@ -16,7 +16,7 @@ public class MyAccountPage extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(css = ".welcome-msg .title", on = Platform.WEB)
+  @Locate(css = "#acDashboard h1", on = Platform.WEB)
   private Text getViewSignature;
 
   @Locate(css = "div.left-nav.left-nav-account > ul > li:nth-child(5) > a", on = Platform.WEB)
@@ -134,8 +134,8 @@ public class MyAccountPage extends BaseComponent {
    * @return LoginPage
    */
   public String getWelcomeMessage() {
-    logger.info("Getting welcome message for verification");
-    return getViewSignature.getText();
+    logger.info("Welcome message: " + getViewSignature.getText().toLowerCase());
+    return getViewSignature.getText().toLowerCase();
   }
 
   /**
