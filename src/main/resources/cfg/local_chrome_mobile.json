@@ -1,0 +1,16 @@
+{
+  "device_name": "Local Chrome",
+  "driver_type": "Chrome",
+  "factory_key": "WEB_MOBILE_PHONE",
+  "manufacturer": "WINDOWS",
+  "caps": {
+    "browserName": "chrome",
+    "acceptSSLAlerts": "true",
+    "goog:chromeOptions": {
+      "mobileEmulation": {
+        "deviceName": "Pixel 2"
+      }
+    }
+  }
+}
+
