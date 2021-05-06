@@ -17,6 +17,7 @@ public class MyAccountPage extends BaseComponent {
   /* -------- Elements -------- */
 
   @Locate(css = "#acDashboard h1", on = Platform.WEB)
+  @Locate(css = ".ac-section-header", on = Platform.WEB_MOBILE_PHONE)
   private Text getViewSignature;
 
   @Locate(css = "div.left-nav.left-nav-account > ul > li:nth-child(5) > a", on = Platform.WEB)
