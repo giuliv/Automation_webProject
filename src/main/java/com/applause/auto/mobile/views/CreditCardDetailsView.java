@@ -211,8 +211,8 @@ class IosCreditCardDetailsView extends CreditCardDetailsView {
 		}
 		getSaveCardButton.click();
 		getSyncHelper().sleep(10000);
-		// getBackButton.click();
-		// getSyncHelper().sleep(5000);
+		getBackButton.click();
+		getSyncHelper().sleep(5000);
 		return this.create(PaymentMethodsView.class);
 	}
 }
