@@ -89,7 +89,7 @@ public class PaymentMethodsView extends BaseComponent {
 	}
 
 	/** Click the Back Button */
-	public void clickBackButtonTwice() {
+	public void clickBackButtonTwiceOnIos() {
 		logger.info("Clicking the back button");
 		getDeviceControl().tapElementCenter(getBackButton);
 		getDeviceControl().tapElementCenter(getBackButton);
@@ -178,6 +178,12 @@ class AndroidPaymentMethodsView extends PaymentMethodsView {
 		getSavedPaymentMethod2Button.click();
 		getSaveChangesButton.click();
 		return this.create(clazz);
+	}
+
+	public void clickBackButtonTwiceOnIos() {
+		logger.info("Clicking the back button");
+		getBackButton.click();
+		getSyncHelper().sleep(5000);
 	}
 
 	/**

@@ -50,7 +50,7 @@ public class PeetsCardsTest extends BaseTest {
 		paymentMethodsView = addNewCardView.addNewCard(Constants.TestData.MASTER_CC_NUM,
 				Constants.TestData.MASTER_CC_CODE, MobileTestData.CC_MASTER_NAME, Constants.MobileTestData.CC_EXP_DATE,
 				MobileTestData.CC_ZIP);
-		paymentMethodsView.clickBackButtonTwice();
+		paymentMethodsView.clickBackButtonTwiceOnIos();
 		accountProfileMenu.clickPaymentMethods();
 
 		logger.info("Tap on a saved payment method");
