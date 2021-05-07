@@ -92,6 +92,7 @@ public class PaymentMethodsView extends BaseComponent {
 	public void clickBackButton() {
 		logger.info("Clicking the back button");
 		getDeviceControl().tapElementCenter(getBackButton);
+		getDeviceControl().tapElementCenter(getBackButton);
 		getSyncHelper().sleep(5000);
 	}
 
