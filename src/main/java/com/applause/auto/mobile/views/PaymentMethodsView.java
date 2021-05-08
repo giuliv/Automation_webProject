@@ -187,7 +187,7 @@ class AndroidPaymentMethodsView extends PaymentMethodsView {
 	}
 
 	public void clickBackButton() {
-		logger.info("Clicking the back button");
+		logger.info("Clicking the back button!!");
 		getSyncHelper().sleep(5000);
 	}
 
