@@ -186,6 +186,11 @@ class AndroidPaymentMethodsView extends PaymentMethodsView {
 		getSyncHelper().sleep(5000);
 	}
 
+	public void clickBackButton() {
+		logger.info("Clicking the back button");
+		getSyncHelper().sleep(5000);
+	}
+
 	/**
 	 * Click Payment Method and Save Changes
 	 *
