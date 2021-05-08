@@ -181,14 +181,13 @@ class AndroidPaymentMethodsView extends PaymentMethodsView {
 	}
 
 	public void clickBackButtonTwiceOnIos() {
-		logger.info("Skitpping Clicking the back button twice");
+		logger.info("Click back button once on android");
 		getBackButton.click();
 		getSyncHelper().sleep(5000);
 	}
 
 	public void clickBackButton() {
-		logger.info("Clicking the back button!!");
-		getSyncHelper().sleep(5000);
+		logger.info("Does not click back button on andorid");
 	}
 
 	/**
