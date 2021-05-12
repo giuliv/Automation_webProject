@@ -28,13 +28,13 @@ public class LoginTest extends BaseTest {
     SignInPage signInPage = landing.clickSignInButton();
 
     logger.info("3. Enter username and password");
-    signInPage.enterEmail(Constants.TestData.USERNAME);
-    signInPage.enterPassword(Constants.TestData.PASSWORD);
-    MyAccountPage myAccountPage = signInPage.clickonSignInButton();
+    signInPage.enterEmail(Constants.TestData.WEB_USERNAME);
+    signInPage.enterPassword(Constants.TestData.WEB_PASSWORD);
+    MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
 
     logger.info("Verify user is signed in");
     Assert.assertTrue(
-        myAccountPage.getWelcomeMessage().contains("Applause"),
+        myAccountPage.getWelcomeMessage().contains("welcome, web"),
         "User is not signed in or welcome name is wrong");
   }
 }
