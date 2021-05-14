@@ -85,6 +85,7 @@ public class AccountSettingsTest extends BaseTest {
 		paymentMethodsView = addNewCardView.addNewCard(Constants.TestData.DISCOVERY_CC_NUM,
 				Constants.TestData.DISCOVERY_CC_CODE, MobileTestData.CC_DISCO_NAME,
 				Constants.MobileTestData.CC_EXP_DATE, Constants.TestData.DISCOVERY_CC_ZIP);
+		paymentMethodsView.clickBackButton();
 
 		logger.info("Add New Payment Method MASTER");
 		addNewCardView = paymentMethodsView.clickAddNewPayment();
