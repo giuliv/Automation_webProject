@@ -149,6 +149,9 @@ public class PaymentMethodsView extends BaseComponent {
 		getSyncHelper().sleep(5000);
 		getSyncHelper().wait(Until.uiElement(getAddNewPaymentButton).visible().setTimeout(Duration.ofSeconds(40)));
 		getAddNewPaymentButton.click();
+		if (getAddNewPaymentButton.exists()) {
+			getAddNewPaymentButton.click();
+		}
 		return this.create(AddNewCardView.class);
 	}
 
