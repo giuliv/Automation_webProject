@@ -67,6 +67,7 @@ public class AccountSettingsTest extends BaseTest {
 		// for now, go back, and then forward
 
 		paymentMethodsView.clickBackButton();
+		paymentMethodsView.clickBackButton();
 		// accountProfileMenu.clickPaymentMethods();
 
 		// TODO - AMEX Cards are not working, review with Jyothi
@@ -85,6 +86,7 @@ public class AccountSettingsTest extends BaseTest {
 		paymentMethodsView = addNewCardView.addNewCard(Constants.TestData.DISCOVERY_CC_NUM,
 				Constants.TestData.DISCOVERY_CC_CODE, MobileTestData.CC_DISCO_NAME,
 				Constants.MobileTestData.CC_EXP_DATE, Constants.TestData.DISCOVERY_CC_ZIP);
+		paymentMethodsView.clickBackButton();
 		paymentMethodsView.clickBackButton();
 
 		logger.info("Add New Payment Method MASTER");
