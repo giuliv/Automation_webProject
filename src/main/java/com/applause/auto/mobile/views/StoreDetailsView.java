@@ -112,7 +112,8 @@ public class StoreDetailsView extends BaseComponent {
    */
   public List<String> getResults() {
     logger.info("Looking for results");
-    return getSearchResultsElements.stream()
+    return getSearchResultsElements
+        .stream()
         .map(item -> item.getText())
         .collect(Collectors.toList());
   }

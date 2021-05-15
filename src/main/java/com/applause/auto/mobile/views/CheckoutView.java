@@ -2,13 +2,6 @@ package com.applause.auto.mobile.views;
 
 import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.IntStream;
-
-import org.openqa.selenium.NoSuchElementException;
-
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.helpers.ItemOptions;
@@ -21,9 +14,13 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.IntStream;
+import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = AndroidCheckoutView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CheckoutView.class, on = Platform.MOBILE_IOS)
@@ -193,7 +190,8 @@ public class CheckoutView extends BaseComponent {
     }
 
     if (areAvailableRewardsDisplayed) {
-      availableRewards.stream()
+      availableRewards
+          .stream()
           .filter(item -> getElementTextAttribute(item).startsWith(awardText))
           .findAny()
           .orElseThrow(
@@ -268,7 +266,8 @@ public class CheckoutView extends BaseComponent {
     ((IOSDriver) getDriver()).setSetting("snapshotMaxDepth", 99);
     MobileHelper.scrollElementIntoView(itemOptionsText.format(itemName));
     itemOptionsList.format(itemName).initialize();
-    itemOptionsList.stream()
+    itemOptionsList
+        .stream()
         .forEach(
             i -> {
               logger.info("Found options: " + i.getText());

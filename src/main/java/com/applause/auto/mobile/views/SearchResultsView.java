@@ -40,7 +40,8 @@ public class SearchResultsView extends BaseComponent {
   }
 
   public List<String> getResults() {
-    return getSearchResultsElements.stream()
+    return getSearchResultsElements
+        .stream()
         .map(item -> item.getText())
         .collect(Collectors.toList());
   }
