@@ -9,7 +9,6 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 import java.time.Duration;
-import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = AndroidOrderView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = OrderView.class, on = Platform.MOBILE_IOS)
@@ -54,7 +53,7 @@ public class OrderView extends BaseComponent {
       getSyncHelper()
           .wait(Until.uiElement(noThanksButton).present().setTimeout(Duration.ofSeconds(10)));
       noThanksButton.click();
-    } catch (NoSuchElementException nse) {
+    } catch (Throwable nse) {
 
     }
   }

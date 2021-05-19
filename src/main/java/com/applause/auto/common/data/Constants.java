@@ -173,7 +173,7 @@ public class Constants {
     public static final String EMAIL = "mp+20@peets.com";
     public static final String EMAIL_HAS_FAVORITES = "peets+testhasfavorites3@gmail.com";
     // public static final String EMAIL_FAVORITES = "peets+testfavorites@gmail.com";
-    public static final String EMAIL_CHANGE_PWD = "appautosvc+peetscoffee1@applause.com";
+    public static final String EMAIL_CHANGE_PWD = "appautosvc+peetscoffee2@applause.com";
     public static final String EMAIL_PEETS_REWARDS = "peets+rewards@gmail.com";
     public static final String EMAIL_EDIT_PROFILE = "peets+testeditprofile@gmail.com";
     public static final String EMAIL_ORDERING = "peets2+testaccount@gmail.com";

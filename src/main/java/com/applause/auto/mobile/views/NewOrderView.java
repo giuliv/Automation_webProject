@@ -1,10 +1,5 @@
 package com.applause.auto.mobile.views;
 
-import java.time.Duration;
-import java.util.stream.IntStream;
-
-import org.openqa.selenium.NoSuchElementException;
-
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -15,6 +10,9 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import java.time.Duration;
+import java.util.stream.IntStream;
+import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = NewOrderView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosNewOrderView.class, on = Platform.MOBILE_IOS)

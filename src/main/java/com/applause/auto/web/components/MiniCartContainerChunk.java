@@ -104,7 +104,8 @@ public class MiniCartContainerChunk extends BaseComponent {
    */
   public List<String> getItems() {
     logger.info("Obtaining items from mini-cart");
-    return getMinicartItems.stream()
+    return getMinicartItems
+        .stream()
         .map(
             item -> {
               String result = item.getText();

@@ -5,14 +5,7 @@ import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.integrations.annotation.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
-import com.applause.auto.mobile.views.CustomerSupportScreenView;
-import com.applause.auto.mobile.views.DashboardView;
-import com.applause.auto.mobile.views.HelpAndFeedbackView;
-import com.applause.auto.mobile.views.LandingView;
-import com.applause.auto.mobile.views.LegalInfoView;
-import com.applause.auto.mobile.views.PeetnikRewardsLandingView;
-import com.applause.auto.mobile.views.PeetnikRewardsTermsAndConditionsView;
-import com.applause.auto.mobile.views.PrivacyPolicyView;
+import com.applause.auto.mobile.views.*;
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -161,8 +154,8 @@ public class CompanyInformationTest extends BaseTest {
 
     logger.info("VERIFY - Header: Hi, \"FIRST NAME\"");
     Assert.assertTrue(
-        accountMenuMobileChunk.getTitle().matches("HI, APPLAUSE"),
-        "Header: Hi, \"FIRST NAME\" does not displayed");
+        accountMenuMobileChunk.getTitle().matches("HI, TEST"),
+        "Header: Hi, \"TEST\" does not displayed");
 
     logger.info("VERIFY - X at top left to close screen");
     Assert.assertTrue(

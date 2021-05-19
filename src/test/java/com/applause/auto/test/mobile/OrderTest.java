@@ -471,11 +471,6 @@ public class OrderTest extends BaseTest {
     LandingView landingView = this.create(LandingView.class);
     DashboardView dashboardView = testHelper.createNewAccountWithDefaults(landingView);
 
-    // OrderView orderView =
-    // dashboardView
-    // .location(AllowLocationServicesPopupChunk.class)
-    // .allowIfRequestDisplayed(OrderView.class);
-
     logger.info("STEP 1. Tap on store locator icon in top right corner");
     NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
         dashboardView.location(AllowLocationServicesPopupChunk.class).allowIfRequestDisplayed();
@@ -534,9 +529,9 @@ public class OrderTest extends BaseTest {
     Assert.assertTrue(store.isCoffeebarOpenHoursDisplayed(), "Open hours does not displayed");
 
     logger.info("STEP 2. Tap on current location icon on the map");
-    nearbySelectCoffeeBarView
-        .location(AllowLocationServicesPopupChunk.class)
-        .allowIfRequestDisplayed();
+    // nearbySelectCoffeeBarView
+    // .location(AllowLocationServicesPopupChunk.class)
+    // .allowIfRequestDisplayed();
     logger.info(
         "User sees blue dot on map and nearby store locations are indicated on the map as brown pins");
     Assert.assertTrue(
@@ -573,7 +568,7 @@ public class OrderTest extends BaseTest {
 
     // TODO Blocked because order button visibility relay on working hours
     // logger.info("STEP 5. Tap Order button");
-    // OrderView order = store2.clickOrderButton();
+    // OrderView order = store.clickOrderButton();
     // logger.info("User is taken to main order screen");
     // Assert.assertNotNull(order, "User does not taken to main order screen");
     //
@@ -589,6 +584,7 @@ public class OrderTest extends BaseTest {
     // screen");
 
     logger.info("STEP 8. Tap on Recents tab");
+    nearbySelectCoffeeBarView.cancelSearch();
     FindACoffeeBarView findACoffeeBarView = nearbySelectCoffeeBarView.openRecentTab();
     logger.info(
         "Recents tab is highlighted in gold and the empty state shows:\n"

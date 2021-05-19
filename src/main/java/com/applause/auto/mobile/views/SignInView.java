@@ -1,10 +1,5 @@
 package com.applause.auto.mobile.views;
 
-import java.time.Duration;
-import java.util.stream.IntStream;
-
-import org.openqa.selenium.TimeoutException;
-
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -13,11 +8,13 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
+import java.time.Duration;
+import java.util.stream.IntStream;
+import org.openqa.selenium.TimeoutException;
 
 @Implementation(is = AndroidSignInView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = SignInView.class, on = Platform.MOBILE_IOS)
