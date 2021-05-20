@@ -41,9 +41,9 @@ public class BaseTest extends BaseSeleniumTest {
    * Platform Agnostic Test Helpers
    */
 
-  Home navigateToHome() {
+  HomePage navigateToHome() {
     logger.info(String.format("Navigating to the home page '%s'", TestData.LANDING_PAGE_URL));
     getDriver().navigate().to(TestData.LANDING_PAGE_URL);
-    return this.create(Home.class);
+    return this.create(HomePage.class);
   }
 }
