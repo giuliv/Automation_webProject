@@ -12,17 +12,21 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.helper.sync.Until;
 
 @Implementation(is = Header.class, on = Platform.WEB)
-@Implementation(is = Header.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = HeaderMobile.class, on = Platform.WEB_MOBILE_PHONE)
 public class Header extends BaseComponent {
 
   @Locate(id = "header", on = Platform.WEB)
   private ContainerElement mainContainer;
 
   @Locate(css = "a[data-id='coffee-nav']", on = Platform.WEB)
-  private Button coffeeCategory;
+  @Locate(css = "button[data-id='coffee-nav']", on = Platform.WEB_MOBILE_PHONE)
+  protected Button coffeeCategory;
 
   @Locate(css = ".nav__columns a[href*='%s']", on = Platform.WEB)
   private Button subCategories;
+
+  @Locate(css = ".header__mobile-menu", on = Platform.WEB_MOBILE_PHONE)
+  protected Button hamburgerButton;
 
   @Override
   public void afterInit() {
@@ -47,5 +51,26 @@ public class Header extends BaseComponent {
     subCategories.click();
 
     return SdkHelper.create(clazz);
+  }
+}
+
+class HeaderMobile extends Header {
+
+  @Override
+  public void hoverCategoryFromMenu(Constants.MenuOptions menuOptions) {
+    openHamburgerMenu();
+
+    logger.info("Tab selected: " + menuOptions.name());
+    if (menuOptions.equals(Constants.MenuOptions.COFFEE)) {
+      coffeeCategory.click();
+    }
+  }
+
+  public void openHamburgerMenu() {
+    logger.info("Open Hamburger Menu [Mobile]");
+    getSyncHelper().wait(Until.uiElement(hamburgerButton).visible());
+    hamburgerButton.click();
+
+    getSyncHelper().wait(Until.uiElement(coffeeCategory).visible());
   }
 }

@@ -37,6 +37,8 @@ public class ProductListPage extends Base {
     WebHelper.scrollToElement(productsImageList.get(index));
 
     getSyncHelper().wait(Until.uiElement(productsImageList.get(index)).visible());
+    WebHelper.scrollToElement(productsImageList.get(index));
+
     productsImageList.get(index).click();
     return SdkHelper.create(ProductDetailsPage.class);
   }
