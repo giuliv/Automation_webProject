@@ -38,4 +38,18 @@ public class WebHelper extends SdkHelper {
     // the element is not obscured by another element.
     jse.executeScript("window.scrollBy(0, " + -(windowHeight / 2) + ")", "");
   }
+
+  public static boolean isDesktop() {
+    return !getEnvironmentHelper().isMobileAndroid()
+        && !getEnvironmentHelper().isMobileIOS()
+        && !getDriverConfig().contains("mobile");
+  }
+
+  public static String getDriverConfig() {
+    return System.getProperty("driverConfig", "chrome");
+  }
+
+  public static boolean isMobile() {
+    return getEnvironmentHelper().isMobileAndroid() || getEnvironmentHelper().isMobileIOS();
+  }
 }

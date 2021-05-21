@@ -1,6 +1,7 @@
 package com.applause.auto.new_web.views;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
@@ -17,12 +18,20 @@ public class HomePage extends Base {
   @Locate(css = "button[aria-label='allow cookies']", on = Platform.WEB)
   private Button allowCookies;
 
+  @Locate(css = "button.launch-modal__close", on = Platform.WEB)
+  private Button closeModal;
+
   @Override
   public void afterInit() {
     getSyncHelper().wait(Until.uiElement(mainContainer).present());
     logger.info("Peet's Home URL: " + getDriver().getCurrentUrl());
 
-    if (allowCookies.exists()) {
+    if (closeModal.exists()) {
+      logger.info("Close peets.com Modal");
+      closeModal.click();
+    }
+
+    if (!WebHelper.isDesktop() && allowCookies.exists()) {
       logger.info("Accept Cookies");
       allowCookies.click();
     }

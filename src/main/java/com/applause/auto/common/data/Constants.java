@@ -40,7 +40,9 @@ public class Constants {
 
   public enum TestEnvironment {
     uat("https://uat.aws.peets.com"),
-    production("https://peets.com");
+    production("https://peets.com"),
+    staging(
+        "https://peets-coffee-staging.myshopify.com/?_ab=0&_fd=0&_sc=1&key=032a0c34f50a8e6cd446cc43177f45f6bd829fb6ea48ef59fa7533c49306e7f9");
 
     private final String environment;
 

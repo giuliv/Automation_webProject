@@ -21,7 +21,7 @@ public class ProductListPage extends Base {
   @Locate(css = ".collection__grid article", on = Platform.WEB)
   private List<ContainerElement> productList;
 
-  @Locate(css = ".collection__grid article", on = Platform.WEB)
+  @Locate(css = ".collection__grid article, .collection__grid li img", on = Platform.WEB)
   private List<Image> productsImageList;
 
   @Override
