@@ -362,7 +362,8 @@ public class CreateAccountView extends BaseComponent {
 	/** Check privacy policy and terms and conditions. */
 	public void checkPrivacyPolicyAndTermsAndConditions() {
 		logger.info("Click on Privacy Policy button");
-		getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+		MobileHelper.scrollUpCloseToMiddleAlgorithm();
+		// getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
 		getAgreePrivacyPolicyAndTermsAndConditions.click();
 	}
 
