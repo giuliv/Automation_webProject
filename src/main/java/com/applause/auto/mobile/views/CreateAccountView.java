@@ -590,6 +590,8 @@ class AndroidCreateAccountView extends CreateAccountView {
 		Picker dayPicker = getDOBDayPicker;
 		Picker monthPicker = getDOBMonthPicker;
 		// getSyncHelper().wait(Until.uiElement(getDOBDayPicker).visible());
+		logger.info("Day picker exist:" + dayPicker.exists());
+		logger.info("Day picker visible:" + dayPicker.isDisplayed());
 		String dataSource;
 		try {
 			logger.info("day picker keep: " + dayPicker.getAttributeValue("value"));
