@@ -243,7 +243,9 @@ public class CreateAccountView extends BaseComponent {
 		getDOBValueTextBox.click();
 		Picker dayPicker = getDOBDayPicker;
 		Picker monthPicker = getDOBMonthPicker;
-		getSyncHelper().wait(Until.uiElement(getDOBDayPicker).visible());
+		logger.info("Day picker exist:" + dayPicker.exists());
+		logger.info("Day picker visible:" + dayPicker.isDisplayed());
+		// getSyncHelper().wait(Until.uiElement(getDOBDayPicker).visible());
 
 		logger.info("day picker keep: " + dayPicker.getAttributeValue("value"));
 		try {
