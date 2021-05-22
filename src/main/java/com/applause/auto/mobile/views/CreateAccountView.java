@@ -362,8 +362,8 @@ public class CreateAccountView extends BaseComponent {
 	/** Check privacy policy and terms and conditions. */
 	public void checkPrivacyPolicyAndTermsAndConditions() {
 		logger.info("Click on Privacy Policy button");
-		MobileHelper.scrollUpCloseToMiddleAlgorithm();
-		// getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+		MobileHelper.hideKeyboardIOSByPressDone();
+		getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
 		getAgreePrivacyPolicyAndTermsAndConditions.click();
 	}
 
@@ -735,5 +735,12 @@ class AndroidCreateAccountView extends CreateAccountView {
 	public boolean isDobTextDisplayed() {
 		logger.info("Checking dob text field displayed");
 		return getDOBGiftTextBox.isDisplayed();
+	}
+
+	@Override
+	public void checkPrivacyPolicyAndTermsAndConditions() {
+		logger.info("Click on Privacy Policy button");
+		getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+		getAgreePrivacyPolicyAndTermsAndConditions.click();
 	}
 }
