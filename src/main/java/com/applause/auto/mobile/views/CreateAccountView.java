@@ -42,15 +42,15 @@ public class CreateAccountView extends BaseComponent {
 	@Locate(id = "", on = Platform.MOBILE_ANDROID)
 	protected Button getHideConfirmationPasswordButton;
 
-	@Locate(xpath = "//XCUIElementTypeDatePicker/XCUIElementTypePicker/XCUIElementTypePickerWheel[1]", on = Platform.MOBILE_IOS)
+	@Locate(iOSClassChain = "**/XCUIElementTypeDatePicker/XCUIElementTypePicker/XCUIElementTypePickerWheel[1]", on = Platform.MOBILE_IOS)
 	@Locate(xpath = "(//*[@resource-id='android:id/numberpicker_input'])[2]", on = Platform.MOBILE_ANDROID)
 	protected Picker getDOBDayPicker;
 
-	@Locate(xpath = "//XCUIElementTypeDatePicker/XCUIElementTypePicker/XCUIElementTypePickerWheel[2]", on = Platform.MOBILE_IOS)
+	@Locate(iOSClassChain = "**/XCUIElementTypeDatePicker/XCUIElementTypePicker/XCUIElementTypePickerWheel[2]", on = Platform.MOBILE_IOS)
 	@Locate(xpath = "(//*[@resource-id='android:id/numberpicker_input'])[1]", on = Platform.MOBILE_ANDROID)
 	protected Picker getDOBMonthPicker;
 
-	@Locate(xpath = "//XCUIElementTypeDatePicker/XCUIElementTypePicker/XCUIElementTypePickerWheel[3]", on = Platform.MOBILE_IOS)
+	@Locate(iOSClassChain = "**/XCUIElementTypeDatePicker/XCUIElementTypePicker/XCUIElementTypePickerWheel[3]", on = Platform.MOBILE_IOS)
 	@Locate(xpath = "(//*[@resource-id='android:id/numberpicker_input'])[3]", on = Platform.MOBILE_ANDROID)
 	protected Picker getDOBYearPicker;
 
