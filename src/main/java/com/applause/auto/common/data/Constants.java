@@ -16,6 +16,7 @@ public class Constants {
 
     // Web
     public static final String DEBUG = "debug";
+    public static final String NEW_WEB_CASES = "nwc";
     public static final String DEMO_CHECKOUT = "demo-checkout";
     public static final String LOGIN = "login";
     public static final String GUEST_CHECKOUT = "guest-checkout";
@@ -39,7 +40,9 @@ public class Constants {
 
   public enum TestEnvironment {
     uat("https://uat.aws.peets.com"),
-    production("https://peets.com");
+    production("https://peets.com"),
+    staging(
+        "https://peets-coffee-staging.myshopify.com/?_ab=0&_fd=0&_sc=1&key=032a0c34f50a8e6cd446cc43177f45f6bd829fb6ea48ef59fa7533c49306e7f9");
 
     private final String environment;
 
@@ -237,6 +240,25 @@ public class Constants {
 
     public static final String PRIVACY_LINK_PATH = OCR_IMAGES_COMMON_PATH + "privacy-link.png";
     public static final String TERMS_LINK_PATH = OCR_IMAGES_COMMON_PATH + "terms-link.png";
+  }
+
+  public enum MenuOptions {
+    COFFEE,
+    TEA
+  }
+
+  public enum MenuSubCategories {
+    COFFEE_BEST_SELLERS("coffee-best-sellers");
+
+    String subCategory;
+
+    MenuSubCategories(String subCategory) {
+      this.subCategory = subCategory;
+    }
+
+    public String getMenuSubCategories() {
+      return subCategory;
+    }
   }
 
   @Setter
