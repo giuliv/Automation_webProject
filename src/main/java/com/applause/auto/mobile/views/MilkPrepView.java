@@ -10,53 +10,47 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 @Implementation(is = IosMilkPrepView.class, on = Platform.MOBILE_IOS)
 public class MilkPrepView extends BaseComponent {
 
-  /* -------- Elements -------- */
+	/* -------- Elements -------- */
 
-  @Locate(xpath = "//XCUIElementTypeNavigationBar/XCUIElementTypeButton", on = Platform.MOBILE_IOS)
-  @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
-  protected Button navigateBackButton;
+	@Locate(iOSClassChain = "**/XCUIElementTypeNavigationBar/XCUIElementTypeButton", on = Platform.MOBILE_IOS)
+	@Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
+	protected Button navigateBackButton;
 
-  @Locate(xpath = "//android.widget.TextView[@text='Choose Milk']", on = Platform.MOBILE_ANDROID)
-  @Locate(accessibilityId = "Choose Milk", on = Platform.MOBILE_IOS)
-  protected Button chooseMilkMenuItemButton;
+	@Locate(xpath = "//android.widget.TextView[@text='Choose Milk']", on = Platform.MOBILE_ANDROID)
+	@Locate(accessibilityId = "Choose Milk", on = Platform.MOBILE_IOS)
+	protected Button chooseMilkMenuItemButton;
 
-  @Locate(xpath = "//android.widget.TextView[@text='%s']", on = Platform.MOBILE_ANDROID)
-  @Locate(
-      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"%s\"`]",
-      on = Platform.MOBILE_IOS)
-  protected Button chooseMilkMenuOptionsButton;
+	@Locate(xpath = "//android.widget.TextView[@text='%s']", on = Platform.MOBILE_ANDROID)
+	@Locate(iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"%s\"`]", on = Platform.MOBILE_IOS)
+	protected Button chooseMilkMenuOptionsButton;
 
-  @Locate(
-      id = "com.wearehathway.peets.development:id/saveChangesButton",
-      on = Platform.MOBILE_ANDROID)
-  @Locate(
-      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Save Changes\"`]",
-      on = Platform.MOBILE_IOS)
-  protected Button saveChangesButton;
+	@Locate(id = "com.wearehathway.peets.development:id/saveChangesButton", on = Platform.MOBILE_ANDROID)
+	@Locate(iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Save Changes\"`]", on = Platform.MOBILE_IOS)
+	protected Button saveChangesButton;
 
-  /* -------- Actions -------- */
-  public MilkPrepView chooseMilk(String milkType) {
-    chooseMilkMenuItemButton.click();
-    chooseMilkMenuOptionsButton.format(milkType).click();
-    return this;
-  }
+	/* -------- Actions -------- */
+	public MilkPrepView chooseMilk(String milkType) {
+		chooseMilkMenuItemButton.click();
+		chooseMilkMenuOptionsButton.format(milkType).click();
+		return this;
+	}
 
-  public <T extends BaseComponent> T saveChanges(Class<T> clazz) {
-    saveChangesButton.click();
-    return this.create(clazz);
-  }
+	public <T extends BaseComponent> T saveChanges(Class<T> clazz) {
+		saveChangesButton.click();
+		return this.create(clazz);
+	}
 }
 
 class IosMilkPrepView extends MilkPrepView {
-  @Override
-  public MilkPrepView chooseMilk(String milkType) {
-    chooseMilkMenuItemButton.click();
-    chooseMilkMenuOptionsButton.format(milkType.equals("2% Milk") ? "Whole Milk" : "2% Milk");
-    getDeviceControl().tapElementCenter(chooseMilkMenuOptionsButton);
-    getSyncHelper().sleep(1000);
-    chooseMilkMenuItemButton.click();
-    chooseMilkMenuOptionsButton.format(milkType).initialize();
-    getDeviceControl().tapElementCenter(chooseMilkMenuOptionsButton);
-    return this;
-  }
+	@Override
+	public MilkPrepView chooseMilk(String milkType) {
+		chooseMilkMenuItemButton.click();
+		chooseMilkMenuOptionsButton.format(milkType.equals("2% Milk") ? "Whole Milk" : "2% Milk");
+		getDeviceControl().tapElementCenter(chooseMilkMenuOptionsButton);
+		getSyncHelper().sleep(1000);
+		chooseMilkMenuItemButton.click();
+		chooseMilkMenuOptionsButton.format(milkType).initialize();
+		getDeviceControl().tapElementCenter(chooseMilkMenuOptionsButton);
+		return this;
+	}
 }
