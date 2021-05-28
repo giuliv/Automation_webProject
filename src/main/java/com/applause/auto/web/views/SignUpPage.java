@@ -9,6 +9,7 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Checkbox;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 
 @Implementation(is = SignUpPage.class, on = Platform.WEB)
@@ -63,13 +64,13 @@ public class SignUpPage extends BaseComponent {
     logger.info("Clicking Submit after filling sign-up info");
     fillSignUpInfo();
     clickSubmit();
-    return this.create(clazz);
+    return SdkHelper.create(clazz);
   }
 
   /** Fill Required Fields for Shipping */
   public void fillSignUpInfo() {
     logger.info("Filling Sign up info");
-    getSyncHelper().sleep(5000);
+    SdkHelper.getSyncHelper().sleep(5000);
     long timeStamp = System.currentTimeMillis();
     email = String.format(Constants.TestData.EMAIL, timeStamp);
     getFirstNameTextBox.sendKeys(Constants.TestData.FIRST_NAME);

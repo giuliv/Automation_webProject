@@ -6,6 +6,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.Text;
 
 /** Order Menu chunk. */
@@ -28,7 +29,7 @@ public class MapView extends BaseComponent {
   /* -------- Actions -------- */
 
   public void afterInit() {
-    getSyncHelper().waitUntil(condition -> mapSignature.isDisplayed());
+    SdkHelper.getSyncHelper().waitUntil(condition -> mapSignature.isDisplayed());
   }
 
   /**
@@ -40,8 +41,8 @@ public class MapView extends BaseComponent {
    */
   public <T extends BaseComponent> T returnToPeetsApp(Class<T> clazz) {
     logger.info("Return back to app");
-    getDeviceControl().pressAndroidKeyBack();
-    return this.create(clazz);
+    SdkHelper.getDeviceControl().pressAndroidKeyBack();
+    return SdkHelper.create(clazz);
   }
 }
 
@@ -50,6 +51,6 @@ class IosMapView extends MapView {
   public <T extends BaseComponent> T returnToPeetsApp(Class<T> clazz) {
     logger.info("Return back to app");
     MobileHelper.tap(0.01, 0.01);
-    return this.create(clazz);
+    return SdkHelper.create(clazz);
   }
 }

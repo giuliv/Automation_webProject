@@ -8,7 +8,8 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.framework.SdkHelper;
 import java.time.Duration;
 
 @Implementation(is = AndroidGeneralSettingsView.class, on = Platform.MOBILE_ANDROID)
@@ -82,8 +83,8 @@ public class GeneralSettingsView extends BaseComponent {
   public <T extends BaseComponent> T goBack(Class<T> clazz) {
     logger.info("Tap back button");
     getBackButton.click();
-    getSyncHelper().sleep(2000);
-    return this.create(clazz);
+    SdkHelper.getSyncHelper().sleep(2000);
+    return SdkHelper.create(clazz);
   }
 
   /**
@@ -123,10 +124,10 @@ public class GeneralSettingsView extends BaseComponent {
     if (!isPromoEmailOptionChecked()) {
       getPromotionalEmailsButton.initialize();
       MobileHelper.tapByCoordinatesOnElementCenter(getPromotionalEmailsButton);
-      getSyncHelper()
+      SdkHelper.getSyncHelper()
           .wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(30)));
     }
-    return this.create(GeneralSettingsView.class);
+    return SdkHelper.create(GeneralSettingsView.class);
   }
 
   /**
@@ -139,9 +140,9 @@ public class GeneralSettingsView extends BaseComponent {
     if (isPromoEmailOptionChecked()) {
       getPromotionalEmailsButton.initialize();
       MobileHelper.tapByCoordinatesOnElementCenter(getPromotionalEmailsButton);
-      getSyncHelper().sleep(10000);
+      SdkHelper.getSyncHelper().sleep(10000);
     }
-    return this.create(GeneralSettingsView.class);
+    return SdkHelper.create(GeneralSettingsView.class);
   }
 }
 
@@ -158,19 +159,19 @@ class AndroidGeneralSettingsView extends GeneralSettingsView {
 
   @Override
   public boolean isPromoEmailOptionChecked() {
-    getSyncHelper().sleep(7000);
+    SdkHelper.getSyncHelper().sleep(7000);
     return getPromotionalEmailsButton.getAttributeValue("checked").equals("true");
   }
 
   @Override
   public boolean isPushNotificationChecked() {
-    getSyncHelper().sleep(7000);
+    SdkHelper.getSyncHelper().sleep(7000);
     return getPushNotificationButton.getAttributeValue("checked").equals("true");
   }
 
   @Override
   public boolean isLocationServicesChecked() {
-    getSyncHelper().sleep(7000);
+    SdkHelper.getSyncHelper().sleep(7000);
     return getLocationSetvicesButton.getAttributeValue("checked").equals("true");
   }
 
@@ -180,10 +181,10 @@ class AndroidGeneralSettingsView extends GeneralSettingsView {
     if (isPromoEmailOptionChecked()) {
       getPromotionalEmailsButton.click();
       if (getLoader.exists()) {
-        getSyncHelper()
+        SdkHelper.getSyncHelper()
             .wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(30)));
       }
     }
-    return this.create(GeneralSettingsView.class);
+    return SdkHelper.create(GeneralSettingsView.class);
   }
 }

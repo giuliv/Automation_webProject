@@ -5,6 +5,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.Text;
 
 @Implementation(is = MyAccountMySuscriptionsPage.class, on = Platform.WEB)
@@ -92,7 +93,7 @@ public class MyAccountMySuscriptionsPage extends BaseComponent {
   public MyAccountManageSubscriptionPage clickManageSubscription() {
     logger.info("Clicking Manage Subscription");
     getManageSubscriptionButton.click();
-    return this.create(MyAccountManageSubscriptionPage.class);
+    return SdkHelper.create(MyAccountManageSubscriptionPage.class);
   }
 
   /**

@@ -1,7 +1,7 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.integrations.helpers.SdkHelper;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.mobile.components.BottomNavigationMenuChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -9,7 +9,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
 import java.time.Duration;
 
 @Implementation(is = AndroidCheckInView.class, on = Platform.MOBILE_ANDROID)
@@ -67,7 +67,7 @@ public class CheckInView extends BaseComponent {
   public void afterInit() {
     try {
       logger.info("Click 'No Thanks' popUp, if displayed");
-      getSyncHelper()
+      SdkHelper.getSyncHelper()
           .wait(
               Until.uiElement(dismissFreeDeliveryButton)
                   .present()
@@ -76,25 +76,25 @@ public class CheckInView extends BaseComponent {
     } catch (Throwable throwable) {
       logger.info("No popup found");
     }
-    getSyncHelper().wait(Until.uiElement(getSignature).present());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getSignature).present());
   }
 
   /** Add value. */
   public void addValue() {
     logger.info("Tap on Add Value");
-    getSyncHelper().sleep(5000);
+    SdkHelper.getSyncHelper().sleep(5000);
     int retryCounter = 0;
     while (getAddValueButton.exists() && getAddValueButton.isDisplayed() && retryCounter++ < 5) {
       getAddValueButton.initialize();
       MobileHelper.tapByCoordinatesOnElementCenter(getAddValueButton);
-      getSyncHelper().sleep(5000);
+      SdkHelper.getSyncHelper().sleep(5000);
     }
   }
 
   public <T extends BaseComponent> T addValue(Class<T> clazz) {
     logger.info("Tap on Add Value");
     addValue();
-    return this.create(clazz);
+    return SdkHelper.create(clazz);
   }
 
   /**
@@ -106,7 +106,7 @@ public class CheckInView extends BaseComponent {
     logger.info("Tap pencil icon");
     getPencilIconButton.initialize();
     getPencilIconButton.click();
-    return this.create(PaymentMethodsView.class);
+    return SdkHelper.create(PaymentMethodsView.class);
   }
 
   /**
@@ -142,10 +142,10 @@ public class CheckInView extends BaseComponent {
 
     if (SdkHelper.getEnvironmentHelper().isiOS()) {
       // need this sleep since iOS is updating view very slowly
-      getSyncHelper().sleep(5000);
+      SdkHelper.getSyncHelper().sleep(5000);
     }
 
-    return this.create(CheckInView.class);
+    return SdkHelper.create(CheckInView.class);
   }
 
   /**
@@ -154,7 +154,7 @@ public class CheckInView extends BaseComponent {
    * @return the bottom navigation menu
    */
   public BottomNavigationMenuChunk getBottomNavigationMenu() {
-    return this.create(BottomNavigationMenuChunk.class);
+    return SdkHelper.create(BottomNavigationMenuChunk.class);
   }
 }
 
@@ -164,7 +164,7 @@ class AndroidCheckInView extends CheckInView {
   public void afterInit() {
     if (getLovePeetsYesButton.exists()) getLovePeetsYesButton.click();
     if (getReviewNoThanksButton.exists()) getReviewNoThanksButton.click();
-    getSyncHelper().wait(Until.uiElement(getSignature).present());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getSignature).present());
   }
 
   @Override

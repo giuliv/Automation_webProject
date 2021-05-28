@@ -9,6 +9,7 @@ import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.web.components.AccountMenuChunk;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.web.components.MainMenuChunk;
 
 @Implementation(is = MyAccountPage.class, on = Platform.WEB)
@@ -147,7 +148,7 @@ public class MyAccountPage extends BaseComponent {
   public PaymentMethodsPage clickPayment() {
     logger.info("Clicking Payment button");
     getPaymentButton.click();
-    return this.create(PaymentMethodsPage.class);
+    return SdkHelper.create(PaymentMethodsPage.class);
   }
 
   /**
@@ -308,7 +309,7 @@ public class MyAccountPage extends BaseComponent {
   public EditBillingAddressPage clickEditBillingAddress() {
     logger.info("Clicking Edit Billing Address");
     getBillingAddressEditLink.click();
-    return this.create(EditBillingAddressPage.class);
+    return SdkHelper.create(EditBillingAddressPage.class);
   }
 
   /**
@@ -329,7 +330,7 @@ public class MyAccountPage extends BaseComponent {
   public EditShippingAddressPage clickEditShippingAddress() {
     logger.info("Clicking Edit Shipping Address");
     getShippingAddressEditLink.click();
-    return this.create(EditShippingAddressPage.class);
+    return SdkHelper.create(EditShippingAddressPage.class);
   }
 
   /**
@@ -339,7 +340,7 @@ public class MyAccountPage extends BaseComponent {
    */
   public MainMenuChunk getMainMenu() {
     logger.info("Getting Main Menu");
-    return this.create(MainMenuChunk.class);
+    return SdkHelper.create(MainMenuChunk.class);
   }
 
   /**
@@ -350,7 +351,7 @@ public class MyAccountPage extends BaseComponent {
   public MyAccountMySuscriptionsPage clickMySuscriptions() {
     logger.info("Clicking My Suscriptions");
     getMySuscriptionsLink.click();
-    return this.create(MyAccountMySuscriptionsPage.class);
+    return SdkHelper.create(MyAccountMySuscriptionsPage.class);
   }
 
   /**
@@ -361,7 +362,7 @@ public class MyAccountPage extends BaseComponent {
   public MyAccountPeetsCardPage clickPeetsCardsTab() {
     logger.info("Clicking Peet's Cards button");
     getPeetsCardButton.click();
-    return this.create(MyAccountPeetsCardPage.class);
+    return SdkHelper.create(MyAccountPeetsCardPage.class);
   }
 
   /**
@@ -372,7 +373,7 @@ public class MyAccountPage extends BaseComponent {
   public MyAccountMyOrdersPage clickMyOrdersTab() {
     logger.info("Clicking My Orders button");
     getMyOrdersButton.click();
-    return this.create(MyAccountMyOrdersPage.class);
+    return SdkHelper.create(MyAccountMyOrdersPage.class);
   }
 
   /**
@@ -383,7 +384,7 @@ public class MyAccountPage extends BaseComponent {
   public EditAccountInformationPage clickSettings() {
     logger.info("Clicking Settings");
     getSettingButton.click();
-    return this.create(EditAccountInformationPage.class);
+    return SdkHelper.create(EditAccountInformationPage.class);
   }
 
   /**
@@ -414,7 +415,7 @@ public class MyAccountPage extends BaseComponent {
   public EditAccountInformationPage clickEditContactInformation() {
     logger.info("Clicking Edit Contact Information");
     getContactInformationEditLink.click();
-    return this.create(EditAccountInformationPage.class);
+    return SdkHelper.create(EditAccountInformationPage.class);
   }
 
   /**
@@ -423,7 +424,7 @@ public class MyAccountPage extends BaseComponent {
    * @return the account menu
    */
   public AccountMenuChunk getAccountMenu() {
-    return this.create(AccountMenuChunk.class);
+    return SdkHelper.create(AccountMenuChunk.class);
   }
 
   /** Dismiss popup. */

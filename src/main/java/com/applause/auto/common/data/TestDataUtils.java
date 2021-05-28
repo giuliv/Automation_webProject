@@ -1,6 +1,6 @@
 package com.applause.auto.common.data;
 
-import com.applause.auto.integrations.helpers.SdkHelper;
+import com.applause.auto.framework.SdkHelper;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;

@@ -8,7 +8,8 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 
 @Implementation(is = CheckoutPlaceOrderPage.class, on = Platform.WEB)
 public class CheckoutPlaceOrderPage extends BaseComponent {
@@ -44,11 +45,11 @@ public class CheckoutPlaceOrderPage extends BaseComponent {
    */
   public CheckoutConfirmationPage placeOrder() {
     logger.info("Click Place Order Button");
-    getSyncHelper().wait(Until.uiElement(getPlaceOrderButton).present());
-    getSyncHelper().sleep(7000); // Required time to trigger spinner animation if shown
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getPlaceOrderButton).present());
+    SdkHelper.getSyncHelper().sleep(7000); // Required time to trigger spinner animation if shown
     getPlaceOrderButton.click();
-    getSyncHelper().sleep(2000); // Required time to trigger spinner animation if shown
-    return this.create(CheckoutConfirmationPage.class);
+    SdkHelper.getSyncHelper().sleep(2000); // Required time to trigger spinner animation if shown
+    return SdkHelper.create(CheckoutConfirmationPage.class);
   }
 
   /**
@@ -59,7 +60,7 @@ public class CheckoutPlaceOrderPage extends BaseComponent {
   public CheckoutPaymentMethodPage placeOrderMissingPayment() {
     logger.info("Click Place Order Button");
     getPlaceOrderButton.click();
-    return this.create(CheckoutPaymentMethodPage.class);
+    return SdkHelper.create(CheckoutPaymentMethodPage.class);
   }
 
   /**

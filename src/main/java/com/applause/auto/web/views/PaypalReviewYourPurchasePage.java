@@ -6,7 +6,8 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Image;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.framework.SdkHelper;
 import java.time.Duration;
 
 @Implementation(is = PaypalReviewYourPurchasePage.class, on = Platform.WEB)
@@ -32,18 +33,18 @@ public class PaypalReviewYourPurchasePage extends BaseComponent {
    */
   public CheckoutPlaceOrderPage clickAgreeAndContinue() {
     logger.info("Clicking Agree and Continue");
-    getSyncHelper().sleep(10000);
-    getSyncHelper()
+    SdkHelper.getSyncHelper().sleep(10000);
+    SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getContinueButton).clickable().setTimeout(Duration.ofSeconds(45)))
         .click();
-    getSyncHelper()
+    SdkHelper.getSyncHelper()
         .wait(
             Until.uiElement(getAgreeAndContinueButton)
                 .clickable()
                 .setTimeout(Duration.ofSeconds(45)))
         .click();
-    getDriver().switchTo().window("");
-    getSyncHelper().sleep(30000); // just waiting sandbox to completed
-    return this.create(CheckoutPlaceOrderPage.class);
+    SdkHelper.getDriver().switchTo().window("");
+    SdkHelper.getSyncHelper().sleep(30000); // just waiting sandbox to completed
+    return SdkHelper.create(CheckoutPlaceOrderPage.class);
   }
 }

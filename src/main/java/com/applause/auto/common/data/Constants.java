@@ -1,10 +1,11 @@
 package com.applause.auto.common.data;
 
-import static com.applause.auto.integrations.helpers.SdkHelper.getEnvironmentHelper;
+import static com.applause.auto.framework.SdkHelper.getEnvironmentHelper;
 
 import com.applause.auto.web.helpers.WebHelper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import com.applause.auto.framework.SdkHelper;
 import lombok.Setter;
 
 public class Constants {
@@ -170,7 +171,7 @@ public class Constants {
 
   public static final class MyAccountTestData {
     public static UserTestData CHECKOUT_ACCOUNT =
-        getEnvironmentHelper().isMobileIOS()
+        SdkHelper.getEnvironmentHelper().isMobileIOS()
             ? new UserTestData("peets_order_beverages_ios@gmail.com", "P@ssword1!")
             : new UserTestData("peets.auto01@gmail.com", "p4ssword!");
     public static final String EMAIL = "mp+20@peets.com";

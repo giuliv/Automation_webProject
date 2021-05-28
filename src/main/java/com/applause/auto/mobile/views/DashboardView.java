@@ -9,11 +9,12 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
 import java.time.Duration;
+import com.applause.auto.framework.SdkHelper;
 import org.openqa.selenium.Point;
 
 @Implementation(is = DashboardView.class, on = Platform.MOBILE_ANDROID)
@@ -52,7 +53,7 @@ public class DashboardView extends BaseComponent {
 
   public void afterInit() {
     try {
-      getSyncHelper()
+      SdkHelper.getSyncHelper()
           .wait(
               Until.uiElement(dismissFreeDeliveryButton)
                   .present()
@@ -61,8 +62,8 @@ public class DashboardView extends BaseComponent {
     } catch (Throwable throwable) {
       logger.info("No free delivery popup found");
     }
-    logger.info(">>>>>" + getDriver().getPageSource());
-    getSyncHelper()
+    logger.info(">>>>>" + SdkHelper.getDriver().getPageSource());
+    SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
   }
 
@@ -72,13 +73,13 @@ public class DashboardView extends BaseComponent {
    * @return the account profile menu
    */
   public AccountMenuMobileChunk getAccountProfileMenu() {
-    logger.info("Open account profile menu\n" + getDriver().getPageSource());
+    logger.info("Open account profile menu\n" + SdkHelper.getDriver().getPageSource());
     getMoreScreenButton.initialize();
     Point elemCoord = getMoreScreenButton.getMobileElement().getCenter();
-    AppiumDriver driver = (AppiumDriver) getDriver();
+    AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
     new TouchAction(driver).tap(PointOption.point(elemCoord.getX(), elemCoord.getY())).perform();
-    getSyncHelper().sleep(5000);
-    return this.create(AccountMenuMobileChunk.class);
+    SdkHelper.getSyncHelper().sleep(5000);
+    return SdkHelper.create(AccountMenuMobileChunk.class);
   }
 
   /**
@@ -87,7 +88,7 @@ public class DashboardView extends BaseComponent {
    * @return the bottom navigation menu
    */
   public BottomNavigationMenuChunk getBottomNavigationMenu() {
-    return this.create(BottomNavigationMenuChunk.class);
+    return SdkHelper.create(BottomNavigationMenuChunk.class);
   }
 
   /**
@@ -99,7 +100,7 @@ public class DashboardView extends BaseComponent {
   public boolean lookUpOffer(String offerName) {
     int swipeLimit = 10;
     while ((swipeLimit-- != 0) && (!isOfferDisplayed(offerName))) {
-      getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
+      SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
     }
     return swipeLimit != 0;
   }
@@ -123,26 +124,26 @@ public class DashboardView extends BaseComponent {
    */
   public <T extends BaseComponent> T location(Class<T> clazz) {
     logger.info("Click on Location button");
-    getSyncHelper()
+    SdkHelper.getSyncHelper()
         .wait(Until.uiElement(locationButton).clickable().setTimeout(Duration.ofSeconds(50)));
     locationButton.click();
-    return this.create(clazz);
+    return SdkHelper.create(clazz);
   }
 }
 
 class IosDashboardView extends DashboardView {
   public void afterInit() {
-    getSyncHelper()
+    SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
   }
 
   @Override
   public AccountMenuMobileChunk getAccountProfileMenu() {
-    logger.info("Open account profile menu\n" + getDriver().getPageSource());
-    // int x = getDriver().manage().window().getSize().width;
-    // int y = getDriver().manage().window().getSize().height;
+    logger.info("Open account profile menu\n" + SdkHelper.getDriver().getPageSource());
+    // int x = SdkHelper.getDriver().manage().window().getSize().width;
+    // int y = SdkHelper.getDriver().manage().window().getSize().height;
 
-    // AppiumDriver driver = (AppiumDriver) getDriver();
+    // AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
     // if (!getMoreScreenButton.isDisplayed()) {
     // logger.info("Clicking settings icon from coordinates");
     // new TouchAction(driver).tap(PointOption.point((int) (x * 0.9), (int) (y *
@@ -152,22 +153,22 @@ class IosDashboardView extends DashboardView {
     // getMoreScreenButton.click();
     // }
 
-    getSyncHelper().sleep(8000);
+    SdkHelper.getSyncHelper().sleep(8000);
     getMoreScreenButton.initialize();
-    getSyncHelper()
+    SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getMoreScreenButton).present().setTimeout(Duration.ofSeconds(45)));
-    getDeviceControl().tapElementCenter(getMoreScreenButton);
+    SdkHelper.getDeviceControl().tapElementCenter(getMoreScreenButton);
 
-    getSyncHelper().sleep(5000);
-    return this.create(AccountMenuMobileChunk.class);
+    SdkHelper.getSyncHelper().sleep(5000);
+    return SdkHelper.create(AccountMenuMobileChunk.class);
   }
 
   @Override
   public <T extends BaseComponent> T location(Class<T> clazz) {
     logger.info("Click on Location button");
-    getSyncHelper()
+    SdkHelper.getSyncHelper()
         .wait(Until.uiElement(locationButton).present().setTimeout(Duration.ofSeconds(50)));
-    getDeviceControl().tapElementCenter(locationButton);
-    return this.create(clazz);
+    SdkHelper.getDeviceControl().tapElementCenter(locationButton);
+    return SdkHelper.create(clazz);
   }
 }

@@ -6,6 +6,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 
 @Implementation(is = ShopRunnerChunk.class, on = Platform.WEB)
@@ -52,9 +53,9 @@ public class ShopRunnerChunk extends BaseComponent {
    */
   public <T extends BaseComponent> T continueShopping(Class<T> clazz) {
     logger.info("Clicking Continue Shopping button");
-    getSyncHelper().sleep(5000);
+    SdkHelper.getSyncHelper().sleep(5000);
     getContinueShoppingButton.click();
-    getSyncHelper().sleep(6000);
-    return this.create(clazz);
+    SdkHelper.getSyncHelper().sleep(6000);
+    return SdkHelper.create(clazz);
   }
 }

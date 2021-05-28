@@ -1,0 +1,26 @@
+{
+	"applause:options": {
+		"isW3C": "true",
+		"isMobileNative": "true",
+		"isStrict": "false",
+		"driverName": "iOS",
+		"driverType": "MobileNative",
+		"factoryKey": "MobileIOS",
+		"osName": "iOS",
+		"provider": "TestObject US iOS",
+		"providerThreadType": "Real",
+		"nameField": "testobject_test_name,testobject_suite_name"
+	},
+	<#if app??>
+	"app" : "${app}",
+	</#if>
+	"platformName": "iOS",
+	"deviceName": "iPhone.*",
+	"platformVersion": "14",
+	"appiumVersion": "1.20.1",
+	"testobject_appium_version": "1.20.1",
+	"orientation": "PORTRAIT",
+	"region": "US",
+	"phoneOnly": "true",
+	"privateDevicesOnly": "false"
+}

@@ -20,6 +20,7 @@ import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
+import com.applause.auto.framework.SdkHelper;
 import org.testng.annotations.Test;
 
 public class SubscriptionsTest extends BaseTest {
@@ -67,7 +68,7 @@ public class SubscriptionsTest extends BaseTest {
     MiniCartContainerChunk miniCart = createSubscriptionChunk.createSubscription();
 
     logger.info("From mini-cart, select View Cart");
-    getSyncHelper().sleep(10000);
+    SdkHelper.getSyncHelper().sleep(10000);
     ShoppingCartPage cartPage = miniCart.clickEditCart();
 
     logger.info("Verify Subscription Name");
@@ -146,7 +147,7 @@ public class SubscriptionsTest extends BaseTest {
     MiniCartContainerChunk miniCart = createSubscriptionChunk.createSubscription();
 
     logger.info("From mini-cart, select View Cart");
-    getSyncHelper().sleep(10000);
+    SdkHelper.getSyncHelper().sleep(10000);
     ShoppingCartPage cartPage = miniCart.clickEditCart();
 
     logger.info("Verify Subscription Name");

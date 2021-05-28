@@ -7,13 +7,14 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.web.views.CheckoutPage;
 import com.applause.auto.web.views.CheckoutPlaceOrderPage;
 import com.applause.auto.web.views.CheckoutShippingInfoPage;
 import com.applause.auto.web.views.ShoppingCartPage;
 import com.applause.auto.web.views.SignInPage;
 import java.util.List;
+import com.applause.auto.framework.SdkHelper;
 import java.util.stream.Collectors;
 
 @Implementation(is = MiniCartContainerChunk.class, on = Platform.WEB)
@@ -50,7 +51,7 @@ public class MiniCartContainerChunk extends BaseComponent {
   public CheckoutPage clickCheckout() {
     logger.info("Clicking Checkout Button");
     getCheckoutButton.click();
-    return this.create(CheckoutPage.class);
+    return SdkHelper.create(CheckoutPage.class);
   }
 
   /**
@@ -61,7 +62,7 @@ public class MiniCartContainerChunk extends BaseComponent {
   public CheckoutPlaceOrderPage checkoutSignedInUser() {
     logger.info("Clicking Checkout Button");
     getCheckoutButton.click();
-    return this.create(CheckoutPlaceOrderPage.class);
+    return SdkHelper.create(CheckoutPlaceOrderPage.class);
   }
 
   /**
@@ -72,7 +73,7 @@ public class MiniCartContainerChunk extends BaseComponent {
   public CheckoutShippingInfoPage clickSignedInCheckout() {
     logger.info("Clicking Checkout Button");
     getCheckoutButton.click();
-    return this.create(CheckoutShippingInfoPage.class);
+    return SdkHelper.create(CheckoutShippingInfoPage.class);
   }
 
   /**
@@ -83,7 +84,7 @@ public class MiniCartContainerChunk extends BaseComponent {
   public SignInPage checkoutPeetsCard() {
     logger.info("Clicking Checkout Button on Peets Card Page");
     getCheckoutButton.click();
-    return this.create(SignInPage.class);
+    return SdkHelper.create(SignInPage.class);
   }
 
   /**
@@ -94,7 +95,7 @@ public class MiniCartContainerChunk extends BaseComponent {
   public ShoppingCartPage clickEditCart() {
     logger.info("Clicking Edit Button");
     getEditCartLink.click();
-    return this.create(ShoppingCartPage.class);
+    return SdkHelper.create(ShoppingCartPage.class);
   }
 
   /**
@@ -125,9 +126,9 @@ public class MiniCartContainerChunk extends BaseComponent {
     logger.info("Remove from cart item: " + itemName);
     getRemoveItemButton.initializeWithFormat(itemName);
     getRemoveItemButton.click();
-    getDriver().switchTo().alert().accept();
+    SdkHelper.getDriver().switchTo().alert().accept();
     getReAddItemButton.initializeWithFormat(itemName);
-    getSyncHelper().wait(Until.uiElement(getReAddItemButton).present());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getReAddItemButton).present());
     return this;
   }
 
@@ -166,7 +167,7 @@ public class MiniCartContainerChunk extends BaseComponent {
     getReAddItemButton.initializeWithFormat(itemName);
     getReAddItemButton.click();
     getRemoveItemButton.initializeWithFormat(itemName);
-    getSyncHelper().wait(Until.uiElement(getRemoveItemButton).present());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getRemoveItemButton).present());
     return this;
   }
 }

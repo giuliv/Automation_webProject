@@ -7,9 +7,10 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
 import io.appium.java_client.android.AndroidDriver;
 import java.time.Duration;
+import com.applause.auto.framework.SdkHelper;
 import org.openqa.selenium.ScreenOrientation;
 
 @Implementation(is = AndroidCustomerSupportScreenView.class, on = Platform.MOBILE_ANDROID)
@@ -47,7 +48,7 @@ public class CustomerSupportScreenView extends BaseComponent {
   /* -------- Actions -------- */
 
   public void afterInit() {
-    getSyncHelper().wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(12)));
+    SdkHelper.getSyncHelper().wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(12)));
   }
 
   /**
@@ -67,17 +68,17 @@ public class CustomerSupportScreenView extends BaseComponent {
   public HelpAndFeedbackView done() {
     logger.info("Tap 'Done' button");
     doneButton.click();
-    return this.create(HelpAndFeedbackView.class);
+    return SdkHelper.create(HelpAndFeedbackView.class);
   }
 }
 
 class AndroidCustomerSupportScreenView extends CustomerSupportScreenView {
   public void afterInit() {
-    AndroidDriver androidDriver = ((AndroidDriver) getDriver());
+    AndroidDriver androidDriver = ((AndroidDriver) SdkHelper.getDriver());
     logger.info("Orientation: " + androidDriver.getOrientation());
     logger.info("Orientation: Forcing to PORTRAIT");
     androidDriver.rotate(ScreenOrientation.PORTRAIT);
-    getSyncHelper().sleep(5000);
+    SdkHelper.getSyncHelper().sleep(5000);
     logger.info("Orientation: " + androidDriver.getOrientation());
     try {
       allowLocationToBrowser.click();
@@ -91,13 +92,13 @@ class AndroidCustomerSupportScreenView extends CustomerSupportScreenView {
     }
     //    logger.info("Close popup");
     //    closeAdvPopUpButton.click();
-    getSyncHelper().wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(12)));
+    SdkHelper.getSyncHelper().wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(12)));
   }
 
   @Override
   public HelpAndFeedbackView done() {
     logger.info("Tap 'Done' button");
     MobileHelper.tapAndroidDeviceBackButton();
-    return this.create(HelpAndFeedbackView.class);
+    return SdkHelper.create(HelpAndFeedbackView.class);
   }
 }

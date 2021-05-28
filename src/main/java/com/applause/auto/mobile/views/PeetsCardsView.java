@@ -8,8 +8,9 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
 import java.time.Duration;
+import com.applause.auto.framework.SdkHelper;
 import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = AndroidPeetsCardsView.class, on = Platform.MOBILE_ANDROID)
@@ -94,11 +95,11 @@ public class PeetsCardsView extends BaseComponent {
   public PaymentMethodsView edit() {
     logger.info("Tap pencil icon");
     getPencilIconButton.click();
-    return this.create(PaymentMethodsView.class);
+    return SdkHelper.create(PaymentMethodsView.class);
   }
 
   public String getBalance() {
-    getSyncHelper()
+    SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getBalanceText).visible().setTimeout(Duration.ofSeconds(30)));
     return getBalanceText.getText();
   }
@@ -121,7 +122,7 @@ public class PeetsCardsView extends BaseComponent {
    */
   public PeetsCardsView confirm() {
     logger.info("Tap on confirm button");
-    getSyncHelper()
+    SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getConfirmButton).clickable().setTimeout(Duration.ofSeconds(30)));
     getConfirmButton.click();
     try {
@@ -130,7 +131,7 @@ public class PeetsCardsView extends BaseComponent {
     } catch (NoSuchElementException nse) {
       logger.info("Love peets coffee popup seems not present");
     }
-    return this.create(PeetsCardsView.class);
+    return SdkHelper.create(PeetsCardsView.class);
   }
 
   /**
@@ -139,7 +140,7 @@ public class PeetsCardsView extends BaseComponent {
    * @return the bottom navigation menu
    */
   public BottomNavigationMenuChunk getBottomNavigationMenu() {
-    return this.create(BottomNavigationMenuChunk.class);
+    return SdkHelper.create(BottomNavigationMenuChunk.class);
   }
 
   public PeetsCardsTransferAmountChunk transferValue() {
@@ -151,7 +152,7 @@ public class PeetsCardsView extends BaseComponent {
     } catch (NoSuchElementException nse) {
       logger.info("Love peets coffee popup seems not present");
     }
-    return this.create(PeetsCardsTransferAmountChunk.class);
+    return SdkHelper.create(PeetsCardsTransferAmountChunk.class);
   }
 }
 

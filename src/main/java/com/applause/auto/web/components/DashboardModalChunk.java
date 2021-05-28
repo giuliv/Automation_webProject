@@ -5,6 +5,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.web.views.DashboardPage;
 
 @Implementation(is = DashboardModalChunk.class, on = Platform.WEB)
@@ -28,7 +29,7 @@ public class DashboardModalChunk extends BaseComponent {
   public DashboardPage clickExploreDashboard() {
     logger.info("Clicking Explore Dashboard Button");
     getExploreDashboardButton.click();
-    return this.create(DashboardPage.class);
+    return SdkHelper.create(DashboardPage.class);
   }
 
   /**
@@ -39,6 +40,6 @@ public class DashboardModalChunk extends BaseComponent {
   public DashboardPage clickCloseModal() {
     logger.info("Clicking Close button on Dashboard Modal");
     getCloseDashboardModalButton.click();
-    return this.create(DashboardPage.class);
+    return SdkHelper.create(DashboardPage.class);
   }
 }

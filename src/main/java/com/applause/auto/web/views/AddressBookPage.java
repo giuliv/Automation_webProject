@@ -7,6 +7,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import org.openqa.selenium.Alert;
+import com.applause.auto.framework.SdkHelper;
 import org.openqa.selenium.JavascriptExecutor;
 
 @Implementation(is = AddressBookPage.class, on = Platform.WEB)
@@ -92,20 +93,20 @@ public class AddressBookPage extends BaseComponent {
   /** Delete Billing Address */
   public void deleteBillingAddress() {
     logger.info("Deleting Billing Address");
-    JavascriptExecutor jse = (JavascriptExecutor) getDriver();
+    JavascriptExecutor jse = (JavascriptExecutor) SdkHelper.getDriver();
     jse.executeScript("scroll(0,450)", "");
     getDeleteBillingAddressButton.click();
-    Alert alert = getDriver().switchTo().alert();
+    Alert alert = SdkHelper.getDriver().switchTo().alert();
     alert.accept();
   }
 
   /** Delete Shipping Address */
   public void deleteShippingAddress() {
     logger.info("Deleting Shipping Address");
-    JavascriptExecutor jse = (JavascriptExecutor) getDriver();
+    JavascriptExecutor jse = (JavascriptExecutor) SdkHelper.getDriver();
     jse.executeScript("scroll(0,450)", "");
     getDeleteShippingAddressButton.click();
-    Alert alert = getDriver().switchTo().alert();
+    Alert alert = SdkHelper.getDriver().switchTo().alert();
     alert.accept();
   }
 
@@ -137,7 +138,7 @@ public class AddressBookPage extends BaseComponent {
   public AddBillingAddressPage clickAddNewBillingAddress() {
     logger.info("Clicking Add a New Billing Address");
     getAddBillingAddressButton.click();
-    return this.create(AddBillingAddressPage.class);
+    return SdkHelper.create(AddBillingAddressPage.class);
   }
 
   /**
@@ -148,6 +149,6 @@ public class AddressBookPage extends BaseComponent {
   public AddShippingAddressPage clickAddNewShippingAddress() {
     logger.info("Clicking Add a New Shipping Address");
     getAddShippingAddressButton.click();
-    return this.create(AddShippingAddressPage.class);
+    return SdkHelper.create(AddShippingAddressPage.class);
   }
 }

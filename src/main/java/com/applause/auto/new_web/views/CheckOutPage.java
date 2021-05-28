@@ -4,7 +4,8 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 
 @Implementation(is = CheckOutPage.class, on = Platform.WEB)
 @Implementation(is = CheckOutPage.class, on = Platform.WEB_MOBILE_PHONE)
@@ -15,8 +16,8 @@ public class CheckOutPage extends Base {
 
   @Override
   public void afterInit() {
-    getSyncHelper().wait(Until.uiElement(mainContainer).visible());
-    logger.info("CheckOut Page URL: " + getDriver().getCurrentUrl());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
+    logger.info("CheckOut Page URL: " + SdkHelper.getDriver().getCurrentUrl());
   }
 
   /* -------- Actions -------- */

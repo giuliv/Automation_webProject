@@ -1,13 +1,13 @@
 package com.applause.auto.new_web.views;
 
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.integrations.helpers.SdkHelper;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
 
 import java.util.List;
 
@@ -26,8 +26,8 @@ public class ProductListPage extends Base {
 
   @Override
   public void afterInit() {
-    getSyncHelper().wait(Until.uiElement(mainContainer).visible());
-    logger.info("Products List Page URL: " + getDriver().getCurrentUrl());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
+    logger.info("Products List Page URL: " + SdkHelper.getDriver().getCurrentUrl());
   }
 
   /* -------- Actions -------- */
@@ -36,7 +36,7 @@ public class ProductListPage extends Base {
     logger.info("Click over product with index: " + index);
     WebHelper.scrollToElement(productsImageList.get(index));
 
-    getSyncHelper().wait(Until.uiElement(productsImageList.get(index)).visible());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(productsImageList.get(index)).visible());
     WebHelper.scrollToElement(productsImageList.get(index));
 
     productsImageList.get(index).click();

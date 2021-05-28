@@ -8,7 +8,8 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 
 @Implementation(is = AndroidPaymentMethodsView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = PaymentMethodsView.class, on = Platform.MOBILE_IOS)
@@ -85,21 +86,21 @@ public class PaymentMethodsView extends BaseComponent {
 	public PeetsCardSettingsView clickPeetsCard() {
 		logger.info("Clicking Peets Card");
 		getPeetsCard.click();
-		return this.create(PeetsCardSettingsView.class);
+		return SdkHelper.create(PeetsCardSettingsView.class);
 	}
 
 	/** Click the Back Button */
 	public void clickBackButtonTwiceOnIos() {
 		logger.info("Clicking the back button");
-		getDeviceControl().tapElementCenter(getBackButton);
-		getDeviceControl().tapElementCenter(getBackButton);
-		getSyncHelper().sleep(5000);
+		SdkHelper.getDeviceControl().tapElementCenter(getBackButton);
+		SdkHelper.getDeviceControl().tapElementCenter(getBackButton);
+		SdkHelper.getSyncHelper().sleep(5000);
 	}
 
 	public void clickBackButton() {
 		logger.info("Clicking the back button");
-		getDeviceControl().tapElementCenter(getBackButton);
-		getSyncHelper().sleep(5000);
+		SdkHelper.getDeviceControl().tapElementCenter(getBackButton);
+		SdkHelper.getSyncHelper().sleep(5000);
 	}
 
 	/**
@@ -111,7 +112,7 @@ public class PaymentMethodsView extends BaseComponent {
 		logger.info("Clicking Payment Method");
 		getSavedPaymentMethodButton.format(methodName);
 		getSavedPaymentMethodButton.click();
-		return this.create(clazz);
+		return SdkHelper.create(clazz);
 	}
 
 	/**
@@ -126,7 +127,7 @@ public class PaymentMethodsView extends BaseComponent {
 	public <T extends BaseComponent> T clickSavedPaymentMethod2(Class<T> clazz) {
 		logger.info("Clicking Payment Method");
 		getSavedPaymentMethod2Button.click();
-		return this.create(clazz);
+		return SdkHelper.create(clazz);
 	}
 
 	/**
@@ -136,7 +137,7 @@ public class PaymentMethodsView extends BaseComponent {
 	 */
 	public <T extends BaseComponent> T clickSavedPaymentMethodAndSaveChanges(Class<T> clazz, String methodName) {
 		clickSavedPaymentMethod(clazz, methodName);
-		return this.create(clazz);
+		return SdkHelper.create(clazz);
 	}
 
 	/**
@@ -146,10 +147,10 @@ public class PaymentMethodsView extends BaseComponent {
 	 */
 	public AddNewCardView clickAddNewPayment() {
 		logger.info("Clicking Add New Payment");
-		getSyncHelper().sleep(5000);
-		getSyncHelper().wait(Until.uiElement(getAddNewPaymentButton).visible().setTimeout(Duration.ofSeconds(40)));
+		SdkHelper.getSyncHelper().sleep(5000);
+		SdkHelper.getSyncHelper().wait(Until.uiElement(getAddNewPaymentButton).visible().setTimeout(Duration.ofSeconds(40)));
 		getAddNewPaymentButton.click();
-		return this.create(AddNewCardView.class);
+		return SdkHelper.create(AddNewCardView.class);
 	}
 
 	/**
@@ -177,13 +178,13 @@ class AndroidPaymentMethodsView extends PaymentMethodsView {
 		logger.info("Selecting Saved card");
 		getSavedPaymentMethod2Button.click();
 		getSaveChangesButton.click();
-		return this.create(clazz);
+		return SdkHelper.create(clazz);
 	}
 
 	public void clickBackButtonTwiceOnIos() {
 		logger.info("Click back button once on android");
 		getBackButton.click();
-		getSyncHelper().sleep(5000);
+		SdkHelper.getSyncHelper().sleep(5000);
 	}
 
 	public void clickBackButton() {
@@ -198,13 +199,13 @@ class AndroidPaymentMethodsView extends PaymentMethodsView {
 	public <T extends BaseComponent> T clickSavedPaymentMethodAndSaveChanges(Class<T> clazz, String methodName) {
 		clickSavedPaymentMethod(clazz, methodName);
 		getSaveChangesButton.click();
-		return this.create(clazz);
+		return SdkHelper.create(clazz);
 	}
 
 	public AddNewCardView clickAddNewPayment() {
 		logger.info("Clicking Add New Payment");
-		getSyncHelper().wait(Until.uiElement(getAddNewPaymentButton).visible().setTimeout(Duration.ofSeconds(40)));
+		SdkHelper.getSyncHelper().wait(Until.uiElement(getAddNewPaymentButton).visible().setTimeout(Duration.ofSeconds(40)));
 		getAddNewPaymentButton.click();
-		return this.create(AddNewCardView.class);
+		return SdkHelper.create(AddNewCardView.class);
 	}
 }

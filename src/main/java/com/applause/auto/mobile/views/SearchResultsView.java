@@ -7,6 +7,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import java.util.List;
+import com.applause.auto.framework.SdkHelper;
 import java.util.stream.Collectors;
 
 @Implementation(is = SearchResultsView.class, on = Platform.MOBILE_ANDROID)
@@ -36,7 +37,7 @@ public class SearchResultsView extends BaseComponent {
   public ProductDetailsView selectSearchResultByIndex(int index) {
     logger.info("Select search result");
     getSearchResultsElements.get(index).click();
-    return this.create(ProductDetailsView.class);
+    return SdkHelper.create(ProductDetailsView.class);
   }
 
   public List<String> getResults() {

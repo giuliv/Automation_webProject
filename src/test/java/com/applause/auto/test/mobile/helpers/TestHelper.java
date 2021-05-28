@@ -5,7 +5,7 @@ import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.TestDataUtils;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
-import com.applause.auto.integrations.helpers.SdkHelper;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
@@ -85,16 +85,16 @@ public class TestHelper extends BaseComponent {
 
       // need this workaround because payment card doesn't disappear from the view without
       // refreshing it
-      getSyncHelper().sleep(15000);
+      SdkHelper.getSyncHelper().sleep(15000);
       paymentMethodsView.clickBackButton();
-      getSyncHelper().sleep(5000);
-      this.create(AccountMenuMobileChunk.class).clickPaymentMethods();
-      getSyncHelper()
+      SdkHelper.getSyncHelper().sleep(5000);
+      SdkHelper.create(AccountMenuMobileChunk.class).clickPaymentMethods();
+      SdkHelper.getSyncHelper()
           .waitUntil(condition -> !paymentMethodsView.isPaymentMethodTestCardAdded(methodName));
     } else {
       logger.info("There is no test payment card added");
     }
-    return this.create(PaymentMethodsView.class);
+    return SdkHelper.create(PaymentMethodsView.class);
   }
 
   public DashboardView createNewAccountWithDefaults(LandingView landingView) {
@@ -223,14 +223,14 @@ public class TestHelper extends BaseComponent {
     if (SdkHelper.getEnvironmentHelper().isMobileAndroid()) {
       // if Samsung browser installed
 
-      AndroidDriver androidDriver = ((AndroidDriver) getDriver());
+      AndroidDriver androidDriver = ((AndroidDriver) SdkHelper.getDriver());
       String currentPackage = androidDriver.getCurrentPackage();
       try {
         androidDriver.activateApp("com.sec.android.app.sbrowser");
         logger.info("Orientation: " + androidDriver.getOrientation());
         logger.info("Orientation: Forcing to PORTRAIT");
         androidDriver.rotate(ScreenOrientation.PORTRAIT);
-        getSyncHelper().sleep(5000);
+        SdkHelper.getSyncHelper().sleep(5000);
         logger.info("Orientation: " + androidDriver.getOrientation());
         androidDriver.startActivity(
             new Activity("com.android.settings", ".Settings")
@@ -251,7 +251,7 @@ public class TestHelper extends BaseComponent {
       logger.info("Orientation: " + androidDriver.getOrientation());
       logger.info("Orientation: Forcing to PORTRAIT");
       androidDriver.rotate(ScreenOrientation.PORTRAIT);
-      getSyncHelper().sleep(5000);
+      SdkHelper.getSyncHelper().sleep(5000);
       logger.info("Orientation: " + androidDriver.getOrientation());
       logger.info("Chrome default successfully configured");
     } else {

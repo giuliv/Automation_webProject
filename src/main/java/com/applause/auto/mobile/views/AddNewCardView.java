@@ -6,6 +6,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 
 @Implementation(is = AddNewCardView.class, on = Platform.MOBILE_ANDROID)
@@ -129,7 +130,7 @@ public class AddNewCardView extends BaseComponent {
   /** Make Payment Method Default */
   public void selectMakeDefault() {
     logger.info("Making Card Default");
-    getDeviceControl().hideKeyboard();
+    SdkHelper.getDeviceControl().hideKeyboard();
     getDefaultToggle.click();
   }
 
@@ -141,8 +142,8 @@ public class AddNewCardView extends BaseComponent {
   public PaymentMethodsView saveCard() {
     logger.info("Saving Payment Method");
     getSaveCardButton.click();
-    getSyncHelper().sleep(15000);
-    return this.create(PaymentMethodsView.class);
+    SdkHelper.getSyncHelper().sleep(15000);
+    return SdkHelper.create(PaymentMethodsView.class);
   }
 }
 
@@ -165,7 +166,7 @@ class IosAddNewCardView extends AddNewCardView {
     logger.info("Saving Payment Method");
     getKeyboardDoneButton.click();
     getSaveCardButton.click();
-    getSyncHelper().sleep(15000);
-    return this.create(PaymentMethodsView.class);
+    SdkHelper.getSyncHelper().sleep(15000);
+    return SdkHelper.create(PaymentMethodsView.class);
   }
 }

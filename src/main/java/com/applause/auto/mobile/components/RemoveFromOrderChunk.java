@@ -7,7 +7,8 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 
 @Implementation(is = RemoveFromOrderChunk.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = RemoveFromOrderChunk.class, on = Platform.MOBILE_IOS)
@@ -39,7 +40,7 @@ public class RemoveFromOrderChunk extends BaseComponent {
 
   /** Click dismiss button */
   public void afterInit() {
-    getSyncHelper().wait(Until.uiElement(titleText).visible());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(titleText).visible());
   }
 
   /**
@@ -85,6 +86,6 @@ public class RemoveFromOrderChunk extends BaseComponent {
    */
   public CheckoutView remove() {
     removeButton.click();
-    return this.create(CheckoutView.class);
+    return SdkHelper.create(CheckoutView.class);
   }
 }

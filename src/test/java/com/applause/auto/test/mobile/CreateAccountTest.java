@@ -6,7 +6,8 @@ import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.TestDataUtils;
 import com.applause.auto.data.enums.SwipeDirection;
-import com.applause.auto.integrations.annotation.testidentification.ApplauseTestCaseId;
+import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
+import com.applause.auto.integrations.base.ApplauseBaseTest;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.AccountHistoryView;
@@ -25,6 +26,7 @@ import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
+import com.applause.auto.framework.SdkHelper;
 import org.testng.annotations.Test;
 
 public class CreateAccountTest extends BaseTest {
@@ -38,7 +40,7 @@ public class CreateAccountTest extends BaseTest {
   public void footerLinksTest() {
     logger.info("Launch the app and arrive at the first onboarding screen view");
 
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     Assert.assertEquals(
         landingView.getHeadingTextValue(),
         "Earn Rewards.",
@@ -52,7 +54,7 @@ public class CreateAccountTest extends BaseTest {
     MobileHelper.swipeWithCount(SwipeDirection.UP, 3);
 
     logger.info(
-        "Make sure above the create account button is the copy and check-box: I agree to the Privacy Policy and Terms & Conditions");
+        "Make sure above the SdkHelper.create account button is the copy and check-box: I agree to the Privacy Policy and Terms & Conditions");
 
     logger.info("Tap on Privacy Policy link");
     PrivacyPolicyView privacyPolicyView = createAccountView.privacyPolicy();
@@ -87,7 +89,7 @@ public class CreateAccountTest extends BaseTest {
   public void signInEmailPasswordTest() {
 
     logger.info("Launch the app and arrive at the first onboarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     Assert.assertEquals(
         landingView.getHeadingTextValue(),
         "Earn Rewards.",
@@ -160,7 +162,7 @@ public class CreateAccountTest extends BaseTest {
   @ApplauseTestCaseId({"674505", "674504"})
   public void accountSettingsEditProfileTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     softAssert.assertEquals(
         landingView.getHeadingTextValue(),
         "Earn Rewards.",
@@ -260,7 +262,7 @@ public class CreateAccountTest extends BaseTest {
   @ApplauseTestCaseId({"674507", "674506"})
   public void accountSettingsGeneralSettingsTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     Assert.assertEquals(
         landingView.getHeadingTextValue(),
         "Earn Rewards.",
@@ -331,7 +333,7 @@ public class CreateAccountTest extends BaseTest {
   public void accountSettingsChangePasswordTest() {
 
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     // will fail as this view is shown randomly
     softAssert.assertEquals(
         landingView.getHeadingTextValue(),
@@ -489,7 +491,7 @@ public class CreateAccountTest extends BaseTest {
   public void createAccountEmailPassword() {
 
     logger.info("Launch the app and arrive at the first onboarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     Assert.assertEquals(
         landingView.getHeadingTextValue(),
         "Earn Rewards.",
@@ -606,7 +608,7 @@ public class CreateAccountTest extends BaseTest {
     createAccountView.checkPrivacyPolicyAndTermsAndConditions();
 
     logger.info(
-        "Make sure checkbox is marked and create account button should be activated and turn gold");
+        "Make sure checkbox is marked and SdkHelper.create account button should be activated and turn gold");
     Assert.assertTrue(
         createAccountView.isPrivacyPolicyAndTermsAndConditionsChecked(),
         "Privacy Policy opt in checkbox does not marked");
@@ -631,7 +633,7 @@ public class CreateAccountTest extends BaseTest {
     ProfileDetailsView profileDetailsView = dashboardView.getAccountProfileMenu().profileDetails();
 
     logger.info(
-        "All user info on profile details screen matches what was entered during create account process:\n"
+        "All user info on profile details screen matches what was entered during SdkHelper.create account process:\n"
             + "\n"
             + "First Name\n"
             + "Last Name\n"
@@ -693,7 +695,7 @@ public class CreateAccountTest extends BaseTest {
   public void createAccountFieldValidation() {
 
     logger.info("Launch the app and arrive at the first onboarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     Assert.assertEquals(
         landingView.getHeadingTextValue(),
         "Earn Rewards.",
@@ -870,7 +872,7 @@ public class CreateAccountTest extends BaseTest {
     createAccountView.checkPrivacyPolicyAndTermsAndConditions();
 
     logger.info(
-        "Make sure checkbox is marked and create account button should be activated and turn gold");
+        "Make sure checkbox is marked and SdkHelper.create account button should be activated and turn gold");
     Assert.assertTrue(
         createAccountView.isPrivacyPolicyAndTermsAndConditionsChecked(),
         "Privacy Policy opt in checkbox does not marked");
@@ -881,7 +883,7 @@ public class CreateAccountTest extends BaseTest {
     DashboardView dashboardView = createAccountView.createAccount();
 
     logger.info(
-        "User account should be created successfully:\n"
+        "User account should be SdkHelper.created successfully:\n"
             + "\n"
             + "* User will see a loading dial, then a check mark to indicate successful account creation\n"
             + "\n"
@@ -949,7 +951,7 @@ public class CreateAccountTest extends BaseTest {
   public void accountSettingsAccountHistoryTest() {
 
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     Assert.assertEquals(
         landingView.getHeadingTextValue(),
         "Earn Rewards.",
@@ -990,7 +992,7 @@ public class CreateAccountTest extends BaseTest {
   @ApplauseTestCaseId({"674184", "674183"})
   public void createAccountExistingWebUserTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
 
     CompleteAccountView completeAccountView =
         testHelper.signIn(

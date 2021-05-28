@@ -6,7 +6,8 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 
 @Implementation(is = HomePage.class, on = Platform.WEB)
 @Implementation(is = HomePage.class, on = Platform.WEB_MOBILE_PHONE)
@@ -23,8 +24,8 @@ public class HomePage extends Base {
 
   @Override
   public void afterInit() {
-    getSyncHelper().wait(Until.uiElement(mainContainer).present());
-    logger.info("Peet's Home URL: " + getDriver().getCurrentUrl());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
+    logger.info("Peet's Home URL: " + SdkHelper.getDriver().getCurrentUrl());
 
     if (closeModal.exists()) {
       logger.info("Close peets.com Modal");

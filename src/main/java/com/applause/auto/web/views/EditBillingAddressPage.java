@@ -6,6 +6,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.web.helpers.WebHelper;
 
 @Implementation(is = EditBillingAddressPage.class, on = Platform.WEB)
@@ -53,12 +54,12 @@ public class EditBillingAddressPage extends BaseComponent {
   public AddressBookPage clickSaveAddress() {
     logger.info("Clicking Save Address");
     getSaveAddressButton.click();
-    getSyncHelper().sleep(3000);
+    SdkHelper.getSyncHelper().sleep(3000);
     try {
       getUseAddressAsEnteredButton.click();
     } catch (Exception ex) {
       logger.info("Popup not displayed");
     }
-    return this.create(AddressBookPage.class);
+    return SdkHelper.create(AddressBookPage.class);
   }
 }

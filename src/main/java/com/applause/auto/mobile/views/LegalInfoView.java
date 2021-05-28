@@ -10,8 +10,9 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
 
+import com.applause.auto.framework.SdkHelper;
 import io.appium.java_client.android.AndroidDriver;
 
 @Implementation(is = AndroidLegalInfoView.class, on = Platform.MOBILE_ANDROID)
@@ -43,7 +44,7 @@ public class LegalInfoView extends BaseComponent {
 	/* -------- Actions -------- */
 
 	public void afterInit() {
-		getSyncHelper().wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(60)));
+		SdkHelper.getSyncHelper().wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(60)));
 	}
 
 	/**
@@ -54,7 +55,7 @@ public class LegalInfoView extends BaseComponent {
 	public PeetnikRewardsTermsAndConditionsView peetnikRewardsTermsAndConditions() {
 		logger.info("Click on Peetnik Rewards Terms And Conditions");
 		peetnikRewardsTermsAndConditionsButton.click();
-		return this.create(PeetnikRewardsTermsAndConditionsView.class);
+		return SdkHelper.create(PeetnikRewardsTermsAndConditionsView.class);
 	}
 
 	/**
@@ -65,7 +66,7 @@ public class LegalInfoView extends BaseComponent {
 	public PrivacyPolicyView privacyPolicy() {
 		logger.info("Click on PPrivacy Policy");
 		privacyPolicyButton.click();
-		return this.create(PrivacyPolicyView.class);
+		return SdkHelper.create(PrivacyPolicyView.class);
 	}
 
 	/**
@@ -110,17 +111,17 @@ public class LegalInfoView extends BaseComponent {
 
 class AndroidLegalInfoView extends LegalInfoView {
 	public void afterInit() {
-		AndroidDriver androidDriver = ((AndroidDriver) getDriver());
+		AndroidDriver androidDriver = ((AndroidDriver) SdkHelper.getDriver());
 		logger.info("Orientation: " + androidDriver.getOrientation());
 		logger.info("Orientation: Forcing to PORTRAIT");
 		androidDriver.rotate(ScreenOrientation.PORTRAIT);
-		getSyncHelper().sleep(5000);
+		SdkHelper.getSyncHelper().sleep(5000);
 		logger.info("Orientation: " + androidDriver.getOrientation());
 		try {
 			allowCookiesButton.click();
 		} catch (Throwable th) {
 			logger.info("No cookies popup overlay found");
 		}
-		getSyncHelper().wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(12)));
+		SdkHelper.getSyncHelper().wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(12)));
 	}
 }

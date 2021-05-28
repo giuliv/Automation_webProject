@@ -5,6 +5,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.Text;
 
 @Implementation(is = ShopCoffeeKCupsPage.class, on = Platform.WEB)
@@ -29,6 +30,6 @@ public class ShopCoffeeKCupsPage extends BaseComponent {
     logger.info(String.format("Tap on Product Name: %s", productName));
     productNameButton.initializeWithFormat(productName);
     productNameButton.click();
-    return this.create(CoffeeKCupsProductPage.class);
+    return SdkHelper.create(CoffeeKCupsProductPage.class);
   }
 }

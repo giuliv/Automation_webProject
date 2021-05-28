@@ -9,9 +9,10 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
 import java.time.Duration;
 import java.util.stream.IntStream;
+import com.applause.auto.framework.SdkHelper;
 import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = NewOrderView.class, on = Platform.MOBILE_ANDROID)
@@ -157,7 +158,7 @@ public class NewOrderView extends BaseComponent {
 
   /* -------- Actions -------- */
   public void afterInit() {
-    getSyncHelper()
+    SdkHelper.getSyncHelper()
         .wait(Until.uiElement(menuSignatureText).present().setTimeout(Duration.ofSeconds(15)));
   }
 
@@ -189,24 +190,24 @@ public class NewOrderView extends BaseComponent {
       getCategoryItem.format(category).initialize();
     } catch (NoSuchElementException nse) {
     }
-    getSyncHelper().sleep(5000);
+    SdkHelper.getSyncHelper().sleep(5000);
     MobileHelper.scrollElementIntoView(getCategoryItem);
     try {
       getCategorySubItem.format(category, subCategory).initialize();
     } catch (NoSuchElementException nse) {
-      getDeviceControl().tapElementCenter(getCategoryItem);
-      getSyncHelper().sleep(2000);
+      SdkHelper.getDeviceControl().tapElementCenter(getCategoryItem);
+      SdkHelper.getSyncHelper().sleep(2000);
       getCategorySubItem.format(category, subCategory).initialize();
     }
     getCategorySubItem.click();
-    getSyncHelper().sleep(1000);
+    SdkHelper.getSyncHelper().sleep(1000);
   }
 
   public void selectSubCategoryUnderCategory(String category, String subCategory) {
     logger.info("Select sub-category: " + subCategory);
     getCategorySubItem.format(category, subCategory);
     getCategorySubItem.click();
-    getSyncHelper().sleep(1000);
+    SdkHelper.getSyncHelper().sleep(1000);
   }
 
   /**
@@ -227,15 +228,15 @@ public class NewOrderView extends BaseComponent {
               i -> {
                 MobileHelper.scrollUpCloseToMiddleAlgorithm();
               });
-      getSyncHelper().sleep(1000);
+      SdkHelper.getSyncHelper().sleep(1000);
       while (attempt-- > 0 && !getProductItem.exists()) {
         MobileHelper.scrollDownCloseToMiddleAlgorithm();
-        getSyncHelper().sleep(1000);
+        SdkHelper.getSyncHelper().sleep(1000);
       }
     }
-    getSyncHelper().sleep(1000);
-    getDeviceControl().tapElementCenter(getProductItem);
-    return this.create(ProductDetailsView.class);
+    SdkHelper.getSyncHelper().sleep(1000);
+    SdkHelper.getDeviceControl().tapElementCenter(getProductItem);
+    return SdkHelper.create(ProductDetailsView.class);
   }
 
   /**
@@ -248,7 +249,7 @@ public class NewOrderView extends BaseComponent {
     logger.info("Searching for: " + searchItem);
     getSearchMagnifierButton.click();
     getSearchMenuEditField.sendKeys(searchItem);
-    return this.create(SearchResultsView.class);
+    return SdkHelper.create(SearchResultsView.class);
   }
 
   /**
@@ -261,13 +262,13 @@ public class NewOrderView extends BaseComponent {
     getCartButton.click();
     try {
       logger.info("Waiting for confirmation button");
-      getSyncHelper()
+      SdkHelper.getSyncHelper()
           .wait(Until.uiElement(getConfirmStoreButton).present().setTimeout(Duration.ofSeconds(5)));
       getConfirmStoreButton.click();
     } catch (Exception e) {
       logger.info("Confirmation button is not present");
     }
-    return this.create(CheckoutView.class);
+    return SdkHelper.create(CheckoutView.class);
   }
 
   public NewOrderView checkoutAtom() {
@@ -286,12 +287,12 @@ public class NewOrderView extends BaseComponent {
   public <T extends BaseComponent> T checkoutAtom(Class<T> clazz) {
     logger.info("Tap on Cart button");
     getCartButton.click();
-    return this.create(clazz);
+    return SdkHelper.create(clazz);
   }
 
   public CheckoutView confirmStore() {
     getConfirmStoreButton.click();
-    return this.create(CheckoutView.class);
+    return SdkHelper.create(CheckoutView.class);
   }
 
   public boolean isConfirmStoreButtonDisplayed() {
@@ -310,7 +311,7 @@ public class NewOrderView extends BaseComponent {
   public NewOrderView recents() {
     logger.info("Click on recents tab");
     recentsTabButton.click();
-    return this.create(NewOrderView.class);
+    return SdkHelper.create(NewOrderView.class);
   }
 
   /**
@@ -362,7 +363,7 @@ public class NewOrderView extends BaseComponent {
   public NewOrderView startNewOrderRecents() {
     logger.info("Click <start new order> button");
     startNewOrderRecentsButton.click();
-    return this.create(NewOrderView.class);
+    return SdkHelper.create(NewOrderView.class);
   }
 
   /**
@@ -373,7 +374,7 @@ public class NewOrderView extends BaseComponent {
   public NewOrderView startNewOrderFavorites() {
     logger.info("Click <start new order> button");
     startNewOrderFavoritesButton.click();
-    return this.create(NewOrderView.class);
+    return SdkHelper.create(NewOrderView.class);
   }
 
   /**
@@ -394,7 +395,7 @@ public class NewOrderView extends BaseComponent {
   public NewOrderView favorites() {
     logger.info("Click Favorites tab");
     favoritesTabButton.click();
-    return this.create(NewOrderView.class);
+    return SdkHelper.create(NewOrderView.class);
   }
 
   /**
@@ -409,8 +410,8 @@ public class NewOrderView extends BaseComponent {
 
   public NewOrderView addToOrders() {
     addToOrderButton.click();
-    getSyncHelper().sleep(2000);
-    return this.create(NewOrderView.class);
+    SdkHelper.getSyncHelper().sleep(2000);
+    return SdkHelper.create(NewOrderView.class);
   }
 
   public String getFabAmount() {
@@ -426,7 +427,7 @@ public class NewOrderView extends BaseComponent {
               MobileHelper.scrollUpCloseToMiddleAlgorithm();
             });
     seasonalFavoriteProductItemText.format(name).click();
-    return this.create(ProductDetailsView.class);
+    return SdkHelper.create(ProductDetailsView.class);
   }
 }
 
@@ -434,8 +435,8 @@ class IosNewOrderView extends NewOrderView {
   @Override
   public <T extends BaseComponent> T checkoutAtom(Class<T> clazz) {
     logger.info("Tap on Cart button");
-    getDeviceControl().tapElementCenter(getCartButton);
-    return this.create(clazz);
+    SdkHelper.getDeviceControl().tapElementCenter(getCartButton);
+    return SdkHelper.create(clazz);
   }
 
   @Override
@@ -444,8 +445,8 @@ class IosNewOrderView extends NewOrderView {
     getCartButton.click();
     // for some reasons iOS is getting stuck here for couple of secs
     logger.info("10 sec wait for checkout on iOS");
-    getSyncHelper().sleep(10000);
-    return this.create(CheckoutView.class);
+    SdkHelper.getSyncHelper().sleep(10000);
+    return SdkHelper.create(CheckoutView.class);
   }
 
   // @Override
@@ -457,12 +458,12 @@ class IosNewOrderView extends NewOrderView {
   //
   // }
   // MobileHelper.scrollElementIntoView(getCategoryItem);
-  // getDeviceControl().tapElementCenter(getCategoryItem);
-  // getSyncHelper().sleep(2000);
+  // SdkHelper.getDeviceControl().tapElementCenter(getCategoryItem);
+  // SdkHelper.getSyncHelper().sleep(2000);
   // getCategorySubItem.format(category, subCategory).initialize();
   // MobileHelper.scrollElementIntoView(getCategorySubItem);
-  // getDeviceControl().tapElementCenter(getCategorySubItem);
-  // getSyncHelper().sleep(1000);
+  // SdkHelper.getDeviceControl().tapElementCenter(getCategorySubItem);
+  // SdkHelper.getSyncHelper().sleep(1000);
   // }
 
   // @Override
@@ -474,8 +475,8 @@ class IosNewOrderView extends NewOrderView {
   //
   // }
   // MobileHelper.scrollElementIntoView(getProductItem);
-  // getSyncHelper().sleep(1000);
+  // SdkHelper.getSyncHelper().sleep(1000);
   // getProductItem.click();
-  // return this.create(ProductDetailsView.class);
+  // return SdkHelper.create(ProductDetailsView.class);
   // }
 }

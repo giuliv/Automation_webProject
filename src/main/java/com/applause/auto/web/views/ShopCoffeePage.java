@@ -5,6 +5,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.Text;
 
 @Implementation(is = ShopCoffeePage.class, on = Platform.WEB)
@@ -33,6 +34,6 @@ public class ShopCoffeePage extends BaseComponent {
     productNameButton.initializeWithFormat(productName);
     productNameButton.scrollToElement();
     productNameButton.click();
-    return this.create(CoffeeProductPage.class);
+    return SdkHelper.create(CoffeeProductPage.class);
   }
 }

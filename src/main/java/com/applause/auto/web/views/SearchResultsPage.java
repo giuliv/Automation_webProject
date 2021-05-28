@@ -5,6 +5,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.Text;
 
 @Implementation(is = SearchResultsPage.class, on = Platform.WEB)
@@ -36,7 +37,7 @@ public class SearchResultsPage extends BaseComponent {
   public CoffeeProductDescriptionPage clickFirstProduct() {
     logger.info("Clicking First Product");
     getFirstProduct.click();
-    return this.create(CoffeeProductDescriptionPage.class);
+    return SdkHelper.create(CoffeeProductDescriptionPage.class);
   }
 
   /**
@@ -47,6 +48,6 @@ public class SearchResultsPage extends BaseComponent {
   public CoffeeProductDescriptionPage clickKona() {
     logger.info("Clicking First Product");
     getKonaProduct.click();
-    return this.create(CoffeeProductDescriptionPage.class);
+    return SdkHelper.create(CoffeeProductDescriptionPage.class);
   }
 }

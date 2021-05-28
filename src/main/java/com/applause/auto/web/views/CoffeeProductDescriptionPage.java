@@ -1,7 +1,7 @@
 package com.applause.auto.web.views;
 
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.integrations.helpers.SdkHelper;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -42,8 +42,8 @@ public class CoffeeProductDescriptionPage extends BaseComponent {
    */
   public MiniCartContainerChunk addToCart() {
     logger.info("Clicking Add To Cart");
-    getSyncHelper().sleep(5000);
+    SdkHelper.getSyncHelper().sleep(5000);
     getAddToCartButton.click();
-    return this.create(MiniCartContainerChunk.class);
+    return SdkHelper.create(MiniCartContainerChunk.class);
   }
 }

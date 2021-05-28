@@ -7,6 +7,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.framework.SdkHelper;
 import org.apache.commons.lang3.StringUtils;
 
 @Implementation(is = PeetsCardsTransferAmountChunk.class, on = Platform.MOBILE_ANDROID)
@@ -68,9 +69,9 @@ public class PeetsCardsTransferAmountChunk extends BaseComponent {
    */
   public PeetsCardsTransferAmountWarningChunk transfer() {
     logger.info("Tap on transfer button");
-    getDeviceControl().hideKeyboard();
+    SdkHelper.getDeviceControl().hideKeyboard();
     getTransferButton.click();
-    return this.create(PeetsCardsTransferAmountWarningChunk.class);
+    return SdkHelper.create(PeetsCardsTransferAmountWarningChunk.class);
   }
 
   /**
@@ -107,7 +108,7 @@ class IOSPeetsCardsTransferAmountChunk extends PeetsCardsTransferAmountChunk {
   public PeetsCardsTransferAmountWarningChunk transfer() {
     logger.info("Tap on transfer button");
     getTransferButton.click();
-    return this.create(PeetsCardsTransferAmountWarningChunk.class);
+    return SdkHelper.create(PeetsCardsTransferAmountWarningChunk.class);
   }
 
   /**

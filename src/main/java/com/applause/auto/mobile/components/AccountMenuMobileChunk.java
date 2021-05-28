@@ -13,7 +13,8 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 
 @Implementation(is = AndroidAccountMenuMobileChunk.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = AccountMenuMobileChunk.class, on = Platform.MOBILE_IOS)
@@ -114,7 +115,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
 	public ProfileDetailsView profileDetails() {
 		logger.info("Click on Profile Details button");
 		getProfileDetailsButton.click();
-		return this.create(ProfileDetailsView.class);
+		return SdkHelper.create(ProfileDetailsView.class);
 	}
 
 	/**
@@ -125,7 +126,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
 	public GeneralSettingsView generalSettings() {
 		logger.info("Click on General Settings button");
 		getGeneralSettingsButton.click();
-		return this.create(GeneralSettingsView.class);
+		return SdkHelper.create(GeneralSettingsView.class);
 	}
 
 	/**
@@ -142,7 +143,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
 		} catch (NoAlertPresentException noAlertPresentException) {
 			logger.warn("No alert found, probably because TestObect cloud accept it");
 		}
-		return this.create(AuthenticationView.class);
+		return SdkHelper.create(AuthenticationView.class);
 	}
 
 	/**
@@ -152,10 +153,10 @@ public class AccountMenuMobileChunk extends BaseComponent {
 	 */
 	public PaymentMethodsView clickPaymentMethods() {
 		logger.info("Click Payment Methods");
-		getSyncHelper().wait(Until.uiElement(getPaymentMethodsButton).visible().setTimeout(Duration.ofSeconds(50)));
+		SdkHelper.getSyncHelper().wait(Until.uiElement(getPaymentMethodsButton).visible().setTimeout(Duration.ofSeconds(50)));
 		getPaymentMethodsButton.click();
-		getSyncHelper().sleep(5000);
-		return this.create(PaymentMethodsView.class);
+		SdkHelper.getSyncHelper().sleep(5000);
+		return SdkHelper.create(PaymentMethodsView.class);
 	}
 
 	/**
@@ -167,8 +168,8 @@ public class AccountMenuMobileChunk extends BaseComponent {
 		logger.info("Click Facebook");
 		MobileHelper.swipeWithCount(SwipeDirection.UP, 1);
 		getFacebookIcon.click();
-		getSyncHelper().sleep(3000);
-		return this.create(AccountMenuMobileChunk.class);
+		SdkHelper.getSyncHelper().sleep(3000);
+		return SdkHelper.create(AccountMenuMobileChunk.class);
 	}
 
 	/**
@@ -179,8 +180,8 @@ public class AccountMenuMobileChunk extends BaseComponent {
 	public AccountMenuMobileChunk clickInstagramIcon() {
 		logger.info("Click Instagram");
 		getInstagramIcon.click();
-		getSyncHelper().sleep(3000);
-		return this.create(AccountMenuMobileChunk.class);
+		SdkHelper.getSyncHelper().sleep(3000);
+		return SdkHelper.create(AccountMenuMobileChunk.class);
 	}
 
 	/**
@@ -191,8 +192,8 @@ public class AccountMenuMobileChunk extends BaseComponent {
 	public AccountMenuMobileChunk clickTwitterIcon() {
 		logger.info("Click Twitter");
 		getTwitterIcon.click();
-		getSyncHelper().sleep(3000);
-		return this.create(AccountMenuMobileChunk.class);
+		SdkHelper.getSyncHelper().sleep(3000);
+		return SdkHelper.create(AccountMenuMobileChunk.class);
 	}
 
 	/**
@@ -212,7 +213,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
 	 * @return the boolean
 	 */
 	public Boolean isOnInstagramPage() {
-		getSyncHelper().wait(Until.uiElement(instagramPage).visible());
+		SdkHelper.getSyncHelper().wait(Until.uiElement(instagramPage).visible());
 		return instagramPage.isDisplayed();
 	}
 
@@ -235,7 +236,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
 	public AccountMenuMobileChunk clickDoneButton() {
 		logger.info("Clicking Done Button to go back");
 		getDoneButton.click();
-		return this.create(AccountMenuMobileChunk.class);
+		return SdkHelper.create(AccountMenuMobileChunk.class);
 	}
 
 	/**
@@ -251,7 +252,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
 		logger.info("Click on Sign Out button");
 		MobileHelper.swipeWithCount(SwipeDirection.UP, 5);
 		getSignOutButton.click();
-		return this.create(clazz);
+		return SdkHelper.create(clazz);
 	}
 
 	/**
@@ -262,8 +263,8 @@ public class AccountMenuMobileChunk extends BaseComponent {
 	public AccountHistoryView accountHistory() {
 		logger.info("Click Account History");
 		getAccountHistoryButton.click();
-		getSyncHelper().sleep(15000);
-		return this.create(AccountHistoryView.class);
+		SdkHelper.getSyncHelper().sleep(15000);
+		return SdkHelper.create(AccountHistoryView.class);
 	}
 
 	/**
@@ -274,13 +275,13 @@ public class AccountMenuMobileChunk extends BaseComponent {
 	public HelpAndFeedbackView helpAndFeedback() {
 		logger.info("Click Help & Feedback");
 		getHelpAndFeedbackButton.click();
-		return this.create(HelpAndFeedbackView.class);
+		return SdkHelper.create(HelpAndFeedbackView.class);
 	}
 
 	/** Click the Cross Button */
 	public void clickCrossButton() {
 		logger.info("Clicking the cross button");
-		getSyncHelper().sleep(5000);
+		SdkHelper.getSyncHelper().sleep(5000);
 		getCrossButton.click();
 	}
 
@@ -437,7 +438,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
 	public LegalInfoView termsAndPrivacyPolicy() {
 		logger.info("Click on Terms and Privacy Policy");
 		termsAndPrivacyPolicyButton.click();
-		return this.create(LegalInfoView.class);
+		return SdkHelper.create(LegalInfoView.class);
 	}
 }
 
@@ -463,34 +464,34 @@ class AndroidAccountMenuMobileChunk extends AccountMenuMobileChunk {
 		MobileHelper.swipeWithCount(SwipeDirection.UP, 5);
 		getSignOutButton.click();
 		getLogOutButton.click();
-		return this.create(clazz);
+		return SdkHelper.create(clazz);
 	}
 
 	@Override
 	public AccountMenuMobileChunk clickDoneButton() {
 		logger.info("Clicking Done Button to go back");
 		MobileHelper.tapAndroidDeviceBackButton();
-		return this.create(AccountMenuMobileChunk.class);
+		return SdkHelper.create(AccountMenuMobileChunk.class);
 	}
 
 	@Override
 	public Boolean isOnFacebookPage() {
-		getSyncHelper().wait(Until.uiElement(facebookPage).visible());
+		SdkHelper.getSyncHelper().wait(Until.uiElement(facebookPage).visible());
 		return facebookPage.isDisplayed();
 	}
 
 	@Override
 	public Boolean isOnTwitterPage() {
-		getSyncHelper().wait(Until.uiElement(twitterPage).visible());
+		SdkHelper.getSyncHelper().wait(Until.uiElement(twitterPage).visible());
 		return twitterPage.isDisplayed();
 	}
 
 	@Override
 	public void clickCrossButton() {
 		logger.info("Clicking the cross button");
-		getSyncHelper().sleep(5000);
-		getDeviceControl().tapElementCenter(getCrossButton);
-		getSyncHelper().sleep(5000);
-		getDeviceControl().tapElementCenter(getCrossButton);
+		SdkHelper.getSyncHelper().sleep(5000);
+		SdkHelper.getDeviceControl().tapElementCenter(getCrossButton);
+		SdkHelper.getSyncHelper().sleep(5000);
+		SdkHelper.getDeviceControl().tapElementCenter(getCrossButton);
 	}
 }

@@ -9,6 +9,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.framework.SdkHelper;
 import org.openqa.selenium.WebDriverException;
 
 /** The coffee store container chunk. */
@@ -94,7 +95,7 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
   public OrderView clickOrderButton() {
     if (getOrderButton.isEnabled()) {
       getOrderButton.click();
-      return this.create(OrderView.class);
+      return SdkHelper.create(OrderView.class);
     }
     throw new IllegalStateException("Order button is not enabled for click");
   }
@@ -108,7 +109,7 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
     logger.info("Tap on store name");
     getStoreName.initialize();
     getStoreName.click();
-    return this.create(StoreDetailsView.class);
+    return SdkHelper.create(StoreDetailsView.class);
   }
 
   /**

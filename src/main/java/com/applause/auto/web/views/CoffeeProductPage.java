@@ -7,9 +7,10 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.web.components.CreateSubscriptionChunk;
 import com.applause.auto.web.components.MiniCartContainerChunk;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.web.helpers.WebHelper;
 
 @Implementation(is = CoffeeProductPage.class, on = Platform.WEB)
@@ -47,22 +48,22 @@ public class CoffeeProductPage extends BaseComponent {
    */
   public MiniCartContainerChunk clickAddToCart() {
     logger.info("Tap on Shop Coffee Button");
-    getSyncHelper().wait(Until.uiElement(getAddToCartButton).clickable()).click();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getAddToCartButton).clickable()).click();
     waitForAddingToCartSpinner();
-    return this.create(MiniCartContainerChunk.class);
+    return SdkHelper.create(MiniCartContainerChunk.class);
   }
 
   public CreateSubscriptionChunk clickAddToSubscription() {
     logger.info("Tap on Add To Subscription Button");
-    getSyncHelper().wait(Until.uiElement(getAddToSubscriptionCart).clickable()).click();
-    return this.create(CreateSubscriptionChunk.class);
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getAddToSubscriptionCart).clickable()).click();
+    return SdkHelper.create(CreateSubscriptionChunk.class);
   }
 
   /** Click Add to Cart Button */
   public void waitForAddingToCartSpinner() {
     logger.info("Adding item to Shopping Cart...");
-    getSyncHelper().wait(Until.uiElement(getAddingToCartSpinner).visible());
-    getSyncHelper().wait(Until.uiElement(getAddingToCartSpinner).notVisible());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getAddingToCartSpinner).visible());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getAddingToCartSpinner).notVisible());
   }
 
   /**
@@ -74,8 +75,8 @@ public class CoffeeProductPage extends BaseComponent {
    */
   public <T extends BaseComponent> T navigateBack(Class<T> clazz) {
     logger.info("Navigate back");
-    getDriver().navigate().back();
-    return this.create(clazz);
+    SdkHelper.getDriver().navigate().back();
+    return SdkHelper.create(clazz);
   }
 
   public void selectSubscription() {

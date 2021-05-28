@@ -4,6 +4,7 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.Button;
 
 @Implementation(is = MilkPrepView.class, on = Platform.MOBILE_ANDROID)
@@ -37,7 +38,7 @@ public class MilkPrepView extends BaseComponent {
 
 	public <T extends BaseComponent> T saveChanges(Class<T> clazz) {
 		saveChangesButton.click();
-		return this.create(clazz);
+		return SdkHelper.create(clazz);
 	}
 }
 
@@ -46,11 +47,11 @@ class IosMilkPrepView extends MilkPrepView {
 	public MilkPrepView chooseMilk(String milkType) {
 		chooseMilkMenuItemButton.click();
 		chooseMilkMenuOptionsButton.format(milkType.equals("2% Milk") ? "Whole Milk" : "2% Milk");
-		getDeviceControl().tapElementCenter(chooseMilkMenuOptionsButton);
-		getSyncHelper().sleep(1000);
+		SdkHelper.getDeviceControl().tapElementCenter(chooseMilkMenuOptionsButton);
+		SdkHelper.getSyncHelper().sleep(1000);
 		chooseMilkMenuItemButton.click();
 		chooseMilkMenuOptionsButton.format(milkType).initialize();
-		getDeviceControl().tapElementCenter(chooseMilkMenuOptionsButton);
+		SdkHelper.getDeviceControl().tapElementCenter(chooseMilkMenuOptionsButton);
 		return this;
 	}
 }

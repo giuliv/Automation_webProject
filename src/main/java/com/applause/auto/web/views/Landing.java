@@ -6,7 +6,8 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 
 @Implementation(is = Landing.class, on = Platform.WEB)
 @Implementation(is = LandingMobile.class, on = Platform.WEB_MOBILE_PHONE)
@@ -41,7 +42,7 @@ public class Landing extends BaseComponent {
     super.afterInit();
     try {
       logger.info("Attempting to dismiss popup");
-      getSyncHelper().wait(Until.uiElement(dismissPopupButton).present()).click();
+      SdkHelper.getSyncHelper().wait(Until.uiElement(dismissPopupButton).present()).click();
     } catch (Exception e) {
       logger.info("Popup not found, moving on");
     }
@@ -56,9 +57,9 @@ public class Landing extends BaseComponent {
    */
   public SignInPage clickSignInButton() {
     logger.info("Tap on SignIn Button");
-    getSyncHelper().wait(Until.uiElement(signInButton).clickable()).click();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(signInButton).clickable()).click();
 
-    return this.create(SignInPage.class);
+    return SdkHelper.create(SignInPage.class);
   }
 
   /**
@@ -69,7 +70,7 @@ public class Landing extends BaseComponent {
   public ShopCoffeePage clickShopCoffeeButton() {
     logger.info("Tap on Shop Coffee Button");
     shopCoffeeButton.click();
-    return this.create(ShopCoffeePage.class);
+    return SdkHelper.create(ShopCoffeePage.class);
   }
 
   /**
@@ -83,7 +84,7 @@ public class Landing extends BaseComponent {
     showSearchButton.click();
     searchTextBox.sendKeys(searchTerms);
     searchButton.click();
-    return this.create(SearchResultsPage.class);
+    return SdkHelper.create(SearchResultsPage.class);
   }
 }
 
@@ -94,8 +95,8 @@ class LandingMobile extends Landing {
     hamburgerMenu.click();
 
     logger.info("Tap on SignIn Button");
-    getSyncHelper().wait(Until.uiElement(signInButton).clickable()).click();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(signInButton).clickable()).click();
 
-    return this.create(SignInPage.class);
+    return SdkHelper.create(SignInPage.class);
   }
 }

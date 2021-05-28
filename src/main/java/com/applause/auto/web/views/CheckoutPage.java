@@ -5,6 +5,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.Text;
 
 @Implementation(is = CheckoutPage.class, on = Platform.WEB)
@@ -28,6 +29,6 @@ public class CheckoutPage extends BaseComponent {
   public CheckoutShippingInfoPage clickContinueAsGuest() {
     logger.info("Click Continue as Guest");
     getClickContinueAsGuestButton.click();
-    return this.create(CheckoutShippingInfoPage.class);
+    return SdkHelper.create(CheckoutShippingInfoPage.class);
   }
 }

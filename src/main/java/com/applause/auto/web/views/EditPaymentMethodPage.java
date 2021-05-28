@@ -7,6 +7,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.web.helpers.WebHelper;
 
 @Implementation(is = EditPaymentMethodPage.class, on = Platform.WEB)
@@ -49,7 +50,7 @@ public class EditPaymentMethodPage extends BaseComponent {
     logger.info("Clicking Save Payment Method");
     getSavePaymentMethodButton.click();
     // wait for animation
-    getSyncHelper().sleep(2000);
-    return this.create(PaymentMethodsPage.class);
+    SdkHelper.getSyncHelper().sleep(2000);
+    return SdkHelper.create(PaymentMethodsPage.class);
   }
 }

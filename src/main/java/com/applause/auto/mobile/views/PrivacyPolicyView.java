@@ -7,9 +7,10 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
 import io.appium.java_client.android.AndroidDriver;
 import java.time.Duration;
+import com.applause.auto.framework.SdkHelper;
 import org.openqa.selenium.ScreenOrientation;
 
 /** The type Privacy policy view. */
@@ -47,7 +48,7 @@ public class PrivacyPolicyView extends BaseComponent {
 
   @Override
   public void afterInit() {
-    getSyncHelper()
+    SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(30)));
   }
 
@@ -59,7 +60,7 @@ public class PrivacyPolicyView extends BaseComponent {
   public LegalInfoView done() {
     logger.info("Tap 'Done' button");
     doneButton.click();
-    return this.create(LegalInfoView.class);
+    return SdkHelper.create(LegalInfoView.class);
   }
 }
 
@@ -72,11 +73,11 @@ class AndroidPrivacyPolicyView extends PrivacyPolicyView {
     } catch (Throwable th) {
       logger.info("No browser popup overlay found");
     }
-    AndroidDriver androidDriver = ((AndroidDriver) getDriver());
+    AndroidDriver androidDriver = ((AndroidDriver) SdkHelper.getDriver());
     logger.info("Orientation: " + androidDriver.getOrientation());
     logger.info("Orientation: Forcing to PORTRAIT");
     androidDriver.rotate(ScreenOrientation.PORTRAIT);
-    getSyncHelper().sleep(5000);
+    SdkHelper.getSyncHelper().sleep(5000);
     logger.info("Orientation: " + androidDriver.getOrientation());
     try {
       allowLocationToBrowser.click();
@@ -98,7 +99,7 @@ class AndroidPrivacyPolicyView extends PrivacyPolicyView {
     } catch (Throwable th) {
       logger.info("No cookies popup overlay found");
     }
-    getSyncHelper()
+    SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(30)));
   }
 
@@ -108,6 +109,6 @@ class AndroidPrivacyPolicyView extends PrivacyPolicyView {
   public LegalInfoView done() {
     logger.info("Tap 'Done' button");
     MobileHelper.tapAndroidDeviceBackButton();
-    return this.create(LegalInfoView.class);
+    return SdkHelper.create(LegalInfoView.class);
   }
 }

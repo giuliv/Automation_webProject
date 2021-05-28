@@ -6,13 +6,14 @@ import static com.applause.auto.common.data.Constants.MobileTestData.CC_VISA_NAM
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.integrations.annotation.testidentification.ApplauseTestCaseId;
+import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.views.*;
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
+import com.applause.auto.framework.SdkHelper;
 import org.testng.annotations.Test;
 
 public class AccountSettingsTest extends BaseTest {
@@ -25,7 +26,7 @@ public class AccountSettingsTest extends BaseTest {
   public void paymentMethodsTest() {
 
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
 
     DashboardView dashboardView = testHelper.createNewAccountWithDefaults(landingView);
 
@@ -51,7 +52,7 @@ public class AccountSettingsTest extends BaseTest {
     logger.info("Go Back to Payment Methods");
     paymentMethodsView = peetsCardSettingsView.clickBackButton();
 
-    // disabled because new account created
+    // disabled because new account SdkHelper.created
     // logger.info("Delete Test card if it was already added");
     // paymentMethodsView =
     // testHelper.deletePaymentMethodTestCardIfAdded(paymentMethodsView, CC_VISA_NAME);
@@ -109,7 +110,7 @@ public class AccountSettingsTest extends BaseTest {
             MobileTestData.CC_ZIP);
     // TODO - Revert back to swiping and figure out why it's not working
     // for now, go back, and then forward
-    // getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.DOWN);
+    // SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.DOWN);
     paymentMethodsView.clickBackButton();
     accountProfileMenu.clickPaymentMethods();
 
@@ -171,7 +172,7 @@ public class AccountSettingsTest extends BaseTest {
   @ApplauseTestCaseId({"625939", "674528"})
   public void socialEngagementTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
 
     DashboardView dashboardView = testHelper.signIn(landingView);
 

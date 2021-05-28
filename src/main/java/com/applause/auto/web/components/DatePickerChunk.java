@@ -5,6 +5,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 
 @Implementation(is = DatePickerChunk.class, on = Platform.WEB)
@@ -28,6 +29,6 @@ public class DatePickerChunk extends BaseComponent {
   public <T extends BaseComponent> T selectDate(Class<T> clazz, int index) {
     logger.info("Clicking available day by index: " + index);
     getAvailableDatesText.get(index).click();
-    return this.create(clazz);
+    return SdkHelper.create(clazz);
   }
 }

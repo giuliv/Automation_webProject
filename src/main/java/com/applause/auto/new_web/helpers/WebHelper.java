@@ -1,6 +1,6 @@
 package com.applause.auto.new_web.helpers;
 
-import com.applause.auto.integrations.helpers.SdkHelper;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import org.apache.logging.log4j.LogManager;
@@ -11,15 +11,15 @@ import org.openqa.selenium.interactions.Actions;
 
 import java.lang.invoke.MethodHandles;
 
-public class WebHelper extends SdkHelper {
+public class WebHelper {
 
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
   public static void hoverByAction(BaseElement element) {
     logger.info("Hover over...");
-    Actions actions = new Actions(getDriver());
+    Actions actions = new Actions(SdkHelper.getDriver());
     actions.moveToElement(element.getWebElement()).perform();
-    getSyncHelper().sleep(1000); // Wait for action
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
   }
 
   public static void scrollToElement(BaseElement element) {
@@ -28,7 +28,7 @@ public class WebHelper extends SdkHelper {
 
   public static void scrollToElement(WebElement element) {
     logger.info("Scrolling to element...");
-    JavascriptExecutor jse = (JavascriptExecutor) getDriver();
+    JavascriptExecutor jse = (JavascriptExecutor) SdkHelper.getDriver();
     long windowHeight = (long) jse.executeScript("return window.innerHeight");
 
     // scrolls element to view...
@@ -40,8 +40,8 @@ public class WebHelper extends SdkHelper {
   }
 
   public static boolean isDesktop() {
-    return !getEnvironmentHelper().isMobileAndroid()
-        && !getEnvironmentHelper().isMobileIOS()
+    return !SdkHelper.getEnvironmentHelper().isMobileAndroid()
+        && !SdkHelper.getEnvironmentHelper().isMobileIOS()
         && !getDriverConfig().contains("mobile");
   }
 
@@ -50,6 +50,6 @@ public class WebHelper extends SdkHelper {
   }
 
   public static boolean isMobile() {
-    return getEnvironmentHelper().isMobileAndroid() || getEnvironmentHelper().isMobileIOS();
+    return SdkHelper.getEnvironmentHelper().isMobileAndroid() || SdkHelper.getEnvironmentHelper().isMobileIOS();
   }
 }

@@ -5,6 +5,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.Text;
 
 @Implementation(is = PeetsCardSettingsView.class, on = Platform.MOBILE_ANDROID)
@@ -39,6 +40,6 @@ public class PeetsCardSettingsView extends BaseComponent {
   public PaymentMethodsView clickBackButton() {
     logger.info("Click Back Button");
     getBackButton.click();
-    return this.create(PaymentMethodsView.class);
+    return SdkHelper.create(PaymentMethodsView.class);
   }
 }

@@ -13,11 +13,12 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.*;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
+import com.applause.auto.framework.SdkHelper;
 import io.appium.java_client.touch.offset.PointOption;
 
 @Implementation(is = AndroidCreateAccountView.class, on = Platform.MOBILE_ANDROID)
@@ -150,13 +151,13 @@ public class CreateAccountView extends BaseComponent {
 	 */
 	public PrivacyPolicyView privacyPolicy() {
 		logger.info("Tap on Privacy Policy");
-		getSyncHelper().sleep(5000);
+		SdkHelper.getSyncHelper().sleep(5000);
 		getPrivacyPolicyButton.click();
-		getSyncHelper().sleep(10000);
+		SdkHelper.getSyncHelper().sleep(10000);
 		MobileHelper.initMobileBrowser();
 		// wait till the page load, before it ios is not switched back to app
-		getSyncHelper().sleep(10000);
-		return this.create(PrivacyPolicyView.class);
+		SdkHelper.getSyncHelper().sleep(10000);
+		return SdkHelper.create(PrivacyPolicyView.class);
 	}
 
 	/**
@@ -167,8 +168,8 @@ public class CreateAccountView extends BaseComponent {
 	public TermsAndConditionsView termsAndConditions() {
 		logger.info("Tap on Terms and Conditions");
 		getTermsAndConditionsButton.click();
-		getSyncHelper().sleep(10000);
-		return this.create(TermsAndConditionsView.class);
+		SdkHelper.getSyncHelper().sleep(10000);
+		return SdkHelper.create(TermsAndConditionsView.class);
 	}
 
 	/**
@@ -245,7 +246,7 @@ public class CreateAccountView extends BaseComponent {
 		Picker monthPicker = getDOBMonthPicker;
 		logger.info("Day picker exist:" + dayPicker.exists());
 		logger.info("Day picker visible:" + dayPicker.isDisplayed());
-		// getSyncHelper().wait(Until.uiElement(getDOBDayPicker).visible());
+		// SdkHelper.getSyncHelper().wait(Until.uiElement(getDOBDayPicker).visible());
 
 		logger.info("day picker keep: " + dayPicker.getAttributeValue("value"));
 		try {
@@ -256,7 +257,7 @@ public class CreateAccountView extends BaseComponent {
 			monthPicker = getDOBDayPicker;
 		}
 
-		getSyncHelper().sleep(500);
+		SdkHelper.getSyncHelper().sleep(500);
 		MobileHelper.setPickerValueBasic(month, monthPicker, "next");
 		MobileHelper.setPickerValueBasic(day, dayPicker, "next");
 		MobileHelper.setPickerValueReverse(year, getDOBYearPicker);
@@ -287,7 +288,7 @@ public class CreateAccountView extends BaseComponent {
 	 */
 	public CreateAccountView setConfirmEmailAddress(String emailAddress) {
 		logger.info("Set email address to: " + emailAddress);
-		getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+		SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
 		getConfirmEmailAddressTextBox.clearText();
 		getConfirmEmailAddressTextBox.sendKeys(emailAddress + "\n");
 		return this;
@@ -302,7 +303,7 @@ public class CreateAccountView extends BaseComponent {
 	 */
 	public CreateAccountView setPassword(String password) {
 		logger.info("Set password to: " + password);
-		getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+		SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
 		getHiddenPasswordTextBox.clearText();
 		getHiddenPasswordTextBox.sendKeys(password + "\n");
 		return this;
@@ -333,14 +334,14 @@ public class CreateAccountView extends BaseComponent {
 		logger.info("Set promo to: " + promo);
 		getPromoCodeTextBox.clearText();
 		getPromoCodeTextBox.sendKeys(promo + "\n");
-		getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+		SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
 		return this;
 	}
 
 	/**
-	 * Show password create account view.
+	 * Show password SdkHelper.create account view.
 	 *
-	 * @return the create account view
+	 * @return the SdkHelper.create account view
 	 */
 	public CreateAccountView showPassword() {
 		logger.info("Click to show password");
@@ -349,9 +350,9 @@ public class CreateAccountView extends BaseComponent {
 	}
 
 	/**
-	 * Hide password create account view.
+	 * Hide password SdkHelper.create account view.
 	 *
-	 * @return the create account view
+	 * @return the SdkHelper.create account view
 	 */
 	public CreateAccountView hidePassword() {
 		logger.info("Click to hide password");
@@ -363,7 +364,7 @@ public class CreateAccountView extends BaseComponent {
 	public void checkPrivacyPolicyAndTermsAndConditions() {
 		logger.info("Click on Privacy Policy button");
 		MobileHelper.hideKeyboardIOSByPressDone();
-		getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+		SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
 		getAgreePrivacyPolicyAndTermsAndConditions.click();
 	}
 
@@ -375,11 +376,11 @@ public class CreateAccountView extends BaseComponent {
 	public DashboardView createAccount() {
 		logger.info("Create account");
 		getCreateAccountButton.click();
-		// wait while dashboard view will be created and loaded (10s!!)
+		// wait while dashboard view will be SdkHelper.created and loaded (10s!!)
 		// temp case while waiter below is not working properly
 
-		getSyncHelper().sleep(26000);
-		return this.create(DashboardView.class);
+		SdkHelper.getSyncHelper().sleep(26000);
+		return SdkHelper.create(DashboardView.class);
 	}
 
 	/**
@@ -456,7 +457,7 @@ public class CreateAccountView extends BaseComponent {
 	}
 
 	/**
-	 * Is create account button enabled boolean.
+	 * Is SdkHelper.create account button enabled boolean.
 	 *
 	 * @return the boolean
 	 */
@@ -476,10 +477,10 @@ public class CreateAccountView extends BaseComponent {
 	 * @return the boolean
 	 */
 	public boolean isPrivacyPolicyAndTermsAndConditionsChecked() {
-		getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
-		getSyncHelper().sleep(1000);
-		getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
-		getSyncHelper().sleep(1000);
+		SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+		SdkHelper.getSyncHelper().sleep(1000);
+		SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+		SdkHelper.getSyncHelper().sleep(1000);
 		return MobileHelper.isIosCheckboxChecked(getAgreePrivacyPolicyAndTermsAndConditions.getMobileElement());
 	}
 
@@ -566,11 +567,11 @@ class AndroidCreateAccountView extends CreateAccountView {
 	@Override
 	public DashboardView createAccount() {
 		logger.info("Create account");
-		getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+		SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
 		getCreateAccountButton.click();
-		getSyncHelper().wait(Until.uiElement(getCreateAccountButton).notPresent());
-		getSyncHelper().sleep(10000);
-		return this.create(DashboardView.class);
+		SdkHelper.getSyncHelper().wait(Until.uiElement(getCreateAccountButton).notPresent());
+		SdkHelper.getSyncHelper().sleep(10000);
+		return SdkHelper.create(DashboardView.class);
 	}
 
 	@Override
@@ -583,7 +584,7 @@ class AndroidCreateAccountView extends CreateAccountView {
 		MobileHelper.tapOnElementWithOffset(getTermsAndConditionsButton, size.getWidth() / 3, 0);
 		// logger.info("Tap on Terms and Conditions");
 		// getTermsAndConditionsButton.click();
-		return this.create(AndroidTermsAndConditionsView.class);
+		return SdkHelper.create(AndroidTermsAndConditionsView.class);
 	}
 
 	@Override
@@ -592,7 +593,7 @@ class AndroidCreateAccountView extends CreateAccountView {
 		getDOBValueTextBox.click();
 		Picker dayPicker = getDOBDayPicker;
 		Picker monthPicker = getDOBMonthPicker;
-		// getSyncHelper().wait(Until.uiElement(getDOBDayPicker).visible());
+		// SdkHelper.getSyncHelper().wait(Until.uiElement(getDOBDayPicker).visible());
 		logger.info("Day picker exist:" + dayPicker.exists());
 		logger.info("Day picker visible:" + dayPicker.isDisplayed());
 		String dataSource;
@@ -614,10 +615,10 @@ class AndroidCreateAccountView extends CreateAccountView {
 		MobileHelper.setPickerValueBasic(day, dayPicker, "next");
 		MobileHelper.setPickerValueBasic(month.substring(0, 3), monthPicker, "next");
 		MobileHelper.setPickerValueReverse(year, getDOBYearPicker);
-		// getDeviceControl().hideKeyboard();
+		// SdkHelper.getDeviceControl().hideKeyboard();
 		getDOBOkButton.click();
 
-		return this.create(CreateAccountView.class);
+		return SdkHelper.create(CreateAccountView.class);
 	}
 
 	@Override
@@ -627,7 +628,7 @@ class AndroidCreateAccountView extends CreateAccountView {
 		int x = element.getCenter().getX();
 		int y = element.getCenter().getY();
 		int width = element.getSize().getWidth();
-		AppiumDriver driver = (AppiumDriver) getDriver();
+		AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
 		(new TouchAction(driver)).tap(PointOption.point(x + width / 2 - 5, y)).perform();
 		return this;
 	}
@@ -639,7 +640,7 @@ class AndroidCreateAccountView extends CreateAccountView {
 		int x = element.getCenter().getX();
 		int y = element.getCenter().getY();
 		int width = element.getSize().getWidth();
-		AppiumDriver driver = (AppiumDriver) getDriver();
+		AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
 		(new TouchAction(driver)).tap(PointOption.point(x + width / 2 - 5, y)).perform();
 		return this;
 	}
@@ -651,7 +652,7 @@ class AndroidCreateAccountView extends CreateAccountView {
 
 	@Override
 	public boolean isPrivacyPolicyAndTermsAndConditionsChecked() {
-		getSyncHelper().sleep(1000);
+		SdkHelper.getSyncHelper().sleep(1000);
 		MobileHelper.swipeWithCount(SwipeDirection.UP, 2);
 		return getAgreePrivacyPolicyAndTermsAndConditions.getAttributeValue("checked").equals("true");
 	}
@@ -671,7 +672,7 @@ class AndroidCreateAccountView extends CreateAccountView {
 		logger.info("Set promo to: " + promo);
 		getPromoCodeTextBox.clearText();
 		getPromoCodeTextBox.sendKeys(promo);
-		getDeviceControl().hideKeyboard();
+		SdkHelper.getDeviceControl().hideKeyboard();
 		return this;
 	}
 
@@ -679,7 +680,7 @@ class AndroidCreateAccountView extends CreateAccountView {
 		logger.info("Set password to: " + password);
 		getHiddenPasswordTextBox.clearText();
 		getHiddenPasswordTextBox.sendKeys(password);
-		getDeviceControl().hideKeyboard();
+		SdkHelper.getDeviceControl().hideKeyboard();
 		return this;
 	}
 
@@ -687,7 +688,7 @@ class AndroidCreateAccountView extends CreateAccountView {
 		logger.info("Set confirmation password to: " + password);
 		getConfirmPasswordTextBox.clearText();
 		getConfirmPasswordTextBox.sendKeys(password);
-		getDeviceControl().hideKeyboard();
+		SdkHelper.getDeviceControl().hideKeyboard();
 		return this;
 	}
 
@@ -695,7 +696,7 @@ class AndroidCreateAccountView extends CreateAccountView {
 		logger.info("Set phone number to: " + phone);
 		getPhoneNumberTextBox.clearText();
 		getPhoneNumberTextBox.sendKeys(phone);
-		getDeviceControl().hideKeyboard();
+		SdkHelper.getDeviceControl().hideKeyboard();
 		return this;
 	}
 
@@ -703,16 +704,16 @@ class AndroidCreateAccountView extends CreateAccountView {
 		logger.info("Set email address to: " + emailAddress);
 		getEmailAddressTextBox.clearText();
 		getEmailAddressTextBox.sendKeys(emailAddress);
-		getDeviceControl().hideKeyboard();
+		SdkHelper.getDeviceControl().hideKeyboard();
 		return this;
 	}
 
 	public CreateAccountView setConfirmEmailAddress(String emailAddress) {
 		logger.info("Set email address to: " + emailAddress);
-		getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+		SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
 		getConfirmEmailAddressTextBox.clearText();
 		getConfirmEmailAddressTextBox.sendKeys(emailAddress);
-		getDeviceControl().hideKeyboard();
+		SdkHelper.getDeviceControl().hideKeyboard();
 		return this;
 	}
 
@@ -720,7 +721,7 @@ class AndroidCreateAccountView extends CreateAccountView {
 		logger.info("Checking password text displayed");
 		getHiddenPasswordTextBox.click();
 		getHiddenPasswordTextBox.sendKeys("A");
-		getDeviceControl().hideKeyboard();
+		SdkHelper.getDeviceControl().hideKeyboard();
 		String pHint = getPasswordHintTextBox.stream().map(item -> {
 			String i = item.getText();
 			logger.info("Password hint = " + i);
@@ -740,7 +741,7 @@ class AndroidCreateAccountView extends CreateAccountView {
 	@Override
 	public void checkPrivacyPolicyAndTermsAndConditions() {
 		logger.info("Click on Privacy Policy button");
-		getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+		SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
 		getAgreePrivacyPolicyAndTermsAndConditions.click();
 	}
 }

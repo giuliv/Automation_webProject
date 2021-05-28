@@ -5,6 +5,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.Text;
 
 @Implementation(is = SweetenersView.class, on = Platform.MOBILE_ANDROID)
@@ -40,6 +41,6 @@ public class SweetenersView extends BaseComponent {
 
 	public <T extends BaseComponent> T saveChanges(Class<T> clazz) {
 		saveChangesButton.click();
-		return this.create(clazz);
+		return SdkHelper.create(clazz);
 	}
 }

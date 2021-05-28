@@ -1,7 +1,7 @@
 package com.applause.auto.test.web;
 
 import com.applause.auto.common.data.Constants;
-import com.applause.auto.integrations.helpers.SdkHelper;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.web.components.MiniCartContainerChunk;
 import com.applause.auto.web.components.VerifyYourAddressDetailsChunk;
 import com.applause.auto.web.helpers.WebHelper;
@@ -519,15 +519,15 @@ public class MyAccountTest extends BaseTest {
     logger.info("Order Placed: " + confirmationPage.getOrderNumber());
 
     logger.info(
-        "On Order confirmation page, create a new account for new customers. Enter email address, password, confirm password. ");
+        "On Order confirmation page, SdkHelper.create a new account for new customers. Enter email address, password, confirm password. ");
     confirmationPage.enterPassword(Constants.MyAccountTestData.PASSWORD);
     confirmationPage.enterConfirmPassword(Constants.MyAccountTestData.PASSWORD);
 
     logger.info("Select Create Account");
     MyAccountPage myAccountPage = confirmationPage.createAccount();
 
-    logger.info("Verify account was created");
-    Assert.assertNotNull(myAccountPage, "My Account page not found, account does not created");
+    logger.info("Verify account was SdkHelper.created");
+    Assert.assertNotNull(myAccountPage, "My Account page not found, account does not SdkHelper.created");
   }
 
   @Test(

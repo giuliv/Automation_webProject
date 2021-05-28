@@ -7,7 +7,8 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.framework.SdkHelper;
 import java.time.Duration;
 
 @Implementation(is = AndroidOrderView.class, on = Platform.MOBILE_ANDROID)
@@ -50,7 +51,7 @@ public class OrderView extends BaseComponent {
   @Override
   public void afterInit() {
     try {
-      getSyncHelper()
+      SdkHelper.getSyncHelper()
           .wait(Until.uiElement(noThanksButton).present().setTimeout(Duration.ofSeconds(10)));
       noThanksButton.click();
     } catch (Throwable nse) {
@@ -59,7 +60,7 @@ public class OrderView extends BaseComponent {
   }
 
   public OrderMenuChunk getOrderMenuChunck() {
-    return this.create(OrderMenuChunk.class);
+    return SdkHelper.create(OrderMenuChunk.class);
   }
 
   /**
@@ -88,7 +89,7 @@ public class OrderView extends BaseComponent {
   public <T extends BaseComponent> T locateCoffeebars(Class<T> clazz) {
     logger.info("Tap to locate Coffeebars");
     getLocateCoffeeBars.click();
-    return this.create(clazz);
+    return SdkHelper.create(clazz);
   }
 
   /**
@@ -102,7 +103,7 @@ public class OrderView extends BaseComponent {
 
   public <T extends BaseComponent> T back(Class<T> clazz) {
     backButton.click();
-    return this.create(clazz);
+    return SdkHelper.create(clazz);
   }
 }
 

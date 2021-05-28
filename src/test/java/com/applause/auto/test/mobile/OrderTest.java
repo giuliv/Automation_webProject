@@ -5,7 +5,7 @@ import static com.applause.auto.test.mobile.helpers.TestHelper.openOrderMenuForR
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.integrations.annotation.testidentification.ApplauseTestCaseId;
+import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
 import com.applause.auto.mobile.components.CoffeeStoreItemChuck;
@@ -18,6 +18,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import com.applause.auto.framework.SdkHelper;
 import org.testng.asserts.SoftAssert;
 
 public class OrderTest extends BaseTest {
@@ -33,7 +34,7 @@ public class OrderTest extends BaseTest {
   @ApplauseTestCaseId({"674196", "674195"})
   public void locationServicesNotEnabled() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
 
     // since autoGrantPermissions are set to true in capabilities, we have to deny location in this
     // test method to get Allow location pop up
@@ -130,7 +131,7 @@ public class OrderTest extends BaseTest {
   @ApplauseTestCaseId({"674198", "674197"})
   public void browseTheMenu() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
             landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
@@ -145,7 +146,7 @@ public class OrderTest extends BaseTest {
 
     logger.info("Checking if Allow Location Services Popup is displayed");
     AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
-        this.create(AllowLocationServicesPopupChunk.class);
+        SdkHelper.create(AllowLocationServicesPopupChunk.class);
     if (allowLocationServicesPopupChunk.isNotNowButtonDisplayed()) {
       logger.info("Allow Location Services Popup displayed");
       // TODO: allowing location services is not working for iOS, so skipping for now
@@ -264,7 +265,7 @@ public class OrderTest extends BaseTest {
   @ApplauseTestCaseId({"674214", "674213"})
   public void checkoutTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
             landingView,
@@ -315,7 +316,7 @@ public class OrderTest extends BaseTest {
   @ApplauseTestCaseId({"674356", "674355"})
   public void orderAhead() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
             landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
@@ -375,11 +376,11 @@ public class OrderTest extends BaseTest {
             + "User has no favorite orders");
 
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     DashboardView dashboardView = testHelper.createNewAccountWithDefaults(landingView);
 
     NewOrderView order;
-    if (getEnvironmentHelper().isMobileIOS()) {
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
       logger.info("Tap on store locator icon in top right corner");
       NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
           dashboardView.location(AllowLocationServicesPopupChunk.class).allowIfRequestDisplayed();
@@ -468,7 +469,7 @@ public class OrderTest extends BaseTest {
             + "User has no recent orders\n"
             + "User has no favorite orders\n"
             + "Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     DashboardView dashboardView = testHelper.createNewAccountWithDefaults(landingView);
 
     logger.info("STEP 1. Tap on store locator icon in top right corner");
@@ -509,7 +510,7 @@ public class OrderTest extends BaseTest {
     Assert.assertTrue(
         nearbySelectCoffeeBarView.isFavoritesTabDisplayed(), "Favorites does not displayed");
 
-    // if (getEnvironmentHelper().isMobileIOS()) {
+    // if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
     logger.info("STEP - Search for any store either by nearby, recent tabs, or by zip code");
     nearbySelectCoffeeBarView.search("78717");
     // }
@@ -522,7 +523,7 @@ public class OrderTest extends BaseTest {
 
     Assert.assertFalse(storeName.isEmpty(), "Store name is empty");
 
-    if (!getEnvironmentHelper().isMobileIOS()) {
+    if (!SdkHelper.getEnvironmentHelper().isMobileIOS()) {
       // Todo: ask Peets, only works for android flow
       Assert.assertTrue(store.isCoffeebarDistanceDisplayed(), "Distance  does not displayed");
     }
@@ -627,7 +628,7 @@ public class OrderTest extends BaseTest {
             + "User is on main order screen and pickup order mode is default selected\n"
             + "User has no items in basket"
             + "peets_order_beverages_ios@gmail.com/P@ssword1!");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     Constants.UserTestData account = MyAccountTestData.CHECKOUT_ACCOUNT;
     DashboardView dashboardView =
         testHelper.signIn(
@@ -712,7 +713,7 @@ public class OrderTest extends BaseTest {
         "User is already signed in to app\n"
             + "User is on main order screen and pickup order mode is default selected\n"
             + "User continues this test case from previous test case (so user will have items added to order already)");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     Constants.UserTestData account = MyAccountTestData.CHECKOUT_ACCOUNT;
     DashboardView dashboardView =
         testHelper.signIn(
@@ -788,7 +789,7 @@ public class OrderTest extends BaseTest {
             + "User is on the checkout screen\n"
             + "User continues this test case from previous test case (so user will have items added to order already)");
 
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     Constants.UserTestData account = MyAccountTestData.CHECKOUT_ACCOUNT;
     DashboardView dashboardView =
         testHelper.signIn(
@@ -851,7 +852,7 @@ public class OrderTest extends BaseTest {
     Assert.assertNotEquals(
         oldTotal, checkoutView.getOrderTotal(), "Order total does not reflected on item update");
 
-    if (getEnvironmentHelper().isMobileIOS()) {
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
       logger.info(
           "STEP 4. To delete item(s) from your order:\n"
               + "THIS FLOW APPLICABLE ONLY ON IOS:\n"
@@ -868,7 +869,7 @@ public class OrderTest extends BaseTest {
           "Product Mapple latte seems does not removed");
     }
 
-    if (getEnvironmentHelper().isMobileIOS()) {
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
 
       logger.info(
           "STEP 6. To delete item(s) from your order::\n"

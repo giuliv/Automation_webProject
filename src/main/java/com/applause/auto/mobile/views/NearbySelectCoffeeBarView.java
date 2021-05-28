@@ -11,9 +11,10 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.AppiumDriver;
+import com.applause.auto.framework.SdkHelper;
 import java.time.Duration;
 
 /** The type Nearby select coffee bar view. */
@@ -143,7 +144,7 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   public void afterInit() {
     try {
       logger.info("Click 'No Thanks' popUp, if displayed");
-      getSyncHelper()
+      SdkHelper.getSyncHelper()
           .wait(
               Until.uiElement(dismissFreeDeliveryButton)
                   .present()
@@ -154,10 +155,10 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
     }
 
     try {
-      getSyncHelper()
+      SdkHelper.getSyncHelper()
           .wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
     } catch (Throwable throwable) {
-      getSyncHelper()
+      SdkHelper.getSyncHelper()
           .wait(
               Until.uiElement(getSignatureForFindCoffee)
                   .present()
@@ -172,7 +173,7 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
    * @return the coffee store container chuck
    */
   public CoffeeStoreContainerChuck getCoffeeStoreContainerChuck() {
-    return this.create(CoffeeStoreContainerChuck.class);
+    return SdkHelper.create(CoffeeStoreContainerChuck.class);
   }
 
   /**
@@ -191,11 +192,11 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
    */
   public NearbySelectCoffeeBarView search(String searchTxt) {
     logger.info("Searching for store: " + searchTxt);
-    logger.info("" + getDriver().getPageSource());
+    logger.info("" + SdkHelper.getDriver().getPageSource());
     getSearchTextBox.click();
     getSearchTextBox.initialize();
     getSearchTextBox.sendKeys(searchTxt + "\n");
-    return this.create(NearbySelectCoffeeBarView.class);
+    return SdkHelper.create(NearbySelectCoffeeBarView.class);
   }
 
   /** Allow Location Service. */
@@ -203,7 +204,7 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
     logger.info("Allow Location Services");
     try {
       getLocationServicesAllowBtn.click();
-      getSyncHelper().sleep(2000);
+      SdkHelper.getSyncHelper().sleep(2000);
       allowWhileUsing.click();
     } catch (Throwable throwable) {
       logger.error("Could not Allow for Location Service");
@@ -217,9 +218,9 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
    */
   public FindACoffeeBarView openRecentTab() {
     logger.info("Tap on Recent Tab");
-    getSyncHelper().sleep(5000);
+    SdkHelper.getSyncHelper().sleep(5000);
     recentTab.click();
-    return this.create(FindACoffeeBarView.class);
+    return SdkHelper.create(FindACoffeeBarView.class);
   }
 
   /**
@@ -229,9 +230,9 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
    */
   public FindACoffeeBarView openFavoritesTab() {
     logger.info("Tap on Favorites Tab");
-    getSyncHelper().sleep(5000);
+    SdkHelper.getSyncHelper().sleep(5000);
     favoritesTab.click();
-    return this.create(FindACoffeeBarView.class);
+    return SdkHelper.create(FindACoffeeBarView.class);
   }
 
   /** Cancel search. */
@@ -325,7 +326,7 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   public <T extends BaseComponent> T location(Class<T> clazz) {
     logger.info("Click on store location button");
     mapLocationButton.click();
-    return this.create(clazz);
+    return SdkHelper.create(clazz);
   }
 
   /**
@@ -348,13 +349,13 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   public <T extends BaseComponent> T close(Class<T> clazz) {
     logger.info("Click <Close> button");
     closeButton.click();
-    return this.create(clazz);
+    return SdkHelper.create(clazz);
   }
 
   public NewOrderView openDefault() {
     logger.info("Open default store");
     orderButton.click();
-    return this.create(NewOrderView.class);
+    return SdkHelper.create(NewOrderView.class);
   }
 }
 
@@ -373,13 +374,13 @@ class AndroidNearbySelectCoffeeBarView extends NearbySelectCoffeeBarView {
   public NearbySelectCoffeeBarView search(String searchTxt) {
     logger.info("Searching for store: " + searchTxt);
     getSearchTextBox.click();
-    getSyncHelper()
+    SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getSearchTextBoxEdit).present().setTimeout(Duration.ofSeconds(3)));
     getSearchTextBoxEdit.sendKeys(searchTxt);
-    getSyncHelper().sleep(2000);
-    AppiumDriver driver = (AppiumDriver) getDriver();
+    SdkHelper.getSyncHelper().sleep(2000);
+    AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
     driver.executeScript("mobile: performEditorAction", ImmutableMap.of("action", "search"));
-    getSyncHelper().sleep(7000);
-    return this.create(NearbySelectCoffeeBarView.class);
+    SdkHelper.getSyncHelper().sleep(7000);
+    return SdkHelper.create(NearbySelectCoffeeBarView.class);
   }
 }

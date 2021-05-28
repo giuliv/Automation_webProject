@@ -8,7 +8,8 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.web.components.MiniCartContainerChunk;
 
 @Implementation(is = EquipmentProductPage.class, on = Platform.WEB)
@@ -43,15 +44,15 @@ public class EquipmentProductPage extends BaseComponent {
    */
   public MiniCartContainerChunk clickAddToCart() {
     logger.info("Tap on Shop Coffee Button");
-    getSyncHelper().sleep(5000);
+    SdkHelper.getSyncHelper().sleep(5000);
     getAddToCartButton.click();
-    return this.create(MiniCartContainerChunk.class);
+    return SdkHelper.create(MiniCartContainerChunk.class);
   }
 
   /** Wait for load spinner */
   public void waitForAddingToCartSpinner() {
     logger.info("Checkout loading-spinner...");
-    getSyncHelper().wait(Until.uiElement(getAddingToCartSpinner).present());
-    getSyncHelper().wait(Until.uiElement(getAddingToCartSpinner).notPresent());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getAddingToCartSpinner).present());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getAddingToCartSpinner).notPresent());
   }
 }
