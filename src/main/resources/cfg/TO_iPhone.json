@@ -20,7 +20,10 @@
 	"appiumVersion": "1.20.1",
 	"testobject_appium_version": "1.20.1",
 	"orientation": "PORTRAIT",
+	"maxDuration": 2700,
+	"systemAlertsDelayEnabled": true,
+	"fullReset": true,
 	"region": "US",
-	"phoneOnly": "true",
-	"privateDevicesOnly": "false"
+	"idleTimeout": 180,
+	"useFirstMatch": true
 }
