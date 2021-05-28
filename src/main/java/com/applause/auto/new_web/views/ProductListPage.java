@@ -2,12 +2,12 @@ package com.applause.auto.new_web.views;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
-import com.applause.auto.helpers.sync.Until;
 
 import java.util.List;
 
@@ -21,13 +21,16 @@ public class ProductListPage extends Base {
   @Locate(css = ".collection__grid article", on = Platform.WEB)
   private List<ContainerElement> productList;
 
-  @Locate(css = ".collection__grid article, .collection__grid li img", on = Platform.WEB)
+  //  @Locate(
+  //      css = ".collection__grid article, .collection__grid li img",
+  //      on = Platform.WEB) // Both [shopify/peets]
+  @Locate(css = ".collection__grid li img", on = Platform.WEB)
   private List<Image> productsImageList;
 
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
-    logger.info("Products List Page URL: " + SdkHelper.getDriver().getCurrentUrl());
+    logger.info("Products List Page URL: " + getDriver().getCurrentUrl());
   }
 
   /* -------- Actions -------- */

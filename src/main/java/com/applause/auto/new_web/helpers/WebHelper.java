@@ -1,8 +1,9 @@
 package com.applause.auto.new_web.helpers;
 
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
-import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
@@ -50,6 +51,23 @@ public class WebHelper {
   }
 
   public static boolean isMobile() {
-    return SdkHelper.getEnvironmentHelper().isMobileAndroid() || SdkHelper.getEnvironmentHelper().isMobileIOS();
+    return SdkHelper.getEnvironmentHelper().isMobileAndroid()
+        || SdkHelper.getEnvironmentHelper().isMobileIOS();
+  }
+
+  public static void switchToIFrame(BaseElement frame) {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(frame).present());
+    SdkHelper.getDriver().switchTo().frame(frame.getWebElement());
+    SdkHelper.getSyncHelper().sleep(3000); // Wait until iFrame is ready
+  }
+
+  public static void switchToIFrameAndSetData(BaseElement frame, TextBox element, String data) {
+    switchToIFrame(frame);
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(element).clickable());
+    element.sendKeys(data);
+
+    SdkHelper.getDriver().switchTo().defaultContent();
+    SdkHelper.getSyncHelper().sleep(3000); // Waits for iFrame switch ends
   }
 }

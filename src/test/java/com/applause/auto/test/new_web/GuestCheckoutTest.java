@@ -3,11 +3,7 @@ package com.applause.auto.test.new_web;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.MiniCart;
-import com.applause.auto.new_web.views.CheckOutPage;
-import com.applause.auto.new_web.views.HomePage;
-import com.applause.auto.new_web.views.ProductDetailsPage;
-import com.applause.auto.new_web.views.ProductListPage;
-import com.applause.auto.test.new_web.BaseTest;
+import com.applause.auto.new_web.views.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -28,7 +24,7 @@ public class GuestCheckoutTest extends BaseTest {
             ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEST_SELLERS);
 
     logger.info("3. Add first item to MiniCart");
-    int productSelected = 0;
+    int productSelected = 3;
     ProductDetailsPage productDetailsPage =
         productListPage.clickOverProductByIndex(productSelected);
 
@@ -46,8 +42,22 @@ public class GuestCheckoutTest extends BaseTest {
         miniCart.getProductQuantity(),
         "Correct product quantity was not added to MiniCart");
 
-    logger.info("4. Select 'Proceed to Checkout'");
+    logger.info("4. Proceed to Checkout page");
     CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
+    checkOutPage.setCheckOutData();
+
+    logger.info("5. Proceed to Shipping page");
+    ShippingPage shippingPage = checkOutPage.clickContinueToShipping();
+    shippingPage.selectShippingMethodByIndex(0);
+
+    logger.info("6. Proceed to Payments page");
+    PaymentsPage paymentsPage = shippingPage.clickContinueToPayments();
+    paymentsPage.setPaymentData();
+    Assert.assertTrue(
+        paymentsPage.isSameAddressSelected(), "Same Address option should be Selected");
+
+    logger.info("6. Proceed to Acceptance page");
+    AcceptancePage acceptancePage = paymentsPage.clickContinueToPayments();
 
     logger.info("FINISH");
   }
