@@ -7,7 +7,7 @@ import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.TestDataUtils;
-import com.applause.auto.integrations.annotation.testidentification.ApplauseTestCaseId;
+import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountChunk;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountWarningChunk;
@@ -18,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
+import com.applause.auto.framework.SdkHelper;
 import org.testng.annotations.Test;
 
 public class PeetsCardsTest extends BaseTest {
@@ -30,7 +31,7 @@ public class PeetsCardsTest extends BaseTest {
   @ApplauseTestCaseId({"674486", "674485"})
   public void addValueToNewDigitalCard25SavedCC() throws ParseException {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
 
     DashboardView dashboardView = testHelper.createNewAccountWithDefaults(landingView);
     Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
@@ -41,7 +42,7 @@ public class PeetsCardsTest extends BaseTest {
     logger.info("Tap on Payment Methods field/row");
     PaymentMethodsView paymentMethodsView = accountProfileMenu.clickPaymentMethods();
 
-    // Disabled because new account created
+    // Disabled because new account SdkHelper.created
     // paymentMethodsView =
     // testHelper.deletePaymentMethodTestCardIfAdded(paymentMethodsView, CC_MASTER_NAME);
 
@@ -127,7 +128,7 @@ public class PeetsCardsTest extends BaseTest {
   @ApplauseTestCaseId({"674378", "674377"})
   public void reloadDigitalCard25SavedCC() throws ParseException {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
 
     // DashboardView dashboardView =
     // testHelper.signIn(
@@ -212,7 +213,7 @@ public class PeetsCardsTest extends BaseTest {
   @ApplauseTestCaseId({"674488", "674487"})
   public void negativeTestTransferBalance() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
 
     DashboardView dashboardView =
         testHelper.signIn(

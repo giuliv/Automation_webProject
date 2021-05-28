@@ -6,6 +6,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.web.components.MiniCartContainerChunk;
 
 @Implementation(is = TopSellersTeaPage.class, on = Platform.WEB)
@@ -36,6 +37,6 @@ public class TopSellersTeaPage extends BaseComponent {
     getAddProductToCartButton.click();
     getAddProductToCart2Button.initializeWithFormat(productName);
     getAddProductToCart2Button.click();
-    return this.create(MiniCartContainerChunk.class);
+    return SdkHelper.create(MiniCartContainerChunk.class);
   }
 }

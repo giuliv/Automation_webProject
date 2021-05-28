@@ -13,13 +13,14 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
+import com.applause.auto.framework.SdkHelper;
 import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = AndroidCheckoutView.class, on = Platform.MOBILE_ANDROID)
@@ -151,9 +152,9 @@ public class CheckoutView extends BaseComponent {
 
   @Override
   public void afterInit() {
-    logger.info(">>>>>>" + ((AppiumDriver) getDriver()).getContextHandles());
-    getSyncHelper().sleep(10000);
-    logger.info(">>>>>>" + ((AppiumDriver) getDriver()).getContextHandles());
+    logger.info(">>>>>>" + ((AppiumDriver) SdkHelper.getDriver()).getContextHandles());
+    SdkHelper.getSyncHelper().sleep(10000);
+    logger.info(">>>>>>" + ((AppiumDriver) SdkHelper.getDriver()).getContextHandles());
   }
 
   /* -------- Actions -------- */
@@ -169,7 +170,7 @@ public class CheckoutView extends BaseComponent {
     logger.info("Tap place order");
     MobileHelper.scrollDownHalfScreen(2);
     getPlaceOrderButton.click();
-    return this.create(clazz);
+    return SdkHelper.create(clazz);
   }
 
   /**
@@ -179,7 +180,7 @@ public class CheckoutView extends BaseComponent {
    */
   public CheckoutView clickOnAwardItem(String awardText) {
     logger.info("Selecting reward: " + awardText);
-    getSyncHelper().sleep(3000);
+    SdkHelper.getSyncHelper().sleep(3000);
     MobileHelper.swipeAcrossScreenCoordinates(0.5, 0.8, 0.5, 0.5, 100);
 
     boolean areAvailableRewardsDisplayed;
@@ -199,12 +200,12 @@ public class CheckoutView extends BaseComponent {
                   new IllegalStateException(
                       String.format("Award starting with %s was not found", awardText)))
           .click();
-      getSyncHelper().waitUntil(condition -> radeemButton.isEnabled());
+      SdkHelper.getSyncHelper().waitUntil(condition -> radeemButton.isEnabled());
       radeemButton.click();
-      getSyncHelper().sleep(5000);
+      SdkHelper.getSyncHelper().sleep(5000);
     }
 
-    return this.create(CheckoutView.class);
+    return SdkHelper.create(CheckoutView.class);
   }
 
   /** Click on you might also like item. */
@@ -215,7 +216,7 @@ public class CheckoutView extends BaseComponent {
     }
     youMightAlsoLikeProducts.get(0).click();
 
-    return this.create(ProductDetailsView.class);
+    return SdkHelper.create(ProductDetailsView.class);
   }
 
   /**
@@ -251,19 +252,19 @@ public class CheckoutView extends BaseComponent {
   private void waitForRewardIsNotValid() {
     logger.info("Waiting for 'reward not valid' message");
     try {
-      getSyncHelper().waitUntil(condition -> selectedRewardIsNotValid.isEnabled());
+      SdkHelper.getSyncHelper().waitUntil(condition -> selectedRewardIsNotValid.isEnabled());
       logger.info("'reward not valid' message appeared");
-      getSyncHelper().sleep(1000);
+      SdkHelper.getSyncHelper().sleep(1000);
       okayPopUpButton.click();
-      getDeviceControl().tapElementCenter(okayPopUpButton);
+      SdkHelper.getDeviceControl().tapElementCenter(okayPopUpButton);
     } catch (Exception e) {
       logger.info("'reward not valid' message didn't appear");
     }
-    getSyncHelper().sleep(1000);
+    SdkHelper.getSyncHelper().sleep(1000);
   }
 
   public ItemOptions getItemOptions(String itemName) {
-    ((IOSDriver) getDriver()).setSetting("snapshotMaxDepth", 99);
+    ((IOSDriver) SdkHelper.getDriver()).setSetting("snapshotMaxDepth", 99);
     MobileHelper.scrollElementIntoView(itemOptionsText.format(itemName));
     itemOptionsList.format(itemName).initialize();
     itemOptionsList
@@ -276,7 +277,7 @@ public class CheckoutView extends BaseComponent {
   }
 
   public CheckoutView refreshView() {
-    return this.create(CheckoutView.class);
+    return SdkHelper.create(CheckoutView.class);
   }
 
   /**
@@ -286,7 +287,7 @@ public class CheckoutView extends BaseComponent {
    */
   public NewOrderView close() {
     closeButton.click();
-    return this.create(NewOrderView.class);
+    return SdkHelper.create(NewOrderView.class);
   }
 
   /**
@@ -308,10 +309,10 @@ public class CheckoutView extends BaseComponent {
     }
     while (attempt-- > 0 && !productItemElement.exists()) {
       MobileHelper.scrollDownCloseToMiddleAlgorithm();
-      getSyncHelper().sleep(1000);
+      SdkHelper.getSyncHelper().sleep(1000);
     }
     productItemElement.format(productName).click();
-    return this.create(ProductDetailsView.class);
+    return SdkHelper.create(ProductDetailsView.class);
   }
 
   /**
@@ -333,7 +334,7 @@ public class CheckoutView extends BaseComponent {
     }
     while (attempt-- > 0 && !productItemElement.exists()) {
       MobileHelper.scrollDownCloseToMiddleAlgorithm();
-      getSyncHelper().sleep(1000);
+      SdkHelper.getSyncHelper().sleep(1000);
     }
     try {
       productItemElement.format(productName).initialize();
@@ -363,7 +364,7 @@ public class CheckoutView extends BaseComponent {
 
     while (attempt-- > 0 && !itemCostText.exists()) {
       MobileHelper.scrollDownCloseToMiddleAlgorithm();
-      getSyncHelper().sleep(1000);
+      SdkHelper.getSyncHelper().sleep(1000);
     }
 
     itemCostText.format(productName).initialize();
@@ -378,11 +379,11 @@ public class CheckoutView extends BaseComponent {
    */
   public CheckoutView deleteBySwipe(String productName) {
     logger.info("Swiping product: " + productName);
-    getDeviceControl()
+    SdkHelper.getDeviceControl()
         .swipeAcrossElementWithDirection(
             productItemElement.format(productName), SwipeDirection.LEFT);
     productItemDeleteButton.format(productName).click();
-    return this.create(CheckoutView.class);
+    return SdkHelper.create(CheckoutView.class);
   }
 
   /**
@@ -401,18 +402,18 @@ public class CheckoutView extends BaseComponent {
     editButton.click();
 
     logger.info("Scroll down and up [in Order to elements be populated]");
-    getSyncHelper().sleep(2000); // Wait for action
+    SdkHelper.getSyncHelper().sleep(2000); // Wait for action
     MobileHelper.scrollDownHalfScreen(3);
 
-    getSyncHelper().sleep(2000); // Wait for scroll
+    SdkHelper.getSyncHelper().sleep(2000); // Wait for scroll
     MobileHelper.scrollElementIntoView(productItemDeleteByEditButton.format(productName));
-    getSyncHelper().sleep(2000); // Wait for scroll
+    SdkHelper.getSyncHelper().sleep(2000); // Wait for scroll
 
     productItemDeleteByEditButton.format(productName).click();
 
-    getSyncHelper().wait(Until.uiElement(productItemDeleteButton.format(productName)).present());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(productItemDeleteButton.format(productName)).present());
     productItemDeleteButton.format(productName).click();
-    return this.create(CheckoutView.class);
+    return SdkHelper.create(CheckoutView.class);
   }
 }
 
@@ -421,10 +422,10 @@ class AndroidCheckoutView extends CheckoutView {
   public void afterInit() {
     try {
       logger.info("Trying to click OKAY if present");
-      getSyncHelper().sleep(3000);
+      SdkHelper.getSyncHelper().sleep(3000);
       okayPopUpButton.initialize();
       okayPopUpButton.click();
-      getSyncHelper().sleep(3000);
+      SdkHelper.getSyncHelper().sleep(3000);
       okayPopUpButton.initialize();
       okayPopUpButton.click();
     } catch (NoSuchElementException nse) {
@@ -436,7 +437,7 @@ class AndroidCheckoutView extends CheckoutView {
     logger.info("Tap place order");
     MobileHelper.swipeWithCount(SwipeDirection.UP, 4);
     getPlaceOrderButton.click();
-    return this.create(clazz);
+    return SdkHelper.create(clazz);
   }
 
   /**
@@ -463,7 +464,7 @@ class AndroidCheckoutView extends CheckoutView {
 
     while (attempt-- > 0 && !itemOptionsText.exists()) {
       MobileHelper.scrollDownCloseToMiddleAlgorithm();
-      getSyncHelper().sleep(1000);
+      SdkHelper.getSyncHelper().sleep(1000);
     }
     List<String> result =
         new ArrayList<String>(Arrays.asList(itemOptionsText.getText().split("\n")));

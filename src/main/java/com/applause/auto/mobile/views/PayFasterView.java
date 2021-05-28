@@ -7,6 +7,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.Text;
 
 @Implementation(is = PayFasterView.class, on = Platform.MOBILE_ANDROID)
@@ -43,8 +44,8 @@ public class PayFasterView extends BaseComponent {
    */
   public OrderAheadView swipeLeftOnScreen() {
     logger.info("Swiping left to get to next tutorial view");
-    getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
-    return this.create(OrderAheadView.class);
+    SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
+    return SdkHelper.create(OrderAheadView.class);
   }
 
   /**

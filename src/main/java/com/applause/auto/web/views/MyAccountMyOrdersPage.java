@@ -7,6 +7,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Link;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.Text;
 
 @Implementation(is = MyAccountMyOrdersPage.class, on = Platform.WEB)
@@ -83,7 +84,7 @@ public class MyAccountMyOrdersPage extends BaseComponent {
   public MyAccountOrderDetailPage clickOrderNumber() {
     logger.info("Clicking first Order's Number");
     getOrdersNumberLink.click();
-    return this.create(MyAccountOrderDetailPage.class);
+    return SdkHelper.create(MyAccountOrderDetailPage.class);
   }
 
   /**

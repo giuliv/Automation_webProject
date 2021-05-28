@@ -6,6 +6,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 
 @Implementation(is = FindACoffeeBarView.class, on = Platform.MOBILE_ANDROID)
@@ -51,7 +52,7 @@ public class FindACoffeeBarView extends BaseComponent {
   public NewOrderView selectFirstRecentCoffeeBar() {
     logger.info("Select First Recent Coffee Bar");
     orderButton.click();
-    return this.create(NewOrderView.class);
+    return SdkHelper.create(NewOrderView.class);
   }
 
   /**
@@ -60,7 +61,7 @@ public class FindACoffeeBarView extends BaseComponent {
    * @return the coffee store container chuck
    */
   public CoffeeStoreContainerChuck getCoffeeStoreContainerChuck() {
-    return this.create(CoffeeStoreContainerChuck.class);
+    return SdkHelper.create(CoffeeStoreContainerChuck.class);
   }
 
   /**
@@ -104,8 +105,8 @@ public class FindACoffeeBarView extends BaseComponent {
    */
   public FindACoffeeBarView openFavoritesTab() {
     logger.info("Tap on Favorites Tab");
-    getSyncHelper().sleep(5000);
+    SdkHelper.getSyncHelper().sleep(5000);
     favoritesTab.click();
-    return this.create(FindACoffeeBarView.class);
+    return SdkHelper.create(FindACoffeeBarView.class);
   }
 }

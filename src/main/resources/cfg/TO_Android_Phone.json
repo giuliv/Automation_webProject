@@ -1,0 +1,26 @@
+{
+	"applause:options": {
+		"isW3C": "true",
+		"isMobileNative" : "true",
+		"isStrict": "false",
+		"driverName": "Android",
+		"driverType": "MobileNative",
+		"factoryKey": "MobileAndroid",
+		"osName": "Android",
+		"provider": "TestObject US Android",
+		"providerThreadType": "Real",
+		"nameField": "testobject_test_name,testobject_suite_name"
+	},
+	<#if app??>
+	"app" : "${app}",
+	</#if>
+	"platformName": "Android",
+	"platformVersion": "10",
+	"orientation": "PORTRAIT",
+	"region": "US",
+	"phoneOnly": "true",
+	"privateDevicesOnly": "false",
+	"appiumVersion": "1.20.1",
+	"testobject_appium_version": "1.20.1",
+	"deviceName": "(Samsung Galaxy S.*|Huawei.*|HTC.*|Google Pixel.*)"
+}

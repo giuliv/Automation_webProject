@@ -1,6 +1,6 @@
 package com.applause.auto.web.helpers;
 
-import com.applause.auto.integrations.helpers.SdkHelper;
+import com.applause.auto.framework.SdkHelper;
 import java.lang.invoke.MethodHandles;
 import java.util.Date;
 import org.apache.logging.log4j.LogManager;
@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
-public class WebHelper extends SdkHelper {
+public class WebHelper {
 
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
@@ -54,7 +54,7 @@ public class WebHelper extends SdkHelper {
    * @param webElement
    */
   public static void jsClick(final WebElement webElement) {
-    final JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+    final JavascriptExecutor executor = (JavascriptExecutor) SdkHelper.getDriver();
     executor.executeScript("arguments[0].click();", webElement);
   }
 
@@ -65,7 +65,7 @@ public class WebHelper extends SdkHelper {
    * @param item as text
    */
   public static void jsSelect(WebElement element, String item) {
-    JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+    JavascriptExecutor executor = (JavascriptExecutor) SdkHelper.getDriver();
     executor.executeScript(
         "const textToFind = '"
             + item
@@ -82,7 +82,7 @@ public class WebHelper extends SdkHelper {
    * @param text as text
    */
   public static void jsSelectByContainedText(WebElement element, String text) {
-    JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+    JavascriptExecutor executor = (JavascriptExecutor) SdkHelper.getDriver();
     executor.executeScript(
         "const textToFind = '"
             + text
@@ -99,7 +99,7 @@ public class WebHelper extends SdkHelper {
    * @param value as value
    */
   public static void jsSelectByValue(WebElement element, String value) {
-    JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+    JavascriptExecutor executor = (JavascriptExecutor) SdkHelper.getDriver();
     executor.executeScript(
         "const valueToFind = '"
             + value
@@ -115,7 +115,7 @@ public class WebHelper extends SdkHelper {
    * @param yOffset the y offset
    */
   public static void shiftWindowView(final int yOffset) {
-    final JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+    final JavascriptExecutor executor = (JavascriptExecutor) SdkHelper.getDriver();
     executor.executeScript(String.format("window.scrollBy(0, %s)", yOffset), "");
   }
 
@@ -125,7 +125,7 @@ public class WebHelper extends SdkHelper {
    * @param element
    */
   public static void scrollToElement(WebElement element) {
-    JavascriptExecutor jse = (JavascriptExecutor) getDriver();
+    JavascriptExecutor jse = (JavascriptExecutor) SdkHelper.getDriver();
     long windowHeight = (long) jse.executeScript("return window.innerHeight");
 
     // scrolls element to view...

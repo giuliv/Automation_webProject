@@ -10,6 +10,7 @@ import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
+import com.applause.auto.framework.SdkHelper;
 import org.testng.annotations.Test;
 
 /**
@@ -25,7 +26,7 @@ public class OnboardingSlidesTest extends BaseTest {
   public void onboardingSlidesTest() {
 
     logger.info("Launch the app and arrive at the first onboarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     Assert.assertEquals(
         landingView.getHeadingTextValue(),
         "Earn Rewards.",

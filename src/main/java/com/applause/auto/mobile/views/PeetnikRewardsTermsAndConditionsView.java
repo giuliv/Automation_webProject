@@ -7,9 +7,10 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
 import io.appium.java_client.android.AndroidDriver;
 import java.time.Duration;
+import com.applause.auto.framework.SdkHelper;
 import org.openqa.selenium.ScreenOrientation;
 
 @Implementation(
@@ -44,8 +45,8 @@ public class PeetnikRewardsTermsAndConditionsView extends BaseComponent {
 
   @Override
   public void afterInit() {
-    getSyncHelper().sleep(5000);
-    getSyncHelper()
+    SdkHelper.getSyncHelper().sleep(5000);
+    SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(60)));
   }
 
@@ -57,19 +58,19 @@ public class PeetnikRewardsTermsAndConditionsView extends BaseComponent {
   public LegalInfoView done() {
     logger.info("Tap 'Done' button");
     doneButton.click();
-    return this.create(LegalInfoView.class);
+    return SdkHelper.create(LegalInfoView.class);
   }
 }
 
 class AndroidPeetnikRewardsTermsAndConditionsView extends PeetnikRewardsTermsAndConditionsView {
 
   public void afterInit() {
-    getSyncHelper().sleep(5000);
-    AndroidDriver androidDriver = ((AndroidDriver) getDriver());
+    SdkHelper.getSyncHelper().sleep(5000);
+    AndroidDriver androidDriver = ((AndroidDriver) SdkHelper.getDriver());
     logger.info("Orientation: " + androidDriver.getOrientation());
     logger.info("Orientation: Forcing to PORTRAIT");
     androidDriver.rotate(ScreenOrientation.PORTRAIT);
-    getSyncHelper().sleep(5000);
+    SdkHelper.getSyncHelper().sleep(5000);
     logger.info("Orientation: " + androidDriver.getOrientation());
     try {
       allowLocationToBrowser.click();
@@ -88,7 +89,7 @@ class AndroidPeetnikRewardsTermsAndConditionsView extends PeetnikRewardsTermsAnd
       logger.info("No cookies popup overlay found");
     }
 
-    getSyncHelper()
+    SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(12)));
   }
 
@@ -98,6 +99,6 @@ class AndroidPeetnikRewardsTermsAndConditionsView extends PeetnikRewardsTermsAnd
   public LegalInfoView done() {
     logger.info("Tap 'Done' button");
     MobileHelper.tapAndroidDeviceBackButton();
-    return this.create(LegalInfoView.class);
+    return SdkHelper.create(LegalInfoView.class);
   }
 }

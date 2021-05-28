@@ -4,6 +4,7 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.Button;
 
 @Implementation(is = ShotOptionsView.class, on = Platform.MOBILE_ANDROID)
@@ -31,13 +32,13 @@ public class ShotOptionsView extends BaseComponent {
 	/* -------- Actions -------- */
 	public ShotOptionsView selectShotPrep(String shotPrep) {
 		shotPrepButton.click();
-		getSyncHelper().sleep(500);
+		SdkHelper.getSyncHelper().sleep(500);
 		shotPrepOptionButton.format(shotPrep).click();
 		return this;
 	}
 
 	public <T extends BaseComponent> T saveChanges(Class<T> clazz) {
 		saveChangesButton.click();
-		return this.create(clazz);
+		return SdkHelper.create(clazz);
 	}
 }

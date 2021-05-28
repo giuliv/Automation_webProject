@@ -10,9 +10,10 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
 import java.time.Duration;
 import java.util.stream.IntStream;
+import com.applause.auto.framework.SdkHelper;
 import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = ProductDetailsView.class, on = Platform.MOBILE_IOS)
@@ -202,11 +203,11 @@ public class ProductDetailsView extends BaseComponent {
   public ProductDetailsView selectModifiers(String category, String subCategory) {
     logger.info("Select category: " + category + " | " + subCategory);
     getCategoryItem.format(category);
-    getDeviceControl().tapElementCenter(getCategoryItem);
+    SdkHelper.getDeviceControl().tapElementCenter(getCategoryItem);
     getCategoryItem.format(subCategory);
-    getDeviceControl().tapElementCenter(getCategoryItem);
+    SdkHelper.getDeviceControl().tapElementCenter(getCategoryItem);
     getSaveChangesButton.click();
-    return this.create(ProductDetailsView.class);
+    return SdkHelper.create(ProductDetailsView.class);
   }
 
   /**
@@ -222,7 +223,7 @@ public class ProductDetailsView extends BaseComponent {
     if (!clazz.equals(SearchResultsView.class)) {
       getBackButton.click();
     }
-    return this.create(clazz);
+    return SdkHelper.create(clazz);
   }
 
   /**
@@ -235,7 +236,7 @@ public class ProductDetailsView extends BaseComponent {
   public <T extends BaseComponent> T addToOrder(Class<T> clazz) {
     logger.info("Tap Add to Order");
     getAddToOrderButton.click();
-    return this.create(clazz);
+    return SdkHelper.create(clazz);
   }
 
   public String getSize() {
@@ -250,20 +251,20 @@ public class ProductDetailsView extends BaseComponent {
 
   public MilkPrepView selectMilkPrep() {
     MobileHelper.scrollElementIntoView(selectMilkPrepButton);
-    getDeviceControl().tapElementCenter(selectMilkPrepButton);
-    return this.create(MilkPrepView.class);
+    SdkHelper.getDeviceControl().tapElementCenter(selectMilkPrepButton);
+    return SdkHelper.create(MilkPrepView.class);
   }
 
   public ShotOptionsView selectShotOptions() {
     MobileHelper.scrollElementIntoView(selectShotOptionsButton);
-    getDeviceControl().tapElementCenter(selectShotOptionsButton);
-    return this.create(ShotOptionsView.class);
+    SdkHelper.getDeviceControl().tapElementCenter(selectShotOptionsButton);
+    return SdkHelper.create(ShotOptionsView.class);
   }
 
   public SweetenersView selectSweeteners() {
     MobileHelper.scrollElementIntoView(selectSweetenersButton);
     selectSweetenersButton.click();
-    return this.create(SweetenersView.class);
+    return SdkHelper.create(SweetenersView.class);
   }
 
   public ToppingsView selectToppings() {
@@ -276,15 +277,15 @@ public class ProductDetailsView extends BaseComponent {
               i -> {
                 MobileHelper.scrollUpCloseToMiddleAlgorithm();
               });
-      getSyncHelper().sleep(1000);
+      SdkHelper.getSyncHelper().sleep(1000);
       while (attempt-- > 0
           && !(selectToppingsButton.exists() && selectToppingsButton.isDisplayed())) {
         MobileHelper.scrollDownCloseToMiddleAlgorithm();
-        getSyncHelper().sleep(1000);
+        SdkHelper.getSyncHelper().sleep(1000);
       }
       selectToppingsButton.click();
     }
-    return this.create(ToppingsView.class);
+    return SdkHelper.create(ToppingsView.class);
   }
 
   public ProductDetailsView selectQuantity(String quantity) {
@@ -294,17 +295,17 @@ public class ProductDetailsView extends BaseComponent {
     while (!quantityText.getText().equals(quantity) && (attempts-- > 0)) {
       logger.info("Increasing quantity. Current: " + quantityText.getText());
       logger.info("Increasing quantity. Expected: " + quantity);
-      logger.info(">>>DOM" + getDriver().getPageSource());
+      logger.info(">>>DOM" + SdkHelper.getDriver().getPageSource());
       increaseQuantityButton.click();
-      getSyncHelper().sleep(1000);
+      SdkHelper.getSyncHelper().sleep(1000);
     }
     return this;
   }
 
   public SyrupsAndSaucesView selectSyrups() {
     MobileHelper.scrollElementIntoView(selectSyrupsAndSaucesButton);
-    getDeviceControl().tapElementCenter(selectSyrupsAndSaucesButton);
-    return this.create(SyrupsAndSaucesView.class);
+    SdkHelper.getDeviceControl().tapElementCenter(selectSyrupsAndSaucesButton);
+    return SdkHelper.create(SyrupsAndSaucesView.class);
   }
 
   public String getCost() {
@@ -329,19 +330,19 @@ public class ProductDetailsView extends BaseComponent {
   public FoodWarmingView warming() {
     logger.info("Select Warming");
     warmingButton.click();
-    return this.create(FoodWarmingView.class);
+    return SdkHelper.create(FoodWarmingView.class);
   }
 
   public OatmealToppingsView selectOatmealToppings() {
     logger.info("Select Oatmeal Toppings");
     oatmealToppingsButton.click();
-    return this.create(OatmealToppingsView.class);
+    return SdkHelper.create(OatmealToppingsView.class);
   }
 
   public AddCreamCheeseView selectAddCreamCheese() {
     logger.info("Select Add Cream Cheese");
     addCreamCheeseButton.click();
-    return this.create(AddCreamCheeseView.class);
+    return SdkHelper.create(AddCreamCheeseView.class);
   }
 
   public boolean isBackButtonDisplayed() {
@@ -358,12 +359,12 @@ public class ProductDetailsView extends BaseComponent {
 
   public CheckoutView updateOrder() {
     updateOrderButton.click();
-    return this.create(CheckoutView.class);
+    return SdkHelper.create(CheckoutView.class);
   }
 
   public RemoveFromOrderChunk delete() {
     garbageButton.click();
-    return this.create(RemoveFromOrderChunk.class);
+    return SdkHelper.create(RemoveFromOrderChunk.class);
   }
 }
 
@@ -373,7 +374,7 @@ class AndroidProductDetailsView extends ProductDetailsView {
 
   @Override
   public void afterInit() {
-    getSyncHelper()
+    SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(120)));
   }
 
@@ -388,14 +389,14 @@ class AndroidProductDetailsView extends ProductDetailsView {
               i -> {
                 MobileHelper.scrollUpCloseToMiddleAlgorithm();
               });
-      getSyncHelper().sleep(1000);
+      SdkHelper.getSyncHelper().sleep(1000);
       while (attempt-- > 0 && !selectToppingsButton.exists()) {
         MobileHelper.scrollDownCloseToMiddleAlgorithm();
-        getSyncHelper().sleep(1000);
+        SdkHelper.getSyncHelper().sleep(1000);
       }
       selectToppingsButton.click();
     }
-    return this.create(ToppingsView.class);
+    return SdkHelper.create(ToppingsView.class);
   }
 
   @Override
@@ -406,13 +407,13 @@ class AndroidProductDetailsView extends ProductDetailsView {
       MobileHelper.scrollDownCloseToMiddleAlgorithm();
       selectSweetenersButton.click();
     }
-    return this.create(SweetenersView.class);
+    return SdkHelper.create(SweetenersView.class);
   }
 
   @Override
   public SyrupsAndSaucesView selectSyrups() {
     selectSyrupsAndSaucesButton.click();
-    return this.create(SyrupsAndSaucesView.class);
+    return SdkHelper.create(SyrupsAndSaucesView.class);
   }
 
   @Override
@@ -423,19 +424,19 @@ class AndroidProductDetailsView extends ProductDetailsView {
       MobileHelper.scrollDownCloseToMiddleAlgorithm();
       selectMilkPrepButton.click();
     }
-    return this.create(MilkPrepView.class);
+    return SdkHelper.create(MilkPrepView.class);
   }
 
   @Override
   public ShotOptionsView selectShotOptions() {
     selectShotOptionsButton.click();
-    return this.create(ShotOptionsView.class);
+    return SdkHelper.create(ShotOptionsView.class);
   }
 
   @Override
   public ProductDetailsView selectQuantity(String quantity) {
-    getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
-    getSyncHelper().sleep(2000);
+    SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+    SdkHelper.getSyncHelper().sleep(2000);
     int attempts = 3;
     while (!quantityText.getText().equals(quantity) && attempts-- > 0) {
       increaseQuantityButton.click();

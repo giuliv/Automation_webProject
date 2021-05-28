@@ -1,8 +1,8 @@
 package com.applause.auto.test.mobile;
 
 import com.applause.auto.common.data.Constants;
-import com.applause.auto.integrations.base.BaseSeleniumTest;
-import com.applause.auto.integrations.helpers.SdkHelper;
+import com.applause.auto.integrations.base.ApplauseSeleniumTest;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.test.mobile.helpers.TestHelper;
 import io.appium.java_client.android.AndroidDriver;
 import java.lang.invoke.MethodHandles;
@@ -14,7 +14,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-public class BaseTest extends BaseSeleniumTest {
+public class BaseTest extends ApplauseSeleniumTest {
 
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
   protected static TestHelper testHelper;
@@ -29,10 +29,10 @@ public class BaseTest extends BaseSeleniumTest {
     System.setProperty("runId", runId);
 
     // Set the default wait time on elements to 20 seconds
-    setTimeout(30);
+    SdkHelper.setTimeout(30);
 
     // Set the custom mobile test helper
-    testHelper = this.create(TestHelper.class);
+    testHelper = SdkHelper.create(TestHelper.class);
 
     logger.info("Test case setup complete.");
   }
@@ -54,8 +54,8 @@ public class BaseTest extends BaseSeleniumTest {
       logger.info("Chrome setup not needed");
     }
     if (SdkHelper.getEnvironmentHelper().isMobileAndroid()) {
-      getSyncHelper().sleep(5000);
-      String currentActivity = ((AndroidDriver) getDriver()).currentActivity();
+      SdkHelper.getSyncHelper().sleep(5000);
+      String currentActivity = ((AndroidDriver) SdkHelper.getDriver()).currentActivity();
       logger.info("Current activity: " + currentActivity);
     }
     logger.info("Test case setup complete.");

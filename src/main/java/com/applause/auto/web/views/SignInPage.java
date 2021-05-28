@@ -2,13 +2,13 @@ package com.applause.auto.web.views;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.integrations.helpers.SdkHelper;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
 
 @Implementation(is = SignInPage.class, on = Platform.WEB)
 public class SignInPage extends BaseComponent {
@@ -36,7 +36,7 @@ public class SignInPage extends BaseComponent {
    */
   public void enterEmail(String text) {
     logger.info("Enter email : " + text);
-    getSyncHelper().wait(Until.uiElement(getEmailTextBox).visible());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getEmailTextBox).visible());
     getEmailTextBox.sendKeys(text);
   }
 
@@ -70,7 +70,7 @@ public class SignInPage extends BaseComponent {
   public MyAccountPage clickOnSignInButton() {
     logger.info("Click on sign in button");
     getSignInButton.click();
-    return this.create(MyAccountPage.class);
+    return SdkHelper.create(MyAccountPage.class);
   }
 
   /**
@@ -85,7 +85,7 @@ public class SignInPage extends BaseComponent {
             ? Constants.TestData.USERNAME_SAFARI
             : Constants.TestData.USERNAME;
     performUserLogin(username, Constants.TestData.PASSWORD);
-    return this.create(MyAccountPage.class);
+    return SdkHelper.create(MyAccountPage.class);
   }
 
   /**
@@ -100,7 +100,7 @@ public class SignInPage extends BaseComponent {
             ? Constants.CheckoutUserTestData.USERNAME_SAFARI
             : Constants.CheckoutUserTestData.USERNAME;
     performUserLogin(username, Constants.CheckoutUserTestData.PASSWORD);
-    return this.create(MyAccountPage.class);
+    return SdkHelper.create(MyAccountPage.class);
   }
 
   /**
@@ -113,7 +113,7 @@ public class SignInPage extends BaseComponent {
   public MyAccountPage userLogin(String email, String password) {
     logger.info("Login with main user");
     performUserLogin(email, password);
-    return this.create(MyAccountPage.class);
+    return SdkHelper.create(MyAccountPage.class);
   }
 
   /**
@@ -124,7 +124,7 @@ public class SignInPage extends BaseComponent {
   public SignUpPage clickonCreateAccountButton() {
     logger.info("Click on Create Account button");
     getCreateAccountButton.click();
-    return this.create(SignUpPage.class);
+    return SdkHelper.create(SignUpPage.class);
   }
 
   /**
@@ -136,6 +136,6 @@ public class SignInPage extends BaseComponent {
   private void performUserLogin(String email, String password) {
     enterEmail(email);
     enterPassword(password);
-    getSyncHelper().wait(Until.uiElement(getSignInButton).clickable()).click();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getSignInButton).clickable()).click();
   }
 }

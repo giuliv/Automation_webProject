@@ -13,6 +13,7 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import java.time.Duration;
+import com.applause.auto.framework.SdkHelper;
 import org.openqa.selenium.Point;
 
 @Implementation(is = AndroidAllowLocationServicesPopupChunk.class, on = Platform.MOBILE_ANDROID)
@@ -128,11 +129,11 @@ public class AllowLocationServicesPopupChunk extends BaseComponent {
     logger.info("Tap Allow button");
     getAllowButton.click();
     AllowLocationServicesSystemPopupChunk allowLocationServicesSystemPopupChunk =
-        this.create(AllowLocationServicesSystemPopupChunk.class);
+        SdkHelper.create(AllowLocationServicesSystemPopupChunk.class);
 
     logger.info("Tap System pop up Allow");
     allowLocationServicesSystemPopupChunk.allow();
-    return this.create(clazz);
+    return SdkHelper.create(clazz);
   }
 
   /**
@@ -157,14 +158,14 @@ public class AllowLocationServicesPopupChunk extends BaseComponent {
     try {
       getAllowButton.click();
       AllowLocationServicesSystemPopupChunk allowLocationServicesSystemPopupChunk =
-          this.create(AllowLocationServicesSystemPopupChunk.class);
+          SdkHelper.create(AllowLocationServicesSystemPopupChunk.class);
 
       logger.info("Tap System pop up Allow");
       allowLocationServicesSystemPopupChunk.allow();
     } catch (Throwable throwable) {
       logger.info("Popup not displayed");
     }
-    return this.create(clazz);
+    return SdkHelper.create(clazz);
   }
 
   /**
@@ -191,7 +192,7 @@ class AndroidAllowLocationServicesPopupChunk extends AllowLocationServicesPopupC
   public void notNow() {
     logger.info("Tap Not Now button");
     Point point = getNotNowButton.getMobileElement().getCenter();
-    AppiumDriver driver = (AppiumDriver) getDriver();
+    AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
     new TouchAction(driver)
         .tap(PointOption.point(point.x, point.y))
         .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(3)))

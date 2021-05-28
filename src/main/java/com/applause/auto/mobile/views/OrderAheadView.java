@@ -5,6 +5,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.Text;
 
 @Implementation(is = OrderAheadView.class, on = Platform.MOBILE_ANDROID)
@@ -42,7 +43,7 @@ public class OrderAheadView extends BaseComponent {
   public AuthenticationView clickGetStartedButton() {
     logger.info("Pressing Get Started button and expected to land at Peetnik Rewards auth screen");
     getGetStartedButton.click();
-    return this.create(AuthenticationView.class);
+    return SdkHelper.create(AuthenticationView.class);
   }
 
   /**

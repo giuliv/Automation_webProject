@@ -8,7 +8,8 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.framework.SdkHelper;
 import java.time.Duration;
 
 @Implementation(is = BottomNavigationMenuChunk.class, on = Platform.MOBILE_ANDROID)
@@ -74,10 +75,10 @@ public class BottomNavigationMenuChunk extends BaseComponent {
    */
   public PeetsCardsView peetsCards() {
     logger.info("Tap on Peets Cards");
-    getSyncHelper()
+    SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getPeetsCardsButton).clickable().setTimeout(Duration.ofSeconds(50)));
     getPeetsCardsButton.click();
-    return this.create(PeetsCardsView.class);
+    return SdkHelper.create(PeetsCardsView.class);
   }
 
   /**
@@ -94,7 +95,7 @@ public class BottomNavigationMenuChunk extends BaseComponent {
       getDismissButton.click();
     }
 
-    return this.create(CheckInView.class);
+    return SdkHelper.create(CheckInView.class);
   }
 
   /**
@@ -105,7 +106,7 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   public DashboardView home() {
     logger.info("Tap on Home");
     getHomeButton.click();
-    return this.create(DashboardView.class);
+    return SdkHelper.create(DashboardView.class);
   }
 
   /**
@@ -117,10 +118,10 @@ public class BottomNavigationMenuChunk extends BaseComponent {
    */
   public <T extends BaseComponent> T order(Class<T> clazz) {
     logger.info("Tap on Order");
-    getSyncHelper()
+    SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getOrdersButton).visible().setTimeout(Duration.ofSeconds(30)));
     getOrdersButton.click();
-    return this.create(clazz);
+    return SdkHelper.create(clazz);
   }
 }
 
@@ -134,7 +135,7 @@ class IosBottomNavigationMenuChunk extends BottomNavigationMenuChunk {
   public CheckInView checkIn() {
     logger.info("Tap on Check In");
     getCheckInButton.click();
-    return this.create(CheckInView.class);
+    return SdkHelper.create(CheckInView.class);
   }
 
   // is crashing when searching a coffee store
@@ -145,8 +146,8 @@ class IosBottomNavigationMenuChunk extends BottomNavigationMenuChunk {
   // // should be refactored and fixed due to UI changes
   // nearbySelectCoffeeBarView.allow();
   // nearbySelectCoffeeBarView.search("Emeryville, CA, 94608, 1400 park avenue");
-  // getSyncHelper().sleep(10000);
+  // SdkHelper.getSyncHelper().sleep(10000);
   // // nearbySelectCoffeeBarView.openCoffeebarFromSearchResults(1);
-  // return this.create(clazz);
+  // return SdkHelper.create(clazz);
   // }
 }

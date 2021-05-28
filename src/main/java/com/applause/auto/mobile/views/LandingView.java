@@ -10,9 +10,10 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.util.RetryTestException;
 import java.time.Duration;
+import com.applause.auto.framework.SdkHelper;
 import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = AndroidLandingView.class, on = Platform.MOBILE_ANDROID)
@@ -62,7 +63,7 @@ public class LandingView extends BaseComponent {
    * @return
    */
   public ReportAProblemPopupChunk getReportAProblemPopupChunk() {
-    return this.create(ReportAProblemPopupChunk.class);
+    return SdkHelper.create(ReportAProblemPopupChunk.class);
   }
 
   /**
@@ -71,7 +72,7 @@ public class LandingView extends BaseComponent {
    * @return TryMobileOrderAheadPopupChunk
    */
   public TryMobileOrderAheadPopupChunk getTryMobileOrderAheadPopupChunk() {
-    return this.create(TryMobileOrderAheadPopupChunk.class);
+    return SdkHelper.create(TryMobileOrderAheadPopupChunk.class);
   }
 
   @Override
@@ -82,7 +83,7 @@ public class LandingView extends BaseComponent {
     } catch (NoSuchElementException nse) {
       logger.info("Popup 'Allow tracking' does not found");
     }
-    getSyncHelper()
+    SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
     getReportAProblemPopupChunk().waitForPopUpToDisappear();
   }
@@ -94,23 +95,23 @@ public class LandingView extends BaseComponent {
    */
   public ExploreOffersView swipeLeftOnScreen() {
     logger.info("Swiping left to get to next tutorial view");
-    getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
-    return this.create(ExploreOffersView.class);
+    SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
+    return SdkHelper.create(ExploreOffersView.class);
   }
 
   /**
-   * Create account create account view.
+   * Create account SdkHelper.create account view.
    *
-   * @return the create account view
+   * @return the SdkHelper.create account view
    */
   public CreateAccountView createAccount() {
-    logger.info("Tap on create account button");
-    getSyncHelper()
+    logger.info("Tap on SdkHelper.create account button");
+    SdkHelper.getSyncHelper()
         .wait(
             Until.uiElement(getCreateAccountButton).clickable().setTimeout(Duration.ofSeconds(20)));
-    getSyncHelper().sleep(3000);
+    SdkHelper.getSyncHelper().sleep(3000);
     getCreateAccountButton.click();
-    return this.create(CreateAccountView.class);
+    return SdkHelper.create(CreateAccountView.class);
   }
 
   /**
@@ -122,7 +123,7 @@ public class LandingView extends BaseComponent {
     logger.info("Click on Sign In button");
     getSignInButton.initialize();
     getSignInButton.click();
-    return this.create(SignInView.class);
+    return SdkHelper.create(SignInView.class);
   }
 
   /** Skip onboarding. */
@@ -131,7 +132,7 @@ public class LandingView extends BaseComponent {
     // this try catch is needed for iOS, since sometimes iOS test is starting on sign in/sign up
     // view
     try {
-      getSyncHelper()
+      SdkHelper.getSyncHelper()
           .wait(Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
       getSkipButton.click();
       logger.info("Skip button was clicked correctly");
@@ -157,9 +158,9 @@ public class LandingView extends BaseComponent {
    * @return
    */
   public String getHeadingTextValue() {
-    logger.info(">>>>>>>>." + getDriver().getPageSource());
+    logger.info(">>>>>>>>." + SdkHelper.getDriver().getPageSource());
     logger.info("Waiting for header text");
-    getSyncHelper()
+    SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(60)));
 
     getHeadingText.initialize();
@@ -168,7 +169,7 @@ public class LandingView extends BaseComponent {
   }
 
   public void createAccountNavigation() {
-    logger.info("Skipping create account navigation Steps");
+    logger.info("Skipping SdkHelper.create account navigation Steps");
   }
 }
 
@@ -181,7 +182,7 @@ class AndroidLandingView extends LandingView {
 
     try {
       logger.info("Clicking on Skip button, if its found");
-      getSyncHelper()
+      SdkHelper.getSyncHelper()
           .wait(Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
       getSkipButton.click();
     } catch (Exception e) {
@@ -193,10 +194,10 @@ class AndroidLandingView extends LandingView {
       if (!getCreateAccountButton.exists()) {
         logger.info("Swiping left until start button its displayed");
         for (int i = 0; i < 4; i++) {
-          getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
-          getSyncHelper().sleep(10000);
+          SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
+          SdkHelper.getSyncHelper().sleep(10000);
         }
-        getSyncHelper()
+        SdkHelper.getSyncHelper()
             .wait(Until.uiElement(getStartedButton).clickable().setTimeout(Duration.ofSeconds(20)));
         getStartedButton.click();
       }
@@ -220,7 +221,7 @@ class AndroidLandingView extends LandingView {
   @Override
   public void afterInit() {
     logger.info("Landing View init");
-    getSyncHelper()
+    SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
   }
 }

@@ -8,8 +8,9 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.web.components.MiniCartContainerChunk;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.web.helpers.WebHelper;
 
 @Implementation(is = PeetsCardProductPage.class, on = Platform.WEB)
@@ -46,14 +47,14 @@ public class PeetsCardProductPage extends BaseComponent {
     logger.info("Tap on Shop Coffee Button");
     getAddToCartButton.click();
     waitForAddingToCartSpinner();
-    return this.create(MiniCartContainerChunk.class);
+    return SdkHelper.create(MiniCartContainerChunk.class);
   }
 
   /** Click Add to Cart Button */
   public void waitForAddingToCartSpinner() {
     logger.info("Adding item to Shopping Cart...");
-    getSyncHelper().wait(Until.uiElement(getAddingToCartSpinner).present());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getAddingToCartSpinner).present());
     // TODO: Doesn't seem to be needed anymore, but confirm on tests other than GuestCheckoutTest
-    // getSyncHelper().wait(Until.uiElement(getAddingToCartSpinner).notPresent());
+    // SdkHelper.getSyncHelper().wait(Until.uiElement(getAddingToCartSpinner).notPresent());
   }
 }

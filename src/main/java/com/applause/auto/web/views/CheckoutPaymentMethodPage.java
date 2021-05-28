@@ -2,7 +2,7 @@ package com.applause.auto.web.views;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.integrations.helpers.SdkHelper;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -12,7 +12,7 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.web.helpers.WebHelper;
 
 @Implementation(is = CheckoutPaymentMethodPage.class, on = Platform.WEB)
@@ -98,7 +98,7 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     fillPeetsCardInfo(amount);
     fillEmailField();
     continueAfterBillingInfo();
-    return this.create(CheckoutPlaceOrderPage.class);
+    return SdkHelper.create(CheckoutPlaceOrderPage.class);
   }
 
   /** Select Peets Card as payment option */
@@ -127,7 +127,7 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     getPeetsCardNumberTextBox.click();
 
     // Waits for an animation while the element is displayed
-    getSyncHelper().wait(Until.uiElement(getPeetsCardAmountTextBox).present());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getPeetsCardAmountTextBox).present());
     getPeetsCardAmountTextBox.sendKeys(amount);
   }
 
@@ -138,7 +138,7 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     clickOnFirstBillingAddress();
     getContinuePaymentButton.exists();
     getContinuePaymentButton.click();
-    return this.create(CheckoutPlaceOrderPage.class);
+    return SdkHelper.create(CheckoutPlaceOrderPage.class);
   }
 
   /** Continue after entering required Billing info */
@@ -148,7 +148,7 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     fillBillingInfo();
     fillEmailField();
     continueAfterBillingInfo();
-    return this.create(CheckoutPlaceOrderPage.class);
+    return SdkHelper.create(CheckoutPlaceOrderPage.class);
   }
 
   /** Continue after entering required Billing info */
@@ -157,7 +157,7 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     fillBillingInfo();
     fillEmailField();
     continueAfterBillingInfo();
-    return this.create(CheckoutPlaceOrderPage.class);
+    return SdkHelper.create(CheckoutPlaceOrderPage.class);
   }
 
   /** Continue after entering Credit Card Billing info */
@@ -166,7 +166,7 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     selectDebitCreditCardOption();
     fillBillingInfo();
     getContinuePaymentButton.click();
-    return this.create(CheckoutPlaceOrderPage.class);
+    return SdkHelper.create(CheckoutPlaceOrderPage.class);
   }
 
   /** Enter an email-alias based on email seed */
@@ -214,12 +214,12 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     String peetsAmount =
         Constants.TestData.PEETS_CARD_LOWEST_AMOUNT.concat("." + totalPriceDecimals);
     fillPeetsCardInfo(peetsAmount);
-    getSyncHelper().sleep(5000);
+    SdkHelper.getSyncHelper().sleep(5000);
     selectDebitCreditCardOption();
     fillBillingInfo();
     fillEmailField();
     continueAfterBillingInfo();
-    return this.create(CheckoutPlaceOrderPage.class);
+    return SdkHelper.create(CheckoutPlaceOrderPage.class);
   }
 
   /** Continue after entering Peets and Credit Card Billing Info */
@@ -231,11 +231,11 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
     String totalPriceDecimals = cartTotalPrice.getText().split("\\.")[1];
     String peetsAmount =
         Constants.TestData.PEETS_CARD_LOWEST_AMOUNT.concat("." + totalPriceDecimals);
-    getSyncHelper().wait(Until.uiElement(getStoredPeetsCardAmountTextBox).present());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getStoredPeetsCardAmountTextBox).present());
     getStoredPeetsCardAmountTextBox.sendKeys(peetsAmount);
     selectDebitCreditCardOption();
     continueAfterEnteringPIN();
-    return this.create(CheckoutPlaceOrderPage.class);
+    return SdkHelper.create(CheckoutPlaceOrderPage.class);
   }
 
   /** Click continue after billing info section */
@@ -247,7 +247,7 @@ public class CheckoutPaymentMethodPage extends BaseComponent {
   public void clickOnFirstBillingAddress() {
     if (!selectedBillingAddress.isDisplayed()) {
       logger.info("Click on first billing address");
-      getSyncHelper().wait(Until.uiElement(firstBillingAddress).clickable()).click();
+      SdkHelper.getSyncHelper().wait(Until.uiElement(firstBillingAddress).clickable()).click();
     }
   }
 }

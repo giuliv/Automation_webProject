@@ -10,6 +10,7 @@ import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
+import com.applause.auto.framework.SdkHelper;
 import org.testng.annotations.Test;
 
 public class ProductionOrderTest extends BaseTest {
@@ -26,7 +27,7 @@ public class ProductionOrderTest extends BaseTest {
             + "User is on the checkout screen\n"
             + "User continues this test case from previous test case (so user will have items added to order already)");
 
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     // TODO Change to prod account
     Constants.UserTestData account = MyAccountTestData.CHECKOUT_ACCOUNT;
     DashboardView dashboardView =

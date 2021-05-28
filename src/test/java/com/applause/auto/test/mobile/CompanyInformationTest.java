@@ -3,13 +3,14 @@ package com.applause.auto.test.mobile;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.data.enums.SwipeDirection;
-import com.applause.auto.integrations.annotation.testidentification.ApplauseTestCaseId;
+import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.views.*;
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
+import com.applause.auto.framework.SdkHelper;
 import org.testng.annotations.Test;
 
 public class CompanyInformationTest extends BaseTest {
@@ -22,7 +23,7 @@ public class CompanyInformationTest extends BaseTest {
   @ApplauseTestCaseId({"674523", "674522"})
   public void faqsTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
             landingView,
@@ -65,7 +66,7 @@ public class CompanyInformationTest extends BaseTest {
   @ApplauseTestCaseId({"674527", "674526"})
   public void termsAndPrivacyPolicyTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
             landingView,
@@ -139,7 +140,7 @@ public class CompanyInformationTest extends BaseTest {
   @ApplauseTestCaseId({"674517", "674514"})
   public void moreScreenTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
             landingView,
@@ -191,7 +192,7 @@ public class CompanyInformationTest extends BaseTest {
         accountMenuMobileChunk.isSubHeaderPeetsCoffeeDisplayed(),
         "Sub header: Peet's Coffee does not displayed");
 
-    getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+    SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
 
     logger.info("VERIFY - About Us");
     Assert.assertTrue(
@@ -229,7 +230,7 @@ public class CompanyInformationTest extends BaseTest {
   @ApplauseTestCaseId({"674525", "625937"})
   public void contactCustomerServiceTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = this.create(LandingView.class);
+    LandingView landingView = SdkHelper.create(LandingView.class);
     DashboardView dashboardView =
         testHelper.signIn(
             landingView,

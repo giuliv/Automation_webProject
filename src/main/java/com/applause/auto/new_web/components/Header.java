@@ -2,14 +2,14 @@ package com.applause.auto.new_web.components;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.integrations.helpers.SdkHelper;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
 
 @Implementation(is = Header.class, on = Platform.WEB)
 @Implementation(is = HeaderMobile.class, on = Platform.WEB_MOBILE_PHONE)
@@ -30,7 +30,7 @@ public class Header extends BaseComponent {
 
   @Override
   public void afterInit() {
-    getSyncHelper().wait(Until.uiElement(mainContainer).present());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
   }
 
   /* -------- Actions -------- */
@@ -47,7 +47,7 @@ public class Header extends BaseComponent {
     logger.info("SubCategory selected " + (menuSubCategories.name()));
     subCategories.format(menuSubCategories.getMenuSubCategories()).initialize();
 
-    getSyncHelper().wait(Until.uiElement(subCategories).visible());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(subCategories).visible());
     subCategories.click();
 
     return SdkHelper.create(clazz);
@@ -68,9 +68,9 @@ class HeaderMobile extends Header {
 
   public void openHamburgerMenu() {
     logger.info("Open Hamburger Menu [Mobile]");
-    getSyncHelper().wait(Until.uiElement(hamburgerButton).visible());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(hamburgerButton).visible());
     hamburgerButton.click();
 
-    getSyncHelper().wait(Until.uiElement(coffeeCategory).visible());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(coffeeCategory).visible());
   }
 }

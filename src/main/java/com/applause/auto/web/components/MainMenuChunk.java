@@ -2,7 +2,7 @@ package com.applause.auto.web.components;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.integrations.helpers.SdkHelper;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -96,9 +96,9 @@ public class MainMenuChunk extends BaseComponent {
       getCategoryColumnOptionButton.click();
     } else {
       getCategoryColumnOptionButton.initializeWithFormat(column, option);
-      getDriver().get(getCategoryColumnOptionButton.getAttributeValue("href"));
+      SdkHelper.getDriver().get(getCategoryColumnOptionButton.getAttributeValue("href"));
     }
-    return this.create(clazz);
+    return SdkHelper.create(clazz);
   }
 
   /** Access Sub-Menu Tea under Category Shop from main menu */
@@ -106,7 +106,7 @@ public class MainMenuChunk extends BaseComponent {
     logger.info("Accessing Shop-Tea");
     clickCategorySubmenu(
         Constants.TestMainMenu.NAV_CATEGORY_SHOP, Constants.TestMainMenu.NAV_SUBMENU_TEA);
-    return this.create(ShopTeaPage.class);
+    return SdkHelper.create(ShopTeaPage.class);
   }
 
   /**
@@ -120,7 +120,7 @@ public class MainMenuChunk extends BaseComponent {
     getSubcategoryButton.initializeWithFormat(
         Constants.TestMainMenu.NAV_SUBMENU_GIFT_SUBSCRIPTIONS);
     getSubcategoryButton.click();
-    return this.create(ShopGiftSubscriptionsPage.class);
+    return SdkHelper.create(ShopGiftSubscriptionsPage.class);
   }
 
   /** Access Sub-Menu Equipment under Category Shop from main menu */
@@ -128,7 +128,7 @@ public class MainMenuChunk extends BaseComponent {
     logger.info("Accessing Shop-Equipment");
     clickCategorySubmenu(
         Constants.TestMainMenu.NAV_CATEGORY_SHOP, Constants.TestMainMenu.NAV_SUBMENU_EQUIPMENT);
-    return this.create(ShopEquipmentPage.class);
+    return SdkHelper.create(ShopEquipmentPage.class);
   }
 
   /**
@@ -139,7 +139,7 @@ public class MainMenuChunk extends BaseComponent {
   public Landing clickHeaderLogo() {
     logger.info("Click Peets Coffee logo");
     getHeaderLogo.click();
-    return this.create(Landing.class);
+    return SdkHelper.create(Landing.class);
   }
 
   /** Access Sub-Menu Equipment under Category Shop from main menu */
@@ -147,7 +147,7 @@ public class MainMenuChunk extends BaseComponent {
     logger.info("Accessing Shop-Equipment");
     clickCategorySubmenu(
         Constants.TestMainMenu.NAV_CATEGORY_SHOP, Constants.TestMainMenu.NAV_OPTION_CARDS_BY_MAIL);
-    return this.create(PeetsCardProductPage.class);
+    return SdkHelper.create(PeetsCardProductPage.class);
   }
 
   /**
@@ -158,7 +158,7 @@ public class MainMenuChunk extends BaseComponent {
   public MiniCartContainerChunk clickMiniCart() {
     logger.info("Click mini-cart icon");
     getHeaderMinicart.click();
-    return this.create(MiniCartContainerChunk.class);
+    return SdkHelper.create(MiniCartContainerChunk.class);
   }
 
   /**
@@ -171,7 +171,7 @@ public class MainMenuChunk extends BaseComponent {
   public <T extends BaseComponent> T closeMiniCart(Class<T> clazz) {
     logger.info("Click mini-cart icon");
     getHeaderMinicart.click();
-    return this.create(clazz);
+    return SdkHelper.create(clazz);
   }
 
   /**

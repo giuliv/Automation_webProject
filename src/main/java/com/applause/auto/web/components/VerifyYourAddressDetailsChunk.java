@@ -6,6 +6,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.web.views.CheckoutShippingInfoPage;
 
 @Implementation(is = VerifyYourAddressDetailsChunk.class, on = Platform.WEB)
@@ -29,6 +30,6 @@ public class VerifyYourAddressDetailsChunk extends BaseComponent {
   public CheckoutShippingInfoPage clickEnteredAddressButton() {
     logger.info("Clicking Use Entered Address Button");
     getUseEnteredAddressButton.click();
-    return this.create(CheckoutShippingInfoPage.class);
+    return SdkHelper.create(CheckoutShippingInfoPage.class);
   }
 }

@@ -22,6 +22,7 @@ import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
+import com.applause.auto.framework.SdkHelper;
 import org.testng.annotations.Test;
 
 public class CheckoutDemoTest extends BaseTest {
@@ -107,7 +108,7 @@ public class CheckoutDemoTest extends BaseTest {
     logger.info("4. Select 'Create an Account'");
     SignUpPage signUpPage = signInPage.clickonCreateAccountButton();
 
-    logger.info("5. Fill out form to create an account");
+    logger.info("5. Fill out form to SdkHelper.create an account");
     CheckoutShippingInfoPage shippingInfoPage =
         signUpPage.submitSignUpInfo(CheckoutShippingInfoPage.class);
 

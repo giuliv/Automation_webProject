@@ -3,10 +3,10 @@ package com.applause.auto.mobile.helpers;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileApp;
 import com.applause.auto.data.enums.SwipeDirection;
-import com.applause.auto.integrations.helpers.SdkHelper;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
 import com.applause.auto.pageobjectmodel.elements.Picker;
-import com.applause.auto.pageobjectmodel.helper.sync.Until;
+import com.applause.auto.helpers.sync.Until;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -31,7 +31,7 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.*;
 import org.testng.Assert;
 
-public class MobileHelper extends SdkHelper {
+public class MobileHelper {
 
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
   private static Dimension deviceSize;
@@ -41,7 +41,7 @@ public class MobileHelper extends SdkHelper {
   }
 
   private static AppiumDriver getMobileDriver() {
-    return (AppiumDriver) getDriver();
+    return (AppiumDriver) SdkHelper.getDriver();
   }
 
   /** Activates the app */
@@ -51,17 +51,17 @@ public class MobileHelper extends SdkHelper {
       getMobileDriver().activateApp(MobileApp.ANDROID_PACKAGE_ID);
     }
     if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
-      getSyncHelper().sleep(5000);
+      SdkHelper.getSyncHelper().sleep(5000);
       hideKeyboardIOSByPressDone();
       getMobileDriver().activateApp(MobileApp.IOS_BUNDLE_ID);
     }
-    getSyncHelper().sleep(3000);
+    SdkHelper.getSyncHelper().sleep(3000);
   }
 
   public static void initMobileBrowser() {
     if (SdkHelper.getEnvironmentHelper().isMobileAndroid()) {
-      getSyncHelper().sleep(5000);
-      String currentActivity = ((AndroidDriver) getDriver()).currentActivity();
+      SdkHelper.getSyncHelper().sleep(5000);
+      String currentActivity = ((AndroidDriver) SdkHelper.getDriver()).currentActivity();
       boolean isSamsungBrowserStarted =
           currentActivity.equals("com.sec.android.app.sbrowser")
               || currentActivity.contains("help_intro.HelpIntroActivity");
@@ -74,22 +74,22 @@ public class MobileHelper extends SdkHelper {
       logger.info("Current activity: " + currentActivity);
 
       if (isIntentActionStarted) {
-        ((AppiumDriver) getDriver())
+        ((AppiumDriver) SdkHelper.getDriver())
             .findElementByXPath("//android.widget.TextView[@text='Chrome']")
             .click();
-        ((AppiumDriver) getDriver()).findElementById("android:id/button_once").click();
+        ((AppiumDriver) SdkHelper.getDriver()).findElementById("android:id/button_once").click();
         return;
       } else if (isSamsungBrowserStarted) {
         throw new RuntimeException("Only Samsung browser suggested. Exiting");
-        // ((AppiumDriver) getDriver())
+        // ((AppiumDriver) SdkHelper.getDriver())
         //
         // .findElementById("com.sec.android.app.sbrowser:id/help_intro_legal_optional_checkbox")
         // .click();
-        // ((AppiumDriver) getDriver())
+        // ((AppiumDriver) SdkHelper.getDriver())
         //
         // .findElementById("com.sec.android.app.sbrowser:id/help_intro_legal_agree_button")
         // .click();
-        // getSyncHelper().sleep(10000);
+        // SdkHelper.getSyncHelper().sleep(10000);
       } else if (isChromeBrowserStarted) {
         return;
       }
@@ -104,7 +104,7 @@ public class MobileHelper extends SdkHelper {
   }
 
   public static void refreshDeviceSize() {
-    deviceSize = getDriver().manage().window().getSize();
+    deviceSize = SdkHelper.getDriver().manage().window().getSize();
   }
 
   /**
@@ -115,8 +115,8 @@ public class MobileHelper extends SdkHelper {
   public static void swipeWithCount(SwipeDirection swipeDirection, int swipeCount) {
     logger.info("Scrolling to bottom of page");
     for (int i = 0; i < swipeCount; i++) {
-      getDeviceControl().swipeAcrossScreenWithDirection(swipeDirection);
-      getSyncHelper().sleep(3000);
+      SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(swipeDirection);
+      SdkHelper.getSyncHelper().sleep(3000);
     }
   }
 
@@ -132,7 +132,7 @@ public class MobileHelper extends SdkHelper {
     int count = 0;
     while (!element.isDisplayed() && (count < retries)) {
       scrollDownCloseToMiddleAlgorithm();
-      getSyncHelper().sleep(2000);
+      SdkHelper.getSyncHelper().sleep(2000);
       count++;
     }
   }
@@ -160,7 +160,7 @@ public class MobileHelper extends SdkHelper {
     logger.info(
         String.format(
             "Clicking with offset: x = [%d] , y = [%d]", xAbsoluteOffset, yAbsoluteOffset));
-    getDeviceControl().tapScreenCoordinates(xAbsoluteOffset, yAbsoluteOffset);
+    SdkHelper.getDeviceControl().tapScreenCoordinates(xAbsoluteOffset, yAbsoluteOffset);
   }
 
   public static void scrollDownCloseToMiddleAlgorithm() {
@@ -271,7 +271,7 @@ public class MobileHelper extends SdkHelper {
    * @return the boolean
    */
   public static boolean isAttribtuePresent(MobileElement element, String attribute) {
-    getSyncHelper().sleep(5000);
+    SdkHelper.getSyncHelper().sleep(5000);
     Boolean result = false;
     try {
       String value = element.getAttribute(attribute);
@@ -306,16 +306,16 @@ public class MobileHelper extends SdkHelper {
           elem.click();
           elem.sendKeys(Keys.BACK_SPACE + value);
           elem.sendKeys(Keys.BACK_SPACE + value);
-          ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.ENTER));
+          ((AndroidDriver) SdkHelper.getDriver()).pressKey(new KeyEvent(AndroidKey.ENTER));
 
         } else {
           elem.sendKeys(Keys.BACK_SPACE);
           elem.click();
           elem.sendKeys(value);
-          ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.ENTER));
+          ((AndroidDriver) SdkHelper.getDriver()).pressKey(new KeyEvent(AndroidKey.ENTER));
         }
       } else {
-        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        JavascriptExecutor js = (JavascriptExecutor) SdkHelper.getDriver();
         Map<String, Object> params = new HashMap<>();
         params.put("order", order);
         params.put("offset", 0.1);
@@ -378,37 +378,37 @@ public class MobileHelper extends SdkHelper {
   public static void scrollUntilElementSectionWillBeAvailableOnTheScreenInWebView(
       BaseElement element, String elementName, int maxSwipingAttempts) {
     int currentSwipingAttempts = 1;
-    getSyncHelper().sleep(10000);
+    SdkHelper.getSyncHelper().sleep(10000);
     int screenHeight = 0;
     int screenWidth = 0;
     logger.info("Scrolling down to element: ", elementName);
     while (currentSwipingAttempts <= maxSwipingAttempts) {
       try {
-        getSyncHelper().wait(Until.uiElement(element).present().setTimeout(Duration.ofSeconds(5)));
+        SdkHelper.getSyncHelper().wait(Until.uiElement(element).present().setTimeout(Duration.ofSeconds(5)));
         logger.info(elementName + " is present");
         return;
       } catch (UnsupportedCommandException uce) {
         logger.info("UnsupportedCommandException catched");
-        ((AppiumDriver) getDriver()).context("NATIVE_APP");
-        screenHeight = getDeviceControl().getScreenSize().getHeight();
-        screenWidth = getDeviceControl().getScreenSize().getWidth();
-        getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
-        getSyncHelper().sleep(5000);
+        ((AppiumDriver) SdkHelper.getDriver()).context("NATIVE_APP");
+        screenHeight = SdkHelper.getDeviceControl().getScreenSize().getHeight();
+        screenWidth = SdkHelper.getDeviceControl().getScreenSize().getWidth();
+        SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+        SdkHelper.getSyncHelper().sleep(5000);
         currentSwipingAttempts++;
-        logger.info("XML Dump: ", getDriver().getPageSource());
+        logger.info("XML Dump: ", SdkHelper.getDriver().getPageSource());
       } catch (WebDriverException e) {
         logger.info(elementName + " is not present");
         logger.info("Swipe attempt: " + currentSwipingAttempts);
-        getDeviceControl()
+        SdkHelper.getDeviceControl()
             .swipeAcrossScreenCoordinates(
                 screenWidth / 2,
                 (int) (screenHeight * 0.75),
                 screenWidth / 2,
                 (int) (screenHeight * 0.4),
                 1000);
-        getSyncHelper().sleep(5000);
+        SdkHelper.getSyncHelper().sleep(5000);
         currentSwipingAttempts++;
-        logger.info("XML Dump: ", getDriver().getPageSource());
+        logger.info("XML Dump: ", SdkHelper.getDriver().getPageSource());
       }
     }
   }
@@ -438,10 +438,10 @@ public class MobileHelper extends SdkHelper {
 
     org.openqa.selenium.Point point = element.getCenter();
 
-    Dimension dimension = getDriver().manage().window().getSize();
+    Dimension dimension = SdkHelper.getDriver().manage().window().getSize();
 
     double centerX0 = (double) point.getX() / (double) dimension.width;
-    File scrFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);
+    File scrFile = ((TakesScreenshot) SdkHelper.getDriver()).getScreenshotAs(OutputType.FILE);
 
     BufferedImage image = null;
     try {
@@ -449,7 +449,7 @@ public class MobileHelper extends SdkHelper {
     } catch (IOException e) {
       logger.error("Error during image reading");
     }
-    int screenHeight = getDeviceControl().getScreenSize().height;
+    int screenHeight = SdkHelper.getDeviceControl().getScreenSize().height;
     int screenShotHeight = image.getHeight();
     logger.debug("Screen height = " + screenHeight);
     logger.debug("Screenshot height = " + screenShotHeight);
@@ -486,7 +486,7 @@ public class MobileHelper extends SdkHelper {
    */
   public static boolean isDisplayed(BaseElement element) {
     try {
-      return getQueryHelper().findElement(element.getLocator()).isDisplayed();
+      return SdkHelper.getQueryHelper().findElement(element.getLocator()).isDisplayed();
     } catch (Exception ex) {
       return false;
     }
@@ -499,12 +499,12 @@ public class MobileHelper extends SdkHelper {
     } catch (NoSuchElementException nse) {
       IntStream.range(1, 6).forEach(i -> scrollUpCloseToMiddleAlgorithm());
     }
-    int screenHeight = getDeviceControl().getScreenSize().height;
+    int screenHeight = SdkHelper.getDeviceControl().getScreenSize().height;
     IntStream.range(1, 6)
         .filter(
             i -> {
               try {
-                getSyncHelper().sleep(2000);
+                SdkHelper.getSyncHelper().sleep(2000);
                 element.initialize();
                 Dimension dimension = element.getDimension();
                 Point location = element.getLocation();
@@ -533,13 +533,13 @@ public class MobileHelper extends SdkHelper {
   }
 
   public static void swipeAcrossMiddleScreenUp() {
-    Dimension size = getDeviceControl().getScreenSize();
+    Dimension size = SdkHelper.getDeviceControl().getScreenSize();
     logger.debug(String.format("Screen size is [%d x %d].", size.width, size.height));
     swipeAcrossScreenCoordinates(0.5, 0.5, 0.5, 0.3, 2000L);
   }
 
   public static void swipeAcrossMiddleScreenDown() {
-    Dimension size = getDeviceControl().getScreenSize();
+    Dimension size = SdkHelper.getDeviceControl().getScreenSize();
     logger.debug(String.format("Screen size is [%d x %d].", size.width, size.height));
     swipeAcrossScreenCoordinates(0.5, 0.5, 0.5, 0.8, 2000L);
   }

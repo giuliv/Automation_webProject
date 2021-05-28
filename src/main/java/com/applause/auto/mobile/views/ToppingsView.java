@@ -4,6 +4,7 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.Button;
 
 @Implementation(is = ToppingsView.class, on = Platform.MOBILE_ANDROID)
@@ -31,9 +32,9 @@ public class ToppingsView extends BaseComponent {
 	}
 
 	public <T extends BaseComponent> T saveChanges(Class<T> clazz) {
-		getSyncHelper().sleep(1000);
-		getDeviceControl().tapElementCenter(saveChangesButton);
-		getSyncHelper().sleep(2000);
-		return this.create(clazz);
+		SdkHelper.getSyncHelper().sleep(1000);
+		SdkHelper.getDeviceControl().tapElementCenter(saveChangesButton);
+		SdkHelper.getSyncHelper().sleep(2000);
+		return SdkHelper.create(clazz);
 	}
 }

@@ -12,6 +12,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 
 @Implementation(is = StoreDetailsView.class, on = Platform.MOBILE_ANDROID)
@@ -80,7 +81,7 @@ public class StoreDetailsView extends BaseComponent {
 	public ProductDetailsView selectSearchResultByIndex(int index) {
 		logger.info("Select search result");
 		getSearchResultsElements.get(index).click();
-		return this.create(ProductDetailsView.class);
+		return SdkHelper.create(ProductDetailsView.class);
 	}
 
 	/**
@@ -115,7 +116,7 @@ public class StoreDetailsView extends BaseComponent {
 	public <T extends BaseComponent> T navigateBack(Class<T> clazz) {
 		logger.info("Click on Back navigation button");
 		navigateBackButton.click();
-		return this.create(clazz);
+		return SdkHelper.create(clazz);
 	}
 
 	/**
@@ -144,7 +145,7 @@ public class StoreDetailsView extends BaseComponent {
 	 * @return the coffeebar sub header name
 	 */
 	public String getCoffeebarSubHeaderName() {
-		getSyncHelper().sleep(10000);
+		SdkHelper.getSyncHelper().sleep(10000);
 		logger.info("Checking coffeebar sub-header name:" + coffeebarSubHeaderNameText.getText());
 		return coffeebarSubHeaderNameText.getText();
 	}
@@ -230,7 +231,7 @@ public class StoreDetailsView extends BaseComponent {
 	public MapView directions() {
 		logger.info("Tap directions button");
 		directionsButton.click();
-		return this.create(MapView.class);
+		return SdkHelper.create(MapView.class);
 	}
 
 	/**
@@ -241,7 +242,7 @@ public class StoreDetailsView extends BaseComponent {
 	public OrderView order() {
 		logger.info("Tap order button");
 		orderButton.click();
-		return this.create(OrderView.class);
+		return SdkHelper.create(OrderView.class);
 	}
 
 	/**
@@ -253,7 +254,7 @@ public class StoreDetailsView extends BaseComponent {
 		logger.info("Tap favorite icon");
 		coffeebarFavoriteIcon.initialize();
 		coffeebarFavoriteIcon.click();
-		getSyncHelper().sleep(5000);
+		SdkHelper.getSyncHelper().sleep(5000);
 		return this;
 	}
 }

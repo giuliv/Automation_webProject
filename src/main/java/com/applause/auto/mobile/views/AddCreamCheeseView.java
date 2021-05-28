@@ -4,6 +4,7 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.Button;
 
 @Implementation(is = AddCreamCheeseView.class, on = Platform.MOBILE_ANDROID)
@@ -36,7 +37,7 @@ public class AddCreamCheeseView extends BaseComponent {
 
 	public <T extends BaseComponent> T saveChanges(Class<T> clazz) {
 		saveChangesButton.click();
-		return this.create(clazz);
+		return SdkHelper.create(clazz);
 	}
 
 	public AddCreamCheeseView decreaseCount(String category, String value) {
