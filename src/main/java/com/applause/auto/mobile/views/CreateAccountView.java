@@ -8,17 +8,17 @@ import org.openqa.selenium.Dimension;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
+import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.*;
-import com.applause.auto.helpers.sync.Until;
 
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
-import com.applause.auto.framework.SdkHelper;
 import io.appium.java_client.touch.offset.PointOption;
 
 @Implementation(is = AndroidCreateAccountView.class, on = Platform.MOBILE_ANDROID)
@@ -114,7 +114,7 @@ public class CreateAccountView extends BaseComponent {
 	@Locate(id = "com.wearehathway.peets.development:id/promoCode", on = Platform.MOBILE_ANDROID)
 	protected TextBox getPromoCodeTextBox;
 
-	@Locate(xpath = "(//XCUIElementTypeTextView[@value='Yes, please send me emails with exclusive offers, rewards, news, and more.']/following-sibling::XCUIElementTypeButton)[1]", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//XCUIElementTypeButton[@value='Yes, please send me emails with exclusive offers, rewards, news, and more.']", on = Platform.MOBILE_IOS)
 	@Locate(id = "com.wearehathway.peets.development:id/receiveMessageFromPeetCheckBox", on = Platform.MOBILE_ANDROID)
 	protected Checkbox getEmailsWithOffersCheckBox;
 
