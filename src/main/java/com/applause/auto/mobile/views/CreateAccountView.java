@@ -114,7 +114,7 @@ public class CreateAccountView extends BaseComponent {
 	@Locate(id = "com.wearehathway.peets.development:id/promoCode", on = Platform.MOBILE_ANDROID)
 	protected TextBox getPromoCodeTextBox;
 
-	@Locate(xpath = "//XCUIElementTypeButton[@name='Yes, please send me emails with exclusive offers, rewards, news, and more.']", on = Platform.MOBILE_IOS)
+	@Locate(xpath = "//XCUIElementTypeButton[@name=\"Yes, please send me emails with exclusive offers, rewards, news, and more.\"]", on = Platform.MOBILE_IOS)
 	@Locate(id = "com.wearehathway.peets.development:id/receiveMessageFromPeetCheckBox", on = Platform.MOBILE_ANDROID)
 	protected Checkbox getEmailsWithOffersCheckBox;
 
