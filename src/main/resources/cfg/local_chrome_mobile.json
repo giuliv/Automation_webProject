@@ -1,16 +1,22 @@
 {
+  "applause:options": {
+    "isW3C": "true",
+    "isStrict": "false",
+    "driverName": "Chrome",
+    "driverType": "Chrome",
+    "factoryKey": "WebDesktop"
+  },
   "device_name": "Local Chrome",
   "driver_type": "Chrome",
   "factory_key": "WEB_MOBILE_PHONE",
-  "manufacturer": "WINDOWS",
+  "manufacturer": "OSX",
+  "goog:chromeOptions": {
+    "mobileEmulation": {
+      "deviceName": "Pixel 2"
+    }
+  },
   "caps": {
     "browserName": "chrome",
-    "acceptSSLAlerts": "true",
-    "goog:chromeOptions": {
-      "mobileEmulation": {
-        "deviceName": "Pixel 2"
-      }
-    }
+    "acceptSSLAlerts": "true"
   }
 }
-

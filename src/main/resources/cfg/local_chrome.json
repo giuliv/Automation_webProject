@@ -1,10 +1,17 @@
 {
-	"device_name" : "Local Chrome",
-	"driver_type" : "Chrome",
-	"factory_key" : "WEB_DESKTOP_CHROME",
-	"manufacturer": "OSX",
-	"caps" : { 
-		"browserName" : "chrome",
-        "acceptSSLAlerts" : "true"
-	}
+  "applause:options": {
+    "isW3C": "true",
+    "isStrict": "false",
+    "driverName": "Chrome",
+    "driverType": "Chrome",
+    "factoryKey": "WebDesktop"
+  },
+  "device_name": "Local Chrome",
+  "driver_type": "Chrome",
+  "factory_key": "WEB_DESKTOP_CHROME",
+  "manufacturer": "OSX",
+  "caps": {
+    "browserName": "chrome",
+    "acceptSSLAlerts": "true"
+  }
 }
