@@ -6,10 +6,7 @@ import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
-import com.applause.auto.pageobjectmodel.elements.Button;
-import com.applause.auto.pageobjectmodel.elements.ContainerElement;
-import com.applause.auto.pageobjectmodel.elements.SelectList;
-import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.elements.*;
 
 @Implementation(is = CheckOutPage.class, on = Platform.WEB)
 @Implementation(is = CheckOutPage.class, on = Platform.WEB_MOBILE_PHONE)

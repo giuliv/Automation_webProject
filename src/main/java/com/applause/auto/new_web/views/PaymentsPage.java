@@ -7,10 +7,7 @@ import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
-import com.applause.auto.pageobjectmodel.elements.Button;
-import com.applause.auto.pageobjectmodel.elements.ContainerElement;
-import com.applause.auto.pageobjectmodel.elements.RadioButton;
-import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.elements.*;
 
 @Implementation(is = PaymentsPage.class, on = Platform.WEB)
 @Implementation(is = PaymentsPage.class, on = Platform.WEB_MOBILE_PHONE)
@@ -51,6 +48,9 @@ public class PaymentsPage extends Base {
 
   @Locate(xpath = "(//button[@id='continue_button'])[1]", on = Platform.WEB)
   private Button payNowButton;
+
+  @Locate(css = ".total-line .payment-due__price", on = Platform.WEB)
+  private Text totalPrice;
 
   @Override
   public void afterInit() {
@@ -99,5 +99,12 @@ public class PaymentsPage extends Base {
   public boolean isSameAddressSelected() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(sameAddress).present());
     return sameAddress.isSelected();
+  }
+
+  public String getTotalPrice() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(totalPrice).visible());
+    logger.info("Total price: " + totalPrice);
+
+    return totalPrice.getText();
   }
 }

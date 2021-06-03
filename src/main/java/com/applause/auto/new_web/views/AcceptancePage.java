@@ -75,13 +75,39 @@ public class AcceptancePage extends Base {
   public String getOrderName() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(productName).visible());
     logger.info("Product Name: " + productName.getText().toLowerCase());
+
     return productName.getText().toLowerCase();
   }
 
   public String getTotalPrice() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(total).visible());
     logger.info("Total Price: " + total.getText());
+
     return total.getText();
+  }
+
+  public String getPhoneFromTrackPackageSection() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(trackPackagePhone).visible());
+    logger.info("Phone from Track Package Section: " + trackPackagePhone.getCurrentText());
+
+    return trackPackagePhone.getCurrentText();
+  }
+
+  public String getPhoneFromShippingUpdatesSection() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(shippingUpdatesPhone).visible());
+    logger.info("Phone from Shipping Updates Section: " + shippingUpdatesPhone.getCurrentText());
+
+    return shippingUpdatesPhone.getCurrentText();
+  }
+
+  public void clickOverTrackPackageButton() {
+    logger.info("Clicking track package button... ");
+    trackPackageButton.click();
+  }
+
+  public void clickOverShippingUpdatesButton() {
+    logger.info("Clicking shipping updated button... ");
+    shippingUpdates.click();
   }
 
   /* -------- Actions -------- */

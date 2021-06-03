@@ -56,8 +56,38 @@ public class GuestCheckoutTest extends BaseTest {
     Assert.assertTrue(
         paymentsPage.isSameAddressSelected(), "Same Address option should be Selected");
 
+    String totalPrice = paymentsPage.getTotalPrice();
+
     logger.info("6. Proceed to Acceptance page");
     AcceptancePage acceptancePage = paymentsPage.clickContinueToPayments();
+
+    logger.info("7. Validating Product Details");
+    Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
+    Assert.assertTrue(acceptancePage.isSubTotalDisplayed(), "SubTotal is NOT displayed");
+    Assert.assertEquals(
+        productName, acceptancePage.getOrderName(), "Product name does NOT matches");
+    Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
+
+    // Todo: Optional assertions or assertions missing:
+    //  Discount if any
+    //  Map Location section
+
+    logger.info("8. Validating Download buttons");
+    acceptancePage.clickOverTrackPackageButton();
+    Assert.assertEquals(
+        acceptancePage.getPhoneFromTrackPackageSection(),
+        "+1 " + Constants.WebTestData.PHONE,
+        "Phone from Track Package section is NOT correct");
+
+    acceptancePage.clickOverShippingUpdatesButton();
+    Assert.assertEquals(
+        acceptancePage.getPhoneFromShippingUpdatesSection(),
+        "+1 " + Constants.WebTestData.PHONE,
+        "Phone from Shipping Updates section is NOT correct");
+
+    // Todo: Optional assertions or assertions missing:
+    //  Submit button from trackPackage/shippingUpdates sections
+    //  [user will receive a text validations]
 
     logger.info("FINISH");
   }
