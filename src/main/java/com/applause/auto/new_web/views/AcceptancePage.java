@@ -9,6 +9,7 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.web.helpers.WebHelper;
 
 @Implementation(is = AcceptancePage.class, on = Platform.WEB)
 @Implementation(is = AcceptancePage.class, on = Platform.WEB_MOBILE_PHONE)
@@ -29,13 +30,20 @@ public class AcceptancePage extends Base {
   @Locate(css = "span.payment-due__price", on = Platform.WEB)
   private Text total;
 
+  @Locate(css = "span.order-summary-toggle__text--show", on = Platform.WEB)
+  private ContainerElement orderSummarySection;
+
   @Locate(css = "button[data-arrive-phone]", on = Platform.WEB)
+  @Locate(id = "track_arrive_with_attribution", on = Platform.WEB_MOBILE_PHONE)
   private Button trackPackageButton;
 
   @Locate(css = "div[data-arrive-phone-wrapper] input[type='tel']", on = Platform.WEB)
   private TextBox trackPackagePhone;
 
   @Locate(css = "button[data-analytics-shipping-updates-method]", on = Platform.WEB)
+  @Locate(
+      css = "button[data-analytics-shipping-updates-method='phone']",
+      on = Platform.WEB_MOBILE_PHONE)
   private Button shippingUpdates;
 
   @Locate(css = "#customer_notification_form--phone input[type='tel']", on = Platform.WEB)
@@ -50,6 +58,9 @@ public class AcceptancePage extends Base {
   @Locate(xpath = "(//h3[text()='Shipping method']//parent::div/p)[2]", on = Platform.WEB)
   private Text shippingMethod;
 
+  @Locate(xpath = "//h3[text()='Payment method']//parent::div//li", on = Platform.WEB)
+  private Text paymentMethod;
+
   @Locate(xpath = "//h3[text()='Billing address']//parent::div//address", on = Platform.WEB)
   private Text billingAddress;
 
@@ -60,6 +71,12 @@ public class AcceptancePage extends Base {
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
     logger.info("Acceptance Page URL: " + getDriver().getCurrentUrl());
+
+    if (!WebHelper.isDesktop()) {
+      logger.info("Open Order Summary Section");
+      orderSummarySection.click();
+      SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    }
   }
 
   public boolean isOrderNumberDisplayed() {
@@ -70,6 +87,14 @@ public class AcceptancePage extends Base {
   public boolean isSubTotalDisplayed() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(subTotal).visible());
     return subTotal.isDisplayed();
+  }
+
+  public boolean isContinueShoppingDisplayed() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(continueShoppingButton).present());
+    WebHelper.scrollToElement(continueShoppingButton.getWebElement());
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for scroll
+
+    return continueShoppingButton.isDisplayed();
   }
 
   public String getOrderName() {
@@ -100,13 +125,53 @@ public class AcceptancePage extends Base {
     return shippingUpdatesPhone.getCurrentText();
   }
 
+  public String getCustomerMail() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(customerMail).visible());
+    logger.info("Customer Mail: " + customerMail.getText());
+
+    return customerMail.getText();
+  }
+
+  public String getShippingAddressData() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(shippingAddress).visible());
+    logger.info("Shipping Address: " + shippingAddress.getText());
+
+    return shippingAddress.getText();
+  }
+
+  public String getShippingMethod() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(shippingMethod).visible());
+    logger.info("Shipping Method: " + shippingMethod.getText());
+
+    return shippingMethod.getText();
+  }
+
+  public String getPaymentMethod() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(paymentMethod).visible());
+    logger.info("Payment Method: " + paymentMethod.getText());
+
+    return paymentMethod.getText();
+  }
+
+  public String getBillingAddressData() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(billingAddress).visible());
+    logger.info("Billing Address: " + billingAddress.getText());
+
+    return billingAddress.getText();
+  }
+
   public void clickOverTrackPackageButton() {
     logger.info("Clicking track package button... ");
+    WebHelper.scrollToElement(trackPackageButton.getWebElement());
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for scroll
+
     trackPackageButton.click();
   }
 
   public void clickOverShippingUpdatesButton() {
     logger.info("Clicking shipping updated button... ");
+    WebHelper.scrollToElement(shippingUpdates.getWebElement()); // Wait for scroll
+
     shippingUpdates.click();
   }
 

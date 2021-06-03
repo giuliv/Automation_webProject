@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 public class GuestCheckoutTest extends BaseTest {
 
-  @Test()
+  @Test(description = "11052640")
   public void guestCheckoutTest() {
 
     logger.info("1. Navigate to landing page");
@@ -48,7 +48,7 @@ public class GuestCheckoutTest extends BaseTest {
 
     logger.info("5. Proceed to Shipping page");
     ShippingPage shippingPage = checkOutPage.clickContinueToShipping();
-    shippingPage.selectShippingMethodByIndex(0);
+    String shippingMethod = shippingPage.selectShippingMethodByIndex(0);
 
     logger.info("6. Proceed to Payments page");
     PaymentsPage paymentsPage = shippingPage.clickContinueToPayments();
@@ -88,6 +88,32 @@ public class GuestCheckoutTest extends BaseTest {
     // Todo: Optional assertions or assertions missing:
     //  Submit button from trackPackage/shippingUpdates sections
     //  [user will receive a text validations]
+
+    logger.info("9. Validating Customer Information");
+    Assert.assertEquals(
+        Constants.WebTestData.EMAIL, acceptancePage.getCustomerMail(), "Mail does NOT matches");
+
+    Assert.assertTrue(
+        acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
+        "Shipping Address does NOT matches");
+
+    Assert.assertTrue(
+        shippingMethod.contains(acceptancePage.getShippingMethod()),
+        "Shipping Method does NOT matches");
+
+    Assert.assertTrue(
+        acceptancePage
+            .getPaymentMethod()
+            .contains("ending with " + Constants.WebTestData.CREDIT_CARD_NUMBER_4),
+        "Payment Method does NOT matches");
+
+    Assert.assertTrue(
+        acceptancePage.getBillingAddressData().contains(Constants.WebTestData.ADDRESS),
+        "Billing Address does NOT matches");
+
+    Assert.assertTrue(
+        acceptancePage.isContinueShoppingDisplayed(),
+        "Continue to Shopping button is not displayed");
 
     logger.info("FINISH");
   }

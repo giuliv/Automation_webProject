@@ -31,11 +31,12 @@ public class ShippingPage extends Base {
 
   /* -------- Actions -------- */
 
-  public void selectShippingMethodByIndex(int index) {
+  public String selectShippingMethodByIndex(int index) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(shippingMethods.get(index)).visible());
     logger.info("Shipping Method Selected: " + shippingMethods.get(index).getText());
 
     shippingMethods.get(index).click();
+    return shippingMethods.get(index).getText();
   }
 
   public PaymentsPage clickContinueToPayments() {

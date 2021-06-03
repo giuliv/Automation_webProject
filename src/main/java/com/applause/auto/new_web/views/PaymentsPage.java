@@ -50,6 +50,7 @@ public class PaymentsPage extends Base {
   private Button payNowButton;
 
   @Locate(css = ".total-line .payment-due__price", on = Platform.WEB)
+  @Locate(css = "span[class*='final-price']", on = Platform.WEB_MOBILE_PHONE)
   private Text totalPrice;
 
   @Override
@@ -102,8 +103,8 @@ public class PaymentsPage extends Base {
   }
 
   public String getTotalPrice() {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(totalPrice).visible());
-    logger.info("Total price: " + totalPrice);
+    SdkHelper.getSyncHelper().wait(Until.uiElement(totalPrice).present());
+    logger.info("Total price: " + totalPrice.getText());
 
     return totalPrice.getText();
   }
