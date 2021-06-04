@@ -16,7 +16,7 @@ public class LoginTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
   @Test(
-      groups = {TestNGGroups.LOGIN, TestNGGroups.NEW_WEB_CASES},
+      groups = {TestNGGroups.LOGIN},
       description = "10351")
   public void loginTest() {
 

@@ -9,7 +9,9 @@ import org.testng.annotations.Test;
 
 public class GuestCheckoutTest extends BaseTest {
 
-  @Test(description = "11052640")
+  @Test(
+      groups = {Constants.TestNGGroups.NEW_WEB_CASES},
+      description = "11052640")
   public void guestCheckoutTest() {
 
     logger.info("1. Navigate to landing page");
