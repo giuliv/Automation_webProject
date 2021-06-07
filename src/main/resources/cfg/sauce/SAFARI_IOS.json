@@ -1,0 +1,32 @@
+{
+  "applause:options": {
+    "isW3C": "true",
+    "isStrict": "false",
+    "driverName": "iOS",
+    "driverType": "MobileWeb",
+    "factoryKey": "WEB_IOS_PHONE",
+    "osName": "iOS",
+    "provider": "TestObject US Web",
+    "providerThreadType": "Real",
+    "nameField": "testobject_test_name,testobject_suite_name"
+  },
+  "platformName": "iOS",
+  "browserName": "Safari",
+  "platformVersion": "14",
+  "deviceName": "iPhone.*",
+  "appiumVersion": "1.20.1",
+  "testobject_appium_version": "1.20.1",
+  "orientation": "PORTRAIT",
+  "region": "US",
+  "phoneOnly": "true",
+  "privateDevicesOnly": "false",
+  "safariAllowPopups": true,
+  "safariOpenLinksInBackground": true,
+  "locationServicesAuthorized": true,
+  "locationServicesEnabled": true
+  <#if testRunId??>
+,
+  "testobject_test_name" : "Test Run ID: ${testRunId?c}, Test Session ID: ${testSessionId?c}",
+  "testobject_suite_name" : "Test Run ID: ${testRunId?c}, Test Session ID: ${testSessionId?c}"
+  </#if>
+}

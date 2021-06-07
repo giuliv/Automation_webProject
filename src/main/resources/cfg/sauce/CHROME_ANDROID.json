@@ -1,0 +1,29 @@
+{
+  "applause:options": {
+    "isW3C": "true",
+    "isStrict": "false",
+    "driverName": "Android",
+    "driverType": "MobileWeb",
+    "factoryKey": "WEB_ANDROID_PHONE",
+    "osName": "Android",
+    "provider": "TestObject US Web",
+    "providerThreadType": "Real",
+    "nameField": "testobject_test_name,testobject_suite_name"
+  },
+  "platformName": "Android",
+  "platformVersion": "10",
+  "browserName": "Chrome",
+  "orientation": "PORTRAIT",
+  "region": "US",
+  "phoneOnly": "true",
+  "privateDevicesOnly": "false",
+  "deviceName": "Samsung.*",
+  "appiumVersion": "1.20.1",
+  "testobject_appium_version": "1.20.1"
+  <#if testRunId??>
+,
+  "testobject_test_name" : "Test Run ID: ${testRunId?c}, Test Session ID: ${testSessionId?c}",
+  "testobject_suite_name" : "Test Run ID: ${testRunId?c}, Test Session ID: ${testSessionId?c}"
+  </#if>
+
+}

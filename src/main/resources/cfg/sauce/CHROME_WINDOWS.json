@@ -1,0 +1,17 @@
+{
+  "applause:options": {
+    "isW3C": "true",
+    "isStrict": "false",
+    "driverName": "Chrome",
+    "driverType": "Browser",
+    "factoryKey": "WebDesktop",
+    "osName": "Windows",
+    "provider": "SauceLabs"
+  },
+  "platform": "Windows 10",
+  "browserName" : "chrome",
+  "version": "latest",
+  "commandTimeout": "600",
+  "sauce:options":{
+    "W3C":true, "screenResolution": "1920x1080"}
+}

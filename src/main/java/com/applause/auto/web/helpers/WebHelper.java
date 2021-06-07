@@ -135,4 +135,14 @@ public class WebHelper {
     // the element is not obscured by another element.
     jse.executeScript("window.scrollBy(0, " + -(windowHeight / 2) + ")", "");
   }
+
+  public static boolean isDesktop() {
+    return !SdkHelper.getEnvironmentHelper().isMobileAndroid()
+        && !SdkHelper.getEnvironmentHelper().isMobileIOS()
+        && !getDriverConfig().contains("mobile");
+  }
+
+  public static String getDriverConfig() {
+    return System.getProperty("driverConfig", "chrome");
+  }
 }

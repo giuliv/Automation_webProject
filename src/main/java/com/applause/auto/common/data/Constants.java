@@ -236,6 +236,27 @@ public class Constants {
     public static final String VALID_PEETS_CC_NUM_2 = "81001000000584";
   }
 
+  public static final class WebTestData {
+    public static final String EMAIL = "peets.webautomation01@gmail.com";
+    public static final String FIRST_NAME = "Test";
+    public static final String LAST_NAME = "Automation";
+    public static final String ADDRESS = "133 Water St";
+    public static final String CITY = "Brooklyn";
+    public static final String PHONE = "646-759-4933";
+    public static final String COUNTRY = "United States";
+    public static final String PROVINCE = "New York";
+    public static final String ZIP = "10009";
+
+    public static final String CREDIT_CARD_NUMBER_1 = "5333";
+    public static final String CREDIT_CARD_NUMBER_2 = "8663";
+    public static final String CREDIT_CARD_NUMBER_3 = "0222";
+    public static final String CREDIT_CARD_NUMBER_4 = "6031";
+    public static final String CREDIT_CARD_NAME = "Test Automation";
+    public static final String CREDIT_CARD_EXPIRATION_MONTH = "12";
+    public static final String CREDIT_CARD_EXPIRATION_YEAR = "2021";
+    public static final String CREDIT_CARD_CVV = "010";
+  }
+
   public static final class OCR {
     public static final String OCR_IMAGES_COMMON_PATH = "src/main/resources/ocr-images/";
 
