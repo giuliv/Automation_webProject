@@ -255,6 +255,9 @@ public class Constants {
     public static final String CREDIT_CARD_EXPIRATION_MONTH = "12";
     public static final String CREDIT_CARD_EXPIRATION_YEAR = "2021";
     public static final String CREDIT_CARD_CVV = "010";
+
+    public static final String PEETS_CARD = "81001000001599";
+    public static final String PEETS_CARD_NIP = "3746";
   }
 
   public static final class OCR {
@@ -266,7 +269,8 @@ public class Constants {
 
   public enum MenuOptions {
     COFFEE,
-    TEA
+    TEA,
+    GEAR,
   }
 
   public enum MenuSubCategories {

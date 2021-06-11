@@ -4,6 +4,7 @@ import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.helpers.WebHelper;
+import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -22,6 +23,10 @@ public class Header extends BaseComponent {
   @Locate(css = "button[data-id='coffee-nav']", on = Platform.WEB_MOBILE_PHONE)
   protected Button coffeeCategory;
 
+  @Locate(css = "a[data-id='gear-nav']", on = Platform.WEB)
+  @Locate(css = "button[data-id='gear-nav']", on = Platform.WEB_MOBILE_PHONE)
+  protected Button gearCategory;
+
   @Locate(css = ".nav__columns a[href*='%s']", on = Platform.WEB)
   private Button subCategories;
 
@@ -37,9 +42,21 @@ public class Header extends BaseComponent {
 
   public void hoverCategoryFromMenu(Constants.MenuOptions menuOptions) {
     logger.info("Tab selected: " + menuOptions.name());
+
     if (menuOptions.equals(Constants.MenuOptions.COFFEE)) {
       WebHelper.hoverByAction(coffeeCategory);
+    } else if (menuOptions.equals(Constants.MenuOptions.GEAR)) {
+      gearCategory.click();
     }
+  }
+
+  public ProductListPage clickCategoryFromMenu(Constants.MenuOptions menuOptions) {
+    logger.info("Tab selected: " + menuOptions.name());
+
+    if (menuOptions.equals(Constants.MenuOptions.GEAR)) {
+      gearCategory.click();
+    }
+    return SdkHelper.create(ProductListPage.class);
   }
 
   public <T extends BaseComponent> T clickOverSubCategoryFromMenu(
@@ -63,7 +80,20 @@ class HeaderMobile extends Header {
     logger.info("Tab selected: " + menuOptions.name());
     if (menuOptions.equals(Constants.MenuOptions.COFFEE)) {
       coffeeCategory.click();
+    } else if (menuOptions.equals(Constants.MenuOptions.GEAR)) {
+      gearCategory.click();
     }
+  }
+
+  @Override
+  public ProductListPage clickCategoryFromMenu(Constants.MenuOptions menuOptions) {
+    openHamburgerMenu();
+
+    logger.info("Tab selected: " + menuOptions.name());
+    if (menuOptions.equals(Constants.MenuOptions.GEAR)) {
+      gearCategory.click();
+    }
+    return SdkHelper.create(ProductListPage.class);
   }
 
   public void openHamburgerMenu() {
