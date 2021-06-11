@@ -36,7 +36,7 @@ public class AcceptancePage extends Base {
   private ContainerElement orderSummarySection;
 
   @Locate(css = "button[data-arrive-phone]", on = Platform.WEB)
-  @Locate(id = "track_arrive_with_attribution", on = Platform.WEB_MOBILE_PHONE)
+  @Locate(css = "#track_arrive_with_attribution", on = Platform.WEB_MOBILE_PHONE)
   private Button trackPackageButton;
 
   @Locate(css = "div[data-arrive-phone-wrapper] input[type='tel']", on = Platform.WEB)

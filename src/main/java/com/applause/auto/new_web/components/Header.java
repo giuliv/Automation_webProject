@@ -24,7 +24,7 @@ public class Header extends BaseComponent {
   protected Button coffeeCategory;
 
   @Locate(css = "a[data-id='gear-nav']", on = Platform.WEB)
-  @Locate(css = "button[data-id='gear-nav']", on = Platform.WEB_MOBILE_PHONE)
+  @Locate(css = "li a[href*='equipment']", on = Platform.WEB_MOBILE_PHONE)
   protected Button gearCategory;
 
   @Locate(css = ".nav__columns a[href*='%s']", on = Platform.WEB)
