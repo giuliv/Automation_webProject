@@ -11,6 +11,8 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.web.helpers.WebHelper;
 
+import java.util.List;
+
 @Implementation(is = AcceptancePage.class, on = Platform.WEB)
 @Implementation(is = AcceptancePage.class, on = Platform.WEB_MOBILE_PHONE)
 public class AcceptancePage extends Base {
@@ -22,7 +24,7 @@ public class AcceptancePage extends Base {
   private Text orderNumber;
 
   @Locate(css = "#order-summary .product__description__name", on = Platform.WEB)
-  private Text productName;
+  private List<Text> productName;
 
   @Locate(css = "span[data-checkout-subtotal-price-target]", on = Platform.WEB)
   private Text subTotal;
@@ -34,7 +36,7 @@ public class AcceptancePage extends Base {
   private ContainerElement orderSummarySection;
 
   @Locate(css = "button[data-arrive-phone]", on = Platform.WEB)
-  @Locate(id = "track_arrive_with_attribution", on = Platform.WEB_MOBILE_PHONE)
+  @Locate(css = "#track_arrive_with_attribution", on = Platform.WEB_MOBILE_PHONE)
   private Button trackPackageButton;
 
   @Locate(css = "div[data-arrive-phone-wrapper] input[type='tel']", on = Platform.WEB)
@@ -97,11 +99,11 @@ public class AcceptancePage extends Base {
     return continueShoppingButton.isDisplayed();
   }
 
-  public String getOrderName() {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(productName).visible());
-    logger.info("Product Name: " + productName.getText().toLowerCase());
+  public String getOrderNameByIndex(int index) {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(productName.get(index)).visible());
+    logger.info("Product Name: " + productName.get(index).getText().toLowerCase());
 
-    return productName.getText().toLowerCase();
+    return productName.get(index).getText().toLowerCase();
   }
 
   public String getTotalPrice() {

@@ -30,6 +30,9 @@ public class MiniCart extends BaseComponent {
   @Locate(css = "a[href*='checkout']", on = Platform.WEB)
   private Button checkOutButton;
 
+  @Locate(id = "bagContinue", on = Platform.WEB)
+  private Button closeButton;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
@@ -64,5 +67,13 @@ public class MiniCart extends BaseComponent {
     checkOutButton.click();
 
     return SdkHelper.create(CheckOutPage.class);
+  }
+
+  public <V extends BaseComponent> V closeMiniCart(Class<V> expectedClass) {
+    logger.info("Closing miniCart");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(closeButton).visible());
+    closeButton.click();
+
+    return SdkHelper.create(expectedClass);
   }
 }

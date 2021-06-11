@@ -23,7 +23,9 @@ public class ProductDetailsPage extends Base {
   @Locate(css = "select#grind + div", on = Platform.WEB)
   private Text grindSelected;
 
-  @Locate(css = "button[id*='productViewQuantityButton'].is-selected", on = Platform.WEB)
+  @Locate(
+      css = "button[id*='productViewQuantityButton'].is-selected,#quantityText",
+      on = Platform.WEB)
   private Text productQuantity;
 
   @Locate(id = "btnAddToBag", on = Platform.WEB)
@@ -53,16 +55,31 @@ public class ProductDetailsPage extends Base {
 
   public int getProductQuantity() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(productQuantity).visible());
-    logger.info("[PDP] Product Quantity: " + productQuantity.getAttributeValue("data-quantity"));
 
-    return Integer.parseInt(productQuantity.getAttributeValue("data-quantity"));
+    String quantity = "";
+    if (productQuantity.getAttributeValue("data-quantity") != null) {
+      quantity = productQuantity.getAttributeValue("data-quantity");
+    } else {
+      quantity = productQuantity.getText();
+    }
+
+    logger.info("[PDP] Product Quantity: " + quantity);
+    return Integer.parseInt(quantity);
   }
 
-  public MiniCart clickAddToCart() {
-    logger.info("Adding to Cart");
+  public MiniCart clickAddToMiniCart() {
+    logger.info("Adding to MiniCart");
     SdkHelper.getSyncHelper().wait(Until.uiElement(addToCartButton).visible());
     addToCartButton.click();
 
     return SdkHelper.create(MiniCart.class);
+  }
+
+  public CartPage clickAddToCartPage() {
+    logger.info("Adding to Cart");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(addToCartButton).visible());
+    addToCartButton.click();
+
+    return SdkHelper.create(CartPage.class);
   }
 }

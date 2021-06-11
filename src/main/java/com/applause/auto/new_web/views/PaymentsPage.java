@@ -53,6 +53,18 @@ public class PaymentsPage extends Base {
   @Locate(css = "span[class*='final-price']", on = Platform.WEB_MOBILE_PHONE)
   private Text totalPrice;
 
+  @Locate(id = "checkout_giftcard_code", on = Platform.WEB)
+  private TextBox peetsCardCode;
+
+  @Locate(id = "checkout_pin_code", on = Platform.WEB)
+  private TextBox peetsCardNip;
+
+  @Locate(id = "giftCardApply", on = Platform.WEB)
+  private Button peetsCardApplyButton;
+
+  @Locate(css = "tr[data-giftcard-success]", on = Platform.WEB)
+  private Text peetsCardSuccessMessage;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
@@ -107,5 +119,22 @@ public class PaymentsPage extends Base {
     logger.info("Total price: " + totalPrice.getText());
 
     return totalPrice.getText();
+  }
+
+  public void setPeetsCardDiscount() {
+    logger.info("Setting up Peet's Card data");
+    SdkHelper.getSyncHelper().sleep(10000); // Wait for peet's card are ready
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(peetsCardCode).clickable());
+    peetsCardCode.sendKeys(Constants.WebTestData.PEETS_CARD);
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(peetsCardNip).clickable());
+    peetsCardNip.sendKeys(Constants.WebTestData.PEETS_CARD_NIP);
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    peetsCardApplyButton.click();
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    SdkHelper.getSyncHelper().wait(Until.uiElement(peetsCardSuccessMessage).visible());
   }
 }
