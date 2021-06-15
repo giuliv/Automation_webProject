@@ -11,15 +11,19 @@
     "nameField": "testobject_test_name,testobject_suite_name"
   },
   "platformName": "Android",
+  "testobject_api_key": "9DFFAA71F05F4EE7AA28A77E4000C631",
   "platformVersion": "10",
   "browserName": "Chrome",
   "orientation": "PORTRAIT",
   "region": "US",
   "phoneOnly": "true",
   "privateDevicesOnly": "false",
-  "deviceName": "Samsung.*",
+  "autoGrantPermissions": true,
+  "commandTimeout": "600",
+  "deviceName": "(Samsung Galaxy S.*|Google Pixel.*)",
   "appiumVersion": "1.20.1",
   "testobject_appium_version": "1.20.1"
+
   <#if testRunId??>
 ,
   "testobject_test_name" : "Test Run ID: ${testRunId?c}, Test Session ID: ${testSessionId?c}",
