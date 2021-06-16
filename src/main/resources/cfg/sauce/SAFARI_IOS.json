@@ -1,32 +1,27 @@
 {
   "applause:options": {
-    "isW3C": "true",
     "isStrict": "false",
-    "driverName": "iOS",
+    "driverName": "iPhone",
     "driverType": "MobileWeb",
-    "factoryKey": "WEB_IOS_PHONE",
-    "osName": "iOS",
-    "provider": "TestObject US Web",
-    "providerThreadType": "Real",
-    "nameField": "testobject_test_name,testobject_suite_name"
+    "browserName": "Safari",
+    "factoryKey": "WebMobilePhone",
+    "osName": "IOS",
+    "provider": "SauceLabs"
   },
+  "automationName": "XCUITest",
   "platformName": "iOS",
+  "platformVersion": "14.3",
   "browserName": "Safari",
-  "platformVersion": "14",
-  "deviceName": "iPhone.*",
   "appiumVersion": "1.20.1",
-  "testobject_appium_version": "1.20.1",
-  "orientation": "PORTRAIT",
-  "region": "US",
-  "phoneOnly": "true",
-  "privateDevicesOnly": "false",
+  "deviceOrientation": "PORTRAIT",
   "safariAllowPopups": true,
-  "safariOpenLinksInBackground": true,
+  "deviceName": "iPhone XS Simulator",
+  "locationServicesEnabled": true,
   "locationServicesAuthorized": true,
-  "locationServicesEnabled": true
-  <#if testRunId??>
-,
-  "testobject_test_name" : "Test Run ID: ${testRunId?c}, Test Session ID: ${testSessionId?c}",
-  "testobject_suite_name" : "Test Run ID: ${testRunId?c}, Test Session ID: ${testSessionId?c}"
-  </#if>
+  "autoAcceptAlerts": true,
+  "safariOpenLinksInBackground": true,
+  "acceptSSLAlerts": true,
+  "useFirstMatch": true,
+  "maxDuration": "2700",
+  "commandTimeout": "600"
 }
