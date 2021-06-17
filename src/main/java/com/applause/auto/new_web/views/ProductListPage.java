@@ -24,7 +24,10 @@ public class ProductListPage extends Base {
   //  @Locate(
   //      css = ".collection__grid article, .collection__grid li img",
   //      on = Platform.WEB) // Both [shopify/peets]
-  @Locate(css = ".collection__grid li img", on = Platform.WEB)
+  //  @Locate(css = ".collection__grid li img", on = Platform.WEB) //out of stock issue
+  @Locate(
+      css = ".collection__grid li a.pi__link > div:first-child:not(.pi__badge)",
+      on = Platform.WEB)
   private List<Image> productsImageList;
 
   @Override
