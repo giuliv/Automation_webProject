@@ -30,6 +30,11 @@ public class ProductListPage extends Base {
       on = Platform.WEB)
   private List<Image> productsImageList;
 
+  @Locate(
+      css = ".collection__grid li a.pi__link[href*='reserve'] > div:first-child:not(.pi__badge)",
+      on = Platform.WEB)
+  private List<Image> reserveProductsImageList;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
@@ -41,11 +46,24 @@ public class ProductListPage extends Base {
   public ProductDetailsPage clickOverProductByIndex(int index) {
     logger.info("Click over product with index: " + index);
     WebHelper.scrollToElement(productsImageList.get(index));
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for scroll
 
     SdkHelper.getSyncHelper().wait(Until.uiElement(productsImageList.get(index)).visible());
     WebHelper.scrollToElement(productsImageList.get(index));
 
     productsImageList.get(index).click();
+    return SdkHelper.create(ProductDetailsPage.class);
+  }
+
+  public ProductDetailsPage clickOverReserveProductByIndex(int index) {
+    logger.info("Click over reserve product with index: " + index);
+    WebHelper.scrollToElement(reserveProductsImageList.get(index));
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for scroll
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(reserveProductsImageList.get(index)).visible());
+    WebHelper.scrollToElement(reserveProductsImageList.get(index));
+
+    reserveProductsImageList.get(index).click();
     return SdkHelper.create(ProductDetailsPage.class);
   }
 }

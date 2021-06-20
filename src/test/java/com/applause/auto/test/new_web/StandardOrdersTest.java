@@ -311,18 +311,18 @@ public class StandardOrdersTest extends BaseTest {
         header.clickOverSubCategoryFromMenu(
             ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEANS);
 
-    logger.info("5. Add equipment item to MiniCart");
-    int equipmentSelected = 4;
-    productDetailsPage = productListPage.clickOverProductByIndex(equipmentSelected);
+    logger.info("5. Add reserve coffee item to MiniCart");
+    int reserveSelected = 0;
+    productDetailsPage = productListPage.clickOverReserveProductByIndex(reserveSelected);
 
-    String equipmentName = productDetailsPage.getProductName();
-    int equipmentQuantity = productDetailsPage.getProductQuantity();
+    String reserveName = productDetailsPage.getProductName();
+    int reserveQuantity = productDetailsPage.getProductQuantity();
 
     CartPage cartPage = productDetailsPage.clickAddToCartPage();
 
     logger.info("6. Validate items added to Cart");
     int coffeeIndex = 1;
-    int equipmentIndex = 0;
+    int reserveIndex = 0;
 
     Assert.assertEquals(
         coffeeName,
@@ -338,13 +338,13 @@ public class StandardOrdersTest extends BaseTest {
         "Correct Coffee product quantity was not added to MiniCart");
 
     Assert.assertEquals(
-        equipmentName,
-        cartPage.getProductNameByIndex(equipmentIndex),
-        "Correct Equipment Product was not added to MiniCart");
+        reserveName,
+        cartPage.getProductNameByIndex(reserveIndex),
+        "Correct Reserve Product was not added to MiniCart");
     Assert.assertEquals(
-        equipmentQuantity,
-        cartPage.getProductQuantityByIndex(equipmentIndex),
-        "Correct Equipment product quantity was not added to MiniCart");
+        reserveQuantity,
+        cartPage.getProductQuantityByIndex(reserveIndex),
+        "Correct Reserve product quantity was not added to MiniCart");
 
     logger.info("4. Proceed to Checkout page");
     CheckOutPage checkOutPage = cartPage.clickContinueToCheckOut();
@@ -373,9 +373,9 @@ public class StandardOrdersTest extends BaseTest {
         acceptancePage.getOrderNameByIndex(coffeeIndex),
         "Coffee Product name does NOT matches");
     Assert.assertEquals(
-        equipmentName,
-        acceptancePage.getOrderNameByIndex(equipmentIndex),
-        "Equipment Product name does NOT matches");
+        reserveName,
+        acceptancePage.getOrderNameByIndex(reserveIndex),
+        "Reserve Product name does NOT matches");
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
 
     // Todo: Optional assertions or assertions missing:
