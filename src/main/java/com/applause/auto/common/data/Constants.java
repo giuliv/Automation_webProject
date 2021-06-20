@@ -274,7 +274,8 @@ public class Constants {
   }
 
   public enum MenuSubCategories {
-    COFFEE_BEST_SELLERS("coffee-best-sellers");
+    COFFEE_BEST_SELLERS("coffee-best-sellers"),
+    COFFEE_BEANS("coffee-beans");
 
     String subCategory;
 
