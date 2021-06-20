@@ -11,6 +11,8 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.helpers.sync.Until;
 
+import java.util.List;
+
 @Implementation(is = MiniCart.class, on = Platform.WEB)
 @Implementation(is = MiniCart.class, on = Platform.WEB_MOBILE_PHONE)
 public class MiniCart extends BaseComponent {
@@ -19,13 +21,13 @@ public class MiniCart extends BaseComponent {
   private ContainerElement mainContainer;
 
   @Locate(css = "h4.bag-item__title", on = Platform.WEB)
-  private Text productName;
+  private List<Text> productName;
 
   @Locate(css = "span.bag-item__option-name ", on = Platform.WEB)
   private Text grindSelected;
 
   @Locate(css = ".bag-item__action--qty input[name='quantity']", on = Platform.WEB)
-  private Text productQuantity;
+  private List<Text> productQuantity;
 
   @Locate(css = "a[href*='checkout']", on = Platform.WEB)
   private Button checkOutButton;
@@ -40,11 +42,11 @@ public class MiniCart extends BaseComponent {
 
   /* -------- Actions -------- */
 
-  public String getProductName() {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(productName).visible());
-    logger.info("[MiniCart] Product Name: " + productName.getText());
+  public String getProductNameByIndex(int index) {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(productName.get(index)).visible());
+    logger.info("[MiniCart] Product Name: " + productName.get(index).getText());
 
-    return productName.getText().toLowerCase();
+    return productName.get(index).getText().toLowerCase();
   }
 
   public String getGrindSelected() {
@@ -54,11 +56,12 @@ public class MiniCart extends BaseComponent {
     return grindSelected.getText().toLowerCase();
   }
 
-  public int getProductQuantity() {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(productQuantity).present());
-    logger.info("[MiniCart] Product Quantity: " + productQuantity.getAttributeValue("value"));
+  public int getProductQuantityByIndex(int index) {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(productQuantity.get(index)).present());
+    logger.info(
+        "[MiniCart] Product Quantity: " + productQuantity.get(index).getAttributeValue("value"));
 
-    return Integer.parseInt(productQuantity.getAttributeValue("value"));
+    return Integer.parseInt(productQuantity.get(index).getAttributeValue("value"));
   }
 
   public CheckOutPage clickContinueToCheckOut() {

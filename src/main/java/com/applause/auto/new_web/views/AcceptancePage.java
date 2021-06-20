@@ -32,6 +32,9 @@ public class AcceptancePage extends Base {
   @Locate(css = "span.payment-due__price", on = Platform.WEB)
   private Text total;
 
+  @Locate(css = "span[data-checkout-discount-amount-target]", on = Platform.WEB)
+  private Text discount;
+
   @Locate(css = "span.order-summary-toggle__text--show", on = Platform.WEB)
   private ContainerElement orderSummarySection;
 
@@ -89,6 +92,13 @@ public class AcceptancePage extends Base {
   public boolean isSubTotalDisplayed() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(subTotal).visible());
     return subTotal.isDisplayed();
+  }
+
+  public String getDiscountText() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(discount).visible());
+    logger.info("Discount text: " + discount.getText());
+
+    return discount.getText();
   }
 
   public boolean isContinueShoppingDisplayed() {

@@ -27,6 +27,10 @@ public class Header extends BaseComponent {
   @Locate(css = "li a[href*='equipment']", on = Platform.WEB_MOBILE_PHONE)
   protected Button gearCategory;
 
+  @Locate(css = "a[data-id='tea-nav']", on = Platform.WEB)
+  @Locate(css = "button[data-id='tea-nav']", on = Platform.WEB_MOBILE_PHONE)
+  protected Button teaCategory;
+
   @Locate(css = ".nav__columns a[href*='%s']", on = Platform.WEB)
   private Button subCategories;
 
@@ -47,6 +51,8 @@ public class Header extends BaseComponent {
       WebHelper.hoverByAction(coffeeCategory);
     } else if (menuOptions.equals(Constants.MenuOptions.GEAR)) {
       gearCategory.click();
+    } else if (menuOptions.equals(Constants.MenuOptions.TEA)) {
+      WebHelper.hoverByAction(teaCategory);
     }
   }
 
@@ -82,6 +88,8 @@ class HeaderMobile extends Header {
       coffeeCategory.click();
     } else if (menuOptions.equals(Constants.MenuOptions.GEAR)) {
       gearCategory.click();
+    } else if (menuOptions.equals(Constants.MenuOptions.TEA)) {
+      teaCategory.click();
     }
   }
 
