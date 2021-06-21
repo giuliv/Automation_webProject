@@ -56,14 +56,29 @@ public class PaymentsPage extends Base {
   @Locate(id = "checkout_giftcard_code", on = Platform.WEB)
   private TextBox peetsCardCode;
 
+  @Locate(id = "checkout_reduction_code", on = Platform.WEB)
+  @Locate(id = "checkout_reduction_code_mobile", on = Platform.WEB_MOBILE_PHONE)
+  private TextBox promoCode;
+
   @Locate(id = "checkout_pin_code", on = Platform.WEB)
   private TextBox peetsCardNip;
 
   @Locate(id = "giftCardApply", on = Platform.WEB)
   private Button peetsCardApplyButton;
 
+  @Locate(css = ".order-summary__section--discount button[name='button']", on = Platform.WEB)
+  @Locate(
+      xpath = "//input[@id='checkout_reduction_code_mobile']/parent::div/following-sibling::button",
+      on = Platform.WEB_MOBILE_PHONE)
+  private Button promoApplyButton;
+
   @Locate(css = "tr[data-giftcard-success]", on = Platform.WEB)
   private Text peetsCardSuccessMessage;
+
+  @Locate(
+      xpath = "//form//span[@class='reduction-code__text' and text()='FREESHIP']",
+      on = Platform.WEB)
+  private Text promoCodeSuccessMessage;
 
   @Override
   public void afterInit() {
@@ -136,5 +151,18 @@ public class PaymentsPage extends Base {
     peetsCardApplyButton.click();
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
     SdkHelper.getSyncHelper().wait(Until.uiElement(peetsCardSuccessMessage).visible());
+  }
+
+  public void setFreeShippingPromoCodeDiscount() {
+    logger.info("Setting up PromoCode data");
+    SdkHelper.getSyncHelper().sleep(10000); // Wait for peet's card are ready
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(promoCode).clickable());
+    promoCode.sendKeys(Constants.WebTestData.PROMO_CODE_FREE_SHIPPING);
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    promoApplyButton.click();
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    SdkHelper.getSyncHelper().wait(Until.uiElement(promoCodeSuccessMessage).present());
   }
 }

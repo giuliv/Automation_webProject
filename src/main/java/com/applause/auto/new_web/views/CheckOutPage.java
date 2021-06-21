@@ -45,6 +45,12 @@ public class CheckOutPage extends Base {
   @Locate(id = "continue_button", on = Platform.WEB)
   private Button continueToShipping;
 
+  @Locate(css = "p[class*='logged-in']", on = Platform.WEB)
+  private Text existingUser;
+
+  @Locate(css = "select[data-address-selector]", on = Platform.WEB)
+  private SelectList existingAddress;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
@@ -74,6 +80,38 @@ public class CheckOutPage extends Base {
     SdkHelper.getSyncHelper().sleep(1000);
 
     zip.sendKeys(Constants.WebTestData.ZIP);
+  }
+
+  public void setCheckOutDataAsExistingUser() {
+    logger.info("Setting CheckOut data...");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(address).visible());
+
+    if (existingAddress.exists()) {
+      logger.info("Using existing saved address");
+
+      existingAddress.click();
+      SdkHelper.getSyncHelper().sleep(1000); // wait for action
+      existingAddress.getOptions().get(0).click();
+    } else {
+      address.sendKeys(Constants.WebTestData.ADDRESS);
+      city.sendKeys(Constants.WebTestData.CITY);
+      phone.sendKeys(Constants.WebTestData.PHONE);
+
+      country.select(Constants.WebTestData.COUNTRY);
+      SdkHelper.getSyncHelper().sleep(1000);
+
+      province.select(Constants.WebTestData.PROVINCE);
+      SdkHelper.getSyncHelper().sleep(1000);
+
+      zip.sendKeys(Constants.WebTestData.ZIP);
+    }
+  }
+
+  public String isExistingUserMailCorrect() {
+    logger.info("Reviewing existing user...");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(existingUser).visible());
+
+    return existingUser.getText();
   }
 
   public ShippingPage clickContinueToShipping() {

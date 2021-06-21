@@ -258,6 +258,8 @@ public class Constants {
 
     public static final String PEETS_CARD = "81001000001599";
     public static final String PEETS_CARD_NIP = "3746";
+
+    public static final String PROMO_CODE_FREE_SHIPPING = "FREESHIP";
   }
 
   public static final class OCR {
@@ -274,7 +276,10 @@ public class Constants {
   }
 
   public enum MenuSubCategories {
-    COFFEE_BEST_SELLERS("coffee-best-sellers");
+    COFFEE_BEST_SELLERS("coffee-best-sellers"),
+    COFFEE_BEANS("coffee-beans"),
+    COFFEE_K_CUPS("k-cup-pods"),
+    TEA_BEST_SELLERS("tea-best-sellers");
 
     String subCategory;
 
