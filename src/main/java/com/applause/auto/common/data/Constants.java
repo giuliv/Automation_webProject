@@ -279,6 +279,7 @@ public class Constants {
     COFFEE_BEST_SELLERS("coffee-best-sellers"),
     COFFEE_BEANS("coffee-beans"),
     COFFEE_K_CUPS("k-cup-pods"),
+    LIMITED_COFFEE("limited-releases"),
     TEA_BEST_SELLERS("tea-best-sellers");
 
     String subCategory;

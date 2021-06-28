@@ -28,8 +28,17 @@ public class ProductDetailsPage extends Base {
       on = Platform.WEB)
   private Text productQuantity;
 
+  @Locate(id = "quantityText", on = Platform.WEB)
+  private Text productQuantityBox;
+
   @Locate(id = "btnAddToBag", on = Platform.WEB)
   private Button addToCartButton;
+
+  @Locate(id = "productViewQuantityButton3", on = Platform.WEB)
+  private Button moreThanThreeProducts;
+
+  @Locate(css = "button.plus", on = Platform.WEB)
+  private Button addOneMore;
 
   @Override
   public void afterInit() {
@@ -67,6 +76,13 @@ public class ProductDetailsPage extends Base {
     return Integer.parseInt(quantity);
   }
 
+  public int getProductQuantityFromBox() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(productQuantityBox).visible());
+
+    logger.info("[PDP] Product Quantity: " + productQuantityBox.getText());
+    return Integer.parseInt(productQuantityBox.getText());
+  }
+
   public MiniCart clickAddToMiniCart() {
     logger.info("Adding to MiniCart");
     SdkHelper.getSyncHelper().wait(Until.uiElement(addToCartButton).visible());
@@ -81,5 +97,24 @@ public class ProductDetailsPage extends Base {
     addToCartButton.click();
 
     return SdkHelper.create(CartPage.class);
+  }
+
+  public void addMoreProducts(int totalProducts) {
+    logger.info("[PDP] Total products: " + totalProducts);
+
+    if (totalProducts > 3) {
+      logger.info("Adding more than 3 products, clicking 3+ button");
+      moreThanThreeProducts.click();
+
+      SdkHelper.getSyncHelper().wait(Until.uiElement(addOneMore).visible());
+      for (int i = 3; i < totalProducts; i++) {
+        addOneMore.click();
+        SdkHelper.getSyncHelper().sleep(500); // Wait for action
+      }
+    } else if (totalProducts > 1) {
+      logger.info("Adding 1 more product");
+      addOneMore.click();
+      SdkHelper.getSyncHelper().sleep(500); // Wait for action
+    }
   }
 }
