@@ -64,10 +64,10 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
     String totalPrice = paymentsPage.getTotalPrice();
 
-    logger.info("6. Proceed to Acceptance page");
+    logger.info("7. Proceed to Acceptance page");
     AcceptancePage acceptancePage = paymentsPage.clickContinueToPayments();
 
-    logger.info("7. Validating Product Details");
+    logger.info("8. Validating Product Details");
     Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
     Assert.assertTrue(acceptancePage.isSubTotalDisplayed(), "SubTotal is NOT displayed");
     Assert.assertEquals(
@@ -80,7 +80,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
-      logger.info("8. Validating Download buttons");
+      logger.info("9. Validating Download buttons");
       acceptancePage.clickOverTrackPackageButton();
       Assert.assertEquals(
           acceptancePage.getPhoneFromTrackPackageSection(),
@@ -98,7 +98,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     //  Submit button from trackPackage/shippingUpdates sections
     //  [user will receive a text validations]
 
-    logger.info("9. Validating Customer Information");
+    logger.info("10. Validating Customer Information");
     Assert.assertEquals(
         Constants.WebTestData.EMAIL, acceptancePage.getCustomerMail(), "Mail does NOT matches");
 
@@ -194,15 +194,15 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
         cartPage.getProductQuantityByIndex(equipmentIndex),
         "Correct Equipment product quantity was not added to MiniCart");
 
-    logger.info("4. Proceed to Checkout page");
+    logger.info("7. Proceed to Checkout page");
     CheckOutPage checkOutPage = cartPage.clickContinueToCheckOut();
     checkOutPage.setCheckOutData();
 
-    logger.info("5. Proceed to Shipping page");
+    logger.info("8. Proceed to Shipping page");
     ShippingPage shippingPage = checkOutPage.clickContinueToShipping();
     String shippingMethod = shippingPage.selectShippingMethodByIndex(0);
 
-    logger.info("6. Proceed to Payments page");
+    logger.info("9. Proceed to Payments page");
     PaymentsPage paymentsPage = shippingPage.clickContinueToPayments();
     // Todo:Peet's Card is not working, always [11/06.2021]
     //    paymentsPage.setPeetsCardDiscount();
@@ -210,10 +210,10 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
     String totalPrice = paymentsPage.getTotalPrice();
 
-    logger.info("6. Proceed to Acceptance page");
+    logger.info("10. Proceed to Acceptance page");
     AcceptancePage acceptancePage = paymentsPage.clickContinueToPayments();
 
-    logger.info("7. Validating Product Details");
+    logger.info("11. Validating Product Details");
     Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
     Assert.assertTrue(acceptancePage.isSubTotalDisplayed(), "SubTotal is NOT displayed");
     Assert.assertEquals(
@@ -232,7 +232,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
-      logger.info("8. Validating Download buttons");
+      logger.info("12. Validating Download buttons");
       acceptancePage.clickOverTrackPackageButton();
       Assert.assertEquals(
           acceptancePage.getPhoneFromTrackPackageSection(),
@@ -250,7 +250,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     //  Submit button from trackPackage/shippingUpdates sections
     //  [user will receive a text validations]
 
-    logger.info("9. Validating Customer Information");
+    logger.info("13. Validating Customer Information");
     Assert.assertEquals(
         Constants.WebTestData.EMAIL, acceptancePage.getCustomerMail(), "Mail does NOT matches");
 
@@ -349,15 +349,15 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
         cartPage.getProductQuantityByIndex(reserveIndex),
         "Correct Reserve product quantity was not added to MiniCart");
 
-    logger.info("4. Proceed to Checkout page");
+    logger.info("7. Proceed to Checkout page");
     CheckOutPage checkOutPage = cartPage.clickContinueToCheckOut();
     checkOutPage.setCheckOutData();
 
-    logger.info("5. Proceed to Shipping page");
+    logger.info("8. Proceed to Shipping page");
     ShippingPage shippingPage = checkOutPage.clickContinueToShipping();
     String shippingMethod = shippingPage.selectShippingMethodByIndex(0);
 
-    logger.info("6. Proceed to Payments page");
+    logger.info("9. Proceed to Payments page");
     PaymentsPage paymentsPage = shippingPage.clickContinueToPayments();
     // Todo:Peet's Card is not working, always [11/06.2021]
     //    paymentsPage.setPeetsCardDiscount();
@@ -365,10 +365,10 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
     String totalPrice = paymentsPage.getTotalPrice();
 
-    logger.info("6. Proceed to Acceptance page");
+    logger.info("10. Proceed to Acceptance page");
     AcceptancePage acceptancePage = paymentsPage.clickContinueToPayments();
 
-    logger.info("7. Validating Product Details");
+    logger.info("11. Validating Product Details");
     Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
     Assert.assertTrue(acceptancePage.isSubTotalDisplayed(), "SubTotal is NOT displayed");
     Assert.assertEquals(
@@ -387,7 +387,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
-      logger.info("8. Validating Download buttons");
+      logger.info("12. Validating Download buttons");
       acceptancePage.clickOverTrackPackageButton();
       Assert.assertEquals(
           acceptancePage.getPhoneFromTrackPackageSection(),
@@ -405,7 +405,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     //  Submit button from trackPackage/shippingUpdates sections
     //  [user will receive a text validations]
 
-    logger.info("9. Validating Customer Information");
+    logger.info("13. Validating Customer Information");
     Assert.assertEquals(
         Constants.WebTestData.EMAIL, acceptancePage.getCustomerMail(), "Mail does NOT matches");
 
@@ -500,25 +500,25 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
         miniCart.getProductQuantityByIndex(cupsIndex),
         "Correct K-Cups product quantity was not added to MiniCart");
 
-    logger.info("4. Proceed to Checkout page");
+    logger.info("7. Proceed to Checkout page");
     CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
     checkOutPage.setCheckOutData();
 
-    logger.info("5. Proceed to Shipping page");
+    logger.info("8. Proceed to Shipping page");
     ShippingPage shippingPage = checkOutPage.clickContinueToShipping();
     String shippingMethod = shippingPage.selectShippingMethodByIndex(0);
 
-    logger.info("6. Proceed to Payments page");
+    logger.info("9. Proceed to Payments page");
     PaymentsPage paymentsPage = shippingPage.clickContinueToPayments();
     paymentsPage.setFreeShippingPromoCodeDiscount();
     paymentsPage.setPaymentData();
 
     String totalPrice = paymentsPage.getTotalPrice();
 
-    logger.info("6. Proceed to Acceptance page");
+    logger.info("10. Proceed to Acceptance page");
     AcceptancePage acceptancePage = paymentsPage.clickContinueToPayments();
 
-    logger.info("7. Validating Product Details");
+    logger.info("11. Validating Product Details");
     Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
     Assert.assertTrue(acceptancePage.isSubTotalDisplayed(), "SubTotal is NOT displayed");
     Assert.assertEquals(
@@ -539,7 +539,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
-      logger.info("8. Validating Download buttons");
+      logger.info("12. Validating Download buttons");
       acceptancePage.clickOverTrackPackageButton();
       Assert.assertEquals(
           acceptancePage.getPhoneFromTrackPackageSection(),
@@ -557,7 +557,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     //  Submit button from trackPackage/shippingUpdates sections
     //  [user will receive a text validations]
 
-    logger.info("9. Validating Customer Information");
+    logger.info("13. Validating Customer Information");
     Assert.assertEquals(
         Constants.WebTestData.EMAIL, acceptancePage.getCustomerMail(), "Mail does NOT matches");
 
