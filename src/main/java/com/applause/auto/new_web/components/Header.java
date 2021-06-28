@@ -42,6 +42,9 @@ public class Header extends BaseComponent {
   @Locate(css = "#navMobileMain a[href*='/login']", on = Platform.WEB_MOBILE_PHONE)
   protected Button signInButton;
 
+  @Locate(css = "[aria-label=\"Log in\"]", on = Platform.WEB)
+  protected Button accountButton;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
@@ -81,8 +84,8 @@ public class Header extends BaseComponent {
     return SdkHelper.create(clazz);
   }
 
-  public SignInPage clickSignInButton() {
-    logger.info("Tap on SignIn Button");
+  public SignInPage clickAccountButton() {
+    logger.info("Tap on Account Button");
     SdkHelper.getSyncHelper().wait(Until.uiElement(signInButton).clickable()).click();
 
     return SdkHelper.create(SignInPage.class);
@@ -125,7 +128,7 @@ class HeaderMobile extends Header {
   }
 
   @Override
-  public SignInPage clickSignInButton() {
+  public SignInPage clickAccountButton() {
     openHamburgerMenu();
 
     logger.info("Tap on SignIn Button");

@@ -5,7 +5,7 @@ import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.*;
-import com.applause.auto.web.views.MyAccountPage;
+import com.applause.auto.new_web.views.MyAccountPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -21,7 +21,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
 
     logger.info("2. Sign In user");
-    SignInPage signInPage = homePage.getHeader().clickSignInButton();
+    SignInPage signInPage = homePage.getHeader().clickAccountButton();
 
     signInPage.enterEmail(Constants.TestData.WEB_USERNAME);
     signInPage.enterPassword(Constants.TestData.WEB_PASSWORD);
@@ -154,7 +154,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
 
     logger.info("2. Sign In user");
-    SignInPage signInPage = homePage.getHeader().clickSignInButton();
+    SignInPage signInPage = homePage.getHeader().clickAccountButton();
 
     signInPage.enterEmail(Constants.TestData.WEB_USERNAME);
     signInPage.enterPassword(Constants.TestData.WEB_PASSWORD);
@@ -322,7 +322,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
 
     logger.info("2. Sign In user");
-    SignInPage signInPage = homePage.getHeader().clickSignInButton();
+    SignInPage signInPage = homePage.getHeader().clickAccountButton();
 
     signInPage.enterEmail(Constants.TestData.WEB_USERNAME);
     signInPage.enterPassword(Constants.TestData.WEB_PASSWORD);
@@ -493,7 +493,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
 
     logger.info("2. Sign In user");
-    SignInPage signInPage = homePage.getHeader().clickSignInButton();
+    SignInPage signInPage = homePage.getHeader().clickAccountButton();
 
     signInPage.enterEmail(Constants.TestData.WEB_USERNAME);
     signInPage.enterPassword(Constants.TestData.WEB_PASSWORD);

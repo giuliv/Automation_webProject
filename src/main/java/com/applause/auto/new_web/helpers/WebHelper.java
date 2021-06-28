@@ -70,4 +70,9 @@ public class WebHelper {
     SdkHelper.getDriver().switchTo().defaultContent();
     SdkHelper.getSyncHelper().sleep(3000); // Waits for iFrame switch ends
   }
+
+  public static String getRandomMail() {
+    long uniq = System.currentTimeMillis();
+    return String.format("test_automation_%s@gmail.com", uniq);
+  }
 }
