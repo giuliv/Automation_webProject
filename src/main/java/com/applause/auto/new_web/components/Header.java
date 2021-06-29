@@ -45,6 +45,9 @@ public class Header extends BaseComponent {
   @Locate(css = "[aria-label=\"Log in\"]", on = Platform.WEB)
   protected Button accountButton;
 
+  @Locate(css = "#header button[class*='search']", on = Platform.WEB)
+  protected Button searchIcon;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
@@ -89,6 +92,13 @@ public class Header extends BaseComponent {
     SdkHelper.getSyncHelper().wait(Until.uiElement(signInButton).clickable()).click();
 
     return SdkHelper.create(SignInPage.class);
+  }
+
+  public SearchComponent getSearchComponent() {
+    logger.info("Get Search Component");
+    searchIcon.click();
+
+    return SdkHelper.create(SearchComponent.class);
   }
 }
 
