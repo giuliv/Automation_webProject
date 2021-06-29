@@ -4,13 +4,14 @@ import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.*;
 
 @Implementation(is = PaymentsPage.class, on = Platform.WEB)
-@Implementation(is = PaymentsPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = PaymentsPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
 public class PaymentsPage extends Base {
 
   @Locate(xpath = "(//button[@id='continue_button'])[1]", on = Platform.WEB)
@@ -80,6 +81,12 @@ public class PaymentsPage extends Base {
       on = Platform.WEB)
   private Text promoCodeSuccessMessage;
 
+  @Locate(css = "li.reduction-code span", on = Platform.WEB)
+  protected Text discountsMessage;
+
+  @Locate(css = "span.order-summary-toggle__text--show > span", on = Platform.WEB_MOBILE_PHONE)
+  protected Text showSummary;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
@@ -136,6 +143,13 @@ public class PaymentsPage extends Base {
     return totalPrice.getText();
   }
 
+  public String getDiscountMessage() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(discountsMessage).present());
+    logger.info("Discount message: " + discountsMessage.getText());
+
+    return discountsMessage.getText();
+  }
+
   public void setPeetsCardDiscount() {
     logger.info("Setting up Peet's Card data");
     SdkHelper.getSyncHelper().sleep(10000); // Wait for peet's card are ready
@@ -164,5 +178,20 @@ public class PaymentsPage extends Base {
     promoApplyButton.click();
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
     SdkHelper.getSyncHelper().wait(Until.uiElement(promoCodeSuccessMessage).present());
+  }
+}
+
+class PaymentsPageMobile extends PaymentsPage {
+  @Override
+  public String getDiscountMessage() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(showSummary).present());
+    WebHelper.scrollToElement(showSummary.getWebElement());
+    showSummary.click();
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(discountsMessage).present());
+    logger.info("Discount message: " + discountsMessage.getText());
+
+    return discountsMessage.getText();
   }
 }

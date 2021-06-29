@@ -75,6 +75,9 @@ public class AcceptancePage extends Base {
   @Locate(css = "a[data-osp-continue-button]", on = Platform.WEB)
   private Text continueShoppingButton;
 
+  @Locate(css = "li.reduction-code span", on = Platform.WEB)
+  private Text discountsMessage;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
@@ -188,6 +191,13 @@ public class AcceptancePage extends Base {
     SdkHelper.getSyncHelper().sleep(1000); // Wait for scroll
 
     trackPackageButton.click();
+  }
+
+  public String getDiscountMessage() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(discountsMessage).present());
+    logger.info("Discount message: " + discountsMessage.getText());
+
+    return discountsMessage.getText();
   }
 
   public void clickOverShippingUpdatesButton() {

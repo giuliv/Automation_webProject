@@ -45,7 +45,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
 
     String productName = productDetailsPage.getProductName();
     String grind = productDetailsPage.getGrindSelected();
-    int productQuantity = productDetailsPage.getProductQuantity();
+    int productQuantity = productDetailsPage.getProductQuantitySelected();
     int coffeeIndex = 0;
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
@@ -177,7 +177,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
 
     String coffeeName = productDetailsPage.getProductName();
     String coffeeGrind = productDetailsPage.getGrindSelected();
-    int coffeeQuantity = productDetailsPage.getProductQuantity();
+    int coffeeQuantity = productDetailsPage.getProductQuantitySelected();
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
@@ -192,7 +192,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     productDetailsPage = productListPage.clickOverProductByIndex(equipmentSelected);
 
     String equipmentName = productDetailsPage.getProductName();
-    int equipmentQuantity = productDetailsPage.getProductQuantity();
+    int equipmentQuantity = productDetailsPage.getProductQuantitySelected();
 
     CartPage cartPage = productDetailsPage.clickAddToCartPage();
 
@@ -345,7 +345,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
 
     String coffeeName = productDetailsPage.getProductName();
     String coffeeGrind = productDetailsPage.getGrindSelected();
-    int coffeeQuantity = productDetailsPage.getProductQuantity();
+    int coffeeQuantity = productDetailsPage.getProductQuantitySelected();
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
@@ -363,7 +363,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     productDetailsPage = productListPage.clickOverReserveProductByIndex(reserveSelected);
 
     String reserveName = productDetailsPage.getProductName();
-    int reserveQuantity = productDetailsPage.getProductQuantity();
+    int reserveQuantity = productDetailsPage.getProductQuantitySelected();
 
     CartPage cartPage = productDetailsPage.clickAddToCartPage();
 
@@ -515,7 +515,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(teaSelected);
 
     String teaName = productDetailsPage.getProductName();
-    int teaQuantity = productDetailsPage.getProductQuantity();
+    int teaQuantity = productDetailsPage.getProductQuantitySelected();
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
@@ -533,7 +533,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     productDetailsPage = productListPage.clickOverProductByIndex(cupsSelected);
 
     String cupsName = productDetailsPage.getProductName();
-    int cupsQuantity = productDetailsPage.getProductQuantity();
+    int cupsQuantity = productDetailsPage.getProductQuantitySelected();
 
     miniCart = productDetailsPage.clickAddToMiniCart();
 
@@ -681,7 +681,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
         productListPage.clickOverProductByIndex(equipmentSelected);
 
     String equipmentName = productDetailsPage.getProductName();
-    int equipmentQuantity = productDetailsPage.getProductQuantity();
+    int equipmentQuantity = productDetailsPage.getProductQuantitySelected();
 
     CartPage cartPage = productDetailsPage.clickAddToCartPage();
 
@@ -815,7 +815,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(cupsSelected);
 
     String cupsName = productDetailsPage.getProductName();
-    int cupsQuantity = productDetailsPage.getProductQuantity();
+    int cupsQuantity = productDetailsPage.getProductQuantitySelected();
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
     logger.info("5. Validate items added to Cart");

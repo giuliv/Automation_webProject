@@ -32,8 +32,16 @@ public class Header extends BaseComponent {
   @Locate(css = "button[data-id='tea-nav']", on = Platform.WEB_MOBILE_PHONE)
   protected Button teaCategory;
 
+  @Locate(css = "a[data-id='subscriptions-nav']", on = Platform.WEB)
+  @Locate(css = "button[data-id='subscriptions-nav']", on = Platform.WEB_MOBILE_PHONE)
+  protected Button subscriptionTabCategory;
+
   @Locate(css = ".nav__columns a[href*='%s']", on = Platform.WEB)
   private Button subCategories;
+
+  @Locate(css = ".desktop-only a[href*='%s']", on = Platform.WEB)
+  @Locate(css = ".hide-desktop a[href*='%s']", on = Platform.WEB_MOBILE_PHONE)
+  private Button subscriptionCategories;
 
   @Locate(css = ".header__mobile-menu", on = Platform.WEB_MOBILE_PHONE)
   protected Button hamburgerButton;
@@ -64,6 +72,8 @@ public class Header extends BaseComponent {
       gearCategory.click();
     } else if (menuOptions.equals(Constants.MenuOptions.TEA)) {
       WebHelper.hoverByAction(teaCategory);
+    } else if (menuOptions.equals(Constants.MenuOptions.SUBSCRIPTION)) {
+      WebHelper.hoverByAction(subscriptionTabCategory);
     }
   }
 
@@ -78,11 +88,16 @@ public class Header extends BaseComponent {
 
   public <T extends BaseComponent> T clickOverSubCategoryFromMenu(
       Class<T> clazz, Constants.MenuSubCategories menuSubCategories) {
-    logger.info("SubCategory selected " + (menuSubCategories.name()));
-    subCategories.format(menuSubCategories.getMenuSubCategories()).initialize();
-
-    SdkHelper.getSyncHelper().wait(Until.uiElement(subCategories).visible());
-    subCategories.click();
+    logger.info("SubCategory selected " + menuSubCategories.name());
+    if (menuSubCategories.name().contains("SUBSCRIPTIONS")) {
+      subscriptionCategories.format(menuSubCategories.getMenuSubCategories()).initialize();
+      SdkHelper.getSyncHelper().wait(Until.uiElement(subscriptionCategories).visible());
+      subscriptionCategories.click();
+    } else {
+      subCategories.format(menuSubCategories.getMenuSubCategories()).initialize();
+      SdkHelper.getSyncHelper().wait(Until.uiElement(subCategories).visible());
+      subCategories.click();
+    }
 
     return SdkHelper.create(clazz);
   }
@@ -115,6 +130,8 @@ class HeaderMobile extends Header {
       gearCategory.click();
     } else if (menuOptions.equals(Constants.MenuOptions.TEA)) {
       teaCategory.click();
+    } else if (menuOptions.equals(Constants.MenuOptions.SUBSCRIPTION)) {
+      subscriptionTabCategory.click();
     }
   }
 

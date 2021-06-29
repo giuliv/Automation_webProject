@@ -275,6 +275,7 @@ public class Constants {
     COFFEE,
     TEA,
     GEAR,
+    SUBSCRIPTION
   }
 
   public enum MenuSubCategories {
@@ -282,7 +283,8 @@ public class Constants {
     COFFEE_BEANS("coffee-beans"),
     COFFEE_K_CUPS("k-cup-pods"),
     LIMITED_COFFEE("limited-releases"),
-    TEA_BEST_SELLERS("tea-best-sellers");
+    TEA_BEST_SELLERS("tea-best-sellers"),
+    SUBSCRIPTIONS_SMALL_BATCHES("small-batch");
 
     String subCategory;
 
