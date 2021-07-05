@@ -17,7 +17,7 @@ public class ProductDetailsPage extends Base {
   @Locate(id = "pvEssentials", on = Platform.WEB)
   private ContainerElement mainContainer;
 
-  @Locate(css = "h1.pv-title", on = Platform.WEB)
+  @Locate(css = ".pv-title", on = Platform.WEB)
   private Text productName;
 
   @Locate(css = "select#grind + div", on = Platform.WEB)
@@ -28,8 +28,20 @@ public class ProductDetailsPage extends Base {
       on = Platform.WEB)
   private Text productQuantity;
 
+  @Locate(id = "quantityText", on = Platform.WEB)
+  private Text productQuantityBox;
+
   @Locate(id = "btnAddToBag", on = Platform.WEB)
   private Button addToCartButton;
+
+  @Locate(id = "productViewQuantityButton3", on = Platform.WEB)
+  private Button threeProductsButton;
+
+  @Locate(id = "productViewQuantityButton2", on = Platform.WEB)
+  private Button twoProductsButton;
+
+  @Locate(css = "button.plus", on = Platform.WEB)
+  private Button addOneMore;
 
   @Override
   public void afterInit() {
@@ -53,7 +65,7 @@ public class ProductDetailsPage extends Base {
     return grindSelected.getText().toLowerCase();
   }
 
-  public int getProductQuantity() {
+  public int getProductQuantitySelected() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(productQuantity).visible());
 
     String quantity = "";
@@ -65,6 +77,13 @@ public class ProductDetailsPage extends Base {
 
     logger.info("[PDP] Product Quantity: " + quantity);
     return Integer.parseInt(quantity);
+  }
+
+  public int getProductQuantityFromBox() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(productQuantityBox).visible());
+
+    logger.info("[PDP] Product Quantity: " + productQuantityBox.getText());
+    return Integer.parseInt(productQuantityBox.getText());
   }
 
   public MiniCart clickAddToMiniCart() {
@@ -81,5 +100,33 @@ public class ProductDetailsPage extends Base {
     addToCartButton.click();
 
     return SdkHelper.create(CartPage.class);
+  }
+
+  public void addMoreProducts(int totalProducts) {
+    logger.info("[PDP] Total products: " + totalProducts);
+
+    if (totalProducts > 3) {
+      logger.info("Adding more than 3 products, clicking 3+ button");
+      twoProductsButton.click();
+
+      SdkHelper.getSyncHelper().wait(Until.uiElement(addOneMore).visible());
+      for (int i = 3; i < totalProducts; i++) {
+        addOneMore.click();
+        SdkHelper.getSyncHelper().sleep(500); // Wait for action
+      }
+    } else if (totalProducts == 2) {
+      if (twoProductsButton.exists()) {
+        logger.info("Selecting 2 products button");
+        twoProductsButton.click();
+      } else {
+        logger.info("Adding 1 more product");
+        addOneMore.click();
+      }
+      SdkHelper.getSyncHelper().sleep(500); // Wait for action
+    } else if (totalProducts == 3) {
+      logger.info("Selecting 3 products button");
+      threeProductsButton.click();
+      SdkHelper.getSyncHelper().sleep(500); // Wait for action
+    }
   }
 }

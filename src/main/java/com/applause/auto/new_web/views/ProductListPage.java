@@ -18,13 +18,6 @@ public class ProductListPage extends Base {
   @Locate(className = "collection__app", on = Platform.WEB)
   private ContainerElement mainContainer;
 
-  @Locate(css = ".collection__grid article", on = Platform.WEB)
-  private List<ContainerElement> productList;
-
-  //  @Locate(
-  //      css = ".collection__grid article, .collection__grid li img",
-  //      on = Platform.WEB) // Both [shopify/peets]
-  //  @Locate(css = ".collection__grid li img", on = Platform.WEB) //out of stock issue
   @Locate(
       css = ".collection__grid li a.pi__link > div:first-child:not(.pi__badge)",
       on = Platform.WEB)

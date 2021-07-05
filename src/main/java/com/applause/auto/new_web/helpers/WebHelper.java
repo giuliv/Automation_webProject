@@ -75,4 +75,11 @@ public class WebHelper {
     long uniq = System.currentTimeMillis();
     return String.format("test_automation_%s@gmail.com", uniq);
   }
+
+  public static Float cleanPrice(String price) {
+    String cleanPrice = price.replace("$", "");
+    logger.info("Clean price: " + cleanPrice);
+
+    return Float.parseFloat(cleanPrice);
+  }
 }

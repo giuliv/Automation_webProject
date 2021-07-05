@@ -10,7 +10,9 @@ import org.testng.annotations.Test;
 
 public class NewUsersStandardOrdersTest extends BaseTest {
 
-  @Test()
+  @Test(
+      groups = {Constants.TestNGGroups.NEW_WEB_CASES},
+      description = "11071610")
   public void orderCoffeeCreditCardAsNewUserTest() {
 
     logger.info("1. Navigate to landing page");
@@ -45,7 +47,7 @@ public class NewUsersStandardOrdersTest extends BaseTest {
 
     String productName = productDetailsPage.getProductName();
     String grind = productDetailsPage.getGrindSelected();
-    int productQuantity = productDetailsPage.getProductQuantity();
+    int productQuantity = productDetailsPage.getProductQuantitySelected();
     int coffeeIndex = 0;
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
