@@ -200,6 +200,10 @@ public class AcceptancePage extends Base {
     return discountsMessage.getText();
   }
 
+  public boolean isDiscountPresent() {
+    return discountsMessage.exists();
+  }
+
   public void clickOverShippingUpdatesButton() {
     logger.info("Clicking shipping updated button... ");
     WebHelper.scrollToElement(shippingUpdates.getWebElement()); // Wait for scroll

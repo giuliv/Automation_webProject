@@ -150,6 +150,10 @@ public class PaymentsPage extends Base {
     return discountsMessage.getText();
   }
 
+  public boolean isDiscountPresent() {
+    return discountsMessage.exists();
+  }
+
   public void setPeetsCardDiscount() {
     logger.info("Setting up Peet's Card data");
     SdkHelper.getSyncHelper().sleep(10000); // Wait for peet's card are ready

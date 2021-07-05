@@ -43,6 +43,9 @@ public class ProductDetailsPage extends Base {
   @Locate(css = "button.plus", on = Platform.WEB)
   private Button addOneMore;
 
+  @Locate(css = "[test='regularEligible'] button.og-optin-btn", on = Platform.WEB)
+  private Button subscribeType;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
@@ -84,6 +87,12 @@ public class ProductDetailsPage extends Base {
 
     logger.info("[PDP] Product Quantity: " + productQuantityBox.getText());
     return Integer.parseInt(productQuantityBox.getText());
+  }
+
+  public void selectSubscribeType() {
+    logger.info("Selecting Subscribe Order");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(subscribeType).visible());
+    subscribeType.click();
   }
 
   public MiniCart clickAddToMiniCart() {

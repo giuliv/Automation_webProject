@@ -262,6 +262,7 @@ public class Constants {
     public static final String PROMO_CODE_FREE_SHIPPING = "FREESHIP";
 
     public static final String SEARCH_COFFEE_AGED_SUMATRA = "Aged Sumatra";
+    public static final String SEARCH_COFFEE_DECAF_MAJOR = "Decaf Major";
   }
 
   public static final class OCR {
