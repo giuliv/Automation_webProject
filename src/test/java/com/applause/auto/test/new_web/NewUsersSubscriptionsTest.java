@@ -9,7 +9,9 @@ import org.testng.annotations.Test;
 
 public class NewUsersSubscriptionsTest extends BaseTest {
 
-  @Test()
+  @Test(
+      groups = {Constants.TestNGGroups.NEW_WEB_CASES},
+      description = "11071740")
   public void subscriptionWithDiscountAndCreditCardAsNewUserTest() {
 
     logger.info("1. Navigate to landing page");
