@@ -263,6 +263,7 @@ public class Constants {
 
     public static final String SEARCH_COFFEE_AGED_SUMATRA = "Aged Sumatra";
     public static final String SEARCH_COFFEE_DECAF_MAJOR = "Decaf Major";
+    public static final String SEARCH_COFFEE_BRAZILIAN_K_CUP = "SINGLE ORIGIN BRAZIL K-CUP";
   }
 
   public static final class OCR {
