@@ -286,6 +286,8 @@ public class Constants {
     COFFEE_K_CUPS("k-cup-pods"),
     LIMITED_COFFEE("limited-releases"),
     TEA_BEST_SELLERS("tea-best-sellers"),
+    SUBSCRIPTIONS_SINGLE_ORIGIN("single-origin"),
+    SUBSCRIPTIONS_SIGNATURE_BLEND("signature-blend"),
     SUBSCRIPTIONS_SMALL_BATCHES("small-batch");
 
     String subCategory;
