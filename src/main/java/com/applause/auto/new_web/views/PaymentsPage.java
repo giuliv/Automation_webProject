@@ -83,6 +83,11 @@ public class PaymentsPage extends Base {
       on = Platform.WEB)
   private Text promoCodeSuccessMessage;
 
+  @Locate(
+      xpath = "//form//span[@class='reduction-code__text' and text()='NEWSUB30']",
+      on = Platform.WEB)
+  private Text subPromoCodeSuccessMessage;
+
   @Locate(css = "li.reduction-code span", on = Platform.WEB)
   protected Text discountsMessage;
 
@@ -194,6 +199,19 @@ public class PaymentsPage extends Base {
     promoApplyButton.click();
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
     SdkHelper.getSyncHelper().wait(Until.uiElement(promoCodeSuccessMessage).present());
+  }
+
+  public void setSubscriptionPromoCodeDiscount() {
+    logger.info("Setting up PromoCode data");
+    SdkHelper.getSyncHelper().sleep(10000); // Wait for peet's card are ready
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(promoCode).clickable());
+    promoCode.sendKeys(Constants.WebTestData.PROMO_CODE_SUBSCRIPTION_30);
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    promoApplyButton.click();
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    SdkHelper.getSyncHelper().wait(Until.uiElement(subPromoCodeSuccessMessage).present());
   }
 }
 

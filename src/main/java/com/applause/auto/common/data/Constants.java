@@ -260,6 +260,7 @@ public class Constants {
     public static final String PEETS_CARD_NIP = "3746";
 
     public static final String PROMO_CODE_FREE_SHIPPING = "FREESHIP";
+    public static final String PROMO_CODE_SUBSCRIPTION_30 = "NEWSUB30";
 
     public static final String SEARCH_COFFEE_AGED_SUMATRA = "Aged Sumatra";
     public static final String SEARCH_COFFEE_DECAF_MAJOR = "Decaf Major";
