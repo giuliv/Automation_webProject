@@ -12,7 +12,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
   @Test(
       groups = {Constants.TestNGGroups.NEW_WEB_CASES},
       description = "11071740")
-  public void subscriptionWithDiscountAndCreditCardAsNewUserTest() {
+  public void subscriptionDiscountAt10AsNewUserTest() {
 
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
