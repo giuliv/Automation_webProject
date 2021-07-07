@@ -78,6 +78,9 @@ public class AcceptancePage extends Base {
   @Locate(css = "li.reduction-code span", on = Platform.WEB)
   private Text discountsMessage;
 
+  @Locate(css = "li.reduction-code span", on = Platform.WEB)
+  protected List<Text> discountsMessageList;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
@@ -198,6 +201,17 @@ public class AcceptancePage extends Base {
     logger.info("Discount message: " + discountsMessage.getText());
 
     return discountsMessage.getText();
+  }
+
+  public String getDiscountMessageByIndex(int index) {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(discountsMessageList.get(index)).visible());
+    logger.info("[Acceptance Page] Discount Message: " + discountsMessageList.get(index).getText());
+
+    return discountsMessageList.get(index).getText();
+  }
+
+  public boolean isDiscountPresent() {
+    return discountsMessage.exists();
   }
 
   public void clickOverShippingUpdatesButton() {

@@ -10,6 +10,8 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.*;
 
+import java.util.List;
+
 @Implementation(is = PaymentsPage.class, on = Platform.WEB)
 @Implementation(is = PaymentsPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
 public class PaymentsPage extends Base {
@@ -81,8 +83,16 @@ public class PaymentsPage extends Base {
       on = Platform.WEB)
   private Text promoCodeSuccessMessage;
 
+  @Locate(
+      xpath = "//form//span[@class='reduction-code__text' and text()='NEWSUB30']",
+      on = Platform.WEB)
+  private Text subPromoCodeSuccessMessage;
+
   @Locate(css = "li.reduction-code span", on = Platform.WEB)
   protected Text discountsMessage;
+
+  @Locate(css = "li.reduction-code span", on = Platform.WEB)
+  protected List<Text> discountsMessageList;
 
   @Locate(css = "span.order-summary-toggle__text--show > span", on = Platform.WEB_MOBILE_PHONE)
   protected Text showSummary;
@@ -150,6 +160,17 @@ public class PaymentsPage extends Base {
     return discountsMessage.getText();
   }
 
+  public String getDiscountMessageByIndex(int index) {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(discountsMessageList.get(index)).visible());
+    logger.info("[Payment Page] Discount Message: " + discountsMessageList.get(index).getText());
+
+    return discountsMessageList.get(index).getText();
+  }
+
+  public boolean isDiscountPresent() {
+    return discountsMessage.exists();
+  }
+
   public void setPeetsCardDiscount() {
     logger.info("Setting up Peet's Card data");
     SdkHelper.getSyncHelper().sleep(10000); // Wait for peet's card are ready
@@ -179,6 +200,19 @@ public class PaymentsPage extends Base {
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
     SdkHelper.getSyncHelper().wait(Until.uiElement(promoCodeSuccessMessage).present());
   }
+
+  public void setSubscriptionPromoCodeDiscount() {
+    logger.info("Setting up PromoCode data");
+    SdkHelper.getSyncHelper().sleep(10000); // Wait for peet's card are ready
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(promoCode).clickable());
+    promoCode.sendKeys(Constants.WebTestData.PROMO_CODE_SUBSCRIPTION_30);
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    promoApplyButton.click();
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    SdkHelper.getSyncHelper().wait(Until.uiElement(subPromoCodeSuccessMessage).present());
+  }
 }
 
 class PaymentsPageMobile extends PaymentsPage {
@@ -193,5 +227,21 @@ class PaymentsPageMobile extends PaymentsPage {
     logger.info("Discount message: " + discountsMessage.getText());
 
     return discountsMessage.getText();
+  }
+
+  @Override
+  public String getDiscountMessageByIndex(int index) {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(showSummary).present());
+    WebHelper.scrollToElement(showSummary.getWebElement());
+    if (showSummary.isDisplayed()) {
+      showSummary.click();
+    }
+
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(discountsMessageList.get(index)).visible());
+    logger.info("[Payment Page] Discount Message: " + discountsMessageList.get(index).getText());
+
+    return discountsMessageList.get(index).getText();
   }
 }

@@ -260,8 +260,11 @@ public class Constants {
     public static final String PEETS_CARD_NIP = "3746";
 
     public static final String PROMO_CODE_FREE_SHIPPING = "FREESHIP";
+    public static final String PROMO_CODE_SUBSCRIPTION_30 = "NEWSUB30";
 
     public static final String SEARCH_COFFEE_AGED_SUMATRA = "Aged Sumatra";
+    public static final String SEARCH_COFFEE_DECAF_MAJOR = "Decaf Major";
+    public static final String SEARCH_COFFEE_BRAZILIAN_K_CUP = "SINGLE ORIGIN BRAZIL K-CUP";
   }
 
   public static final class OCR {
@@ -284,6 +287,8 @@ public class Constants {
     COFFEE_K_CUPS("k-cup-pods"),
     LIMITED_COFFEE("limited-releases"),
     TEA_BEST_SELLERS("tea-best-sellers"),
+    SUBSCRIPTIONS_SINGLE_ORIGIN("single-origin"),
+    SUBSCRIPTIONS_SIGNATURE_BLEND("signature-blend"),
     SUBSCRIPTIONS_SMALL_BATCHES("small-batch");
 
     String subCategory;
