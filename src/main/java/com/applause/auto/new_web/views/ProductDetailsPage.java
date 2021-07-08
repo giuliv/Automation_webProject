@@ -3,6 +3,7 @@ package com.applause.auto.new_web.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.MiniCart;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
@@ -116,9 +117,14 @@ public class ProductDetailsPage extends Base {
 
     if (totalProducts > 3) {
       logger.info("Adding more than 3 products, clicking 3+ button");
-      twoProductsButton.click();
+      threeProductsButton.click();
 
-      SdkHelper.getSyncHelper().wait(Until.uiElement(addOneMore).visible());
+      SdkHelper.getSyncHelper().wait(Until.uiElement(addOneMore).present());
+      if (!WebHelper.isDesktop()) {
+        WebHelper.scrollToElement(addOneMore);
+        SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+      }
+
       for (int i = 3; i < totalProducts; i++) {
         addOneMore.click();
         SdkHelper.getSyncHelper().sleep(500); // Wait for action
