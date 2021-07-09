@@ -1,12 +1,17 @@
 {
-	"device_name" : "Local Safari",
-	"driver_type" : "Safari",
-	"factory_key" : "WEB_DESKTOP_SAFARI",
-	"os_name" : "local",
-	"os_version": "local",
-	"region" : "US",
-	"caps" : { 
-		"browserName" : "safari",
-        "acceptSSLAlerts" : "true"
-	}
-} 
+  "applause:options": {
+    "isW3C": "true",
+    "isStrict": "false",
+    "driverName": "Safari",
+    "driverType": "Safari",
+    "factoryKey": "WebDesktop"
+  },
+  "device_name": "Local Safari",
+  "driver_type": "Safari",
+  "factory_key": "WEB_DESKTOP_SAFARI",
+  "manufacturer": "OSX",
+  "caps": {
+    "browserName": "safari",
+    "acceptSSLAlerts": "true"
+  }
+}
