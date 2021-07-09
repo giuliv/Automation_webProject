@@ -21,10 +21,6 @@ public class MyAccountPage extends Base {
 
   @Override
   public void afterInit() {
-    logger.info("Refresh site");
-    SdkHelper.getDriver().navigate().refresh();
-    SdkHelper.getSyncHelper().sleep(5000);
-
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getViewSignature).visible().setTimeout(Duration.ofSeconds(40)));
   }
