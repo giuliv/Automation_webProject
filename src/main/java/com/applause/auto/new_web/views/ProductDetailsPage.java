@@ -134,6 +134,12 @@ public class ProductDetailsPage extends Base {
         logger.info("Selecting 2 products button");
         twoProductsButton.click();
       } else {
+        SdkHelper.getSyncHelper().wait(Until.uiElement(addOneMore).present());
+        if (!WebHelper.isDesktop()) {
+          WebHelper.scrollToElement(addOneMore);
+          SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+        }
+
         logger.info("Adding 1 more product");
         addOneMore.click();
       }
