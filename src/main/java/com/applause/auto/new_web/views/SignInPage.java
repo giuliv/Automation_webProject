@@ -37,6 +37,7 @@ public class SignInPage extends BaseComponent {
     logger.info("Enter email : " + text);
     SdkHelper.getSyncHelper().wait(Until.uiElement(getEmailTextBox).visible());
     getEmailTextBox.sendKeys(text);
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
   }
 
   /**
@@ -47,6 +48,7 @@ public class SignInPage extends BaseComponent {
   public void enterPassword(String text) {
     logger.info("Enter Password : " + text);
     getPasswordTextBox.sendKeys(text);
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
   }
 
   /**
