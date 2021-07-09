@@ -211,6 +211,8 @@ public class NewUsersSignatureBlendSubscriptionsTest extends BaseTest {
         miniCart.getProductQuantityByIndex(sBlendIndex),
         "Correct product quantity was not added to MiniCart");
 
+    miniCart.addOneMoreItem();
+
     logger.info("5. Proceed to Checkout page");
     CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
     Assert.assertTrue(

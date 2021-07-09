@@ -35,6 +35,9 @@ public class MiniCart extends BaseComponent {
   @Locate(id = "bagContinue", on = Platform.WEB)
   private Button closeButton;
 
+  @Locate(css = "button[data-action='add']", on = Platform.WEB)
+  private Button addButton;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
@@ -62,6 +65,12 @@ public class MiniCart extends BaseComponent {
         "[MiniCart] Product Quantity: " + productQuantity.get(index).getAttributeValue("value"));
 
     return Integer.parseInt(productQuantity.get(index).getAttributeValue("value"));
+  }
+
+  public void addOneMoreItem() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(addButton).clickable());
+    addButton.click();
+    SdkHelper.getSyncHelper().sleep(2000); // Wait for action
   }
 
   public CheckOutPage clickContinueToCheckOut() {

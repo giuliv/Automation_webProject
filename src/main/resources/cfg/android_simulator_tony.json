@@ -1,19 +1,18 @@
 {
-  "device_name": "android",
-  "driver_type": "Android",
-  "factory_key": "MOBILE_ANDROID",
-  "caps": {
-    "driverName": "Peet's Coffee - Any US Android 9 Galaxy/Pixel New1",
-    "platformName": "ANDROID",
-    "platformVersion": "9",
-    "deviceName": "emulator-5554",
-    "autoGrantPermissions": true,
-    "autoAcceptAlerts": true,
-    "newCommandTimeout": 3000,
-    "device": "android",
-    "automationName": "uiautomator2",
-    "app": "https://utest-dl.s3.amazonaws.com/11841/product/20270/productVersion/210140/application/Android_UAT_18.7.16_2232.apk?AWSAccessKeyId=AKIAJ2UIWMJ2OMC3UCQQ&Expires=1641487331&Signature=jfxuV8qtcw4kUXu%2FCU56QywG4lc%3D",
-    "appWaitActivity": "com.wearehathway.apps.stock.views.onboarding.OnBoardingActivity",
-    "appWaitPackage": "com.wearehathway.peets.development"
-  }
+  "platformName": "ANDROID",
+  "platformVersion": "10",
+  "deviceName": "Android",
+  "newCommandTimeout": 3000,
+  "device": "android",
+  "automationName": "uiautomator2",
+  "applause:options": {
+    "device_name": "Local Android Native",
+    "driverType": "Android",
+    "factoryKey": "MOBILE_ANDROID"
+  },
+  "app": "https://utest-dl.s3.amazonaws.com/11841/product/20270/productVersion/221861/application/1cc60056754a35c622205983970e61de61bc566237f7891eb85f2d1a36da9658.apk?AWSAccessKeyId=AKIAJ2UIWMJ2OMC3UCQQ&Expires=1657302020&Signature=ZMvj%2F5La%2BZfJNmDgR2mk2wRI%2F8s%3D",
+  "appWaitActivity": "com.wearehathway.apps.stock.views.onboarding.OnBoardingActivity",
+  "appWaitPackage": "com.wearehathway.peets.development",
+  "autoGrantPermissions": true,
+  "autoAcceptAlerts": true
 }

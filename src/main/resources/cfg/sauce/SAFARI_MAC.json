@@ -1,0 +1,19 @@
+{
+  "applause:options": {
+    "isW3C": "true",
+    "isStrict": "false",
+    "driverName": "Safari",
+    "driverType": "Browser",
+    "factoryKey": "WebDesktop",
+    "osName": "OSX",
+    "provider": "SauceLabs"
+  },
+  "platform": "macOS 10.14",
+  "browserName": "Safari",
+  "version": "latest",
+  "commandTimeout": "600",
+  "sauce:options": {
+    "W3C": true,
+    "screenResolution": "1920x1440"
+  }
+}
