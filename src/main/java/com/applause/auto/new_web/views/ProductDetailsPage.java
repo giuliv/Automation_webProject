@@ -57,9 +57,9 @@ public class ProductDetailsPage extends Base {
 
   public String getProductName() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(productName).visible());
-    logger.info("[PDP] Product Name: " + productName.getText());
+    logger.info("[PDP] Product Name: " + productName.getText().toLowerCase().trim());
 
-    return productName.getText().toLowerCase();
+    return productName.getText().toLowerCase().trim();
   }
 
   public String getGrindSelected() {

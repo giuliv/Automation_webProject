@@ -47,9 +47,10 @@ public class MiniCart extends BaseComponent {
 
   public String getProductNameByIndex(int index) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(productName.get(index)).visible());
-    logger.info("[MiniCart] Product Name: " + productName.get(index).getText());
+    logger.info(
+        "[MiniCart] Product Name: " + productName.get(index).getText().toLowerCase().trim());
 
-    return productName.get(index).getText().toLowerCase();
+    return productName.get(index).getText().toLowerCase().trim();
   }
 
   public String getGrindSelected() {
