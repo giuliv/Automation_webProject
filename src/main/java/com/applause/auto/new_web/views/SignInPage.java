@@ -60,6 +60,7 @@ public class SignInPage extends BaseComponent {
     logger.info("Click on sign in button");
     SdkHelper.getSyncHelper().wait(Until.uiElement(getSignInButton).clickable());
     getSignInButton.click();
+    SdkHelper.getSyncHelper().sleep(1000);
 
     return SdkHelper.create(MyAccountPage.class);
   }
@@ -68,6 +69,8 @@ public class SignInPage extends BaseComponent {
     logger.info("Click on create account button");
     SdkHelper.getSyncHelper().wait(Until.uiElement(getCreateAccountButton).clickable());
     getCreateAccountButton.click();
+    SdkHelper.getSyncHelper().sleep(1000);
+
     return SdkHelper.create(CreateAccountPage.class);
   }
 }

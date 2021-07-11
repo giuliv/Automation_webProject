@@ -21,6 +21,7 @@ public class MyAccountPage extends Base {
 
   @Override
   public void afterInit() {
+    SdkHelper.getDriver().get("https://peets-coffee-staging.myshopify.com/account#/");
     logger.info("My Account Page URL: " + getDriver().getCurrentUrl());
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getViewSignature).visible().setTimeout(Duration.ofSeconds(40)));
