@@ -43,6 +43,7 @@ public class ProductListPage extends Base {
 
     SdkHelper.getSyncHelper().wait(Until.uiElement(productsImageList.get(index)).visible());
     WebHelper.scrollToElement(productsImageList.get(index));
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for scroll
 
     productsImageList.get(index).click();
     return SdkHelper.create(ProductDetailsPage.class);
@@ -55,6 +56,7 @@ public class ProductListPage extends Base {
 
     SdkHelper.getSyncHelper().wait(Until.uiElement(reserveProductsImageList.get(index)).visible());
     WebHelper.scrollToElement(reserveProductsImageList.get(index));
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for scroll
 
     reserveProductsImageList.get(index).click();
     return SdkHelper.create(ProductDetailsPage.class);
