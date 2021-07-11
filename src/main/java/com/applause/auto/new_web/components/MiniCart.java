@@ -55,9 +55,9 @@ public class MiniCart extends BaseComponent {
 
   public String getGrindSelected() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(grindSelected).visible());
-    logger.info("[MiniCart] Grind Selected: " + grindSelected.getText());
+    logger.info("[MiniCart] Grind Selected: " + grindSelected.getText().toLowerCase().trim());
 
-    return grindSelected.getText().toLowerCase();
+    return grindSelected.getText().toLowerCase().trim();
   }
 
   public int getProductQuantityByIndex(int index) {
