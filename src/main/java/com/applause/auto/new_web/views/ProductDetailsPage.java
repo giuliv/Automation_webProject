@@ -64,9 +64,9 @@ public class ProductDetailsPage extends Base {
 
   public String getGrindSelected() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(grindSelected).visible());
-    logger.info("[PDP] Grind Selected: " + grindSelected.getText());
+    logger.info("[PDP] Grind Selected: " + grindSelected.getText().toLowerCase().trim());
 
-    return grindSelected.getText().toLowerCase();
+    return grindSelected.getText().toLowerCase().trim();
   }
 
   public int getProductQuantitySelected() {
