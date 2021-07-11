@@ -5,6 +5,7 @@ import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+import io.appium.java_client.ios.IOSDriver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
@@ -12,6 +13,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 import java.lang.invoke.MethodHandles;
+import java.time.Duration;
+
+import static io.appium.java_client.Setting.NATIVE_WEB_TAP;
 
 public class WebHelper {
 
@@ -87,5 +91,22 @@ public class WebHelper {
   public static boolean isSafari() {
     return Constants.BROWSER_NAME.equals("SAFARI_MAC")
         || SdkHelper.getEnvironmentHelper().isSafari();
+  }
+
+  public static void nativeIOSClick(BaseElement element) {
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(element).present().setTimeout(Duration.ofSeconds(15)));
+    ((IOSDriver) SdkHelper.getDriver()).setSetting(NATIVE_WEB_TAP, true);
+
+    element.getWebElement().click();
+    ((IOSDriver) SdkHelper.getDriver()).setSetting(NATIVE_WEB_TAP, false);
+  }
+
+  public static void click(BaseElement element) {
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      nativeIOSClick(element);
+    } else {
+      element.click();
+    }
   }
 }

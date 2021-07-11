@@ -6,6 +6,7 @@
     "browserName": "Safari",
     "factoryKey": "WebMobilePhone",
     "osName": "IOS",
+    "nativeWebTap": true,
     "provider": "SauceLabs"
   },
   "automationName": "XCUITest",
@@ -22,6 +23,7 @@
   "safariOpenLinksInBackground": true,
   "acceptSSLAlerts": true,
   "useFirstMatch": true,
+  "nativeWebTap": true,
   "maxDuration": "2700",
   "commandTimeout": "600"
 }
