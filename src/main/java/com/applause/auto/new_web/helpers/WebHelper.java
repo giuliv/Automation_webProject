@@ -89,8 +89,8 @@ public class WebHelper {
   }
 
   public static boolean isSafari() {
-    return Constants.BROWSER_NAME.equals("SAFARI_MAC")
-        || SdkHelper.getEnvironmentHelper().isSafari();
+    logger.info("Tony " + getDriverConfig());
+    return getDriverConfig().contains("SAFARI_MAC") || SdkHelper.getEnvironmentHelper().isSafari();
   }
 
   public static void nativeIOSClick(BaseElement element) {
