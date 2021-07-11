@@ -58,12 +58,15 @@ public class SignInPage extends BaseComponent {
    */
   public MyAccountPage clickOnSignInButton() {
     logger.info("Click on sign in button");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getSignInButton).clickable());
     getSignInButton.click();
+
     return SdkHelper.create(MyAccountPage.class);
   }
 
   public CreateAccountPage clickOnCreateAccountButton() {
     logger.info("Click on create account button");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getCreateAccountButton).clickable());
     getCreateAccountButton.click();
     return SdkHelper.create(CreateAccountPage.class);
   }
