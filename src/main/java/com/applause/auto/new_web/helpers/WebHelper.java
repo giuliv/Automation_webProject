@@ -109,4 +109,9 @@ public class WebHelper {
       element.click();
     }
   }
+
+  public static void jsClick(final WebElement webElement) {
+    final JavascriptExecutor executor = (JavascriptExecutor) SdkHelper.getDriver();
+    executor.executeScript("arguments[0].click();", webElement);
+  }
 }
