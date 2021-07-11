@@ -115,17 +115,25 @@ public class ProductDetailsPage extends Base {
 
   public MiniCart clickAddToMiniCart() {
     logger.info("Adding to MiniCart");
-    SdkHelper.getSyncHelper().wait(Until.uiElement(addToCartButton).visible());
-    addToCartButton.click();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(addToCartButton).clickable());
+    if (!WebHelper.isDesktop()) {
+      WebHelper.scrollToElement(addToCartButton);
+      SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    }
 
+    addToCartButton.click();
     return SdkHelper.create(MiniCart.class);
   }
 
   public CartPage clickAddToCartPage() {
     logger.info("Adding to Cart");
-    SdkHelper.getSyncHelper().wait(Until.uiElement(addToCartButton).visible());
-    addToCartButton.click();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(addToCartButton).clickable());
+    if (!WebHelper.isDesktop()) {
+      WebHelper.scrollToElement(addToCartButton);
+      SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    }
 
+    addToCartButton.click();
     return SdkHelper.create(CartPage.class);
   }
 
