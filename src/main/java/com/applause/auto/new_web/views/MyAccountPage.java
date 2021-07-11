@@ -40,6 +40,7 @@ public class MyAccountPage extends Base {
    * @return LoginPage
    */
   public String getWelcomeMessage() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getViewSignature).visible());
     logger.info("Welcome message: " + getViewSignature.getText().toLowerCase());
     return getViewSignature.getText().toLowerCase();
   }
