@@ -6,10 +6,10 @@ import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
-import com.applause.auto.pageobjectmodel.elements.Button;
-import com.applause.auto.pageobjectmodel.elements.ContainerElement;
-import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.*;
 import com.applause.auto.helpers.sync.Until;
+
+import java.util.List;
 
 @Implementation(is = ProductDetailsPage.class, on = Platform.WEB)
 @Implementation(is = ProductDetailsPage.class, on = Platform.WEB_MOBILE_PHONE)
@@ -23,6 +23,9 @@ public class ProductDetailsPage extends Base {
 
   @Locate(css = "select#grind + div", on = Platform.WEB)
   private Text grindSelected;
+
+  @Locate(css = "select#grind option", on = Platform.WEB)
+  private List<Text> grindListSelected;
 
   @Locate(
       css = "button[id*='productViewQuantityButton'].is-selected,#quantityText",
@@ -65,6 +68,20 @@ public class ProductDetailsPage extends Base {
   public String getGrindSelected() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(grindSelected).visible());
     logger.info("[PDP] Grind Selected: " + grindSelected.getText().toLowerCase().trim());
+
+    if (WebHelper.isSafari()) {
+      String text =
+          grindListSelected.stream()
+              .filter(x -> x.getWebElement().isSelected())
+              .findFirst()
+              .get()
+              .getText()
+              .toLowerCase()
+              .trim();
+
+      logger.info("[PDP] Grind Selected: " + text);
+      return text;
+    }
 
     return grindSelected.getText().toLowerCase().trim();
   }

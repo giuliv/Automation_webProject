@@ -89,7 +89,6 @@ public class WebHelper {
   }
 
   public static boolean isSafari() {
-    logger.info("Tony " + getDriverConfig());
     return getDriverConfig().contains("SAFARI_MAC") || SdkHelper.getEnvironmentHelper().isSafari();
   }
 

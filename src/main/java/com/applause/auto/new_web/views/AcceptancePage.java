@@ -105,16 +105,16 @@ public class AcceptancePage extends Base {
 
   public String getDiscountText() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(discount).visible());
-    logger.info("Discount text: " + discount.getText());
+    logger.info("Discount text: " + discount.getText().trim());
 
-    return discount.getText();
+    return discount.getText().trim();
   }
 
   public String getShippingPrice() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(shippingPrice).visible());
-    logger.info("Shipping price: " + shippingPrice.getText());
+    logger.info("Shipping price: " + shippingPrice.getText().trim());
 
-    return shippingPrice.getText();
+    return shippingPrice.getText().trim();
   }
 
   public boolean isContinueShoppingDisplayed() {
