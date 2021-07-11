@@ -30,7 +30,12 @@ public class ProductListPage extends Base {
 
   @Override
   public void afterInit() {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
+    if (WebHelper.isSafari()) {
+      SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
+    } else {
+      SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
+    }
+
     logger.info("Products List Page URL: " + getDriver().getCurrentUrl());
   }
 

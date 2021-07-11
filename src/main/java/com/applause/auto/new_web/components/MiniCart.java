@@ -2,6 +2,7 @@ package com.applause.auto.new_web.components;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.CheckOutPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -46,7 +47,12 @@ public class MiniCart extends BaseComponent {
   /* -------- Actions -------- */
 
   public String getProductNameByIndex(int index) {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(productName.get(index)).visible());
+    if (WebHelper.isSafari()) {
+      SdkHelper.getSyncHelper().wait(Until.uiElement(productName.get(index)).present());
+    } else {
+      SdkHelper.getSyncHelper().wait(Until.uiElement(productName.get(index)).visible());
+    }
+
     logger.info(
         "[MiniCart] Product Name: " + productName.get(index).getText().toLowerCase().trim());
 
