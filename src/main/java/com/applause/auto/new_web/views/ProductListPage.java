@@ -46,6 +46,7 @@ public class ProductListPage extends Base {
     SdkHelper.getSyncHelper().sleep(1000); // Wait for scroll
 
     if (WebHelper.isSafari() && WebHelper.isDesktop()) {
+      logger.info("Safari and Desktop version");
       WebHelper.jsClick(productsImageList.get(index).getWebElement());
     } else {
       productsImageList.get(index).click();
@@ -64,6 +65,7 @@ public class ProductListPage extends Base {
     SdkHelper.getSyncHelper().sleep(1000); // Wait for scroll
 
     if (WebHelper.isSafari() && WebHelper.isDesktop()) {
+      logger.info("Safari and Desktop version");
       WebHelper.jsClick(reserveProductsImageList.get(index).getWebElement());
     } else {
       reserveProductsImageList.get(index).click();
