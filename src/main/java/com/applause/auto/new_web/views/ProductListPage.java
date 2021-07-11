@@ -45,8 +45,8 @@ public class ProductListPage extends Base {
     WebHelper.scrollToElement(productsImageList.get(index));
     SdkHelper.getSyncHelper().sleep(1000); // Wait for scroll
 
-    if (WebHelper.isSafari() && WebHelper.isDesktop()) {
-      logger.info("Safari and Desktop version");
+    if (WebHelper.isSafari() && !WebHelper.isMobile()) {
+      logger.info("Safari Desktop");
       WebHelper.jsClick(productsImageList.get(index).getWebElement());
     } else {
       productsImageList.get(index).click();
@@ -64,8 +64,8 @@ public class ProductListPage extends Base {
     WebHelper.scrollToElement(reserveProductsImageList.get(index));
     SdkHelper.getSyncHelper().sleep(1000); // Wait for scroll
 
-    if (WebHelper.isSafari() && WebHelper.isDesktop()) {
-      logger.info("Safari and Desktop version");
+    if (WebHelper.isSafari() && !WebHelper.isMobile()) {
+      logger.info("Safari Desktop");
       WebHelper.jsClick(reserveProductsImageList.get(index).getWebElement());
     } else {
       reserveProductsImageList.get(index).click();
