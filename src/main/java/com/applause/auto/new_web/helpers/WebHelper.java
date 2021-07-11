@@ -1,5 +1,6 @@
 package com.applause.auto.new_web.helpers;
 
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
@@ -81,5 +82,10 @@ public class WebHelper {
     logger.info("Clean price: " + cleanPrice);
 
     return Float.parseFloat(cleanPrice);
+  }
+
+  public static boolean isSafari() {
+    return Constants.BROWSER_NAME.equals("SAFARI_MAC")
+        || SdkHelper.getEnvironmentHelper().isSafari();
   }
 }

@@ -21,7 +21,12 @@ public class MyAccountPage extends Base {
 
   @Override
   public void afterInit() {
-    SdkHelper.getDriver().get("https://peets-coffee-staging.myshopify.com/account#/");
+    if (WebHelper.isSafari()) {
+      logger.info("On Safari Browser");
+      SdkHelper.getSyncHelper().sleep(10000);
+      SdkHelper.getDriver().get("https://peets-coffee-staging.myshopify.com/account#/");
+    }
+
     logger.info("My Account Page URL: " + getDriver().getCurrentUrl());
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getViewSignature).visible().setTimeout(Duration.ofSeconds(40)));
