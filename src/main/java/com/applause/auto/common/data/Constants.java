@@ -1,7 +1,5 @@
 package com.applause.auto.common.data;
 
-import static com.applause.auto.framework.SdkHelper.getEnvironmentHelper;
-
 import com.applause.auto.web.helpers.WebHelper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,6 +9,7 @@ import lombok.Setter;
 public class Constants {
 
   public static final int BOTTOM_BORDER_SIZE = 150;
+  public static String BROWSER_NAME = System.getProperty("browser_name", "CHROME_WINDOWS");
 
   /** Test Groups */
   public static final class TestNGGroups {
@@ -18,6 +17,7 @@ public class Constants {
     // Web
     public static final String DEBUG = "debug";
     public static final String NEW_WEB_CASES = "nwc";
+    public static final String NEW_WEB_CASES2 = "nwc2";
     public static final String DEMO_CHECKOUT = "demo-checkout";
     public static final String LOGIN = "login";
     public static final String GUEST_CHECKOUT = "guest-checkout";

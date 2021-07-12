@@ -5,6 +5,7 @@ import java.time.Duration;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Text;
@@ -20,8 +21,15 @@ public class MyAccountPage extends Base {
 
   @Override
   public void afterInit() {
+    //    if (WebHelper.isSafari()) {
+    //      logger.info("On Safari Browser");
+    //      SdkHelper.getSyncHelper().sleep(10000);
+    //      SdkHelper.getDriver().get("https://peets-coffee-staging.myshopify.com/account#/");
+    //    }
+
     SdkHelper.getSyncHelper()
-        .wait(Until.uiElement(getViewSignature).visible().setTimeout(Duration.ofSeconds(30)));
+        .wait(Until.uiElement(getViewSignature).visible().setTimeout(Duration.ofSeconds(40)));
+    logger.info("My Account Page URL: " + getDriver().getCurrentUrl());
   }
 
   /* -------- Actions -------- */
@@ -32,6 +40,7 @@ public class MyAccountPage extends Base {
    * @return LoginPage
    */
   public String getWelcomeMessage() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getViewSignature).visible());
     logger.info("Welcome message: " + getViewSignature.getText().toLowerCase());
     return getViewSignature.getText().toLowerCase();
   }

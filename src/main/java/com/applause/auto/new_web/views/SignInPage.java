@@ -37,6 +37,7 @@ public class SignInPage extends BaseComponent {
     logger.info("Enter email : " + text);
     SdkHelper.getSyncHelper().wait(Until.uiElement(getEmailTextBox).visible());
     getEmailTextBox.sendKeys(text);
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
   }
 
   /**
@@ -47,6 +48,7 @@ public class SignInPage extends BaseComponent {
   public void enterPassword(String text) {
     logger.info("Enter Password : " + text);
     getPasswordTextBox.sendKeys(text);
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
   }
 
   /**
@@ -56,13 +58,19 @@ public class SignInPage extends BaseComponent {
    */
   public MyAccountPage clickOnSignInButton() {
     logger.info("Click on sign in button");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getSignInButton).clickable());
     getSignInButton.click();
+    SdkHelper.getSyncHelper().sleep(1000);
+
     return SdkHelper.create(MyAccountPage.class);
   }
 
   public CreateAccountPage clickOnCreateAccountButton() {
     logger.info("Click on create account button");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getCreateAccountButton).clickable());
     getCreateAccountButton.click();
+    SdkHelper.getSyncHelper().sleep(1000);
+
     return SdkHelper.create(CreateAccountPage.class);
   }
 }

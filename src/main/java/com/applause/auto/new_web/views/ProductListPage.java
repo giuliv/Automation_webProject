@@ -30,7 +30,12 @@ public class ProductListPage extends Base {
 
   @Override
   public void afterInit() {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
+    if (WebHelper.isSafari()) {
+      SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
+    } else {
+      SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
+    }
+
     logger.info("Products List Page URL: " + getDriver().getCurrentUrl());
   }
 
@@ -43,8 +48,15 @@ public class ProductListPage extends Base {
 
     SdkHelper.getSyncHelper().wait(Until.uiElement(productsImageList.get(index)).visible());
     WebHelper.scrollToElement(productsImageList.get(index));
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for scroll
 
-    productsImageList.get(index).click();
+    if (WebHelper.isSafari() && !WebHelper.isMobile()) {
+      logger.info("Safari Desktop");
+      WebHelper.jsClick(productsImageList.get(index).getWebElement());
+    } else {
+      productsImageList.get(index).click();
+    }
+
     return SdkHelper.create(ProductDetailsPage.class);
   }
 
@@ -55,8 +67,15 @@ public class ProductListPage extends Base {
 
     SdkHelper.getSyncHelper().wait(Until.uiElement(reserveProductsImageList.get(index)).visible());
     WebHelper.scrollToElement(reserveProductsImageList.get(index));
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for scroll
 
-    reserveProductsImageList.get(index).click();
+    if (WebHelper.isSafari() && !WebHelper.isMobile()) {
+      logger.info("Safari Desktop");
+      WebHelper.jsClick(reserveProductsImageList.get(index).getWebElement());
+    } else {
+      reserveProductsImageList.get(index).click();
+    }
+
     return SdkHelper.create(ProductDetailsPage.class);
   }
 }

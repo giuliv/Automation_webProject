@@ -43,9 +43,9 @@ public class CartPage extends BaseComponent {
 
   public String getProductNameByIndex(int index) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(productName.get(index)).visible());
-    logger.info("[Cart] Product Name: " + productName.get(index).getText());
+    logger.info("[Cart] Product Name: " + productName.get(index).getText().toLowerCase().trim());
 
-    return productName.get(index).getText().toLowerCase();
+    return productName.get(index).getText().toLowerCase().trim();
   }
 
   public String getGrindSelectedByIndex(int index) {
@@ -54,9 +54,10 @@ public class CartPage extends BaseComponent {
       index = 0;
     }
     SdkHelper.getSyncHelper().wait(Until.uiElement(grindSelected.get(index)).visible());
-    logger.info("[Cart] Grind Selected: " + grindSelected.get(index).getText());
+    logger.info(
+        "[Cart] Grind Selected: " + grindSelected.get(index).getText().toLowerCase().trim());
 
-    return grindSelected.get(index).getText().toLowerCase();
+    return grindSelected.get(index).getText().toLowerCase().trim();
   }
 
   public int getProductQuantityByIndex(int index) {

@@ -599,9 +599,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
     paymentsPage.setPaymentData();
     Assert.assertTrue(
         paymentsPage.isSameAddressSelected(), "Same Address option should be Selected");
-    Assert.assertTrue(
-        paymentsPage.getDiscountMessageByIndex(firstCoffeeIndex).contains("5% OFF"),
-        "5% OFF message [1st] is not displayed");
+
     Assert.assertTrue(
         paymentsPage.getDiscountMessageByIndex(secondCoffeeIndex).contains("10% OFF"),
         "10% OFF message[2nd] is not displayed");
@@ -627,9 +625,6 @@ public class NewUsersSubscriptionsTest extends BaseTest {
 
     Assert.assertEquals(
         acceptancePage.getShippingPrice(), "Free", "Free Shipping for Subscriptions was not set!");
-    Assert.assertTrue(
-        acceptancePage.getDiscountMessageByIndex(firstCoffeeIndex).contains("5% OFF"),
-        "5% OFF message[1st] is not displayed");
 
     Assert.assertTrue(
         acceptancePage.getDiscountMessageByIndex(secondCoffeeIndex).contains("10% OFF"),
@@ -793,9 +788,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
     paymentsPage.setPaymentData();
     Assert.assertTrue(
         paymentsPage.isSameAddressSelected(), "Same Address option should be Selected");
-    Assert.assertTrue(
-        paymentsPage.getDiscountMessageByIndex(firstCoffeeIndex).contains("10% OFF"),
-        "10% OFF message [1st] is not displayed");
+
     Assert.assertTrue(
         paymentsPage.getDiscountMessageByIndex(secondCoffeeIndex).contains("10% OFF"),
         "10% OFF message[2nd] is not displayed");
@@ -821,9 +814,6 @@ public class NewUsersSubscriptionsTest extends BaseTest {
 
     Assert.assertEquals(
         acceptancePage.getShippingPrice(), "Free", "Free Shipping for Subscriptions was not set!");
-    Assert.assertTrue(
-        acceptancePage.getDiscountMessageByIndex(firstCoffeeIndex).contains("10% OFF"),
-        "10% OFF message[1st] is not displayed");
 
     Assert.assertTrue(
         acceptancePage.getDiscountMessageByIndex(secondCoffeeIndex).contains("10% OFF"),

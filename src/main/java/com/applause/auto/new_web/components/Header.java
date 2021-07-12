@@ -148,7 +148,7 @@ class HeaderMobile extends Header {
 
   public void openHamburgerMenu() {
     logger.info("Open Hamburger Menu [Mobile]");
-    SdkHelper.getSyncHelper().wait(Until.uiElement(hamburgerButton).visible());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(hamburgerButton).clickable());
     hamburgerButton.click();
 
     SdkHelper.getSyncHelper().wait(Until.uiElement(coffeeCategory).visible());

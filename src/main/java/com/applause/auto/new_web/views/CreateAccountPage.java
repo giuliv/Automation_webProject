@@ -46,18 +46,22 @@ public class CreateAccountPage extends Base {
 
     logger.info("Enter lastName: " + lastName);
     lastNameTextBox.sendKeys(lastName);
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
 
     logger.info("Enter valid email address: " + email);
     emailTextBox.sendKeys(email);
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
 
     logger.info("Enter password: " + password);
     passwordTextBox.sendKeys(password);
 
     logger.info("Enter confirm password: " + confirmPassword);
     confirmPasswordTextBox.sendKeys(confirmPassword);
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
 
     logger.info("Clicking over Create account button");
     createButton.click();
+    SdkHelper.getSyncHelper().sleep(2000); // Wait for action
 
     return SdkHelper.create(MyAccountPage.class);
   }

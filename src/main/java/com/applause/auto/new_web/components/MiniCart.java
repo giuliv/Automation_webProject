@@ -2,6 +2,7 @@ package com.applause.auto.new_web.components;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.CheckOutPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -46,17 +47,23 @@ public class MiniCart extends BaseComponent {
   /* -------- Actions -------- */
 
   public String getProductNameByIndex(int index) {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(productName.get(index)).visible());
-    logger.info("[MiniCart] Product Name: " + productName.get(index).getText());
+    if (WebHelper.isSafari()) {
+      SdkHelper.getSyncHelper().wait(Until.uiElement(productName.get(index)).present());
+    } else {
+      SdkHelper.getSyncHelper().wait(Until.uiElement(productName.get(index)).visible());
+    }
 
-    return productName.get(index).getText().toLowerCase();
+    logger.info(
+        "[MiniCart] Product Name: " + productName.get(index).getText().toLowerCase().trim());
+
+    return productName.get(index).getText().toLowerCase().trim();
   }
 
   public String getGrindSelected() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(grindSelected).visible());
-    logger.info("[MiniCart] Grind Selected: " + grindSelected.getText());
+    logger.info("[MiniCart] Grind Selected: " + grindSelected.getText().toLowerCase().trim());
 
-    return grindSelected.getText().toLowerCase();
+    return grindSelected.getText().toLowerCase().trim();
   }
 
   public int getProductQuantityByIndex(int index) {
