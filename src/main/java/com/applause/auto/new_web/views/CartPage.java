@@ -10,6 +10,7 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 
+import java.time.Duration;
 import java.util.List;
 
 @Implementation(is = CartPage.class, on = Platform.WEB)
@@ -42,7 +43,8 @@ public class CartPage extends BaseComponent {
   /* -------- Actions -------- */
 
   public String getProductNameByIndex(int index) {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(productName.get(index)).visible());
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(productName.get(index)).visible().setTimeout(Duration.ofSeconds(30)));
     logger.info("[Cart] Product Name: " + productName.get(index).getText().toLowerCase().trim());
 
     return productName.get(index).getText().toLowerCase().trim();
