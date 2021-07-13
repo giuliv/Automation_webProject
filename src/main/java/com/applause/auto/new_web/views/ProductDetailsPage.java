@@ -142,6 +142,7 @@ public class ProductDetailsPage extends Base {
 
     if (totalProducts > 3) {
       logger.info("Adding more than 3 products, clicking 3+ button");
+      SdkHelper.getSyncHelper().wait(Until.uiElement(threeProductsButton).clickable());
       threeProductsButton.click();
 
       SdkHelper.getSyncHelper().wait(Until.uiElement(addOneMore).present());
@@ -152,11 +153,12 @@ public class ProductDetailsPage extends Base {
 
       for (int i = 3; i < totalProducts; i++) {
         addOneMore.click();
-        SdkHelper.getSyncHelper().sleep(500); // Wait for action
+        SdkHelper.getSyncHelper().sleep(1000); // Wait for action
       }
     } else if (totalProducts == 2) {
       if (twoProductsButton.exists()) {
         logger.info("Selecting 2 products button");
+        SdkHelper.getSyncHelper().wait(Until.uiElement(twoProductsButton).clickable());
         twoProductsButton.click();
       } else {
         SdkHelper.getSyncHelper().wait(Until.uiElement(addOneMore).present());
@@ -168,11 +170,11 @@ public class ProductDetailsPage extends Base {
         logger.info("Adding 1 more product");
         addOneMore.click();
       }
-      SdkHelper.getSyncHelper().sleep(500); // Wait for action
     } else if (totalProducts == 3) {
       logger.info("Selecting 3 products button");
+      SdkHelper.getSyncHelper().wait(Until.uiElement(threeProductsButton).clickable());
       threeProductsButton.click();
-      SdkHelper.getSyncHelper().sleep(500); // Wait for action
     }
+    SdkHelper.getSyncHelper().sleep(2000); // Wait for action
   }
 }
