@@ -11,13 +11,14 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.web.helpers.WebHelper;
 
+import java.time.Duration;
 import java.util.List;
 
 @Implementation(is = AcceptancePage.class, on = Platform.WEB)
 @Implementation(is = AcceptancePage.class, on = Platform.WEB_MOBILE_PHONE)
 public class AcceptancePage extends Base {
 
-  @Locate(css = "div[data-order-update-options]", on = Platform.WEB)
+  @Locate(css = "div[data-order-update-options],span.payment-due__price", on = Platform.WEB)
   private ContainerElement mainContainer;
 
   @Locate(className = "os-order-number", on = Platform.WEB)
@@ -83,7 +84,8 @@ public class AcceptancePage extends Base {
 
   @Override
   public void afterInit() {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(mainContainer).visible().setTimeout(Duration.ofSeconds(30)));
     logger.info("Acceptance Page URL: " + getDriver().getCurrentUrl());
 
     if (!WebHelper.isDesktop()) {
