@@ -18,7 +18,7 @@ import java.util.List;
 @Implementation(is = AcceptancePage.class, on = Platform.WEB_MOBILE_PHONE)
 public class AcceptancePage extends Base {
 
-  @Locate(css = "div[data-order-update-options],span.payment-due__price", on = Platform.WEB)
+  @Locate(css = "div[data-order-update-options],.os-order-number", on = Platform.WEB)
   private ContainerElement mainContainer;
 
   @Locate(className = "os-order-number", on = Platform.WEB)
@@ -39,7 +39,7 @@ public class AcceptancePage extends Base {
   @Locate(css = "span[data-checkout-total-shipping-target]", on = Platform.WEB)
   private Text shippingPrice;
 
-  @Locate(css = "span.order-summary-toggle__text--show", on = Platform.WEB)
+  @Locate(css = "span.order-summary-toggle__text--show > span", on = Platform.WEB)
   private ContainerElement orderSummarySection;
 
   @Locate(css = "button[data-arrive-phone]", on = Platform.WEB)
@@ -89,7 +89,11 @@ public class AcceptancePage extends Base {
     logger.info("Acceptance Page URL: " + getDriver().getCurrentUrl());
 
     if (!WebHelper.isDesktop()) {
+      SdkHelper.getSyncHelper().wait(Until.uiElement(orderSummarySection).present());
+      WebHelper.scrollToElement(orderSummarySection.getWebElement());
+      SdkHelper.getSyncHelper().wait(Until.uiElement(orderSummarySection).clickable());
       logger.info("Open Order Summary Section");
+
       orderSummarySection.click();
       SdkHelper.getSyncHelper().sleep(1000); // Wait for action
     }
