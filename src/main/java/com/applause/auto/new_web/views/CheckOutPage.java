@@ -8,6 +8,8 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.*;
 
+import java.time.Duration;
+
 @Implementation(is = CheckOutPage.class, on = Platform.WEB)
 @Implementation(is = CheckOutPage.class, on = Platform.WEB_MOBILE_PHONE)
 public class CheckOutPage extends Base {
@@ -53,7 +55,8 @@ public class CheckOutPage extends Base {
 
   @Override
   public void afterInit() {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(mainContainer).visible().setTimeout(Duration.ofSeconds(40)));
     logger.info("CheckOut Page URL: " + getDriver().getCurrentUrl());
   }
 

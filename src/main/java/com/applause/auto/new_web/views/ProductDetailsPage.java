@@ -9,6 +9,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.*;
 import com.applause.auto.helpers.sync.Until;
 
+import java.time.Duration;
 import java.util.List;
 
 @Implementation(is = ProductDetailsPage.class, on = Platform.WEB)
@@ -52,7 +53,8 @@ public class ProductDetailsPage extends Base {
 
   @Override
   public void afterInit() {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(mainContainer).present().setTimeout(Duration.ofSeconds(40)));
     logger.info("Product Details Page URL: " + SdkHelper.getDriver().getCurrentUrl());
   }
 
