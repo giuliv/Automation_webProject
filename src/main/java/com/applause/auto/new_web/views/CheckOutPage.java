@@ -8,6 +8,8 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.*;
 
+import java.time.Duration;
+
 @Implementation(is = CheckOutPage.class, on = Platform.WEB)
 @Implementation(is = CheckOutPage.class, on = Platform.WEB_MOBILE_PHONE)
 public class CheckOutPage extends Base {
@@ -53,7 +55,8 @@ public class CheckOutPage extends Base {
 
   @Override
   public void afterInit() {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(mainContainer).visible().setTimeout(Duration.ofSeconds(40)));
     logger.info("CheckOut Page URL: " + getDriver().getCurrentUrl());
   }
 
@@ -64,22 +67,31 @@ public class CheckOutPage extends Base {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mail).visible());
 
     mail.sendKeys(Constants.WebTestData.EMAIL);
-    firstName.sendKeys(Constants.WebTestData.FIRST_NAME);
-    lastName.sendKeys(Constants.WebTestData.LAST_NAME);
+    SdkHelper.getSyncHelper().sleep(500); // Wait for action
 
-    SdkHelper.getSyncHelper().sleep(1000);
+    firstName.sendKeys(Constants.WebTestData.FIRST_NAME);
+    SdkHelper.getSyncHelper().sleep(500); // Wait for action
+
+    lastName.sendKeys(Constants.WebTestData.LAST_NAME);
+    SdkHelper.getSyncHelper().sleep(500); // Wait for action
 
     address.sendKeys(Constants.WebTestData.ADDRESS);
+    SdkHelper.getSyncHelper().sleep(500); // Wait for action
+
     city.sendKeys(Constants.WebTestData.CITY);
+    SdkHelper.getSyncHelper().sleep(500); // Wait for action
+
     phone.sendKeys(Constants.WebTestData.PHONE);
+    SdkHelper.getSyncHelper().sleep(500); // Wait for action
 
     country.select(Constants.WebTestData.COUNTRY);
-    SdkHelper.getSyncHelper().sleep(1000);
+    SdkHelper.getSyncHelper().sleep(500); // Wait for action
 
     province.select(Constants.WebTestData.PROVINCE);
-    SdkHelper.getSyncHelper().sleep(1000);
+    SdkHelper.getSyncHelper().sleep(500); // Wait for action
 
     zip.sendKeys(Constants.WebTestData.ZIP);
+    SdkHelper.getSyncHelper().sleep(500); // Wait for action
   }
 
   public void setCheckOutDataAsExistingUser() {
@@ -90,20 +102,27 @@ public class CheckOutPage extends Base {
       logger.info("Using existing saved address");
 
       existingAddress.click();
-      SdkHelper.getSyncHelper().sleep(1000); // wait for action
+      SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
       existingAddress.getOptions().get(0).click();
     } else {
       address.sendKeys(Constants.WebTestData.ADDRESS);
+      SdkHelper.getSyncHelper().sleep(500); // Wait for action
+
       city.sendKeys(Constants.WebTestData.CITY);
+      SdkHelper.getSyncHelper().sleep(500); // Wait for action
+
       phone.sendKeys(Constants.WebTestData.PHONE);
+      SdkHelper.getSyncHelper().sleep(500); // Wait for action
 
       country.select(Constants.WebTestData.COUNTRY);
-      SdkHelper.getSyncHelper().sleep(1000);
+      SdkHelper.getSyncHelper().sleep(500); // Wait for action
 
       province.select(Constants.WebTestData.PROVINCE);
-      SdkHelper.getSyncHelper().sleep(1000);
+      SdkHelper.getSyncHelper().sleep(500); // Wait for action
 
       zip.sendKeys(Constants.WebTestData.ZIP);
+      SdkHelper.getSyncHelper().sleep(500); // Wait for action
     }
   }
 

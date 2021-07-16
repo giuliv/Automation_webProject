@@ -149,6 +149,7 @@ public class PaymentsPage extends Base {
     SdkHelper.getSyncHelper().wait(Until.uiElement(payNowButton).visible());
     payNowButton.click();
 
+    SdkHelper.getSyncHelper().wait(Until.uiElement(payNowButton).notPresent());
     return SdkHelper.create(AcceptancePage.class);
   }
 

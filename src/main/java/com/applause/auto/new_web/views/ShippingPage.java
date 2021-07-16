@@ -3,6 +3,7 @@ package com.applause.auto.new_web.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
@@ -41,9 +42,13 @@ public class ShippingPage extends Base {
 
   public PaymentsPage clickContinueToPayments() {
     logger.info("Clicking Continue to Payments");
-    SdkHelper.getSyncHelper().wait(Until.uiElement(continueToPaymentButton).visible());
-    continueToPaymentButton.click();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(continueToPaymentButton).present());
+    if (!WebHelper.isDesktop()) {
+      WebHelper.scrollToElement(continueToPaymentButton);
+      SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    }
 
+    continueToPaymentButton.click();
     return SdkHelper.create(PaymentsPage.class);
   }
 }
