@@ -9,6 +9,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class NewUsersStandardOrdersTest extends BaseTest {
+  // Todo: Optional assertions not added:
+  //  Discount if any
 
   @Test(
       groups = {Constants.TestNGGroups.NEW_WEB_CASES},
@@ -90,10 +92,7 @@ public class NewUsersStandardOrdersTest extends BaseTest {
     Assert.assertEquals(
         productName, acceptancePage.getOrderNameByIndex(0), "Product name does NOT matches");
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug

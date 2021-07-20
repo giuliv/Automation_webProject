@@ -245,7 +245,7 @@ public class Constants {
     public static final String PHONE = "646-759-4933";
     public static final String COUNTRY = "United States";
     public static final String PROVINCE = "New York";
-    public static final String ZIP = "10009";
+    public static final String ZIP = "11201";
 
     public static final String CREDIT_CARD_NUMBER_1 = "5333";
     public static final String CREDIT_CARD_NUMBER_2 = "8663";
@@ -264,6 +264,7 @@ public class Constants {
 
     public static final String SEARCH_COFFEE_AGED_SUMATRA = "Aged Sumatra";
     public static final String SEARCH_COFFEE_DECAF_MAJOR = "Decaf Major";
+    public static final String SEARCH_COFFEE_JR_RESERVE_BLEND = "JR RESERVE BLEND";
     public static final String SEARCH_COFFEE_BRAZILIAN_K_CUP = "SINGLE ORIGIN BRAZIL K-CUP";
   }
 

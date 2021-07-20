@@ -9,6 +9,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class GuestUsersStandardOrdersTest extends BaseTest {
+  // Todo: Optional assertions not added:
+  //  Discount if any
 
   @Test(
       groups = {Constants.TestNGGroups.NEW_WEB_CASES},
@@ -73,10 +75,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     Assert.assertEquals(
         productName, acceptancePage.getOrderNameByIndex(0), "Product name does NOT matches");
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
@@ -225,10 +224,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
         acceptancePage.getOrderNameByIndex(equipmentIndex),
         "Equipment Product name does NOT matches");
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
@@ -305,23 +301,22 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("4. Select Coffee Beans from Coffee tab");
+    logger.info("3. Search for Coffee: " + Constants.WebTestData.SEARCH_COFFEE_JR_RESERVE_BLEND);
     productDetailsPage = miniCart.closeMiniCart(ProductDetailsPage.class);
-    header = productDetailsPage.getHeader();
-
-    header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);
-    productListPage =
-        header.clickOverSubCategoryFromMenu(
-            ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEANS);
+    SearchResultsPage searchResultsPage =
+        productDetailsPage
+            .getHeader()
+            .getSearchComponent()
+            .search(Constants.WebTestData.SEARCH_COFFEE_JR_RESERVE_BLEND);
 
     logger.info("5. Add reserve coffee item to MiniCart");
     int reserveSelected = 0;
-    productDetailsPage = productListPage.clickOverReserveProductByIndex(reserveSelected);
+    productDetailsPage = searchResultsPage.clickOverProductByIndex(reserveSelected);
 
     String reserveName = productDetailsPage.getProductName();
     int reserveQuantity = productDetailsPage.getProductQuantitySelected();
 
-    CartPage cartPage = productDetailsPage.clickAddToCartPage();
+    miniCart = productDetailsPage.clickAddToMiniCart();
 
     logger.info("6. Validate items added to Cart");
     int coffeeIndex = 1;
@@ -329,28 +324,26 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
     Assert.assertEquals(
         coffeeName,
-        cartPage.getProductNameByIndex(coffeeIndex),
+        miniCart.getProductNameByIndex(coffeeIndex),
         "Correct Coffee Product was not added to MiniCart");
     Assert.assertEquals(
-        coffeeGrind,
-        cartPage.getGrindSelectedByIndex(coffeeIndex),
-        "Correct Coffee Grind was not added to MiniCart");
+        coffeeGrind, miniCart.getGrindSelected(), "Correct Coffee Grind was not added to MiniCart");
     Assert.assertEquals(
         coffeeQuantity,
-        cartPage.getProductQuantityByIndex(coffeeIndex),
+        miniCart.getProductQuantityByIndex(coffeeIndex),
         "Correct Coffee product quantity was not added to MiniCart");
 
     Assert.assertEquals(
         reserveName,
-        cartPage.getProductNameByIndex(reserveIndex),
+        miniCart.getProductNameByIndex(reserveIndex),
         "Correct Reserve Product was not added to MiniCart");
     Assert.assertEquals(
         reserveQuantity,
-        cartPage.getProductQuantityByIndex(reserveIndex),
+        miniCart.getProductQuantityByIndex(reserveIndex),
         "Correct Reserve product quantity was not added to MiniCart");
 
     logger.info("7. Proceed to Checkout page");
-    CheckOutPage checkOutPage = cartPage.clickContinueToCheckOut();
+    CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
     checkOutPage.setCheckOutData();
 
     logger.info("8. Proceed to Shipping page");
@@ -380,10 +373,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
         acceptancePage.getOrderNameByIndex(reserveIndex),
         "Reserve Product name does NOT matches");
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
@@ -532,10 +522,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
         acceptancePage.getDiscountText(),
         "Free shipping",
         "Discount from promoCode was not applied");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
@@ -661,10 +648,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
         acceptancePage.getShippingPrice(),
         "Free",
         "Free Shipping for ORDERS above $50USD was not set!");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
@@ -822,10 +806,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
         acceptancePage.getShippingPrice(),
         "Free",
         "Free Shipping for ORDERS above $29USD[Limited Releases] was not set!");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug

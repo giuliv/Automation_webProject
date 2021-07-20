@@ -8,6 +8,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class NewUsersSubscriptionsTest extends BaseTest {
+  // Todo: Optional assertions not added:
+  //  Discount if any
 
   @Test(
       groups = {Constants.TestNGGroups.NEW_WEB_CASES},
@@ -102,10 +104,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
     Assert.assertTrue(
         acceptancePage.getDiscountMessage().contains("10% OFF"),
         "10% OFF message is not displayed");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
@@ -245,10 +244,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
     Assert.assertFalse(
         acceptancePage.isDiscountPresent(),
         "[Acceptance Page] - Discounts should NOT be available");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
@@ -440,10 +436,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
     Assert.assertTrue(
         acceptancePage.getDiscountMessageByIndex(secondCoffeeIndex).contains("10% OFF"),
         "10% OFF message[2nd] is not displayed");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
@@ -629,10 +622,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
     Assert.assertTrue(
         acceptancePage.getDiscountMessageByIndex(secondCoffeeIndex).contains("10% OFF"),
         "10% OFF message[2nd] is not displayed");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
@@ -818,10 +808,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
     Assert.assertTrue(
         acceptancePage.getDiscountMessageByIndex(secondCoffeeIndex).contains("10% OFF"),
         "10% OFF message[2nd] is not displayed");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
@@ -997,10 +984,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
     Assert.assertFalse(
         acceptancePage.isDiscountPresent(),
         "[Acceptance Page] - Discounts should NOT be available");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
@@ -1145,10 +1129,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
     Assert.assertTrue(
         acceptancePage.getDiscountMessage().contains("30% OFF"),
         "30% OFF message is not displayed");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
@@ -1293,10 +1274,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
     Assert.assertTrue(
         acceptancePage.getDiscountMessage().contains("30% OFF"),
         "30% OFF message is not displayed");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug

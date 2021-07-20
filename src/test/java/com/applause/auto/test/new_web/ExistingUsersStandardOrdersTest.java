@@ -10,6 +10,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class ExistingUsersStandardOrdersTest extends BaseTest {
+  // Todo: Optional assertions not added:
+  //  Discount if any
 
   @Test(
       groups = {Constants.TestNGGroups.NEW_WEB_CASES},
@@ -88,10 +90,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     Assert.assertEquals(
         productName, acceptancePage.getOrderNameByIndex(0), "Product name does NOT matches");
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
@@ -256,10 +255,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
         acceptancePage.getOrderNameByIndex(equipmentIndex),
         "Equipment Product name does NOT matches");
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
@@ -427,10 +423,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
         acceptancePage.getOrderNameByIndex(reserveIndex),
         "Reserve Product name does NOT matches");
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
@@ -595,10 +588,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
         acceptancePage.getDiscountText(),
         "Free shipping",
         "Discount from promoCode was not applied");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
@@ -727,10 +717,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
         acceptancePage.getOrderNameByIndex(equipmentIndex),
         "Equipment Product name does NOT matches");
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
@@ -861,10 +848,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
         acceptancePage.getOrderNameByIndex(cupsIndex),
         "Reserve Product name does NOT matches");
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
