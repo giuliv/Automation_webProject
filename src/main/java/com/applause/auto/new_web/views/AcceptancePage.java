@@ -30,6 +30,9 @@ public class AcceptancePage extends Base {
   @Locate(css = "span[data-checkout-subtotal-price-target]", on = Platform.WEB)
   private Text subTotal;
 
+  @Locate(css = "div[role='region']", on = Platform.WEB)
+  private Text mapSection;
+
   @Locate(css = "span.payment-due__price", on = Platform.WEB)
   private Text total;
 
@@ -107,6 +110,11 @@ public class AcceptancePage extends Base {
   public boolean isSubTotalDisplayed() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(subTotal).visible());
     return subTotal.isDisplayed();
+  }
+
+  public boolean isMapDisplayed() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(mapSection).visible());
+    return mapSection.isDisplayed();
   }
 
   public String getDiscountText() {

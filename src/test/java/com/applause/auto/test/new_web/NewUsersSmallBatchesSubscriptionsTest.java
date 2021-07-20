@@ -10,6 +10,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class NewUsersSmallBatchesSubscriptionsTest extends BaseTest {
+  // Todo: Optional assertions not added:
+  //  Discount if any
 
   @Test(
       groups = {Constants.TestNGGroups.NEW_WEB_CASES},
@@ -101,10 +103,7 @@ public class NewUsersSmallBatchesSubscriptionsTest extends BaseTest {
         acceptancePage.getShippingPrice(), "Free", "Free Shipping for Subscriptions was not set!");
     Assert.assertTrue(
         acceptancePage.getDiscountMessage().contains("5% OFF"), "5% OFF message is not displayed");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
@@ -246,10 +245,7 @@ public class NewUsersSmallBatchesSubscriptionsTest extends BaseTest {
     Assert.assertTrue(
         acceptancePage.getDiscountMessage().contains("10% OFF"),
         "10% OFF message is not displayed");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Discount if any
-    //  Map Location section
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug

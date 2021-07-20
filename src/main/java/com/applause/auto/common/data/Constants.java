@@ -245,7 +245,7 @@ public class Constants {
     public static final String PHONE = "646-759-4933";
     public static final String COUNTRY = "United States";
     public static final String PROVINCE = "New York";
-    public static final String ZIP = "10009";
+    public static final String ZIP = "11201";
 
     public static final String CREDIT_CARD_NUMBER_1 = "5333";
     public static final String CREDIT_CARD_NUMBER_2 = "8663";
