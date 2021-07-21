@@ -3,6 +3,7 @@ package com.applause.auto.new_web.helpers;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import io.appium.java_client.ios.IOSDriver;
@@ -112,5 +113,11 @@ public class WebHelper {
   public static void jsClick(final WebElement webElement) {
     final JavascriptExecutor executor = (JavascriptExecutor) SdkHelper.getDriver();
     executor.executeScript("arguments[0].click();", webElement);
+  }
+
+  public static <T extends BaseComponent> T navigateBack(Class<T> clazz) {
+    SdkHelper.getDriver().navigate().back();
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    return SdkHelper.create(clazz);
   }
 }

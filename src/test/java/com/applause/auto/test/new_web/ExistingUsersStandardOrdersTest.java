@@ -1,6 +1,7 @@
 package com.applause.auto.test.new_web;
 
 import com.applause.auto.common.data.Constants;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.helpers.WebHelper;
@@ -187,8 +188,15 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     productListPage = header.clickCategoryFromMenu(Constants.MenuOptions.GEAR);
 
     logger.info("6. Add equipment item to MiniCart");
-    int equipmentSelected = 4;
-    productDetailsPage = productListPage.clickOverProductByIndex(equipmentSelected);
+    for (int equipmentSelected = 0; equipmentSelected < 3; equipmentSelected++) {
+      productDetailsPage = productListPage.clickOverProductByIndex(equipmentSelected);
+      if (!productDetailsPage.isItemAvailable()) {
+        logger.info("Item available");
+        break;
+      }
+      logger.info("Item not available, looking for other item: " + equipmentSelected);
+      WebHelper.navigateBack(ProductListPage.class);
+    }
 
     String equipmentName = productDetailsPage.getProductName();
     int equipmentQuantity = productDetailsPage.getProductQuantitySelected();
