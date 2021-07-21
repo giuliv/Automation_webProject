@@ -17,7 +17,6 @@ public class BaseTest extends ApplauseSeleniumTest {
 
   public static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
   public TestHelper testHelper = new TestHelper();
-  public String mail = WebHelper.getRandomMail();
 
   /** Get a new WebDriver at the start of each test. */
   @BeforeMethod(alwaysRun = true)

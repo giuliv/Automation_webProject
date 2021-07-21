@@ -23,6 +23,7 @@ public class NewUsersSmallBatchesSubscriptionsTest extends BaseTest {
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
 
     logger.info("2. Create new User account");
+    String mail = WebHelper.getRandomMail();
     MyAccountPage myAccountPage = testHelper.createAccount(homePage, mail);
     Assert.assertNotNull(myAccountPage, "Account was not created!");
 
@@ -150,6 +151,7 @@ public class NewUsersSmallBatchesSubscriptionsTest extends BaseTest {
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
 
     logger.info("2. Create new User account");
+    String mail = WebHelper.getRandomMail();
     MyAccountPage myAccountPage = testHelper.createAccount(homePage, mail);
     Assert.assertNotNull(myAccountPage, "Account was not created!");
 
