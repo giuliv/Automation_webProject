@@ -71,7 +71,8 @@ public class ProductDetailsPage extends Base {
   }
 
   public boolean isItemAvailable() {
-    return outOfStockNotifyMeSection.exists();
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    return outOfStockNotifyMeSection.isDisplayed();
   }
 
   public String getGrindSelected() {

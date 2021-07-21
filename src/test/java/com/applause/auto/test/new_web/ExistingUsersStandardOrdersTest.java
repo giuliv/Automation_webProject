@@ -195,7 +195,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
         break;
       }
       logger.info("Item not available, looking for other item: " + equipmentSelected);
-      WebHelper.navigateBack(ProductListPage.class);
+      productListPage = WebHelper.navigateBack(ProductListPage.class);
     }
 
     String equipmentName = productDetailsPage.getProductName();

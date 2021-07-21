@@ -117,7 +117,7 @@ public class WebHelper {
 
   public static <T extends BaseComponent> T navigateBack(Class<T> clazz) {
     SdkHelper.getDriver().navigate().back();
-    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    SdkHelper.getSyncHelper().sleep(3000); // Wait for action
     return SdkHelper.create(clazz);
   }
 }
