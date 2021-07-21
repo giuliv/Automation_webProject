@@ -23,22 +23,8 @@ public class NewUsersSingleOriginSubscriptionsTest extends BaseTest {
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
 
     logger.info("2. Create new User account");
-    CreateAccountPage createAccountPage =
-        homePage.getHeader().clickAccountButton().clickOnCreateAccountButton();
-    String mail = WebHelper.getRandomMail();
-    Assert.assertTrue(
-        SdkHelper.getDriver().getCurrentUrl().contains("/Registration"),
-        "Registration URL is not correct!");
-
-    MyAccountPage myAccountPage =
-        createAccountPage.createAccount(
-            Constants.WebTestData.FIRST_NAME,
-            Constants.WebTestData.LAST_NAME,
-            mail,
-            Constants.TestData.WEB_PASSWORD,
-            Constants.TestData.WEB_PASSWORD);
-
-    Assert.assertTrue(myAccountPage.getWelcomeMessage().contains("welcome"), "User is not created");
+    MyAccountPage myAccountPage = testHelper.createAccount(homePage, mail);
+    Assert.assertNotNull(myAccountPage, "Account was not created!");
 
     logger.info("3. Select Single Origin From Subscription tab");
     Header header = homePage.getHeader();
@@ -164,22 +150,8 @@ public class NewUsersSingleOriginSubscriptionsTest extends BaseTest {
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
 
     logger.info("2. Create new User account");
-    CreateAccountPage createAccountPage =
-        homePage.getHeader().clickAccountButton().clickOnCreateAccountButton();
-    String mail = WebHelper.getRandomMail();
-    Assert.assertTrue(
-        SdkHelper.getDriver().getCurrentUrl().contains("/Registration"),
-        "Registration URL is not correct!");
-
-    MyAccountPage myAccountPage =
-        createAccountPage.createAccount(
-            Constants.WebTestData.FIRST_NAME,
-            Constants.WebTestData.LAST_NAME,
-            mail,
-            Constants.TestData.WEB_PASSWORD,
-            Constants.TestData.WEB_PASSWORD);
-
-    Assert.assertTrue(myAccountPage.getWelcomeMessage().contains("welcome"), "User is not created");
+    MyAccountPage myAccountPage = testHelper.createAccount(homePage, mail);
+    Assert.assertNotNull(myAccountPage, "Account was not created!");
 
     logger.info("3. Select Single Origin From Subscription tab");
     Header header = homePage.getHeader();
