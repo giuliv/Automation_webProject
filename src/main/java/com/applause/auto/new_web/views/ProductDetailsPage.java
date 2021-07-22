@@ -51,6 +51,9 @@ public class ProductDetailsPage extends Base {
   @Locate(css = "[test='regularEligible'] button.og-optin-btn", on = Platform.WEB)
   private Button subscribeType;
 
+  @Locate(css = "form#notifyForm", on = Platform.WEB)
+  private ContainerElement outOfStockNotifyMeSection;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper()
@@ -65,6 +68,11 @@ public class ProductDetailsPage extends Base {
     logger.info("[PDP] Product Name: " + productName.getText().toLowerCase().trim());
 
     return productName.getText().toLowerCase().trim();
+  }
+
+  public boolean isItemAvailable() {
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    return outOfStockNotifyMeSection.isDisplayed();
   }
 
   public String getGrindSelected() {

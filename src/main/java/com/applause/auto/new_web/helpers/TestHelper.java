@@ -1,4 +1,4 @@
-package com.applause.auto.web.helpers;
+package com.applause.auto.new_web.helpers;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.framework.SdkHelper;

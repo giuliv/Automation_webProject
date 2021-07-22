@@ -3,9 +3,8 @@ package com.applause.auto.test.new_web;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.integrations.base.ApplauseSeleniumTest;
 import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.*;
-import com.applause.auto.web.helpers.TestHelper;
+import com.applause.auto.new_web.helpers.TestHelper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.BeforeMethod;
@@ -17,7 +16,6 @@ public class BaseTest extends ApplauseSeleniumTest {
 
   public static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
   public TestHelper testHelper = new TestHelper();
-  public String mail = WebHelper.getRandomMail();
 
   /** Get a new WebDriver at the start of each test. */
   @BeforeMethod(alwaysRun = true)

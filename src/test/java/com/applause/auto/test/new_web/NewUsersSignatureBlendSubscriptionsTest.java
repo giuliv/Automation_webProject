@@ -1,12 +1,10 @@
 package com.applause.auto.test.new_web;
 
 import com.applause.auto.common.data.Constants;
-import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.*;
-import com.applause.auto.web.helpers.TestHelper;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -24,6 +22,7 @@ public class NewUsersSignatureBlendSubscriptionsTest extends BaseTest {
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
 
     logger.info("2. Create new User account");
+    String mail = WebHelper.getRandomMail();
     MyAccountPage myAccountPage = testHelper.createAccount(homePage, mail);
     Assert.assertNotNull(myAccountPage, "Account was not created!");
 
@@ -151,6 +150,7 @@ public class NewUsersSignatureBlendSubscriptionsTest extends BaseTest {
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
 
     logger.info("2. Create new User account");
+    String mail = WebHelper.getRandomMail();
     MyAccountPage myAccountPage = testHelper.createAccount(homePage, mail);
     Assert.assertNotNull(myAccountPage, "Account was not created!");
 
