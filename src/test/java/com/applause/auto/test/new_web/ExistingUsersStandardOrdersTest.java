@@ -353,23 +353,22 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("5. Select Coffee Beans from Coffee tab");
+    logger.info("5. Search for Coffee: " + Constants.WebTestData.SEARCH_COFFEE_JR_RESERVE_BLEND);
     productDetailsPage = miniCart.closeMiniCart(ProductDetailsPage.class);
-    header = productDetailsPage.getHeader();
-
-    header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);
-    productListPage =
-        header.clickOverSubCategoryFromMenu(
-            ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEANS);
+    SearchResultsPage searchResultsPage =
+        productDetailsPage
+            .getHeader()
+            .getSearchComponent()
+            .search(Constants.WebTestData.SEARCH_COFFEE_JR_RESERVE_BLEND);
 
     logger.info("6. Add reserve coffee item to MiniCart");
     int reserveSelected = 0;
-    productDetailsPage = productListPage.clickOverReserveProductByIndex(reserveSelected);
+    productDetailsPage = searchResultsPage.clickOverProductByIndex(reserveSelected);
 
     String reserveName = productDetailsPage.getProductName();
     int reserveQuantity = productDetailsPage.getProductQuantitySelected();
 
-    CartPage cartPage = productDetailsPage.clickAddToCartPage();
+    miniCart = productDetailsPage.clickAddToMiniCart();
 
     logger.info("7. Validate items added to Cart");
     int coffeeIndex = 1;
@@ -377,28 +376,26 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
 
     Assert.assertEquals(
         coffeeName,
-        cartPage.getProductNameByIndex(coffeeIndex),
+        miniCart.getProductNameByIndex(coffeeIndex),
         "Correct Coffee Product was not added to MiniCart");
     Assert.assertEquals(
-        coffeeGrind,
-        cartPage.getGrindSelectedByIndex(coffeeIndex),
-        "Correct Coffee Grind was not added to MiniCart");
+        coffeeGrind, miniCart.getGrindSelected(), "Correct Coffee Grind was not added to MiniCart");
     Assert.assertEquals(
         coffeeQuantity,
-        cartPage.getProductQuantityByIndex(coffeeIndex),
+        miniCart.getProductQuantityByIndex(coffeeIndex),
         "Correct Coffee product quantity was not added to MiniCart");
 
     Assert.assertEquals(
         reserveName,
-        cartPage.getProductNameByIndex(reserveIndex),
+        miniCart.getProductNameByIndex(reserveIndex),
         "Correct Reserve Product was not added to MiniCart");
     Assert.assertEquals(
         reserveQuantity,
-        cartPage.getProductQuantityByIndex(reserveIndex),
+        miniCart.getProductQuantityByIndex(reserveIndex),
         "Correct Reserve product quantity was not added to MiniCart");
 
     logger.info("8. Proceed to Checkout page");
-    CheckOutPage checkOutPage = cartPage.clickContinueToCheckOut();
+    CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
     Assert.assertTrue(
         checkOutPage.isExistingUserMailCorrect().contains(Constants.TestData.WEB_USERNAME),
         "Existing user mail is NOT correct");
@@ -674,9 +671,16 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     ProductListPage productListPage = header.clickCategoryFromMenu(Constants.MenuOptions.GEAR);
 
     logger.info("4. Add equipment item to MiniCart");
-    int equipmentSelected = 4;
-    ProductDetailsPage productDetailsPage =
-        productListPage.clickOverProductByIndex(equipmentSelected);
+    ProductDetailsPage productDetailsPage = null;
+    for (int equipmentSelected = 0; equipmentSelected < 3; equipmentSelected++) {
+      productDetailsPage = productListPage.clickOverProductByIndex(equipmentSelected);
+      if (!productDetailsPage.isItemAvailable()) {
+        logger.info("Item available");
+        break;
+      }
+      logger.info("Item not available, looking for other item: " + equipmentSelected);
+      productListPage = WebHelper.navigateBack(ProductListPage.class);
+    }
 
     String equipmentName = productDetailsPage.getProductName();
     int equipmentQuantity = productDetailsPage.getProductQuantitySelected();
