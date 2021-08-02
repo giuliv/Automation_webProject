@@ -159,8 +159,15 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     productListPage = header.clickCategoryFromMenu(Constants.MenuOptions.GEAR);
 
     logger.info("5. Add equipment item to MiniCart");
-    int equipmentSelected = 4;
-    productDetailsPage = productListPage.clickOverProductByIndex(equipmentSelected);
+    for (int equipmentSelected = 0; equipmentSelected < 3; equipmentSelected++) {
+      productDetailsPage = productListPage.clickOverProductByIndex(equipmentSelected);
+      if (!productDetailsPage.isItemAvailable()) {
+        logger.info("Item available");
+        break;
+      }
+      logger.info("Item not available, looking for other item: " + equipmentSelected);
+      productListPage = WebHelper.navigateBack(ProductListPage.class);
+    }
 
     String equipmentName = productDetailsPage.getProductName();
     int equipmentQuantity = productDetailsPage.getProductQuantitySelected();
@@ -301,7 +308,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("3. Search for Coffee: " + Constants.WebTestData.SEARCH_COFFEE_JR_RESERVE_BLEND);
+    logger.info("4. Search for Coffee: " + Constants.WebTestData.SEARCH_COFFEE_JR_RESERVE_BLEND);
     productDetailsPage = miniCart.closeMiniCart(ProductDetailsPage.class);
     SearchResultsPage searchResultsPage =
         productDetailsPage
