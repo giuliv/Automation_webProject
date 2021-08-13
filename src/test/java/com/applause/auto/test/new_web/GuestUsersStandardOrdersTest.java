@@ -44,7 +44,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
         miniCart.getProductNameByIndex(coffeeIndex),
         "Correct Product was not added to MiniCart");
     Assert.assertEquals(
-        grind, miniCart.getGrindSelected(), "Correct Grind was not added to MiniCart");
+        grind, miniCart.getGrindByIndex(coffeeIndex), "Correct Grind was not added to MiniCart");
     Assert.assertEquals(
         productQuantity,
         miniCart.getProductQuantityByIndex(coffeeIndex),
@@ -154,9 +154,9 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
     logger.info("4. Select Equipment from Gear tab");
     productDetailsPage = miniCart.closeMiniCart(ProductDetailsPage.class);
-    header = productDetailsPage.getHeader();
-
-    productListPage = header.clickCategoryFromMenu(Constants.MenuOptions.GEAR);
+    //    header = productDetailsPage.getHeader();
+    //    productListPage = header.clickCategoryFromMenu(Constants.MenuOptions.GEAR);
+    productListPage = navigateToGearSection();
 
     logger.info("5. Add equipment item to MiniCart");
     for (int equipmentSelected = 0; equipmentSelected < 3; equipmentSelected++) {
@@ -334,7 +334,9 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
         miniCart.getProductNameByIndex(coffeeIndex),
         "Correct Coffee Product was not added to MiniCart");
     Assert.assertEquals(
-        coffeeGrind, miniCart.getGrindSelected(), "Correct Coffee Grind was not added to MiniCart");
+        coffeeGrind,
+        miniCart.getGrindByIndex(coffeeIndex),
+        "Correct Coffee Grind was not added to MiniCart");
     Assert.assertEquals(
         coffeeQuantity,
         miniCart.getProductQuantityByIndex(coffeeIndex),
@@ -617,7 +619,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
         miniCart.getProductNameByIndex(coffeeIndex),
         "Correct Product was not added to MiniCart");
     Assert.assertEquals(
-        grind, miniCart.getGrindSelected(), "Correct Grind was not added to MiniCart");
+        grind, miniCart.getGrindByIndex(coffeeIndex), "Correct Grind was not added to MiniCart");
     Assert.assertEquals(
         productQuantity,
         miniCart.getProductQuantityByIndex(coffeeIndex),

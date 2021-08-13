@@ -1,7 +1,6 @@
 package com.applause.auto.test.new_web;
 
 import com.applause.auto.common.data.Constants;
-import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.helpers.WebHelper;
@@ -57,7 +56,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
         miniCart.getProductNameByIndex(coffeeIndex),
         "Correct Product was not added to MiniCart");
     Assert.assertEquals(
-        grind, miniCart.getGrindSelected(), "Correct Grind was not added to MiniCart");
+        grind, miniCart.getGrindByIndex(coffeeIndex), "Correct Grind was not added to MiniCart");
     Assert.assertEquals(
         productQuantity,
         miniCart.getProductQuantityByIndex(coffeeIndex),
@@ -183,9 +182,10 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
 
     logger.info("5. Select Equipment from Gear tab");
     productDetailsPage = miniCart.closeMiniCart(ProductDetailsPage.class);
-    header = productDetailsPage.getHeader();
 
-    productListPage = header.clickCategoryFromMenu(Constants.MenuOptions.GEAR);
+    //    header = productDetailsPage.getHeader();
+    //    productListPage = header.clickCategoryFromMenu(Constants.MenuOptions.GEAR);
+    productListPage = navigateToGearSection();
 
     logger.info("6. Add equipment item to MiniCart");
     for (int equipmentSelected = 0; equipmentSelected < 3; equipmentSelected++) {
@@ -379,7 +379,9 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
         miniCart.getProductNameByIndex(coffeeIndex),
         "Correct Coffee Product was not added to MiniCart");
     Assert.assertEquals(
-        coffeeGrind, miniCart.getGrindSelected(), "Correct Coffee Grind was not added to MiniCart");
+        coffeeGrind,
+        miniCart.getGrindByIndex(coffeeIndex),
+        "Correct Coffee Grind was not added to MiniCart");
     Assert.assertEquals(
         coffeeQuantity,
         miniCart.getProductQuantityByIndex(coffeeIndex),
@@ -667,8 +669,10 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
         "User is not signed in or welcome name is wrong");
 
     logger.info("3. Select Equipment from Gear tab");
-    Header header = homePage.getHeader();
-    ProductListPage productListPage = header.clickCategoryFromMenu(Constants.MenuOptions.GEAR);
+    //    Header header = homePage.getHeader();
+    //    ProductListPage productListPage =
+    // header.clickCategoryFromMenu(Constants.MenuOptions.GEAR);
+    ProductListPage productListPage = navigateToGearSection();
 
     logger.info("4. Add equipment item to MiniCart");
     ProductDetailsPage productDetailsPage = null;

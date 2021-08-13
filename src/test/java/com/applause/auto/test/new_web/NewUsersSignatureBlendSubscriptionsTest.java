@@ -49,7 +49,7 @@ public class NewUsersSignatureBlendSubscriptionsTest extends BaseTest {
         miniCart.getProductNameByIndex(sBlendIndex),
         "Correct Product was not added to MiniCart");
     Assert.assertEquals(
-        grind, miniCart.getGrindSelected(), "Correct Grind was not added to MiniCart");
+        grind, miniCart.getGrindByIndex(sBlendIndex), "Correct Grind was not added to MiniCart");
     Assert.assertEquals(
         productQuantity,
         miniCart.getProductQuantityByIndex(sBlendIndex),
@@ -177,7 +177,7 @@ public class NewUsersSignatureBlendSubscriptionsTest extends BaseTest {
         miniCart.getProductNameByIndex(sBlendIndex),
         "Correct Product was not added to MiniCart");
     Assert.assertEquals(
-        grind, miniCart.getGrindSelected(), "Correct Grind was not added to MiniCart");
+        grind, miniCart.getGrindByIndex(sBlendIndex), "Correct Grind was not added to MiniCart");
     Assert.assertEquals(
         productQuantity,
         miniCart.getProductQuantityByIndex(sBlendIndex),

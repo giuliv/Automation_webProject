@@ -43,7 +43,7 @@ public class Constants {
     uat("https://uat.aws.peets.com"),
     production("https://peets.com"),
     staging(
-        "https://peets-coffee-staging.myshopify.com/?_ab=0&_fd=0&_sc=1&key=032a0c34f50a8e6cd446cc43177f45f6bd829fb6ea48ef59fa7533c49306e7f9");
+        "https://peets-coffee-staging.myshopify.com/?ab=0&_fd=0&_sc=1&key=032a0c34f50a8e6cd446cc43177f45f6bd829fb6ea48ef59fa7533c49306e7f9");
 
     private final String environment;
 
@@ -60,6 +60,8 @@ public class Constants {
   public static final class TestData {
     public static final String LANDING_PAGE_URL =
         TestEnvironment.valueOf(WebHelper.getTestEnvironment()).getEnvironment();
+    public static final String GEAR_PAGE_URL =
+        LANDING_PAGE_URL.split("\\?")[0] + "/collections/all-equipment";
     public static final String SHOP_TEA_PAGE_URL = LANDING_PAGE_URL.concat("/mighty-leaf-tea");
     public static final String SHOP_EQUIPMENT_PAGE_URL = LANDING_PAGE_URL.concat("/equipment");
     public static final String SHOP_PEETS_CARD_PAGE_URL = LANDING_PAGE_URL.concat("/peets-card");
