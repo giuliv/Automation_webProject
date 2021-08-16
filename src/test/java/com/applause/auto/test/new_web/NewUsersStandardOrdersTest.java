@@ -49,7 +49,7 @@ public class NewUsersStandardOrdersTest extends BaseTest {
         miniCart.getProductNameByIndex(coffeeIndex),
         "Correct Product was not added to MiniCart");
     Assert.assertEquals(
-        grind, miniCart.getGrindSelected(), "Correct Grind was not added to MiniCart");
+        grind, miniCart.getGrindByIndex(coffeeIndex), "Correct Grind was not added to MiniCart");
     Assert.assertEquals(
         productQuantity,
         miniCart.getProductQuantityByIndex(coffeeIndex),

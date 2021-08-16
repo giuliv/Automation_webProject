@@ -25,7 +25,7 @@ public class MiniCart extends BaseComponent {
   private List<Text> productName;
 
   @Locate(css = "span.bag-item__option-name ", on = Platform.WEB)
-  private Text grindSelected;
+  private List<Text> grindSelected;
 
   @Locate(css = ".bag-item__action--qty input[name='quantity']", on = Platform.WEB)
   private List<Text> productQuantity;
@@ -59,11 +59,12 @@ public class MiniCart extends BaseComponent {
     return productName.get(index).getText().toLowerCase().trim();
   }
 
-  public String getGrindSelected() {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(grindSelected).visible());
-    logger.info("[MiniCart] Grind Selected: " + grindSelected.getText().toLowerCase().trim());
+  public String getGrindByIndex(int index) {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(grindSelected.get(index)).visible());
+    logger.info(
+        "[MiniCart] Grind Selected: " + grindSelected.get(index).getText().toLowerCase().trim());
 
-    return grindSelected.getText().toLowerCase().trim();
+    return grindSelected.get(index).getText().toLowerCase().trim();
   }
 
   public int getProductQuantityByIndex(int index) {

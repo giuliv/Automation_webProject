@@ -1,7 +1,6 @@
 package com.applause.auto.test.new_web;
 
 import com.applause.auto.common.data.Constants;
-import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.helpers.WebHelper;
@@ -50,7 +49,7 @@ public class NewUsersSmallBatchesSubscriptionsTest extends BaseTest {
         miniCart.getProductNameByIndex(batchIndex),
         "Correct Product was not added to MiniCart");
     Assert.assertEquals(
-        grind, miniCart.getGrindSelected(), "Correct Grind was not added to MiniCart");
+        grind, miniCart.getGrindByIndex(batchIndex), "Correct Grind was not added to MiniCart");
     Assert.assertEquals(
         productQuantity,
         miniCart.getProductQuantityByIndex(batchIndex),
@@ -178,7 +177,7 @@ public class NewUsersSmallBatchesSubscriptionsTest extends BaseTest {
         miniCart.getProductNameByIndex(batchIndex),
         "Correct Product was not added to MiniCart");
     Assert.assertEquals(
-        grind, miniCart.getGrindSelected(), "Correct Grind was not added to MiniCart");
+        grind, miniCart.getGrindByIndex(batchIndex), "Correct Grind was not added to MiniCart");
     Assert.assertEquals(
         productQuantity,
         miniCart.getProductQuantityByIndex(batchIndex),
