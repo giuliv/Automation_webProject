@@ -654,10 +654,10 @@ public class NewUsersSubscriptionsTest extends BaseTest {
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
 
-    //    logger.info("2. Create new User account");
+    logger.info("2. Create new User account");
     String mail = WebHelper.getRandomMail();
-    //    MyAccountPage myAccountPage = testHelper.createAccount(homePage, mail);
-    //    Assert.assertNotNull(myAccountPage, "Account was not created!");
+    MyAccountPage myAccountPage = testHelper.createAccount(homePage, mail);
+    Assert.assertNotNull(myAccountPage, "Account was not created!");
 
     logger.info(
         "3. Search for 1st Type of Coffee: " + Constants.WebTestData.SEARCH_COFFEE_DECAF_MAJOR);
@@ -883,10 +883,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
         firstProductName,
         miniCart.getProductNameByIndex(firstCoffeeIndex),
         "Correct Product[1st] was not added to MiniCart");
-    Assert.assertEquals(
-        firstGrind,
-        miniCart.getGrindByIndex(firstCoffeeIndex),
-        "Correct Grind[1st] was not added to MiniCart");
+
     Assert.assertEquals(
         firstProductQuantity,
         miniCart.getProductQuantityByIndex(firstCoffeeIndex),
