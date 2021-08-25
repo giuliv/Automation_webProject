@@ -1,29 +1,37 @@
 {
 	"applause:options": {
 		"isW3C": "true",
-		"isMobileNative": "true",
 		"isStrict": "false",
 		"driverName": "iOS",
 		"driverType": "MobileNative",
 		"factoryKey": "MobileIOS",
 		"osName": "iOS",
-		"provider": "TestObject US iOS",
+		"provider": "SauceLabs RDC US",
 		"providerThreadType": "Real",
-		"nameField": "testobject_test_name,testobject_suite_name"
+		"isMobileNative" : "true"
 	},
-	<#if app??>
-	"app" : "${app}",
-	</#if>
 	"platformName": "iOS",
 	"deviceName": "iPhone.*",
 	"platformVersion": "14",
-	"appiumVersion": "1.20.1",
-	"testobject_appium_version": "1.20.1",
+	"appiumVersion": "1.21.0",
+	"testobject_appium_version": "1.21.0",
 	"orientation": "PORTRAIT",
+	"region": "US",
+	"phoneOnly": "true",
 	"maxDuration": 2700,
 	"systemAlertsDelayEnabled": true,
 	"fullReset": true,
-	"region": "US",
 	"idleTimeout": 180,
-	"useFirstMatch": true
+	"useFirstMatch": true,
+	"privateDevicesOnly": "false"
+	<#if testRunId??>
+,
+	"testobject_test_name" : "Test Run ID: ${testRunId?c}, Test Session ID: ${testSessionId?c}",
+	"testobject_suite_name" : "Test Run ID: ${testRunId?c}, Test Session ID: ${testSessionId?c}"
+	</#if>
+
+	<#if app??>
+,
+	"app" : "${app}"
+	</#if>
 }
