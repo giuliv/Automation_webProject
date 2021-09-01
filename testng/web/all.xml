@@ -1,9 +1,0 @@
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="All Web Tests" verbose="1" parallel="classes"
-       thread-count="8">
-    <test name="all-web" preserve-order="true">
-        <packages>
-            <package name="com.applause.auto.test.web" />
-        </packages>
-    </test>
-</suite>

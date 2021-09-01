@@ -1,10 +1,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Web Test Suite" verbose="1" parallel="classes"
        thread-count="8">
-    <test name="New Web cases" preserve-order="true">
+    <test name="Prod Monitoring Cases" preserve-order="true">
         <groups>
             <run>
-                <include name="nwc2"/>
+                <include name="web_prod_monitoring"/>
             </run>
         </groups>
         <packages>
