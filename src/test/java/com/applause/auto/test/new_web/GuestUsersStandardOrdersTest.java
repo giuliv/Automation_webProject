@@ -13,7 +13,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
   //  Discount if any
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES},
+      groups = {Constants.TestNGGroups.NEW_WEB_CASES, Constants.TestNGGroups.WEB_PROD_MONITORING},
       description = "11052681")
   public void orderCoffeeCreditCardAsGuestUserTest() {
 

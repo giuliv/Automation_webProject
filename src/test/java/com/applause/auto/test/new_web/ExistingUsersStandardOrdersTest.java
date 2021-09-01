@@ -144,7 +144,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES, Constants.TestNGGroups.NEW_WEB_CASES2},
+      groups = {Constants.TestNGGroups.NEW_WEB_CASES},
       description = "11071529")
   public void oneCoffeeOneEquipmentCreditCardAsExistingUserTest() {
 
