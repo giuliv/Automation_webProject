@@ -91,15 +91,15 @@ public class NewUsersSmallBatchesSubscriptionsTest extends BaseTest {
         acceptancePage.getDiscountMessage().contains("5% OFF"), "5% OFF message is not displayed");
     Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
-    if (WebHelper.isDesktop()) {
-      // Todo: Only for desktop, until figure out if its a bug
-      logger.info("10. Validating Download buttons");
-      acceptancePage.clickOverTrackPackageButton();
-      Assert.assertEquals(
-          acceptancePage.getPhoneFromTrackPackageSection(),
-          "+1 " + Constants.WebTestData.PHONE,
-          "Phone from Track Package section is NOT correct");
-    }
+    //    if (WebHelper.isDesktop()) {
+    //      // Todo: Only for desktop, until figure out if its a bug
+    //      logger.info("10. Validating Download buttons");
+    //      acceptancePage.clickOverTrackPackageButton();
+    //      Assert.assertEquals(
+    //          acceptancePage.getPhoneFromTrackPackageSection(),
+    //          "+1 " + Constants.WebTestData.PHONE,
+    //          "Phone from Track Package section is NOT correct");
+    //    }
 
     acceptancePage.clickOverShippingUpdatesButton();
     Assert.assertEquals(
@@ -220,15 +220,15 @@ public class NewUsersSmallBatchesSubscriptionsTest extends BaseTest {
         "10% OFF message is not displayed");
     Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
-    if (WebHelper.isDesktop()) {
-      // Todo: Only for desktop, until figure out if its a bug
-      logger.info("10. Validating Download buttons");
-      acceptancePage.clickOverTrackPackageButton();
-      Assert.assertEquals(
-          acceptancePage.getPhoneFromTrackPackageSection(),
-          "+1 " + Constants.WebTestData.PHONE,
-          "Phone from Track Package section is NOT correct");
-    }
+//    if (WebHelper.isDesktop()) {
+//      // Todo: Only for desktop, until figure out if its a bug
+//      logger.info("10. Validating Download buttons");
+//      acceptancePage.clickOverTrackPackageButton();
+//      Assert.assertEquals(
+//          acceptancePage.getPhoneFromTrackPackageSection(),
+//          "+1 " + Constants.WebTestData.PHONE,
+//          "Phone from Track Package section is NOT correct");
+//    }
 
     acceptancePage.clickOverShippingUpdatesButton();
     Assert.assertEquals(

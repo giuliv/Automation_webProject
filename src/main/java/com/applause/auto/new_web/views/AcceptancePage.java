@@ -45,7 +45,7 @@ public class AcceptancePage extends Base {
   @Locate(css = "span.order-summary-toggle__text--show > span", on = Platform.WEB)
   private ContainerElement orderSummarySection;
 
-  @Locate(css = "button[data-arrive-phone]", on = Platform.WEB)
+  @Locate(css = "button span.arrive-button", on = Platform.WEB)
   @Locate(css = "#track_arrive_with_attribution", on = Platform.WEB_MOBILE_PHONE)
   private Button trackPackageButton;
 
