@@ -85,15 +85,15 @@ public class NewUsersStandardOrdersTest extends BaseTest {
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
     Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
-    if (WebHelper.isDesktop()) {
-      // Todo: Only for desktop, until figure out if its a bug
-      logger.info("10. Validating Download buttons");
-      acceptancePage.clickOverTrackPackageButton();
-      Assert.assertEquals(
-          acceptancePage.getPhoneFromTrackPackageSection(),
-          "+1 " + Constants.WebTestData.PHONE,
-          "Phone from Track Package section is NOT correct");
-    }
+    //    if (WebHelper.isDesktop()) {
+    //      // Todo: Only for desktop, until figure out if its a bug
+    //      logger.info("10. Validating Download buttons");
+    //      acceptancePage.clickOverTrackPackageButton();
+    //      Assert.assertEquals(
+    //          acceptancePage.getPhoneFromTrackPackageSection(),
+    //          "+1 " + Constants.WebTestData.PHONE,
+    //          "Phone from Track Package section is NOT correct");
+    //    }
 
     acceptancePage.clickOverShippingUpdatesButton();
     Assert.assertEquals(
