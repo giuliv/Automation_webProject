@@ -49,6 +49,13 @@ public class BaseTest extends ApplauseSeleniumTest {
     return SdkHelper.create(HomePage.class);
   }
 
+  public ProductListPage navigateToPLP() {
+    navigateToHome();
+    logger.info(String.format("Navigating to PLP page '%s'", TestData.PLP_URL));
+    SdkHelper.getDriver().navigate().to(TestData.PLP_URL);
+    return SdkHelper.create(ProductListPage.class);
+  }
+
   public ProductListPage navigateToGearSection() {
     logger.info(String.format("Navigating to the Gear page '%s'", TestData.GEAR_PAGE_URL));
     SdkHelper.getDriver().navigate().to(TestData.GEAR_PAGE_URL);

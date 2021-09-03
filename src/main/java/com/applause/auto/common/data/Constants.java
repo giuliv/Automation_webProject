@@ -17,6 +17,7 @@ public class Constants {
     // Web
     public static final String DEBUG = "debug";
     public static final String NEW_WEB_CASES = "nwc";
+    public static final String PLP = "plp";
     public static final String WEB_PROD_MONITORING = "web_prod_monitoring";
     public static final String DEMO_CHECKOUT = "demo-checkout";
     public static final String LOGIN = "login";
@@ -62,6 +63,8 @@ public class Constants {
         TestEnvironment.valueOf(WebHelper.getTestEnvironment()).getEnvironment();
     public static final String GEAR_PAGE_URL =
         LANDING_PAGE_URL.split("\\?")[0] + "/collections/all-equipment";
+    public static final String PLP_URL =
+        LANDING_PAGE_URL.split("\\?")[0] + "/collections/all-coffee";
     public static final String SHOP_TEA_PAGE_URL = LANDING_PAGE_URL.concat("/mighty-leaf-tea");
     public static final String SHOP_EQUIPMENT_PAGE_URL = LANDING_PAGE_URL.concat("/equipment");
     public static final String SHOP_PEETS_CARD_PAGE_URL = LANDING_PAGE_URL.concat("/peets-card");
