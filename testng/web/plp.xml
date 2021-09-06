@@ -8,7 +8,7 @@
             </run>
         </groups>
         <packages>
-            <package name="com.applause.auto.test.new_web"/>
+            <package name="com.applause.auto.test.new_web.plp"/>
         </packages>
     </test>
 </suite>
