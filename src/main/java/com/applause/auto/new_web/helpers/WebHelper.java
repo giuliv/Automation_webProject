@@ -1,6 +1,5 @@
 package com.applause.auto.new_web.helpers;
 
-import com.applause.auto.common.data.Constants;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -80,6 +79,10 @@ public class WebHelper {
   public static String getRandomMail() {
     long uniq = System.currentTimeMillis();
     return String.format("test_automation_%s@gmail.com", uniq);
+  }
+
+  public static String getTestExecution() {
+    return System.getProperty("execution", "test").toLowerCase();
   }
 
   public static Float cleanPrice(String price) {

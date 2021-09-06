@@ -3,6 +3,7 @@ package com.applause.auto.new_web.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.new_web.components.QuickViewComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -53,6 +54,9 @@ public class ProductListPage extends Base {
 
   @Locate(className = "collection-facets__apply", on = Platform.WEB)
   protected Button applyFilter;
+
+  @Locate(css = ".pi__quick-add button", on = Platform.WEB)
+  private List<Button> quickViewButtonList;
 
   @Override
   public void afterInit() {
@@ -150,6 +154,19 @@ public class ProductListPage extends Base {
     SdkHelper.getSyncHelper().sleep(2000); // Wait for action
 
     return SdkHelper.create(ProductListPage.class);
+  }
+
+  public QuickViewComponent clickOverFirstQuickViewButton() {
+    WebHelper.scrollToElement(quickViewButtonList.get(0));
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    WebHelper.hoverByAction(quickViewButtonList.get(0));
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    logger.info("Clicking QuickView button");
+    quickViewButtonList.get(0).click();
+
+    return SdkHelper.create(QuickViewComponent.class);
   }
 }
 
