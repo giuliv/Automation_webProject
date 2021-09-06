@@ -1,5 +1,6 @@
 package com.applause.auto.new_web.views;
 
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
@@ -11,7 +12,10 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.google.common.collect.Ordering;
+import org.testng.Assert;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Implementation(is = ProductListPage.class, on = Platform.WEB)
@@ -57,6 +61,20 @@ public class ProductListPage extends Base {
 
   @Locate(css = ".pi__quick-add button", on = Platform.WEB)
   private List<Button> quickViewButtonList;
+
+  @Locate(className = "collection-sort__select", on = Platform.WEB)
+  protected Button sortingBox;
+
+  @Locate(css = "#listOptions #ss_price_asc", on = Platform.WEB)
+  @Locate(css = "option[value*='Low to High']", on = Platform.WEB_MOBILE_PHONE)
+  protected Button lowToHigh;
+
+  @Locate(css = "#listOptions #ss_price_desc", on = Platform.WEB)
+  @Locate(css = "option[value*='High to Low']", on = Platform.WEB_MOBILE_PHONE)
+  protected Button highToLow;
+
+  @Locate(className = "pi__price", on = Platform.WEB)
+  private List<Text> priceList;
 
   @Override
   public void afterInit() {
@@ -167,6 +185,50 @@ public class ProductListPage extends Base {
     quickViewButtonList.get(0).click();
 
     return SdkHelper.create(QuickViewComponent.class);
+  }
+
+  public ProductListPage selectSortingByType(Constants.SortType type) {
+    logger.info("Click over sorting box");
+    WebHelper.scrollToElement(sortingBox);
+    sortingBox.click();
+
+    logger.info("Select Sorting option: " + type);
+    if (type.equals(Constants.SortType.HIGH_TO_LOW)) {
+      highToLow.click();
+    } else if (type.equals(Constants.SortType.LOW_TO_HIGH)) {
+      lowToHigh.click();
+    }
+    SdkHelper.getSyncHelper().sleep(2000); // Wait for action
+    return SdkHelper.create(ProductListPage.class);
+  }
+
+  public boolean validateSortingPrices(Constants.SortType sortType) {
+    logger.info("Validating sorting...");
+    boolean sortedPrices;
+    if (sortType.equals(Constants.SortType.HIGH_TO_LOW)) {
+      sortedPrices = Ordering.natural().reverse().isOrdered(getProductListPrices());
+    } else if (sortType.equals(Constants.SortType.LOW_TO_HIGH)) {
+      sortedPrices = Ordering.natural().isOrdered(getProductListPrices());
+    } else {
+      Assert.fail("Sorting Option is not recognized");
+      return false;
+    }
+    return sortedPrices;
+  }
+
+  public List<Double> getProductListPrices() {
+    List<Double> prices = new ArrayList<>();
+    logger.info("Getting product prices");
+
+    String priceClean;
+    for (Text price : priceList) {
+      priceClean = price.getText().split(" ")[0].replace(",", ".").replace("$", "").trim();
+
+      logger.info("Prices " + priceClean);
+      prices.add(Double.parseDouble(priceClean));
+    }
+
+    return prices;
   }
 }
 

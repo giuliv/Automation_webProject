@@ -1,7 +1,6 @@
 package com.applause.auto.test.new_web.plp;
 
 import com.applause.auto.common.data.Constants;
-import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.QuickViewComponent;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.test.new_web.BaseTest;
@@ -12,7 +11,7 @@ public class quickViewTest extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.PLP},
-      description = "TBD")
+      description = "11101530")
   public void reviewQuickViewUITest() {
 
     logger.info("1. Navigate to landing page");
