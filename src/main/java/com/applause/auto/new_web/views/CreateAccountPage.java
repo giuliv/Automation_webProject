@@ -3,6 +3,7 @@ package com.applause.auto.new_web.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
@@ -59,9 +60,15 @@ public class CreateAccountPage extends Base {
     confirmPasswordTextBox.sendKeys(confirmPassword);
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
 
+    if (SdkHelper.getEnvironmentHelper().isiOS()) {
+      logger.info("Scrolling[iOS]...Looking for createButton");
+      WebHelper.scrollToElement(createButton);
+      SdkHelper.getSyncHelper().sleep(2000); // Wait for action
+    }
+
     logger.info("Clicking over Create account button");
     createButton.click();
-    SdkHelper.getSyncHelper().sleep(2000); // Wait for action
+    SdkHelper.getSyncHelper().sleep(5000); // Wait for action
 
     return SdkHelper.create(MyAccountPage.class);
   }
