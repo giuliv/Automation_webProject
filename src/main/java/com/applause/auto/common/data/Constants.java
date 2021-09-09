@@ -273,6 +273,11 @@ public class Constants {
     public static final String SEARCH_COFFEE_BRAZILIAN_K_CUP = "SINGLE ORIGIN BRAZIL K-CUP";
   }
 
+  public enum SortType {
+    LOW_TO_HIGH,
+    HIGH_TO_LOW
+  }
+
   public static final class OCR {
     public static final String OCR_IMAGES_COMMON_PATH = "src/main/resources/ocr-images/";
 

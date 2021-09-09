@@ -27,14 +27,16 @@ public class HomePage extends Base {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
     logger.info("Peet's Home URL: " + SdkHelper.getDriver().getCurrentUrl());
 
-    if (closeModal.exists()) {
-      logger.info("Close peets.com Modal");
-      closeModal.click();
-    }
+    if (!WebHelper.getTestExecution().equals("local")) {
+      if (closeModal.exists()) {
+        logger.info("Close peets.com Modal");
+        closeModal.click();
+      }
 
-    if (!WebHelper.isDesktop() && allowCookies.exists()) {
-      logger.info("Accept Cookies");
-      allowCookies.click();
+      if (!WebHelper.isDesktop() && allowCookies.exists()) {
+        logger.info("Accept Cookies");
+        allowCookies.click();
+      }
     }
   }
 

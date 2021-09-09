@@ -11,7 +11,7 @@ public class filtersTest extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.PLP},
-      description = "TBD")
+      description = "11101524")
   public void singleFilterTest() {
 
     logger.info("1. Navigate to landing page");
@@ -37,7 +37,7 @@ public class filtersTest extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.PLP},
-      description = "TBD")
+      description = "11101525")
   public void multipleFilterTest() {
 
     logger.info("1. Navigate to landing page");
@@ -73,7 +73,7 @@ public class filtersTest extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.PLP},
-      description = "TBD")
+      description = "11101526")
   public void clearAllFiltersTest() {
 
     logger.info("1. Navigate to landing page");
@@ -103,7 +103,7 @@ public class filtersTest extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.PLP},
-      description = "TBD")
+      description = "11101527")
   public void removeFiltersTest() {
 
     logger.info("1. Navigate to landing page");
