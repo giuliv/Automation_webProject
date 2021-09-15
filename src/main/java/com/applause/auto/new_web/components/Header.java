@@ -32,8 +32,8 @@ public class Header extends BaseComponent {
   @Locate(css = "button[data-id='tea-nav']", on = Platform.WEB_MOBILE_PHONE)
   protected Button teaCategory;
 
-  @Locate(css = "a[data-id='subscriptions-nav']", on = Platform.WEB)
-  @Locate(css = "button[data-id='subscriptions-nav']", on = Platform.WEB_MOBILE_PHONE)
+  @Locate(css = "a[data-id='join-the-club-nav']", on = Platform.WEB)
+  @Locate(css = "button[data-id='join-the-club-nav']", on = Platform.WEB_MOBILE_PHONE)
   protected Button subscriptionTabCategory;
 
   @Locate(css = ".nav__columns a[href*='%s']", on = Platform.WEB)

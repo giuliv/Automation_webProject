@@ -1,0 +1,33 @@
+{
+  "applause:options": {
+    "isW3C": "true",
+    "isStrict": "false",
+    "driverName": "iOS",
+    "driverType": "MobileWeb",
+    "factoryKey": "WEB_IOS_PHONE",
+    "osName": "iOS",
+    "provider": "SauceLabs RDC US",
+    "providerThreadType": "Real"
+  },
+  "platformName": "iOS",
+  "deviceName": "iPhone.*",
+  "appiumVersion": "1.21.0",
+  "testobject_appium_version": "1.21.0",
+  "orientation": "PORTRAIT",
+  "region": "US",
+  "phoneOnly": "true",
+  "privateDevicesOnly": "false"
+  <#if testRunId??>
+,
+  "testobject_test_name" : "Test Run ID: ${testRunId?c}, Test Session ID: ${testSessionId?c}",
+  "testobject_suite_name" : "Test Run ID: ${testRunId?c}, Test Session ID: ${testSessionId?c}"
+  </#if>
+  ​
+  <#if ttuseTunnel=='true'>
+,
+  "tunnelIdentifier": "tote",
+  "sauce: options": {
+    "tunnelIdentifier": "tote"
+  }
+  </#if>
+}
