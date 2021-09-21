@@ -85,6 +85,10 @@ public class WebHelper {
     return System.getProperty("execution", "test").toLowerCase();
   }
 
+  public static String getTestEnvironment() {
+    return System.getProperty("environment", "uat").toLowerCase();
+  }
+
   public static Float cleanPrice(String price) {
     String cleanPrice = price.replace("$", "");
     logger.info("Clean price: " + cleanPrice);

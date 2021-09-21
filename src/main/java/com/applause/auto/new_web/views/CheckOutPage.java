@@ -4,6 +4,7 @@ import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.*;
@@ -52,6 +53,9 @@ public class CheckOutPage extends Base {
 
   @Locate(css = "select[data-address-selector]", on = Platform.WEB)
   private SelectList existingAddress;
+
+  @Locate(id = "btn-proceed-address", on = Platform.WEB)
+  private Button proceedButton;
 
   @Override
   public void afterInit() {
@@ -137,6 +141,10 @@ public class CheckOutPage extends Base {
     logger.info("Clicking Continue to Shipping");
     SdkHelper.getSyncHelper().wait(Until.uiElement(continueToShipping).visible());
     continueToShipping.click();
+
+    if (WebHelper.getTestEnvironment().equalsIgnoreCase("production") && proceedButton.exists()) {
+      proceedButton.click();
+    }
 
     return SdkHelper.create(ShippingPage.class);
   }

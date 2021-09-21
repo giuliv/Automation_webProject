@@ -64,6 +64,9 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     Assert.assertTrue(
         paymentsPage.isSameAddressSelected(), "Same Address option should be Selected");
 
+    if(WebHelper.getTestEnvironment().equalsIgnoreCase("production")){
+      logger.info("Testcase needs to stop, running on prod");
+    }else{
     String totalPrice = paymentsPage.getTotalPrice();
 
     logger.info("7. Proceed to Acceptance page");
@@ -122,6 +125,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     Assert.assertTrue(
         acceptancePage.isContinueShoppingDisplayed(),
         "Continue to Shopping button is not displayed");
+    }
 
     logger.info("FINISH");
   }
