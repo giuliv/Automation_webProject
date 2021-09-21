@@ -92,15 +92,15 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
     Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
-//    if (WebHelper.isDesktop()) {
-//      // Todo: Only for desktop, until figure out if its a bug
-//      logger.info("10. Validating Download buttons");
-//      acceptancePage.clickOverTrackPackageButton();
-//      Assert.assertEquals(
-//          acceptancePage.getPhoneFromTrackPackageSection(),
-//          "+1 " + Constants.WebTestData.PHONE,
-//          "Phone from Track Package section is NOT correct");
-//    }
+    //    if (WebHelper.isDesktop()) {
+    //      // Todo: Only for desktop, until figure out if its a bug
+    //      logger.info("10. Validating Download buttons");
+    //      acceptancePage.clickOverTrackPackageButton();
+    //      Assert.assertEquals(
+    //          acceptancePage.getPhoneFromTrackPackageSection(),
+    //          "+1 " + Constants.WebTestData.PHONE,
+    //          "Phone from Track Package section is NOT correct");
+    //    }
 
     acceptancePage.clickOverShippingUpdatesButton();
     Assert.assertEquals(
@@ -201,7 +201,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     String equipmentName = productDetailsPage.getProductName();
     int equipmentQuantity = productDetailsPage.getProductQuantitySelected();
 
-    CartPage cartPage = productDetailsPage.clickAddToCartPage();
+    miniCart = productDetailsPage.clickAddToMiniCart();
 
     logger.info("7. Validate items added to Cart");
     int coffeeIndex = 1;
@@ -209,28 +209,28 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
 
     Assert.assertEquals(
         coffeeName,
-        cartPage.getProductNameByIndex(coffeeIndex),
+        miniCart.getProductNameByIndex(coffeeIndex),
         "Correct Coffee Product was not added to MiniCart");
     Assert.assertEquals(
         coffeeGrind,
-        cartPage.getGrindSelectedByIndex(coffeeIndex),
+        miniCart.getGrindByIndex(coffeeIndex),
         "Correct Coffee Grind was not added to MiniCart");
     Assert.assertEquals(
         coffeeQuantity,
-        cartPage.getProductQuantityByIndex(coffeeIndex),
+        miniCart.getProductQuantityByIndex(coffeeIndex),
         "Correct Coffee product quantity was not added to MiniCart");
 
     Assert.assertEquals(
         equipmentName,
-        cartPage.getProductNameByIndex(equipmentIndex),
+        miniCart.getProductNameByIndex(equipmentIndex),
         "Correct Equipment Product was not added to MiniCart");
     Assert.assertEquals(
         equipmentQuantity,
-        cartPage.getProductQuantityByIndex(equipmentIndex),
+        miniCart.getProductQuantityByIndex(equipmentIndex),
         "Correct Equipment product quantity was not added to MiniCart");
 
     logger.info("8. Proceed to Checkout page");
-    CheckOutPage checkOutPage = cartPage.clickContinueToCheckOut();
+    CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
     Assert.assertTrue(
         checkOutPage.isExistingUserMailCorrect().contains(Constants.TestData.WEB_USERNAME),
         "Existing user mail is NOT correct");
@@ -432,15 +432,15 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
     Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
-//    if (WebHelper.isDesktop()) {
-//      // Todo: Only for desktop, until figure out if its a bug
-//      logger.info("13. Validating Download buttons");
-//      acceptancePage.clickOverTrackPackageButton();
-//      Assert.assertEquals(
-//          acceptancePage.getPhoneFromTrackPackageSection(),
-//          "+1 " + Constants.WebTestData.PHONE,
-//          "Phone from Track Package section is NOT correct");
-//    }
+    //    if (WebHelper.isDesktop()) {
+    //      // Todo: Only for desktop, until figure out if its a bug
+    //      logger.info("13. Validating Download buttons");
+    //      acceptancePage.clickOverTrackPackageButton();
+    //      Assert.assertEquals(
+    //          acceptancePage.getPhoneFromTrackPackageSection(),
+    //          "+1 " + Constants.WebTestData.PHONE,
+    //          "Phone from Track Package section is NOT correct");
+    //    }
 
     acceptancePage.clickOverShippingUpdatesButton();
     Assert.assertEquals(
@@ -597,15 +597,15 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
         "Discount from promoCode was not applied");
     Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
-//    if (WebHelper.isDesktop()) {
-//      // Todo: Only for desktop, until figure out if its a bug
-//      logger.info("13. Validating Download buttons");
-//      acceptancePage.clickOverTrackPackageButton();
-//      Assert.assertEquals(
-//          acceptancePage.getPhoneFromTrackPackageSection(),
-//          "+1 " + Constants.WebTestData.PHONE,
-//          "Phone from Track Package section is NOT correct");
-//    }
+    //    if (WebHelper.isDesktop()) {
+    //      // Todo: Only for desktop, until figure out if its a bug
+    //      logger.info("13. Validating Download buttons");
+    //      acceptancePage.clickOverTrackPackageButton();
+    //      Assert.assertEquals(
+    //          acceptancePage.getPhoneFromTrackPackageSection(),
+    //          "+1 " + Constants.WebTestData.PHONE,
+    //          "Phone from Track Package section is NOT correct");
+    //    }
 
     acceptancePage.clickOverShippingUpdatesButton();
     Assert.assertEquals(
@@ -689,22 +689,22 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     String equipmentName = productDetailsPage.getProductName();
     int equipmentQuantity = productDetailsPage.getProductQuantitySelected();
 
-    CartPage cartPage = productDetailsPage.clickAddToCartPage();
+    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
     logger.info("5. Validate items added to Cart");
     int equipmentIndex = 0;
 
     Assert.assertEquals(
         equipmentName,
-        cartPage.getProductNameByIndex(equipmentIndex),
+        miniCart.getProductNameByIndex(equipmentIndex),
         "Correct Equipment Product was not added to MiniCart");
     Assert.assertEquals(
         equipmentQuantity,
-        cartPage.getProductQuantityByIndex(equipmentIndex),
+        miniCart.getProductQuantityByIndex(equipmentIndex),
         "Correct Equipment product quantity was not added to MiniCart");
 
     logger.info("6. Proceed to Checkout page");
-    CheckOutPage checkOutPage = cartPage.clickContinueToCheckOut();
+    CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
     Assert.assertTrue(
         checkOutPage.isExistingUserMailCorrect().contains(Constants.TestData.WEB_USERNAME),
         "Existing user mail is NOT correct");
@@ -735,15 +735,15 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
     Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
-//    if (WebHelper.isDesktop()) {
-//      // Todo: Only for desktop, until figure out if its a bug
-//      logger.info("11. Validating Download buttons");
-//      acceptancePage.clickOverTrackPackageButton();
-//      Assert.assertEquals(
-//          acceptancePage.getPhoneFromTrackPackageSection(),
-//          "+1 " + Constants.WebTestData.PHONE,
-//          "Phone from Track Package section is NOT correct");
-//    }
+    //    if (WebHelper.isDesktop()) {
+    //      // Todo: Only for desktop, until figure out if its a bug
+    //      logger.info("11. Validating Download buttons");
+    //      acceptancePage.clickOverTrackPackageButton();
+    //      Assert.assertEquals(
+    //          acceptancePage.getPhoneFromTrackPackageSection(),
+    //          "+1 " + Constants.WebTestData.PHONE,
+    //          "Phone from Track Package section is NOT correct");
+    //    }
 
     acceptancePage.clickOverShippingUpdatesButton();
     Assert.assertEquals(
@@ -866,15 +866,15 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
     Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
-//    if (WebHelper.isDesktop()) {
-//      // Todo: Only for desktop, until figure out if its a bug
-//      logger.info("11. Validating Download buttons");
-//      acceptancePage.clickOverTrackPackageButton();
-//      Assert.assertEquals(
-//          acceptancePage.getPhoneFromTrackPackageSection(),
-//          "+1 " + Constants.WebTestData.PHONE,
-//          "Phone from Track Package section is NOT correct");
-//    }
+    //    if (WebHelper.isDesktop()) {
+    //      // Todo: Only for desktop, until figure out if its a bug
+    //      logger.info("11. Validating Download buttons");
+    //      acceptancePage.clickOverTrackPackageButton();
+    //      Assert.assertEquals(
+    //          acceptancePage.getPhoneFromTrackPackageSection(),
+    //          "+1 " + Constants.WebTestData.PHONE,
+    //          "Phone from Track Package section is NOT correct");
+    //    }
 
     acceptancePage.clickOverShippingUpdatesButton();
     Assert.assertEquals(

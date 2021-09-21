@@ -145,11 +145,16 @@ public class PaymentsPage extends Base {
   }
 
   public AcceptancePage clickContinueToPayments() {
-    logger.info("Clicking Pay Now");
-    SdkHelper.getSyncHelper().wait(Until.uiElement(payNowButton).visible());
-    payNowButton.click();
+    if (WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
+      logger.info("Testcase needs to stop, running on prod[2nd Alert]");
+    } else {
+      logger.info("Clicking Pay Now");
+      SdkHelper.getSyncHelper().wait(Until.uiElement(payNowButton).visible());
+      payNowButton.click();
 
-    SdkHelper.getSyncHelper().wait(Until.uiElement(payNowButton).notPresent());
+      SdkHelper.getSyncHelper().wait(Until.uiElement(payNowButton).notPresent());
+    }
+
     return SdkHelper.create(AcceptancePage.class);
   }
 
