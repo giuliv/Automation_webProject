@@ -26,6 +26,7 @@ public class HomePage extends Base {
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
     logger.info("Peet's Home URL: " + SdkHelper.getDriver().getCurrentUrl());
+    logger.info("Tony " + SdkHelper.getDriver().getPageSource());
 
     if (!WebHelper.getTestExecution().equals("local")) {
       if (closeModal.exists()) {
@@ -40,6 +41,7 @@ public class HomePage extends Base {
         allowCookies.click();
       }
     }
+    logger.info("Tony2 " + SdkHelper.getDriver().getPageSource());
   }
 
   /* -------- Actions -------- */
