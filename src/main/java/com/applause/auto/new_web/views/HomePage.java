@@ -30,11 +30,13 @@ public class HomePage extends Base {
     if (!WebHelper.getTestExecution().equals("local")) {
       if (closeModal.exists()) {
         logger.info("Close peets.com Modal");
+        SdkHelper.getSyncHelper().wait(Until.uiElement(closeModal).clickable());
         closeModal.click();
       }
 
       if (!WebHelper.isDesktop() && allowCookies.exists()) {
         logger.info("Accept Cookies");
+        SdkHelper.getSyncHelper().wait(Until.uiElement(allowCookies).clickable());
         allowCookies.click();
       }
     }
