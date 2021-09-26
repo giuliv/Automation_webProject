@@ -21,6 +21,10 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
 
+    if (WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
+      homePage = WebHelper.refreshMe(HomePage.class);
+    }
+
     logger.info("2. Select Best Sellers from Coffee tab");
     Header header = homePage.getHeader();
     header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);
