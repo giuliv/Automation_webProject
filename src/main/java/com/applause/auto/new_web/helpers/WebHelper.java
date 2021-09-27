@@ -127,4 +127,10 @@ public class WebHelper {
     SdkHelper.getSyncHelper().sleep(3000); // Wait for action
     return SdkHelper.create(clazz);
   }
+
+  public static <V extends BaseComponent> V refreshMe(Class<V> expectedClass) {
+    logger.info("Refresh site");
+    SdkHelper.getDriver().navigate().refresh();
+    return SdkHelper.create(expectedClass);
+  }
 }

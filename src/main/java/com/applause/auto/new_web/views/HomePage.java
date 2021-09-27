@@ -19,7 +19,7 @@ public class HomePage extends Base {
   @Locate(css = "button[aria-label='allow cookies']", on = Platform.WEB)
   private Button allowCookies;
 
-  @Locate(css = "button.launch-modal__close", on = Platform.WEB)
+  @Locate(css = "button.launch-modal__close, #closeIconContainer", on = Platform.WEB)
   private Button closeModal;
 
   @Override
