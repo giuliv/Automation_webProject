@@ -16,7 +16,7 @@ public class HomePage extends Base {
   @Locate(id = "searchOverlay", on = Platform.WEB)
   private ContainerElement mainContainer;
 
-  @Locate(css = "button[aria-label='allow cookies']", on = Platform.WEB)
+  @Locate(css = ".cookieconsent-wrapper .cc-allow", on = Platform.WEB)
   private Button allowCookies;
 
   @Locate(css = "button.launch-modal__close, #closeIconContainer", on = Platform.WEB)
@@ -36,8 +36,7 @@ public class HomePage extends Base {
 
       if (!WebHelper.isDesktop() && allowCookies.exists()) {
         logger.info("Accept Cookies");
-        SdkHelper.getSyncHelper().wait(Until.uiElement(allowCookies).clickable());
-        allowCookies.click();
+        WebHelper.jsClick(allowCookies.getWebElement());
       }
     }
   }
