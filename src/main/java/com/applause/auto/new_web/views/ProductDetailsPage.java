@@ -54,6 +54,9 @@ public class ProductDetailsPage extends Base {
   @Locate(css = "form#notifyForm", on = Platform.WEB)
   private ContainerElement outOfStockNotifyMeSection;
 
+  @Locate(css = "#pvEssentials #productPrice .pv-price__original", on = Platform.WEB)
+  private Text itemPrice;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper()
@@ -94,6 +97,13 @@ public class ProductDetailsPage extends Base {
     }
 
     return grindSelected.getText().toLowerCase().trim();
+  }
+
+  public String getProductPrice() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(itemPrice).visible());
+    logger.info("[PDP] Product price: " + itemPrice.getText().trim());
+
+    return itemPrice.getText().trim();
   }
 
   public int getProductQuantitySelected() {
