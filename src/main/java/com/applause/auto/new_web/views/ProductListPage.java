@@ -13,10 +13,9 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.google.common.collect.Ordering;
-import org.testng.Assert;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.testng.Assert;
 
 @Implementation(is = ProductListPage.class, on = Platform.WEB)
 @Implementation(is = ProductListPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
@@ -26,7 +25,8 @@ public class ProductListPage extends Base {
   private ContainerElement mainContainer;
 
   @Locate(
-      css = ".collection__grid li a.pi__link > div:first-child:not(.pi__badge), .collection__grid article",
+      css =
+          ".collection__grid li a.pi__link > div:first-child:not(.pi__badge), .collection__grid article",
       on = Platform.WEB)
   private List<Image> productsImageList;
 

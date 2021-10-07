@@ -2,6 +2,7 @@ package com.applause.auto.test.mobile;
 
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
@@ -17,7 +18,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import com.applause.auto.framework.SdkHelper;
 import org.testng.asserts.SoftAssert;
 
 public class FindACoffeeBarTest extends BaseTest {

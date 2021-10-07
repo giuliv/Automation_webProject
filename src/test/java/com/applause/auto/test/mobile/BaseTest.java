@@ -1,8 +1,8 @@
 package com.applause.auto.test.mobile;
 
 import com.applause.auto.common.data.Constants;
-import com.applause.auto.integrations.base.ApplauseSeleniumTest;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.integrations.base.ApplauseSeleniumTest;
 import com.applause.auto.test.mobile.helpers.TestHelper;
 import io.appium.java_client.android.AndroidDriver;
 import java.lang.invoke.MethodHandles;

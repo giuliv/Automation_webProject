@@ -3,14 +3,21 @@ package com.applause.auto.test.mobile;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.data.enums.SwipeDirection;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
-import com.applause.auto.mobile.views.*;
+import com.applause.auto.mobile.views.CustomerSupportScreenView;
+import com.applause.auto.mobile.views.DashboardView;
+import com.applause.auto.mobile.views.HelpAndFeedbackView;
+import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.LegalInfoView;
+import com.applause.auto.mobile.views.PeetnikRewardsLandingView;
+import com.applause.auto.mobile.views.PeetnikRewardsTermsAndConditionsView;
+import com.applause.auto.mobile.views.PrivacyPolicyView;
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
-import com.applause.auto.framework.SdkHelper;
 import org.testng.annotations.Test;
 
 public class CompanyInformationTest extends BaseTest {

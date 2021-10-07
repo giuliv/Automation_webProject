@@ -4,25 +4,11 @@ import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.web.components.MiniCartContainerChunk;
 import com.applause.auto.web.components.VerifyYourAddressDetailsChunk;
-import com.applause.auto.web.views.CheckoutConfirmationPage;
-import com.applause.auto.web.views.CheckoutPage;
-import com.applause.auto.web.views.CheckoutPaymentMethodPage;
-import com.applause.auto.web.views.CheckoutPlaceOrderPage;
-import com.applause.auto.web.views.CheckoutShippingInfoPage;
-import com.applause.auto.web.views.CoffeeProductDescriptionPage;
-import com.applause.auto.web.views.Landing;
-import com.applause.auto.web.views.PeetsCardProductPage;
-import com.applause.auto.web.views.SearchResultsPage;
-import com.applause.auto.web.views.ShopTeaPage;
-import com.applause.auto.web.views.ShoppingCartPage;
-import com.applause.auto.web.views.SignInPage;
-import com.applause.auto.web.views.SignUpPage;
-import com.applause.auto.web.views.TeaProductPage;
+import com.applause.auto.web.views.*;
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
-import com.applause.auto.framework.SdkHelper;
 import org.testng.annotations.Test;
 
 public class CheckoutDemoTest extends BaseTest {

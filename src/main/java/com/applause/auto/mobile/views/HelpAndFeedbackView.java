@@ -1,6 +1,7 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -8,7 +9,6 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.appium.java_client.android.AndroidDriver;
-import com.applause.auto.framework.SdkHelper;
 import org.openqa.selenium.ScreenOrientation;
 
 @Implementation(is = AndroidHelpAndFeedbackView.class, on = Platform.MOBILE_ANDROID)

@@ -1,6 +1,7 @@
 package com.applause.auto.test.mobile;
 
 import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.mobile.views.AuthenticationView;
 import com.applause.auto.mobile.views.ExploreOffersView;
 import com.applause.auto.mobile.views.LandingView;
@@ -10,7 +11,6 @@ import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
-import com.applause.auto.framework.SdkHelper;
 import org.testng.annotations.Test;
 
 /**

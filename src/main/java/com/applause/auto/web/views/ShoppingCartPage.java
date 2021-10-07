@@ -2,6 +2,7 @@ package com.applause.auto.web.views;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -11,7 +12,6 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.web.components.ShopRunnerChunk;
 import com.applause.auto.web.helpers.WebHelper;
 import java.util.List;
@@ -194,7 +194,8 @@ public class ShoppingCartPage extends BaseComponent {
   public CheckoutPlaceOrderPage clickPayWithPaypalSignedUser() {
     logger.info("Clicking Pay with Paypal for Signed User");
     getPaypalButton.click();
-    SdkHelper.getSyncHelper().sleep(5000); // Required due a change of focus after leaving gift-message
+    SdkHelper.getSyncHelper()
+        .sleep(5000); // Required due a change of focus after leaving gift-message
     if (getPaypalButton.exists()) {
       WebHelper.jsClick(getPaypalButton.getWebElement());
     }
@@ -209,7 +210,8 @@ public class ShoppingCartPage extends BaseComponent {
   public CheckoutShippingInfoPage clickPayWithPaypalSignedUserLoggedIn() {
     logger.info("Clicking Pay with Paypal for Signed User");
     getPaypalButton.click();
-    SdkHelper.getSyncHelper().sleep(5000); // Required due a change of focus after leaving gift-message
+    SdkHelper.getSyncHelper()
+        .sleep(5000); // Required due a change of focus after leaving gift-message
     if (getPaypalButton.exists()) {
       WebHelper.jsClick(getPaypalButton.getWebElement());
     }
@@ -223,8 +225,7 @@ public class ShoppingCartPage extends BaseComponent {
    */
   public List<String> getItems() {
     logger.info("Obtaining items from mini-cart");
-    return getCartItemsText
-        .stream()
+    return getCartItemsText.stream()
         .map(
             item -> {
               String _result = item.getText();

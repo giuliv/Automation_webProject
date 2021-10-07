@@ -4,7 +4,13 @@ import com.applause.auto.common.data.Constants;
 import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.*;
+import com.applause.auto.new_web.views.AcceptancePage;
+import com.applause.auto.new_web.views.CheckOutPage;
+import com.applause.auto.new_web.views.HomePage;
+import com.applause.auto.new_web.views.MyAccountPage;
+import com.applause.auto.new_web.views.PaymentsPage;
+import com.applause.auto.new_web.views.ProductDetailsPage;
+import com.applause.auto.new_web.views.ShippingPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -220,15 +226,15 @@ public class NewUsersSingleOriginSubscriptionsTest extends BaseTest {
         "10% OFF message is not displayed");
     Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
-//    if (WebHelper.isDesktop()) {
-//      // Todo: Only for desktop, until figure out if its a bug
-//      logger.info("10. Validating Download buttons");
-//      acceptancePage.clickOverTrackPackageButton();
-//      Assert.assertEquals(
-//          acceptancePage.getPhoneFromTrackPackageSection(),
-//          "+1 " + Constants.WebTestData.PHONE,
-//          "Phone from Track Package section is NOT correct");
-//    }
+    //    if (WebHelper.isDesktop()) {
+    //      // Todo: Only for desktop, until figure out if its a bug
+    //      logger.info("10. Validating Download buttons");
+    //      acceptancePage.clickOverTrackPackageButton();
+    //      Assert.assertEquals(
+    //          acceptancePage.getPhoneFromTrackPackageSection(),
+    //          "+1 " + Constants.WebTestData.PHONE,
+    //          "Phone from Track Package section is NOT correct");
+    //    }
 
     acceptancePage.clickOverShippingUpdatesButton();
     Assert.assertEquals(

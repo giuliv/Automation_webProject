@@ -1,13 +1,12 @@
 package com.applause.auto.reportportal;
 
 import com.epam.reportportal.service.Launch;
+import java.util.Base64;
+import java.util.Objects;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.util.Base64;
-import java.util.Objects;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ReportPortalHelper {

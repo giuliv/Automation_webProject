@@ -1,13 +1,13 @@
 package com.applause.auto.web.views;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import org.openqa.selenium.Alert;
-import com.applause.auto.framework.SdkHelper;
 import org.openqa.selenium.JavascriptExecutor;
 
 @Implementation(is = AddressBookPage.class, on = Platform.WEB)

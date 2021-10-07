@@ -3,14 +3,20 @@ package com.applause.auto.test.mobile.production_monitoring;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
-import com.applause.auto.mobile.views.*;
+import com.applause.auto.mobile.views.CheckoutView;
+import com.applause.auto.mobile.views.DashboardView;
+import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
+import com.applause.auto.mobile.views.NewOrderView;
+import com.applause.auto.mobile.views.OrderConfirmationView;
+import com.applause.auto.mobile.views.ProductDetailsView;
 import com.applause.auto.test.mobile.BaseTest;
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
-import com.applause.auto.framework.SdkHelper;
 import org.testng.annotations.Test;
 
 public class ProductionOrderTest extends BaseTest {

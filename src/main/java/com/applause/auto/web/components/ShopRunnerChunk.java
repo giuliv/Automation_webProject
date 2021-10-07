@@ -1,12 +1,12 @@
 package com.applause.auto.web.components;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
-import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 
 @Implementation(is = ShopRunnerChunk.class, on = Platform.WEB)

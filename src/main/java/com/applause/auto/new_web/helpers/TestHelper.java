@@ -5,11 +5,10 @@ import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.views.CreateAccountPage;
 import com.applause.auto.new_web.views.HomePage;
 import com.applause.auto.new_web.views.MyAccountPage;
+import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
-
-import java.lang.invoke.MethodHandles;
 
 public class TestHelper {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());

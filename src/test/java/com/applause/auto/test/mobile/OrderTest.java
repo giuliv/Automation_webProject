@@ -1,16 +1,23 @@
 package com.applause.auto.test.mobile;
 
-import static com.applause.auto.test.mobile.helpers.TestHelper.openOrderMenuForRecentCoffeeBar;
-
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
 import com.applause.auto.mobile.components.CoffeeStoreItemChuck;
 import com.applause.auto.mobile.helpers.ItemOptions;
-import com.applause.auto.mobile.views.*;
+import com.applause.auto.mobile.views.CheckoutView;
+import com.applause.auto.mobile.views.DashboardView;
+import com.applause.auto.mobile.views.FindACoffeeBarView;
+import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
+import com.applause.auto.mobile.views.NewOrderView;
+import com.applause.auto.mobile.views.OrderConfirmationView;
+import com.applause.auto.mobile.views.OrderView;
+import com.applause.auto.mobile.views.ProductDetailsView;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import com.applause.auto.test.mobile.helpers.TestHelper;
 import java.lang.invoke.MethodHandles;
@@ -18,8 +25,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import com.applause.auto.framework.SdkHelper;
 import org.testng.asserts.SoftAssert;
+
+import static com.applause.auto.test.mobile.helpers.TestHelper.openOrderMenuForRecentCoffeeBar;
 
 public class OrderTest extends BaseTest {
 

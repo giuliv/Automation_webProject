@@ -5,31 +5,7 @@ import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.web.components.MiniCartContainerChunk;
 import com.applause.auto.web.components.VerifyYourAddressDetailsChunk;
 import com.applause.auto.web.helpers.WebHelper;
-import com.applause.auto.web.views.AddBillingAddressPage;
-import com.applause.auto.web.views.AddShippingAddressPage;
-import com.applause.auto.web.views.AddressBookPage;
-import com.applause.auto.web.views.AssociateNewCardPage;
-import com.applause.auto.web.views.CheckoutConfirmationPage;
-import com.applause.auto.web.views.CheckoutPage;
-import com.applause.auto.web.views.CheckoutPaymentMethodPage;
-import com.applause.auto.web.views.CheckoutPlaceOrderPage;
-import com.applause.auto.web.views.CheckoutShippingInfoPage;
-import com.applause.auto.web.views.CoffeeProductPage;
-import com.applause.auto.web.views.EditAccountInformationPage;
-import com.applause.auto.web.views.EditBillingAddressPage;
-import com.applause.auto.web.views.EditPaymentMethodPage;
-import com.applause.auto.web.views.EditShippingAddressPage;
-import com.applause.auto.web.views.Landing;
-import com.applause.auto.web.views.MyAccountManageSubscriptionPage;
-import com.applause.auto.web.views.MyAccountMyOrdersPage;
-import com.applause.auto.web.views.MyAccountMySuscriptionsPage;
-import com.applause.auto.web.views.MyAccountOrderDetailPage;
-import com.applause.auto.web.views.MyAccountPage;
-import com.applause.auto.web.views.MyAccountPeetsCardPage;
-import com.applause.auto.web.views.PaymentMethodsPage;
-import com.applause.auto.web.views.ShopCoffeePage;
-import com.applause.auto.web.views.SignInPage;
-import com.applause.auto.web.views.SignUpPage;
+import com.applause.auto.web.views.*;
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -527,7 +503,8 @@ public class MyAccountTest extends BaseTest {
     MyAccountPage myAccountPage = confirmationPage.createAccount();
 
     logger.info("Verify account was SdkHelper.created");
-    Assert.assertNotNull(myAccountPage, "My Account page not found, account does not SdkHelper.created");
+    Assert.assertNotNull(
+        myAccountPage, "My Account page not found, account does not SdkHelper.created");
   }
 
   @Test(

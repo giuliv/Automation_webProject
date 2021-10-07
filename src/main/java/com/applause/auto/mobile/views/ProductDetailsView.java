@@ -2,6 +2,8 @@ package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
+import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.mobile.components.RemoveFromOrderChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -10,10 +12,8 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.helpers.sync.Until;
 import java.time.Duration;
 import java.util.stream.IntStream;
-import com.applause.auto.framework.SdkHelper;
 import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = ProductDetailsView.class, on = Platform.MOBILE_IOS)
