@@ -2,7 +2,7 @@ package com.applause.auto.test.new_web.plp;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.new_web.views.*;
+import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;

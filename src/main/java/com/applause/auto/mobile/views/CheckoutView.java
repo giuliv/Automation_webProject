@@ -1,9 +1,9 @@
 package com.applause.auto.mobile.views;
 
-import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
-
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
+import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.mobile.helpers.ItemOptions;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -13,15 +13,15 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
-import com.applause.auto.helpers.sync.Until;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
-import com.applause.auto.framework.SdkHelper;
 import org.openqa.selenium.NoSuchElementException;
+
+import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
 
 @Implementation(is = AndroidCheckoutView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CheckoutView.class, on = Platform.MOBILE_IOS)
@@ -191,8 +191,7 @@ public class CheckoutView extends BaseComponent {
     }
 
     if (areAvailableRewardsDisplayed) {
-      availableRewards
-          .stream()
+      availableRewards.stream()
           .filter(item -> getElementTextAttribute(item).startsWith(awardText))
           .findAny()
           .orElseThrow(
@@ -267,8 +266,7 @@ public class CheckoutView extends BaseComponent {
     ((IOSDriver) SdkHelper.getDriver()).setSetting("snapshotMaxDepth", 99);
     MobileHelper.scrollElementIntoView(itemOptionsText.format(itemName));
     itemOptionsList.format(itemName).initialize();
-    itemOptionsList
-        .stream()
+    itemOptionsList.stream()
         .forEach(
             i -> {
               logger.info("Found options: " + i.getText());
@@ -411,7 +409,8 @@ public class CheckoutView extends BaseComponent {
 
     productItemDeleteByEditButton.format(productName).click();
 
-    SdkHelper.getSyncHelper().wait(Until.uiElement(productItemDeleteButton.format(productName)).present());
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(productItemDeleteButton.format(productName)).present());
     productItemDeleteButton.format(productName).click();
     return SdkHelper.create(CheckoutView.class);
   }

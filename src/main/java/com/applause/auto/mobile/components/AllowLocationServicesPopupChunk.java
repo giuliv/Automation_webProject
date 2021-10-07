@@ -1,6 +1,7 @@
 package com.applause.auto.mobile.components;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -13,7 +14,6 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import java.time.Duration;
-import com.applause.auto.framework.SdkHelper;
 import org.openqa.selenium.Point;
 
 @Implementation(is = AndroidAllowLocationServicesPopupChunk.class, on = Platform.MOBILE_ANDROID)

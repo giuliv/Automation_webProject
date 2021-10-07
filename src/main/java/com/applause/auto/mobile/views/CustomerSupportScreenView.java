@@ -1,16 +1,16 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.helpers.sync.Until;
 import io.appium.java_client.android.AndroidDriver;
 import java.time.Duration;
-import com.applause.auto.framework.SdkHelper;
 import org.openqa.selenium.ScreenOrientation;
 
 @Implementation(is = AndroidCustomerSupportScreenView.class, on = Platform.MOBILE_ANDROID)
@@ -48,7 +48,8 @@ public class CustomerSupportScreenView extends BaseComponent {
   /* -------- Actions -------- */
 
   public void afterInit() {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(12)));
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(12)));
   }
 
   /**
@@ -92,7 +93,8 @@ class AndroidCustomerSupportScreenView extends CustomerSupportScreenView {
     }
     //    logger.info("Close popup");
     //    closeAdvPopUpButton.click();
-    SdkHelper.getSyncHelper().wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(12)));
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(12)));
   }
 
   @Override

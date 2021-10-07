@@ -2,7 +2,6 @@ package com.applause.auto.test.web;
 
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.integrations.base.ApplauseBaseTest;
 import com.applause.auto.web.components.MiniCartContainerChunk;
 import com.applause.auto.web.views.CoffeeProductPage;
 import com.applause.auto.web.views.Landing;

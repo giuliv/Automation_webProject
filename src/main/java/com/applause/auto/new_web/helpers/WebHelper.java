@@ -6,14 +6,13 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import io.appium.java_client.ios.IOSDriver;
+import java.lang.invoke.MethodHandles;
+import java.time.Duration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-
-import java.lang.invoke.MethodHandles;
-import java.time.Duration;
 
 import static io.appium.java_client.Setting.NATIVE_WEB_TAP;
 

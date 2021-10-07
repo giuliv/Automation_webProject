@@ -8,7 +8,6 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
-
 import java.util.List;
 
 @Implementation(is = ShippingPage.class, on = Platform.WEB)

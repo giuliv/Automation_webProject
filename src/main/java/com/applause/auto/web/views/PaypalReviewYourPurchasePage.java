@@ -1,13 +1,13 @@
 package com.applause.auto.web.views;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Image;
-import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.framework.SdkHelper;
 import java.time.Duration;
 
 @Implementation(is = PaypalReviewYourPurchasePage.class, on = Platform.WEB)

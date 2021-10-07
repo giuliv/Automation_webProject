@@ -6,6 +6,7 @@ import com.epam.reportportal.message.ReportPortalMessage;
 import com.epam.reportportal.service.ReportPortal;
 import com.epam.reportportal.testng.BaseTestNGListener;
 import com.epam.reportportal.testng.ITestNGService;
+import java.util.Calendar;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -13,8 +14,6 @@ import org.testng.ITestResult;
 import rp.com.google.common.base.Supplier;
 import rp.com.google.common.base.Suppliers;
 import rp.com.google.common.io.ByteSource;
-
-import java.util.Calendar;
 
 @Log4j2
 public class ReportPortalExtendedTestFailureListener extends BaseTestNGListener {
@@ -31,7 +30,8 @@ public class ReportPortalExtendedTestFailureListener extends BaseTestNGListener 
       ReportPortalMessage screenshotMessage;
       screenshotMessage =
           new ReportPortalMessage(
-              ByteSource.wrap(((TakesScreenshot) SdkHelper.getDriver()).getScreenshotAs(OutputType.BYTES)),
+              ByteSource.wrap(
+                  ((TakesScreenshot) SdkHelper.getDriver()).getScreenshotAs(OutputType.BYTES)),
               "image/png",
               "Failed step screenshot");
       ReportPortal.emitLog(

@@ -4,8 +4,16 @@ import com.applause.auto.common.data.Constants;
 import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.*;
+import com.applause.auto.new_web.views.AcceptancePage;
+import com.applause.auto.new_web.views.CheckOutPage;
+import com.applause.auto.new_web.views.HomePage;
 import com.applause.auto.new_web.views.MyAccountPage;
+import com.applause.auto.new_web.views.PaymentsPage;
+import com.applause.auto.new_web.views.ProductDetailsPage;
+import com.applause.auto.new_web.views.ProductListPage;
+import com.applause.auto.new_web.views.SearchResultsPage;
+import com.applause.auto.new_web.views.ShippingPage;
+import com.applause.auto.new_web.views.SignInPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

@@ -8,7 +8,6 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
-
 import java.util.List;
 
 @Implementation(is = SearchResultsPage.class, on = Platform.WEB)

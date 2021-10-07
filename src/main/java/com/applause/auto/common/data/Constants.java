@@ -1,9 +1,9 @@
 package com.applause.auto.common.data;
 
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.web.helpers.WebHelper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import com.applause.auto.framework.SdkHelper;
 import lombok.Setter;
 
 public class Constants {

@@ -1,16 +1,17 @@
 package com.applause.auto.test.new_web;
 
 import com.applause.auto.common.data.Constants.TestData;
-import com.applause.auto.integrations.base.ApplauseSeleniumTest;
 import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.new_web.views.*;
+import com.applause.auto.integrations.base.ApplauseSeleniumTest;
 import com.applause.auto.new_web.helpers.TestHelper;
+import com.applause.auto.new_web.views.HomePage;
+import com.applause.auto.new_web.views.ProductDetailsPage;
+import com.applause.auto.new_web.views.ProductListPage;
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Method;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.BeforeMethod;
-
-import java.lang.invoke.MethodHandles;
-import java.lang.reflect.Method;
 
 public class BaseTest extends ApplauseSeleniumTest {
 

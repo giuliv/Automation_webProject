@@ -2,17 +2,19 @@ package com.applause.auto.new_web.components;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.CheckOutPage;
-import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
-import com.applause.auto.pageobjectmodel.elements.*;
-import com.applause.auto.helpers.sync.Until;
-import org.testng.asserts.SoftAssert;
-
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.Image;
+import com.applause.auto.pageobjectmodel.elements.Link;
+import com.applause.auto.pageobjectmodel.elements.Text;
 import java.util.List;
+import org.testng.asserts.SoftAssert;
 
 @Implementation(is = MiniCart.class, on = Platform.WEB)
 @Implementation(is = MiniCart.class, on = Platform.WEB_MOBILE_PHONE)

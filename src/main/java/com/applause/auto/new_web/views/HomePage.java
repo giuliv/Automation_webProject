@@ -1,13 +1,13 @@
 package com.applause.auto.new_web.views;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
-import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.helpers.sync.Until;
 
 @Implementation(is = HomePage.class, on = Platform.WEB)
 @Implementation(is = HomePage.class, on = Platform.WEB_MOBILE_PHONE)

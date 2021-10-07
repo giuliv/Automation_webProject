@@ -3,6 +3,7 @@ package com.applause.auto.test.web;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.web.components.CreateSubscriptionChunk;
 import com.applause.auto.web.components.MainMenuChunk;
 import com.applause.auto.web.components.MiniCartContainerChunk;
@@ -20,7 +21,6 @@ import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
-import com.applause.auto.framework.SdkHelper;
 import org.testng.annotations.Test;
 
 public class SubscriptionsTest extends BaseTest {

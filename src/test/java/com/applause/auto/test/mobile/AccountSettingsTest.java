@@ -1,20 +1,25 @@
 package com.applause.auto.test.mobile;
 
-import static com.applause.auto.common.data.Constants.MobileTestData.CC_MASTER_NAME;
-import static com.applause.auto.common.data.Constants.MobileTestData.CC_VISA_NAME;
-
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.AccountMenuMobileChunk;
-import com.applause.auto.mobile.views.*;
+import com.applause.auto.mobile.views.AddNewCardView;
+import com.applause.auto.mobile.views.CreditCardDetailsView;
+import com.applause.auto.mobile.views.DashboardView;
+import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.PaymentMethodsView;
+import com.applause.auto.mobile.views.PeetsCardSettingsView;
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
-import com.applause.auto.framework.SdkHelper;
 import org.testng.annotations.Test;
+
+import static com.applause.auto.common.data.Constants.MobileTestData.CC_MASTER_NAME;
+import static com.applause.auto.common.data.Constants.MobileTestData.CC_VISA_NAME;
 
 public class AccountSettingsTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());

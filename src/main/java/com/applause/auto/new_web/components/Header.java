@@ -3,15 +3,15 @@ package com.applause.auto.new_web.components;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.ProductListPage;
+import com.applause.auto.new_web.views.SignInPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
-import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.new_web.views.SignInPage;
 
 @Implementation(is = Header.class, on = Platform.WEB)
 @Implementation(is = HeaderMobile.class, on = Platform.WEB_MOBILE_PHONE)
