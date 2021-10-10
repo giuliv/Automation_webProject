@@ -11,7 +11,8 @@ public class SortingTest extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.PLP},
-      description = "11101528")
+      description = "11101528",
+      enabled = false)
   public void sortingByPriceTest() {
 
     logger.info("1. Navigate to landing page");
@@ -35,7 +36,8 @@ public class SortingTest extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.PLP},
-      description = "11101529")
+      description = "11101529",
+      enabled = false)
   public void filterAndSortingAppliedTest() {
 
     logger.info("1. Navigate to landing page");
