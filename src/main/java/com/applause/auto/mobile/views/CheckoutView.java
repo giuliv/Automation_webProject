@@ -1,5 +1,7 @@
 package com.applause.auto.mobile.views;
 
+import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
+
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.framework.SdkHelper;
@@ -20,8 +22,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
 import org.openqa.selenium.NoSuchElementException;
-
-import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
 
 @Implementation(is = AndroidCheckoutView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CheckoutView.class, on = Platform.MOBILE_IOS)
@@ -191,7 +191,8 @@ public class CheckoutView extends BaseComponent {
     }
 
     if (areAvailableRewardsDisplayed) {
-      availableRewards.stream()
+      availableRewards
+          .stream()
           .filter(item -> getElementTextAttribute(item).startsWith(awardText))
           .findAny()
           .orElseThrow(
@@ -266,7 +267,8 @@ public class CheckoutView extends BaseComponent {
     ((IOSDriver) SdkHelper.getDriver()).setSetting("snapshotMaxDepth", 99);
     MobileHelper.scrollElementIntoView(itemOptionsText.format(itemName));
     itemOptionsList.format(itemName).initialize();
-    itemOptionsList.stream()
+    itemOptionsList
+        .stream()
         .forEach(
             i -> {
               logger.info("Found options: " + i.getText());

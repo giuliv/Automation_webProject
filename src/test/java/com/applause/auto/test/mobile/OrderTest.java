@@ -1,5 +1,7 @@
 package com.applause.auto.test.mobile;
 
+import static com.applause.auto.test.mobile.helpers.TestHelper.openOrderMenuForRecentCoffeeBar;
+
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
@@ -26,8 +28,6 @@ import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-
-import static com.applause.auto.test.mobile.helpers.TestHelper.openOrderMenuForRecentCoffeeBar;
 
 public class OrderTest extends BaseTest {
 

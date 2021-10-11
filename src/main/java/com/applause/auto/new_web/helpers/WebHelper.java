@@ -1,5 +1,7 @@
 package com.applause.auto.new_web.helpers;
 
+import static io.appium.java_client.Setting.NATIVE_WEB_TAP;
+
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -13,8 +15,6 @@ import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-
-import static io.appium.java_client.Setting.NATIVE_WEB_TAP;
 
 public class WebHelper {
 

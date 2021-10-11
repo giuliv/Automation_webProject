@@ -22,12 +22,4 @@
   "testobject_test_name" : "Test Run ID: ${testRunId?c}, Test Session ID: ${testSessionId?c}",
   "testobject_suite_name" : "Test Run ID: ${testRunId?c}, Test Session ID: ${testSessionId?c}"
   </#if>
-  ​
-  <#if ttuseTunnel=='true'>
-,
-  "tunnelIdentifier": "tote",
-  "sauce: options": {
-    "tunnelIdentifier": "tote"
-  }
-  </#if>
 }

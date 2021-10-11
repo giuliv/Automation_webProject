@@ -4,6 +4,7 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.helpers.WebHelper;
+import com.applause.auto.new_web.views.CartPage;
 import com.applause.auto.new_web.views.CheckOutPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -73,6 +74,9 @@ public class MiniCart extends BaseComponent {
 
   @Locate(css = "#bagEmpty h3", on = Platform.WEB)
   private Text emptyMiniCartMessage;
+
+  @Locate(css = "#bagRecommendationsWrapper button", on = Platform.WEB)
+  private List<Button> recommendedForYouAddButton;
 
   @Override
   public void afterInit() {
@@ -189,5 +193,37 @@ public class MiniCart extends BaseComponent {
     closeButton.click();
 
     return SdkHelper.create(expectedClass);
+  }
+
+  /**
+   * Click 'View Cart' button
+   *
+   * @return CartPage
+   */
+  public CartPage clickViewCartButton() {
+    logger.info("Clicking 'View Cart' button");
+    SdkHelper.getBrowserControl().jsClick(viewCartButton);
+    return SdkHelper.create(CartPage.class);
+  }
+
+  /**
+   * Click on 'Add to cart' button on 'Recommended for you' section
+   *
+   * @param index
+   * @return QuickViewComponent
+   */
+  public QuickViewComponent clickOnRecommendedForYouAddButtonByIndex(int index) {
+    logger.info("Click on recommended 'Add to cart' button with index: " + index);
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(recommendedForYouAddButton.get(index)).visible());
+
+    if (WebHelper.isSafari() && !WebHelper.isMobile()) {
+      logger.info("Safari Desktop");
+      WebHelper.jsClick(recommendedForYouAddButton.get(index).getWebElement());
+    } else {
+      recommendedForYouAddButton.get(index).click();
+    }
+
+    return SdkHelper.create(QuickViewComponent.class);
   }
 }

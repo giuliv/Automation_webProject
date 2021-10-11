@@ -225,7 +225,8 @@ public class ShoppingCartPage extends BaseComponent {
    */
   public List<String> getItems() {
     logger.info("Obtaining items from mini-cart");
-    return getCartItemsText.stream()
+    return getCartItemsText
+        .stream()
         .map(
             item -> {
               String _result = item.getText();

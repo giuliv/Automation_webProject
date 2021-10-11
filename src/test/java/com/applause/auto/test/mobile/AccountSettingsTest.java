@@ -1,5 +1,8 @@
 package com.applause.auto.test.mobile;
 
+import static com.applause.auto.common.data.Constants.MobileTestData.CC_MASTER_NAME;
+import static com.applause.auto.common.data.Constants.MobileTestData.CC_VISA_NAME;
+
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
@@ -17,9 +20,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import static com.applause.auto.common.data.Constants.MobileTestData.CC_MASTER_NAME;
-import static com.applause.auto.common.data.Constants.MobileTestData.CC_VISA_NAME;
 
 public class AccountSettingsTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());

@@ -18,7 +18,7 @@ public class QuickViewComponent extends BaseComponent {
   @Locate(css = "#modalQuickAdd .modal__inner--quick-add", on = Platform.WEB)
   private ContainerElement mainContainer;
 
-  @Locate(css = ".modal__inner--quick-add h2", on = Platform.WEB)
+  @Locate(css = ".modal__inner--quick-add [class*=title]", on = Platform.WEB)
   private Text productName;
 
   @Locate(css = ".modal__inner--quick-add .pv-price__original", on = Platform.WEB)
@@ -56,5 +56,21 @@ public class QuickViewComponent extends BaseComponent {
     softAssert.assertTrue(addToCartButton.isDisplayed(), "Add to Cart is not displayed");
 
     return softAssert;
+  }
+
+  /**
+   * Click on the 'Add to cart' button
+   *
+   * @return MiniCart
+   */
+  public MiniCart clickAddToCart() {
+    logger.info("Clicking on the 'Add to cart' button");
+    addToCartButton.click();
+    return SdkHelper.create(MiniCart.class);
+  }
+
+  /** @return product name */
+  public String getProductName() {
+    return productName.getText().trim();
   }
 }
