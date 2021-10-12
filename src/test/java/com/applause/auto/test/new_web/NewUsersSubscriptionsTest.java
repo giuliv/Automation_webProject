@@ -40,7 +40,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
             .search(Constants.WebTestData.SEARCH_COFFEE_AGED_SUMATRA);
 
     logger.info("4. Add subscription to MiniCart");
-    int productSelected = 0;
+    int productSelected = 1;
     ProductDetailsPage productDetailsPage =
         searchResultsPage.clickOverProductByIndex(productSelected);
 
@@ -333,7 +333,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
             .search(Constants.WebTestData.SEARCH_COFFEE_AGED_SUMATRA);
 
     logger.info("6. Add 2nd subscription to MiniCart");
-    int secondProductSelected = 0;
+    int secondProductSelected = 1;
     productDetailsPage = searchResultsPage.clickOverProductByIndex(secondProductSelected);
 
     String secondProductName = productDetailsPage.getProductName();
@@ -520,7 +520,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
             .search(Constants.WebTestData.SEARCH_COFFEE_AGED_SUMATRA);
 
     logger.info("6. Add 2nd subscription to MiniCart");
-    int secondProductSelected = 0;
+    int secondProductSelected = 1;
     productDetailsPage = searchResultsPage.clickOverProductByIndex(secondProductSelected);
 
     String secondProductName = productDetailsPage.getProductName();
@@ -701,7 +701,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
             .search(Constants.WebTestData.SEARCH_COFFEE_AGED_SUMATRA);
 
     logger.info("6. Add 2nd item [Purchase Type] to MiniCart");
-    int secondProductSelected = 0;
+    int secondProductSelected = 1;
     productDetailsPage = searchResultsPage.clickOverProductByIndex(secondProductSelected);
 
     String secondProductName = productDetailsPage.getProductName();
@@ -1021,7 +1021,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
             .search(Constants.WebTestData.SEARCH_COFFEE_AGED_SUMATRA);
 
     logger.info("4. Add subscription to MiniCart");
-    int productSelected = 0;
+    int productSelected = 1;
     ProductDetailsPage productDetailsPage =
         searchResultsPage.clickOverProductByIndex(productSelected);
 
@@ -1157,7 +1157,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
             .search(Constants.WebTestData.SEARCH_COFFEE_AGED_SUMATRA);
 
     logger.info("4. Add subscription to MiniCart");
-    int productSelected = 0;
+    int productSelected = 1;
     ProductDetailsPage productDetailsPage =
         searchResultsPage.clickOverProductByIndex(productSelected);
 

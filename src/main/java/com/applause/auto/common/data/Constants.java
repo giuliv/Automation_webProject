@@ -5,11 +5,17 @@ import com.applause.auto.web.helpers.WebHelper;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import java.lang.invoke.MethodHandles;
+import java.util.Random;
 
 public class Constants {
 
   public static final int BOTTOM_BORDER_SIZE = 150;
   public static String BROWSER_NAME = System.getProperty("browser_name", "CHROME_WINDOWS");
+  public static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
   /** Test Groups */
   public static final class TestNGGroups {
@@ -312,6 +318,32 @@ public class Constants {
 
     public String getMenuSubCategories() {
       return subCategory;
+    }
+  }
+
+  public enum Mail {
+    Mail1("peets.automation02@applause.com"),
+    Mail2("peets.automation03@applause.com"),
+    Mail3("peets.automation04@applause.com"),
+    Mail4("peets.automation05@applause.com"),
+    Mail5("peets.automation06@applause.com"),
+    Mail6("peets.automation07@applause.com");
+
+    private final String value;
+
+    Mail(String i) {
+      value = i;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    public static Mail getRandomMail() {
+      Random random = new Random();
+      Mail data = Mail.values()[random.nextInt(Mail.values().length)];
+      logger.info("Mail Selected: " + data.toString());
+      return data;
     }
   }
 

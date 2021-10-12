@@ -33,12 +33,12 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     logger.info("2. Sign In user");
     SignInPage signInPage = homePage.getHeader().clickAccountButton();
 
-    signInPage.enterEmail(Constants.TestData.WEB_USERNAME);
+    signInPage.enterEmail(Mail);
     signInPage.enterPassword(Constants.TestData.WEB_PASSWORD);
     MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
 
     Assert.assertTrue(
-        myAccountPage.getWelcomeMessage().contains("welcome, peets"),
+        myAccountPage.getWelcomeMessage().contains("welcome"),
         "User is not signed in or welcome name is wrong");
 
     logger.info("3. Select Best Sellers from Coffee tab");
@@ -73,7 +73,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     logger.info("5. Proceed to Checkout page");
     CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
     Assert.assertTrue(
-        checkOutPage.isExistingUserMailCorrect().contains(Constants.TestData.WEB_USERNAME),
+        checkOutPage.isExistingUserMailCorrect().contains(Mail),
         "Existing user mail is NOT correct");
     checkOutPage.setCheckOutDataAsExistingUser();
 
@@ -121,10 +121,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     //  [user will receive a text validations]
 
     logger.info("11. Validating Customer Information");
-    Assert.assertEquals(
-        Constants.TestData.WEB_USERNAME,
-        acceptancePage.getCustomerMail(),
-        "Existing Mail does NOT matches");
+    Assert.assertEquals(Mail, acceptancePage.getCustomerMail(), "Existing Mail does NOT matches");
 
     Assert.assertTrue(
         acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
@@ -163,12 +160,12 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     logger.info("2. Sign In user");
     SignInPage signInPage = homePage.getHeader().clickAccountButton();
 
-    signInPage.enterEmail(Constants.TestData.WEB_USERNAME);
+    signInPage.enterEmail(Mail);
     signInPage.enterPassword(Constants.TestData.WEB_PASSWORD);
     MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
 
     Assert.assertTrue(
-        myAccountPage.getWelcomeMessage().contains("welcome, peets"),
+        myAccountPage.getWelcomeMessage().contains("welcome"),
         "User is not signed in or welcome name is wrong");
 
     logger.info("3. Select Best Sellers from Coffee tab");
@@ -240,7 +237,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     logger.info("8. Proceed to Checkout page");
     CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
     Assert.assertTrue(
-        checkOutPage.isExistingUserMailCorrect().contains(Constants.TestData.WEB_USERNAME),
+        checkOutPage.isExistingUserMailCorrect().contains(Mail),
         "Existing user mail is NOT correct");
     checkOutPage.setCheckOutDataAsExistingUser();
 
@@ -294,10 +291,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     //  [user will receive a text validations]
 
     logger.info("14. Validating Customer Information");
-    Assert.assertEquals(
-        Constants.TestData.WEB_USERNAME,
-        acceptancePage.getCustomerMail(),
-        "Existing Mail does NOT matches");
+    Assert.assertEquals(Mail, acceptancePage.getCustomerMail(), "Existing Mail does NOT matches");
 
     Assert.assertTrue(
         acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
@@ -336,12 +330,12 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     logger.info("2. Sign In user");
     SignInPage signInPage = homePage.getHeader().clickAccountButton();
 
-    signInPage.enterEmail(Constants.TestData.WEB_USERNAME);
+    signInPage.enterEmail(Mail);
     signInPage.enterPassword(Constants.TestData.WEB_PASSWORD);
     MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
 
     Assert.assertTrue(
-        myAccountPage.getWelcomeMessage().contains("welcome, peets"),
+        myAccountPage.getWelcomeMessage().contains("welcome"),
         "User is not signed in or welcome name is wrong");
 
     logger.info("3. Select Best Sellers from Coffee tab");
@@ -407,7 +401,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     logger.info("8. Proceed to Checkout page");
     CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
     Assert.assertTrue(
-        checkOutPage.isExistingUserMailCorrect().contains(Constants.TestData.WEB_USERNAME),
+        checkOutPage.isExistingUserMailCorrect().contains(Mail),
         "Existing user mail is NOT correct");
     checkOutPage.setCheckOutDataAsExistingUser();
 
@@ -461,10 +455,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     //  [user will receive a text validations]
 
     logger.info("14. Validating Customer Information");
-    Assert.assertEquals(
-        Constants.TestData.WEB_USERNAME,
-        acceptancePage.getCustomerMail(),
-        "Existing Mail does NOT matches");
+    Assert.assertEquals(Mail, acceptancePage.getCustomerMail(), "Existing Mail does NOT matches");
 
     Assert.assertTrue(
         acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
@@ -503,12 +494,12 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     logger.info("2. Sign In user");
     SignInPage signInPage = homePage.getHeader().clickAccountButton();
 
-    signInPage.enterEmail(Constants.TestData.WEB_USERNAME);
+    signInPage.enterEmail(Mail);
     signInPage.enterPassword(Constants.TestData.WEB_PASSWORD);
     MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
 
     Assert.assertTrue(
-        myAccountPage.getWelcomeMessage().contains("welcome, peets"),
+        myAccountPage.getWelcomeMessage().contains("welcome"),
         "User is not signed in or welcome name is wrong");
 
     logger.info("3. Select Best Sellers from Tea tab");
@@ -571,7 +562,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     logger.info("8. Proceed to Checkout page");
     CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
     Assert.assertTrue(
-        checkOutPage.isExistingUserMailCorrect().contains(Constants.TestData.WEB_USERNAME),
+        checkOutPage.isExistingUserMailCorrect().contains(Mail),
         "Existing user mail is NOT correct");
     checkOutPage.setCheckOutDataAsExistingUser();
 
@@ -626,10 +617,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     //  [user will receive a text validations]
 
     logger.info("14. Validating Customer Information");
-    Assert.assertEquals(
-        Constants.TestData.WEB_USERNAME,
-        acceptancePage.getCustomerMail(),
-        "Existing Mail does NOT matches");
+    Assert.assertEquals(Mail, acceptancePage.getCustomerMail(), "Existing Mail does NOT matches");
 
     Assert.assertTrue(
         acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
@@ -668,12 +656,12 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     logger.info("2. Sign In user");
     SignInPage signInPage = homePage.getHeader().clickAccountButton();
 
-    signInPage.enterEmail(Constants.TestData.WEB_USERNAME);
+    signInPage.enterEmail(Mail);
     signInPage.enterPassword(Constants.TestData.WEB_PASSWORD);
     MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
 
     Assert.assertTrue(
-        myAccountPage.getWelcomeMessage().contains("welcome, peets"),
+        myAccountPage.getWelcomeMessage().contains("welcome"),
         "User is not signed in or welcome name is wrong");
 
     logger.info("3. Select Equipment from Gear tab");
@@ -714,7 +702,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     logger.info("6. Proceed to Checkout page");
     CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
     Assert.assertTrue(
-        checkOutPage.isExistingUserMailCorrect().contains(Constants.TestData.WEB_USERNAME),
+        checkOutPage.isExistingUserMailCorrect().contains(Mail),
         "Existing user mail is NOT correct");
     checkOutPage.setCheckOutDataAsExistingUser();
 
@@ -764,10 +752,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     //  [user will receive a text validations]
 
     logger.info("12. Validating Customer Information");
-    Assert.assertEquals(
-        Constants.TestData.WEB_USERNAME,
-        acceptancePage.getCustomerMail(),
-        "Existing Mail does NOT matches");
+    Assert.assertEquals(Mail, acceptancePage.getCustomerMail(), "Existing Mail does NOT matches");
 
     Assert.assertTrue(
         acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
@@ -806,12 +791,12 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     logger.info("2. Sign In user");
     SignInPage signInPage = homePage.getHeader().clickAccountButton();
 
-    signInPage.enterEmail(Constants.TestData.WEB_USERNAME);
+    signInPage.enterEmail(Mail);
     signInPage.enterPassword(Constants.TestData.WEB_PASSWORD);
     MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
 
     Assert.assertTrue(
-        myAccountPage.getWelcomeMessage().contains("welcome, peets"),
+        myAccountPage.getWelcomeMessage().contains("welcome"),
         "User is not signed in or welcome name is wrong");
 
     logger.info("3. Select K-Cup from Coffee tab");
@@ -844,7 +829,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     logger.info("6. Proceed to Checkout page");
     CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
     Assert.assertTrue(
-        checkOutPage.isExistingUserMailCorrect().contains(Constants.TestData.WEB_USERNAME),
+        checkOutPage.isExistingUserMailCorrect().contains(Mail),
         "Existing user mail is NOT correct");
     checkOutPage.setCheckOutDataAsExistingUser();
 
@@ -895,10 +880,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     //  [user will receive a text validations]
 
     logger.info("12. Validating Customer Information");
-    Assert.assertEquals(
-        Constants.TestData.WEB_USERNAME,
-        acceptancePage.getCustomerMail(),
-        "Existing Mail does NOT matches");
+    Assert.assertEquals(Mail, acceptancePage.getCustomerMail(), "Existing Mail does NOT matches");
 
     Assert.assertTrue(
         acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),

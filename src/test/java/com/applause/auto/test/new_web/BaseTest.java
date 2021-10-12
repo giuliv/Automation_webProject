@@ -1,5 +1,6 @@
 package com.applause.auto.test.new_web;
 
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.integrations.base.ApplauseSeleniumTest;
@@ -17,12 +18,14 @@ public class BaseTest extends ApplauseSeleniumTest {
 
   public static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
   public TestHelper testHelper = new TestHelper();
+  public String Mail;
 
   /** Get a new WebDriver at the start of each test. */
   @BeforeMethod(alwaysRun = true)
   public void beforeMethod(Method method) {
     String runId = String.format("%s:%s", method.getName(), System.currentTimeMillis());
     logger.debug(String.format("Setting runId to %s", runId));
+    Mail = Constants.Mail.getRandomMail().getValue();
     System.setProperty("runId", runId);
 
     // Set the default wait time on elements to 20 seconds
