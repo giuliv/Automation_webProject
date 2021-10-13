@@ -347,6 +347,11 @@ public class Constants {
     }
   }
 
+  public enum NavigationArrow {
+    NEXT,
+    PREV
+  }
+
   @Setter
   @Getter
   @AllArgsConstructor

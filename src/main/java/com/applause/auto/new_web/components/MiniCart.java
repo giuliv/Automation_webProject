@@ -1,5 +1,6 @@
 package com.applause.auto.new_web.components;
 
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
@@ -77,6 +78,21 @@ public class MiniCart extends BaseComponent {
 
   @Locate(css = "#bagRecommendationsWrapper button", on = Platform.WEB)
   private List<Button> recommendedForYouAddButton;
+
+  @Locate(css = "#sr_headerDiv a[onclick*='learn']", on = Platform.WEB)
+  private Link learnMoreLink;
+
+  @Locate(css = "#sr_headerDiv a[onclick*='sign']", on = Platform.WEB)
+  private Link signInLink;
+
+  @Locate(css = ".bag-recommendations__footer button[aria-label='Next']", on = Platform.WEB)
+  private Button nextRecommendedItem;
+
+  @Locate(css = ".bag-recommendations__footer button[aria-label='Previous']", on = Platform.WEB)
+  private Button prevRecommendedItem;
+
+  @Locate(css = "#bagRecommendations article", on = Platform.WEB)
+  private List<ContainerElement> recommendedItemsList;
 
   @Override
   public void afterInit() {
@@ -206,6 +222,16 @@ public class MiniCart extends BaseComponent {
     return SdkHelper.create(CartPage.class);
   }
 
+  public ShopRunnerComponent clickShopRunnerLinks(String link) {
+    logger.info("Clicking link: " + link);
+    if (link.equalsIgnoreCase("learn more")) {
+      learnMoreLink.click();
+    } else {
+      signInLink.click();
+    }
+    return SdkHelper.create(ShopRunnerComponent.class);
+  }
+
   /**
    * Click on 'Add to cart' button on 'Recommended for you' section
    *
@@ -225,5 +251,21 @@ public class MiniCart extends BaseComponent {
     }
 
     return SdkHelper.create(QuickViewComponent.class);
+  }
+
+  public void clickNavigationArrow(Constants.NavigationArrow navigationArrow) {
+    logger.info("Click Arrow: " + navigationArrow.name());
+    WebHelper.scrollToElement(nextRecommendedItem);
+
+    if (navigationArrow.equals(Constants.NavigationArrow.NEXT)) {
+      nextRecommendedItem.click();
+    } else {
+      prevRecommendedItem.click();
+    }
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+  }
+
+  public long getRecommendedItemsVisible() {
+    return recommendedForYouAddButton.stream().filter(x -> x.isDisplayed()).count();
   }
 }
