@@ -91,8 +91,14 @@ public class MiniCart extends BaseComponent {
   @Locate(css = ".bag-recommendations__footer button[aria-label='Previous']", on = Platform.WEB)
   private Button prevRecommendedItem;
 
-  @Locate(css = "#bagRecommendations article", on = Platform.WEB)
-  private List<ContainerElement> recommendedItemsList;
+  @Locate(css = "#bagRecommendations article h3", on = Platform.WEB)
+  private List<ContainerElement> recommendedItemsNameList;
+
+  @Locate(css = "#bagItems og-offer >og-when.og-offer button.og-optout-btn", on = Platform.WEB)
+  private Button oneTimePurchaseButton;
+
+  @Locate(css = "#bagItems og-offer > og-when.og-offer button.og-optin-btn", on = Platform.WEB)
+  private Button subscribeButton;
 
   @Override
   public void afterInit() {
@@ -267,5 +273,42 @@ public class MiniCart extends BaseComponent {
 
   public long getRecommendedItemsVisible() {
     return recommendedForYouAddButton.stream().filter(x -> x.isDisplayed()).count();
+  }
+
+  public String getRecommendedItemNameByIndex(int index) {
+    logger.info("Recommended Item: " + recommendedItemsNameList.get(index).getText());
+    return recommendedItemsNameList.get(index).getText();
+  }
+
+  /**
+   * Click on the 'ONE-TIME PURCHASE'
+   *
+   * @return CartPage
+   */
+  public MiniCart clickOneTimePurchaseButton() {
+    logger.info("Selecting One time purchase");
+    oneTimePurchaseButton.click();
+    return this;
+  }
+
+  /**
+   * Click on the 'SUBSCRIBE & GET FREE SHIPPING' button
+   *
+   * @return CartPage
+   */
+  public MiniCart clickSubscribeButton() {
+    logger.info("Selecting SUBSCRIBE & GET FREE SHIPPING");
+    subscribeButton.click();
+    return this;
+  }
+
+  /** @return boolean */
+  public boolean isOneTimePurchaseButtonEnabled() {
+    return oneTimePurchaseButton.isEnabled();
+  }
+
+  /** @return boolean */
+  public boolean isSubscribeButtonEnabled() {
+    return subscribeButton.isEnabled();
   }
 }

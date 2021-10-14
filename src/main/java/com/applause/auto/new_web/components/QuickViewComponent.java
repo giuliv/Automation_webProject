@@ -66,6 +66,7 @@ public class QuickViewComponent extends BaseComponent {
   public MiniCart clickAddToCart() {
     logger.info("Clicking on the 'Add to cart' button");
     addToCartButton.click();
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
     return SdkHelper.create(MiniCart.class);
   }
 

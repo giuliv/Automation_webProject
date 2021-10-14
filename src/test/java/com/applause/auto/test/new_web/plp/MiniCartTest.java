@@ -2,6 +2,7 @@ package com.applause.auto.test.new_web.plp;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.new_web.components.MiniCart;
+import com.applause.auto.new_web.components.QuickViewComponent;
 import com.applause.auto.new_web.components.ShopRunnerComponent;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.test.new_web.BaseTest;
@@ -166,7 +167,11 @@ public class MiniCartTest extends BaseTest {
       groups = {Constants.TestNGGroups.PLP},
       description = "11101734")
   public void recommendedItemsNavigationTest() {
-
+    /**
+     * TODO
+     *
+     * <p>Disabled this test for now as functionality isn't working on Stage
+     */
     logger.info("1. Navigate to product details page");
     ProductDetailsPage productDetailsPage = navigateToPDP();
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
@@ -184,6 +189,91 @@ public class MiniCartTest extends BaseTest {
     miniCart.clickNavigationArrow(Constants.NavigationArrow.PREV);
     Assert.assertEquals(
         originValue, miniCart.getRecommendedItemsVisible(), "Prev arrow does not work correctly");
+
+    logger.info("FINISH");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.PLP},
+      description = "11101735",
+      enabled = false)
+  public void addRemoveRecommendedItemTest() {
+    /**
+     * TODO
+     *
+     * <p>Disabled this test for now as functionality isn't working on Stage
+     */
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP();
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
+
+    logger.info("2. Add item to MiniCart");
+    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
+
+    logger.info("3. Click on View cart.");
+    int firstProduct = 0;
+    String recommendedItemName = miniCart.getRecommendedItemNameByIndex(firstProduct);
+    QuickViewComponent quickViewComponent =
+        miniCart.clickOnRecommendedForYouAddButtonByIndex(firstProduct);
+    Assert.assertNotNull(quickViewComponent, "Failed to open to QuickView popup");
+
+    logger.info("4. Click on Add to cart");
+    miniCart = quickViewComponent.clickAddToCart();
+
+    logger.info("5. Validate Recommended Item is added correctly");
+    Assert.assertEquals(
+        recommendedItemName.toLowerCase(),
+        miniCart.getProductNameByIndex(firstProduct),
+        "Recommended Item was not added correctly");
+
+    logger.info("6. Validate Recommended Item is removed correctly");
+    miniCart.removeItem();
+    Assert.assertNotEquals(
+        recommendedItemName.toLowerCase(),
+        miniCart.getProductNameByIndex(firstProduct),
+        "Recommended Item was not removed correctly");
+
+    logger.info("FINISH");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.PLP},
+      description = "11101737")
+  public void oneTimePurchaseMiniCartTest() {
+
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP();
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
+
+    logger.info("2. Add item to MiniCart");
+    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
+
+    logger.info("3. Select One time purchase > One time purchase should be selected");
+    miniCart.clickOneTimePurchaseButton();
+
+    logger.info("Verify that One time purchase should be selected");
+    Assert.assertTrue(miniCart.isOneTimePurchaseButtonEnabled(), "One time purchase isn't enabled");
+
+    logger.info("FINISH");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.PLP},
+      description = "11101738")
+  public void subscriptionModeMiniCartTest() {
+
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP();
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
+
+    logger.info("2. Add item to MiniCart");
+    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
+
+    logger.info("3. Select Subscribe > Subscribe should be selected.");
+    miniCart.clickSubscribeButton();
+
+    logger.info("Verify that Subscribe should be selected");
+    Assert.assertTrue(miniCart.isSubscribeButtonEnabled(), "Subscribe isn't selected");
 
     logger.info("FINISH");
   }
