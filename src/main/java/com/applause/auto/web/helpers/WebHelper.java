@@ -1,6 +1,7 @@
 package com.applause.auto.web.helpers;
 
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.pageobjectmodel.elements.BaseElement;
 import java.lang.invoke.MethodHandles;
 import java.util.Date;
 import org.apache.logging.log4j.LogManager;
@@ -144,5 +145,25 @@ public class WebHelper {
 
   public static String getDriverConfig() {
     return System.getProperty("driverConfig", "chrome");
+  }
+
+  /**
+   * Cleans the specified string value - removes any unnecessary white-spaces and line breaks.
+   *
+   * @param stringValue
+   * @return cleaned string
+   */
+  public static String cleanString(String stringValue) {
+    return stringValue.trim().replaceAll("\n", "").replaceAll("\r", "").replaceAll("\u00a0", "").replaceAll("\t", "");
+  }
+
+  /**
+   * Check if element is displayed
+   *
+   * @param element
+   * @return boolean
+   */
+  public static boolean isDisplayed(BaseElement element) {
+    return element.exists() && element.isDisplayed();
   }
 }

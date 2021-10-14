@@ -2,14 +2,13 @@ package com.applause.auto.common.data;
 
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.web.helpers.WebHelper;
+import java.lang.invoke.MethodHandles;
+import java.util.Random;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.lang.invoke.MethodHandles;
-import java.util.Random;
 
 public class Constants {
 
@@ -163,6 +162,9 @@ public class Constants {
         "Your birthday drink is on us text does not displayed";
     public static final String BIRTHDAY_MESSAGE_IOS =
         "Intended for users 13+ years old. Plus, get a birthday drink on us!";
+
+    public static final String SUBSCRIBING_MESSAGE =
+        "Thanks for subscribing!Your unique promo code will be sent shortly.";
   }
 
   public static final class TestMainMenu {

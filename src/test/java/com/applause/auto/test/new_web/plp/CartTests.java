@@ -8,6 +8,9 @@ import com.applause.auto.new_web.views.CheckOutPage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.test.new_web.BaseTest;
+import com.applause.auto.web.components.NeverMissAnOfferChunk;
+import com.applause.auto.web.components.OtherPurchasedItemChunk;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
@@ -181,5 +184,92 @@ public class CartTests extends BaseTest {
 
     logger.info("Verify that Subscribe should be selected");
     Assert.assertTrue(cartPage.isSubscribeButtonEnabled(), "Subscribe isn't selected");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.PLP},
+      description = "11101746",
+      enabled = false)
+  public void canAddOthersPurchased() {
+    /**
+     * TODO
+     *
+     * <p>Disabled this test for now as functionality isn't working on Stage
+     */
+    logger.info("1. Navigate to landing page");
+    ProductListPage productListPage = navigateToPLP();
+    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+
+    logger.info("2. Add an item");
+    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(1);
+    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
+
+    logger.info("3. Click on View cart.");
+    CartPage cartPage = miniCart.clickViewCartButton();
+
+    logger.info("4. Click on Add Others purchased");
+    OtherPurchasedItemChunk purchasedItemOnPosition = cartPage.getPurchasedItemOnPosition(1);
+    String purchasedItemName = purchasedItemOnPosition.getName();
+    QuickViewComponent quickViewComponent = purchasedItemOnPosition.clickAddToCartButton();
+
+    logger.info("Verify that product name is correct");
+    Assert.assertEquals(
+        quickViewComponent.getProductName(),
+        purchasedItemName,
+        "Product name in the Quick View is wrong");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.PLP},
+      description = "11101747")
+  public void canSignUpForNeverMissAnOffer() {
+    logger.info("1. Navigate to landing page");
+    ProductListPage productListPage = navigateToPLP();
+    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+
+    logger.info("2. Add an item");
+    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(1);
+    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
+
+    logger.info("3. Click on View cart.");
+    CartPage cartPage = miniCart.clickViewCartButton();
+
+    logger.info("4. Click on type an emain in Never miss an offer.");
+    NeverMissAnOfferChunk neverMissAnOfferChunk = cartPage.getNeverMissAnOfferChunk();
+    String randomEmail = RandomStringUtils.random(10, true, true) + "@gmail.com";
+    neverMissAnOfferChunk = neverMissAnOfferChunk.signUp(randomEmail);
+
+    logger.info("Verify that Successful message is displayed");
+    Assert.assertEquals(
+        neverMissAnOfferChunk.getMessage().replaceAll(" ", ""),
+        Constants.TestData.SUBSCRIBING_MESSAGE.replaceAll(" ", ""),
+        "Successful message didn't appear");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.PLP},
+      description = "11101748")
+  public void canCheckThisIsGift() {
+    logger.info("1. Navigate to landing page");
+    ProductListPage productListPage = navigateToPLP();
+    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+
+    logger.info("2. Add an item");
+    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(1);
+    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
+
+    logger.info("3. Click on View cart.");
+    CartPage cartPage = miniCart.clickViewCartButton();
+
+    logger.info("4. Click on This is a gift > TextBox should display.");
+    cartPage = cartPage.clickOnThisIsGift();
+
+    logger.info("5. Type any message");
+    String message = "Applause Automation message 1";
+    cartPage = cartPage.typePersonalMessage(message);
+
+    logger.info("Verify that message is present inside the field");
+    Assert.assertEquals(
+        cartPage.getAddPersonalMessageFieldText(), message, "Message isn't correct");
   }
 }

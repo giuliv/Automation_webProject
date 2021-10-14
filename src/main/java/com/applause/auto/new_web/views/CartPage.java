@@ -1,5 +1,6 @@
 package com.applause.auto.new_web.views;
 
+import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
@@ -10,12 +11,17 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
+import com.applause.auto.web.components.NeverMissAnOfferChunk;
+import com.applause.auto.web.components.OtherPurchasedItemChunk;
+import com.applause.auto.web.helpers.WebHelper;
 import java.time.Duration;
 import java.util.List;
+import lombok.Getter;
 
 @Implementation(is = CartPage.class, on = Platform.WEB)
-@Implementation(is = CartPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = CartPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
 public class CartPage extends BaseComponent {
 
   @Locate(id = "your-shopping-cart", on = Platform.WEB)
@@ -46,7 +52,7 @@ public class CartPage extends BaseComponent {
   private ContainerElement progressShippingBarElement;
 
   @Locate(id = "bagNoteBtn", on = Platform.WEB)
-  private Button thisIsGiftButton;
+  protected Button thisIsGiftButton;
 
   @Locate(id = "bagSubtotal", on = Platform.WEB)
   private Text subTotalValue;
@@ -68,6 +74,14 @@ public class CartPage extends BaseComponent {
 
   @Locate(css = "og-offer > og-when.og-offer button.og-optin-btn", on = Platform.WEB)
   private Button subscribeButton;
+
+  @Locate(css = "#bagNoteInput", on = Platform.WEB)
+  private TextBox addPersonalMessageField;
+
+  @Locate(xpath = "//*[@id='bagRecommendationsWrapper']//article", on = Platform.WEB)
+  private List<OtherPurchasedItemChunk> listOfOtherPurchased;
+
+  @Getter @Locate public NeverMissAnOfferChunk neverMissAnOfferChunk;
 
   @Override
   public void afterInit() {
@@ -143,6 +157,23 @@ public class CartPage extends BaseComponent {
 
   public boolean thisIsGiftIsDisplayed() {
     return thisIsGiftButton.isDisplayed();
+  }
+
+  /**
+   * Click on 'This is a gift' button
+   *
+   * @return CartPage
+   */
+  public CartPage clickOnThisIsGift() {
+    logger.info("Clicking on 'This is a gift' button");
+    String attribute = thisIsGiftButton.getAttributeValue(Attribute.ARIA_EXPANDED.getValue());
+    thisIsGiftButton.click();
+    SdkHelper.getSyncHelper()
+        .waitUntil(
+            driver ->
+                !attribute.equals(
+                    thisIsGiftButton.getAttributeValue(Attribute.ARIA_EXPANDED.getValue())));
+    return this;
   }
 
   public boolean subTotalIsDisplayed() {
@@ -223,5 +254,59 @@ public class CartPage extends BaseComponent {
   /** @return boolean */
   public boolean isSubscribeButtonEnabled() {
     return subscribeButton.isEnabled();
+  }
+
+  /** @return boolean */
+  public boolean isAddPersonalMessageFieldDisplayed() {
+    return WebHelper.isDisplayed(addPersonalMessageField);
+  }
+
+  /** @return String */
+  public String getAddPersonalMessageFieldText() {
+    String message = addPersonalMessageField.getCurrentText();
+    logger.info("Text from 'Add Personal Message' field - [{}]", message);
+    return message;
+  }
+
+  /**
+   * Type Personal Message
+   *
+   * @param message
+   * @return CartPage
+   */
+  public CartPage typePersonalMessage(String message) {
+    logger.info("Typing [{}] into the 'Add Personal Message' field");
+    addPersonalMessageField.clearText();
+    addPersonalMessageField.sendKeys(message);
+    return this;
+  }
+
+  /**
+   * @param position
+   * @return OtherPurchasedItemChunk
+   */
+  public OtherPurchasedItemChunk getPurchasedItemOnPosition(int position) {
+    ((LazyList<?>) listOfOtherPurchased).initialize();
+    return listOfOtherPurchased.get(position - 1);
+  }
+}
+
+class CartPageMobile extends CartPage {
+
+  @Override
+  public CartPage clickOnThisIsGift() {
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      logger.info("Clicking on 'This is a gift' button");
+      String attribute = thisIsGiftButton.getAttributeValue(Attribute.ARIA_EXPANDED.getValue());
+      SdkHelper.getBrowserControl().jsClick(thisIsGiftButton);
+      SdkHelper.getSyncHelper()
+          .waitUntil(
+              driver ->
+                  !attribute.equals(
+                      thisIsGiftButton.getAttributeValue(Attribute.ARIA_EXPANDED.getValue())));
+      return this;
+    } else {
+      return super.clickOnThisIsGift();
+    }
   }
 }

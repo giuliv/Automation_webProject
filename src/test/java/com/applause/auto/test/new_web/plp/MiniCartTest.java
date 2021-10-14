@@ -2,7 +2,6 @@ package com.applause.auto.test.new_web.plp;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.new_web.components.MiniCart;
-import com.applause.auto.new_web.components.QuickViewComponent;
 import com.applause.auto.new_web.components.ShopRunnerComponent;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.test.new_web.BaseTest;
