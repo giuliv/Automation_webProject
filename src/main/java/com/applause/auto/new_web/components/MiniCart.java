@@ -202,11 +202,14 @@ public class MiniCart extends BaseComponent {
   }
 
   public CheckOutPage clickContinueToCheckOut() {
+    return clickOnContinueToCheckOutButton(CheckOutPage.class);
+  }
+
+  public <T extends BaseComponent> T clickOnContinueToCheckOutButton(Class<T> clazz) {
     logger.info("Clicking CheckOut");
     SdkHelper.getSyncHelper().wait(Until.uiElement(checkOutButton).visible());
     checkOutButton.click();
-
-    return SdkHelper.create(CheckOutPage.class);
+    return SdkHelper.create(clazz);
   }
 
   public <V extends BaseComponent> V closeMiniCart(Class<V> expectedClass) {

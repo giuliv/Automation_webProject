@@ -154,7 +154,12 @@ public class WebHelper {
    * @return cleaned string
    */
   public static String cleanString(String stringValue) {
-    return stringValue.trim().replaceAll("\n", "").replaceAll("\r", "").replaceAll("\u00a0", "").replaceAll("\t", "");
+    return stringValue
+        .trim()
+        .replaceAll("\n", "")
+        .replaceAll("\r", "")
+        .replaceAll("\u00a0", "")
+        .replaceAll("\t", "");
   }
 
   /**

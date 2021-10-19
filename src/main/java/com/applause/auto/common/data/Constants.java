@@ -3,6 +3,8 @@ package com.applause.auto.common.data;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,6 +35,7 @@ public class Constants {
     public static final String EXISTING_USER_CHECKOUT = "existing-user-checkout";
     public static final String SUBSCRIPTIONS = "subscriptions";
     public static final String ACCOUNT_SETTINGS = "account-settings";
+    public static final String STANDARD = "standard";
 
     // Mobile
     public static final String ONBOARDING = "onboarding";
@@ -165,6 +168,16 @@ public class Constants {
 
     public static final String SUBSCRIBING_MESSAGE =
         "Thanks for subscribing!Your unique promo code will be sent shortly.";
+
+    public static final List<String> CHECKOUT_PAGE_VALIDATION_ERRORS =
+        Arrays.asList(
+            "Enter a valid email",
+            "Enter a first name",
+            "Enter a last name",
+            "Enter an address",
+            "Enter a city",
+            "Enter a ZIP / postal code",
+            "Enter a valid phone number");
   }
 
   public static final class TestMainMenu {

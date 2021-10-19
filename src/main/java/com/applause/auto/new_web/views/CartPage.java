@@ -289,6 +289,15 @@ public class CartPage extends BaseComponent {
     ((LazyList<?>) listOfOtherPurchased).initialize();
     return listOfOtherPurchased.get(position - 1);
   }
+
+  /**
+   * Check if Cart page is displayed
+   *
+   * @return boolean
+   */
+  public boolean isDisplayed() {
+    return WebHelper.isDisplayed(mainContainer) && WebHelper.isDisplayed(checkOutButton);
+  }
 }
 
 class CartPageMobile extends CartPage {

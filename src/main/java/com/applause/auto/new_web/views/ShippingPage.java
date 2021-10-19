@@ -23,6 +23,9 @@ public class ShippingPage extends Base {
   @Locate(id = "continue_button", on = Platform.WEB)
   private Button continueToPaymentButton;
 
+  @Locate(xpath = "//a[contains(@class, 'previous')]", on = Platform.WEB)
+  private Button returnToInformationButton;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
@@ -49,5 +52,20 @@ public class ShippingPage extends Base {
 
     continueToPaymentButton.click();
     return SdkHelper.create(PaymentsPage.class);
+  }
+
+  public boolean isDisplayed() {
+    return com.applause.auto.web.helpers.WebHelper.isDisplayed(mainContainer);
+  }
+
+  /**
+   * Click on 'Return to information'
+   *
+   * @return CheckoutPage
+   */
+  public CheckOutPage clickOnReturnToInformation() {
+    logger.info("Clicking on 'Return to information'");
+    returnToInformationButton.click();
+    return SdkHelper.create(CheckOutPage.class);
   }
 }

@@ -7,12 +7,17 @@ import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Checkbox;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.LazyList;
 import java.time.Duration;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Implementation(is = CheckOutPage.class, on = Platform.WEB)
 @Implementation(is = CheckOutPage.class, on = Platform.WEB_MOBILE_PHONE)
@@ -49,7 +54,7 @@ public class CheckOutPage extends Base {
   private TextBox zip;
 
   @Locate(id = "continue_button", on = Platform.WEB)
-  private Button continueToShipping;
+  protected Button continueToShipping;
 
   @Locate(css = "p[class*='logged-in']", on = Platform.WEB)
   private Text existingUser;
@@ -59,6 +64,24 @@ public class CheckOutPage extends Base {
 
   @Locate(id = "btn-proceed-address", on = Platform.WEB)
   private Button proceedButton;
+
+  @Locate(xpath = "//p[contains(@id, 'error-for')]", on = Platform.WEB)
+  private List<Text> errorMessagesList;
+
+  @Locate(xpath = "//a[contains(@class, 'previous')]", on = Platform.WEB)
+  protected Button returnToCartButton;
+
+  @Locate(id = "checkout_reduction_code", on = Platform.WEB)
+  private TextBox discountCodeField;
+
+  @Locate(xpath = "//button[contains(@class, 'field')]", on = Platform.WEB)
+  private Button applyCodeButton;
+
+  @Locate(id = "error-for-reduction_code", on = Platform.WEB)
+  private Text discountCodeError;
+
+  @Locate(xpath = "//label[@for='checkout_remember_me']", on = Platform.WEB)
+  private Checkbox saveThisInformationForNextTime;
 
   @Override
   public void afterInit() {
@@ -150,5 +173,74 @@ public class CheckOutPage extends Base {
     }
 
     return SdkHelper.create(ShippingPage.class);
+  }
+
+  public <T extends BaseComponent> T clickOnContinueButton(Class<T> clazz) {
+    logger.info("Clicking on 'Continue' button");
+    continueToShipping.click();
+    return SdkHelper.create(clazz);
+  }
+
+  /** @return List<String> */
+  public List<String> getListOfErrorMessages() {
+    ((LazyList<?>) errorMessagesList).initialize();
+    return errorMessagesList
+        .stream()
+        .map(error -> com.applause.auto.web.helpers.WebHelper.cleanString(error.getText()))
+        .collect(Collectors.toList());
+  }
+
+  /**
+   * Click on 'Return to cart' button
+   *
+   * @return CartPage
+   */
+  public CartPage clickOnReturnToCartButton() {
+    logger.info("Clicking on 'Return to cart' button");
+    returnToCartButton.click();
+    return SdkHelper.create(CartPage.class);
+  }
+
+  /**
+   * Apply Discount Code
+   *
+   * @param code
+   * @return CheckOutPage
+   */
+  public CheckOutPage applyDiscountCode(String code) {
+    logger.info("Typing [{}] Discount Code");
+    discountCodeField.clearText();
+    discountCodeField.sendKeys(code);
+
+    logger.info("Clicking on 'Apply' button");
+    applyCodeButton.click();
+    return SdkHelper.create(CheckOutPage.class);
+  }
+
+  /**
+   * Get Discount Code Error
+   *
+   * @return String
+   */
+  public String getDiscountCodeError() {
+    String error = com.applause.auto.web.helpers.WebHelper.cleanString(discountCodeError.getText());
+    logger.info("Discount Code Error - [{}]", error);
+    return error;
+  }
+
+  /**
+   * Click on 'Save This Information For The Next Time'
+   *
+   * @return CheckOutPage
+   */
+  public CheckOutPage clickOnSaveThisInformationForTheNextTime() {
+    logger.info("Clicking on 'Save this information for next time' checkbox");
+    saveThisInformationForNextTime.click();
+    return SdkHelper.create(CheckOutPage.class);
+  }
+
+  /** @return boolean */
+  public boolean isDisplayed() {
+    return com.applause.auto.web.helpers.WebHelper.isDisplayed(mainContainer);
   }
 }
