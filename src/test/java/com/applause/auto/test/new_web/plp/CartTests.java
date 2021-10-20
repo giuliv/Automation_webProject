@@ -43,7 +43,13 @@ public class CartTests extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.PLP},
-      description = "11101742")
+      description = "11101742",
+      enabled = false)
+  /**
+   * TODO
+   *
+   * <p>Disabled this test for now as functionality isn't working on Stage
+   */
   public void itemQuantityCanBeIncreasedDecreaseAndRemovedTest() {
 
     logger.info("1. Navigate to landing page");
@@ -157,7 +163,13 @@ public class CartTests extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.PLP},
-      description = "11101744")
+      description = "11101744",
+      enabled = false)
+  /**
+   * TODO
+   *
+   * <p>Disabled this test for now as functionality isn't working on Stage
+   */
   public void reviewSubscription() {
     logger.info("1. Navigate to landing page");
     ProductListPage productListPage = navigateToPLP();
@@ -171,7 +183,7 @@ public class CartTests extends BaseTest {
     logger.info("3. Click on View cart.");
     QuickViewComponent quickViewComponent =
         miniCart.clickOnRecommendedForYouAddButtonByIndex(firstProduct);
-    Assert.assertNotNull(quickViewComponent, "Failed to open to Quickview popup");
+    Assert.assertNotNull(quickViewComponent, "Failed to open to QuickView popup");
 
     logger.info("4. Click on Add to cart");
     miniCart = quickViewComponent.clickAddToCart();

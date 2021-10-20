@@ -165,7 +165,8 @@ public class MiniCartTest extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.PLP},
-      description = "11101734")
+      description = "11101734",
+      enabled = false)
   public void recommendedItemsNavigationTest() {
     /**
      * TODO
