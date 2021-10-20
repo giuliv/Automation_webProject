@@ -10,6 +10,8 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import io.qameta.allure.Step;
+
 import java.time.Duration;
 import java.util.List;
 
@@ -67,6 +69,7 @@ public class ProductDetailsPage extends Base {
 
   /* -------- Actions -------- */
 
+  @Step("Get product name")
   public String getProductName() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(productName).visible());
     logger.info("[PDP] Product Name: " + productName.getText().toLowerCase().trim());
@@ -74,11 +77,13 @@ public class ProductDetailsPage extends Base {
     return productName.getText().toLowerCase().trim();
   }
 
+  @Step("Get item is available")
   public boolean isItemAvailable() {
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
     return outOfStockNotifyMeSection.isDisplayed();
   }
 
+  @Step("Get grind selected")
   public String getGrindSelected() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(grindSelected).visible());
     logger.info("[PDP] Grind Selected: " + grindSelected.getText().toLowerCase().trim());
@@ -101,6 +106,7 @@ public class ProductDetailsPage extends Base {
     return grindSelected.getText().toLowerCase().trim();
   }
 
+  @Step("Get product price")
   public String getProductPrice() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(itemPrice).visible());
     logger.info("[PDP] Product price: " + itemPrice.getText().trim());
@@ -108,6 +114,7 @@ public class ProductDetailsPage extends Base {
     return itemPrice.getText().trim();
   }
 
+  @Step("Get product quantity")
   public int getProductQuantitySelected() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(productQuantity).visible());
 
@@ -122,6 +129,7 @@ public class ProductDetailsPage extends Base {
     return Integer.parseInt(quantity);
   }
 
+  @Step("Get product quantity from box")
   public int getProductQuantityFromBox() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(productQuantityBox).visible());
 
@@ -129,12 +137,14 @@ public class ProductDetailsPage extends Base {
     return Integer.parseInt(productQuantityBox.getText());
   }
 
+  @Step("Select subscribe")
   public void selectSubscribeType() {
     logger.info("Selecting Subscribe Order");
     SdkHelper.getSyncHelper().wait(Until.uiElement(subscribeType).visible());
     subscribeType.click();
   }
 
+  @Step("Click Add to minicart")
   public MiniCart clickAddToMiniCart() {
     logger.info("Adding to MiniCart");
     SdkHelper.getSyncHelper().wait(Until.uiElement(addToCartButton).clickable());
@@ -147,6 +157,7 @@ public class ProductDetailsPage extends Base {
     return SdkHelper.create(MiniCart.class);
   }
 
+  @Step("Click Add to cart")
   public CartPage clickAddToCartPage() {
     logger.info("Adding to Cart");
     SdkHelper.getSyncHelper().wait(Until.uiElement(addToCartButton).clickable());
@@ -159,6 +170,7 @@ public class ProductDetailsPage extends Base {
     return SdkHelper.create(CartPage.class);
   }
 
+  @Step("Click Add more products")
   public void addMoreProducts(int totalProducts) {
     logger.info("[PDP] Total products: " + totalProducts);
 

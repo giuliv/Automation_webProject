@@ -1,4 +1,4 @@
-package com.applause.auto.reportportal;
+package com.applause.auto.listeners.reportportal;
 
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 

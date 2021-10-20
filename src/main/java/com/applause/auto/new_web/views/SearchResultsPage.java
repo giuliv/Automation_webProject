@@ -8,6 +8,8 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
+import io.qameta.allure.Step;
+
 import java.util.List;
 
 @Implementation(is = SearchResultsPage.class, on = Platform.WEB)
@@ -26,6 +28,7 @@ public class SearchResultsPage extends Base {
     logger.info("Search Results List Page URL: " + getDriver().getCurrentUrl());
   }
 
+  @Step("Click on product")
   public ProductDetailsPage clickOverProductByIndex(int index) {
     logger.info("Click over product with index: " + index);
     WebHelper.scrollToElement(productsImageList.get(index));

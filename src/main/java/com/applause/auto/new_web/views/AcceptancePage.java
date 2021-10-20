@@ -10,6 +10,8 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.web.helpers.WebHelper;
+import io.qameta.allure.Step;
+
 import java.time.Duration;
 import java.util.List;
 
@@ -101,21 +103,25 @@ public class AcceptancePage extends Base {
     }
   }
 
+  @Step("Get order number")
   public boolean isOrderNumberDisplayed() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(orderNumber).visible());
     return orderNumber.isDisplayed();
   }
 
+  @Step("Get subtotal")
   public boolean isSubTotalDisplayed() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(subTotal).visible());
     return subTotal.isDisplayed();
   }
 
+  @Step("Get map")
   public boolean isMapDisplayed() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mapSection).visible());
     return mapSection.isDisplayed();
   }
 
+  @Step("Get discount")
   public String getDiscountText() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(discount).visible());
     logger.info("Discount text: " + discount.getText().trim());
@@ -123,6 +129,7 @@ public class AcceptancePage extends Base {
     return discount.getText().trim();
   }
 
+  @Step("Get shipping price")
   public String getShippingPrice() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(shippingPrice).visible());
     logger.info("Shipping price: " + shippingPrice.getText().trim());
@@ -130,6 +137,7 @@ public class AcceptancePage extends Base {
     return shippingPrice.getText().trim();
   }
 
+  @Step("Get Continue shopping")
   public boolean isContinueShoppingDisplayed() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(continueShoppingButton).present());
     WebHelper.scrollToElement(continueShoppingButton.getWebElement());
@@ -138,6 +146,7 @@ public class AcceptancePage extends Base {
     return continueShoppingButton.isDisplayed();
   }
 
+  @Step("Get order name")
   public String getOrderNameByIndex(int index) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(productName.get(index)).visible());
     logger.info("Product Name: " + productName.get(index).getText().toLowerCase());
@@ -145,6 +154,7 @@ public class AcceptancePage extends Base {
     return productName.get(index).getText().toLowerCase();
   }
 
+  @Step("Get total price")
   public String getTotalPrice() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(total).visible());
     logger.info("Total Price: " + total.getText());
@@ -152,6 +162,7 @@ public class AcceptancePage extends Base {
     return total.getText();
   }
 
+  @Step("Get phone number from track package")
   public String getPhoneFromTrackPackageSection() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(trackPackagePhone).visible());
     logger.info("Phone from Track Package Section: " + trackPackagePhone.getCurrentText());
@@ -159,13 +170,14 @@ public class AcceptancePage extends Base {
     return trackPackagePhone.getCurrentText();
   }
 
+  @Step("Get phone number from shipping update")
   public String getPhoneFromShippingUpdatesSection() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(shippingUpdatesPhone).visible());
     logger.info("Phone from Shipping Updates Section: " + shippingUpdatesPhone.getCurrentText());
 
     return shippingUpdatesPhone.getCurrentText();
   }
-
+  @Step("Get customer mail")
   public String getCustomerMail() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(customerMail).visible());
     logger.info("Customer Mail: " + customerMail.getText());
@@ -173,6 +185,7 @@ public class AcceptancePage extends Base {
     return customerMail.getText();
   }
 
+  @Step("Get shipping address")
   public String getShippingAddressData() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(shippingAddress).visible());
     logger.info("Shipping Address: " + shippingAddress.getText());
@@ -180,6 +193,7 @@ public class AcceptancePage extends Base {
     return shippingAddress.getText();
   }
 
+  @Step("Get shipping method")
   public String getShippingMethod() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(shippingMethod).visible());
     logger.info("Shipping Method: " + shippingMethod.getText());
@@ -187,6 +201,7 @@ public class AcceptancePage extends Base {
     return shippingMethod.getText();
   }
 
+  @Step("Get payment method")
   public String getPaymentMethod() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(paymentMethod).visible());
     logger.info("Payment Method: " + paymentMethod.getText());
@@ -194,6 +209,7 @@ public class AcceptancePage extends Base {
     return paymentMethod.getText();
   }
 
+  @Step("Get billing address")
   public String getBillingAddressData() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(billingAddress).visible());
     logger.info("Billing Address: " + billingAddress.getText());
@@ -201,6 +217,7 @@ public class AcceptancePage extends Base {
     return billingAddress.getText();
   }
 
+  @Step("Click track package")
   public void clickOverTrackPackageButton() {
     logger.info("Clicking track package button... ");
     WebHelper.scrollToElement(trackPackageButton.getWebElement());
@@ -209,6 +226,7 @@ public class AcceptancePage extends Base {
     trackPackageButton.click();
   }
 
+  @Step("Get discount message")
   public String getDiscountMessage() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(discountsMessage).present());
     logger.info("Discount message: " + discountsMessage.getText());
@@ -216,6 +234,7 @@ public class AcceptancePage extends Base {
     return discountsMessage.getText();
   }
 
+  @Step("Get discount message from index")
   public String getDiscountMessageByIndex(int index) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(discountsMessageList.get(index)).visible());
     logger.info("[Acceptance Page] Discount Message: " + discountsMessageList.get(index).getText());
@@ -223,10 +242,12 @@ public class AcceptancePage extends Base {
     return discountsMessageList.get(index).getText();
   }
 
+  @Step("Get discount")
   public boolean isDiscountPresent() {
     return discountsMessage.exists();
   }
 
+  @Step("Click shipping updates")
   public void clickOverShippingUpdatesButton() {
     logger.info("Clicking shipping updated button... ");
     WebHelper.scrollToElement(shippingUpdates.getWebElement()); // Wait for scroll

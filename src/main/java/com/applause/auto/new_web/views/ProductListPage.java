@@ -15,6 +15,8 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.google.common.collect.Ordering;
 import java.util.ArrayList;
 import java.util.List;
+
+import io.qameta.allure.Step;
 import org.testng.Assert;
 
 @Implementation(is = ProductListPage.class, on = Platform.WEB)
@@ -89,6 +91,7 @@ public class ProductListPage extends Base {
 
   /* -------- Actions -------- */
 
+  @Step("Select product")
   public ProductDetailsPage clickOverProductByIndex(int index) {
     logger.info("Click over product with index: " + index);
     WebHelper.scrollToElement(productsImageList.get(index));
@@ -108,6 +111,7 @@ public class ProductListPage extends Base {
     return SdkHelper.create(ProductDetailsPage.class);
   }
 
+  @Step("Reserve product")
   public ProductDetailsPage clickOverReserveProductByIndex(int index) {
     logger.info("Click over reserve product with index: " + index);
     WebHelper.scrollToElement(reserveProductsImageList.get(index));
@@ -127,6 +131,7 @@ public class ProductListPage extends Base {
     return SdkHelper.create(ProductDetailsPage.class);
   }
 
+  @Step("Click on filter")
   public String applyFilterByIndex(int filter, int option) {
     logger.info("Clicking on filter: " + filter + " " + filtersList.get(filter).getText().trim());
     filtersList.get(filter).click();
@@ -139,6 +144,7 @@ public class ProductListPage extends Base {
     return filterOptions.get(option).getText().trim();
   }
 
+  @Step("Apply filter")
   public String getFilterAppliedPillByIndex(int index) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(removeFilterList.get(index)).visible());
     logger.info("Filter applied: " + index + " " + removeFilterList.get(index).getText());
@@ -147,6 +153,7 @@ public class ProductListPage extends Base {
     return removeFilterList.get(index).getText();
   }
 
+  @Step("Get filter pill")
   public boolean isFilterPillDisplayed() {
     return removeFilter.exists();
   }
@@ -158,6 +165,7 @@ public class ProductListPage extends Base {
     return total;
   }
 
+  @Step("Clear all filters")
   public ProductListPage clearAllFilters() {
     logger.info("Click Clear All Filters");
     clearAllFilters.click();
@@ -166,6 +174,7 @@ public class ProductListPage extends Base {
     return SdkHelper.create(ProductListPage.class);
   }
 
+  @Step("Remove filters")
   public ProductListPage removeFilters() {
     logger.info("Click filter pill");
     removeFilter.click();
@@ -174,6 +183,7 @@ public class ProductListPage extends Base {
     return SdkHelper.create(ProductListPage.class);
   }
 
+  @Step("Click quick view")
   public QuickViewComponent clickOverFirstQuickViewButton() {
     WebHelper.scrollToElement(quickViewButtonList.get(0));
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
@@ -187,6 +197,7 @@ public class ProductListPage extends Base {
     return SdkHelper.create(QuickViewComponent.class);
   }
 
+  @Step("Select sorting by type")
   public ProductListPage selectSortingByType(Constants.SortType type) {
     logger.info("Click over sorting box");
     WebHelper.scrollToElement(sortingBox);
@@ -202,6 +213,7 @@ public class ProductListPage extends Base {
     return SdkHelper.create(ProductListPage.class);
   }
 
+  @Step("Get sorting prices")
   public boolean validateSortingPrices(Constants.SortType sortType) {
     logger.info("Validating sorting...");
     boolean sortedPrices;
@@ -216,6 +228,7 @@ public class ProductListPage extends Base {
     return sortedPrices;
   }
 
+  @Step("Get product prices")
   public List<Double> getProductListPrices() {
     List<Double> prices = new ArrayList<>();
     logger.info("Getting product prices");

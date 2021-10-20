@@ -15,6 +15,8 @@ import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
+import io.qameta.allure.Step;
+
 import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -92,6 +94,7 @@ public class CheckOutPage extends Base {
 
   /* -------- Actions -------- */
 
+  @Step("Set checkout data")
   public void setCheckOutData() {
     logger.info("Setting CheckOut data...");
     SdkHelper.getSyncHelper().wait(Until.uiElement(mail).visible());
@@ -124,6 +127,7 @@ public class CheckOutPage extends Base {
     SdkHelper.getSyncHelper().sleep(500); // Wait for action
   }
 
+  @Step("Set checkout data as existing user")
   public void setCheckOutDataAsExistingUser() {
     logger.info("Setting CheckOut data...");
     SdkHelper.getSyncHelper().wait(Until.uiElement(address).visible());
@@ -156,6 +160,7 @@ public class CheckOutPage extends Base {
     }
   }
 
+  @Step("Review existing user mail")
   public String isExistingUserMailCorrect() {
     logger.info("Reviewing existing user...");
     SdkHelper.getSyncHelper().wait(Until.uiElement(existingUser).visible());
@@ -163,6 +168,7 @@ public class CheckOutPage extends Base {
     return existingUser.getText();
   }
 
+  @Step("Click continue to shipping")
   public ShippingPage clickContinueToShipping() {
     logger.info("Clicking Continue to Shipping");
     SdkHelper.getSyncHelper().wait(Until.uiElement(continueToShipping).visible());
@@ -175,6 +181,7 @@ public class CheckOutPage extends Base {
     return SdkHelper.create(ShippingPage.class);
   }
 
+  @Step("Click continue button")
   public <T extends BaseComponent> T clickOnContinueButton(Class<T> clazz) {
     logger.info("Clicking on 'Continue' button");
     continueToShipping.click();
@@ -182,6 +189,8 @@ public class CheckOutPage extends Base {
   }
 
   /** @return List<String> */
+
+  @Step("Get list of error messages")
   public List<String> getListOfErrorMessages() {
     ((LazyList<?>) errorMessagesList).initialize();
     return errorMessagesList
@@ -195,6 +204,8 @@ public class CheckOutPage extends Base {
    *
    * @return CartPage
    */
+
+  @Step("Click return to cart button")
   public CartPage clickOnReturnToCartButton() {
     logger.info("Clicking on 'Return to cart' button");
     returnToCartButton.click();
@@ -207,6 +218,8 @@ public class CheckOutPage extends Base {
    * @param code
    * @return CheckOutPage
    */
+
+  @Step("Apply discount code")
   public CheckOutPage applyDiscountCode(String code) {
     logger.info("Typing [{}] Discount Code");
     discountCodeField.clearText();
@@ -222,6 +235,8 @@ public class CheckOutPage extends Base {
    *
    * @return String
    */
+
+  @Step("Get discount code error")
   public String getDiscountCodeError() {
     String error = com.applause.auto.web.helpers.WebHelper.cleanString(discountCodeError.getText());
     logger.info("Discount Code Error - [{}]", error);
@@ -233,12 +248,15 @@ public class CheckOutPage extends Base {
    *
    * @return CheckOutPage
    */
+
+  @Step("Click on Save this information for next time")
   public CheckOutPage clickOnSaveThisInformationForTheNextTime() {
     logger.info("Clicking on 'Save this information for next time' checkbox");
     saveThisInformationForNextTime.click();
     return SdkHelper.create(CheckOutPage.class);
   }
 
+  @Step("Get container")
   /** @return boolean */
   public boolean isDisplayed() {
     return com.applause.auto.web.helpers.WebHelper.isDisplayed(mainContainer);

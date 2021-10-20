@@ -9,6 +9,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+import io.qameta.allure.Step;
 
 @Implementation(is = CreateAccountPage.class, on = Platform.WEB)
 public class CreateAccountPage extends Base {
@@ -39,6 +40,7 @@ public class CreateAccountPage extends Base {
     SdkHelper.getSyncHelper().wait(Until.uiElement(signature).present());
   }
 
+  @Step("Create account")
   public MyAccountPage createAccount(
       String firstName, String lastName, String email, String password, String confirmPassword) {
 

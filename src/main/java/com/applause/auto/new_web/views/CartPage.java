@@ -18,6 +18,8 @@ import com.applause.auto.web.components.OtherPurchasedItemChunk;
 import com.applause.auto.web.helpers.WebHelper;
 import java.time.Duration;
 import java.util.List;
+
+import io.qameta.allure.Step;
 import lombok.Getter;
 
 @Implementation(is = CartPage.class, on = Platform.WEB)
@@ -90,6 +92,7 @@ public class CartPage extends BaseComponent {
 
   /* -------- Actions -------- */
 
+  @Step("Get product name")
   public String getProductNameByIndex(int index) {
     SdkHelper.getSyncHelper()
         .wait(
@@ -102,6 +105,7 @@ public class CartPage extends BaseComponent {
     return productName.get(index - 1).getText().toLowerCase().trim();
   }
 
+  @Step("Get grind selected")
   public String getGrindSelectedByIndex(int index) {
     logger.info("Grind Size elements: " + grindSelected.size());
     SdkHelper.getSyncHelper().wait(Until.uiElement(grindSelected.get(index - 1)).visible());
@@ -111,6 +115,7 @@ public class CartPage extends BaseComponent {
     return grindSelected.get(index - 1).getText().toLowerCase().trim();
   }
 
+  @Step("Get product quantity")
   public int getProductQuantityByIndex(int index) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(productQuantity.get(index - 1)).present());
     logger.info(
@@ -119,6 +124,7 @@ public class CartPage extends BaseComponent {
     return Integer.parseInt(productQuantity.get(index - 1).getAttributeValue("value"));
   }
 
+  @Step("Click continue to checkout")
   public CheckOutPage clickContinueToCheckOut() {
     logger.info("Clicking CheckOut");
     SdkHelper.getSyncHelper().wait(Until.uiElement(checkOutButton).visible());
@@ -127,12 +133,14 @@ public class CartPage extends BaseComponent {
     return SdkHelper.create(CheckOutPage.class);
   }
 
+  @Step("Get product price")
   public String getProductPriceByIndex(int index) {
     logger.info("Product Size elements: " + productPrice.size());
     SdkHelper.getSyncHelper().waitUntil(driver -> !getProductPrice(index).isEmpty());
     return getProductPrice(index);
   }
 
+  @Step("Get product price")
   private String getProductPrice(int index) {
     ((LazyList<?>) productPrice).initialize();
     SdkHelper.getSyncHelper().wait(Until.uiElement(productPrice.get(index - 1)).visible());
@@ -141,6 +149,7 @@ public class CartPage extends BaseComponent {
     return price;
   }
 
+  @Step("Get product image")
   public boolean productImageIsDisplayed(int index) {
     logger.info("Checking product image by index [{}] is displayed", index);
     if (productImage.size() < index) {
@@ -151,10 +160,12 @@ public class CartPage extends BaseComponent {
     return productImage.get(index - 1).isDisplayed();
   }
 
+  @Step("Get progress shipping bar")
   public boolean progressShippingBarIsDisplayed() {
     return progressShippingBarElement.isDisplayed();
   }
 
+  @Step("Get This is gift")
   public boolean thisIsGiftIsDisplayed() {
     return thisIsGiftButton.isDisplayed();
   }
@@ -164,6 +175,8 @@ public class CartPage extends BaseComponent {
    *
    * @return CartPage
    */
+
+  @Step("Click This is gift")
   public CartPage clickOnThisIsGift() {
     logger.info("Clicking on 'This is a gift' button");
     String attribute = thisIsGiftButton.getAttributeValue(Attribute.ARIA_EXPANDED.getValue());
@@ -176,18 +189,22 @@ public class CartPage extends BaseComponent {
     return this;
   }
 
+  @Step("Get subtotal")
   public boolean subTotalIsDisplayed() {
     return subTotalValue.isDisplayed();
   }
 
+  @Step("Get estimated ship date")
   public boolean estimatedShipDateIsDisplayed() {
     return estimatedShipDate.isDisplayed();
   }
 
+  @Step("Get checkout")
   public boolean checkOutButtonIsDisplayed() {
     return checkOutButton.isDisplayed();
   }
 
+  @Step("Get other purchased")
   public boolean otherPurchasedIsDisplayed() {
     return otherPurchasedContainer.exists();
   }
@@ -198,6 +215,8 @@ public class CartPage extends BaseComponent {
    * @param index
    * @return CartPage
    */
+
+  @Step("Increase quantity")
   public CartPage increaseQuantity(int index) {
     logger.info("Clicking on the (+) Quantity button by product index - [{}]", index);
     if (increaseQuantityButton.size() < index) {
@@ -214,6 +233,8 @@ public class CartPage extends BaseComponent {
    * @param index
    * @return CartPage
    */
+
+  @Step("Decrease quantity")
   public CartPage decreaseQuantity(int index) {
     logger.info("Clicking on the (-) Quantity button by product index - [{}]", index);
     if (decreaseQuantityButton.size() < index) {
@@ -229,6 +250,8 @@ public class CartPage extends BaseComponent {
    *
    * @return CartPage
    */
+
+  @Step("Click one time purchase")
   public CartPage clickOneTimePurchaseButton() {
     logger.info("Selecting One time purchase");
     oneTimePurchaseButton.click();
@@ -240,6 +263,8 @@ public class CartPage extends BaseComponent {
    *
    * @return CartPage
    */
+
+  @Step("Click subscribe")
   public CartPage clickSubscribeButton() {
     logger.info("Selecting SUBSCRIBE & GET FREE SHIPPING");
     subscribeButton.click();
@@ -247,21 +272,25 @@ public class CartPage extends BaseComponent {
   }
 
   /** @return boolean */
+  @Step("Get one time purchase button")
   public boolean isOneTimePurchaseButtonEnabled() {
     return oneTimePurchaseButton.isEnabled();
   }
 
   /** @return boolean */
+  @Step("Get subscribe button")
   public boolean isSubscribeButtonEnabled() {
     return subscribeButton.isEnabled();
   }
 
   /** @return boolean */
+  @Step("Get Add personal message field")
   public boolean isAddPersonalMessageFieldDisplayed() {
     return WebHelper.isDisplayed(addPersonalMessageField);
   }
 
   /** @return String */
+  @Step("Get Add personal message")
   public String getAddPersonalMessageFieldText() {
     String message = addPersonalMessageField.getCurrentText();
     logger.info("Text from 'Add Personal Message' field - [{}]", message);
@@ -274,6 +303,8 @@ public class CartPage extends BaseComponent {
    * @param message
    * @return CartPage
    */
+
+  @Step("Type personal message")
   public CartPage typePersonalMessage(String message) {
     logger.info("Typing [{}] into the 'Add Personal Message' field");
     addPersonalMessageField.clearText();
@@ -285,6 +316,8 @@ public class CartPage extends BaseComponent {
    * @param position
    * @return OtherPurchasedItemChunk
    */
+
+  @Step("Get list of other purchased")
   public OtherPurchasedItemChunk getPurchasedItemOnPosition(int position) {
     ((LazyList<?>) listOfOtherPurchased).initialize();
     return listOfOtherPurchased.get(position - 1);
@@ -295,6 +328,8 @@ public class CartPage extends BaseComponent {
    *
    * @return boolean
    */
+
+  @Step("Get checkout button")
   public boolean isDisplayed() {
     return WebHelper.isDisplayed(mainContainer) && WebHelper.isDisplayed(checkOutButton);
   }

@@ -8,6 +8,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+import io.qameta.allure.Step;
 
 @Implementation(is = SignInPage.class, on = Platform.WEB)
 public class SignInPage extends BaseComponent {
@@ -33,6 +34,7 @@ public class SignInPage extends BaseComponent {
    *
    * @param text
    */
+  @Step("Enter email")
   public void enterEmail(String text) {
     logger.info("Enter email : " + text);
     SdkHelper.getSyncHelper().wait(Until.uiElement(getEmailTextBox).visible());
@@ -45,6 +47,8 @@ public class SignInPage extends BaseComponent {
    *
    * @param text
    */
+
+  @Step("Enter password")
   public void enterPassword(String text) {
     logger.info("Enter Password : " + text);
     getPasswordTextBox.sendKeys(text);
@@ -56,6 +60,8 @@ public class SignInPage extends BaseComponent {
    *
    * @return My Account page
    */
+
+  @Step("Click Sign in button")
   public MyAccountPage clickOnSignInButton() {
     logger.info("Click on sign in button");
     SdkHelper.getSyncHelper().wait(Until.uiElement(getSignInButton).clickable());
@@ -65,6 +71,7 @@ public class SignInPage extends BaseComponent {
     return SdkHelper.create(MyAccountPage.class);
   }
 
+  @Step("Click Create account button")
   public CreateAccountPage clickOnCreateAccountButton() {
     logger.info("Click on create account button");
     SdkHelper.getSyncHelper().wait(Until.uiElement(getCreateAccountButton).clickable());

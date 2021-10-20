@@ -16,3 +16,4 @@ doc/
 *.txt
 *-all.xml
 results/
+allure-results/

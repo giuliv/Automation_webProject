@@ -8,6 +8,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import io.qameta.allure.Step;
 
 @Implementation(is = ShopRunnerComponent.class, on = Platform.WEB)
 @Implementation(is = ShopRunnerComponent.class, on = Platform.WEB_MOBILE_PHONE)
@@ -30,6 +31,7 @@ public class ShopRunnerComponent extends BaseComponent {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
   }
 
+  @Step("Go to iFrame")
   private void navigateToiFrame() {
     logger.info("Switching to main frame");
     WebHelper.switchToIFrame(mainContainer);
@@ -43,6 +45,8 @@ public class ShopRunnerComponent extends BaseComponent {
    *
    * @return boolean
    */
+
+  @Step("Get Learn more modal")
   public boolean isLearnMoreModalDisplayed() {
     navigateToiFrame();
     return learnMoreContent.exists();
@@ -53,6 +57,8 @@ public class ShopRunnerComponent extends BaseComponent {
    *
    * @return boolean
    */
+
+  @Step("Get sign in")
   public boolean isSignInModalDisplayed() {
     navigateToiFrame();
     return signInContent.exists();

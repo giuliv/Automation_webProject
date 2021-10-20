@@ -9,6 +9,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import io.qameta.allure.Step;
 import org.testng.asserts.SoftAssert;
 
 @Implementation(is = QuickViewComponent.class, on = Platform.WEB)
@@ -45,6 +46,7 @@ public class QuickViewComponent extends BaseComponent {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
   }
 
+  @Step("Get UI elements")
   public SoftAssert validateMainUIElements() {
     SoftAssert softAssert = new SoftAssert();
     softAssert.assertTrue(productName.isDisplayed(), "Product name is not displayed");
@@ -63,6 +65,8 @@ public class QuickViewComponent extends BaseComponent {
    *
    * @return MiniCart
    */
+
+  @Step("Click Add to cart")
   public MiniCart clickAddToCart() {
     logger.info("Clicking on the 'Add to cart' button");
     addToCartButton.click();
@@ -71,6 +75,8 @@ public class QuickViewComponent extends BaseComponent {
   }
 
   /** @return product name */
+
+  @Step("Get product name")
   public String getProductName() {
     return productName.getText().trim();
   }

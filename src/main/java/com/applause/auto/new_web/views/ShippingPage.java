@@ -8,6 +8,8 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import io.qameta.allure.Step;
+
 import java.util.List;
 
 @Implementation(is = ShippingPage.class, on = Platform.WEB)
@@ -34,6 +36,7 @@ public class ShippingPage extends Base {
 
   /* -------- Actions -------- */
 
+  @Step("Select shipping method")
   public String selectShippingMethodByIndex(int index) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(shippingMethods.get(index)).visible());
     logger.info("Shipping Method Selected: " + shippingMethods.get(index).getText());
@@ -42,6 +45,7 @@ public class ShippingPage extends Base {
     return shippingMethods.get(index).getText();
   }
 
+  @Step("Click continue to payments")
   public PaymentsPage clickContinueToPayments() {
     logger.info("Clicking Continue to Payments");
     SdkHelper.getSyncHelper().wait(Until.uiElement(continueToPaymentButton).present());
@@ -54,6 +58,7 @@ public class ShippingPage extends Base {
     return SdkHelper.create(PaymentsPage.class);
   }
 
+  @Step("Get container")
   public boolean isDisplayed() {
     return com.applause.auto.web.helpers.WebHelper.isDisplayed(mainContainer);
   }
@@ -63,6 +68,8 @@ public class ShippingPage extends Base {
    *
    * @return CheckoutPage
    */
+
+  @Step("Return to information")
   public CheckOutPage clickOnReturnToInformation() {
     logger.info("Clicking on 'Return to information'");
     returnToInformationButton.click();

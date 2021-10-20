@@ -10,6 +10,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+import io.qameta.allure.Step;
 
 @Implementation(is = SearchComponent.class, on = Platform.WEB)
 @Implementation(is = SearchComponent.class, on = Platform.WEB_MOBILE_PHONE)
@@ -30,6 +31,8 @@ public class SearchComponent extends BaseComponent {
   }
 
   /* -------- Actions -------- */
+
+  @Step("Click Search")
   public SearchResultsPage search(String product) {
     logger.info("Searching for: " + product);
     searchBox.sendKeys(product);

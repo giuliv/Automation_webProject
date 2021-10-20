@@ -16,6 +16,8 @@ import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import java.util.List;
+
+import io.qameta.allure.Step;
 import org.testng.asserts.SoftAssert;
 
 @Implementation(is = MiniCart.class, on = Platform.WEB)
@@ -107,10 +109,12 @@ public class MiniCart extends BaseComponent {
 
   /* -------- Actions -------- */
 
+  @Step("Product name is displayed")
   public boolean isProductNameDisplayedIndex() {
     return productNameOnlyItem.exists();
   }
 
+  @Step("Get product name")
   public String getProductNameByIndex(int index) {
     if (WebHelper.isSafari()) {
       SdkHelper.getSyncHelper().wait(Until.uiElement(productName.get(index)).present());
@@ -124,6 +128,7 @@ public class MiniCart extends BaseComponent {
     return productName.get(index).getText().toLowerCase().trim();
   }
 
+  @Step("Get grind")
   public String getGrindByIndex(int index) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(grindSelected.get(index)).visible());
     logger.info(
@@ -132,6 +137,7 @@ public class MiniCart extends BaseComponent {
     return grindSelected.get(index).getText().toLowerCase().trim();
   }
 
+  @Step("Get price")
   public String getPriceByIndex(int index) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(itemPrice.get(index)).visible());
     logger.info("[MiniCart] Item Price: " + itemPrice.get(index).getText().trim());
@@ -139,6 +145,7 @@ public class MiniCart extends BaseComponent {
     return itemPrice.get(index).getText().trim();
   }
 
+  @Step("Get product quantity")
   public int getProductQuantityByIndex(int index) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(productQuantity.get(index)).present());
     logger.info(
@@ -147,6 +154,7 @@ public class MiniCart extends BaseComponent {
     return Integer.parseInt(productQuantity.get(index).getAttributeValue("value"));
   }
 
+  @Step("Get progress bar quantity")
   public float getProgressBarQuantity() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(progressBar).present());
     float progress =
@@ -160,7 +168,7 @@ public class MiniCart extends BaseComponent {
 
     return progress;
   }
-
+  @Step("Get empty minicart message")
   public String getEmptyMiniCartMessage() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(emptyMiniCartMessage).present());
     logger.info("[MiniCart] Empty MiniCart message: " + emptyMiniCartMessage.getText().trim());
@@ -168,24 +176,28 @@ public class MiniCart extends BaseComponent {
     return emptyMiniCartMessage.getText().trim();
   }
 
+  @Step("Add an item")
   public void addOneMoreItem() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(addButton).clickable());
     addButton.click();
     SdkHelper.getSyncHelper().sleep(2000); // Wait for action
   }
 
+  @Step("Remove an item")
   public void removeOneItem() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(removeItem).clickable());
     removeItem.click();
     SdkHelper.getSyncHelper().sleep(2000); // Wait for action
   }
 
+  @Step("Remove item")
   public void removeItem() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(removeItemLink).clickable());
     removeItemLink.click();
     SdkHelper.getSyncHelper().sleep(2000); // Wait for action
   }
 
+  @Step("Validate minicart elements")
   public SoftAssert validateGeneralMiniCartElements() {
     SoftAssert softAssert = new SoftAssert();
 
@@ -201,17 +213,19 @@ public class MiniCart extends BaseComponent {
     return softAssert;
   }
 
+  @Step("Click continue to checkout")
   public CheckOutPage clickContinueToCheckOut() {
     return clickOnContinueToCheckOutButton(CheckOutPage.class);
   }
 
+  @Step("Click continue to checkout")
   public <T extends BaseComponent> T clickOnContinueToCheckOutButton(Class<T> clazz) {
     logger.info("Clicking CheckOut");
     SdkHelper.getSyncHelper().wait(Until.uiElement(checkOutButton).visible());
     checkOutButton.click();
     return SdkHelper.create(clazz);
   }
-
+  @Step("Close minicart")
   public <V extends BaseComponent> V closeMiniCart(Class<V> expectedClass) {
     logger.info("Closing miniCart");
     SdkHelper.getSyncHelper().wait(Until.uiElement(closeButton).visible());
@@ -225,12 +239,15 @@ public class MiniCart extends BaseComponent {
    *
    * @return CartPage
    */
+
+  @Step("Click view cart")
   public CartPage clickViewCartButton() {
     logger.info("Clicking 'View Cart' button");
     SdkHelper.getBrowserControl().jsClick(viewCartButton);
     return SdkHelper.create(CartPage.class);
   }
 
+  @Step("Click on shoprunner links")
   public ShopRunnerComponent clickShopRunnerLinks(String link) {
     logger.info("Clicking link: " + link);
     if (link.equalsIgnoreCase("learn more")) {
@@ -247,6 +264,8 @@ public class MiniCart extends BaseComponent {
    * @param index
    * @return QuickViewComponent
    */
+
+  @Step("Click on recommended for you")
   public QuickViewComponent clickOnRecommendedForYouAddButtonByIndex(int index) {
     logger.info("Click on recommended 'Add to cart' button with index: " + index);
     SdkHelper.getSyncHelper()
@@ -262,6 +281,7 @@ public class MiniCart extends BaseComponent {
     return SdkHelper.create(QuickViewComponent.class);
   }
 
+  @Step("Click arrow")
   public void clickNavigationArrow(Constants.NavigationArrow navigationArrow) {
     logger.info("Click Arrow: " + navigationArrow.name());
     WebHelper.scrollToElement(nextRecommendedItem);
@@ -274,10 +294,12 @@ public class MiniCart extends BaseComponent {
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
   }
 
+  @Step("Get recommended items")
   public long getRecommendedItemsVisible() {
     return recommendedForYouAddButton.stream().filter(x -> x.isDisplayed()).count();
   }
 
+  @Step("Get recommended item name")
   public String getRecommendedItemNameByIndex(int index) {
     logger.info("Recommended Item: " + recommendedItemsNameList.get(index).getText());
     return recommendedItemsNameList.get(index).getText();
@@ -288,6 +310,8 @@ public class MiniCart extends BaseComponent {
    *
    * @return CartPage
    */
+
+  @Step("Click one time purchase")
   public MiniCart clickOneTimePurchaseButton() {
     logger.info("Selecting One time purchase");
     oneTimePurchaseButton.click();
@@ -299,6 +323,8 @@ public class MiniCart extends BaseComponent {
    *
    * @return CartPage
    */
+
+  @Step("Click subscribe")
   public MiniCart clickSubscribeButton() {
     logger.info("Selecting SUBSCRIBE & GET FREE SHIPPING");
     subscribeButton.click();
@@ -306,11 +332,14 @@ public class MiniCart extends BaseComponent {
   }
 
   /** @return boolean */
+
+  @Step("Get one time purchase")
   public boolean isOneTimePurchaseButtonEnabled() {
     return oneTimePurchaseButton.isEnabled();
   }
 
   /** @return boolean */
+  @Step("Get subscribe")
   public boolean isSubscribeButtonEnabled() {
     return subscribeButton.isEnabled();
   }

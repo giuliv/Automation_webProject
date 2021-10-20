@@ -7,6 +7,8 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import io.qameta.allure.Step;
+
 import java.time.Duration;
 
 @Implementation(is = MyAccountPage.class, on = Platform.WEB)
@@ -38,6 +40,7 @@ public class MyAccountPage extends Base {
    *
    * @return LoginPage
    */
+  @Step("Get welcome message")
   public String getWelcomeMessage() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(getViewSignature).visible());
     logger.info("Welcome message: " + getViewSignature.getText().toLowerCase());

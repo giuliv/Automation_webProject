@@ -12,6 +12,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import io.qameta.allure.Step;
 
 @Implementation(is = Header.class, on = Platform.WEB)
 @Implementation(is = HeaderMobile.class, on = Platform.WEB_MOBILE_PHONE)
@@ -63,6 +64,7 @@ public class Header extends BaseComponent {
 
   /* -------- Actions -------- */
 
+  @Step("Hover category from Menu")
   public void hoverCategoryFromMenu(Constants.MenuOptions menuOptions) {
     logger.info("Tab selected: " + menuOptions.name());
 
@@ -77,6 +79,7 @@ public class Header extends BaseComponent {
     }
   }
 
+  @Step("Select Category from Menu")
   public ProductListPage clickCategoryFromMenu(Constants.MenuOptions menuOptions) {
     logger.info("Tab selected: " + menuOptions.name());
 
@@ -86,6 +89,7 @@ public class Header extends BaseComponent {
     return SdkHelper.create(ProductListPage.class);
   }
 
+  @Step("Select SubCategory from Menu")
   public <T extends BaseComponent> T clickOverSubCategoryFromMenu(
       Class<T> clazz, Constants.MenuSubCategories menuSubCategories) {
     logger.info("SubCategory selected " + menuSubCategories.name());
@@ -102,6 +106,7 @@ public class Header extends BaseComponent {
     return SdkHelper.create(clazz);
   }
 
+  @Step("Click Account Button")
   public SignInPage clickAccountButton() {
     logger.info("Tap on Account Button");
     SdkHelper.getSyncHelper().wait(Until.uiElement(signInButton).clickable()).click();
@@ -109,6 +114,7 @@ public class Header extends BaseComponent {
     return SdkHelper.create(SignInPage.class);
   }
 
+  @Step("Get Search component")
   public SearchComponent getSearchComponent() {
     logger.info("Get Search Component");
     searchIcon.click();
@@ -146,6 +152,7 @@ class HeaderMobile extends Header {
     return SdkHelper.create(ProductListPage.class);
   }
 
+  @Step("Open Hamburger Menu")
   public void openHamburgerMenu() {
     logger.info("Open Hamburger Menu [Mobile]");
     SdkHelper.getSyncHelper().wait(Until.uiElement(hamburgerButton).clickable());

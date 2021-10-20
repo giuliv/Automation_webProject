@@ -12,6 +12,8 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.RadioButton;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+import io.qameta.allure.Step;
+
 import java.util.List;
 
 @Implementation(is = PaymentsPage.class, on = Platform.WEB)
@@ -118,6 +120,7 @@ public class PaymentsPage extends Base {
 
   /* -------- Actions -------- */
 
+  @Step("Set payment data")
   public void setPaymentData() {
     logger.info("Setting payments data...");
     SdkHelper.getSyncHelper().wait(Until.uiElement(iFrameCardNumber).present());
@@ -146,6 +149,7 @@ public class PaymentsPage extends Base {
     WebHelper.switchToIFrameAndSetData(iFrameCVV, cvv, Constants.WebTestData.CREDIT_CARD_CVV);
   }
 
+  @Step("Click continue to payments")
   public AcceptancePage clickContinueToPayments() {
     if (WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
       logger.info("Testcase needs to stop, running on prod[2nd Alert]");
@@ -160,11 +164,13 @@ public class PaymentsPage extends Base {
     return SdkHelper.create(AcceptancePage.class);
   }
 
+  @Step("Review same addres is selected")
   public boolean isSameAddressSelected() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(sameAddress).present());
     return sameAddress.isSelected();
   }
 
+  @Step("Get total price")
   public String getTotalPrice() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(totalPrice).present());
     logger.info("Total price: " + totalPrice.getText());
@@ -172,6 +178,7 @@ public class PaymentsPage extends Base {
     return totalPrice.getText();
   }
 
+  @Step("Get discount message")
   public String getDiscountMessage() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(discountsMessage).present());
     logger.info("Discount message: " + discountsMessage.getText());
@@ -179,6 +186,7 @@ public class PaymentsPage extends Base {
     return discountsMessage.getText();
   }
 
+  @Step("Get discount message list")
   public String getDiscountMessageByIndex(int index) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(discountsMessageList.get(index)).visible());
     logger.info("[Payment Page] Discount Message: " + discountsMessageList.get(index).getText());
@@ -186,10 +194,12 @@ public class PaymentsPage extends Base {
     return discountsMessageList.get(index).getText();
   }
 
+  @Step("Get discount")
   public boolean isDiscountPresent() {
     return discountsMessage.exists();
   }
 
+  @Step("Set card discount")
   public void setPeetsCardDiscount() {
     logger.info("Setting up Peet's Card data");
     SdkHelper.getSyncHelper().sleep(10000); // Wait for peet's card are ready
@@ -207,6 +217,7 @@ public class PaymentsPage extends Base {
     SdkHelper.getSyncHelper().wait(Until.uiElement(peetsCardSuccessMessage).visible());
   }
 
+  @Step("Set free shipping promocode")
   public void setFreeShippingPromoCodeDiscount() {
     logger.info("Setting up PromoCode data");
     SdkHelper.getSyncHelper().sleep(10000); // Wait for peet's card are ready
@@ -220,6 +231,7 @@ public class PaymentsPage extends Base {
     SdkHelper.getSyncHelper().wait(Until.uiElement(promoCodeSuccessMessage).present());
   }
 
+  @Step("Set subscription promocode")
   public void setSubscriptionPromoCodeDiscount() {
     logger.info("Setting up PromoCode data");
     SdkHelper.getSyncHelper().sleep(10000); // Wait for peet's card are ready

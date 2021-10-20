@@ -1,4 +1,4 @@
-package com.applause.auto.reportportal;
+package com.applause.auto.listeners.reportportal;
 
 import com.epam.reportportal.service.Launch;
 import java.util.Base64;

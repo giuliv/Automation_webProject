@@ -1,4 +1,4 @@
-package com.applause.auto.reportportal;
+package com.applause.auto.listeners.reportportal;
 
 import com.applause.auto.framework.SdkHelper;
 import com.epam.reportportal.listeners.LogLevel;
