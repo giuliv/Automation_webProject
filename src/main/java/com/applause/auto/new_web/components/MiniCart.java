@@ -15,9 +15,8 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import java.util.List;
-
 import io.qameta.allure.Step;
+import java.util.List;
 import org.testng.asserts.SoftAssert;
 
 @Implementation(is = MiniCart.class, on = Platform.WEB)
@@ -168,6 +167,7 @@ public class MiniCart extends BaseComponent {
 
     return progress;
   }
+
   @Step("Get empty minicart message")
   public String getEmptyMiniCartMessage() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(emptyMiniCartMessage).present());
@@ -225,6 +225,7 @@ public class MiniCart extends BaseComponent {
     checkOutButton.click();
     return SdkHelper.create(clazz);
   }
+
   @Step("Close minicart")
   public <V extends BaseComponent> V closeMiniCart(Class<V> expectedClass) {
     logger.info("Closing miniCart");
@@ -239,7 +240,6 @@ public class MiniCart extends BaseComponent {
    *
    * @return CartPage
    */
-
   @Step("Click view cart")
   public CartPage clickViewCartButton() {
     logger.info("Clicking 'View Cart' button");
@@ -264,7 +264,6 @@ public class MiniCart extends BaseComponent {
    * @param index
    * @return QuickViewComponent
    */
-
   @Step("Click on recommended for you")
   public QuickViewComponent clickOnRecommendedForYouAddButtonByIndex(int index) {
     logger.info("Click on recommended 'Add to cart' button with index: " + index);
@@ -310,7 +309,6 @@ public class MiniCart extends BaseComponent {
    *
    * @return CartPage
    */
-
   @Step("Click one time purchase")
   public MiniCart clickOneTimePurchaseButton() {
     logger.info("Selecting One time purchase");
@@ -323,7 +321,6 @@ public class MiniCart extends BaseComponent {
    *
    * @return CartPage
    */
-
   @Step("Click subscribe")
   public MiniCart clickSubscribeButton() {
     logger.info("Selecting SUBSCRIBE & GET FREE SHIPPING");
@@ -332,7 +329,6 @@ public class MiniCart extends BaseComponent {
   }
 
   /** @return boolean */
-
   @Step("Get one time purchase")
   public boolean isOneTimePurchaseButtonEnabled() {
     return oneTimePurchaseButton.isEnabled();

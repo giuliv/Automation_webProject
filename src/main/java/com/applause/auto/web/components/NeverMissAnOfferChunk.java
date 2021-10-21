@@ -1,13 +1,13 @@
 package com.applause.auto.web.components;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.web.helpers.WebHelper;
 
 @Implementation(is = NeverMissAnOfferChunk.class, on = Platform.WEB)
 public class NeverMissAnOfferChunk extends BaseComponent {

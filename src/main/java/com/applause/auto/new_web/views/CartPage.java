@@ -4,6 +4,7 @@ import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -15,11 +16,9 @@ import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import com.applause.auto.web.components.NeverMissAnOfferChunk;
 import com.applause.auto.web.components.OtherPurchasedItemChunk;
-import com.applause.auto.web.helpers.WebHelper;
+import io.qameta.allure.Step;
 import java.time.Duration;
 import java.util.List;
-
-import io.qameta.allure.Step;
 import lombok.Getter;
 
 @Implementation(is = CartPage.class, on = Platform.WEB)
@@ -175,7 +174,6 @@ public class CartPage extends BaseComponent {
    *
    * @return CartPage
    */
-
   @Step("Click This is gift")
   public CartPage clickOnThisIsGift() {
     logger.info("Clicking on 'This is a gift' button");
@@ -215,7 +213,6 @@ public class CartPage extends BaseComponent {
    * @param index
    * @return CartPage
    */
-
   @Step("Increase quantity")
   public CartPage increaseQuantity(int index) {
     logger.info("Clicking on the (+) Quantity button by product index - [{}]", index);
@@ -233,7 +230,6 @@ public class CartPage extends BaseComponent {
    * @param index
    * @return CartPage
    */
-
   @Step("Decrease quantity")
   public CartPage decreaseQuantity(int index) {
     logger.info("Clicking on the (-) Quantity button by product index - [{}]", index);
@@ -250,7 +246,6 @@ public class CartPage extends BaseComponent {
    *
    * @return CartPage
    */
-
   @Step("Click one time purchase")
   public CartPage clickOneTimePurchaseButton() {
     logger.info("Selecting One time purchase");
@@ -263,7 +258,6 @@ public class CartPage extends BaseComponent {
    *
    * @return CartPage
    */
-
   @Step("Click subscribe")
   public CartPage clickSubscribeButton() {
     logger.info("Selecting SUBSCRIBE & GET FREE SHIPPING");
@@ -303,7 +297,6 @@ public class CartPage extends BaseComponent {
    * @param message
    * @return CartPage
    */
-
   @Step("Type personal message")
   public CartPage typePersonalMessage(String message) {
     logger.info("Typing [{}] into the 'Add Personal Message' field");
@@ -316,7 +309,6 @@ public class CartPage extends BaseComponent {
    * @param position
    * @return OtherPurchasedItemChunk
    */
-
   @Step("Get list of other purchased")
   public OtherPurchasedItemChunk getPurchasedItemOnPosition(int position) {
     ((LazyList<?>) listOfOtherPurchased).initialize();
@@ -328,7 +320,6 @@ public class CartPage extends BaseComponent {
    *
    * @return boolean
    */
-
   @Step("Get checkout button")
   public boolean isDisplayed() {
     return WebHelper.isDisplayed(mainContainer) && WebHelper.isDisplayed(checkOutButton);

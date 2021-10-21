@@ -3,13 +3,13 @@ package com.applause.auto.new_web.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.new_web.components.ShipDateInfoComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import io.qameta.allure.Step;
-
 import java.util.List;
 
 @Implementation(is = ShippingPage.class, on = Platform.WEB)
@@ -22,11 +22,24 @@ public class ShippingPage extends Base {
   @Locate(css = "fieldset div[data-shipping-method]", on = Platform.WEB)
   private List<ContainerElement> shippingMethods;
 
-  @Locate(id = "continue_button", on = Platform.WEB)
+  @Locate(
+      xpath = "//button[@id='continue_button'][not(contains(@class, 'disabled'))]",
+      on = Platform.WEB)
   private Button continueToPaymentButton;
 
   @Locate(xpath = "//a[contains(@class, 'previous')]", on = Platform.WEB)
   private Button returnToInformationButton;
+
+  @Locate(xpath = "//a[.//span[text()='Change contact information']]", on = Platform.WEB)
+  private Button changeContactInformationButton;
+
+  @Locate(xpath = "//a[.//span[text()='Change shipping address']]", on = Platform.WEB)
+  private Button changeShipToButton;
+
+  @Locate(
+      xpath = "//button[contains(@class, 'checkout-tooltip') and not(contains(@class, 'close'))]",
+      on = Platform.WEB)
+  private Button infoButton;
 
   @Override
   public void afterInit() {
@@ -60,7 +73,7 @@ public class ShippingPage extends Base {
 
   @Step("Get container")
   public boolean isDisplayed() {
-    return com.applause.auto.web.helpers.WebHelper.isDisplayed(mainContainer);
+    return WebHelper.isDisplayed(mainContainer);
   }
 
   /**
@@ -68,11 +81,31 @@ public class ShippingPage extends Base {
    *
    * @return CheckoutPage
    */
-
   @Step("Return to information")
   public CheckOutPage clickOnReturnToInformation() {
     logger.info("Clicking on 'Return to information'");
     returnToInformationButton.click();
     return SdkHelper.create(CheckOutPage.class);
+  }
+
+  @Step("Click on 'Change contact information'")
+  public CheckOutPage clickOnChangeContactInformation() {
+    logger.info("Clicking on 'Change contact information'");
+    changeContactInformationButton.click();
+    return SdkHelper.create(CheckOutPage.class);
+  }
+
+  @Step("Click on 'Change shipping address'")
+  public CheckOutPage clickOnChangeShipTo() {
+    logger.info("Clicking on 'Change shipping address'");
+    changeShipToButton.click();
+    return SdkHelper.create(CheckOutPage.class);
+  }
+
+  @Step("Click on 'Info' icon near the Shipping method")
+  public ShipDateInfoComponent clickOnInfoButton() {
+    logger.info("Clicking on 'Info' icon near the Shipping method");
+    infoButton.click();
+    return SdkHelper.create(ShipDateInfoComponent.class);
   }
 }

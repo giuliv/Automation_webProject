@@ -65,7 +65,6 @@ public class QuickViewComponent extends BaseComponent {
    *
    * @return MiniCart
    */
-
   @Step("Click Add to cart")
   public MiniCart clickAddToCart() {
     logger.info("Clicking on the 'Add to cart' button");
@@ -75,7 +74,6 @@ public class QuickViewComponent extends BaseComponent {
   }
 
   /** @return product name */
-
   @Step("Get product name")
   public String getProductName() {
     return productName.getText().trim();

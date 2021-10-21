@@ -10,11 +10,16 @@ import com.applause.auto.pageobjectmodel.elements.TextBox;
 import io.appium.java_client.ios.IOSDriver;
 import java.lang.invoke.MethodHandles;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class WebHelper {
 
@@ -131,5 +136,129 @@ public class WebHelper {
     logger.info("Refresh site");
     SdkHelper.getDriver().navigate().refresh();
     return SdkHelper.create(expectedClass);
+  }
+
+  /**
+   * Cleans the specified string value - removes any unnecessary white-spaces and line breaks.
+   *
+   * @param stringValue
+   * @return cleaned string
+   */
+  public static String cleanString(String stringValue) {
+    return stringValue
+        .trim()
+        .replaceAll("\n", "")
+        .replaceAll("\r", "")
+        .replaceAll("\u00a0", "")
+        .replaceAll("\t", "");
+  }
+
+  /**
+   * Check if element is displayed
+   *
+   * @param element
+   * @return boolean
+   */
+  public static boolean isDisplayed(BaseElement element) {
+    return element.exists() && element.isDisplayed();
+  }
+
+  /**
+   * Switches to tab/new window
+   *
+   * @param oldWindowHandle
+   */
+  public static void switchToNewTab(String oldWindowHandle) {
+    // TODO: Replace static wait with wait for condition
+    SdkHelper.getSyncHelper().sleep(1000);
+    List<String> windows = waitForNewWindowToAppear(20000);
+
+    // get the valid windows again, to ensure that the correct new window appears
+    windows = waitForNewWindowToAppear(20000);
+
+    for (String windowHandle : windows) {
+      if (!windowHandle.equals(oldWindowHandle)) {
+        logger.info(
+            "Switching to new window handle ["
+                + windowHandle
+                + "] from ["
+                + oldWindowHandle
+                + "].");
+        switchToTab(windowHandle);
+        return;
+      }
+    }
+  }
+
+  /**
+   * Switches to tab/new window
+   *
+   * @param newUrl
+   */
+  public static void switchToNewTabThatContainsUrl(String newUrl) {
+    // TODO: Replace static wait with wait for condition
+    SdkHelper.getSyncHelper().sleep(1000);
+    List<String> windows = waitForNewWindowToAppear(20000);
+
+    // get the valid windows again, to ensure that the correct new window appears
+    windows = waitForNewWindowToAppear(20000);
+    // reverse windows to start from new one
+    Collections.reverse(windows);
+    String currentUrl;
+    for (String windowHandle : windows) {
+      logger.info("Switching to new window handle [" + windowHandle + "].");
+      switchToTab(windowHandle);
+      currentUrl = SdkHelper.getDriver().getCurrentUrl();
+      if (currentUrl.contains(newUrl)) {
+        return;
+      } else {
+        logger.info(String.format("Tab URL [%s] didn't contain [%s]", currentUrl, newUrl));
+      }
+    }
+  }
+
+  /**
+   * Wait For New Window To Appear
+   *
+   * @param timeToWaitInMs
+   * @return ArrayList
+   */
+  public static List<String> waitForNewWindowToAppear(long timeToWaitInMs) {
+    Set<String> windows = SdkHelper.getDriver().getWindowHandles();
+    long timeLimit = System.currentTimeMillis() + timeToWaitInMs;
+
+    while (windows.size() < 2 && timeLimit > System.currentTimeMillis()) {
+      // TODO: Replace static wait with wait for condition
+      SdkHelper.getSyncHelper().sleep(500);
+      windows = SdkHelper.getDriver().getWindowHandles();
+    }
+
+    if (windows.size() < 2) {
+      throw new RuntimeException(
+          "No new tabs appeared, staying at: "
+              + SdkHelper.getDriver().getTitle()
+              + " ("
+              + SdkHelper.getDriver().getCurrentUrl()
+              + ").");
+    }
+
+    return new ArrayList<>(windows);
+  }
+
+  /**
+   * Switches to tab/new window
+   *
+   * @param windowToSwitch
+   */
+  public static void switchToTab(String windowToSwitch) {
+    SdkHelper.getDriver().switchTo().window(windowToSwitch);
+
+    logger.info("Switching to: " + SdkHelper.getDriver().getCurrentUrl());
+    try {
+      new WebDriverWait(SdkHelper.getDriver(), 10)
+          .until(w -> !SdkHelper.getDriver().getCurrentUrl().contains("about:blank"));
+    } catch (Exception e) {
+      throw new RuntimeException("New tab is blank.");
+    }
   }
 }

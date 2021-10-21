@@ -1,13 +1,12 @@
 package com.applause.auto.listeners.allure;
 
+import static com.applause.auto.util.AllureUtils.attachCurrentURLOnFailure;
+import static com.applause.auto.util.AllureUtils.attachScreenshotOnFailure;
+
+import java.util.Objects;
 import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;
 import org.testng.ITestResult;
-
-import java.util.Objects;
-
-import static com.applause.auto.util.AllureUtils.attachCurrentURLOnFailure;
-import static com.applause.auto.util.AllureUtils.attachScreenshotOnFailure;
 
 public class WebTestMethodExecutionListener implements IInvokedMethodListener {
 

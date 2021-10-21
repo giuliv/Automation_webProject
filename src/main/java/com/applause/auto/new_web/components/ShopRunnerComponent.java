@@ -45,7 +45,6 @@ public class ShopRunnerComponent extends BaseComponent {
    *
    * @return boolean
    */
-
   @Step("Get Learn more modal")
   public boolean isLearnMoreModalDisplayed() {
     navigateToiFrame();
@@ -57,7 +56,6 @@ public class ShopRunnerComponent extends BaseComponent {
    *
    * @return boolean
    */
-
   @Step("Get sign in")
   public boolean isSignInModalDisplayed() {
     navigateToiFrame();

@@ -13,7 +13,6 @@ import com.applause.auto.pageobjectmodel.elements.RadioButton;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import io.qameta.allure.Step;
-
 import java.util.List;
 
 @Implementation(is = PaymentsPage.class, on = Platform.WEB)
@@ -73,6 +72,9 @@ public class PaymentsPage extends Base {
   @Locate(id = "giftCardApply", on = Platform.WEB)
   private Button peetsCardApplyButton;
 
+  @Locate(xpath = "//a[contains(@class, 'previous')]", on = Platform.WEB)
+  protected Button returnToShippingButton;
+
   @Locate(css = ".order-summary__section--discount button[name='button']", on = Platform.WEB)
   //  @Locate(
   //      xpath =
@@ -101,6 +103,9 @@ public class PaymentsPage extends Base {
 
   @Locate(css = "span.order-summary-toggle__text--show > span", on = Platform.WEB_MOBILE_PHONE)
   protected Text showSummary;
+
+  @Locate(xpath = "//a[.//span[text()='Change shipping method']]", on = Platform.WEB)
+  private Button changeShippingMethodButton;
 
   @Override
   public void afterInit() {
@@ -204,8 +209,7 @@ public class PaymentsPage extends Base {
     logger.info("Setting up Peet's Card data");
     SdkHelper.getSyncHelper().sleep(10000); // Wait for peet's card are ready
 
-    SdkHelper.getSyncHelper().wait(Until.uiElement(peetsCardCode).clickable());
-    peetsCardCode.sendKeys(Constants.WebTestData.PEETS_CARD);
+    enterGiftCard(Constants.WebTestData.PEETS_CARD);
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
 
     SdkHelper.getSyncHelper().wait(Until.uiElement(peetsCardNip).clickable());
@@ -215,6 +219,13 @@ public class PaymentsPage extends Base {
     peetsCardApplyButton.click();
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
     SdkHelper.getSyncHelper().wait(Until.uiElement(peetsCardSuccessMessage).visible());
+  }
+
+  @Step("Enter Gift Card")
+  public void enterGiftCard(String giftCard) {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(peetsCardCode).clickable());
+    logger.info("Typing [{}] into the Gift cvard field");
+    peetsCardCode.sendKeys(giftCard);
   }
 
   @Step("Set free shipping promocode")
@@ -243,5 +254,24 @@ public class PaymentsPage extends Base {
     promoApplyButton.click();
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
     SdkHelper.getSyncHelper().wait(Until.uiElement(subPromoCodeSuccessMessage).present());
+  }
+
+  @Step("Check if Payment page is displayed")
+  public boolean isDisplayed() {
+    return WebHelper.isDisplayed(mainContainer);
+  }
+
+  @Step("Click on 'Change shipping method'")
+  public ShippingPage clickOnChangeShippingMethod() {
+    logger.info("Clicking on 'Change shipping method'");
+    changeShippingMethodButton.click();
+    return SdkHelper.create(ShippingPage.class);
+  }
+
+  @Step("Check if Peet's Card / Gift Card 'Apply' button is enabled")
+  public boolean isPeetsCardApplyButtonEnabled() {
+    boolean isEnabled = peetsCardApplyButton.isEnabled();
+    logger.info("Apply button for Peet's Card / Gift Card is enabled - [{}]", isEnabled);
+    return isEnabled;
   }
 }

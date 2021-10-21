@@ -1,13 +1,12 @@
 package com.applause.auto.listeners.allure;
 
+import static com.applause.auto.configuration.ExecutionConfigurationOwner.executionConfiguration;
+
+import java.util.concurrent.atomic.AtomicInteger;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;
-
-import java.util.concurrent.atomic.AtomicInteger;
-
-import static com.applause.auto.configuration.ExecutionConfigurationOwner.executionConfiguration;
 
 @Slf4j
 @Component

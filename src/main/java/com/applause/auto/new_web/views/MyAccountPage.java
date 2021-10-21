@@ -8,7 +8,6 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
-
 import java.time.Duration;
 
 @Implementation(is = MyAccountPage.class, on = Platform.WEB)

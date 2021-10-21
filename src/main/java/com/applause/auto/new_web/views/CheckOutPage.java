@@ -16,7 +16,6 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.qameta.allure.Step;
-
 import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -189,13 +188,12 @@ public class CheckOutPage extends Base {
   }
 
   /** @return List<String> */
-
   @Step("Get list of error messages")
   public List<String> getListOfErrorMessages() {
     ((LazyList<?>) errorMessagesList).initialize();
     return errorMessagesList
         .stream()
-        .map(error -> com.applause.auto.web.helpers.WebHelper.cleanString(error.getText()))
+        .map(error -> WebHelper.cleanString(error.getText()))
         .collect(Collectors.toList());
   }
 
@@ -204,7 +202,6 @@ public class CheckOutPage extends Base {
    *
    * @return CartPage
    */
-
   @Step("Click return to cart button")
   public CartPage clickOnReturnToCartButton() {
     logger.info("Clicking on 'Return to cart' button");
@@ -218,7 +215,6 @@ public class CheckOutPage extends Base {
    * @param code
    * @return CheckOutPage
    */
-
   @Step("Apply discount code")
   public CheckOutPage applyDiscountCode(String code) {
     logger.info("Typing [{}] Discount Code");
@@ -235,10 +231,9 @@ public class CheckOutPage extends Base {
    *
    * @return String
    */
-
   @Step("Get discount code error")
   public String getDiscountCodeError() {
-    String error = com.applause.auto.web.helpers.WebHelper.cleanString(discountCodeError.getText());
+    String error = WebHelper.cleanString(discountCodeError.getText());
     logger.info("Discount Code Error - [{}]", error);
     return error;
   }
@@ -248,7 +243,6 @@ public class CheckOutPage extends Base {
    *
    * @return CheckOutPage
    */
-
   @Step("Click on Save this information for next time")
   public CheckOutPage clickOnSaveThisInformationForTheNextTime() {
     logger.info("Clicking on 'Save this information for next time' checkbox");
@@ -259,6 +253,6 @@ public class CheckOutPage extends Base {
   @Step("Get container")
   /** @return boolean */
   public boolean isDisplayed() {
-    return com.applause.auto.web.helpers.WebHelper.isDisplayed(mainContainer);
+    return WebHelper.isDisplayed(mainContainer);
   }
 }

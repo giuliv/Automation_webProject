@@ -47,7 +47,6 @@ public class SignInPage extends BaseComponent {
    *
    * @param text
    */
-
   @Step("Enter password")
   public void enterPassword(String text) {
     logger.info("Enter Password : " + text);
@@ -60,7 +59,6 @@ public class SignInPage extends BaseComponent {
    *
    * @return My Account page
    */
-
   @Step("Click Sign in button")
   public MyAccountPage clickOnSignInButton() {
     logger.info("Click on sign in button");

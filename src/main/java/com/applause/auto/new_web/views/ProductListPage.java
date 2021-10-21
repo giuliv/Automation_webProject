@@ -13,10 +13,9 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.google.common.collect.Ordering;
+import io.qameta.allure.Step;
 import java.util.ArrayList;
 import java.util.List;
-
-import io.qameta.allure.Step;
 import org.testng.Assert;
 
 @Implementation(is = ProductListPage.class, on = Platform.WEB)

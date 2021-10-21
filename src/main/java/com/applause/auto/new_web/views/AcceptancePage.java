@@ -11,7 +11,6 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.web.helpers.WebHelper;
 import io.qameta.allure.Step;
-
 import java.time.Duration;
 import java.util.List;
 
@@ -177,6 +176,7 @@ public class AcceptancePage extends Base {
 
     return shippingUpdatesPhone.getCurrentText();
   }
+
   @Step("Get customer mail")
   public String getCustomerMail() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(customerMail).visible());
