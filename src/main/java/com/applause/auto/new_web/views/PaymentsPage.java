@@ -1,19 +1,26 @@
 package com.applause.auto.new_web.views;
 
 import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.dto.BillingAddressDto;
+import com.applause.auto.common.data.dto.CreditCardDto;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.RadioButton;
+import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.qameta.allure.Step;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Implementation(is = PaymentsPage.class, on = Platform.WEB)
 @Implementation(is = PaymentsPage.class, on = Platform.WEB_MOBILE_PHONE)
@@ -107,6 +114,41 @@ public class PaymentsPage extends Base {
   @Locate(xpath = "//a[.//span[text()='Change shipping method']]", on = Platform.WEB)
   private Button changeShippingMethodButton;
 
+  @Locate(xpath = "//div[@data-review-section='shipping-cost']", on = Platform.WEB)
+  protected Text methodType;
+
+  @Locate(
+      xpath = "//div[contains(@class, 'notice--error') and not(contains(@class, 'hidden'))]//p",
+      on = Platform.WEB)
+  protected Text errorMessage;
+
+  @Locate(xpath = "//p[contains(@id, 'error-for')]", on = Platform.WEB)
+  private List<Text> errorMessagesList;
+
+  @Locate(id = "checkout_billing_address_first_name", on = Platform.WEB)
+  private TextBox firstName;
+
+  @Locate(id = "checkout_billing_address_last_name", on = Platform.WEB)
+  private TextBox lastName;
+
+  @Locate(id = "checkout_billing_address_address1", on = Platform.WEB)
+  private TextBox address;
+
+  @Locate(id = "checkout_billing_address_city", on = Platform.WEB)
+  private TextBox city;
+
+  @Locate(id = "checkout_billing_address_phone", on = Platform.WEB)
+  private TextBox phone;
+
+  @Locate(css = "select#checkout_billing_address_country", on = Platform.WEB)
+  private SelectList country;
+
+  @Locate(css = "select#checkout_billing_address_province", on = Platform.WEB)
+  private SelectList stateDropdown;
+
+  @Locate(id = "checkout_billing_address_zip", on = Platform.WEB)
+  private TextBox zip;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(iFrameCardNumber).present());
@@ -154,19 +196,64 @@ public class PaymentsPage extends Base {
     WebHelper.switchToIFrameAndSetData(iFrameCVV, cvv, Constants.WebTestData.CREDIT_CARD_CVV);
   }
 
+  @Step("Set payment data")
+  public PaymentsPage setPaymentData(CreditCardDto card) {
+    logger.info("Setting payments data...");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(iFrameCardNumber).present());
+
+    WebHelper.switchToIFrame(iFrameCardNumber);
+    SdkHelper.getSyncHelper().wait(Until.uiElement(cardNumber).clickable());
+    /**
+     * TODO
+     *
+     * <p>Split CC number by 4 symbols
+     */
+    List<String> cardNumberList =
+        IntStream.iterate(0, i -> i + 4)
+            .limit((int) Math.ceil(card.getCardNumber().length() / 4.0))
+            .mapToObj(
+                i ->
+                    card.getCardNumber()
+                        .substring(i, Math.min(i + 4, card.getCardNumber().length())))
+            .collect(Collectors.toList());
+    cardNumberList.stream()
+        .forEach(
+            number -> {
+              cardNumber.sendKeys(number);
+            });
+
+    SdkHelper.getDriver().switchTo().defaultContent();
+    SdkHelper.getSyncHelper().sleep(3000); // Waits for iFrame switch ends
+
+    WebHelper.switchToIFrameAndSetData(iFrameCardName, cardName, card.getNameOnCard());
+
+    WebHelper.switchToIFrame(iFrameCardExpiration);
+    SdkHelper.getSyncHelper().wait(Until.uiElement(cardExpiration).clickable());
+    cardExpiration.sendKeys(card.getExpirationMonth());
+    cardExpiration.sendKeys(card.getExpirationYear());
+
+    SdkHelper.getDriver().switchTo().defaultContent();
+    SdkHelper.getSyncHelper().sleep(3000); // Waits for iFrame switch ends
+
+    WebHelper.switchToIFrameAndSetData(iFrameCVV, cvv, card.getSecurityCode());
+    return SdkHelper.create(PaymentsPage.class);
+  }
+
   @Step("Click continue to payments")
   public AcceptancePage clickContinueToPayments() {
+    return clickOnPayNowButton(AcceptancePage.class);
+  }
+
+  @Step("Click 'Pay Now' button")
+  public <T extends BaseComponent> T clickOnPayNowButton(Class<T> clazz) {
     if (WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
       logger.info("Testcase needs to stop, running on prod[2nd Alert]");
     } else {
       logger.info("Clicking Pay Now");
       SdkHelper.getSyncHelper().wait(Until.uiElement(payNowButton).visible());
       payNowButton.click();
-
-      SdkHelper.getSyncHelper().wait(Until.uiElement(payNowButton).notPresent());
     }
-
-    return SdkHelper.create(AcceptancePage.class);
+    return SdkHelper.create(clazz);
   }
 
   @Step("Review same addres is selected")
@@ -273,5 +360,82 @@ public class PaymentsPage extends Base {
     boolean isEnabled = peetsCardApplyButton.isEnabled();
     logger.info("Apply button for Peet's Card / Gift Card is enabled - [{}]", isEnabled);
     return isEnabled;
+  }
+
+  @Step("Get Shipping Method")
+  public String getShippingMethod() {
+    String method = WebHelper.cleanString(methodType.getText());
+    logger.info("Ship method - [{}]", method);
+    return method;
+  }
+
+  @Step("Click on 'Return To Shipping' Button")
+  public ShippingPage clickOnReturnToShippingButton() {
+    logger.info("Clicking on 'Return To Shipping' Button");
+    returnToShippingButton.click();
+    return SdkHelper.create(ShippingPage.class);
+  }
+
+  @Step("Get Error Message")
+  public String getErrorMessage() {
+    String message = WebHelper.cleanString(errorMessage.getText());
+    logger.info("Error message - [{}]", message);
+    return message;
+  }
+
+  @Step("Get list of error messages")
+  public List<String> getListOfErrorMessageForMandatoryFields() {
+    ((LazyList<?>) errorMessagesList).initialize();
+    return errorMessagesList.stream()
+        .map(error -> WebHelper.cleanString(error.getText()))
+        .collect(Collectors.toList());
+  }
+
+  @Step("Set checkout data")
+  public PaymentsPage typeBillingAddress(BillingAddressDto addressDto) {
+    logger.info("Click on Use a different billing address");
+    diffAddress.click();
+
+    logger.info("Typing [{}] first name", addressDto.getFirstName());
+    firstName.clearText();
+    firstName.sendKeys(addressDto.getFirstName());
+
+    logger.info("Typing [{}] last name", addressDto.getLastName());
+    lastName.clearText();
+    lastName.sendKeys(addressDto.getLastName());
+
+    typeAddress(addressDto.getStreetAddress());
+
+    logger.info("Typing [{}] city", addressDto.getCity());
+    city.clearText();
+    city.sendKeys(addressDto.getCity());
+
+    logger.info("Typing [{}] phone number", addressDto.getPhoneNumber());
+    phone.clearText();
+    phone.sendKeys(addressDto.getPhoneNumber());
+
+    if (addressDto.getCountry() != null) {
+      logger.info("Selecting [{}] country", addressDto.getCountry());
+      country.select(Constants.WebTestData.COUNTRY);
+    }
+
+    if (addressDto.getState() != null) {
+      logger.info("Selecting [{}] state", addressDto.getState());
+      stateDropdown.select(addressDto.getState());
+    }
+
+    logger.info("Typing [{}] zip code", addressDto.getZipCode());
+    zip.clearText();
+    zip.sendKeys(addressDto.getZipCode());
+    return this;
+  }
+
+  @Step("Type user Email")
+  public void typeAddress(String userAddress) {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(address).visible());
+    logger.info("Typing [{}] address", userAddress);
+    address.clearText();
+    address.sendKeys(userAddress);
+    SdkHelper.getSyncHelper().sleep(500); // Wait for action
   }
 }

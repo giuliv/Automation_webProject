@@ -3,6 +3,7 @@ package com.applause.auto.test.new_web;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.components.ShipDateInfoComponent;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.CartPage;
 import com.applause.auto.new_web.views.CheckOutPage;
 import com.applause.auto.new_web.views.PaymentsPage;
@@ -10,6 +11,7 @@ import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.new_web.views.ShippingPage;
 import com.applause.auto.web.views.FAQPage;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -180,14 +182,33 @@ public class StandardOrdersTest extends BaseTest {
     logger.info("Verify that - Should go back to shipping address.");
     Assert.assertTrue(checkOutPage.isDisplayed(), "User isn't on CheckOut page");
 
-    logger.info("7. Click on Continue.");
+    logger.info("7. Change email value");
+    String randomEmail = WebHelper.getRandomMail();
+    checkOutPage.typeEmail(randomEmail);
+
+    logger.info("8. Click on Continue.");
     shippingPage = checkOutPage.clickContinueToShipping();
 
-    logger.info("8. Click on Change on Ship to.");
+    logger.info("Verify that - new email appear");
+    Assert.assertEquals(
+        shippingPage.getContactEmail(), randomEmail, "Contact email wasn't updated");
+
+    logger.info("9. Click on Change on Ship to.");
     checkOutPage = shippingPage.clickOnChangeShipTo();
 
     logger.info("Verify that - Should go back to shipping address.");
     Assert.assertTrue(checkOutPage.isDisplayed(), "User isn't on CheckOut page");
+
+    logger.info("10. Change Address value");
+    String newStreet = "143 Water St";
+    checkOutPage.typeAddress(newStreet);
+
+    logger.info("11. Click on Continue.");
+    shippingPage = checkOutPage.clickContinueToShipping();
+
+    logger.info("Verify that - new address appear");
+    Assert.assertTrue(
+        shippingPage.getShipToAddress().contains(newStreet), "Ship To wasn't updated");
   }
 
   @Test(
@@ -281,6 +302,21 @@ public class StandardOrdersTest extends BaseTest {
 
     logger.info("Verify that - User Should go back to Shipping.");
     Assert.assertTrue(shippingPage.isDisplayed(), "Shipping method page didn't appear");
+
+    logger.info("8. Change Shipping Method");
+    String selectedMethod = shippingPage.selectShippingMethodByIndex(2);
+
+    logger.info("9. Click on Continue to payment.");
+    paymentsPage = shippingPage.clickContinueToPayments();
+
+    logger.info("Verify that - Method should be updated.");
+    String currentMethod =
+        paymentsPage.getShippingMethod().replaceAll("·", "").replaceAll("  ", " ");
+    Assert.assertTrue(
+        currentMethod.contains(selectedMethod),
+        String.format(
+            "Shipping method wasn't updated. Expected [%s] but found - [%s]",
+            selectedMethod, currentMethod));
   }
 
   @Test(

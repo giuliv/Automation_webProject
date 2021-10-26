@@ -36,6 +36,7 @@ public class Constants {
     public static final String SUBSCRIPTIONS = "subscriptions";
     public static final String ACCOUNT_SETTINGS = "account-settings";
     public static final String STANDARD = "standard";
+    public static final String EDGE_CASES = "EdgeCases";
 
     // Mobile
     public static final String ONBOARDING = "onboarding";
@@ -178,6 +179,17 @@ public class Constants {
             "Enter a city",
             "Enter a ZIP / postal code",
             "Enter a valid phone number");
+
+    public static final String PAYMENT_ERROR_MESSAGE =
+        "Your payment details couldn’t be verified. Check your card details and try again.";
+    public static final List<String> PAYMENT_PAGE_VALIDATION_ERRORS =
+        Arrays.asList(
+            "Enter a valid card number",
+            "Enter your name exactly as it’s written on your card",
+            "Enter a valid card expiry date",
+            "Enter the CVV or security code on your card");
+    public static final List<String> INVALID_CC_VALIDATION_ERRORS =
+        Arrays.asList("Enter a valid card number");
   }
 
   public static final class TestMainMenu {
@@ -283,6 +295,11 @@ public class Constants {
     public static final String CREDIT_CARD_EXPIRATION_MONTH = "12";
     public static final String CREDIT_CARD_EXPIRATION_YEAR = "2021";
     public static final String CREDIT_CARD_CVV = "010";
+
+    public static final String CREDIT_CARD =
+        CREDIT_CARD_NUMBER_1 + CREDIT_CARD_NUMBER_2 + CREDIT_CARD_NUMBER_3 + CREDIT_CARD_NUMBER_4;
+
+    public static final String INVALID_CREDIT_CARD = "1111111111111111";
 
     public static final String PEETS_CARD = "81001000001599";
     public static final String PEETS_CARD_NIP = "3746";

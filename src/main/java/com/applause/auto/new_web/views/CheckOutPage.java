@@ -96,10 +96,7 @@ public class CheckOutPage extends Base {
   @Step("Set checkout data")
   public void setCheckOutData() {
     logger.info("Setting CheckOut data...");
-    SdkHelper.getSyncHelper().wait(Until.uiElement(mail).visible());
-
-    mail.sendKeys(Constants.WebTestData.EMAIL);
-    SdkHelper.getSyncHelper().sleep(500); // Wait for action
+    typeEmail(Constants.WebTestData.EMAIL);
 
     firstName.sendKeys(Constants.WebTestData.FIRST_NAME);
     SdkHelper.getSyncHelper().sleep(500); // Wait for action
@@ -107,8 +104,7 @@ public class CheckOutPage extends Base {
     lastName.sendKeys(Constants.WebTestData.LAST_NAME);
     SdkHelper.getSyncHelper().sleep(500); // Wait for action
 
-    address.sendKeys(Constants.WebTestData.ADDRESS);
-    SdkHelper.getSyncHelper().sleep(500); // Wait for action
+    typeAddress(Constants.WebTestData.ADDRESS);
 
     city.sendKeys(Constants.WebTestData.CITY);
     SdkHelper.getSyncHelper().sleep(500); // Wait for action
@@ -139,8 +135,7 @@ public class CheckOutPage extends Base {
 
       existingAddress.getOptions().get(0).click();
     } else {
-      address.sendKeys(Constants.WebTestData.ADDRESS);
-      SdkHelper.getSyncHelper().sleep(500); // Wait for action
+      typeAddress(Constants.WebTestData.ADDRESS);
 
       city.sendKeys(Constants.WebTestData.CITY);
       SdkHelper.getSyncHelper().sleep(500); // Wait for action
@@ -157,6 +152,24 @@ public class CheckOutPage extends Base {
       zip.sendKeys(Constants.WebTestData.ZIP);
       SdkHelper.getSyncHelper().sleep(500); // Wait for action
     }
+  }
+
+  @Step("Type user Email")
+  public void typeEmail(String email) {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(mail).visible());
+    logger.info("Typing [{}] email", email);
+    mail.clearText();
+    mail.sendKeys(email);
+    SdkHelper.getSyncHelper().sleep(500); // Wait for action
+  }
+
+  @Step("Type user Email")
+  public void typeAddress(String userAddress) {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(address).visible());
+    logger.info("Typing [{}] address", userAddress);
+    address.clearText();
+    address.sendKeys(userAddress);
+    SdkHelper.getSyncHelper().sleep(500); // Wait for action
   }
 
   @Step("Review existing user mail")

@@ -9,6 +9,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
 import java.util.List;
 
@@ -41,6 +42,18 @@ public class ShippingPage extends Base {
       on = Platform.WEB)
   private Button infoButton;
 
+  @Locate(
+      xpath =
+          "//div[contains(@class, 'content-box')]/div[contains(@class, 'review-block')][1]//div[contains(@class, 'content')]",
+      on = Platform.WEB)
+  private Text contactEmail;
+
+  @Locate(
+      xpath =
+          "//div[contains(@class, 'content-box')]/div[contains(@class, 'review-block')][2]//div[contains(@class, 'content')]",
+      on = Platform.WEB)
+  private Text shipToAddress;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
@@ -52,10 +65,11 @@ public class ShippingPage extends Base {
   @Step("Select shipping method")
   public String selectShippingMethodByIndex(int index) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(shippingMethods.get(index)).visible());
-    logger.info("Shipping Method Selected: " + shippingMethods.get(index).getText());
-
-    shippingMethods.get(index).click();
-    return shippingMethods.get(index).getText();
+    ContainerElement element = shippingMethods.get(index);
+    String methodName = element.getText();
+    logger.info("Shipping Method Selected: [{}]", methodName);
+    element.click();
+    return methodName;
   }
 
   @Step("Click continue to payments")
@@ -107,5 +121,19 @@ public class ShippingPage extends Base {
     logger.info("Clicking on 'Info' icon near the Shipping method");
     infoButton.click();
     return SdkHelper.create(ShipDateInfoComponent.class);
+  }
+
+  @Step("Get Contact Email")
+  public String getContactEmail() {
+    String email = WebHelper.cleanString(contactEmail.getText());
+    logger.info("Contact Email - [{}]", email);
+    return email;
+  }
+
+  @Step("Get Ship to address")
+  public String getShipToAddress() {
+    String address = WebHelper.cleanString(shipToAddress.getText());
+    logger.info("Ship To Address - [{}]", address);
+    return address;
   }
 }
