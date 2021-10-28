@@ -1,5 +1,6 @@
 package com.applause.auto.new_web.views;
 
+import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
@@ -9,6 +10,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
 import java.time.Duration;
@@ -59,6 +61,9 @@ public class ProductDetailsPage extends Base {
   @Locate(css = "#pvEssentials #productPrice .pv-price__original", on = Platform.WEB)
   private Text itemPrice;
 
+  @Locate(css = "#photos img", on = Platform.WEB)
+  private Image itemImage;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper()
@@ -89,8 +94,7 @@ public class ProductDetailsPage extends Base {
 
     if (WebHelper.isSafari()) {
       String text =
-          grindListSelected
-              .stream()
+          grindListSelected.stream()
               .filter(x -> x.getWebElement().isSelected())
               .findFirst()
               .get()
@@ -209,5 +213,25 @@ public class ProductDetailsPage extends Base {
       threeProductsButton.click();
     }
     SdkHelper.getSyncHelper().sleep(2000); // Wait for action
+  }
+
+  /**
+   * Verify expected image is displayed
+   *
+   * @param imageSrc
+   * @return
+   */
+  public boolean isExpectedImageDisplayed(String imageSrc) {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(itemImage).visible());
+    String imageSrcset = itemImage.getAttributeValue(Attribute.SRCSET.getValue());
+    if (!imageSrcset.contains(imageSrc)) {
+      logger.info(
+          "Wrong image is displayed. Expected scr - [{}]. Actual src - [{}]",
+          imageSrc,
+          imageSrcset);
+      return false;
+    }
+
+    return true;
   }
 }

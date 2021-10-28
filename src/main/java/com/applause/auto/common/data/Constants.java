@@ -37,6 +37,7 @@ public class Constants {
     public static final String ACCOUNT_SETTINGS = "account-settings";
     public static final String STANDARD = "standard";
     public static final String EDGE_CASES = "EdgeCases";
+    public static final String SEARCH = "search";
 
     // Mobile
     public static final String ONBOARDING = "onboarding";
@@ -311,6 +312,10 @@ public class Constants {
     public static final String SEARCH_COFFEE_DECAF_MAJOR = "Decaf Major";
     public static final String SEARCH_COFFEE_JR_RESERVE_BLEND = "JR RESERVE BLEND";
     public static final String SEARCH_COFFEE_BRAZILIAN_K_CUP = "SINGLE ORIGIN BRAZIL K-CUP";
+    public static final String NOT_EXIST_SEARCH_TERM = "qwert";
+
+    public static final String EMPTY_SEARCH_RESULT_MESSAGE_TEMPLATE =
+        "SORRY, WE COULDN’T FIND ANYTHING MATCHING \"%s\".";
   }
 
   public enum SortType {

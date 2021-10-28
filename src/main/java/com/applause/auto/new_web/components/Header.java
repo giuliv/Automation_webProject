@@ -1,6 +1,7 @@
 package com.applause.auto.new_web.components;
 
 import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
@@ -56,6 +57,9 @@ public class Header extends BaseComponent {
 
   @Locate(css = "#header button[class*='search']", on = Platform.WEB)
   protected Button searchIcon;
+
+  @Locate(id = "searchMenu", on = Platform.WEB)
+  protected ContainerElement searchComponent;
 
   @Override
   public void afterInit() {
@@ -120,6 +124,11 @@ public class Header extends BaseComponent {
     searchIcon.click();
 
     return SdkHelper.create(SearchComponent.class);
+  }
+
+  @Step("Verify search component is opened")
+  public boolean searchComponentIsOpened() {
+    return searchComponent.getAttributeValue(Attribute.CLASS.getValue()).contains("is-open");
   }
 }
 
