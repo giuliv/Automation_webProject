@@ -8,7 +8,9 @@
             </run>
         </groups>
         <packages>
-            <package name="com.applause.auto.test.new_web"/>
+            <package name="com.applause.auto.test.new_web.order.standard"/>
+            <package name="com.applause.auto.test.new_web.order.subscription"/>
+            <package name="com.applause.auto.test.new_web.order.edge_cases"/>
         </packages>
     </test>
 </suite>

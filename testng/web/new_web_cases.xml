@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Web Test Suite" verbose="1" parallel="classes"
-       thread-count="8">
+       thread-count="5">
     <test name="New Web cases" preserve-order="true">
         <groups>
             <run>
@@ -8,7 +8,9 @@
             </run>
         </groups>
         <packages>
-            <package name="com.applause.auto.test.new_web"/>
+            <package name="com.applause.auto.test.new_web.order.standard"/>
+            <package name="com.applause.auto.test.new_web.order.subscription"/>
+            <package name="com.applause.auto.test.new_web.order.edge_cases"/>
         </packages>
     </test>
 </suite>

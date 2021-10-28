@@ -753,26 +753,26 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("4. Select K-Cup from Coffee tab");
+    logger.info("4. Select Coffee from Coffee tab");
     productDetailsPage = miniCart.closeMiniCart(ProductDetailsPage.class);
     header = productDetailsPage.getHeader();
 
     header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);
     productListPage =
         header.clickOverSubCategoryFromMenu(
-            ProductListPage.class, Constants.MenuSubCategories.COFFEE_K_CUPS);
+            ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEST_SELLERS);
 
-    logger.info("5. Add K-cups item to MiniCart");
-    int cupsSelected = 2;
-    productDetailsPage = productListPage.clickOverProductByIndex(cupsSelected);
+    logger.info("5. Add Coffee item to MiniCart");
+    int coffeeSelected = 2;
+    productDetailsPage = productListPage.clickOverProductByIndex(coffeeSelected);
 
     String cupsName = productDetailsPage.getProductName();
-    int cupsQuantity = 2;
+    int coffeeQuantity = 2;
 
-    productDetailsPage.addMoreProducts(cupsQuantity);
-    int expectedCupsQuantity = productDetailsPage.getProductQuantityFromBox();
+    productDetailsPage.addMoreProducts(coffeeQuantity);
+    int expectedCupsQuantity = productDetailsPage.getProductQuantitySelected();
     Assert.assertEquals(
-        cupsQuantity, expectedCupsQuantity, "Quantity of products was not increased correctly");
+        coffeeQuantity, expectedCupsQuantity, "Quantity of products was not increased correctly");
 
     miniCart = productDetailsPage.clickAddToMiniCart();
 
@@ -793,11 +793,11 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     Assert.assertEquals(
         cupsName,
         miniCart.getProductNameByIndex(cupsIndex),
-        "Correct K-Cups Product was not added to MiniCart");
+        "Correct Product was not added to MiniCart");
     Assert.assertEquals(
-        cupsQuantity,
+        coffeeQuantity,
         miniCart.getProductQuantityByIndex(cupsIndex),
-        "Correct K-Cups product quantity was not added to MiniCart");
+        "Correct product quantity was not added to MiniCart");
 
     logger.info("7. Proceed to Checkout page");
     CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
@@ -828,7 +828,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
         "Limited Coffee name does NOT matches");
 
     Assert.assertEquals(
-        cupsName, acceptancePage.getOrderNameByIndex(cupsIndex), "K-Cups name does NOT matches");
+        cupsName, acceptancePage.getOrderNameByIndex(cupsIndex), "Product name does NOT matches");
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
     Assert.assertEquals(
         acceptancePage.getShippingPrice(),

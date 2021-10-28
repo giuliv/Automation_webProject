@@ -231,6 +231,7 @@ public class MiniCart extends BaseComponent {
     logger.info("Closing miniCart");
     SdkHelper.getSyncHelper().wait(Until.uiElement(closeButton).visible());
     closeButton.click();
+    SdkHelper.getSyncHelper().sleep(2000); // Wait for action
 
     return SdkHelper.create(expectedClass);
   }
