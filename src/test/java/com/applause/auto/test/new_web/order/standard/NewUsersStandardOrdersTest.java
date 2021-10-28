@@ -1,4 +1,4 @@
-package com.applause.auto.test.new_web;
+package com.applause.auto.test.new_web.order.standard;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.new_web.components.Header;
@@ -12,6 +12,7 @@ import com.applause.auto.new_web.views.PaymentsPage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.new_web.views.ShippingPage;
+import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

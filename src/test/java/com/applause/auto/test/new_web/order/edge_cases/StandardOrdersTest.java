@@ -1,4 +1,4 @@
-package com.applause.auto.test.new_web;
+package com.applause.auto.test.new_web.order.edge_cases;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.new_web.components.MiniCart;
@@ -10,6 +10,7 @@ import com.applause.auto.new_web.views.PaymentsPage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.new_web.views.ShippingPage;
+import com.applause.auto.test.new_web.BaseTest;
 import com.applause.auto.web.views.FAQPage;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;

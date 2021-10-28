@@ -1,4 +1,4 @@
-package com.applause.auto.test.new_web;
+package com.applause.auto.test.new_web.order.subscription;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.new_web.components.Header;
@@ -11,17 +11,18 @@ import com.applause.auto.new_web.views.MyAccountPage;
 import com.applause.auto.new_web.views.PaymentsPage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ShippingPage;
+import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class NewUsersSignatureBlendSubscriptionsTest extends BaseTest {
+public class NewUsersSingleOriginSubscriptionsTest extends BaseTest {
   // Todo: Optional assertions not added:
   //  Discount if any
 
   @Test(
       groups = {Constants.TestNGGroups.NEW_WEB_CASES},
-      description = "11071748")
-  public void signatureBlendDiscountAt5forNewUserTest() {
+      description = "11071746")
+  public void singleOriginDiscountAt5forNewUserTest() {
 
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
@@ -32,17 +33,17 @@ public class NewUsersSignatureBlendSubscriptionsTest extends BaseTest {
     MyAccountPage myAccountPage = testHelper.createAccount(homePage, mail);
     Assert.assertNotNull(myAccountPage, "Account was not created!");
 
-    logger.info("3. Select Signature Blend From Subscription tab");
+    logger.info("3. Select Single Origin From Subscription tab");
     Header header = homePage.getHeader();
     header.hoverCategoryFromMenu(Constants.MenuOptions.SUBSCRIPTION);
     ProductDetailsPage productDetailsPage =
         header.clickOverSubCategoryFromMenu(
-            ProductDetailsPage.class, Constants.MenuSubCategories.SUBSCRIPTIONS_SIGNATURE_BLEND);
+            ProductDetailsPage.class, Constants.MenuSubCategories.SUBSCRIPTIONS_SINGLE_ORIGIN);
 
     logger.info("4. Add subscription to MiniCart");
     String productName = productDetailsPage.getProductName();
     String grind = productDetailsPage.getGrindSelected();
-    int sBlendIndex = 0;
+    int sOriginIndex = 0;
     int productQuantity = 2;
     productDetailsPage.addMoreProducts(productQuantity);
     int expectedQuantity = productDetailsPage.getProductQuantitySelected();
@@ -52,13 +53,13 @@ public class NewUsersSignatureBlendSubscriptionsTest extends BaseTest {
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
     Assert.assertEquals(
         productName,
-        miniCart.getProductNameByIndex(sBlendIndex),
+        miniCart.getProductNameByIndex(sOriginIndex),
         "Correct Product was not added to MiniCart");
     Assert.assertEquals(
-        grind, miniCart.getGrindByIndex(sBlendIndex), "Correct Grind was not added to MiniCart");
+        grind, miniCart.getGrindByIndex(sOriginIndex), "Correct Grind was not added to MiniCart");
     Assert.assertEquals(
         productQuantity,
-        miniCart.getProductQuantityByIndex(sBlendIndex),
+        miniCart.getProductQuantityByIndex(sOriginIndex),
         "Correct product quantity was not added to MiniCart");
 
     logger.info("5. Proceed to Checkout page");
@@ -148,8 +149,8 @@ public class NewUsersSignatureBlendSubscriptionsTest extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.NEW_WEB_CASES},
-      description = "11071749")
-  public void signatureBlendDiscountAt10forNewUserTest() {
+      description = "11071747")
+  public void singleOriginDiscountAt10forNewUserTest() {
 
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
@@ -160,17 +161,17 @@ public class NewUsersSignatureBlendSubscriptionsTest extends BaseTest {
     MyAccountPage myAccountPage = testHelper.createAccount(homePage, mail);
     Assert.assertNotNull(myAccountPage, "Account was not created!");
 
-    logger.info("3. Select Signature Blend From Subscription tab");
+    logger.info("3. Select Single Origin From Subscription tab");
     Header header = homePage.getHeader();
     header.hoverCategoryFromMenu(Constants.MenuOptions.SUBSCRIPTION);
     ProductDetailsPage productDetailsPage =
         header.clickOverSubCategoryFromMenu(
-            ProductDetailsPage.class, Constants.MenuSubCategories.SUBSCRIPTIONS_SIGNATURE_BLEND);
+            ProductDetailsPage.class, Constants.MenuSubCategories.SUBSCRIPTIONS_SINGLE_ORIGIN);
 
     logger.info("4. Add subscription to MiniCart");
     String productName = productDetailsPage.getProductName();
     String grind = productDetailsPage.getGrindSelected();
-    int sBlendIndex = 0;
+    int sOriginIndex = 0;
     int productQuantity = 3;
     productDetailsPage.addMoreProducts(productQuantity);
     int expectedQuantity = productDetailsPage.getProductQuantitySelected();
@@ -180,16 +181,14 @@ public class NewUsersSignatureBlendSubscriptionsTest extends BaseTest {
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
     Assert.assertEquals(
         productName,
-        miniCart.getProductNameByIndex(sBlendIndex),
+        miniCart.getProductNameByIndex(sOriginIndex),
         "Correct Product was not added to MiniCart");
     Assert.assertEquals(
-        grind, miniCart.getGrindByIndex(sBlendIndex), "Correct Grind was not added to MiniCart");
+        grind, miniCart.getGrindByIndex(sOriginIndex), "Correct Grind was not added to MiniCart");
     Assert.assertEquals(
         productQuantity,
-        miniCart.getProductQuantityByIndex(sBlendIndex),
+        miniCart.getProductQuantityByIndex(sOriginIndex),
         "Correct product quantity was not added to MiniCart");
-
-    miniCart.addOneMoreItem();
 
     logger.info("5. Proceed to Checkout page");
     CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
