@@ -8,6 +8,7 @@ import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.new_web.views.SignInPage;
+import com.applause.auto.new_web.views.StoreLocatorPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -57,6 +58,12 @@ public class Header extends BaseComponent {
 
   @Locate(css = "#header button[class*='search']", on = Platform.WEB)
   protected Button searchIcon;
+
+  @Locate(xpath = "//header//a[./i[contains(@class, 'store')]]", on = Platform.WEB)
+  @Locate(
+      xpath = "//*[@id='navMobileMain']//a[./i[contains(@class, 'store')]]",
+      on = Platform.WEB_MOBILE_PHONE)
+  protected Button storeLocationIcon;
 
   @Locate(id = "searchMenu", on = Platform.WEB)
   protected ContainerElement searchComponent;
@@ -122,13 +129,19 @@ public class Header extends BaseComponent {
   public SearchComponent getSearchComponent() {
     logger.info("Get Search Component");
     searchIcon.click();
-
     return SdkHelper.create(SearchComponent.class);
   }
 
   @Step("Verify search component is opened")
   public boolean searchComponentIsOpened() {
     return searchComponent.getAttributeValue(Attribute.CLASS.getValue()).contains("is-open");
+  }
+
+  @Step("Click on 'Store Locator' button")
+  public StoreLocatorPage clickOnStoreLocator() {
+    logger.info("Clicking on 'Store Locator' button");
+    storeLocationIcon.click();
+    return SdkHelper.create(StoreLocatorPage.class);
   }
 }
 
@@ -178,5 +191,14 @@ class HeaderMobile extends Header {
     SdkHelper.getSyncHelper().wait(Until.uiElement(signInButton).clickable()).click();
 
     return SdkHelper.create(SignInPage.class);
+  }
+
+  @Step("Click on 'Store Locator' button")
+  public StoreLocatorPage clickOnStoreLocator() {
+    openHamburgerMenu();
+
+    logger.info("Clicking on 'Store Locator' button");
+    storeLocationIcon.click();
+    return SdkHelper.create(StoreLocatorPage.class);
   }
 }

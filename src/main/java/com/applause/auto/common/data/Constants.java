@@ -38,6 +38,7 @@ public class Constants {
     public static final String STANDARD = "standard";
     public static final String EDGE_CASES = "EdgeCases";
     public static final String SEARCH = "search";
+    public static final String FIND_STORE = "find-store";
 
     // Mobile
     public static final String ONBOARDING = "onboarding";

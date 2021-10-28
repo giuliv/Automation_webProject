@@ -72,7 +72,8 @@ public class SearchComponent extends BaseComponent {
   @Step("Verify result items are displayed with name, price, image")
   public boolean areAllSearchBoxItemsDisplayedCorrectly() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(searchResultsContainer).present());
-    return searchBoxItemComponents.stream()
+    return searchBoxItemComponents
+        .stream()
         .allMatch(SearchBoxItemComponent::isAutocompleteResultDisplayedCorrectly);
   }
 

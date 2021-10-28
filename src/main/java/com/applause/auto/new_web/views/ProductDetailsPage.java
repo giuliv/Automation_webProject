@@ -94,7 +94,8 @@ public class ProductDetailsPage extends Base {
 
     if (WebHelper.isSafari()) {
       String text =
-          grindListSelected.stream()
+          grindListSelected
+              .stream()
               .filter(x -> x.getWebElement().isSelected())
               .findFirst()
               .get()

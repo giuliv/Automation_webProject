@@ -6,6 +6,7 @@ import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
+import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import io.appium.java_client.ios.IOSDriver;
 import java.lang.invoke.MethodHandles;
@@ -17,6 +18,7 @@ import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -164,6 +166,33 @@ public class WebHelper {
   }
 
   /**
+   * If element exist wait For Element To Disapear
+   *
+   * @param element
+   * @param timeOut
+   */
+  public static void waitForElementToDisappear(BaseElement element, int timeOut) {
+    if (isDisplayed(element)) {
+      try {
+        SdkHelper.getSyncHelper()
+            .wait(Until.uiElement(element).notVisible().setTimeout(Duration.ofSeconds(timeOut)));
+      } catch (TimeoutException e) {
+        logger.debug("Element didn't disappear after [{}] sec", timeOut);
+      }
+    }
+  }
+
+  /**
+   * Check if Text is displayed and not empty
+   *
+   * @param element
+   * @return boolean
+   */
+  public static boolean isTextDisplayedAndNotEmpty(Text element) {
+    return isDisplayed(element) && !element.getText().isEmpty();
+  }
+
+  /**
    * Switches to tab/new window
    *
    * @param oldWindowHandle
@@ -260,5 +289,15 @@ public class WebHelper {
     } catch (Exception e) {
       throw new RuntimeException("New tab is blank.");
     }
+  }
+
+  /**
+   * Get integer from the sentence
+   *
+   * @param sentence the sentence
+   * @return int number from string
+   */
+  public static int getNumberFromString(String sentence) {
+    return Integer.parseInt(sentence.replaceAll("[^\\d.]", ""));
   }
 }

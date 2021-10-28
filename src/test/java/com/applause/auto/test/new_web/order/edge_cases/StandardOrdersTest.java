@@ -12,7 +12,6 @@ import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.new_web.views.ShippingPage;
 import com.applause.auto.test.new_web.BaseTest;
 import com.applause.auto.web.views.FAQPage;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
