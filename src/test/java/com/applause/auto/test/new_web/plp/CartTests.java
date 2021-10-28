@@ -131,9 +131,14 @@ public class CartTests extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.PLP},
-      description = "11101742")
+      description = "11101743",
+      enabled = false)
   public void cartReviewOneTimePurchase() {
-
+    /**
+     * TODO
+     *
+     * <p>Disabled this test for now as functionality isn't working on Stage
+     */
     logger.info("1. Navigate to landing page");
     ProductListPage productListPage = navigateToPLP();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");

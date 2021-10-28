@@ -452,7 +452,9 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.NEW_WEB_CASES},
-      description = "11052684")
+      description = "11052684",
+      enabled = false)
+  // Todo:Disable for now, due to inventory issue [28.10.2021]
   public void oneTeaOneKCupsPromoCodeAsGuestUserTest() {
 
     logger.info("1. Navigate to landing page");

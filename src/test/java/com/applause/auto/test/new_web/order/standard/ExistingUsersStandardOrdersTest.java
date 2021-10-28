@@ -485,7 +485,9 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.NEW_WEB_CASES},
-      description = "11071530")
+      description = "11071530",
+      enabled = false)
+  // Todo:Disable for now, due to inventory issue [28.10.2021]
   public void oneTeaOneKCupsPromoCodeAsExistingUserTest() {
 
     logger.info("1. Navigate to landing page");
@@ -782,7 +784,9 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.NEW_WEB_CASES},
-      description = "11071612")
+      description = "11071612",
+      enabled = false)
+  // Todo:Disable for now, due to inventory issue [28.10.2021]
   public void oneKCupsWithPeetsCardAsExistingUserTest() {
 
     logger.info("1. Navigate to landing page");
