@@ -210,7 +210,7 @@ public class ProductDetailsPage extends Base {
     } else if (totalProducts == 3) {
       logger.info("Selecting 3 products button");
       SdkHelper.getSyncHelper().wait(Until.uiElement(threeProductsButton).clickable());
-      threeProductsButton.click();
+      WebHelper.jsClick(threeProductsButton.getWebElement());
     }
     SdkHelper.getSyncHelper().sleep(2000); // Wait for action
   }
