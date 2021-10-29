@@ -58,7 +58,7 @@ public class SearchResultsPage extends Base {
     return searchResultTitle.isDisplayed();
   }
 
-  @Step("Verift empty search result message is displayed")
+  @Step("Verify empty search result message is displayed")
   public boolean isEmptySearchResultMessageDisplayed(String searchTerm) {
     if (!emptySearchResultMessage.isDisplayed()) {
       logger.info("The empty search result message isn't displayed");

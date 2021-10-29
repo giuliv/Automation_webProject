@@ -94,8 +94,7 @@ public class ProductDetailsPage extends Base {
 
     if (WebHelper.isSafari()) {
       String text =
-          grindListSelected
-              .stream()
+          grindListSelected.stream()
               .filter(x -> x.getWebElement().isSelected())
               .findFirst()
               .get()
@@ -216,18 +215,13 @@ public class ProductDetailsPage extends Base {
     SdkHelper.getSyncHelper().sleep(2000); // Wait for action
   }
 
-  /**
-   * Verify expected image is displayed
-   *
-   * @param imageSrc
-   * @return
-   */
+  @Step("Verify expected image is displayed")
   public boolean isExpectedImageDisplayed(String imageSrc) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(itemImage).visible());
     String imageSrcset = itemImage.getAttributeValue(Attribute.SRCSET.getValue());
     if (!imageSrcset.contains(imageSrc)) {
       logger.info(
-          "Wrong image is displayed. Expected scr - [{}]. Actual src - [{}]",
+          "Wrong image is displayed. Expected src - [{}]. Actual src - [{}]",
           imageSrc,
           imageSrcset);
       return false;

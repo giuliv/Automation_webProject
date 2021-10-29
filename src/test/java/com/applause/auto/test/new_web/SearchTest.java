@@ -81,7 +81,7 @@ public class SearchTest extends BaseTest {
     Header header = homePage.getHeader();
     SearchComponent searchComponent = header.getSearchComponent();
     searchComponent.enterSearchTerm(WebTestData.SEARCH_COFFEE_AGED_SUMATRA);
-    SearchBoxItemComponent itemComponent = searchComponent.getSearchBoxItemComponentBuIndex(1);
+    SearchBoxItemComponent itemComponent = searchComponent.getSearchBoxItemComponentByIndex(1);
     String productName = itemComponent.getName();
     String productImage = itemComponent.getImagePngName();
     String productPrice = itemComponent.getPrice();

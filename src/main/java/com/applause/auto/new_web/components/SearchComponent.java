@@ -78,7 +78,7 @@ public class SearchComponent extends BaseComponent {
   }
 
   @Step("Get search box item by index")
-  public SearchBoxItemComponent getSearchBoxItemComponentBuIndex(int index) {
+  public SearchBoxItemComponent getSearchBoxItemComponentByIndex(int index) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(searchResultsContainer).present());
     return searchBoxItemComponents.get(index - 1);
   }
