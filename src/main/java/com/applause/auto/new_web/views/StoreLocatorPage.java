@@ -16,6 +16,7 @@ import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.qameta.allure.Step;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Implementation(is = StoreLocatorPage.class, on = Platform.WEB)
 @Implementation(is = StoreLocatorPagePhone.class, on = Platform.WEB_MOBILE_PHONE)
@@ -55,6 +56,22 @@ public class StoreLocatorPage extends Base {
   @Locate(xpath = "//h2[contains(@class, 'list-title')]", on = Platform.WEB)
   protected Text resultTitle;
 
+  @Locate(xpath = "//button[contains(@class, 'js-store-locator-findloc')]", on = Platform.WEB)
+  protected Button useMyCurrentLocationButton;
+
+  @Locate(xpath = "//button[@aria-label='Zoom in']", on = Platform.WEB)
+  protected Button zoomInButton;
+
+  @Locate(
+      xpath = "//div[contains(@class, 'is-visible')]/span[@class='stockist-result-message-text']",
+      on = Platform.WEB)
+  protected Text resultMessageText;
+
+  @Locate(
+      xpath = "//div[contains(@class, 'is-visible')]/a[contains(@class, 'no-result-link')]",
+      on = Platform.WEB)
+  protected Button shopOnlineButton;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
@@ -68,6 +85,7 @@ public class StoreLocatorPage extends Base {
 
     logger.info("Clicking on Search");
     searchButton.click();
+    WebHelper.waitForElementToDisappear(loadingAnimation, 10);
     return this;
   }
 
@@ -127,6 +145,37 @@ public class StoreLocatorPage extends Base {
     logger.info("Clicking on filter by amenities.");
     filterByButton.click();
     return SdkHelper.create(StockResultFilterComponent.class);
+  }
+
+  @Step("Click on use my current location ")
+  public StoreLocatorPage clickUseMyCurrentLocation() {
+    logger.info("Clicking on 'Use my current location' button");
+    useMyCurrentLocationButton.click();
+    return this;
+  }
+
+  @Step("Click on Zoom in button")
+  public StoreLocatorPage clickOnZoomInButton(int countOfZoom) {
+    IntStream.range(0, countOfZoom)
+        .forEach(
+            action -> {
+              logger.info("Clicking on 'Zoom In' button");
+              zoomInButton.click();
+              WebHelper.waitForElementToDisappear(loadingAnimation, 5);
+            });
+    return this;
+  }
+
+  @Step("Get Result message text")
+  public String getResultMessage() {
+    String message = WebHelper.cleanString(resultMessageText.getText());
+    logger.info("Message is - [{}]", message);
+    return message;
+  }
+
+  @Step("Check If 'Shop Online' is Displayed")
+  public boolean isShopOnlineDisplayed() {
+    return WebHelper.isDisplayed(shopOnlineButton);
   }
 }
 

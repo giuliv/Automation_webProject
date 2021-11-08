@@ -11,6 +11,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
 
 @Implementation(is = StoreDetailsPage.class, on = Platform.WEB)
+@Implementation(is = StoreDetailsPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
 public class StoreDetailsPage extends BaseComponent {
 
   @Locate(xpath = "//span[contains(@class, 'store-detail-type')]", on = Platform.WEB)
@@ -35,7 +36,7 @@ public class StoreDetailsPage extends BaseComponent {
   private Text amenities;
 
   @Locate(xpath = "//button[contains(@class, 'store-detail-back')]", on = Platform.WEB)
-  private Button backButton;
+  protected Button backButton;
 
   @Step("Get Store Type")
   public String getType() {
@@ -92,5 +93,32 @@ public class StoreDetailsPage extends BaseComponent {
     getDirectionsButton.click();
     WebHelper.switchToNewTab(windowHandle);
     return SdkHelper.create(GoogleMapPage.class);
+  }
+
+  @Step("Click 'Start Order' Button")
+  public MenuPage startOrder() {
+    logger.info("Clicking on 'Start Order' button");
+    String windowHandle = SdkHelper.getDriver().getWindowHandle();
+    startOrderButton.click();
+    WebHelper.switchToNewTab(windowHandle);
+    return SdkHelper.create(MenuPage.class);
+  }
+
+  @Step("Click 'Back to results ' Button")
+  public StoreLocatorPage backToResults() {
+    logger.info("Clicking on 'Back to results ' button");
+    backButton.click();
+    return SdkHelper.create(StoreLocatorPage.class);
+  }
+}
+
+class StoreDetailsPageMobile extends StoreDetailsPage {
+
+  @Step("Click 'Back to results ' Button")
+  public StoreLocatorPage backToResults() {
+    logger.info("Clicking on 'Back to results ' button");
+    WebHelper.scrollToPageTop();
+    backButton.click();
+    return SdkHelper.create(StoreLocatorPage.class);
   }
 }

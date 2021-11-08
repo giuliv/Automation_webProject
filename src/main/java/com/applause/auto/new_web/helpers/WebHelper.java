@@ -52,6 +52,11 @@ public class WebHelper {
     jse.executeScript("window.scrollBy(0, " + -(windowHeight / 2) + ")", "");
   }
 
+  /** Scrolls to the top of the page */
+  public static void scrollToPageTop() {
+    ((JavascriptExecutor) SdkHelper.getDriver()).executeScript("window.scrollTo(0, 0);");
+  }
+
   public static boolean isDesktop() {
     return !SdkHelper.getEnvironmentHelper().isMobileAndroid()
         && !SdkHelper.getEnvironmentHelper().isMobileIOS()

@@ -4,6 +4,7 @@ import com.applause.auto.common.data.dto.StoreDetailsDto;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.helpers.WebHelper;
+import com.applause.auto.new_web.views.MenuPage;
 import com.applause.auto.new_web.views.StoreDetailsPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -147,5 +148,14 @@ public class StockResultItemComponent extends BaseComponent {
         .schedule(getSchedule())
         .isStartOrder(isStartOrderButtonDisplayed())
         .build();
+  }
+
+  @Step("Click 'Start Order' Button")
+  public MenuPage startOrder() {
+    logger.info("Clicking on 'Start Order' button");
+    String windowHandle = SdkHelper.getDriver().getWindowHandle();
+    startOrderButton.click();
+    WebHelper.switchToNewTab(windowHandle);
+    return SdkHelper.create(MenuPage.class);
   }
 }

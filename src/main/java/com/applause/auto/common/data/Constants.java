@@ -317,6 +317,9 @@ public class Constants {
 
     public static final String EMPTY_SEARCH_RESULT_MESSAGE_TEMPLATE =
         "SORRY, WE COULDN’T FIND ANYTHING MATCHING \"%s\".";
+
+    public static final String STORES_NO_RESULTS_MESSAGE =
+        "Oh no! There are no Peet’s Coffeebars in your area. But don’t worry, we’re happy to ship freshly hand-roasted beans directly to you.";
   }
 
   public enum SortType {

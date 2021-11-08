@@ -1,11 +1,14 @@
 package com.applause.auto.test.new_web;
 
 import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.common.data.Constants.WebTestData;
 import com.applause.auto.common.data.dto.StoreDetailsDto;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.StockResultFilterComponent;
 import com.applause.auto.new_web.components.StockResultItemComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.GoogleMapPage;
+import com.applause.auto.new_web.views.MenuPage;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.new_web.views.StoreDetailsPage;
 import com.applause.auto.new_web.views.StoreLocatorPage;
@@ -172,5 +175,131 @@ public class FindStoreTests extends BaseTest {
 
     logger.info("Verify that map should display.");
     Assert.assertTrue(googleMapPage.isDisplayed(), "Map isn't display");
+  }
+
+  @Test(
+      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.FIND_STORE},
+      description = "11102902")
+  public void validateStartOrder() {
+    logger.info("1. Navigate to landing page");
+    ProductListPage productListPage = navigateToPLP();
+    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+
+    logger.info("2. Click on location from header.");
+    StoreLocatorPage storeLocatorPage = productListPage.getHeader().clickOnStoreLocator();
+
+    logger.info("3. Type any zip code (95032)");
+    storeLocatorPage = storeLocatorPage.searchByZipCode("95032");
+
+    logger.info("4. Click on Start order");
+    String currentWindow = SdkHelper.getDriver().getWindowHandle();
+    MenuPage menuPage = storeLocatorPage.getStockResultList().get(0).startOrder();
+
+    logger.info("Verify that menu page should open.");
+    Assert.assertTrue(menuPage.isDisplayed(), "Menu page wasn't display");
+
+    logger.info("5. Go back to find store.");
+    SdkHelper.getDriver().close();
+    SdkHelper.getDriver().switchTo().window(currentWindow);
+
+    logger.info("6. Click on a store.");
+    StoreDetailsPage storeDetailsPage = storeLocatorPage.getStockResultList().get(0).click();
+
+    logger.info("7. Click on Start order");
+    menuPage = storeDetailsPage.startOrder();
+
+    logger.info("Verify that menu page should open.");
+    Assert.assertTrue(menuPage.isDisplayed(), "Menu page wasn't display");
+  }
+
+  @Test(
+      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.FIND_STORE},
+      description = "11102903")
+  public void backToResults() {
+    logger.info("1. Navigate to landing page");
+    ProductListPage productListPage = navigateToPLP();
+    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+
+    logger.info("2. Click on location from header.");
+    StoreLocatorPage storeLocatorPage = productListPage.getHeader().clickOnStoreLocator();
+
+    logger.info("3. Type any zip code (95032)");
+    storeLocatorPage = storeLocatorPage.searchByZipCode("95032");
+
+    logger.info("4. Click on a store.");
+    List<String> listOfStoreNames = storeLocatorPage.getListOfStoreNames();
+    StoreDetailsPage storeDetailsPage = storeLocatorPage.getStockResultList().get(0).click();
+
+    logger.info("5. Click on Back to results.");
+    storeLocatorPage = storeDetailsPage.backToResults();
+
+    logger.info("Verify that results list should display.");
+    Assert.assertEquals(
+        storeLocatorPage.getListOfStoreNames(), listOfStoreNames, "Results list isn't the same");
+  }
+
+  @Test(
+      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.FIND_STORE},
+      description = "11102904")
+  public void byCurrentLocation() {
+    logger.info("1. Navigate to landing page");
+    ProductListPage productListPage = navigateToPLP();
+    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+
+    logger.info("2. Click on location from header.");
+    StoreLocatorPage storeLocatorPage = productListPage.getHeader().clickOnStoreLocator();
+
+    logger.info("3. Click on use my current location");
+    storeLocatorPage = storeLocatorPage.clickUseMyCurrentLocation();
+
+    logger.info("Verify that closest store should display.");
+    Assert.assertTrue(storeLocatorPage.getListOfStoreNames().size() > 0, "Stores didn't appear");
+  }
+
+  @Test(
+      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.FIND_STORE},
+      description = "11102905")
+  public void zoomMapTest() {
+    logger.info("1. Navigate to landing page");
+    ProductListPage productListPage = navigateToPLP();
+    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+
+    logger.info("2. Click on location from header.");
+    StoreLocatorPage storeLocatorPage = productListPage.getHeader().clickOnStoreLocator();
+
+    logger.info("3. Zoom any part on the map");
+    storeLocatorPage = storeLocatorPage.clickOnZoomInButton(2);
+
+    logger.info("Verify that list of stores within the map should display.");
+    Assert.assertTrue(storeLocatorPage.getListOfStoreNames().size() > 0, "Stores didn't appear");
+  }
+
+  @Test(
+      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.FIND_STORE},
+      description = "11102906")
+  public void thereAreNoStoresNearby() {
+    logger.info("1. Navigate to landing page");
+    ProductListPage productListPage = navigateToPLP();
+    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+
+    logger.info("2. Click on location from header.");
+    StoreLocatorPage storeLocatorPage = productListPage.getHeader().clickOnStoreLocator();
+
+    logger.info("3. Type any country without stores");
+    storeLocatorPage = storeLocatorPage.searchByZipCode("France");
+
+    logger.info("4. Zoom any part on the map");
+    storeLocatorPage = storeLocatorPage.clickOnZoomInButton(3);
+
+    logger.info("Verify that correct message and link is displayed");
+    Assert.assertEquals(
+        storeLocatorPage.getCountOfItemsFromResultTitle(),
+        0,
+        "Count of results from the title is wrong");
+    Assert.assertEquals(
+        storeLocatorPage.getResultMessage(),
+        WebTestData.STORES_NO_RESULTS_MESSAGE,
+        "'No results' message is wrong");
+    Assert.assertTrue(storeLocatorPage.isShopOnlineDisplayed(), "'Shop Online' isn't displayed");
   }
 }
