@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Implementation(is = CheckOutPage.class, on = Platform.WEB)
-@Implementation(is = CheckOutPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = CheckOutPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
 public class CheckOutPage extends Base {
 
   @Locate(css = "div[data-step='contact_information']", on = Platform.WEB)
@@ -73,10 +73,10 @@ public class CheckOutPage extends Base {
   protected Button returnToCartButton;
 
   @Locate(id = "checkout_reduction_code", on = Platform.WEB)
-  private TextBox discountCodeField;
+  protected TextBox discountCodeField;
 
   @Locate(xpath = "//button[contains(@class, 'field')]", on = Platform.WEB)
-  private Button applyCodeButton;
+  protected Button applyCodeButton;
 
   @Locate(id = "error-for-reduction_code", on = Platform.WEB)
   private Text discountCodeError;
@@ -204,8 +204,7 @@ public class CheckOutPage extends Base {
   @Step("Get list of error messages")
   public List<String> getListOfErrorMessages() {
     ((LazyList<?>) errorMessagesList).initialize();
-    return errorMessagesList
-        .stream()
+    return errorMessagesList.stream()
         .map(error -> WebHelper.cleanString(error.getText()))
         .collect(Collectors.toList());
   }
@@ -230,7 +229,7 @@ public class CheckOutPage extends Base {
    */
   @Step("Apply discount code")
   public CheckOutPage applyDiscountCode(String code) {
-    logger.info("Typing [{}] Discount Code");
+    logger.info("Typing [{}] Discount Code", code);
     discountCodeField.clearText();
     discountCodeField.sendKeys(code);
 
@@ -267,5 +266,27 @@ public class CheckOutPage extends Base {
   /** @return boolean */
   public boolean isDisplayed() {
     return WebHelper.isDisplayed(mainContainer);
+  }
+}
+
+class CheckOutPageMobile extends CheckOutPage {
+
+  @Locate(xpath = "//button[contains(@class, 'order-summary-toggle')]", on = Platform.WEB)
+  private Button showOrderSummaryButton;
+
+  @Override
+  @Step("Apply discount code")
+  public CheckOutPage applyDiscountCode(String code) {
+    logger.info("Clicking on 'Show Order Summary' button");
+    showOrderSummaryButton.click();
+
+    logger.info("Typing [{}] Discount Code", code);
+    discountCodeField.click();
+    discountCodeField.clearText();
+    discountCodeField.sendKeys(code);
+
+    logger.info("Clicking on 'Apply' button");
+    applyCodeButton.click();
+    return SdkHelper.create(CheckOutPage.class);
   }
 }

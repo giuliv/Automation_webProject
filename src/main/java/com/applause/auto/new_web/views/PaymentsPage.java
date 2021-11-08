@@ -23,14 +23,14 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Implementation(is = PaymentsPage.class, on = Platform.WEB)
-@Implementation(is = PaymentsPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = PaymentsPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
 public class PaymentsPage extends Base {
 
   @Locate(xpath = "(//button[@id='continue_button'])[1]", on = Platform.WEB)
-  private ContainerElement mainContainer;
+  protected ContainerElement mainContainer;
 
   @Locate(css = "iframe[id*='card-fields-number']", on = Platform.WEB)
-  private ContainerElement iFrameCardNumber;
+  protected ContainerElement iFrameCardNumber;
 
   @Locate(css = "input[name='number']", on = Platform.WEB)
   private TextBox cardNumber;
@@ -48,10 +48,10 @@ public class PaymentsPage extends Base {
   private TextBox cardExpiration;
 
   @Locate(css = "iframe[id*='card-fields-verification']", on = Platform.WEB)
-  private ContainerElement iFrameCVV;
+  protected ContainerElement iFrameCVV;
 
   @Locate(css = "input[name*='verification']", on = Platform.WEB)
-  private TextBox cvv;
+  protected TextBox cvv;
 
   @Locate(css = "fieldset div[data-same-billing-address] input", on = Platform.WEB)
   private RadioButton sameAddress;
@@ -60,7 +60,7 @@ public class PaymentsPage extends Base {
   private RadioButton diffAddress;
 
   @Locate(xpath = "(//button[@id='continue_button'])[1]", on = Platform.WEB)
-  private Button payNowButton;
+  protected Button payNowButton;
 
   @Locate(css = ".total-line .payment-due__price", on = Platform.WEB)
   @Locate(css = "span[class*='final-price']", on = Platform.WEB_MOBILE_PHONE)
@@ -154,15 +154,6 @@ public class PaymentsPage extends Base {
     SdkHelper.getSyncHelper().wait(Until.uiElement(iFrameCardNumber).present());
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
     logger.info("Payments Page URL: " + getDriver().getCurrentUrl());
-
-    if (!WebHelper.isDesktop()) {
-      SdkHelper.getSyncHelper().wait(Until.uiElement(showSummary).visible());
-      WebHelper.scrollToElement(showSummary.getWebElement());
-      logger.info("Open Order Summary Section");
-
-      showSummary.click();
-      SdkHelper.getSyncHelper().sleep(1000); // Wait for action
-    }
   }
 
   /* -------- Actions -------- */
@@ -193,7 +184,7 @@ public class PaymentsPage extends Base {
     SdkHelper.getDriver().switchTo().defaultContent();
     SdkHelper.getSyncHelper().sleep(3000); // Waits for iFrame switch ends
 
-    WebHelper.switchToIFrameAndSetData(iFrameCVV, cvv, Constants.WebTestData.CREDIT_CARD_CVV);
+    typeCvv(Constants.WebTestData.CREDIT_CARD_CVV);
   }
 
   @Step("Set payment data")
@@ -216,8 +207,7 @@ public class PaymentsPage extends Base {
                     card.getCardNumber()
                         .substring(i, Math.min(i + 4, card.getCardNumber().length())))
             .collect(Collectors.toList());
-    cardNumberList
-        .stream()
+    cardNumberList.stream()
         .forEach(
             number -> {
               cardNumber.sendKeys(number);
@@ -236,7 +226,7 @@ public class PaymentsPage extends Base {
     SdkHelper.getDriver().switchTo().defaultContent();
     SdkHelper.getSyncHelper().sleep(3000); // Waits for iFrame switch ends
 
-    WebHelper.switchToIFrameAndSetData(iFrameCVV, cvv, card.getSecurityCode());
+    typeCvv(card.getSecurityCode());
     return SdkHelper.create(PaymentsPage.class);
   }
 
@@ -387,8 +377,7 @@ public class PaymentsPage extends Base {
   @Step("Get list of error messages")
   public List<String> getListOfErrorMessageForMandatoryFields() {
     ((LazyList<?>) errorMessagesList).initialize();
-    return errorMessagesList
-        .stream()
+    return errorMessagesList.stream()
         .map(error -> WebHelper.cleanString(error.getText()))
         .collect(Collectors.toList());
   }
@@ -439,5 +428,48 @@ public class PaymentsPage extends Base {
     address.clearText();
     address.sendKeys(userAddress);
     SdkHelper.getSyncHelper().sleep(500); // Wait for action
+  }
+
+  @Step("Type Credit Card CVV")
+  public void typeCvv(String cvvCode) {
+    WebHelper.switchToIFrameAndSetData(iFrameCVV, cvv, cvvCode);
+  }
+}
+
+class PaymentsPageMobile extends PaymentsPage {
+
+  @Override
+  public void afterInit() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(iFrameCardNumber).present());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
+    logger.info("Payments Page URL: " + getDriver().getCurrentUrl());
+
+    if (WebHelper.isDisplayed(showSummary)) {
+      WebHelper.scrollToElement(showSummary.getWebElement());
+      logger.info("Open Order Summary Section");
+      showSummary.click();
+      SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    }
+  }
+
+  @Override
+  @Step("Type Credit Card CVV")
+  public void typeCvv(String cvvCode) {
+    WebHelper.switchToIFrameAndSetData(iFrameCVV, cvv, cvvCode);
+    SdkHelper.getDeviceControl().hideKeyboard();
+  }
+
+  @Override
+  @Step("Click 'Pay Now' button")
+  public <T extends BaseComponent> T clickOnPayNowButton(Class<T> clazz) {
+    if (WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
+      logger.info("Testcase needs to stop, running on prod[2nd Alert]");
+    } else {
+      logger.info("Clicking Pay Now");
+      SdkHelper.getSyncHelper().wait(Until.uiElement(payNowButton).visible());
+      SdkHelper.getSyncHelper().wait(Until.uiElement(payNowButton).clickable());
+      WebHelper.jsClick(payNowButton.getWebElement());
+    }
+    return SdkHelper.create(clazz);
   }
 }

@@ -17,7 +17,7 @@ import java.time.Duration;
 import java.util.List;
 
 @Implementation(is = ProductDetailsPage.class, on = Platform.WEB)
-@Implementation(is = ProductDetailsPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = ProductDetailsPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
 public class ProductDetailsPage extends Base {
 
   @Locate(id = "pvEssentials", on = Platform.WEB)
@@ -44,7 +44,7 @@ public class ProductDetailsPage extends Base {
   private Button addToCartButton;
 
   @Locate(id = "productViewQuantityButton3", on = Platform.WEB)
-  private Button threeProductsButton;
+  protected Button threeProductsButton;
 
   @Locate(id = "productViewQuantityButton2", on = Platform.WEB)
   private Button twoProductsButton;
@@ -179,8 +179,7 @@ public class ProductDetailsPage extends Base {
 
     if (totalProducts > 3) {
       logger.info("Adding more than 3 products, clicking 3+ button");
-      SdkHelper.getSyncHelper().wait(Until.uiElement(threeProductsButton).clickable());
-      threeProductsButton.click();
+      clickOnThreeProductsButton();
 
       SdkHelper.getSyncHelper().wait(Until.uiElement(addOneMore).present());
       if (!WebHelper.isDesktop()) {
@@ -228,5 +227,19 @@ public class ProductDetailsPage extends Base {
     }
 
     return true;
+  }
+
+  protected void clickOnThreeProductsButton() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(threeProductsButton).clickable());
+    threeProductsButton.click();
+  }
+}
+
+class ProductDetailsPageMobile extends ProductDetailsPage {
+
+  @Override
+  protected void clickOnThreeProductsButton() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(threeProductsButton).clickable());
+    WebHelper.clickOnElementAndScrollUpIfNeeded(threeProductsButton, -90);
   }
 }

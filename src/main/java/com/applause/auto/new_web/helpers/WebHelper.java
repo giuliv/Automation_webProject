@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
@@ -126,6 +127,38 @@ public class WebHelper {
   public static void jsClick(final WebElement webElement) {
     final JavascriptExecutor executor = (JavascriptExecutor) SdkHelper.getDriver();
     executor.executeScript("arguments[0].click();", webElement);
+  }
+
+  /**
+   * Click On Element and in case of ElementClickInterceptedException scroll up and then click again
+   *
+   * @param element
+   */
+  public static void clickOnElementAndScrollUpIfNeeded(BaseElement element, int shiftWindow) {
+    try {
+      element.click();
+    } catch (ElementClickInterceptedException e) {
+      int yCoordinate = getPagePositionY();
+      scrollPageByCoordinates(yCoordinate - shiftWindow);
+      SdkHelper.getSyncHelper().sleep(2000);
+      logger.info("Clicking again");
+      element.click();
+    }
+  }
+
+  /** @return Y-position of page */
+  public static int getPagePositionY() {
+    String javascript = "return window.scrollY;";
+    return (int)
+        Float.parseFloat(
+            String.valueOf(((JavascriptExecutor) SdkHelper.getDriver()).executeScript(javascript)));
+  }
+
+  /** Scrolls to the top of the page */
+  public static void scrollPageByCoordinates(int endPoint) {
+    logger.info(String.format("Scrolling Page Coordinates - [0, %s]", endPoint));
+    ((JavascriptExecutor) SdkHelper.getDriver())
+        .executeScript(String.format("window.scrollTo(%d,%d);", 0, endPoint));
   }
 
   public static <T extends BaseComponent> T navigateBack(Class<T> clazz) {
