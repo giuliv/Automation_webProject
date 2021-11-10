@@ -7,8 +7,11 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Link;
+import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import io.qameta.allure.Step;
+import java.time.Duration;
 
 @Implementation(is = SignInPage.class, on = Platform.WEB)
 public class SignInPage extends BaseComponent {
@@ -26,6 +29,12 @@ public class SignInPage extends BaseComponent {
 
   @Locate(css = "input[value='Create Account']", on = Platform.WEB)
   private Button getCreateAccountButton;
+
+  @Locate(css = ".text-danger", on = Platform.WEB)
+  private Text getErrorMessage;
+
+  @Locate(css = ".resetPW", on = Platform.WEB)
+  private Link getForgotPasswordLink;
 
   /* -------- Actions -------- */
 
@@ -61,12 +70,7 @@ public class SignInPage extends BaseComponent {
    */
   @Step("Click Sign in button")
   public MyAccountPage clickOnSignInButton() {
-    logger.info("Click on sign in button");
-    SdkHelper.getSyncHelper().wait(Until.uiElement(getSignInButton).clickable());
-    getSignInButton.click();
-    SdkHelper.getSyncHelper().sleep(1000);
-
-    return SdkHelper.create(MyAccountPage.class);
+    return clickOnSignInButton(MyAccountPage.class);
   }
 
   @Step("Click Create account button")
@@ -77,5 +81,41 @@ public class SignInPage extends BaseComponent {
     SdkHelper.getSyncHelper().sleep(1000);
 
     return SdkHelper.create(CreateAccountPage.class);
+  }
+
+  /**
+   * Click on Login Button on Login Page
+   *
+   * @param expectedClass
+   * @return expectedClass
+   */
+  @Step("Click Sign in button")
+  public <T extends BaseComponent> T clickOnSignInButton(Class<T> expectedClass) {
+    logger.info("Click on sign in button");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getSignInButton).clickable());
+    getSignInButton.click();
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    return SdkHelper.create(expectedClass);
+  }
+
+  @Step("Verify error message is displayed")
+  public boolean errorMessageIsDisplayed() {
+    try {
+      SdkHelper.getSyncHelper()
+          .wait(Until.uiElement(getErrorMessage).visible().setTimeout(Duration.ofSeconds(20)));
+    } catch (Exception e) {
+      logger.info("Error message isn't displayed");
+      return false;
+    }
+
+    return !getErrorMessage.getText().isEmpty();
+  }
+
+  @Step("Click Forgot password link")
+  public ResetPasswordPage clickForgotPasswordLink() {
+    logger.info("Clicking Forgot password link");
+    getForgotPasswordLink.click();
+    return SdkHelper.create(ResetPasswordPage.class);
   }
 }

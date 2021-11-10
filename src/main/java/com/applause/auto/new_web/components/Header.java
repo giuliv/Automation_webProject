@@ -15,6 +15,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import io.qameta.allure.Step;
+import org.apache.commons.lang3.NotImplementedException;
 
 @Implementation(is = Header.class, on = Platform.WEB)
 @Implementation(is = HeaderMobile.class, on = Platform.WEB_MOBILE_PHONE)
@@ -46,7 +47,7 @@ public class Header extends BaseComponent {
   @Locate(css = ".hide-desktop a[href*='%s']", on = Platform.WEB_MOBILE_PHONE)
   private Button subscriptionCategories;
 
-  @Locate(css = ".header__mobile-menu", on = Platform.WEB_MOBILE_PHONE)
+  @Locate(css = ".header__mobile-menu > button", on = Platform.WEB_MOBILE_PHONE)
   protected Button hamburgerButton;
 
   @Locate(css = "#header a[href*='/login'] i", on = Platform.WEB)
@@ -143,6 +144,16 @@ public class Header extends BaseComponent {
     storeLocationIcon.click();
     return SdkHelper.create(StoreLocatorPage.class);
   }
+
+  @Step("Verify Sign in button is displayed")
+  public boolean isSignInButtonDisplayed() {
+    return signInButton.isDisplayed();
+  }
+
+  @Step("Open Hamburger Menu")
+  public void openHamburgerMenu() {
+    throw new NotImplementedException("Hamburger Menu isn't present on desktop");
+  }
 }
 
 class HeaderMobile extends Header {
@@ -174,6 +185,7 @@ class HeaderMobile extends Header {
     return SdkHelper.create(ProductListPage.class);
   }
 
+  @Override
   @Step("Open Hamburger Menu")
   public void openHamburgerMenu() {
     logger.info("Open Hamburger Menu [Mobile]");
@@ -200,5 +212,11 @@ class HeaderMobile extends Header {
     logger.info("Clicking on 'Store Locator' button");
     storeLocationIcon.click();
     return SdkHelper.create(StoreLocatorPage.class);
+  }
+
+  @Step("Verify Sign in button is displayed")
+  public boolean isSignInButtonDisplayed() {
+    openHamburgerMenu();
+    return signInButton.isDisplayed();
   }
 }

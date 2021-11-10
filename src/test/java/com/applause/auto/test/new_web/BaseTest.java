@@ -11,6 +11,7 @@ import com.applause.auto.new_web.views.GiftCardsPage;
 import com.applause.auto.new_web.views.HomePage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ProductListPage;
+import com.applause.auto.new_web.views.SignInPage;
 import io.qameta.allure.Step;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
@@ -81,6 +82,13 @@ public class BaseTest extends ApplauseSeleniumTest {
     logger.info(String.format("Navigating to the Gear page '%s'", TestData.GEAR_PAGE_URL));
     SdkHelper.getDriver().navigate().to(TestData.GEAR_PAGE_URL);
     return SdkHelper.create(ProductListPage.class);
+  }
+
+  @Step("Navigate to Sign in page")
+  public SignInPage navigateToSignInPage() {
+    logger.info(String.format("Navigating to the Sign in page '%s'", TestData.LANDING_PAGE_URL));
+    SdkHelper.getDriver().navigate().to(TestData.LANDING_PAGE_URL);
+    return SdkHelper.create(HomePage.class).clickSignInButton();
   }
 
   @Step("Navigate to Gift Cards page")

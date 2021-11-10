@@ -323,6 +323,8 @@ public class Constants {
 
     public static final String STORES_NO_RESULTS_MESSAGE =
         "Oh no! There are no Peet’s Coffeebars in your area. But don’t worry, we’re happy to ship freshly hand-roasted beans directly to you.";
+    public static final String NOT_EXIST_EMAIL = "test.applause.231@mail.com";
+    public static final String PASSWORD = "password123";
     public static final String FIFTEEN_DOLLARS = "$15";
     public static final String PEETS_CARDS_NAME = "Peet's Cards";
   }
@@ -404,5 +406,18 @@ public class Constants {
   public static class UserTestData {
     private String username;
     private String password;
+  }
+
+  @AllArgsConstructor
+  public enum MyAccountLeftMenuOption {
+    DASHBOARD("Dashboard"),
+    PEETNIK_REWARDS("Peetnik Rewards"),
+    MY_SUBSCRIPTIONS("My Subscriptions"),
+    ORDER_HISTORY("Order History"),
+    PEETS_CARDS("Peet's Cards"),
+    REFERRALS("Referrals"),
+    SETTINGS("Settings");
+
+    @Getter private String value;
   }
 }

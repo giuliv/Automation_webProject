@@ -10,7 +10,7 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 
 @Implementation(is = HomePage.class, on = Platform.WEB)
-@Implementation(is = HomePage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = HomePageMobile.class, on = Platform.WEB_MOBILE_PHONE)
 public class HomePage extends Base {
 
   @Locate(id = "searchOverlay", on = Platform.WEB)
@@ -21,6 +21,10 @@ public class HomePage extends Base {
 
   @Locate(css = "button.launch-modal__close, #closeIconContainer", on = Platform.WEB)
   private Button closeModal;
+
+  @Locate(css = "#header a[href*='/login']", on = Platform.WEB)
+  @Locate(css = "#navMobileMain a[href*='/login']", on = Platform.WEB_MOBILE_PHONE)
+  protected Button signInButton;
 
   @Override
   public void afterInit() {
@@ -43,4 +47,31 @@ public class HomePage extends Base {
 
   /* -------- Actions -------- */
 
+  /**
+   * Taps the sign in button.
+   *
+   * @return a Login
+   */
+  public SignInPage clickSignInButton() {
+    logger.info("Tap on SignIn Button");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(signInButton).clickable()).click();
+
+    return SdkHelper.create(SignInPage.class);
+  }
+}
+
+class HomePageMobile extends HomePage {
+
+  /**
+   * Taps the sign in button.
+   *
+   * @return a Login
+   */
+  public SignInPage clickSignInButton() {
+    getHeader().openHamburgerMenu();
+    logger.info("Tap on SignIn Button");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(signInButton).clickable()).click();
+
+    return SdkHelper.create(SignInPage.class);
+  }
 }

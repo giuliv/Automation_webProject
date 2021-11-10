@@ -3,6 +3,7 @@ package com.applause.auto.new_web.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.new_web.components.MyAccountLeftMenu;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
@@ -44,5 +45,11 @@ public class MyAccountPage extends Base {
     SdkHelper.getSyncHelper().wait(Until.uiElement(getViewSignature).visible());
     logger.info("Welcome message: " + getViewSignature.getText().toLowerCase());
     return getViewSignature.getText().toLowerCase();
+  }
+
+  @Step("Get Left menu")
+  public MyAccountLeftMenu getLeftMenu() {
+    logger.info("Getting the left menu");
+    return SdkHelper.create(MyAccountLeftMenu.class);
   }
 }
