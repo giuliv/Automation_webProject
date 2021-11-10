@@ -39,6 +39,7 @@ public class Constants {
     public static final String EDGE_CASES = "EdgeCases";
     public static final String SEARCH = "search";
     public static final String FIND_STORE = "find-store";
+    public static final String GIFT_CARDS = "gift-cards";
 
     // Mobile
     public static final String ONBOARDING = "onboarding";
@@ -83,6 +84,8 @@ public class Constants {
     public static final String SHOP_PEETS_CARD_PAGE_URL = LANDING_PAGE_URL.concat("/peets-card");
     public static final String SHOP_COFFEE_KCUPS_PAGE_URL =
         LANDING_PAGE_URL.concat("/coffee/k-cups");
+    public static final String GIFT_CARDS_PAGE_URL =
+        LANDING_PAGE_URL.split("\\?")[0].concat("/pages/gift-cards");
 
     public static final String WEB_USERNAME = "peets.automation01@applause.com";
     public static final String WEB_PASSWORD = "Pa55word!";
@@ -320,6 +323,8 @@ public class Constants {
 
     public static final String STORES_NO_RESULTS_MESSAGE =
         "Oh no! There are no Peet’s Coffeebars in your area. But don’t worry, we’re happy to ship freshly hand-roasted beans directly to you.";
+    public static final String FIFTEEN_DOLLARS = "$15";
+    public static final String PEETS_CARDS_NAME = "Peet's Cards";
   }
 
   public enum SortType {

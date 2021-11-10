@@ -11,6 +11,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
+import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
 import java.time.Duration;
@@ -63,6 +64,9 @@ public class ProductDetailsPage extends Base {
 
   @Locate(css = "#photos img", on = Platform.WEB)
   private Image itemImage;
+
+  @Locate(css = "select#amount", on = Platform.WEB)
+  private SelectList amountSelectList;
 
   @Override
   public void afterInit() {
@@ -228,6 +232,13 @@ public class ProductDetailsPage extends Base {
     }
 
     return true;
+  }
+
+  @Step("Select amount")
+  public ProductDetailsPage selectAmount(String amount) {
+    logger.info("Selecting amount [{}]", amount);
+    amountSelectList.select(amount);
+    return this;
   }
 
   protected void clickOnThreeProductsButton() {

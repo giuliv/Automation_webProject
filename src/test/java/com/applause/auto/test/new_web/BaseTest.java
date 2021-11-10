@@ -7,13 +7,13 @@ import com.applause.auto.integrations.base.ApplauseSeleniumTest;
 import com.applause.auto.listeners.allure.TestMethodFailureRetryInterceptor;
 import com.applause.auto.listeners.allure.WebTestMethodExecutionListener;
 import com.applause.auto.new_web.helpers.TestHelper;
+import com.applause.auto.new_web.views.GiftCardsPage;
 import com.applause.auto.new_web.views.HomePage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ProductListPage;
+import io.qameta.allure.Step;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
-
-import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.BeforeMethod;
@@ -81,5 +81,12 @@ public class BaseTest extends ApplauseSeleniumTest {
     logger.info(String.format("Navigating to the Gear page '%s'", TestData.GEAR_PAGE_URL));
     SdkHelper.getDriver().navigate().to(TestData.GEAR_PAGE_URL);
     return SdkHelper.create(ProductListPage.class);
+  }
+
+  @Step("Navigate to Gift Cards page")
+  public GiftCardsPage navigateToGiftCardsPage() {
+    logger.info(String.format("Navigating to Gift Cards page '%s'", TestData.GIFT_CARDS_PAGE_URL));
+    SdkHelper.getDriver().navigate().to(TestData.GIFT_CARDS_PAGE_URL);
+    return SdkHelper.create(GiftCardsPage.class);
   }
 }
