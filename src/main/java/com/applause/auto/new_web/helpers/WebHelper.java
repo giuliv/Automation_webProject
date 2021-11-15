@@ -8,7 +8,10 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.touch.offset.PointOption;
 import java.lang.invoke.MethodHandles;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -32,6 +35,13 @@ public class WebHelper {
     logger.info("Hover over...");
     Actions actions = new Actions(SdkHelper.getDriver());
     actions.moveToElement(element.getWebElement()).perform();
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+  }
+
+  public static void clickByAction(BaseElement element) {
+    logger.info("Clicking By Action...");
+    Actions actions = new Actions(SdkHelper.getDriver());
+    actions.moveToElement(element.getWebElement()).click().perform();
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
   }
 
@@ -151,6 +161,21 @@ public class WebHelper {
     }
   }
 
+  /**
+   * Clicks an element at an accurate point on devices, with native tap. This method is to mitigate
+   * issues where the different device sizes cause the element locations to differ.
+   *
+   * @param x coordinate
+   * @param y coordinate
+   */
+  public static void clickOnCoordinatesWithNativeTap(int x, int y) {
+    logger.info("Clicking element with native tap at (" + x + ", " + y + ").");
+    new TouchAction((AppiumDriver<?>) SdkHelper.getDriver())
+        .tap(PointOption.point(x, y))
+        .release()
+        .perform();
+  }
+
   /** @return Y-position of page */
   public static int getPagePositionY() {
     String javascript = "return window.scrollY;";
@@ -210,7 +235,7 @@ public class WebHelper {
    * @param timeOut
    */
   public static void waitForElementToDisappear(BaseElement element, int timeOut) {
-    if (isDisplayed(element)) {
+    if (waitForElementToAppear(element, timeOut)) {
       try {
         SdkHelper.getSyncHelper()
             .wait(Until.uiElement(element).notVisible().setTimeout(Duration.ofSeconds(timeOut)));
@@ -218,6 +243,25 @@ public class WebHelper {
         logger.debug("Element didn't disappear after [{}] sec", timeOut);
       }
     }
+  }
+
+  /**
+   * If element exist wait For Element To Disapear
+   *
+   * @param element
+   * @param timeOut
+   */
+  public static boolean waitForElementToAppear(BaseElement element, int timeOut) {
+    if (!isDisplayed(element)) {
+      try {
+        SdkHelper.getSyncHelper()
+            .wait(Until.uiElement(element).visible().setTimeout(Duration.ofSeconds(timeOut)));
+        return true;
+      } catch (TimeoutException e) {
+        logger.debug("Element didn't disappear after [{}] sec", timeOut);
+      }
+    }
+    return false;
   }
 
   /**

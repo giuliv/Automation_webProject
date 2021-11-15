@@ -40,6 +40,7 @@ public class Constants {
     public static final String SEARCH = "search";
     public static final String FIND_STORE = "find-store";
     public static final String GIFT_CARDS = "gift-cards";
+    public static final String COFFEE_FINDER = "coffee-finder";
 
     // Mobile
     public static final String ONBOARDING = "onboarding";
@@ -341,6 +342,11 @@ public class Constants {
     public static final String TERMS_LINK_PATH = OCR_IMAGES_COMMON_PATH + "terms-link.png";
   }
 
+  public static final class CoffeeFinderData {
+    public static final String COFFEE_FINDER_TITLE = "How do you prepare your coffee?";
+    public static final String WE_HAVE_FOUND_YOUR_COFFEE = "WE'VE FOUND YOUR COFFEE!";
+  }
+
   public enum MenuOptions {
     COFFEE,
     TEA,
@@ -356,7 +362,8 @@ public class Constants {
     TEA_BEST_SELLERS("tea-best-sellers"),
     SUBSCRIPTIONS_SINGLE_ORIGIN("single-origin"),
     SUBSCRIPTIONS_SIGNATURE_BLEND("signature-blend"),
-    SUBSCRIPTIONS_SMALL_BATCHES("small-batch");
+    SUBSCRIPTIONS_SMALL_BATCHES("small-batch"),
+    COFFEE_FINDER("coffee-finder");
 
     String subCategory;
 

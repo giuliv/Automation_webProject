@@ -204,7 +204,8 @@ public class CheckOutPage extends Base {
   @Step("Get list of error messages")
   public List<String> getListOfErrorMessages() {
     ((LazyList<?>) errorMessagesList).initialize();
-    return errorMessagesList.stream()
+    return errorMessagesList
+        .stream()
         .map(error -> WebHelper.cleanString(error.getText()))
         .collect(Collectors.toList());
   }

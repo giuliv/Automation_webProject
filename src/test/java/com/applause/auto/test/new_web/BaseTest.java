@@ -19,6 +19,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
+import org.testng.asserts.SoftAssert;
 
 @Listeners({WebTestMethodExecutionListener.class, TestMethodFailureRetryInterceptor.class})
 public class BaseTest extends ApplauseSeleniumTest {
@@ -26,6 +27,7 @@ public class BaseTest extends ApplauseSeleniumTest {
   public static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
   public TestHelper testHelper = new TestHelper();
   public String Mail;
+  protected SoftAssert softAssert;
 
   /** Get a new WebDriver at the start of each test. */
   @BeforeMethod(alwaysRun = true)
@@ -47,7 +49,7 @@ public class BaseTest extends ApplauseSeleniumTest {
         || SdkHelper.getEnvironmentHelper().isEdge()) {
       SdkHelper.getDriver().manage().window().maximize();
     }
-
+    softAssert = new SoftAssert();
     logger.info("Test case setup complete.");
   }
 
