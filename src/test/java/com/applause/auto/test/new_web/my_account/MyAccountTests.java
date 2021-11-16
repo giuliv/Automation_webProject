@@ -1,4 +1,4 @@
-package com.applause.auto.test.new_web;
+package com.applause.auto.test.new_web.my_account;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.*;
@@ -13,6 +13,7 @@ import com.applause.auto.new_web.views.MyAccountSettingsPage;
 import com.applause.auto.new_web.views.PasswordRecoveryPage;
 import com.applause.auto.new_web.views.ResetPasswordPage;
 import com.applause.auto.new_web.views.SignInPage;
+import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;

@@ -33,6 +33,7 @@ public class Constants {
     public static final String MINI_CART = "mini-cart";
     public static final String CART = "shopping-cart";
     public static final String MY_ACCOUNT = "my-account";
+    public static final String SETTINGS = "settings";
     public static final String EXISTING_USER_CHECKOUT = "existing-user-checkout";
     public static final String SUBSCRIPTIONS = "subscriptions";
     public static final String ACCOUNT_SETTINGS = "account-settings";
