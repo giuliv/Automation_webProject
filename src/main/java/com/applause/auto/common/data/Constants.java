@@ -1,6 +1,7 @@
 package com.applause.auto.common.data;
 
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.new_web.views.MyAccountSettingsPage;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 import java.util.Arrays;
@@ -196,6 +197,7 @@ public class Constants {
             "Enter the CVV or security code on your card");
     public static final List<String> INVALID_CC_VALIDATION_ERRORS =
         Arrays.asList("Enter a valid card number");
+    public static final String ANDREW_TESTER = "Andrew Tester";
   }
 
   public static final class TestMainMenu {
@@ -417,14 +419,15 @@ public class Constants {
 
   @AllArgsConstructor
   public enum MyAccountLeftMenuOption {
-    DASHBOARD("Dashboard"),
-    PEETNIK_REWARDS("Peetnik Rewards"),
-    MY_SUBSCRIPTIONS("My Subscriptions"),
-    ORDER_HISTORY("Order History"),
-    PEETS_CARDS("Peet's Cards"),
-    REFERRALS("Referrals"),
-    SETTINGS("Settings");
+    DASHBOARD("Dashboard", null),
+    PEETNIK_REWARDS("Peetnik Rewards", null),
+    MY_SUBSCRIPTIONS("My Subscriptions", null),
+    ORDER_HISTORY("Order History", null),
+    PEETS_CARDS("Peet's Cards", null),
+    REFERRALS("Referrals", null),
+    SETTINGS("Settings", MyAccountSettingsPage.class);
 
     @Getter private String value;
+    @Getter private Class clazz;
   }
 }
