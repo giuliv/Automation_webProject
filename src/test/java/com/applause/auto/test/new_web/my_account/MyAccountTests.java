@@ -8,11 +8,11 @@ import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.CreateAccountPage;
 import com.applause.auto.new_web.views.HomePage;
 import com.applause.auto.new_web.views.MyAccountEmailPreferencesPage;
-import com.applause.auto.new_web.views.MyAccountPage;
-import com.applause.auto.new_web.views.MyAccountSettingsPage;
 import com.applause.auto.new_web.views.PasswordRecoveryPage;
 import com.applause.auto.new_web.views.ResetPasswordPage;
 import com.applause.auto.new_web.views.SignInPage;
+import com.applause.auto.new_web.views.my_account.MyAccountPage;
+import com.applause.auto.new_web.views.my_account.MyAccountSettingsPage;
 import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -26,7 +26,6 @@ public class MyAccountTests extends BaseTest {
   public void loginWithInvalidAccountTest() {
 
     logger.info("1. Navigate to Sign in page");
-    navigateToHome();
     SignInPage signInPage = navigateToSignInPage();
     Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
 
@@ -43,7 +42,6 @@ public class MyAccountTests extends BaseTest {
   public void forgotPasswordTest() {
 
     logger.info("1. Navigate to Sign in page");
-    navigateToHome();
     SignInPage signInPage = navigateToSignInPage();
     Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
 
@@ -67,7 +65,6 @@ public class MyAccountTests extends BaseTest {
   public void loginWithValidAccountTest() {
 
     logger.info("1. Navigate to Sign in page");
-    navigateToHome();
     SignInPage signInPage = navigateToSignInPage();
     Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
 
@@ -90,7 +87,6 @@ public class MyAccountTests extends BaseTest {
     SoftAssert softAssert = new SoftAssert();
 
     logger.info("1. Navigate to Sign in page");
-    navigateToHome();
     SignInPage signInPage = navigateToSignInPage();
     Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
 
@@ -112,7 +108,6 @@ public class MyAccountTests extends BaseTest {
   public void logoutTest() {
 
     logger.info("1. Navigate to Sign in page");
-    navigateToHome();
     SignInPage signInPage = navigateToSignInPage();
     Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
 
@@ -135,7 +130,6 @@ public class MyAccountTests extends BaseTest {
     SoftAssert softAssert = new SoftAssert();
 
     logger.info("1. Navigate to Sign in page");
-    navigateToHome();
     SignInPage signInPage = navigateToSignInPage();
     Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
 
@@ -169,7 +163,6 @@ public class MyAccountTests extends BaseTest {
   public void validSignUpTest() {
 
     logger.info("1. Navigate to Sign in page");
-    navigateToHome();
     SignInPage signInPage = navigateToSignInPage();
     Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
 
@@ -196,7 +189,6 @@ public class MyAccountTests extends BaseTest {
     SoftAssert softAssert = new SoftAssert();
 
     logger.info("1. Navigate to Sign in page");
-    navigateToHome();
     SignInPage signInPage = navigateToSignInPage();
     Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
 
@@ -234,7 +226,6 @@ public class MyAccountTests extends BaseTest {
   public void myAccountSettingsEditPasswordTest() {
 
     logger.info("1. Navigate to Sign in page");
-    navigateToHome();
     SignInPage signInPage = navigateToSignInPage();
     Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
 
@@ -276,7 +267,6 @@ public class MyAccountTests extends BaseTest {
   public void myAccountSettingsEmailPreferencesTest() {
 
     logger.info("1. Navigate to Sign in page");
-    navigateToHome();
     SignInPage signInPage = navigateToSignInPage();
     Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
 

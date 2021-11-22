@@ -258,7 +258,7 @@ public class WebHelper {
             .wait(Until.uiElement(element).visible().setTimeout(Duration.ofSeconds(timeOut)));
         return true;
       } catch (TimeoutException e) {
-        logger.debug("Element didn't disappear after [{}] sec", timeOut);
+        logger.debug("Element didn't appeared after [{}] sec", timeOut);
       }
     }
     return false;

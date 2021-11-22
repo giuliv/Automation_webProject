@@ -3,13 +3,13 @@ package com.applause.auto.new_web.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import com.applause.auto.web.helpers.WebHelper;
 import io.qameta.allure.Step;
 import java.time.Duration;
 import java.util.List;
@@ -24,7 +24,7 @@ public class AcceptancePage extends Base {
   @Locate(className = "os-order-number", on = Platform.WEB)
   private Text orderNumber;
 
-  @Locate(css = "#order-summary .product__description__name", on = Platform.WEB)
+  @Locate(css = ".product__description__name", on = Platform.WEB)
   private List<Text> productName;
 
   @Locate(css = "span[data-checkout-subtotal-price-target]", on = Platform.WEB)
@@ -84,6 +84,11 @@ public class AcceptancePage extends Base {
 
   @Locate(css = "li.reduction-code span", on = Platform.WEB)
   protected List<Text> discountsMessageList;
+
+  @Locate(
+      xpath = "//span[contains(@class, 'description') and contains(@class, 'variant')]",
+      on = Platform.WEB)
+  private Text orderGrind;
 
   @Override
   public void afterInit() {
@@ -255,5 +260,10 @@ public class AcceptancePage extends Base {
     shippingUpdates.click();
   }
 
-  /* -------- Actions -------- */
+  @Step("Get Order Grind")
+  public String getOrderGrind() {
+    String grind = WebHelper.cleanString(orderGrind.getText());
+    logger.info("Order Grind - [{}]", grind);
+    return grind;
+  }
 }

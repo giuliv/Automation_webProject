@@ -6,6 +6,8 @@ import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.Constants.WebTestData;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.*;
+import com.applause.auto.new_web.views.my_account.MyAccountPage;
+import com.applause.auto.new_web.views.my_account.MyAccountSettingsPage;
 import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -20,7 +22,6 @@ public class SettingsTests extends BaseTest {
     SoftAssert softAssert = new SoftAssert();
 
     logger.info("1. Navigate to Sign in page");
-    navigateToHome();
     SignInPage signInPage = navigateToSignInPage();
     Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
 
@@ -58,7 +59,6 @@ public class SettingsTests extends BaseTest {
   public void myAccountSettingsEditPasswordTest() {
 
     logger.info("1. Navigate to Sign in page");
-    navigateToHome();
     SignInPage signInPage = navigateToSignInPage();
     Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
 
@@ -100,7 +100,6 @@ public class SettingsTests extends BaseTest {
   public void myAccountSettingsEmailPreferencesTest() {
 
     logger.info("1. Navigate to Sign in page");
-    navigateToHome();
     SignInPage signInPage = navigateToSignInPage();
     Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
 

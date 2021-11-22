@@ -9,12 +9,10 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.elements.TextBox;
 import io.qameta.allure.Step;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 @Implementation(is = MyAccountEmailPreferencesPage.class, on = Platform.WEB)
 public class MyAccountEmailPreferencesPage extends BaseComponent {

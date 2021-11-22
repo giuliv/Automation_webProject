@@ -1,7 +1,8 @@
 package com.applause.auto.common.data;
 
 import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.new_web.views.MyAccountSettingsPage;
+import com.applause.auto.new_web.views.my_account.MyAccountSettingsPage;
+import com.applause.auto.new_web.views.my_account.ReferralsPage;
 import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 import java.util.Arrays;
@@ -43,6 +44,7 @@ public class Constants {
     public static final String FIND_STORE = "find-store";
     public static final String GIFT_CARDS = "gift-cards";
     public static final String COFFEE_FINDER = "coffee-finder";
+    public static final String DASHBOARD = "dashboard";
 
     // Mobile
     public static final String ONBOARDING = "onboarding";
@@ -261,6 +263,13 @@ public class Constants {
     }
   }
 
+  public static final class DashboardTestData {
+    public static final String RECENT_ORDERS_HEADER = "Recent Orders";
+
+    public static final List<String> MY_ORDERS_TABLE_TITLES =
+        Arrays.asList("order #", "date ordered", "order status", "total");
+  }
+
   public static final class MobileTestData {
     public static final String PEETS_CARD_HEADER = "Your Peet's Card";
     public static final String SAVED_PAYMENT_HEADER = "payment methods";
@@ -425,7 +434,7 @@ public class Constants {
     MY_SUBSCRIPTIONS("My Subscriptions", null),
     ORDER_HISTORY("Order History", null),
     PEETS_CARDS("Peet's Cards", null),
-    REFERRALS("Referrals", null),
+    REFERRALS("Referrals", ReferralsPage.class),
     SETTINGS("Settings", MyAccountSettingsPage.class);
 
     @Getter private String value;

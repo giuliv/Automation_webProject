@@ -1,12 +1,13 @@
-package com.applause.auto.new_web.views;
+package com.applause.auto.new_web.views.my_account;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.new_web.components.MyAccountLeftMenu;
+import com.applause.auto.new_web.views.Base;
+import com.applause.auto.new_web.views.MyAccountEmailPreferencesPage;
+import com.applause.auto.new_web.views.ResetPasswordPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
-import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
 import java.time.Duration;
