@@ -4,7 +4,6 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.views.Base;
-import com.applause.auto.new_web.views.MyAccountEmailPreferencesPage;
 import com.applause.auto.new_web.views.ResetPasswordPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;

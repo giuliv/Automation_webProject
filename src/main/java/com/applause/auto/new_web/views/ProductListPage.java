@@ -77,6 +77,9 @@ public class ProductListPage extends Base {
   @Locate(className = "pi__price", on = Platform.WEB)
   private List<Text> priceList;
 
+  @Locate(css = "h1.page-hero__heading", on = Platform.WEB)
+  private Text getPageHeader;
+
   @Override
   public void afterInit() {
     if (WebHelper.isSafari()) {
@@ -241,6 +244,11 @@ public class ProductListPage extends Base {
     }
 
     return prices;
+  }
+
+  @Step("Get page header")
+  public String getPageHeader() {
+    return getPageHeader.getText().trim();
   }
 }
 

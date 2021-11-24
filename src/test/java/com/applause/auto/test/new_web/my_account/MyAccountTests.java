@@ -5,13 +5,17 @@ import com.applause.auto.common.data.Constants.*;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.new_web.components.MyAccountLeftMenu;
 import com.applause.auto.new_web.helpers.WebHelper;
+import com.applause.auto.new_web.views.ContactUsPage;
 import com.applause.auto.new_web.views.CreateAccountPage;
 import com.applause.auto.new_web.views.HomePage;
-import com.applause.auto.new_web.views.MyAccountEmailPreferencesPage;
 import com.applause.auto.new_web.views.PasswordRecoveryPage;
+import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.new_web.views.ResetPasswordPage;
 import com.applause.auto.new_web.views.SignInPage;
+import com.applause.auto.new_web.views.my_account.MyAccountEmailPreferencesPage;
+import com.applause.auto.new_web.views.my_account.MyAccountOrderHistoryPage;
 import com.applause.auto.new_web.views.my_account.MyAccountPage;
+import com.applause.auto.new_web.views.my_account.MyAccountPeetnikRewardsPage;
 import com.applause.auto.new_web.views.my_account.MyAccountSettingsPage;
 import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
@@ -304,5 +308,133 @@ public class MyAccountTests extends BaseTest {
     Assert.assertTrue(
         emailPreferencesPage.messageIsDisplayed("Your email settings have been updated."),
         "Message isn't displayed");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.MY_ACCOUNT},
+      description = "11102924")
+  public void myAccountPeetnikRewardsElementsTest() {
+    MyAccountPage myAccountPage =
+        MyAccountTestsHelper.navigateToMyAccountPage(
+            navigateToSignInPage(), TestData.USER_EMAIL_WITH_SUBSCRIPTIONS, TestData.WEB_PASSWORD);
+
+    logger.info("4. Click in Peetnik rewards");
+    MyAccountPeetnikRewardsPage peetnikRewardsPage =
+        myAccountPage.getLeftMenu().clickMenuOption(MyAccountLeftMenuOption.PEETNIK_REWARDS);
+
+    logger.info("Verify Peetnik rewards title and Rewards settings subtitle are displayed");
+    softAssert.assertTrue(peetnikRewardsPage.isTitleDisplayed(), "Title isn't displayed");
+    softAssert.assertTrue(peetnikRewardsPage.isSubTitleDisplayed(), "Subtitle isn't displayed");
+    String expectedUserName =
+        Constants.WebTestData.FIRST_NAME + " " + Constants.WebTestData.LAST_NAME;
+    softAssert.assertEquals(
+        peetnikRewardsPage.getUserName(), expectedUserName, "User name isn't displayed properly");
+    softAssert.assertEquals(
+        peetnikRewardsPage.getEmail(),
+        TestData.USER_EMAIL_WITH_SUBSCRIPTIONS,
+        "Email isn't displayed properly");
+
+    softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.MY_ACCOUNT},
+      description = "11102925")
+  public void myAccountPeetnikRewardsCustomerExperienceTest() {
+    MyAccountPage myAccountPage =
+        MyAccountTestsHelper.navigateToMyAccountPage(
+            navigateToSignInPage(), TestData.USER_EMAIL_WITH_SUBSCRIPTIONS, TestData.WEB_PASSWORD);
+
+    logger.info("4. Click in Peetnik rewards");
+    MyAccountPeetnikRewardsPage peetnikRewardsPage =
+        myAccountPage.getLeftMenu().clickMenuOption(MyAccountLeftMenuOption.PEETNIK_REWARDS);
+
+    logger.info("5. Click on Customer experience team");
+    ContactUsPage contactUsPage = peetnikRewardsPage.clickCustomerExperienceTeamLink();
+
+    logger.info("Verify Contact us page is display");
+    Assert.assertNotNull(contactUsPage, "Contact us page is not display");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.MY_ACCOUNT},
+      description = "11102926")
+  public void myAccountMySubscriptionElementsTest() {
+    MyAccountPage myAccountPage =
+        MyAccountTestsHelper.navigateToMyAccountPage(
+            navigateToSignInPage(), TestData.USER_EMAIL_WITH_SUBSCRIPTIONS, TestData.WEB_PASSWORD);
+
+    logger.info("4. Click in My subscription");
+    int pageCoordinatesBefore = WebHelper.getPagePositionY();
+    myAccountPage =
+        myAccountPage.getLeftMenu().clickMenuOption(MyAccountLeftMenuOption.MY_SUBSCRIPTIONS);
+
+    logger.info("Verify page is scrolled to My subscriptions in Dashboard");
+    Assert.assertTrue(
+        pageCoordinatesBefore < WebHelper.getPagePositionY(),
+        "Page is not scrolled to My subscriptions in Dashboard");
+
+    logger.info("Verify list of subscriptions should display with product name, image and price.");
+    softAssert.assertTrue(
+        myAccountPage.isSubscriptionImageDisplayed(), "Subscription image isn't displayed");
+    softAssert.assertTrue(
+        myAccountPage.isSubscriptionNameDisplayed(), "Subscription name isn't displayed");
+    softAssert.assertTrue(
+        myAccountPage.isSubscriptionPriceDisplayed(), "Subscription price isn't displayed");
+
+    softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.MY_ACCOUNT},
+      description = "11102927")
+  public void myAccountMySubscriptionAddItemTest() {
+    MyAccountPage myAccountPage =
+        MyAccountTestsHelper.navigateToMyAccountPage(
+            navigateToSignInPage(), TestData.USER_EMAIL_WITH_SUBSCRIPTIONS, TestData.WEB_PASSWORD);
+
+    logger.info("4. Click on Add item");
+    ProductListPage productListPage = myAccountPage.clickAddItem();
+
+    logger.info("Verify All coffee page is displayed");
+    Assert.assertNotNull(productListPage, "Failed to navigate to All Coffee Page");
+    Assert.assertEquals(
+        productListPage.getPageHeader(),
+        MyAccountTestData.ALL_COFFEE_HEADER,
+        "All Coffee header isn't displayed");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.MY_ACCOUNT},
+      description = "11102928")
+  public void myAccountMySubscriptionUpdatePaymentTest() {
+    MyAccountPage myAccountPage =
+        MyAccountTestsHelper.navigateToMyAccountPage(
+            navigateToSignInPage(), TestData.USER_EMAIL_WITH_SUBSCRIPTIONS, TestData.WEB_PASSWORD);
+
+    logger.info("4. Click in My subscription.");
+    myAccountPage =
+        myAccountPage.getLeftMenu().clickMenuOption(MyAccountLeftMenuOption.MY_SUBSCRIPTIONS);
+
+    logger.info("5. Click on Update payment information and check it is updated");
+    myAccountPage.clickUpdatePaymentInformation().updatePaymentData();
+    MyAccountTestsHelper.isPaymentInformationUpdated();
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.MY_ACCOUNT},
+      description = "11102929")
+  public void myAccountOrderHistoryElementsTest() {
+    MyAccountPage myAccountPage =
+        MyAccountTestsHelper.navigateToMyAccountPage(
+            navigateToSignInPage(), TestData.USER_EMAIL_WITH_SUBSCRIPTIONS, TestData.WEB_PASSWORD);
+
+    logger.info("4. Click in Order history");
+    MyAccountOrderHistoryPage orderHistoryPage =
+        myAccountPage.getLeftMenu().clickMenuOption(MyAccountLeftMenuOption.ORDER_HISTORY);
+
+    logger.info("Verify list of orders is displayed");
+    Assert.assertTrue(
+        orderHistoryPage.orderHistoryItemIsDisplayed(), "The list of orders isn't displayed");
   }
 }

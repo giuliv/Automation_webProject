@@ -1,4 +1,4 @@
-package com.applause.auto.new_web.views;
+package com.applause.auto.new_web.views.my_account;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;

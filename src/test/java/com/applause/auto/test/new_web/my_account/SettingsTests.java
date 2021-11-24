@@ -6,6 +6,7 @@ import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.Constants.WebTestData;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.*;
+import com.applause.auto.new_web.views.my_account.MyAccountEmailPreferencesPage;
 import com.applause.auto.new_web.views.my_account.MyAccountPage;
 import com.applause.auto.new_web.views.my_account.MyAccountSettingsPage;
 import com.applause.auto.test.new_web.BaseTest;

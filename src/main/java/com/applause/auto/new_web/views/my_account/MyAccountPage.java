@@ -4,12 +4,15 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.components.MyAccountLeftMenu;
+import com.applause.auto.new_web.components.UpdateSubscriptionPaymentChunk;
 import com.applause.auto.new_web.components.my_account.MyOrderItemComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.Base;
+import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.qameta.allure.Step;
@@ -46,13 +49,31 @@ public class MyAccountPage extends Base {
   @Locate(xpath = "//a[contains(text(), 'Start Sharing')]", on = Platform.WEB)
   protected Button startSharingButton;
 
+  @Locate(css = "#subscriptions .og-product-image", on = Platform.WEB)
+  private Image subscriptionItemImage;
+
+  @Locate(css = "#subscriptions .og-product-name a", on = Platform.WEB)
+  private Text subscriptionItemName;
+
+  @Locate(css = "#subscriptions .og-final-unit-price", on = Platform.WEB)
+  private Text subscriptionItemPrice;
+
+  @Locate(css = ".og-item-controls-container > a", on = Platform.WEB)
+  private Button addItemButton;
+
+  @Locate(css = ".ac-subscriptions__actions > button", on = Platform.WEB)
+  private Button updatePaymentInformationButton;
 
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getViewSignature).visible().setTimeout(Duration.ofSeconds(40)));
-    if (closeBanner.exists()) {
-      closeBanner.click();
+    try {
+      if (closeBanner.exists()) {
+        closeBanner.click();
+      }
+    } catch (Exception e) {
+      logger.error(e.getMessage());
     }
     logger.info("My Account Page URL: " + getDriver().getCurrentUrl());
   }
@@ -92,10 +113,42 @@ public class MyAccountPage extends Base {
   }
 
   @Step("Click Start sharing")
-  public ReferralsPage clickOnStartSharingButton () {
+  public ReferralsPage clickOnStartSharingButton() {
     logger.info("Clicking in 'Start sharing' button");
     startSharingButton.click();
     return SdkHelper.create(ReferralsPage.class);
+  }
+
+  @Step("Verify subscription product image is displayed")
+  public boolean isSubscriptionImageDisplayed() {
+    logger.info("Checking subscription product image is displayed");
+    return subscriptionItemImage.isDisplayed();
+  }
+
+  @Step("Verify subscription product name is displayed")
+  public boolean isSubscriptionNameDisplayed() {
+    logger.info("Checking subscription product name is displayed");
+    return subscriptionItemName.isDisplayed() && !subscriptionItemName.getText().isEmpty();
+  }
+
+  @Step("Verify subscription product price is displayed")
+  public boolean isSubscriptionPriceDisplayed() {
+    logger.info("Checking subscription product price is displayed");
+    return subscriptionItemPrice.isDisplayed() && !subscriptionItemPrice.getText().isEmpty();
+  }
+
+  @Step("Click on the 'Add item' button")
+  public ProductListPage clickAddItem() {
+    logger.info("Clicking on the 'Add item' button");
+    addItemButton.click();
+    return SdkHelper.create(ProductListPage.class);
+  }
+
+  @Step("Click 'Update Payment Information' button")
+  public UpdateSubscriptionPaymentChunk clickUpdatePaymentInformation() {
+    logger.info("Clicking 'Update Payment Information' button");
+    updatePaymentInformationButton.click();
+    return SdkHelper.create(UpdateSubscriptionPaymentChunk.class);
   }
 }
 

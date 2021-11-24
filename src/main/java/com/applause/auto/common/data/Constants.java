@@ -1,6 +1,9 @@
 package com.applause.auto.common.data;
 
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.new_web.views.my_account.MyAccountOrderHistoryPage;
+import com.applause.auto.new_web.views.my_account.MyAccountPage;
+import com.applause.auto.new_web.views.my_account.MyAccountPeetnikRewardsPage;
 import com.applause.auto.new_web.views.my_account.MyAccountSettingsPage;
 import com.applause.auto.new_web.views.my_account.ReferralsPage;
 import com.applause.auto.web.helpers.WebHelper;
@@ -201,6 +204,8 @@ public class Constants {
     public static final List<String> INVALID_CC_VALIDATION_ERRORS =
         Arrays.asList("Enter a valid card number");
     public static final String ANDREW_TESTER = "Andrew Tester";
+    public static final String USER_EMAIL_WITH_SUBSCRIPTIONS =
+        "test_automation_1637180308245@gmail.com";
   }
 
   public static final class TestMainMenu {
@@ -221,6 +226,7 @@ public class Constants {
   }
 
   public static final class MyAccountTestData {
+
     public static UserTestData CHECKOUT_ACCOUNT =
         SdkHelper.getEnvironmentHelper().isMobileIOS()
             ? new UserTestData("peets_order_beverages_ios@gmail.com", "P@ssword1!")
@@ -243,6 +249,9 @@ public class Constants {
     public static final String LAST_NAME = "QA Test";
     public static final String EDIT_EMAIL = "peets.auto01@gmail.com";
     public static final String EDIT_EMAIL_PWD = "p4ssword!";
+    public static final String ALL_COFFEE_HEADER = "ALL COFFEE";
+    public static final String UPDATED_PAYMENT_DATA_SUCCESSFULLY_ALERT =
+        "Updated payment method successfully";
   }
 
   public static class CheckoutUserTestData {
@@ -430,9 +439,9 @@ public class Constants {
   @AllArgsConstructor
   public enum MyAccountLeftMenuOption {
     DASHBOARD("Dashboard", null),
-    PEETNIK_REWARDS("Peetnik Rewards", null),
-    MY_SUBSCRIPTIONS("My Subscriptions", null),
-    ORDER_HISTORY("Order History", null),
+    PEETNIK_REWARDS("Peetnik Rewards", MyAccountPeetnikRewardsPage.class),
+    MY_SUBSCRIPTIONS("My Subscriptions", MyAccountPage.class),
+    ORDER_HISTORY("Order History", MyAccountOrderHistoryPage.class),
     PEETS_CARDS("Peet's Cards", null),
     REFERRALS("Referrals", ReferralsPage.class),
     SETTINGS("Settings", MyAccountSettingsPage.class);
