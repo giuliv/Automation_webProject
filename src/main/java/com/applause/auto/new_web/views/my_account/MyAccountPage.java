@@ -161,4 +161,12 @@ class MyAccountPageMobile extends MyAccountPage {
     WebHelper.clickOnElementAndScrollUpIfNeeded(viewAllOrdersButton, -110);
     return SdkHelper.create(OrderHistoryPage.class);
   }
+
+  @Override
+  @Step("Click Start sharing")
+  public ReferralsPage clickOnStartSharingButton() {
+    logger.info("Clicking in 'Start sharing' button");
+    WebHelper.clickOnElementAndScrollUpIfNeeded(startSharingButton, -110);
+    return SdkHelper.create(ReferralsPage.class);
+  }
 }

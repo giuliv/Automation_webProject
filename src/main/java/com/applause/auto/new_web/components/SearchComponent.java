@@ -3,6 +3,7 @@ package com.applause.auto.new_web.components;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.SearchResultsPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -10,18 +11,19 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.qameta.allure.Step;
 import java.util.List;
 
 @Implementation(is = SearchComponent.class, on = Platform.WEB)
-@Implementation(is = SearchComponent.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = SearchComponentMobile.class, on = Platform.WEB_MOBILE_PHONE)
 public class SearchComponent extends BaseComponent {
 
   @Locate(id = "searchMenu", on = Platform.WEB)
   private ContainerElement mainContainer;
 
   @Locate(id = "searchInput", on = Platform.WEB)
-  private TextBox searchBox;
+  protected TextBox searchBox;
 
   @Locate(id = "searchMenuBtn", on = Platform.WEB)
   private Button searchButton;
@@ -72,8 +74,8 @@ public class SearchComponent extends BaseComponent {
   @Step("Verify result items are displayed with name, price, image")
   public boolean areAllSearchBoxItemsDisplayedCorrectly() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(searchResultsContainer).present());
-    return searchBoxItemComponents
-        .stream()
+    ((LazyList<?>) searchBoxItemComponents).initialize();
+    return searchBoxItemComponents.stream()
         .allMatch(SearchBoxItemComponent::isAutocompleteResultDisplayedCorrectly);
   }
 
@@ -81,5 +83,17 @@ public class SearchComponent extends BaseComponent {
   public SearchBoxItemComponent getSearchBoxItemComponentByIndex(int index) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(searchResultsContainer).present());
     return searchBoxItemComponents.get(index - 1);
+  }
+}
+
+class SearchComponentMobile extends SearchComponent {
+
+  @Override
+  @Step("Enter product name into the search field")
+  public void enterSearchTerm(String product) {
+    logger.info("Searching for: " + product);
+    searchBox.sendKeys(product);
+    SdkHelper.getDeviceControl().hideKeyboard();
+    SdkHelper.getSyncHelper().sleep(3000); // Wait for action
   }
 }

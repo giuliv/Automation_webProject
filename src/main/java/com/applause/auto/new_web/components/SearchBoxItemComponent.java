@@ -2,6 +2,7 @@ package com.applause.auto.new_web.components;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -11,16 +12,17 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
 
 @Implementation(is = SearchBoxItemComponent.class, on = Platform.WEB)
+@Implementation(is = SearchBoxItemComponentMobile.class, on = Platform.WEB_MOBILE_PHONE)
 public class SearchBoxItemComponent extends BaseComponent {
 
   @Locate(css = " h3", on = Platform.WEB)
-  private Text itemName;
+  protected Text itemName;
 
   @Locate(css = " .search-item__price", on = Platform.WEB)
-  private Text itemPrice;
+  protected Text itemPrice;
 
   @Locate(css = " img", on = Platform.WEB)
-  private Image itemImage;
+  protected Image itemImage;
 
   @Step("Verify autocomplete product contains image, name and price.")
   public boolean isAutocompleteResultDisplayedCorrectly() {
@@ -78,5 +80,28 @@ public class SearchBoxItemComponent extends BaseComponent {
     logger.info("Clicking on the product with name [{}]", getName());
     itemImage.click();
     return SdkHelper.create(ProductDetailsPage.class);
+  }
+}
+
+class SearchBoxItemComponentMobile extends SearchBoxItemComponent {
+
+  @Step("Verify autocomplete product contains image, name and price.")
+  public boolean isAutocompleteResultDisplayedCorrectly() {
+    if (!WebHelper.isTextDisplayedAndNotEmpty(itemName)) {
+      logger.info("The item Name isn't displayed");
+      return false;
+    }
+
+    if (!itemImage.exists()) {
+      logger.info("The item Image isn't displayed for product [{}]", itemName.getText());
+      return false;
+    }
+
+    if (!WebHelper.isTextDisplayedAndNotEmpty(itemPrice)) {
+      logger.info("The item Price isn't displayed for product [{}]", itemName.getText());
+      return false;
+    }
+
+    return true;
   }
 }

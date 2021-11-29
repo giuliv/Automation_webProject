@@ -61,13 +61,13 @@ public class CoffeeFinderPage extends Base {
   private List<Button> selectedFlavorsButton;
 
   @Locate(xpath = "//div[contains(@class, 'loadingA')]", on = Platform.WEB)
-  private Text animation;
+  protected Text animation;
 
   @Locate(xpath = "(//div[contains(@class, 'button--next')]/div)[1]", on = Platform.WEB)
   @Locate(
       xpath = "(//div[contains(@class, 'button--next')]/div)[2]",
       on = Platform.WEB_MOBILE_PHONE)
-  private Button nextQuestionButton;
+  protected Button nextQuestionButton;
 
   @Override
   public void afterInit() {
@@ -150,8 +150,7 @@ public class CoffeeFinderPage extends Base {
    */
   @Step("Select specific Answer")
   public <T extends BaseComponent> T selectAnswer(CoffeeFinderAnswers answer, Class<T> clazz) {
-    return getTypeOfCoffeeList()
-        .stream()
+    return getTypeOfCoffeeList().stream()
         .filter(item -> StringUtils.equalsIgnoreCase(item.getName(), answer.getValue()))
         .findFirst()
         .orElseThrow(
@@ -231,13 +230,31 @@ public class CoffeeFinderPage extends Base {
 
 class CoffeeFinderPageMobile extends CoffeeFinderPage {
 
+  @Locate(xpath = "(//div[contains(@class, 'button--next')]/div)[1]", on = Platform.WEB)
+  private Button nextQuestionMobileButton;
+
   @Override
   @Step("Select specific Flavor on position")
   public CoffeeFinderPage selectFlavor(int position) {
     logger.info("Selecting [{}] flower");
     Button flavor = getFlavorsList().get(position - 1);
+    WebHelper.scrollToElement(flavor);
     Point location = flavor.getWebElement().getLocation();
     WebHelper.clickOnCoordinatesWithNativeTap(location.getX(), location.getY());
     return this;
+  }
+
+  @Override
+  @Step("Click on Next question.")
+  public CoffeeFinderPage clickOnNextQuestionButton() {
+    if (WebHelper.isDisplayed(nextQuestionButton)) {
+      logger.info("Clicking On 'Next question' button");
+      nextQuestionButton.click();
+    } else {
+      logger.info("Clicking On 'Next question' mobile button");
+      nextQuestionMobileButton.click();
+    }
+    WebHelper.waitForElementToDisappear(animation, 5);
+    return SdkHelper.create(CoffeeFinderPage.class);
   }
 }
