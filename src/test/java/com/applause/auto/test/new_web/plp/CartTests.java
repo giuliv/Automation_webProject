@@ -97,7 +97,7 @@ public class CartTests extends BaseTest {
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Add an item");
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(0);
+    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(1);
     String productName = productDetailsPage.getProductName();
     String productGrind = productDetailsPage.getGrindSelected();
     String productPrice = productDetailsPage.getProductPrice();
