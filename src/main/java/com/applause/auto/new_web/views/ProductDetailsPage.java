@@ -1,13 +1,17 @@
 package com.applause.auto.new_web.views;
 
 import com.applause.auto.common.data.enums.Attribute;
+import com.applause.auto.common.data.enums.GrindDropdown;
+import com.applause.auto.common.data.enums.ShipEveryDropdown;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.components.MiniCart;
+import com.applause.auto.new_web.components.MyReviewModalComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.LocatedBy;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
@@ -15,7 +19,12 @@ import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
 import java.time.Duration;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.IntStream;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 @Implementation(is = ProductDetailsPage.class, on = Platform.WEB)
 @Implementation(is = ProductDetailsPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
@@ -68,6 +77,44 @@ public class ProductDetailsPage extends Base {
   @Locate(css = "select#amount", on = Platform.WEB)
   private SelectList amountSelectList;
 
+  @Locate(id = "productRecommendations", on = Platform.WEB)
+  private Button recommendedForYou;
+
+  @Locate(xpath = "//select[@id='grind']", on = Platform.WEB)
+  private SelectList grindDropdown;
+
+  @Locate(id = "increment", on = Platform.WEB)
+  protected Button incrementQuantityButton;
+
+  @Locate(id = "decrement", on = Platform.WEB)
+  private Button decrementQuantityButton;
+
+  @Locate(
+      xpath = "//button[@class='og-optin-btn']//*[contains(@class, 'og-pdp-tooltip-desktop')]",
+      on = Platform.WEB)
+  protected Button subscribeInfoIcon;
+
+  @Locate(
+      xpath =
+          "//button[@class='og-optin-btn']//*[contains(@class, 'og-pdp-tooltip-desktop')]//p[@class='og-tooltip-content']",
+      on = Platform.WEB)
+  protected Text subscribeInfoTooltip;
+
+  @Locate(xpath = "//p[@class='og-shipping']/*", on = Platform.WEB)
+  private SelectList shipEveryDropdown;
+
+  @Locate(xpath = "//button[@id='ratings-summary']", on = Platform.WEB)
+  protected Button ratingsSummaryButton;
+
+  @Locate(
+      xpath = "//button[@id='first-to-write' or contains(@class, 'bv-write-review')]",
+      on = Platform.WEB)
+  protected Button writeReviewButton;
+
+  @Locate(xpath = "//a[contains(@class, 'pv-flavor-profile')]", on = Platform.WEB)
+  @Locate(xpath = "(//a[contains(@class, 'pv-flavor-profile')])[2]", on = Platform.WEB_MOBILE_PHONE)
+  protected Button takeTheCoffeeQuizButton;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper()
@@ -98,8 +145,7 @@ public class ProductDetailsPage extends Base {
 
     if (WebHelper.isSafari()) {
       String text =
-          grindListSelected
-              .stream()
+          grindListSelected.stream()
               .filter(x -> x.getWebElement().isSelected())
               .findFirst()
               .get()
@@ -124,6 +170,7 @@ public class ProductDetailsPage extends Base {
 
   @Step("Get product quantity")
   public int getProductQuantitySelected() {
+    productQuantity.initialize();
     SdkHelper.getSyncHelper().wait(Until.uiElement(productQuantity).visible());
 
     String quantity = "";
@@ -241,9 +288,147 @@ public class ProductDetailsPage extends Base {
     return this;
   }
 
+  @Step("Check if Grind is Displayed")
+  public boolean isGrindDisplayed() {
+    boolean isDisplayed = WebHelper.isDisplayed(grindSelected);
+    logger.info("Grind is displayed - [{}]", isDisplayed);
+    return isDisplayed;
+  }
+
+  @Step("Check if Product Quantity is Displayed")
+  public boolean isProductQuantityDisplayed() {
+    boolean isDisplayed = WebHelper.isDisplayed(productQuantity);
+    logger.info("Product Quantity is displayed - [{}]", isDisplayed);
+    return isDisplayed;
+  }
+
+  @Step("Check if Subscribe Type is Displayed")
+  public boolean isSubscribeTypeDisplayed() {
+    boolean isDisplayed = WebHelper.isDisplayed(subscribeType);
+    logger.info("Subscribe Type is displayed - [{}]", isDisplayed);
+    return isDisplayed;
+  }
+
+  @Step("Check if 'Add to Cart' is Displayed")
+  public boolean isAddToCartButtonDisplayed() {
+    boolean isDisplayed = WebHelper.isDisplayed(addToCartButton);
+    logger.info("Add to Cart is displayed - [{}]", isDisplayed);
+    return isDisplayed;
+  }
+
+  @Step("Check if 'Recommended For You' is Displayed")
+  public boolean isRecommendedForYouSectionDisplayed() {
+    boolean isDisplayed = WebHelper.isDisplayed(recommendedForYou);
+    logger.info("Recommended For You section is displayed - [{}]", isDisplayed);
+    return isDisplayed;
+  }
+
+  @Step("Select Grind")
+  public ProductDetailsPage selectGrind(GrindDropdown option) {
+    logger.info("Selecting [{}] grind option", option.getValue());
+    grindSelected.click();
+    boolean valueFound = false;
+    Iterator var3 = grindDropdown.getChildren(LocatedBy.xpath("//li")).iterator();
+
+    while (var3.hasNext()) {
+      ContainerElement optionElement = (ContainerElement) var3.next();
+      if (option
+          .getValue()
+          .equalsIgnoreCase(optionElement.getAttributeValue(Attribute.ID.getValue()).trim())) {
+        WebHelper.jsClick(optionElement.getWebElement());
+        valueFound = true;
+        break;
+      }
+    }
+
+    if (!valueFound) {
+      throw new IllegalStateException("Couldn't find option with name " + option.getValue());
+    }
+    return this;
+  }
+
+  @Step("Click on (+) in Quantity")
+  public ProductDetailsPage incrementProductQuantity(int quantity) {
+    IntStream.rangeClosed(1, quantity)
+        .forEach(
+            item -> {
+              logger.info("Clicking on (+) in Quantity");
+              incrementQuantityButton.click();
+              logger.info("Current quantity is - [{}]", getProductQuantitySelected());
+            });
+    return this;
+  }
+
+  @Step("Click on (-) in Quantity")
+  public ProductDetailsPage decrementProductQuantity(int quantity) {
+    IntStream.rangeClosed(1, quantity)
+        .forEach(
+            item -> {
+              logger.info("Clicking on (-) in Quantity");
+              decrementQuantityButton.click();
+              logger.info("Current quantity is - [{}]", getProductQuantitySelected());
+            });
+    return this;
+  }
+
+  @Step("Hover subscribe info icon")
+  public String hoverOverSubscribeInfoIcon() {
+    WebHelper.hoverByAction(subscribeInfoIcon);
+    String tooltip = WebHelper.cleanString(subscribeInfoTooltip.getText());
+    logger.info("Tooltip text - [{}]", tooltip);
+    return tooltip;
+  }
+
+  @Step("Select Ship Every")
+  public ProductDetailsPage selectShipEvery(ShipEveryDropdown option) {
+    logger.info("Selecting Ship Every [{}]", option.getValue());
+
+    Select dropdown = new Select(getShipEveryDropdown());
+    dropdown.selectByVisibleText(option.getValue());
+    return this;
+  }
+
+  @Step("Get Selected Ship Every")
+  public String getSelectedShipEvery() {
+    Select dropdown = new Select(getShipEveryDropdown());
+    String selected = WebHelper.cleanString(dropdown.getFirstSelectedOption().getText());
+    logger.info("Selected Ship Every - [{}]", selected);
+    return selected;
+  }
+
+  @Step("Click on 'Stars' to add review")
+  public ProductDetailsPage clickOnStars() {
+    logger.info("Clicking on 'Stars'");
+    ratingsSummaryButton.click();
+    return this;
+  }
+
+  @Step("Click on 'Write Review' button")
+  public MyReviewModalComponent clickWriteReview() {
+    logger.info("Clicking on 'Write Review'");
+    writeReviewButton.click();
+    return SdkHelper.create(MyReviewModalComponent.class);
+  }
+
+  @Step("Scroll down and click on take the coffee quiz")
+  public CoffeeFinderPage clickOnTakeTheCoffeeQuiz() {
+    logger.info("Clicking on 'Take the coffee quiz'");
+    takeTheCoffeeQuizButton.click();
+    return SdkHelper.create(CoffeeFinderPage.class);
+  }
+
   protected void clickOnThreeProductsButton() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(threeProductsButton).clickable());
     threeProductsButton.click();
+  }
+
+  private WebElement getShipEveryDropdown() {
+    return WebHelper.findShadowElementsBy(
+            shipEveryDropdown.getWebElement(), By.cssSelector("og-select"))
+        .stream()
+        .map(i -> WebHelper.findShadowElementsBy(i, By.cssSelector("select")).get(0))
+        .findFirst()
+        .get();
   }
 }
 
@@ -253,5 +438,35 @@ class ProductDetailsPageMobile extends ProductDetailsPage {
   protected void clickOnThreeProductsButton() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(threeProductsButton).clickable());
     WebHelper.clickOnElementAndScrollUpIfNeeded(threeProductsButton, -90);
+  }
+
+  @Override
+  @Step("Click on (+) in Quantity")
+  public ProductDetailsPage incrementProductQuantity(int quantity) {
+    IntStream.rangeClosed(1, quantity)
+        .forEach(
+            item -> {
+              logger.info("Clicking on (+) in Quantity");
+              WebHelper.clickOnElementAndScrollUpIfNeeded(incrementQuantityButton, -90);
+              logger.info("Current quantity is - [{}]", getProductQuantitySelected());
+            });
+    return this;
+  }
+
+  @Override
+  @Step("Hover subscribe info icon")
+  public String hoverOverSubscribeInfoIcon() {
+    subscribeInfoIcon.click();
+    String tooltip = WebHelper.cleanString(subscribeInfoTooltip.getText());
+    logger.info("Tooltip text - [{}]", tooltip);
+    return tooltip;
+  }
+
+  @Override
+  @Step("Click on 'Stars' to add review")
+  public ProductDetailsPage clickOnStars() {
+    logger.info("Clicking on 'Stars'");
+    WebHelper.clickOnElementAndScrollUpIfNeeded(ratingsSummaryButton, -90);
+    return this;
   }
 }

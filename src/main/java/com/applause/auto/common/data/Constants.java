@@ -49,6 +49,7 @@ public class Constants {
     public static final String GIFT_CARDS = "gift-cards";
     public static final String COFFEE_FINDER = "coffee-finder";
     public static final String DASHBOARD = "dashboard";
+    public static final String PDP = "pdp";
 
     // Mobile
     public static final String ONBOARDING = "onboarding";
@@ -378,6 +379,11 @@ public class Constants {
   public static final class CoffeeFinderData {
     public static final String COFFEE_FINDER_TITLE = "How do you prepare your coffee?";
     public static final String WE_HAVE_FOUND_YOUR_COFFEE = "WE'VE FOUND YOUR COFFEE!";
+  }
+
+  public static final class PDPTestData {
+    public static final String SUBSCRIBE_INFO_TOOLTIP =
+        "Subscribe and get free shipping on every order. Plus, get 5% off orders of $30+ and 10% off orders of $50+. Pause, skip, or cancel anytime. To learn more, visit our";
   }
 
   public enum MenuOptions {

@@ -18,7 +18,8 @@ public enum Attribute {
   PLACEHOLDER("placeholder"),
   BORDER_RADIUS("border-radius"),
   BACKGROUND_COLOR("background-color"),
-  SRCSET("srcset");
+  SRCSET("srcset"),
+  ID("id");
 
   @Getter private String value;
 }

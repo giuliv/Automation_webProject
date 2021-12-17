@@ -19,17 +19,23 @@ import java.lang.invoke.MethodHandles;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import lombok.SneakyThrows;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 public class WebHelper {
 
@@ -398,5 +404,123 @@ public class WebHelper {
    */
   public static int getNumberFromString(String sentence) {
     return Integer.parseInt(sentence.replaceAll("[^\\d.]", ""));
+  }
+
+  public static List<WebElement> findShadowElementsBy(WebElement parent, By by) {
+    // Important: xpath search does not working
+    if (parent == null) {
+      // Search root
+      Set<WebElement> result = new LinkedHashSet(SdkHelper.getDriver().findElements(by));
+      if (result.size() == 0) {
+        getShadowElementsFromRoot()
+            .stream()
+            .forEach(elem -> result.addAll(findShadowElementsBy(elem, by)));
+      }
+      return new ArrayList<>(result);
+    } else {
+      Set<WebElement> result = new LinkedHashSet<>();
+      List<WebElement> descendant = parent.findElements(by);
+      if (!descendant.isEmpty()) {
+        logger.info("Element found: " + descendant.size());
+        result.addAll(descendant);
+      } else {
+        WebElement shadow = getWebElementFromShadowRoot(parent);
+        if (shadow != null) {
+          logger.info("Switching to shadow node");
+          result.addAll(findShadowElementsBy(shadow, by));
+        } else {
+          List<WebElement> shadowNodes = getShadowElementsFromParent(parent);
+          logger.info("Found shadow nodes on level: " + shadowNodes.size());
+          shadowNodes
+              .stream()
+              .forEach(
+                  elem -> {
+                    logger.info("Searching for element in shadow node...");
+                    List<WebElement> nodes = findShadowElementsBy(elem, by);
+                    if (!nodes.isEmpty()) {
+                      logger.info("Element found: " + nodes.size());
+                    }
+                    result.addAll(nodes);
+                  });
+        }
+      }
+      return new ArrayList<>(result);
+    }
+  }
+
+  public static WebElement getWebElementFromShadowRoot(WebElement webElement) {
+    WebElement returnObj = null;
+    Object shadowRoot =
+        ((JavascriptExecutor) SdkHelper.getDriver())
+            .executeScript("return arguments[0].shadowRoot", webElement);
+    if (shadowRoot instanceof WebElement) {
+      // ChromeDriver 95
+      returnObj = (WebElement) shadowRoot;
+    } else if (shadowRoot instanceof Map) {
+      // ChromeDriver 96+
+      // Based on https://github.com/SeleniumHQ/selenium/issues/10050#issuecomment-974231601
+      Map<String, Object> shadowRootMap = (Map<String, Object>) shadowRoot;
+      String shadowRootKey = (String) shadowRootMap.keySet().toArray()[0];
+      String id = (String) shadowRootMap.get(shadowRootKey);
+      RemoteWebElement remoteWebElement = new RemoteWebElement();
+      remoteWebElement.setParent((RemoteWebDriver) SdkHelper.getDriver());
+      remoteWebElement.setId(id);
+      returnObj = remoteWebElement;
+    } else if (shadowRoot == null) {
+      return null;
+    } else {
+      Assert.fail("Unexpected return type for shadowRoot in expandRootElement()");
+    }
+    return returnObj;
+  }
+
+  public static ArrayList<WebElement> findShadowElementsBy(By... by) {
+    Set<WebElement> result = null;
+    for (By locator : by) {
+      if (result == null) {
+        result = new LinkedHashSet<>(findShadowElementsBy((WebElement) null, locator));
+      } else {
+        logger.info("trying: by " + locator);
+        result = new LinkedHashSet<>(findShadowElementsBy(result, locator));
+      }
+      logger.info("Found elements: " + result.size());
+    }
+    return new ArrayList<>(result);
+  }
+
+  public static List<WebElement> getShadowElementsFromParent(WebElement webElement) {
+    return (List<WebElement>)
+        ((JavascriptExecutor) SdkHelper.getDriver())
+            .executeScript(
+                "return Array.from(arguments[0].querySelectorAll('*')).filter(function(item){return item.shadowRoot != null})",
+                webElement);
+  }
+
+  public static List<WebElement> getShadowElementsFromRoot() {
+    return (List<WebElement>)
+        ((JavascriptExecutor) SdkHelper.getDriver())
+            .executeScript(
+                "return Array.from(document.querySelectorAll('*')).filter(function(item){return item.shadowRoot != null})");
+  }
+
+  public static ArrayList<WebElement> findShadowElementsBy(Set<WebElement> parents, By by) {
+    // Important: xpath search does not working
+    Set<WebElement> result = new LinkedHashSet<>();
+    parents
+        .stream()
+        .forEach(
+            parent -> {
+              WebElement shadow = getWebElementFromShadowRoot(parent);
+              if (shadow != null) {
+                logger.info(">>>Found shadow DOM element: " + shadow);
+                result.addAll(shadow.findElements(by));
+              } else {
+                logger.info(">>>>Element without shadow: " + parent);
+                result.addAll(parent.findElements(by));
+                getShadowElementsFromParent(parent)
+                    .forEach(elem -> result.addAll(findShadowElementsBy(elem, by)));
+              }
+            });
+    return new ArrayList<>(result);
   }
 }

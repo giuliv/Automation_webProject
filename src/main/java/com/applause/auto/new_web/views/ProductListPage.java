@@ -5,6 +5,7 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.components.QuickViewComponent;
+import com.applause.auto.new_web.components.plp.PlpItemComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -79,6 +80,11 @@ public class ProductListPage extends Base {
 
   @Locate(css = "h1.page-hero__heading", on = Platform.WEB)
   private Text getPageHeader;
+
+  @Locate(
+      xpath = "//ul[@class='product-list']/li[not(.//div[contains(@class, 'pi__badge')])]",
+      on = Platform.WEB)
+  private List<PlpItemComponent> productsList;
 
   @Override
   public void afterInit() {
@@ -249,6 +255,11 @@ public class ProductListPage extends Base {
   @Step("Get page header")
   public String getPageHeader() {
     return getPageHeader.getText().trim();
+  }
+
+  @Step("Get Product On Position")
+  public PlpItemComponent getProductOnPosition(int position) {
+    return productsList.get(position - 1);
   }
 }
 

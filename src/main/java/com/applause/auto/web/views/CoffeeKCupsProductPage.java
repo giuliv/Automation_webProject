@@ -30,7 +30,7 @@ public class CoffeeKCupsProductPage extends BaseComponent {
 
   /** Select a Box */
   public void selectBoxContent(String boxContent) {
-    logger.info("Selecting a Box with: %s" + boxContent);
+    logger.info("Selecting a Box with: {}" + boxContent);
     WebHelper.jsSelectByContainedText(getSelectBoxSelectList.getWebElement(), boxContent);
   }
 

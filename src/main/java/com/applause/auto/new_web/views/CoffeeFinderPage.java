@@ -227,6 +227,11 @@ public class CoffeeFinderPage extends Base {
     WebHelper.waitForElementToDisappear(animation, 5);
     return SdkHelper.create(CoffeeFinderPage.class);
   }
+
+  @Step("Check if Coffee Finder Page is displayed")
+  public boolean isDisplayed() {
+    return WebHelper.isDisplayed(signature);
+  }
 }
 
 class CoffeeFinderPageMobile extends CoffeeFinderPage {

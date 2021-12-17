@@ -14,9 +14,13 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Link;
+import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
 import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.asserts.SoftAssert;
 
 @Implementation(is = MiniCart.class, on = Platform.WEB)
@@ -100,6 +104,9 @@ public class MiniCart extends BaseComponent {
 
   @Locate(css = "#bagItems og-offer > og-when.og-offer button.og-optin-btn", on = Platform.WEB)
   private Button subscribeButton;
+
+  @Locate(xpath = "//table//p[@class='og-shipping']/*", on = Platform.WEB)
+  private SelectList shipEveryDropdown;
 
   @Override
   public void afterInit() {
@@ -339,5 +346,22 @@ public class MiniCart extends BaseComponent {
   @Step("Get subscribe")
   public boolean isSubscribeButtonEnabled() {
     return subscribeButton.isEnabled();
+  }
+
+  @Step("Get Selected Ship Every")
+  public String getSelectedShipEvery() {
+    Select dropdown = new Select(getShipEveryDropdown());
+    String selected = WebHelper.cleanString(dropdown.getFirstSelectedOption().getText());
+    logger.info("Selected Ship Every - [{}]", selected);
+    return selected;
+  }
+
+  private WebElement getShipEveryDropdown() {
+    return WebHelper.findShadowElementsBy(
+            shipEveryDropdown.getWebElement(), By.cssSelector("og-select"))
+        .stream()
+        .map(i -> WebHelper.findShadowElementsBy(i, By.cssSelector("select")).get(0))
+        .findFirst()
+        .get();
   }
 }
