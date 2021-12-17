@@ -1,5 +1,6 @@
 package com.applause.auto.new_web.helpers;
 
+import static com.applause.auto.framework.SdkHelper.getDriver;
 import static io.appium.java_client.Setting.NATIVE_WEB_TAP;
 
 import com.applause.auto.framework.SdkHelper;
@@ -12,12 +13,15 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.touch.offset.PointOption;
+import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
 import java.lang.invoke.MethodHandles;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import lombok.SneakyThrows;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.ElementClickInterceptedException;
@@ -201,6 +205,19 @@ public class WebHelper {
     logger.info("Refresh site");
     SdkHelper.getDriver().navigate().refresh();
     return SdkHelper.create(expectedClass);
+  }
+
+  /**
+   * Navigate to specific URL
+   *
+   * @param expectedUrl
+   * @param clazz
+   * @return AbstractPage
+   */
+  public static <T extends BaseComponent> T navigateToUrl(String expectedUrl, Class<T> clazz) {
+    logger.info("Navigation to [{}]", expectedUrl);
+    getDriver().navigate().to(expectedUrl);
+    return SdkHelper.create(clazz);
   }
 
   /**

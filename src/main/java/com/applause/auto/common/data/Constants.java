@@ -1,5 +1,6 @@
 package com.applause.auto.common.data;
 
+import com.applause.auto.common.data.dto.ShareViaEmailDto;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.views.my_account.MyAccountOrderHistoryPage;
 import com.applause.auto.new_web.views.my_account.MyAccountPage;
@@ -252,6 +253,17 @@ public class Constants {
     public static final String ALL_COFFEE_HEADER = "ALL COFFEE";
     public static final String UPDATED_PAYMENT_DATA_SUCCESSFULLY_ALERT =
         "Updated payment method successfully";
+
+    public static final String REFERRALS_TITLE_HEADER = "Referrals";
+    public static final List<String> REFERRALS_STATS =
+        Arrays.asList("times shared", "possible rewards", "friends referred", "rewards earned");
+
+    public static final ShareViaEmailDto SHARE_VIA_EMAIL_DTO =
+        ShareViaEmailDto.builder()
+            .email(Constants.Mail.getRandomMail().getValue())
+            .subject("Applause Subject")
+            .note("Applause automation note")
+            .build();
   }
 
   public static class CheckoutUserTestData {
