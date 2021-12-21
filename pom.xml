@@ -76,7 +76,7 @@
                         <property>
                             <name>listener</name>
                             <!-- <value>com.applause.auto.listeners.reportportal.ReportPortalExtendedTestFailureListener</value> -->
-                            com.applause.auto.listeners.allure.TestMethodExecutionListener
+                            <value>com.applause.auto.listeners.allure.WebTestMethodExecutionListener,com.applause.auto.listeners.allure.TestMethodFailureRetryInterceptor</value>
                         </property>
                     </properties>
                     <systemProperties>
