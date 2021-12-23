@@ -1,6 +1,7 @@
 package com.applause.auto.test.new_web.order.subscription;
 
 import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.enums.SubscriptionType;
 import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.helpers.WebHelper;
@@ -30,15 +31,18 @@ public class NewUsersSignatureBlendSubscriptionsTest extends BaseTest {
 
     logger.info("2. Create new User account");
     String mail = WebHelper.getRandomMail();
-    MyAccountPage myAccountPage = testHelper.createAccount(homePage, mail);
-    Assert.assertNotNull(myAccountPage, "Account was not created!");
+    //    MyAccountPage myAccountPage = testHelper.createAccount(homePage, mail);
+    //    Assert.assertNotNull(myAccountPage, "Account was not created!");
 
-    logger.info("3. Select Signature Blend From Subscription tab");
-    Header header = homePage.getHeader();
-    header.hoverCategoryFromMenu(Constants.MenuOptions.SUBSCRIPTION);
+    //    logger.info("3. Select Signature Blend From Subscription tab");
+    //    Header header = homePage.getHeader();
+    //    header.hoverCategoryFromMenu(Constants.MenuOptions.SUBSCRIPTION);
+    //    ProductDetailsPage productDetailsPage =
+    //        header.clickOverSubCategoryFromMenu(
+    //            ProductDetailsPage.class,
+    // Constants.MenuSubCategories.SUBSCRIPTIONS_SIGNATURE_BLEND);
     ProductDetailsPage productDetailsPage =
-        header.clickOverSubCategoryFromMenu(
-            ProductDetailsPage.class, Constants.MenuSubCategories.SUBSCRIPTIONS_SIGNATURE_BLEND);
+        navigateToSubscriptionPage(SubscriptionType.SIGNATURE_BLEND);
 
     logger.info("4. Add subscription to MiniCart");
     String productName = productDetailsPage.getProductName();
@@ -158,15 +162,18 @@ public class NewUsersSignatureBlendSubscriptionsTest extends BaseTest {
 
     logger.info("2. Create new User account");
     String mail = WebHelper.getRandomMail();
-    MyAccountPage myAccountPage = testHelper.createAccount(homePage, mail);
-    Assert.assertNotNull(myAccountPage, "Account was not created!");
+    //    MyAccountPage myAccountPage = testHelper.createAccount(homePage, mail);
+    //    Assert.assertNotNull(myAccountPage, "Account was not created!");
 
-    logger.info("3. Select Signature Blend From Subscription tab");
-    Header header = homePage.getHeader();
-    header.hoverCategoryFromMenu(Constants.MenuOptions.SUBSCRIPTION);
+    //    logger.info("3. Select Signature Blend From Subscription tab");
+    //    Header header = homePage.getHeader();
+    //    header.hoverCategoryFromMenu(Constants.MenuOptions.SUBSCRIPTION);
+    //    ProductDetailsPage productDetailsPage =
+    //        header.clickOverSubCategoryFromMenu(
+    //            ProductDetailsPage.class,
+    // Constants.MenuSubCategories.SUBSCRIPTIONS_SIGNATURE_BLEND);
     ProductDetailsPage productDetailsPage =
-        header.clickOverSubCategoryFromMenu(
-            ProductDetailsPage.class, Constants.MenuSubCategories.SUBSCRIPTIONS_SIGNATURE_BLEND);
+        navigateToSubscriptionPage(SubscriptionType.SIGNATURE_BLEND);
 
     logger.info("4. Add subscription to MiniCart");
     String productName = productDetailsPage.getProductName();

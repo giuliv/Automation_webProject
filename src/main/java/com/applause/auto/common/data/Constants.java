@@ -98,6 +98,12 @@ public class Constants {
         LANDING_PAGE_URL.concat("/coffee/k-cups");
     public static final String GIFT_CARDS_PAGE_URL =
         LANDING_PAGE_URL.split("\\?")[0].concat("/pages/gift-cards");
+    public static final String SUBSCRIPTION_SO_URL =
+        LANDING_PAGE_URL.split("\\?")[0].concat("/products/single-origin-series-subscription");
+    public static final String SUBSCRIPTION_SB_URL =
+        LANDING_PAGE_URL.split("\\?")[0].concat("/products/signature-blend-series-subscription");
+    public static final String SUBSCRIPTION_SMB_URL =
+        LANDING_PAGE_URL.split("\\?")[0].concat("/products/small-batch-series-subscription");
 
     public static final String WEB_USERNAME = "peets.automation01@applause.com";
     public static final String WEB_PASSWORD = "Pa55word!";

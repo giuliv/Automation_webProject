@@ -2,6 +2,7 @@ package com.applause.auto.test.new_web;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestData;
+import com.applause.auto.common.data.enums.SubscriptionType;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.integrations.base.ApplauseSeleniumTest;
 import com.applause.auto.listeners.allure.TestMethodFailureRetryInterceptor;
@@ -102,10 +103,30 @@ public class BaseTest extends ApplauseSeleniumTest {
     return SdkHelper.create(HomePage.class).clickSignInButton();
   }
 
-  @Step("Navigate to Gift Cards page")
+  @Step("Navigate to Subscription page")
   public GiftCardsPage navigateToGiftCardsPage() {
-    logger.info(String.format("Navigating to Gift Cards page '%s'", TestData.GIFT_CARDS_PAGE_URL));
+    logger.info(
+        String.format("Navigating to Subscription page '%s'", TestData.GIFT_CARDS_PAGE_URL));
     SdkHelper.getDriver().navigate().to(TestData.GIFT_CARDS_PAGE_URL);
     return SdkHelper.create(GiftCardsPage.class);
+  }
+
+  @Step("Navigate to Subscription page")
+  public ProductDetailsPage navigateToSubscriptionPage(SubscriptionType subscriptionType) {
+    logger.info(String.format("Navigating to Subscription page '%s'", subscriptionType));
+
+    if (subscriptionType.getValue().equalsIgnoreCase(SubscriptionType.SIGNATURE_BLEND.getValue())) {
+      SdkHelper.getDriver().navigate().to(TestData.SUBSCRIPTION_SB_URL);
+    } else if (subscriptionType
+        .getValue()
+        .equalsIgnoreCase(SubscriptionType.SINGLE_ORIGIN.getValue())) {
+      SdkHelper.getDriver().navigate().to(TestData.SUBSCRIPTION_SO_URL);
+    } else if (subscriptionType
+        .getValue()
+        .equalsIgnoreCase(SubscriptionType.SMALL_BATCHES.getValue())) {
+      SdkHelper.getDriver().navigate().to(TestData.SUBSCRIPTION_SMB_URL);
+    }
+
+    return SdkHelper.create(ProductDetailsPage.class);
   }
 }

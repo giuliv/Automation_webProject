@@ -114,7 +114,7 @@ public class StandardOrdersTest extends BaseTest {
         checkOutPage.clickOnSaveThisInformationForTheNextTime().clickContinueToShipping();
 
     logger.info("6. Navigate to landing page");
-    productListPage = navigateToPLP();
+    productListPage = navigateToPLPMediumRoast();
 
     logger.info("7. Add an item");
     productDetailsPage = productListPage.clickOverProductByIndex(0);
