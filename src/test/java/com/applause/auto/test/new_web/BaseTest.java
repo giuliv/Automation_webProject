@@ -71,6 +71,14 @@ public class BaseTest extends ApplauseSeleniumTest {
     return SdkHelper.create(ProductListPage.class);
   }
 
+  @Step("Navigate to PLP Medium Roast")
+  public ProductListPage navigateToPLPMediumRoast() {
+    navigateToHome();
+    logger.info(String.format("Navigating to PLP page '%s'", TestData.PLP_MEDIUM_ROAST_URL));
+    SdkHelper.getDriver().navigate().to(TestData.PLP_MEDIUM_ROAST_URL);
+    return SdkHelper.create(ProductListPage.class);
+  }
+
   @Step("Navigate to PDP")
   public ProductDetailsPage navigateToPDP() {
     navigateToHome();

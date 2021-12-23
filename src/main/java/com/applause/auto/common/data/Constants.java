@@ -87,6 +87,8 @@ public class Constants {
         LANDING_PAGE_URL.split("\\?")[0] + "/collections/all-equipment";
     public static final String PLP_URL =
         LANDING_PAGE_URL.split("\\?")[0] + "/collections/all-coffee";
+    public static final String PLP_MEDIUM_ROAST_URL =
+        LANDING_PAGE_URL.split("\\?")[0] + "/collections/medium-roast";
     public static final String PDP_URL =
         LANDING_PAGE_URL.split("\\?")[0] + "/products/major-dickasons-blend";
     public static final String SHOP_TEA_PAGE_URL = LANDING_PAGE_URL.concat("/mighty-leaf-tea");

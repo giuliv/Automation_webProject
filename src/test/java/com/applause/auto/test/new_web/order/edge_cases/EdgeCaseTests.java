@@ -24,7 +24,7 @@ public class EdgeCaseTests extends BaseTest {
       description = "11102585")
   public void userCanReturnToShipping() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPMediumRoast();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Add an item");
@@ -58,7 +58,7 @@ public class EdgeCaseTests extends BaseTest {
       description = "11102586")
   public void orderIsNotPlacedWithEmptyData() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPMediumRoast();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Add an item");
@@ -98,7 +98,7 @@ public class EdgeCaseTests extends BaseTest {
       description = "11102587")
   public void orderIsNotPlacedWhenEnteringWrongCCdata() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPMediumRoast();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Add an item");
@@ -144,7 +144,7 @@ public class EdgeCaseTests extends BaseTest {
       description = "11102588")
   public void useDifferentBillingAddress() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPMediumRoast();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Add an item");

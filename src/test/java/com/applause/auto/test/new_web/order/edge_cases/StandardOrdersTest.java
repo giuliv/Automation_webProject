@@ -22,7 +22,7 @@ public class StandardOrdersTest extends BaseTest {
       description = "11102575")
   public void userCantContinueWithoutData() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPMediumRoast();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Add an item");
@@ -48,7 +48,7 @@ public class StandardOrdersTest extends BaseTest {
       description = "11102576")
   public void userCanReturnToCart() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPMediumRoast();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Add an item");
@@ -70,7 +70,7 @@ public class StandardOrdersTest extends BaseTest {
       description = "11102577")
   public void invalidPromoCode() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPMediumRoast();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Add an item");
@@ -96,7 +96,7 @@ public class StandardOrdersTest extends BaseTest {
       description = "11102578")
   public void userInformationIsSavedForNextTime() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPMediumRoast();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Add an item");
@@ -132,7 +132,7 @@ public class StandardOrdersTest extends BaseTest {
       description = "11102579")
   public void userUpdatesAddress() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPMediumRoast();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Add an item");
@@ -160,7 +160,7 @@ public class StandardOrdersTest extends BaseTest {
       description = "11102580")
   public void userIsAbleToChangeContactShipTo() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPMediumRoast();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Add an item");
@@ -216,7 +216,7 @@ public class StandardOrdersTest extends BaseTest {
       description = "11102581")
   public void userCanReturnToInformation() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPMediumRoast();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Add an item");
@@ -244,7 +244,7 @@ public class StandardOrdersTest extends BaseTest {
       description = "11102582")
   public void userCanVisitFAQPageFromShipping() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPMediumRoast();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Add an item");
@@ -275,7 +275,7 @@ public class StandardOrdersTest extends BaseTest {
       description = "11102583")
   public void userCanChangeMethod() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPMediumRoast();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Add an item");
@@ -324,7 +324,7 @@ public class StandardOrdersTest extends BaseTest {
       description = "11102584")
   public void wrongGiftCard() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPMediumRoast();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Add an item");
