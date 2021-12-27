@@ -17,12 +17,13 @@ public class GiftCardsTests extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.GIFT_CARDS},
-      description = "11102908")
+      description = "11102908",
+      enabled = false)
+  // Todo:UI seems to have changed
   public void sendCardByMailTest() {
     SoftAssert softAssert = new SoftAssert();
 
-    logger.info("1. Navigate to landing page");
-    navigateToHome();
+    logger.info("1. Navigate to GiftCard page");
     GiftCardsPage giftCardsPage = navigateToGiftCardsPage();
     Assert.assertNotNull(giftCardsPage, "Failed to navigate to the Gift card page.");
 
@@ -66,8 +67,7 @@ public class GiftCardsTests extends BaseTest {
       description = "11102909")
   public void manageCardsTest() {
 
-    logger.info("1. Navigate to landing page");
-    navigateToHome();
+    logger.info("1. Navigate to GiftCard page");
     GiftCardsPage giftCardsPage = navigateToGiftCardsPage();
     Assert.assertNotNull(giftCardsPage, "Failed to navigate to the Gift card page.");
 
@@ -78,7 +78,7 @@ public class GiftCardsTests extends BaseTest {
     Assert.assertNotNull(signInPage, "Failed to navigate to the Login page.");
 
     logger.info("3. Login");
-    signInPage.enterEmail(Constants.Mail.Mail6.getValue());
+    signInPage.enterEmail(Constants.Mail.Mail5.getValue());
     signInPage.enterPassword(Constants.TestData.WEB_PASSWORD);
     MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
 
@@ -92,8 +92,7 @@ public class GiftCardsTests extends BaseTest {
       description = "11102910")
   public void checkCardBalanceTest() {
 
-    logger.info("1. Navigate to landing page");
-    navigateToHome();
+    logger.info("1. Navigate to GiftCard page");
     GiftCardsPage giftCardsPage = navigateToGiftCardsPage();
     Assert.assertNotNull(giftCardsPage, "Failed to navigate to the Gift card page.");
 

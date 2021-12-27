@@ -105,6 +105,7 @@ public class BaseTest extends ApplauseSeleniumTest {
 
   @Step("Navigate to Subscription page")
   public GiftCardsPage navigateToGiftCardsPage() {
+    navigateToHome();
     logger.info(
         String.format("Navigating to Subscription page '%s'", TestData.GIFT_CARDS_PAGE_URL));
     SdkHelper.getDriver().navigate().to(TestData.GIFT_CARDS_PAGE_URL);

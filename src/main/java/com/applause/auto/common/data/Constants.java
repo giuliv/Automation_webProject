@@ -428,8 +428,8 @@ public class Constants {
     Mail2("peets.automation09@applause.com"), //    Mail2("peets.automation03@applause.com"),
     Mail3("peets.automation10@applause.com"), //    Mail3("peets.automation04@applause.com"),
     Mail4("peets.automation11@applause.com"), //    Mail4("peets.automation05@applause.com"),
-    Mail5("peets.automation12@applause.com"), //    Mail5("peets.automation06@applause.com"),
-    Mail6("peets.automation13@applause.com"); //    Mail6("peets.automation07@applause.com");
+    Mail5("peets.automation12@applause.com"); //    Mail5("peets.automation06@applause.com"),
+    //    Mail6("peets.automation13@applause.com"); //    Mail6("peets.automation07@applause.com");
 
     private final String value;
 
