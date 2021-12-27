@@ -31,8 +31,8 @@ public class NewUsersSmallBatchesSubscriptionsTest extends BaseTest {
 
     logger.info("2. Create new User account");
     String mail = WebHelper.getRandomMail();
-    //    MyAccountPage myAccountPage = testHelper.createAccount(homePage, mail);
-    //    Assert.assertNotNull(myAccountPage, "Account was not created!");
+    MyAccountPage myAccountPage = testHelper.createAccount(homePage, mail);
+    Assert.assertNotNull(myAccountPage, "Account was not created!");
 
     //    logger.info("3. Select Small Batches From Subscription tab");
     //    Header header = homePage.getHeader();
@@ -162,8 +162,8 @@ public class NewUsersSmallBatchesSubscriptionsTest extends BaseTest {
 
     logger.info("2. Create new User account");
     String mail = WebHelper.getRandomMail();
-    //    MyAccountPage myAccountPage = testHelper.createAccount(homePage, mail);
-    //    Assert.assertNotNull(myAccountPage, "Account was not created!");
+    MyAccountPage myAccountPage = testHelper.createAccount(homePage, mail);
+    Assert.assertNotNull(myAccountPage, "Account was not created!");
 
     logger.info("3. Select Small Batches From Subscription tab");
     //    Header header = homePage.getHeader();

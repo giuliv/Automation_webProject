@@ -23,7 +23,7 @@ public class CartTests extends BaseTest {
   public void cartCanCheckoutFromCartTest() {
 
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPMediumRoast();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Add an item");
@@ -238,7 +238,8 @@ public class CartTests extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.PLP},
-      description = "11101747")
+      description = "11101747",
+      enabled = false)
   public void canSignUpForNeverMissAnOffer() {
     logger.info("1. Navigate to landing page");
     ProductListPage productListPage = navigateToPLP();
