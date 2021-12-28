@@ -54,12 +54,12 @@ public class MyAccountTests extends BaseTest {
     Assert.assertNotNull(resetPasswordPage, "Failed to navigate to the Reset password page.");
 
     logger.info("3. Enter email.");
-    resetPasswordPage.enterEmail(Constants.Mail.Mail6.getValue());
+    resetPasswordPage.enterEmail(Constants.Mail.Mail5.getValue());
 
     logger.info("4. Click on Submit");
     PasswordRecoveryPage passwordRecoveryPage = resetPasswordPage.clickSubmitButton();
     Assert.assertTrue(
-        passwordRecoveryPage.isSuccessfulMessageDisplayed(Constants.Mail.Mail6.getValue()),
+        passwordRecoveryPage.isSuccessfulMessageDisplayed(Constants.Mail.Mail5.getValue()),
         "Successful message isn't displayed");
   }
 
