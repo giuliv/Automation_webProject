@@ -41,7 +41,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
             ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEST_SELLERS);
 
     logger.info("3. Add first item to MiniCart");
-    int productSelected = 1;
+    int productSelected = 0;
     ProductDetailsPage productDetailsPage =
         productListPage.clickOverProductByIndex(productSelected);
 
