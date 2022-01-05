@@ -78,7 +78,7 @@ public class GiftCardsTests extends BaseTest {
     Assert.assertNotNull(signInPage, "Failed to navigate to the Login page.");
 
     logger.info("3. Login");
-    signInPage.enterEmail(Constants.Mail.Mail5.getValue());
+    signInPage.enterEmail(Constants.Mail.Mail3.getValue());
     signInPage.enterPassword(Constants.TestData.WEB_PASSWORD);
     MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
 
