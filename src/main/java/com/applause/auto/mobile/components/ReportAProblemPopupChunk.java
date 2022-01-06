@@ -22,7 +22,8 @@ public class ReportAProblemPopupChunk extends BaseComponent {
           "type == 'XCUIElementTypeStaticText' AND value == 'We are happy to hear your thoughts'",
       on = Platform.MOBILE_IOS)
   @Locate(
-      id = "com.wearehathway.peets.development:id/ib_core_lyt_onboarding_pager_fragment",
+      androidUIAutomator =
+          "new UiSelector().resourceIdMatches(\".*id/ib_core_lyt_onboarding_pager_fragment\")",
       on = Platform.MOBILE_ANDROID)
   protected ContainerElement reportAProblemAdv;
 
@@ -59,7 +60,7 @@ class ReportAProblemPopupChunkiOS extends ReportAProblemPopupChunk {
     if (isReportAProblemPopUpDisplayed()) {
       if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
         // for some reasons the pop up leave in iOS layout forever
-        SdkHelper.getSyncHelper().sleep(12000);
+        SdkHelper.getSyncHelper().sleep(20000);
       }
     }
   }

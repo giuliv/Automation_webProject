@@ -6,6 +6,7 @@ import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.mobile.components.ReportAProblemPopupChunk;
 import com.applause.auto.mobile.components.TryMobileOrderAheadPopupChunk;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -13,6 +14,7 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.util.RetryTestException;
+import io.qameta.allure.Step;
 import java.time.Duration;
 import org.openqa.selenium.NoSuchElementException;
 
@@ -39,11 +41,15 @@ public class LandingView extends BaseComponent {
   protected Button getStartedButton;
 
   @Locate(iOSNsPredicate = "name='Create Account'", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/signUp", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/signUp\")",
+      on = Platform.MOBILE_ANDROID)
   protected Button getCreateAccountButton;
 
-  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Sign In\"]", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/logIn", on = Platform.MOBILE_ANDROID)
+  @Locate(iOSClassChain = "**/XCUIElementTypeButton[`name= 'Sign In'`]", on = Platform.MOBILE_IOS)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/logIn\")",
+      on = Platform.MOBILE_ANDROID)
   protected Button getSignInButton;
 
   @Locate(
@@ -58,7 +64,7 @@ public class LandingView extends BaseComponent {
   /* -------- Actions -------- */
 
   /**
-   * Chunck for report a problem pop up
+   * Chunk for report a problem pop up
    *
    * @return
    */
@@ -67,7 +73,7 @@ public class LandingView extends BaseComponent {
   }
 
   /**
-   * Chunck for try mobile order ahead popup
+   * Chunk for try mobile order ahead popup
    *
    * @return TryMobileOrderAheadPopupChunk
    */
@@ -84,7 +90,7 @@ public class LandingView extends BaseComponent {
       logger.info("Popup 'Allow tracking' does not found");
     }
     SdkHelper.getSyncHelper()
-        .wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
+        .wait(Until.uiElement(getSignInButton).visible().setTimeout(Duration.ofSeconds(40)));
     getReportAProblemPopupChunk().waitForPopUpToDisappear();
   }
 
@@ -171,6 +177,16 @@ public class LandingView extends BaseComponent {
   public void createAccountNavigation() {
     logger.info("Skipping SdkHelper.create account navigation Steps");
   }
+
+  @Step("Check if 'Sign In' Button is Displayed")
+  public boolean isSignInButtonDisplayed() {
+    return MobileHelper.isDisplayed(getSignInButton);
+  }
+
+  @Step("Check if 'Create Account' Button is Displayed")
+  public boolean isCreateAccountButtonDisplayed() {
+    return MobileHelper.isDisplayed(getCreateAccountButton);
+  }
 }
 
 class AndroidLandingView extends LandingView {
@@ -222,6 +238,6 @@ class AndroidLandingView extends LandingView {
   public void afterInit() {
     logger.info("Landing View init");
     SdkHelper.getSyncHelper()
-        .wait(Until.uiElement(getHeadingText).visible().setTimeout(Duration.ofSeconds(240)));
+        .wait(Until.uiElement(getSignInButton).visible().setTimeout(Duration.ofSeconds(20)));
   }
 }

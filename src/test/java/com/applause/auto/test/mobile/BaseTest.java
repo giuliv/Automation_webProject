@@ -3,6 +3,7 @@ package com.applause.auto.test.mobile;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.integrations.base.ApplauseSeleniumTest;
+import com.applause.auto.mobile.views.OnboardingView;
 import com.applause.auto.test.mobile.helpers.TestHelper;
 import io.appium.java_client.android.AndroidDriver;
 import java.lang.invoke.MethodHandles;
@@ -59,5 +60,11 @@ public class BaseTest extends ApplauseSeleniumTest {
       logger.info("Current activity: " + currentActivity);
     }
     logger.info("Test case setup complete.");
+  }
+
+  public static OnboardingView openApp() {
+    OnboardingView onboardingView = SdkHelper.create(OnboardingView.class);
+    onboardingView.getGetReportAProblemPopupChunk().waitForPopUpToDisappear();
+    return onboardingView;
   }
 }

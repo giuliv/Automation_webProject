@@ -36,6 +36,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.UnsupportedCommandException;
 import org.openqa.selenium.WebDriverException;
 import org.testng.Assert;
@@ -556,5 +557,42 @@ public class MobileHelper {
     Dimension size = SdkHelper.getDeviceControl().getScreenSize();
     logger.debug(String.format("Screen size is [%d x %d].", size.width, size.height));
     swipeAcrossScreenCoordinates(0.5, 0.5, 0.5, 0.8, 2000L);
+  }
+
+  public static boolean isElementDisplayed(BaseElement element, int timeOutInSeconds) {
+    try {
+      SdkHelper.getSyncHelper()
+          .wait(
+              Until.uiElement(element).visible().setTimeout(Duration.ofSeconds(timeOutInSeconds)));
+      logger.info("Element is displayed");
+      return true;
+    } catch (TimeoutException ex) {
+      logger.info("Element isn't displayed");
+      return false;
+    }
+  }
+
+  public static void waitUntilElementDisappears(BaseElement element, int waitingTime) {
+    if (isElementDisplayed(element, 5)) {
+      try {
+        if (SdkHelper.getEnvironmentHelper().isiOS()) {
+          SdkHelper.getSyncHelper()
+              .wait(
+                  Until.uiElement(element)
+                      .notVisible()
+                      .setTimeout(Duration.ofSeconds(waitingTime)));
+        } else {
+          SdkHelper.getSyncHelper()
+              .wait(
+                  Until.uiElement(element)
+                      .notPresent()
+                      .setTimeout(Duration.ofSeconds(waitingTime)));
+        }
+      } catch (TimeoutException ex) {
+        logger.info("Element didn't Disappear is still displayed");
+      }
+    } else {
+      logger.info("Element didn't appear. Moving on");
+    }
   }
 }
