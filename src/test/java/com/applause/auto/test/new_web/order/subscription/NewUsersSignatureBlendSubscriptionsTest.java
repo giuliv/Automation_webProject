@@ -10,6 +10,7 @@ import com.applause.auto.new_web.views.HomePage;
 import com.applause.auto.new_web.views.PaymentsPage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ShippingPage;
+import com.applause.auto.new_web.views.my_account.MyAccountPage;
 import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
