@@ -5,7 +5,9 @@ import com.applause.auto.common.data.Constants.CoffeeFinderData;
 import com.applause.auto.common.data.Constants.MenuSubCategories;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.enums.CoffeeFinderAnswers;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.Header;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.BrewGuidesPage;
 import com.applause.auto.new_web.views.CoffeeFinderPage;
 import com.applause.auto.new_web.views.ProductListPage;
@@ -102,16 +104,18 @@ public class CoffeeFinderTests extends BaseTest {
     Assert.assertEquals(
         coffeeFinderPage.getSelectedFlavorsList().size(), 2, "Flavors were not selected");
 
-    logger.info("6. Click on a pill");
-    coffeeFinderPage.getSelectedFlavorsList().get(1).click();
+    if (!WebHelper.isDesktop()) {
+      logger.info("6. Click on a pill");
+      coffeeFinderPage.getSelectedFlavorsList().get(1).click();
 
-    logger.info("Verify that flavor should get deselected.");
-    Assert.assertEquals(
-        coffeeFinderPage.getCountOfSelectedFlavorsInTheCircle(),
-        1,
-        "Flavors were not deselected in the circle");
-    Assert.assertEquals(
-        coffeeFinderPage.getSelectedFlavorsList().size(), 1, "Flavors were not de selected");
+      logger.info("Verify that flavor should get deselected.");
+      Assert.assertEquals(
+          coffeeFinderPage.getCountOfSelectedFlavorsInTheCircle(),
+          1,
+          "Flavors were not deselected in the circle");
+      Assert.assertEquals(
+          coffeeFinderPage.getSelectedFlavorsList().size(), 1, "Flavors were not de selected");
+    }
   }
 
   @Test(

@@ -150,8 +150,7 @@ public class CoffeeFinderPage extends Base {
    */
   @Step("Select specific Answer")
   public <T extends BaseComponent> T selectAnswer(CoffeeFinderAnswers answer, Class<T> clazz) {
-    return getTypeOfCoffeeList()
-        .stream()
+    return getTypeOfCoffeeList().stream()
         .filter(item -> StringUtils.equalsIgnoreCase(item.getName(), answer.getValue()))
         .findFirst()
         .orElseThrow(
@@ -239,6 +238,16 @@ class CoffeeFinderPageMobile extends CoffeeFinderPage {
   @Locate(xpath = "(//div[contains(@class, 'button--next')]/div)[1]", on = Platform.WEB)
   private Button nextQuestionMobileButton;
 
+  @Locate(
+      css = "button .mobile-coffee-disk__selection-panel__answer__title",
+      on = Platform.WEB_MOBILE_PHONE)
+  private List<Button> optionsList;
+
+  @Locate(
+      css = "button.mobile-coffee-disk__selection-panel__select",
+      on = Platform.WEB_MOBILE_PHONE)
+  private Button selectButton;
+
   @Override
   @Step("Select specific Flavor on position")
   public CoffeeFinderPage selectFlavor(int position) {
@@ -246,7 +255,15 @@ class CoffeeFinderPageMobile extends CoffeeFinderPage {
     Button flavor = getFlavorsList().get(position - 1);
     WebHelper.scrollToElement(flavor);
     Point location = flavor.getWebElement().getLocation();
-    WebHelper.clickOnCoordinatesWithNativeTap(location.getX(), location.getY());
+    //    WebHelper.clickOnCoordinatesWithNativeTap(location.getX(), location.getY());
+    SdkHelper.getDeviceControl().tapScreenCoordinates(location.getX(), location.getY());
+    SdkHelper.getDeviceControl()
+        .tapElementCoordinates(
+            flavor, flavor.getDimension().height / 2, flavor.getDimension().width / 2);
+    optionsList.get(0).click();
+    SdkHelper.getSyncHelper().sleep(500); // Wait for action
+
+    selectButton.click();
     return this;
   }
 

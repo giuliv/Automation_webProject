@@ -9,6 +9,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.qameta.allure.Step;
@@ -23,6 +24,9 @@ public class SearchComponent extends BaseComponent {
 
   @Locate(id = "searchInput", on = Platform.WEB)
   protected TextBox searchBox;
+
+  @Locate(className = "search__label-text", on = Platform.WEB)
+  protected Text searchLabel;
 
   @Locate(id = "searchMenuBtn", on = Platform.WEB)
   private Button searchButton;
@@ -74,8 +78,7 @@ public class SearchComponent extends BaseComponent {
   public boolean areAllSearchBoxItemsDisplayedCorrectly() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(searchResultsContainer).present());
     ((LazyList<?>) searchBoxItemComponents).initialize();
-    return searchBoxItemComponents
-        .stream()
+    return searchBoxItemComponents.stream()
         .allMatch(SearchBoxItemComponent::isAutocompleteResultDisplayedCorrectly);
   }
 
@@ -93,7 +96,10 @@ class SearchComponentMobile extends SearchComponent {
   public void enterSearchTerm(String product) {
     logger.info("Searching for: " + product);
     searchBox.sendKeys(product);
-    SdkHelper.getDeviceControl().hideKeyboard();
-    SdkHelper.getSyncHelper().sleep(3000); // Wait for action
+    SdkHelper.getSyncHelper().sleep(1000);
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(searchLabel).present());
+    SdkHelper.getBrowserControl().jsClick(searchLabel);
+    SdkHelper.getSyncHelper().sleep(2000); // Wait for action
   }
 }

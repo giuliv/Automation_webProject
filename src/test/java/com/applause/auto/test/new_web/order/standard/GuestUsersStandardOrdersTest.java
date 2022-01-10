@@ -29,8 +29,12 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
 
+    int productSelected;
     if (WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
       homePage = WebHelper.refreshMe(HomePage.class);
+      productSelected = 0;
+    } else {
+      productSelected = 1;
     }
 
     logger.info("2. Select Best Sellers from Coffee tab");
@@ -41,7 +45,6 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
             ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEST_SELLERS);
 
     logger.info("3. Add first item to MiniCart");
-    int productSelected = 0;
     ProductDetailsPage productDetailsPage =
         productListPage.clickOverProductByIndex(productSelected);
 
