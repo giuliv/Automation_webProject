@@ -12,20 +12,19 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import java.time.Duration;
 
-@Implementation(is = AndroidGeneralSettingsView.class, on = Platform.MOBILE_ANDROID)
-@Implementation(is = GeneralSettingsView.class, on = Platform.MOBILE_IOS)
-public class GeneralSettingsView extends BaseComponent {
-
-  /* -------- Elements -------- */
+@Implementation(is = AndroidPersonalSettingsView.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = PersonalSettingsView.class, on = Platform.MOBILE_IOS)
+public class PersonalSettingsView extends BaseComponent {
 
   @Locate(
-      xpath = "//XCUIElementTypeNavigationBar[@name=\"GENERAL SETTINGS\"]/XCUIElementTypeButton",
+      iOSClassChain =
+          "**/XCUIElementTypeNavigationBar[`name == 'PERSONAL SETTINGS'`]/XCUIElementTypeButton",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
           "//android.widget.ImageButton[contains(@content-desc,\"Navigate up\") or contains(@content-desc,\"Nach oben\")]",
       on = Platform.MOBILE_ANDROID)
-  protected Button getBackButton;
+  protected Button backButton;
 
   @Locate(id = "Promotional Emails, Receive offers, news, and more", on = Platform.MOBILE_IOS)
   @Locate(
@@ -82,7 +81,7 @@ public class GeneralSettingsView extends BaseComponent {
    */
   public <T extends BaseComponent> T goBack(Class<T> clazz) {
     logger.info("Tap back button");
-    getBackButton.click();
+    backButton.click();
     SdkHelper.getSyncHelper().sleep(2000);
     return SdkHelper.create(clazz);
   }
@@ -119,7 +118,7 @@ public class GeneralSettingsView extends BaseComponent {
    *
    * @return the general settings view
    */
-  public GeneralSettingsView enablePromotionalEmails() {
+  public PersonalSettingsView enablePromotionalEmails() {
     logger.info("Checking Promo emails services");
     if (!isPromoEmailOptionChecked()) {
       getPromotionalEmailsButton.initialize();
@@ -127,7 +126,7 @@ public class GeneralSettingsView extends BaseComponent {
       SdkHelper.getSyncHelper()
           .wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(30)));
     }
-    return SdkHelper.create(GeneralSettingsView.class);
+    return SdkHelper.create(PersonalSettingsView.class);
   }
 
   /**
@@ -135,18 +134,18 @@ public class GeneralSettingsView extends BaseComponent {
    *
    * @return the general settings view
    */
-  public GeneralSettingsView disablePromotionalEmails() {
+  public PersonalSettingsView disablePromotionalEmails() {
     logger.info("Unchecking Promo emails services");
     if (isPromoEmailOptionChecked()) {
       getPromotionalEmailsButton.initialize();
       MobileHelper.tapByCoordinatesOnElementCenter(getPromotionalEmailsButton);
       SdkHelper.getSyncHelper().sleep(10000);
     }
-    return SdkHelper.create(GeneralSettingsView.class);
+    return SdkHelper.create(PersonalSettingsView.class);
   }
 }
 
-class AndroidGeneralSettingsView extends GeneralSettingsView {
+class AndroidPersonalSettingsView extends PersonalSettingsView {
 
   /* -------- Elements -------- */
 
@@ -176,7 +175,7 @@ class AndroidGeneralSettingsView extends GeneralSettingsView {
   }
 
   @Override
-  public GeneralSettingsView disablePromotionalEmails() {
+  public PersonalSettingsView disablePromotionalEmails() {
     logger.info("Unchecking Promo emails services");
     if (isPromoEmailOptionChecked()) {
       getPromotionalEmailsButton.click();
@@ -185,6 +184,6 @@ class AndroidGeneralSettingsView extends GeneralSettingsView {
             .wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(30)));
       }
     }
-    return SdkHelper.create(GeneralSettingsView.class);
+    return SdkHelper.create(PersonalSettingsView.class);
   }
 }

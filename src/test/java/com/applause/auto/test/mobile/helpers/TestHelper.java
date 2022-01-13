@@ -6,7 +6,6 @@ import com.applause.auto.common.data.TestDataUtils;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.CheckoutView;
@@ -15,6 +14,7 @@ import com.applause.auto.mobile.views.CreditCardDetailsView;
 import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.FindACoffeeBarView;
 import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.MoreOptionsView;
 import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
 import com.applause.auto.mobile.views.NewOrderView;
 import com.applause.auto.mobile.views.PaymentMethodsView;
@@ -65,7 +65,7 @@ public class TestHelper extends BaseComponent {
     SignInView signInView = landingView.signIn();
 
     logger.info("Tap on Email Address field and enter valid email address");
-    signInView.setUsername(username);
+    signInView.setEmail(username);
 
     logger.info("Enter valid password");
     signInView.setPassword(password);
@@ -88,7 +88,7 @@ public class TestHelper extends BaseComponent {
       SdkHelper.getSyncHelper().sleep(15000);
       paymentMethodsView.clickBackButton();
       SdkHelper.getSyncHelper().sleep(5000);
-      SdkHelper.create(AccountMenuMobileChunk.class).clickPaymentMethods();
+      SdkHelper.create(MoreOptionsView.class).clickPaymentMethods();
       SdkHelper.getSyncHelper()
           .waitUntil(condition -> !paymentMethodsView.isPaymentMethodTestCardAdded(methodName));
     } else {

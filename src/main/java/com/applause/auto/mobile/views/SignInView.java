@@ -3,6 +3,7 @@ package com.applause.auto.mobile.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -23,9 +24,11 @@ public class SignInView extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(xpath = "//XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/emailAddress", on = Platform.MOBILE_ANDROID)
-  protected TextBox getUsernameTextBox;
+  @Locate(iOSClassChain = "**/XCUIElementTypeTextField", on = Platform.MOBILE_IOS)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/emailAddress\")",
+      on = Platform.MOBILE_ANDROID)
+  protected TextBox emailTextBox;
 
   @Locate(xpath = "//XCUIElementTypeStaticText[2]", on = Platform.MOBILE_IOS)
   @Locate(id = "android:id/message", on = Platform.MOBILE_ANDROID)
@@ -35,20 +38,23 @@ public class SignInView extends BaseComponent {
   @Locate(xpath = "//*[@text='OKAY']", on = Platform.MOBILE_ANDROID)
   protected Button getDismissMessageButton;
 
-  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Sign In\"]", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/loginButton", on = Platform.MOBILE_ANDROID)
-  protected Button getSignInButton;
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`label == 'Sign In'`]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/loginButton\")",
+      on = Platform.MOBILE_ANDROID)
+  protected Button signInButton;
 
   @Locate(id = "hide password", on = Platform.MOBILE_IOS)
   @Locate(id = "NA", on = Platform.MOBILE_ANDROID)
-  protected Button getShowPasswordButton;
+  protected Button showPasswordButton;
 
+  @Locate(iOSClassChain = "**/XCUIElementTypeSecureTextField", on = Platform.MOBILE_IOS)
   @Locate(
-      xpath =
-          "//XCUIElementTypeSecureTextField|//XCUIElementTypeButton[@name=\"reveal password\"]/preceding-sibling::XCUIElementTypeTextField",
-      on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/password", on = Platform.MOBILE_ANDROID)
-  protected TextBox getPasswordTextBox;
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/password\")",
+      on = Platform.MOBILE_ANDROID)
+  protected TextBox passwordTextBox;
 
   @Locate(
       xpath =
@@ -91,7 +97,9 @@ public class SignInView extends BaseComponent {
       xpath =
           "//XCUIElementTypeApplication[@name=\"Peets-Sandbox\"]/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/loader", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/loader\")",
+      on = Platform.MOBILE_ANDROID)
   protected ContainerElement getLoader;
 
   /* -------- Actions -------- */
@@ -101,10 +109,10 @@ public class SignInView extends BaseComponent {
    *
    * @return
    */
-  public void setUsername(String username) {
-    logger.info("Set username: " + username);
-    getUsernameTextBox.clearText();
-    getUsernameTextBox.sendKeys(username);
+  public void setEmail(String email) {
+    logger.info("Set email: " + email);
+    emailTextBox.clearText();
+    emailTextBox.sendKeys(email);
     SdkHelper.getSyncHelper().sleep(3000);
   }
 
@@ -115,11 +123,11 @@ public class SignInView extends BaseComponent {
    */
   public void setPassword(String password) {
     logger.info("Set password: " + password);
-    getPasswordTextBox.clearText();
-    getPasswordTextBox.initialize();
-    getPasswordTextBox.click();
+    passwordTextBox.clearText();
+    passwordTextBox.initialize();
+    passwordTextBox.click();
     SdkHelper.getSyncHelper().sleep(1500);
-    getPasswordTextBox.sendKeys(password);
+    passwordTextBox.sendKeys(password);
     SdkHelper.getSyncHelper().sleep(1500);
   }
 
@@ -129,7 +137,7 @@ public class SignInView extends BaseComponent {
    * @return the password
    */
   public String getPassword() {
-    return getPasswordTextBox.getCurrentText();
+    return passwordTextBox.getCurrentText();
   }
 
   /**
@@ -187,15 +195,15 @@ public class SignInView extends BaseComponent {
    */
   public <T extends BaseComponent> T signIn(Class<T> clazz) {
     logger.info("Click on Sign In button");
-    getSignInButton.initialize();
-    getSignInButton.click();
+    signInButton.initialize();
+    signInButton.click();
     return SdkHelper.create(clazz);
   }
 
   /** Show password. */
   public void showPassword() {
     logger.info("Click on Show Password button");
-    getShowPasswordButton.click();
+    showPasswordButton.click();
   }
 
   /**
@@ -204,7 +212,7 @@ public class SignInView extends BaseComponent {
    * @return boolean
    */
   public boolean isEmailFieldDisplayed() {
-    return getUsernameTextBox.isDisplayed();
+    return MobileHelper.isElementDisplayed(emailTextBox, 5);
   }
 
   /**
@@ -213,7 +221,7 @@ public class SignInView extends BaseComponent {
    * @return boolean
    */
   public boolean isPasswordFieldDisplayed() {
-    return getPasswordTextBox.isDisplayed();
+    return MobileHelper.isElementDisplayed(passwordTextBox, 5);
   }
 
   /**
@@ -222,7 +230,7 @@ public class SignInView extends BaseComponent {
    * @return boolean
    */
   public boolean isShowPasswordButtonDisplayed() {
-    return getShowPasswordButton.isDisplayed();
+    return showPasswordButton.isDisplayed();
   }
 
   /**
@@ -240,7 +248,7 @@ public class SignInView extends BaseComponent {
    * @return boolean
    */
   public boolean isSignInButtonEnabled() {
-    return getSignInButton.isEnabled();
+    return signInButton.isEnabled();
   }
 
   /**
@@ -280,7 +288,7 @@ class AndroidSignInView extends SignInView {
   @Override
   public void showPassword() {
     logger.info("Click on Show Password button");
-    MobileElement element = getPasswordTextBox.getMobileElement();
+    MobileElement element = passwordTextBox.getMobileElement();
     int x = element.getCenter().getX();
     int y = element.getCenter().getY();
     int width = element.getSize().getWidth();
@@ -296,12 +304,12 @@ class AndroidSignInView extends SignInView {
     // getPasswordTextBox.clearText();
     // }
 
-    getPasswordTextBox.sendKeys(password);
+    passwordTextBox.sendKeys(password);
   }
 
   @Override
   public String getPassword() {
-    return getPasswordTextBox.getAttributeValue("text");
+    return passwordTextBox.getAttributeValue("text");
   }
 
   @Override
@@ -330,13 +338,14 @@ class AndroidSignInView extends SignInView {
     return true;
   }
 
+  @Override
   public <T extends BaseComponent> T signIn(Class<T> clazz) {
     logger.info("Click on Sign In button");
-    SdkHelper.getDeviceControl().hideKeyboard();
+    MobileHelper.hideKeyboard();
     IntStream.range(0, 3)
         .filter(
             i -> {
-              getSignInButton.click();
+              signInButton.click();
               if (getLoader.exists()) {
                 SdkHelper.getSyncHelper()
                     .wait(

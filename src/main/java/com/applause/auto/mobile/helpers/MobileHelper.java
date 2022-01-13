@@ -1,8 +1,11 @@
 package com.applause.auto.mobile.helpers;
 
+import static com.applause.auto.framework.SdkHelper.getDriver;
+
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileApp;
 import com.applause.auto.data.enums.SwipeDirection;
+import com.applause.auto.framework.ContextManager;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
@@ -26,6 +29,7 @@ import java.util.Map;
 import java.util.stream.IntStream;
 import javax.imageio.ImageIO;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -114,6 +118,30 @@ public class MobileHelper {
       getMobileDriver().findElement(By.xpath("//*[@name='Done']")).click();
     } catch (Throwable throwable) {
 
+    }
+  }
+
+  public static void hideKeyboard() {
+    logger.info("Hide keyboard by standard method");
+    try {
+      ((AppiumDriver) getDriver()).hideKeyboard();
+    } catch (Exception e) {
+
+    }
+    if (!isAndroid()) {
+      try {
+        logger.info("Hide keyboard by clicking done");
+        getDriver().findElement(By.id("Done")).click();
+      } catch (NoSuchElementException ex) {
+        logger.info("No done button found");
+      }
+
+      try {
+        logger.info("Hide keyboard by clicking done");
+        getDriver().findElement(By.id("Toolbar Done Button")).click();
+      } catch (NoSuchElementException ex) {
+        logger.info("No Toolbar Done Button button found");
+      }
     }
   }
 
@@ -490,7 +518,9 @@ public class MobileHelper {
 
   public static boolean isIosCheckboxChecked(MobileElement element) {
     logger.info("Checking if checkbox checked by color");
-    return MobileHelper.getMobileElementColour(element).getBlue() != 255;
+    int blueValue = MobileHelper.getMobileElementColour(element).getBlue();
+    logger.info("Checkbox blue color value - [{}]", blueValue);
+    return blueValue != 255;
   }
 
   /**
@@ -594,5 +624,13 @@ public class MobileHelper {
     } else {
       logger.info("Element didn't appear. Moving on");
     }
+  }
+
+  public static boolean isAndroid() {
+    return StringUtils.containsIgnoreCase(
+            ContextManager.getInstance().getDriverContext().getDriver().getPlatform().toString(),
+            "android")
+        ? true
+        : false;
   }
 }

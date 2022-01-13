@@ -4,13 +4,13 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+import io.qameta.allure.Step;
 import java.time.Duration;
 
 @Implementation(is = ProfileDetailsView.class, on = Platform.MOBILE_ANDROID)
@@ -80,13 +80,14 @@ public class ProfileDetailsView extends BaseComponent {
 
   //  @Locate(id = "button back", on = Platform.MOBILE_IOS) //Review if changed indeed [15.01.2021]
   @Locate(
-      xpath = "//XCUIElementTypeNavigationBar[@name=\"PROFILE DETAILS\"]/XCUIElementTypeButton",
+      iOSClassChain =
+          "**/XCUIElementTypeNavigationBar[`name == 'PROFILE DETAILS'`]/XCUIElementTypeButton",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
           "//android.widget.ImageButton[contains(@content-desc,\"Navigate up\") or contains(@content-desc,\"Nach oben\")]",
       on = Platform.MOBILE_ANDROID)
-  protected Button getBackButton;
+  protected Button backButton;
 
   @Locate(xpath = "//XCUIElementTypeOther[@name=\"PROFILE DETAILS\"]", on = Platform.MOBILE_IOS)
   @Locate(
@@ -232,19 +233,12 @@ public class ProfileDetailsView extends BaseComponent {
     return getDOBTextBox.getAttributeValue("text").replace("Date of Birth ", "");
   }
 
-  /**
-   * Go back t.
-   *
-   * @param <T> the type parameter
-   * @param clazz the clazz
-   * @return the t
-   */
+  @Step("Navigate back")
   public <T extends BaseComponent> T goBack(Class<T> clazz) {
-    logger.info("Tap back button");
+    logger.info("Tapping back button");
     SdkHelper.getSyncHelper()
-        .wait(Until.uiElement(getBackButton).present().setTimeout(Duration.ofSeconds(15)));
-    getBackButton.click();
-    SdkHelper.getSyncHelper().sleep(4000);
+        .wait(Until.uiElement(backButton).present().setTimeout(Duration.ofSeconds(15)));
+    backButton.click();
     return SdkHelper.create(clazz);
   }
 
@@ -263,12 +257,12 @@ public class ProfileDetailsView extends BaseComponent {
    *
    * @return the account menu mobile chunk
    */
-  public AccountMenuMobileChunk save() {
+  public MoreOptionsView save() {
     logger.info("Click on SAVE button");
     SdkHelper.getDeviceControl().hideKeyboard();
     getSaveButton.click();
     SdkHelper.getSyncHelper().sleep(5000);
-    return SdkHelper.create(AccountMenuMobileChunk.class);
+    return SdkHelper.create(MoreOptionsView.class);
   }
 
   /**
@@ -358,14 +352,14 @@ class IosProfileDetailsView extends ProfileDetailsView {
     return getLastnameTextBox.getAttributeValue("value");
   }
 
-  public AccountMenuMobileChunk save() {
+  public MoreOptionsView save() {
     logger.info("Click on SAVE button");
     if (getDoneButton.exists()) {
       getDoneButton.click();
     }
     getSaveButton.click();
     SdkHelper.getSyncHelper().sleep(5000);
-    return SdkHelper.create(AccountMenuMobileChunk.class);
+    return SdkHelper.create(MoreOptionsView.class);
   }
 
   @Override

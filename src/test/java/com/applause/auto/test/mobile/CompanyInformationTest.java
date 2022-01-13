@@ -5,12 +5,12 @@ import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
-import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.views.CustomerSupportScreenView;
 import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.HelpAndFeedbackView;
 import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.LegalInfoView;
+import com.applause.auto.mobile.views.MoreOptionsView;
 import com.applause.auto.mobile.views.PeetnikRewardsLandingView;
 import com.applause.auto.mobile.views.PeetnikRewardsTermsAndConditionsView;
 import com.applause.auto.mobile.views.PrivacyPolicyView;
@@ -84,7 +84,7 @@ public class CompanyInformationTest extends BaseTest {
     Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
     logger.info("STEP - Tap on ... at top right of home screen");
-    AccountMenuMobileChunk accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
+    MoreOptionsView accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
 
     logger.info("STEP - Tap on Terms and Privacy Policy field/row");
     LegalInfoView legalInfoView = accountMenuMobileChunk.termsAndPrivacyPolicy();
@@ -158,7 +158,7 @@ public class CompanyInformationTest extends BaseTest {
     Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
     logger.info("STEP - Tap on ... at top right of home screen");
-    AccountMenuMobileChunk accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
+    MoreOptionsView accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
 
     logger.info("VERIFY - Header: Hi, \"FIRST NAME\"");
     Assert.assertTrue(
@@ -181,7 +181,7 @@ public class CompanyInformationTest extends BaseTest {
 
     logger.info("VERIFY - General Settings");
     Assert.assertTrue(
-        accountMenuMobileChunk.isGeneralSettingsMenuItemDisplayed(),
+        accountMenuMobileChunk.isPersonalSettingsMenuItemDisplayed(),
         "General Settings does not displayed");
 
     logger.info("VERIFY - Payment Methods");
@@ -248,7 +248,7 @@ public class CompanyInformationTest extends BaseTest {
     Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
     logger.info("STEP - Tap on ... at top right of home screen");
-    AccountMenuMobileChunk accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
+    MoreOptionsView accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
 
     logger.info("STEP - Tap on Help & Feedback field/row");
     HelpAndFeedbackView helpAndFeedbackView = accountMenuMobileChunk.helpAndFeedback();

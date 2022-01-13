@@ -8,11 +8,11 @@ import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
-import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.views.AddNewCardView;
 import com.applause.auto.mobile.views.CreditCardDetailsView;
 import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.MoreOptionsView;
 import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.PeetsCardSettingsView;
 import java.lang.invoke.MethodHandles;
@@ -36,7 +36,7 @@ public class AccountSettingsTest extends BaseTest {
     DashboardView dashboardView = testHelper.createNewAccountWithDefaults(landingView);
 
     logger.info("Navigate to Payment Methods");
-    AccountMenuMobileChunk accountProfileMenu = dashboardView.getAccountProfileMenu();
+    MoreOptionsView accountProfileMenu = dashboardView.getAccountProfileMenu();
     PaymentMethodsView paymentMethodsView = accountProfileMenu.clickPaymentMethods();
 
     softAssert.assertEquals(
@@ -182,8 +182,8 @@ public class AccountSettingsTest extends BaseTest {
     DashboardView dashboardView = testHelper.signIn(landingView);
 
     logger.info("Navigate to Social Media icons and click Facebook icon");
-    AccountMenuMobileChunk accountProfileMenu = dashboardView.getAccountProfileMenu();
-    AccountMenuMobileChunk socialMedia = accountProfileMenu.clickFacebookIcon();
+    MoreOptionsView accountProfileMenu = dashboardView.getAccountProfileMenu();
+    MoreOptionsView socialMedia = accountProfileMenu.clickFacebookIcon();
     Assert.assertTrue(socialMedia.isOnFacebookPage(), "Not On social Media URL");
     socialMedia.clickDoneButton();
 

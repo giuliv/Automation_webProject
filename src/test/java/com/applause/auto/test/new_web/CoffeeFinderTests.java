@@ -5,7 +5,6 @@ import com.applause.auto.common.data.Constants.CoffeeFinderData;
 import com.applause.auto.common.data.Constants.MenuSubCategories;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.enums.CoffeeFinderAnswers;
-import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.BrewGuidesPage;

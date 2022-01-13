@@ -1,10 +1,10 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -15,10 +15,7 @@ import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Picker;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
-import io.appium.java_client.TouchAction;
-import io.appium.java_client.touch.offset.PointOption;
+import io.qameta.allure.Step;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.openqa.selenium.Dimension;
@@ -27,17 +24,13 @@ import org.openqa.selenium.Dimension;
 @Implementation(is = CreateAccountView.class, on = Platform.MOBILE_IOS)
 public class CreateAccountView extends BaseComponent {
 
-  /* -------- Elements -------- */
-
-  @Locate(xpath = "(//XCUIElementTypeButton[@name=\"hide password\"])[1]", on = Platform.MOBILE_IOS)
-  @Locate(id = "", on = Platform.MOBILE_ANDROID)
-  protected Button getShowPasswordButton;
-
   @Locate(
-      xpath = "(//XCUIElementTypeButton[@name=\"reveal password\"])[1]",
+      iOSClassChain = "**/XCUIElementTypeButton[`label CONTAINS ' password'`]",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "", on = Platform.MOBILE_ANDROID)
-  protected Button getHidePasswordButton;
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/passwordToggle\")",
+      on = Platform.MOBILE_ANDROID)
+  protected Button showPasswordButton;
 
   @Locate(xpath = "(//XCUIElementTypeButton[@name=\"hide password\"])[2]", on = Platform.MOBILE_IOS)
   @Locate(id = "", on = Platform.MOBILE_ANDROID)
@@ -77,18 +70,22 @@ public class CreateAccountView extends BaseComponent {
   protected Picker getDOBYearPicker;
 
   @Locate(
-      xpath =
-          "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeTextField",
+      iOSClassChain =
+          "**/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeTextField",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/firstName", on = Platform.MOBILE_ANDROID)
-  protected TextBox getFirstnameTextBox;
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/firstName\")",
+      on = Platform.MOBILE_ANDROID)
+  protected TextBox firstnameTextBox;
 
   @Locate(
-      xpath =
-          "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeTextField",
+      iOSClassChain =
+          "**/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeTextField",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/lastName", on = Platform.MOBILE_ANDROID)
-  protected TextBox getLastnameTextBox;
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/lastName\")",
+      on = Platform.MOBILE_ANDROID)
+  protected TextBox lastnameTextBox;
 
   @Locate(
       xpath =
@@ -100,10 +97,12 @@ public class CreateAccountView extends BaseComponent {
   protected TextBox getZipCodeTextBox;
 
   @Locate(
-      xpath =
-          "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[4]/XCUIElementTypeTextField",
+      iOSClassChain =
+          "**/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeTextField",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/birthday", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/birthday\")",
+      on = Platform.MOBILE_ANDROID)
   protected TextBox getDOBValueTextBox;
 
   @Locate(
@@ -123,11 +122,13 @@ public class CreateAccountView extends BaseComponent {
   protected TextBox getPhoneNumberTextBox;
 
   @Locate(
-      xpath =
-          "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[6]/XCUIElementTypeTextField",
+      iOSClassChain =
+          "**/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[4]/XCUIElementTypeTextField",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/emailAddress", on = Platform.MOBILE_ANDROID)
-  protected TextBox getEmailAddressTextBox;
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/emailAddress\")",
+      on = Platform.MOBILE_ANDROID)
+  protected TextBox emailAddressTextBox;
 
   @Locate(id = "Done", on = Platform.MOBILE_IOS)
   protected TextBox getDOBDoneBtn;
@@ -142,18 +143,13 @@ public class CreateAccountView extends BaseComponent {
   protected TextBox getConfirmEmailAddressTextBox;
 
   @Locate(
-      xpath =
-          "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[8]/XCUIElementTypeSecureTextField",
+      iOSClassChain =
+          "**/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[5]/*[1]",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/password", on = Platform.MOBILE_ANDROID)
-  protected TextBox getHiddenPasswordTextBox;
-
   @Locate(
-      xpath =
-          "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[8]/XCUIElementTypeTextField",
-      on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/password", on = Platform.MOBILE_ANDROID)
-  protected TextBox getPasswordTextBox;
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/password\")",
+      on = Platform.MOBILE_ANDROID)
+  protected TextBox passwordTextBox;
 
   @Locate(
       xpath =
@@ -182,55 +178,65 @@ public class CreateAccountView extends BaseComponent {
   protected Text getPromoCodeHintTextBox;
 
   @Locate(
-      xpath =
-          "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[10]/XCUIElementTypeTextField",
+      iOSClassChain =
+          "**/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[6]/XCUIElementTypeTextField",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/promoCode", on = Platform.MOBILE_ANDROID)
-  protected TextBox getPromoCodeTextBox;
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/promoCode\")",
+      on = Platform.MOBILE_ANDROID)
+  protected TextBox promoCodeTextBox;
 
   @Locate(
       iOSClassChain =
           "**/XCUIElementTypeButton[`name CONTAINS \"Yes, please send me emails with exclusive offers, rewards, news, and more.\"`]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      id = "com.wearehathway.peets.development:id/receiveMessageFromPeetCheckBox",
+      androidUIAutomator =
+          "new UiSelector().resourceIdMatches(\".*id/receiveMessageFromPeetCheckBox\")",
       on = Platform.MOBILE_ANDROID)
-  protected Checkbox getEmailsWithOffersCheckBox;
+  protected Checkbox emailsWithOffersCheckBox;
 
   @Locate(
       iOSClassChain = "**/XCUIElementTypeButton[`name CONTAINS \"I agree to the\"`]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      id = "com.wearehathway.peets.development:id/agreePrivacyPolicyCheckBox",
+      androidUIAutomator =
+          "new UiSelector().resourceIdMatches(\".*id/agreePrivacyPolicyCheckBox\")",
       on = Platform.MOBILE_ANDROID)
-  protected Checkbox getAgreePrivacyPolicyAndTermsAndConditions;
+  protected Checkbox agreePrivacyPolicyAndTermsAndConditions;
 
   @Locate(id = "Privacy Policy", on = Platform.MOBILE_IOS)
   @Locate(xpath = "//*[contains(@text,'Privacy Policy')]", on = Platform.MOBILE_ANDROID)
   protected Button getPrivacyPolicyButton;
 
-  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Create Account\"]", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/createAccount", on = Platform.MOBILE_ANDROID)
-  protected Button getCreateAccountButton;
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`name == 'Create Account'`]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/createAccount\")",
+      on = Platform.MOBILE_ANDROID)
+  protected Button createAccountButton;
 
   @Locate(id = "Terms & Conditions", on = Platform.MOBILE_IOS)
   @Locate(xpath = "//*[contains(@text,'Terms')]", on = Platform.MOBILE_ANDROID)
   protected Button getTermsAndConditionsButton;
 
   @Locate(
-      xpath = "//XCUIElementTypeNavigationBar[@name=\"CREATE ACCOUNT\"]",
+      iOSClassChain = "**/XCUIElementTypeNavigationBar/XCUIElementTypeStaticText",
       on = Platform.MOBILE_IOS)
-  @Locate(xpath = "//android.widget.TextView[@text='CREATE ACCOUNT']", on = Platform.MOBILE_ANDROID)
-  protected Text getHeadingText;
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/title\")",
+      on = Platform.MOBILE_ANDROID)
+  protected Text title;
 
   @Locate(
       xpath =
           "//XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[@width='45']",
       on = Platform.MOBILE_IOS)
-  @Locate(xpath = "TBD", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/loader\")",
+      on = Platform.MOBILE_ANDROID)
   protected Image loadingSpinner;
-
-  /* -------- Actions -------- */
 
   /**
    * Privacy policy privacy policy view.
@@ -260,29 +266,21 @@ public class CreateAccountView extends BaseComponent {
     return SdkHelper.create(TermsAndConditionsView.class);
   }
 
-  /**
-   * Sets firstname.
-   *
-   * @param firstname the firstname
-   * @return the firstname
-   */
+  @Step("Set first name")
   public CreateAccountView setFirstname(String firstname) {
-    logger.info("Set first name to: " + firstname);
-    getFirstnameTextBox.clearText();
-    getFirstnameTextBox.sendKeys(firstname);
+    logger.info("Set first name to: [{}]", firstname);
+    firstnameTextBox.clearText();
+    firstnameTextBox.sendKeys(firstname);
+    MobileHelper.hideKeyboard();
     return this;
   }
 
-  /**
-   * Sets lastname.
-   *
-   * @param lastname the lastname
-   * @return the lastname
-   */
+  @Step("Set last name")
   public CreateAccountView setLastname(String lastname) {
     logger.info("Set last name to: " + lastname);
-    getLastnameTextBox.clearText();
-    getLastnameTextBox.sendKeys(lastname);
+    lastnameTextBox.clearText();
+    lastnameTextBox.sendKeys(lastname);
+    MobileHelper.hideKeyboard();
     return this;
   }
 
@@ -312,14 +310,7 @@ public class CreateAccountView extends BaseComponent {
     return this;
   }
 
-  /**
-   * Sets dob.
-   *
-   * @param day the day
-   * @param month the month
-   * @param year the year
-   * @return the dob
-   */
+  @Step("Set Date of Birth")
   public CreateAccountView setDOB(String day, String month, String year) {
     logger.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
     getDOBValueTextBox.click();
@@ -346,16 +337,12 @@ public class CreateAccountView extends BaseComponent {
     return this;
   }
 
-  /**
-   * Sets email address.
-   *
-   * @param emailAddress the email address
-   * @return the email address
-   */
+  @Step("Set email address")
   public CreateAccountView setEmailAddress(String emailAddress) {
     logger.info("Set email address to: " + emailAddress);
-    getEmailAddressTextBox.clearText();
-    getEmailAddressTextBox.sendKeys(emailAddress + "\n");
+    emailAddressTextBox.clearText();
+    emailAddressTextBox.sendKeys(emailAddress + "\n");
+    MobileHelper.hideKeyboard();
     return this;
   }
 
@@ -373,17 +360,13 @@ public class CreateAccountView extends BaseComponent {
     return this;
   }
 
-  /**
-   * Sets password.
-   *
-   * @param password the password
-   * @return the password
-   */
+  @Step("Set password")
   public CreateAccountView setPassword(String password) {
     logger.info("Set password to: " + password);
     SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
-    getHiddenPasswordTextBox.clearText();
-    getHiddenPasswordTextBox.sendKeys(password + "\n");
+    passwordTextBox.clearText();
+    passwordTextBox.sendKeys(password + "\n");
+    MobileHelper.hideKeyboard();
     return this;
   }
 
@@ -400,63 +383,45 @@ public class CreateAccountView extends BaseComponent {
     return this;
   }
 
-  /**
-   * Sets promo.
-   *
-   * @param promo the promo
-   * @return the promo
-   */
+  @Step("Set Promo code")
   public CreateAccountView setPromo(String promo) {
-    logger.info("Set promo to: " + promo);
-    getPromoCodeTextBox.clearText();
-    getPromoCodeTextBox.sendKeys(promo + "\n");
-    SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+    logger.info("Set promo to: [{}]", promo);
+    promoCodeTextBox.clearText();
+    promoCodeTextBox.sendKeys(promo + "\n");
+    MobileHelper.hideKeyboard();
     return this;
   }
 
-  /**
-   * Show password SdkHelper.create account view.
-   *
-   * @return the SdkHelper.create account view
-   */
-  public CreateAccountView showPassword() {
+  @Step("Tap on Show/Hide Password")
+  public CreateAccountView tapOnShowHidePassword() {
     logger.info("Click to show password");
-    getShowPasswordButton.click();
+    showPasswordButton.click();
     return this;
   }
 
-  /**
-   * Hide password SdkHelper.create account view.
-   *
-   * @return the SdkHelper.create account view
-   */
-  public CreateAccountView hidePassword() {
-    logger.info("Click to hide password");
-    getHidePasswordButton.click();
-    return this;
-  }
-
-  /** Check privacy policy and terms and conditions. */
+  @Step("Check privacy policy and terms and conditions.")
   public void checkPrivacyPolicyAndTermsAndConditions() {
-    logger.info("Click on Privacy Policy button");
-    MobileHelper.hideKeyboardIOSByPressDone();
-    SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
-    getAgreePrivacyPolicyAndTermsAndConditions.click();
+    logger.info("Tapping on Privacy Policy button");
+    if (MobileHelper.isElementDisplayed(agreePrivacyPolicyAndTermsAndConditions, 5)) {
+      SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+    }
+    agreePrivacyPolicyAndTermsAndConditions.click();
   }
 
-  /**
-   * Create account dashboard view.
-   *
-   * @return the dashboard view
-   */
+  @Step("Tap on 'Create Account'")
   public DashboardView createAccount() {
     logger.info("Create account");
-    getCreateAccountButton.click();
-    // wait while dashboard view will be SdkHelper.created and loaded (10s!!)
-    // temp case while waiter below is not working properly
-
-    SdkHelper.getSyncHelper().sleep(26000);
+    createAccountButton.click();
+    MobileHelper.waitUntilElementDisappears(loadingSpinner, 26);
     return SdkHelper.create(DashboardView.class);
+  }
+
+  @Step("Tap on 'Create Account'")
+  public HomeView tapOnCreateAccount() {
+    logger.info("Create account");
+    createAccountButton.click();
+    MobileHelper.waitUntilElementDisappears(loadingSpinner, 26);
+    return SdkHelper.create(HomeView.class);
   }
 
   /**
@@ -474,7 +439,7 @@ public class CreateAccountView extends BaseComponent {
    * @return the email address
    */
   public String getEmailAddress() {
-    return getEmailAddressTextBox.getCurrentText();
+    return emailAddressTextBox.getCurrentText();
   }
 
   /**
@@ -483,7 +448,7 @@ public class CreateAccountView extends BaseComponent {
    * @return the firstname
    */
   public String getFirstname() {
-    return getFirstnameTextBox.getCurrentText();
+    return firstnameTextBox.getCurrentText();
   }
 
   /**
@@ -492,7 +457,7 @@ public class CreateAccountView extends BaseComponent {
    * @return the lastname
    */
   public String getLastname() {
-    return getLastnameTextBox.getCurrentText();
+    return lastnameTextBox.getCurrentText();
   }
 
   /**
@@ -504,61 +469,41 @@ public class CreateAccountView extends BaseComponent {
     return getDOBValueTextBox.getCurrentText();
   }
 
-  /**
-   * Gets hidden password.
-   *
-   * @return the hidden password
-   */
-  public String getHiddenPassword() {
-    return getHiddenPasswordTextBox.getAttributeValue("value");
-  }
-
-  /**
-   * Gets password.
-   *
-   * @return the password
-   */
+  @Step("Gets password text")
   public String getPassword() {
-    return getPasswordTextBox.getCurrentText();
+    passwordTextBox.initialize();
+    String password = passwordTextBox.getAttributeValue(Attribute.VALUE.getValue());
+    logger.info("Current password - [{}]", password);
+    return password;
   }
 
-  /**
-   * Is email opt in checked boolean.
-   *
-   * @return the boolean
-   */
+  @Step("Checking if email checkbox checked")
   public boolean isEmailOptInChecked() {
     logger.info("Checking if checkbox checked by color");
-    return MobileHelper.isIosCheckboxChecked(getEmailsWithOffersCheckBox.getMobileElement());
+    return MobileHelper.isIosCheckboxChecked(emailsWithOffersCheckBox.getMobileElement());
   }
 
-  /**
-   * Is SdkHelper.create account button enabled boolean.
-   *
-   * @return the boolean
-   */
+  @Step("Check is Create Account Button is Enabled")
   public boolean isCreateAccountButtonEnabled() {
-    return getCreateAccountButton.isEnabled();
+    if (!MobileHelper.isElementDisplayed(createAccountButton, 5)) {
+      SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+    }
+    return createAccountButton.isEnabled();
   }
 
-  /** Tap email opt in. */
+  @Step("Tap on email opt in checkbox")
   public void tapEmailOptIn() {
     logger.info("Tap on email opt in checkbox");
-    getEmailsWithOffersCheckBox.click();
+    emailsWithOffersCheckBox.click();
   }
 
-  /**
-   * Is privacy policy and terms and conditions checked boolean.
-   *
-   * @return the boolean
-   */
+  @Step("Check Is privacy policy and terms and conditions checked boolean.")
   public boolean isPrivacyPolicyAndTermsAndConditionsChecked() {
-    SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
-    SdkHelper.getSyncHelper().sleep(1000);
-    SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
-    SdkHelper.getSyncHelper().sleep(1000);
+    if (!MobileHelper.isElementDisplayed(agreePrivacyPolicyAndTermsAndConditions, 5)) {
+      SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+    }
     return MobileHelper.isIosCheckboxChecked(
-        getAgreePrivacyPolicyAndTermsAndConditions.getMobileElement());
+        agreePrivacyPolicyAndTermsAndConditions.getMobileElement());
   }
 
   /**
@@ -572,12 +517,12 @@ public class CreateAccountView extends BaseComponent {
 
   public boolean isFirstnameDisplayed() {
     logger.info("Checking firstname field displayed");
-    return getFirstnameTextBox.isDisplayed();
+    return firstnameTextBox.isDisplayed();
   }
 
   public boolean isLastDisplayed() {
     logger.info("Checking lastname field displayed");
-    return getLastnameTextBox.isDisplayed();
+    return lastnameTextBox.isDisplayed();
   }
 
   public boolean isZipCodeDisplayed() {
@@ -592,7 +537,7 @@ public class CreateAccountView extends BaseComponent {
 
   public boolean isEmailAddressDisplayed() {
     logger.info("Checking email address field displayed");
-    return getEmailAddressTextBox.isDisplayed();
+    return emailAddressTextBox.isDisplayed();
   }
 
   public boolean isConfirmEmailAddressDisplayed() {
@@ -607,7 +552,7 @@ public class CreateAccountView extends BaseComponent {
 
   public boolean isPasswordDisplayed() {
     logger.info("Checking password field displayed");
-    return getHiddenPasswordTextBox.isDisplayed();
+    return passwordTextBox.isDisplayed();
   }
 
   public boolean isConfirmPasswordDisplayed() {
@@ -618,7 +563,7 @@ public class CreateAccountView extends BaseComponent {
 
   public boolean isPasswordTextDisplayed() {
     logger.info("Checking password text displayed");
-    getHiddenPasswordTextBox.sendKeys(" ");
+    passwordTextBox.sendKeys(" ");
     boolean result =
         getPasswordHintTextBox
             .stream()
@@ -626,14 +571,21 @@ public class CreateAccountView extends BaseComponent {
             .collect(Collectors.joining("\n"))
             .equals(
                 "At least 6 characters\n" + "At least 1 number\n" + "At least 1 lowercase letter");
-    getHiddenPasswordTextBox.clearText();
-    getHiddenPasswordTextBox.sendKeys("\n");
+    passwordTextBox.clearText();
+    passwordTextBox.sendKeys("\n");
     return result;
   }
 
   public boolean isPromocodeTextDisplayed() {
     logger.info("Checking promo code text displayed");
     return getPromoCodeHintTextBox.isDisplayed();
+  }
+
+  @Step("Get Page title")
+  public String getTitle() {
+    String titleText = title.getText();
+    logger.info("Title - [{}]", titleText);
+    return titleText;
   }
 }
 
@@ -644,15 +596,13 @@ class AndroidCreateAccountView extends CreateAccountView {
   @Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
   protected Button getDOBOkButton;
 
-  /* -------- Actions -------- */
-
   @Override
+  @Step("Tap on 'Create Account'")
   public DashboardView createAccount() {
     logger.info("Create account");
     SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
-    getCreateAccountButton.click();
-    SdkHelper.getSyncHelper().wait(Until.uiElement(getCreateAccountButton).notPresent());
-    SdkHelper.getSyncHelper().sleep(10000);
+    createAccountButton.click();
+    MobileHelper.waitUntilElementDisappears(loadingSpinner, 26);
     return SdkHelper.create(DashboardView.class);
   }
 
@@ -670,6 +620,7 @@ class AndroidCreateAccountView extends CreateAccountView {
   }
 
   @Override
+  @Step("Set Date of Birth")
   public CreateAccountView setDOB(String day, String month, String year) {
     logger.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
     getDOBValueTextBox.click();
@@ -704,66 +655,46 @@ class AndroidCreateAccountView extends CreateAccountView {
   }
 
   @Override
-  public CreateAccountView showPassword() {
-    logger.info("Click on Show Password button");
-    MobileElement element = getPasswordTextBox.getMobileElement();
-    int x = element.getCenter().getX();
-    int y = element.getCenter().getY();
-    int width = element.getSize().getWidth();
-    AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
-    (new TouchAction(driver)).tap(PointOption.point(x + width / 2 - 5, y)).perform();
-    return this;
-  }
-
-  @Override
-  public CreateAccountView hidePassword() {
-    logger.info("Click to hide password");
-    MobileElement element = getPasswordTextBox.getMobileElement();
-    int x = element.getCenter().getX();
-    int y = element.getCenter().getY();
-    int width = element.getSize().getWidth();
-    AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
-    (new TouchAction(driver)).tap(PointOption.point(x + width / 2 - 5, y)).perform();
-    return this;
-  }
-
-  @Override
+  @Step("Checking if email checkbox checked")
   public boolean isEmailOptInChecked() {
-    return getEmailsWithOffersCheckBox.getAttributeValue("checked").equals("true");
+    return emailsWithOffersCheckBox.getAttributeValue("checked").equals("true");
   }
 
   @Override
+  @Step("Check Is privacy policy and terms and conditions checked boolean.")
   public boolean isPrivacyPolicyAndTermsAndConditionsChecked() {
-    SdkHelper.getSyncHelper().sleep(1000);
-    MobileHelper.swipeWithCount(SwipeDirection.UP, 2);
-    return getAgreePrivacyPolicyAndTermsAndConditions.getAttributeValue("checked").equals("true");
+    if (!MobileHelper.isElementDisplayed(agreePrivacyPolicyAndTermsAndConditions, 5)) {
+      MobileHelper.swipeWithCount(SwipeDirection.UP, 2);
+    }
+    return agreePrivacyPolicyAndTermsAndConditions.getAttributeValue("checked").equals("true");
   }
 
   @Override
+  @Step("Gets password text")
   public String getPassword() {
-    logger.info(
-        "Password: " + getPasswordTextBox.getAttributeValue("text").replace("Password ", ""));
-    return getPasswordTextBox.getAttributeValue("text").replace("Password ", "");
+    String password =
+        passwordTextBox.getAttributeValue(Attribute.TEXT.getValue()).replace("Password ", "");
+    logger.info("Password: [{}]", password);
+    return password;
   }
 
   @Override
-  public String getHiddenPassword() {
-    return getPasswordTextBox.getAttributeValue("text");
-  }
-
+  @Step("Set Promo code")
   public CreateAccountView setPromo(String promo) {
     logger.info("Set promo to: " + promo);
-    getPromoCodeTextBox.clearText();
-    getPromoCodeTextBox.sendKeys(promo);
-    SdkHelper.getDeviceControl().hideKeyboard();
+    promoCodeTextBox.clearText();
+    promoCodeTextBox.sendKeys(promo);
+    MobileHelper.hideKeyboard();
     return this;
   }
 
+  @Override
+  @Step("Set password")
   public CreateAccountView setPassword(String password) {
     logger.info("Set password to: " + password);
-    getHiddenPasswordTextBox.clearText();
-    getHiddenPasswordTextBox.sendKeys(password);
-    SdkHelper.getDeviceControl().hideKeyboard();
+    passwordTextBox.clearText();
+    passwordTextBox.sendKeys(password);
+    MobileHelper.hideKeyboard();
     return this;
   }
 
@@ -779,15 +710,17 @@ class AndroidCreateAccountView extends CreateAccountView {
     logger.info("Set phone number to: " + phone);
     getPhoneNumberTextBox.clearText();
     getPhoneNumberTextBox.sendKeys(phone);
-    SdkHelper.getDeviceControl().hideKeyboard();
+    MobileHelper.hideKeyboard();
     return this;
   }
 
+  @Override
+  @Step("Set email address")
   public CreateAccountView setEmailAddress(String emailAddress) {
-    logger.info("Set email address to: " + emailAddress);
-    getEmailAddressTextBox.clearText();
-    getEmailAddressTextBox.sendKeys(emailAddress);
-    SdkHelper.getDeviceControl().hideKeyboard();
+    logger.info("Set email address to: [{}]", emailAddress);
+    emailAddressTextBox.clearText();
+    emailAddressTextBox.sendKeys(emailAddress);
+    MobileHelper.hideKeyboard();
     return this;
   }
 
@@ -802,8 +735,8 @@ class AndroidCreateAccountView extends CreateAccountView {
 
   public boolean isPasswordTextDisplayed() {
     logger.info("Checking password text displayed");
-    getHiddenPasswordTextBox.click();
-    getHiddenPasswordTextBox.sendKeys("A");
+    passwordTextBox.click();
+    passwordTextBox.sendKeys("A");
     SdkHelper.getDeviceControl().hideKeyboard();
     String pHint =
         getPasswordHintTextBox
@@ -826,12 +759,5 @@ class AndroidCreateAccountView extends CreateAccountView {
   public boolean isDobTextDisplayed() {
     logger.info("Checking dob text field displayed");
     return getDOBGiftTextBox.isDisplayed();
-  }
-
-  @Override
-  public void checkPrivacyPolicyAndTermsAndConditions() {
-    logger.info("Click on Privacy Policy button");
-    SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
-    getAgreePrivacyPolicyAndTermsAndConditions.click();
   }
 }

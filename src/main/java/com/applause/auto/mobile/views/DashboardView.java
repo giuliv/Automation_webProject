@@ -4,7 +4,6 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.components.BottomNavigationMenuChunk;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -74,14 +73,14 @@ public class DashboardView extends BaseComponent {
    *
    * @return the account profile menu
    */
-  public AccountMenuMobileChunk getAccountProfileMenu() {
+  public MoreOptionsView getAccountProfileMenu() {
     logger.info("Open account profile menu\n" + SdkHelper.getDriver().getPageSource());
     getMoreScreenButton.initialize();
     Point elemCoord = getMoreScreenButton.getMobileElement().getCenter();
     AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
     new TouchAction(driver).tap(PointOption.point(elemCoord.getX(), elemCoord.getY())).perform();
     SdkHelper.getSyncHelper().sleep(5000);
-    return SdkHelper.create(AccountMenuMobileChunk.class);
+    return SdkHelper.create(MoreOptionsView.class);
   }
 
   /**
@@ -140,7 +139,7 @@ class IosDashboardView extends DashboardView {
   }
 
   @Override
-  public AccountMenuMobileChunk getAccountProfileMenu() {
+  public MoreOptionsView getAccountProfileMenu() {
     logger.info("Open account profile menu\n" + SdkHelper.getDriver().getPageSource());
     // int x = SdkHelper.getDriver().manage().window().getSize().width;
     // int y = SdkHelper.getDriver().manage().window().getSize().height;
@@ -162,7 +161,7 @@ class IosDashboardView extends DashboardView {
     SdkHelper.getDeviceControl().tapElementCenter(getMoreScreenButton);
 
     SdkHelper.getSyncHelper().sleep(5000);
-    return SdkHelper.create(AccountMenuMobileChunk.class);
+    return SdkHelper.create(MoreOptionsView.class);
   }
 
   @Override

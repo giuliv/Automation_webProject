@@ -1,7 +1,6 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -32,19 +31,6 @@ public class OrderAheadView extends BaseComponent {
       id = "com.wearehathway.peets.development:id/getStartedButton",
       on = Platform.MOBILE_ANDROID)
   protected Button getGetStartedButton;
-
-  /* -------- Actions -------- */
-
-  /**
-   * Press Get Started button
-   *
-   * @return
-   */
-  public AuthenticationView clickGetStartedButton() {
-    logger.info("Pressing Get Started button and expected to land at Peetnik Rewards auth screen");
-    getGetStartedButton.click();
-    return SdkHelper.create(AuthenticationView.class);
-  }
 
   /**
    * Get the text vaalue of the heading

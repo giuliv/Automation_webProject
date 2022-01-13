@@ -1,36 +1,30 @@
-package com.applause.auto.mobile.components;
+package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.mobile.helpers.MobileHelper;
-import com.applause.auto.mobile.views.AccountHistoryView;
-import com.applause.auto.mobile.views.AuthenticationView;
-import com.applause.auto.mobile.views.GeneralSettingsView;
-import com.applause.auto.mobile.views.HelpAndFeedbackView;
-import com.applause.auto.mobile.views.LegalInfoView;
-import com.applause.auto.mobile.views.PaymentMethodsView;
-import com.applause.auto.mobile.views.ProfileDetailsView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import io.qameta.allure.Step;
 import java.time.Duration;
 import org.openqa.selenium.NoAlertPresentException;
 
-@Implementation(is = AndroidAccountMenuMobileChunk.class, on = Platform.MOBILE_ANDROID)
-@Implementation(is = AccountMenuMobileChunk.class, on = Platform.MOBILE_IOS)
-public class AccountMenuMobileChunk extends BaseComponent {
-
-  /* -------- Elements -------- */
+@Implementation(is = AndroidMoreOptionsView.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = MoreOptionsView.class, on = Platform.MOBILE_IOS)
+public class MoreOptionsView extends BaseComponent {
 
   @Locate(
-      xpath = "//XCUIElementTypeStaticText[@name=\"Profile Details\" and @visible='true']",
+      iOSClassChain = "**/XCUIElementTypeStaticText[`name == 'Profile Details' AND visible == 1`]",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/profileDetails", on = Platform.MOBILE_ANDROID)
-  protected Button getProfileDetailsButton;
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/profileDetails\")",
+      on = Platform.MOBILE_ANDROID)
+  protected Button profileDetailsButton;
 
   @Locate(id = "Sign Out", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/logoutButton", on = Platform.MOBILE_ANDROID)
@@ -47,12 +41,13 @@ public class AccountMenuMobileChunk extends BaseComponent {
   protected Button getLogOutButton;
 
   @Locate(
-      xpath = "//XCUIElementTypeStaticText[@name=\"General Settings\"]",
+      iOSClassChain =
+          "**/XCUIElementTypeStaticText[`name == 'Personal Settings' AND visible == 1`]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      id = "com.wearehathway.peets.development:id/generalSettings",
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/generalSettings\")",
       on = Platform.MOBILE_ANDROID)
-  protected Button getGeneralSettingsButton;
+  protected Button personalSettingsButton;
 
   @Locate(
       xpath = "//XCUIElementTypeStaticText[@name=\"Account History\"]",
@@ -164,34 +159,22 @@ public class AccountMenuMobileChunk extends BaseComponent {
 
   /* -------- Actions -------- */
 
-  /**
-   * Profile details profile details view.
-   *
-   * @return the profile details view
-   */
+  @Step("Navigate to the Profile details view.")
   public ProfileDetailsView profileDetails() {
-    logger.info("Click on Profile Details button");
-    getProfileDetailsButton.click();
+    logger.info("Tapping on Profile Details button");
+    profileDetailsButton.click();
     return SdkHelper.create(ProfileDetailsView.class);
   }
 
-  /**
-   * General settings general settings view.
-   *
-   * @return the general settings view
-   */
-  public GeneralSettingsView generalSettings() {
-    logger.info("Click on General Settings button");
-    getGeneralSettingsButton.click();
-    return SdkHelper.create(GeneralSettingsView.class);
+  @Step("Navigate to the Personal Settings")
+  public PersonalSettingsView personalSettings() {
+    logger.info("Taping on Personal Settings button");
+    personalSettingsButton.click();
+    return SdkHelper.create(PersonalSettingsView.class);
   }
 
-  /**
-   * Sign out authentication view.
-   *
-   * @return the authentication view
-   */
-  public AuthenticationView signOut() {
+  @Step("Sign out authentication view.")
+  public LandingView signOut() {
     logger.info("Click on Sign Out button");
     MobileHelper.swipeWithCount(SwipeDirection.UP, 5);
     getSignOutButton.click();
@@ -200,7 +183,7 @@ public class AccountMenuMobileChunk extends BaseComponent {
     } catch (NoAlertPresentException noAlertPresentException) {
       logger.warn("No alert found, probably because TestObect cloud accept it");
     }
-    return SdkHelper.create(AuthenticationView.class);
+    return SdkHelper.create(LandingView.class);
   }
 
   /**
@@ -223,12 +206,12 @@ public class AccountMenuMobileChunk extends BaseComponent {
    *
    * @return SocialMediaView
    */
-  public AccountMenuMobileChunk clickFacebookIcon() {
+  public MoreOptionsView clickFacebookIcon() {
     logger.info("Click Facebook");
     MobileHelper.swipeWithCount(SwipeDirection.UP, 1);
     getFacebookIcon.click();
     SdkHelper.getSyncHelper().sleep(3000);
-    return SdkHelper.create(AccountMenuMobileChunk.class);
+    return SdkHelper.create(MoreOptionsView.class);
   }
 
   /**
@@ -236,11 +219,11 @@ public class AccountMenuMobileChunk extends BaseComponent {
    *
    * @return SocialMediaView
    */
-  public AccountMenuMobileChunk clickInstagramIcon() {
+  public MoreOptionsView clickInstagramIcon() {
     logger.info("Click Instagram");
     getInstagramIcon.click();
     SdkHelper.getSyncHelper().sleep(3000);
-    return SdkHelper.create(AccountMenuMobileChunk.class);
+    return SdkHelper.create(MoreOptionsView.class);
   }
 
   /**
@@ -248,11 +231,11 @@ public class AccountMenuMobileChunk extends BaseComponent {
    *
    * @return SocialMediaView
    */
-  public AccountMenuMobileChunk clickTwitterIcon() {
+  public MoreOptionsView clickTwitterIcon() {
     logger.info("Click Twitter");
     getTwitterIcon.click();
     SdkHelper.getSyncHelper().sleep(3000);
-    return SdkHelper.create(AccountMenuMobileChunk.class);
+    return SdkHelper.create(MoreOptionsView.class);
   }
 
   /**
@@ -292,10 +275,10 @@ public class AccountMenuMobileChunk extends BaseComponent {
    *
    * @return the account menu mobile chunk
    */
-  public AccountMenuMobileChunk clickDoneButton() {
+  public MoreOptionsView clickDoneButton() {
     logger.info("Clicking Done Button to go back");
     getDoneButton.click();
-    return SdkHelper.create(AccountMenuMobileChunk.class);
+    return SdkHelper.create(MoreOptionsView.class);
   }
 
   /**
@@ -379,17 +362,13 @@ public class AccountMenuMobileChunk extends BaseComponent {
    */
   public boolean isProfileDetailsMenuItemDisplayed() {
     logger.info("Checking if profile details menu item displayed");
-    return getProfileDetailsButton.isDisplayed();
+    return profileDetailsButton.isDisplayed();
   }
 
-  /**
-   * Is general settings menu item displayed boolean.
-   *
-   * @return the boolean
-   */
-  public boolean isGeneralSettingsMenuItemDisplayed() {
-    logger.info("Checking if general settings menu item displayed");
-    return getGeneralSettingsButton.isDisplayed();
+  @Step("Check if personal settings menu item is displayed boolean.")
+  public boolean isPersonalSettingsMenuItemDisplayed() {
+    logger.info("Checking if personal settings menu item displayed");
+    return personalSettingsButton.isDisplayed();
   }
 
   /**
@@ -499,12 +478,10 @@ public class AccountMenuMobileChunk extends BaseComponent {
   }
 }
 
-class AndroidAccountMenuMobileChunk extends AccountMenuMobileChunk {
+class AndroidMoreOptionsView extends MoreOptionsView {
 
-  /* -------- Actions -------- */
-
-  public AuthenticationView signOut() {
-    return signOut(AuthenticationView.class);
+  public LandingView signOut() {
+    return signOut(LandingView.class);
   }
 
   /**
@@ -523,10 +500,10 @@ class AndroidAccountMenuMobileChunk extends AccountMenuMobileChunk {
   }
 
   @Override
-  public AccountMenuMobileChunk clickDoneButton() {
+  public MoreOptionsView clickDoneButton() {
     logger.info("Clicking Done Button to go back");
     MobileHelper.tapAndroidDeviceBackButton();
-    return SdkHelper.create(AccountMenuMobileChunk.class);
+    return SdkHelper.create(MoreOptionsView.class);
   }
 
   @Override

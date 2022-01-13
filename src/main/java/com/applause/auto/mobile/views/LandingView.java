@@ -16,7 +16,6 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.util.RetryTestException;
 import io.qameta.allure.Step;
 import java.time.Duration;
-import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = AndroidLandingView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = LandingView.class, on = Platform.MOBILE_IOS)
@@ -84,11 +83,6 @@ public class LandingView extends BaseComponent {
   @Override
   public void afterInit() {
     logger.info("Landing View init");
-    try {
-      allowButton.click();
-    } catch (NoSuchElementException nse) {
-      logger.info("Popup 'Allow tracking' does not found");
-    }
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getSignInButton).visible().setTimeout(Duration.ofSeconds(40)));
     getReportAProblemPopupChunk().waitForPopUpToDisappear();

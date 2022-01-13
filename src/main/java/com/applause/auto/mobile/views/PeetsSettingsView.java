@@ -56,10 +56,10 @@ public class PeetsSettingsView extends BaseComponent {
    *
    * @return the general settings view
    */
-  public GeneralSettingsView backToApp() {
+  public PersonalSettingsView backToApp() {
     logger.info("Returning to application");
     MobileHelper.activateApp();
-    return SdkHelper.create(GeneralSettingsView.class);
+    return SdkHelper.create(PersonalSettingsView.class);
   }
 }
 
@@ -74,9 +74,9 @@ class AndroidPeetsSettingsView extends PeetsSettingsView {
   }
 
   @Override
-  public GeneralSettingsView backToApp() {
+  public PersonalSettingsView backToApp() {
     logger.info("Returning to application");
     MobileHelper.tapAndroidDeviceBackButton();
-    return SdkHelper.create(GeneralSettingsView.class);
+    return SdkHelper.create(PersonalSettingsView.class);
   }
 }

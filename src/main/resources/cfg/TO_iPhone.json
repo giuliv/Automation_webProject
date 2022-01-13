@@ -3,7 +3,7 @@
 		"isW3C": "true",
 		"isStrict": "false",
 		"driverName": "iOS",
-		"driverType": "MobileNative",
+		"driverType": "iOS",
 		"factoryKey": "MobileIOS",
 		"osName": "iOS",
 		"provider": "SauceLabs RDC US",

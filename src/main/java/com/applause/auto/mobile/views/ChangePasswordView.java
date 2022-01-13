@@ -13,9 +13,8 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
-import org.apache.commons.lang3.StringUtils;
-
 import java.time.Duration;
+import org.apache.commons.lang3.StringUtils;
 
 @Implementation(is = AndroidChangePasswordView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = ChangePasswordView.class, on = Platform.MOBILE_IOS)

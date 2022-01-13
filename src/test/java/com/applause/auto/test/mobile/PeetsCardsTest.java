@@ -14,7 +14,6 @@ import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.TestDataUtils;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
-import com.applause.auto.mobile.components.AccountMenuMobileChunk;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountChunk;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountWarningChunk;
 import com.applause.auto.mobile.views.AccountHistoryView;
@@ -23,6 +22,7 @@ import com.applause.auto.mobile.views.CheckInView;
 import com.applause.auto.mobile.views.CreditCardDetailsView;
 import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.MoreOptionsView;
 import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.PeetsCardsView;
 import java.lang.invoke.MethodHandles;
@@ -49,7 +49,7 @@ public class PeetsCardsTest extends BaseTest {
     Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
 
     logger.info("Tap on ... at top right of home screen");
-    AccountMenuMobileChunk accountProfileMenu = dashboardView.getAccountProfileMenu();
+    MoreOptionsView accountProfileMenu = dashboardView.getAccountProfileMenu();
 
     logger.info("Tap on Payment Methods field/row");
     PaymentMethodsView paymentMethodsView = accountProfileMenu.clickPaymentMethods();
