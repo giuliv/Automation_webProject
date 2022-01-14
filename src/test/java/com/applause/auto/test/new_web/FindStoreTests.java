@@ -20,7 +20,7 @@ import org.testng.annotations.Test;
 public class FindStoreTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.FIND_STORE},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE, TestNGGroups.SMOKE},
       description = "11102898")
   public void validateResultsListUiAndLoadMore() {
     logger.info("1. Navigate to landing page");
@@ -78,7 +78,7 @@ public class FindStoreTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.FIND_STORE},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE},
       description = "11102899")
   public void validateFilterTest() {
     logger.info("1. Navigate to landing page");
@@ -106,7 +106,7 @@ public class FindStoreTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.FIND_STORE},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE, TestNGGroups.SANITY},
       description = "11102900")
   public void validateStoreDetails() {
     logger.info("1. Navigate to landing page");
@@ -154,7 +154,7 @@ public class FindStoreTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.FIND_STORE},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE},
       description = "11102901")
   public void validateGetDirections() {
     logger.info("1. Navigate to landing page");
@@ -178,7 +178,7 @@ public class FindStoreTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.FIND_STORE},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE},
       description = "11102902")
   public void validateStartOrder() {
     logger.info("1. Navigate to landing page");
@@ -213,7 +213,7 @@ public class FindStoreTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.FIND_STORE},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE},
       description = "11102903")
   public void backToResults() {
     logger.info("1. Navigate to landing page");
@@ -239,7 +239,7 @@ public class FindStoreTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.FIND_STORE},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE},
       description = "11102904")
   public void byCurrentLocation() {
     logger.info("1. Navigate to landing page");
@@ -257,7 +257,7 @@ public class FindStoreTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.FIND_STORE},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE},
       description = "11102905")
   public void zoomMapTest() {
     logger.info("1. Navigate to landing page");
@@ -275,7 +275,7 @@ public class FindStoreTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.FIND_STORE},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE},
       description = "11102906")
   public void thereAreNoStoresNearby() {
     logger.info("1. Navigate to landing page");

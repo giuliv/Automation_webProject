@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 public class filtersTest extends BaseTest {
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.SMOKE},
       description = "11101524")
   public void singleFilterTest() {
 

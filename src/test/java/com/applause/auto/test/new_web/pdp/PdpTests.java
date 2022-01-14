@@ -20,7 +20,11 @@ import org.testng.annotations.Test;
 public class PdpTests extends BaseTest {
 
   @Test(
-      groups = {Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.WEB_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        Constants.TestNGGroups.SMOKE
+      },
       description = "11102944")
   public void PDPElementsTest() {
     logger.info("1. Navigate to landing page");
@@ -57,7 +61,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11102945")
   public void grindAndQuantitySelectionTest() {
     logger.info("1. Navigate to landing page");
@@ -120,7 +124,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11102946")
   public void subscribeTest() {
     logger.info("1. Navigate to landing page");
@@ -172,7 +176,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11102947")
   public void writeReviewTest() {
     logger.info("1. Navigate to landing page");
@@ -217,7 +221,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11102948")
   public void takeTheCoffeeQuizTest() {
     logger.info("1. Navigate to landing page");

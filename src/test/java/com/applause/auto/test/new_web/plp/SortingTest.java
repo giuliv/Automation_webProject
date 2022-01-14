@@ -35,7 +35,7 @@ public class SortingTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.SANITY},
       description = "11101529",
       enabled = false)
   public void filterAndSortingAppliedTest() {

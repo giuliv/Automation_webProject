@@ -18,7 +18,7 @@ import org.testng.annotations.Test;
 public class StandardOrdersTest extends BaseTest {
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES, Constants.TestNGGroups.STANDARD},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.STANDARD},
       description = "11102575")
   public void userCantContinueWithoutData() {
     logger.info("1. Navigate to landing page");
@@ -44,7 +44,7 @@ public class StandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES, Constants.TestNGGroups.STANDARD},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.STANDARD},
       description = "11102576")
   public void userCanReturnToCart() {
     logger.info("1. Navigate to landing page");
@@ -66,7 +66,7 @@ public class StandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES, Constants.TestNGGroups.STANDARD},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.STANDARD},
       description = "11102577")
   public void invalidPromoCode() {
     logger.info("1. Navigate to landing page");
@@ -92,7 +92,7 @@ public class StandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES, Constants.TestNGGroups.STANDARD},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.STANDARD},
       description = "11102578")
   public void userInformationIsSavedForNextTime() {
     logger.info("1. Navigate to landing page");
@@ -128,7 +128,7 @@ public class StandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES, Constants.TestNGGroups.STANDARD},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.STANDARD},
       description = "11102579")
   public void userUpdatesAddress() {
     logger.info("1. Navigate to landing page");
@@ -156,7 +156,7 @@ public class StandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES, Constants.TestNGGroups.STANDARD},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.STANDARD},
       description = "11102580")
   public void userIsAbleToChangeContactShipTo() {
     logger.info("1. Navigate to landing page");
@@ -212,7 +212,7 @@ public class StandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES, Constants.TestNGGroups.STANDARD},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.STANDARD},
       description = "11102581")
   public void userCanReturnToInformation() {
     logger.info("1. Navigate to landing page");
@@ -240,7 +240,7 @@ public class StandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES, Constants.TestNGGroups.STANDARD},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.STANDARD},
       description = "11102582")
   public void userCanVisitFAQPageFromShipping() {
     logger.info("1. Navigate to landing page");
@@ -271,7 +271,7 @@ public class StandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES, Constants.TestNGGroups.STANDARD},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.STANDARD},
       description = "11102583")
   public void userCanChangeMethod() {
     logger.info("1. Navigate to landing page");
@@ -320,7 +320,7 @@ public class StandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES, Constants.TestNGGroups.STANDARD},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.STANDARD},
       description = "11102584")
   public void wrongGiftCard() {
     logger.info("1. Navigate to landing page");

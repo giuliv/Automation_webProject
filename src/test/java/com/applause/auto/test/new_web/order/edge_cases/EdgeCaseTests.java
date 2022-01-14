@@ -1,6 +1,5 @@
 package com.applause.auto.test.new_web.order.edge_cases;
 
-import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.Constants.WebTestData;
@@ -20,7 +19,7 @@ import org.testng.annotations.Test;
 public class EdgeCaseTests extends BaseTest {
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES, TestNGGroups.EDGE_CASES},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.EDGE_CASES},
       description = "11102585")
   public void userCanReturnToShipping() {
     logger.info("1. Navigate to landing page");
@@ -54,7 +53,7 @@ public class EdgeCaseTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES, TestNGGroups.EDGE_CASES},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.EDGE_CASES},
       description = "11102586")
   public void orderIsNotPlacedWithEmptyData() {
     logger.info("1. Navigate to landing page");
@@ -94,7 +93,7 @@ public class EdgeCaseTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES, TestNGGroups.EDGE_CASES},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.EDGE_CASES},
       description = "11102587")
   public void orderIsNotPlacedWhenEnteringWrongCCdata() {
     logger.info("1. Navigate to landing page");
@@ -140,7 +139,7 @@ public class EdgeCaseTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES, TestNGGroups.EDGE_CASES},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.EDGE_CASES},
       description = "11102588")
   public void useDifferentBillingAddress() {
     logger.info("1. Navigate to landing page");

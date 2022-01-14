@@ -20,7 +20,7 @@ public class NewUsersSmallBatchesSubscriptionsTest extends BaseTest {
   //  Discount if any
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION},
       description = "11070177")
   public void smallBatchDiscountAt5forNewUserTest() {
 
@@ -151,7 +151,7 @@ public class NewUsersSmallBatchesSubscriptionsTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION},
       description = "11071659")
   public void smallBatchDiscountAt10forNewUserTest() {
 

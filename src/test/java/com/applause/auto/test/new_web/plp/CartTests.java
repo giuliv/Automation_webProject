@@ -18,7 +18,7 @@ import org.testng.asserts.SoftAssert;
 public class CartTests extends BaseTest {
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.SANITY},
       description = "11101745")
   public void cartCanCheckoutFromCartTest() {
 
@@ -87,7 +87,7 @@ public class CartTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.SMOKE},
       description = "11101741")
   public void reviewCartPageUiElementsTest() {
     SoftAssert softAssert = new SoftAssert();
@@ -204,7 +204,7 @@ public class CartTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.SANITY},
       description = "11101746",
       enabled = false)
   public void canAddOthersPurchased() {

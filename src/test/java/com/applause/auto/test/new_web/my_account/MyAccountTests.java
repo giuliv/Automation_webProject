@@ -25,7 +25,7 @@ import org.testng.asserts.SoftAssert;
 public class MyAccountTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
       description = "11102911")
   public void loginWithInvalidAccountTest() {
 
@@ -41,7 +41,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
       description = "11102912")
   public void forgotPasswordTest() {
 
@@ -64,7 +64,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.SMOKE},
       description = "11102913")
   public void loginWithValidAccountTest() {
 
@@ -85,7 +85,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.SANITY},
       description = "11102914")
   public void loginValidMenuTest() {
     SoftAssert softAssert = new SoftAssert();
@@ -107,7 +107,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
       description = "11102915")
   public void logoutTest() {
 
@@ -128,7 +128,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
       description = "11102916")
   public void invalidSignUpTest() {
     SoftAssert softAssert = new SoftAssert();
@@ -162,7 +162,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.SMOKE},
       description = "11102917")
   public void validSignUpTest() {
 
@@ -187,7 +187,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.MY_ACCOUNT},
       description = "11102938")
   public void myAccountSettingsElementsTest() {
     SoftAssert softAssert = new SoftAssert();
@@ -225,7 +225,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.SANITY},
       description = "11102939")
   public void myAccountSettingsEditPasswordTest() {
 
@@ -266,7 +266,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
       description = "11102940")
   public void myAccountSettingsEmailPreferencesTest() {
 
@@ -311,7 +311,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.SANITY},
       description = "11102924")
   public void myAccountPeetnikRewardsElementsTest() {
     MyAccountPage myAccountPage =
@@ -338,7 +338,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
       description = "11102925")
   public void myAccountPeetnikRewardsCustomerExperienceTest() {
     MyAccountPage myAccountPage =
@@ -357,7 +357,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
       description = "11102926")
   public void myAccountMySubscriptionElementsTest() {
     MyAccountPage myAccountPage =
@@ -386,7 +386,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
       description = "11102927")
   public void myAccountMySubscriptionAddItemTest() {
     MyAccountPage myAccountPage =
@@ -405,7 +405,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.SMOKE},
       description = "11102928")
   public void myAccountMySubscriptionUpdatePaymentTest() {
     MyAccountPage myAccountPage =
@@ -422,7 +422,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
       description = "11102929")
   public void myAccountOrderHistoryElementsTest() {
     MyAccountPage myAccountPage =

@@ -23,7 +23,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
   //  Discount if any
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.SMOKE},
       description = "11052685")
   public void orderCoffeeCreditCardAsExistingUserTest() {
 
@@ -150,7 +150,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION},
       description = "11071529")
   public void oneCoffeeOneEquipmentCreditCardAsExistingUserTest() {
 
@@ -320,7 +320,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION},
       description = "11071528")
   public void oneRegularCoffeeOneReserveCoffeePeetsCardAsExistingUserTest() {
 
@@ -484,7 +484,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION},
       description = "11071530",
       enabled = false)
   // Todo:Disable for now, due to inventory issue [28.10.2021]
@@ -648,7 +648,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION},
       description = "11071611")
   public void oneEquipmentWithPeetsCardAsExistingUserTest() {
 
@@ -783,7 +783,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION},
       description = "11071612",
       enabled = false)
   // Todo:Disable for now, due to inventory issue [28.10.2021]

@@ -1,10 +1,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Regression Web Test Suite" verbose="1" parallel="classes"
-       thread-count="5">
-    <test name="Regression Web cases" preserve-order="true">
+<suite name="Sanity Web Test Suite" verbose="1" parallel="classes"
+       thread-count="8">
+    <test name="Sanity cases" preserve-order="true">
         <groups>
             <run>
-                <include name="nwc"/>
+                <include name="sanity"/>
             </run>
         </groups>
         <packages>

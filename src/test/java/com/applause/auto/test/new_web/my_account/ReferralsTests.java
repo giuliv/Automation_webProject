@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
 public class ReferralsTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
       description = "11102933")
   public void referralsElementsTest() {
     if (WebHelper.isDesktop()) {
@@ -52,7 +52,7 @@ public class ReferralsTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
       description = "11102934")
   public void throughFacebookTest() {
     if (WebHelper.isDesktop()) {
@@ -79,7 +79,7 @@ public class ReferralsTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
       description = "11102935")
   public void throughEmailTest() {
     if (WebHelper.isDesktop()) {
@@ -113,7 +113,7 @@ public class ReferralsTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.SANITY},
       description = "11102936")
   public void throughLinkTest() {
     if (WebHelper.isDesktop()) {

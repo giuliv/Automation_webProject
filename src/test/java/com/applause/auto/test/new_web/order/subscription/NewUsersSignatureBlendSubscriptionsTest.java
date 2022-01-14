@@ -20,7 +20,7 @@ public class NewUsersSignatureBlendSubscriptionsTest extends BaseTest {
   //  Discount if any
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION},
       description = "11071748")
   public void signatureBlendDiscountAt5forNewUserTest() {
 
@@ -151,7 +151,7 @@ public class NewUsersSignatureBlendSubscriptionsTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION},
       description = "11071749")
   public void signatureBlendDiscountAt10forNewUserTest() {
 

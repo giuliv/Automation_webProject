@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 public class MiniCartTest extends BaseTest {
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.SMOKE},
       description = "11101730")
   public void validateMiniCartElementsTest() {
 
@@ -143,7 +143,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.SMOKE},
       description = "11101740")
   public void signInFromMiniCartTest() {
 
@@ -195,7 +195,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.SANITY},
       description = "11101735",
       enabled = false)
   public void addRemoveRecommendedItemTest() {

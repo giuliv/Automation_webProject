@@ -21,7 +21,11 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
   //  Discount if any
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES, Constants.TestNGGroups.WEB_PROD_MONITORING},
+      groups = {
+        Constants.TestNGGroups.WEB_REGRESSION,
+        Constants.TestNGGroups.WEB_PROD_MONITORING,
+        Constants.TestNGGroups.SMOKE
+      },
       description = "11052681")
   public void orderCoffeeCreditCardAsGuestUserTest() {
 
@@ -147,7 +151,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION},
       description = "11052683")
   public void oneCoffeeOneEquipmentCreditCardAsGuestUserTest() {
 
@@ -303,7 +307,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION},
       description = "11052682")
   public void oneRegularCoffeeOneReserveCoffeePeetsCardAsGuestUserTest() {
 
@@ -454,7 +458,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.SANITY},
       description = "11052684",
       enabled = false)
   // Todo:Disable for now, due to inventory issue [28.10.2021]
@@ -605,7 +609,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION},
       description = "11071613")
   public void freeShippingByMultipleCoffeeOrderAsGuestUserTest() {
 
@@ -731,7 +735,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.NEW_WEB_CASES},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION},
       description = "11071614")
   public void freeShippingByLimitedCoffeeOrderAsGuestUserTest() {
 

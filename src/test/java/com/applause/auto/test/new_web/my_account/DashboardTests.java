@@ -20,7 +20,7 @@ import org.testng.annotations.Test;
 public class DashboardTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.DASHBOARD},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.DASHBOARD},
       description = "11102918")
   public void dashboardUIelementsTest() {
     logger.info("1. Navigate to Sign in page");
@@ -68,7 +68,7 @@ public class DashboardTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.DASHBOARD},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.DASHBOARD, TestNGGroups.SANITY},
       description = "11102919")
   public void dashboardDetailsTest() {
     logger.info("1. Navigate to Sign in page");
@@ -116,7 +116,7 @@ public class DashboardTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.DASHBOARD},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.DASHBOARD},
       description = "11102920")
   public void dashboardViewProductTest() {
     logger.info("1. Navigate to Sign in page");
@@ -159,7 +159,7 @@ public class DashboardTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.DASHBOARD},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.DASHBOARD},
       description = "11102921")
   public void dashboardOrderTrackingTest() {
     logger.info("1. Navigate to Sign in page");
@@ -201,7 +201,7 @@ public class DashboardTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.DASHBOARD},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.DASHBOARD},
       description = "11102922")
   public void dashboardReorderTest() {
     logger.info("1. Navigate to Sign in page");
@@ -243,7 +243,7 @@ public class DashboardTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.NEW_WEB_CASES, TestNGGroups.DASHBOARD},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.DASHBOARD},
       description = "11102923")
   public void dashboardStartSharingTest() {
     logger.info("1. Navigate to Sign in page");
