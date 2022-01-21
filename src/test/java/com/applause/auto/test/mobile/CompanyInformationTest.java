@@ -1,19 +1,20 @@
 package com.applause.auto.test.mobile;
 
-import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.views.CustomerSupportScreenView;
-import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.HelpAndFeedbackView;
-import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.HomeView;
 import com.applause.auto.mobile.views.LegalInfoView;
 import com.applause.auto.mobile.views.MoreOptionsView;
+import com.applause.auto.mobile.views.PeetnikMainFaqView;
 import com.applause.auto.mobile.views.PeetnikRewardsLandingView;
 import com.applause.auto.mobile.views.PeetnikRewardsTermsAndConditionsView;
 import com.applause.auto.mobile.views.PrivacyPolicyView;
+import com.applause.auto.test.mobile.helpers.TestHelper;
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,20 +30,12 @@ public class CompanyInformationTest extends BaseTest {
       description = "625936")
   @ApplauseTestCaseId({"674523", "674522"})
   public void faqsTest() {
-    logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-    DashboardView dashboardView =
-        testHelper.signIn(
-            landingView,
-            Constants.MyAccountTestData.EMAIL,
-            Constants.MyAccountTestData.PASSWORD,
-            DashboardView.class);
-
-    Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
+    logger.info("Launch the app and log in");
+    HomeView homeView = TestHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    Assert.assertNotNull(homeView, "Home View does not displayed");
 
     logger.info("Tap Help & Feedback field");
-    HelpAndFeedbackView helpAndFeedbackView =
-        dashboardView.getAccountProfileMenu().helpAndFeedback();
+    HelpAndFeedbackView helpAndFeedbackView = homeView.getAccountProfileMenu().helpAndFeedback();
     Assert.assertTrue(
         helpAndFeedbackView.isPageDisplayedCorrectly(), "Help & Feedback view is incorrect");
 
@@ -63,8 +56,8 @@ public class CompanyInformationTest extends BaseTest {
         peetnikRewardsLandingView.isQuestionAnswerDisplayed(),
         "Peetnik Rewards question answer is not displayed");
 
-    // logger.info("Navigate back on device");
-    // MobileHelper.activateApp();
+    //    logger.info("Navigate back on device");
+    //    MobileHelper.activateApp();
   }
 
   @Test(
@@ -72,19 +65,11 @@ public class CompanyInformationTest extends BaseTest {
       description = "625938")
   @ApplauseTestCaseId({"674527", "674526"})
   public void termsAndPrivacyPolicyTest() {
-    logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-    DashboardView dashboardView =
-        testHelper.signIn(
-            landingView,
-            Constants.MyAccountTestData.EMAIL,
-            Constants.MyAccountTestData.PASSWORD,
-            DashboardView.class);
-
-    Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
+    HomeView homeView = TestHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    Assert.assertNotNull(homeView, "Home View does not displayed");
 
     logger.info("STEP - Tap on ... at top right of home screen");
-    MoreOptionsView accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
+    MoreOptionsView accountMenuMobileChunk = homeView.getAccountProfileMenu();
 
     logger.info("STEP - Tap on Terms and Privacy Policy field/row");
     LegalInfoView legalInfoView = accountMenuMobileChunk.termsAndPrivacyPolicy();
@@ -146,19 +131,11 @@ public class CompanyInformationTest extends BaseTest {
       description = "625933")
   @ApplauseTestCaseId({"674517", "674514"})
   public void moreScreenTest() {
-    logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-    DashboardView dashboardView =
-        testHelper.signIn(
-            landingView,
-            Constants.MyAccountTestData.EMAIL,
-            Constants.MyAccountTestData.PASSWORD,
-            DashboardView.class);
-
-    Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
+    HomeView homeView = TestHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    Assert.assertNotNull(homeView, "Home View does not displayed");
 
     logger.info("STEP - Tap on ... at top right of home screen");
-    MoreOptionsView accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
+    MoreOptionsView accountMenuMobileChunk = homeView.getAccountProfileMenu();
 
     logger.info("VERIFY - Header: Hi, \"FIRST NAME\"");
     Assert.assertTrue(
@@ -174,25 +151,25 @@ public class CompanyInformationTest extends BaseTest {
         accountMenuMobileChunk.isAccountSettingsSubHeaderDisplayed(),
         "Sub header: Account Settings does not displayed");
 
-    logger.info("VERIFY - Profile Details ");
+    logger.info("VERIFY - Profile Details");
     Assert.assertTrue(
         accountMenuMobileChunk.isProfileDetailsMenuItemDisplayed(),
         "Profile Details does not displayed");
 
-    logger.info("VERIFY - General Settings");
+    logger.info("VERIFY - Personal Settings");
     Assert.assertTrue(
         accountMenuMobileChunk.isPersonalSettingsMenuItemDisplayed(),
-        "General Settings does not displayed");
+        "Personal Settings does not displayed");
 
     logger.info("VERIFY - Payment Methods");
     Assert.assertTrue(
         accountMenuMobileChunk.isPaymentsMethodsMenuItemDisplayed(),
         "Payment Methods does not displayed");
 
-    logger.info("VERIFY - Account History");
+    logger.info("VERIFY - Account Activity");
     Assert.assertTrue(
-        accountMenuMobileChunk.isAccountHistoryMenuItemDisplayed(),
-        "Account History does not displayed");
+        accountMenuMobileChunk.isAccountActivityMenuItemDisplayed(),
+        "Account Activity does not displayed");
 
     logger.info("VERIFY - Sub header: Peet's Coffee");
     Assert.assertTrue(
@@ -201,6 +178,10 @@ public class CompanyInformationTest extends BaseTest {
 
     SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
 
+    logger.info("VERIFY - Send a Gift");
+    Assert.assertTrue(
+        accountMenuMobileChunk.isSendGiftDisplayed(), "Send a Gift does not displayed");
+
     logger.info("VERIFY - About Us");
     Assert.assertTrue(
         accountMenuMobileChunk.isAboutUsMenuItemDisplayed(), "About Us does not displayed");
@@ -208,6 +189,11 @@ public class CompanyInformationTest extends BaseTest {
     logger.info("VERIFY - Help & Feedback");
     Assert.assertTrue(
         accountMenuMobileChunk.isHelpAndFeedback(), "Help & Feedback does not displayed");
+
+    logger.info("VERIFY - Terms and Privacy Policy");
+    Assert.assertTrue(
+        accountMenuMobileChunk.isTermsAndPrivacyPolicy(),
+        "Terms and Privacy Policy does not displayed");
 
     logger.info("VERIFY - Facebook icon");
     Assert.assertTrue(
@@ -236,22 +222,13 @@ public class CompanyInformationTest extends BaseTest {
       description = "625937")
   @ApplauseTestCaseId({"674525", "625937"})
   public void contactCustomerServiceTest() {
-    logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-    DashboardView dashboardView =
-        testHelper.signIn(
-            landingView,
-            Constants.MyAccountTestData.EMAIL,
-            Constants.MyAccountTestData.PASSWORD,
-            DashboardView.class);
+    HomeView homeView = TestHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    Assert.assertNotNull(homeView, "Home View does not displayed");
 
-    Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
-
-    logger.info("STEP - Tap on ... at top right of home screen");
-    MoreOptionsView accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
-
-    logger.info("STEP - Tap on Help & Feedback field/row");
-    HelpAndFeedbackView helpAndFeedbackView = accountMenuMobileChunk.helpAndFeedback();
+    logger.info("Tap Help & Feedback field");
+    HelpAndFeedbackView helpAndFeedbackView = homeView.getAccountProfileMenu().helpAndFeedback();
+    Assert.assertTrue(
+        helpAndFeedbackView.isPageDisplayedCorrectly(), "Help & Feedback view is incorrect");
 
     logger.info("STEP - Tap on Contact Customer Service field");
     CustomerSupportScreenView customerSupportScreenView =
@@ -262,8 +239,17 @@ public class CompanyInformationTest extends BaseTest {
         customerSupportScreenView,
         "User does not taken to Customer Support screen on Peet's mobile site");
 
+    logger.info("#STEP - Navigate down page until user sees 'Help Center' link at the footer");
+    PeetnikMainFaqView peetnikMainFaqView = customerSupportScreenView.clickHelpCenterFooterButton();
+
+    logger.info("STEP - Tap on “Peetnik Rewards & Order Ahead” section");
+    PeetnikRewardsLandingView peetnikRewardsLandingView =
+        peetnikMainFaqView.tapPeetnikRewardsAndOrderAhead();
+    Assert.assertNotNull(
+        peetnikRewardsLandingView, "Peetnik Rewards Landing View does not displayed");
+
     logger.info("STEP - Tap done");
-    helpAndFeedbackView = customerSupportScreenView.done();
+    helpAndFeedbackView = peetnikRewardsLandingView.done();
 
     logger.info("VERIFY - In-app browser closes");
     Assert.assertNotNull(helpAndFeedbackView, "Browser does not closed in proper way");

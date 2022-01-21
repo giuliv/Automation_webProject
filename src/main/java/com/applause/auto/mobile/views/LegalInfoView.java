@@ -27,8 +27,7 @@ public class LegalInfoView extends BaseComponent {
   protected Button privacyPolicyButton;
 
   @Locate(
-      iOSClassChain =
-          "**/XCUIElementTypeNavigationBar[`name == \"LEGAL INFO\"`]/XCUIElementTypeStaticText",
+      iOSClassChain = "**/XCUIElementTypeStaticText[`name == \"LEGAL INFO\"`]",
       on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/title", on = Platform.MOBILE_ANDROID)
   protected Text headingText;

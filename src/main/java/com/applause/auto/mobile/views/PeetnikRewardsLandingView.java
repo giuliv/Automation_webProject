@@ -56,6 +56,9 @@ public class PeetnikRewardsLandingView extends BaseComponent {
   @Locate(xpath = "//*[contains(@resource-id, 'article-container')]", on = Platform.MOBILE_ANDROID)
   protected Text getQuestionAnswerText;
 
+  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Done\"]", on = Platform.MOBILE_IOS)
+  protected Text doneButton;
+
   /* -------- Actions -------- */
 
   /**
@@ -138,9 +141,23 @@ public class PeetnikRewardsLandingView extends BaseComponent {
     }
     return SdkHelper.create(PeetnikRewardsLandingView.class);
   }
+
+  /**
+   * Done legal info view.
+   *
+   * @return the legal info view
+   */
+  public HelpAndFeedbackView done() {
+    logger.info("Tap 'Done' button");
+    MobileHelper.swipeWithCount(SwipeDirection.DOWN, 2);
+    doneButton.click();
+    return SdkHelper.create(HelpAndFeedbackView.class);
+  }
 }
 
 class AndroidPeetnikRewardsLandingView extends PeetnikRewardsLandingView {
+
+  @Override
   public PeetnikRewardsLandingView clickGetPeetnikRewardsAndOrderAheadQuestion() {
     ((AppiumDriver) SdkHelper.getDriver()).context("NATIVE_APP");
     logger.info("Click 'Peetnik Rewards & Order Ahead'" + SdkHelper.getDriver().getPageSource());
@@ -158,5 +175,12 @@ class AndroidPeetnikRewardsLandingView extends PeetnikRewardsLandingView {
     SdkHelper.getSyncHelper().sleep(10000);
     // return this
     return SdkHelper.create(PeetnikRewardsLandingView.class);
+  }
+
+  @Override
+  public HelpAndFeedbackView done() {
+    logger.info("Tap 'Done' button");
+    MobileHelper.tapAndroidDeviceBackButton();
+    return SdkHelper.create(HelpAndFeedbackView.class);
   }
 }

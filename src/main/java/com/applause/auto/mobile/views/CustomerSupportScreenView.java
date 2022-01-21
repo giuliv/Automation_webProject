@@ -45,11 +45,27 @@ public class CustomerSupportScreenView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button closeAdvPopUpButton;
 
+  @Locate(
+      xpath = "(//XCUIElementTypeStaticText[@label='HELP CENTER'])[2]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//a[@class='footer__nav-link' and normalize-space()='Help Center']",
+      on = Platform.MOBILE_ANDROID)
+  protected Button helpCenterFooterButton;
+
+  @Locate(xpath = "//XCUIElementTypeButton[@label='Accept']", on = Platform.MOBILE_IOS)
+  protected Button cookiesAcceptButton;
+
+  @Locate(xpath = "//XCUIElementTypeButton[@label='NO THANKS']", on = Platform.MOBILE_IOS)
+  protected Button adsNoThanksButton;
+
   /* -------- Actions -------- */
 
   public void afterInit() {
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(12)));
+    closeDiscountAds();
+    acceptCookies();
   }
 
   /**
@@ -71,9 +87,37 @@ public class CustomerSupportScreenView extends BaseComponent {
     doneButton.click();
     return SdkHelper.create(HelpAndFeedbackView.class);
   }
+
+  /**
+   * Tap on the 'Help Center'
+   *
+   * @return PeetnikMainFaqView
+   */
+  public PeetnikMainFaqView clickHelpCenterFooterButton() {
+    logger.info("Taping on the 'Help Center'");
+    MobileHelper.scrollDownToElementCloseToMiddle(helpCenterFooterButton, 30);
+    MobileHelper.tapByCoordinatesOnElementCenter(helpCenterFooterButton);
+    return SdkHelper.create(PeetnikMainFaqView.class);
+  }
+
+  /** Accept cookies */
+  private void acceptCookies() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(cookiesAcceptButton).present());
+    logger.info("Accepting cookies");
+    cookiesAcceptButton.click();
+  }
+
+  /** Close discount ads */
+  private void closeDiscountAds() {
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(cookiesAcceptButton).present().setTimeout(Duration.ofSeconds(20)));
+    adsNoThanksButton.click();
+  }
 }
 
 class AndroidCustomerSupportScreenView extends CustomerSupportScreenView {
+
+  @Override
   public void afterInit() {
     AndroidDriver androidDriver = ((AndroidDriver) SdkHelper.getDriver());
     logger.info("Orientation: " + androidDriver.getOrientation());
@@ -102,5 +146,16 @@ class AndroidCustomerSupportScreenView extends CustomerSupportScreenView {
     logger.info("Tap 'Done' button");
     MobileHelper.tapAndroidDeviceBackButton();
     return SdkHelper.create(HelpAndFeedbackView.class);
+  }
+
+  @Override
+  public PeetnikMainFaqView clickHelpCenterFooterButton() {
+    logger.info("Taping on the 'Help Center'");
+    MobileHelper.switchToChromeWebView();
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(helpCenterFooterButton).present().setTimeout(Duration.ofSeconds(45)));
+    SdkHelper.getBrowserControl().jsClick(helpCenterFooterButton);
+    MobileHelper.switchToNativeContext();
+    return SdkHelper.create(PeetnikMainFaqView.class);
   }
 }

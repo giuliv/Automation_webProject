@@ -74,7 +74,7 @@ public class DashboardView extends BaseComponent {
    * @return the account profile menu
    */
   public MoreOptionsView getAccountProfileMenu() {
-    logger.info("Open account profile menu\n" + SdkHelper.getDriver().getPageSource());
+    logger.info("Open account profile menu");
     getMoreScreenButton.initialize();
     Point elemCoord = getMoreScreenButton.getMobileElement().getCenter();
     AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
@@ -140,7 +140,7 @@ class IosDashboardView extends DashboardView {
 
   @Override
   public MoreOptionsView getAccountProfileMenu() {
-    logger.info("Open account profile menu\n" + SdkHelper.getDriver().getPageSource());
+    logger.info("Open account profile menu");
     // int x = SdkHelper.getDriver().manage().window().getSize().width;
     // int y = SdkHelper.getDriver().manage().window().getSize().height;
 

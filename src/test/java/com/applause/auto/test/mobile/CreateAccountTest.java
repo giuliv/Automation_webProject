@@ -9,7 +9,7 @@ import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.helpers.MobileHelper;
-import com.applause.auto.mobile.views.AccountHistoryView;
+import com.applause.auto.mobile.views.AccountActivityView;
 import com.applause.auto.mobile.views.ChangePasswordView;
 import com.applause.auto.mobile.views.CompleteAccountView;
 import com.applause.auto.mobile.views.CreateAccountView;
@@ -961,7 +961,7 @@ public class CreateAccountTest extends BaseTest {
     MoreOptionsView accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
 
     logger.info("Tap on Account History field/row");
-    AccountHistoryView accountHistoryView = accountMenuMobileChunk.accountHistory();
+    AccountActivityView accountActivityView = accountMenuMobileChunk.accountActivity();
 
     logger.info(
         "Make sure user is taken to account history screen:\n"
@@ -969,7 +969,7 @@ public class CreateAccountTest extends BaseTest {
             + "* Header: Account History\n"
             + "\n"
             + "* Back arrow");
-    Assert.assertNotNull(accountHistoryView, "User does not taken to account history screen");
+    Assert.assertNotNull(accountActivityView, "User does not taken to account history screen");
   }
 
   @Test(

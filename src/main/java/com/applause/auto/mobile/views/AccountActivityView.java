@@ -8,9 +8,9 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import java.util.List;
 
-@Implementation(is = AccountHistoryView.class, on = Platform.MOBILE_ANDROID)
-@Implementation(is = AccountHistoryView.class, on = Platform.MOBILE_IOS)
-public class AccountHistoryView extends BaseComponent {
+@Implementation(is = AccountActivityView.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = AccountActivityView.class, on = Platform.MOBILE_IOS)
+public class AccountActivityView extends BaseComponent {
 
   /* -------- Elements -------- */
 

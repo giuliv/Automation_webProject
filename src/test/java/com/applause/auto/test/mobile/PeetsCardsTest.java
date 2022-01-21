@@ -16,7 +16,7 @@ import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountChunk;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountWarningChunk;
-import com.applause.auto.mobile.views.AccountHistoryView;
+import com.applause.auto.mobile.views.AccountActivityView;
 import com.applause.auto.mobile.views.AddNewCardView;
 import com.applause.auto.mobile.views.CheckInView;
 import com.applause.auto.mobile.views.CreditCardDetailsView;
@@ -198,7 +198,7 @@ public class PeetsCardsTest extends BaseTest {
 
     logger.info("Check account history");
     dashboardView = checkInView.getBottomNavigationMenu().home();
-    AccountHistoryView accountHistory = dashboardView.getAccountProfileMenu().accountHistory();
+    AccountActivityView accountHistory = dashboardView.getAccountProfileMenu().accountActivity();
 
     logger.info(
         "Make sure it shows Peet's Card transaction details:\n"

@@ -18,15 +18,11 @@ import org.openqa.selenium.NoAlertPresentException;
 @Implementation(is = MoreOptionsView.class, on = Platform.MOBILE_IOS)
 public class MoreOptionsView extends BaseComponent {
 
-  @Locate(
-      iOSClassChain = "**/XCUIElementTypeStaticText[`name == 'Profile Details' AND visible == 1`]",
-      on = Platform.MOBILE_IOS)
-  @Locate(
-      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/profileDetails\")",
-      on = Platform.MOBILE_ANDROID)
+  @Locate(accessibilityId = "Profile Details", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/profileDetails", on = Platform.MOBILE_ANDROID)
   protected Button profileDetailsButton;
 
-  @Locate(id = "Sign Out", on = Platform.MOBILE_IOS)
+  @Locate(accessibilityId = "Sign Out", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/logoutButton", on = Platform.MOBILE_ANDROID)
   protected Button getSignOutButton;
 
@@ -40,30 +36,25 @@ public class MoreOptionsView extends BaseComponent {
   @Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
   protected Button getLogOutButton;
 
+  @Locate(accessibilityId = "Personal Settings", on = Platform.MOBILE_IOS)
   @Locate(
-      iOSClassChain =
-          "**/XCUIElementTypeStaticText[`name == 'Personal Settings' AND visible == 1`]",
-      on = Platform.MOBILE_IOS)
-  @Locate(
-      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/generalSettings\")",
+      id = "com.wearehathway.peets.development:id/generalSettings",
       on = Platform.MOBILE_ANDROID)
   protected Button personalSettingsButton;
 
   @Locate(
-      xpath = "//XCUIElementTypeStaticText[@name=\"Account History\"]",
+      xpath = "//XCUIElementTypeStaticText[@name=\"Account Activity\"]",
       on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/accountActivity",
       on = Platform.MOBILE_ANDROID)
-  protected Button getAccountHistoryButton;
+  protected Button getAccountActivityButton;
 
-  @Locate(
-      xpath = "//XCUIElementTypeStaticText[@name=\"Help & Feedback\"]",
-      on = Platform.MOBILE_IOS)
+  @Locate(accessibilityId = "Help & Feedback", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/helpFeedback", on = Platform.MOBILE_ANDROID)
   protected Button getHelpAndFeedbackButton;
 
-  @Locate(id = "Payment Methods", on = Platform.MOBILE_IOS)
+  @Locate(accessibilityId = "Payment Methods", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/paymentMethods", on = Platform.MOBILE_ANDROID)
   protected Button getPaymentMethodsButton;
 
@@ -76,36 +67,29 @@ public class MoreOptionsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getCrossButton;
 
-  @Locate(
-      xpath = "(//XCUIElementTypeButton[@name=\"social facebook\"])[1]",
-      on = Platform.MOBILE_IOS)
+  @Locate(accessibilityId = "social facebook", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/facebook", on = Platform.MOBILE_ANDROID)
   protected Button getFacebookIcon;
 
-  @Locate(
-      xpath = "(//XCUIElementTypeButton[@name=\"social instagram\"])[1]",
-      on = Platform.MOBILE_IOS)
+  @Locate(accessibilityId = "social instagram", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/instagram", on = Platform.MOBILE_ANDROID)
   protected Button getInstagramIcon;
 
-  @Locate(
-      xpath = "(//XCUIElementTypeButton[@name=\"social twitter\"])[1]",
-      on = Platform.MOBILE_IOS)
+  @Locate(accessibilityId = "social twitter", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/twitter", on = Platform.MOBILE_ANDROID)
   protected Button getTwitterIcon;
 
   @Locate(
-      xpath = "(//XCUIElementTypeStaticText[@name=\"Peet's Coffee is on Facebook.\"])[1]",
+      xpath =
+          "(//XCUIElementTypeStaticText[@name=\"Peet's Coffee is on Facebook.\"])[1] | //XCUIElementTypeLink[@name=\"facebook\"]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      xpath =
-          "//android.view.View[@text='facebook'] | //android.widget.LinearLayout[contains(@resource-id,'com.facebook.katana:id')]",
+      xpath = "//android.widget.EditText[contains(@text,'m.facebook.com')]",
       on = Platform.MOBILE_ANDROID)
   protected Text facebookPage;
 
   @Locate(
-      xpath =
-          "//XCUIElementTypeButton[@name=\"Follow\"] | //XCUIElementTypeStaticText[@name=\"Instagram\" and @visible=\"true\"]",
+      xpath = "//XCUIElementTypeButton[@name=\"URL\" and @label=\"Address\"]",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
@@ -134,15 +118,11 @@ public class MoreOptionsView extends BaseComponent {
   @Locate(
       xpath = "//XCUIElementTypeStaticText[@name=\"Account Settings\"]",
       on = Platform.MOBILE_IOS)
-  @Locate(
-      xpath = "//android.widget.TextView[@text='Account Settings']",
-      on = Platform.MOBILE_ANDROID)
+  @Locate(id = "com.wearehathway.peets.development:id/nomNomTextView", on = Platform.MOBILE_ANDROID)
   protected Text accountSettingsSubHeaderText;
 
   @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Peet's Coffee\"]", on = Platform.MOBILE_IOS)
-  @Locate(
-      xpath = "//android.widget.TextView[@text=\"Peet's Coffee\"]",
-      on = Platform.MOBILE_ANDROID)
+  @Locate(id = "com.wearehathway.peets.development:id/peetCoffee", on = Platform.MOBILE_ANDROID)
   protected Text peetsCoffeeSubHeaderText;
 
   @Locate(
@@ -154,8 +134,18 @@ public class MoreOptionsView extends BaseComponent {
   protected Text versionText;
 
   @Locate(accessibilityId = "About Us", on = Platform.MOBILE_IOS)
-  @Locate(xpath = "//android.widget.TextView[@text=\"About Us\"]", on = Platform.MOBILE_ANDROID)
+  @Locate(id = "com.wearehathway.peets.development:id/aboutUs", on = Platform.MOBILE_ANDROID)
   protected Button aboutUsButton;
+
+  @Locate(accessibilityId = "Terms and Privacy Policy", on = Platform.MOBILE_IOS)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/termsAndPrivacy",
+      on = Platform.MOBILE_ANDROID)
+  protected Button getTermsAndPrivacyPolicyButton;
+
+  @Locate(accessibilityId = "Send a Gift", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/sendAGift", on = Platform.MOBILE_ANDROID)
+  protected Button getSendGiftButton;
 
   /* -------- Actions -------- */
 
@@ -244,9 +234,8 @@ public class MoreOptionsView extends BaseComponent {
    * @return the boolean
    */
   public Boolean isOnFacebookPage() {
-    String s = facebookPage.getText();
-    String e = "Peet's Coffee is on Facebook.";
-    return s.equals(e);
+    SdkHelper.getSyncHelper().wait(Until.uiElement(facebookPage).visible());
+    return facebookPage.isDisplayed();
   }
 
   /**
@@ -296,15 +285,15 @@ public class MoreOptionsView extends BaseComponent {
   }
 
   /**
-   * Account history account history view.
+   * Account activity view.
    *
-   * @return the account history view
+   * @return the account activity view
    */
-  public AccountHistoryView accountHistory() {
-    logger.info("Click Account History");
-    getAccountHistoryButton.click();
+  public AccountActivityView accountActivity() {
+    logger.info("Click Account Activity");
+    getAccountActivityButton.click();
     SdkHelper.getSyncHelper().sleep(15000);
-    return SdkHelper.create(AccountHistoryView.class);
+    return SdkHelper.create(AccountActivityView.class);
   }
 
   /**
@@ -382,13 +371,13 @@ public class MoreOptionsView extends BaseComponent {
   }
 
   /**
-   * Is account history menu item displayed boolean.
+   * Is account activity menu item displayed boolean.
    *
    * @return the boolean
    */
-  public boolean isAccountHistoryMenuItemDisplayed() {
-    logger.info("Checking if account history menu item displayed");
-    return getAccountHistoryButton.isDisplayed();
+  public boolean isAccountActivityMenuItemDisplayed() {
+    logger.info("Checking if account activity menu item displayed");
+    return getAccountActivityButton.isDisplayed();
   }
 
   /**
@@ -475,6 +464,26 @@ public class MoreOptionsView extends BaseComponent {
     logger.info("Click on Terms and Privacy Policy");
     termsAndPrivacyPolicyButton.click();
     return SdkHelper.create(LegalInfoView.class);
+  }
+
+  /**
+   * Is Terms and Privacy Policy displayed.
+   *
+   * @return the boolean
+   */
+  public boolean isTermsAndPrivacyPolicy() {
+    logger.info("Checking if Terms and Privacy Policy displayed");
+    return getTermsAndPrivacyPolicyButton.isDisplayed();
+  }
+
+  /**
+   * Is Send a Gift displayed.
+   *
+   * @return the boolean
+   */
+  public boolean isSendGiftDisplayed() {
+    logger.info("Checking if Send a Gift displayed");
+    return getSendGiftButton.isDisplayed();
   }
 }
 

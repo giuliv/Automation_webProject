@@ -13,14 +13,17 @@ import com.applause.auto.mobile.views.CreateAccountView;
 import com.applause.auto.mobile.views.CreditCardDetailsView;
 import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.FindACoffeeBarView;
+import com.applause.auto.mobile.views.HomeView;
 import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.MoreOptionsView;
 import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
 import com.applause.auto.mobile.views.NewOrderView;
+import com.applause.auto.mobile.views.OnboardingView;
 import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.test.mobile.BaseTest;
 import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.android.Activity;
@@ -209,6 +212,36 @@ public class TestHelper extends BaseComponent {
     } else {
       return newOrderView.checkout();
     }
+  }
+
+  /**
+   * Open the app and login
+   *
+   * @param userName
+   * @param password
+   * @return HomeView
+   */
+  public static HomeView login(String userName, String password) {
+    logger.info("Launch the app and arrive at the first onboarding screen view");
+    OnboardingView onboardingView = BaseTest.openApp();
+
+    logger.info("Skip Onboarding");
+    LandingView landingView = onboardingView.skipOnboarding();
+
+    logger.info("Tap Sign In");
+    SignInView signInView = landingView.signIn();
+
+    logger.info("Log in to the app");
+    signInView.setEmail(userName);
+    signInView.setPassword(password);
+    return signInView
+        .signIn(HomeView.class)
+        .getReorderTooltipComponent()
+        .closeReorderTooltipIfDisplayed(HomeView.class)
+        .getCheckInTooltipComponent()
+        .closeCheckInTooltipIfDisplayed(HomeView.class)
+        .getPointsTurnIntoRewardsTooltipComponent()
+        .closeTooltipIfDisplayed(HomeView.class);
   }
 
   private static List<ApplicationState> notRunningAppStates() {

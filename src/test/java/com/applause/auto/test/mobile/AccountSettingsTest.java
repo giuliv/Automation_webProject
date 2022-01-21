@@ -5,16 +5,19 @@ import static com.applause.auto.common.data.Constants.MobileTestData.CC_VISA_NAM
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileTestData;
+import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.views.AddNewCardView;
 import com.applause.auto.mobile.views.CreditCardDetailsView;
 import com.applause.auto.mobile.views.DashboardView;
+import com.applause.auto.mobile.views.HomeView;
 import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.MoreOptionsView;
 import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.PeetsCardSettingsView;
+import com.applause.auto.test.mobile.helpers.TestHelper;
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -176,25 +179,23 @@ public class AccountSettingsTest extends BaseTest {
       description = "625939")
   @ApplauseTestCaseId({"625939", "674528"})
   public void socialEngagementTest() {
-    logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-
-    DashboardView dashboardView = testHelper.signIn(landingView);
+    HomeView homeView = TestHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    Assert.assertNotNull(homeView, "Home View does not displayed");
 
     logger.info("Navigate to Social Media icons and click Facebook icon");
-    MoreOptionsView accountProfileMenu = dashboardView.getAccountProfileMenu();
+    MoreOptionsView accountProfileMenu = homeView.getAccountProfileMenu();
     MoreOptionsView socialMedia = accountProfileMenu.clickFacebookIcon();
-    Assert.assertTrue(socialMedia.isOnFacebookPage(), "Not On social Media URL");
+    Assert.assertTrue(socialMedia.isOnFacebookPage(), "Peet's Facebook page isn't opened");
     socialMedia.clickDoneButton();
 
     logger.info("Navigate to Social Media icons and click Instagram icon");
     socialMedia = accountProfileMenu.clickInstagramIcon();
-    Assert.assertTrue(socialMedia.isOnInstagramPage(), "Not On social Media URL");
+    Assert.assertTrue(socialMedia.isOnInstagramPage(), "Peet's Instagram page isn't opened");
     socialMedia.clickDoneButton();
 
     logger.info("Navigate to Social Media icons and click Twitter icon");
     socialMedia = accountProfileMenu.clickTwitterIcon();
-    Assert.assertTrue(socialMedia.isOnTwitterPage(), "Not On social Media URL");
+    Assert.assertTrue(socialMedia.isOnTwitterPage(), "Peet's Twitter page isn't opened");
     socialMedia.clickDoneButton();
   }
 }

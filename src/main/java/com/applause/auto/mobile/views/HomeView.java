@@ -7,6 +7,7 @@ import com.applause.auto.mobile.components.CheckInTooltipComponent;
 import com.applause.auto.mobile.components.PointsTurnIntoRewardsTooltipComponent;
 import com.applause.auto.mobile.components.ReorderTooltipComponent;
 import com.applause.auto.mobile.components.SwipeTooltipComponent;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -56,6 +57,10 @@ public class HomeView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected TextBox signature;
 
+  @Locate(accessibilityId = "More", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/moreButton", on = Platform.MOBILE_ANDROID)
+  protected Button getMoreScreenButton;
+
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(signature).present());
   }
@@ -64,6 +69,15 @@ public class HomeView extends BaseComponent {
   public MoreOptionsView tapOnMoreButton() {
     logger.info("Tapping on 'More' button");
     moreButton.click();
+    return SdkHelper.create(MoreOptionsView.class);
+  }
+
+  @Step(" Gets account profile menu.")
+  public MoreOptionsView getAccountProfileMenu() {
+    logger.info("Open account profile menu");
+    getMoreScreenButton.initialize();
+    MobileHelper.tapOnElementCenter(getMoreScreenButton);
+    SdkHelper.getSyncHelper().sleep(5000);
     return SdkHelper.create(MoreOptionsView.class);
   }
 }

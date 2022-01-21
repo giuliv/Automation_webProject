@@ -17,9 +17,7 @@ public class HelpAndFeedbackView extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(
-      xpath = "//XCUIElementTypeNavigationBar[@name=\"HELP & FEEDBACK\"]/XCUIElementTypeButton",
-      on = Platform.MOBILE_IOS)
+  @Locate(accessibilityId = "button back", on = Platform.MOBILE_IOS)
   @Locate(xpath = "//*[contains(@content-desc, 'Navigate up')]", on = Platform.MOBILE_ANDROID)
   protected Button backArrow;
 
@@ -27,13 +25,13 @@ public class HelpAndFeedbackView extends BaseComponent {
       iOSClassChain = "**/XCUIElementTypeNavigationBar[`name == \"HELP & FEEDBACK\"`]",
       on = Platform.MOBILE_IOS)
   @Locate(xpath = "//*[contains(@content-desc, 'Navigate up')]", on = Platform.MOBILE_ANDROID)
-  protected Button helpAndFeedback;
+  protected Text helpAndFeedbackHeader;
 
-  @Locate(iOSNsPredicate = "name == 'View Our FAQs'", on = Platform.MOBILE_IOS)
+  @Locate(accessibilityId = "View Our FAQs", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/faqs", on = Platform.MOBILE_ANDROID)
   protected Button viewOurFAQs;
 
-  @Locate(iOSNsPredicate = "name == 'Contact Customer Service'", on = Platform.MOBILE_IOS)
+  @Locate(accessibilityId = "Contact Customer Service", on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/contactCustomer",
       on = Platform.MOBILE_ANDROID)
@@ -68,13 +66,18 @@ public class HelpAndFeedbackView extends BaseComponent {
       return false;
     }
 
+    if (!helpAndFeedbackHeader.isEnabled()) {
+      logger.info("HELP & FEEDBACK header is not present");
+      return false;
+    }
+
     if (!viewOurFAQs.isEnabled()) {
-      logger.info("View our FAQs element is not present");
+      logger.info("View Our FAQs element is not present");
       return false;
     }
 
     if (!contactCustomerService.isEnabled()) {
-      logger.info("Contact Customer service element is not present");
+      logger.info("Contact Customer Service element is not present");
       return false;
     }
     return true;

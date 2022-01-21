@@ -633,4 +633,22 @@ public class MobileHelper {
         ? true
         : false;
   }
+
+  public static void switchToChromeWebView() {
+    logger.info("Switching to WEBVIEW_chrome");
+    ((AppiumDriver) SdkHelper.getDriver()).context("WEBVIEW_chrome");
+    SdkHelper.getSyncHelper().sleep(1000);
+  }
+
+  public static void switchToNativeContext() {
+    logger.info("Switching to NATIVE_APP");
+    ((AppiumDriver) SdkHelper.getDriver()).context("NATIVE_APP");
+    SdkHelper.getSyncHelper().sleep(1000);
+  }
+
+  public static void tapOnElementCenter(BaseElement element) {
+    Point elemCoord = element.getMobileElement().getCenter();
+    AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
+    new TouchAction(driver).tap(PointOption.point(elemCoord.getX(), elemCoord.getY())).perform();
+  }
 }
