@@ -238,6 +238,12 @@ public class CreateAccountView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Image loadingSpinner;
 
+  @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`label == \"cancel\"`]",
+      on = Platform.MOBILE_IOS)
+  protected Button closeButton;
+
   /**
    * Privacy policy privacy policy view.
    *
@@ -409,11 +415,11 @@ public class CreateAccountView extends BaseComponent {
   }
 
   @Step("Tap on 'Create Account'")
-  public DashboardView createAccount() {
+  public <T extends BaseComponent> T createAccount(Class<T> clazz) {
     logger.info("Create account");
     createAccountButton.click();
     MobileHelper.waitUntilElementDisappears(loadingSpinner, 26);
-    return SdkHelper.create(DashboardView.class);
+    return SdkHelper.create(clazz);
   }
 
   @Step("Tap on 'Create Account'")
@@ -565,8 +571,7 @@ public class CreateAccountView extends BaseComponent {
     logger.info("Checking password text displayed");
     passwordTextBox.sendKeys(" ");
     boolean result =
-        getPasswordHintTextBox
-            .stream()
+        getPasswordHintTextBox.stream()
             .map(item -> item.getText())
             .collect(Collectors.joining("\n"))
             .equals(
@@ -587,6 +592,13 @@ public class CreateAccountView extends BaseComponent {
     logger.info("Title - [{}]", titleText);
     return titleText;
   }
+
+  @Step("Tap X to return to Peetnik Rewards authentication screen")
+  public LandingView close() {
+    logger.info("Tapping X button");
+    closeButton.click();
+    return SdkHelper.create(LandingView.class);
+  }
 }
 
 class AndroidCreateAccountView extends CreateAccountView {
@@ -598,12 +610,12 @@ class AndroidCreateAccountView extends CreateAccountView {
 
   @Override
   @Step("Tap on 'Create Account'")
-  public DashboardView createAccount() {
+  public <T extends BaseComponent> T createAccount(Class<T> clazz) {
     logger.info("Create account");
     SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
     createAccountButton.click();
     MobileHelper.waitUntilElementDisappears(loadingSpinner, 26);
-    return SdkHelper.create(DashboardView.class);
+    return SdkHelper.create(clazz);
   }
 
   @Override
@@ -739,8 +751,7 @@ class AndroidCreateAccountView extends CreateAccountView {
     passwordTextBox.sendKeys("A");
     SdkHelper.getDeviceControl().hideKeyboard();
     String pHint =
-        getPasswordHintTextBox
-            .stream()
+        getPasswordHintTextBox.stream()
             .map(
                 item -> {
                   String i = item.getText();

@@ -1,11 +1,15 @@
 package com.applause.auto.test.mobile;
 
+import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.TestDataUtils;
+import com.applause.auto.common.data.dto.SignUpUserDto;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
+import com.applause.auto.mobile.components.ConfirmationPopup;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.AccountActivityView;
 import com.applause.auto.mobile.views.ChangePasswordView;
@@ -37,7 +41,9 @@ public class CreateAccountTest extends BaseTest {
   @ApplauseTestCaseId({"673972", "673971"})
   public void footerLinksTest() {
     logger.info("Launch the app and arrive at the first onboarding screen view");
-    LandingView landingView = testHelper.navigateToLandingView();
+    LandingView landingView = openAppAndSkipOnboarding();
+
+    logger.info("Tap Create Account");
     CreateAccountView createAccountView = landingView.createAccount();
 
     logger.info("Scroll down and check the footer links");
@@ -67,9 +73,6 @@ public class CreateAccountTest extends BaseTest {
 
     logger.info("Make sure user is taken to Terms and Conditions screen");
     Assert.assertNotNull(termsAndConditionsView, "Terms And Conditions does not displayed");
-
-    // logger.info("Tap at top left \"Peet's\" / close browser and open Peet's to return to the
-    // app");
   }
 
   @Test(
@@ -807,7 +810,7 @@ public class CreateAccountTest extends BaseTest {
         createAccountView.isCreateAccountButtonEnabled(), "Create Account button does not enabled");
 
     logger.info("Tap Create Account button");
-    DashboardView dashboardView = createAccountView.createAccount();
+    DashboardView dashboardView = createAccountView.createAccount(DashboardView.class);
 
     logger.info(
         "User account should be SdkHelper.created successfully:\n"
@@ -898,7 +901,70 @@ public class CreateAccountTest extends BaseTest {
       description = "625882")
   @ApplauseTestCaseId({"674184", "674183"})
   public void createAccountExistingWebUserTest() {
-    HomeView homeView = TestHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
-    Assert.assertNotNull(homeView, "Home View does not displayed");
+    logger.info("Launch the app and arrive at the first onboarding screen view");
+    LandingView landingView = openAppAndSkipOnboarding();
+
+    logger.info("Tap Create Account button");
+    CreateAccountView createAccountView = landingView.createAccount();
+
+    logger.info("Enter required fields and use existing web email address and password");
+    SignUpUserDto newUser =
+        SignUpUserDto.builder().email(TestData.USERNAME_625882).password(TestData.PASSWORD).build();
+    ConfirmationPopup confirmationPopup =
+        testHelper.createNewAccount(createAccountView, newUser, ConfirmationPopup.class);
+
+    logger.info("Verify that User should be served error message");
+    Assert.assertEquals(
+        confirmationPopup.getPopupMessage(),
+        MobileTestData.ACCOUNT_ALREADY_EXIST_MESSAGE,
+        "Error popup message is wrong");
+
+    logger.info("Tap OK to dismiss error message");
+    createAccountView = confirmationPopup.tapOnOkay(CreateAccountView.class);
+
+    logger.info("Tap X to return to Peetnik Rewards authentication screen");
+    landingView = createAccountView.close();
+
+    logger.info("Tap Sign In button");
+    SignInView signInView = landingView.signIn();
+
+    logger.info("Tap on Email Address field and enter valid email address");
+    signInView.setEmail(newUser.getEmail());
+
+    logger.info("Enter valid password");
+    signInView.setPassword(newUser.getPassword());
+
+    logger.info("Tap Sign In button");
+    HomeView homeView =
+        signInView
+            .signIn(HomeView.class)
+            .getPointsTurnIntoRewardsTooltipComponent()
+            .closeTooltipIfDisplayed(HomeView.class)
+            .getPointsTurnIntoRewardsTooltipComponent()
+            .closeTooltipIfDisplayed(HomeView.class)
+            .getSwipeTooltipComponent()
+            .closeTooltipIfDisplayed(HomeView.class);
+
+    logger.info("Tap on More amd then Profile Details");
+    ProfileDetailsView profileDetailsView = homeView.tapOnMoreButton().profileDetails();
+
+    logger.info("Verify that All user info on profile details screen matches");
+    String firstNameOrig = profileDetailsView.getFirstname().trim();
+    String lastNameOrig = profileDetailsView.getLastname().trim();
+    String emailUpd = profileDetailsView.getEmailAddress();
+    String dob = profileDetailsView.getDOB();
+    Assert.assertEquals(firstNameOrig, "Applause625882", "First name didn't match");
+    Assert.assertEquals(lastNameOrig, "Test", "First name didn't match");
+    Assert.assertTrue(dob.matches("Jan.* 25, 2000"), "Unexpected DOB value: " + dob);
+    Assert.assertEquals(emailUpd, newUser.getEmail(), "Email does not match");
+
+    logger.info("Navigate back");
+    MoreOptionsView moreOptionsView = profileDetailsView.goBack(MoreOptionsView.class);
+
+    logger.info("Tap sign out button");
+    landingView = moreOptionsView.signOut();
+
+    logger.info("User should be signed out successfully");
+    Assert.assertTrue(landingView.isSignInButtonDisplayed(), "User does not signed out");
   }
 }

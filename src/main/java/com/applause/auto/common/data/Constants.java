@@ -324,6 +324,9 @@ public class Constants {
     public static final String INVALID_PEETS_CC_PIN_2 = "1111";
     public static final String VALID_PEETS_CC_NUM_1 = "81001000000581";
     public static final String VALID_PEETS_CC_NUM_2 = "81001000000584";
+
+    public static final String ACCOUNT_ALREADY_EXIST_MESSAGE =
+        "Account already exists. If you have a Peets.com account, use those credentials to sign in.";
   }
 
   public static final class WebTestData {

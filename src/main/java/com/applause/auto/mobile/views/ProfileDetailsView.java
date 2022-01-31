@@ -17,48 +17,58 @@ import java.time.Duration;
 @Implementation(is = IosProfileDetailsView.class, on = Platform.MOBILE_IOS)
 public class ProfileDetailsView extends BaseComponent {
 
-  /* -------- Elements -------- */
-
   @Locate(
       xpath =
           "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeTextField",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/firstName", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/firstName\")",
+      on = Platform.MOBILE_ANDROID)
   protected TextBox getFirstnameTextBox;
 
   @Locate(
       xpath =
           "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeTextField",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/lastName", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/lastName\")",
+      on = Platform.MOBILE_ANDROID)
   protected TextBox getLastnameTextBox;
 
   @Locate(
       xpath =
           "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeTextField",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/zipCode", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/zipCode\")",
+      on = Platform.MOBILE_ANDROID)
   protected TextBox getZipCodeTextBox;
 
   @Locate(
       xpath =
           "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[4]/XCUIElementTypeTextField",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/birthday", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/birthday\")",
+      on = Platform.MOBILE_ANDROID)
   protected TextBox getDOBTextBox;
 
   @Locate(
       xpath =
           "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[5]/XCUIElementTypeTextField",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/phoneNumber", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/phoneNumber\")",
+      on = Platform.MOBILE_ANDROID)
   protected TextBox getPhoneNumberTextBox;
 
   @Locate(
       xpath =
           "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[6]/XCUIElementTypeTextField",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/emailAddress", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/emailAddress\")",
+      on = Platform.MOBILE_ANDROID)
   protected TextBox getEmailAddressTextBox;
 
   @Locate(
@@ -66,7 +76,7 @@ public class ProfileDetailsView extends BaseComponent {
           "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[7]/XCUIElementTypeTextField",
       on = Platform.MOBILE_IOS)
   @Locate(
-      id = "com.wearehathway.peets.development:id/confirmEmailAddress",
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/confirmEmailAddress\")",
       on = Platform.MOBILE_ANDROID)
   protected TextBox getConfirmEmailAddressTextBox;
 

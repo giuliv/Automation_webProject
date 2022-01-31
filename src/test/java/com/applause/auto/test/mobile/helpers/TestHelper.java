@@ -3,6 +3,7 @@ package com.applause.auto.test.mobile.helpers;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.TestDataUtils;
+import com.applause.auto.common.data.dto.SignUpUserDto;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.framework.SdkHelper;
@@ -139,6 +140,33 @@ public class TestHelper extends BaseComponent {
 
     logger.info("Tap Create Account button");
     return closeHomeViewTooltipIfDisplayed(createAccountView.tapOnCreateAccount());
+  }
+
+  public <T extends BaseComponent> T createNewAccount(
+      CreateAccountView createAccountView, SignUpUserDto userDto, Class<T> expectingPage) {
+    logger.info("Tap on First Name field and enter valid first name");
+    createAccountView.setFirstname(userDto.getFirstName());
+
+    logger.info("Enter valid last name");
+    createAccountView.setLastname(userDto.getLastName());
+
+    logger.info("Scroll through and select birthday");
+    createAccountView.setDOB(userDto.getDobDay(), userDto.getDobMonth(), userDto.getDobYear());
+
+    logger.info("Enter valid email address");
+    String email = userDto.getEmail();
+    createAccountView.setEmailAddress(email);
+
+    logger.info("Enter valid password");
+    createAccountView.setPassword(userDto.getPassword());
+
+    if (userDto.isAgreePrivacyPolicyAndTermsAndConditions()) {
+      logger.info("Tap on checkbox to agree to terms of service");
+      createAccountView.checkPrivacyPolicyAndTermsAndConditions();
+    }
+
+    logger.info("Tap Create Account button");
+    return createAccountView.createAccount(expectingPage);
   }
 
   public static void denyLocationServices() {

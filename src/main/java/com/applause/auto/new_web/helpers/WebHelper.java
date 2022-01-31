@@ -409,7 +409,8 @@ public class WebHelper {
       // Search root
       Set<WebElement> result = new LinkedHashSet(SdkHelper.getDriver().findElements(by));
       if (result.size() == 0) {
-        getShadowElementsFromRoot().stream()
+        getShadowElementsFromRoot()
+            .stream()
             .forEach(elem -> result.addAll(findShadowElementsBy(elem, by)));
       }
       return new ArrayList<>(result);
@@ -427,7 +428,8 @@ public class WebHelper {
         } else {
           List<WebElement> shadowNodes = getShadowElementsFromParent(parent);
           logger.info("Found shadow nodes on level: " + shadowNodes.size());
-          shadowNodes.stream()
+          shadowNodes
+              .stream()
               .forEach(
                   elem -> {
                     logger.info("Searching for element in shadow node...");
@@ -501,7 +503,8 @@ public class WebHelper {
   public static ArrayList<WebElement> findShadowElementsBy(Set<WebElement> parents, By by) {
     // Important: xpath search does not working
     Set<WebElement> result = new LinkedHashSet<>();
-    parents.stream()
+    parents
+        .stream()
         .forEach(
             parent -> {
               WebElement shadow = getWebElementFromShadowRoot(parent);

@@ -19,26 +19,32 @@ import org.openqa.selenium.NoAlertPresentException;
 public class MoreOptionsView extends BaseComponent {
 
   @Locate(accessibilityId = "Profile Details", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/profileDetails", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/profileDetails\")",
+      on = Platform.MOBILE_ANDROID)
   protected Button profileDetailsButton;
 
   @Locate(accessibilityId = "Sign Out", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/logoutButton", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/logoutButton\")",
+      on = Platform.MOBILE_ANDROID)
   protected Button getSignOutButton;
 
   @Locate(accessibilityId = "Terms and Privacy Policy", on = Platform.MOBILE_IOS)
   @Locate(
-      id = "com.wearehathway.peets.development:id/termsAndPrivacy",
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/termsAndPrivacy\")",
       on = Platform.MOBILE_ANDROID)
   protected Button termsAndPrivacyPolicyButton;
 
   @Locate(xpath = "//XCUIElementTypeButton[@value='Log Out']", on = Platform.MOBILE_IOS)
-  @Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/button1\")",
+      on = Platform.MOBILE_ANDROID)
   protected Button getLogOutButton;
 
   @Locate(accessibilityId = "Personal Settings", on = Platform.MOBILE_IOS)
   @Locate(
-      id = "com.wearehathway.peets.development:id/generalSettings",
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/generalSettings\")",
       on = Platform.MOBILE_ANDROID)
   protected Button personalSettingsButton;
 
@@ -46,16 +52,20 @@ public class MoreOptionsView extends BaseComponent {
       xpath = "//XCUIElementTypeStaticText[@name=\"Account Activity\"]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      id = "com.wearehathway.peets.development:id/accountActivity",
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/accountActivity\")",
       on = Platform.MOBILE_ANDROID)
   protected Button getAccountActivityButton;
 
   @Locate(accessibilityId = "Help & Feedback", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/helpFeedback", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/helpFeedback\")",
+      on = Platform.MOBILE_ANDROID)
   protected Button getHelpAndFeedbackButton;
 
   @Locate(accessibilityId = "Payment Methods", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/paymentMethods", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/paymentMethods\")",
+      on = Platform.MOBILE_ANDROID)
   protected Button getPaymentMethodsButton;
 
   @Locate(
@@ -68,7 +78,9 @@ public class MoreOptionsView extends BaseComponent {
   protected Button getCrossButton;
 
   @Locate(accessibilityId = "social facebook", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/facebook", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/facebook\")",
+      on = Platform.MOBILE_ANDROID)
   protected Button getFacebookIcon;
 
   @Locate(accessibilityId = "social instagram", on = Platform.MOBILE_IOS)
@@ -76,7 +88,9 @@ public class MoreOptionsView extends BaseComponent {
   protected Button getInstagramIcon;
 
   @Locate(accessibilityId = "social twitter", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/twitter", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/twitter\")",
+      on = Platform.MOBILE_ANDROID)
   protected Button getTwitterIcon;
 
   @Locate(
@@ -112,17 +126,23 @@ public class MoreOptionsView extends BaseComponent {
   @Locate(
       iOSClassChain = "**/XCUIElementTypeNavigationBar/XCUIElementTypeStaticText",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/title", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/title\")",
+      on = Platform.MOBILE_ANDROID)
   protected Text titleText;
 
   @Locate(
       xpath = "//XCUIElementTypeStaticText[@name=\"Account Settings\"]",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/nomNomTextView", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/nomNomTextView\")",
+      on = Platform.MOBILE_ANDROID)
   protected Text accountSettingsSubHeaderText;
 
   @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Peet's Coffee\"]", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/peetCoffee", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/peetCoffee\")",
+      on = Platform.MOBILE_ANDROID)
   protected Text peetsCoffeeSubHeaderText;
 
   @Locate(
@@ -134,17 +154,21 @@ public class MoreOptionsView extends BaseComponent {
   protected Text versionText;
 
   @Locate(accessibilityId = "About Us", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/aboutUs", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/aboutUs\")",
+      on = Platform.MOBILE_ANDROID)
   protected Button aboutUsButton;
 
   @Locate(accessibilityId = "Terms and Privacy Policy", on = Platform.MOBILE_IOS)
   @Locate(
-      id = "com.wearehathway.peets.development:id/termsAndPrivacy",
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/termsAndPrivacy\")",
       on = Platform.MOBILE_ANDROID)
   protected Button getTermsAndPrivacyPolicyButton;
 
   @Locate(accessibilityId = "Send a Gift", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/sendAGift", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/sendAGift\")",
+      on = Platform.MOBILE_ANDROID)
   protected Button getSendGiftButton;
 
   /* -------- Actions -------- */
