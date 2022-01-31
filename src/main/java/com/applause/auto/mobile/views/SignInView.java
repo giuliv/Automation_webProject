@@ -167,7 +167,11 @@ public class SignInView extends BaseComponent {
    */
   public SignInView dismissOkMessage() {
     logger.info("Dismissing OK message");
-    getDismissMessageButton.click();
+    try {
+      getDismissMessageButton.click();
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+    }
     return this;
   }
 

@@ -18,19 +18,25 @@ import org.openqa.selenium.NoAlertPresentException;
 @Implementation(is = MoreOptionsView.class, on = Platform.MOBILE_IOS)
 public class MoreOptionsView extends BaseComponent {
 
-  @Locate(accessibilityId = "Profile Details", on = Platform.MOBILE_IOS)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Profile Details\"`]",
+      on = Platform.MOBILE_IOS)
   @Locate(
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/profileDetails\")",
       on = Platform.MOBILE_ANDROID)
   protected Button profileDetailsButton;
 
-  @Locate(accessibilityId = "Sign Out", on = Platform.MOBILE_IOS)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`label == \"Sign Out\"`]",
+      on = Platform.MOBILE_IOS)
   @Locate(
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/logoutButton\")",
       on = Platform.MOBILE_ANDROID)
   protected Button getSignOutButton;
 
-  @Locate(accessibilityId = "Terms and Privacy Policy", on = Platform.MOBILE_IOS)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Terms and Privacy Policy\"`]",
+      on = Platform.MOBILE_IOS)
   @Locate(
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/termsAndPrivacy\")",
       on = Platform.MOBILE_ANDROID)
@@ -42,7 +48,9 @@ public class MoreOptionsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getLogOutButton;
 
-  @Locate(accessibilityId = "Personal Settings", on = Platform.MOBILE_IOS)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Personal Settings\"`]",
+      on = Platform.MOBILE_IOS)
   @Locate(
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/generalSettings\")",
       on = Platform.MOBILE_ANDROID)
@@ -56,13 +64,17 @@ public class MoreOptionsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getAccountActivityButton;
 
-  @Locate(accessibilityId = "Help & Feedback", on = Platform.MOBILE_IOS)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Help & Feedback\"`]",
+      on = Platform.MOBILE_IOS)
   @Locate(
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/helpFeedback\")",
       on = Platform.MOBILE_ANDROID)
   protected Button getHelpAndFeedbackButton;
 
-  @Locate(accessibilityId = "Payment Methods", on = Platform.MOBILE_IOS)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Payment Methods\"`]",
+      on = Platform.MOBILE_IOS)
   @Locate(
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/paymentMethods\")",
       on = Platform.MOBILE_ANDROID)

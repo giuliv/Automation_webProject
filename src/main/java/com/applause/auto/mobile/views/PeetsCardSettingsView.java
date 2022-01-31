@@ -21,13 +21,8 @@ public class PeetsCardSettingsView extends BaseComponent {
   protected Text getViewSignature;
 
   //  @Locate(id = "button back", on = Platform.MOBILE_IOS) //Commented[15.01.2021]
-  @Locate(
-      xpath = "//XCUIElementTypeNavigationBar[@name=\"CARD SETTINGS\"]/XCUIElementTypeButton",
-      on = Platform.MOBILE_IOS)
-  @Locate(
-      xpath =
-          "//android.widget.ImageButton[contains(@content-desc,\"Navigate up\") or contains(@content-desc,\"Nach oben\")]",
-      on = Platform.MOBILE_ANDROID)
+  @Locate(iOSClassChain = "**/XCUIElementTypeButton[`label == \"Back\"`]", on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/backBtn", on = Platform.MOBILE_ANDROID)
   protected Button getBackButton;
 
   /* -------- Actions -------- */

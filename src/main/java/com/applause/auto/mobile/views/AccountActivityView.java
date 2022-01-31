@@ -2,10 +2,13 @@ package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import io.qameta.allure.Step;
 import java.util.List;
 
 @Implementation(is = AccountActivityView.class, on = Platform.MOBILE_ANDROID)
@@ -15,10 +18,10 @@ public class AccountActivityView extends BaseComponent {
   /* -------- Elements -------- */
 
   @Locate(
-      xpath = "//XCUIElementTypeNavigationBar[@name=\"ACCOUNT HISTORY\"]",
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"ACCOUNT ACTIVITY\"`]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      xpath = "//android.widget.TextView[@text='ACCOUNT HISTORY']",
+      xpath = "//android.widget.TextView[@text='ACCOUNT ACTIVITY']",
       on = Platform.MOBILE_ANDROID)
   protected Text getSignatureText;
 
@@ -45,6 +48,13 @@ public class AccountActivityView extends BaseComponent {
       id = "com.wearehathway.peets.development:id/transactionDate",
       on = Platform.MOBILE_ANDROID)
   protected List<Text> getTransactionDatesText;
+
+  @Locate(
+      iOSClassChain =
+          "**/XCUIElementTypeNavigationBar[`name == 'ACCOUNT ACTIVITY'`]/XCUIElementTypeButton",
+      on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//*[contains(@content-desc, 'Navigate up')]", on = Platform.MOBILE_ANDROID)
+  protected Button backButton;
 
   /* -------- Actions -------- */
 
@@ -77,5 +87,15 @@ public class AccountActivityView extends BaseComponent {
    */
   public String getTransactionAmount(int index) {
     return getTransactionAmountText.get(index).getText();
+  }
+
+  @Step("Verify Back button is displayed")
+  public boolean isBackButtonDisplayed() {
+    return MobileHelper.isDisplayed(backButton);
+  }
+
+  @Step("Verify 'ACCOUNT ACTIVITY' header is displayed")
+  public boolean isHeaderDisplayed() {
+    return MobileHelper.isElementDisplayed(getSignatureText, 15);
   }
 }

@@ -10,6 +10,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import io.qameta.allure.Step;
 import java.time.Duration;
 
 @Implementation(is = AndroidPersonalSettingsView.class, on = Platform.MOBILE_ANDROID)
@@ -42,7 +43,7 @@ public class PersonalSettingsView extends BaseComponent {
 
   @Locate(id = "Location Services, Helps us locate your nearest Peet’s", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/enableLocation", on = Platform.MOBILE_ANDROID)
-  protected Button getLocationSetvicesButton;
+  protected Button getLocationServicesButton;
 
   @Locate(id = "Allow", on = Platform.MOBILE_IOS)
   @Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
@@ -60,6 +61,31 @@ public class PersonalSettingsView extends BaseComponent {
       on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/loader", on = Platform.MOBILE_ANDROID)
   protected ContainerElement getLoader;
+
+  @Locate(xpath = "//android.widget.Button[@text='ALLOW']", on = Platform.MOBILE_ANDROID)
+  protected Button allowFindNearbyCoffeeBarsButton;
+
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`label == \"Go to Settings\"`]",
+      on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//android.widget.Button[@text='SETTINGS']", on = Platform.MOBILE_ANDROID)
+  protected Button openDeviceSettingsButton;
+
+  @Locate(
+      xpath = "//*[contains(@text,'Allow') or contains(@text,'allow')]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//*[contains(@text,'Allow') or contains(@text,'allow')]",
+      on = Platform.MOBILE_ANDROID)
+  protected Button allowPeetsAccessDeviceLocationButton;
+
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeCell[`label == \"Location\"`]",
+      on = Platform.MOBILE_IOS)
+  protected Button iosSettingsLocationButton;
+
+  @Locate(iOSClassChain = "**/XCUIElementTypeCell[`label == \"Never\"`]", on = Platform.MOBILE_IOS)
+  protected Button iosSettingsLocationNeverButton;
 
   /* -------- Actions -------- */
 
@@ -110,7 +136,7 @@ public class PersonalSettingsView extends BaseComponent {
    * @return the boolean
    */
   public boolean isLocationServicesChecked() {
-    return getLocationSetvicesButton.getAttributeValue("value").equals("1");
+    return getLocationServicesButton.getAttributeValue("value").equals("1");
   }
 
   /**
@@ -119,12 +145,13 @@ public class PersonalSettingsView extends BaseComponent {
    * @return the general settings view
    */
   public PersonalSettingsView enablePromotionalEmails() {
-    logger.info("Checking Promo emails services");
     if (!isPromoEmailOptionChecked()) {
+      logger.info("Checking Promo emails services");
       getPromotionalEmailsButton.initialize();
       MobileHelper.tapByCoordinatesOnElementCenter(getPromotionalEmailsButton);
-      SdkHelper.getSyncHelper()
-          .wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(30)));
+      SdkHelper.getSyncHelper().sleep(5000);
+    } else {
+      logger.info("Promo emails services is enabled");
     }
     return SdkHelper.create(PersonalSettingsView.class);
   }
@@ -143,6 +170,47 @@ public class PersonalSettingsView extends BaseComponent {
     }
     return SdkHelper.create(PersonalSettingsView.class);
   }
+
+  @Step("Tap on the Location Services toggle")
+  public PersonalSettingsView toggleLocationServices() {
+    logger.info("Tapping on the Location Services");
+    getLocationServicesButton.initialize();
+    MobileHelper.tapByCoordinatesOnElementCenter(getLocationServicesButton);
+    SdkHelper.getSyncHelper().sleep(5000); // need to wait for one of the modals to appear
+    openDeviceSettingsLocation();
+    if (MobileHelper.isDisplayed(getAllowLocationServicesButton)) {
+      MobileHelper.tapByCoordinatesOnElementCenter(getAllowLocationServicesButton);
+    }
+    allowPeetsAccessDeviceLocation();
+    return SdkHelper.create(PersonalSettingsView.class);
+  }
+
+  protected void allowPeetsAccessDeviceLocation() {
+    if (MobileHelper.isElementDisplayed(allowPeetsAccessDeviceLocationButton, 5)) {
+      allowPeetsAccessDeviceLocationButton.click();
+    }
+  }
+
+  protected void openDeviceSettingsLocation() {
+    if (MobileHelper.isElementDisplayed(openDeviceSettingsButton, 5)) {
+      openDeviceSettingsButton.click();
+    }
+
+    if (MobileHelper.isElementDisplayed(iosSettingsLocationButton, 5)) {
+      logger.info("Taping on the Location button");
+      SdkHelper.getSyncHelper().sleep(3000);
+      iosSettingsLocationButton.click();
+    }
+
+    if (MobileHelper.isElementDisplayed(iosSettingsLocationNeverButton, 5)) {
+      logger.info("Taping on the Location Never button");
+      SdkHelper.getSyncHelper().sleep(3000);
+      iosSettingsLocationNeverButton.click();
+    }
+
+    SdkHelper.getSyncHelper().sleep(3000);
+    MobileHelper.activateApp();
+  }
 }
 
 class AndroidPersonalSettingsView extends PersonalSettingsView {
@@ -150,28 +218,32 @@ class AndroidPersonalSettingsView extends PersonalSettingsView {
   /* -------- Elements -------- */
 
   @Locate(
-      id = "com.android.packageinstaller:id/permission_allow_button",
+      xpath =
+          "//*[@text=\"Allow only while using the app\" or @text=\"ALLOW ONLY WHILE USING THE APP\"]",
       on = Platform.MOBILE_ANDROID)
-  protected Button getAllowLocationServices2Button;
+  protected Button allowPeetsToAccessTheDeviceLocationButton;
+
+  @Locate(xpath = "//*[contains(@resource-id,'switch_widget')]", on = Platform.MOBILE_ANDROID)
+  protected Button androidSwitchLocationToggle;
 
   /* -------- Actions -------- */
 
   @Override
   public boolean isPromoEmailOptionChecked() {
-    SdkHelper.getSyncHelper().sleep(7000);
+    SdkHelper.getSyncHelper().sleep(3000);
     return getPromotionalEmailsButton.getAttributeValue("checked").equals("true");
   }
 
   @Override
   public boolean isPushNotificationChecked() {
-    SdkHelper.getSyncHelper().sleep(7000);
+    SdkHelper.getSyncHelper().sleep(3000);
     return getPushNotificationButton.getAttributeValue("checked").equals("true");
   }
 
   @Override
   public boolean isLocationServicesChecked() {
-    SdkHelper.getSyncHelper().sleep(7000);
-    return getLocationSetvicesButton.getAttributeValue("checked").equals("true");
+    SdkHelper.getSyncHelper().sleep(3000);
+    return getLocationServicesButton.getAttributeValue("checked").equals("true");
   }
 
   @Override
@@ -185,5 +257,55 @@ class AndroidPersonalSettingsView extends PersonalSettingsView {
       }
     }
     return SdkHelper.create(PersonalSettingsView.class);
+  }
+
+  @Override
+  public PersonalSettingsView toggleLocationServices() {
+    logger.info("Tapping on the Location Services");
+    getLocationServicesButton.initialize();
+    MobileHelper.tapByCoordinatesOnElementCenter(getLocationServicesButton);
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getLoader).notPresent());
+    allowFindNearbyCoffeeBars();
+    allowPeetsToAccessThDeviceLocation();
+    allowPeetsAccessDeviceLocation();
+    openDeviceSettingsLocation();
+    toggleLocationSettings();
+    return SdkHelper.create(PersonalSettingsView.class);
+  }
+
+  private void allowPeetsToAccessThDeviceLocation() {
+    if (MobileHelper.isElementDisplayed(allowPeetsToAccessTheDeviceLocationButton, 5)) {
+      logger.info("Accept modal 'Allo Peet's to access this device's location");
+      MobileHelper.tapByCoordinatesOnElementCenter(allowPeetsToAccessTheDeviceLocationButton);
+    }
+  }
+
+  private void allowFindNearbyCoffeeBars() {
+    if (MobileHelper.isElementDisplayed(allowFindNearbyCoffeeBarsButton, 5)) {
+      logger.info("Allowing Location Services to help you find nearby Peet's Coffee");
+      allowFindNearbyCoffeeBarsButton.click();
+    }
+  }
+
+  @Override
+  protected void openDeviceSettingsLocation() {
+    if (MobileHelper.isElementDisplayed(openDeviceSettingsButton, 5)) {
+      logger.info("Opening device settings");
+      openDeviceSettingsButton.click();
+    }
+  }
+
+  private void toggleLocationSettings() {
+    if (MobileHelper.isElementDisplayed(androidSwitchLocationToggle, 5)) {
+      logger.info("Switching toggle location in the device settings");
+      SdkHelper.getSyncHelper().wait(Until.uiElement(androidSwitchLocationToggle).present());
+      androidSwitchLocationToggle.click();
+      SdkHelper.getSyncHelper().sleep(5000);
+      MobileHelper.tapAndroidDeviceBackButton();
+      if (!MobileHelper.isElementDisplayed(getLocationServicesButton, 10)) {
+        MobileHelper.tapAndroidDeviceBackButton();
+      }
+      MobileHelper.activateApp();
+    }
   }
 }

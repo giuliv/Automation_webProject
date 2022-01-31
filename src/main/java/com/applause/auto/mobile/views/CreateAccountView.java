@@ -408,9 +408,7 @@ public class CreateAccountView extends BaseComponent {
   @Step("Check privacy policy and terms and conditions.")
   public void checkPrivacyPolicyAndTermsAndConditions() {
     logger.info("Tapping on Privacy Policy button");
-    if (MobileHelper.isElementDisplayed(agreePrivacyPolicyAndTermsAndConditions, 5)) {
-      SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
-    }
+    MobileHelper.swipeWithCount(SwipeDirection.UP, 2);
     agreePrivacyPolicyAndTermsAndConditions.click();
   }
 

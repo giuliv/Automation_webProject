@@ -99,11 +99,18 @@ public class ProfileDetailsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button backButton;
 
-  @Locate(xpath = "//XCUIElementTypeOther[@name=\"PROFILE DETAILS\"]", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeStaticText[@name='PROFILE DETAILS']", on = Platform.MOBILE_IOS)
   @Locate(
       xpath = "//android.widget.TextView[@text='PROFILE DETAILS']",
       on = Platform.MOBILE_ANDROID)
   protected Text getSignature;
+
+  @Locate(
+      xpath =
+          "//XCUIElementTypeOther/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[4]/XCUIElementTypeTextField",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/birthday", on = Platform.MOBILE_ANDROID)
+  protected TextBox getBirthdayTextBox;
 
   /* -------- Actions -------- */
 
@@ -201,7 +208,7 @@ public class ProfileDetailsView extends BaseComponent {
    * @return the phone number
    */
   public String getPhoneNumber() {
-    return getPhoneNumberTextBox.getAttributeValue("text");
+    return getPhoneNumberTextBox.getAttributeValue("text").replaceAll("[^\\d.]", "").trim();
   }
 
   /**
@@ -291,11 +298,7 @@ public class ProfileDetailsView extends BaseComponent {
     return false;
   }
 
-  /**
-   * Is save button available boolean.
-   *
-   * @return the boolean
-   */
+  @Step("Verify save button is available")
   public boolean isSaveButtonAvailable() {
     logger.info("Checking if Save link available");
     try {
@@ -305,6 +308,41 @@ public class ProfileDetailsView extends BaseComponent {
       logger.info("Save button does not found");
     }
     return false;
+  }
+
+  @Step("Verify Back button is displayed")
+  public boolean isBackButtonDisplayed() {
+    return backButton.isDisplayed();
+  }
+
+  @Step("Verify Header is displayed")
+  public boolean isHeaderDisplayed() {
+    return getSignature.isDisplayed();
+  }
+
+  @Step("Verify birthday field is displayed")
+  public boolean isBirthdayFieldDisplayed() {
+    return getBirthdayTextBox.isDisplayed();
+  }
+
+  @Step("Verify email field is displayed")
+  public boolean isEmailFieldDisplayed() {
+    return getEmailAddressTextBox.isDisplayed();
+  }
+
+  @Step("Verify first name field is displayed")
+  public boolean isFirstNameFieldDisplayed() {
+    return getFirstnameTextBox.isDisplayed();
+  }
+
+  @Step("Verify last name field is displayed")
+  public boolean isLastNameFieldDisplayed() {
+    return getLastnameTextBox.isDisplayed();
+  }
+
+  @Step("Verify phone number field is displayed")
+  public boolean isPhoneNumberFieldDisplayed() {
+    return getPhoneNumberTextBox.isDisplayed();
   }
 }
 
@@ -341,7 +379,7 @@ class IosProfileDetailsView extends ProfileDetailsView {
    * @return the phone number
    */
   public String getPhoneNumber() {
-    return getPhoneNumberTextBox.getAttributeValue("value");
+    return getPhoneNumberTextBox.getAttributeValue("value").replaceAll("[^\\d.]", "").trim();
   }
 
   /**

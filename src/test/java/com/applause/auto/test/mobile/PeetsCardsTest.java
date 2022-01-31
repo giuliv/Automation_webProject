@@ -62,7 +62,8 @@ public class PeetsCardsTest extends BaseTest {
             Constants.TestData.MASTER_CC_CODE,
             MobileTestData.CC_MASTER_NAME,
             Constants.MobileTestData.CC_EXP_DATE,
-            MobileTestData.CC_ZIP);
+            MobileTestData.CC_ZIP,
+            false);
     paymentMethodsView.clickBackButtonTwiceOnIos();
     accountProfileMenu.clickPaymentMethods();
 
@@ -170,7 +171,8 @@ public class PeetsCardsTest extends BaseTest {
                 Constants.TestData.DISCOVERY_CC_CODE,
                 MobileTestData.CC_DISCO_NAME,
                 Constants.MobileTestData.CC_EXP_DATE,
-                Constants.TestData.DISCOVERY_CC_ZIP);
+                Constants.TestData.DISCOVERY_CC_ZIP,
+                false);
 
     logger.info("User should return to add value to my peet's card screen");
     softAssert.assertNotNull(paymentMethodsView, "User does taken to Peets Cards screen");

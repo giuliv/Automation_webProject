@@ -1,6 +1,5 @@
 package com.applause.auto.test.mobile;
 
-import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestData;
@@ -24,6 +23,7 @@ import com.applause.auto.mobile.views.PrivacyPolicyView;
 import com.applause.auto.mobile.views.ProfileDetailsView;
 import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.mobile.views.TermsAndConditionsView;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.test.mobile.helpers.TestHelper;
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
@@ -169,42 +169,59 @@ public class CreateAccountTest extends BaseTest {
 
     logger.info("Tap on Profile Details field/row");
     ProfileDetailsView profileDetailsView = accountMenuMobileChunk.profileDetails();
-
-    logger.info(
-        "Make sure user is taken to profile details screen:\n"
-            + "* Header: Profile Details\n"
-            + "* Back arrow at top left corner\n"
-            + "* First name field\n"
-            + "* Last name field\n"
-            + "* Zip code (Optional) field\n"
-            + "* Date of birth field (not editable)\n"
-            + "* Phone number (Optional) field\n"
-            + "* Email address field\n"
-            + "* Change password link\n"
-            + "* [Button] Save");
     softAssert.assertNotNull(profileDetailsView, "Profile details view does not passed validation");
+
+    logger.info("Verify - Header: PROFILE DETAILS is displayed");
+    softAssert.assertTrue(
+        profileDetailsView.isHeaderDisplayed(), "Header isn't displayed properly");
+
+    logger.info("Verify - Back arrow at top left corner is displayed");
+    softAssert.assertTrue(
+        profileDetailsView.isBackButtonDisplayed(), "Back button isn't displayed");
+
+    logger.info("Verify - First name field is displayed");
+    softAssert.assertTrue(
+        profileDetailsView.isFirstNameFieldDisplayed(), "First name field isn't displayed");
+
+    logger.info("Verify - Last name field is displayed");
+    softAssert.assertTrue(
+        profileDetailsView.isLastNameFieldDisplayed(), "Last name field isn't displayed");
+
+    logger.info("Verify - Date of birth field (not editable) is displayed");
+    softAssert.assertTrue(
+        profileDetailsView.isBirthdayFieldDisplayed(), "Birthday field isn't displayed");
+
+    logger.info("Verify - Phone number field is displayed");
+    softAssert.assertTrue(
+        profileDetailsView.isPhoneNumberFieldDisplayed(), "Phone number field isn't displayed");
+
+    logger.info("Verify - Email address field is displayed");
+    softAssert.assertTrue(
+        profileDetailsView.isEmailFieldDisplayed(), "Email field isn't displayed");
+
+    logger.info("Verify - Change password link is displayed");
+    softAssert.assertTrue(
+        profileDetailsView.isChangePasswordLinkAvailable(), "Change Password link isn't displayed");
 
     logger.info("Edit the fields that are editable");
     String firstNameOrig = profileDetailsView.getFirstname().trim();
     String lastNameOrig = profileDetailsView.getLastname().trim();
     String zipCodeOrig = profileDetailsView.getZipCode().trim();
-    //    String emailOrig = profileDetailsView.getEmailAddress();
+    String phoneNumberOrig = profileDetailsView.getPhoneNumber().trim();
     logger.info("Firstname: " + firstNameOrig);
     logger.info("Lastname: " + lastNameOrig);
     logger.info("Zip: " + zipCodeOrig);
+    logger.info("Phone Number: " + phoneNumberOrig);
 
     String firstNameNew =
         firstNameOrig.matches("ApplauseUpdated$") ? "Applause" : "ApplauseUpdated";
     String lastNameNew = lastNameOrig.matches("QAUpdated$") ? "QA" : "QAUpdated";
     String zipCodeNew = zipCodeOrig.matches("11214$") ? "11215" : "11214";
-
-    //    String emailNew = emailOrig.replace(".net", ".com");
-
+    String phoneNumberNew = WebHelper.getRandomPhoneNumber();
     profileDetailsView.setFirstname(firstNameNew);
     profileDetailsView.setLastname(lastNameNew);
     profileDetailsView.setZipCode(zipCodeNew);
-    //    profileDetailsView.setEmailAddress(emailNew);
-    //    profileDetailsView.setConfirmEmailAddress(emailNew);
+    profileDetailsView.setPhoneNumber(phoneNumberNew);
 
     logger.info("Tap Save button");
     accountMenuMobileChunk = profileDetailsView.save();
@@ -219,19 +236,11 @@ public class CreateAccountTest extends BaseTest {
     String firstNameUpd = profileDetailsView.getFirstname();
     String lastNameUpd = profileDetailsView.getLastname();
     String zipCodeUpd = profileDetailsView.getZipCode();
-    String emailUpd = profileDetailsView.getEmailAddress();
+    String phoneNumberUpd = profileDetailsView.getPhoneNumber();
     softAssert.assertEquals(firstNameUpd, firstNameNew, "Firstname does not updated");
     softAssert.assertEquals(lastNameUpd, lastNameNew, "Lastname does not updated");
     softAssert.assertEquals(zipCodeUpd, zipCodeNew, "zipcode does not updated");
-    //    softAssert.assertEquals(emailUpd, emailNew, "email does not updated");
-
-    //    logger.info("Cleanup Restore original");
-    //    profileDetailsView.setFirstname(firstNameOrig);
-    //    profileDetailsView.setLastname(lastNameOrig);
-    //    profileDetailsView.setZipCode(zipCodeOrig);
-    //    //    profileDetailsView.setEmailAddress(emailOrig);
-    //    //    profileDetailsView.setConfirmEmailAddress(emailOrig);
-    profileDetailsView.save();
+    softAssert.assertEquals(phoneNumberUpd, phoneNumberNew, "Phone number does not updated");
 
     softAssert.assertAll();
   }
@@ -244,48 +253,41 @@ public class CreateAccountTest extends BaseTest {
     HomeView homeView = TestHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
     Assert.assertNotNull(homeView, "Home View does not displayed");
 
-    logger.info("Tap on ... at top right of home screen to view more screen");
+    logger.info("STEP - Tap on ... at top right of home screen to view more screen");
     MoreOptionsView accountMenuMobileChunk = homeView.getAccountProfileMenu();
 
-    logger.info(
-        "Tap on ... at top right of home screen to view more screen\nTap on General Settings field/row");
+    logger.info("STEP - Tap on Personal Settings field/row");
     PersonalSettingsView personalSettingsView = accountMenuMobileChunk.personalSettings();
 
-    logger.info(
-        "Make sure user is taken to General Settings screen:\n"
-            + "\n"
-            + "* Header: General Settings\n"
-            + "\n"
-            + "* Notification Settings\n"
-            + "\n"
-            + "      o Promotional Emails\n"
-            + "\n"
-            + "      o Text: Receive offers, news, and more [Toggle off / on]\n"
-            + "\n"
-            + "      o Push Notifications\n"
-            + "\n"
-            + "      o Text: Receive alerts about offers, news, and more [Toggle off / on]\n"
-            + "\n"
-            + "* Privacy Settings\n"
-            + "\n"
-            + "      o Locations Services\n"
-            + "\n"
-            + "      o Text: Helps us locate your nearest Peet's [Toggle off / on]\n"
-            + "\n");
-
-    logger.info("Toggle Promotional Emails on");
+    logger.info("STEP - Toggle Promotional Emails on");
     personalSettingsView.enablePromotionalEmails();
 
-    logger.info("Promotional emails setting should turn on");
+    logger.info("VERIFY - Promotional emails setting should turn on");
     Assert.assertTrue(
         personalSettingsView.isPromoEmailOptionChecked(), "Promo emails does not turned on");
 
-    logger.info("Toggle Promotional Emails off");
+    logger.info("STEP - Toggle Promotional Emails off");
     personalSettingsView.disablePromotionalEmails();
 
-    logger.info("Promotional emails setting should turn off");
+    logger.info("VERIFY - Promotional emails setting should turn off");
     Assert.assertFalse(
         personalSettingsView.isPromoEmailOptionChecked(), "Promo emails does not turned off");
+
+    logger.info("STEP - Toggle Location Services on");
+    personalSettingsView.toggleLocationServices();
+
+    logger.info("VERIFY - Toggle should be on in app");
+    softAssert.assertTrue(
+        personalSettingsView.isLocationServicesChecked(), "Location isn't enabled");
+
+    logger.info("STEP - Toggle Location Services off");
+    personalSettingsView.toggleLocationServices();
+
+    logger.info("VERIFY - Toggle should be off in app");
+    softAssert.assertFalse(
+        personalSettingsView.isLocationServicesChecked(), "Location isn't enabled");
+
+    softAssert.assertAll();
   }
 
   @Test(
@@ -293,66 +295,94 @@ public class CreateAccountTest extends BaseTest {
       description = "625926")
   @ApplauseTestCaseId({"674511", "674510"})
   public void accountSettingsChangePasswordTest() {
-    logger.info("Launch the app and arrive at the first on boarding screen view");
-    SignInView signInView = testHelper.navigateToSignInView();
+    SignInView signInView = TestHelper.openSignInView();
+    HomeView homeView;
 
-    logger.info("Tap on Email Address field and enter valid email address");
-
+    logger.info("STEP - Tap on Email Address field and enter valid email address");
     String VALID_USERNAME = MyAccountTestData.EMAIL_CHANGE_PWD;
     signInView.setEmail(VALID_USERNAME);
 
-    logger.info("Enter valid password");
+    logger.info("STEP - Enter valid password");
     String INITIAL_PASSWORD = MyAccountTestData.PASSWORD;
     String UPDATED_PASSWORD = "newPassword1";
     boolean isCleanUp = true;
     signInView.setPassword(INITIAL_PASSWORD);
 
-    DashboardView dashboardView = null;
     try {
-      logger.info("Tap Sign In button");
-      dashboardView = signInView.signIn();
+      logger.info("STEP - Tap Sign In button");
+      homeView = signInView.signIn(HomeView.class);
     } catch (Throwable throwable) {
       INITIAL_PASSWORD = "newPassword1";
       UPDATED_PASSWORD = MyAccountTestData.PASSWORD;
       signInView.dismissOkMessage();
       signInView.setPassword(INITIAL_PASSWORD);
-      dashboardView = signInView.signIn();
+      homeView = signInView.signIn(HomeView.class);
       isCleanUp = false;
     }
+    homeView
+        .getReorderTooltipComponent()
+        .closeReorderTooltipIfDisplayed(HomeView.class)
+        .getCheckInTooltipComponent()
+        .closeCheckInTooltipIfDisplayed(HomeView.class)
+        .getPointsTurnIntoRewardsTooltipComponent()
+        .closeTooltipIfDisplayed(HomeView.class);
+    Assert.assertNotNull(homeView, "Home View does not displayed");
 
-    logger.info("Tap on ... at top right of home screen to view more screen");
-    MoreOptionsView accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
+    logger.info("STEP - Tap on ... at top right of home screen to view more screen");
+    MoreOptionsView accountMenuMobileChunk = homeView.getAccountProfileMenu();
 
-    logger.info("Tap on Profile Details field/row");
+    logger.info("STEP - Tap on Profile Details field/row");
     ProfileDetailsView profileDetailsView = accountMenuMobileChunk.profileDetails();
 
-    logger.info("Tap on Change Password link");
+    logger.info("STEP - Tap on Change Password link");
     ChangePasswordView changePasswordView = profileDetailsView.changePassword();
 
-    logger.info("Enter invalid current password");
+    logger.info("VERIFY - Header: CHANGE PASSWORD is displayed");
+    softAssert.assertTrue(
+        changePasswordView.isChangePasswordHeaderDisplayed(),
+        "CHANGE PASSWORD header is not displayed");
+
+    logger.info("VERIFY - Back arrow button is displayed");
+    softAssert.assertTrue(
+        changePasswordView.isBackArrowButtonDisplayed(), "Back arrow button is not displayed");
+
+    logger.info("VERIFY - Current password field with show/hide password icon is displayed");
+    softAssert.assertTrue(
+        changePasswordView.isCurrentPasswordFieldDisplayed(), "Current filed isn't displayed");
+
+    logger.info("VERIFY - New password field with show/hide password icon is displayed");
+    softAssert.assertTrue(
+        changePasswordView.isNewPasswordFieldDisplayed(), "New filed isn't displayed");
+
+    logger.info("VERIFY - Change Password button is displayed");
+    softAssert.assertTrue(
+        changePasswordView.isChangePasswordButtonDisplayed(),
+        "Change Password button isn't displayed");
+
+    logger.info("STEP - Enter invalid current password");
     changePasswordView.setCurrentPassword("somewrongpassword1");
 
-    logger.info("Enter new password");
+    logger.info("STEP - Enter new password");
     changePasswordView.setNewPassword(UPDATED_PASSWORD);
 
-    logger.info("Tap Change Password button");
+    logger.info("STEP - Tap Change Password button");
     changePasswordView = changePasswordView.changePassword(ChangePasswordView.class);
 
     logger.info(
-        "Make sure user sees an error message: \"Operation failed, check your current password and try again\" and is not able to change password");
+        "VERIFY - User sees an error message: \"Operation failed, check your current password and try again\" and is not able to change password");
     softAssert.assertTrue(changePasswordView.verifyMessage(), "Error message was incorrect");
     changePasswordView = changePasswordView.dismissMessage(ChangePasswordView.class);
 
-    logger.info("Tap show password icon");
+    logger.info("STEP - Tap show password icon");
     changePasswordView.showPassword();
 
-    logger.info("Enter valid current password");
+    logger.info("STEP - Enter valid current password");
     changePasswordView.setCurrentPassword(INITIAL_PASSWORD);
 
-    logger.info("Enter new password");
+    logger.info("STEP - Enter new password");
     changePasswordView.setNewPassword(UPDATED_PASSWORD);
 
-    logger.info("Make sure password entered is displayed");
+    logger.info("VERIFY - Password entered is displayed");
     softAssert.assertEquals(
         changePasswordView.getCurrentPasswordUnhide(),
         INITIAL_PASSWORD,
@@ -360,75 +390,74 @@ public class CreateAccountTest extends BaseTest {
     changePasswordView = changePasswordView.changePassword(ChangePasswordView.class);
 
     logger.info(
-        "Make sure user sees success check mark and a UI alert:\n"
-            + "\n"
-            + "* Header: Change Password\n"
-            + "\n"
-            + "* Text: Your new password has been set [Okay]\n"
-            + "\n");
+        "VERIFY - User sees success check mark and a UI alert: Your new password has been set [Okay]");
     softAssert.assertEquals(
         changePasswordView.getMessage(),
         "Your new password has been set",
         "Wrong success password change message");
 
-    logger.info("Tap okay to dismiss UI alert");
+    logger.info("STEP - Tap okay to dismiss UI alert");
     changePasswordView = changePasswordView.dismissMessage(ChangePasswordView.class);
 
-    logger.info("Tap back arrow");
+    logger.info("STEP - Tap back arrow");
     accountMenuMobileChunk = changePasswordView.goBack(MoreOptionsView.class);
 
-    logger.info("Make sure user is directed to more screen");
+    logger.info("VERIFY - User is directed to more screen");
     softAssert.assertNotNull(accountMenuMobileChunk, "User does not directed to more screen");
 
-    logger.info("Scroll down and tap sign out button");
+    logger.info("STEP - Scroll down and tap sign out button");
     LandingView landingView = accountMenuMobileChunk.signOut();
     signInView = landingView.signIn();
 
-    logger.info("Enter valid email address and old password");
+    logger.info("STEP - Enter valid email address and old password");
     signInView.setEmail(VALID_USERNAME);
     signInView.setPassword(INITIAL_PASSWORD);
 
-    logger.info("Tap Sign In button");
+    logger.info("STEP - Tap Sign In button");
     signInView = signInView.signIn(SignInView.class);
 
-    logger.info("Make sure user sees an error message and is not able to sign in");
+    logger.info("VERIFY - User sees an error message and is not able to sign in");
     softAssert.assertEquals(
         signInView.getMessage(),
         "There was an error while trying to log in to your account. Please check all of the required fields and try submitting again.",
         "Error message not found");
 
-    logger.info("Tap okay to dismiss UI alert");
+    logger.info("STEP - Tap okay to dismiss UI alert");
     signInView.dismissMessage();
 
-    logger.info("Enter new password");
-    signInView.showPassword();
+    logger.info("STEP - Enter new password");
     signInView.setPassword(UPDATED_PASSWORD);
 
-    logger.info("Tap Sign In button");
-    dashboardView = signInView.signIn();
+    logger.info("STEP - Tap Sign In button");
+    signInView.showPassword();
+    homeView =
+        signInView
+            .signIn(HomeView.class)
+            .getPointsTurnIntoRewardsTooltipComponent()
+            .closeTooltipIfDisplayed(HomeView.class);
 
-    logger.info("User should be able to sign in successfully with new password");
-    softAssert.assertNotNull(dashboardView, "User does not logged in");
+    logger.info("VERIFY - User should be able to sign in successfully with new password");
+    softAssert.assertNotNull(homeView, "User does not logged in");
 
     // cleanup
     if (isCleanUp) {
-      logger.info("Tap on ... at top right of home screen to view more screen");
-      accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
+      logger.info("STEP - Tap on ... at top right of home screen to view more screen");
+      accountMenuMobileChunk = homeView.getAccountProfileMenu();
 
-      logger.info("Tap on Profile Details field/row");
+      logger.info("STEP - Tap on Profile Details field/row");
       profileDetailsView = accountMenuMobileChunk.profileDetails();
 
-      logger.info("Tap on Change Password link");
+      logger.info("STEP - Tap on Change Password link");
       changePasswordView = profileDetailsView.changePassword();
 
-      logger.info("Enter current updated password");
+      logger.info("STEP - Enter current updated password");
       changePasswordView.setCurrentPassword(UPDATED_PASSWORD);
 
-      logger.info("Enter initial password");
+      logger.info("STEP - Enter initial password");
       changePasswordView.setNewPassword(INITIAL_PASSWORD);
 
-      logger.info("Tap Change Password button");
-      changePasswordView = changePasswordView.changePassword(ChangePasswordView.class);
+      logger.info("STEP - Tap Change Password button");
+      changePasswordView.changePassword(ChangePasswordView.class);
     }
 
     softAssert.assertAll();
@@ -628,7 +657,7 @@ public class CreateAccountTest extends BaseTest {
   public void createAccountFieldValidation() {
     logger.info("Launch the app and arrive at the first onboarding screen view");
     LandingView landingView = testHelper.navigateToLandingView();
-    ;
+
     Assert.assertEquals(
         landingView.getHeadingTextValue(),
         "Earn Rewards.",
@@ -881,19 +910,24 @@ public class CreateAccountTest extends BaseTest {
     HomeView homeView = TestHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
     Assert.assertNotNull(homeView, "Home View does not displayed");
 
-    logger.info("Tap on ... at top right of home screen to view more screen");
+    logger.info("STEP - Tap on ... at top right of home screen to view more screen");
     MoreOptionsView accountMenuMobileChunk = homeView.getAccountProfileMenu();
 
-    logger.info("Tap on Account History field/row");
+    logger.info("STEP - Tap on Account Activity field/row");
     AccountActivityView accountActivityView = accountMenuMobileChunk.accountActivity();
 
-    logger.info(
-        "Make sure user is taken to account history screen:\n"
-            + "\n"
-            + "* Header: Account History\n"
-            + "\n"
-            + "* Back arrow");
-    Assert.assertNotNull(accountActivityView, "User does not taken to account history screen");
+    logger.info("VERIFY - Make sure user is taken to account history screen");
+    softAssert.assertNotNull(accountActivityView, "User does not taken to account history screen");
+
+    logger.info("VERIFY - Back button is displayed");
+    softAssert.assertTrue(
+        accountActivityView.isBackButtonDisplayed(), "Back button is not displayed");
+
+    logger.info("VERIFY - Back 'ACCOUNT ACTIVITY' header is displayed");
+    softAssert.assertTrue(
+        accountActivityView.isHeaderDisplayed(), "'ACCOUNT ACTIVITY' header is not displayed");
+
+    softAssert.assertAll();
   }
 
   @Test(

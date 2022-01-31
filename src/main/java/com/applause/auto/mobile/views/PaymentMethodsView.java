@@ -1,13 +1,17 @@
 package com.applause.auto.mobile.views;
 
+import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import io.qameta.allure.Step;
 import java.time.Duration;
 
 @Implementation(is = AndroidPaymentMethodsView.class, on = Platform.MOBILE_ANDROID)
@@ -16,8 +20,10 @@ public class PaymentMethodsView extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(xpath = "//*[contains(@name,\"Payment Method\")][1]", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/title", on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//*[contains(@name,\"Payment Methods\")][1]", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//android.widget.TextView[@content-desc='Payment Methods']",
+      on = Platform.MOBILE_ANDROID)
   protected Text getViewSignature;
 
   @Locate(
@@ -79,6 +85,40 @@ public class PaymentMethodsView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/addPaymentView", on = Platform.MOBILE_ANDROID)
   protected Button getAddNewPaymentButton;
 
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Peet's Card\"`]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//android.widget.RelativeLayout[contains(@content-desc,\"Peet's Card\")]//android.widget.ImageView[contains(@resource-id,\"cardImage\")]",
+      on = Platform.MOBILE_ANDROID)
+  protected Button getPeetsCardImage;
+
+  @Locate(
+      xpath = "//XCUIElementTypeStaticText[@label=\"Peet's Card\"]/../XCUIElementTypeStaticText[2]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//android.widget.RelativeLayout[contains(@content-desc,\"Peet's Card\")]//android.widget.TextView[contains(@resource-id,\"cardNumber\")]",
+      on = Platform.MOBILE_ANDROID)
+  protected Button getPeetsCardNumber;
+
+  @Locate(xpath = "//XCUIElementTypeImage[@value=\"Logo image\"]", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//android.widget.RelativeLayout[contains(@content-desc,\"Visa card\")]//android.widget.ImageView[contains(@resource-id,\"cardImage\")]",
+      on = Platform.MOBILE_ANDROID)
+  protected Image getSavedPaymentCardImage;
+
+  @Locate(
+      xpath = "//XCUIElementTypeStaticText[contains(@label,\"**** \")]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//android.widget.RelativeLayout[contains(@content-desc,\"Visa card\")]//android.widget.TextView[contains(@resource-id,\"cardNumber\")]",
+      on = Platform.MOBILE_ANDROID)
+  protected Text getSavedPaymentCardNumber;
+
   /* -------- Actions -------- */
 
   /**
@@ -133,7 +173,7 @@ public class PaymentMethodsView extends BaseComponent {
    */
   public <T extends BaseComponent> T clickSavedPaymentMethod(Class<T> clazz, String methodName) {
     logger.info("Clicking Payment Method");
-    getSavedPaymentMethodButton.format(methodName);
+    getSavedPaymentMethodButton.format(methodName).initialize();
     getSavedPaymentMethodButton.click();
     return SdkHelper.create(clazz);
   }
@@ -185,11 +225,72 @@ public class PaymentMethodsView extends BaseComponent {
     logger.info("Checking Test Card is added");
     try {
       getSavedPaymentMethodButton.format(method);
-      return getSavedPaymentMethodButton.isDisplayed();
+      return MobileHelper.isDisplayed(getSavedPaymentMethodButton);
     } catch (Throwable throwable) {
       logger.error("Test Card is not displayed");
       return false;
     }
+  }
+
+  @Step("Verify PAYMENT METHODS header is displayed")
+  public boolean isHeaderDisplayed() {
+    return MobileHelper.isDisplayed(getViewSignature);
+  }
+
+  @Step("Verify Back button is displayed")
+  public boolean isBackButtonDisplayed() {
+    return MobileHelper.isDisplayed(getBackButton);
+  }
+
+  @Step("Verify (+) Add new payment  button is displayed")
+  public boolean isAddNewPaymentButtonDisplayed() {
+    return MobileHelper.isDisplayed(getAddNewPaymentButton);
+  }
+
+  @Step("Verify Peet's card image and card number is displayed")
+  public boolean isPeetsCardDisplayed() {
+    logger.info("Checking Peet's Card is displayed with image and number");
+    if (!MobileHelper.isDisplayed(getPeetsCardImage)) {
+      logger.error("Peet's Card image is not displayed");
+      return false;
+    }
+
+    if (!MobileHelper.isDisplayed(getPeetsCardNumber)) {
+      logger.error("Peet's Card number is not displayed");
+      return false;
+    }
+
+    return true;
+  }
+
+  @Step("Verify Saved payment card image and **** **** **** xxxx number is displayed")
+  public boolean isSavedPaymentCardDisplayed(String cardNumber) {
+    logger.info("Checking Saved payment card image and **** **** **** xxxx number is displayed");
+    SdkHelper.getSyncHelper().sleep(6000);
+    System.out.println(SdkHelper.getDriver().getPageSource());
+    if (!MobileHelper.isDisplayed(getSavedPaymentCardImage)) {
+      logger.error("Saved payment card image is not displayed");
+      return false;
+    }
+
+    if (!MobileHelper.isDisplayed(getSavedPaymentCardNumber)) {
+      logger.error("Saved payment card number is not displayed");
+      return false;
+    }
+
+    String actualCardNumber = getSavedPaymentCardNumber.getText();
+    String expectedCardNumber =
+        String.format(
+            TestData.HIDDEN_CREDIT_CARD_NUMBER_TEMPLATE,
+            cardNumber.substring(cardNumber.length() - 4));
+    if (!actualCardNumber.equals(expectedCardNumber)) {
+      logger.error(
+          "Saved payment card number is not displayed properly. Expected [%s]. Actual [%s]",
+          expectedCardNumber, actualCardNumber);
+      return false;
+    }
+
+    return true;
   }
 }
 

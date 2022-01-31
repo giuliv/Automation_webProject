@@ -3,6 +3,7 @@ package com.applause.auto.mobile.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -13,6 +14,7 @@ import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
+import io.qameta.allure.Step;
 import java.time.Duration;
 import org.apache.commons.lang3.StringUtils;
 
@@ -21,9 +23,7 @@ import org.apache.commons.lang3.StringUtils;
 public class ChangePasswordView extends BaseComponent {
 
   /* -------- Elements -------- */
-  @Locate(
-      xpath = "//XCUIElementTypeNavigationBar[@name=\"PROFILE DETAILS\"]/XCUIElementTypeButton",
-      on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeButton[@name=\"button back\"]", on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
           "//android.widget.ImageButton[contains(@content-desc,\"Navigate up\") or contains(@content-desc,\"Nach oben\")]",
@@ -62,7 +62,7 @@ public class ChangePasswordView extends BaseComponent {
           "//XCUIElementTypeOther[1]/XCUIElementTypeSecureTextField|//XCUIElementTypeButton[@name=\"reveal password\"]/preceding-sibling::XCUIElementTypeTextField",
       on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/oldPassword", on = Platform.MOBILE_ANDROID)
-  protected TextBox getOldPasswordTextBox;
+  protected TextBox getCurrentPasswordTextBox;
 
   @Locate(
       xpath =
@@ -70,6 +70,22 @@ public class ChangePasswordView extends BaseComponent {
       on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/oldPassword", on = Platform.MOBILE_ANDROID)
   protected TextBox getOldPasswordUnhiddenTextBox;
+
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`label == \"hide password\"`][1]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/oldPasswordToggle",
+      on = Platform.MOBILE_ANDROID)
+  protected TextBox getCurrentPasswordShowHideToggle;
+
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`label == \"hide password\"`][2]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/newPasswordToggle",
+      on = Platform.MOBILE_ANDROID)
+  protected TextBox getNewPasswordShowHideToggle;
 
   @Locate(
       xpath = "//XCUIElementTypeOther[2]/XCUIElementTypeSecureTextField",
@@ -83,17 +99,15 @@ public class ChangePasswordView extends BaseComponent {
 
   /* -------- Actions -------- */
 
-  /**
-   * Sets current password.
-   *
-   * @param password the password
-   */
+  @Step("Sets current password.")
   public void setCurrentPassword(String password) {
     logger.info("Set current password to: " + password);
-    getOldPasswordTextBox.clearText();
-    getOldPasswordTextBox.sendKeys(password);
+    getCurrentPasswordTextBox.click();
+    getCurrentPasswordTextBox.clearText();
+    getCurrentPasswordTextBox.sendKeys(password);
   }
 
+  @Step("Click Back button")
   public <T extends BaseComponent> T goBack(Class<T> clazz) {
     logger.info("Tap back button");
     SdkHelper.getSyncHelper()
@@ -103,61 +117,38 @@ public class ChangePasswordView extends BaseComponent {
     return SdkHelper.create(clazz);
   }
 
-  /**
-   * Gets message.
-   *
-   * @return the message
-   */
+  @Step("Gets message.")
   public String getMessage() {
     return getMessageText.getText();
   }
 
-  /**
-   * Verify Error Message
-   *
-   * @return Boolean
-   */
+  @Step("Verify Error Message")
   public Boolean verifyMessage() {
     return getMessage().equals("Sorry, something's wrong");
   }
 
-  /** Show password. */
+  @Step("Show password.")
   public void showPassword() {
     logger.info("Click on Show Password button");
     getShowPasswordButton.click();
   }
 
-  /**
-   * Dismiss message t.
-   *
-   * @param <T> the type parameter
-   * @param clazz the clazz
-   * @return the t
-   */
+  @Step("Dismiss message t.")
   public <T extends BaseComponent> T dismissMessage(Class<T> clazz) {
     logger.info("Alert should be accepted");
     SdkHelper.getDriver().switchTo().alert().accept();
     return SdkHelper.create(clazz);
   }
 
-  /**
-   * Set new pas ósword.
-   *
-   * @param password the password
-   */
+  @Step("Set new password")
   public void setNewPassword(String password) {
     logger.info("Set new password to: " + password);
+    getNewPasswordTextBox.click();
     getNewPasswordTextBox.clearText();
     getNewPasswordTextBox.sendKeys(password);
   }
 
-  /**
-   * Change password t.
-   *
-   * @param <T> the type parameter
-   * @param clazz the clazz
-   * @return the t
-   */
+  @Step("Change password t.")
   public <T extends BaseComponent> T changePassword(Class<T> clazz) {
     logger.info("Tap on change password button");
     getChangePasswordButton.click();
@@ -166,13 +157,54 @@ public class ChangePasswordView extends BaseComponent {
     return SdkHelper.create(clazz);
   }
 
-  /**
-   * Gets current password unhide.
-   *
-   * @return the current password unhide
-   */
+  @Step("Gets current password unhide.")
   public String getCurrentPasswordUnhide() {
     return getOldPasswordUnhiddenTextBox.getCurrentText();
+  }
+
+  @Step("Verify Back arrow button is displayed")
+  public boolean isBackArrowButtonDisplayed() {
+    return MobileHelper.isDisplayed(getBackButton);
+  }
+
+  @Step("Verify CHANGE PASSWORD header is displayed")
+  public boolean isChangePasswordHeaderDisplayed() {
+    return MobileHelper.isDisplayed(getSignature);
+  }
+
+  @Step("Verify Change Password button is displayed")
+  public boolean isChangePasswordButtonDisplayed() {
+    return MobileHelper.isDisplayed(getChangePasswordButton);
+  }
+
+  @Step("Verify Current password field with show/hide password icon")
+  public boolean isCurrentPasswordFieldDisplayed() {
+    if (!MobileHelper.isDisplayed(getCurrentPasswordTextBox)) {
+      logger.error("Current password field isn't displayed");
+      return false;
+    }
+
+    if (!MobileHelper.isDisplayed(getCurrentPasswordShowHideToggle)) {
+      logger.error("Current password field show/hide icon isn't displayed");
+      return false;
+    }
+
+    return true;
+  }
+
+  @Step("Verify New password field with show/hide password icon")
+  public boolean isNewPasswordFieldDisplayed() {
+    if (!MobileHelper.isDisplayed(getNewPasswordTextBox)) {
+      logger.error("New password field isn't displayed");
+      return false;
+    }
+
+    if (!MobileHelper.isDisplayed(getNewPasswordShowHideToggle)) {
+      logger.error("New password field show/hide icon isn't displayed");
+      return false;
+    }
+
+    return true;
   }
 }
 
@@ -191,7 +223,7 @@ class AndroidChangePasswordView extends ChangePasswordView {
   @Override
   public void showPassword() {
     logger.info("Click on Show Password button");
-    MobileElement element = getOldPasswordTextBox.getMobileElement();
+    MobileElement element = getCurrentPasswordTextBox.getMobileElement();
     int x = element.getCenter().getX();
     int y = element.getCenter().getY();
     int width = element.getSize().getWidth();
@@ -203,12 +235,12 @@ class AndroidChangePasswordView extends ChangePasswordView {
   public void setCurrentPassword(String password) {
     logger.info("Set current password to: " + password);
     // workaround for password cleanup for android
-    while (!getOldPasswordTextBox.getAttributeValue("text").equals("Current Password")
-        && !StringUtils.isEmpty(getOldPasswordTextBox.getAttributeValue("text"))) {
-      getOldPasswordTextBox.clearText();
+    while (!getCurrentPasswordTextBox.getAttributeValue("text").equals("Current Password")
+        && !StringUtils.isEmpty(getCurrentPasswordTextBox.getAttributeValue("text"))) {
+      getCurrentPasswordTextBox.clearText();
     }
-    getOldPasswordTextBox.click();
-    getOldPasswordTextBox.sendKeys(password);
+    getCurrentPasswordTextBox.click();
+    getCurrentPasswordTextBox.sendKeys(password);
   }
 
   @Override
@@ -224,6 +256,7 @@ class AndroidChangePasswordView extends ChangePasswordView {
     return SdkHelper.create(clazz);
   }
 
+  @Override
   public Boolean verifyMessage() {
     return getMessage().equals("Operation failed, check your current password and try again");
   }

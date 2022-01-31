@@ -68,12 +68,20 @@ public class AddNewCardView extends BaseComponent {
    * @return the payment methods view
    */
   public PaymentMethodsView addNewCard(
-      String ccNumber, String ccSecurityCode, String ccNameOnCard, String ccExpDate, String ccZip) {
+      String ccNumber,
+      String ccSecurityCode,
+      String ccNameOnCard,
+      String ccExpDate,
+      String ccZip,
+      boolean setAsDefault) {
     enterCardNumber(ccNumber);
     enterExpDate(ccExpDate);
     enterCvvCode(ccSecurityCode);
     enterZipCode(ccZip);
     enterCardName(ccNameOnCard);
+    if (setAsDefault) {
+      selectMakeDefault();
+    }
     return saveCard();
   }
 
@@ -164,7 +172,6 @@ class IosAddNewCardView extends AddNewCardView {
 
   public PaymentMethodsView saveCard() {
     logger.info("Saving Payment Method");
-    getKeyboardDoneButton.click();
     getSaveCardButton.click();
     SdkHelper.getSyncHelper().sleep(15000);
     return SdkHelper.create(PaymentMethodsView.class);

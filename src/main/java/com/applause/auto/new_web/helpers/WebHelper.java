@@ -20,6 +20,7 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -519,5 +520,20 @@ public class WebHelper {
               }
             });
     return new ArrayList<>(result);
+  }
+
+  /**
+   * Gets random value within a specific range
+   *
+   * @param min
+   * @param max
+   * @return Random value within range
+   */
+  public static int getRandomValueWithinRange(int min, int max) {
+    return new Random().nextInt((max - min) + 1) + min;
+  }
+
+  public static String getRandomPhoneNumber() {
+    return "8" + getRandomValueWithinRange(100000000, 999999999);
   }
 }

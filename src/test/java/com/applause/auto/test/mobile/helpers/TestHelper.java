@@ -169,6 +169,55 @@ public class TestHelper extends BaseComponent {
     return createAccountView.createAccount(expectingPage);
   }
 
+  public static HomeView openAppAndCreateNewAccountWithDefaults() {
+    logger.info("Creating account");
+    long uniq = System.currentTimeMillis();
+
+    logger.info("Launch the app and arrive at the first onboarding screen view");
+    OnboardingView onboardingView = BaseTest.openApp();
+
+    logger.info("Skip Onboarding");
+    LandingView landingView = onboardingView.skipOnboarding();
+
+    logger.info("Tap Create Account");
+    CreateAccountView createAccountView = landingView.createAccount();
+
+    logger.info("Tap on First Name field and enter valid first name");
+    String firstname = "Firstname";
+    createAccountView.setFirstname(firstname);
+
+    logger.info("Enter valid last name");
+    String lastname = "Lastname";
+    createAccountView.setLastname(lastname);
+
+    logger.info("Scroll through and select birthday");
+    String dobDay = "27";
+    String dobMonth = "May";
+    String dobYear = "2000";
+    createAccountView.setDOB(dobDay, dobMonth, dobYear);
+
+    logger.info("Enter valid email address");
+    String email = String.format("a+%s@gmail.com", uniq);
+    createAccountView.setEmailAddress(email);
+
+    logger.info("Enter valid password");
+    String password = "Password1";
+    createAccountView.setPassword(password);
+
+    logger.info("Tap on checkbox to agree to terms of service");
+    createAccountView.checkPrivacyPolicyAndTermsAndConditions();
+
+    logger.info("Tap Create Account button");
+    return createAccountView
+        .tapOnCreateAccount()
+        .getReorderTooltipComponent()
+        .closeReorderTooltipIfDisplayed(HomeView.class)
+        .getCheckInTooltipComponent()
+        .closeCheckInTooltipIfDisplayed(HomeView.class)
+        .getPointsTurnIntoRewardsTooltipComponent()
+        .closeTooltipIfDisplayed(HomeView.class);
+  }
+
   public static void denyLocationServices() {
     if (SdkHelper.getEnvironmentHelper().isMobileAndroid()) {
       // toggleLocationServicesCommand is opening Android settings view
@@ -276,6 +325,17 @@ public class TestHelper extends BaseComponent {
 
   public static SignInView navigateToSignInView() {
     LandingView landingView = navigateToLandingView();
+
+    logger.info("Tap Sign In");
+    return landingView.signIn();
+  }
+
+  public static SignInView openSignInView() {
+    logger.info("Launch the app and arrive at the first onboarding screen view");
+    OnboardingView onboardingView = BaseTest.openApp();
+
+    logger.info("Skip Onboarding");
+    LandingView landingView = onboardingView.skipOnboarding();
 
     logger.info("Tap Sign In");
     return landingView.signIn();

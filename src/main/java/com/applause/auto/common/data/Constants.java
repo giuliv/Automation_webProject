@@ -2,12 +2,12 @@ package com.applause.auto.common.data;
 
 import com.applause.auto.common.data.dto.ShareViaEmailDto;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.my_account.MyAccountOrderHistoryPage;
 import com.applause.auto.new_web.views.my_account.MyAccountPage;
 import com.applause.auto.new_web.views.my_account.MyAccountPeetnikRewardsPage;
 import com.applause.auto.new_web.views.my_account.MyAccountSettingsPage;
 import com.applause.auto.new_web.views.my_account.ReferralsPage;
-import com.applause.auto.web.helpers.WebHelper;
 import java.lang.invoke.MethodHandles;
 import java.util.Arrays;
 import java.util.List;
@@ -162,6 +162,7 @@ public class Constants {
     public static final String VISA_CC_YEAR = "2020";
     public static final String VISA_CC_NAME = "QA Test Applause Auto";
     public static final String VISA_CC_ZIP = "66666";
+    public static final String VISA_CC_EXP_DATE = "12/28";
 
     public static final String AMEX_CC_NUM = "378282246310005";
     public static final String AMEX_CC_CODE = "2222";
@@ -169,10 +170,12 @@ public class Constants {
     public static final String AMEX_CC_YEAR = "2020";
 
     public static final String DISCOVERY_CC_NUM = "6011000995500000";
+    public static final String DISCOVERY_CC_EXP_DATE = "12/26";
     public static final String DISCOVERY_CC_CODE = "111";
     public static final String DISCOVERY_CC_MONTH = "12";
     public static final String DISCOVERY_CC_YEAR = "2020";
     public static final String DISCOVERY_CC_ZIP = "11111";
+    public static final String DISCOVERY_CC_NAME = "Disco Name";
 
     public static final String MASTER_CC_NUM = "5454545454545454";
     public static final String MASTER_CC_CODE = "111";
@@ -218,6 +221,9 @@ public class Constants {
     public static final String ANDREW_TESTER = "Andrew Tester";
     public static final String USER_EMAIL_WITH_SUBSCRIPTIONS =
         "test_automation_1637180308245@gmail.com";
+    public static final String HIDDEN_CREDIT_CARD_NUMBER_TEMPLATE = "**** **** **** %s";
+    public static final String RANDOM_EXPIRATION_DATE =
+        String.format("12/%s", WebHelper.getRandomValueWithinRange(10, 40));
   }
 
   public static final class TestMainMenu {
