@@ -2,14 +2,12 @@ package com.applause.auto.test.mobile;
 
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
 import com.applause.auto.mobile.components.MapView;
-import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.FindACoffeeBarView;
-import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.HomeView;
 import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
 import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.StoreDetailsView;
@@ -29,23 +27,13 @@ public class FindACoffeeBarTest extends BaseTest {
       description = "1687260")
   @ApplauseTestCaseId({"674542", "674541"})
   public void findACoffeeBarTest() {
-    logger.info(
-        "PRECONDITION - User is signed in to app\n"
-            + "User is on find a coffeebar screen\n"
-            + "User has previously placed an order\n"
-            + "User has a favorite coffeebar\n"
-            + "User has no items in basket");
-
-    logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-    DashboardView dashboardView =
-        testHelper.signIn(
-            landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
+    HomeView homeView = testHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    Assert.assertNotNull(homeView, "Home view is not displayed");
 
     logger.info("STEP - Tap on any of the three tabs: Nearby, Recents, Favorites");
     AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
-        dashboardView
-            .getBottomNavigationMenu()
+        homeView
+            .getBottomNavigationMenuChunk()
             .order(AllowLocationServicesPopupChunk.class)
             .allowIfRequestDisplayed(OrderView.class)
             .locateCoffeebars(AllowLocationServicesPopupChunk.class);
@@ -155,21 +143,13 @@ public class FindACoffeeBarTest extends BaseTest {
       description = "1687261")
   @ApplauseTestCaseId({"674550", "674549"})
   public void recentCoffeeBarTest() {
-    logger.info(
-        "PRECONDITION - User is signed in to app\n"
-            + "User is on find a coffeebar screen\n"
-            + "User has previously placed orders in at least two different coffeebars");
-
-    logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-    DashboardView dashboardView =
-        testHelper.signIn(
-            landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
+    HomeView homeView = testHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    Assert.assertNotNull(homeView, "Home view is not displayed");
 
     logger.info("STEP - Tap on Recents tab");
     AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
-        dashboardView
-            .getBottomNavigationMenu()
+        homeView
+            .getBottomNavigationMenuChunk()
             .order(AllowLocationServicesPopupChunk.class)
             .allowIfRequestDisplayed(OrderView.class)
             .locateCoffeebars(AllowLocationServicesPopupChunk.class);
@@ -223,16 +203,13 @@ public class FindACoffeeBarTest extends BaseTest {
   @ApplauseTestCaseId({"674552", "674551"})
   public void favoriteCoffeeBarsTest() {
     logger.info("PRECONDITION - User is on find a coffeeBar screen");
-
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-    DashboardView dashboardView =
-        testHelper.signIn(
-            landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
+    HomeView homeView = testHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    softAssert.assertNotNull(homeView, "Home view is not displayed");
 
     AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
-        dashboardView
-            .getBottomNavigationMenu()
+        homeView
+            .getBottomNavigationMenuChunk()
             .order(AllowLocationServicesPopupChunk.class)
             .allowIfRequestDisplayed(OrderView.class)
             .locateCoffeebars(AllowLocationServicesPopupChunk.class);

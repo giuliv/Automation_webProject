@@ -12,7 +12,6 @@ import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.TestDataUtils;
-import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountChunk;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountWarningChunk;
@@ -20,8 +19,7 @@ import com.applause.auto.mobile.views.AccountActivityView;
 import com.applause.auto.mobile.views.AddNewCardView;
 import com.applause.auto.mobile.views.CheckInView;
 import com.applause.auto.mobile.views.CreditCardDetailsView;
-import com.applause.auto.mobile.views.DashboardView;
-import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.HomeView;
 import com.applause.auto.mobile.views.MoreOptionsView;
 import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.PeetsCardsView;
@@ -43,13 +41,11 @@ public class PeetsCardsTest extends BaseTest {
   @ApplauseTestCaseId({"674486", "674485"})
   public void addValueToNewDigitalCard25SavedCC() throws ParseException {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-
-    DashboardView dashboardView = testHelper.createNewAccountWithDefaults(landingView);
-    Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
+    HomeView homeView = testHelper.createNewAccountWithDefaults();
+    Assert.assertNotNull(homeView, "Home View does not displayed");
 
     logger.info("Tap on ... at top right of home screen");
-    MoreOptionsView accountProfileMenu = dashboardView.getAccountProfileMenu();
+    MoreOptionsView accountProfileMenu = homeView.getAccountProfileMenu();
 
     logger.info("Tap on Payment Methods field/row");
     PaymentMethodsView paymentMethodsView = accountProfileMenu.clickPaymentMethods();
@@ -97,7 +93,7 @@ public class PeetsCardsTest extends BaseTest {
     accountProfileMenu.clickCrossButton();
 
     logger.info("Tap Peet's Card icon on bottom nav bar");
-    PeetsCardsView peetsCardsView = dashboardView.getBottomNavigationMenu().peetsCards();
+    PeetsCardsView peetsCardsView = homeView.getBottomNavigationMenuChunk().peetsCards();
 
     logger.info("User should be taken to peet's card screen");
     Assert.assertNotNull(peetsCardsView, "User does not taken to Peets Cards view");
@@ -139,20 +135,17 @@ public class PeetsCardsTest extends BaseTest {
       description = "1292900")
   @ApplauseTestCaseId({"674378", "674377"})
   public void reloadDigitalCard25SavedCC() throws ParseException {
-    logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-
     // DashboardView dashboardView =
     // testHelper.signIn(
     // landingView,
     // Constants.MyAccountTestData.EMAIL_PEETS_REWARDS,
     // Constants.MyAccountTestData.PASSWORD,
     // DashboardView.class);
-    DashboardView dashboardView = testHelper.createNewAccountWithDefaults(landingView);
-    softAssert.assertNotNull(dashboardView, "Dashboard View does not displayed");
+    HomeView homeView = testHelper.createNewAccountWithDefaults();
+    softAssert.assertNotNull(homeView, "Home View does not displayed");
 
     logger.info("Tap Check In icon on bottom nav bar");
-    CheckInView checkInView = dashboardView.getBottomNavigationMenu().checkIn();
+    CheckInView checkInView = homeView.getBottomNavigationMenuChunk().checkIn();
 
     logger.info("User should be taken to check in screen");
     softAssert.assertNotNull(checkInView, "User does not taken to Check In view");
@@ -197,8 +190,8 @@ public class PeetsCardsTest extends BaseTest {
         newBalance - oldBalance, cardAmount, "Balance does not changed properly");
 
     logger.info("Check account history");
-    dashboardView = checkInView.getBottomNavigationMenu().home();
-    AccountActivityView accountHistory = dashboardView.getAccountProfileMenu().accountActivity();
+    homeView = checkInView.getBottomNavigationMenu().home();
+    AccountActivityView accountHistory = homeView.getAccountProfileMenu().accountActivity();
 
     logger.info(
         "Make sure it shows Peet's Card transaction details:\n"
@@ -224,16 +217,11 @@ public class PeetsCardsTest extends BaseTest {
       description = "1959019")
   @ApplauseTestCaseId({"674488", "674487"})
   public void negativeTestTransferBalance() {
-    logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-
-    DashboardView dashboardView =
-        testHelper.signIn(
-            landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
-    softAssert.assertNotNull(dashboardView, "Dashboard View does not displayed");
+    HomeView homeView = testHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    softAssert.assertNotNull(homeView, "Home view is not displayed");
 
     logger.info("Tap Peet's Card icon from bottom nav bar");
-    PeetsCardsView peetsCardsView = dashboardView.getBottomNavigationMenu().peetsCards();
+    PeetsCardsView peetsCardsView = homeView.getBottomNavigationMenuChunk().peetsCards();
 
     logger.info("User should be taken to peet's card screen");
     softAssert.assertNotNull(peetsCardsView, "User does not taken to Peets card screen");

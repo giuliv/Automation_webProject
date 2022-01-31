@@ -14,6 +14,7 @@ import com.applause.auto.mobile.helpers.ItemOptions;
 import com.applause.auto.mobile.views.CheckoutView;
 import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.FindACoffeeBarView;
+import com.applause.auto.mobile.views.HomeView;
 import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
 import com.applause.auto.mobile.views.NewOrderView;
@@ -384,23 +385,25 @@ public class OrderTest extends BaseTest {
             + "User has no favorite orders");
 
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-    DashboardView dashboardView = testHelper.createNewAccountWithDefaults(landingView);
+    HomeView homeView = testHelper.createNewAccountWithDefaults();
+    Assert.assertNotNull(homeView, "Home View does not displayed");
 
     NewOrderView order;
     if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
       logger.info("Tap on store locator icon in top right corner");
       NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
-          dashboardView.location(AllowLocationServicesPopupChunk.class).allowIfRequestDisplayed();
+          homeView
+              .tapOnStoresButton(AllowLocationServicesPopupChunk.class)
+              .allowIfRequestDisplayed();
 
       logger.info("STEP - Search for any store either by nearby, recent tabs, or by zip code");
       nearbySelectCoffeeBarView.search("78717");
 
-      order = dashboardView.getBottomNavigationMenu().order(NewOrderView.class);
+      order = homeView.getBottomNavigationMenuChunk().order(NewOrderView.class);
     } else {
       order =
-          dashboardView
-              .getBottomNavigationMenu()
+          homeView
+              .getBottomNavigationMenuChunk()
               .order(AllowLocationServicesPopupChunk.class)
               .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class)
               .close(DashboardView.class)
@@ -477,12 +480,12 @@ public class OrderTest extends BaseTest {
             + "User has no recent orders\n"
             + "User has no favorite orders\n"
             + "Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-    DashboardView dashboardView = testHelper.createNewAccountWithDefaults(landingView);
+    HomeView homeView = testHelper.createNewAccountWithDefaults();
+    Assert.assertNotNull(homeView, "Home View does not displayed");
 
     logger.info("STEP 1. Tap on store locator icon in top right corner");
     NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
-        dashboardView.location(AllowLocationServicesPopupChunk.class).allowIfRequestDisplayed();
+        homeView.tapOnStoresButton(AllowLocationServicesPopupChunk.class).allowIfRequestDisplayed();
 
     logger.info(
         "User is taken to find a coffeebar screen:\n"
@@ -636,15 +639,13 @@ public class OrderTest extends BaseTest {
             + "User is on main order screen and pickup order mode is default selected\n"
             + "User has no items in basket"
             + "peets_order_beverages_ios@gmail.com/P@ssword1!");
-    LandingView landingView = SdkHelper.create(LandingView.class);
     Constants.UserTestData account = MyAccountTestData.CHECKOUT_ACCOUNT;
-    DashboardView dashboardView =
-        testHelper.signIn(
-            landingView, account.getUsername(), account.getPassword(), DashboardView.class);
+    HomeView homeView = testHelper.login(account.getUsername(), account.getPassword());
+    Assert.assertNotNull(homeView, "Home View does not displayed");
 
     NewOrderView orderView =
-        dashboardView
-            .getBottomNavigationMenu()
+        homeView
+            .getBottomNavigationMenuChunk()
             .order(AllowLocationServicesPopupChunk.class)
             .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class)
             .search("78717")
@@ -721,14 +722,13 @@ public class OrderTest extends BaseTest {
         "User is already signed in to app\n"
             + "User is on main order screen and pickup order mode is default selected\n"
             + "User continues this test case from previous test case (so user will have items added to order already)");
-    LandingView landingView = SdkHelper.create(LandingView.class);
     Constants.UserTestData account = MyAccountTestData.CHECKOUT_ACCOUNT;
-    DashboardView dashboardView =
-        testHelper.signIn(
-            landingView, account.getUsername(), account.getPassword(), DashboardView.class);
+    HomeView homeView = testHelper.login(account.getUsername(), account.getPassword());
+    Assert.assertNotNull(homeView, "Home View does not displayed");
+
     NewOrderView orderView =
-        dashboardView
-            .getBottomNavigationMenu()
+        homeView
+            .getBottomNavigationMenuChunk()
             .order(AllowLocationServicesPopupChunk.class)
             .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class)
             .search("78717")
@@ -796,16 +796,13 @@ public class OrderTest extends BaseTest {
         "User is already signed in to app\n"
             + "User is on the checkout screen\n"
             + "User continues this test case from previous test case (so user will have items added to order already)");
-
-    LandingView landingView = SdkHelper.create(LandingView.class);
     Constants.UserTestData account = MyAccountTestData.CHECKOUT_ACCOUNT;
-    DashboardView dashboardView =
-        testHelper.signIn(
-            landingView, account.getUsername(), account.getPassword(), DashboardView.class);
+    HomeView homeView = testHelper.login(account.getUsername(), account.getPassword());
+    Assert.assertNotNull(homeView, "Home View does not displayed");
 
     NewOrderView orderView =
-        dashboardView
-            .getBottomNavigationMenu()
+        homeView
+            .getBottomNavigationMenuChunk()
             .order(AllowLocationServicesPopupChunk.class)
             .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class)
             .search("78717")

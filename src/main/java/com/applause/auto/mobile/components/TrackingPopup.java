@@ -18,7 +18,7 @@ public class TrackingPopup extends BaseComponent {
 
   @Step("Tap on 'Allow' to track web site")
   public void allowTrackingIfDisplayed() {
-    if (MobileHelper.isElementDisplayed(allowButton, 5)) {
+    if (MobileHelper.isElementDisplayed(allowButton, 10)) {
       logger.info("Tapping on 'Allow' to track web site");
       allowButton.click();
     } else {

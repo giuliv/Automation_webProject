@@ -1,17 +1,14 @@
 package com.applause.auto.test.mobile;
 
-import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.TestDataUtils;
 import com.applause.auto.data.enums.SwipeDirection;
-import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.AccountActivityView;
 import com.applause.auto.mobile.views.ChangePasswordView;
-import com.applause.auto.mobile.views.CompleteAccountView;
 import com.applause.auto.mobile.views.CreateAccountView;
 import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.HomeView;
@@ -23,6 +20,7 @@ import com.applause.auto.mobile.views.PrivacyPolicyView;
 import com.applause.auto.mobile.views.ProfileDetailsView;
 import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.mobile.views.TermsAndConditionsView;
+import com.applause.auto.test.mobile.helpers.TestHelper;
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,15 +37,7 @@ public class CreateAccountTest extends BaseTest {
   @ApplauseTestCaseId({"673972", "673971"})
   public void footerLinksTest() {
     logger.info("Launch the app and arrive at the first onboarding screen view");
-
-    LandingView landingView = SdkHelper.create(LandingView.class);
-    Assert.assertEquals(
-        landingView.getHeadingTextValue(),
-        "Earn Rewards.",
-        "First screen text value is not correct");
-    landingView.skipOnboarding();
-
-    logger.info("Tap Create Account");
+    LandingView landingView = testHelper.navigateToLandingView();
     CreateAccountView createAccountView = landingView.createAccount();
 
     logger.info("Scroll down and check the footer links");
@@ -167,31 +157,12 @@ public class CreateAccountTest extends BaseTest {
       description = "625925")
   @ApplauseTestCaseId({"674505", "674504"})
   public void accountSettingsEditProfileTest() {
-    logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-    softAssert.assertEquals(
-        landingView.getHeadingTextValue(),
-        "Earn Rewards.",
-        "First screen text value is not correct");
-
-    landingView.skipOnboarding();
-
-    logger.info("Tap Sign In");
-    SignInView signInView = landingView.signIn();
-
-    logger.info("Tap on Email Address field and enter valid email address");
-
-    String username = MyAccountTestData.EDIT_EMAIL;
-    signInView.setEmail(username);
-
-    logger.info("Enter valid password");
-    signInView.setPassword(MyAccountTestData.EDIT_EMAIL_PWD);
-
-    logger.info("Tap Sign In button");
-    DashboardView dashboardView = signInView.signIn();
+    HomeView homeView =
+        TestHelper.login(MyAccountTestData.EDIT_EMAIL, MyAccountTestData.EDIT_EMAIL_PWD);
+    Assert.assertNotNull(homeView, "Home View does not displayed");
 
     logger.info("Tap on ... at top right of home screen to view more screen");
-    MoreOptionsView accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
+    MoreOptionsView accountMenuMobileChunk = homeView.getAccountProfileMenu();
 
     logger.info("Tap on Profile Details field/row");
     ProfileDetailsView profileDetailsView = accountMenuMobileChunk.profileDetails();
@@ -267,29 +238,11 @@ public class CreateAccountTest extends BaseTest {
       description = "625927")
   @ApplauseTestCaseId({"674507", "674506"})
   public void accountSettingsGeneralSettingsTest() {
-    logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-    Assert.assertEquals(
-        landingView.getHeadingTextValue(),
-        "Earn Rewards.",
-        "First screen text value is not correct");
-
-    landingView.skipOnboarding();
-
-    logger.info("Tap Sign In");
-    SignInView signInView = landingView.signIn();
-
-    logger.info("Tap on Email Address field and enter valid email address");
-    signInView.setEmail(Constants.MyAccountTestData.EMAIL);
-
-    logger.info("Enter valid password");
-    signInView.setPassword(Constants.MyAccountTestData.PASSWORD);
-
-    logger.info("Tap Sign In button");
-    DashboardView dashboardView = signInView.signIn();
+    HomeView homeView = TestHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    Assert.assertNotNull(homeView, "Home View does not displayed");
 
     logger.info("Tap on ... at top right of home screen to view more screen");
-    MoreOptionsView accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
+    MoreOptionsView accountMenuMobileChunk = homeView.getAccountProfileMenu();
 
     logger.info(
         "Tap on ... at top right of home screen to view more screen\nTap on General Settings field/row");
@@ -337,19 +290,8 @@ public class CreateAccountTest extends BaseTest {
       description = "625926")
   @ApplauseTestCaseId({"674511", "674510"})
   public void accountSettingsChangePasswordTest() {
-
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-    // will fail as this view is shown randomly
-    softAssert.assertEquals(
-        landingView.getHeadingTextValue(),
-        "Earn Rewards.",
-        "First screen text value is not correct");
-
-    landingView.skipOnboarding();
-
-    logger.info("Tap Sign In");
-    SignInView signInView = landingView.signIn();
+    SignInView signInView = testHelper.navigateToSignInView();
 
     logger.info("Tap on Email Address field and enter valid email address");
 
@@ -436,7 +378,7 @@ public class CreateAccountTest extends BaseTest {
     softAssert.assertNotNull(accountMenuMobileChunk, "User does not directed to more screen");
 
     logger.info("Scroll down and tap sign out button");
-    landingView = accountMenuMobileChunk.signOut();
+    LandingView landingView = accountMenuMobileChunk.signOut();
     signInView = landingView.signIn();
 
     logger.info("Enter valid email address and old password");
@@ -681,16 +623,14 @@ public class CreateAccountTest extends BaseTest {
       description = "2980586")
   @ApplauseTestCaseId({"674182", "674181"})
   public void createAccountFieldValidation() {
-
     logger.info("Launch the app and arrive at the first onboarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
+    LandingView landingView = testHelper.navigateToLandingView();
+    ;
     Assert.assertEquals(
         landingView.getHeadingTextValue(),
         "Earn Rewards.",
         "First screen text value is not correct");
     long uniq = System.currentTimeMillis();
-
-    landingView.skipOnboarding();
 
     logger.info("Tap Create Account");
     CreateAccountView createAccountView = landingView.createAccount();
@@ -935,30 +875,11 @@ public class CreateAccountTest extends BaseTest {
       description = "625929")
   @ApplauseTestCaseId({"674513", "674512"})
   public void accountSettingsAccountHistoryTest() {
-
-    logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-    Assert.assertEquals(
-        landingView.getHeadingTextValue(),
-        "Earn Rewards.",
-        "First screen text value is not correct");
-
-    landingView.skipOnboarding();
-
-    logger.info("Tap Sign In");
-    SignInView signInView = landingView.signIn();
-
-    logger.info("Tap on Email Address field and enter valid email address");
-    signInView.setEmail(MyAccountTestData.EMAIL);
-
-    logger.info("Enter valid password");
-    signInView.setPassword(MyAccountTestData.PASSWORD);
-
-    logger.info("Tap Sign In button");
-    DashboardView dashboardView = signInView.signIn();
+    HomeView homeView = TestHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    Assert.assertNotNull(homeView, "Home View does not displayed");
 
     logger.info("Tap on ... at top right of home screen to view more screen");
-    MoreOptionsView accountMenuMobileChunk = dashboardView.getAccountProfileMenu();
+    MoreOptionsView accountMenuMobileChunk = homeView.getAccountProfileMenu();
 
     logger.info("Tap on Account History field/row");
     AccountActivityView accountActivityView = accountMenuMobileChunk.accountActivity();
@@ -977,12 +898,7 @@ public class CreateAccountTest extends BaseTest {
       description = "625882")
   @ApplauseTestCaseId({"674184", "674183"})
   public void createAccountExistingWebUserTest() {
-    logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-
-    CompleteAccountView completeAccountView =
-        testHelper.signIn(
-            landingView, TestData.USERNAME_625882, TestData.PASSWORD, CompleteAccountView.class);
-    Assert.assertNotNull(completeAccountView, "Complete Account View does not displayed");
+    HomeView homeView = TestHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    Assert.assertNotNull(homeView, "Home View does not displayed");
   }
 }

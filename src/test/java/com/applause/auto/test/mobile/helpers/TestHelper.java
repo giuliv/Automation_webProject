@@ -100,14 +100,12 @@ public class TestHelper extends BaseComponent {
     return SdkHelper.create(PaymentMethodsView.class);
   }
 
-  public DashboardView createNewAccountWithDefaults(LandingView landingView) {
+  public HomeView createNewAccountWithDefaults() {
     logger.info("Creating account");
     long uniq = System.currentTimeMillis();
 
-    landingView.skipOnboarding();
-
     logger.info("Tap Create Account");
-    CreateAccountView createAccountView = landingView.createAccount();
+    CreateAccountView createAccountView = navigateToLandingView().createAccount();
 
     logger.info("Tap on First Name field and enter valid first name");
     String firstname = "Firstname";
@@ -116,10 +114,6 @@ public class TestHelper extends BaseComponent {
     logger.info("Enter valid last name");
     String lastname = "Lastname";
     createAccountView.setLastname(lastname);
-
-    logger.info("Enter valid zip code / Skip this field");
-    String zipCode = "11214";
-    createAccountView.setZipCode(zipCode);
 
     logger.info("Scroll through and select birthday");
     String dobDay = "27";
@@ -136,21 +130,15 @@ public class TestHelper extends BaseComponent {
 
     createAccountView.setEmailAddress(email);
 
-    logger.info("Enter confirm email address");
-    createAccountView.setConfirmEmailAddress(email);
-
     logger.info("Enter valid password");
     String password = "Password1";
     createAccountView.setPassword(password);
-
-    logger.info("Enter confirm password");
-    createAccountView.setConfirmationPassword(password);
 
     logger.info("Tap on checkbox to agree to terms of service");
     createAccountView.checkPrivacyPolicyAndTermsAndConditions();
 
     logger.info("Tap Create Account button");
-    return createAccountView.createAccount();
+    return closeHomeViewTooltipIfDisplayed(createAccountView.tapOnCreateAccount());
   }
 
   public static void denyLocationServices() {
@@ -222,11 +210,7 @@ public class TestHelper extends BaseComponent {
    * @return HomeView
    */
   public static HomeView login(String userName, String password) {
-    logger.info("Launch the app and arrive at the first onboarding screen view");
-    OnboardingView onboardingView = BaseTest.openApp();
-
-    logger.info("Skip Onboarding");
-    LandingView landingView = onboardingView.skipOnboarding();
+    LandingView landingView = navigateToLandingView();
 
     logger.info("Tap Sign In");
     SignInView signInView = landingView.signIn();
@@ -242,6 +226,31 @@ public class TestHelper extends BaseComponent {
         .closeCheckInTooltipIfDisplayed(HomeView.class)
         .getPointsTurnIntoRewardsTooltipComponent()
         .closeTooltipIfDisplayed(HomeView.class);
+  }
+
+  public static HomeView closeHomeViewTooltipIfDisplayed(HomeView homeView) {
+    return homeView
+        .getReorderTooltipComponent()
+        .closeReorderTooltipIfDisplayed(HomeView.class)
+        .getCheckInTooltipComponent()
+        .closeCheckInTooltipIfDisplayed(HomeView.class)
+        .getPointsTurnIntoRewardsTooltipComponent()
+        .closeTooltipIfDisplayed(HomeView.class);
+  }
+
+  public static LandingView navigateToLandingView() {
+    logger.info("Launch the app and arrive at the first onboarding screen view");
+    OnboardingView onboardingView = BaseTest.openApp();
+
+    logger.info("Skip Onboarding");
+    return onboardingView.skipOnboarding();
+  }
+
+  public static SignInView navigateToSignInView() {
+    LandingView landingView = navigateToLandingView();
+
+    logger.info("Tap Sign In");
+    return landingView.signIn();
   }
 
   private static List<ApplicationState> notRunningAppStates() {

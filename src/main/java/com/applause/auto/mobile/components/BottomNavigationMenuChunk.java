@@ -4,7 +4,7 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.mobile.views.CheckInView;
-import com.applause.auto.mobile.views.DashboardView;
+import com.applause.auto.mobile.views.HomeView;
 import com.applause.auto.mobile.views.PeetsCardsView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -103,10 +103,10 @@ public class BottomNavigationMenuChunk extends BaseComponent {
    *
    * @return the peets cards view
    */
-  public DashboardView home() {
+  public HomeView home() {
     logger.info("Tap on Home");
     getHomeButton.click();
-    return SdkHelper.create(DashboardView.class);
+    return SdkHelper.create(HomeView.class);
   }
 
   /**

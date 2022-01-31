@@ -7,13 +7,10 @@ import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.views.AddNewCardView;
 import com.applause.auto.mobile.views.CreditCardDetailsView;
-import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.HomeView;
-import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.MoreOptionsView;
 import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.PeetsCardSettingsView;
@@ -34,12 +31,10 @@ public class AccountSettingsTest extends BaseTest {
   public void paymentMethodsTest() {
 
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-
-    DashboardView dashboardView = testHelper.createNewAccountWithDefaults(landingView);
+    HomeView homeView = testHelper.createNewAccountWithDefaults();
 
     logger.info("Navigate to Payment Methods");
-    MoreOptionsView accountProfileMenu = dashboardView.getAccountProfileMenu();
+    MoreOptionsView accountProfileMenu = homeView.getAccountProfileMenu();
     PaymentMethodsView paymentMethodsView = accountProfileMenu.clickPaymentMethods();
 
     softAssert.assertEquals(
