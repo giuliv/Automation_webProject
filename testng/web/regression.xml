@@ -4,7 +4,7 @@
     <test name="Regression Web cases" preserve-order="true">
         <groups>
             <run>
-                <include name="nwc"/>
+                <include name="web_regression"/>
             </run>
         </groups>
         <packages>
