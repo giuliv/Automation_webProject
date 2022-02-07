@@ -333,6 +333,9 @@ public class Constants {
 
     public static final String ACCOUNT_ALREADY_EXIST_MESSAGE =
         "Account already exists. If you have a Peets.com account, use those credentials to sign in.";
+
+    public static final List<Integer> RED_COLORS =
+        Arrays.asList(99, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201);
   }
 
   public static final class WebTestData {

@@ -2,6 +2,7 @@ package com.applause.auto.mobile.components;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.StoreDetailsView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -24,26 +25,23 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "//*[contains(@resource-id, 'com.wearehathway.peets.development:id/storeDetail') and descendant::*[contains(@resource-id,'storeDetailContainer')]]",
+          "//*[contains(@resource-id, 'id/storeDetail') and descendant::*[contains(@resource-id,'storeDetailContainer')]]",
       on = Platform.MOBILE_ANDROID)
   protected ContainerElement getSearchResultsContainer;
 
   @Locate(
       xpath =
-          "(//XCUIElementTypeButton[@name=\"Order\" and @visible=\"true\"])[1]/../XCUIElementTypeButton[1]",
+          "(//XCUIElementTypeButton[contains(@name, 'pen') and @visible=\"true\"])[1]/../XCUIElementTypeButton[1]",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "//*[contains(@resource-id, 'com.wearehathway.peets.development:id/storeDetail') and descendant::*[contains(@resource-id,'storeDetailContainer')]]"
+          "//*[contains(@resource-id, 'id/storeDetail') and descendant::*[contains(@resource-id,'storeDetailContainer')]]"
               + "//*[contains(@resource-id, 'storeName')]",
       on = Platform.MOBILE_ANDROID)
   protected Text getStoreName;
 
   @Locate(
-      xpath =
-          //
-          // "//XCUIElementTypeNavigationBar[@name='Order']/following-sibling::XCUIElementTypeOther//XCUIElementTypeStaticText[@value='Pickup at:']/following-sibling::XCUIElementTypeStaticText[contains(@name,'%s')]",
-          "//*[contains(normalize-space(@name),'%s') and @visible='true']",
+      xpath = "//*[contains(normalize-space(@name),'%s') and @visible='true']",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
@@ -54,8 +52,19 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
   @Locate(
       xpath = "//XCUIElementTypeButton[@name=\"Order\" and @visible=\"true\"]",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/order_button", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/order_button\")",
+      on = Platform.MOBILE_ANDROID)
   protected Button getOrderButton;
+
+  @Locate(
+      xpath =
+          "//android.widget.RelativeLayout[contains(@resource-id,'storeDetail')]//android.widget.TextView[contains(@text,'%s') or contains(@text,'%s')]",
+      on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/*[`name CONTAINS '%s' or name CONTAINS '%s' and visible == 1`]",
+      on = Platform.MOBILE_IOS)
+  protected Text storeDetailsHours;
 
   /* -------- Actions -------- */
 
@@ -157,9 +166,9 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
    */
   public boolean isCoffeebarOpenHoursDisplayed() {
     logger.info("Verifying if open hours displayed");
-    getStoreDetailsItem.format("Open until");
-    getStoreDetailsItem.initialize();
-    return getStoreDetailsItem.isDisplayed();
+    storeDetailsHours.format("Open until", "Will open");
+    storeDetailsHours.initialize();
+    return MobileHelper.isElementDisplayed(storeDetailsHours, 5);
   }
 
   /**

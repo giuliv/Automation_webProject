@@ -5,7 +5,6 @@ import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
-import com.applause.auto.mobile.components.MapView;
 import com.applause.auto.mobile.views.FindACoffeeBarView;
 import com.applause.auto.mobile.views.HomeView;
 import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
@@ -30,11 +29,11 @@ public class FindACoffeeBarTest extends BaseTest {
     HomeView homeView = testHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
     Assert.assertNotNull(homeView, "Home view is not displayed");
 
-    logger.info("STEP - Tap on any of the three tabs: Nearby, Recents, Favorites");
+    logger.info("STEP - Tap Menu");
     AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
         homeView
             .getBottomNavigationMenuChunk()
-            .order(AllowLocationServicesPopupChunk.class)
+            .tapMenu(AllowLocationServicesPopupChunk.class)
             .allowIfRequestDisplayed(OrderView.class)
             .locateCoffeebars(AllowLocationServicesPopupChunk.class);
     NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
@@ -79,6 +78,12 @@ public class FindACoffeeBarTest extends BaseTest {
         storeDetails.isCoffeebarFavorite(),
         "Heart icon for user to mark favorite store does not displayed");
 
+    logger.info("Add store to favorites again");
+    storeDetails.tapFavorite();
+
+    logger.info("VERIFY - Heart icon is disabled");
+    Assert.assertFalse(storeDetails.isCoffeebarFavorite(), "Heart icon isn't disabled");
+
     logger.info("VERIFY - Address of the coffeebar and distance [x.x miles away]");
     Assert.assertTrue(
         storeDetails.getCoffeebarLocation().length() > 0,
@@ -97,30 +102,12 @@ public class FindACoffeeBarTest extends BaseTest {
         storeDetails.isCoffeebarDayAndStoreHoursDisplayed(),
         "Table with columns: Day and Store Hours (or Closed if applicable) does not displayed");
 
-    logger.info("VERIFY - Current day is highlighted in gold");
-    // TODO Unable to verify colors
-
     logger.info("VERIFY - [Button] Directions");
     Assert.assertTrue(
         storeDetails.isDirectionsButtonDisplayed(), "[Button] Directions does not displayed");
 
     logger.info("VERIFY - [Button] Order");
     Assert.assertTrue(storeDetails.isOrderButtonDisplayed(), "[Button] Order does not displayed");
-
-    logger.info("STEP - Tap Directions button");
-    MapView map = storeDetails.directions();
-
-    logger.info(
-        "VERIFY - User is taken to device's native map app with directions to coffeebar from user's current location maps");
-    Assert.assertNotNull(
-        map,
-        "User does not taken to device's native map app with directions to coffeebar from user's current location maps");
-
-    logger.info("STEP - Tap on \"Peet's\" at the top left corner to return to Peet's app");
-    storeDetails = map.returnToPeetsApp(StoreDetailsView.class);
-
-    logger.info("VERIFY - User is taken back to store details screen");
-    Assert.assertNotNull(storeDetails, "User dies not taken back to store details screen");
 
     logger.info("STEP - Tap Order button");
     OrderView orderView = storeDetails.order();
@@ -131,11 +118,29 @@ public class FindACoffeeBarTest extends BaseTest {
         "ORDER",
         "User does not navigate to main order screen");
 
-    logger.info("VERIFY - Make sure coffeebar name is correct on location field of order screen");
-    Assert.assertEquals(
-        orderView.getStoreName(),
-        storeName,
-        "Coffeebar name is correct on location field of order screen");
+    logger.info("STEP - Tap back arrow");
+    homeView =
+        orderView
+            .back(HomeView.class)
+            .getSwipeTooltipComponent()
+            .closeAnyTooltipIfDisplayed(2, HomeView.class);
+
+    logger.info("STEP - Tap Menu again");
+    orderView = homeView.getBottomNavigationMenuChunk().tapMenu(OrderView.class);
+
+    logger.info("STEP - Tap on Recents tab");
+    orderView.getOrderMenuChunck().tapOnRecents();
+
+    logger.info("VERIFY - Recents tab is highlighted");
+    Assert.assertTrue(
+        orderView.getOrderMenuChunck().isRecentsHighlighted(), "Recents tab isn't highlighted");
+
+    logger.info("STEP - Tap on Favorites tab");
+    orderView.getOrderMenuChunck().tapOnFavorites();
+
+    logger.info("VERIFY - Favorites tab is highlighted");
+    Assert.assertTrue(
+        orderView.getOrderMenuChunck().isFavoritesHighlighted(), "Favorites tab isn't highlighted");
   }
 
   @Test(
@@ -144,13 +149,12 @@ public class FindACoffeeBarTest extends BaseTest {
   @ApplauseTestCaseId({"674550", "674549"})
   public void recentCoffeeBarTest() {
     HomeView homeView = testHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
-    Assert.assertNotNull(homeView, "Home view is not displayed");
 
     logger.info("STEP - Tap on Recents tab");
     AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
         homeView
             .getBottomNavigationMenuChunk()
-            .order(AllowLocationServicesPopupChunk.class)
+            .tapMenu(AllowLocationServicesPopupChunk.class)
             .allowIfRequestDisplayed(OrderView.class)
             .locateCoffeebars(AllowLocationServicesPopupChunk.class);
     NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
@@ -168,10 +172,6 @@ public class FindACoffeeBarTest extends BaseTest {
     logger.info("VERIFY - Store name");
     Assert.assertTrue(
         recent.isCoffeebarStoreNameDisplayed("AppInt Sandbox 1"), "Store name does not displayed");
-
-    // Commented on request by Jyothi, 30.09.2020
-    // logger.info("VERIFY - x.x Miles away on the right of the store name");
-    // Assert.assertTrue(recent.isCoffeebarDistanceDisplayed(), "Distance does not displayed");
 
     logger.info("VERIFY - Store Address");
     Assert.assertTrue(
@@ -210,14 +210,14 @@ public class FindACoffeeBarTest extends BaseTest {
     AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
         homeView
             .getBottomNavigationMenuChunk()
-            .order(AllowLocationServicesPopupChunk.class)
+            .tapMenu(AllowLocationServicesPopupChunk.class)
             .allowIfRequestDisplayed(OrderView.class)
             .locateCoffeebars(AllowLocationServicesPopupChunk.class);
     NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
         allowLocationServicesPopupChunk.allowIfRequestDisplayed();
 
     logger.info("STEP - Search for any store either by nearby, recent tabs, or by zip code");
-    nearbySelectCoffeeBarView.search("78717");
+    nearbySelectCoffeeBarView.search("94538");
 
     logger.info("STEP - Tap on the store location card to view store details screen");
     CoffeeStoreContainerChuck coffeeStore =
@@ -249,9 +249,13 @@ public class FindACoffeeBarTest extends BaseTest {
         "VERIFY - The coffeeBar that was favorited in step 3 should appear in the list of favorite stores");
     CoffeeStoreContainerChuck favStore = findACoffeeBarView.getCoffeeStoreContainerChuck();
 
+    String currentName = favStore.getStoreName();
     Assert.assertTrue(
-        favStore.getStoreName().toUpperCase().contains(storeName.toUpperCase()),
-        "Wrong store shown under favorites tab:" + storeName + " " + favStore.getStoreName());
+        currentName.toLowerCase().contains(storeName.toLowerCase()),
+        "Wrong store shown under favorites tab: Expected: "
+            + storeName
+            + " but found: "
+            + currentName);
     SoftAssert softAssert = new SoftAssert();
 
     logger.info("STEP - Select the same store just favorited to view store details screen");

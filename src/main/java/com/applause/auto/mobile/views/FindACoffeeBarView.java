@@ -21,13 +21,17 @@ public class FindACoffeeBarView extends BaseComponent {
   @Locate(
       iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"No recent coffeebars.\"`]",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/noStoreTitle", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/noStoreTitle\")",
+      on = Platform.MOBILE_ANDROID)
   protected Text titleNoRecentCoffeebars;
 
   @Locate(
       iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"No favorited coffeebars.\"`]",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/noStoreTitle", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/noStoreTitle\")",
+      on = Platform.MOBILE_ANDROID)
   protected Text titleNoFavoriteCoffeebars;
 
   @Locate(

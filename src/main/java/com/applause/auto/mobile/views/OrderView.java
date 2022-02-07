@@ -18,10 +18,11 @@ public class OrderView extends BaseComponent {
   /* -------- Elements -------- */
 
   @Locate(
-      xpath =
-          "//XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[1]",
+      iOSClassChain = "**/XCUIElementTypeOther[$name == 'Pickup'$][-1]",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/storePinImage", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/storePinImage\")",
+      on = Platform.MOBILE_ANDROID)
   protected Button getLocateCoffeeBars;
 
   @Locate(xpath = "//XCUIElementTypeStaticText[@name='ORDER']", on = Platform.MOBILE_IOS)
@@ -33,15 +34,19 @@ public class OrderView extends BaseComponent {
   protected Text getHeadingText;
 
   @Locate(
-      xpath = "//XCUIElementTypeStaticText[@name=\"Change\"]/../XCUIElementTypeStaticText[2]",
+      iOSClassChain =
+          "**/XCUIElementTypeOther[$name == 'Pickup'$][-1]/XCUIElementTypeStaticText[1]",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/storeTextView", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/storeTextView\")",
+      on = Platform.MOBILE_ANDROID)
   protected Text storeName;
 
+  @Locate(iOSClassChain = "**/XCUIElementTypeButton[`name == 'Back'`]", on = Platform.MOBILE_IOS)
   @Locate(
-      xpath = "//XCUIElementTypeStaticText[@name=\"Change\"]/../XCUIElementTypeStaticText[2]",
-      on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/storeTextView", on = Platform.MOBILE_ANDROID)
+      androidUIAutomator =
+          "new UiSelector().resourceIdMatches(\".*id/toolbar\").childSelector(new UiSelector().className(\"android.widget.ImageButton\"))",
+      on = Platform.MOBILE_ANDROID)
   protected Text backButton;
 
   @Locate(xpath = "//XCUIElementTypeButton[@name=\"No Thanks\"]", on = Platform.MOBILE_IOS)

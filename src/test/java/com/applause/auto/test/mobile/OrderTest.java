@@ -179,7 +179,7 @@ public class OrderTest extends BaseTest {
 
     logger.info("Sub-header: Seasonal Favorites");
     Assert.assertEquals(
-        orderView.getOrderMenuChunck().getSeasonalFavoritesSubHeaderTextValue(),
+        orderView.getOrderMenuChunck().getFavoritesSubHeaderTextValue(),
         "Seasonal Favorites",
         "Incorrect Favorites sub-header");
 

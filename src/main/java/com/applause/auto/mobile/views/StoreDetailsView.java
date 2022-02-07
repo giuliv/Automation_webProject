@@ -59,7 +59,9 @@ public class StoreDetailsView extends BaseComponent {
       xpath =
           "//XCUIElementTypeButton[@name='Unmark as favorite Coffeebar'] | //XCUIElementTypeButton[@name='Mark as favorite Coffeebar']",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/faveStoreIcon", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/faveStoreIcon\")",
+      on = Platform.MOBILE_ANDROID)
   protected Image coffeebarFavoriteIcon;
 
   @Locate(
@@ -74,7 +76,8 @@ public class StoreDetailsView extends BaseComponent {
   protected TextBox coffeebarSubHeaderHoursText;
 
   @Locate(
-      xpath = "//XCUIElementTypeStaticText[starts-with(@name,'Open until ')]",
+      iOSClassChain =
+          "**/XCUIElementTypeStaticText[`name CONTAINS 'Open until ' or name CONTAINS 'Will open '`]",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
@@ -186,7 +189,7 @@ public class StoreDetailsView extends BaseComponent {
     int colourRed =
         MobileHelper.getMobileElementColour(coffeebarFavoriteIcon.getMobileElement()).getRed();
     logger.info("Color: " + colourRed);
-    return (colourRed == 199) || (colourRed == 200);
+    return (colourRed == 199) || (colourRed == 200) || (colourRed == 185);
   }
 
   /**

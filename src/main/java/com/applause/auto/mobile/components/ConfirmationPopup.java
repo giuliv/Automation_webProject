@@ -18,7 +18,8 @@ public class ConfirmationPopup extends BaseComponent {
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/message\")",
       on = Platform.MOBILE_ANDROID)
   @Locate(
-      iOSClassChain = "**/XCUIElementTypeAlert/**/XCUIElementTypeScrollView[1]/**/XCUIElementTypeStaticText[2]",
+      iOSClassChain =
+          "**/XCUIElementTypeAlert/**/XCUIElementTypeScrollView[1]/**/XCUIElementTypeStaticText[2]",
       on = Platform.MOBILE_IOS)
   protected Text message;
 

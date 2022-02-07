@@ -73,7 +73,7 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   @Locate(id = "Allow While Using App", on = Platform.MOBILE_IOS)
   protected Button allowWhileUsing;
 
-  @Locate(xpath = "//android.widget.TextView[@text='Recents']", on = Platform.MOBILE_ANDROID)
+  @Locate(androidUIAutomator = "new UiSelector().text(\"Recents\")", on = Platform.MOBILE_ANDROID)
   @Locate(iOSClassChain = "**/*[`label == 'Recents'`]", on = Platform.MOBILE_IOS)
   protected TextBox recentTab;
 
@@ -89,7 +89,9 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   @Locate(iOSClassChain = "**/*[`label == 'Favorites'`]", on = Platform.MOBILE_IOS)
   protected TextBox favoritesTab;
 
-  @Locate(id = "com.wearehathway.peets.development:id/cancelButton", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/cancelButton\")",
+      on = Platform.MOBILE_ANDROID)
   @Locate(iOSClassChain = "**/*[`label == 'Cancel'`]", on = Platform.MOBILE_IOS)
   protected Button cancelSearchButton;
 

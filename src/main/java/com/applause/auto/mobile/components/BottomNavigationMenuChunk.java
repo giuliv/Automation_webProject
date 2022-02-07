@@ -10,6 +10,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import io.qameta.allure.Step;
 import java.time.Duration;
 
 @Implementation(is = BottomNavigationMenuChunk.class, on = Platform.MOBILE_ANDROID)
@@ -33,12 +34,6 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   protected Button getPeetsCardsButton;
 
   @Locate(xpath = "//XCUIElementTypeButton[@name=\"Order\"]", on = Platform.MOBILE_IOS)
-  // @Locate(
-  // xpath =
-  //
-  // "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[contains(@text,\"Order\")
-  // or contains(@content-desc,\"Order\")]/..",
-  // on = Platform.MOBILE_ANDROID)
   @Locate(
       xpath =
           "//android.widget.RelativeLayout[@content-desc=\"Order, tab, 3 of 5\"]/android.widget.ImageView",
@@ -62,6 +57,14 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   @Locate(id = "Allow", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/allowButton", on = Platform.MOBILE_ANDROID)
   protected Button getAllowButton;
+
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`name == 'Menu'`]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/menuButton\")",
+      on = Platform.MOBILE_ANDROID)
+  protected Button menuButton;
 
   /* -------- Actions -------- */
 
@@ -121,6 +124,13 @@ public class BottomNavigationMenuChunk extends BaseComponent {
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getOrdersButton).visible().setTimeout(Duration.ofSeconds(30)));
     getOrdersButton.click();
+    return SdkHelper.create(clazz);
+  }
+
+  @Step("Tap on 'Menu' button")
+  public <T extends BaseComponent> T tapMenu(Class<T> clazz) {
+    logger.info("Tapping on 'Menu' button");
+    menuButton.click();
     return SdkHelper.create(clazz);
   }
 }

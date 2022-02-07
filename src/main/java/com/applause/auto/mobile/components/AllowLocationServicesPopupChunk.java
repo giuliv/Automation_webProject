@@ -29,7 +29,9 @@ public class AllowLocationServicesPopupChunk extends BaseComponent {
   protected Text getTitleText;
 
   @Locate(id = "Allow", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/allowButton", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/allowButton\")",
+      on = Platform.MOBILE_ANDROID)
   protected Button getAllowButton;
 
   @Locate(id = "Not Now", on = Platform.MOBILE_IOS)

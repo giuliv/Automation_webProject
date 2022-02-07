@@ -1,4 +1,4 @@
-package com.applause.auto.mobile.components;
+package com.applause.auto.mobile.components.tooltips;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
@@ -9,9 +9,9 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import io.qameta.allure.Step;
 
-@Implementation(is = SwipeTooltipComponent.class, on = Platform.MOBILE_ANDROID)
-@Implementation(is = SwipeTooltipComponent.class, on = Platform.MOBILE_IOS)
-public class SwipeTooltipComponent extends BaseComponent {
+@Implementation(is = BaseTooltipComponent.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = BaseTooltipComponent.class, on = Platform.MOBILE_IOS)
+public class BaseTooltipComponent extends BaseComponent {
 
   @Locate(
       iOSClassChain = "**/XCUIElementTypeButton[`label == 'button cross'`]",
@@ -21,13 +21,15 @@ public class SwipeTooltipComponent extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button closeButton;
 
-  @Step("Close Swipe Tooltip")
-  public <T extends BaseComponent> T closeTooltipIfDisplayed(Class<T> clazz) {
-    if (MobileHelper.isElementDisplayed(closeButton, 10)) {
-      logger.info("Closing Swipe Tooltip");
-      closeButton.click();
-    } else {
-      logger.info("Swipe Tooltip didn't appear");
+  @Step("Close Tooltip")
+  public <T extends BaseComponent> T closeAnyTooltipIfDisplayed(
+      int countOfTooltips, Class<T> clazz) {
+    for (int i = 0; i < countOfTooltips; i++) {
+      if (MobileHelper.isElementDisplayed(closeButton, 10)) {
+        closeButton.click();
+      } else {
+        logger.info("Tooltip didn't appear");
+      }
     }
     return SdkHelper.create(clazz);
   }
