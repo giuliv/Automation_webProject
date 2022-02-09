@@ -125,6 +125,9 @@ public class OnboardingView extends BaseComponent {
   @Step("Tap on 'Skip' button")
   public LandingView skipOnboarding() {
     logger.info("Tapping on 'Skip' button");
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(skipButton).visible().setTimeout(Duration.ofSeconds(30)));
+    SdkHelper.getSyncHelper().wait(Until.uiElement(skipButton).clickable());
     skipButton.click();
     return SdkHelper.create(LandingView.class);
   }
@@ -132,7 +135,7 @@ public class OnboardingView extends BaseComponent {
 
 class OnboardingViewIos extends OnboardingView {
 
-  private static boolean isTrackingPopupAccepted = false;
+  private boolean isTrackingPopupAccepted = false;
 
   @Override
   public void afterInit() {

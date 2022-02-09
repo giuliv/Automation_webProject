@@ -83,6 +83,7 @@ class AndroidPrivacyPolicyView extends PrivacyPolicyView {
   public LegalInfoView done() {
     logger.info("Tap 'Done' button");
     MobileHelper.tapAndroidDeviceBackButton();
+    MobileHelper.tapAndroidDeviceBackButton();
     return SdkHelper.create(LegalInfoView.class);
   }
 }

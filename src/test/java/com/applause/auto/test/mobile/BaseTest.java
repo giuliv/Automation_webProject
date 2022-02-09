@@ -20,11 +20,12 @@ public class BaseTest extends ApplauseSeleniumTest {
 
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
   protected static TestHelper testHelper;
-  SoftAssert softAssert = new SoftAssert();
+  protected SoftAssert softAssert;
 
   /** Get a new Appium driver at the start of each test. */
   @BeforeMethod(alwaysRun = true)
   public void beforeMethod(Method method) {
+    softAssert = new SoftAssert();
 
     String runId = String.format("%s:%s", method.getName(), System.currentTimeMillis());
     logger.debug(String.format("Setting runId to %s", runId));

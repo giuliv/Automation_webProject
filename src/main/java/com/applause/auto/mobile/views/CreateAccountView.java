@@ -5,6 +5,7 @@ import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -106,11 +107,10 @@ public class CreateAccountView extends BaseComponent {
   protected TextBox getDOBValueTextBox;
 
   @Locate(
-      xpath =
-          "//XCUIElementTypeStaticText[@name=\"Intended for users 13+ years old. Plus, get a birthday drink on us!\"]",
+      xpath = "//XCUIElementTypeStaticText[contains(@name,\"Intended for users 13+ years old.\")]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      xpath = "//android.widget.TextView[@text='Your birthday drink is on us']",
+      xpath = "//android.widget.TextView[contains(@text,\"Intended for users 13+ years old.\")]",
       on = Platform.MOBILE_ANDROID)
   protected TextBox getDOBGiftTextBox;
 
@@ -569,8 +569,7 @@ public class CreateAccountView extends BaseComponent {
     logger.info("Checking password text displayed");
     passwordTextBox.sendKeys(" ");
     boolean result =
-        getPasswordHintTextBox
-            .stream()
+        getPasswordHintTextBox.stream()
             .map(item -> item.getText())
             .collect(Collectors.joining("\n"))
             .equals(
@@ -622,6 +621,7 @@ class AndroidCreateAccountView extends CreateAccountView {
     logger.info("Tap on Terms and Conditions");
     // sometimes this code is throwing exception: Coordinate x =
     // [238572] exceeds the width of element
+    MobileHelper.hideKeyboard();
     Dimension size = getTermsAndConditionsButton.getMobileElement().getSize();
     logger.info(String.format("Terms label size: [%s]", size));
     MobileHelper.tapOnElementWithOffset(getTermsAndConditionsButton, size.getWidth() / 3, 0);
@@ -750,8 +750,7 @@ class AndroidCreateAccountView extends CreateAccountView {
     passwordTextBox.sendKeys("A");
     SdkHelper.getDeviceControl().hideKeyboard();
     String pHint =
-        getPasswordHintTextBox
-            .stream()
+        getPasswordHintTextBox.stream()
             .map(
                 item -> {
                   String i = item.getText();
@@ -767,8 +766,17 @@ class AndroidCreateAccountView extends CreateAccountView {
     return result;
   }
 
+  @Override
   public boolean isDobTextDisplayed() {
     logger.info("Checking dob text field displayed");
     return getDOBGiftTextBox.isDisplayed();
+  }
+
+  @Override
+  public LandingView close() {
+    logger.info("Tapping X button");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(closeButton).visible());
+    closeButton.click();
+    return SdkHelper.create(LandingView.class);
   }
 }

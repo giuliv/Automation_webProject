@@ -68,6 +68,7 @@ public class HomeView extends BaseComponent {
   @Locate(accessibilityId = "Stores button", on = Platform.MOBILE_ANDROID)
   protected Button storesButton;
 
+  @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(signature).present());
   }

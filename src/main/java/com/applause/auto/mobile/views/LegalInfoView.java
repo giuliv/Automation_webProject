@@ -113,6 +113,7 @@ public class LegalInfoView extends BaseComponent {
 }
 
 class AndroidLegalInfoView extends LegalInfoView {
+
   public void afterInit() {
     AndroidDriver androidDriver = ((AndroidDriver) SdkHelper.getDriver());
     logger.info("Orientation: " + androidDriver.getOrientation());

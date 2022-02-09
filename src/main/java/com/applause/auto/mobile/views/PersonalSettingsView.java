@@ -75,7 +75,7 @@ public class PersonalSettingsView extends BaseComponent {
       xpath = "//*[contains(@text,'Allow') or contains(@text,'allow')]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      xpath = "//*[contains(@text,'Allow') or contains(@text,'allow')]",
+      xpath = "//*[contains(@text,'Allow') or contains(@text,'allow') or contains(@text,'TOLAK')]",
       on = Platform.MOBILE_ANDROID)
   protected Button allowPeetsAccessDeviceLocationButton;
 
@@ -221,7 +221,7 @@ class AndroidPersonalSettingsView extends PersonalSettingsView {
       xpath =
           "//*[@text=\"Allow only while using the app\" or @text=\"ALLOW ONLY WHILE USING THE APP\"]",
       on = Platform.MOBILE_ANDROID)
-  protected Button allowPeetsToAccessTheDeviceLocationButton;
+  protected Button allowPeetsToAccessDeviceLocationButton;
 
   @Locate(xpath = "//*[contains(@resource-id,'switch_widget')]", on = Platform.MOBILE_ANDROID)
   protected Button androidSwitchLocationToggle;
@@ -266,17 +266,17 @@ class AndroidPersonalSettingsView extends PersonalSettingsView {
     MobileHelper.tapByCoordinatesOnElementCenter(getLocationServicesButton);
     SdkHelper.getSyncHelper().wait(Until.uiElement(getLoader).notPresent());
     allowFindNearbyCoffeeBars();
-    allowPeetsToAccessThDeviceLocation();
+    allowPeetsToAccessDeviceLocation();
     allowPeetsAccessDeviceLocation();
     openDeviceSettingsLocation();
     toggleLocationSettings();
     return SdkHelper.create(PersonalSettingsView.class);
   }
 
-  private void allowPeetsToAccessThDeviceLocation() {
-    if (MobileHelper.isElementDisplayed(allowPeetsToAccessTheDeviceLocationButton, 5)) {
+  private void allowPeetsToAccessDeviceLocation() {
+    if (MobileHelper.isElementDisplayed(allowPeetsToAccessDeviceLocationButton, 5)) {
       logger.info("Accept modal 'Allo Peet's to access this device's location");
-      MobileHelper.tapByCoordinatesOnElementCenter(allowPeetsToAccessTheDeviceLocationButton);
+      MobileHelper.tapByCoordinatesOnElementCenter(allowPeetsToAccessDeviceLocationButton);
     }
   }
 

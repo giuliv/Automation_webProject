@@ -23,8 +23,10 @@ public class LandingView extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(id = "Earn Rewards.", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/headingText", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Peetnik Rewards\"`]",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/rewardTitle", on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
   @Locate(xpath = "//XCUIElementTypeButton[contains(@label,'Allow')]", on = Platform.MOBILE_IOS)

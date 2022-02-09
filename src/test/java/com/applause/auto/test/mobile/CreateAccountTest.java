@@ -4,7 +4,6 @@ import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.common.data.TestDataUtils;
 import com.applause.auto.common.data.dto.SignUpUserDto;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
@@ -13,7 +12,6 @@ import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.AccountActivityView;
 import com.applause.auto.mobile.views.ChangePasswordView;
 import com.applause.auto.mobile.views.CreateAccountView;
-import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.HomeView;
 import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.MoreOptionsView;
@@ -660,7 +658,7 @@ public class CreateAccountTest extends BaseTest {
 
     Assert.assertEquals(
         landingView.getHeadingTextValue(),
-        "Earn Rewards.",
+        "Peetnik Rewards",
         "First screen text value is not correct");
     long uniq = System.currentTimeMillis();
 
@@ -674,16 +672,11 @@ public class CreateAccountTest extends BaseTest {
             + "\n"
             + "* Last Name\n"
             + "\n"
-            + "* Zip Code (Optional)\n"
-            + "\n"
             + "* Date of Birth\n"
             + "\n"
             + "      o Android Text: Your birthday drink is on us\n"
             + "\n"
-            + "\n"
             + "      o iOS Text: Intended for users 13+ years old. Plus, get a birthday drink on us!\n"
-            + "\n"
-            + "* Phone Number (Optional)\n"
             + "\n"
             + "      o Text: Forgot your phone? Check in with this number.\n"
             + "\n"
@@ -708,20 +701,11 @@ public class CreateAccountTest extends BaseTest {
     Assert.assertTrue(
         createAccountView.isFirstnameDisplayed(), "Firstname field does not displayed");
     Assert.assertTrue(createAccountView.isLastDisplayed(), "Lastname field does not displayed");
-    Assert.assertTrue(createAccountView.isZipCodeDisplayed(), "Zip code field does not displayed");
     Assert.assertTrue(
         createAccountView.isDobTextDisplayed(), "Birthday drink text does not displayed");
     Assert.assertTrue(
         createAccountView.isEmailAddressDisplayed(), "Email address field does not displayed");
-    Assert.assertTrue(
-        createAccountView.isConfirmEmailAddressDisplayed(),
-        "Email address field does not displayed");
-    Assert.assertTrue(
-        createAccountView.isPhoneNumberDisplayed(), "Phone number field does not displayed");
     Assert.assertTrue(createAccountView.isPasswordDisplayed(), "Password field does not displayed");
-    Assert.assertTrue(
-        createAccountView.isConfirmPasswordDisplayed(),
-        "Confirm password field does not displayed");
     MobileHelper.swipeWithCount(SwipeDirection.UP, 5);
 
     Assert.assertTrue(
@@ -732,9 +716,6 @@ public class CreateAccountTest extends BaseTest {
     Assert.assertFalse(
         createAccountView.isPrivacyPolicyAndTermsAndConditionsChecked(),
         "Privacy Policy field does not unchecked by default");
-    Assert.assertTrue(
-        createAccountView.isPasswordTextDisplayed(),
-        "Password triggered text field does not displayed");
 
     MobileHelper.swipeWithCount(SwipeDirection.DOWN, 5);
 
@@ -747,29 +728,19 @@ public class CreateAccountTest extends BaseTest {
     String lastname = "Lastname";
     createAccountView.setLastname(lastname);
 
-    logger.info("Enter valid zip code / Skip this field");
-    String zipCode = "11214";
-    createAccountView.setZipCode(zipCode);
-
     logger.info("Scroll through and select birthday");
     String dobDay = "27";
     String dobMonth = "December";
     String dobYear = "2000";
     createAccountView.setDOB(dobDay, dobMonth, dobYear);
 
-    logger.info("Enter valid ten digit phone number / Skip this field");
-    String phone = TestDataUtils.PhoneNumberDataUtils.getRandomPhoneNumber();
-    createAccountView.setPhoneNumber(phone);
-
     logger.info("Enter valid email address");
     String email = String.format("a+%s@gmail.com", uniq);
     createAccountView.setEmailAddress(email);
-    createAccountView.setConfirmEmailAddress(email);
 
     logger.info("Enter valid password");
     String password = "Password1";
     createAccountView.setPassword(password);
-    createAccountView.setConfirmationPassword(password);
 
     logger.info("Tap on show password icon");
     createAccountView.tapOnShowHidePassword();
@@ -781,8 +752,11 @@ public class CreateAccountTest extends BaseTest {
     logger.info("Tap on hide password icon");
     createAccountView.tapOnShowHidePassword();
 
-    logger.info("Make sure password entered is hidden from user");
-    Assert.assertNotEquals(createAccountView.getPassword(), password, "Password does not hidden");
+    // TODO for android we can get password value even after tap on the hide password icon
+    if (!MobileHelper.isAndroid()) {
+      logger.info("Make sure password entered is hidden from user");
+      Assert.assertNotEquals(createAccountView.getPassword(), password, "Password does not hidden");
+    }
 
     createAccountView.setPromo("");
 
@@ -839,10 +813,11 @@ public class CreateAccountTest extends BaseTest {
         createAccountView.isCreateAccountButtonEnabled(), "Create Account button does not enabled");
 
     logger.info("Tap Create Account button");
-    DashboardView dashboardView = createAccountView.createAccount(DashboardView.class);
+    HomeView homeView = createAccountView.createAccount(HomeView.class);
+    homeView = TestHelper.closeHomeViewTooltipIfDisplayed(homeView);
 
     logger.info(
-        "User account should be SdkHelper.created successfully:\n"
+        "User account should be created successfully:\n"
             + "\n"
             + "* User will see a loading dial, then a check mark to indicate successful account creation\n"
             + "\n"
@@ -857,28 +832,21 @@ public class CreateAccountTest extends BaseTest {
             + "* Text: Loading your latest rewards_\n"
             + "\n"
             + "User should see home/dashboard screen\n");
-    Assert.assertNotNull(dashboardView, "Users dashboard does not displayed");
+    Assert.assertNotNull(homeView, "Users homeview does not displayed");
 
     logger.info("Tap on ... at top right corner of home/dashboard screen");
     logger.info("Tap on Profile Details");
-    ProfileDetailsView profileDetailsView = dashboardView.getAccountProfileMenu().profileDetails();
+    ProfileDetailsView profileDetailsView = homeView.getAccountProfileMenu().profileDetails();
 
     logger.info(
         "Make sure all user info on account settings screen matches what was entered during sign up process");
     String firstNameUpd = profileDetailsView.getFirstname();
     String lastNameUpd = profileDetailsView.getLastname();
-    String zipCodeUpd = profileDetailsView.getZipCode();
-    String phoneUpd = profileDetailsView.getPhoneNumber();
     String emailUpd = profileDetailsView.getEmailAddress();
     String dob = profileDetailsView.getDOB();
     Assert.assertTrue(dob.matches("Dec.* 27, 2000"), "Unexpected DOB value: " + dob);
     Assert.assertEquals(firstNameUpd, firstname, "Firstname does not match");
     Assert.assertEquals(lastNameUpd, lastname, "Lastname does not match");
-    Assert.assertEquals(zipCodeUpd, zipCode, "zipcode does not match");
-    Assert.assertEquals(
-        TestDataUtils.PhoneNumberDataUtils.getOnlyDigitsFromPhoneNumber(phoneUpd),
-        TestDataUtils.PhoneNumberDataUtils.getOnlyDigitsFromPhoneNumber(phone),
-        "Phone does not updated");
     Assert.assertEquals(emailUpd, email, "Email does not match");
 
     logger.info("Tap arrow at top left to return to more screen");
@@ -900,34 +868,6 @@ public class CreateAccountTest extends BaseTest {
 
     logger.info("User should be signed out successfully");
     Assert.assertTrue(landingView.isSignInButtonDisplayed(), "User does not signed out");
-  }
-
-  @Test(
-      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
-      description = "625929")
-  @ApplauseTestCaseId({"674513", "674512"})
-  public void accountSettingsAccountHistoryTest() {
-    HomeView homeView = TestHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
-    Assert.assertNotNull(homeView, "Home View does not displayed");
-
-    logger.info("STEP - Tap on ... at top right of home screen to view more screen");
-    MoreOptionsView accountMenuMobileChunk = homeView.getAccountProfileMenu();
-
-    logger.info("STEP - Tap on Account Activity field/row");
-    AccountActivityView accountActivityView = accountMenuMobileChunk.accountActivity();
-
-    logger.info("VERIFY - Make sure user is taken to account history screen");
-    softAssert.assertNotNull(accountActivityView, "User does not taken to account history screen");
-
-    logger.info("VERIFY - Back button is displayed");
-    softAssert.assertTrue(
-        accountActivityView.isBackButtonDisplayed(), "Back button is not displayed");
-
-    logger.info("VERIFY - Back 'ACCOUNT ACTIVITY' header is displayed");
-    softAssert.assertTrue(
-        accountActivityView.isHeaderDisplayed(), "'ACCOUNT ACTIVITY' header is not displayed");
-
-    softAssert.assertAll();
   }
 
   @Test(
@@ -1000,5 +940,33 @@ public class CreateAccountTest extends BaseTest {
 
     logger.info("User should be signed out successfully");
     Assert.assertTrue(landingView.isSignInButtonDisplayed(), "User does not signed out");
+  }
+
+  @Test(
+      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
+      description = "625929")
+  @ApplauseTestCaseId({"674513", "674512"})
+  public void accountSettingsAccountHistoryTest() {
+    HomeView homeView = TestHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    Assert.assertNotNull(homeView, "Home View does not displayed");
+
+    logger.info("STEP - Tap on ... at top right of home screen to view more screen");
+    MoreOptionsView accountMenuMobileChunk = homeView.getAccountProfileMenu();
+
+    logger.info("STEP - Tap on Account Activity field/row");
+    AccountActivityView accountActivityView = accountMenuMobileChunk.accountActivity();
+
+    logger.info("VERIFY - Make sure user is taken to account history screen");
+    softAssert.assertNotNull(accountActivityView, "User does not taken to account history screen");
+
+    logger.info("VERIFY - Back button is displayed");
+    softAssert.assertTrue(
+        accountActivityView.isBackButtonDisplayed(), "Back button is not displayed");
+
+    logger.info("VERIFY - Back 'ACCOUNT ACTIVITY' header is displayed");
+    softAssert.assertTrue(
+        accountActivityView.isHeaderDisplayed(), "'ACCOUNT ACTIVITY' header is not displayed");
+
+    softAssert.assertAll();
   }
 }

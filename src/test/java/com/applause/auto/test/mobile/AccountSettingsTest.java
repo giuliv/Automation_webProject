@@ -132,11 +132,11 @@ public class AccountSettingsTest extends BaseTest {
     addNewCardView = paymentMethodsView.clickAddNewPayment();
     paymentMethodsView =
         addNewCardView.addNewCard(
-            TestData.DISCOVERY_CC_NUM,
-            TestData.DISCOVERY_CC_CODE,
-            TestData.DISCOVERY_CC_NAME,
-            TestData.DISCOVERY_CC_EXP_DATE,
-            TestData.DISCOVERY_CC_ZIP,
+            TestData.VISA_NUMBER,
+            TestData.VISA_SECURITY_CODE,
+            TestData.VISA_NAME,
+            TestData.VISA_EXP_DATE,
+            TestData.VISA_ZIP,
             true);
 
     logger.info(
@@ -153,8 +153,7 @@ public class AccountSettingsTest extends BaseTest {
 
     logger.info("STEP - Select card from step 8 to view card details");
     creditCardDetailsView =
-        paymentMethodsView.clickSavedPaymentMethod(
-            CreditCardDetailsView.class, TestData.DISCOVERY_CC_NAME);
+        paymentMethodsView.clickSavedPaymentMethod(CreditCardDetailsView.class, TestData.VISA_NAME);
 
     logger.info(
         "VERIFY -The previous card that was set as default now shows it is no longer the default");
@@ -171,7 +170,7 @@ public class AccountSettingsTest extends BaseTest {
     creditCardDetailsView.clickDeleteCard();
     paymentMethodsView = creditCardDetailsView.clickDeleteYes();
     softAssert.assertFalse(
-        paymentMethodsView.isPaymentMethodTestCardAdded(TestData.DISCOVERY_CC_NAME),
+        paymentMethodsView.isPaymentMethodTestCardAdded(TestData.VISA_NAME),
         "Did not delete payment method");
 
     softAssert.assertAll();

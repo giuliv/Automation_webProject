@@ -164,6 +164,17 @@ public class Constants {
     public static final String VISA_CC_ZIP = "66666";
     public static final String VISA_CC_EXP_DATE = "12/28";
 
+    public static final String MASTER_NUMBER = "5454545454545454";
+    public static final String MASTER_SECURITY_CODE = "111";
+    public static final String MASTER_ZIP = "66666";
+    public static final String MASTER_NAME = "Master Card";
+
+    public static final String VISA_NUMBER = "4111111111111111";
+    public static final String VISA_SECURITY_CODE = "111";
+    public static final String VISA_ZIP = "66666";
+    public static final String VISA_EXP_DATE = "12/26";
+    public static final String VISA_NAME = "Visa Card";
+
     public static final String AMEX_CC_NUM = "378282246310005";
     public static final String AMEX_CC_CODE = "2222";
     public static final String AMEX_CC_MONTH = "12";
@@ -193,7 +204,7 @@ public class Constants {
     public static final String BIRTHDAY_MESSAGE_ANDROID =
         "Your birthday drink is on us text does not displayed";
     public static final String BIRTHDAY_MESSAGE_IOS =
-        "Intended for users 13+ years old. Plus, get a birthday drink on us!";
+        "Intended for users 13+ years old. Plus, get 25 bonus points on your birthday.";
 
     public static final String SUBSCRIBING_MESSAGE =
         "Thanks for subscribing!Your unique promo code will be sent shortly.";

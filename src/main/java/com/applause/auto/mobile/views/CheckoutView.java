@@ -37,7 +37,9 @@ public class CheckoutView extends BaseComponent {
   @Locate(id = "Place Order", on = Platform.MOBILE_IOS)
   protected Button getPlaceOrderButton;
 
-  @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]",
+      on = Platform.MOBILE_ANDROID)
   @Locate(
       iOSClassChain = "**/XCUIElementTypeButton[`label == \"Close\"`]",
       on = Platform.MOBILE_IOS)
@@ -191,8 +193,7 @@ public class CheckoutView extends BaseComponent {
     }
 
     if (areAvailableRewardsDisplayed) {
-      availableRewards
-          .stream()
+      availableRewards.stream()
           .filter(item -> getElementTextAttribute(item).startsWith(awardText))
           .findAny()
           .orElseThrow(
@@ -267,8 +268,7 @@ public class CheckoutView extends BaseComponent {
     ((IOSDriver) SdkHelper.getDriver()).setSetting("snapshotMaxDepth", 99);
     MobileHelper.scrollElementIntoView(itemOptionsText.format(itemName));
     itemOptionsList.format(itemName).initialize();
-    itemOptionsList
-        .stream()
+    itemOptionsList.stream()
         .forEach(
             i -> {
               logger.info("Found options: " + i.getText());
@@ -286,7 +286,9 @@ public class CheckoutView extends BaseComponent {
    * @return the new order view
    */
   public NewOrderView close() {
-    closeButton.click();
+    logger.info("Close Checkout view");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(closeButton).visible());
+    MobileHelper.tapOnElementCenter(closeButton);
     return SdkHelper.create(NewOrderView.class);
   }
 

@@ -114,6 +114,9 @@ public class MoreOptionsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Text facebookPage;
 
+  @Locate(xpath = "//*[@text=''CONTINUE]", on = Platform.MOBILE_ANDROID)
+  protected Button getFacebookContinueButton;
+
   @Locate(
       xpath = "//XCUIElementTypeButton[@name=\"URL\" and @label=\"Address\"]",
       on = Platform.MOBILE_IOS)
@@ -570,5 +573,18 @@ class AndroidMoreOptionsView extends MoreOptionsView {
     SdkHelper.getDeviceControl().tapElementCenter(getCrossButton);
     SdkHelper.getSyncHelper().sleep(5000);
     SdkHelper.getDeviceControl().tapElementCenter(getCrossButton);
+  }
+
+  @Override
+  public MoreOptionsView clickFacebookIcon() {
+    logger.info("Click Facebook");
+    MobileHelper.swipeWithCount(SwipeDirection.UP, 1);
+    getFacebookIcon.click();
+    SdkHelper.getSyncHelper().sleep(3000);
+    if (MobileHelper.isElementDisplayed(getFacebookContinueButton, 10)) {
+      logger.info("Tapping on the 'Continue' button");
+      getFacebookContinueButton.click();
+    }
+    return SdkHelper.create(MoreOptionsView.class);
   }
 }

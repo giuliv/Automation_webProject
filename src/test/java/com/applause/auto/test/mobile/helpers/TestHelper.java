@@ -2,7 +2,6 @@ package com.applause.auto.test.mobile.helpers;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
-import com.applause.auto.common.data.TestDataUtils;
 import com.applause.auto.common.data.dto.SignUpUserDto;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
@@ -121,10 +120,6 @@ public class TestHelper extends BaseComponent {
     String dobMonth = "May";
     String dobYear = "2000";
     createAccountView.setDOB(dobDay, dobMonth, dobYear);
-
-    logger.info("Enter valid ten digit phone number / Skip this field");
-    String phone = TestDataUtils.PhoneNumberDataUtils.getRandomPhoneNumber();
-    createAccountView.setPhoneNumber(phone);
 
     logger.info("Enter valid email address");
     String email = String.format("a+%s@gmail.com", uniq);
