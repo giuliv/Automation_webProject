@@ -17,8 +17,8 @@ import com.applause.auto.mobile.views.HomeView;
 import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.MoreOptionsView;
 import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
-import com.applause.auto.mobile.views.NewOrderView;
 import com.applause.auto.mobile.views.OnboardingView;
+import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -214,7 +214,7 @@ public class TestHelper extends BaseComponent {
   }
 
   public static void denyLocationServices() {
-    if (SdkHelper.getEnvironmentHelper().isMobileAndroid()) {
+    if (MobileHelper.isAndroid()) {
       // toggleLocationServicesCommand is opening Android settings view
       // AndroidMobileCommandHelper.toggleLocationServicesCommand();
       logger.info("Disabling Location permissions for Android");
@@ -255,22 +255,22 @@ public class TestHelper extends BaseComponent {
     }
   }
 
-  public static NewOrderView openOrderMenuForRecentCoffeeBar(DashboardView dashboardView) {
+  public static OrderView openOrderMenuForRecentCoffeeBar(HomeView homeView) {
     if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
       AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
-          dashboardView.getBottomNavigationMenu().order(AllowLocationServicesPopupChunk.class);
+          homeView.getBottomNavigationMenuChunk().order(AllowLocationServicesPopupChunk.class);
       NearbySelectCoffeeBarView nearbySelectCoffeeBarView = allowLocationServicesPopupChunk.allow();
       FindACoffeeBarView findACoffeeBarView = nearbySelectCoffeeBarView.openRecentTab();
       return findACoffeeBarView.selectFirstRecentCoffeeBar();
     }
-    return dashboardView.getBottomNavigationMenu().order(NewOrderView.class);
+    return homeView.getBottomNavigationMenuChunk().order(OrderView.class);
   }
 
-  public static CheckoutView checkoutOnItemsYouMightLike(NewOrderView newOrderView) {
+  public static CheckoutView checkoutOnItemsYouMightLike(OrderView orderView) {
     if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
       return SdkHelper.create(CheckoutView.class);
     } else {
-      return newOrderView.checkout();
+      return orderView.checkout();
     }
   }
 
@@ -281,9 +281,11 @@ public class TestHelper extends BaseComponent {
    * @param password
    * @return HomeView
    */
-  public static HomeView login(String userName, String password) {
-    LandingView landingView = navigateToLandingView();
+  public static HomeView skipOnboardingAndLogin(String userName, String password) {
+    return login(navigateToLandingView(), userName, password);
+  }
 
+  public static HomeView login(LandingView landingView, String userName, String password) {
     logger.info("Tap Sign In");
     SignInView signInView = landingView.signIn();
 

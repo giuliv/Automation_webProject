@@ -24,7 +24,8 @@ public class AllowLocationServicesPopupChunk extends BaseComponent {
 
   @Locate(id = "com.wearehathway.peets.development:id/textView3", on = Platform.MOBILE_ANDROID)
   @Locate(
-      id = "Allow Location Services to help you find nearby Peet’s Coffeebars.",
+      iOSClassChain =
+          "**/XCUIElementTypeStaticText[`name CONTAINS 'Allow location services to help you find nearby Peet'`]",
       on = Platform.MOBILE_IOS)
   protected Text getTitleText;
 
@@ -48,7 +49,7 @@ public class AllowLocationServicesPopupChunk extends BaseComponent {
 
   @Locate(
       xpath =
-          "(//XCUIElementTypeStaticText[@name=\"Location Services will:\"]/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeStaticText)[1]",
+          "(//XCUIElementTypeStaticText[@name=\"Location Services will:\"]/following-sibling::XCUIElementTypeOther//XCUIElementTypeStaticText)[1]",
       on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/textView5", on = Platform.MOBILE_ANDROID)
   protected Text getMessageText1Text;
@@ -85,12 +86,10 @@ public class AllowLocationServicesPopupChunk extends BaseComponent {
    */
   public String getFormattedMessage() {
     return String.format(
-        "%s %s %s %s %s",
-        getSubTitleText.getText().replaceAll("’", "'").replaceAll("\\.$", ""),
+        "%s %s %s",
         getTitle(),
-        getMessageText1Text.getText().replaceAll("• ", ""),
-        getMessageText2Text.getText().replaceAll("• ", ""),
-        getMessageText3Text.getText().replaceAll("• ", ""));
+        getSubTitleText.getText().replaceAll("’", "'").replaceAll("\\.$", ""),
+        getMessageText1Text.getText().replaceAll("• ", ""));
   }
 
   /**

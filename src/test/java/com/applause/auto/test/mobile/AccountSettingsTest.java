@@ -181,7 +181,8 @@ public class AccountSettingsTest extends BaseTest {
       description = "625939")
   @ApplauseTestCaseId({"625939", "674528"})
   public void socialEngagementTest() {
-    HomeView homeView = TestHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    HomeView homeView =
+        TestHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
     Assert.assertNotNull(homeView, "Home View does not displayed");
 
     logger.info("Navigate to Social Media icons and click Facebook icon");

@@ -354,10 +354,10 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
     return SdkHelper.create(clazz);
   }
 
-  public NewOrderView openDefault() {
+  public OrderView openDefault() {
     logger.info("Open default store");
     orderButton.click();
-    return SdkHelper.create(NewOrderView.class);
+    return SdkHelper.create(OrderView.class);
   }
 }
 

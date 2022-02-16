@@ -219,7 +219,8 @@ public class PeetsCardsTest extends BaseTest {
       description = "1959019")
   @ApplauseTestCaseId({"674488", "674487"})
   public void negativeTestTransferBalance() {
-    HomeView homeView = testHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    HomeView homeView =
+        testHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
     softAssert.assertNotNull(homeView, "Home view is not displayed");
 
     logger.info("Tap Peet's Card icon from bottom nav bar");

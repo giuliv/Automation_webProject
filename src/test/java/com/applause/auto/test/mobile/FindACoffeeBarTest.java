@@ -26,7 +26,8 @@ public class FindACoffeeBarTest extends BaseTest {
       description = "1687260")
   @ApplauseTestCaseId({"674542", "674541"})
   public void findACoffeeBarTest() {
-    HomeView homeView = testHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    HomeView homeView =
+        testHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
     Assert.assertNotNull(homeView, "Home view is not displayed");
 
     logger.info("STEP - Tap Menu");
@@ -129,18 +130,18 @@ public class FindACoffeeBarTest extends BaseTest {
     orderView = homeView.getBottomNavigationMenuChunk().tapMenu(OrderView.class);
 
     logger.info("STEP - Tap on Recents tab");
-    orderView.getOrderMenuChunck().tapOnRecents();
+    orderView.getOrderMenuChunk().tapOnRecents();
 
     logger.info("VERIFY - Recents tab is highlighted");
     Assert.assertTrue(
-        orderView.getOrderMenuChunck().isRecentsHighlighted(), "Recents tab isn't highlighted");
+        orderView.getOrderMenuChunk().isRecentsHighlighted(), "Recents tab isn't highlighted");
 
     logger.info("STEP - Tap on Favorites tab");
-    orderView.getOrderMenuChunck().tapOnFavorites();
+    orderView.getOrderMenuChunk().tapOnFavorites();
 
     logger.info("VERIFY - Favorites tab is highlighted");
     Assert.assertTrue(
-        orderView.getOrderMenuChunck().isFavoritesHighlighted(), "Favorites tab isn't highlighted");
+        orderView.getOrderMenuChunk().isFavoritesHighlighted(), "Favorites tab isn't highlighted");
   }
 
   @Test(
@@ -148,7 +149,8 @@ public class FindACoffeeBarTest extends BaseTest {
       description = "1687261")
   @ApplauseTestCaseId({"674550", "674549"})
   public void recentCoffeeBarTest() {
-    HomeView homeView = testHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    HomeView homeView =
+        testHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
 
     logger.info("STEP - Tap on Recents tab");
     AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
@@ -204,7 +206,8 @@ public class FindACoffeeBarTest extends BaseTest {
   public void favoriteCoffeeBarsTest() {
     logger.info("PRECONDITION - User is on find a coffeeBar screen");
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    HomeView homeView = testHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    HomeView homeView =
+        testHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
     softAssert.assertNotNull(homeView, "Home view is not displayed");
 
     AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =

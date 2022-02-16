@@ -31,7 +31,8 @@ public class CompanyInformationTest extends BaseTest {
   @ApplauseTestCaseId({"674523", "674522"})
   public void faqsTest() {
     logger.info("Launch the app and log in");
-    HomeView homeView = TestHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    HomeView homeView =
+        TestHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
     Assert.assertNotNull(homeView, "Home View does not displayed");
 
     logger.info("Tap Help & Feedback field");
@@ -65,7 +66,8 @@ public class CompanyInformationTest extends BaseTest {
       description = "625938")
   @ApplauseTestCaseId({"674527", "674526"})
   public void termsAndPrivacyPolicyTest() {
-    HomeView homeView = TestHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    HomeView homeView =
+        TestHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
     Assert.assertNotNull(homeView, "Home View does not displayed");
 
     logger.info("STEP - Tap on ... at top right of home screen");
@@ -131,7 +133,8 @@ public class CompanyInformationTest extends BaseTest {
       description = "625933")
   @ApplauseTestCaseId({"674517", "674514"})
   public void moreScreenTest() {
-    HomeView homeView = TestHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    HomeView homeView =
+        TestHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
     Assert.assertNotNull(homeView, "Home View does not displayed");
 
     logger.info("STEP - Tap on ... at top right of home screen");
@@ -222,7 +225,8 @@ public class CompanyInformationTest extends BaseTest {
       description = "625937")
   @ApplauseTestCaseId({"674525", "625937"})
   public void contactCustomerServiceTest() {
-    HomeView homeView = TestHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    HomeView homeView =
+        TestHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
     Assert.assertNotNull(homeView, "Home View does not displayed");
 
     logger.info("Tap Help & Feedback field");

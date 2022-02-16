@@ -172,7 +172,7 @@ public class MobileHelper {
     logger.info("Scrolling to bottom of page close to middle");
     refreshDeviceSize();
     int count = 0;
-    while (!element.isDisplayed() && (count < retries)) {
+    while (!isElementDisplayed(element, 5) && (count < retries)) {
       scrollDownCloseToMiddleAlgorithm();
       SdkHelper.getSyncHelper().sleep(2000);
       count++;

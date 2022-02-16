@@ -3,15 +3,18 @@ package com.applause.auto.test.mobile.production_monitoring;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.common.data.enums.OrderMenuCategory;
+import com.applause.auto.common.data.enums.OrderMenuSubCategory;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.views.CheckoutView;
 import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
-import com.applause.auto.mobile.views.NewOrderView;
 import com.applause.auto.mobile.views.OrderConfirmationView;
+import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.ProductDetailsView;
+import com.applause.auto.mobile.views.SubCategoryView;
 import com.applause.auto.test.mobile.BaseTest;
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
@@ -50,20 +53,23 @@ public class ProductionOrderTest extends BaseTest {
     String storeName = nearbySelectCoffeeBarView.getCoffeeStoreContainerChuck().getStoreName();
     // TODO fill store name on prod
     Assert.assertEquals("", "", "Incorrect store selected");
-    NewOrderView orderView = nearbySelectCoffeeBarView.openDefault();
+    OrderView orderView = nearbySelectCoffeeBarView.openDefault();
 
     // Ensure that correct store opened
 
     logger.info("Tap on Hot Coffee button from menu bar > All Hot coffee options are displayed");
     logger.info("Tap on Lattes under hot coffee bar");
-    orderView.selectCategoryAndSubCategory("Hot Coffee", "Lattes");
-    ProductDetailsView productDetailsView = orderView.selectProduct("Coffee Latte");
+    SubCategoryView subCategoryView =
+        orderView
+            .selectCategory(OrderMenuCategory.HOT_COFFEE)
+            .selectSubCategory(OrderMenuSubCategory.LATTES);
+    ProductDetailsView productDetailsView = subCategoryView.selectProduct("Coffee Latte");
 
     logger.info("Verify: User is taken to Coffee Latte PDP page ");
     Assert.assertNotNull(productDetailsView, "User does not taken to Coffee latte PDP page");
 
     logger.info("Tab on Add to order button");
-    orderView = productDetailsView.addToOrder(NewOrderView.class);
+    orderView = productDetailsView.addToOrder(OrderView.class);
 
     logger.info("Verify: User is taken to order page");
     Assert.assertNotNull(orderView, "User does not taken to order page");

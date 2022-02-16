@@ -40,7 +40,9 @@ public class ProductDetailsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getSaveChangesButton;
 
-  @Locate(id = "button back", on = Platform.MOBILE_IOS)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`name == 'button back'`]",
+      on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
           "//android.widget.ImageButton[contains(@content-desc,\"Navigate up\") or contains(@content-desc,\"Nach oben\")]",
@@ -200,12 +202,18 @@ public class ProductDetailsView extends BaseComponent {
    * @param subCategory the sub category
    * @return the product details view
    */
-  public ProductDetailsView selectModifiers(String category, String subCategory) {
+  public ProductDetailsView selectModifiers(String category, String subCategory, String option) {
     logger.info("Select category: " + category + " | " + subCategory);
     getCategoryItem.format(category);
     SdkHelper.getDeviceControl().tapElementCenter(getCategoryItem);
     getCategoryItem.format(subCategory);
     SdkHelper.getDeviceControl().tapElementCenter(getCategoryItem);
+
+    if (!option.isEmpty()) {
+      logger.info("Selecting [{}] option", option);
+      getCategoryItem.format(option);
+      getCategoryItem.click();
+    }
     getSaveChangesButton.click();
     return SdkHelper.create(ProductDetailsView.class);
   }
@@ -220,9 +228,6 @@ public class ProductDetailsView extends BaseComponent {
   public <T extends BaseComponent> T navigateBack(Class<T> clazz) {
     logger.info("Navigate Back");
     getBackButton.click();
-    if (!clazz.equals(SearchResultsView.class)) {
-      getBackButton.click();
-    }
     return SdkHelper.create(clazz);
   }
 
@@ -365,6 +370,10 @@ public class ProductDetailsView extends BaseComponent {
   public RemoveFromOrderChunk delete() {
     garbageButton.click();
     return SdkHelper.create(RemoveFromOrderChunk.class);
+  }
+
+  public boolean isAddToOrderButtonDisplayed() {
+    return MobileHelper.isElementDisplayed(getAddToOrderButton, 5);
   }
 }
 

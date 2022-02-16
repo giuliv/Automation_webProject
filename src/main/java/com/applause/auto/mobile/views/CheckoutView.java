@@ -41,7 +41,7 @@ public class CheckoutView extends BaseComponent {
       xpath = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]",
       on = Platform.MOBILE_ANDROID)
   @Locate(
-      iOSClassChain = "**/XCUIElementTypeButton[`label == \"Close\"`]",
+      iOSClassChain = "**/XCUIElementTypeButton[`label == 'Close' OR name == 'Back'`]",
       on = Platform.MOBILE_IOS)
   protected Button closeButton;
 
@@ -131,9 +131,16 @@ public class CheckoutView extends BaseComponent {
       xpath =
           "//XCUIElementTypeStaticText[@name=\"%s\"]/following-sibling::XCUIElementTypeButton[contains(@name,\"Delete\")]",
       on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//android.view.ViewGroup[.//android.widget.TextView[contains(@text, '%s')]]/*[contains(@resource-id, 'id/delete')]",
+      on = Platform.MOBILE_ANDROID)
   protected Button productItemDeleteByEditButton;
 
   @Locate(accessibilityId = "Edit", on = Platform.MOBILE_IOS)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/editButton\")",
+      on = Platform.MOBILE_ANDROID)
   protected Button editButton;
 
   @Locate(
@@ -285,11 +292,11 @@ public class CheckoutView extends BaseComponent {
    *
    * @return the new order view
    */
-  public NewOrderView close() {
+  public OrderView close() {
     logger.info("Close Checkout view");
     SdkHelper.getSyncHelper().wait(Until.uiElement(closeButton).visible());
     MobileHelper.tapOnElementCenter(closeButton);
-    return SdkHelper.create(NewOrderView.class);
+    return SdkHelper.create(OrderView.class);
   }
 
   /**
@@ -421,6 +428,12 @@ public class CheckoutView extends BaseComponent {
 }
 
 class AndroidCheckoutView extends CheckoutView {
+
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/editButton\").text(\"Done\")",
+      on = Platform.MOBILE_ANDROID)
+  protected Button doneButton;
+
   @Override
   public void afterInit() {
     try {
@@ -482,5 +495,31 @@ class AndroidCheckoutView extends CheckoutView {
           logger.info("Found option: " + i);
         });
     return new ItemOptions(result);
+  }
+
+  @Override
+  public CheckoutView deleteByEditButton(String productName) {
+    logger.info("Click edit button");
+    IntStream.range(0, 2)
+        .forEach(
+            i -> {
+              MobileHelper.scrollUpCloseToMiddleAlgorithm();
+            });
+    editButton.click();
+
+    logger.info("Scroll down and up [in Order to elements be populated]");
+    SdkHelper.getSyncHelper().sleep(2000); // Wait for action
+    MobileHelper.scrollDownHalfScreen(3);
+
+    SdkHelper.getSyncHelper().sleep(2000); // Wait for scroll
+    MobileHelper.scrollElementIntoView(productItemDeleteByEditButton.format(productName));
+
+    logger.info("Tapping on 'Delete' button");
+    productItemDeleteByEditButton.format(productName).click();
+
+    logger.info("Tapping on 'Done'");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(doneButton).clickable());
+    doneButton.click();
+    return SdkHelper.create(CheckoutView.class);
   }
 }

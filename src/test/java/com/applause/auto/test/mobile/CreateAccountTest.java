@@ -159,7 +159,8 @@ public class CreateAccountTest extends BaseTest {
   @ApplauseTestCaseId({"674505", "674504"})
   public void accountSettingsEditProfileTest() {
     HomeView homeView =
-        TestHelper.login(MyAccountTestData.EDIT_EMAIL, MyAccountTestData.EDIT_EMAIL_PWD);
+        TestHelper.skipOnboardingAndLogin(
+            MyAccountTestData.EDIT_EMAIL, MyAccountTestData.EDIT_EMAIL_PWD);
     Assert.assertNotNull(homeView, "Home View does not displayed");
 
     logger.info("Tap on ... at top right of home screen to view more screen");
@@ -248,7 +249,8 @@ public class CreateAccountTest extends BaseTest {
       description = "625927")
   @ApplauseTestCaseId({"674507", "674506"})
   public void accountSettingsGeneralSettingsTest() {
-    HomeView homeView = TestHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    HomeView homeView =
+        TestHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
     Assert.assertNotNull(homeView, "Home View does not displayed");
 
     logger.info("STEP - Tap on ... at top right of home screen to view more screen");
@@ -947,7 +949,8 @@ public class CreateAccountTest extends BaseTest {
       description = "625929")
   @ApplauseTestCaseId({"674513", "674512"})
   public void accountSettingsAccountHistoryTest() {
-    HomeView homeView = TestHelper.login(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+    HomeView homeView =
+        TestHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
     Assert.assertNotNull(homeView, "Home View does not displayed");
 
     logger.info("STEP - Tap on ... at top right of home screen to view more screen");

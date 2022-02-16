@@ -3,24 +3,30 @@ package com.applause.auto.test.mobile;
 import static com.applause.auto.test.mobile.helpers.TestHelper.openOrderMenuForRecentCoffeeBar;
 
 import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.common.data.enums.OrderMenuCategory;
+import com.applause.auto.common.data.enums.OrderMenuSubCategory;
+import com.applause.auto.common.data.enums.Products;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
 import com.applause.auto.mobile.components.CoffeeStoreItemChuck;
 import com.applause.auto.mobile.helpers.ItemOptions;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.CheckoutView;
-import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.FindACoffeeBarView;
 import com.applause.auto.mobile.views.HomeView;
 import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
-import com.applause.auto.mobile.views.NewOrderView;
+import com.applause.auto.mobile.views.OnboardingView;
 import com.applause.auto.mobile.views.OrderConfirmationView;
 import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.ProductDetailsView;
+import com.applause.auto.mobile.views.SearchResultsView;
+import com.applause.auto.mobile.views.SubCategoryView;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import com.applause.auto.test.mobile.helpers.TestHelper;
 import java.lang.invoke.MethodHandles;
@@ -34,31 +40,24 @@ public class OrderTest extends BaseTest {
 
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
-  // updated according to https://appauto.testrail.net/index.php?/cases/view/625889
-  // ToDo: Disabled until order section is updated
   @Test(
-      enabled = false,
       groups = {TestNGGroups.ORDER},
       description = "625889")
   @ApplauseTestCaseId({"674196", "674195"})
   public void locationServicesNotEnabled() {
-    logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
+    logger.info("Launch the app and arrive at the first onboarding screen view");
+    OnboardingView onboardingView = openApp();
 
     // since autoGrantPermissions are set to true in capabilities, we have to deny location in this
     // test method to get Allow location pop up
     TestHelper.denyLocationServices();
-    DashboardView dashboardView =
-        testHelper.signIn(
-            landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
-    Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
+
+    LandingView landingView = onboardingView.skipOnboarding();
+    HomeView homeView =
+        testHelper.login(landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
 
     logger.info("Tap Order icon on the bottom nav bar");
-    OrderView orderView =
-        dashboardView
-            .getBottomNavigationMenu()
-            .order(AllowLocationServicesPopupChunk.class)
-            .allow(OrderView.class);
+    OrderView orderView = homeView.getBottomNavigationMenuChunk().tapMenu(OrderView.class);
 
     logger.info("Header: Order");
     Assert.assertEquals(
@@ -76,8 +75,8 @@ public class OrderTest extends BaseTest {
     logger.info("Title: Allow Location Services to help you find nearby Peet's Coffeebars.");
     Assert.assertEquals(
         allowLocationServicesPopupChunk.getTitle(),
-        "Allow Location Services to help you find nearby Peet's Coffeebars",
-        "'Allow Location Services to help you find nearby Peet's Coffeebars' title does not found");
+        MobileTestData.ALLOW_LOCATION_SERVICE_MESSAGE,
+        "'Allow Location' title does not found");
 
     logger.info(
         "Text: Location Services will:\n"
@@ -87,12 +86,12 @@ public class OrderTest extends BaseTest {
             + "* Not share your locations or information\n"
             + "\n"
             + "* Pinpoint the coffeebars closest to you");
-    Assert.assertTrue(
-        allowLocationServicesPopupChunk
-            .getFormattedMessage()
-            .matches(
-                "Location Services will: Allow Location Services to help you find nearby Peet(’|')s Coffeebars Only use your location while using th(e|is) app Not share your locations? or information Pinpoint the coffeebars closest to you"),
-        "Unexpected text: ");
+    String formattedMessage = allowLocationServicesPopupChunk.getFormattedMessage();
+    Assert.assertEquals(
+        formattedMessage,
+        MobileTestData.ALLOW_LOCATION_SERVICE_MESSAGE
+            + " Location Services will: Only use your location while using the app.",
+        "Unexpected text");
     logger.info("[Button] Not Now [Button] Allow");
     Assert.assertTrue(
         allowLocationServicesPopupChunk.isAllowButtonDisplayed(),
@@ -113,17 +112,8 @@ public class OrderTest extends BaseTest {
     String currentCoffeeStoreContainerName1 = coffeeStoreContainerChuck.getStoreName();
     Assert.assertNotNull(currentCoffeeStoreContainerName1, "Store name was not fetch");
 
-    // page sources are not being refreshed and
-    // after swiping left/right always first displayed element on the screen is only detected
-    // coffeeStoreContainerChuck.swipeCoffeStoreContainer(SwipeDirection.LEFT);
     String currentCoffeeStoreContainerName2 = coffeeStoreContainerChuck.getStoreName();
     Assert.assertNotNull(currentCoffeeStoreContainerName2, "Store name was not fetch");
-
-    // page sources are not being refreshed and
-    // after swiping left/right always first displayed element on the screen is only detected
-    // coffeeStoreContainerChuck.swipeCoffeStoreContainer(SwipeDirection.RIGHT);
-    // String currentCoffeeStoreContainerName3 = coffeeStoreContainerChuck.getStoreName();
-    // Assert.assertNotNull(currentCoffeeStoreContainerName3, "Store name was not fetch");
 
     orderView = coffeeStoreContainerChuck.clickOrderButton();
     logger.info("Header: Order");
@@ -131,27 +121,21 @@ public class OrderTest extends BaseTest {
         orderView.getHeadingTextValue().toLowerCase().toUpperCase(), "ORDER", "Incorrect header");
   }
 
-  // TODO should be rewritten due to test case/UI changes
-  // ToDo: Disabled until order section is updated
   @Test(
       groups = {TestNGGroups.ORDER},
-      description = "625890",
-      enabled = false)
+      description = "625890")
   @ApplauseTestCaseId({"674198", "674197"})
   public void browseTheMenu() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-    DashboardView dashboardView =
-        testHelper.signIn(
-            landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
-    Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
+    HomeView homeView =
+        testHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
 
     logger.info("Tap Order icon on the bottom nav bar");
     OrderView orderView =
-        dashboardView
-            .getBottomNavigationMenu()
-            .order(AllowLocationServicesPopupChunk.class)
-            .allow(OrderView.class);
+        homeView
+            .getBottomNavigationMenuChunk()
+            .tapMenu(AllowLocationServicesPopupChunk.class)
+            .allowIfRequestDisplayed(OrderView.class);
 
     logger.info("Checking if Allow Location Services Popup is displayed");
     AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
@@ -164,9 +148,9 @@ public class OrderTest extends BaseTest {
 
       logger.info("Tap Order icon on the bottom nav bar");
       orderView =
-          dashboardView
-              .getBottomNavigationMenu()
-              .order(AllowLocationServicesPopupChunk.class)
+          homeView
+              .getBottomNavigationMenuChunk()
+              .tapMenu(AllowLocationServicesPopupChunk.class)
               .allow(OrderView.class);
     }
 
@@ -179,94 +163,57 @@ public class OrderTest extends BaseTest {
 
     logger.info("Sub-header: Seasonal Favorites");
     Assert.assertEquals(
-        orderView.getOrderMenuChunck().getFavoritesSubHeaderTextValue(),
-        "Seasonal Favorites",
+        orderView.getOrderMenuChunk().getFavoritesSubHeaderTextValue(),
+        "Favorites",
         "Incorrect Favorites sub-header");
 
     logger.info("Sub-header: Menu");
     Assert.assertEquals(
-        orderView.getOrderMenuChunck().getMenuSubheaderTextValue(),
+        orderView.getOrderMenuChunk().getMenuSubheaderTextValue(),
         "Menu",
         "Incorrect Menu sub-header");
-    //
-    // logger.info("Tap Locate Coffeebars");
-    // NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
-    // orderView.locateCoffeebars(NearbySelectCoffeeBarView.class);
-    //
-    // logger.info(
-    // "Select a store from:\n"
-    // + "\n"
-    // + "Nearby\n"
-    // + "\n"
-    // + "Recents\n"
-    // + "\n"
-    // + "Favorites\n"
-    // + "\n"
-    // + "OR\n"
-    // + "\n"
-    // + "by using search function\n");
-    // nearbySelectCoffeeBarView.search("94608");
-    // NewOrderView newOrderView = nearbySelectCoffeeBarView.openCoffeebarFromSearchResults(1);
-    //
-    // logger.info("Tap a category");
-    // newOrderView.selectCategory("Espresso Beverages");
-    //
-    // logger.info("Sub-categories should expand downward");
-    // List<String> items = newOrderView.getCategoryItems("Espresso Beverages");
-    // Assert.assertTrue(items.size() > 0, "Sub categories does not expand");
-    //
-    // logger.info("Select a sub-category");
-    // newOrderView.selectSubCategory("Espresso Beverages", items.get(0));
-    //
-    // logger.info("Select a product");
-    // ProductDetailsView productDetail = newOrderView.selectProduct("Iced Espresso");
-    //
-    // logger.info("User should be taken to product details page");
-    // Assert.assertNotNull(productDetail, "User des not taken to product detail page");
-    //
-    // logger.info("Scroll down PDP and select a modifiers");
-    // productDetail = productDetail.selectModifiers("Ice", "Light Ice");
-    //
-    // logger.info("Return to main order menu screen");
-    // newOrderView = productDetail.navigateBack(NewOrderView.class);
-    //
-    // logger.info("Tap on category header again");
-    // newOrderView.selectCategory("Espresso Beverages");
-    //
-    // logger.info("Category should collapse");
-    // items = newOrderView.getCategoryItems("Espresso Beverages");
-    // Assert.assertTrue(items.size() == 0, "Categories does not collapsed");
-    //
-    // logger.info("Tap on search icon");
-    // logger.info(
-    // "Search menu field should appear at top of screen\n"
-    // + "\n"
-    // + "User should see a list of recent products (if applicable) populate below
-    // search
-    // field\n");
-    // logger.info("Tap into search field and manually enter a search term (i.e. mocha)");
-    // SearchResultsView searchResultsView = newOrderView.search("mocha");
-    //
-    // logger.info("Make sure items appear");
-    // Assert.assertTrue(
-    // searchResultsView.getResults().get(0).toLowerCase().contains("mocha"),
-    // "No relevant search results");
-    //
-    // logger.info("Tap on an item");
-    // ProductDetailsView productDetailsView = searchResultsView.selectSearchResultByIndex(0);
-    //
-    // logger.info("User should be taken to product details page:");
-    // Assert.assertNotNull(productDetailsView, "Product detail view does not displayed");
-    //
-    // logger.info("Tap back arrow on PDP");
-    // searchResultsView = productDetailsView.navigateBack(SearchResultsView.class);
-    //
-    // logger.info("User should be taken back to search menu screen");
-    // Assert.assertNotNull(searchResultsView, "User does not taken back to search menu
-    // screen");
+
+    logger.info("Tap a category nd then Select a sub-category");
+    SubCategoryView subCategoryView =
+        orderView
+            .selectCategory(OrderMenuCategory.FOOD)
+            .selectSubCategory(OrderMenuSubCategory.WARM_BREAKFAST);
+    Assert.assertEquals(
+        subCategoryView.getTitle().toLowerCase().trim(),
+        OrderMenuSubCategory.WARM_BREAKFAST.getSubCategory().toLowerCase(),
+        "Page title is wrong");
+
+    logger.info("Select a product");
+    ProductDetailsView productDetailsView = subCategoryView.selectProduct(1);
+
+    logger.info("Verify that 'Add to Order' button is displayed");
+    Assert.assertTrue(
+        productDetailsView.isAddToOrderButtonDisplayed(), "Add to order button isn't displayed");
+
+    logger.info("Tap back arrow until back on main order screen");
+    orderView =
+        productDetailsView.navigateBack(SubCategoryView.class).navigateBack(OrderView.class);
+
+    logger.info("Tap on search icon at top right corner of order screen");
+    SearchResultsView searchResultsView = orderView.tapOnSearchButton();
+
+    logger.info("Tap into search field and manually enter a search term (i.e. mocha)");
+    productDetailsView = searchResultsView.search("mocha").selectSearchResultByIndex(1);
+
+    logger.info("Verify that 'Add to Order' button is displayed");
+    Assert.assertTrue(
+        productDetailsView.isAddToOrderButtonDisplayed(), "Add to order button isn't displayed");
+
+    logger.info("Tap back arrow on PDP");
+    searchResultsView = productDetailsView.navigateBack(SearchResultsView.class);
+
+    logger.info("Tap cancel link next to search menu field");
+    orderView = searchResultsView.cancel(OrderView.class);
+
+    logger.info("Verify that User returns to main order screen");
+    Assert.assertNotNull(orderView, "Order view didn't appear");
   }
 
-  // ToDo: Disabled until order section is updated
   @Test(
       groups = {TestNGGroups.ORDER},
       description = "625897",
@@ -274,35 +221,36 @@ public class OrderTest extends BaseTest {
   @ApplauseTestCaseId({"674214", "674213"})
   public void checkoutTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-    DashboardView dashboardView =
-        testHelper.signIn(
-            landingView,
-            MyAccountTestData.EMAIL_PEETS_REWARDS,
-            MyAccountTestData.PASSWORD,
-            DashboardView.class);
+    HomeView homeView =
+        testHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
 
-    Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
-
-    NewOrderView newOrderView = openOrderMenuForRecentCoffeeBar(dashboardView);
+    logger.info("Tap Order icon on the bottom nav bar");
+    OrderView orderView =
+        homeView
+            .getBottomNavigationMenuChunk()
+            .tapMenu(AllowLocationServicesPopupChunk.class)
+            .allowIfRequestDisplayed(OrderView.class);
 
     logger.info("Tap a category and subcategory");
-    newOrderView.selectCategoryAndSubCategory("Espresso Beverages", "Espresso");
+    SubCategoryView subCategoryView =
+        orderView
+            .selectCategory(OrderMenuCategory.HOT_COFFEE)
+            .selectSubCategory(OrderMenuSubCategory.ESPRESSO);
 
     logger.info("Select a product");
-    ProductDetailsView productDetail = newOrderView.selectProduct("Iced Espresso");
+    ProductDetailsView productDetail = subCategoryView.selectProduct(1);
 
     logger.info("User should be taken to product details page");
     Assert.assertNotNull(productDetail, "User des not taken to product detail page");
 
     logger.info("Scroll down PDP and select a modifiers");
-    productDetail = productDetail.selectModifiers("Ice", "Light Ice");
+    productDetail = productDetail.selectModifiers("Add Milk", "Splash of Half & Half", "None");
 
     logger.info("Add to Order");
-    newOrderView = productDetail.addToOrder(NewOrderView.class);
+    orderView = productDetail.addToOrder(OrderView.class);
 
     logger.info("Proceed to Checkout");
-    CheckoutView checkout = newOrderView.checkout();
+    CheckoutView checkout = orderView.checkout();
 
     logger.info("Navigate to Available Rewards");
     checkout = checkout.clickOnAwardItem("Free Beverage");
@@ -317,7 +265,6 @@ public class OrderTest extends BaseTest {
     Assert.assertNotNull(orderConfirmationView, "Something happened during order placement");
   }
 
-  // ToDo: Disabled until order section is updated
   @Test(
       groups = {TestNGGroups.ORDER},
       description = "2879930",
@@ -325,42 +272,42 @@ public class OrderTest extends BaseTest {
   @ApplauseTestCaseId({"674356", "674355"})
   public void orderAhead() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
-    LandingView landingView = SdkHelper.create(LandingView.class);
-    DashboardView dashboardView =
-        testHelper.signIn(
-            landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
+    HomeView homeView =
+        testHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
 
-    Assert.assertNotNull(dashboardView, "Dashboard View does not displayed");
-
-    NewOrderView newOrderView = openOrderMenuForRecentCoffeeBar(dashboardView);
+    OrderView orderView = openOrderMenuForRecentCoffeeBar(homeView);
 
     logger.info("Tap a category and subcategory");
-    newOrderView.selectCategoryAndSubCategory("Beans & Espresso Capsules", "Espresso");
+    SubCategoryView subCategoryView =
+        orderView
+            .selectCategory(OrderMenuCategory.HOT_COFFEE)
+            .selectSubCategory(OrderMenuSubCategory.ESPRESSO);
 
     logger.info("Select a product");
-    ProductDetailsView productDetail = newOrderView.selectProduct("Iced Espresso");
+    ProductDetailsView productDetail =
+        subCategoryView.selectProduct(Products.ICED_ESPRESSO.getValue());
 
     logger.info("User should be taken to product details page");
     Assert.assertNotNull(productDetail, "User des not taken to product detail page");
 
     logger.info("Scroll down PDP and select a modifiers");
-    productDetail = productDetail.selectModifiers("Ice", "Light Ice");
+    productDetail = productDetail.selectModifiers("Ice", "Light Ice", "None");
 
     logger.info("Add to Order");
-    newOrderView = productDetail.addToOrder(NewOrderView.class);
+    orderView = productDetail.addToOrder(OrderView.class);
 
     logger.info("Proceed to Checkout");
-    CheckoutView checkout = newOrderView.checkout();
+    CheckoutView checkout = orderView.checkout();
 
     logger.info("Navigate to You might also like section. Tap on a product.");
     productDetail = checkout.clickYouMightAlsoLikeItem();
     Assert.assertNotNull(productDetail, "User does not taken to product detail page");
 
     logger.info("Add to Order");
-    newOrderView = productDetail.addToOrder(NewOrderView.class);
+    orderView = productDetail.addToOrder(OrderView.class);
 
     logger.info("Proceed to Checkout");
-    checkout = TestHelper.checkoutOnItemsYouMightLike(newOrderView);
+    checkout = TestHelper.checkoutOnItemsYouMightLike(orderView);
 
     logger.info("Checking total order items count");
     Assert.assertEquals(checkout.getOrderedItemsCount(), 2, "Ordered items count is incorrect");
@@ -374,8 +321,7 @@ public class OrderTest extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.ORDER, TestNGGroups.REGRESSION},
-      description = "1687255",
-      enabled = true)
+      description = "1687255")
   @ApplauseTestCaseId({"674356", "674355"})
   public void recentsFavoriteOrdersEmptyStateTest() {
     logger.info(
@@ -388,31 +334,16 @@ public class OrderTest extends BaseTest {
     HomeView homeView = testHelper.createNewAccountWithDefaults();
     Assert.assertNotNull(homeView, "Home View does not displayed");
 
-    NewOrderView order;
-    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
-      logger.info("Tap on store locator icon in top right corner");
-      NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
-          homeView
-              .tapOnStoresButton(AllowLocationServicesPopupChunk.class)
-              .allowIfRequestDisplayed();
-
-      logger.info("STEP - Search for any store either by nearby, recent tabs, or by zip code");
-      nearbySelectCoffeeBarView.search("78717");
-
-      order = homeView.getBottomNavigationMenuChunk().order(NewOrderView.class);
-    } else {
-      order =
-          homeView
-              .getBottomNavigationMenuChunk()
-              .order(AllowLocationServicesPopupChunk.class)
-              .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class)
-              .close(DashboardView.class)
-              .getBottomNavigationMenu()
-              .order(NewOrderView.class);
-    }
+    OrderView orderView =
+        homeView
+            .getBottomNavigationMenuChunk()
+            .tapMenu(AllowLocationServicesPopupChunk.class)
+            .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class)
+            .search("78717")
+            .openDefault();
 
     logger.info("STEP 1. Tap on Recents tab");
-    order = order.recents();
+    orderView = orderView.recents();
 
     logger.info("EXPECTED 1. Recents tab is highlighted in gold");
     logger.info(
@@ -421,25 +352,24 @@ public class OrderTest extends BaseTest {
             + "* Title: No Recent Orders\n"
             + "* Text: Your recent orders will appear here to quickly order again.\n"
             + "* [Button] Start New Order");
-    // TODO Gold color verification
-    // TODO Clock icon verification
     Assert.assertTrue(
-        order.isTitleNoRecentOrdersDisplayed(), "Title <No recent orders> does not displayed");
+        orderView.isTitleNoRecentOrdersDisplayed(), "Title <No recent orders> does not displayed");
     Assert.assertTrue(
-        order.isMessageDisplayed("Your recent orders will appear here to quickly order again."),
+        orderView.isMessageDisplayed("Your recent orders will appear here to quickly order again."),
         "Expected message <Your recent orders will appear here to quickly order again.> does not displayed");
     Assert.assertTrue(
-        order.isStartNewOrderRecentsButtonDisplayed(), "Button <Start New Order> does not found>");
+        orderView.isStartNewOrderRecentsButtonDisplayed(),
+        "Button <Start New Order> does not found>");
 
     logger.info("STEP 2. Tap Start New Order button");
-    order = order.startNewOrderRecents();
+    orderView = orderView.startNewOrderRecents();
 
     logger.info(
         "EXPECTED 2. User returns to menu tab on order screen and can view the menu categories");
-    Assert.assertTrue(order.isMenuCategoriesDisplayed(), "User does not returned to menu");
+    Assert.assertTrue(orderView.isMenuCategoriesDisplayed(), "User does not returned to menu");
 
     logger.info("STEP 3. Tap on Favorites tab");
-    order = order.favorites();
+    orderView = orderView.favorites();
 
     logger.info(
         "EXPECTED 3. Favorites tab is highlighted in gold\n"
@@ -447,32 +377,28 @@ public class OrderTest extends BaseTest {
             + "* Heart icon* Title: No Favorited Orders\n"
             + "* Text: Favorite an order to save customizations and make your next coffee run even faster!\n"
             + "* [Button] Start New Order");
-
-    // TODO Gold color verification
-    // TODO Heart icon verification
-
     Assert.assertTrue(
-        order.isMessageDisplayed(
+        orderView.isMessageDisplayed(
             "Favorite an order to save customizations and make your next coffee run even faster!"),
         "Expected message <Favorite an order to save customizations and make your next coffee run even faster!> does not displayed");
     Assert.assertTrue(
-        order.isTitleNoFavoriteOrdersDisplayed(), "Title <No favorite orders> does not displayed");
+        orderView.isTitleNoFavoriteOrdersDisplayed(),
+        "Title <No favorite orders> does not displayed");
     Assert.assertTrue(
-        order.isStartNewOrderFavoritesButtonDisplayed(),
+        orderView.isStartNewOrderFavoritesButtonDisplayed(),
         "Button <Start New Order> does not found>");
 
     logger.info("STEP 4. Tap Start New Order button");
-    order = order.startNewOrderFavorites();
+    orderView = orderView.startNewOrderFavorites();
 
     logger.info(
         "EXPECTED 4. User returns to menu tab on order screen and can view the menu categories");
-    Assert.assertTrue(order.isMenuCategoriesDisplayed(), "User does not returned to menu");
+    Assert.assertTrue(orderView.isMenuCategoriesDisplayed(), "User does not returned to menu");
   }
 
   @Test(
       groups = {TestNGGroups.ORDER, TestNGGroups.REGRESSION},
-      description = "625930",
-      enabled = true)
+      description = "625930")
   public void recentsFavoriteCoffeebarsEmptyStateTest() {
     logger.info(
         "Precondition: User is already signed in to app\n"
@@ -485,7 +411,10 @@ public class OrderTest extends BaseTest {
 
     logger.info("STEP 1. Tap on store locator icon in top right corner");
     NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
-        homeView.tapOnStoresButton(AllowLocationServicesPopupChunk.class).allowIfRequestDisplayed();
+        homeView
+            .getBottomNavigationMenuChunk()
+            .tapMenu(AllowLocationServicesPopupChunk.class)
+            .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class);
 
     logger.info(
         "User is taken to find a coffeebar screen:\n"
@@ -521,29 +450,15 @@ public class OrderTest extends BaseTest {
     Assert.assertTrue(
         nearbySelectCoffeeBarView.isFavoritesTabDisplayed(), "Favorites does not displayed");
 
-    // if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
-    logger.info("STEP - Search for any store either by nearby, recent tabs, or by zip code");
+    logger.info("STEP 2 - Search for any store either by nearby, recent tabs, or by zip code");
     nearbySelectCoffeeBarView.search("78717");
-    // }
 
     CoffeeStoreItemChuck store = nearbySelectCoffeeBarView.getCoffeeStoreContainerChucks().get(0);
-
-    // TODO Order button related to working hours
-    // store.isCoffeebarOrderButtonDisplayed();
     String storeName = store.getStoreName();
 
     Assert.assertFalse(storeName.isEmpty(), "Store name is empty");
-
-    if (!SdkHelper.getEnvironmentHelper().isMobileIOS()) {
-      // Todo: ask Peets, only works for android flow
-      Assert.assertTrue(store.isCoffeebarDistanceDisplayed(), "Distance  does not displayed");
-    }
     Assert.assertTrue(store.isCoffeebarOpenHoursDisplayed(), "Open hours does not displayed");
 
-    logger.info("STEP 2. Tap on current location icon on the map");
-    // nearbySelectCoffeeBarView
-    // .location(AllowLocationServicesPopupChunk.class)
-    // .allowIfRequestDisplayed();
     logger.info(
         "User sees blue dot on map and nearby store locations are indicated on the map as brown pins");
     Assert.assertTrue(
@@ -570,30 +485,31 @@ public class OrderTest extends BaseTest {
       logger.warn("Only one store found, cannot validate swiping");
     }
 
-    logger.info(
-        "User can see displayed coffeebar location on the map indicated by the gold pin on the map");
-    // TODO Unable to validate change pin colour
+    logger.info("STEP 4. Tap Order button");
+    OrderView order = store.clickOrderButton();
 
-    logger.info("STEP 4. Tap on a brown pin on the map");
-    logger.info(
-        "Brown pin on map turns to a gold pin and store location card updates to the selected store");
+    logger.info("User is taken to main order screen");
+    Assert.assertNotNull(order, "User does not taken to main order screen");
 
-    // TODO Blocked because order button visibility relay on working hours
-    // logger.info("STEP 5. Tap Order button");
-    // OrderView order = store.clickOrderButton();
-    // logger.info("User is taken to main order screen");
-    // Assert.assertNotNull(order, "User does not taken to main order screen");
-    //
-    // logger.info("STEP 6. Tap back arrow");
-    // dashboardView = order.back(DashboardView.class);
-    // logger.info("User is taken to home screen");
-    // Assert.assertNotNull(nearbySelectCoffeeBarView, "User does not taken to home ");
-    //
-    // logger.info("STEP 7. Tap on store locator icon again");
-    // nearbySelectCoffeeBarView = dashboardView.location(NearbySelectCoffeeBarView.class);
-    // logger.info("User is taken to find a coffeebar screen");
-    // Assert.assertNotNull(nearbySelectCoffeeBarView, "User does not taken to find coffeebar
-    // screen");
+    logger.info("STEP 6. Tap back arrow");
+    homeView =
+        order
+            .back(HomeView.class)
+            .getReorderTooltipComponent()
+            .closeAnyTooltipIfDisplayed(2, HomeView.class);
+
+    logger.info("User is taken to home screen");
+    Assert.assertNotNull(homeView, "User does not taken to home ");
+
+    logger.info("STEP 7. Tap on store locator icon again");
+    nearbySelectCoffeeBarView =
+        homeView
+            .getBottomNavigationMenuChunk()
+            .tapMenu(AllowLocationServicesPopupChunk.class)
+            .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class);
+
+    logger.info("User is taken to find a coffeebar screen");
+    Assert.assertNotNull(nearbySelectCoffeeBarView, "User does not taken to find coffeebar screen");
 
     logger.info("STEP 8. Tap on Recents tab");
     nearbySelectCoffeeBarView.cancelSearch();
@@ -631,8 +547,7 @@ public class OrderTest extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.ORDER, TestNGGroups.REGRESSION},
-      description = "11051164",
-      enabled = true)
+      description = "11051164")
   public void customizeOrderBeveragesTest() {
     logger.info(
         "Precondition: User is already signed in to app\n"
@@ -640,13 +555,14 @@ public class OrderTest extends BaseTest {
             + "User has no items in basket"
             + "peets_order_beverages_ios@gmail.com/P@ssword1!");
     Constants.UserTestData account = MyAccountTestData.CHECKOUT_ACCOUNT;
-    HomeView homeView = testHelper.login(account.getUsername(), account.getPassword());
+    HomeView homeView =
+        testHelper.skipOnboardingAndLogin(account.getUsername(), account.getPassword());
     Assert.assertNotNull(homeView, "Home View does not displayed");
 
-    NewOrderView orderView =
+    OrderView orderView =
         homeView
             .getBottomNavigationMenuChunk()
-            .order(AllowLocationServicesPopupChunk.class)
+            .tapMenu(AllowLocationServicesPopupChunk.class)
             .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class)
             .search("78717")
             .openDefault();
@@ -655,10 +571,14 @@ public class OrderTest extends BaseTest {
     logger.info("Expected 1. Sub-categories should expand downward");
     logger.info("Step 2. Select sub-category Lattes");
     logger.info("Expected 2. Lattes menu should open up");
-    orderView.selectCategoryAndSubCategory("Hot Coffee", "Lattes");
+    SubCategoryView subCategoryView =
+        orderView
+            .selectCategory(OrderMenuCategory.HOT_COFFEE)
+            .selectSubCategory(OrderMenuSubCategory.LATTES);
 
     logger.info("Step 3. Select a beverage");
-    ProductDetailsView productDetailsView = orderView.selectProduct("Maple Latte");
+    ProductDetailsView productDetailsView =
+        subCategoryView.selectProduct(Products.MAPLE_LATTE.getValue());
 
     logger.info("Expected 3. User is taken to PDP");
     Assert.assertNotNull(productDetailsView, "PDP does not displayed");
@@ -715,28 +635,31 @@ public class OrderTest extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.ORDER, TestNGGroups.REGRESSION},
-      description = "11051165",
-      enabled = true)
+      description = "11051165")
   public void customizeOrderFoodTest() {
     logger.info(
         "User is already signed in to app\n"
             + "User is on main order screen and pickup order mode is default selected\n"
             + "User continues this test case from previous test case (so user will have items added to order already)");
     Constants.UserTestData account = MyAccountTestData.CHECKOUT_ACCOUNT;
-    HomeView homeView = testHelper.login(account.getUsername(), account.getPassword());
+    HomeView homeView =
+        testHelper.skipOnboardingAndLogin(account.getUsername(), account.getPassword());
     Assert.assertNotNull(homeView, "Home View does not displayed");
 
-    NewOrderView orderView =
+    OrderView orderView =
         homeView
             .getBottomNavigationMenuChunk()
-            .order(AllowLocationServicesPopupChunk.class)
+            .tapMenu(AllowLocationServicesPopupChunk.class)
             .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class)
             .search("78717")
             .openDefault();
 
     logger.info("STEP 1. Tap on Food category to expand");
     logger.info("STEP 2. Select sub-category Baked Goods");
-    orderView.selectCategoryAndSubCategory("Food", "Baked Goods");
+    SubCategoryView subCategoryView =
+        orderView
+            .selectCategory(OrderMenuCategory.FOOD)
+            .selectSubCategory(OrderMenuSubCategory.BAKED_GOODS);
 
     logger.info("EXPECTED 1. Sub-categories should expand downward");
     logger.info(
@@ -744,18 +667,15 @@ public class OrderTest extends BaseTest {
     logger.info("EXPECTED 2. User is taken to Baked Goods Menu");
 
     logger.info("STEP 3. Select any baked goods item");
-    ProductDetailsView productDetailsView = orderView.selectProduct("Plain Bagel");
+    String productName = Products.ICED_CINNAMON_ROLL.getValue();
+    ProductDetailsView productDetailsView = subCategoryView.selectProduct(productName);
 
     logger.info("EXPECTED 3. User is taken to PDP");
     Assert.assertNotNull(productDetailsView, " User does not taken to PDP");
 
     String cost = productDetailsView.getCost();
     logger.info("STEP 4. Add cream");
-    productDetailsView =
-        productDetailsView
-            .selectAddCreamCheese()
-            .incereaseCount("Add Cream Cheese", "2")
-            .saveChanges(ProductDetailsView.class);
+    productDetailsView = productDetailsView.selectQuantity("2");
     String costAfterSizeChanged = productDetailsView.getCost();
     Assert.assertNotEquals(cost, costAfterSizeChanged, "Price does not updated");
 
@@ -764,7 +684,7 @@ public class OrderTest extends BaseTest {
     logger.info("EXPECTED 4. price should be updated");
 
     logger.info("STEP 5. Tap Add to Order button");
-    orderView = productDetailsView.addToOrder(NewOrderView.class);
+    orderView = productDetailsView.addToOrder(OrderView.class);
 
     logger.info("STEP 10. Tap on the FAB");
     CheckoutView checkoutView = orderView.checkoutAtom(CheckoutView.class);
@@ -773,54 +693,79 @@ public class OrderTest extends BaseTest {
     Assert.assertNotNull(checkoutView, "User does not returned to checkout screen");
 
     logger.info("STEP 11. Review food order details on checkout screen");
-    ItemOptions plainBagel = checkoutView.getItemOptions("Plain Bagel");
+    ItemOptions plainBagel = checkoutView.getItemOptions(productName);
 
     logger.info(
         "EXPECTED 11. Make sure food customizations flow through correctly to checkout screen");
     SoftAssert softAssert = new SoftAssert();
+    softAssert.assertTrue(plainBagel.contains("Qty: 2"), "Wrong quantity. Expected Qty:2");
     softAssert.assertTrue(
-        plainBagel.contains("Add Cream Cheese (x2)"),
-        "Plain Bagel: Wrong quantity: Expected Qty:1");
-    softAssert.assertTrue(
-        plainBagel.contains("Warm"), "Plain Bagel: Wrong warm option: Expected Warm");
+        plainBagel.contains(MobileHelper.isAndroid() ? "Shall we warm this item?: Warm" : "Warm"),
+        "Wrong warm option. Expected Warm");
 
     softAssert.assertAll();
   }
 
   @Test(
       groups = {TestNGGroups.ORDER, TestNGGroups.REGRESSION},
-      description = "11051166",
-      enabled = true)
+      description = "11051166")
   public void editOrderTest() {
     logger.info(
         "User is already signed in to app\n"
             + "User is on the checkout screen\n"
             + "User continues this test case from previous test case (so user will have items added to order already)");
     Constants.UserTestData account = MyAccountTestData.CHECKOUT_ACCOUNT;
-    HomeView homeView = testHelper.login(account.getUsername(), account.getPassword());
+    HomeView homeView =
+        testHelper.skipOnboardingAndLogin(account.getUsername(), account.getPassword());
     Assert.assertNotNull(homeView, "Home View does not displayed");
 
-    NewOrderView orderView =
+    OrderView orderView =
         homeView
             .getBottomNavigationMenuChunk()
-            .order(AllowLocationServicesPopupChunk.class)
+            .tapMenu(AllowLocationServicesPopupChunk.class)
             .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class)
             .search("78717")
             .openDefault();
 
     logger.info("STEP 1. Tap on Food category to expand");
     logger.info("STEP 2. Select sub-category Baked Goods");
-    String productName = "Plain Bagel";
-    orderView.selectCategoryAndSubCategory("Food", "Baked Goods");
-    ProductDetailsView productDetailsView = orderView.selectProduct(productName);
+    String productName = Products.ICED_CINNAMON_ROLL.getValue();
+    SubCategoryView subCategoryView =
+        orderView
+            .selectCategory(OrderMenuCategory.FOOD)
+            .selectSubCategory(OrderMenuSubCategory.BAKED_GOODS);
+    ProductDetailsView productDetailsView = subCategoryView.selectProduct(productName);
 
     logger.info("STEP 3. Tap Add to Order button");
-    orderView = productDetailsView.addToOrder(NewOrderView.class);
+    orderView = productDetailsView.addToOrder(OrderView.class);
+    subCategoryView =
+        orderView
+            .selectCategory(OrderMenuCategory.HOT_COFFEE)
+            .selectSubCategory(OrderMenuSubCategory.LATTES);
+    String productName2 = Products.MAPLE_LATTE.getValue();
+    orderView = subCategoryView.selectProduct(productName2).addToOrder(OrderView.class);
 
-    logger.info("### Deleting first item!");
+    logger.info("Add drink #2");
+    orderView.selectSubCategory(OrderMenuSubCategory.LATTES);
+    String productName3 = Products.CAFFE_LATTE.getValue();
+    productDetailsView = subCategoryView.selectProduct(productName3);
+
+    logger.info("STEP 9. Tap Add to Order button");
+    orderView = productDetailsView.addToOrder(OrderView.class);
 
     logger.info("Step Tap FAB");
     CheckoutView checkoutView = orderView.checkout();
+
+    logger.info("STEP Click item from your order > Tap back arrow > Checkout displayed");
+    productDetailsView = checkoutView.selectProduct(productName2);
+    checkoutView = productDetailsView.navigateBack(CheckoutView.class);
+
+    logger.info("STEP Click item from your order > Edit size > Update Order > price changes");
+    productDetailsView = checkoutView.selectProduct(productName2);
+    productDetailsView.selectSize("Large");
+    checkoutView = productDetailsView.updateOrder();
+
+    logger.info("STEP Click item from your order > Tap Garbage > Element removed");
     productDetailsView = checkoutView.selectProduct(productName);
 
     logger.info(
@@ -833,64 +778,37 @@ public class OrderTest extends BaseTest {
         checkoutView.isProductDisplayed(productName),
         "Product remains in the cart and not deleted");
 
-    logger.info("Add Drink");
-    orderView = checkoutView.close();
-    orderView.selectCategoryAndSubCategory("Hot Coffee", "Lattes");
-    orderView = orderView.selectProduct("Maple Latte").addToOrder(NewOrderView.class);
-
-    logger.info("Add drink #2");
-    orderView.selectCategoryAndSubCategory("Food", "Warm Breakfast");
-    productDetailsView = orderView.selectProduct("Oatmeal");
-
-    logger.info("STEP 9. Tap Add to Order button");
-    orderView = productDetailsView.addToOrder(NewOrderView.class);
-
-    logger.info("Step Tap FAB");
-    checkoutView = orderView.checkout();
-
-    logger.info("STEP Click item from your order > Edit size > Update Order > price changes");
-    String oldTotal = checkoutView.getOrderTotal();
-    productDetailsView = checkoutView.selectProduct("Maple Latte");
-    productDetailsView.selectSize("Large");
-    checkoutView = productDetailsView.updateOrder();
-
-    Assert.assertNotEquals(
-        oldTotal, checkoutView.getOrderTotal(), "Order total does not reflected on item update");
-
-    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+    if (!MobileHelper.isAndroid()) {
       logger.info(
           "STEP 4. To delete item(s) from your order:\n"
               + "THIS FLOW APPLICABLE ONLY ON IOS:\n"
               + "* Swipe left on the item in the basket\n"
               + "* Tap red delete button");
-      checkoutView = checkoutView.deleteBySwipe("Maple Latte");
+      checkoutView = checkoutView.deleteBySwipe(productName2);
 
       logger.info(
           "EXPECTED 4. \n"
               + "* User sees red delete button to the right of the item\n"
               + "* Item is removed from basket");
       Assert.assertFalse(
-          checkoutView.isProductDisplayed("Mapple Latte"),
+          checkoutView.isProductDisplayed(productName2),
           "Product Mapple latte seems does not removed");
     }
 
-    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+    logger.info(
+        "STEP 6. To delete item(s) from your order::\n"
+            + "* Tap edit link at the top right corner of the CHECKOUT screen\n"
+            + "* Tap red (-) delete icon to the left of item\n"
+            + "* THIS STEP IS APPLICABLE ONLY ON IOS: Tap red delete button\n"
+            + "* Tap done at top right corner\n");
+    checkoutView = checkoutView.deleteByEditButton(productName3);
 
-      logger.info(
-          "STEP 6. To delete item(s) from your order::\n"
-              + "* Tap edit link at the top right corner of the CHECKOUT screen\n"
-              + "* Tap red (-) delete icon to the left of item\n"
-              + "* THIS STEP IS APPLICABLE ONLY ON IOS: Tap red delete button\n"
-              + "* Tap done at top right corner\n");
-      checkoutView = checkoutView.deleteByEditButton("Oatmeal");
-
-      logger.info(
-          "EXPECTED 6. "
-              + "* User sees red (-) delete icon to the left of the items in basket\n"
-              + "* THIS IS APPLICABLE ONLY ON IOS: User sees red delete button to the right of the item* Item is removed from basket");
-      Assert.assertFalse(
-          checkoutView.isProductDisplayed("Oatmeal"),
-          "Product Oatmeal remains in the cart and not deleted");
-    }
+    logger.info(
+        "EXPECTED 6. "
+            + "* User sees red (-) delete icon to the left of the items in basket\n"
+            + "* THIS IS APPLICABLE ONLY ON IOS: User sees red delete button to the right of the item* Item is removed from basket");
+    Assert.assertFalse(
+        checkoutView.isProductDisplayed(productName3),
+        "Product Oatmeal remains in the cart and not deleted");
   }
 }

@@ -347,6 +347,9 @@ public class Constants {
 
     public static final List<Integer> RED_COLORS =
         Arrays.asList(99, 191, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201);
+
+    public static final String ALLOW_LOCATION_SERVICE_MESSAGE =
+        "Allow location services to help you find nearby Peet's Coffeebars and to place delivery orders";
   }
 
   public static final class WebTestData {

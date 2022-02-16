@@ -3,6 +3,7 @@ package com.applause.auto.mobile.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -53,10 +54,10 @@ public class FindACoffeeBarView extends BaseComponent {
    *
    * @return new order view
    */
-  public NewOrderView selectFirstRecentCoffeeBar() {
+  public OrderView selectFirstRecentCoffeeBar() {
     logger.info("Select First Recent Coffee Bar");
     orderButton.click();
-    return SdkHelper.create(NewOrderView.class);
+    return SdkHelper.create(OrderView.class);
   }
 
   /**
@@ -75,7 +76,7 @@ public class FindACoffeeBarView extends BaseComponent {
    */
   public boolean isTitleNoRecentCoffeebarsDisplayed() {
     logger.info("Checking if No Recent coffeebars displayed");
-    return titleNoRecentCoffeebars.isDisplayed();
+    return MobileHelper.isElementDisplayed(titleNoRecentCoffeebars, 5);
   }
 
   /**
