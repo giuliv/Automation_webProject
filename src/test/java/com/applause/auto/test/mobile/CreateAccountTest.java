@@ -6,7 +6,6 @@ import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.dto.SignUpUserDto;
 import com.applause.auto.data.enums.SwipeDirection;
-import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.ConfirmationPopup;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.AccountActivityView;
@@ -36,7 +35,6 @@ public class CreateAccountTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION, TestNGGroups.WEB_UI},
       description = "625879")
-  @ApplauseTestCaseId({"673972", "673971"})
   public void footerLinksTest() {
     logger.info("Launch the app and arrive at the first onboarding screen view");
     LandingView landingView = openAppAndSkipOnboarding();
@@ -76,7 +74,6 @@ public class CreateAccountTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION, TestNGGroups.MONITORING},
       description = "625883")
-  @ApplauseTestCaseId({"674186", "674185"})
   public void signInEmailPasswordTest() {
     logger.info("Launch the app and arrive at the first onboarding screen view");
     OnboardingView onboardingView = openApp();
@@ -156,7 +153,6 @@ public class CreateAccountTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
       description = "625925")
-  @ApplauseTestCaseId({"674505", "674504"})
   public void accountSettingsEditProfileTest() {
     HomeView homeView =
         TestHelper.skipOnboardingAndLogin(
@@ -247,7 +243,6 @@ public class CreateAccountTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
       description = "625927")
-  @ApplauseTestCaseId({"674507", "674506"})
   public void accountSettingsGeneralSettingsTest() {
     HomeView homeView =
         TestHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
@@ -293,7 +288,6 @@ public class CreateAccountTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
       description = "625926")
-  @ApplauseTestCaseId({"674511", "674510"})
   public void accountSettingsChangePasswordTest() {
     SignInView signInView = TestHelper.openSignInView();
     HomeView homeView;
@@ -466,7 +460,6 @@ public class CreateAccountTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION, TestNGGroups.MONITORING},
       description = "625880")
-  @ApplauseTestCaseId({"674130", "674129"})
   public void createAccountEmailPassword() {
     logger.info("Launch the app and arrive at the first onboarding screen view");
     OnboardingView onboardingView = openApp();
@@ -653,7 +646,6 @@ public class CreateAccountTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
       description = "2980586")
-  @ApplauseTestCaseId({"674182", "674181"})
   public void createAccountFieldValidation() {
     logger.info("Launch the app and arrive at the first onboarding screen view");
     LandingView landingView = testHelper.navigateToLandingView();
@@ -875,7 +867,6 @@ public class CreateAccountTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
       description = "625882")
-  @ApplauseTestCaseId({"674184", "674183"})
   public void createAccountExistingWebUserTest() {
     logger.info("Launch the app and arrive at the first onboarding screen view");
     LandingView landingView = openAppAndSkipOnboarding();
@@ -947,7 +938,6 @@ public class CreateAccountTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
       description = "625929")
-  @ApplauseTestCaseId({"674513", "674512"})
   public void accountSettingsAccountHistoryTest() {
     HomeView homeView =
         TestHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);

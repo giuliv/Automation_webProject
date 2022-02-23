@@ -10,7 +10,6 @@ import com.applause.auto.common.data.enums.OrderMenuCategory;
 import com.applause.auto.common.data.enums.OrderMenuSubCategory;
 import com.applause.auto.common.data.enums.Products;
 import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
 import com.applause.auto.mobile.components.CoffeeStoreItemChuck;
@@ -43,7 +42,6 @@ public class OrderTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ORDER},
       description = "625889")
-  @ApplauseTestCaseId({"674196", "674195"})
   public void locationServicesNotEnabled() {
     logger.info("Launch the app and arrive at the first onboarding screen view");
     OnboardingView onboardingView = openApp();
@@ -124,7 +122,6 @@ public class OrderTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ORDER},
       description = "625890")
-  @ApplauseTestCaseId({"674198", "674197"})
   public void browseTheMenu() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     HomeView homeView =
@@ -218,7 +215,6 @@ public class OrderTest extends BaseTest {
       groups = {TestNGGroups.ORDER},
       description = "625897",
       enabled = false)
-  @ApplauseTestCaseId({"674214", "674213"})
   public void checkoutTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     HomeView homeView =
@@ -269,7 +265,6 @@ public class OrderTest extends BaseTest {
       groups = {TestNGGroups.ORDER},
       description = "2879930",
       enabled = false)
-  @ApplauseTestCaseId({"674356", "674355"})
   public void orderAhead() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     HomeView homeView =
@@ -322,7 +317,6 @@ public class OrderTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ORDER, TestNGGroups.REGRESSION},
       description = "1687255")
-  @ApplauseTestCaseId({"674356", "674355"})
   public void recentsFavoriteOrdersEmptyStateTest() {
     logger.info(
         "Precondition: User is already signed in to app\n"

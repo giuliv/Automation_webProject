@@ -2,7 +2,6 @@ package com.applause.auto.test.mobile;
 
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
 import com.applause.auto.mobile.views.FindACoffeeBarView;
@@ -24,7 +23,6 @@ public class FindACoffeeBarTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ORDER, TestNGGroups.REGRESSION},
       description = "1687260")
-  @ApplauseTestCaseId({"674542", "674541"})
   public void findACoffeeBarTest() {
     HomeView homeView =
         testHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
@@ -147,7 +145,6 @@ public class FindACoffeeBarTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ORDER, TestNGGroups.REGRESSION},
       description = "1687261")
-  @ApplauseTestCaseId({"674550", "674549"})
   public void recentCoffeeBarTest() {
     HomeView homeView =
         testHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
@@ -202,7 +199,6 @@ public class FindACoffeeBarTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ORDER, TestNGGroups.REGRESSION},
       description = "1687262")
-  @ApplauseTestCaseId({"674552", "674551"})
   public void favoriteCoffeeBarsTest() {
     logger.info("PRECONDITION - User is on find a coffeeBar screen");
     logger.info("Launch the app and arrive at the first on boarding screen view");

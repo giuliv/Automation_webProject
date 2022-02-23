@@ -1,7 +1,6 @@
 package com.applause.auto.test.mobile.helpers;
 
 import com.applause.auto.common.data.Constants;
-import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.dto.SignUpUserDto;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
@@ -11,7 +10,6 @@ import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.CheckoutView;
 import com.applause.auto.mobile.views.CreateAccountView;
 import com.applause.auto.mobile.views.CreditCardDetailsView;
-import com.applause.auto.mobile.views.DashboardView;
 import com.applause.auto.mobile.views.FindACoffeeBarView;
 import com.applause.auto.mobile.views.HomeView;
 import com.applause.auto.mobile.views.LandingView;
@@ -41,17 +39,6 @@ import org.openqa.selenium.WebElement;
 @Implementation(is = TestHelper.class, on = Platform.MOBILE)
 public class TestHelper extends BaseComponent {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
-
-  /**
-   * Sign in dashboard view.
-   *
-   * @param landingView the landing view
-   * @return the dashboard view
-   */
-  public DashboardView signIn(LandingView landingView) {
-    return signIn(
-        landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD, DashboardView.class);
-  }
 
   /**
    * Sign in t.
@@ -318,13 +305,6 @@ public class TestHelper extends BaseComponent {
 
     logger.info("Skip Onboarding");
     return onboardingView.skipOnboarding();
-  }
-
-  public static SignInView navigateToSignInView() {
-    LandingView landingView = navigateToLandingView();
-
-    logger.info("Tap Sign In");
-    return landingView.signIn();
   }
 
   public static SignInView openSignInView() {

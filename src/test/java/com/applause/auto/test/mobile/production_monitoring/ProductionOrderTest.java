@@ -28,8 +28,7 @@ public class ProductionOrderTest extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.PROD_MONITORING},
-      description = "11051488",
-      enabled = true)
+      description = "11051488")
   public void placeOrderWithSVCTest() {
     logger.info(
         "User is already signed in to app\n"

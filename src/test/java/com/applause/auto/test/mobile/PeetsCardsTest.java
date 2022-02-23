@@ -1,18 +1,10 @@
 package com.applause.auto.test.mobile;
 
-import static com.applause.auto.common.data.Constants.MobileTestData.CC_EXP_DATE;
-import static com.applause.auto.common.data.Constants.MobileTestData.CC_MASTER_NAME;
-import static com.applause.auto.common.data.Constants.MobileTestData.CC_MODIFIED_EXP_DATE;
-import static com.applause.auto.common.data.Constants.MobileTestData.INVALID_PEETS_CC_NUM_1;
-import static com.applause.auto.common.data.Constants.MobileTestData.INVALID_PEETS_CC_PIN_1;
-import static com.applause.auto.common.data.Constants.MobileTestData.VALID_PEETS_CC_NUM_1;
-
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.TestDataUtils;
-import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountChunk;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountWarningChunk;
 import com.applause.auto.mobile.views.AccountActivityView;
@@ -37,8 +29,9 @@ public class PeetsCardsTest extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.PEETS_CARDS, TestNGGroups.REGRESSION},
-      description = "1957258")
-  @ApplauseTestCaseId({"674486", "674485"})
+      description = "1957258",
+      enabled = false)
+  // Testcase marked as Out of scope by client[23.02.2022]
   public void addValueToNewDigitalCard25SavedCC() throws ParseException {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     HomeView homeView = testHelper.createNewAccountWithDefaults();
@@ -69,19 +62,21 @@ public class PeetsCardsTest extends BaseTest {
 
     logger.info("Tap on a saved payment method");
     CreditCardDetailsView creditCardDetailsView =
-        paymentMethodsView.clickSavedPaymentMethod(CreditCardDetailsView.class, CC_MASTER_NAME);
+        paymentMethodsView.clickSavedPaymentMethod(
+            CreditCardDetailsView.class, Constants.MobileTestData.CC_MASTER_NAME);
 
     logger.info("Tap on expiration date field and update expiration date");
-    if (creditCardDetailsView.getExpDate().equals(CC_EXP_DATE)) {
+    if (creditCardDetailsView.getExpDate().equals(Constants.MobileTestData.CC_EXP_DATE)) {
       // If CC exp date is the valid one, modify it and then update it back to the valid one, to
       // avoid transaction error
-      creditCardDetailsView.enterExpDate(CC_MODIFIED_EXP_DATE);
+      creditCardDetailsView.enterExpDate(Constants.MobileTestData.CC_MODIFIED_EXP_DATE);
       paymentMethodsView = creditCardDetailsView.saveCard();
       creditCardDetailsView =
-          paymentMethodsView.clickSavedPaymentMethod(CreditCardDetailsView.class, CC_MASTER_NAME);
-      creditCardDetailsView.enterExpDate(CC_EXP_DATE);
+          paymentMethodsView.clickSavedPaymentMethod(
+              CreditCardDetailsView.class, Constants.MobileTestData.CC_MASTER_NAME);
+      creditCardDetailsView.enterExpDate(Constants.MobileTestData.CC_EXP_DATE);
     } else {
-      creditCardDetailsView.enterExpDate(CC_EXP_DATE);
+      creditCardDetailsView.enterExpDate(Constants.MobileTestData.CC_EXP_DATE);
     }
 
     logger.info("Tap Save Card button");
@@ -112,7 +107,7 @@ public class PeetsCardsTest extends BaseTest {
     logger.info("Select a saved credit card");
     peetsCardsView =
         paymentMethodsView.clickSavedPaymentMethodAndSaveChanges(
-            PeetsCardsView.class, CC_MASTER_NAME);
+            PeetsCardsView.class, Constants.MobileTestData.CC_MASTER_NAME);
 
     logger.info("User should return to add value to my peet's card screen");
     Assert.assertNotNull(paymentMethodsView, "User does taken to Peets Cards screen");
@@ -133,15 +128,10 @@ public class PeetsCardsTest extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.PEETS_CARDS, TestNGGroups.REGRESSION},
-      description = "1292900")
-  @ApplauseTestCaseId({"674378", "674377"})
+      description = "1292900",
+      enabled = false)
+  // Testcase marked as Out of scope by client[23.02.2022]
   public void reloadDigitalCard25SavedCC() throws ParseException {
-    // DashboardView dashboardView =
-    // testHelper.signIn(
-    // landingView,
-    // Constants.MyAccountTestData.EMAIL_PEETS_REWARDS,
-    // Constants.MyAccountTestData.PASSWORD,
-    // DashboardView.class);
     HomeView homeView = testHelper.createNewAccountWithDefaults();
     softAssert.assertNotNull(homeView, "Home View does not displayed");
 
@@ -217,7 +207,6 @@ public class PeetsCardsTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.PEETS_CARDS, TestNGGroups.REGRESSION},
       description = "1959019")
-  @ApplauseTestCaseId({"674488", "674487"})
   public void negativeTestTransferBalance() {
     HomeView homeView =
         testHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
@@ -239,10 +228,10 @@ public class PeetsCardsTest extends BaseTest {
 
     logger.info("Tap into Card Number field");
     logger.info("Enter invalid Peet's Card number" + "Tap next on numeric keypad");
-    peetsCardsTransferAmountChunk.enterCardNumber(INVALID_PEETS_CC_NUM_1);
+    peetsCardsTransferAmountChunk.enterCardNumber(Constants.MobileTestData.INVALID_PEETS_CC_NUM_1);
 
     logger.info("Enter valid Peet's Card PIN number" + "Tap Done on numeric keypad");
-    peetsCardsTransferAmountChunk.enterCardPin(VALID_PEETS_CC_NUM_1);
+    peetsCardsTransferAmountChunk.enterCardPin(Constants.MobileTestData.VALID_PEETS_CC_NUM_1);
 
     PeetsCardsTransferAmountWarningChunk peetsCardsTransferAmountWarningChunk =
         peetsCardsTransferAmountChunk.transfer();
@@ -306,10 +295,10 @@ public class PeetsCardsTest extends BaseTest {
         peetsCardsTransferAmountWarningChunk.tapTryAgain(PeetsCardsTransferAmountChunk.class);
 
     logger.info("Enter valid Peet's Card number" + "Tap next on numeric keypad");
-    peetsCardsTransferAmountChunk.enterCardNumber(VALID_PEETS_CC_NUM_1);
+    peetsCardsTransferAmountChunk.enterCardNumber(Constants.MobileTestData.VALID_PEETS_CC_NUM_1);
 
     logger.info("Enter invalid Peet's Card PIN number" + "Tap Done on numeric keypad");
-    peetsCardsTransferAmountChunk.enterCardPin(INVALID_PEETS_CC_PIN_1);
+    peetsCardsTransferAmountChunk.enterCardPin(Constants.MobileTestData.INVALID_PEETS_CC_PIN_1);
 
     peetsCardsTransferAmountWarningChunk = peetsCardsTransferAmountChunk.transfer();
 

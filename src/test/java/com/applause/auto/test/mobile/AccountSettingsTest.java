@@ -4,7 +4,6 @@ import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.views.AddNewCardView;
 import com.applause.auto.mobile.views.CreditCardDetailsView;
 import com.applause.auto.mobile.views.HomeView;
@@ -24,7 +23,6 @@ public class AccountSettingsTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ACCOUNT_SETTINGS, TestNGGroups.REGRESSION},
       description = "625928")
-  @ApplauseTestCaseId({"674509", "674508"})
   public void paymentMethodsTest() {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     HomeView homeView = TestHelper.openAppAndCreateNewAccountWithDefaults();
@@ -179,7 +177,6 @@ public class AccountSettingsTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.ACCOUNT_SETTINGS, TestNGGroups.REGRESSION, TestNGGroups.WEB_UI},
       description = "625939")
-  @ApplauseTestCaseId({"625939", "674528"})
   public void socialEngagementTest() {
     HomeView homeView =
         TestHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);

@@ -4,7 +4,6 @@ import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.integrations.testidentification.ApplauseTestCaseId;
 import com.applause.auto.mobile.views.CustomerSupportScreenView;
 import com.applause.auto.mobile.views.HelpAndFeedbackView;
 import com.applause.auto.mobile.views.HomeView;
@@ -28,7 +27,6 @@ public class CompanyInformationTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.COMPANY_INFORMATION, TestNGGroups.REGRESSION, TestNGGroups.WEB_UI},
       description = "625936")
-  @ApplauseTestCaseId({"674523", "674522"})
   public void faqsTest() {
     logger.info("Launch the app and log in");
     HomeView homeView =
@@ -64,7 +62,6 @@ public class CompanyInformationTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.COMPANY_INFORMATION, TestNGGroups.REGRESSION, TestNGGroups.WEB_UI},
       description = "625938")
-  @ApplauseTestCaseId({"674527", "674526"})
   public void termsAndPrivacyPolicyTest() {
     HomeView homeView =
         TestHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
@@ -131,7 +128,6 @@ public class CompanyInformationTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.COMPANY_INFORMATION, TestNGGroups.REGRESSION},
       description = "625933")
-  @ApplauseTestCaseId({"674517", "674514"})
   public void moreScreenTest() {
     HomeView homeView =
         TestHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
@@ -223,7 +219,6 @@ public class CompanyInformationTest extends BaseTest {
   @Test(
       groups = {TestNGGroups.COMPANY_INFORMATION, TestNGGroups.REGRESSION, TestNGGroups.WEB_UI},
       description = "625937")
-  @ApplauseTestCaseId({"674525", "625937"})
   public void contactCustomerServiceTest() {
     HomeView homeView =
         TestHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
