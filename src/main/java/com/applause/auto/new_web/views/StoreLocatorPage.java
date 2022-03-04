@@ -14,6 +14,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.qameta.allure.Step;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -159,6 +160,10 @@ public class StoreLocatorPage extends Base {
     IntStream.range(0, countOfZoom)
         .forEach(
             action -> {
+              // Scrolling to the element places it behind the floating shopping cart in mobile,
+              // so scrolling back to the top of the page fixes that.
+              logger.info("Scrolling to top of page");
+              WebHelper.scrollToPageTop();
               logger.info("Clicking on 'Zoom In' button");
               zoomInButton.click();
               WebHelper.waitForElementToDisappear(loadingAnimation, 5);
