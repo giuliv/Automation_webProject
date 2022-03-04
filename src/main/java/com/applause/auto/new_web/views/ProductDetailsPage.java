@@ -112,7 +112,7 @@ public class ProductDetailsPage extends Base {
   protected Button writeReviewButton;
 
   @Locate(xpath = "//a[contains(@class, 'pv-flavor-profile')]", on = Platform.WEB)
-  @Locate(xpath = "(//a[contains(@class, 'pv-flavor-profile')])[2]", on = Platform.WEB_MOBILE_PHONE)
+  @Locate(xpath = "//a[contains(@class, 'pv-flavor-profile') and not(@hide-mobile) and not(@hide-phone)]", on = Platform.WEB_MOBILE_PHONE)
   protected Button takeTheCoffeeQuizButton;
 
   @Override
