@@ -356,6 +356,7 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
 
   public OrderView openDefault() {
     logger.info("Open default store");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(orderButton).clickable());
     orderButton.click();
     return SdkHelper.create(OrderView.class);
   }

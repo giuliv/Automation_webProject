@@ -283,6 +283,7 @@ public class MoreOptionsView extends BaseComponent {
    * @return the boolean
    */
   public Boolean isOnInstagramPage() {
+    logger.info(SdkHelper.getDriver().getPageSource());
     SdkHelper.getSyncHelper().wait(Until.uiElement(instagramPage).visible());
     return instagramPage.isDisplayed();
   }

@@ -2,6 +2,8 @@ package com.applause.auto.mobile.components;
 
 import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -23,7 +25,7 @@ public class OrderMenuChunk extends BaseComponent {
 
   @Locate(xpath = "(//XCUIElementTypeStaticText[@name=\"Menu\"])[2]", on = Platform.MOBILE_IOS)
   @Locate(xpath = "//*[@text='Menu']", on = Platform.MOBILE_ANDROID)
-  protected Text menuSubheader;
+  protected Text menuSubHeader;
 
   @Locate(id = "Recents", on = Platform.MOBILE_IOS)
   @Locate(xpath = "//*[@text='Recents']", on = Platform.MOBILE_ANDROID)
@@ -46,16 +48,18 @@ public class OrderMenuChunk extends BaseComponent {
    * @return
    */
   public String getMenuSubheaderTextValue() {
-    return menuSubheader.getText();
+    return menuSubHeader.getText();
   }
 
   @Step("Tap On Recents")
   public void tapOnRecents() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(recentsSubHeader).clickable());
     recentsSubHeader.click();
   }
 
   @Step("Tap On favorites")
   public void tapOnFavorites() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(favoritesSubHeader).clickable());
     favoritesSubHeader.click();
   }
 

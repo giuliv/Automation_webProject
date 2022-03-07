@@ -23,7 +23,7 @@ public class ReorderTooltipComponent extends BaseTooltipComponent {
 
   @Step("Close Reorder Tooltip")
   public <T extends BaseComponent> T closeReorderTooltipIfDisplayed(Class<T> clazz) {
-    if (MobileHelper.isElementDisplayed(closeButton, 10)) {
+    if (MobileHelper.isElementDisplayed(closeButton, 15)) {
       logger.info("Closing Reorder Tooltip");
       closeButton.click();
     } else {

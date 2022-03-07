@@ -16,6 +16,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class AccountSettingsTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
@@ -24,6 +25,7 @@ public class AccountSettingsTest extends BaseTest {
       groups = {TestNGGroups.ACCOUNT_SETTINGS, TestNGGroups.REGRESSION},
       description = "625928")
   public void paymentMethodsTest() {
+    SoftAssert softAssert = new SoftAssert();
     logger.info("Launch the app and arrive at the first on boarding screen view");
     HomeView homeView = TestHelper.openAppAndCreateNewAccountWithDefaults();
     Assert.assertNotNull(homeView, "Home View does not displayed");

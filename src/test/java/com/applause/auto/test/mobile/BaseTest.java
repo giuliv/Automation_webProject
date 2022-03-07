@@ -14,19 +14,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 public class BaseTest extends ApplauseSeleniumTest {
 
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
   protected static TestHelper testHelper;
-  protected SoftAssert softAssert;
 
   /** Get a new Appium driver at the start of each test. */
   @BeforeMethod(alwaysRun = true)
   public void beforeMethod(Method method) {
-    softAssert = new SoftAssert();
-
     String runId = String.format("%s:%s", method.getName(), System.currentTimeMillis());
     logger.debug(String.format("Setting runId to %s", runId));
     System.setProperty("runId", runId);

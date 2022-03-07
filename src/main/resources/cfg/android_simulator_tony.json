@@ -1,6 +1,6 @@
 {
   "platformName": "ANDROID",
-  "platformVersion": "10",
+  "platformVersion": "8",
   "deviceName": "Android",
   "newCommandTimeout": 3000,
   "device": "android",
@@ -10,7 +10,7 @@
     "driverType": "Android",
     "factoryKey": "MOBILE_ANDROID"
   },
-  "app": "https://utest-dl.s3.amazonaws.com/11841/product/20270/productVersion/221861/application/1cc60056754a35c622205983970e61de61bc566237f7891eb85f2d1a36da9658.apk?AWSAccessKeyId=AKIAJ2UIWMJ2OMC3UCQQ&Expires=1657302020&Signature=ZMvj%2F5La%2BZfJNmDgR2mk2wRI%2F8s%3D",
+  "app": "/Users/jgarcia/Desktop/Android_UAT_22.0.2_2643.apk",
   "appWaitActivity": "com.wearehathway.apps.stock.views.onboarding.OnBoardingActivity",
   "appWaitPackage": "com.wearehathway.peets.development",
   "autoGrantPermissions": true,

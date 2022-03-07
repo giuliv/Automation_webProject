@@ -23,6 +23,7 @@ public class OnboardingSlidesTest extends BaseTest {
       groups = {TestNGGroups.DEBUG, TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
       description = "625878")
   public void onboardingSlidesTest() {
+    SoftAssert softAssert = new SoftAssert();
     logger.info("Launch the app and arrive at the first onboarding screen view");
     OnboardingView onboardingView = openApp();
 

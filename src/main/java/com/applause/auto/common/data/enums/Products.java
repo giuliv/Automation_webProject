@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 public enum Products {
-  MAPLE_LATTE("Maple Latte"),
+  CARAMEL_LATTE("Caramel Latte"),
   ICED_CINNAMON_ROLL("Iced Cinnamon Roll"),
   CAFFE_LATTE("Caffe Latte"),
   ICED_ESPRESSO("Iced Espresso");

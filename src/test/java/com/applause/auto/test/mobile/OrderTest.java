@@ -572,7 +572,7 @@ public class OrderTest extends BaseTest {
 
     logger.info("Step 3. Select a beverage");
     ProductDetailsView productDetailsView =
-        subCategoryView.selectProduct(Products.MAPLE_LATTE.getValue());
+        subCategoryView.selectProduct(Products.CARAMEL_LATTE.getValue());
 
     logger.info("Expected 3. User is taken to PDP");
     Assert.assertNotNull(productDetailsView, "PDP does not displayed");
@@ -607,16 +607,16 @@ public class OrderTest extends BaseTest {
     Assert.assertNotNull(checkoutView, "User does not taken to checkout screen");
 
     logger.info("Step 7. Review beverage order details on checkout screen");
-    ItemOptions maple = checkoutView.getItemOptions("Maple Latte");
+    ItemOptions caramel = checkoutView.getItemOptions(Products.CARAMEL_LATTE.getValue());
 
     logger.info(
         "Expected 7. Make sure beverage customizations flow through correctly to checkout screen");
     SoftAssert softAssert = new SoftAssert();
     softAssert.assertTrue(
-        maple.contains("Large"), "Mapple Drink have wrong cup size: Large expected");
+        caramel.contains("Large"), "Caramel Drink have wrong cup size: Large expected");
     softAssert.assertTrue(
-        maple.contains("Choose Milk: 2% Milk"),
-        "Mapple Drink have wrong milk: Choose Milk: 2% Milk");
+        caramel.contains("Choose Milk: 2% Milk"),
+        "Caramel Drink have wrong milk: Choose Milk: 2% Milk");
 
     softAssert.assertAll();
     logger.info(
@@ -736,7 +736,7 @@ public class OrderTest extends BaseTest {
         orderView
             .selectCategory(OrderMenuCategory.HOT_COFFEE)
             .selectSubCategory(OrderMenuSubCategory.LATTES);
-    String productName2 = Products.MAPLE_LATTE.getValue();
+    String productName2 = Products.CARAMEL_LATTE.getValue();
     orderView = subCategoryView.selectProduct(productName2).addToOrder(OrderView.class);
 
     logger.info("Add drink #2");
@@ -786,7 +786,7 @@ public class OrderTest extends BaseTest {
               + "* Item is removed from basket");
       Assert.assertFalse(
           checkoutView.isProductDisplayed(productName2),
-          "Product Mapple latte seems does not removed");
+          "Product Caramel latte seems does not removed");
     }
 
     logger.info(

@@ -204,7 +204,7 @@ public class FindACoffeeBarTest extends BaseTest {
     logger.info("Launch the app and arrive at the first on boarding screen view");
     HomeView homeView =
         testHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
-    softAssert.assertNotNull(homeView, "Home view is not displayed");
+    Assert.assertNotNull(homeView, "Home view is not displayed");
 
     AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
         homeView

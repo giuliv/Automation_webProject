@@ -22,6 +22,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class PeetsCardsTest extends BaseTest {
 
@@ -132,6 +133,7 @@ public class PeetsCardsTest extends BaseTest {
       enabled = false)
   // Testcase marked as Out of scope by client[23.02.2022]
   public void reloadDigitalCard25SavedCC() throws ParseException {
+    SoftAssert softAssert = new SoftAssert();
     HomeView homeView = testHelper.createNewAccountWithDefaults();
     softAssert.assertNotNull(homeView, "Home View does not displayed");
 
@@ -206,8 +208,11 @@ public class PeetsCardsTest extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.PEETS_CARDS, TestNGGroups.REGRESSION},
-      description = "1959019")
+      description = "1959019",
+      enabled = false)
+  // Todo:Needs cards, already requested
   public void negativeTestTransferBalance() {
+    SoftAssert softAssert = new SoftAssert();
     HomeView homeView =
         testHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
     softAssert.assertNotNull(homeView, "Home view is not displayed");

@@ -16,6 +16,8 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
 import java.time.Duration;
 import lombok.Getter;
+import org.openqa.selenium.TimeoutException;
+import org.testng.Assert;
 
 @Implementation(is = OnboardingView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = OnboardingViewIos.class, on = Platform.MOBILE_IOS)
@@ -125,10 +127,20 @@ public class OnboardingView extends BaseComponent {
   @Step("Tap on 'Skip' button")
   public LandingView skipOnboarding() {
     logger.info("Tapping on 'Skip' button");
-    SdkHelper.getSyncHelper()
-        .wait(Until.uiElement(skipButton).visible().setTimeout(Duration.ofSeconds(30)));
-    SdkHelper.getSyncHelper().wait(Until.uiElement(skipButton).clickable());
-    skipButton.click();
+    try {
+      SdkHelper.getSyncHelper()
+          .wait(Until.uiElement(skipButton).visible().setTimeout(Duration.ofSeconds(30)));
+    } catch (TimeoutException t) {
+      logger.info("For some reason, skip button seems not visible");
+    }
+
+    if (skipButton.isClickable()) {
+      skipButton.click();
+    } else {
+      logger.info("For some reason, skip button seems not clickable");
+      SdkHelper.getDeviceControl().tapElementCenter(skipButton);
+    }
+
     return SdkHelper.create(LandingView.class);
   }
 }

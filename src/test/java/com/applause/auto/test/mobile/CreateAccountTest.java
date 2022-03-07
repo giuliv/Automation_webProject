@@ -27,6 +27,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class CreateAccountTest extends BaseTest {
 
@@ -154,6 +155,7 @@ public class CreateAccountTest extends BaseTest {
       groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
       description = "625925")
   public void accountSettingsEditProfileTest() {
+    SoftAssert softAssert = new SoftAssert();
     HomeView homeView =
         TestHelper.skipOnboardingAndLogin(
             MyAccountTestData.EDIT_EMAIL, MyAccountTestData.EDIT_EMAIL_PWD);
@@ -244,6 +246,7 @@ public class CreateAccountTest extends BaseTest {
       groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
       description = "625927")
   public void accountSettingsGeneralSettingsTest() {
+    SoftAssert softAssert = new SoftAssert();
     HomeView homeView =
         TestHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
     Assert.assertNotNull(homeView, "Home View does not displayed");
@@ -289,6 +292,7 @@ public class CreateAccountTest extends BaseTest {
       groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
       description = "625926")
   public void accountSettingsChangePasswordTest() {
+    SoftAssert softAssert = new SoftAssert();
     SignInView signInView = TestHelper.openSignInView();
     HomeView homeView;
 
@@ -939,6 +943,7 @@ public class CreateAccountTest extends BaseTest {
       groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
       description = "625929")
   public void accountSettingsAccountHistoryTest() {
+    SoftAssert softAssert = new SoftAssert();
     HomeView homeView =
         TestHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
     Assert.assertNotNull(homeView, "Home View does not displayed");
