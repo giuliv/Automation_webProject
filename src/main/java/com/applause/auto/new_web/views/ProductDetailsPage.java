@@ -65,6 +65,9 @@ public class ProductDetailsPage extends Base {
   @Locate(css = "[test='regularEligible'] button.og-optin-btn", on = Platform.WEB)
   private Button subscribeType;
 
+  @Locate(css = "button.og-optout-btn", on = Platform.WEB)
+  private Button oneTimePurchase;
+
   @Locate(css = "form#notifyForm", on = Platform.WEB)
   private ContainerElement outOfStockNotifyMeSection;
 
@@ -86,11 +89,17 @@ public class ProductDetailsPage extends Base {
   @Locate(id = "increment", on = Platform.WEB)
   protected Button incrementQuantityButton;
 
+  @Locate(css = ".btn-icon.js-qty-change.plus", on = Platform.WEB)
+  protected Button incrementQuantityButtonFromBag;
+
   @Locate(id = "decrement", on = Platform.WEB)
   private Button decrementQuantityButton;
 
+  @Locate(css = ".btn-icon.js-qty-change.minus", on = Platform.WEB)
+  protected Button decrementQuantityButtonFromBag;
+
   @Locate(
-      xpath = "//button[@class='og-optin-btn']//*[contains(@class, 'og-pdp-tooltip-desktop')]",
+      xpath = "//button[@class='og-optin-btn']//*[contains(@class, 'og-pdp-tooltip')]//*[contains(@class, 'og-tooltip-inner')]",
       on = Platform.WEB)
   protected Button subscribeInfoIcon;
 
@@ -200,6 +209,13 @@ public class ProductDetailsPage extends Base {
     subscribeType.click();
   }
 
+  @Step("Select single purchase only")
+  public void selectOneTimePurchase() {
+    logger.info("Selecting one-time purchase");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(oneTimePurchase).visible());
+    oneTimePurchase.click();
+  }
+
   @Step("Click Add to minicart")
   public MiniCart clickAddToMiniCart() {
     logger.info("Adding to MiniCart");
@@ -296,6 +312,13 @@ public class ProductDetailsPage extends Base {
     return isDisplayed;
   }
 
+  @Step("Check if Product Quantity is the Bag Picker Type")
+  public boolean isItemBagQuantityType() {
+    boolean isDisplayed = WebHelper.isDisplayed(threeProductsButton);
+    logger.info("Bag Quantity Picker is displayed - [{}]", isDisplayed);
+    return isDisplayed;
+  }
+
   @Step("Check if Product Quantity is Displayed")
   public boolean isProductQuantityDisplayed() {
     boolean isDisplayed = WebHelper.isDisplayed(productQuantity);
@@ -348,6 +371,13 @@ public class ProductDetailsPage extends Base {
     return this;
   }
 
+  @Step("Click on 3+ Quantity bag button")
+  public ProductDetailsPage selectThreePlusQuantity() {
+    logger.info("Clicking on the 3+ Quantity Bag");
+    clickOnThreeProductsButton();
+    return this;
+  }
+
   @Step("Click on (+) in Quantity")
   public ProductDetailsPage incrementProductQuantity(int quantity) {
     IntStream.rangeClosed(1, quantity)
@@ -360,6 +390,18 @@ public class ProductDetailsPage extends Base {
     return this;
   }
 
+  @Step("Click on (+) in Quantity Picker after Bag Click")
+  public ProductDetailsPage incrementProductQuantityFromBag(int quantity) {
+    IntStream.rangeClosed(1, quantity)
+            .forEach(
+                    item -> {
+                      logger.info("Clicking on (+) in Quantity");
+                      incrementQuantityButtonFromBag.click();
+                      logger.info("Current quantity is - [{}]", getProductQuantityFromBox());
+                    });
+    return this;
+  }
+
   @Step("Click on (-) in Quantity")
   public ProductDetailsPage decrementProductQuantity(int quantity) {
     IntStream.rangeClosed(1, quantity)
@@ -369,6 +411,18 @@ public class ProductDetailsPage extends Base {
               decrementQuantityButton.click();
               logger.info("Current quantity is - [{}]", getProductQuantitySelected());
             });
+    return this;
+  }
+
+  @Step("Click on (-) in Quantity Picker after Bag Click")
+  public ProductDetailsPage decrementProductQuantityFromBag(int quantity) {
+    IntStream.rangeClosed(1, quantity)
+            .forEach(
+                    item -> {
+                      logger.info("Clicking on (-) in Quantity");
+                      decrementQuantityButtonFromBag.click();
+                      logger.info("Current quantity is - [{}]", getProductQuantityFromBox());
+                    });
     return this;
   }
 

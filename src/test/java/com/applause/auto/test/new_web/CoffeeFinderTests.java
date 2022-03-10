@@ -156,6 +156,10 @@ public class CoffeeFinderTests extends BaseTest {
         coffeeFinderPage.selectAnswer(
             CoffeeFinderAnswers.A_NEW_EVERYDAY_COFFEE, WeHaveFoundYourCoffeePage.class);
 
+    // skip email subscribe
+    logger.info("Click on 'Just take me to my coffee'.");
+    coffeeFinderPage = coffeeFinderPage.clickOnTakeMeToMyResults();
+
     logger.info(
         "Verify that We've found your coffee! success message displays with product image, name and price, add to cart, product details and shop all coffee links.");
     softAssert.assertEquals(

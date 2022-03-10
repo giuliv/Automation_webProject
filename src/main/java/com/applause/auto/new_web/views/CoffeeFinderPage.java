@@ -30,6 +30,9 @@ public class CoffeeFinderPage extends Base {
       on = Platform.WEB)
   private Text title;
 
+  @Locate(xpath = "//div[.='just take me to my results']", on = Platform.WEB)
+  protected Button takeMeToMyResultsButton;
+
   @Locate(xpath = "//div[@class='question-guidance-custom']", on = Platform.WEB)
   private Button didYouKnowButton;
 
@@ -232,6 +235,13 @@ public class CoffeeFinderPage extends Base {
   public boolean isDisplayed() {
     return WebHelper.isDisplayed(signature);
   }
+
+
+  @Step("Click on 'just take me to my results'.")
+  public CoffeeFinderPage clickOnTakeMeToMyResults() {
+    takeMeToMyResultsButton.click();
+    return this;
+  }
 }
 
 class CoffeeFinderPageMobile extends CoffeeFinderPage {
@@ -281,4 +291,5 @@ class CoffeeFinderPageMobile extends CoffeeFinderPage {
     WebHelper.waitForElementToDisappear(animation, 5);
     return SdkHelper.create(CoffeeFinderPage.class);
   }
+
 }

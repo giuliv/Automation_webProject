@@ -69,7 +69,7 @@ public class PdpTests extends BaseTest {
     ProductListPage productListPage = navigateToPLP();
 
     logger.info("2. Select an item");
-    PlpItemComponent productOnPosition = productListPage.getProductOnPosition(2);
+    PlpItemComponent productOnPosition = productListPage.getProductOnPosition(3); //12);
     String name = productOnPosition.getProductName();
     String price = productOnPosition.getProductPrice();
     ProductDetailsPage productDetailsPage = productOnPosition.clickOnProduct();
@@ -83,28 +83,55 @@ public class PdpTests extends BaseTest {
         GrindDropdown.DRIP.getValue().toLowerCase(),
         "Grind wasn't selected");
 
-    logger.info("4. Click on (+) in Quantity");
-    int productQuantitySelected = productDetailsPage.getProductQuantitySelected();
-    productDetailsPage = productDetailsPage.incrementProductQuantity(1);
+    logger.info("Determining quantity type");
+    boolean isBagType = productDetailsPage.isItemBagQuantityType();
+    if (!isBagType) {
+        logger.info("4. Click on (+) in Quantity");
+        int productQuantitySelected = productDetailsPage.getProductQuantitySelected();
+        productDetailsPage = productDetailsPage.incrementProductQuantity(1);
 
-    logger.info("Verify that quantity should increase by 1.");
-    softAssert.assertEquals(
-        productDetailsPage.getProductQuantitySelected(),
-        productQuantitySelected + 1,
-        "Quantity wasn't increased by 1");
+        logger.info("Verify that quantity should increase by 1.");
+        softAssert.assertEquals(
+                productDetailsPage.getProductQuantitySelected(),
+                productQuantitySelected + 1,
+                "Quantity wasn't increased by 1");
 
-    logger.info("5. Click on (-) in Quantity");
-    productQuantitySelected = productDetailsPage.getProductQuantitySelected();
-    productDetailsPage = productDetailsPage.decrementProductQuantity(1);
+        logger.info("5. Click on (-) in Quantity");
+        productQuantitySelected = productDetailsPage.getProductQuantitySelected();
+        productDetailsPage = productDetailsPage.decrementProductQuantity(1);
 
-    logger.info("Verify that quantity should decremented by 1.");
-    softAssert.assertEquals(
-        productDetailsPage.getProductQuantitySelected(),
-        productQuantitySelected - 1,
-        "Quantity wasn't decrement by 1");
+        logger.info("Verify that quantity should decremented by 1.");
+        softAssert.assertEquals(
+                productDetailsPage.getProductQuantitySelected(),
+                productQuantitySelected - 1,
+                "Quantity wasn't decrement by 1");
+    } else {
+      logger.info("Click on bag quantity of 3+");
+      productDetailsPage = productDetailsPage.selectThreePlusQuantity();
+
+      logger.info("4. Click on (+) in Quantity Picker");
+      int productQuantitySelected = productDetailsPage.getProductQuantityFromBox();
+      productDetailsPage = productDetailsPage.incrementProductQuantityFromBag(1);
+
+      logger.info("Verify that quantity should increase by 1.");
+      softAssert.assertEquals(
+              productDetailsPage.getProductQuantityFromBox(),
+              productQuantitySelected + 1,
+              "Quantity wasn't increased by 1");
+
+      logger.info("5. Click on (-) in Quantity Picker");
+      productQuantitySelected = productDetailsPage.getProductQuantityFromBox();
+      productDetailsPage = productDetailsPage.decrementProductQuantityFromBag(1);
+
+      logger.info("Verify that quantity should decremented by 1.");
+      softAssert.assertEquals(
+              productDetailsPage.getProductQuantityFromBox(),
+              productQuantitySelected - 1,
+              "Quantity wasn't decrement by 1");
+    }
 
     logger.info("6. Select One time purchase.");
-    productDetailsPage.selectSubscribeType();
+    productDetailsPage.selectOneTimePurchase();
 
     logger.info("7. Click on Add to cart");
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
@@ -132,7 +159,7 @@ public class PdpTests extends BaseTest {
     ProductListPage productListPage = navigateToPLP();
 
     logger.info("2. Select an item");
-    PlpItemComponent productOnPosition = productListPage.getProductOnPosition(2);
+    PlpItemComponent productOnPosition = productListPage.getProductOnPosition(12);
     String name = productOnPosition.getProductName();
     String price = productOnPosition.getProductPrice();
     ProductDetailsPage productDetailsPage = productOnPosition.clickOnProduct();
