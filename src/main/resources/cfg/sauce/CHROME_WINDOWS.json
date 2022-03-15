@@ -9,9 +9,12 @@
     "provider": "SauceLabs"
   },
   "platform": "Windows 10",
-  "browserName" : "chrome",
+  "browserName": "chrome",
   "version": "latest",
   "commandTimeout": "600",
-  "sauce:options":{
-    "W3C":true, "screenResolution": "1920x1080"}
+  "sauce:options": {
+    "W3C": true,
+    "screenResolution": "1920x1080",
+    "chromedriverVersion": "98.0.4758.80"
+  }
 }
