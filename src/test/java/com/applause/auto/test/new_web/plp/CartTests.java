@@ -3,6 +3,8 @@ package com.applause.auto.test.new_web.plp;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.components.QuickViewComponent;
+import com.applause.auto.new_web.components.plp.PlpItemComponent;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.CartPage;
 import com.applause.auto.new_web.views.CheckOutPage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
@@ -27,8 +29,8 @@ public class CartTests extends BaseTest {
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Add an item");
-    int firstProduct = 0;
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(firstProduct);
+    int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
+    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
     logger.info("3. Click on View cart");
@@ -57,11 +59,12 @@ public class CartTests extends BaseTest {
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Add an item");
-    int firstProduct = 0;
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(firstProduct);
+    int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
+    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
     logger.info("3. Click on View cart.");
+    int firstProduct = 0;
     QuickViewComponent quickViewComponent =
         miniCart.clickOnRecommendedForYouAddButtonByIndex(firstProduct);
     Assert.assertNotNull(quickViewComponent, "Failed to open to Quickview popup");
@@ -97,7 +100,8 @@ public class CartTests extends BaseTest {
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Add an item");
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(2);
+    int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
+    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
     String productName = productDetailsPage.getProductName();
     String productGrind = productDetailsPage.getGrindSelected();
     String productPrice = productDetailsPage.getProductPrice();
@@ -144,8 +148,10 @@ public class CartTests extends BaseTest {
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Add an item");
+    int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
+
     int firstProduct = 0;
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(firstProduct);
+    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
     logger.info("3. Click on View cart.");
@@ -180,9 +186,11 @@ public class CartTests extends BaseTest {
     ProductListPage productListPage = navigateToPLP();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
+
     logger.info("2. Add an item");
+    int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
     int firstProduct = 0;
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(firstProduct);
+    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
     logger.info("3. Click on View cart.");
@@ -217,8 +225,10 @@ public class CartTests extends BaseTest {
     ProductListPage productListPage = navigateToPLP();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
+
     logger.info("2. Add an item");
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(1);
+    int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
+    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
     logger.info("3. Click on View cart.");
@@ -245,8 +255,10 @@ public class CartTests extends BaseTest {
     ProductListPage productListPage = navigateToPLP();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
+
     logger.info("2. Add an item");
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(1);
+    int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
+    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
     logger.info("3. Click on View cart.");
@@ -272,8 +284,10 @@ public class CartTests extends BaseTest {
     ProductListPage productListPage = navigateToPLP();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
+
     logger.info("2. Add an item");
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(1);
+    int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
+    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
     logger.info("3. Click on View cart.");

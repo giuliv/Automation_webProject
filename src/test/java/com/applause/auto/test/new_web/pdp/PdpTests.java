@@ -31,7 +31,8 @@ public class PdpTests extends BaseTest {
     ProductListPage productListPage = navigateToPLP();
 
     logger.info("2. Select an item");
-    PlpItemComponent productOnPosition = productListPage.getProductOnPosition(2);
+    int itemAt = testHelper.findInStockItemPosition(productListPage);
+    PlpItemComponent productOnPosition = productListPage.getProductOnPosition(itemAt);
     String name = productOnPosition.getProductName();
     String price = productOnPosition.getProductPrice();
     ProductDetailsPage productDetailsPage = productOnPosition.clickOnProduct();
@@ -69,7 +70,8 @@ public class PdpTests extends BaseTest {
     ProductListPage productListPage = navigateToPLP();
 
     logger.info("2. Select an item");
-    PlpItemComponent productOnPosition = productListPage.getProductOnPosition(3); //12);
+    int itemAt = testHelper.findInStockItemWithSpecificGrindPosition(productListPage, GrindDropdown.DRIP);
+    PlpItemComponent productOnPosition = productListPage.getProductOnPosition(itemAt);
     String name = productOnPosition.getProductName();
     String price = productOnPosition.getProductPrice();
     ProductDetailsPage productDetailsPage = productOnPosition.clickOnProduct();
@@ -159,7 +161,8 @@ public class PdpTests extends BaseTest {
     ProductListPage productListPage = navigateToPLP();
 
     logger.info("2. Select an item");
-    PlpItemComponent productOnPosition = productListPage.getProductOnPosition(12);
+    int itemAt = testHelper.findInStockItemWithGrindPosition(productListPage);
+    PlpItemComponent productOnPosition = productListPage.getProductOnPosition(itemAt);
     String name = productOnPosition.getProductName();
     String price = productOnPosition.getProductPrice();
     ProductDetailsPage productDetailsPage = productOnPosition.clickOnProduct();

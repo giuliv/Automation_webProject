@@ -50,7 +50,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
             ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEST_SELLERS);
 
     logger.info("4. Add first item to MiniCart");
-    int productSelected = 3;
+    int productSelected = testHelper.findInStockItemWithGrindPosition(productListPage) - 1;
     ProductDetailsPage productDetailsPage =
         productListPage.clickOverProductByIndex(productSelected);
 
@@ -177,7 +177,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
             ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEST_SELLERS);
 
     logger.info("4. Add coffee item to MiniCart");
-    int coffeeSelected = 3;
+    int coffeeSelected = testHelper.findInStockItemWithGrindPosition(productListPage) - 1;
     ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(coffeeSelected);
 
     String coffeeName = productDetailsPage.getProductName();
@@ -347,7 +347,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
             ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEST_SELLERS);
 
     logger.info("4. Add coffee item to MiniCart");
-    int coffeeSelected = 3;
+    int coffeeSelected = testHelper.findInStockItemWithGrindPosition(productListPage) - 1;
     ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(coffeeSelected);
 
     String coffeeName = productDetailsPage.getProductName();
@@ -513,7 +513,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
             ProductListPage.class, Constants.MenuSubCategories.TEA_BEST_SELLERS);
 
     logger.info("4. Add tea item to MiniCart");
-    int teaSelected = 3;
+    int teaSelected = testHelper.findInStockItemPosition(productListPage) - 1;
     ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(teaSelected);
 
     String teaName = productDetailsPage.getProductName();
@@ -812,7 +812,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
             ProductListPage.class, Constants.MenuSubCategories.COFFEE_K_CUPS);
 
     logger.info("4. Add K-cups item to MiniCart");
-    int cupsSelected = 2;
+    int cupsSelected = testHelper.findInStockItemPosition(productListPage) - 1;
     ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(cupsSelected);
 
     String cupsName = productDetailsPage.getProductName();

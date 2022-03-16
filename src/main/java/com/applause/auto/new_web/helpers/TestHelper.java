@@ -1,10 +1,14 @@
 package com.applause.auto.new_web.helpers;
 
 import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.enums.GrindDropdown;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.new_web.components.plp.PlpItemComponent;
 import com.applause.auto.new_web.views.CreateAccountPage;
 import com.applause.auto.new_web.views.HomePage;
 import com.applause.auto.new_web.views.my_account.MyAccountPage;
+import com.applause.auto.new_web.views.ProductDetailsPage;
+import com.applause.auto.new_web.views.ProductListPage;
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,5 +34,51 @@ public class TestHelper {
 
     Assert.assertTrue(myAccountPage.getWelcomeMessage().contains("welcome"), "User is not created");
     return myAccountPage;
+  }
+
+  public int findInStockItemWithSpecificGrindPosition(ProductListPage productListPage, GrindDropdown grind) {
+    int itemAt = 0;
+    boolean proceedWithTest = false;
+    while (!proceedWithTest) {
+      itemAt += 1;
+      logger.info("Checking item at [{}] to determine if we have a grind and are in stock", itemAt);
+      PlpItemComponent productOnPosition = productListPage.getProductOnPosition(itemAt);
+      ProductDetailsPage productDetailsPage = productOnPosition.clickOnProduct();
+      if (productDetailsPage.isGrindDisplayed()) { productDetailsPage.selectGrind(grind); }
+      proceedWithTest = (!productDetailsPage.isItemAvailable() && productDetailsPage.isGrindDisplayed()) ? true : false;
+      logger.info("It is [{}] that we should proceed using this item.", proceedWithTest);
+      productListPage = WebHelper.navigateBack(ProductListPage.class);
+    }
+    return itemAt;
+  }
+
+  public int findInStockItemWithGrindPosition(ProductListPage productListPage) {
+    int itemAt = 0;
+    boolean proceedWithTest = false;
+    while (!proceedWithTest) {
+      itemAt += 1;
+      logger.info("Checking item at [{}] to determine if we have a grind and are in stock", itemAt);
+      PlpItemComponent productOnPosition = productListPage.getProductOnPosition(itemAt);
+      ProductDetailsPage productDetailsPage = productOnPosition.clickOnProduct();
+      proceedWithTest = (!productDetailsPage.isItemAvailable() && productDetailsPage.isGrindDisplayed()) ? true : false;
+      logger.info("It is [{}] that we should proceed using this item.", proceedWithTest);
+      productListPage = WebHelper.navigateBack(ProductListPage.class);
+    }
+    return itemAt;
+  }
+
+  public int findInStockItemPosition(ProductListPage productListPage) {
+    int itemAt = 0;
+    boolean proceedWithTest = false;
+    while (!proceedWithTest) {
+      itemAt += 1;
+      logger.info("Checking item at [{}] to determine if we have a grind and are in stock", itemAt);
+      PlpItemComponent productOnPosition = productListPage.getProductOnPosition(itemAt);
+      ProductDetailsPage productDetailsPage = productOnPosition.clickOnProduct();
+      proceedWithTest = (!productDetailsPage.isItemAvailable()) ? true : false;
+      logger.info("It is [{}] that we should proceed using this item.", proceedWithTest);
+      productListPage = WebHelper.navigateBack(ProductListPage.class);
+    }
+    return itemAt;
   }
 }
