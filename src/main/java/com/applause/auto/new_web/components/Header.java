@@ -6,9 +6,7 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.ProductListPage;
-import com.applause.auto.new_web.views.SignInPage;
-import com.applause.auto.new_web.views.StoreLocatorPage;
+import com.applause.auto.new_web.views.*;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -23,6 +21,9 @@ public class Header extends BaseComponent {
 
   @Locate(id = "header", on = Platform.WEB)
   private ContainerElement mainContainer;
+
+  @Locate(css = "i.header__icon.icon.icon--logo-dark", on = Platform.WEB)
+  protected Button logoButton;
 
   @Locate(css = "a[data-id='coffee-nav']", on = Platform.WEB)
   @Locate(css = "button[data-id='coffee-nav']", on = Platform.WEB_MOBILE_PHONE)
@@ -40,8 +41,38 @@ public class Header extends BaseComponent {
   @Locate(css = "button[data-id='join-the-club-nav']", on = Platform.WEB_MOBILE_PHONE)
   protected Button subscriptionTabCategory;
 
+  @Locate(css = "a[data-id='free-home-delivery-nav']", on = Platform.WEB)
+  @Locate(
+      xpath = "//li[@class='nav__mobile-main-link']/a[contains(., 'Delivery')]",
+      on = Platform.WEB_MOBILE_PHONE)
+  protected Button freeHomeDeliveryCategory;
+
+  @Locate(css = "a[data-id='visit-us-nav']", on = Platform.WEB)
+  @Locate(css = "button[data-id='visit-us-nav']", on = Platform.WEB_MOBILE_PHONE)
+  protected Button visitUsCategory;
+
+  @Locate(css = "a[data-id='learn-nav']", on = Platform.WEB)
+  @Locate(css = "button[data-id='learn-nav']", on = Platform.WEB_MOBILE_PHONE)
+  protected Button learnCategory;
+
+  @Locate(css = "a[data-id='peetnik-rewards-nav']", on = Platform.WEB)
+  @Locate(
+          xpath = "//li[@class='nav__mobile-main-link']/a[contains(., 'Peetnik')]",
+          on = Platform.WEB_MOBILE_PHONE)
+  protected Button peetnikRewardsCategory;
+
+  @Locate(css = "a[data-id='offers-nav']", on = Platform.WEB)
+  @Locate(
+          xpath = "//li[@class='nav__mobile-main-link']/a[contains(., 'Offers')]",
+          on = Platform.WEB_MOBILE_PHONE)
+  protected Button offersCategory;
+
   @Locate(css = ".nav__columns a[href*='%s']", on = Platform.WEB)
   private Button subCategories;
+
+  @Locate(css = ".desktop-only .nav__touts-wrapper a[href*='%s']", on = Platform.WEB)
+  @Locate(css = ".nav__touts-wrapper a[href*='%s']", on = Platform.WEB_MOBILE_PHONE)
+  private Button subCategoriesAlternative;
 
   @Locate(css = ".desktop-only a[href*='%s']", on = Platform.WEB)
   @Locate(css = ".hide-desktop a[href*='%s']", on = Platform.WEB_MOBILE_PHONE)
@@ -59,6 +90,21 @@ public class Header extends BaseComponent {
 
   @Locate(css = "#header button[class*='search']", on = Platform.WEB)
   protected Button searchIcon;
+
+  @Locate(css = "i.icon.icon--cart-black", on = Platform.WEB)
+  protected Button cartIcon;
+
+  @Locate(css = "i.icon.icon--store-locator", on = Platform.WEB)
+  @Locate(
+          css = "div.header-utils__util-wrap.hide-desktop a i.icon.icon--store-locator",
+          on = Platform.WEB_MOBILE_PHONE)
+  protected Button locationIcon;
+
+  @Locate(css = "i.icon.icon--account-black", on = Platform.WEB)
+  @Locate(
+          css = "div.header-utils__util-wrap.hide-desktop a i.icon--account-black",
+          on = Platform.WEB_MOBILE_PHONE)
+  protected Button personIcon;
 
   @Locate(xpath = "//header//a[./i[contains(@class, 'store')]]", on = Platform.WEB)
   @Locate(
@@ -88,6 +134,10 @@ public class Header extends BaseComponent {
       WebHelper.hoverByAction(teaCategory);
     } else if (menuOptions.equals(Constants.MenuOptions.SUBSCRIPTION)) {
       WebHelper.hoverByAction(subscriptionTabCategory);
+    } else if (menuOptions.equals(Constants.MenuOptions.VISIT_US)) {
+      WebHelper.hoverByAction(visitUsCategory);
+    } else if (menuOptions.equals(Constants.MenuOptions.LEARN)) {
+      WebHelper.hoverByAction(learnCategory);
     }
   }
 
@@ -99,6 +149,27 @@ public class Header extends BaseComponent {
       gearCategory.click();
     }
     return SdkHelper.create(ProductListPage.class);
+  }
+
+  @Step("Select Free Home Delivery from Menu")
+  public FreeHomeDeliveryPage clickFreeHomeDeliveryFromMenu() {
+    logger.info("Tab selected: Free Home Delivery");
+    freeHomeDeliveryCategory.click();
+    return SdkHelper.create(FreeHomeDeliveryPage.class);
+  }
+
+  @Step("Select Peetnik Rewards from Menu")
+  public PeetnikRewardsPage clickPeetnikRewardsFromMenu() {
+    logger.info("Tab selected: Peetnik Rewards");
+    peetnikRewardsCategory.click();
+    return SdkHelper.create(PeetnikRewardsPage.class);
+  }
+
+  @Step("Select Offers from Menu")
+  public CurrentOffersPage clickOffersFromMenu() {
+    logger.info("Tab selected: Offers");
+    offersCategory.click();
+    return SdkHelper.create(CurrentOffersPage.class);
   }
 
   @Step("Select SubCategory from Menu")
@@ -126,6 +197,38 @@ public class Header extends BaseComponent {
     return SdkHelper.create(SignInPage.class);
   }
 
+  @Step("Verify submenu item displays")
+  public boolean isSubMenuItemDisplayed(String linkHref) {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(subCategories.format(linkHref)).visible());
+    return subCategories.format(linkHref).isDisplayed();
+  }
+
+  @Step("Verify submenu item displays")
+  public boolean isAlternativeSubMenuItemDisplayed(String linkHref) {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(subCategoriesAlternative.format(linkHref)).visible());
+    return subCategoriesAlternative.format(linkHref).isDisplayed();
+  }
+
+  @Step("Verify search icon displays")
+  public boolean isSearchIconDisplayed() {
+    return searchIcon.isDisplayed();
+  }
+
+  @Step("Verify person icon displays")
+  public boolean isPersonIconDisplayed() {
+    return personIcon.isDisplayed();
+  }
+
+  @Step("Verify location icon displays")
+  public boolean isLocationIconDisplayed() {
+    return locationIcon.isDisplayed();
+  }
+
+  @Step("Verify shopping cart icon displays")
+  public boolean isCartIconDisplayed() {
+    return cartIcon.isDisplayed();
+  }
+
   @Step("Get Search component")
   public SearchComponent getSearchComponent() {
     logger.info("Get Search Component");
@@ -150,9 +253,53 @@ public class Header extends BaseComponent {
     return signInButton.isDisplayed();
   }
 
+  @Step("Verify Logo is displayed")
+  public boolean isLogoDisplayed() {
+    return logoButton.isDisplayed();
+  }
+
+  @Step("Verify coffee menu item is displayed")
+  public boolean isCoffeeMenuItemDisplayed() {
+    return coffeeCategory.isDisplayed();
+  }
+
+  @Step("Verify tea menu item is displayed")
+  public boolean isTeaMenuItemDisplayed() {
+    return teaCategory.isDisplayed();
+  }
+
+  @Step("Verify visit us menu item is displayed")
+  public boolean isVisitUsMenuItemDisplayed() {
+    return visitUsCategory.isDisplayed();
+  }
+
+  @Step("Verify free home delivery menu item is displayed")
+  public boolean isFreeHomeDeliveryMenuItemDisplayed() {
+    return freeHomeDeliveryCategory.isDisplayed();
+  }
+
+  @Step("Verify learn menu item is displayed")
+  public boolean isLearnMenuItemDisplayed() {
+    return learnCategory.isDisplayed();
+  }
+
+  @Step("Verify peetnik menu item is displayed")
+  public boolean isPeetnikRewardsMenuItemDisplayed() {
+    return peetnikRewardsCategory.isDisplayed();
+  }
+
+  @Step("Verify offers menu item is displayed")
+  public boolean isOffersMenuItemDisplayed() {
+    return offersCategory.isDisplayed();
+  }
+
   @Step("Open Hamburger Menu")
   public void openHamburgerMenu() {
     throw new NotImplementedException("Hamburger Menu isn't present on desktop");
+  }
+
+  public void preopenMenu() {
+    logger.info("Opening Hamburger Menu -> Do nothing, on desktop.");
   }
 }
 
@@ -171,6 +318,10 @@ class HeaderMobile extends Header {
       teaCategory.click();
     } else if (menuOptions.equals(Constants.MenuOptions.SUBSCRIPTION)) {
       subscriptionTabCategory.click();
+    } else if (menuOptions.equals(Constants.MenuOptions.VISIT_US)) {
+      visitUsCategory.click();
+    } else if (menuOptions.equals(Constants.MenuOptions.LEARN)) {
+      learnCategory.click();
     }
   }
 
@@ -196,6 +347,11 @@ class HeaderMobile extends Header {
   }
 
   @Override
+  public void preopenMenu() {
+    openHamburgerMenu();
+  }
+
+  @Override
   public SignInPage clickAccountButton() {
     openHamburgerMenu();
 
@@ -203,6 +359,39 @@ class HeaderMobile extends Header {
     SdkHelper.getSyncHelper().wait(Until.uiElement(signInButton).clickable()).click();
 
     return SdkHelper.create(SignInPage.class);
+  }
+
+  @Override
+  @Step("Select Free Home Delivery from Menu")
+  public FreeHomeDeliveryPage clickFreeHomeDeliveryFromMenu() {
+    openHamburgerMenu();
+
+    logger.info("Tab selected: Free Home Delivery");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(freeHomeDeliveryCategory).clickable()).click();
+
+    return SdkHelper.create(FreeHomeDeliveryPage.class);
+  }
+
+  @Override
+  @Step("Select Peetnik Rewards from Menu")
+  public PeetnikRewardsPage clickPeetnikRewardsFromMenu() {
+    openHamburgerMenu();
+
+    logger.info("Tab selected: Peetnik Rewards");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(peetnikRewardsCategory).clickable()).click();
+
+    return SdkHelper.create(PeetnikRewardsPage.class);
+  }
+
+  @Override
+  @Step("Select Offers from Menu")
+  public CurrentOffersPage clickOffersFromMenu() {
+    openHamburgerMenu();
+
+    logger.info("Tab selected: Offers");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(offersCategory).clickable()).click();
+
+    return SdkHelper.create(CurrentOffersPage.class);
   }
 
   @Step("Click on 'Store Locator' button")

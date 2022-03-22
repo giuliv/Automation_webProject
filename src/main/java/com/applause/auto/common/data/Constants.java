@@ -427,7 +427,10 @@ public class Constants {
     COFFEE,
     TEA,
     GEAR,
-    SUBSCRIPTION
+    SUBSCRIPTION,
+    VISIT_US,
+    LEARN,
+    FREE_HOME_DELIVERY
   }
 
   public enum MenuSubCategories {
