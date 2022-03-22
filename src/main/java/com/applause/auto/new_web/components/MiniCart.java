@@ -17,7 +17,12 @@ import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
+import java.util.Locale;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -44,6 +49,12 @@ public class MiniCart extends BaseComponent {
 
   @Locate(css = ".bag-item__header span[data-unit-price]", on = Platform.WEB)
   private List<Text> itemPrice;
+
+  @Locate(xpath = "//span[contains(., 'Plus get up to')]", on = Platform.WEB)
+  private List<Text> itemDiscount;
+
+  @Locate(css = "span.og-tooltip-inner", on = Platform.WEB)
+  private List<Text> itemDiscountHint;
 
   @Locate(css = "a[href*='checkout']", on = Platform.WEB)
   private Button checkOutButton;
@@ -149,6 +160,30 @@ public class MiniCart extends BaseComponent {
     logger.info("[MiniCart] Item Price: " + itemPrice.get(index).getText().trim());
 
     return itemPrice.get(index).getText().trim();
+  }
+
+  @Step("Get discount")
+  public String getDiscountByIndex(int index, String price) {
+    double discountOverThirty = 0.05;
+    double discountOverFifty = 0.10;
+    double multiplier = 0;
+    double tempPrice = Double.parseDouble(price.replace("$", ""));
+
+    if (itemDiscount.get(index).exists()) {
+      logger.info("Discount exists, checking discount type...");
+
+      if (Float.parseFloat(subTotal.getText().replace("$", "")) > 50) {
+        logger.info("- Subtotal is over 50, applying 10%");
+        multiplier = discountOverFifty;
+      } else if (Float.parseFloat(subTotal.getText().replace("$","")) > 30) {
+        logger.info("- Subtotal is over 30, applying 5%");
+        multiplier = discountOverThirty;
+      }
+    }
+    tempPrice = (tempPrice - tempPrice * multiplier);
+    BigDecimal bd = new BigDecimal(Double.toString(tempPrice));
+    bd = bd.setScale(2, RoundingMode.HALF_UP);
+    return "$" + bd.doubleValue();
   }
 
   @Step("Get product quantity")

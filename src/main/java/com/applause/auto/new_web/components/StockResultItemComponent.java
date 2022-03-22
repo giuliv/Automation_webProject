@@ -17,6 +17,9 @@ import io.qameta.allure.Step;
 @Implementation(is = StockResultItemComponent.class, on = Platform.WEB_MOBILE_PHONE)
 public class StockResultItemComponent extends BaseComponent {
 
+  @Locate(xpath = ".//span[contains(., 'Licensed Partner')]", on = Platform.WEB)
+  private Text licensedPartner;
+
   @Locate(xpath = ".//span[contains(@class, 'item-number-text')]", on = Platform.WEB)
   private Text shopNumber;
 
@@ -40,6 +43,11 @@ public class StockResultItemComponent extends BaseComponent {
 
   @Step("Check If Shop Item is Fully Displayed")
   public boolean checkIfShopItemIsFullyDisplayed() {
+    if (WebHelper.isTextDisplayedAndNotEmpty(licensedPartner)) {
+      logger.info("Skipping, because we are a licensed partner");
+      return true;
+    }
+
     if (!WebHelper.isTextDisplayedAndNotEmpty(shopNumber)) {
       logger.info("Number isn't displayed for [{}] shop", shopName.getText());
       return false;

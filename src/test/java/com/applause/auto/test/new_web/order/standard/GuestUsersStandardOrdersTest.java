@@ -746,9 +746,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     logger.info("2. Select Limited Releases From Coffee tab");
     Header header = homePage.getHeader();
     header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);
-    ProductListPage productListPage =
-        header.clickOverSubCategoryFromMenu(
-            ProductListPage.class, Constants.MenuSubCategories.LIMITED_COFFEE);
+    ProductListPage productListPage = navigateToPLP();
 
     logger.info("3. Add Limited Release item to MiniCart");
     int limitedCoffeeSelected = 3;
