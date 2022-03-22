@@ -6,9 +6,9 @@ import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.plp.PlpItemComponent;
 import com.applause.auto.new_web.views.CreateAccountPage;
 import com.applause.auto.new_web.views.HomePage;
-import com.applause.auto.new_web.views.my_account.MyAccountPage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ProductListPage;
+import com.applause.auto.new_web.views.my_account.MyAccountPage;
 import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -36,7 +36,8 @@ public class TestHelper {
     return myAccountPage;
   }
 
-  public int findInStockItemWithSpecificGrindPosition(ProductListPage productListPage, GrindDropdown grind) {
+  public int findInStockItemWithSpecificGrindPosition(
+      ProductListPage productListPage, GrindDropdown grind) {
     int itemAt = 0;
     boolean proceedWithTest = false;
     while (!proceedWithTest) {
@@ -44,8 +45,13 @@ public class TestHelper {
       logger.info("Checking item at [{}] to determine if we have a grind and are in stock", itemAt);
       PlpItemComponent productOnPosition = productListPage.getProductOnPosition(itemAt);
       ProductDetailsPage productDetailsPage = productOnPosition.clickOnProduct();
-      if (productDetailsPage.isGrindDisplayed()) { productDetailsPage.selectGrind(grind); }
-      proceedWithTest = (!productDetailsPage.isItemAvailable() && productDetailsPage.isGrindDisplayed()) ? true : false;
+      if (productDetailsPage.isGrindDisplayed()) {
+        productDetailsPage.selectGrind(grind);
+      }
+      proceedWithTest =
+          (!productDetailsPage.isItemAvailable() && productDetailsPage.isGrindDisplayed())
+              ? true
+              : false;
       logger.info("It is [{}] that we should proceed using this item.", proceedWithTest);
       productListPage = WebHelper.navigateBack(ProductListPage.class);
     }
@@ -60,7 +66,10 @@ public class TestHelper {
       logger.info("Checking item at [{}] to determine if we have a grind and are in stock", itemAt);
       PlpItemComponent productOnPosition = productListPage.getProductOnPosition(itemAt);
       ProductDetailsPage productDetailsPage = productOnPosition.clickOnProduct();
-      proceedWithTest = (!productDetailsPage.isItemAvailable() && productDetailsPage.isGrindDisplayed()) ? true : false;
+      proceedWithTest =
+          (!productDetailsPage.isItemAvailable() && productDetailsPage.isGrindDisplayed())
+              ? true
+              : false;
       logger.info("It is [{}] that we should proceed using this item.", proceedWithTest);
       productListPage = WebHelper.navigateBack(ProductListPage.class);
     }

@@ -70,7 +70,8 @@ public class PdpTests extends BaseTest {
     ProductListPage productListPage = navigateToPLP();
 
     logger.info("2. Select an item");
-    int itemAt = testHelper.findInStockItemWithSpecificGrindPosition(productListPage, GrindDropdown.DRIP);
+    int itemAt =
+        testHelper.findInStockItemWithSpecificGrindPosition(productListPage, GrindDropdown.DRIP);
     PlpItemComponent productOnPosition = productListPage.getProductOnPosition(itemAt);
     String name = productOnPosition.getProductName();
     String price = productOnPosition.getProductPrice();
@@ -88,25 +89,25 @@ public class PdpTests extends BaseTest {
     logger.info("Determining quantity type");
     boolean isBagType = productDetailsPage.isItemBagQuantityType();
     if (!isBagType) {
-        logger.info("4. Click on (+) in Quantity");
-        int productQuantitySelected = productDetailsPage.getProductQuantitySelected();
-        productDetailsPage = productDetailsPage.incrementProductQuantity(1);
+      logger.info("4. Click on (+) in Quantity");
+      int productQuantitySelected = productDetailsPage.getProductQuantitySelected();
+      productDetailsPage = productDetailsPage.incrementProductQuantity(1);
 
-        logger.info("Verify that quantity should increase by 1.");
-        softAssert.assertEquals(
-                productDetailsPage.getProductQuantitySelected(),
-                productQuantitySelected + 1,
-                "Quantity wasn't increased by 1");
+      logger.info("Verify that quantity should increase by 1.");
+      softAssert.assertEquals(
+          productDetailsPage.getProductQuantitySelected(),
+          productQuantitySelected + 1,
+          "Quantity wasn't increased by 1");
 
-        logger.info("5. Click on (-) in Quantity");
-        productQuantitySelected = productDetailsPage.getProductQuantitySelected();
-        productDetailsPage = productDetailsPage.decrementProductQuantity(1);
+      logger.info("5. Click on (-) in Quantity");
+      productQuantitySelected = productDetailsPage.getProductQuantitySelected();
+      productDetailsPage = productDetailsPage.decrementProductQuantity(1);
 
-        logger.info("Verify that quantity should decremented by 1.");
-        softAssert.assertEquals(
-                productDetailsPage.getProductQuantitySelected(),
-                productQuantitySelected - 1,
-                "Quantity wasn't decrement by 1");
+      logger.info("Verify that quantity should decremented by 1.");
+      softAssert.assertEquals(
+          productDetailsPage.getProductQuantitySelected(),
+          productQuantitySelected - 1,
+          "Quantity wasn't decrement by 1");
     } else {
       logger.info("Click on bag quantity of 3+");
       productDetailsPage = productDetailsPage.selectThreePlusQuantity();
@@ -117,9 +118,9 @@ public class PdpTests extends BaseTest {
 
       logger.info("Verify that quantity should increase by 1.");
       softAssert.assertEquals(
-              productDetailsPage.getProductQuantityFromBox(),
-              productQuantitySelected + 1,
-              "Quantity wasn't increased by 1");
+          productDetailsPage.getProductQuantityFromBox(),
+          productQuantitySelected + 1,
+          "Quantity wasn't increased by 1");
 
       logger.info("5. Click on (-) in Quantity Picker");
       productQuantitySelected = productDetailsPage.getProductQuantityFromBox();
@@ -127,9 +128,9 @@ public class PdpTests extends BaseTest {
 
       logger.info("Verify that quantity should decremented by 1.");
       softAssert.assertEquals(
-              productDetailsPage.getProductQuantityFromBox(),
-              productQuantitySelected - 1,
-              "Quantity wasn't decrement by 1");
+          productDetailsPage.getProductQuantityFromBox(),
+          productQuantitySelected - 1,
+          "Quantity wasn't decrement by 1");
     }
 
     logger.info("6. Select One time purchase.");

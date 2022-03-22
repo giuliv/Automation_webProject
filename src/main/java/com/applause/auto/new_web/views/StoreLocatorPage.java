@@ -14,7 +14,6 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.qameta.allure.Step;
-
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;

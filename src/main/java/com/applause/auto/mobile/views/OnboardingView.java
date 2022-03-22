@@ -17,7 +17,6 @@ import io.qameta.allure.Step;
 import java.time.Duration;
 import lombok.Getter;
 import org.openqa.selenium.TimeoutException;
-import org.testng.Assert;
 
 @Implementation(is = OnboardingView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = OnboardingViewIos.class, on = Platform.MOBILE_IOS)

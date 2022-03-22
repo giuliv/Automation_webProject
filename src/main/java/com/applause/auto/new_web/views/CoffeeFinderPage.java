@@ -153,8 +153,7 @@ public class CoffeeFinderPage extends Base {
    */
   @Step("Select specific Answer")
   public <T extends BaseComponent> T selectAnswer(CoffeeFinderAnswers answer, Class<T> clazz) {
-    return getTypeOfCoffeeList()
-        .stream()
+    return getTypeOfCoffeeList().stream()
         .filter(item -> StringUtils.equalsIgnoreCase(item.getName(), answer.getValue()))
         .findFirst()
         .orElseThrow(
@@ -236,7 +235,6 @@ public class CoffeeFinderPage extends Base {
     return WebHelper.isDisplayed(signature);
   }
 
-
   @Step("Click on 'just take me to my results'.")
   public CoffeeFinderPage clickOnTakeMeToMyResults() {
     takeMeToMyResultsButton.click();
@@ -291,5 +289,4 @@ class CoffeeFinderPageMobile extends CoffeeFinderPage {
     WebHelper.waitForElementToDisappear(animation, 5);
     return SdkHelper.create(CoffeeFinderPage.class);
   }
-
 }

@@ -75,6 +75,12 @@ public class WebHelper {
     ((JavascriptExecutor) SdkHelper.getDriver()).executeScript("window.scrollTo(0, 0);");
   }
 
+  /** Scrolls page to bottom */
+  public static void scrollToPageBottom() {
+    ((JavascriptExecutor) SdkHelper.getDriver())
+        .executeScript("window.scrollTo(0,document.body.scrollHeight);");
+  }
+
   public static boolean isDesktop() {
     return !SdkHelper.getEnvironmentHelper().isMobileAndroid()
         && !SdkHelper.getEnvironmentHelper().isMobileIOS()
@@ -410,8 +416,7 @@ public class WebHelper {
       // Search root
       Set<WebElement> result = new LinkedHashSet(SdkHelper.getDriver().findElements(by));
       if (result.size() == 0) {
-        getShadowElementsFromRoot()
-            .stream()
+        getShadowElementsFromRoot().stream()
             .forEach(elem -> result.addAll(findShadowElementsBy(elem, by)));
       }
       return new ArrayList<>(result);
@@ -429,8 +434,7 @@ public class WebHelper {
         } else {
           List<WebElement> shadowNodes = getShadowElementsFromParent(parent);
           logger.info("Found shadow nodes on level: " + shadowNodes.size());
-          shadowNodes
-              .stream()
+          shadowNodes.stream()
               .forEach(
                   elem -> {
                     logger.info("Searching for element in shadow node...");
@@ -504,8 +508,7 @@ public class WebHelper {
   public static ArrayList<WebElement> findShadowElementsBy(Set<WebElement> parents, By by) {
     // Important: xpath search does not working
     Set<WebElement> result = new LinkedHashSet<>();
-    parents
-        .stream()
+    parents.stream()
         .forEach(
             parent -> {
               WebElement shadow = getWebElementFromShadowRoot(parent);
@@ -535,5 +538,16 @@ public class WebHelper {
 
   public static String getRandomPhoneNumber() {
     return "8" + getRandomValueWithinRange(100000000, 999999999);
+  }
+
+  /** Wait for page is loading to complete */
+  public static void waitForPageLoadingToComplete() {
+    logger.debug("Wait 20sec for page loading to complete");
+    new WebDriverWait(SdkHelper.getDriver(), 20)
+        .until(
+            driver ->
+                ((JavascriptExecutor) driver)
+                    .executeScript("return document.readyState")
+                    .equals("complete"));
   }
 }

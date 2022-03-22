@@ -261,7 +261,6 @@ public class ProductListPage extends Base {
   public PlpItemComponent getProductOnPosition(int position) {
     return productsList.get(position - 1);
   }
-
 }
 
 class ProductListPageMobile extends ProductListPage {

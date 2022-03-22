@@ -99,7 +99,8 @@ public class ProductDetailsPage extends Base {
   protected Button decrementQuantityButtonFromBag;
 
   @Locate(
-      xpath = "//button[@class='og-optin-btn']//*[contains(@class, 'og-pdp-tooltip')]//*[contains(@class, 'og-tooltip-inner')]",
+      xpath =
+          "//button[@class='og-optin-btn']//*[contains(@class, 'og-pdp-tooltip')]//*[contains(@class, 'og-tooltip-inner')]",
       on = Platform.WEB)
   protected Button subscribeInfoIcon;
 
@@ -121,7 +122,10 @@ public class ProductDetailsPage extends Base {
   protected Button writeReviewButton;
 
   @Locate(xpath = "//a[contains(@class, 'pv-flavor-profile')]", on = Platform.WEB)
-  @Locate(xpath = "//a[contains(@class, 'pv-flavor-profile') and not(@hide-mobile) and not(@hide-phone)]", on = Platform.WEB_MOBILE_PHONE)
+  @Locate(
+      xpath =
+          "//a[contains(@class, 'pv-flavor-profile') and not(@hide-mobile) and not(@hide-phone)]",
+      on = Platform.WEB_MOBILE_PHONE)
   protected Button takeTheCoffeeQuizButton;
 
   @Override
@@ -154,8 +158,7 @@ public class ProductDetailsPage extends Base {
 
     if (WebHelper.isSafari()) {
       String text =
-          grindListSelected
-              .stream()
+          grindListSelected.stream()
               .filter(x -> x.getWebElement().isSelected())
               .findFirst()
               .get()
@@ -393,12 +396,12 @@ public class ProductDetailsPage extends Base {
   @Step("Click on (+) in Quantity Picker after Bag Click")
   public ProductDetailsPage incrementProductQuantityFromBag(int quantity) {
     IntStream.rangeClosed(1, quantity)
-            .forEach(
-                    item -> {
-                      logger.info("Clicking on (+) in Quantity");
-                      incrementQuantityButtonFromBag.click();
-                      logger.info("Current quantity is - [{}]", getProductQuantityFromBox());
-                    });
+        .forEach(
+            item -> {
+              logger.info("Clicking on (+) in Quantity");
+              incrementQuantityButtonFromBag.click();
+              logger.info("Current quantity is - [{}]", getProductQuantityFromBox());
+            });
     return this;
   }
 
@@ -417,12 +420,12 @@ public class ProductDetailsPage extends Base {
   @Step("Click on (-) in Quantity Picker after Bag Click")
   public ProductDetailsPage decrementProductQuantityFromBag(int quantity) {
     IntStream.rangeClosed(1, quantity)
-            .forEach(
-                    item -> {
-                      logger.info("Clicking on (-) in Quantity");
-                      decrementQuantityButtonFromBag.click();
-                      logger.info("Current quantity is - [{}]", getProductQuantityFromBox());
-                    });
+        .forEach(
+            item -> {
+              logger.info("Clicking on (-) in Quantity");
+              decrementQuantityButtonFromBag.click();
+              logger.info("Current quantity is - [{}]", getProductQuantityFromBox());
+            });
     return this;
   }
 

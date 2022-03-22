@@ -52,6 +52,7 @@ public class Constants {
     public static final String PDP = "pdp";
     public static final String SMOKE = "smoke";
     public static final String SANITY = "sanity";
+    public static final String HOME_PAGE_FOOTER = "home-page-footer";
 
     // Mobile
     public static final String ONBOARDING = "onboarding";

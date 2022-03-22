@@ -2,6 +2,7 @@ package com.applause.auto.new_web.views;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.new_web.components.FooterComponent;
 import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.MyAccountLeftMenu;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -22,5 +23,10 @@ public class Base extends BaseComponent {
   public MyAccountLeftMenu getLeftMenu() {
     logger.info("Getting the left menu");
     return SdkHelper.create(MyAccountLeftMenu.class);
+  }
+
+  @Step("Get Footer component")
+  public FooterComponent getFooterComponent() {
+    return SdkHelper.create(FooterComponent.class);
   }
 }

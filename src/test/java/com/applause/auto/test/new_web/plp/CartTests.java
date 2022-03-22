@@ -3,8 +3,6 @@ package com.applause.auto.test.new_web.plp;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.components.QuickViewComponent;
-import com.applause.auto.new_web.components.plp.PlpItemComponent;
-import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.CartPage;
 import com.applause.auto.new_web.views.CheckOutPage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
@@ -186,7 +184,6 @@ public class CartTests extends BaseTest {
     ProductListPage productListPage = navigateToPLP();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
-
     logger.info("2. Add an item");
     int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
     int firstProduct = 0;
@@ -225,7 +222,6 @@ public class CartTests extends BaseTest {
     ProductListPage productListPage = navigateToPLP();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
-
     logger.info("2. Add an item");
     int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
     ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
@@ -255,7 +251,6 @@ public class CartTests extends BaseTest {
     ProductListPage productListPage = navigateToPLP();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
-
     logger.info("2. Add an item");
     int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
     ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
@@ -283,7 +278,6 @@ public class CartTests extends BaseTest {
     logger.info("1. Navigate to landing page");
     ProductListPage productListPage = navigateToPLP();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
-
 
     logger.info("2. Add an item");
     int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
