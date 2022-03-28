@@ -67,7 +67,55 @@ public enum FooterOptions {
       "Offers",
       "GET FREE COFFEE",
       "https://peets-coffee-staging.myshopify.com/pages/refer?traffic_source=site_footer",
-      CommonWebPage.class);
+      CommonWebPage.class),
+
+  // PARTNER WITH PEET's
+  CORPORATE_GIFTS(
+      "Partner with peet's",
+      "Corporate Gifts",
+      "https://peets-coffee-staging.myshopify.com/pages/corporate",
+      CommonWebPage.class),
+  WHOLESALE_PROGRAM(
+      "Partner with peet's",
+      "Wholesale Program",
+      "https://peets-coffee-staging.myshopify.com/pages/wholesale-program",
+      CommonWebPage.class),
+  BECOME_AFFILIATE(
+      "Partner with peet's",
+      "Become an affiliate",
+      "https://signup.cj.com/member/signup/publisher/?cid=2346375#/branded",
+      CommonWebPage.class),
+  SUBMIT_SITE(
+      "Partner with peet's",
+      "Submit a Site",
+      "https://peetscoffee.simmsonline.com/vexray/step1",
+      CommonWebPage.class),
+
+  // BLOG
+  CUPPING_ROOM("Blog", "The Cupping Room", "https://blog.peets.com/", CommonWebPage.class),
+
+  // SOCIAL MEDIA
+  INSTAGRAM("Social Media", "instagram", "www.instagram.com", CommonWebPage.class),
+  TWITTER("Social Media", "twitter", "twitter.com", CommonWebPage.class),
+  FACEBOOK("Social Media", "facebook", "www.facebook.com", CommonWebPage.class),
+  YOUTUBE("Social Media", "youtube", "www.youtube.com", CommonWebPage.class),
+  LINKEDIN("Social Media", "linkedin", "www.linkedin.com", CommonWebPage.class),
+
+  // FOOTER END SUB LINKS
+  PRIVACY_POLICY("End Sub link", "Privacy Policy", "/pages/privacy-policy", CommonWebPage.class),
+  CALIFORNIA_PRIVACY_RIGHTS(
+      "End Sub link",
+      "California Privacy Rights",
+      "/pages/privacy-policy#california-residents",
+      CommonWebPage.class),
+  TERMS_OF_SERVICE(
+      "End Sub link", "Terms of Service", "/pages/terms-and-conditions", CommonWebPage.class),
+  DISCLAIMER_TEXT(
+      "End Sub link",
+      "Nespresso is a registered trademark of Société des Produits Nestlé S.A., and is not affiliated with Peet’s Coffee Inc. Compatible with most Nespresso Original machines.",
+      "",
+      CommonWebPage.class),
+  COLOPHON_TEXT("End Sub link", "© 2022. PEET'S COFFEE", "", CommonWebPage.class);
 
   @Getter private String category;
   @Getter private String option;
@@ -88,6 +136,22 @@ public enum FooterOptions {
 
   public static List<FooterOptions> getOffersOptions() {
     return getOptions("Offers");
+  }
+
+  public static List<FooterOptions> getPartnerWithPeetsOptions() {
+    return getOptions("Partner with peet's");
+  }
+
+  public static List<FooterOptions> getBlogOptions() {
+    return getOptions("Blog");
+  }
+
+  public static List<FooterOptions> getSocialMediaLinks() {
+    return getOptions("Social Media");
+  }
+
+  public static List<FooterOptions> getEndSubLinks() {
+    return getOptions("End Sub link");
   }
 
   private static List<FooterOptions> getOptions(String category) {
