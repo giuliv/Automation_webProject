@@ -2,14 +2,15 @@ package com.applause.auto.test.new_web;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.common.data.enums.CoffeeSubMenu;
-import com.applause.auto.common.data.enums.LearnSubMenu;
-import com.applause.auto.common.data.enums.TeaSubMenu;
-import com.applause.auto.common.data.enums.VisitUsSubMenu;
+import com.applause.auto.common.data.enums.*;
 import com.applause.auto.new_web.components.Header;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomepageTests extends BaseTest {
 
@@ -155,6 +156,133 @@ public class HomepageTests extends BaseTest {
         softAssert.assertTrue(
                 currentOffersPage.isPageHeadingDisplayed(),
                 "Offers did not bring us to the correct page");
+
+        softAssert.assertAll();
+    }
+
+    @Test(
+            groups = {TestNGGroups.WEB_REGRESSION},
+            description = "11107420")
+    public void peetsHomepageBannerandPromoTiles() {
+        logger.info("1. Navigate to landing page");
+        HomePage homePage = navigateToHome();
+        Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+
+        logger.info("2. Clicking Carousel Link");
+        ProductDetailsPage plpPage = homePage.clickCarouselButton();
+        softAssert.assertTrue(
+                plpPage.getDriver().getCurrentUrl().contains(Constants.HomepageCarouselData.CAROUSEL_LINK),
+                "Carousel button brought us to a page that does not match the location.  Got: " + plpPage.getDriver().getCurrentUrl() + ", expected: " + Constants.HomepageCarouselData.CAROUSEL_LINK);
+
+        logger.info("-- navigating back to home");
+        homePage = navigateToHome();
+
+        //logger.info("3. Clicking scroll side arrow");
+        // This currently is not available, so can't automate it yet.
+
+        logger.info("4. Verifying promo tiles are displayed and Verifying promo tile text");
+        for (int tile = 1; tile <= 8; tile ++) {
+            softAssert.assertTrue(homePage.isPromoTileActionsVisible(tile), "Promo actions at position " + tile + " was not visible.");
+            softAssert.assertTrue(homePage.isPromoTileTitleVisible(tile), "Promo title at position " + tile + " was not visible.");
+            softAssert.assertTrue(homePage.isPromoTileDescriptionVisible(tile), "Promo description at position " + tile + " was not visible.");
+            softAssert.assertEquals(
+                    PromoTiles.values()[tile -1].getTitle().toLowerCase(),
+                    homePage.getPromoTileTitleText(tile).toLowerCase(),
+                    "Promo title at position " + tile + " did not match expectation.  Got " + homePage.getPromoTileTitleText(tile).toLowerCase() + ", expected " + PromoTiles.values()[tile -1].getTitle().toLowerCase());
+            softAssert.assertEquals(
+                    PromoTiles.values()[tile -1].getDescription().toLowerCase(),
+                    homePage.getPromoTileDescriptionText(tile).toLowerCase(),
+                    "Promo description at position " + tile + " did not match expectation.  Got " + homePage.getPromoTileDescriptionText(tile).toLowerCase() + ", expected " + PromoTiles.values()[tile -1].getDescription().toLowerCase());
+            softAssert.assertEquals(
+                    PromoTiles.values()[tile -1].getActions().toLowerCase(),
+                    homePage.getPromoTileActionsText(tile).toLowerCase(),
+                    "Promo title at position " + tile + " did not match expectation.  Got " + homePage.getPromoTileActionsText(tile).toLowerCase() + ", expected " + PromoTiles.values()[tile -1].getActions().toLowerCase());
+        }
+
+        // A warning to the maintainer, your most common failure might be the promo tile data in the enum section changing from month to month.
+        softAssert.assertAll();
+    }
+
+    @Test(
+            groups = {TestNGGroups.WEB_REGRESSION},
+            description = "11107421")
+    public void homepageShopCoffeeShopTea() {
+        logger.info("1. Navigate to landing page");
+        HomePage homePage = navigateToHome();
+        Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+
+        logger.info("2. Clicking shop coffee promo tile to verify link");
+        ProductListPage plpPage = homePage.clickCoffeePromoTile();
+        softAssert.assertTrue(
+                plpPage.getDriver().getCurrentUrl().contains(Constants.HomepagePromoTileData.COFFEE_PROMO_LINK),
+                "Coffee Promo tile brought us to wrong page.  Got " + plpPage.getDriver().getCurrentUrl() + ", expected: " + Constants.HomepagePromoTileData.COFFEE_PROMO_LINK);
+        logger.info(" -- navigating back to home");
+        homePage = navigateToHome();
+
+        logger.info("3. Clicking shop tea promo tile to verify link");
+        plpPage = homePage.clickTeaPromoTile();
+        softAssert.assertTrue(
+                plpPage.getDriver().getCurrentUrl().contains(Constants.HomepagePromoTileData.TEA_PROMO_LINK),
+                "Tea promo tile brought us to wrong page.  Got " + plpPage.getDriver().getCurrentUrl() + ", expected: " + Constants.HomepagePromoTileData.TEA_PROMO_LINK);
+        logger.info(" -- navigating back to home");
+        homePage = navigateToHome();
+
+        logger.info("4. Validate description for shop coffee section");
+        softAssert.assertEquals(
+                homePage.getCoffeePromoTileDescription(),
+                Constants.HomepagePromoTileData.COFFEE_PROMO_DESCRIPTION,
+                "Description for coffee did not match.  Got: " + homePage.getCoffeePromoTileDescription() + ", expected: " + Constants.HomepagePromoTileData.COFFEE_PROMO_DESCRIPTION);
+        logger.info("5. Validate description for shop tea section");
+        softAssert.assertEquals(
+                homePage.getTeaPromoTileDescription(),
+                Constants.HomepagePromoTileData.TEA_PROMO_DESCRIPTION,
+                "Description for tea did not match.  Got: " + homePage.getTeaPromoTileDescription() + ", expected: " + Constants.HomepagePromoTileData.TEA_PROMO_DESCRIPTION);
+
+        softAssert.assertAll();
+    }
+
+    @Test(
+            groups = {TestNGGroups.WEB_REGRESSION},
+            description = "11107422")
+    public void homepageBestSellers() {
+        logger.info("1. Navigate to landing page");
+        HomePage homePage = navigateToHome();
+        Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+        ProductListPage plpPage;
+        int firstPosition = 0;
+
+        logger.info("2. Verifying show best sellers button");
+        plpPage = homePage.clickShowAllBestSellersButton();
+        softAssert.assertTrue(
+                plpPage.getDriver().getCurrentUrl().contains(Constants.HomepageBestSellersData.BEST_SELLERS_LINK),
+                "Best sellers button brought us to wrong location.  Got: " + plpPage.getDriver().getCurrentUrl() + ", expected: " + Constants.HomepageBestSellersData.BEST_SELLERS_LINK);
+
+        logger.info("-- navigating back to homepage");
+        homePage = navigateToHome();
+
+        logger.info("3. Verifying scroll right shows new items");
+        List<String> shownPositions = homePage.getBestSellersShownPositions();
+        homePage.clickBestSellersCarouselNext();
+
+        for (int i = 0; i < homePage.getBestSellersPositionLength(); i ++ ) {
+            softAssert.assertNotEquals("", homePage.getBestSellersPositionTitle(firstPosition), "First Best seller was empty.");
+            softAssert.assertNotEquals(shownPositions.get(i), homePage.getBestSellersPositionTitle(i), "Best Sellers did not change when next was clicked.");
+        }
+
+        logger.info("4. Verifying scroll left shows new items");
+        homePage.clickBestSellersCarouselPrevious();
+        for (int i = 0; i < homePage.getBestSellersPositionLength(); i ++ ) {
+            softAssert.assertEquals(shownPositions.get(i), homePage.getBestSellersPositionTitle(i), "Best Sellers did not go back to the original list with previous clicked.");
+        }
+
+        logger.info("5. Verifying hover over best seller item shows add to cart button");
+        homePage.hoverBestSellersPosition(firstPosition);
+        softAssert.assertTrue(homePage.isBestSellersQuickAddDisplayedOnHover(), "Quick Add is not displaying on hover.");
+
+        logger.info("6. Verifying quick add overlay happens on quickadd click");
+        homePage.hoverBestSellersPosition(firstPosition);
+        homePage.clickBestSellersQuickAddButton();
+        softAssert.assertTrue(homePage.isQuickAddOverlayDisplayed(), "Quick Add Overlay is not displaying.");
 
         softAssert.assertAll();
     }

@@ -423,6 +423,21 @@ public class Constants {
         "Subscribe and get free shipping on every order. Plus, get 5% off orders of $30+ and 10% off orders of $50+. Pause, skip, or cancel anytime. To learn more, visit our";
   }
 
+  public static class HomepageCarouselData {
+    public static String CAROUSEL_LINK = "/products/sumatra-batak";
+  }
+
+  public static class HomepagePromoTileData {
+    public static String COFFEE_PROMO_LINK = "/collections/all-coffee";
+    public static String COFFEE_PROMO_DESCRIPTION = "Hand roasted on demand and delivered fresh to your door.";
+    public static String TEA_PROMO_LINK = "/collections/all-tea";
+    public static String TEA_PROMO_DESCRIPTION = "Savor Mighty Leaf’s tea collection: Different from the start.";
+  }
+
+  public static class HomepageBestSellersData {
+    public static String BEST_SELLERS_LINK = "/collections/coffee-best-sellers";
+  }
+
   public enum MenuOptions {
     COFFEE,
     TEA,
