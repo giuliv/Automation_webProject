@@ -14,7 +14,6 @@
   "commandTimeout": "600",
   "sauce:options": {
     "W3C": true,
-    "screenResolution": "1920x1080",
-    "chromedriverVersion": "98.0.4758.80"
+    "screenResolution": "1920x1080"
   }
 }
