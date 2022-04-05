@@ -153,7 +153,8 @@ public class CoffeeFinderPage extends Base {
    */
   @Step("Select specific Answer")
   public <T extends BaseComponent> T selectAnswer(CoffeeFinderAnswers answer, Class<T> clazz) {
-    return getTypeOfCoffeeList().stream()
+    return getTypeOfCoffeeList()
+        .stream()
         .filter(item -> StringUtils.equalsIgnoreCase(item.getName(), answer.getValue()))
         .findFirst()
         .orElseThrow(

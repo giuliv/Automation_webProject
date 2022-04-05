@@ -416,7 +416,8 @@ public class WebHelper {
       // Search root
       Set<WebElement> result = new LinkedHashSet(SdkHelper.getDriver().findElements(by));
       if (result.size() == 0) {
-        getShadowElementsFromRoot().stream()
+        getShadowElementsFromRoot()
+            .stream()
             .forEach(elem -> result.addAll(findShadowElementsBy(elem, by)));
       }
       return new ArrayList<>(result);
@@ -434,7 +435,8 @@ public class WebHelper {
         } else {
           List<WebElement> shadowNodes = getShadowElementsFromParent(parent);
           logger.info("Found shadow nodes on level: " + shadowNodes.size());
-          shadowNodes.stream()
+          shadowNodes
+              .stream()
               .forEach(
                   elem -> {
                     logger.info("Searching for element in shadow node...");
@@ -460,7 +462,8 @@ public class WebHelper {
       returnObj = (WebElement) shadowRoot;
     } else if (shadowRoot instanceof Map) {
       // ChromeDriver 96+
-      // Based on https://github.com/SeleniumHQ/selenium/issues/10050#issuecomment-974231601
+      // Based on
+      // https://github.com/SeleniumHQ/selenium/issues/10050#issuecomment-974231601
       Map<String, Object> shadowRootMap = (Map<String, Object>) shadowRoot;
       String shadowRootKey = (String) shadowRootMap.keySet().toArray()[0];
       String id = (String) shadowRootMap.get(shadowRootKey);
@@ -508,7 +511,8 @@ public class WebHelper {
   public static ArrayList<WebElement> findShadowElementsBy(Set<WebElement> parents, By by) {
     // Important: xpath search does not working
     Set<WebElement> result = new LinkedHashSet<>();
-    parents.stream()
+    parents
+        .stream()
         .forEach(
             parent -> {
               WebElement shadow = getWebElementFromShadowRoot(parent);
@@ -549,5 +553,11 @@ public class WebHelper {
                 ((JavascriptExecutor) driver)
                     .executeScript("return document.readyState")
                     .equals("complete"));
+  }
+
+  /** Get the Current URL */
+  public static String getCurrentUrl() {
+    logger.debug("Current url [{}]", SdkHelper.getDriver().getCurrentUrl());
+    return SdkHelper.getDriver().getCurrentUrl();
   }
 }

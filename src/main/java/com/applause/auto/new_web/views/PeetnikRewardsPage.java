@@ -8,12 +8,12 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 @Implementation(is = PeetnikRewardsPage.class, on = Platform.WEB)
 public class PeetnikRewardsPage extends Base {
 
-    @Locate(
-            xpath = "//h1[@class='page-hero-full__heading' and contains(., 'Peetnik Rewards')]",
-            on = Platform.WEB)
-    protected Text pageHeading;
+  @Locate(
+      xpath = "//h1[@class='page-hero-full__heading' and contains(., 'Peetnik Rewards')]",
+      on = Platform.WEB)
+  protected Text pageHeading;
 
-    public boolean isPageHeadingDisplayed() {
-        return pageHeading.isDisplayed();
-    }
+  public boolean isPageHeadingDisplayed() {
+    return pageHeading.isDisplayed();
+  }
 }

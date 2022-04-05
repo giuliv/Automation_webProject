@@ -53,6 +53,7 @@ public class Constants {
     public static final String SMOKE = "smoke";
     public static final String SANITY = "sanity";
     public static final String HOME_PAGE_FOOTER = "home-page-footer";
+    public static final String HOME_PAGE = "home-page";
 
     // Mobile
     public static final String ONBOARDING = "onboarding";
@@ -236,6 +237,16 @@ public class Constants {
     public static final String HIDDEN_CREDIT_CARD_NUMBER_TEMPLATE = "**** **** **** %s";
     public static final String RANDOM_EXPIRATION_DATE =
         String.format("12/%s", WebHelper.getRandomValueWithinRange(10, 40));
+
+    public static final String END_OF_PAGE_DESCRIPTION =
+        "*Nespresso is a registered trademark of Société des Produits Nestlé S.A., and is not affiliated with Peet’s Coffee Inc. Compatible with most Nespresso Original machines.";
+    public static final String ALL_COFFEE_HOVER = "All Coffee";
+    public static final String ALL_TEA_HOVER = "All Tea";
+    public static final String COFFEE_HOVER_BLEND = "anniversary-blend";
+    public static final String COFFEE_HOVER_SUMATRA = "sumatra-batak";
+    public static final String COFFEE_HOVER_FINDER = "coffee-finder";
+    public static final String TEA_HOVER_FINDER = "tea-finde";
+    public static final String TEA_HOVER_MIGHTY_LEAF = "mighty-leaf";
   }
 
   public static final class TestMainMenu {
@@ -471,12 +482,14 @@ public class Constants {
   }
 
   public enum Mail {
-    Mail1("peets.automation08@applause.com"), //    Mail1("peets.automation02@applause.com"),
-    Mail2("peets.automation09@applause.com"), //    Mail2("peets.automation03@applause.com"),
-    Mail3("peets.automation10@applause.com"), //    Mail3("peets.automation04@applause.com"),
-    Mail4("peets.automation11@applause.com"); //    Mail4("peets.automation05@applause.com"),
-    //    Mail5("peets.automation12@applause.com"); //    Mail5("peets.automation06@applause.com"),
-    //    Mail6("peets.automation13@applause.com"); //    Mail6("peets.automation07@applause.com");
+    Mail1("peets.automation08@applause.com"), // Mail1("peets.automation02@applause.com"),
+    Mail2("peets.automation09@applause.com"), // Mail2("peets.automation03@applause.com"),
+    Mail3("peets.automation10@applause.com"), // Mail3("peets.automation04@applause.com"),
+    Mail4("peets.automation11@applause.com"); // Mail4("peets.automation05@applause.com"),
+    // Mail5("peets.automation12@applause.com"); //
+    // Mail5("peets.automation06@applause.com"),
+    // Mail6("peets.automation13@applause.com"); //
+    // Mail6("peets.automation07@applause.com");
 
     private final String value;
 

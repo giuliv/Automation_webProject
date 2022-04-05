@@ -48,6 +48,9 @@ public class FooterComponent extends BaseComponent {
   @Locate(xpath = "//*[contains(text(),\"%s\")]", on = Platform.WEB)
   private Text endSubText;
 
+  @Locate(xpath = "//p[@class='footer__sub-disclaimer']", on = Platform.WEB)
+  private Text endPageDescrption;
+
   @Override
   public void afterInit() {
     super.afterInit();
@@ -160,5 +163,13 @@ public class FooterComponent extends BaseComponent {
       logger.error("Footer end sub link [{}] isn't displayed", option.getOption());
       return false;
     }
+  }
+
+  @Step("Get of the End of the Page Description")
+  public String getEndOfThePageDescription() {
+    WebHelper.scrollToElement(endPageDescrption);
+    SdkHelper.getSyncHelper().wait(Until.uiElement(endPageDescrption).visible());
+    logger.info("End Of the Page Descrption [{}] is displayed", endPageDescrption.getText().trim());
+    return endPageDescrption.getText().trim();
   }
 }

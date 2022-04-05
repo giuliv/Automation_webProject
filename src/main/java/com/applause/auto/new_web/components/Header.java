@@ -6,7 +6,12 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.*;
+import com.applause.auto.new_web.views.CurrentOffersPage;
+import com.applause.auto.new_web.views.FreeHomeDeliveryPage;
+import com.applause.auto.new_web.views.PeetnikRewardsPage;
+import com.applause.auto.new_web.views.ProductListPage;
+import com.applause.auto.new_web.views.SignInPage;
+import com.applause.auto.new_web.views.StoreLocatorPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -14,6 +19,7 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import io.qameta.allure.Step;
 import org.apache.commons.lang3.NotImplementedException;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 @Implementation(is = Header.class, on = Platform.WEB)
 @Implementation(is = HeaderMobile.class, on = Platform.WEB_MOBILE_PHONE)
@@ -57,18 +63,21 @@ public class Header extends BaseComponent {
 
   @Locate(css = "a[data-id='peetnik-rewards-nav']", on = Platform.WEB)
   @Locate(
-          xpath = "//li[@class='nav__mobile-main-link']/a[contains(., 'Peetnik')]",
-          on = Platform.WEB_MOBILE_PHONE)
+      xpath = "//li[@class='nav__mobile-main-link']/a[contains(., 'Peetnik')]",
+      on = Platform.WEB_MOBILE_PHONE)
   protected Button peetnikRewardsCategory;
 
   @Locate(css = "a[data-id='offers-nav']", on = Platform.WEB)
   @Locate(
-          xpath = "//li[@class='nav__mobile-main-link']/a[contains(., 'Offers')]",
-          on = Platform.WEB_MOBILE_PHONE)
+      xpath = "//li[@class='nav__mobile-main-link']/a[contains(., 'Offers')]",
+      on = Platform.WEB_MOBILE_PHONE)
   protected Button offersCategory;
 
   @Locate(css = ".nav__columns a[href*='%s']", on = Platform.WEB)
-  private Button subCategories;
+  protected Button subCategories;
+
+  @Locate(css = ".nav__secondary-item a[href*='%s']", on = Platform.WEB)
+  protected Button subCategoriesAllLinks;
 
   @Locate(css = ".desktop-only .nav__touts-wrapper a[href*='%s']", on = Platform.WEB)
   @Locate(css = ".nav__touts-wrapper a[href*='%s']", on = Platform.WEB_MOBILE_PHONE)
@@ -96,14 +105,14 @@ public class Header extends BaseComponent {
 
   @Locate(css = "i.icon.icon--store-locator", on = Platform.WEB)
   @Locate(
-          css = "div.header-utils__util-wrap.hide-desktop a i.icon.icon--store-locator",
-          on = Platform.WEB_MOBILE_PHONE)
+      css = "div.header-utils__util-wrap.hide-desktop a i.icon.icon--store-locator",
+      on = Platform.WEB_MOBILE_PHONE)
   protected Button locationIcon;
 
   @Locate(css = "i.icon.icon--account-black", on = Platform.WEB)
   @Locate(
-          css = "div.header-utils__util-wrap.hide-desktop a i.icon--account-black",
-          on = Platform.WEB_MOBILE_PHONE)
+      css = "div.header-utils__util-wrap.hide-desktop a i.icon--account-black",
+      on = Platform.WEB_MOBILE_PHONE)
   protected Button personIcon;
 
   @Locate(xpath = "//header//a[./i[contains(@class, 'store')]]", on = Platform.WEB)
@@ -115,9 +124,45 @@ public class Header extends BaseComponent {
   @Locate(id = "searchMenu", on = Platform.WEB)
   protected ContainerElement searchComponent;
 
+  @Locate(
+      xpath =
+          "//div[@id='coffee-nav']//div[contains(@class,'desktop-only')]//a[contains(@href,'%s')]",
+      on = Platform.WEB)
+  @Locate(
+      xpath =
+          "//div[@id='coffee-nav']//div[contains(@class,'hide-desktop')]//a[contains(@href,'%s')]",
+      on = Platform.WEB_MOBILE_PHONE)
+  protected Button anniversaryAndSumatraLinks;
+
+  @Locate(
+      xpath =
+          "//div[@id='coffee-nav']//div[contains(@class,'desktop-only')]//a[contains(@href,'coffee-finder') and contains(@class,'btn btn--primary desktop-only js-nav-focusable')]",
+      on = Platform.WEB)
+  @Locate(
+      xpath =
+          "//div[@id='coffee-nav']//div[contains(@class,'desktop-only')]//a[contains(@href,'coffee-finder') and contains(@class,'nav__secondary-link')]",
+      on = Platform.WEB_MOBILE_PHONE)
+  protected Button findYourMatch;
+
+  @Locate(
+      xpath = "//div[@id='tea-nav']//div[contains(@class,'desktop-only')]//a[contains(@href,'%s')]",
+      on = Platform.WEB)
+  @Locate(
+      xpath = "//div[@id='tea-nav']//div[contains(@class,'hide-desktop')]//a[contains(@href,'%s')]",
+      on = Platform.WEB_MOBILE_PHONE)
+  protected Button findMatchAndMightLeafLinks;
+
+  @Locate(css = ".cookieconsent-wrapper .cc-allow", on = Platform.WEB)
+  private Button allowCookies;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
+
+    if (!WebHelper.isDesktop() && allowCookies.exists()) {
+      logger.info("Accept Cookies");
+      WebHelper.jsClick(allowCookies.getWebElement());
+    }
   }
 
   /* -------- Actions -------- */
@@ -205,7 +250,8 @@ public class Header extends BaseComponent {
 
   @Step("Verify submenu item displays")
   public boolean isAlternativeSubMenuItemDisplayed(String linkHref) {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(subCategoriesAlternative.format(linkHref)).visible());
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(subCategoriesAlternative.format(linkHref)).visible());
     return subCategoriesAlternative.format(linkHref).isDisplayed();
   }
 
@@ -300,6 +346,79 @@ public class Header extends BaseComponent {
 
   public void preopenMenu() {
     logger.info("Opening Hamburger Menu -> Do nothing, on desktop.");
+  }
+
+  @Step("Click submenu item")
+  public void clickSubMenuItem(String linkHref) {
+    logger.info("Click SubMenu Each Link");
+    subCategories.format(linkHref).initialize();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(subCategories.format(linkHref)).visible());
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(subCategories.format(linkHref)).clickable())
+        .click();
+    try {
+      new WebDriverWait(SdkHelper.getDriver(), 20)
+          .until(w -> WebHelper.getCurrentUrl().contains(linkHref));
+    } catch (Exception e) {
+      throw new RuntimeException("New Page is Not opened.");
+    }
+  }
+
+  @Step("Click submenu Alllinks")
+  public void clickSubMenuItemAllLinks(String linkHref) {
+    logger.info("Click SubMenu AllLinks Link");
+    subCategoriesAllLinks.format(linkHref).initialize();
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(subCategoriesAllLinks.format(linkHref)).visible());
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(subCategoriesAllLinks.format(linkHref)).clickable())
+        .click();
+    try {
+      new WebDriverWait(SdkHelper.getDriver(), 20)
+          .until(p -> WebHelper.getCurrentUrl().contains(linkHref));
+    } catch (Exception e) {
+      throw new RuntimeException("New Page is Not opened.");
+    }
+  }
+
+  @Step("Click Coffee submenu Anaversiry Blend,Sumatra Batak Links")
+  public void clickCoffeeSubMenuAnnaversiryAndSumatraLinks(String linkHref) {
+    anniversaryAndSumatraLinks.format(linkHref).initialize();
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(anniversaryAndSumatraLinks.format(linkHref)).visible());
+    WebHelper.jsClick(anniversaryAndSumatraLinks.getWebElement());
+    try {
+      new WebDriverWait(SdkHelper.getDriver(), 20)
+          .until(p -> WebHelper.getCurrentUrl().contains(linkHref));
+    } catch (Exception e) {
+      throw new RuntimeException("New Page is Not opened.");
+    }
+  }
+
+  @Step("Click Coffe submenu FindYourMatch Link")
+  public void clickCoffeeFindYourMatch(String linkHref) {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(findYourMatch).visible());
+    WebHelper.jsClick(findYourMatch.getWebElement());
+    try {
+      new WebDriverWait(SdkHelper.getDriver(), 20)
+          .until(p -> WebHelper.getCurrentUrl().contains(linkHref));
+    } catch (Exception e) {
+      throw new RuntimeException("New Page is Not opened.");
+    }
+  }
+
+  @Step("Click Tea submenu Find your Tea Match and About Mighty Leaf Links")
+  public void clickTeaSubMenuTeaMatchAndMightyLeafLinks(String linkHref) {
+    findMatchAndMightLeafLinks.format(linkHref).initialize();
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(findMatchAndMightLeafLinks.format(linkHref)).visible());
+    WebHelper.jsClick(findMatchAndMightLeafLinks.getWebElement());
+    try {
+      new WebDriverWait(SdkHelper.getDriver(), 20)
+          .until(p -> WebHelper.getCurrentUrl().contains(linkHref));
+    } catch (Exception e) {
+      throw new RuntimeException("New Page is Not opened.");
+    }
   }
 }
 
@@ -407,5 +526,20 @@ class HeaderMobile extends Header {
   public boolean isSignInButtonDisplayed() {
     openHamburgerMenu();
     return signInButton.isDisplayed();
+  }
+
+  @Override
+  @Step("Click submenu Alllinks")
+  public void clickSubMenuItemAllLinks(String linkHref) {
+    logger.info("Click SubMenu AllLinks Link");
+    subCategoriesAllLinks.format(linkHref).initialize();
+    WebHelper.scrollToElement(subCategoriesAllLinks.getWebElement());
+    SdkHelper.getBrowserControl().jsClick(subCategoriesAllLinks);
+    try {
+      new WebDriverWait(SdkHelper.getDriver(), 20)
+          .until(p -> WebHelper.getCurrentUrl().contains(linkHref));
+    } catch (Exception e) {
+      throw new RuntimeException("New Page is Not opened.");
+    }
   }
 }

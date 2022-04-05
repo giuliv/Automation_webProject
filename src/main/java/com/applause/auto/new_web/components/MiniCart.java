@@ -17,12 +17,9 @@ import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
-import java.util.Locale;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -175,7 +172,7 @@ public class MiniCart extends BaseComponent {
       if (Float.parseFloat(subTotal.getText().replace("$", "")) > 50) {
         logger.info("- Subtotal is over 50, applying 10%");
         multiplier = discountOverFifty;
-      } else if (Float.parseFloat(subTotal.getText().replace("$","")) > 30) {
+      } else if (Float.parseFloat(subTotal.getText().replace("$", "")) > 30) {
         logger.info("- Subtotal is over 30, applying 5%");
         multiplier = discountOverThirty;
       }

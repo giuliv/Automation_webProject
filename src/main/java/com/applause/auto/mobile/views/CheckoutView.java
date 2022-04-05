@@ -200,7 +200,8 @@ public class CheckoutView extends BaseComponent {
     }
 
     if (areAvailableRewardsDisplayed) {
-      availableRewards.stream()
+      availableRewards
+          .stream()
           .filter(item -> getElementTextAttribute(item).startsWith(awardText))
           .findAny()
           .orElseThrow(
@@ -275,7 +276,8 @@ public class CheckoutView extends BaseComponent {
     ((IOSDriver) SdkHelper.getDriver()).setSetting("snapshotMaxDepth", 99);
     MobileHelper.scrollElementIntoView(itemOptionsText.format(itemName));
     itemOptionsList.format(itemName).initialize();
-    itemOptionsList.stream()
+    itemOptionsList
+        .stream()
         .forEach(
             i -> {
               logger.info("Found options: " + i.getText());

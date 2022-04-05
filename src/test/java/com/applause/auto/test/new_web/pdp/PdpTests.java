@@ -194,7 +194,6 @@ public class PdpTests extends BaseTest {
     logger.info("Modify price if discount is available from subscribing");
     price = miniCart.getDiscountByIndex(0, price);
 
-
     logger.info(
         "Verify that Item should be added to cart and minicart should match product name, image, price and shipping option.");
     softAssert.assertEquals(
