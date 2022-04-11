@@ -108,6 +108,8 @@ public class Constants {
         LANDING_PAGE_URL.split("\\?")[0].concat("/products/signature-blend-series-subscription");
     public static final String SUBSCRIPTION_SMB_URL =
         LANDING_PAGE_URL.split("\\?")[0].concat("/products/small-batch-series-subscription");
+    public static final String ORDER_PEETS_URL = "order.peets.com";
+    public static final String BLOG_PEETS_URL_PARAMETER = "/blogs/peets";
 
     public static final String WEB_USERNAME = "peets.automation01@applause.com";
     public static final String WEB_PASSWORD = "Pa55word!";
@@ -440,9 +442,11 @@ public class Constants {
 
   public static class HomepagePromoTileData {
     public static String COFFEE_PROMO_LINK = "/collections/all-coffee";
-    public static String COFFEE_PROMO_DESCRIPTION = "Hand roasted on demand and delivered fresh to your door.";
+    public static String COFFEE_PROMO_DESCRIPTION =
+        "Hand roasted on demand and delivered fresh to your door.";
     public static String TEA_PROMO_LINK = "/collections/all-tea";
-    public static String TEA_PROMO_DESCRIPTION = "Savor Mighty Leaf’s tea collection: Different from the start.";
+    public static String TEA_PROMO_DESCRIPTION =
+        "Savor Mighty Leaf’s tea collection: Different from the start.";
   }
 
   public static class HomepageBestSellersData {
@@ -456,7 +460,9 @@ public class Constants {
     SUBSCRIPTION,
     VISIT_US,
     LEARN,
-    FREE_HOME_DELIVERY
+    PEETNIK_REWARDS,
+    FREE_HOME_DELIVERY,
+    OFFERS
   }
 
   public enum MenuSubCategories {
@@ -468,7 +474,16 @@ public class Constants {
     SUBSCRIPTIONS_SINGLE_ORIGIN("single-origin"),
     SUBSCRIPTIONS_SIGNATURE_BLEND("signature-blend"),
     SUBSCRIPTIONS_SMALL_BATCHES("small-batch"),
-    COFFEE_FINDER("coffee-finder");
+    COFFEE_FINDER("coffee-finder"),
+    FIND_COFFEEBAR("/pages/store-locator"),
+    VIEW_MENU_AND_ORDER("/pages/menu"),
+    PEET_APP("peetnik-rewards"),
+    ORDER_NOW("peets.app.link"),
+    OUR_COFFEE_REVOLUTION("pages/timeline"),
+    COMMITMENT_TO_CRAFT("commitment-to-craft"),
+    SOCIAL_RESPONSIBILITY("social-responsibility"),
+    BREW_GUIDES("brew-guides"),
+    THE_CUPPING_ROOM("/blogs/peets");
 
     String subCategory;
 

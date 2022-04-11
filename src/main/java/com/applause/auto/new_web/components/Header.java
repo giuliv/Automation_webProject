@@ -1,6 +1,7 @@
 package com.applause.auto.new_web.components;
 
 import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.Constants.MenuOptions;
 import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
@@ -155,6 +156,9 @@ public class Header extends BaseComponent {
   @Locate(css = ".cookieconsent-wrapper .cc-allow", on = Platform.WEB)
   private Button allowCookies;
 
+  @Locate(css = "nav[aria-label='main'] > .is-visible", on = Platform.WEB)
+  protected ContainerElement expandedSection;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
@@ -183,6 +187,10 @@ public class Header extends BaseComponent {
       WebHelper.hoverByAction(visitUsCategory);
     } else if (menuOptions.equals(Constants.MenuOptions.LEARN)) {
       WebHelper.hoverByAction(learnCategory);
+    } else if (menuOptions.equals(MenuOptions.FREE_HOME_DELIVERY)) {
+      WebHelper.hoverByAction(freeHomeDeliveryCategory);
+    } else if (menuOptions.equals(MenuOptions.PEETNIK_REWARDS)) {
+      WebHelper.hoverByAction(peetnikRewardsCategory);
     }
   }
 
@@ -226,9 +234,16 @@ public class Header extends BaseComponent {
       SdkHelper.getSyncHelper().wait(Until.uiElement(subscriptionCategories).visible());
       subscriptionCategories.click();
     } else {
-      subCategories.format(menuSubCategories.getMenuSubCategories()).initialize();
-      SdkHelper.getSyncHelper().wait(Until.uiElement(subCategories).visible());
-      subCategories.click();
+      try {
+        subCategories.format(menuSubCategories.getMenuSubCategories()).initialize();
+        SdkHelper.getSyncHelper().wait(Until.uiElement(subCategories).visible());
+        subCategories.click();
+      } catch (Exception e) {
+        // use alternative category locator
+        subCategoriesAlternative.format(menuSubCategories.getMenuSubCategories()).initialize();
+        SdkHelper.getSyncHelper().wait(Until.uiElement(subCategoriesAlternative).visible());
+        subCategoriesAlternative.click();
+      }
     }
 
     return SdkHelper.create(clazz);
@@ -420,6 +435,15 @@ public class Header extends BaseComponent {
       throw new RuntimeException("New Page is Not opened.");
     }
   }
+
+  /**
+   * Verify menu section is expanded when hovering over menu link
+   *
+   * @return boolean
+   */
+  public boolean isMenuSectionExpanded() {
+    return WebHelper.isDisplayed(expandedSection);
+  }
 }
 
 class HeaderMobile extends Header {
@@ -509,7 +533,6 @@ class HeaderMobile extends Header {
 
     logger.info("Tab selected: Offers");
     SdkHelper.getSyncHelper().wait(Until.uiElement(offersCategory).clickable()).click();
-
     return SdkHelper.create(CurrentOffersPage.class);
   }
 
