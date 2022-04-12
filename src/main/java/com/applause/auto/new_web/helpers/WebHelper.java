@@ -34,6 +34,7 @@ import org.testng.Assert;
 public class WebHelper {
 
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
+  public static String previousTab = null;
 
   public static void hoverByAction(BaseElement element) {
     logger.info("Hover over...");
@@ -541,6 +542,13 @@ public class WebHelper {
 
   public static String getRandomPhoneNumber() {
     return "8" + getRandomValueWithinRange(100000000, 999999999);
+  }
+
+  /** return old tab so test can swich back if need be */
+  public static void getNewTab() {
+    previousTab = SdkHelper.getDriver().getWindowHandle();
+    ArrayList<String> tabs = new ArrayList(SdkHelper.getDriver().getWindowHandles());
+    SdkHelper.getDriver().switchTo().window(tabs.get(tabs.size() - 1));
   }
 
   /** Wait for page is loading to complete */

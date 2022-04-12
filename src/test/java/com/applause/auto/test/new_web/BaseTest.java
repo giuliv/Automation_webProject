@@ -7,12 +7,14 @@ import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.integrations.base.ApplauseSeleniumTest;
 import com.applause.auto.listeners.allure.TestMethodFailureRetryInterceptor;
 import com.applause.auto.listeners.allure.WebTestMethodExecutionListener;
+import com.applause.auto.new_web.components.CookieComponent;
 import com.applause.auto.new_web.helpers.TestHelper;
 import com.applause.auto.new_web.views.GiftCardsPage;
 import com.applause.auto.new_web.views.HomePage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.new_web.views.SignInPage;
+import com.applause.auto.new_web.views.CoffeeBarPage;
 import io.qameta.allure.Step;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
@@ -139,6 +141,13 @@ public class BaseTest extends ApplauseSeleniumTest {
       logger.info("Frame detached issue seen");
     }
     return SdkHelper.create(HomePage.class).clickSignInButton();
+  }
+
+  public CoffeeBarPage navigateToCoffeeBarMenuPage() throws InterruptedException {
+    logger.info(
+        String.format("Navigating to the Coffee Bar page '%s'", TestData.COFFEEBAR_MENU_URL));
+    SdkHelper.getDriver().get(TestData.COFFEEBAR_MENU_URL);
+    return SdkHelper.create(CoffeeBarPage.class);
   }
 
   @Step("Navigate to Subscription page")

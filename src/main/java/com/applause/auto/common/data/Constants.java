@@ -1,21 +1,22 @@
 package com.applause.auto.common.data;
 
+import com.applause.auto.common.data.dto.ShareViaEmailDto;
+import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.new_web.helpers.WebHelper;
+import com.applause.auto.new_web.views.my_account.MyAccountOrderHistoryPage;
+import com.applause.auto.new_web.views.my_account.MyAccountPage;
+import com.applause.auto.new_web.views.my_account.MyAccountPeetnikRewardsPage;
+import com.applause.auto.new_web.views.my_account.MyAccountSettingsPage;
+import com.applause.auto.new_web.views.my_account.ReferralsPage;
 import java.lang.invoke.MethodHandles;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import com.applause.auto.common.data.dto.ShareViaEmailDto;
-import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.my_account.*;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Constants {
 
@@ -37,6 +38,7 @@ public class Constants {
     public static final String MINI_CART = "mini-cart";
     public static final String CART = "shopping-cart";
     public static final String MY_ACCOUNT = "my-account";
+    public static final String MENU = "menu";
     public static final String SETTINGS = "settings";
     public static final String EXISTING_USER_CHECKOUT = "existing-user-checkout";
     public static final String SUBSCRIPTIONS = "subscriptions";
@@ -51,6 +53,7 @@ public class Constants {
     public static final String PDP = "pdp";
     public static final String SMOKE = "smoke";
     public static final String SANITY = "sanity";
+    public static final String HOME_PAGE_FOOTER = "home-page-footer";
     public static final String HOME_PAGE = "home-page";
 
     // Mobile
@@ -108,6 +111,11 @@ public class Constants {
         LANDING_PAGE_URL.split("\\?")[0].concat("/products/small-batch-series-subscription");
     public static final String ORDER_PEETS_URL = "order.peets.com";
     public static final String BLOG_PEETS_URL_PARAMETER = "/blogs/peets";
+    public static final String COFFEEBAR_MENU_URL =
+        LANDING_PAGE_URL.split("\\?")[0].concat("/pages/menu");
+    public static final String STORE_LOCATOR_URL = "pages/store-locator";
+    public static final String REWARDS_URL = "pages/peetnik-rewards";
+    public static final String EMAIL_SIGNUP_URL = "pages/email-signup";
 
     public static final String WEB_USERNAME = "peets.automation01@applause.com";
     public static final String WEB_PASSWORD = "Pa55word!";
@@ -119,6 +127,10 @@ public class Constants {
     public static final String PEETS_FORGOT_PASSWORD_USERNAME = "peetfp01.awkv01hh@mailosaur.io";
     public static final String PEETS_USERNAME = "adavis@applausemail.com";
     public static final String PEETS_PASSWORD = "p@ssword123";
+    public static final String COFFEEBAR_MENU = "COFFEEBAR MENU";
+    public static final String FEATURED_MENU = "OUR FEATURED MENU";
+    public static final String COFFEEBAR_MENU_DESCRIPTION =
+        "This Spring, our new Hazelnut Oat Latte, Vanilla Almond Latte, and Cold Brew with Vanilla Oat Foam are three tasty ways to go plant-based.";
 
     public static final String COFFEE_BRAND_NAME = "Big Bang";
     public static final String GRIND = "Commercial Brewer";
