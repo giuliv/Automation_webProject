@@ -1,5 +1,6 @@
 package com.applause.auto.new_web.components;
 
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
@@ -13,6 +14,8 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.qameta.allure.Step;
+import org.openqa.selenium.WebDriverException;
+
 import java.util.List;
 
 @Implementation(is = SearchComponent.class, on = Platform.WEB)
@@ -51,7 +54,12 @@ public class SearchComponent extends BaseComponent {
   public SearchResultsPage search(String product) {
     enterSearchTerm(product);
 
-    searchButton.click();
+    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
+    try {
+      searchButton.click();
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
     return SdkHelper.create(SearchResultsPage.class);
   }
 
@@ -78,8 +86,7 @@ public class SearchComponent extends BaseComponent {
   public boolean areAllSearchBoxItemsDisplayedCorrectly() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(searchResultsContainer).present());
     ((LazyList<?>) searchBoxItemComponents).initialize();
-    return searchBoxItemComponents
-        .stream()
+    return searchBoxItemComponents.stream()
         .allMatch(SearchBoxItemComponent::isAutocompleteResultDisplayedCorrectly);
   }
 

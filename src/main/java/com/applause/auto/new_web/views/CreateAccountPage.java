@@ -1,5 +1,6 @@
 package com.applause.auto.new_web.views;
 
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.Strategy;
 import com.applause.auto.framework.SdkHelper;
@@ -14,6 +15,7 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import io.qameta.allure.Step;
+import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = CreateAccountPage.class, on = Platform.WEB)
 public class CreateAccountPage extends Base {
@@ -81,7 +83,13 @@ public class CreateAccountPage extends Base {
   @Step("Click Create account button")
   public <T extends BaseComponent> T clickCreateAccountButton(Class<T> expectedClass) {
     logger.info("Clicking over Create account button");
-    createButton.click();
+
+    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
+    try {
+      createButton.click();
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
     SdkHelper.getSyncHelper().sleep(5000); // Wait for action
     return SdkHelper.create(expectedClass);
   }

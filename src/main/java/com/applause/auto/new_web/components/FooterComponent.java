@@ -1,5 +1,6 @@
 package com.applause.auto.new_web.components;
 
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.enums.FooterOptions;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
@@ -14,6 +15,7 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
+import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = FooterComponent.class, on = Platform.WEB)
 @Implementation(is = FooterComponent.class, on = Platform.WEB_MOBILE_PHONE)
@@ -74,7 +76,13 @@ public class FooterComponent extends BaseComponent {
     footerOptionLink.format(option.getCategory(), option.getOption()).initialize();
     WebHelper.scrollToElement(footerOptionLink);
     SdkHelper.getSyncHelper().wait(Until.uiElement(footerOptionLink).clickable());
-    footerOptionLink.click();
+    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
+    try {
+      footerOptionLink.click();
+      SdkHelper.getSyncHelper().sleep(2000); // Wait needed until chromedriver issue exists
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
     return (T) SdkHelper.create(option.getClazz());
   }
 
@@ -115,7 +123,14 @@ public class FooterComponent extends BaseComponent {
     socialMediaLink.format(option.getOption()).initialize();
     WebHelper.scrollToElement(socialMediaLink);
     SdkHelper.getSyncHelper().wait(Until.uiElement(socialMediaLink).clickable());
-    socialMediaLink.click();
+
+    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
+    try {
+      socialMediaLink.click();
+      SdkHelper.getSyncHelper().sleep(1000); // Remove when fixed
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
     return (T) SdkHelper.create(option.getClazz());
   }
 
@@ -137,7 +152,14 @@ public class FooterComponent extends BaseComponent {
     endSubLink.format(option.getOption()).initialize();
     WebHelper.scrollToPageBottom();
     SdkHelper.getSyncHelper().wait(Until.uiElement(endSubLink).clickable());
-    endSubLink.click();
+
+    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
+    try {
+      endSubLink.click();
+      SdkHelper.getSyncHelper().sleep(2000); // Wait until chromedriver issue is fixed
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
     return (T) SdkHelper.create(option.getClazz());
   }
 

@@ -1,5 +1,6 @@
 package com.applause.auto.new_web.views;
 
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.WebTestData;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
@@ -11,6 +12,8 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
+import org.openqa.selenium.WebDriverException;
+
 import java.util.List;
 
 @Implementation(is = SearchResultsPage.class, on = Platform.WEB)
@@ -44,7 +47,12 @@ public class SearchResultsPage extends Base {
     SdkHelper.getSyncHelper().wait(Until.uiElement(productsImageList.get(index)).visible());
     WebHelper.scrollToElement(productsImageList.get(index));
 
-    productsImageList.get(index).click();
+    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
+    try {
+      productsImageList.get(index).click();
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
     return SdkHelper.create(ProductDetailsPage.class);
   }
 

@@ -1,5 +1,6 @@
 package com.applause.auto.new_web.components.plp;
 
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
@@ -11,6 +12,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
+import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = PlpItemComponent.class, on = Platform.WEB)
 @Implementation(is = PlpItemComponent.class, on = Platform.WEB_MOBILE_PHONE)
@@ -36,7 +38,12 @@ public class PlpItemComponent extends BaseComponent {
       logger.info("Safari Desktop");
       WebHelper.jsClick(clickElement.getWebElement());
     } else {
-      clickElement.click();
+      // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
+      try {
+        clickElement.click();
+      } catch (WebDriverException e) {
+        logger.info("Frame detached issue seen");
+      }
     }
 
     return SdkHelper.create(ProductDetailsPage.class);

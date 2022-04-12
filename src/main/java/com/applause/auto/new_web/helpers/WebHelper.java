@@ -24,11 +24,7 @@ import java.util.Random;
 import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementClickInterceptedException;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.remote.RemoteWebElement;
@@ -206,7 +202,13 @@ public class WebHelper {
   }
 
   public static <T extends BaseComponent> T navigateBack(Class<T> clazz) {
-    SdkHelper.getDriver().navigate().back();
+    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
+    try {
+      SdkHelper.getDriver().navigate().back();
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
+
     SdkHelper.getSyncHelper().sleep(3000); // Wait for action
     return SdkHelper.create(clazz);
   }
@@ -416,8 +418,7 @@ public class WebHelper {
       // Search root
       Set<WebElement> result = new LinkedHashSet(SdkHelper.getDriver().findElements(by));
       if (result.size() == 0) {
-        getShadowElementsFromRoot()
-            .stream()
+        getShadowElementsFromRoot().stream()
             .forEach(elem -> result.addAll(findShadowElementsBy(elem, by)));
       }
       return new ArrayList<>(result);
@@ -435,8 +436,7 @@ public class WebHelper {
         } else {
           List<WebElement> shadowNodes = getShadowElementsFromParent(parent);
           logger.info("Found shadow nodes on level: " + shadowNodes.size());
-          shadowNodes
-              .stream()
+          shadowNodes.stream()
               .forEach(
                   elem -> {
                     logger.info("Searching for element in shadow node...");
@@ -511,8 +511,7 @@ public class WebHelper {
   public static ArrayList<WebElement> findShadowElementsBy(Set<WebElement> parents, By by) {
     // Important: xpath search does not working
     Set<WebElement> result = new LinkedHashSet<>();
-    parents
-        .stream()
+    parents.stream()
         .forEach(
             parent -> {
               WebElement shadow = getWebElementFromShadowRoot(parent);

@@ -15,6 +15,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 
 import io.qameta.allure.Step;
+import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = SignInPage.class, on = Platform.WEB)
 @Implementation(is = IosSignInPage.class, on = Platform.WEB_IOS_PHONE)
@@ -34,11 +35,11 @@ public class SignInPage extends BaseComponent {
   @Locate(css = "input[value='Create Account']", on = Platform.WEB)
   private Button getCreateAccountButton;
 
-	@Locate(xpath = "//*[@class='text-danger' and string-length(text())>0]", on = Platform.WEB)
+  @Locate(xpath = "//*[@class='text-danger' and string-length(text())>0]", on = Platform.WEB)
   private Text getErrorMessage;
 
   @Locate(css = ".resetPW", on = Platform.WEB)
-	protected Link getForgotPasswordLink;
+  protected Link getForgotPasswordLink;
 
   /* -------- Actions -------- */
 
@@ -97,7 +98,12 @@ public class SignInPage extends BaseComponent {
   public <T extends BaseComponent> T clickOnSignInButton(Class<T> expectedClass) {
     logger.info("Click on sign in button");
     SdkHelper.getSyncHelper().wait(Until.uiElement(getSignInButton).clickable());
-    getSignInButton.click();
+    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
+    try {
+      getSignInButton.click();
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
 
     return SdkHelper.create(expectedClass);
@@ -120,7 +126,7 @@ public class SignInPage extends BaseComponent {
   public ResetPasswordPage clickForgotPasswordLink() {
     logger.info("Clicking Forgot password link");
     getForgotPasswordLink.click();
-	SdkHelper.getSyncHelper().wait(Until.uiElement(getCreateAccountButton).notPresent());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getCreateAccountButton).notPresent());
     return SdkHelper.create(ResetPasswordPage.class);
   }
 
@@ -135,11 +141,11 @@ public class SignInPage extends BaseComponent {
 }
 
 class IosSignInPage extends SignInPage {
-	@Step("Click Forgot password link")
-	public ResetPasswordPage clickForgotPasswordLink() {
-		logger.info("Clicking Forgot password link bu touch");
-		getForgotPasswordLink.scrollToElement();
-		SdkHelper.getBrowserControl().jsClick(getForgotPasswordLink);
-		return SdkHelper.create(ResetPasswordPage.class);
-	}
+  @Step("Click Forgot password link")
+  public ResetPasswordPage clickForgotPasswordLink() {
+    logger.info("Clicking Forgot password link bu touch");
+    getForgotPasswordLink.scrollToElement();
+    SdkHelper.getBrowserControl().jsClick(getForgotPasswordLink);
+    return SdkHelper.create(ResetPasswordPage.class);
+  }
 }

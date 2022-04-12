@@ -1,8 +1,11 @@
-package com.applause.auto.test.new_web;
+package com.applause.auto.test.new_web.home_page;
 
 import java.util.List;
 
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.new_web.components.FooterComponent;
+import com.applause.auto.new_web.helpers.WebHelper;
+import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -33,9 +36,9 @@ import java.util.Locale;
 public class HomepageTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107418")
-  public void peetsLogoandHeader() {
+  public void peetsLogoAndHeader() {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
@@ -81,7 +84,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107419")
   public void headerOptions() {
     logger.info("1. Navigate to landing page");
@@ -158,7 +161,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107424")
   public void freshnessStampVerificationTest() {
     logger.info("1. Navigate to landing page");
@@ -234,9 +237,9 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107420")
-  public void peetsHomepageBannerandPromoTiles() {
+  public void peetsHomepageBannerAndPromoTiles() {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
@@ -302,7 +305,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107421")
   public void homepageShopCoffeeShopTea() {
     logger.info("1. Navigate to landing page");
@@ -358,7 +361,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107428")
   public void homepageNeverMissOfferVerificationTest() {
     logger.info("1. Navigate to landing page");
@@ -399,7 +402,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107425")
   public void respondingToCovidVerificationTest() {
     logger.info("1. Navigate to landing page");
@@ -448,7 +451,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107427")
   public void ourCoffeeRevolutionVerificationTest() {
     logger.info("1. Navigate to landing page");
@@ -489,7 +492,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107423")
   public void homepageSubscriptionModuleVerificationTest() {
     logger.info("1. Navigate to landing page");
@@ -568,7 +571,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107426")
   public void homepageCoffeeBarVerificationTest() {
     logger.info("1. Navigate to landing page");
@@ -631,7 +634,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107422")
   public void homepageBestSellers() {
     logger.info("1. Navigate to landing page");
@@ -692,7 +695,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107442")
   public void homepageFreeHomeDelivery() {
     logger.info("1. Navigate to landing page");
@@ -713,7 +716,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107443")
   public void homepageVisitUs() {
     logger.info("1. Navigate to landing page");
@@ -727,7 +730,7 @@ public class HomepageTests extends BaseTest {
         header.clickOverSubCategoryFromMenu(
             FindACoffeeBarPage.class, MenuSubCategories.FIND_COFFEEBAR);
 
-    logger.info("3. Verify the user is directed to correct Find a coffeebar");
+    logger.info("3. Verify the user is directed to correct Find a coffee bar");
     softAssert.assertNotNull(
         findACoffeeBarPage, "The user isn't directed to correct Find a coffeebar");
 
@@ -764,7 +767,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107444")
   public void homepageLearn() {
     logger.info("1. Navigate to landing page");
@@ -825,7 +828,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107445")
   public void homepagePeetnikRewards() {
     logger.info("1. Navigate to landing page");
@@ -846,7 +849,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107446")
   public void homepageOffers() {
     logger.info("1. Navigate to landing page");
@@ -862,5 +865,144 @@ public class HomepageTests extends BaseTest {
     CurrentOffersPage currentOffersPage = navigateToHome().getHeader().clickOffersFromMenu();
     Assert.assertTrue(
         currentOffersPage.isPageHeadingDisplayed(), "Offers did not bring us to the correct page");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.HOME_PAGE, TestNGGroups.HOME_PAGE},
+      description = "11107439")
+  public void homepageEndOfPageDescriptionTest() {
+    logger.info("1. Navigate to Home page");
+    HomePage homePage = navigateToHome();
+    softAssert.assertNotNull(homePage, "Failed to navigate to the Home page.");
+
+    logger.info("Verify End of the page Description");
+    FooterComponent footer = homePage.getFooterComponent();
+
+    Assert.assertEquals(
+        footer.getEndOfThePageDescription(),
+        Constants.TestData.END_OF_PAGE_DESCRIPTION,
+        "End of the page Description Mismatches");
+  }
+
+  @Test(
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      description = "11107440")
+  public void hoverCoffeeOptions() {
+    logger.info("1. Navigate to landing page");
+    HomePage homePage = navigateToHome();
+    Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    Header header = homePage.getHeader();
+
+    logger.info("2. Hover and Verify Coffee Menu and All SubMenu Items");
+    header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);
+    for (CoffeeSubMenu menuItem : CoffeeSubMenu.values()) {
+      logger.info("Verifying: " + menuItem.getText());
+      softAssert.assertTrue(
+          header.isSubMenuItemDisplayed(menuItem.getLink()),
+          menuItem.getText() + " did not display.");
+    }
+
+    // Todo: Online Exclusives is not displayed on the
+    logger.info(
+        "3. Hover and Click Coffee Hover Each SubMenu Item and Verify it is redirected to the Corresponding Item page.");
+    for (CoffeeSubMenu menuItem : CoffeeSubMenu.values()) {
+      logger.info("Click MenuItem: " + menuItem.getText());
+      if (menuItem.getText().contains(TestData.ALL_COFFEE_HOVER)) {
+        header.clickSubMenuItemAllLinks(menuItem.getLink());
+      } else {
+        header.clickSubMenuItem(menuItem.getLink());
+      }
+      softAssert.assertTrue(
+          WebHelper.getCurrentUrl().contains(menuItem.getLink()),
+          "New Page is not redirected: " + WebHelper.getCurrentUrl());
+      homePage = navigateToHome();
+      header = homePage.getHeader();
+      header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);
+    }
+
+    logger.info(
+        "4. Hover and Click Coffee Hover anniversary-blend and Verify it is redirected to the Corresponding Item page.");
+    header.clickCoffeeSubMenuAnnaversiryAndSumatraLinks(TestData.COFFEE_HOVER_BLEND);
+    softAssert.assertTrue(
+        WebHelper.getCurrentUrl().contains(TestData.COFFEE_HOVER_BLEND),
+        "New Page is not redirected: " + WebHelper.getCurrentUrl());
+
+    logger.info(
+        "5. Hover and Click Coffee Hover sumatra-batak and Verify it is redirected to the Corresponding Item page.");
+    homePage = navigateToHome();
+    header = homePage.getHeader();
+    header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);
+    header.clickCoffeeSubMenuAnnaversiryAndSumatraLinks(TestData.COFFEE_HOVER_SUMATRA);
+    softAssert.assertTrue(
+        WebHelper.getCurrentUrl().contains(TestData.COFFEE_HOVER_SUMATRA),
+        "New Page is not redirected: " + WebHelper.getCurrentUrl());
+    // Todo: Find your Match is displaying for only in Desktop
+    if (WebHelper.isDesktop()) {
+      logger.info(
+          "6. Hover and Click Coffee Hover Find Your Match and Verify it is redirected to the Corresponding Item page.");
+      homePage = navigateToHome();
+      header = homePage.getHeader();
+      header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);
+      header.clickCoffeeFindYourMatch(TestData.COFFEE_HOVER_FINDER);
+      softAssert.assertTrue(
+          WebHelper.getCurrentUrl().contains(TestData.COFFEE_HOVER_FINDER),
+          "New Page is not redirected: " + WebHelper.getCurrentUrl());
+    }
+    softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      description = "11107441")
+  public void hoverTeaOptions() {
+    logger.info("1. Navigate to landing page");
+    HomePage homePage = navigateToHome();
+    Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    Header header = homePage.getHeader();
+
+    header.hoverCategoryFromMenu(Constants.MenuOptions.TEA);
+    for (TeaSubMenu menuItem : TeaSubMenu.values()) {
+      logger.info("Verifying: " + menuItem.getText());
+      softAssert.assertTrue(
+          header.isSubMenuItemDisplayed(menuItem.getLink()),
+          menuItem.getText() + " did not display.");
+    }
+    // Todo: Gift Sets,Gifts,Equipment,Online Exclusives are not displayed on the
+    logger.info(
+        "3. Hover and Click Tead Menu Each SubMenu Items and Verify it is redirected to the Corresponding Item page.");
+    for (TeaSubMenu menuItem : TeaSubMenu.values()) {
+      logger.info("Click MenuItem: " + menuItem.getText());
+      if (menuItem.getText().contains(TestData.ALL_TEA_HOVER)) {
+        header.clickSubMenuItemAllLinks(menuItem.getLink());
+      } else {
+        header.clickSubMenuItem(menuItem.getLink());
+      }
+      softAssert.assertTrue(
+          WebHelper.getCurrentUrl().contains(menuItem.getLink()),
+          "New Page is not redirected: " + WebHelper.getCurrentUrl());
+      homePage = navigateToHome();
+      header = homePage.getHeader();
+      header.hoverCategoryFromMenu(Constants.MenuOptions.TEA);
+    }
+
+    logger.info(
+        "4. Hover and Click Tea Hover Find Your Tea Match and Verify it is redirected to the Corresponding Item page.");
+    header.clickTeaSubMenuTeaMatchAndMightyLeafLinks(TestData.TEA_HOVER_FINDER);
+    softAssert.assertTrue(
+        WebHelper.getCurrentUrl().contains(TestData.TEA_HOVER_FINDER),
+        "New Page is not redirected: " + WebHelper.getCurrentUrl());
+
+    logger.info(
+        "5. Hover and Click Tea Hover Mighty Leaf and Verify it is redirected to the Corresponding Item page.");
+    homePage = navigateToHome();
+    header = homePage.getHeader();
+    header.hoverCategoryFromMenu(Constants.MenuOptions.TEA);
+    header.clickTeaSubMenuTeaMatchAndMightyLeafLinks(TestData.TEA_HOVER_MIGHTY_LEAF);
+
+    softAssert.assertTrue(
+        WebHelper.getCurrentUrl().contains(TestData.TEA_HOVER_MIGHTY_LEAF),
+        "New Page is not redirected: " + WebHelper.getCurrentUrl());
+
+    softAssert.assertAll();
   }
 }

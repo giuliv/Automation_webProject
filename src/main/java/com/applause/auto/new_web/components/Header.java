@@ -20,6 +20,7 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import io.qameta.allure.Step;
 import org.apache.commons.lang3.NotImplementedException;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 @Implementation(is = Header.class, on = Platform.WEB)
@@ -214,7 +215,13 @@ public class Header extends BaseComponent {
   @Step("Select Peetnik Rewards from Menu")
   public PeetnikRewardsPage clickPeetnikRewardsFromMenu() {
     logger.info("Tab selected: Peetnik Rewards");
-    peetnikRewardsCategory.click();
+
+    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
+    try {
+      peetnikRewardsCategory.click();
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
     return SdkHelper.create(PeetnikRewardsPage.class);
   }
 

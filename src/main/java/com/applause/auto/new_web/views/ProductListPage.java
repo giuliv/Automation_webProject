@@ -17,6 +17,8 @@ import com.google.common.collect.Ordering;
 import io.qameta.allure.Step;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.openqa.selenium.WebDriverException;
 import org.testng.Assert;
 
 @Implementation(is = ProductListPage.class, on = Platform.WEB)
@@ -113,7 +115,12 @@ public class ProductListPage extends Base {
       logger.info("Safari Desktop");
       WebHelper.jsClick(productsImageList.get(index).getWebElement());
     } else {
-      productsImageList.get(index).click();
+      // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
+      try {
+        productsImageList.get(index).click();
+      } catch (WebDriverException e) {
+        logger.info("Frame detached issue seen");
+      }
     }
 
     return SdkHelper.create(ProductDetailsPage.class);

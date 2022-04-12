@@ -51,7 +51,6 @@ public class Constants {
     public static final String PDP = "pdp";
     public static final String SMOKE = "smoke";
     public static final String SANITY = "sanity";
-    public static final String HOME_PAGE_FOOTER = "home-page-footer";
     public static final String HOME_PAGE = "home-page";
 
     // Mobile
@@ -116,8 +115,8 @@ public class Constants {
     public static final String USERNAME_625882 = "appautosvc+test625882@applause.com";
     public static final String USERNAME_SAFARI = "appautosvc+peetscoffeesafari@applause.com";
     public static final String PASSWORD = "password123";
-	public static final String PASSWORD_BAD_FORMAT = "pass";
-	public static final String PEETS_FORGOT_PASSWORD_USERNAME = "peetfp01.awkv01hh@mailosaur.io";
+    public static final String PASSWORD_BAD_FORMAT = "pass";
+    public static final String PEETS_FORGOT_PASSWORD_USERNAME = "peetfp01.awkv01hh@mailosaur.io";
     public static final String PEETS_USERNAME = "adavis@applausemail.com";
     public static final String PEETS_PASSWORD = "p@ssword123";
 
