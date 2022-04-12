@@ -1,26 +1,18 @@
 package com.applause.auto.test.new_web.my_account;
 
-import com.applause.auto.common.data.Constants;
-import com.applause.auto.common.data.Constants.*;
-import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.new_web.components.MyAccountLeftMenu;
-import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.ContactUsPage;
-import com.applause.auto.new_web.views.CreateAccountPage;
-import com.applause.auto.new_web.views.HomePage;
-import com.applause.auto.new_web.views.PasswordRecoveryPage;
-import com.applause.auto.new_web.views.ProductListPage;
-import com.applause.auto.new_web.views.ResetPasswordPage;
-import com.applause.auto.new_web.views.SignInPage;
-import com.applause.auto.new_web.views.my_account.MyAccountEmailPreferencesPage;
-import com.applause.auto.new_web.views.my_account.MyAccountOrderHistoryPage;
-import com.applause.auto.new_web.views.my_account.MyAccountPage;
-import com.applause.auto.new_web.views.my_account.MyAccountPeetnikRewardsPage;
-import com.applause.auto.new_web.views.my_account.MyAccountSettingsPage;
-import com.applause.auto.test.new_web.BaseTest;
+import static com.applause.auto.common.data.Constants.TestData.*;
+
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.Constants.*;
+import com.applause.auto.new_web.components.MyAccountLeftMenu;
+import com.applause.auto.new_web.helpers.WebHelper;
+import com.applause.auto.new_web.views.*;
+import com.applause.auto.new_web.views.my_account.*;
+import com.applause.auto.test.new_web.BaseTest;
 
 public class MyAccountTests extends BaseTest {
 
@@ -436,5 +428,89 @@ public class MyAccountTests extends BaseTest {
     logger.info("Verify list of orders is displayed");
     Assert.assertTrue(
         orderHistoryPage.orderHistoryItemIsDisplayed(), "The list of orders isn't displayed");
+  }
+
+  @Test(
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      description = "11107414")
+  public void myAccountNonExistingEmailTest() {
+    logger.info("1. Navigate to Sign in page");
+    SignInPage signInPage = navigateToSignInPage();
+    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
+
+    logger.info("2. Enter invalid credentials.");
+    signInPage.enterEmail(WebTestData.NOT_EXIST_EMAIL);
+    signInPage.enterPassword(WebTestData.PASSWORD);
+    signInPage = signInPage.clickOnSignInButton(SignInPage.class);
+    Assert.assertEquals(
+        signInPage.getErrorMessage(),
+        UNRECOGNIZED_USERNAME_AND_PASSWORD_MESSAGE,
+        "Wrong message displayed");
+  }
+
+  @Test(
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      description = "11107416")
+  public void myAccountIncorrectPasswordTest() {
+
+    logger.info("1. Navigate to Sign in page");
+    SignInPage signInPage = navigateToSignInPage();
+    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
+
+    logger.info("2. Enter invalid credentials.");
+    signInPage.enterEmail(TestData.PEETS_USERNAME);
+    signInPage.enterPassword("Incorrectpassword9");
+    signInPage = signInPage.clickOnSignInButton(SignInPage.class);
+    Assert.assertEquals(
+        signInPage.getErrorMessage(),
+        UNRECOGNIZED_USERNAME_AND_PASSWORD_MESSAGE,
+        "Wrong message displayed");
+  }
+
+  @Test(
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      description = "11107417")
+  public void myAccountInvalidForgotPasswordTest() {
+    logger.info("1. Navigate to Sign in page");
+    SignInPage signInPage = navigateToSignInPage();
+    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
+
+    logger.info("2. Forgot password");
+    ResetPasswordPage resetPasswordPage = signInPage.clickForgotPasswordLink();
+    Assert.assertNotNull(resetPasswordPage, "Failed to navigate to the Reset password page.");
+
+    logger.info("3. Enter email.");
+    resetPasswordPage.enterEmail(PEETS_FORGOT_PASSWORD_USERNAME);
+
+    logger.info("4. Click on Submit");
+    PasswordRecoveryPage passwordRecoveryPage = resetPasswordPage.clickSubmitButton();
+    Assert.assertTrue(
+        passwordRecoveryPage.isSuccessfulMessageDisplayed(PEETS_FORGOT_PASSWORD_USERNAME));
+
+    logger.info("5. Navigate to th Url received in email");
+    PasswordRecoveryResetPage recoveryResetPage = passwordRecoveryPage.navigateRecoveryUrl();
+
+    logger.info(
+        "6. Key in new and repeat password mismatch fields and click on \"Reset Password\" Validate user is shown with password mismatch error");
+    recoveryResetPage =
+        recoveryResetPage
+            .setPassword(PASSWORD)
+            .setConfirmPassword(PASSWORD + PASSWORD)
+            .submit(PasswordRecoveryResetPage.class);
+
+    Assert.assertTrue(
+        recoveryResetPage.isPasswordMismatchErrorDisplayed(),
+        "Password mismatch error does not displayed");
+
+    logger.info(
+        "7. Key in new and repeat password incorrect password format in fields and click on \"Reset Password\"");
+    recoveryResetPage =
+        recoveryResetPage
+            .setPassword(PASSWORD_BAD_FORMAT)
+            .setConfirmPassword(PASSWORD_BAD_FORMAT)
+            .submit(PasswordRecoveryResetPage.class);
+    Assert.assertTrue(
+        recoveryResetPage.isPasswordBadFormatErrorDisplayed(),
+        "Password bad format error does not displayed");
   }
 }

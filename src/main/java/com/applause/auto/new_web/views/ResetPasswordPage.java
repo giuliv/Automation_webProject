@@ -8,6 +8,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+
 import io.qameta.allure.Step;
 
 @Implementation(is = ResetPasswordPage.class, on = Platform.WEB)
@@ -15,13 +16,16 @@ public class ResetPasswordPage extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(id = "Email", on = Platform.WEB)
+	@Locate(css = "#Email", on = Platform.WEB)
   private TextBox getEmailTextBox;
 
   @Locate(css = "input[type='submit']", on = Platform.WEB)
   private Link getSubmitButton;
 
-  /* -------- Actions -------- */
+	@Override
+	public void afterInit() {
+		SdkHelper.getSyncHelper().wait(Until.uiElement(getSubmitButton).present());
+	}
 
   /**
    * Enter Text into email field

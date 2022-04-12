@@ -13,12 +13,12 @@ import java.time.Duration;
 @Implementation(is = TimelinePage.class, on = Platform.WEB)
 public class TimelinePage extends BaseComponent {
 
-    @Locate(css = "div.simple-hero.ir.simple-hero__ir", on = Platform.WEB)
-    private ContainerElement timelinePageHeader;
+  @Locate(css = "div.simple-hero.ir.simple-hero__ir", on = Platform.WEB)
+  private ContainerElement timelinePageHeader;
 
-    @Override
-    public void afterInit() {
-        SdkHelper.getSyncHelper()
-                .wait(Until.uiElement(timelinePageHeader).visible().setTimeout(Duration.ofSeconds(40)));
-    }
+  @Override
+  public void afterInit() {
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(timelinePageHeader).visible().setTimeout(Duration.ofSeconds(40)));
+  }
 }

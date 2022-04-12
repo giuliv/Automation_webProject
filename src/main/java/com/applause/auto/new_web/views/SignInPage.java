@@ -1,5 +1,7 @@
 package com.applause.auto.new_web.views;
 
+import java.time.Duration;
+
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
@@ -11,10 +13,11 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+
 import io.qameta.allure.Step;
-import java.time.Duration;
 
 @Implementation(is = SignInPage.class, on = Platform.WEB)
+@Implementation(is = IosSignInPage.class, on = Platform.WEB_IOS_PHONE)
 public class SignInPage extends BaseComponent {
 
   /* -------- Elements -------- */
@@ -31,11 +34,11 @@ public class SignInPage extends BaseComponent {
   @Locate(css = "input[value='Create Account']", on = Platform.WEB)
   private Button getCreateAccountButton;
 
-  @Locate(css = ".text-danger", on = Platform.WEB)
+	@Locate(xpath = "//*[@class='text-danger' and string-length(text())>0]", on = Platform.WEB)
   private Text getErrorMessage;
 
   @Locate(css = ".resetPW", on = Platform.WEB)
-  private Link getForgotPasswordLink;
+	protected Link getForgotPasswordLink;
 
   /* -------- Actions -------- */
 
@@ -117,6 +120,26 @@ public class SignInPage extends BaseComponent {
   public ResetPasswordPage clickForgotPasswordLink() {
     logger.info("Clicking Forgot password link");
     getForgotPasswordLink.click();
+	SdkHelper.getSyncHelper().wait(Until.uiElement(getCreateAccountButton).notPresent());
     return SdkHelper.create(ResetPasswordPage.class);
   }
+
+  /**
+   * Gets error message.
+   *
+   * @return the error message
+   */
+  public String getErrorMessage() {
+    return getErrorMessage.getText().trim();
+  }
+}
+
+class IosSignInPage extends SignInPage {
+	@Step("Click Forgot password link")
+	public ResetPasswordPage clickForgotPasswordLink() {
+		logger.info("Clicking Forgot password link bu touch");
+		getForgotPasswordLink.scrollToElement();
+		SdkHelper.getBrowserControl().jsClick(getForgotPasswordLink);
+		return SdkHelper.create(ResetPasswordPage.class);
+	}
 }

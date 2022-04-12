@@ -1,22 +1,21 @@
 package com.applause.auto.common.data;
 
-import com.applause.auto.common.data.dto.ShareViaEmailDto;
-import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.my_account.MyAccountOrderHistoryPage;
-import com.applause.auto.new_web.views.my_account.MyAccountPage;
-import com.applause.auto.new_web.views.my_account.MyAccountPeetnikRewardsPage;
-import com.applause.auto.new_web.views.my_account.MyAccountSettingsPage;
-import com.applause.auto.new_web.views.my_account.ReferralsPage;
 import java.lang.invoke.MethodHandles;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.applause.auto.common.data.dto.ShareViaEmailDto;
+import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.new_web.helpers.WebHelper;
+import com.applause.auto.new_web.views.my_account.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class Constants {
 
@@ -117,6 +116,8 @@ public class Constants {
     public static final String USERNAME_625882 = "appautosvc+test625882@applause.com";
     public static final String USERNAME_SAFARI = "appautosvc+peetscoffeesafari@applause.com";
     public static final String PASSWORD = "password123";
+	public static final String PASSWORD_BAD_FORMAT = "pass";
+	public static final String PEETS_FORGOT_PASSWORD_USERNAME = "peetfp01.awkv01hh@mailosaur.io";
     public static final String PEETS_USERNAME = "adavis@applausemail.com";
     public static final String PEETS_PASSWORD = "p@ssword123";
 
@@ -134,6 +135,9 @@ public class Constants {
     public static final String COFFEE_KCUP_COUNT = "10 count";
 
     public static final String GIFT_MESSAGE = "This is a test message for the gift-message field";
+
+    public static final String UNRECOGNIZED_USERNAME_AND_PASSWORD_MESSAGE =
+        "Unrecognized username and password combination";
 
     public static final String SHIPPING_METHOD_GROUND = "Ground";
     public static final String SHIPPING_METHOD_AIR_2ND_DAY =

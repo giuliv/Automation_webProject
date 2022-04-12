@@ -27,14 +27,7 @@ import com.applause.auto.new_web.views.PeetnikRewardsPage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.new_web.views.SocialResponsibilityPage;
-import org.testng.annotations.Test;
-import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.*;
-import org.testng.Assert;
-
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 public class HomepageTests extends BaseTest {
