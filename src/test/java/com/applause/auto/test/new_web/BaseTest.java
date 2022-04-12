@@ -60,6 +60,7 @@ public class BaseTest extends ApplauseSeleniumTest {
   @Step("Navigate to Home")
   public HomePage navigateToHome() {
     logger.info(String.format("Navigating to the home page '%s'", TestData.LANDING_PAGE_URL));
+
     SdkHelper.getDriver().navigate().to(TestData.LANDING_PAGE_URL);
     return SdkHelper.create(HomePage.class);
   }

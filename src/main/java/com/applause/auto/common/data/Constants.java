@@ -453,6 +453,43 @@ public class Constants {
     public static String BEST_SELLERS_LINK = "/collections/coffee-best-sellers";
   }
 
+  public static class HomepageNeverMissOffer {
+    public static String OFFER_TITLE = "NEVER MISS AN OFFER";
+    public static String OFFER_DESCRIPTION =
+        "Sign up for our newsletter and receive 10% off + free shipping on your first order.";
+    public static String OFFER_URL_PART = "/pages/email-signup";
+  }
+
+  public static class HomepageCovidResponse {
+    public static String HEADER = "How We are Responding to COVID-19";
+    public static String DESCRIPTION =
+        "The health and safety of our employees and customers is important to all of us at Peet's Coffee.";
+    public static String LEARN_MORE_URL_PART = "/pages/covid-19";
+    public static String STORE_HOURS_TEXT = "View Store Hours";
+    public static String STORE_HOURS_LINK = "https://order.peets.com";
+  }
+
+  public static class HomepageCoffeeRevolution {
+    public static String HEADER = "OUR COFFEE REVOLUTION";
+    public static String DESCRIPTION =
+        "When Alfred Peet opened the doors to his first coffeebar in 1966, he forever changed the expectations of American coffee drinkers.";
+    public static String LEARN_MORE_URL_PART = "/pages/timeline";
+  }
+
+  public static class HomepageSubscriptionsModule {
+    public static String HEADER = "30% OFF FOR NEW SUBSCRIBERS";
+    public static String DESCRIPTION =
+        "A Peet's subscription gives you free shipping and access to discounts on all of your coffee purchases. Plus, new subscribers get 30% off their first order using code NEWSUB30.";
+    public static String COPY_BUTTON_CLICKED_TEXT = "copied";
+    public static String COPY_CODE = "NEWSUB30";
+  }
+
+  public static class HomepageCoffeeBar {
+    public static String ORDER_NOW_URL = "https://pickup.peets.com/";
+    public static String SEASONAL_URL_PART = "/collections/seasonal";
+    public static String FIND_COFFEE_BAR = "/pages/store-locator";
+  }
+
   public enum MenuOptions {
     COFFEE,
     TEA,

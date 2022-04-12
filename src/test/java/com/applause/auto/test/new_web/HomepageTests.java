@@ -1,16 +1,17 @@
 package com.applause.auto.test.new_web;
 
+import java.util.List;
+
+import com.applause.auto.framework.SdkHelper;
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MenuOptions;
 import com.applause.auto.common.data.Constants.MenuSubCategories;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.common.data.enums.CoffeeSubMenu;
-import com.applause.auto.common.data.enums.LearnSubMenu;
-import com.applause.auto.common.data.enums.PromoTiles;
-import com.applause.auto.common.data.enums.TeaSubMenu;
-import com.applause.auto.common.data.enums.VisitUsSubMenu;
-import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.common.data.enums.*;
 import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.views.BrewGuidesPage;
 import com.applause.auto.new_web.views.CoffeeBarMenuPage;
@@ -26,9 +27,15 @@ import com.applause.auto.new_web.views.PeetnikRewardsPage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.new_web.views.SocialResponsibilityPage;
-import java.util.List;
-import org.testng.Assert;
 import org.testng.annotations.Test;
+import com.applause.auto.new_web.helpers.WebHelper;
+import com.applause.auto.new_web.views.*;
+import org.testng.Assert;
+
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class HomepageTests extends BaseTest {
 
@@ -159,6 +166,82 @@ public class HomepageTests extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.WEB_REGRESSION},
+      description = "11107424")
+  public void freshnessStampVerificationTest() {
+    logger.info("1. Navigate to landing page");
+    HomePage homePage = navigateToHome();
+    Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+
+    logger.info("2. Verify freshness stamp is available and descriptions match");
+    softAssert.assertEquals(
+        homePage.getFreshnessStampSectionTitle().toLowerCase(),
+        HomepageFreshnessStamp.FRESHNESS_STAMP_HEADER.getTitle().toLowerCase(),
+        "Freshness Stamp Section Title did not match, got: "
+            + homePage.getFreshnessStampSectionTitle().toLowerCase()
+            + ", expected: "
+            + HomepageFreshnessStamp.FRESHNESS_STAMP_HEADER.getTitle().toLowerCase(Locale.ROOT));
+
+    softAssert.assertEquals(
+        homePage.getFreshnessStampSectionDescription().toLowerCase(),
+        HomepageFreshnessStamp.FRESHNESS_STAMP_HEADER.getDescription().toLowerCase(),
+        "Freshness Stamp Section Description did not match, got: "
+            + homePage.getFreshnessStampSectionDescription().toLowerCase()
+            + ", expected: "
+            + HomepageFreshnessStamp.FRESHNESS_STAMP_HEADER.getDescription().toLowerCase());
+
+    softAssert.assertEquals(
+        homePage.getFreshnessCoffeeStampTitle().toLowerCase(),
+        HomepageFreshnessStamp.COFFEE_STAMP.getTitle().toLowerCase(),
+        "Coffee Stamp Section Title did not match, got: "
+            + homePage.getFreshnessCoffeeStampTitle().toLowerCase()
+            + ", expected: "
+            + HomepageFreshnessStamp.COFFEE_STAMP.getTitle().toLowerCase());
+
+    softAssert.assertEquals(
+        homePage.getFreshnessCoffeeStampDescription().toLowerCase(),
+        HomepageFreshnessStamp.COFFEE_STAMP.getDescription().toLowerCase(),
+        "Coffee Stamp Section Description did not match, got: "
+            + homePage.getFreshnessCoffeeStampDescription().toLowerCase()
+            + ", expected: "
+            + HomepageFreshnessStamp.COFFEE_STAMP.getDescription().toLowerCase());
+
+    softAssert.assertEquals(
+        homePage.getFreshnessSealedStampTitle().toLowerCase(),
+        HomepageFreshnessStamp.SEALED_FOR_FRESHNESS.getTitle().toLowerCase(),
+        "Sealed For Freshness Section Title did not match, got: "
+            + homePage.getFreshnessSealedStampTitle().toLowerCase()
+            + ", expected: "
+            + HomepageFreshnessStamp.SEALED_FOR_FRESHNESS.getTitle().toLowerCase());
+
+    softAssert.assertEquals(
+        homePage.getFreshnessSealedStampDescription().toLowerCase(),
+        HomepageFreshnessStamp.SEALED_FOR_FRESHNESS.getDescription().toLowerCase(),
+        "Sealed For Freshness Stamp Section Description did not match, got: "
+            + homePage.getFreshnessSealedStampDescription().toLowerCase()
+            + ", expected: "
+            + HomepageFreshnessStamp.SEALED_FOR_FRESHNESS.getDescription().toLowerCase());
+
+    softAssert.assertEquals(
+        homePage.getFreshnessDeliverStampTitle().toLowerCase(),
+        HomepageFreshnessStamp.DELIVERED_TO_YOU.getTitle().toLowerCase(),
+        "Deliver to you Section Title did not match, got: "
+            + homePage.getFreshnessDeliverStampTitle().toLowerCase()
+            + ", expected: "
+            + HomepageFreshnessStamp.DELIVERED_TO_YOU.getTitle().toLowerCase());
+
+    softAssert.assertEquals(
+        homePage.getFreshnessDeliverStampDescription().toLowerCase(),
+        HomepageFreshnessStamp.DELIVERED_TO_YOU.getDescription().toLowerCase(),
+        "Deliver to you Stamp Section Description did not match, got: "
+            + homePage.getFreshnessDeliverStampDescription().toLowerCase()
+            + ", expected: "
+            + HomepageFreshnessStamp.DELIVERED_TO_YOU.getDescription().toLowerCase());
+
+    softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {TestNGGroups.WEB_REGRESSION},
       description = "11107420")
   public void peetsHomepageBannerandPromoTiles() {
     logger.info("1. Navigate to landing page");
@@ -220,8 +303,8 @@ public class HomepageTests extends BaseTest {
               + PromoTiles.values()[tile - 1].getActions().toLowerCase());
     }
 
-    // A warning to the maintainer, your most common failure might be the promo tile data in the
-    // enum section changing from month to month.
+    // A warning to the maintainer, your most common failure might be the promo tile
+    // data in the enum section changing from month to month.
     softAssert.assertAll();
   }
 
@@ -277,6 +360,279 @@ public class HomepageTests extends BaseTest {
             + homePage.getTeaPromoTileDescription()
             + ", expected: "
             + Constants.HomepagePromoTileData.TEA_PROMO_DESCRIPTION);
+
+    softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {TestNGGroups.WEB_REGRESSION},
+      description = "11107428")
+  public void homepageNeverMissOfferVerificationTest() {
+    logger.info("1. Navigate to landing page");
+    HomePage homePage = navigateToHome();
+    Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+
+    logger.info("2. Verifying offer heading");
+    softAssert.assertEquals(
+        Constants.HomepageNeverMissOffer.OFFER_TITLE.toLowerCase(),
+        homePage.getNeverMissOfferTitle().toLowerCase(),
+        "Never Miss an offer section titles did not match; got: "
+            + homePage.getNeverMissOfferTitle().toLowerCase()
+            + " expected: "
+            + Constants.HomepageNeverMissOffer.OFFER_TITLE.toLowerCase());
+
+    logger.info("3. Verifying offer description");
+    softAssert.assertEquals(
+        Constants.HomepageNeverMissOffer.OFFER_DESCRIPTION.toLowerCase(),
+        homePage.getNeverMissOfferDescription().toLowerCase(),
+        "Never Miss an offer section descriptions did not match; got: "
+            + homePage.getNeverMissOfferDescription().toLowerCase()
+            + " expected: "
+            + Constants.HomepageNeverMissOffer.OFFER_DESCRIPTION.toLowerCase());
+
+    logger.info("4. Verifying sign up button");
+    SignUpPage suPage = homePage.clickNeverMissOfferSignup();
+    softAssert.assertTrue(
+        suPage
+            .getDriver()
+            .getCurrentUrl()
+            .contains(Constants.HomepageNeverMissOffer.OFFER_URL_PART),
+        "URL did not match;  expected "
+            + Constants.HomepageNeverMissOffer.OFFER_URL_PART
+            + " to be a part of"
+            + suPage.getDriver().getCurrentUrl());
+
+    softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {TestNGGroups.WEB_REGRESSION},
+      description = "11107425")
+  public void respondingToCovidVerificationTest() {
+    logger.info("1. Navigate to landing page");
+    HomePage homePage = navigateToHome();
+    Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+
+    logger.info("2. Verifying covid heading");
+    softAssert.assertEquals(
+        Constants.HomepageCovidResponse.HEADER.toLowerCase(),
+        homePage.getCovidResponseHeader().toLowerCase(),
+        "Covid Response section titles did not match; got: "
+            + homePage.getCovidResponseHeader().toLowerCase()
+            + " expected: "
+            + Constants.HomepageCovidResponse.HEADER.toLowerCase());
+
+    logger.info("3. Verifying covid description");
+    softAssert.assertEquals(
+        Constants.HomepageCovidResponse.DESCRIPTION.toLowerCase(),
+        homePage.getCovidResponseDescription().toLowerCase(),
+        "Covid Response section descriptions did not match; got: "
+            + homePage.getCovidResponseDescription().toLowerCase()
+            + " expected: "
+            + Constants.HomepageCovidResponse.DESCRIPTION.toLowerCase());
+
+    logger.info("4. Verifying store hours link");
+    softAssert.assertEquals(
+        Constants.HomepageCovidResponse.STORE_HOURS_TEXT.toLowerCase(),
+        homePage.getCovidResponseStoreHoursLinkText().toLowerCase(),
+        "Store Hours Link Text was wrong -- Got: "
+            + homePage.getCovidResponseStoreHoursLinkText().toLowerCase()
+            + " expected: "
+            + Constants.HomepageCovidResponse.STORE_HOURS_TEXT.toLowerCase());
+    logger.info("5. Verifying learn more button");
+    CovidPage cPage = homePage.clickCovidResponseLearnMoreButton();
+    softAssert.assertTrue(
+        cPage
+            .getDriver()
+            .getCurrentUrl()
+            .contains(Constants.HomepageCovidResponse.LEARN_MORE_URL_PART),
+        "Covid Response Learn More page URL is incorrect - expected "
+            + Constants.HomepageCovidResponse.LEARN_MORE_URL_PART
+            + " to be inside "
+            + cPage.getDriver().getCurrentUrl());
+
+    softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {TestNGGroups.WEB_REGRESSION},
+      description = "11107427")
+  public void ourCoffeeRevolutionVerificationTest() {
+    logger.info("1. Navigate to landing page");
+    HomePage homePage = navigateToHome();
+    Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+
+    logger.info("2. Verifying revolution heading");
+    softAssert.assertEquals(
+        Constants.HomepageCoffeeRevolution.HEADER.toLowerCase(),
+        homePage.getRevolutionHeader().toLowerCase(),
+        "Our Coffee Revolution section titles did not match; got: "
+            + homePage.getRevolutionHeader().toLowerCase()
+            + " expected: "
+            + Constants.HomepageCoffeeRevolution.HEADER.toLowerCase());
+
+    logger.info("3. Verifying revolution description");
+    softAssert.assertEquals(
+        Constants.HomepageCoffeeRevolution.DESCRIPTION.toLowerCase(),
+        homePage.getRevolutionDescription().toLowerCase(),
+        "Our Coffee Revolution section descriptions did not match; got: "
+            + homePage.getRevolutionDescription().toLowerCase()
+            + " expected: "
+            + Constants.HomepageCoffeeRevolution.DESCRIPTION.toLowerCase());
+
+    logger.info("4. Verifying learn more button");
+    TimelinePage timePage = homePage.clickRevolutionLearnMoreButton();
+    softAssert.assertTrue(
+        timePage
+            .getDriver()
+            .getCurrentUrl()
+            .contains(Constants.HomepageCoffeeRevolution.LEARN_MORE_URL_PART),
+        "Our Coffee Revolution's Learn More page URL is incorrect - expected "
+            + Constants.HomepageCoffeeRevolution.LEARN_MORE_URL_PART
+            + " to be inside "
+            + timePage.getDriver().getCurrentUrl());
+
+    softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {TestNGGroups.WEB_REGRESSION},
+      description = "11107423")
+  public void homepageSubscriptionModuleVerificationTest() {
+    logger.info("1. Navigate to landing page");
+    HomePage homePage = navigateToHome();
+    Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+
+    logger.info("2. Verify section header");
+    softAssert.assertEquals(
+        homePage.getSubscriptionModuleHeader(),
+        Constants.HomepageSubscriptionsModule.HEADER.toLowerCase(),
+        "The subscription module header did not match -    Got: "
+            + homePage.getSubscriptionModuleHeader()
+            + " Expected: "
+            + Constants.HomepageSubscriptionsModule.HEADER.toLowerCase());
+    logger.info("3. Verify section description");
+    softAssert.assertEquals(
+        homePage.getSubscriptionModuleDescription(),
+        Constants.HomepageSubscriptionsModule.DESCRIPTION.toLowerCase(),
+        "The subscription module description did not match -    Got: "
+            + homePage.getSubscriptionModuleDescription()
+            + " Expected: "
+            + Constants.HomepageSubscriptionsModule.DESCRIPTION.toLowerCase());
+
+    logger.info("4. Verify timed subsection headers and descriptions");
+    for (HomepageSubscriptionsModuleMenu menuItem : HomepageSubscriptionsModuleMenu.values()) {
+      String menuHeader = homePage.getSubscriptionModuleSubHeader(menuItem);
+
+      softAssert.assertEquals(
+          menuHeader,
+          menuItem.getHeader(),
+          "The subscriptions module menu did not match;  Found: "
+              + menuHeader
+              + " expected: "
+              + menuItem.getHeader());
+
+      String menuDescription = homePage.getSubscriptionModuleSubDescription(menuItem);
+
+      softAssert.assertEquals(
+          menuDescription,
+          menuItem.getDescription(),
+          "The subscriptions module menu descriptions did not match;  Found: "
+              + menuDescription
+              + " expected: "
+              + menuItem.getDescription());
+
+      Boolean menuDescriptionHides = homePage.isSubscriptionModuleSubDescriptionHidden(menuItem);
+
+      softAssert.assertTrue(
+          menuDescriptionHides, "The descriptions do not seem to hide in the timed carousel.");
+    }
+    logger.info("5. Verify copy code");
+
+    homePage.clickSubscriptionModuleCopyButton();
+    softAssert.assertEquals(
+        Constants.HomepageSubscriptionsModule.COPY_BUTTON_CLICKED_TEXT,
+        homePage.getSubscriptionModuleCopyButtonText(),
+        "Copy button's text did not change as anticipated;  got "
+            + homePage.getSubscriptionModuleCopyButtonText()
+            + " and expected "
+            + Constants.HomepageSubscriptionsModule.COPY_BUTTON_CLICKED_TEXT);
+
+    logger.info("6. Verify links for subsections");
+    for (HomepageSubscriptionsModuleMenu menuItem : HomepageSubscriptionsModuleMenu.values()) {
+      homePage = navigateToHome();
+      homePage.clickSubscriptionModuleMenuLink(menuItem);
+      softAssert.assertTrue(
+          homePage.getDriver().getCurrentUrl().contains(menuItem.getURLPart()),
+          "The link for "
+              + menuItem.getHeader()
+              + " does not go to the correct url - got "
+              + homePage.getDriver().getCurrentUrl()
+              + " and expected "
+              + menuItem.getURLPart());
+    }
+    softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {TestNGGroups.WEB_REGRESSION},
+      description = "11107426")
+  public void homepageCoffeeBarVerificationTest() {
+    logger.info("1. Navigate to landing page");
+    HomePage homePage = navigateToHome();
+    Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+
+    logger.info(
+        "2. Verify left and right arrow scrolls the bar, and that you can get to initial position after scroll");
+    List<String> initialPositions = homePage.getVisibleCoffeeBarItems();
+    int firstPosition = 0;
+    homePage.clickCoffeeBarNext();
+    List<String> nextPositions = homePage.getVisibleCoffeeBarItems();
+
+    for (int i = 0; i < initialPositions.size(); i++) {
+      softAssert.assertNotEquals("", nextPositions.get(i), "The coffee bar item was empty.");
+      softAssert.assertNotEquals(
+          initialPositions.get(i),
+          nextPositions.get(i),
+          "The coffee bar items did not change when the next arrow was clicked.");
+    }
+
+    homePage.clickCoffeeBarPrevious();
+    nextPositions = homePage.getVisibleCoffeeBarItems();
+
+    for (int i = 0; i < initialPositions.size(); i++) {
+      softAssert.assertNotEquals("", nextPositions.get(i), "The coffee bar item was empty.");
+      softAssert.assertEquals(
+          initialPositions.get(i),
+          nextPositions.get(i),
+          "The coffee bar did not go back to the original list with previous clicked.");
+    }
+
+    logger.info("3. Verify hover shows Order Now");
+    homePage.hoverCoffeeBarItemAtPosition(firstPosition);
+    softAssert.assertTrue(
+        homePage.isCoffeeBarOrderNowDisplayed(firstPosition), "Order Now is not displayed");
+
+    logger.info("4. Verify links take you places");
+    SeasonalPage seasonPage = homePage.clickCoffeeBarSeasonalButton();
+    softAssert.assertTrue(
+        seasonPage
+            .getDriver()
+            .getCurrentUrl()
+            .contains(Constants.HomepageCoffeeBar.SEASONAL_URL_PART),
+        "The  seasonal button brought us to a wrong location.  Got "
+            + seasonPage.getDriver().getCurrentUrl()
+            + " and we expected "
+            + Constants.HomepageCoffeeBar.SEASONAL_URL_PART);
+
+    homePage = navigateToHome();
+    StoreLocatorPage slocPage = homePage.clickFindCoffeeBarButton();
+    softAssert.assertTrue(
+        slocPage.getDriver().getCurrentUrl().contains(Constants.HomepageCoffeeBar.FIND_COFFEE_BAR),
+        "The find coffee bar button brought us to a wrong page, we got "
+            + slocPage.getDriver().getCurrentUrl()
+            + " and we expected "
+            + Constants.HomepageCoffeeBar.FIND_COFFEE_BAR);
 
     softAssert.assertAll();
   }
