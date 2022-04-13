@@ -20,14 +20,14 @@ public enum FooterOptions {
   SHIPPING_AND_RETURNS(
       "Help center",
       "Shipping & Returns",
-      "https://peets-coffee-staging.myshopify.com/pages/shipping",
+      "https://faq.peets.com/hc/en-us/sections/115000833243-Shipping-and-Returns",
       CommonWebPage.class),
 
   // Company
   CAREERS(
       "Company",
       "Careers",
-      "https://peets-coffee-staging.myshopify.com/pages/join-peets",
+      "https://peets-coffee-staging.myshopify.com/pages/careers",
       CommonWebPage.class),
   OUR_PEOPLE(
       "Company",
@@ -92,7 +92,11 @@ public enum FooterOptions {
       CommonWebPage.class),
 
   // BLOG
-  CUPPING_ROOM("Blog", "The Cupping Room", "https://blog.peets.com/", CommonWebPage.class),
+  CUPPING_ROOM(
+      "Blog",
+      "The Cupping Room",
+      "https://peets-coffee-staging.myshopify.com/blogs/peets",
+      CommonWebPage.class),
 
   // SOCIAL MEDIA
   INSTAGRAM("Social Media", "instagram", "www.instagram.com", CommonWebPage.class),

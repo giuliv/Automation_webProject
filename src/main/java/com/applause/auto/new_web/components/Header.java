@@ -239,17 +239,32 @@ public class Header extends BaseComponent {
     if (menuSubCategories.name().contains("SUBSCRIPTIONS")) {
       subscriptionCategories.format(menuSubCategories.getMenuSubCategories()).initialize();
       SdkHelper.getSyncHelper().wait(Until.uiElement(subscriptionCategories).visible());
-      subscriptionCategories.click();
+      try {
+        subscriptionCategories.click();
+        SdkHelper.getSyncHelper().sleep(1000); // Once chromedriver issue fix, remove it
+      } catch (WebDriverException e) {
+        logger.info("Frame detached issue seen");
+      }
     } else {
       try {
         subCategories.format(menuSubCategories.getMenuSubCategories()).initialize();
         SdkHelper.getSyncHelper().wait(Until.uiElement(subCategories).visible());
-        subCategories.click();
+        try {
+          subCategories.click();
+          SdkHelper.getSyncHelper().sleep(1000); // Once chromedriver issue fix, remove it
+        } catch (WebDriverException e) {
+          logger.info("Frame detached issue seen");
+        }
       } catch (Exception e) {
         // use alternative category locator
         subCategoriesAlternative.format(menuSubCategories.getMenuSubCategories()).initialize();
         SdkHelper.getSyncHelper().wait(Until.uiElement(subCategoriesAlternative).visible());
-        subCategoriesAlternative.click();
+        try {
+          subCategoriesAlternative.click();
+          SdkHelper.getSyncHelper().sleep(1000); // Once chromedriver issue fix, remove it
+        } catch (WebDriverException x) {
+          logger.info("Frame detached issue seen");
+        }
       }
     }
 

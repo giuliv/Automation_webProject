@@ -1,6 +1,5 @@
 package com.applause.auto.test.new_web.home_page;
 
-import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.enums.FooterOptions;
 import com.applause.auto.framework.SdkHelper;
@@ -294,7 +293,7 @@ public class FooterTests extends BaseTest {
         // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
         try {
           footer.clickEndSubLink(option);
-          SdkHelper.getSyncHelper().sleep(1000); // Remove when fixed
+          SdkHelper.getSyncHelper().sleep(3000); // Remove when fixed
         } catch (WebDriverException e) {
           logger.info("Frame detached issue seen");
         }

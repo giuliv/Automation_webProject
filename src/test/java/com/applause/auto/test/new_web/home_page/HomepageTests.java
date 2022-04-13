@@ -732,8 +732,9 @@ public class HomepageTests extends BaseTest {
 
     logger.info("3. Verify the user is directed to correct Find a coffee bar");
     softAssert.assertNotNull(
-        findACoffeeBarPage, "The user isn't directed to correct Find a coffeebar");
+        findACoffeeBarPage, "The user isn't directed to correct Find a coffeeBar");
 
+    header = findACoffeeBarPage.getHeader();
     logger.info("4. Click on View Menu and Order");
     header.hoverCategoryFromMenu(MenuOptions.VISIT_US);
     CoffeeBarMenuPage coffeeBarMenuPage =
@@ -744,6 +745,7 @@ public class HomepageTests extends BaseTest {
     softAssert.assertNotNull(
         coffeeBarMenuPage, "The user isn't directed to correct CoffeeBar Menu");
 
+    header = coffeeBarMenuPage.getHeader();
     logger.info("6. Click on The Peet's APP");
     header.hoverCategoryFromMenu(MenuOptions.VISIT_US);
     PeetnikRewardsPage peetnikRewardsPage =
@@ -753,6 +755,7 @@ public class HomepageTests extends BaseTest {
     softAssert.assertNotNull(
         peetnikRewardsPage, "The user isn't directed to correct Peetnik Rewards App");
 
+    header = peetnikRewardsPage.getHeader();
     logger.info("8. Click on Order Now");
     header.hoverCategoryFromMenu(MenuOptions.VISIT_US);
     header.clickOverSubCategoryFromMenu(
