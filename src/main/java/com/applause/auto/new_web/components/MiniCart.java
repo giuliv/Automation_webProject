@@ -92,6 +92,9 @@ public class MiniCart extends BaseComponent {
   @Locate(css = "#bagRecommendationsWrapper button", on = Platform.WEB)
   private List<Button> recommendedForYouAddButton;
 
+  @Locate(css = "div.srd_msg strong", on = Platform.WEB)
+  private Text shopRunnerMessage;
+
   @Locate(css = "#sr_headerDiv a[onclick*='learn']", on = Platform.WEB)
   private Link learnMoreLink;
 
@@ -296,6 +299,14 @@ public class MiniCart extends BaseComponent {
       signInLink.click();
     }
     return SdkHelper.create(ShopRunnerComponent.class);
+  }
+
+  @Step("Get shoprunner message")
+  public String getShopRunnerMessage() {
+    logger.info("Reading ShopRunner message");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(shopRunnerMessage).visible());
+    logger.info("-- Message found, is: " + shopRunnerMessage.getText().trim());
+    return shopRunnerMessage.getText().trim().toLowerCase();
   }
 
   /**

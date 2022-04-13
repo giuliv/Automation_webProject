@@ -151,6 +151,12 @@ public class ProductDetailsPage extends Base {
     return outOfStockNotifyMeSection.isDisplayed();
   }
 
+  @Step("Get one time purchase link is available")
+  public boolean isOneTimePurchaseLinkDisplayed() {
+    logger.info("checking if one time purchase link is available");
+    return oneTimePurchase.isDisplayed();
+  }
+
   @Step("Get grind selected")
   public String getGrindSelected() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(grindSelected).visible());

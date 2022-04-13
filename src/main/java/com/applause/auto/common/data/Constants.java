@@ -329,6 +329,14 @@ public class Constants {
     public static String PASSWORD = "abcde1";
   }
 
+  public static class CheckoutPageMiscData {
+    public static final String CHECKOUT_PAGE_URL_PART = "/checkouts/";
+  }
+
+  public static class CartPageMiscData {
+    public static final String CART_PAGE_URL_PART = "/cart";
+  }
+
   public enum SubscriptionTerm {
     TWO_WEEKS("Every 2 Weeks", "2 weeks");
 
@@ -503,6 +511,10 @@ public class Constants {
     public static String ORDER_NOW_URL = "https://pickup.peets.com/";
     public static String SEASONAL_URL_PART = "/collections/seasonal";
     public static String FIND_COFFEE_BAR = "/pages/store-locator";
+  }
+
+  public static class MiniCartMiscTestData {
+    public static String SHOPRUNNER_MESSAGE = "free 2-day shipping & free returns";
   }
 
   public enum MenuOptions {

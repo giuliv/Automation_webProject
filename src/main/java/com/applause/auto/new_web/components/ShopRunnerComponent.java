@@ -7,6 +7,7 @@ import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import io.qameta.allure.Step;
 
@@ -25,6 +26,9 @@ public class ShopRunnerComponent extends BaseComponent {
 
   @Locate(css = "div[class*='signin__ContentWrapper']", on = Platform.WEB)
   private ContainerElement signInContent;
+
+  @Locate(css = "button.sr-modal__footer-close-button", on = Platform.WEB)
+  protected Button closeOverlay;
 
   @Override
   public void afterInit() {
@@ -48,7 +52,18 @@ public class ShopRunnerComponent extends BaseComponent {
   @Step("Get Learn more modal")
   public boolean isLearnMoreModalDisplayed() {
     navigateToiFrame();
-    return learnMoreContent.exists();
+    boolean result = learnMoreContent.exists();
+    SdkHelper.getDriver().switchTo().defaultContent();
+    return result;
+  }
+
+  @Step("Close Shoprunner Overlay")
+  public MiniCart closeOverlay() {
+    logger.info("Closing overlay by clicking the X");
+    WebHelper.switchToIFrame(mainContainer);
+    SdkHelper.getSyncHelper().wait(Until.uiElement(closeOverlay).clickable()).click();
+    SdkHelper.getDriver().switchTo().defaultContent();
+    return SdkHelper.create(MiniCart.class);
   }
 
   /**
@@ -59,6 +74,8 @@ public class ShopRunnerComponent extends BaseComponent {
   @Step("Get sign in")
   public boolean isSignInModalDisplayed() {
     navigateToiFrame();
-    return signInContent.exists();
+    boolean result = signInContent.exists();
+    SdkHelper.getDriver().switchTo().defaultContent();
+    return result;
   }
 }
