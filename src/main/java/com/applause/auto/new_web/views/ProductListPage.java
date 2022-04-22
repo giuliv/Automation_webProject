@@ -17,7 +17,6 @@ import com.google.common.collect.Ordering;
 import io.qameta.allure.Step;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.openqa.selenium.WebDriverException;
 import org.testng.Assert;
 

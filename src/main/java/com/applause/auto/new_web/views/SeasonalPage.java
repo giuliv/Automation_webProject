@@ -7,7 +7,6 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
-
 import java.time.Duration;
 
 @Implementation(is = SeasonalPage.class, on = Platform.WEB)

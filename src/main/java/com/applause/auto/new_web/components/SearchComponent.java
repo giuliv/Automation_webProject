@@ -1,6 +1,5 @@
 package com.applause.auto.new_web.components;
 
-import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
@@ -14,9 +13,8 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriverException;
-
 import java.util.List;
+import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = SearchComponent.class, on = Platform.WEB)
 @Implementation(is = SearchComponentMobile.class, on = Platform.WEB_MOBILE_PHONE)

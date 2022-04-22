@@ -1,6 +1,5 @@
 package com.applause.auto.new_web.components.plp;
 
-import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;

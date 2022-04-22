@@ -25,7 +25,7 @@ import lombok.Getter;
 @Implementation(is = CartPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
 public class CartPage extends BaseComponent {
 
-  @Locate(id = "your-shopping-cart", on = Platform.WEB)
+  @Locate(css = "#your-shopping-cart, #bagForm", on = Platform.WEB)
   private ContainerElement mainContainer;
 
   @Locate(css = "h4.bag-item__title", on = Platform.WEB)
@@ -86,7 +86,8 @@ public class CartPage extends BaseComponent {
 
   @Override
   public void afterInit() {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(mainContainer).present().setTimeout(Duration.ofSeconds(30)));
   }
 
   /* -------- Actions -------- */

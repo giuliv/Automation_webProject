@@ -1,6 +1,5 @@
 package com.applause.auto.new_web.components;
 
-import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.enums.FooterOptions;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;

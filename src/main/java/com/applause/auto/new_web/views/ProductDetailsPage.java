@@ -30,7 +30,7 @@ import org.openqa.selenium.support.ui.Select;
 @Implementation(is = ProductDetailsPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
 public class ProductDetailsPage extends Base {
 
-  @Locate(id = "pvEssentials", on = Platform.WEB)
+  @Locate(css = "#pvEssentials, #gallery", on = Platform.WEB)
   private ContainerElement mainContainer;
 
   @Locate(css = ".pv-title", on = Platform.WEB)
@@ -164,8 +164,7 @@ public class ProductDetailsPage extends Base {
 
     if (WebHelper.isSafari()) {
       String text =
-          grindListSelected
-              .stream()
+          grindListSelected.stream()
               .filter(x -> x.getWebElement().isSelected())
               .findFirst()
               .get()

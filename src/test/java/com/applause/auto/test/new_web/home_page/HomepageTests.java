@@ -1,25 +1,26 @@
 package com.applause.auto.test.new_web.home_page;
 
-import java.util.List;
-
-import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.new_web.components.FooterComponent;
-import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.test.new_web.BaseTest;
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MenuOptions;
 import com.applause.auto.common.data.Constants.MenuSubCategories;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.common.data.enums.*;
+import com.applause.auto.common.data.enums.CoffeeSubMenu;
+import com.applause.auto.common.data.enums.HomepageFreshnessStamp;
+import com.applause.auto.common.data.enums.HomepageSubscriptionsModuleMenu;
+import com.applause.auto.common.data.enums.LearnSubMenu;
+import com.applause.auto.common.data.enums.PromoTiles;
+import com.applause.auto.common.data.enums.TeaSubMenu;
+import com.applause.auto.common.data.enums.VisitUsSubMenu;
+import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.new_web.components.FooterComponent;
 import com.applause.auto.new_web.components.Header;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.BrewGuidesPage;
 import com.applause.auto.new_web.views.CoffeeBarMenuPage;
 import com.applause.auto.new_web.views.CoffeeRevolutionPage;
 import com.applause.auto.new_web.views.CommitmentToCraftPage;
+import com.applause.auto.new_web.views.CovidPage;
 import com.applause.auto.new_web.views.CuppingRoomPage;
 import com.applause.auto.new_web.views.CurrentOffersPage;
 import com.applause.auto.new_web.views.FindACoffeeBarPage;
@@ -29,9 +30,16 @@ import com.applause.auto.new_web.views.OrderDeliveryAddressPage;
 import com.applause.auto.new_web.views.PeetnikRewardsPage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ProductListPage;
+import com.applause.auto.new_web.views.SeasonalPage;
+import com.applause.auto.new_web.views.SignUpPage;
 import com.applause.auto.new_web.views.SocialResponsibilityPage;
-import com.applause.auto.new_web.views.*;
+import com.applause.auto.new_web.views.StoreLocatorPage;
+import com.applause.auto.new_web.views.TimelinePage;
+import com.applause.auto.test.new_web.BaseTest;
+import java.util.List;
 import java.util.Locale;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 public class HomepageTests extends BaseTest {
 

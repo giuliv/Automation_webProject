@@ -6,9 +6,8 @@ import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.CoffeeBarPage;
 import com.applause.auto.new_web.views.EmailSignUpPage;
-import java.lang.invoke.MethodHandles;
-
 import com.applause.auto.web.components.AccountMenuChunk;
+import java.lang.invoke.MethodHandles;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
@@ -159,7 +158,7 @@ public class MenuTest extends BaseTest {
             + Constants.TestData.EMAIL_SIGNUP_URL);
   }
 
-   @Test(
+  @Test(
       groups = {Constants.TestNGGroups.MENU},
       description = "11107481")
   public void viewMenuAndOptions() throws InterruptedException {

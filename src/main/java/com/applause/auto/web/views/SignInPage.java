@@ -68,9 +68,18 @@ public class SignInPage extends BaseComponent {
    * @return My Account page
    */
   public MyAccountPage clickOnSignInButton() {
+    return clickOnSignInButton(MyAccountPage.class);
+  }
+
+  /**
+   * Click on Login Button on Login Page
+   *
+   * @return My Account page
+   */
+  public <T extends BaseComponent> T clickOnSignInButton(Class<T> tClass) {
     logger.info("Click on sign in button");
     getSignInButton.click();
-    return SdkHelper.create(MyAccountPage.class);
+    return SdkHelper.create(tClass);
   }
 
   /**

@@ -92,11 +92,15 @@ public class Header extends BaseComponent {
   @Locate(css = ".header__mobile-menu > button", on = Platform.WEB_MOBILE_PHONE)
   protected Button hamburgerButton;
 
+  @Locate(css = ".nav__mobile-utils > button", on = Platform.WEB_MOBILE_PHONE)
+  protected Button closeHamburgerMenuButton;
+
   @Locate(css = "#header a[href*='/login'] i", on = Platform.WEB)
   @Locate(css = "#navMobileMain a[href*='/login']", on = Platform.WEB_MOBILE_PHONE)
   protected Button signInButton;
 
   @Locate(css = "[aria-label=\"Log in\"]", on = Platform.WEB)
+  @Locate(css = "#navMobileMain [aria-label=\"Log in\"]", on = Platform.WEB_MOBILE_PHONE)
   protected Button accountButton;
 
   @Locate(css = "#header button[class*='search']", on = Platform.WEB)
@@ -299,6 +303,7 @@ public class Header extends BaseComponent {
 
   @Step("Verify person icon displays")
   public boolean isPersonIconDisplayed() {
+    logger.info("Checking person icon is displayed");
     return personIcon.isDisplayed();
   }
 
@@ -379,6 +384,11 @@ public class Header extends BaseComponent {
   @Step("Open Hamburger Menu")
   public void openHamburgerMenu() {
     throw new NotImplementedException("Hamburger Menu isn't present on desktop");
+  }
+
+  @Step("Close Hamburger Menu")
+  public void closeHamburgerMenu() {
+    logger.info("Hamburger Menu isn't present on desktop");
   }
 
   public void preopenMenu() {
@@ -465,6 +475,12 @@ public class Header extends BaseComponent {
    */
   public boolean isMenuSectionExpanded() {
     return WebHelper.isDisplayed(expandedSection);
+  }
+
+  @Step("Verify user is logged out")
+  public boolean isUserLoggedOut() {
+    logger.info("Checking user is logged out");
+    return WebHelper.isDisplayed(accountButton, 5);
   }
 }
 
@@ -586,5 +602,32 @@ class HeaderMobile extends Header {
     } catch (Exception e) {
       throw new RuntimeException("New Page is Not opened.");
     }
+  }
+
+  @Override
+  public void closeHamburgerMenu() {
+    logger.info("Open Hamburger Menu [Mobile]");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(closeHamburgerMenuButton).clickable());
+    closeHamburgerMenuButton.click();
+  }
+
+  @Override
+  @Step("Verify user is logged out")
+  public boolean isUserLoggedOut() {
+    logger.info("Checking user is logged out");
+    openHamburgerMenu();
+    boolean isUserLoggedOut = WebHelper.isDisplayed(accountButton, 5);
+    closeHamburgerMenu();
+    return isUserLoggedOut;
+  }
+
+  @Override
+  @Step("Verify person icon displays")
+  public boolean isPersonIconDisplayed() {
+    logger.info("Checking person icon is displayed");
+    openHamburgerMenu();
+    boolean isIconDisplayed = WebHelper.isDisplayed(personIcon);
+    closeHamburgerMenu();
+    return isIconDisplayed;
   }
 }

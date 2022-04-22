@@ -116,6 +116,9 @@ public class Constants {
     public static final String STORE_LOCATOR_URL = "pages/store-locator";
     public static final String REWARDS_URL = "pages/peetnik-rewards";
     public static final String EMAIL_SIGNUP_URL = "pages/email-signup";
+    public static final String QA_LOGIN_PAGE_URL = "https://account-qa.peets.com/login";
+    public static final String QA_REGISTRATION_PAGE_URL =
+        "https://account-qa.peets.com/Registration";
 
     public static final String WEB_USERNAME = "peets.automation01@applause.com";
     public static final String WEB_PASSWORD = "Pa55word!";
@@ -324,8 +327,8 @@ public class Constants {
   }
 
   public static class CheckoutUserTestData {
-    public static String USERNAME = "app1@peets.com";
-    public static String USERNAME_SAFARI = "app1@peets.com";
+    public static String USERNAME = "App1@peets.com";
+    public static String USERNAME_SAFARI = "App1@peets.com";
     public static String PASSWORD = "abcde1";
   }
 

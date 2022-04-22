@@ -11,6 +11,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Checkbox;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
@@ -83,6 +84,26 @@ public class CheckOutPage extends Base {
 
   @Locate(xpath = "//label[@for='checkout_remember_me']", on = Platform.WEB)
   private Checkbox saveThisInformationForNextTime;
+
+  @Locate(css = ".section--contact-information", on = Platform.WEB)
+  private ContainerElement contactInformationSection;
+
+  @Locate(css = ".section--contact-information a[href*='login']", on = Platform.WEB)
+  private Link loginLink;
+
+  @Locate(css = ".section--contact-information a[href*='logout']", on = Platform.WEB)
+  private Link logOutLink;
+
+  @Locate(id = "order-summary", on = Platform.WEB)
+  private ContainerElement orderSummarySection;
+
+  @Locate(css = ".product__description__name", on = Platform.WEB)
+  private LazyList<Text> productsNames;
+
+  @Locate(
+      xpath = "//div[@class='logged-in-customer-information']//span[contains(text(),'%s')]",
+      on = Platform.WEB)
+  private Text customerEmailAddress;
 
   @Override
   public void afterInit() {
@@ -204,8 +225,7 @@ public class CheckOutPage extends Base {
   @Step("Get list of error messages")
   public List<String> getListOfErrorMessages() {
     ((LazyList<?>) errorMessagesList).initialize();
-    return errorMessagesList
-        .stream()
+    return errorMessagesList.stream()
         .map(error -> WebHelper.cleanString(error.getText()))
         .collect(Collectors.toList());
   }
@@ -267,6 +287,66 @@ public class CheckOutPage extends Base {
   /** @return boolean */
   public boolean isDisplayed() {
     return WebHelper.isDisplayed(mainContainer);
+  }
+
+  /**
+   * Verify Contact Information section is displayed
+   *
+   * @return boolean
+   */
+  public boolean isContactInformationSectionDisplayed() {
+    logger.info("Checking Contact Information section is displayed");
+    return WebHelper.isDisplayed(contactInformationSection);
+  }
+
+  /**
+   * Verify customer email address is displayed
+   *
+   * @return boolean
+   */
+  public boolean isCustomerEmailAddressDisplayed(String emailAddress) {
+    logger.info("Checking customer email address [{}] is displayed", emailAddress);
+    customerEmailAddress.format(emailAddress);
+    return WebHelper.isDisplayed(customerEmailAddress);
+  }
+
+  /**
+   * Click on the Log in link
+   *
+   * @return SignInPage
+   */
+  public SignInPage clickLogin() {
+    logger.info("Clicking on the Log in link");
+    loginLink.click();
+    return SdkHelper.create(SignInPage.class);
+  }
+
+  /**
+   * Click on the Logout in link
+   *
+   * @return HomePage
+   */
+  public HomePage clickLogout() {
+    logger.info("Clicking on the Logout in link");
+    logOutLink.click();
+    return SdkHelper.create(HomePage.class);
+  }
+
+  /** @return products names */
+  public List<String> getProductsNames() {
+    WebHelper.waitForElementToAppear(orderSummarySection, 10);
+    productsNames.initialize();
+    return productsNames.stream().map(Text::getText).collect(Collectors.toList());
+  }
+
+  /**
+   * Verify user is logged in
+   *
+   * @return boolean
+   */
+  public boolean isUserLoggedIn() {
+    logger.info("Checking user is logged in");
+    return WebHelper.isDisplayed(logOutLink, 10);
   }
 }
 

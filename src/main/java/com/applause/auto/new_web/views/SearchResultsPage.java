@@ -1,6 +1,5 @@
 package com.applause.auto.new_web.views;
 
-import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.WebTestData;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
@@ -12,9 +11,8 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriverException;
-
 import java.util.List;
+import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = SearchResultsPage.class, on = Platform.WEB)
 @Implementation(is = SearchResultsPage.class, on = Platform.WEB_MOBILE_PHONE)

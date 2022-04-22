@@ -1,6 +1,5 @@
 package com.applause.auto.new_web.views;
 
-import com.applause.auto.common.data.Constants;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.Strategy;
 import com.applause.auto.framework.SdkHelper;
@@ -52,6 +51,18 @@ public class CreateAccountPage extends Base {
   @Step("Create account")
   public MyAccountPage createAccount(
       String firstName, String lastName, String email, String password, String confirmPassword) {
+    return createAccount(
+        firstName, lastName, email, password, confirmPassword, MyAccountPage.class);
+  }
+
+  @Step("Create account")
+  public <T extends BaseComponent> T createAccount(
+      String firstName,
+      String lastName,
+      String email,
+      String password,
+      String confirmPassword,
+      Class<T> tClass) {
 
     logger.info("Enter firstName: " + firstName);
     firstNameTextBox.sendKeys(firstName);
@@ -77,7 +88,7 @@ public class CreateAccountPage extends Base {
       SdkHelper.getSyncHelper().sleep(2000); // Wait for action
     }
 
-    return clickCreateAccountButton(MyAccountPage.class);
+    return clickCreateAccountButton(tClass);
   }
 
   @Step("Click Create account button")

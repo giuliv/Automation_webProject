@@ -1,18 +1,35 @@
 package com.applause.auto.test.new_web.my_account;
 
-import static com.applause.auto.common.data.Constants.TestData.*;
+import static com.applause.auto.common.data.Constants.TestData.PASSWORD;
+import static com.applause.auto.common.data.Constants.TestData.PASSWORD_BAD_FORMAT;
+import static com.applause.auto.common.data.Constants.TestData.PEETS_FORGOT_PASSWORD_USERNAME;
+import static com.applause.auto.common.data.Constants.TestData.UNRECOGNIZED_USERNAME_AND_PASSWORD_MESSAGE;
 
+import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.Constants.MyAccountLeftMenuOption;
+import com.applause.auto.common.data.Constants.MyAccountTestData;
+import com.applause.auto.common.data.Constants.TestData;
+import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.common.data.Constants.WebTestData;
+import com.applause.auto.new_web.components.MyAccountLeftMenu;
+import com.applause.auto.new_web.helpers.WebHelper;
+import com.applause.auto.new_web.views.ContactUsPage;
+import com.applause.auto.new_web.views.CreateAccountPage;
+import com.applause.auto.new_web.views.HomePage;
+import com.applause.auto.new_web.views.PasswordRecoveryPage;
+import com.applause.auto.new_web.views.PasswordRecoveryResetPage;
+import com.applause.auto.new_web.views.ProductListPage;
+import com.applause.auto.new_web.views.ResetPasswordPage;
+import com.applause.auto.new_web.views.SignInPage;
+import com.applause.auto.new_web.views.my_account.MyAccountEmailPreferencesPage;
+import com.applause.auto.new_web.views.my_account.MyAccountOrderHistoryPage;
+import com.applause.auto.new_web.views.my_account.MyAccountPage;
+import com.applause.auto.new_web.views.my_account.MyAccountPeetnikRewardsPage;
+import com.applause.auto.new_web.views.my_account.MyAccountSettingsPage;
+import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-
-import com.applause.auto.common.data.Constants;
-import com.applause.auto.common.data.Constants.*;
-import com.applause.auto.new_web.components.MyAccountLeftMenu;
-import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.*;
-import com.applause.auto.new_web.views.my_account.*;
-import com.applause.auto.test.new_web.BaseTest;
 
 public class MyAccountTests extends BaseTest {
 

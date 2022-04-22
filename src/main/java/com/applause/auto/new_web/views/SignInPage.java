@@ -1,7 +1,5 @@
 package com.applause.auto.new_web.views;
 
-import java.time.Duration;
-
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
@@ -13,8 +11,8 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-
 import io.qameta.allure.Step;
+import java.time.Duration;
 import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = SignInPage.class, on = Platform.WEB)
