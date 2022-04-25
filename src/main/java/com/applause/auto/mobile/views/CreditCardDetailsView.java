@@ -11,6 +11,7 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+
 import io.qameta.allure.Step;
 
 @Implementation(is = CreditCardDetailsView.class, on = Platform.MOBILE_ANDROID)
@@ -278,8 +279,6 @@ class IosCreditCardDetailsView extends CreditCardDetailsView {
     }
     getSaveCardButton.click();
     SdkHelper.getSyncHelper().sleep(10000);
-    getBackButton.click();
-    SdkHelper.getSyncHelper().sleep(5000);
     return SdkHelper.create(PaymentMethodsView.class);
   }
 
