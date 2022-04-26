@@ -28,8 +28,7 @@ public class ProductListPage extends Base {
   private ContainerElement mainContainer;
 
   @Locate(
-      css =
-          ".collection__grid li a.pi__link > div:first-child:not(.pi__badge), .collection__grid article",
+      css = ".collection__grid li a.pi__link > div:nth-child(2):not(.pi__badge)",
       on = Platform.WEB)
   private List<Image> productsImageList;
 

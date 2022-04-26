@@ -238,8 +238,9 @@ public class Constants {
             "Enter a last name",
             "Enter an address",
             "Enter a city",
-            "Enter a ZIP / postal code",
-            "Enter a valid phone number");
+            "Select a state",
+            "Enter a ZIP code",
+            "Enter a phone number to use this delivery method");
 
     public static final String PAYMENT_ERROR_MESSAGE =
         "Your payment details couldn’t be verified. Check your card details and try again.";
