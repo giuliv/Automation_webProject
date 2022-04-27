@@ -95,6 +95,9 @@ public class MiniCart extends BaseComponent {
   @Locate(css = "div.srd_msg strong", on = Platform.WEB)
   private Text shopRunnerMessage;
 
+  @Locate(css = "#closeIconContainer", on = Platform.WEB)
+  protected Button closeSpecialOfferButton;
+
   @Locate(css = "#sr_headerDiv a[onclick*='learn']", on = Platform.WEB)
   private Link learnMoreLink;
 
@@ -262,8 +265,14 @@ public class MiniCart extends BaseComponent {
 
   @Step("Click continue to checkout")
   public <T extends BaseComponent> T clickOnContinueToCheckOutButton(Class<T> clazz) {
+
     logger.info("Clicking CheckOut");
     SdkHelper.getSyncHelper().wait(Until.uiElement(checkOutButton).visible());
+    logger.info("-- checking for special offers popup and closing it if necessary");
+
+    if (WebHelper.isDisplayed(closeSpecialOfferButton)) {
+      closeSpecialOfferButton.click();
+    }
     checkOutButton.click();
     return SdkHelper.create(clazz);
   }
@@ -379,13 +388,17 @@ public class MiniCart extends BaseComponent {
     return this;
   }
 
-  /** @return boolean */
+  /**
+   * @return boolean
+   */
   @Step("Get one time purchase")
   public boolean isOneTimePurchaseButtonEnabled() {
     return oneTimePurchaseButton.isEnabled();
   }
 
-  /** @return boolean */
+  /**
+   * @return boolean
+   */
   @Step("Get subscribe")
   public boolean isSubscribeButtonEnabled() {
     return subscribeButton.isEnabled();
