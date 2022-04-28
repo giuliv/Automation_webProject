@@ -16,6 +16,7 @@ import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.Locator;
 import io.qameta.allure.Step;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -97,6 +98,11 @@ public class MiniCart extends BaseComponent {
 
   @Locate(css = "#closeIconContainer", on = Platform.WEB)
   protected Button closeSpecialOfferButton;
+
+  protected static final String specialOfferFrameCSS = "#attentive_creative";
+
+  @Locate(css = specialOfferFrameCSS, on = Platform.WEB)
+  protected ContainerElement specialOfferFrame;
 
   @Locate(css = "#sr_headerDiv a[onclick*='learn']", on = Platform.WEB)
   private Link learnMoreLink;
@@ -270,8 +276,14 @@ public class MiniCart extends BaseComponent {
     SdkHelper.getSyncHelper().wait(Until.uiElement(checkOutButton).visible());
     logger.info("-- checking for special offers popup and closing it if necessary");
 
-    if (WebHelper.isDisplayed(closeSpecialOfferButton)) {
-      closeSpecialOfferButton.click();
+    if (SdkHelper.getDriver().findElements(By.cssSelector(specialOfferFrameCSS)).size() > 0) {
+      logger.info("-- switching to special offer frame");
+      WebHelper.switchToIFrame(specialOfferFrame);
+      if (WebHelper.isDisplayed(closeSpecialOfferButton)) {
+        WebHelper.jsClick(closeSpecialOfferButton.getWebElement());
+        SdkHelper.getSyncHelper().wait(Until.uiElement(closeSpecialOfferButton).notPresent());
+      }
+      SdkHelper.getDriver().switchTo().defaultContent();
     }
     checkOutButton.click();
     return SdkHelper.create(clazz);
@@ -388,17 +400,13 @@ public class MiniCart extends BaseComponent {
     return this;
   }
 
-  /**
-   * @return boolean
-   */
+  /** @return boolean */
   @Step("Get one time purchase")
   public boolean isOneTimePurchaseButtonEnabled() {
     return oneTimePurchaseButton.isEnabled();
   }
 
-  /**
-   * @return boolean
-   */
+  /** @return boolean */
   @Step("Get subscribe")
   public boolean isSubscribeButtonEnabled() {
     return subscribeButton.isEnabled();
