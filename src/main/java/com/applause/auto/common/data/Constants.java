@@ -223,6 +223,9 @@ public class Constants {
     public static final String PAYPAL_EMAIL = "sraju@peets.com";
     public static final String PAYPAL_PASSWORD = "123456789";
 
+    public static final String SECONDARY_PAYPAL_EMAIL = "omstest@peets.com";
+    public static final String SECONDARY_PAYPAL_PASSWORD = "Peets1966!";
+
     public static final String BIRTHDAY_MESSAGE_ANDROID =
         "Your birthday drink is on us text does not displayed";
     public static final String BIRTHDAY_MESSAGE_IOS =

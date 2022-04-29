@@ -151,6 +151,123 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
   }
 
   @Test(
+      groups = {
+        Constants.TestNGGroups.WEB_REGRESSION,
+        Constants.TestNGGroups.WEB_PROD_MONITORING,
+        Constants.TestNGGroups.SMOKE
+      },
+      description = "TBD")
+  public void orderCoffeeCreditCardSubscriptionAsGuestUserTest() {
+
+    logger.info("1. Navigate to landing page");
+    HomePage homePage = navigateToHome();
+    Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+
+    int productSelected;
+    if (WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
+      homePage = WebHelper.refreshMe(HomePage.class);
+      productSelected = 0;
+    } else {
+      productSelected = 1;
+    }
+
+    logger.info("2. Select Best Sellers from Coffee tab");
+    Header header = homePage.getHeader();
+    header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);
+    ProductListPage productListPage =
+        header.clickOverSubCategoryFromMenu(
+            ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEST_SELLERS);
+
+    logger.info("3. Add first item to MiniCart");
+    ProductDetailsPage productDetailsPage =
+        productListPage.clickOverProductByIndex(productSelected);
+
+    String productName = productDetailsPage.getProductName();
+    String grind = productDetailsPage.getGrindSelected();
+    int productQuantity = productDetailsPage.getProductQuantitySelected();
+    int coffeeIndex = 0;
+    productDetailsPage.selectSubscribeType();
+
+    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
+    Assert.assertEquals(
+        productName,
+        miniCart.getProductNameByIndex(coffeeIndex),
+        "Correct Product was not added to MiniCart");
+    Assert.assertEquals(
+        grind, miniCart.getGrindByIndex(coffeeIndex), "Correct Grind was not added to MiniCart");
+    Assert.assertEquals(
+        productQuantity,
+        miniCart.getProductQuantityByIndex(coffeeIndex),
+        "Correct product quantity was not added to MiniCart");
+
+    logger.info("4. Proceed to Checkout page");
+    CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
+    checkOutPage.setCheckOutData();
+
+    logger.info("5. Proceed to Shipping page");
+    ShippingPage shippingPage = checkOutPage.clickContinueToShipping();
+    String shippingMethod = shippingPage.selectShippingMethodByIndex(0);
+
+    logger.info("6. Proceed to Payments page");
+    PaymentsPage paymentsPage = shippingPage.clickContinueToPayments();
+    paymentsPage.setPaymentData();
+    Assert.assertTrue(
+        paymentsPage.isSameAddressSelected(), "Same Address option should be Selected");
+
+    if (WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
+      logger.info("Testcase needs to stop, running on prod");
+    } else {
+      String totalPrice = paymentsPage.getTotalPrice();
+
+      logger.info("7. Proceed to Acceptance page");
+      AcceptancePage acceptancePage = paymentsPage.clickContinueToPayments();
+
+      logger.info("8. Validating Product Details");
+      Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
+      Assert.assertTrue(acceptancePage.isSubTotalDisplayed(), "SubTotal is NOT displayed");
+      Assert.assertEquals(
+          productName, acceptancePage.getOrderNameByIndex(0), "Product name does NOT matches");
+      Assert.assertEquals(
+          totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
+      Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
+
+      acceptancePage.clickOverShippingUpdatesButton();
+      Assert.assertEquals(
+          acceptancePage.getPhoneFromShippingUpdatesSection(),
+          "+1 " + Constants.WebTestData.PHONE,
+          "Phone from Shipping Updates section is NOT correct");
+
+      logger.info("10. Validating Customer Information");
+      Assert.assertEquals(
+          Constants.WebTestData.EMAIL, acceptancePage.getCustomerMail(), "Mail does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
+          "Shipping Address does NOT matches");
+
+      Assert.assertTrue(
+          shippingMethod.contains(acceptancePage.getShippingMethod()),
+          "Shipping Method does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage
+              .getPaymentMethod()
+              .contains("ending with " + Constants.WebTestData.CREDIT_CARD_NUMBER_4),
+          "Payment Method does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage.getBillingAddressData().contains(Constants.WebTestData.ADDRESS),
+          "Billing Address does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage.isContinueShoppingDisplayed(),
+          "Continue to Shopping button is not displayed");
+    }
+
+    logger.info("FINISH");
+  }
+
+  @Test(
       groups = {Constants.TestNGGroups.WEB_REGRESSION},
       description = "11052683")
   public void oneCoffeeOneEquipmentCreditCardAsGuestUserTest() {
@@ -167,7 +284,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
             ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEST_SELLERS);
 
     logger.info("3. Add coffee item to MiniCart");
-    int coffeeSelected = 3;
+    int coffeeSelected = 1;
     ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(coffeeSelected);
 
     String coffeeName = productDetailsPage.getProductName();

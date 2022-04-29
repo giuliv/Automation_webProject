@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.IntStream;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
@@ -160,10 +161,16 @@ public class ProductDetailsPage extends Base {
   @Step("Get grind selected")
   public String getGrindSelected() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(grindSelected).visible());
-    logger.info("[PDP] Grind Selected: " + grindSelected.getText().toLowerCase().trim());
+    String text = "";
+    try {
+      text = grindSelected.getText().toLowerCase().trim();
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
+    logger.info("[PDP] Grind Selected: " + text);
 
     if (WebHelper.isSafari()) {
-      String text =
+      text =
           grindListSelected.stream()
               .filter(x -> x.getWebElement().isSelected())
               .findFirst()
@@ -176,7 +183,7 @@ public class ProductDetailsPage extends Base {
       return text;
     }
 
-    return grindSelected.getText().toLowerCase().trim();
+    return text;
   }
 
   @Step("Get product price")

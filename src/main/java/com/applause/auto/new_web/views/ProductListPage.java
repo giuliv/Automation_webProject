@@ -34,7 +34,7 @@ public class ProductListPage extends Base {
   private List<Image> productsImageList;
 
   @Locate(
-      css = ".collection__grid li a.pi__link[href*='reserve'] > div:first-child:not(.pi__badge)",
+      css = ".collection__grid li a.pi__link[href*='reserve'] > div:nth-child(2):not(.pi__badge)",
       on = Platform.WEB)
   private List<Image> reserveProductsImageList;
 

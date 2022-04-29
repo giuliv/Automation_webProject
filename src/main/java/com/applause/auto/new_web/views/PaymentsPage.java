@@ -82,6 +82,9 @@ public class PaymentsPage extends Base {
   @Locate(xpath = "//a[contains(@class, 'previous')]", on = Platform.WEB)
   protected Button returnToShippingButton;
 
+  @Locate(xpath = "//label[contains(., 'PayPal (Subscriptions)')]", on = Platform.WEB)
+  protected Button payPalButton;
+
   @Locate(css = ".order-summary__section--discount button[name='button']", on = Platform.WEB)
   //  @Locate(
   //      xpath =
@@ -207,8 +210,7 @@ public class PaymentsPage extends Base {
                     card.getCardNumber()
                         .substring(i, Math.min(i + 4, card.getCardNumber().length())))
             .collect(Collectors.toList());
-    cardNumberList
-        .stream()
+    cardNumberList.stream()
         .forEach(
             number -> {
               cardNumber.sendKeys(number);
@@ -234,6 +236,18 @@ public class PaymentsPage extends Base {
   @Step("Click continue to payments")
   public AcceptancePage clickContinueToPayments() {
     return clickOnPayNowButton(AcceptancePage.class);
+  }
+
+  @Step("Click continue to payments using paypal")
+  public PayPalPage clickContinueToPaymentsPayPal() {
+    return clickOnPayNowButton(PayPalPage.class);
+  }
+
+  @Step("Click paypal option")
+  public void clickPayPal() {
+    logger.info("Clicking to choose paypal as payment option");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(iFrameCardNumber).present());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(payPalButton).clickable()).click();
   }
 
   @Step("Click 'Pay Now' button")
@@ -378,8 +392,7 @@ public class PaymentsPage extends Base {
   @Step("Get list of error messages")
   public List<String> getListOfErrorMessageForMandatoryFields() {
     ((LazyList<?>) errorMessagesList).initialize();
-    return errorMessagesList
-        .stream()
+    return errorMessagesList.stream()
         .map(error -> WebHelper.cleanString(error.getText()))
         .collect(Collectors.toList());
   }

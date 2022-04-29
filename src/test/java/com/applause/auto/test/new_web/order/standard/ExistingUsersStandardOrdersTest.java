@@ -4,15 +4,7 @@ import com.applause.auto.common.data.Constants;
 import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.AcceptancePage;
-import com.applause.auto.new_web.views.CheckOutPage;
-import com.applause.auto.new_web.views.HomePage;
-import com.applause.auto.new_web.views.PaymentsPage;
-import com.applause.auto.new_web.views.ProductDetailsPage;
-import com.applause.auto.new_web.views.ProductListPage;
-import com.applause.auto.new_web.views.SearchResultsPage;
-import com.applause.auto.new_web.views.ShippingPage;
-import com.applause.auto.new_web.views.SignInPage;
+import com.applause.auto.new_web.views.*;
 import com.applause.auto.new_web.views.my_account.MyAccountPage;
 import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
@@ -145,6 +137,114 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     Assert.assertTrue(
         acceptancePage.isContinueShoppingDisplayed(),
         "Continue to Shopping button is not displayed");
+
+    logger.info("FINISH");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.SMOKE},
+      description = "TBD")
+  public void orderCoffeePayPalSubscriptionAsExistingUserTest() {
+
+    logger.info("1. Navigate to landing page");
+    HomePage homePage = navigateToHome();
+    Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+
+    logger.info("2. Sign In user");
+    SignInPage signInPage = homePage.getHeader().clickAccountButton();
+
+    signInPage.enterEmail(Mail);
+    signInPage.enterPassword(Constants.TestData.WEB_PASSWORD);
+    MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
+
+    Assert.assertTrue(
+        myAccountPage.getWelcomeMessage().contains("welcome"),
+        "User is not signed in or welcome name is wrong");
+
+    logger.info("3. Select Best Sellers from Coffee tab");
+    Header header = homePage.getHeader();
+    header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);
+    ProductListPage productListPage =
+        header.clickOverSubCategoryFromMenu(
+            ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEST_SELLERS);
+
+    logger.info("4. Add first item to MiniCart");
+    int productSelected = testHelper.findInStockItemWithGrindPosition(productListPage) - 1;
+    ProductDetailsPage productDetailsPage =
+        productListPage.clickOverProductByIndex(productSelected);
+
+    String productName = productDetailsPage.getProductName();
+    String grind = productDetailsPage.getGrindSelected();
+    int productQuantity = productDetailsPage.getProductQuantitySelected();
+    int coffeeIndex = 0;
+    productDetailsPage.selectSubscribeType();
+
+    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
+    Assert.assertEquals(
+        productName,
+        miniCart.getProductNameByIndex(coffeeIndex),
+        "Correct Product was not added to MiniCart");
+    Assert.assertEquals(
+        grind, miniCart.getGrindByIndex(coffeeIndex), "Correct Grind was not added to MiniCart");
+    Assert.assertEquals(
+        productQuantity,
+        miniCart.getProductQuantityByIndex(coffeeIndex),
+        "Correct product quantity was not added to MiniCart");
+
+    logger.info("5. Proceed to Checkout page");
+    CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
+
+    Assert.assertTrue(
+        checkOutPage.isExistingUserMailCorrect().contains(Mail),
+        "Existing user mail is NOT correct");
+    checkOutPage.setCheckOutDataAsExistingUser();
+
+    logger.info("6. Proceed to Shipping page");
+    ShippingPage shippingPage = checkOutPage.clickContinueToShipping();
+    String shippingMethod = shippingPage.selectShippingMethodByIndex(0);
+
+    logger.info("7. Proceed to Payments page");
+    PaymentsPage paymentsPage = shippingPage.clickContinueToPayments();
+    paymentsPage.clickPayPal();
+    Assert.assertTrue(
+        paymentsPage.isSameAddressSelected(), "Same Address option should be Selected");
+
+    String totalPrice = paymentsPage.getTotalPrice();
+
+    logger.info("8. Filling in paypal");
+    PayPalPage payPalPage = paymentsPage.clickContinueToPaymentsPayPal();
+    AcceptancePage acceptancePage =
+        payPalPage.fillPayPal(
+            Constants.TestData.SECONDARY_PAYPAL_EMAIL,
+            Constants.TestData.SECONDARY_PAYPAL_PASSWORD);
+
+    logger.info("9. Validating Product Details");
+    Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
+    Assert.assertTrue(acceptancePage.isSubTotalDisplayed(), "SubTotal is NOT displayed");
+    Assert.assertEquals(
+        productName, acceptancePage.getOrderNameByIndex(0), "Product name does NOT matches");
+    Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
+    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
+    acceptancePage.clickOverShippingUpdatesButton();
+    Assert.assertEquals(
+        acceptancePage.getPhoneFromShippingUpdatesSection(),
+        "+1 " + Constants.WebTestData.PHONE,
+        "Phone from Shipping Updates section is NOT correct");
+
+    logger.info("11. Validating Customer Information");
+    Assert.assertEquals(Mail, acceptancePage.getCustomerMail(), "Existing Mail does NOT matches");
+
+    Assert.assertTrue(
+        acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
+        "Shipping Address does NOT matches");
+
+    Assert.assertTrue(
+        shippingMethod.contains(acceptancePage.getShippingMethod()),
+        "Shipping Method does NOT matches");
+
+    Assert.assertTrue(
+        acceptancePage.getBillingAddressData().contains(Constants.WebTestData.ADDRESS),
+        "Billing Address does NOT matches");
 
     logger.info("FINISH");
   }
