@@ -31,7 +31,7 @@ public class PdpTests extends BaseTest {
     ProductListPage productListPage = navigateToPLP();
 
     logger.info("2. Select an item");
-    int itemAt = testHelper.findInStockItemPosition(productListPage);
+    int itemAt = testHelper.findInStockSamplerItemPosition(productListPage);
     PlpItemComponent productOnPosition = productListPage.getProductOnPosition(itemAt);
     String name = productOnPosition.getProductName();
     String price = productOnPosition.getProductPrice();

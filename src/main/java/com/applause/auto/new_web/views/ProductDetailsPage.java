@@ -75,6 +75,9 @@ public class ProductDetailsPage extends Base {
   @Locate(css = "#pvEssentials #productPrice .pv-price__original", on = Platform.WEB)
   private Text itemPrice;
 
+  @Locate(css = "h1.pv-title", on = Platform.WEB)
+  private Text itemTitle;
+
   @Locate(css = "#photos img", on = Platform.WEB)
   private Image itemImage;
 
@@ -150,6 +153,12 @@ public class ProductDetailsPage extends Base {
   public boolean isItemAvailable() {
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
     return outOfStockNotifyMeSection.isDisplayed();
+  }
+
+  @Step("Get item is sampler")
+  public boolean itemIsSampler() {
+    logger.info(" -- checking if item is a sampler item");
+    return itemTitle.getText().toLowerCase().trim().contains("sampler");
   }
 
   @Step("Get one time purchase link is available")

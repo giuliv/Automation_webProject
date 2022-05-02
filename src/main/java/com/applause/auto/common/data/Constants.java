@@ -241,7 +241,6 @@ public class Constants {
             "Enter a last name",
             "Enter an address",
             "Enter a city",
-            "Select a state",
             "Enter a ZIP code",
             "Enter a phone number to use this delivery method");
 
@@ -467,7 +466,7 @@ public class Constants {
   }
 
   public static class HomepageCarouselData {
-    public static String CAROUSEL_LINK = "/products/sumatra-batak";
+    public static String CAROUSEL_LINK = "products/guatemala-huehuetenango";
   }
 
   public static class HomepagePromoTileData {

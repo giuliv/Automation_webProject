@@ -281,7 +281,7 @@ public class MiniCart extends BaseComponent {
       WebHelper.switchToIFrame(specialOfferFrame);
       if (WebHelper.isDisplayed(closeSpecialOfferButton)) {
         WebHelper.jsClick(closeSpecialOfferButton.getWebElement());
-        SdkHelper.getSyncHelper().wait(Until.uiElement(closeSpecialOfferButton).notPresent());
+        SdkHelper.getSyncHelper().sleep(2000); // Wait for action
       }
       SdkHelper.getDriver().switchTo().defaultContent();
     }

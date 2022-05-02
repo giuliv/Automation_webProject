@@ -606,7 +606,7 @@ class HeaderMobile extends Header {
 
   @Override
   public void closeHamburgerMenu() {
-    logger.info("Open Hamburger Menu [Mobile]");
+    logger.info("Close Hamburger Menu [Mobile]");
     SdkHelper.getSyncHelper().wait(Until.uiElement(closeHamburgerMenuButton).clickable());
     closeHamburgerMenuButton.click();
   }
@@ -625,7 +625,9 @@ class HeaderMobile extends Header {
   @Step("Verify person icon displays")
   public boolean isPersonIconDisplayed() {
     logger.info("Checking person icon is displayed");
-    openHamburgerMenu();
+    if (!WebHelper.isDisplayed(closeHamburgerMenuButton)) {
+      openHamburgerMenu();
+    }
     boolean isIconDisplayed = WebHelper.isDisplayed(personIcon);
     closeHamburgerMenu();
     return isIconDisplayed;
