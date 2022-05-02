@@ -19,7 +19,7 @@
 	"region": "US",
 	"phoneOnly": "true",
 	"maxDuration": 2700,
-	"systemAlertsDelayEnabled": true,
+	"systemAlertsDelayEnabled": false,
 	"fullReset": true,
 	"idleTimeout": 180,
 	"useFirstMatch": true,
