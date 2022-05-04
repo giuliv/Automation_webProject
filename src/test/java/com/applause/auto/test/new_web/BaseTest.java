@@ -143,10 +143,15 @@ public class BaseTest extends ApplauseSeleniumTest {
     return SdkHelper.create(HomePage.class).clickSignInButton();
   }
 
-  public CoffeeBarPage navigateToCoffeeBarMenuPage() throws InterruptedException {
+  public CoffeeBarPage navigateToCoffeeBarMenuPage() {
     logger.info(
         String.format("Navigating to the Coffee Bar page '%s'", TestData.COFFEEBAR_MENU_URL));
-    SdkHelper.getDriver().get(TestData.COFFEEBAR_MENU_URL);
+    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
+    try {
+      SdkHelper.getDriver().get(TestData.COFFEEBAR_MENU_URL);
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
     return SdkHelper.create(CoffeeBarPage.class);
   }
 

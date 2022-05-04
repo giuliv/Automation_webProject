@@ -34,7 +34,7 @@ import org.testng.asserts.SoftAssert;
 public class MyAccountTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.IDENTITY},
       description = "11102911")
   public void loginWithInvalidAccountTest() {
 
@@ -50,7 +50,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.IDENTITY},
       description = "11102912")
   public void forgotPasswordTest() {
 
@@ -73,7 +73,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.SMOKE},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.IDENTITY, TestNGGroups.SMOKE},
       description = "11102913")
   public void loginWithValidAccountTest() {
 
@@ -116,7 +116,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.IDENTITY},
       description = "11102915")
   public void logoutTest() {
 
@@ -137,7 +137,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.IDENTITY},
       description = "11102916")
   public void invalidSignUpTest() {
     SoftAssert softAssert = new SoftAssert();
@@ -171,7 +171,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.SMOKE},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.IDENTITY, TestNGGroups.SMOKE},
       description = "11102917")
   public void validSignUpTest() {
 
@@ -448,7 +448,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.IDENTITY},
       description = "11107414")
   public void myAccountNonExistingEmailTest() {
     logger.info("1. Navigate to Sign in page");
@@ -466,7 +466,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.IDENTITY},
       description = "11107416")
   public void myAccountIncorrectPasswordTest() {
 
@@ -485,7 +485,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.IDENTITY},
       description = "11107417")
   public void myAccountInvalidForgotPasswordTest() {
     logger.info("1. Navigate to Sign in page");

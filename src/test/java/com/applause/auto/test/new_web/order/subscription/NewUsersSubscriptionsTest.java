@@ -155,7 +155,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.CHECKOUT},
       description = "11071741")
   public void subscriptionWithNoDiscountAndCreditCardAsNewUserTest() {
 

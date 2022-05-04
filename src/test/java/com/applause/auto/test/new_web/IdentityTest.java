@@ -19,11 +19,11 @@ import java.util.List;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class LoginTest extends BaseTest {
+public class IdentityTest extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.LOGIN},
-      description = "")
+      groups = {TestNGGroups.IDENTITY, TestNGGroups.WEB_REGRESSION},
+      description = "11108422")
   public void loginExistingAccountCheckoutPageWithStandardItemTest() {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
@@ -68,8 +68,8 @@ public class LoginTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.LOGIN},
-      description = "")
+      groups = {TestNGGroups.IDENTITY, TestNGGroups.WEB_REGRESSION},
+      description = "11107410")
   public void loginExistingAccountCheckoutPageWithSubscriptionItemTest() {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
@@ -118,8 +118,8 @@ public class LoginTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.LOGIN},
-      description = "")
+      groups = {TestNGGroups.IDENTITY, TestNGGroups.WEB_REGRESSION},
+      description = "11108423")
   public void loginCreateNewAccountCheckoutPageWithStandardItemTest() {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
@@ -178,8 +178,8 @@ public class LoginTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.LOGIN},
-      description = "")
+      groups = {TestNGGroups.IDENTITY, TestNGGroups.WEB_REGRESSION},
+      description = "11108424")
   public void loginCreateNewAccountCheckoutPageWithSubscriptionItemTest() {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
@@ -245,8 +245,8 @@ public class LoginTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.LOGIN},
-      description = "")
+      groups = {TestNGGroups.IDENTITY, TestNGGroups.WEB_REGRESSION},
+      description = "11107413")
   public void logoutFromMyCheckoutContactInformationSectionTest() {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();

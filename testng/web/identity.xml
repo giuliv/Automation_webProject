@@ -1,10 +1,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Menu Web Test Suite" verbose="1" parallel="classes"
+<suite name="Identity Web Test Suite" verbose="1" parallel="classes"
        thread-count="8">
-    <test name="Menu cases" preserve-order="true">
+    <test name="Identity cases" preserve-order="true">
         <groups>
             <run>
-                <include name="menu"/>
+                <include name="identity"/>
             </run>
         </groups>
         <packages>

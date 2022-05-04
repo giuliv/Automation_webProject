@@ -151,12 +151,9 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {
-        Constants.TestNGGroups.WEB_REGRESSION,
-        Constants.TestNGGroups.WEB_PROD_MONITORING,
-        Constants.TestNGGroups.SMOKE
-      },
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.CHECKOUT},
       description = "TBD")
+  // Todo: Ask Rich, which testcase is this one?
   public void orderCoffeeCreditCardSubscriptionAsGuestUserTest() {
 
     logger.info("1. Navigate to landing page");

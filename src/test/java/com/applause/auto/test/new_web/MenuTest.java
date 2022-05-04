@@ -7,20 +7,15 @@ import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.CoffeeBarPage;
 import com.applause.auto.new_web.views.EmailSignUpPage;
 import com.applause.auto.web.components.AccountMenuChunk;
-import java.lang.invoke.MethodHandles;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class MenuTest extends BaseTest {
 
-  private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
-
   @Test(
-      groups = {Constants.TestNGGroups.MENU},
+      groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.WEB_REGRESSION},
       description = "11107482")
-  public void featured() throws InterruptedException {
+  public void featured() {
     logger.info("XX. Navigate to landing page");
     navigateToHome();
     CoffeeBarPage coffeeBarPage = navigateToCoffeeBarMenuPage();
@@ -82,9 +77,9 @@ public class MenuTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.MENU},
+      groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.WEB_REGRESSION},
       description = "11107483")
-  public void category() throws InterruptedException {
+  public void category() {
     logger.info("XX. Navigate to landing page");
     navigateToHome();
     CoffeeBarPage coffeeBarPage = navigateToCoffeeBarMenuPage();
@@ -111,9 +106,9 @@ public class MenuTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.MENU},
+      groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.WEB_REGRESSION},
       description = "11107484")
-  public void banners() throws InterruptedException {
+  public void banners() {
     logger.info("XX. Navigate to landing page");
     navigateToHome();
     CoffeeBarPage coffeeBarPage = navigateToCoffeeBarMenuPage();
@@ -137,9 +132,9 @@ public class MenuTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.MENU},
+      groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.WEB_REGRESSION},
       description = "11107485")
-  public void newsletter() throws InterruptedException {
+  public void newsletter() {
     logger.info("XX. Navigate to landing page");
     navigateToHome();
     CoffeeBarPage coffeeBarPage = navigateToCoffeeBarMenuPage();
@@ -159,9 +154,9 @@ public class MenuTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.MENU},
+      groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.WEB_REGRESSION},
       description = "11107481")
-  public void viewMenuAndOptions() throws InterruptedException {
+  public void viewMenuAndOptions() {
 
     logger.info("XX. Navigate to landing page");
     navigateToHome();

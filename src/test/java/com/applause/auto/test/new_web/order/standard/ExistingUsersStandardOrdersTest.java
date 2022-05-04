@@ -142,8 +142,9 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.SMOKE},
-      description = "TBD")
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.CHECKOUT},
+      description = "11107536")
+  // Todo:Ask Rich, is this correct?
   public void orderCoffeePayPalSubscriptionAsExistingUserTest() {
 
     logger.info("1. Navigate to landing page");
@@ -748,7 +749,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.CHECKOUT},
       description = "11071611")
   public void oneEquipmentWithPeetsCardAsExistingUserTest() {
 

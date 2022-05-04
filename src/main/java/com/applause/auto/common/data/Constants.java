@@ -39,7 +39,6 @@ public class Constants {
     public static final String CART = "shopping-cart";
     public static final String MY_ACCOUNT = "my-account";
     public static final String MENU = "menu";
-    public static final String SETTINGS = "settings";
     public static final String EXISTING_USER_CHECKOUT = "existing-user-checkout";
     public static final String SUBSCRIPTIONS = "subscriptions";
     public static final String ACCOUNT_SETTINGS = "account-settings";
@@ -53,7 +52,8 @@ public class Constants {
     public static final String PDP = "pdp";
     public static final String SMOKE = "smoke";
     public static final String SANITY = "sanity";
-    public static final String HOME_PAGE_FOOTER = "home-page-footer";
+    public static final String IDENTITY = "identity";
+    public static final String CHECKOUT = "checkout";
     public static final String HOME_PAGE = "home-page";
 
     // Mobile
