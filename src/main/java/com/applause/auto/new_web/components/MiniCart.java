@@ -274,17 +274,19 @@ public class MiniCart extends BaseComponent {
 
     logger.info("Clicking CheckOut");
     SdkHelper.getSyncHelper().wait(Until.uiElement(checkOutButton).visible());
-    logger.info("-- checking for special offers popup and closing it if necessary");
 
-    if (SdkHelper.getDriver().findElements(By.cssSelector(specialOfferFrameCSS)).size() > 0) {
-      logger.info("-- switching to special offer frame");
-      WebHelper.switchToIFrame(specialOfferFrame);
-      if (WebHelper.isDisplayed(closeSpecialOfferButton)) {
-        WebHelper.jsClick(closeSpecialOfferButton.getWebElement());
-        SdkHelper.getSyncHelper().sleep(2000); // Wait for action
-      }
-      SdkHelper.getDriver().switchTo().defaultContent();
-    }
+    // Todo:Code moved to homePage, if works there , remove this
+    //    logger.info("-- checking for special offers popup and closing it if necessary");
+    //
+    //    if (SdkHelper.getDriver().findElements(By.cssSelector(specialOfferFrameCSS)).size() > 0) {
+    //      logger.info("-- switching to special offer frame");
+    //      WebHelper.switchToIFrame(specialOfferFrame);
+    //      if (WebHelper.isDisplayed(closeSpecialOfferButton)) {
+    //        WebHelper.jsClick(closeSpecialOfferButton.getWebElement());
+    //        SdkHelper.getSyncHelper().sleep(2000); // Wait for action
+    //      }
+    //      SdkHelper.getDriver().switchTo().defaultContent();
+    //    }
     checkOutButton.click();
     return SdkHelper.create(clazz);
   }

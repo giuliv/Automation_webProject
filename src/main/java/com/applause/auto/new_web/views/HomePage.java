@@ -10,6 +10,8 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import org.openqa.selenium.By;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -218,6 +220,12 @@ public class HomePage extends Base {
   @Locate(css = "#%s", on = Platform.WEB)
   protected ContainerElement subscriptionModuleLinkHelper;
 
+  @Locate(id = "closeIconContainer", on = Platform.WEB)
+  protected Button closeSpecialOfferButton;
+
+  @Locate(id = "attentive_creative", on = Platform.WEB)
+  protected ContainerElement specialOfferFrame;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
@@ -233,6 +241,19 @@ public class HomePage extends Base {
       if (!WebHelper.isDesktop() && allowCookies.exists()) {
         logger.info("Accept Cookies");
         WebHelper.jsClick(allowCookies.getWebElement());
+      }
+
+      if (specialOfferFrame.exists()) {
+        logger.info("Switching to special offer frame...");
+        WebHelper.switchToIFrame(specialOfferFrame);
+
+        if (WebHelper.isDisplayed(closeSpecialOfferButton)) {
+          logger.info("Closing 10% off iFrame");
+          WebHelper.jsClick(closeSpecialOfferButton.getWebElement());
+          SdkHelper.getSyncHelper().sleep(2000); // Wait for action
+        }
+        logger.info("Switching to default content...");
+        SdkHelper.getDriver().switchTo().defaultContent();
       }
     }
   }
