@@ -119,6 +119,14 @@ public class Constants {
     public static final String QA_LOGIN_PAGE_URL = "https://account-qa.peets.com/login";
     public static final String QA_REGISTRATION_PAGE_URL =
         "https://account-qa.peets.com/Registration";
+    public static final String COFFEE_BEST_SELLERS_URL =
+        LANDING_PAGE_URL.split("\\?")[0] + "/collections/coffee-best-sellers";
+    public static final String COFFEE_DARK_ROAST_URL =
+        LANDING_PAGE_URL.split("\\?")[0] + "/collections/dark-roast";
+    public static final String TEA_PLP_URL =
+        LANDING_PAGE_URL.split("\\?")[0] + "/collections/all-tea";
+    public static final String TEA_BEST_SELLERS_URL =
+        LANDING_PAGE_URL.split("\\?")[0] + "/collections/tea-best-sellers";
 
     public static final String WEB_USERNAME = "peets.automation01@applause.com";
     public static final String WEB_PASSWORD = "Pa55word!";
@@ -270,6 +278,11 @@ public class Constants {
     public static final String COFFEE_HOVER_FINDER = "coffee-finder";
     public static final String TEA_HOVER_FINDER = "tea-finde";
     public static final String TEA_HOVER_MIGHTY_LEAF = "mighty-leaf";
+
+    public static final String ALL_TEA_HEADER = "Mighty Leaf Tea";
+    public static final String COFFEE_BEST_SELLERS_HEADER = "COFFEE BEST SELLERS";
+    public static final String DARK_ROAST_HEADER = "DARK ROAST";
+    public static final String TEA_BEST_SELLERS_HEADER = "Tea Best Sellers";
   }
 
   public static final class TestMainMenu {
@@ -443,9 +456,20 @@ public class Constants {
     public static final String PEETS_CARDS_NAME = "Peet's Cards";
   }
 
+  @AllArgsConstructor
   public enum SortType {
-    LOW_TO_HIGH,
-    HIGH_TO_LOW
+    RECOMMENDED("Recommended", "Sort: Recommended"),
+    PRICE_LOW_TO_HIGH("Price: Low to High", "Price: Low to High"),
+    PRICE_HIGH_TO_LOW("Price: High to Low", "Price: High to Low"),
+    NAME_A_Z("Name (A - Z)", "Name: A - Z"),
+    NAME_Z_A("Name (Z - A)", "Name: Z - A"),
+    NEWEST("Newest", "Newest");
+    @Getter String name;
+    @Getter String mobileName;
+
+    public String getOptionName() {
+      return WebHelper.isMobile() ? getMobileName() : getName();
+    }
   }
 
   public static final class OCR {

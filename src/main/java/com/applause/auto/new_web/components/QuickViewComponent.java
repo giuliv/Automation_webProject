@@ -3,6 +3,7 @@ package com.applause.auto.new_web.components;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -77,5 +78,10 @@ public class QuickViewComponent extends BaseComponent {
   @Step("Get product name")
   public String getProductName() {
     return productName.getText().trim();
+  }
+
+  @Step("Verify Add to cart button is displayed")
+  public boolean isAddToCartButtonDisplayed() {
+    return WebHelper.isDisplayed(addToCartButton);
   }
 }

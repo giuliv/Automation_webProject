@@ -16,7 +16,6 @@ import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.factory.Locator;
 import io.qameta.allure.Step;
 import java.math.BigDecimal;
 import java.math.RoundingMode;

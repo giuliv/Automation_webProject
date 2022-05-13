@@ -1,6 +1,7 @@
 package com.applause.auto.new_web.views;
 
-import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.Constants.SortType;
+import com.applause.auto.common.data.enums.Filters;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
@@ -12,13 +13,14 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
+import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.LazyList;
 import com.google.common.collect.Ordering;
 import io.qameta.allure.Step;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.openqa.selenium.WebDriverException;
-import org.testng.Assert;
 
 @Implementation(is = ProductListPage.class, on = Platform.WEB)
 @Implementation(is = ProductListPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
@@ -69,12 +71,19 @@ public class ProductListPage extends Base {
   protected Button sortingBox;
 
   @Locate(css = "#listOptions #ss_price_asc", on = Platform.WEB)
-  @Locate(css = "option[value*='Low to High']", on = Platform.WEB_MOBILE_PHONE)
-  protected Button lowToHigh;
+  protected Button priceLowToHigh;
 
   @Locate(css = "#listOptions #ss_price_desc", on = Platform.WEB)
-  @Locate(css = "option[value*='High to Low']", on = Platform.WEB_MOBILE_PHONE)
-  protected Button highToLow;
+  protected Button priceHighToLow;
+
+  @Locate(css = "#listOptions #ss_days_since_published_asc", on = Platform.WEB)
+  protected Button newestSortType;
+
+  @Locate(css = "#listOptions #title_asc", on = Platform.WEB)
+  protected Button titleAscSortType;
+
+  @Locate(css = "#listOptions #title_desc", on = Platform.WEB)
+  protected Button titleDescSortType;
 
   @Locate(className = "pi__price", on = Platform.WEB)
   private List<Text> priceList;
@@ -82,10 +91,26 @@ public class ProductListPage extends Base {
   @Locate(css = "h1.page-hero__heading", on = Platform.WEB)
   private Text getPageHeader;
 
+  @Locate(css = ".collection__load-more > button", on = Platform.WEB)
+  private Button loadMoreButton;
+
   @Locate(
-      xpath = "//ul[@class='product-list']/li[not(.//div[contains(@class, 'pi__badge')])]",
+      xpath =
+          "//*[@class='product-list']/*[not(.//div[contains(@class, 'pi__badge')]) and not(@class='collection__load-more') and not(@class='collection-tout')]",
       on = Platform.WEB)
   private List<PlpItemComponent> productsList;
+
+  @Locate(css = ".footer__newsletter a[href='/pages/email-signup']", on = Platform.WEB)
+  private Button neverMissOfferSignUpButton;
+
+  @Locate(css = ".footer__newsletter h4", on = Platform.WEB)
+  private Button neverMissOfferTitleText;
+
+  @Locate(css = ".footer__newsletter p.footer__newsletter-copy", on = Platform.WEB)
+  private Button neverMissOfferContentText;
+
+  @Locate(css = ".page-hero__description-text", on = Platform.WEB)
+  private Text bannerContent;
 
   @Override
   public void afterInit() {
@@ -158,6 +183,26 @@ public class ProductListPage extends Base {
     return filterOptions.get(option).getText().trim();
   }
 
+  @Step("Click on filter")
+  public ProductListPage applyFilterByName(Filters filter, String filterOption) {
+    logger.info("Selecting filter option [{}] under filter [{}]", filterOption, filter.getName());
+    filtersList.stream()
+        .filter(f -> f.getText().trim().equals(filter.getName()))
+        .findFirst()
+        .get()
+        .click();
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(filterOptions.get(0)).visible());
+    logger.info("Selecting option: [{}]", filterOption);
+    filterOptions.stream()
+        .filter(opt -> opt.getText().trim().equals(filterOption))
+        .findFirst()
+        .get()
+        .click();
+    SdkHelper.getSyncHelper().sleep(2000); // Wait for action
+    return this;
+  }
+
   @Step("Apply filter")
   public String getFilterAppliedPillByIndex(int index) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(removeFilterList.get(index)).visible());
@@ -173,6 +218,7 @@ public class ProductListPage extends Base {
   }
 
   public int getTotalResults() {
+    totalResults.initialize();
     int total = Integer.parseInt(totalResults.getText().replace("Results", "").trim());
     logger.info("Total Results: " + total);
 
@@ -212,64 +258,215 @@ public class ProductListPage extends Base {
   }
 
   @Step("Select sorting by type")
-  public ProductListPage selectSortingByType(Constants.SortType type) {
+  public ProductListPage selectSortingByType(SortType type) {
     logger.info("Click over sorting box");
     WebHelper.scrollToElement(sortingBox);
     sortingBox.click();
 
     logger.info("Select Sorting option: " + type);
-    if (type.equals(Constants.SortType.HIGH_TO_LOW)) {
-      highToLow.click();
-    } else if (type.equals(Constants.SortType.LOW_TO_HIGH)) {
-      lowToHigh.click();
+    if (type.equals(SortType.PRICE_HIGH_TO_LOW)) {
+      priceHighToLow.click();
+    } else if (type.equals(SortType.PRICE_LOW_TO_HIGH)) {
+      priceLowToHigh.click();
+    } else if (type.equals(SortType.NAME_A_Z)) {
+      titleAscSortType.click();
+    } else if (type.equals(SortType.NAME_Z_A)) {
+      titleDescSortType.click();
+    } else if (type.equals(SortType.NEWEST)) {
+      newestSortType.click();
     }
     SdkHelper.getSyncHelper().sleep(2000); // Wait for action
     return SdkHelper.create(ProductListPage.class);
   }
 
   @Step("Get sorting prices")
-  public boolean validateSortingPrices(Constants.SortType sortType) {
-    logger.info("Validating sorting...");
-    boolean sortedPrices;
-    if (sortType.equals(Constants.SortType.HIGH_TO_LOW)) {
-      sortedPrices = Ordering.natural().reverse().isOrdered(getProductListPrices());
-    } else if (sortType.equals(Constants.SortType.LOW_TO_HIGH)) {
-      sortedPrices = Ordering.natural().isOrdered(getProductListPrices());
-    } else {
-      Assert.fail("Sorting Option is not recognized");
-      return false;
+  public boolean validateSortingOptionResults(SortType sortType) {
+    logger.info("Validating sorting: {}", sortType.getName());
+    boolean isSortedProperly = true;
+    switch (sortType) {
+      case PRICE_HIGH_TO_LOW:
+        isSortedProperly = Ordering.natural().reverse().isOrdered(getProductListPrices());
+        break;
+      case PRICE_LOW_TO_HIGH:
+        isSortedProperly = Ordering.natural().isOrdered(getProductListPrices());
+        break;
+      case NAME_A_Z:
+        isSortedProperly = Ordering.natural().isOrdered(getProductListNames());
+        break;
+      case NAME_Z_A:
+        isSortedProperly = Ordering.natural().reverse().isOrdered(getProductListNames());
+        break;
+      case NEWEST:
+        // TODO There are no ways to check if the list of the products is sorted by NEWEST option
+        break;
     }
-    return sortedPrices;
+
+    if (!isSortedProperly) {
+      logger.info("Names: {}", getProductListNames());
+      logger.info("Prices: {}", getProductListPrices());
+    }
+
+    return isSortedProperly;
+  }
+
+  public List<String> getProductListNames() {
+    return productsList().stream()
+        .map(
+            item -> {
+              String name = item.getProductName();
+              logger.info("Name: " + name);
+              return name;
+            })
+        .collect(Collectors.toList());
   }
 
   @Step("Get product prices")
   public List<Double> getProductListPrices() {
-    List<Double> prices = new ArrayList<>();
-    logger.info("Getting product prices");
-
-    String priceClean;
-    for (Text price : priceList) {
-      priceClean = price.getText().split(" ")[0].replace(",", ".").replace("$", "").trim();
-
-      logger.info("Prices " + priceClean);
-      prices.add(Double.parseDouble(priceClean));
-    }
-
-    return prices;
+    return productsList().stream()
+        .map(PlpItemComponent::getProductDoublePrice)
+        .collect(Collectors.toList());
   }
 
   @Step("Get page header")
   public String getPageHeader() {
-    return getPageHeader.getText().trim();
+    return getPageHeader.getText().trim().toUpperCase();
   }
 
   @Step("Get Product On Position")
   public PlpItemComponent getProductOnPosition(int position) {
     return productsList.get(position - 1);
   }
+
+  public List<PlpItemComponent> productsList() {
+    ((LazyList<?>) productsList).initialize();
+    return productsList;
+  }
+
+  @Step("Verify filters are displayed")
+  public boolean areFilterDisplayed(Filters... filters) {
+    boolean allFiltersAreDisplayed = true;
+    for (Filters filter : filters) {
+      logger.info("Checking filter [{}] is displayed", filter.getName());
+
+      if (filtersList.stream().noneMatch(option -> option.getText().equals(filter.getName()))) {
+        logger.error("Filter [{}] isn't displayed", filter.getName());
+        allFiltersAreDisplayed = false;
+      }
+    }
+
+    return allFiltersAreDisplayed;
+  }
+
+  @Step("Verify all filter options are displayed")
+  public boolean areFilterOptionsDisplayed(Filters filter) {
+    logger.info("Checking all filter options are displayed for [{}]", filter.getName());
+    logger.info("Clicking on filter: [{}]", filter.getName());
+    filtersList.stream()
+        .filter(f -> f.getText().equals(filter.getName()))
+        .findFirst()
+        .get()
+        .click();
+
+    boolean allOptionsAreDisplayed = true;
+    for (String option : filter.getOptions()) {
+      logger.info("Checking filter option [{}] is displayed", option);
+
+      if (filterOptions.stream().noneMatch(opt -> opt.getText().equals(option))) {
+        logger.error(
+            "Filter option [{}] isn't displayed under filter [{}]", option, filter.getName());
+        allOptionsAreDisplayed = false;
+      }
+    }
+
+    return allOptionsAreDisplayed;
+  }
+
+  @Step("Get number of the selected filter options")
+  public int getNumberOfSelectedFilters() {
+    try {
+      ((LazyList<?>) removeFilterList).initialize();
+      return removeFilterList.size();
+    } catch (Exception e) {
+      logger.info("There are no selected filters");
+      return 0;
+    }
+  }
+
+  @Step("Remove selected filter option by index")
+  public ProductListPage removeSelectedFilterByIndex(int index) {
+    logger.info("Removing selected filter option by index [{}]", index);
+    removeFilterList.get(index).click();
+    return this;
+  }
+
+  @Step("Get selected sorting type")
+  public String getSelectedSortingType() {
+    WebHelper.scrollToElement(sortingBox);
+    String selectedSortingType = sortingBox.getText().split(":")[1].trim();
+    logger.info("Selected sorting type: {}", selectedSortingType);
+    return selectedSortingType;
+  }
+
+  @Step("Click Load more button")
+  public ProductListPage loadMore() {
+    logger.info("Clicking on the Load more button");
+    int currentNumberOfItems = getTotalResults();
+    WebHelper.scrollToPageBottom();
+    WebHelper.scrollToElement(loadMoreButton);
+    loadMoreButton.click();
+    SdkHelper.getSyncHelper().waitUntil(totalResult -> getTotalResults() > currentNumberOfItems);
+    return this;
+  }
+
+  @Step("Get out of scope item")
+  public PlpItemComponent getOutOfScopePlpItemComponent() {
+    logger.info("Getting out of scope item");
+    loadMore();
+    return productsList().stream()
+        .filter(PlpItemComponent::isOutOfScope)
+        .findFirst()
+        .orElseThrow(() -> new RuntimeException("There are no items in out of scope"));
+  }
+
+  @Step("Verify Sign Up button is displayed in the NEVER MISS AN OFFER section")
+  public boolean isNeverMissOfferSignUpButtonDisplayed() {
+    logger.info("Checking Sign Up button is displayed in the NEVER MISS AN OFFER section");
+    WebHelper.scrollToPageBottom();
+    WebHelper.scrollToElement(neverMissOfferSignUpButton);
+    return WebHelper.isDisplayed(neverMissOfferSignUpButton);
+  }
+
+  @Step("Verify title is displayed in the NEVER MISS AN OFFER section")
+  public boolean isNeverMissOfferTitleDisplayed() {
+    logger.info("Checking title is displayed in the NEVER MISS AN OFFER section");
+    return WebHelper.isDisplayed(neverMissOfferTitleText);
+  }
+
+  @Step("Verify content is displayed in the NEVER MISS AN OFFER section")
+  public boolean isNeverMissOfferContentDisplayed() {
+    logger.info("Checking content is displayed in the NEVER MISS AN OFFER section");
+    return WebHelper.isDisplayed(neverMissOfferContentText);
+  }
+
+  @Step("Click on the Sign Up button in the NEVER MISS AN OFFER section")
+  public SignUpPage clickNeverMissOfferSignUpButton() {
+    logger.info("Clicking on the Sign Up button in the NEVER MISS AN OFFER section");
+    neverMissOfferSignUpButton.click();
+    return SdkHelper.create(SignUpPage.class);
+  }
+
+  @Step("Verify banner content is displayed")
+  public boolean isBannerContentDisplayed() {
+    logger.info("Checking banner content is displayed");
+    return WebHelper.isDisplayed(bannerContent);
+  }
 }
 
 class ProductListPageMobile extends ProductListPage {
+
+  @Locate(css = ".collection-sort select", on = Platform.WEB)
+  protected SelectList sortingDropdown;
+
   @Override
   public String applyFilterByIndex(int filter, int option) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(filtersSectionMobile).visible());
@@ -288,5 +485,96 @@ class ProductListPageMobile extends ProductListPage {
     SdkHelper.getSyncHelper().sleep(2000); // Wait for action
 
     return filterSelected;
+  }
+
+  @Override
+  @Step("Verify filters are displayed")
+  public boolean areFilterDisplayed(Filters... filters) {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(filtersSectionMobile).visible());
+    filtersSectionMobile.click();
+
+    boolean allFiltersAreDisplayed = true;
+    for (Filters filter : filters) {
+      logger.info("Checking filter [{}] is displayed", filter.getName());
+
+      if (filtersList.stream()
+          .noneMatch(option -> option.getText().trim().equals(filter.getName()))) {
+        logger.error("Filter [{}] isn't displayed", filter.getName());
+        allFiltersAreDisplayed = false;
+      }
+    }
+
+    return allFiltersAreDisplayed;
+  }
+
+  @Step("Verify all filter options are displayed")
+  public boolean areFilterOptionsDisplayed(Filters filter) {
+    logger.info("Checking all filter options are displayed for [{}]", filter.getName());
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(filtersSectionMobile).visible());
+    filtersSectionMobile.click();
+
+    logger.info("Clicking on filter: [{}]", filter.getName());
+    filtersList.stream()
+        .filter(f -> f.getText().trim().equals(filter.getName()))
+        .findFirst()
+        .get()
+        .click();
+
+    boolean allOptionsAreDisplayed = true;
+    for (String option : filter.getOptions()) {
+      logger.info("Checking filter option [{}] is displayed", option);
+
+      if (filterOptions.stream().noneMatch(opt -> opt.getText().trim().equals(option))) {
+        logger.error(
+            "Filter option [{}] isn't displayed under filter [{}]", option, filter.getName());
+        allOptionsAreDisplayed = false;
+      }
+    }
+
+    return allOptionsAreDisplayed;
+  }
+
+  @Step("Click on filter")
+  public ProductListPage applyFilterByName(Filters filter, String filterOption) {
+    logger.info("Selecting filter option [{}] under filter [{}]", filterOption, filter.getName());
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(filtersSectionMobile).visible());
+    filtersSectionMobile.click();
+
+    filtersList.stream()
+        .filter(f -> f.getText().trim().equals(filter.getName()))
+        .findFirst()
+        .get()
+        .click();
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(filterOptions.get(0)).visible());
+    logger.info("Selecting option: [{}]", filterOption);
+    filterOptions.stream()
+        .filter(opt -> opt.getText().trim().equals(filterOption))
+        .findFirst()
+        .get()
+        .click();
+    SdkHelper.getSyncHelper().sleep(2000); // Wait for action
+    return this;
+  }
+
+  @Override
+  @Step("Select sorting by type")
+  public ProductListPage selectSortingByType(SortType type) {
+    logger.info("Click over sorting box");
+    WebHelper.scrollToElement(sortingDropdown);
+    sortingDropdown.select(type.getMobileName());
+    SdkHelper.getSyncHelper().sleep(2000); // Wait for action
+    return SdkHelper.create(ProductListPage.class);
+  }
+
+  @Override
+  @Step("Get selected sorting type")
+  public String getSelectedSortingType() {
+    WebHelper.scrollToElement(sortingDropdown);
+    String selectedSortingType = sortingDropdown.getSelectedOption().getText();
+    logger.info("Selected sorting type: {}", selectedSortingType);
+    return selectedSortingType;
   }
 }

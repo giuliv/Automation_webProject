@@ -7,14 +7,13 @@ import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.integrations.base.ApplauseSeleniumTest;
 import com.applause.auto.listeners.allure.TestMethodFailureRetryInterceptor;
 import com.applause.auto.listeners.allure.WebTestMethodExecutionListener;
-import com.applause.auto.new_web.components.CookieComponent;
 import com.applause.auto.new_web.helpers.TestHelper;
+import com.applause.auto.new_web.views.CoffeeBarPage;
 import com.applause.auto.new_web.views.GiftCardsPage;
 import com.applause.auto.new_web.views.HomePage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.new_web.views.SignInPage;
-import com.applause.auto.new_web.views.CoffeeBarPage;
 import io.qameta.allure.Step;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
@@ -202,5 +201,19 @@ public class BaseTest extends ApplauseSeleniumTest {
     }
 
     return SdkHelper.create(ProductDetailsPage.class);
+  }
+
+  @Step("Navigate to Tea Best Sellers page")
+  public ProductListPage navigateToPLP(String url) {
+    navigateToHome();
+    logger.info(String.format("Navigating to PLP '%s'", url));
+
+    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
+    try {
+      SdkHelper.getDriver().navigate().to(url);
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
+    return SdkHelper.create(ProductListPage.class);
   }
 }

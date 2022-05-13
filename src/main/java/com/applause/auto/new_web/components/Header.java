@@ -9,6 +9,7 @@ import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.CurrentOffersPage;
 import com.applause.auto.new_web.views.FreeHomeDeliveryPage;
+import com.applause.auto.new_web.views.HomePage;
 import com.applause.auto.new_web.views.PeetnikRewardsPage;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.new_web.views.SignInPage;
@@ -482,6 +483,14 @@ public class Header extends BaseComponent {
     logger.info("Checking user is logged out");
     return WebHelper.isDisplayed(accountButton, 5);
   }
+
+  @Step("Click Logo Button")
+  public HomePage clickLogoButton() {
+    logger.info("Tap on Logo Button");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(logoButton).clickable()).click();
+
+    return SdkHelper.create(HomePage.class);
+  }
 }
 
 class HeaderMobile extends Header {
@@ -631,5 +640,12 @@ class HeaderMobile extends Header {
     boolean isIconDisplayed = WebHelper.isDisplayed(personIcon);
     closeHamburgerMenu();
     return isIconDisplayed;
+  }
+
+  @Override
+  @Step("Verify location icon displays")
+  public boolean isLocationIconDisplayed() {
+    openHamburgerMenu();
+    return locationIcon.isDisplayed();
   }
 }
