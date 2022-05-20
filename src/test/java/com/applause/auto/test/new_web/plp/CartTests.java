@@ -3,10 +3,8 @@ package com.applause.auto.test.new_web.plp;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.components.QuickViewComponent;
-import com.applause.auto.new_web.views.CartPage;
-import com.applause.auto.new_web.views.CheckOutPage;
-import com.applause.auto.new_web.views.ProductDetailsPage;
-import com.applause.auto.new_web.views.ProductListPage;
+import com.applause.auto.new_web.helpers.WebHelper;
+import com.applause.auto.new_web.views.*;
 import com.applause.auto.test.new_web.BaseTest;
 import com.applause.auto.web.components.NeverMissAnOfferChunk;
 import com.applause.auto.web.components.OtherPurchasedItemChunk;
@@ -14,6 +12,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import static com.applause.auto.common.data.Constants.WebTestData.PLP_SHOPABBLE_ITEMS;
 
 public class CartTests extends BaseTest {
 
@@ -88,7 +88,11 @@ public class CartTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.SMOKE},
+      groups = {
+        Constants.TestNGGroups.PLP,
+        Constants.TestNGGroups.SMOKE,
+        Constants.TestNGGroups.WEB_CART
+      },
       description = "11101741")
   public void reviewCartPageUiElementsTest() {
     SoftAssert softAssert = new SoftAssert();
@@ -114,8 +118,9 @@ public class CartTests extends BaseTest {
         cartPage.getGrindSelectedByIndex(firstProduct),
         productGrind,
         "Product grind doesn't match");
-    softAssert.assertEquals(
-        cartPage.getProductPriceByIndex(firstProduct), productPrice, "Product price doesn't match");
+    softAssert.assertTrue(
+        cartPage.getProductPriceByIndex(firstProduct).contains(productPrice),
+        "Product price doesn't match");
     softAssert.assertTrue(
         cartPage.productImageIsDisplayed(firstProduct), "Product image is not displayed");
     softAssert.assertTrue(
@@ -297,5 +302,66 @@ public class CartTests extends BaseTest {
     logger.info("Verify that message is present inside the field");
     Assert.assertEquals(
         cartPage.getAddPersonalMessageFieldText(), message, "Message isn't correct");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_CART},
+      description = "11108611")
+  public void addItemToCart() {
+    logger.info("1. Navigate to landing page");
+    ProductListPage productListPage = navigateToPLP();
+    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+
+    logger.info("2. Add an item to MiniCart");
+    int itemAt = testHelper.findInStockItemWithGrindPosition(productListPage) - 1;
+    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
+    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
+
+    logger.info("3. Click on View cart.");
+    CartPage cartPage = miniCart.clickViewCartButton();
+    Assert.assertNotNull(cartPage, "Cart is not displayed");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_CART},
+      description = "11107534")
+  public void reviewEmptyCartTest() {
+    logger.info("1. Navigate to landing page");
+    ProductListPage productListPage = navigateToPLP();
+    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+
+    logger.info("2. Add an item to MiniCart > Click on View Cart");
+    int itemAt = testHelper.findInStockItemWithGrindPosition(productListPage) - 1;
+    CartPage cartPage =
+        productListPage.clickOverProductByIndex(itemAt).clickAddToMiniCart().clickViewCartButton();
+
+    logger.info("3. Make Cart empty");
+    int firstItem = 0;
+    cartPage = cartPage.decreaseQuantity(firstItem);
+
+    logger.info("4. Validating...");
+    int total = cartPage.getTotalShopabbleItems();
+    Assert.assertEquals(
+        cartPage.getEmptyCartMessage(),
+        Constants.WebTestData.EMPTY_CART_MESSAGE,
+        "Empty cart message is not correct");
+    Assert.assertEquals(total, 4, "Total Shopabble items does not match");
+    for (int item = 0; item < total; item++) {
+      Assert.assertTrue(cartPage.isShopabbleItemDisplayed(item), "Shopabble item not displayed");
+      if (item == total - 1) {
+        Assert.assertTrue(
+            cartPage
+                .openShopabbleItemsByIndex(FreeHomeDeliveryPage.class, item)
+                .isPageHeadingDisplayed(),
+            "Title does not matches");
+      } else {
+        Assert.assertEquals(
+            cartPage.openShopabbleItemsByIndex(ProductListPage.class, item).getPageHeader(),
+            PLP_SHOPABBLE_ITEMS.get(item),
+            "Title does not matches");
+      }
+
+      cartPage = WebHelper.navigateBack(CartPage.class);
+    }
   }
 }

@@ -11,6 +11,8 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import io.qameta.allure.Step;
+import org.openqa.selenium.WebDriverException;
+
 import java.time.Duration;
 import java.util.List;
 
@@ -257,7 +259,12 @@ public class AcceptancePage extends Base {
     logger.info("Clicking shipping updated button... ");
     WebHelper.scrollToElement(shippingUpdates.getWebElement()); // Wait for scroll
 
-    shippingUpdates.click();
+    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
+    try {
+      shippingUpdates.click();
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
   }
 
   @Step("Get Order Grind")

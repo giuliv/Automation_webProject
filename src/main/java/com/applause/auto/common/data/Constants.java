@@ -55,6 +55,7 @@ public class Constants {
     public static final String IDENTITY = "identity";
     public static final String CHECKOUT = "checkout";
     public static final String HOME_PAGE = "home-page";
+    public static final String WEB_CART = "cart";
 
     // Mobile
     public static final String ONBOARDING = "onboarding";
@@ -96,6 +97,7 @@ public class Constants {
         LANDING_PAGE_URL.split("\\?")[0] + "/collections/medium-roast";
     public static final String PDP_URL =
         LANDING_PAGE_URL.split("\\?")[0] + "/products/major-dickasons-blend";
+    public static final String GENERAL_PDP_URL = LANDING_PAGE_URL.split("\\?")[0] + "/products/";
     public static final String SHOP_TEA_PAGE_URL = LANDING_PAGE_URL.concat("/mighty-leaf-tea");
     public static final String SHOP_EQUIPMENT_PAGE_URL = LANDING_PAGE_URL.concat("/equipment");
     public static final String SHOP_PEETS_CARD_PAGE_URL = LANDING_PAGE_URL.concat("/peets-card");
@@ -454,6 +456,10 @@ public class Constants {
     public static final String PASSWORD = "password123";
     public static final String FIFTEEN_DOLLARS = "$15";
     public static final String PEETS_CARDS_NAME = "Peet's Cards";
+    public static final String EMPTY_CART_MESSAGE =
+        "Your cart is empty. Do you need any beans or tea?";
+    public static final List<String> PLP_SHOPABBLE_ITEMS =
+        Arrays.asList("ALL COFFEE", "MIGHTY LEAF TEA", "GEAR");
   }
 
   @AllArgsConstructor
@@ -591,14 +597,18 @@ public class Constants {
   }
 
   public enum Mail {
-    Mail1("peets.automation08@applause.com"), // Mail1("peets.automation02@applause.com"),
-    Mail2("peets.automation09@applause.com"), // Mail2("peets.automation03@applause.com"),
-    Mail3("peets.automation10@applause.com"), // Mail3("peets.automation04@applause.com"),
-    Mail4("peets.automation11@applause.com"); // Mail4("peets.automation05@applause.com"),
-    // Mail5("peets.automation12@applause.com"); //
-    // Mail5("peets.automation06@applause.com"),
-    // Mail6("peets.automation13@applause.com"); //
-    // Mail6("peets.automation07@applause.com");
+    // We have created following accounts, if not displayed below, that means are corrupted
+    // [peets.automation01 - peets.automation20]
+    Mail1("peets.automation08@applause.com"),
+    Mail2("peets.automation09@applause.com"),
+    Mail3("peets.automation10@applause.com"),
+    Mail4("peets.automation14@applause.com"),
+    Mail5("peets.automation15@applause.com"),
+    Mail6("peets.automation16@applause.com"),
+    Mail7("peets.automation17@applause.com"),
+    Mail8("peets.automation18@applause.com"),
+    Mail9("peets.automation19@applause.com"),
+    Mail10("peets.automation20@applause.com");
 
     private final String value;
 
@@ -614,6 +624,30 @@ public class Constants {
       Random random = new Random();
       Mail data = Mail.values()[random.nextInt(Mail.values().length)];
       logger.info("Mail Selected: " + data.toString());
+      return data;
+    }
+  }
+
+  public enum StandardCoffeeInventory {
+    Coffee1("french-roast"),
+    Coffee2("french-roast-half-caf"),
+    Coffee3("aged-sumatra");
+
+    private final String value;
+
+    StandardCoffeeInventory(String i) {
+      value = i;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    public static StandardCoffeeInventory getRandomCoffee() {
+      Random random = new Random();
+      StandardCoffeeInventory data =
+          StandardCoffeeInventory.values()[random.nextInt(StandardCoffeeInventory.values().length)];
+      logger.info("Coffee Selected: " + data.toString());
       return data;
     }
   }

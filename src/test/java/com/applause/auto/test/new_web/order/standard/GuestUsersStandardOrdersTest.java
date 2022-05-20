@@ -882,7 +882,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
             ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEST_SELLERS);
 
     logger.info("5. Add Coffee item to MiniCart");
-    int coffeeSelected = 2;
+    int coffeeSelected = 1;
     productDetailsPage = productListPage.clickOverProductByIndex(coffeeSelected);
 
     String cupsName = productDetailsPage.getProductName();

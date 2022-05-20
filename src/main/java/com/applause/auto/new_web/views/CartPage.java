@@ -20,6 +20,8 @@ import io.qameta.allure.Step;
 import java.time.Duration;
 import java.util.List;
 import lombok.Getter;
+import org.openqa.selenium.WebDriverException;
+import org.testng.asserts.SoftAssert;
 
 @Implementation(is = CartPage.class, on = Platform.WEB)
 @Implementation(is = CartPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
@@ -81,6 +83,15 @@ public class CartPage extends BaseComponent {
 
   @Locate(xpath = "//*[@id='bagRecommendationsWrapper']//article", on = Platform.WEB)
   private List<OtherPurchasedItemChunk> listOfOtherPurchased;
+
+  @Locate(className = "bag__empty-heading", on = Platform.WEB)
+  private Text emptyMessage;
+
+  @Locate(css = ".bag__touts a img ", on = Platform.WEB)
+  private LazyList<Image> shopabbleItems;
+
+  @Locate(css = ".bag__touts a p", on = Platform.WEB)
+  private LazyList<Text> shopabbleTitles;
 
   @Getter @Locate public NeverMissAnOfferChunk neverMissAnOfferChunk;
 
@@ -238,6 +249,7 @@ public class CartPage extends BaseComponent {
       throw new RuntimeException("The product with index [{}] isn't displayed");
     }
 
+    SdkHelper.getSyncHelper().wait(Until.uiElement(decreaseQuantityButton.get(index)).visible());
     decreaseQuantityButton.get(index).click();
     return this;
   }
@@ -324,6 +336,39 @@ public class CartPage extends BaseComponent {
   @Step("Get checkout button")
   public boolean isDisplayed() {
     return WebHelper.isDisplayed(mainContainer) && WebHelper.isDisplayed(checkOutButton);
+  }
+
+  @Step("Get Empty Cart message")
+  public String getEmptyCartMessage() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(emptyMessage).visible());
+    String message = emptyMessage.getText();
+    logger.info("Text from 'Empty Cart' field - [{}]", message);
+    return message;
+  }
+
+  @Step("Get Total shopabble items")
+  public int getTotalShopabbleItems() {
+    int total = shopabbleItems.size();
+    logger.info("Total shopabble items - [{}]", total);
+    return total;
+  }
+
+  public <T extends BaseComponent> T openShopabbleItemsByIndex(Class<T> clazz, int index) {
+    logger.info("Opening shoppable item: " + index);
+    SdkHelper.getSyncHelper().wait(Until.uiElement(shopabbleTitles.get(index)).present());
+    try {
+      shopabbleTitles.get(index).click();
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
+
+    return SdkHelper.create(clazz);
+  }
+
+  public boolean isShopabbleItemDisplayed(int index) {
+    logger.info("Reviewing shopabble items");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(shopabbleTitles.get(index)).present());
+    return shopabbleTitles.get(index).isDisplayed() && shopabbleItems.get(index).isDisplayed();
   }
 }
 

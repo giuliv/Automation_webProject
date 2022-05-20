@@ -250,7 +250,12 @@ public class ProductDetailsPage extends Base {
       SdkHelper.getSyncHelper().sleep(1000); // Wait for action
     }
 
-    addToCartButton.click();
+    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
+    try {
+      addToCartButton.click();
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
     return SdkHelper.create(MiniCart.class);
   }
 

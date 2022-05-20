@@ -21,6 +21,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.asserts.SoftAssert;
@@ -308,11 +309,18 @@ public class MiniCart extends BaseComponent {
   @Step("Click view cart")
   public CartPage clickViewCartButton() {
     logger.info("Clicking 'View Cart' button");
-    SdkHelper.getBrowserControl().jsClick(viewCartButton);
+
+    try {
+      SdkHelper.getBrowserControl().jsClick(viewCartButton);
+      SdkHelper.getSyncHelper().sleep(2000); // temp fix
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
+
     return SdkHelper.create(CartPage.class);
   }
 
-  @Step("Click on shoprunner links")
+  @Step("Click on shopRunner links")
   public ShopRunnerComponent clickShopRunnerLinks(String link) {
     logger.info("Clicking link: " + link);
     if (link.equalsIgnoreCase("learn more")) {

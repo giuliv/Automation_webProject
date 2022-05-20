@@ -116,7 +116,7 @@ public class WebHelper {
 
   public static String getRandomMail() {
     long uniq = System.currentTimeMillis();
-    return String.format("test_automation_%s@gmail.com", uniq);
+    return String.format("test_automation_a%s@gmail.com", uniq);
   }
 
   public static String getTestExecution() {

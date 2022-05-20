@@ -21,7 +21,7 @@ public class MiniCartTest extends BaseTest {
   public void validateMiniCartElementsTest() {
 
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP();
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     logger.info("2. Save PDP data");
@@ -152,7 +152,7 @@ public class MiniCartTest extends BaseTest {
   public void signInFromMiniCartTest() {
 
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP();
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     logger.info("2. Add item to MiniCart");

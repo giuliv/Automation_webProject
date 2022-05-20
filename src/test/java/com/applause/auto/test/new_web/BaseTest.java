@@ -29,7 +29,8 @@ public class BaseTest extends ApplauseSeleniumTest {
 
   public static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
   public TestHelper testHelper = new TestHelper();
-  public String Mail;
+  public String mail;
+  public String coffeeSelected;
   protected SoftAssert softAssert;
 
   /** Get a new WebDriver at the start of each test. */
@@ -38,8 +39,8 @@ public class BaseTest extends ApplauseSeleniumTest {
   public void beforeMethod(Method method) {
     String runId = String.format("%s:%s", method.getName(), System.currentTimeMillis());
     logger.debug(String.format("Setting runId to %s", runId));
-    Mail = Constants.Mail.getRandomMail().getValue();
-    System.setProperty("runId", runId);
+    mail = Constants.Mail.getRandomMail().getValue();
+    coffeeSelected = Constants.StandardCoffeeInventory.getRandomCoffee().getValue();
 
     // Set the default wait time on elements to 20 seconds
     SdkHelper.setTimeout(20);
@@ -109,6 +110,20 @@ public class BaseTest extends ApplauseSeleniumTest {
     // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
     try {
       SdkHelper.getDriver().navigate().to(TestData.PDP_URL);
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
+    return SdkHelper.create(ProductDetailsPage.class);
+  }
+
+  @Step("Navigate to PDP")
+  public ProductDetailsPage navigateToPDP(String product) {
+    navigateToHome();
+    logger.info(String.format("Navigating to PDP page '%s'", TestData.GENERAL_PDP_URL + product));
+
+    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
+    try {
+      SdkHelper.getDriver().navigate().to(TestData.GENERAL_PDP_URL + product);
     } catch (WebDriverException e) {
       logger.info("Frame detached issue seen");
     }
