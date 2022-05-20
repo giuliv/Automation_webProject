@@ -8,6 +8,7 @@ import com.applause.auto.new_web.views.*;
 import com.applause.auto.test.new_web.BaseTest;
 import com.applause.auto.web.components.NeverMissAnOfferChunk;
 import com.applause.auto.web.components.OtherPurchasedItemChunk;
+import com.epam.ta.reportportal.ws.annotations.In;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -277,28 +278,26 @@ public class CartTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_CART},
       description = "11101748")
   public void canCheckThisIsGift() {
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
-
-    logger.info("2. Add an item");
-    int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
-    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
+    logger.info("1. Navigate to PDP > Add to miniCart");
+    MiniCart miniCart = navigateToPDP(coffeeSelected).clickAddToMiniCart();
 
     logger.info("3. Click on View cart.");
     CartPage cartPage = miniCart.clickViewCartButton();
 
     logger.info("4. Click on This is a gift > TextBox should display.");
     cartPage = cartPage.clickOnThisIsGift();
+    Assert.assertTrue(
+        cartPage.getPersonalMessageTitle().contains(Constants.TestData.PERSONAL_MESSAGE),
+        "Personal message title is not displayed");
 
     logger.info("5. Type any message");
     String message = "Applause Automation message 1";
     cartPage = cartPage.typePersonalMessage(message);
 
+    // Todo:Missing 180 characters validation
     logger.info("Verify that message is present inside the field");
     Assert.assertEquals(
         cartPage.getAddPersonalMessageFieldText(), message, "Message isn't correct");
@@ -363,5 +362,29 @@ public class CartTests extends BaseTest {
 
       cartPage = WebHelper.navigateBack(CartPage.class);
     }
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_CART},
+      description = "11108612")
+  public void shippingCartTest() {
+    logger.info("1. Navigate to PDP > Add to miniCart");
+    MiniCart miniCart = navigateToPDP(coffeeSelected).clickAddToMiniCart();
+
+    logger.info("2. Click on View cart.");
+    CartPage cartPage = miniCart.clickViewCartButton();
+    String originalShippingAway = cartPage.getShippingAwayMessage();
+    Assert.assertTrue(
+        originalShippingAway.contains("away from free shipping!"),
+        "Shipping away message is not displayed");
+
+    logger.info("3. Increase order so Shipping away is updated");
+    int product = 0;
+    cartPage = cartPage.increaseQuantity(product);
+
+    Assert.assertNotEquals(
+        originalShippingAway,
+        cartPage.getShippingAwayMessage(),
+        "Shipping away message should have updated");
   }
 }

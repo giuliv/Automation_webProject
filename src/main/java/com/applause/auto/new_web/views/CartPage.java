@@ -81,6 +81,9 @@ public class CartPage extends BaseComponent {
   @Locate(css = "#bagNoteInput", on = Platform.WEB)
   private TextBox addPersonalMessageField;
 
+  @Locate(className = "bag-note__form-label", on = Platform.WEB)
+  private Text personalMessageTitle;
+
   @Locate(xpath = "//*[@id='bagRecommendationsWrapper']//article", on = Platform.WEB)
   private List<OtherPurchasedItemChunk> listOfOtherPurchased;
 
@@ -92,6 +95,9 @@ public class CartPage extends BaseComponent {
 
   @Locate(css = ".bag__touts a p", on = Platform.WEB)
   private LazyList<Text> shopabbleTitles;
+
+  @Locate(className = "bag-shipping__text", on = Platform.WEB)
+  private Text shippingAwayMessage;
 
   @Getter @Locate public NeverMissAnOfferChunk neverMissAnOfferChunk;
 
@@ -233,6 +239,7 @@ public class CartPage extends BaseComponent {
     }
 
     increaseQuantityButton.get(index).click();
+    SdkHelper.getSyncHelper().sleep(1000); // wait for increase product
     return this;
   }
 
@@ -369,6 +376,22 @@ public class CartPage extends BaseComponent {
     logger.info("Reviewing shopabble items");
     SdkHelper.getSyncHelper().wait(Until.uiElement(shopabbleTitles.get(index)).present());
     return shopabbleTitles.get(index).isDisplayed() && shopabbleItems.get(index).isDisplayed();
+  }
+
+  public String getShippingAwayMessage() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(shippingAwayMessage).visible());
+    String message = shippingAwayMessage.getText();
+    logger.info("Shipping away message: {}", message);
+
+    return message;
+  }
+
+  public String getPersonalMessageTitle() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(personalMessageTitle).visible());
+    String message = personalMessageTitle.getText();
+    logger.info("Personal message title {}", message);
+
+    return message;
   }
 }
 

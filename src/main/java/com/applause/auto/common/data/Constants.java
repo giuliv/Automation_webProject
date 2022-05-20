@@ -244,6 +244,7 @@ public class Constants {
 
     public static final String SUBSCRIBING_MESSAGE =
         "Thanks for subscribing!Your unique promo code will be sent shortly.";
+    public static final String PERSONAL_MESSAGE = "Add a personal message";
 
     public static final List<String> CHECKOUT_PAGE_VALIDATION_ERRORS =
         Arrays.asList(
