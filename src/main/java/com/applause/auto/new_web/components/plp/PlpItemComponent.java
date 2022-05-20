@@ -107,6 +107,8 @@ public class PlpItemComponent extends BaseComponent {
 
   @Step("Verify product image is displayed")
   public boolean isImageDisplayed() {
+    WebHelper.scrollToElement(productImage);
+    SdkHelper.getSyncHelper().sleep(300);
     return WebHelper.isDisplayed(productImage);
   }
 

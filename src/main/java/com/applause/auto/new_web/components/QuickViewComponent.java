@@ -41,6 +41,9 @@ public class QuickViewComponent extends BaseComponent {
   @Locate(id = "quickBtnAddToBag", on = Platform.WEB)
   private Button addToCartButton;
 
+  @Locate(css = "#modalQuickAdd button.modal__close", on = Platform.WEB)
+  private Button closeButton;
+
   @Override
   public void afterInit() {
     logger.info("QuickView Init method");
@@ -83,5 +86,11 @@ public class QuickViewComponent extends BaseComponent {
   @Step("Verify Add to cart button is displayed")
   public boolean isAddToCartButtonDisplayed() {
     return WebHelper.isDisplayed(addToCartButton);
+  }
+
+  public void closeQuickView() {
+    logger.info("Closing quickView modal");
+    closeButton.click();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).notPresent());
   }
 }

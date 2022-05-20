@@ -10,11 +10,7 @@ import com.applause.auto.new_web.components.plp.PlpItemComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
-import com.applause.auto.pageobjectmodel.elements.Button;
-import com.applause.auto.pageobjectmodel.elements.ContainerElement;
-import com.applause.auto.pageobjectmodel.elements.Image;
-import com.applause.auto.pageobjectmodel.elements.SelectList;
-import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.*;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import com.google.common.collect.Ordering;
 import io.qameta.allure.Step;
@@ -111,6 +107,24 @@ public class ProductListPage extends Base {
 
   @Locate(css = ".page-hero__description-text", on = Platform.WEB)
   private Text bannerContent;
+
+  @Locate(className = "ankle-tout__items", on = Platform.WEB)
+  private ContainerElement homeDeliveryContainer;
+
+  @Locate(css = ".ankle-tout__items img", on = Platform.WEB)
+  private Image homeDeliveryImage;
+
+  @Locate(css = ".ankle-tout__items h2", on = Platform.WEB)
+  private Text homeDeliveryTitle;
+
+  @Locate(css = ".ankle-tout__items a", on = Platform.WEB)
+  private Image getStartedHomeDeliveryButton;
+
+  @Locate(className = "collection-filters__breadcrumbs", on = Platform.WEB)
+  private Text fullBreadCrumbs;
+
+  @Locate(css = ".collection-filters__breadcrumbs a", on = Platform.WEB)
+  private Link linkBreadCrumbs;
 
   @Override
   public void afterInit() {
@@ -459,6 +473,42 @@ public class ProductListPage extends Base {
   public boolean isBannerContentDisplayed() {
     logger.info("Checking banner content is displayed");
     return WebHelper.isDisplayed(bannerContent);
+  }
+
+  public boolean isHomeDeliverySectionDisplayed() {
+    logger.info("Checking Home Delivery content is displayed");
+    WebHelper.scrollToElement(homeDeliveryContainer);
+    SdkHelper.getSyncHelper().wait(Until.uiElement(homeDeliveryImage).visible());
+    return WebHelper.isDisplayed(homeDeliveryImage);
+  }
+
+  public String getHomeDeliveryTitle() {
+    String title = homeDeliveryTitle.getText().trim();
+
+    logger.info("Home Delivery title: {}", title);
+    return title;
+  }
+
+  public String getBreadCrumbs() {
+    String breadCrumb = fullBreadCrumbs.getText().trim();
+
+    logger.info("BreadCrumb: {}", breadCrumb);
+    return breadCrumb;
+  }
+
+  public FreeHomeDeliveryPage clickGetStartedHomeDelivery() {
+    logger.info("Click over Get Started button [Home Delivery]");
+    WebHelper.scrollToElement(getStartedHomeDeliveryButton);
+    getStartedHomeDeliveryButton.click();
+
+    return SdkHelper.create(FreeHomeDeliveryPage.class);
+  }
+
+  public ProductListPage clickOverAllCoffeeFromBreadCrumbs() {
+    logger.info("Click over All Coffee from BreadCrumb");
+    linkBreadCrumbs.click();
+
+    return this;
   }
 }
 

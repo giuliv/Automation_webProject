@@ -56,6 +56,7 @@ public class Constants {
     public static final String CHECKOUT = "checkout";
     public static final String HOME_PAGE = "home-page";
     public static final String WEB_CART = "cart";
+    public static final String PRODUCTS = "products";
 
     // Mobile
     public static final String ONBOARDING = "onboarding";
@@ -329,6 +330,10 @@ public class Constants {
     public static final String EDIT_EMAIL = "peets.auto01@gmail.com";
     public static final String EDIT_EMAIL_PWD = "p4ssword!";
     public static final String ALL_COFFEE_HEADER = "ALL COFFEE";
+    public static final String BESTSELLER_HEADER = "COFFEE BEST SELLERS";
+    public static final String DARK_ROAST_HEADER = "DARK ROAST";
+    public static final String TEA_HEADER = "MIGHTY LEAF TEA";
+    public static final String BESTSELLER_TEA_HEADER = "TEA BEST SELLERS";
     public static final String UPDATED_PAYMENT_DATA_SUCCESSFULLY_ALERT =
         "Updated payment method successfully";
 
@@ -460,6 +465,8 @@ public class Constants {
         "Your cart is empty. Do you need any beans or tea?";
     public static final List<String> PLP_SHOPABBLE_ITEMS =
         Arrays.asList("ALL COFFEE", "MIGHTY LEAF TEA", "GEAR");
+    public static final String HOME_DELIVERY_TITLE = "FREE HOME DELIVERY";
+    public static final String DARK_ROAST_BREADCRUMBS = "ALL COFFEE / DARK ROAST";
   }
 
   @AllArgsConstructor

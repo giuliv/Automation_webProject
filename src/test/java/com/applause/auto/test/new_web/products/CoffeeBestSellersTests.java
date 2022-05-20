@@ -4,6 +4,7 @@ import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.enums.Filters;
+import com.applause.auto.new_web.components.QuickViewComponent;
 import com.applause.auto.new_web.components.plp.PlpItemComponent;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.test.new_web.BaseTest;
@@ -14,15 +15,15 @@ import org.testng.annotations.Test;
 public class CoffeeBestSellersTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE, TestNGGroups.SMOKE},
-      description = "")
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.PRODUCTS},
+      description = "11107498")
   public void coffeeBestSellersTest() {
     ProductsTestHelper.checkPlp(navigateToPLP(TestData.COFFEE_BEST_SELLERS_URL), softAssert);
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE, TestNGGroups.SMOKE},
-      description = "")
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.PRODUCTS},
+      description = "11107499")
   public void coffeeBestSellersBannerTest() {
     ProductsTestHelper.checkBestSellersBanner(
         navigateToPLP(TestData.COFFEE_BEST_SELLERS_URL),
@@ -31,9 +32,10 @@ public class CoffeeBestSellersTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE, TestNGGroups.SMOKE},
-      description = "",
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.PRODUCTS},
+      description = "11107500",
       enabled = false)
+  // Todo: Testcase disabled until further notice
   public void coffeeBestSellersFiltersTest() {
     ProductsTestHelper.checkFilters(
         navigateToPLP(TestData.COFFEE_BEST_SELLERS_URL),
@@ -48,61 +50,64 @@ public class CoffeeBestSellersTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE, TestNGGroups.SMOKE},
-      description = "")
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.PRODUCTS},
+      description = "11107501")
   public void coffeeBestSellersSortingTest() {
     ProductsTestHelper.checkSortingOptions(
         navigateToPLP(TestData.COFFEE_BEST_SELLERS_URL), softAssert);
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE, TestNGGroups.SMOKE},
-      description = "")
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.PRODUCTS},
+      description = "11107503")
   public void coffeeBestSellersNewsletterSignUpNeverMissOfferTest() {
     ProductsTestHelper.checkNewsletterSignUpNeverMissOffer(
         navigateToPLP(TestData.COFFEE_BEST_SELLERS_URL), softAssert);
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE, TestNGGroups.SMOKE},
-      description = "",
-      enabled = false)
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.PRODUCTS},
+      description = "11107502")
   public void coffeeBestSellersItemsTest() {
     logger.info("1. Navigate to Product list page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLP(TestData.COFFEE_BEST_SELLERS_URL);
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info(
         "2. Validate Product tile should be customizable in the CMS and is shown correctly on the page");
     Assert.assertEquals(
         productListPage.getPageHeader(),
-        MyAccountTestData.ALL_COFFEE_HEADER,
-        "All Coffee header isn't displayed");
+        MyAccountTestData.BESTSELLER_HEADER,
+        "BestSellers header isn't displayed");
 
+    int totalProducts = productListPage.getTotalResults();
     logger.info("3. Validate item image, name, description, price and reviews are shown correctly");
     for (PlpItemComponent item : productListPage.productsList()) {
       softAssert.assertTrue(item.isNameDisplayed(), "Product name isn't displayed");
       String productName = item.getProductName();
       softAssert.assertTrue(
           item.isPriceDisplayed(),
-          String.format("Product price isn't displayed for product [{}]", productName));
+          String.format("Product price isn't displayed for product [{%s}]", productName));
       softAssert.assertTrue(
           item.isImageDisplayed(),
-          String.format("Product image isn't displayed for product [{}]", productName));
+          String.format("Product image isn't displayed for product [{%s}]", productName));
     }
 
-    // TODO The items on the PLP are displayed with Quick View button instead of Add to cart button
-  }
+    logger.info("4. At Homepage --> Hover any Coffee item");
+    PlpItemComponent itemComponent = productListPage.getProductOnPosition(1);
+    softAssert.assertTrue(
+        itemComponent.isQuickViewButtonDisplayed(), "Quick view button isn't displayed");
 
-  @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE, TestNGGroups.SMOKE},
-      description = "",
-      enabled = false)
-  public void coffeeBestSellersJoinClubTest() {
-    logger.info("1. Navigate to Product list page");
-    ProductListPage productListPage = navigateToPLP();
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+    logger.info("5. Click on 'Quick view' > Review modal > Close modal");
+    QuickViewComponent quickViewComponent = itemComponent.clickQuickView();
+    Assert.assertNotNull(quickViewComponent, "QuickView modal is not displayed");
+    quickViewComponent.closeQuickView();
 
-    // TODO there is not Join the Club section
+    logger.info("6. Load More Results");
+    productListPage.loadMore();
+    Assert.assertTrue(
+        totalProducts < productListPage.getTotalResults(), "Load more results does not work");
+
+    softAssert.assertAll();
   }
 }

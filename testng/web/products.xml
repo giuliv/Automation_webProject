@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Products Web Test Suite" verbose="1" parallel="classes"
+       thread-count="8">
+    <test name="Products cases" preserve-order="true">
+        <groups>
+            <run>
+                <include name="products"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="com.applause.auto.test.new_web.products.*"/>
+        </packages>
+    </test>
+</suite>
