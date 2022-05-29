@@ -1,6 +1,7 @@
 package com.applause.auto.test.new_web.plp;
 
 import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.enums.FooterOptions;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.components.QuickViewComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
@@ -8,7 +9,6 @@ import com.applause.auto.new_web.views.*;
 import com.applause.auto.test.new_web.BaseTest;
 import com.applause.auto.web.components.NeverMissAnOfferChunk;
 import com.applause.auto.web.components.OtherPurchasedItemChunk;
-import com.epam.ta.reportportal.ws.annotations.In;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -66,7 +66,7 @@ public class CartTests extends BaseTest {
     int firstProduct = 0;
     QuickViewComponent quickViewComponent =
         miniCart.clickOnRecommendedForYouAddButtonByIndex(firstProduct);
-    Assert.assertNotNull(quickViewComponent, "Failed to open to Quickview popup");
+    Assert.assertNotNull(quickViewComponent, "Failed to open to QuickView popup");
 
     logger.info("4. Click on Add to cart");
     miniCart = quickViewComponent.clickAddToCart();
@@ -92,7 +92,6 @@ public class CartTests extends BaseTest {
       groups = {
         Constants.TestNGGroups.PLP,
         Constants.TestNGGroups.SMOKE,
-        Constants.TestNGGroups.WEB_CART
       },
       description = "11101741")
   public void reviewCartPageUiElementsTest() {
@@ -105,6 +104,7 @@ public class CartTests extends BaseTest {
     logger.info("2. Add an item");
     int itemAt = testHelper.findInStockItemWithGrindPosition(productListPage) - 1;
     ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
+
     String productName = productDetailsPage.getProductName();
     String productGrind = productDetailsPage.getGrindSelected();
     String productPrice = productDetailsPage.getProductPrice();
@@ -172,8 +172,9 @@ public class CartTests extends BaseTest {
     logger.info("6. Select One time purchase > One time purchase should be selected");
     cartPage.clickOneTimePurchaseButton();
 
-    logger.info("Verify that One time purchase should be selected");
-    Assert.assertTrue(cartPage.isOneTimePurchaseButtonEnabled(), "One time purchase isn't enabled");
+    logger.info("7. Verify that One time purchase should be selected");
+    Assert.assertTrue(
+        cartPage.isOneTimePurchaseButtonSelected(), "One time purchase isn't selected");
   }
 
   @Test(
@@ -210,7 +211,7 @@ public class CartTests extends BaseTest {
     logger.info("6. Select Subscribe > Subscribe should be selected.");
     cartPage.clickSubscribeButton();
 
-    logger.info("Verify that Subscribe should be selected");
+    logger.info("7. Verify that Subscribe should be selected");
     Assert.assertTrue(cartPage.isSubscribeButtonEnabled(), "Subscribe isn't selected");
   }
 
@@ -241,7 +242,7 @@ public class CartTests extends BaseTest {
     String purchasedItemName = purchasedItemOnPosition.getName();
     QuickViewComponent quickViewComponent = purchasedItemOnPosition.clickAddToCartButton();
 
-    logger.info("Verify that product name is correct");
+    logger.info("5. Verify that product name is correct");
     Assert.assertEquals(
         quickViewComponent.getProductName(),
         purchasedItemName,
@@ -270,7 +271,7 @@ public class CartTests extends BaseTest {
     String randomEmail = RandomStringUtils.random(10, true, true) + "@gmail.com";
     neverMissAnOfferChunk = neverMissAnOfferChunk.signUp(randomEmail);
 
-    logger.info("Verify that Successful message is displayed");
+    logger.info("5. Verify that Successful message is displayed");
     Assert.assertEquals(
         neverMissAnOfferChunk.getMessage().replaceAll(" ", ""),
         Constants.TestData.SUBSCRIBING_MESSAGE.replaceAll(" ", ""),
@@ -284,21 +285,21 @@ public class CartTests extends BaseTest {
     logger.info("1. Navigate to PDP > Add to miniCart");
     MiniCart miniCart = navigateToPDP(coffeeSelected).clickAddToMiniCart();
 
-    logger.info("3. Click on View cart.");
+    logger.info("2. Click on View cart.");
     CartPage cartPage = miniCart.clickViewCartButton();
 
-    logger.info("4. Click on This is a gift > TextBox should display.");
+    logger.info("3. Click on This is a gift > TextBox should display.");
     cartPage = cartPage.clickOnThisIsGift();
     Assert.assertTrue(
         cartPage.getPersonalMessageTitle().contains(Constants.TestData.PERSONAL_MESSAGE),
         "Personal message title is not displayed");
 
-    logger.info("5. Type any message");
+    logger.info("4. Type any message");
     String message = "Applause Automation message 1";
     cartPage = cartPage.typePersonalMessage(message);
 
     // Todo:Missing 180 characters validation
-    logger.info("Verify that message is present inside the field");
+    logger.info("5. Verify that message is present inside the field");
     Assert.assertEquals(
         cartPage.getAddPersonalMessageFieldText(), message, "Message isn't correct");
   }
@@ -386,5 +387,177 @@ public class CartTests extends BaseTest {
         originalShippingAway,
         cartPage.getShippingAwayMessage(),
         "Shipping away message should have updated");
+  }
+
+  @Test(
+      groups = {
+        Constants.TestNGGroups.PLP,
+        Constants.TestNGGroups.WEB_CART,
+      },
+      description = "11109098")
+  public void singeStandardItemTest() {
+    // ToDo: "Get free ground shipping on subscriptions" (this message changes frequently)
+    // Estimated ship date logic
+    SoftAssert softAssert = new SoftAssert();
+
+    logger.info("1. Navigate to PDP > Add to miniCart");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    String productName = productDetailsPage.getProductName();
+    String productGrind = productDetailsPage.getGrindSelected();
+    String productPrice = productDetailsPage.getProductPrice();
+
+    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
+
+    logger.info("2. Click on View cart.");
+    int firstProduct = 1;
+    CartPage cartPage = miniCart.clickViewCartButton();
+
+    logger.info("3. Validating Heading, Product image and name");
+    softAssert.assertEquals(cartPage.getCartPageTitle(), "CART", "Cart page title does not match");
+    softAssert.assertTrue(
+        cartPage.productImageIsDisplayed(firstProduct), "Product image is not displayed");
+    softAssert.assertEquals(
+        cartPage.getProductNameByIndex(firstProduct), productName, "Product name doesn't match");
+
+    logger.info("4. Select Subscribe > Validate Subscription Elements");
+    softAssert.assertTrue(
+        cartPage.isOneTimePurchaseButtonSelected(), "One time purchase isn't selected");
+    cartPage.clickSubscribeButton();
+    softAssert.assertTrue(
+        cartPage.isFourWeeksSelectedByDefault(), "4 Weeks option is not by default");
+    softAssert.assertTrue(
+        cartPage.subscriptionOptionsAvailable() > 1, "There should be more subscription options");
+
+    logger.info("5. Validating grind, quantity and price values");
+    softAssert.assertEquals(
+        cartPage.getGrindSelectedByIndex(firstProduct),
+        productGrind,
+        "Product grind doesn't match");
+    softAssert.assertTrue(
+        cartPage.getProductPriceByIndex(firstProduct).contains(productPrice),
+        "Product price doesn't match");
+    softAssert.assertTrue(cartPage.subTotalIsDisplayed(), "Subtotal displays is not displayed");
+
+    int productQuantity = cartPage.getProductQuantityByIndex(firstProduct);
+    cartPage = cartPage.increaseQuantity(firstProduct - 1);
+    softAssert.assertEquals(
+        cartPage.getProductQuantityByIndex(firstProduct),
+        productQuantity + 1,
+        "Quantity does not increase +1");
+    cartPage = cartPage.decreaseQuantity(firstProduct - 1);
+    softAssert.assertEquals(
+        cartPage.getProductQuantityByIndex(firstProduct),
+        productQuantity,
+        "Quantity does not decrease -1");
+
+    logger.info("5. Validating Estimated Date Tooltip");
+    softAssert.assertTrue(
+        cartPage.estimatedShipDateIsDisplayed(), "Estimated ship date is not displayed");
+    cartPage.openEstimatedTooltip();
+    softAssert.assertEquals(
+        cartPage.getEstimatedDateTooltipText(),
+        Constants.WebTestData.FAQ_MESSAGE,
+        "Estimated tooltip text does not matches");
+    cartPage.openEstimatedFAQLink();
+    softAssert.assertTrue(
+        WebHelper.getCurrentUrl().contains(FooterOptions.HELP_CENTER.getUrl()),
+        "FAQ URL does not matches");
+    // Todo:Ask if the FAQ, should be opened on a new tab
+
+    softAssert.assertAll();
+
+    CheckOutPage checkOutPage = cartPage.clickContinueToCheckOut();
+    Assert.assertNotNull(checkOutPage, "CheckOut view was not displayed");
+  }
+
+  @Test(
+      groups = {
+        Constants.TestNGGroups.PLP,
+        Constants.TestNGGroups.WEB_CART,
+      },
+      description = "1109099")
+  public void multipleStandardItemTest() {
+    // ToDo:
+    // Estimated ship date logic
+    // Subtotal validation
+    SoftAssert softAssert = new SoftAssert();
+
+    logger.info("1. Navigate to PDP > Add to miniCart product1");
+    ProductDetailsPage productDetailsPage =
+        navigateToPDP(Constants.StandardCoffeeInventory.Coffee1.getValue());
+    String productName = productDetailsPage.getProductName();
+    String productGrind = productDetailsPage.getGrindSelected();
+    String productPrice = productDetailsPage.getProductPrice();
+
+    productDetailsPage.clickAddToMiniCart();
+
+    logger.info("2. Navigate to PDP > Add to miniCart product2");
+    productDetailsPage = navigateToPDP(Constants.StandardCoffeeInventory.Coffee3.getValue());
+    String productName2 = productDetailsPage.getProductName();
+    String productGrind2 = productDetailsPage.getGrindSelected();
+    String productPrice2 = productDetailsPage.getProductPrice();
+    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
+
+    logger.info("3. Click on View cart.");
+    int firstProduct = 1;
+    int secondProduct = 2;
+    CartPage cartPage = miniCart.clickViewCartButton();
+
+    logger.info("4. Validating Heading, Product image and name");
+    softAssert.assertEquals(cartPage.getCartPageTitle(), "CART", "Cart page title does not match");
+    softAssert.assertTrue(
+        cartPage.productImageIsDisplayed(firstProduct), "Product image[1st] is not displayed");
+    softAssert.assertTrue(
+        cartPage.productImageIsDisplayed(secondProduct), "Product image[2nd] is not displayed");
+    softAssert.assertEquals(
+        cartPage.getProductNameByIndex(firstProduct), productName2, "Product name doesn't match");
+    softAssert.assertEquals(
+        cartPage.getProductNameByIndex(secondProduct),
+        productName,
+        "Product name[2nd] doesn't match");
+
+    logger.info("5. Select Subscribe > Validate Subscription Elements");
+    softAssert.assertTrue(
+        cartPage.isOneTimePurchaseButtonSelected(), "One time purchase isn't selected");
+    cartPage.clickSubscribeButton();
+    softAssert.assertTrue(
+        cartPage.isFourWeeksSelectedByDefault(), "4 Weeks option is not by default");
+    softAssert.assertTrue(
+        cartPage.subscriptionOptionsAvailable() > 1, "There should be more subscription options");
+    cartPage.clickOneTimePurchaseButton();
+
+    logger.info("6. Validating grind, quantity and price values");
+    softAssert.assertEquals(
+        cartPage.getGrindSelectedByIndex(firstProduct),
+        productGrind2,
+        "Product grind doesn't match");
+    softAssert.assertEquals(
+        cartPage.getGrindSelectedByIndex(secondProduct),
+        productGrind,
+        "Product grind[2nd] doesn't match");
+    softAssert.assertTrue(
+        cartPage.getProductPriceByIndex(firstProduct).contains(productPrice2),
+        "Product price doesn't match");
+    softAssert.assertTrue(
+        cartPage.getProductPriceByIndex(secondProduct).contains(productPrice),
+        "Product price[2nd] doesn't match");
+    softAssert.assertTrue(cartPage.subTotalIsDisplayed(), "Subtotal displays is not displayed");
+
+    int productQuantity = cartPage.getProductQuantityByIndex(firstProduct);
+    cartPage = cartPage.increaseQuantity(firstProduct - 1);
+    softAssert.assertEquals(
+        cartPage.getProductQuantityByIndex(firstProduct),
+        productQuantity + 1,
+        "Quantity does not increase +1");
+    cartPage = cartPage.decreaseQuantity(firstProduct - 1);
+    softAssert.assertEquals(
+        cartPage.getProductQuantityByIndex(firstProduct),
+        productQuantity,
+        "Quantity does not decrease -1");
+
+    softAssert.assertAll();
+
+    CheckOutPage checkOutPage = cartPage.clickContinueToCheckOut();
+    Assert.assertNotNull(checkOutPage, "CheckOut view was not displayed");
   }
 }

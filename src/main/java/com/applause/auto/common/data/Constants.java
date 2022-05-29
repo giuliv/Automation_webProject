@@ -468,6 +468,8 @@ public class Constants {
         Arrays.asList("ALL COFFEE", "MIGHTY LEAF TEA", "GEAR");
     public static final String HOME_DELIVERY_TITLE = "FREE HOME DELIVERY";
     public static final String DARK_ROAST_BREADCRUMBS = "ALL COFFEE / DARK ROAST";
+    public static final String FAQ_MESSAGE =
+        "Estimated ship date based on items in your cart. Ship dates subject to change. Visit our FAQ page to learn more.";
   }
 
   @AllArgsConstructor

@@ -8,11 +8,7 @@ import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
-import com.applause.auto.pageobjectmodel.elements.Button;
-import com.applause.auto.pageobjectmodel.elements.ContainerElement;
-import com.applause.auto.pageobjectmodel.elements.Image;
-import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.elements.*;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import com.applause.auto.web.components.NeverMissAnOfferChunk;
 import com.applause.auto.web.components.OtherPurchasedItemChunk;
@@ -21,7 +17,6 @@ import java.time.Duration;
 import java.util.List;
 import lombok.Getter;
 import org.openqa.selenium.WebDriverException;
-import org.testng.asserts.SoftAssert;
 
 @Implementation(is = CartPage.class, on = Platform.WEB)
 @Implementation(is = CartPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
@@ -39,7 +34,7 @@ public class CartPage extends BaseComponent {
   @Locate(css = "input[name='quantity']", on = Platform.WEB)
   private List<Text> productQuantity;
 
-  @Locate(css = ".bag-item__price--original", on = Platform.WEB)
+  @Locate(css = ".bag-item__price--original, .bag-item__price--discounted", on = Platform.WEB)
   private List<Text> productPrice;
 
   @Locate(css = ".bag-item__photo img", on = Platform.WEB)
@@ -73,7 +68,7 @@ public class CartPage extends BaseComponent {
   private List<Button> decreaseQuantityButton;
 
   @Locate(css = "og-offer > og-when.og-offer button.og-optout-btn", on = Platform.WEB)
-  private Button oneTimePurchaseButton;
+  private RadioButton oneTimePurchaseButton;
 
   @Locate(css = "og-offer > og-when.og-offer button.og-optin-btn", on = Platform.WEB)
   private Button subscribeButton;
@@ -98,6 +93,24 @@ public class CartPage extends BaseComponent {
 
   @Locate(className = "bag-shipping__text", on = Platform.WEB)
   private Text shippingAwayMessage;
+
+  @Locate(css = "h1.bag__title", on = Platform.WEB)
+  private Text cartPageTitle;
+
+  @Locate(css = "og-when[test='regularEligible'] p.og-shipping option", on = Platform.WEB)
+  private LazyList<Text> subscriptionWeeks;
+
+  @Locate(xpath = "//option[@selected][text()=\"4 WEEKS\"]", on = Platform.WEB)
+  private Text subscriptionDefault;
+
+  @Locate(css = "#bagEstimateShip i", on = Platform.WEB)
+  private Button estimatedToolTip;
+
+  @Locate(css = "p.tooltip__copy", on = Platform.WEB)
+  private Text estimatedToolTipText;
+
+  @Locate(css = "p.tooltip__copy a", on = Platform.WEB)
+  private Link estimatedToolTipFAQLink;
 
   @Getter @Locate public NeverMissAnOfferChunk neverMissAnOfferChunk;
 
@@ -170,7 +183,7 @@ public class CartPage extends BaseComponent {
   public boolean productImageIsDisplayed(int index) {
     logger.info("Checking product image by index [{}] is displayed", index);
     if (productImage.size() < index) {
-      logger.error("The product with index [{}] isn't displayed");
+      logger.error("The product with index [{}] isn't displayed", index);
       return false;
     }
 
@@ -210,6 +223,10 @@ public class CartPage extends BaseComponent {
     return subTotalValue.isDisplayed();
   }
 
+  public String getSubTotal() {
+    return subTotalValue.getText();
+  }
+
   @Step("Get estimated ship date")
   public boolean estimatedShipDateIsDisplayed() {
     return estimatedShipDate.isDisplayed();
@@ -239,7 +256,7 @@ public class CartPage extends BaseComponent {
     }
 
     increaseQuantityButton.get(index).click();
-    SdkHelper.getSyncHelper().sleep(1000); // wait for increase product
+    SdkHelper.getSyncHelper().sleep(1500); // wait for increase product
     return this;
   }
 
@@ -258,6 +275,7 @@ public class CartPage extends BaseComponent {
 
     SdkHelper.getSyncHelper().wait(Until.uiElement(decreaseQuantityButton.get(index)).visible());
     decreaseQuantityButton.get(index).click();
+    SdkHelper.getSyncHelper().sleep(1500); // wait for decrease product
     return this;
   }
 
@@ -270,6 +288,8 @@ public class CartPage extends BaseComponent {
   public CartPage clickOneTimePurchaseButton() {
     logger.info("Selecting One time purchase");
     oneTimePurchaseButton.click();
+    SdkHelper.getSyncHelper().sleep(2000);
+
     return this;
   }
 
@@ -282,12 +302,14 @@ public class CartPage extends BaseComponent {
   public CartPage clickSubscribeButton() {
     logger.info("Selecting SUBSCRIBE & GET FREE SHIPPING");
     subscribeButton.click();
+    SdkHelper.getSyncHelper().sleep(2000);
+
     return this;
   }
 
   /** @return boolean */
   @Step("Get one time purchase button")
-  public boolean isOneTimePurchaseButtonEnabled() {
+  public boolean isOneTimePurchaseButtonSelected() {
     return oneTimePurchaseButton.isEnabled();
   }
 
@@ -319,7 +341,7 @@ public class CartPage extends BaseComponent {
    */
   @Step("Type personal message")
   public CartPage typePersonalMessage(String message) {
-    logger.info("Typing [{}] into the 'Add Personal Message' field");
+    logger.info("Typing [{}] into the 'Add Personal Message' field", message);
     addPersonalMessageField.clearText();
     addPersonalMessageField.sendKeys(message);
     return this;
@@ -392,6 +414,45 @@ public class CartPage extends BaseComponent {
     logger.info("Personal message title {}", message);
 
     return message;
+  }
+
+  public String getCartPageTitle() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(cartPageTitle).visible());
+    String message = cartPageTitle.getText();
+    logger.info("Cart page title {}", message);
+
+    return message;
+  }
+
+  public boolean isFourWeeksSelectedByDefault() {
+    logger.info("Reviewing Subscription weeks default value");
+    WebHelper.isDisplayed(subscriptionDefault);
+    return subscriptionDefault.exists();
+  }
+
+  public int subscriptionOptionsAvailable() {
+    logger.info("Subscription options");
+    return subscriptionWeeks.size();
+  }
+
+  public void openEstimatedTooltip() {
+    logger.info("Click over estimated date tooltip");
+    estimatedToolTip.click();
+  }
+
+  public String getEstimatedDateTooltipText() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(estimatedToolTipText).visible());
+    String message = estimatedToolTipText.getText();
+    logger.info("Estimated Date Tooltip text {}", message);
+
+    return message;
+  }
+
+  public CommonWebPage openEstimatedFAQLink() {
+    logger.info("Click over estimated FAQ link");
+    estimatedToolTipFAQLink.click();
+
+    return SdkHelper.create(CommonWebPage.class);
   }
 }
 
