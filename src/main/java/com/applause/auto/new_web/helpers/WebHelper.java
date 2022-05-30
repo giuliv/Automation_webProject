@@ -441,7 +441,8 @@ public class WebHelper {
       // Search root
       Set<WebElement> result = new LinkedHashSet(SdkHelper.getDriver().findElements(by));
       if (result.size() == 0) {
-        getShadowElementsFromRoot().stream()
+        getShadowElementsFromRoot()
+            .stream()
             .forEach(elem -> result.addAll(findShadowElementsBy(elem, by)));
       }
       return new ArrayList<>(result);
@@ -459,7 +460,8 @@ public class WebHelper {
         } else {
           List<WebElement> shadowNodes = getShadowElementsFromParent(parent);
           logger.info("Found shadow nodes on level: " + shadowNodes.size());
-          shadowNodes.stream()
+          shadowNodes
+              .stream()
               .forEach(
                   elem -> {
                     logger.info("Searching for element in shadow node...");
@@ -534,7 +536,8 @@ public class WebHelper {
   public static ArrayList<WebElement> findShadowElementsBy(Set<WebElement> parents, By by) {
     // Important: xpath search does not working
     Set<WebElement> result = new LinkedHashSet<>();
-    parents.stream()
+    parents
+        .stream()
         .forEach(
             parent -> {
               WebElement shadow = getWebElementFromShadowRoot(parent);
@@ -588,5 +591,20 @@ public class WebHelper {
   public static String getCurrentUrl() {
     logger.debug("Current url [{}]", SdkHelper.getDriver().getCurrentUrl());
     return SdkHelper.getDriver().getCurrentUrl();
+  }
+
+  /** A slow navigation helper for when you need to wait for url change. **/
+  public static void slowNavigationHelper(String linkHref, int seconds) {
+    for (int i = 0; i <= seconds; i++) {
+      SdkHelper.getSyncHelper().sleep(1000);
+      try {
+        if (WebHelper.getCurrentUrl().contains(linkHref)) {
+          logger.info("-- Navigation has happened.");
+          break;
+        }
+      } catch (WebDriverException e) {
+        logger.info("Frame detached issue seen");
+      }
+    }
   }
 }

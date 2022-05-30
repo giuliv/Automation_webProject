@@ -11,7 +11,7 @@ public enum CoffeeSubMenu {
   CURATED_SUBSCRIPTIONS("Curated Subscriptions", "Featured", "subscriptions"),
   COFFEE_FINDER("Coffee Finder", "Featured", "coffee-finder"),
   EGIFT_CARDS("E-Gift Cards", "Featured", "gift-cards"),
-  SALE("Sale", "Featured", "sale"),
+  FOODSERVICE("Foodservice", "Featured", "foodservice-program"),
 
   DARK_ROAST("Dark Roast", "Roast", "dark-roast"),
   MEDIUM_ROAST("Medium Roast", "Roast", "medium-roast"),

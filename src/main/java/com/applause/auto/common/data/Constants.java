@@ -1,5 +1,13 @@
 package com.applause.auto.common.data;
 
+import java.lang.invoke.MethodHandles;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.applause.auto.common.data.dto.ShareViaEmailDto;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.helpers.WebHelper;
@@ -8,10 +16,7 @@ import com.applause.auto.new_web.views.my_account.MyAccountPage;
 import com.applause.auto.new_web.views.my_account.MyAccountPeetnikRewardsPage;
 import com.applause.auto.new_web.views.my_account.MyAccountSettingsPage;
 import com.applause.auto.new_web.views.my_account.ReferralsPage;
-import java.lang.invoke.MethodHandles;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,7 +43,7 @@ public class Constants {
     public static final String MINI_CART = "mini-cart";
     public static final String CART = "shopping-cart";
     public static final String MY_ACCOUNT = "my-account";
-    public static final String MENU = "menu";
+    public static final String SETTINGS = "settings";
     public static final String EXISTING_USER_CHECKOUT = "existing-user-checkout";
     public static final String SUBSCRIPTIONS = "subscriptions";
     public static final String ACCOUNT_SETTINGS = "account-settings";
@@ -52,6 +57,8 @@ public class Constants {
     public static final String PDP = "pdp";
     public static final String SMOKE = "smoke";
     public static final String SANITY = "sanity";
+    public static final String HOME_PAGE_FOOTER = "home-page-footer";
+    public static final String MENU = "menu";
     public static final String IDENTITY = "identity";
     public static final String CHECKOUT = "checkout";
     public static final String HOME_PAGE = "home-page";
@@ -130,8 +137,9 @@ public class Constants {
         LANDING_PAGE_URL.split("\\?")[0] + "/collections/all-tea";
     public static final String TEA_BEST_SELLERS_URL =
         LANDING_PAGE_URL.split("\\?")[0] + "/collections/tea-best-sellers";
-
+    /** Test Data for tests */
     public static final String WEB_USERNAME = "peets.automation01@applause.com";
+
     public static final String WEB_PASSWORD = "Pa55word!";
     public static final String USERNAME = "appautosvc+peetscoffeealternate@applause.com";
     public static final String USERNAME_625882 = "appautosvc+test625882@applause.com";
@@ -168,6 +176,9 @@ public class Constants {
     public static final String SHIPPING_METHOD_AIR_2ND_DAY =
         "2nd Day Air - Cont. U.S. (2-3 business days)";
     public static final String SHIPPING_METHOD_SHOP_RUNNER = "Shoprunner FREE 2-Day Shipping";
+    public static final String SHOP_RUNNER_FREE_TEXT = "FREE 2-Day Shipping & Free Returns";
+    public static final String SHOP_RUNNER_SIGNIN = "sign in";
+    public static final String SHOP_RUNNER_LEARN_MORE = "learn more";
 
     public static final String FIRST_NAME = "Applause";
     public static final String LAST_NAME = "QA Test";
@@ -287,6 +298,9 @@ public class Constants {
     public static final String COFFEE_BEST_SELLERS_HEADER = "COFFEE BEST SELLERS";
     public static final String DARK_ROAST_HEADER = "DARK ROAST";
     public static final String TEA_BEST_SELLERS_HEADER = "Tea Best Sellers";
+
+    public static final String GRIND_FIRST_TEXT = "WHOLE BEAN";
+    public static final String GRIND_NEXT_TEXT = "DRIP";
   }
 
   public static final class TestMainMenu {

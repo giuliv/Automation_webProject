@@ -931,26 +931,10 @@ public class HomepageTests extends BaseTest {
       header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);
     }
 
-    logger.info(
-        "4. Hover and Click Coffee Hover anniversary-blend and Verify it is redirected to the Corresponding Item page.");
-    header.clickCoffeeSubMenuAnnaversiryAndSumatraLinks(TestData.COFFEE_HOVER_BLEND);
-    softAssert.assertTrue(
-        WebHelper.getCurrentUrl().contains(TestData.COFFEE_HOVER_BLEND),
-        "New Page is not redirected: " + WebHelper.getCurrentUrl());
-
-    logger.info(
-        "5. Hover and Click Coffee Hover sumatra-batak and Verify it is redirected to the Corresponding Item page.");
-    homePage = navigateToHome();
-    header = homePage.getHeader();
-    header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);
-    header.clickCoffeeSubMenuAnnaversiryAndSumatraLinks(TestData.COFFEE_HOVER_SUMATRA);
-    softAssert.assertTrue(
-        WebHelper.getCurrentUrl().contains(TestData.COFFEE_HOVER_SUMATRA),
-        "New Page is not redirected: " + WebHelper.getCurrentUrl());
     // Todo: Find your Match is displaying for only in Desktop
     if (WebHelper.isDesktop()) {
       logger.info(
-          "6. Hover and Click Coffee Hover Find Your Match and Verify it is redirected to the Corresponding Item page.");
+          "4. Hover and Click Coffee Hover Find Your Match and Verify it is redirected to the Corresponding Item page.");
       homePage = navigateToHome();
       header = homePage.getHeader();
       header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);

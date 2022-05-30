@@ -259,15 +259,26 @@ public class ProductListPage extends Base {
 
   @Step("Click quick view")
   public QuickViewComponent clickOverFirstQuickViewButton() {
-    WebHelper.scrollToElement(quickViewButtonList.get(0));
+    try {
+      WebHelper.scrollToElement(quickViewButtonList.get(0));
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
 
-    WebHelper.hoverByAction(quickViewButtonList.get(0));
+    try {
+      WebHelper.hoverByAction(quickViewButtonList.get(0));
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
 
     logger.info("Clicking QuickView button");
-    quickViewButtonList.get(0).click();
-
+    try {
+      quickViewButtonList.get(0).click();
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
     return SdkHelper.create(QuickViewComponent.class);
   }
 

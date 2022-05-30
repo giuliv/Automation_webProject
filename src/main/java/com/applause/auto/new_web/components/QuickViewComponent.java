@@ -1,9 +1,12 @@
 package com.applause.auto.new_web.components;
 
+import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.helpers.WebHelper;
+import com.applause.auto.new_web.components.plp.PlpLearnMoreOverlappingComponent;
+import com.applause.auto.new_web.components.plp.PlpSignInOverlappingComponent;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -11,6 +14,7 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
+import java.util.List;
 import org.testng.asserts.SoftAssert;
 
 @Implementation(is = QuickViewComponent.class, on = Platform.WEB)
@@ -43,6 +47,36 @@ public class QuickViewComponent extends BaseComponent {
 
   @Locate(css = "#modalQuickAdd button.modal__close", on = Platform.WEB)
   private Button closeButton;
+
+  @Locate(xpath = "//div[@id='srd_pd']//strong", on = Platform.WEB)
+  private Text freeText;
+
+  @Locate(xpath = "//div[@id='srd_pd']//span//a[contains(text(),'sign in')]", on = Platform.WEB)
+  private Text signIn;
+
+  @Locate(xpath = "//div[@id='srd_pd']//span//a[contains(text(),'learn more')]", on = Platform.WEB)
+  private Text learnMore;
+
+  @Locate(xpath = "//div[@id='srd_pd']//span//a[contains(text(),'sign in')]", on = Platform.WEB)
+  private ContainerElement signInLink;
+
+  @Locate(xpath = "//div[@id='srd_pd']//span//a[contains(text(),'learn more')]", on = Platform.WEB)
+  private ContainerElement learnMoreLink;
+
+  @Locate(xpath = "//div[@class='form-item']//ul//li", on = Platform.WEB)
+  private List<Text> grindList;
+
+  @Locate(xpath = "//div[@class='form-item']//div[@aria-label='Select grind']", on = Platform.WEB)
+  private ContainerElement grindDropDown;
+
+  @Locate(xpath = "//span[@id='quantityText']", on = Platform.WEB)
+  private Text quantity;
+
+  @Locate(xpath = "//button[@id='decrement']", on = Platform.WEB)
+  private Button minusButton;
+
+  @Locate(xpath = "//button[@id='increment']", on = Platform.WEB)
+  private Button plusButton;
 
   @Override
   public void afterInit() {
@@ -77,7 +111,9 @@ public class QuickViewComponent extends BaseComponent {
     return SdkHelper.create(MiniCart.class);
   }
 
-  /** @return product name */
+  /**
+   * @return product name
+   */
   @Step("Get product name")
   public String getProductName() {
     return productName.getText().trim();
@@ -92,5 +128,68 @@ public class QuickViewComponent extends BaseComponent {
     logger.info("Closing quickView modal");
     closeButton.click();
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).notPresent());
+  }
+
+  @Step("Verify ShopRunner UI elements")
+  public SoftAssert validatShopRunnerUIElements() {
+    SoftAssert softAssert = new SoftAssert();
+    softAssert.assertEquals(
+        freeText.getText().trim(),
+        TestData.SHOP_RUNNER_FREE_TEXT,
+        "FREE 2-Day Shipping & Free Returns Text is not displayed");
+    softAssert.assertEquals(
+        signInLink.getText().trim(), TestData.SHOP_RUNNER_SIGNIN, "Sign in Link is not displayed");
+    softAssert.assertEquals(
+        learnMoreLink.getText().trim(),
+        TestData.SHOP_RUNNER_LEARN_MORE,
+        "Learnmore Link is not displayed");
+    return softAssert;
+  }
+
+  @Step("Click Learnmore Link")
+  public PlpLearnMoreOverlappingComponent clickLearnMoreLink() {
+    logger.info("Clicking on the 'Learnmore' Link");
+    learnMoreLink.click();
+    return SdkHelper.create(PlpLearnMoreOverlappingComponent.class);
+  }
+
+  @Step("Click Sign In Link")
+  public PlpSignInOverlappingComponent clickSignInLink() {
+    logger.info("Clicking on the 'Sign In' Link");
+    signInLink.click();
+    return SdkHelper.create(PlpSignInOverlappingComponent.class);
+  }
+
+  @Step("Select the option from GrindDropDown")
+  public void selectOption(int index) {
+    logger.info("Select the 'DropwDown Grind' Option");
+    grindDropDown.click();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(grindList.get(index)).clickable()).click();
+  }
+
+  @Step("Return GrindDropDown Text")
+  public String selectedOptionText() {
+    logger.info("Select the 'DropwDownGrind' Option Text");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(grindDropDown).clickable());
+    return grindDropDown.getText().trim();
+  }
+
+  @Step("Return the Quantity Value")
+  public String getQuantity() {
+    logger.info("Get the 'Quantity' Text");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(quantity).visible());
+    return quantity.getText().trim();
+  }
+
+  @Step("Click Minus Button")
+  public void clickMinusButton() {
+    logger.info("Clicking on the 'Minus' Button");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(minusButton).clickable()).click();
+  }
+
+  @Step("Click Plus Button")
+  public void clickPLusButton() {
+    logger.info("Clicking on the 'Plus' Button");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(plusButton).clickable()).click();
   }
 }

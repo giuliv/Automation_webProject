@@ -6,7 +6,6 @@ import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.CurrentOffersPage;
 import com.applause.auto.new_web.views.FreeHomeDeliveryPage;
 import com.applause.auto.new_web.views.HomePage;
@@ -19,6 +18,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.new_web.helpers.WebHelper;
 import io.qameta.allure.Step;
 import org.apache.commons.lang3.NotImplementedException;
 import org.openqa.selenium.WebDriverException;
@@ -180,23 +180,26 @@ public class Header extends BaseComponent {
   @Step("Hover category from Menu")
   public void hoverCategoryFromMenu(Constants.MenuOptions menuOptions) {
     logger.info("Tab selected: " + menuOptions.name());
-
-    if (menuOptions.equals(Constants.MenuOptions.COFFEE)) {
-      WebHelper.hoverByAction(coffeeCategory);
-    } else if (menuOptions.equals(Constants.MenuOptions.GEAR)) {
-      gearCategory.click();
-    } else if (menuOptions.equals(Constants.MenuOptions.TEA)) {
-      WebHelper.hoverByAction(teaCategory);
-    } else if (menuOptions.equals(Constants.MenuOptions.SUBSCRIPTION)) {
-      WebHelper.hoverByAction(subscriptionTabCategory);
-    } else if (menuOptions.equals(Constants.MenuOptions.VISIT_US)) {
-      WebHelper.hoverByAction(visitUsCategory);
-    } else if (menuOptions.equals(Constants.MenuOptions.LEARN)) {
-      WebHelper.hoverByAction(learnCategory);
-    } else if (menuOptions.equals(MenuOptions.FREE_HOME_DELIVERY)) {
-      WebHelper.hoverByAction(freeHomeDeliveryCategory);
-    } else if (menuOptions.equals(MenuOptions.PEETNIK_REWARDS)) {
-      WebHelper.hoverByAction(peetnikRewardsCategory);
+    try {
+      if (menuOptions.equals(Constants.MenuOptions.COFFEE)) {
+        WebHelper.hoverByAction(coffeeCategory);
+      } else if (menuOptions.equals(Constants.MenuOptions.GEAR)) {
+        gearCategory.click();
+      } else if (menuOptions.equals(Constants.MenuOptions.TEA)) {
+        WebHelper.hoverByAction(teaCategory);
+      } else if (menuOptions.equals(Constants.MenuOptions.SUBSCRIPTION)) {
+        WebHelper.hoverByAction(subscriptionTabCategory);
+      } else if (menuOptions.equals(Constants.MenuOptions.VISIT_US)) {
+        WebHelper.hoverByAction(visitUsCategory);
+      } else if (menuOptions.equals(Constants.MenuOptions.LEARN)) {
+        WebHelper.hoverByAction(learnCategory);
+      } else if (menuOptions.equals(MenuOptions.FREE_HOME_DELIVERY)) {
+        WebHelper.hoverByAction(freeHomeDeliveryCategory);
+      } else if (menuOptions.equals(MenuOptions.PEETNIK_REWARDS)) {
+        WebHelper.hoverByAction(peetnikRewardsCategory);
+      }
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
     }
   }
 
@@ -246,7 +249,6 @@ public class Header extends BaseComponent {
       SdkHelper.getSyncHelper().wait(Until.uiElement(subscriptionCategories).visible());
       try {
         subscriptionCategories.click();
-        SdkHelper.getSyncHelper().sleep(1000); // Once chromedriver issue fix, remove it
       } catch (WebDriverException e) {
         logger.info("Frame detached issue seen");
       }
@@ -256,7 +258,6 @@ public class Header extends BaseComponent {
         SdkHelper.getSyncHelper().wait(Until.uiElement(subCategories).visible());
         try {
           subCategories.click();
-          SdkHelper.getSyncHelper().sleep(1000); // Once chromedriver issue fix, remove it
         } catch (WebDriverException e) {
           logger.info("Frame detached issue seen");
         }
@@ -266,7 +267,6 @@ public class Header extends BaseComponent {
         SdkHelper.getSyncHelper().wait(Until.uiElement(subCategoriesAlternative).visible());
         try {
           subCategoriesAlternative.click();
-          SdkHelper.getSyncHelper().sleep(1000); // Once chromedriver issue fix, remove it
         } catch (WebDriverException x) {
           logger.info("Frame detached issue seen");
         }
@@ -398,18 +398,16 @@ public class Header extends BaseComponent {
 
   @Step("Click submenu item")
   public void clickSubMenuItem(String linkHref) {
-    logger.info("Click SubMenu Each Link");
+    logger.info("Click SubMenu Each Link (" + linkHref + ")");
     subCategories.format(linkHref).initialize();
+    logger.info("-- initialized");
     SdkHelper.getSyncHelper().wait(Until.uiElement(subCategories.format(linkHref)).visible());
+    logger.info("-- (" + linkHref + ") is visible, clicking it now");
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(subCategories.format(linkHref)).clickable())
         .click();
-    try {
-      new WebDriverWait(SdkHelper.getDriver(), 20)
-          .until(w -> WebHelper.getCurrentUrl().contains(linkHref));
-    } catch (Exception e) {
-      throw new RuntimeException("New Page is Not opened.");
-    }
+    logger.info("-- Waiting for navigation");
+    WebHelper.slowNavigationHelper(linkHref, 5);
   }
 
   @Step("Click submenu Alllinks")
@@ -421,12 +419,8 @@ public class Header extends BaseComponent {
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(subCategoriesAllLinks.format(linkHref)).clickable())
         .click();
-    try {
-      new WebDriverWait(SdkHelper.getDriver(), 20)
-          .until(p -> WebHelper.getCurrentUrl().contains(linkHref));
-    } catch (Exception e) {
-      throw new RuntimeException("New Page is Not opened.");
-    }
+    logger.info("-- Waiting for navigation");
+    WebHelper.slowNavigationHelper(linkHref, 5);
   }
 
   @Step("Click Coffee submenu Anaversiry Blend,Sumatra Batak Links")
@@ -447,12 +441,8 @@ public class Header extends BaseComponent {
   public void clickCoffeeFindYourMatch(String linkHref) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(findYourMatch).visible());
     WebHelper.jsClick(findYourMatch.getWebElement());
-    try {
-      new WebDriverWait(SdkHelper.getDriver(), 20)
-          .until(p -> WebHelper.getCurrentUrl().contains(linkHref));
-    } catch (Exception e) {
-      throw new RuntimeException("New Page is Not opened.");
-    }
+    logger.info("-- Waiting for navigation");
+    WebHelper.slowNavigationHelper(linkHref, 5);
   }
 
   @Step("Click Tea submenu Find your Tea Match and About Mighty Leaf Links")
@@ -461,12 +451,8 @@ public class Header extends BaseComponent {
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(findMatchAndMightLeafLinks.format(linkHref)).visible());
     WebHelper.jsClick(findMatchAndMightLeafLinks.getWebElement());
-    try {
-      new WebDriverWait(SdkHelper.getDriver(), 20)
-          .until(p -> WebHelper.getCurrentUrl().contains(linkHref));
-    } catch (Exception e) {
-      throw new RuntimeException("New Page is Not opened.");
-    }
+    logger.info("-- Waiting for navigation");
+    WebHelper.slowNavigationHelper(linkHref, 5);
   }
 
   /**
@@ -605,12 +591,8 @@ class HeaderMobile extends Header {
     subCategoriesAllLinks.format(linkHref).initialize();
     WebHelper.scrollToElement(subCategoriesAllLinks.getWebElement());
     SdkHelper.getBrowserControl().jsClick(subCategoriesAllLinks);
-    try {
-      new WebDriverWait(SdkHelper.getDriver(), 20)
-          .until(p -> WebHelper.getCurrentUrl().contains(linkHref));
-    } catch (Exception e) {
-      throw new RuntimeException("New Page is Not opened.");
-    }
+    logger.info("-- Waiting for navigation");
+    WebHelper.slowNavigationHelper(linkHref, 5);
   }
 
   @Override
