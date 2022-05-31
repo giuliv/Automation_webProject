@@ -3,6 +3,7 @@ package com.applause.auto.new_web.helpers;
 import static com.applause.auto.framework.SdkHelper.getDriver;
 import static io.appium.java_client.Setting.NATIVE_WEB_TAP;
 
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -40,6 +41,18 @@ public class WebHelper {
 
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
   public static String previousTab = null;
+
+  public static boolean exists(BaseElement element, int timeoutInSeconds) {
+    boolean exists = false;
+    Duration previous = SdkHelper.getDriver().getTimeout();
+    try {
+      SdkHelper.getDriver().setTimeout(timeoutInSeconds);
+      exists = element.exists();
+    } catch (Throwable t) {
+      SdkHelper.getDriver().setTimeout(previous);
+    }
+    return exists;
+  }
 
   public static void hoverByAction(BaseElement element) {
     logger.info("Hover over...");
@@ -234,7 +247,13 @@ public class WebHelper {
    */
   public static <T extends BaseComponent> T navigateToUrl(String expectedUrl, Class<T> clazz) {
     logger.info("Navigation to [{}]", expectedUrl);
-    getDriver().navigate().to(expectedUrl);
+
+    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
+    try {
+      getDriver().navigate().to(expectedUrl);
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
     return SdkHelper.create(clazz);
   }
 
@@ -441,8 +460,7 @@ public class WebHelper {
       // Search root
       Set<WebElement> result = new LinkedHashSet(SdkHelper.getDriver().findElements(by));
       if (result.size() == 0) {
-        getShadowElementsFromRoot()
-            .stream()
+        getShadowElementsFromRoot().stream()
             .forEach(elem -> result.addAll(findShadowElementsBy(elem, by)));
       }
       return new ArrayList<>(result);
@@ -460,8 +478,7 @@ public class WebHelper {
         } else {
           List<WebElement> shadowNodes = getShadowElementsFromParent(parent);
           logger.info("Found shadow nodes on level: " + shadowNodes.size());
-          shadowNodes
-              .stream()
+          shadowNodes.stream()
               .forEach(
                   elem -> {
                     logger.info("Searching for element in shadow node...");
@@ -536,8 +553,7 @@ public class WebHelper {
   public static ArrayList<WebElement> findShadowElementsBy(Set<WebElement> parents, By by) {
     // Important: xpath search does not working
     Set<WebElement> result = new LinkedHashSet<>();
-    parents
-        .stream()
+    parents.stream()
         .forEach(
             parent -> {
               WebElement shadow = getWebElementFromShadowRoot(parent);
@@ -593,7 +609,7 @@ public class WebHelper {
     return SdkHelper.getDriver().getCurrentUrl();
   }
 
-  /** A slow navigation helper for when you need to wait for url change. **/
+  /** A slow navigation helper for when you need to wait for url change. * */
   public static void slowNavigationHelper(String linkHref, int seconds) {
     for (int i = 0; i <= seconds; i++) {
       SdkHelper.getSyncHelper().sleep(1000);

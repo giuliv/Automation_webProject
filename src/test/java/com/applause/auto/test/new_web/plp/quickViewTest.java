@@ -31,7 +31,7 @@ public class quickViewTest extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
-      description = "C11107487")
+      description = "11107487")
   public void shoprunnerTest() {
 
     logger.info("1. Navigate to landing page");
@@ -59,7 +59,7 @@ public class quickViewTest extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
-      description = "C11107488")
+      description = "11107488")
   public void teaItemTest() {
 
     logger.info("1. Navigate to landing page");
@@ -98,7 +98,7 @@ public class quickViewTest extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
-      description = "C11107486")
+      description = "11107486")
   public void itemTypeTest() {
 
     logger.info("1. Navigate to landing page");

@@ -486,6 +486,11 @@ public class ProductListPage extends Base {
     return WebHelper.isDisplayed(bannerContent);
   }
 
+  public boolean isLoadButtonDisplayed() {
+    logger.info("Checking load more content is displayed");
+    return WebHelper.exists(loadMoreButton, 5);
+  }
+
   public boolean isHomeDeliverySectionDisplayed() {
     logger.info("Checking Home Delivery content is displayed");
     WebHelper.scrollToElement(homeDeliveryContainer);

@@ -104,9 +104,11 @@ public class CoffeeBestSellersTests extends BaseTest {
     quickViewComponent.closeQuickView();
 
     logger.info("6. Load More Results");
-    productListPage.loadMore();
-    Assert.assertTrue(
-        totalProducts < productListPage.getTotalResults(), "Load more results does not work");
+    if (productListPage.isLoadButtonDisplayed()) {
+      productListPage.loadMore();
+      Assert.assertTrue(
+          totalProducts < productListPage.getTotalResults(), "Load more results does not work");
+    }
 
     softAssert.assertAll();
   }

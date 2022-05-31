@@ -54,7 +54,7 @@ public class CoffeeDarkRoastTests extends BaseTest {
     ProductListPage productListPage = navigateToPLP(TestData.COFFEE_DARK_ROAST_URL);
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
-    int totalResults = productListPage.getTotalResults();
+    int originalTotalResults = productListPage.getTotalResults();
     Assert.assertEquals(
         productListPage.getBreadCrumbs(),
         Constants.WebTestData.DARK_ROAST_BREADCRUMBS,
@@ -62,8 +62,9 @@ public class CoffeeDarkRoastTests extends BaseTest {
 
     logger.info("2. Review breadcrumbs feature");
     productListPage = productListPage.clickOverAllCoffeeFromBreadCrumbs();
-    Assert.assertNotEquals(
-        totalResults, productListPage.getTotalResults(), "BreadCrumbs link does not work");
+    Assert.assertTrue(
+        productListPage.getTotalResults() <= originalTotalResults,
+        "BreadCrumbs link does not work");
   }
 
   @Test(
