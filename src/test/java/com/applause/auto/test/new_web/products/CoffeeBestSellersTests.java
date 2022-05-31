@@ -6,6 +6,7 @@ import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.enums.Filters;
 import com.applause.auto.new_web.components.QuickViewComponent;
 import com.applause.auto.new_web.components.plp.PlpItemComponent;
+import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.test.new_web.BaseTest;
 import java.util.Arrays;
@@ -111,5 +112,21 @@ public class CoffeeBestSellersTests extends BaseTest {
     }
 
     softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.PRODUCTS},
+      description = "11107504")
+  public void coffeeBestSellersOutOfStockTest() {
+    logger.info("1. Navigate to Product list page");
+    ProductListPage productListPage = navigateToPLP(TestData.COFFEE_BEST_SELLERS_URL);
+    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+
+    int firstItem = 0;
+    logger.info("2. Review Out of Stock items");
+    Assert.assertTrue(
+        productListPage.isViewProductDisplayed(firstItem), "View product is not displayed");
+    ProductDetailsPage productDetailsPage = productListPage.clickViewProductButton(firstItem);
+    Assert.assertNotNull(productDetailsPage, "Product Details page is not displayed");
   }
 }

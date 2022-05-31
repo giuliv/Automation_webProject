@@ -345,6 +345,7 @@ public class Constants {
     public static final String EDIT_EMAIL = "peets.auto01@gmail.com";
     public static final String EDIT_EMAIL_PWD = "p4ssword!";
     public static final String ALL_COFFEE_HEADER = "ALL COFFEE";
+    public static final String GEAR_HEADER = "GEAR";
     public static final String BESTSELLER_HEADER = "COFFEE BEST SELLERS";
     public static final String DARK_ROAST_HEADER = "DARK ROAST";
     public static final String TEA_HEADER = "MIGHTY LEAF TEA";

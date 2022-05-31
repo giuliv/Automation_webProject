@@ -474,6 +474,7 @@ public class Header extends BaseComponent {
   public HomePage clickLogoButton() {
     logger.info("Tap on Logo Button");
     SdkHelper.getSyncHelper().wait(Until.uiElement(logoButton).clickable()).click();
+    SdkHelper.getSyncHelper().sleep(1000); // Sometimes, it takes time to change
 
     return SdkHelper.create(HomePage.class);
   }

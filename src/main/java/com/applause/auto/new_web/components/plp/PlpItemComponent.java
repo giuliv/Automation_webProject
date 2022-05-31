@@ -162,7 +162,13 @@ public class PlpItemComponent extends BaseComponent {
     logger.info("Clicking on the 'Quick view' button");
     WebHelper.hoverByAction(quickViewButton);
     SdkHelper.getSyncHelper().sleep(500);
-    quickViewButton.click();
+
+    if (WebHelper.isMobile()) {
+      WebHelper.jsClick(quickViewButton.getWebElement());
+    } else {
+      quickViewButton.click();
+    }
+
     return SdkHelper.create(QuickViewComponent.class);
   }
 }

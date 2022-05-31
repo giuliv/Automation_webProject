@@ -36,6 +36,11 @@ public class ProductListPage extends Base {
       on = Platform.WEB)
   private List<Image> reserveProductsImageList;
 
+  @Locate(
+      css = ".collection__grid li a.pi__link > div.pi__badge i.icon--out-of-stock",
+      on = Platform.WEB)
+  private List<Image> outOfStockItemList;
+
   @Locate(css = "li[class*='collection-facets'] button", on = Platform.WEB)
   protected List<Button> filtersList;
 
@@ -62,6 +67,9 @@ public class ProductListPage extends Base {
 
   @Locate(css = ".pi__quick-add button", on = Platform.WEB)
   private List<Button> quickViewButtonList;
+
+  @Locate(css = ".pi__quick-add a", on = Platform.WEB)
+  private List<Button> viewProductButtonList;
 
   @Locate(className = "collection-sort__select", on = Platform.WEB)
   protected Button sortingBox;
@@ -280,6 +288,31 @@ public class ProductListPage extends Base {
       logger.info("Frame detached issue seen");
     }
     return SdkHelper.create(QuickViewComponent.class);
+  }
+
+  public void hoverOutOfStockItemByIndex(int index) {
+    logger.info("Hover Out of Stock item in position: " + index);
+    try {
+      WebHelper.scrollToElement(outOfStockItemList.get(index));
+      SdkHelper.getSyncHelper().sleep(1000); // Wait for scroll
+
+      WebHelper.hoverByAction(outOfStockItemList.get(index));
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
+  }
+
+  public boolean isViewProductDisplayed(int index) {
+    hoverOutOfStockItemByIndex(index);
+    return viewProductButtonList.get(index).isDisplayed();
+  }
+
+  public ProductDetailsPage clickViewProductButton(int index) {
+    hoverOutOfStockItemByIndex(index);
+
+    logger.info("Click over View Product");
+    viewProductButtonList.get(index).click();
+    return SdkHelper.create(ProductDetailsPage.class);
   }
 
   @Step("Select sorting by type")

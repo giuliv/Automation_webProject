@@ -132,6 +132,7 @@ public class BaseTest extends ApplauseSeleniumTest {
 
   @Step("Navigate to Gear Section")
   public ProductListPage navigateToGearSection() {
+    navigateToHome();
     logger.info(String.format("Navigating to the Gear page '%s'", TestData.GEAR_PAGE_URL));
 
     // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
