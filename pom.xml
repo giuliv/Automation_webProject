@@ -13,7 +13,7 @@
         <allure.results>${project.build.directory}/allure-results</allure.results>
         <allure.html.folder.name>graph-test-report</allure.html.folder.name>
 
-        <com.applause.sdk.java.version>3.2.4</com.applause.sdk.java.version>
+        <com.applause.sdk.java.version>4.0.1</com.applause.sdk.java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <surefire.version>2.19</surefire.version>
         <surefire.suiteXmlFiles>${suiteFile}</surefire.suiteXmlFiles>
