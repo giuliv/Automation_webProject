@@ -103,8 +103,11 @@ public class FooterComponent extends BaseComponent {
   @Step("Click 'App store' link")
   public CommonWebPage clickAppStore() {
     logger.info("Clicking on the 'App Store' link");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(appStoreLink).present());
     WebHelper.scrollToElement(appStoreLink);
-    appStoreLink.click();
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for scroll ends
+
+    WebHelper.jsClick(appStoreLink.getWebElement());
     return SdkHelper.create(CommonWebPage.class);
   }
 

@@ -311,7 +311,12 @@ public class ProductListPage extends Base {
     hoverOutOfStockItemByIndex(index);
 
     logger.info("Click over View Product");
-    viewProductButtonList.get(index).click();
+    if (WebHelper.isMobile()) {
+      WebHelper.jsClick(viewProductButtonList.get(index).getWebElement());
+    } else {
+      viewProductButtonList.get(index).click();
+    }
+
     return SdkHelper.create(ProductDetailsPage.class);
   }
 

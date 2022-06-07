@@ -134,6 +134,7 @@ public class SignInPage extends BaseComponent {
    * @return the error message
    */
   public String getErrorMessage() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getErrorMessage).visible());
     return getErrorMessage.getText().trim();
   }
 }

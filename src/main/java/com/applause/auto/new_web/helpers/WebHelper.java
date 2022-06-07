@@ -12,17 +12,15 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.TouchAction;
+import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.remote.HideKeyboardStrategy;
 import io.appium.java_client.touch.offset.PointOption;
 import java.lang.invoke.MethodHandles;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
+
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -621,6 +619,45 @@ public class WebHelper {
       } catch (WebDriverException e) {
         logger.info("Frame detached issue seen");
       }
+    }
+  }
+
+  public static void hideKeyboard() {
+    if (isMobile()) {
+      Set<String> contexts = ((AppiumDriver) SdkHelper.getDriver()).getContextHandles();
+      logger.info("Checking native context is shown on UI");
+      Optional<String> nativeContext =
+          contexts.stream()
+              .filter(context -> StringUtils.containsIgnoreCase(context, "native"))
+              .findAny();
+      if (nativeContext.isPresent()) {
+        try {
+          logger.info("Test running on mobile device... ");
+          logger.info("Switching to native context");
+          ((AppiumDriver) SdkHelper.getDriver()).context(nativeContext.get());
+          SdkHelper.getSyncHelper().sleep(1000);
+          logger.info("Switched to native context");
+
+          try {
+            if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+              ((IOSDriver) SdkHelper.getDriver())
+                  .hideKeyboard(HideKeyboardStrategy.PRESS_KEY, "Done");
+              SdkHelper.getSyncHelper().sleep(2000); // Wait for keyboard to be hidden on iOS
+              logger.info("iOS Keyboard was hidden");
+            } else {
+              ((AndroidDriver) SdkHelper.getDriver()).hideKeyboard();
+              logger.info("Android Keyboard was hidden");
+            }
+          } catch (Exception e) {
+            logger.info("There was an error while hiding the keyboard");
+          }
+        } finally {
+          logger.info("Switching back to web context");
+          contexts.remove(nativeContext.get());
+          ((AppiumDriver) SdkHelper.getDriver()).context(contexts.iterator().next());
+        }
+      }
+      SdkHelper.getSyncHelper().sleep(2000);
     }
   }
 }

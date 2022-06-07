@@ -143,7 +143,12 @@ public class StoreLocatorPage extends Base {
   @Step("Open filters")
   public StockResultFilterComponent openFilters() {
     logger.info("Clicking on filter by amenities.");
-    filterByButton.click();
+    if (WebHelper.isMobile()) {
+      WebHelper.jsClick(filterByButton.getWebElement());
+    } else {
+      filterByButton.click();
+    }
+
     return SdkHelper.create(StockResultFilterComponent.class);
   }
 

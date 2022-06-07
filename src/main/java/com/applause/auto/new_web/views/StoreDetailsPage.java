@@ -90,7 +90,12 @@ public class StoreDetailsPage extends BaseComponent {
   public GoogleMapPage clickOnGetDirectionsButton() {
     logger.info("Clicking on 'Get Directions' Button");
     String windowHandle = SdkHelper.getDriver().getWindowHandle();
-    getDirectionsButton.click();
+    if (WebHelper.isMobile()) {
+      WebHelper.jsClick(getDirectionsButton.getWebElement());
+    } else {
+      getDirectionsButton.click();
+    }
+
     WebHelper.switchToNewTab(windowHandle);
     return SdkHelper.create(GoogleMapPage.class);
   }

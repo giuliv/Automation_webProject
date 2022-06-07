@@ -193,7 +193,12 @@ public class CoffeeBarPage extends BaseComponent {
   /** @return Coffee Bar Page */
   public CoffeeBarPage clickNextArrow() {
     logger.info("click Next Arrow");
-    getNextButton.click();
+    if (WebHelper.isMobile()) {
+      WebHelper.jsClick(getNextButton.getWebElement());
+    } else {
+      getNextButton.click();
+    }
+
     SdkHelper.getSyncHelper().sleep(2000); // Wait for items to scroll and css values to update
     WebHelper.getNewTab();
     return SdkHelper.create(CoffeeBarPage.class);

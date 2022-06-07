@@ -78,7 +78,12 @@ public class SearchBoxItemComponent extends BaseComponent {
    */
   public ProductDetailsPage clickOnItem() {
     logger.info("Clicking on the product with name [{}]", getName());
+    if (WebHelper.isMobile()) {
+      WebHelper.hideKeyboard();
+    }
+
     itemImage.click();
+
     return SdkHelper.create(ProductDetailsPage.class);
   }
 }
