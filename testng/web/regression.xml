@@ -1,6 +1,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Regression Web Test Suite" verbose="1" parallel="classes"
        thread-count="5">
+    <listeners>
+        <listener class-name="com.applause.auto.listeners.allure.WebTestMethodExecutionListener"/>
+        <listener class-name="com.applause.auto.listeners.allure.TestMethodFailureRetryInterceptor"/>
+    </listeners>
     <test name="Regression Web cases" preserve-order="true">
         <groups>
             <run>

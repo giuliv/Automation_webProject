@@ -1,6 +1,10 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Sanity Web Test Suite" verbose="1" parallel="classes"
        thread-count="8">
+    <listeners>
+        <listener class-name="com.applause.auto.listeners.allure.WebTestMethodExecutionListener"/>
+        <listener class-name="com.applause.auto.listeners.allure.TestMethodFailureRetryInterceptor"/>
+    </listeners>
     <test name="Sanity cases" preserve-order="true">
         <groups>
             <run>
