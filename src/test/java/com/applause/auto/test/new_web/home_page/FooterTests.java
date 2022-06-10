@@ -4,6 +4,7 @@ import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.enums.FooterOptions;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.FooterComponent;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.HomePage;
 import com.applause.auto.test.new_web.BaseTest;
 import java.util.List;
@@ -149,7 +150,7 @@ public class FooterTests extends BaseTest {
     footer.clickAppStore();
 
     logger.info("Verify App store page is displayed");
-    String currentUrl = SdkHelper.getDriver().getCurrentUrl();
+    String currentUrl = WebHelper.getCurrentUrl();
     softAssert.assertTrue(currentUrl.contains("apps.apple.com"), "App store page isn't displayed");
     softAssert.assertTrue(currentUrl.contains("Peets"), "Peet's App store page isn't displayed");
 
@@ -158,7 +159,7 @@ public class FooterTests extends BaseTest {
     footer.clickGooglePlay();
 
     logger.info("Verify Google play page is displayed");
-    currentUrl = SdkHelper.getDriver().getCurrentUrl();
+    currentUrl = WebHelper.getCurrentUrl();
     softAssert.assertTrue(
         currentUrl.contains("play.google.com"), "Google play page isn't displayed");
     softAssert.assertTrue(currentUrl.contains("Peets"), "Peet's Google play page isn't displayed");
@@ -206,7 +207,9 @@ public class FooterTests extends BaseTest {
       FooterComponent footer, SoftAssert softAssert, List<FooterOptions> options) {
     logger.info("Verify all expected footer options are displayed");
     for (FooterOptions option : options) {
-      softAssert.assertTrue(footer.isOptionDisplayed(option), "Footer option [{}] isn't displayed");
+      softAssert.assertTrue(
+          footer.isOptionDisplayed(option),
+          String.format("Footer option [%s] isn't displayed", option));
     }
   }
 
@@ -219,14 +222,14 @@ public class FooterTests extends BaseTest {
       // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
       try {
         footer.clickOption(option);
-        SdkHelper.getSyncHelper().sleep(1000); // Remove when fixed
+        SdkHelper.getSyncHelper().sleep(3000); // Remove when fixed
       } catch (WebDriverException e) {
         logger.info("Frame detached issue seen");
       }
 
       logger.info("Verify expected page URL is displayed");
       softAssert.assertEquals(
-          SdkHelper.getDriver().getCurrentUrl(),
+          WebHelper.getCurrentUrl(),
           option.getUrl(),
           String.format("Wrong URL is displayed for option [%s]", option.getOption()));
 
@@ -253,7 +256,7 @@ public class FooterTests extends BaseTest {
       footer.clickSocialMediaLink(option);
 
       logger.info("Verify expected page URL is displayed");
-      String currentUrl = SdkHelper.getDriver().getCurrentUrl();
+      String currentUrl = WebHelper.getCurrentUrl();
       softAssert.assertTrue(
           currentUrl.contains(option.getUrl()),
           String.format(
@@ -298,7 +301,7 @@ public class FooterTests extends BaseTest {
         }
 
         logger.info("Verify expected page URL is displayed");
-        String currentUrl = SdkHelper.getDriver().getCurrentUrl();
+        String currentUrl = WebHelper.getCurrentUrl();
         softAssert.assertTrue(
             currentUrl.contains(option.getUrl()),
             String.format(

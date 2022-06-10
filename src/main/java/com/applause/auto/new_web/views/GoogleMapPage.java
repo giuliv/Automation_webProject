@@ -1,7 +1,7 @@
 package com.applause.auto.new_web.views;
 
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import io.qameta.allure.Step;
@@ -11,7 +11,7 @@ public class GoogleMapPage extends BaseComponent {
 
   @Step("Check if Maps displayed")
   public boolean isDisplayed() {
-    String currentUrl = SdkHelper.getDriver().getCurrentUrl();
+    String currentUrl = WebHelper.getCurrentUrl();
     logger.info("Current URL is - [{}]", currentUrl);
     return currentUrl.contains("maps");
   }

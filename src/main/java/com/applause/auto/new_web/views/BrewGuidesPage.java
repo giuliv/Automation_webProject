@@ -21,7 +21,7 @@ public class BrewGuidesPage extends Base {
   public void afterInit() {
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(mainContainer).visible().setTimeout(Duration.ofSeconds(40)));
-    logger.info("Current URL - [{}]", SdkHelper.getDriver().getCurrentUrl());
+    logger.info("Current URL - [{}]", WebHelper.getCurrentUrl());
   }
 
   @Step("Check if Brew Guides Page displayed")

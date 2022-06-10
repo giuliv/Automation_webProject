@@ -67,7 +67,11 @@ public class WebHelper {
   }
 
   public static void scrollToElement(BaseElement element) {
-    scrollToElement(element.getWebElement());
+    try {
+      scrollToElement(element.getWebElement());
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
   }
 
   public static void scrollToElement(WebElement element) {
@@ -388,7 +392,7 @@ public class WebHelper {
     for (String windowHandle : windows) {
       logger.info("Switching to new window handle [" + windowHandle + "].");
       switchToTab(windowHandle);
-      currentUrl = SdkHelper.getDriver().getCurrentUrl();
+      currentUrl = WebHelper.getCurrentUrl();
       if (currentUrl.contains(newUrl)) {
         return;
       } else {
@@ -603,8 +607,18 @@ public class WebHelper {
 
   /** Get the Current URL */
   public static String getCurrentUrl() {
-    logger.debug("Current url [{}]", SdkHelper.getDriver().getCurrentUrl());
-    return SdkHelper.getDriver().getCurrentUrl();
+    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
+    String url;
+    try {
+      url = SdkHelper.getDriver().getCurrentUrl();
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+      SdkHelper.getSyncHelper().sleep(3000); // Remove when fixed
+      url = SdkHelper.getDriver().getCurrentUrl();
+    }
+
+    logger.debug("Current url [{}]", url);
+    return url;
   }
 
   /** A slow navigation helper for when you need to wait for url change. * */

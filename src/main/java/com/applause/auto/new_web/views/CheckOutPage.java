@@ -17,6 +17,8 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.qameta.allure.Step;
+import org.openqa.selenium.WebDriverException;
+
 import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -208,7 +210,11 @@ public class CheckOutPage extends Base {
     continueToShipping.click();
 
     if (WebHelper.getTestEnvironment().equalsIgnoreCase("production") && proceedButton.exists()) {
-      proceedButton.click();
+      try {
+        proceedButton.click();
+      } catch (WebDriverException e) {
+        logger.info("Frame detached issue seen");
+      }
     }
 
     return SdkHelper.create(ShippingPage.class);

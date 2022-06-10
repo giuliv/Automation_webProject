@@ -250,6 +250,7 @@ public class Header extends BaseComponent {
       try {
         subscriptionCategories.click();
       } catch (WebDriverException e) {
+        SdkHelper.getSyncHelper().sleep(2000); // temp
         logger.info("Frame detached issue seen");
       }
     } else {
@@ -259,6 +260,7 @@ public class Header extends BaseComponent {
         try {
           subCategories.click();
         } catch (WebDriverException e) {
+          SdkHelper.getSyncHelper().sleep(2000); // temp
           logger.info("Frame detached issue seen");
         }
       } catch (Exception e) {
@@ -268,6 +270,7 @@ public class Header extends BaseComponent {
         try {
           subCategoriesAlternative.click();
         } catch (WebDriverException x) {
+          SdkHelper.getSyncHelper().sleep(2000); // temp
           logger.info("Frame detached issue seen");
         }
       }

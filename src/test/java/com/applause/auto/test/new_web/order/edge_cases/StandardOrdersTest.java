@@ -114,18 +114,14 @@ public class StandardOrdersTest extends BaseTest {
     checkOutPage.setCheckOutData();
 
     logger.info("5. Check Save this information for next time checkbox and click on Continue.");
-    ShippingPage shippingPage =
-        checkOutPage.clickOnSaveThisInformationForTheNextTime().clickContinueToShipping();
+    checkOutPage.clickOnSaveThisInformationForTheNextTime().clickContinueToShipping();
 
-    logger.info("6. Navigate to landing page");
-    productListPage = navigateToPLPMediumRoast();
-
-    logger.info("7. Add an item");
-    productDetailsPage = productListPage.clickOverProductByIndex(0);
+    logger.info("6. Navigate to PDP > Add an item");
+    productDetailsPage = navigateToPDP(coffeeSelected);
     miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("8. Click on Checkout.");
-    shippingPage = miniCart.clickOnContinueToCheckOutButton(ShippingPage.class);
+    logger.info("7. Click on Checkout.");
+    ShippingPage shippingPage = miniCart.clickOnContinueToCheckOutButton(ShippingPage.class);
 
     logger.info("Verify that - user is on the shipping page");
     Assert.assertTrue(shippingPage.isDisplayed(), "User isn't on the shipping page");

@@ -136,7 +136,7 @@ public class ProductDetailsPage extends Base {
   public void afterInit() {
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(mainContainer).present().setTimeout(Duration.ofSeconds(40)));
-    logger.info("Product Details Page URL: " + SdkHelper.getDriver().getCurrentUrl());
+    logger.info("Product Details Page URL: " + WebHelper.getCurrentUrl());
   }
 
   /* -------- Actions -------- */
