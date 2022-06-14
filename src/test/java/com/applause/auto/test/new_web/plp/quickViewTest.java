@@ -1,8 +1,5 @@
 package com.applause.auto.test.new_web.plp;
 
-import org.testng.Assert;
-import org.testng.annotations.Test;
-
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.new_web.components.QuickViewComponent;
@@ -10,6 +7,8 @@ import com.applause.auto.new_web.components.plp.PlpLearnMoreOverlappingComponent
 import com.applause.auto.new_web.components.plp.PlpSignInOverlappingComponent;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.test.new_web.BaseTest;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 public class quickViewTest extends BaseTest {
 
@@ -50,7 +49,7 @@ public class quickViewTest extends BaseTest {
         learMoreOverlapping.getShippingText(),
         TestData.SHOP_RUNNER_FREE_TEXT,
         "FREE 2-Day Shipping & Free Returns Text is not displayed");
-    quickViewComponent = learMoreOverlapping.clickCloseButton();
+    quickViewComponent = learMoreOverlapping.clickCloseButton(QuickViewComponent.class);
 
     logger.info("5. Click Sign In Link and Verify SignIn overlapping Modal");
     PlpSignInOverlappingComponent signInOverlapping = quickViewComponent.clickSignInLink();

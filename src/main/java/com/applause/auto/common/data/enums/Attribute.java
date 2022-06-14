@@ -19,7 +19,8 @@ public enum Attribute {
   BORDER_RADIUS("border-radius"),
   BACKGROUND_COLOR("background-color"),
   SRCSET("srcset"),
-  ID("id");
+  ID("id"),
+  TITLE("title");
 
   @Getter private String value;
 }

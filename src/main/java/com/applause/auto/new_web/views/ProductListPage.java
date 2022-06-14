@@ -10,7 +10,12 @@ import com.applause.auto.new_web.components.plp.PlpItemComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
-import com.applause.auto.pageobjectmodel.elements.*;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.Image;
+import com.applause.auto.pageobjectmodel.elements.Link;
+import com.applause.auto.pageobjectmodel.elements.SelectList;
+import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import com.google.common.collect.Ordering;
 import io.qameta.allure.Step;
@@ -133,6 +138,41 @@ public class ProductListPage extends Base {
 
   @Locate(css = ".collection-filters__breadcrumbs a", on = Platform.WEB)
   private Link linkBreadCrumbs;
+
+  @Locate(css = ".pv-flavor-profile__subtitle", on = Platform.WEB)
+  private Text flavorSubtitleText;
+
+  @Locate(
+      xpath = "//p[span[@class='pv-flavor-profile__attribute-label' and contains(text(),'Type:')]]",
+      on = Platform.WEB)
+  private Text flavorAttributesTypeText;
+
+  @Locate(
+      xpath =
+          "//p[span[@class='pv-flavor-profile__attribute-label' and contains(text(),'Origin:')]]",
+      on = Platform.WEB)
+  private Text flavorAttributesOriginText;
+
+  @Locate(
+      xpath =
+          "//p[span[@class='pv-flavor-profile__attribute-label' and contains(text(),'Process:')]]",
+      on = Platform.WEB)
+  private Text flavorAttributesProcessText;
+
+  @Locate(
+      xpath = "//p[contains(text(),'Roast')]/following-sibling::div[@class='progress-bar'][1]",
+      on = Platform.WEB)
+  private ContainerElement flavorRoastProgressBar;
+
+  @Locate(
+      xpath = "//p[contains(text(),'Brightness')]/following-sibling::div[@class='progress-bar'][1]",
+      on = Platform.WEB)
+  private ContainerElement flavorBrightnessProgressBar;
+
+  @Locate(
+      xpath = "//p[contains(text(),'Body')]/following-sibling::div[@class='progress-bar'][1]",
+      on = Platform.WEB)
+  private ContainerElement flavorBodyProgressBar;
 
   @Override
   public void afterInit() {

@@ -48,6 +48,9 @@ public class PlpItemComponent extends BaseComponent {
   @Locate(xpath = ".//div[@class='pi__quick-add']/button", on = Platform.WEB)
   private Button quickViewButton;
 
+  @Locate(xpath = ".//div[@class='pi__quick-add']/button", on = Platform.WEB)
+  private Button addToCartButton;
+
   @Step("Click On Product")
   public ProductDetailsPage clickOnProduct() {
     WebHelper.scrollToElement(clickElement);
@@ -167,6 +170,36 @@ public class PlpItemComponent extends BaseComponent {
       WebHelper.jsClick(quickViewButton.getWebElement());
     } else {
       quickViewButton.click();
+    }
+
+    return SdkHelper.create(QuickViewComponent.class);
+  }
+
+  @Step("Return product description")
+  public String getProductDescription() {
+    String description = productDescription.getText().trim();
+    logger.info("Product description: {}", description);
+    return description;
+  }
+
+  @Step("Verify 'Add to cart' button is displayed")
+  public boolean isAddToCartButtonDisplayed() {
+    logger.info(
+        "Checking 'Add to cart' button is displayed for the product [{}]", getProductName());
+    WebHelper.hoverByAction(addToCartButton);
+    return WebHelper.isDisplayed(addToCartButton);
+  }
+
+  @Step("Click on the Add to cart button")
+  public QuickViewComponent clickAddToCart() {
+    logger.info("Clicking on the 'Add to cart' button");
+    WebHelper.hoverByAction(addToCartButton);
+    SdkHelper.getSyncHelper().sleep(500);
+
+    if (WebHelper.isMobile()) {
+      WebHelper.jsClick(addToCartButton.getWebElement());
+    } else {
+      addToCartButton.click();
     }
 
     return SdkHelper.create(QuickViewComponent.class);

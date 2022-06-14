@@ -1,13 +1,5 @@
 package com.applause.auto.common.data;
 
-import java.lang.invoke.MethodHandles;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.applause.auto.common.data.dto.ShareViaEmailDto;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.helpers.WebHelper;
@@ -16,7 +8,10 @@ import com.applause.auto.new_web.views.my_account.MyAccountPage;
 import com.applause.auto.new_web.views.my_account.MyAccountPeetnikRewardsPage;
 import com.applause.auto.new_web.views.my_account.MyAccountSettingsPage;
 import com.applause.auto.new_web.views.my_account.ReferralsPage;
-
+import java.lang.invoke.MethodHandles;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -301,6 +296,15 @@ public class Constants {
 
     public static final String GRIND_FIRST_TEXT = "WHOLE BEAN";
     public static final String GRIND_NEXT_TEXT = "DRIP";
+
+    public static final String PDP_HAND_ROAST_TO_ORDER = "Hand Roasted to Order";
+    public static final String PDP_SEALED_FOR_FRESHNESS = "Sealed for Freshness";
+    public static final String PDP_SEALED_FOR_FRESHNESS_DESCRIPTION =
+        "Sealed immediately after roast";
+    public static final String PDP_DELIVERED_FRESH_TO_YOU = "Delivered Fresh To You";
+    public static final String PDP_DELIVERED_FRESH_TO_YOU_DESCRIPTION =
+        "Roasts and ships the same day";
+    public static final String REPORTED_BUTTON = "Reported";
   }
 
   public static final class TestMainMenu {
@@ -656,7 +660,9 @@ public class Constants {
   public enum StandardCoffeeInventory {
     Coffee1("french-roast"),
     Coffee2("french-roast-half-caf"),
-    Coffee3("aged-sumatra");
+    Coffee3("aged-sumatra"),
+    Coffee4("ristretto-espresso-capsules"),
+    Coffee5("baridi-blend-bundle-oos");
 
     private final String value;
 

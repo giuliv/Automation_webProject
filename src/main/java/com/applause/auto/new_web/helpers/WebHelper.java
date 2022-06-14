@@ -3,7 +3,6 @@ package com.applause.auto.new_web.helpers;
 import static com.applause.auto.framework.SdkHelper.getDriver;
 import static io.appium.java_client.Setting.NATIVE_WEB_TAP;
 
-import com.applause.auto.common.data.Constants;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -673,5 +672,20 @@ public class WebHelper {
       }
       SdkHelper.getSyncHelper().sleep(2000);
     }
+  }
+
+  /**
+   * Round double value
+   *
+   * @param value
+   * @param places
+   * @return double
+   */
+  public static double roundDouble(double value, int places) {
+    logger.info("Round value: '{}' with places: '{}'", value, places);
+    double scale = Math.pow(10, places);
+    double roundDouble = Math.round(value * scale) / scale;
+    logger.info("Rounded double value: {}", roundDouble);
+    return roundDouble;
   }
 }

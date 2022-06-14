@@ -3,7 +3,6 @@ package com.applause.auto.new_web.components.plp;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.new_web.components.QuickViewComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -40,7 +39,7 @@ public class PlpLearnMoreOverlappingComponent extends BaseComponent {
   }
 
   @Step("Click On Close Button")
-  public QuickViewComponent clickCloseButton() {
+  public <T extends BaseComponent> T clickCloseButton(Class<T> expectedPage) {
     WebHelper.scrollToElement(clickElement);
 
     SdkHelper.getSyncHelper().wait(Until.uiElement(clickElement).visible());
@@ -53,7 +52,7 @@ public class PlpLearnMoreOverlappingComponent extends BaseComponent {
       clickElement.click();
     }
     SdkHelper.getDriver().switchTo().defaultContent();
-    return SdkHelper.create(QuickViewComponent.class);
+    return SdkHelper.create(expectedPage);
   }
 
   @Step("Get Free Shipping Text")
