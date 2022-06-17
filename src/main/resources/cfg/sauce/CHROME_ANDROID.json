@@ -6,7 +6,7 @@
     "driverType": "MobileWeb",
     "factoryKey": "WEB_ANDROID_PHONE",
     "osName": "Android",
-    "provider": "SauceLabs RDC US",
+    "provider": "SauceLabs RDC US West",
     "providerThreadType": "Real"
   },
   "platformName": "Android",

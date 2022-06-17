@@ -6,7 +6,7 @@
     "driverType": "Browser",
     "factoryKey": "WebDesktop",
     "osName": "Windows",
-    "provider": "SauceLabs"
+    "provider": "SauceLabs US West"
   },
   "platform": "Windows 10",
   "browserName": "chrome",

@@ -7,7 +7,7 @@
     "factoryKey": "WebMobilePhone",
     "osName": "IOS",
     "nativeWebTap": true,
-    "provider": "SauceLabs"
+    "provider": "SauceLabs US West"
   },
   "automationName": "XCUITest",
   "platformName": "iOS",

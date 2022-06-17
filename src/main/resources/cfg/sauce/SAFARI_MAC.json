@@ -6,7 +6,7 @@
     "driverType": "Browser",
     "factoryKey": "WebDesktop",
     "osName": "OSX",
-    "provider": "SauceLabs"
+    "provider": "SauceLabs US West"
   },
   "platform": "macOS 10.15",
   "browserName": "Safari",

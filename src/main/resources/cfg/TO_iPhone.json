@@ -6,7 +6,7 @@
 		"driverType": "iOS",
 		"factoryKey": "MobileIOS",
 		"osName": "iOS",
-		"provider": "SauceLabs RDC US",
+		"provider": "SauceLabs RDC US West",
 		"providerThreadType": "Real",
 		"isMobileNative" : "true"
 	},
