@@ -12,15 +12,9 @@ import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.Constants.WebTestData;
 import com.applause.auto.new_web.components.MyAccountLeftMenu;
+import com.applause.auto.new_web.components.RegisterPeetCardComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.ContactUsPage;
-import com.applause.auto.new_web.views.CreateAccountPage;
-import com.applause.auto.new_web.views.HomePage;
-import com.applause.auto.new_web.views.PasswordRecoveryPage;
-import com.applause.auto.new_web.views.PasswordRecoveryResetPage;
-import com.applause.auto.new_web.views.ProductListPage;
-import com.applause.auto.new_web.views.ResetPasswordPage;
-import com.applause.auto.new_web.views.SignInPage;
+import com.applause.auto.new_web.views.*;
 import com.applause.auto.new_web.views.my_account.MyAccountEmailPreferencesPage;
 import com.applause.auto.new_web.views.my_account.MyAccountOrderHistoryPage;
 import com.applause.auto.new_web.views.my_account.MyAccountPage;
@@ -94,7 +88,12 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.SANITY},
+      groups = {
+        TestNGGroups.WEB_REGRESSION,
+        TestNGGroups.MY_ACCOUNT,
+        TestNGGroups.SANITY,
+        TestNGGroups.DASHBOARD_TEST
+      },
       description = "11102914")
   public void loginValidMenuTest() {
     SoftAssert softAssert = new SoftAssert();
@@ -366,7 +365,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.DASHBOARD_TEST},
       description = "11102926")
   public void myAccountMySubscriptionElementsTest() {
     MyAccountPage myAccountPage =
@@ -383,15 +382,81 @@ public class MyAccountTests extends BaseTest {
         pageCoordinatesBefore < WebHelper.getPagePositionY(),
         "Page is not scrolled to My subscriptions in Dashboard");
 
-    logger.info("Verify list of subscriptions should display with product name, image and price.");
+    logger.info(
+        "Verify list of subscriptions should display with product name, image and price, quantity and frequency");
     softAssert.assertTrue(
         myAccountPage.isSubscriptionImageDisplayed(), "Subscription image isn't displayed");
     softAssert.assertTrue(
         myAccountPage.isSubscriptionNameDisplayed(), "Subscription name isn't displayed");
     softAssert.assertTrue(
         myAccountPage.isSubscriptionPriceDisplayed(), "Subscription price isn't displayed");
+    softAssert.assertTrue(
+        myAccountPage.isSubscriptionQuantityDisplayed(), "Subscription quantity isn't displayed");
+    softAssert.assertTrue(
+        myAccountPage.isSubscriptionFrequencyDisplayed(), "Subscription frequency isn't displayed");
+
+    logger.info(
+        "Verify list of subscriptions should display with Schedule Date, Send Now, Change Date, Skip Order");
+    softAssert.assertTrue(
+        myAccountPage.isSubscriptionScheduleDateDisplayed(),
+        "Subscription Schedule Date isn't displayed");
+    softAssert.assertTrue(
+        myAccountPage.isSubscriptionSendNowButtonDisplayed(),
+        "Subscription Send Now isn't displayed");
+    softAssert.assertTrue(
+        myAccountPage.isSubscriptionChangeDateDisplayed(),
+        "Subscription Change Date isn't displayed");
+    softAssert.assertTrue(
+        myAccountPage.isSubscriptionSkipOrderDisplayed(),
+        "Subscription Skip Order isn't displayed");
+
+    logger.info(
+        "Verify list of subscriptions should display with Billing, Shipping, Total and Update Payment sections");
+    softAssert.assertTrue(
+        myAccountPage.isSubscriptionBillingSectionDisplayed(),
+        "Subscription Billing section isn't displayed");
+    softAssert.assertTrue(
+        myAccountPage.isSubscriptionShippingSectionDisplayed(),
+        "Subscription Shipping section isn't displayed");
+    softAssert.assertTrue(
+        myAccountPage.isSubscriptionTotalSectionDisplayed(),
+        "Subscription Total section isn't displayed");
+    softAssert.assertTrue(
+        myAccountPage.isSubscriptionUpdatePaymentSectionDisplayed(),
+        "Subscription Update Payment section isn't displayed");
 
     softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.DASHBOARD_TEST},
+      description = "11102930")
+  public void myAccountPeetsCardTest() {
+    // Todo: Missing validations, needs to be able to add peets cards
+    MyAccountPage myAccountPage =
+        MyAccountTestsHelper.navigateToMyAccountPage(
+            navigateToSignInPage(), TestData.USER_EMAIL_WITH_SUBSCRIPTIONS, TestData.WEB_PASSWORD);
+
+    logger.info("4. Click in Peet's Card");
+    myAccountPage =
+        myAccountPage.getLeftMenu().clickMenuOption(MyAccountLeftMenuOption.PEETS_CARDS);
+
+    logger.info("5. Click in Register Peet's Card");
+    RegisterPeetCardComponent registerPeetCardComponent = myAccountPage.clickRegisterPeetsCard();
+    Assert.assertNotNull(registerPeetCardComponent, "Register New Card View is not displayed");
+    Assert.assertTrue(
+        WebHelper.getCurrentUrl().contains(Constants.TestData.REGISTER_CARD_URL),
+        "Register New Card URL is not correct");
+
+    logger.info("6. Press Browser back button");
+    myAccountPage = WebHelper.navigateBack(MyAccountPage.class);
+
+    logger.info("5. Click in Buy Peet's Card");
+    GiftCardsPage giftCardsPage = myAccountPage.clickBuyPeetsCard();
+    Assert.assertNotNull(giftCardsPage, "Buy New Card View is not displayed");
+    Assert.assertTrue(
+        WebHelper.getCurrentUrl().contains(Constants.TestData.BUY_CARD_URL),
+        "Buy New Card URL is not correct");
   }
 
   @Test(

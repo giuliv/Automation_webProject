@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
 public class ReferralsTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.DASHBOARD_TEST},
       description = "11102933")
   public void referralsElementsTest() {
     if (WebHelper.isDesktop()) {

@@ -49,6 +49,7 @@ public class Constants {
     public static final String GIFT_CARDS = "gift-cards";
     public static final String COFFEE_FINDER = "coffee-finder";
     public static final String DASHBOARD = "dashboard";
+    public static final String DASHBOARD_TEST = "dashboardTest";
     public static final String PDP = "pdp";
     public static final String SMOKE = "smoke";
     public static final String SANITY = "sanity";
@@ -120,6 +121,9 @@ public class Constants {
         LANDING_PAGE_URL.split("\\?")[0].concat("/pages/menu");
     public static final String STORE_LOCATOR_URL = "pages/store-locator";
     public static final String REWARDS_URL = "pages/peetnik-rewards";
+    public static final String RECENT_ORDERS_URL = "/account#/orders";
+    public static final String REGISTER_CARD_URL = "/account#/peets-cards/register";
+    public static final String BUY_CARD_URL = "/peets-cards";
     public static final String EMAIL_SIGNUP_URL = "pages/email-signup";
     public static final String QA_LOGIN_PAGE_URL = "https://account-qa.peets.com/login";
     public static final String QA_REGISTRATION_PAGE_URL =
@@ -397,6 +401,7 @@ public class Constants {
 
   public static final class DashboardTestData {
     public static final String RECENT_ORDERS_HEADER = "Recent Orders";
+    public static final String MY_SUBSCRIPTION_HEADER = "My Subscription";
 
     public static final List<String> MY_ORDERS_TABLE_TITLES =
         Arrays.asList("order #", "date ordered", "order status", "total");

@@ -73,22 +73,22 @@ public class MyOrderItemComponent extends BaseComponent {
     }
 
     if (!WebHelper.isTextDisplayedAndNotEmpty(dateOrdered)) {
-      logger.info("Date ordered isn't displayed for [{}] order", orderNumber.getText());
+      logger.info("Date ordered isn't displayed for [{}] order", dateOrdered.getText());
       return false;
     }
 
     if (!WebHelper.isTextDisplayedAndNotEmpty(orderStatus)) {
-      logger.info("Order status isn't displayed for [{}] order", orderNumber.getText());
+      logger.info("Order status isn't displayed for [{}] order", orderStatus.getText());
       return false;
     }
 
     if (!WebHelper.isTextDisplayedAndNotEmpty(total)) {
-      logger.info("Total isn't displayed for [{}] order", orderNumber.getText());
+      logger.info("Total isn't displayed for [{}] order", total.getText());
       return false;
     }
 
     if (!WebHelper.isDisplayed(detailsButton)) {
-      logger.info("Details Button isn't displayed for [{}] order", orderNumber.getText());
+      logger.info("Details Button isn't displayed for [{}] order", detailsButton.getText());
       return false;
     }
 
@@ -103,7 +103,7 @@ public class MyOrderItemComponent extends BaseComponent {
     return this;
   }
 
-  @Step("Chek if Order is Expanded")
+  @Step("Check if Order is Expanded")
   public boolean isExpanded() {
     boolean expanded =
         isBlockExpanded.getAttributeValue(Attribute.CLASS.getValue()).contains("open");
@@ -111,47 +111,55 @@ public class MyOrderItemComponent extends BaseComponent {
     return expanded;
   }
 
-  @Step("Chek if Order image is displayed")
+  @Step("Check if Order image is displayed")
   public boolean isOrderImageDisplayed() {
     boolean isDisplayed = WebHelper.isDisplayed(orderImage);
     logger.info("Image for Order [{}] is displayed - [{}]", orderNumber.getText(), isDisplayed);
     return isDisplayed;
   }
 
-  @Step("Chek if Order name is displayed")
+  @Step("Check if Order name is displayed")
   public boolean isOrderNameDisplayed() {
     boolean isDisplayed = WebHelper.isTextDisplayedAndNotEmpty(orderName);
-    logger.info("Name for Order [{}] is displayed - [{}]", orderNumber.getText(), isDisplayed);
+    logger.info("Name for Order [{}] is displayed - [{}]", orderName.getText(), isDisplayed);
     return isDisplayed;
   }
 
-  @Step("Chek if Order info is displayed")
+  @Step("Check if Order number is displayed")
+  public boolean isOrderNumberDisplayed() {
+    boolean isDisplayed = WebHelper.isTextDisplayedAndNotEmpty(orderNumber);
+    logger.info("Order number [{}] is displayed - [{}]", orderNumber.getText(), isDisplayed);
+    return isDisplayed;
+  }
+
+  @Step("Check if Order info is displayed")
   public boolean isOrderInfoDisplayed() {
     boolean isDisplayed = WebHelper.isTextDisplayedAndNotEmpty(orderInfo);
-    logger.info("Info for Order [{}] is displayed - [{}]", orderNumber.getText(), isDisplayed);
+    logger.info("Info for Order [{}] is displayed - [{}]", orderInfo.getText(), isDisplayed);
     return isDisplayed;
   }
 
-  @Step("Chek if Order Quantity is displayed")
+  @Step("Check if Order Quantity is displayed")
   public boolean isOrderQuantityDisplayed() {
     boolean isDisplayed = WebHelper.isTextDisplayedAndNotEmpty(orderQuantity);
-    logger.info("Quantity for Order [{}] is displayed - [{}]", orderNumber.getText(), isDisplayed);
+    logger.info(
+        "Quantity for Order [{}] is displayed - [{}]", orderQuantity.getText(), isDisplayed);
     return isDisplayed;
   }
 
-  @Step("Chek if Order Price is displayed")
+  @Step("Check if Order Price is displayed")
   public boolean isOrderPriceDisplayed() {
     boolean isDisplayed = WebHelper.isTextDisplayedAndNotEmpty(orderPrice);
-    logger.info("Price for Order [{}] is displayed - [{}]", orderNumber.getText(), isDisplayed);
+    logger.info("Price for Order [{}] is displayed - [{}]", orderPrice.getText(), isDisplayed);
     return isDisplayed;
   }
 
-  @Step("Chek if 'View Product' Button is displayed")
+  @Step("Check if 'View Product' Button is displayed")
   public boolean isViewProductButtonDisplayed() {
     boolean isDisplayed = WebHelper.isDisplayed(viewProductButton);
     logger.info(
         "'View product' button for Order [{}] is displayed - [{}]",
-        orderNumber.getText(),
+        viewProductButton.getText(),
         isDisplayed);
     return isDisplayed;
   }

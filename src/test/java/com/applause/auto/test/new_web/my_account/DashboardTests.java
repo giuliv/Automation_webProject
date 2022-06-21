@@ -1,5 +1,6 @@
 package com.applause.auto.test.new_web.my_account;
 
+import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.CheckoutUserTestData;
 import com.applause.auto.common.data.Constants.DashboardTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
@@ -20,7 +21,7 @@ import org.testng.annotations.Test;
 public class DashboardTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.DASHBOARD},
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.DASHBOARD, TestNGGroups.DASHBOARD_TEST},
       description = "11102918")
   public void dashboardUIelementsTest() {
     logger.info("1. Navigate to Sign in page");
@@ -40,15 +41,33 @@ public class DashboardTests extends BaseTest {
 
     logger.info("Verify table title");
     softAssert.assertEquals(
-        myAccountPage.getRecentOrdersTitle().toLowerCase(),
+        myAccountPage.getRecentOrdersTitle(),
         DashboardTestData.RECENT_ORDERS_HEADER.toLowerCase(),
         "Table title isn't correct");
 
-    logger.info("4. Click in view all orders");
+    softAssert.assertEquals(
+        myAccountPage.getMyOrderItemList().size(), 3, "Total recent orders does not match");
+
+    logger.info("4. Click on Details");
+    MyOrderItemComponent myOrderItemComponent =
+        myAccountPage.viewAllOrders().getMyOrderItemList().get(0);
+    myOrderItemComponent = myOrderItemComponent.clickOnDetails();
+
+    softAssert.assertTrue(
+        myOrderItemComponent.isOrderNumberDisplayed(), "Order number isn't displayed");
+    softAssert.assertTrue(
+        myOrderItemComponent.isOrderPriceDisplayed(), "Order Price isn't displayed");
+
+    logger.info("5. Click in view all orders");
     OrderHistoryPage orderHistoryPage = myAccountPage.viewAllOrders();
 
     logger.info("Verify that order history should display");
     softAssert.assertTrue(orderHistoryPage.isDisplayed(), "Order history page didn't appear");
+
+    logger.info("Verify View all orders URL");
+    softAssert.assertTrue(
+        WebHelper.getCurrentUrl().contains(Constants.TestData.RECENT_ORDERS_URL),
+        "URL does not matches");
 
     logger.info("Verify that Order #, Date order, Order status and Total should display");
     if (WebHelper.isDesktop()) {
@@ -65,6 +84,34 @@ public class DashboardTests extends BaseTest {
         orderHistoryPage.isMyOrdersTableFullyDisplayed(), "My orders table is n't fully displayed");
 
     softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.DASHBOARD, TestNGGroups.DASHBOARD_TEST},
+      description = "11107447")
+  public void dashboardDifferentSectionsTest() {
+    // Todo: Missing sections [Peets card/Peetnik Rewards]
+    logger.info("1. Navigate to Sign in page");
+    SignInPage signInPage = navigateToSignInPage();
+    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
+
+    logger.info("2. Enter valid credentials.");
+    signInPage.enterEmail(mail);
+    signInPage.enterPassword(Constants.TestData.WEB_PASSWORD);
+
+    logger.info("3. Click on Sign in");
+    MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
+
+    logger.info("Validating Dashboard sections");
+    Assert.assertEquals(
+        myAccountPage.getRecentOrdersTitle(),
+        DashboardTestData.RECENT_ORDERS_HEADER.toLowerCase(),
+        "Recent Orders section is not displayed");
+
+    Assert.assertEquals(
+        myAccountPage.getMySubscriptionTitle(),
+        DashboardTestData.MY_SUBSCRIPTION_HEADER.toLowerCase(),
+        "My Subscriptions section is not displayed");
   }
 
   @Test(
