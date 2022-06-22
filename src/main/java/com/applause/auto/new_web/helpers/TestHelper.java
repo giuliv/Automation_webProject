@@ -101,7 +101,10 @@ public class TestHelper {
       logger.info("Checking item at [{}] to determine if we are in stock", itemAt);
       PlpItemComponent productOnPosition = productListPage.getProductOnPosition(itemAt);
       ProductDetailsPage productDetailsPage = productOnPosition.clickOnProduct();
-      proceedWithTest = (!productDetailsPage.isItemAvailable() && productDetailsPage.itemIsSampler()) ? true : false;
+      proceedWithTest =
+          (!productDetailsPage.isItemAvailable() && productDetailsPage.itemIsSampler())
+              ? true
+              : false;
       logger.info("It is [{}] that we should proceed using this item.", proceedWithTest);
       productListPage = WebHelper.navigateBack(ProductListPage.class);
     }
@@ -128,5 +131,4 @@ public class TestHelper {
     }
     return itemAt;
   }
-
 }

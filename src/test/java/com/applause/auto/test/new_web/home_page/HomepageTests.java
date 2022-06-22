@@ -32,7 +32,7 @@ import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.new_web.views.SeasonalPage;
 import com.applause.auto.new_web.views.SignUpPage;
-import com.applause.auto.new_web.views.SocialResponsibilityPage;
+import com.applause.auto.new_web.views.SourcingWithImpactPage;
 import com.applause.auto.new_web.views.StoreLocatorPage;
 import com.applause.auto.new_web.views.TimelinePage;
 import com.applause.auto.test.new_web.BaseTest;
@@ -807,16 +807,16 @@ public class HomepageTests extends BaseTest {
     softAssert.assertNotNull(
         commitmentToCraftPage, "The user isn't directed to correct Commitment to Craft");
 
-    logger.info("6. Click on Social Responsibility");
+    logger.info("6. Click on Sourcing with Impact");
     header = navigateToHome().getHeader();
     header.hoverCategoryFromMenu(MenuOptions.LEARN);
-    SocialResponsibilityPage socialResponsibilityPage =
+    SourcingWithImpactPage sourcingWithImpactPage =
         header.clickOverSubCategoryFromMenu(
-            SocialResponsibilityPage.class, MenuSubCategories.SOCIAL_RESPONSIBILITY);
+            SourcingWithImpactPage.class, MenuSubCategories.SOURCING_WITH_IMPACT);
 
-    logger.info("7. Verify the user is directed to correct Social Responsibility");
+    logger.info("7. Verify the user is directed to correct Sourcing with Impact");
     softAssert.assertNotNull(
-        socialResponsibilityPage, "The user isn't directed to correct Social Responsibility");
+        sourcingWithImpactPage, "The user isn't directed to correct Sourcing with Impact");
 
     logger.info("8. Click on Brew Guides");
     header = navigateToHome().getHeader();
@@ -836,6 +836,7 @@ public class HomepageTests extends BaseTest {
     Assert.assertTrue(
         SdkHelper.getDriver().getCurrentUrl().contains(TestData.BLOG_PEETS_URL_PARAMETER),
         "The Cupping Room page is opened with a wrong URL");
+    softAssert.assertAll();
   }
 
   @Test(

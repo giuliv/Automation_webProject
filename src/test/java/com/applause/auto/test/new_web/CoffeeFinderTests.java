@@ -123,7 +123,7 @@ public class CoffeeFinderTests extends BaseTest {
       groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.COFFEE_FINDER},
       description = "11102943",
       enabled = false)
-  // Todo: We need to figure out the issue on mobile view[20/04/2022]
+  // Todo: Shilpa market as not shown in staging[20/04/2022]
   public void successfulCoffeeSelection() {
     logger.info("1. Navigate to landing page");
     ProductListPage productListPage = navigateToPLP();

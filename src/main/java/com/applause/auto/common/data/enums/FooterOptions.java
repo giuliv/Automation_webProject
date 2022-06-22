@@ -77,8 +77,8 @@ public enum FooterOptions {
       CommonWebPage.class),
   WHOLESALE_PROGRAM(
       "Partner with peet's",
-      "Wholesale Program",
-      "https://peets-coffee-staging.myshopify.com/pages/wholesale-program",
+      "Foodservice Program",
+      "https://peets-coffee-staging.myshopify.com/pages/foodservice-program",
       CommonWebPage.class),
   BECOME_AFFILIATE(
       "Partner with peet's",

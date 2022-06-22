@@ -8,8 +8,8 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 
-@Implementation(is = SocialResponsibilityPage.class, on = Platform.WEB)
-public class SocialResponsibilityPage extends BaseComponent {
+@Implementation(is = SourcingWithImpactPage.class, on = Platform.WEB)
+public class SourcingWithImpactPage extends BaseComponent {
 
   @Locate(css = ".footer__newsletter", on = Platform.WEB)
   protected ContainerElement baseElement;

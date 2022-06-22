@@ -23,19 +23,16 @@ public class CartTests extends BaseTest {
       description = "11101745")
   public void cartCanCheckoutFromCartTest() {
 
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLPMediumRoast();
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
-    logger.info("2. Add an item");
-    int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("3. Click on View cart");
+    logger.info("2. Click on View cart");
     CartPage cartPage = miniCart.clickViewCartButton();
 
-    logger.info("4. Click on Checkout > Checkout page should display.");
+    logger.info("3. Click on Checkout > Checkout page should display.");
     CheckOutPage checkOutPage = cartPage.clickContinueToCheckOut();
 
     logger.info("Verify 4: Checkout page should display.");
@@ -53,13 +50,10 @@ public class CartTests extends BaseTest {
    */
   public void itemQuantityCanBeIncreasedDecreaseAndRemovedTest() {
 
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
-    logger.info("2. Add an item");
-    int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
     logger.info("3. Click on View cart.");
@@ -97,20 +91,15 @@ public class CartTests extends BaseTest {
   public void reviewCartPageUiElementsTest() {
     SoftAssert softAssert = new SoftAssert();
 
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
-
-    logger.info("2. Add an item");
-    int itemAt = testHelper.findInStockItemWithGrindPosition(productListPage) - 1;
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
 
     String productName = productDetailsPage.getProductName();
     String productGrind = productDetailsPage.getGrindSelected();
     String productPrice = productDetailsPage.getProductPrice();
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("3. Click on View cart.");
+    logger.info("2. Click on View cart.");
     CartPage cartPage = miniCart.clickViewCartButton();
     int firstProduct = 1;
     softAssert.assertEquals(
@@ -147,32 +136,28 @@ public class CartTests extends BaseTest {
      *
      * <p>Disabled this test for now as functionality isn't working on Stage
      */
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
-    logger.info("2. Add an item");
-    int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
-
-    int firstProduct = 0;
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("3. Click on View cart.");
+    logger.info("2. Click on View cart.");
+    int firstProduct = 0;
     QuickViewComponent quickViewComponent =
         miniCart.clickOnRecommendedForYouAddButtonByIndex(firstProduct);
-    Assert.assertNotNull(quickViewComponent, "Failed to open to Quickview popup");
+    Assert.assertNotNull(quickViewComponent, "Failed to open to QuickView popup");
 
-    logger.info("4. Click on Add to cart");
+    logger.info("3. Click on Add to cart");
     miniCart = quickViewComponent.clickAddToCart();
 
-    logger.info("5. Click on View cart");
+    logger.info("4. Click on View cart");
     CartPage cartPage = miniCart.clickViewCartButton();
 
-    logger.info("6. Select One time purchase > One time purchase should be selected");
+    logger.info("5. Select One time purchase > One time purchase should be selected");
     cartPage.clickOneTimePurchaseButton();
 
-    logger.info("7. Verify that One time purchase should be selected");
+    logger.info("6. Verify that One time purchase should be selected");
     Assert.assertTrue(
         cartPage.isOneTimePurchaseButtonSelected(), "One time purchase isn't selected");
   }
@@ -187,31 +172,28 @@ public class CartTests extends BaseTest {
    * <p>Disabled this test for now as functionality isn't working on Stage
    */
   public void reviewSubscription() {
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
-    logger.info("2. Add an item");
-    int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
     int firstProduct = 0;
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("3. Click on View cart.");
+    logger.info("2. Click on View cart.");
     QuickViewComponent quickViewComponent =
         miniCart.clickOnRecommendedForYouAddButtonByIndex(firstProduct);
     Assert.assertNotNull(quickViewComponent, "Failed to open to QuickView popup");
 
-    logger.info("4. Click on Add to cart");
+    logger.info("3. Click on Add to cart");
     miniCart = quickViewComponent.clickAddToCart();
 
-    logger.info("5. Click on View cart");
+    logger.info("4. Click on View cart");
     CartPage cartPage = miniCart.clickViewCartButton();
 
-    logger.info("6. Select Subscribe > Subscribe should be selected.");
+    logger.info("5. Select Subscribe > Subscribe should be selected.");
     cartPage.clickSubscribeButton();
 
-    logger.info("7. Verify that Subscribe should be selected");
+    logger.info("6. Verify that Subscribe should be selected");
     Assert.assertTrue(cartPage.isSubscribeButtonEnabled(), "Subscribe isn't selected");
   }
 
@@ -225,24 +207,21 @@ public class CartTests extends BaseTest {
      *
      * <p>Disabled this test for now as functionality isn't working on Stage
      */
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
-    logger.info("2. Add an item");
-    int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("3. Click on View cart.");
+    logger.info("2. Click on View cart.");
     CartPage cartPage = miniCart.clickViewCartButton();
 
-    logger.info("4. Click on Add Others purchased");
+    logger.info("3. Click on Add Others purchased");
     OtherPurchasedItemChunk purchasedItemOnPosition = cartPage.getPurchasedItemOnPosition(1);
     String purchasedItemName = purchasedItemOnPosition.getName();
     QuickViewComponent quickViewComponent = purchasedItemOnPosition.clickAddToCartButton();
 
-    logger.info("5. Verify that product name is correct");
+    logger.info("4. Verify that product name is correct");
     Assert.assertEquals(
         quickViewComponent.getProductName(),
         purchasedItemName,
@@ -254,24 +233,21 @@ public class CartTests extends BaseTest {
       description = "11101747",
       enabled = false)
   public void canSignUpForNeverMissAnOffer() {
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
-    logger.info("2. Add an item");
-    int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("3. Click on View cart.");
+    logger.info("2. Click on View cart.");
     CartPage cartPage = miniCart.clickViewCartButton();
 
-    logger.info("4. Click on type an emain in Never miss an offer.");
+    logger.info("3. Click on type an email in Never miss an offer.");
     NeverMissAnOfferChunk neverMissAnOfferChunk = cartPage.getNeverMissAnOfferChunk();
     String randomEmail = RandomStringUtils.random(10, true, true) + "@gmail.com";
     neverMissAnOfferChunk = neverMissAnOfferChunk.signUp(randomEmail);
 
-    logger.info("5. Verify that Successful message is displayed");
+    logger.info("4. Verify that Successful message is displayed");
     Assert.assertEquals(
         neverMissAnOfferChunk.getMessage().replaceAll(" ", ""),
         Constants.TestData.SUBSCRIBING_MESSAGE.replaceAll(" ", ""),
@@ -308,16 +284,11 @@ public class CartTests extends BaseTest {
       groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_CART},
       description = "11108611")
   public void addItemToCart() {
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
-
-    logger.info("2. Add an item to MiniCart");
-    int itemAt = testHelper.findInStockItemWithGrindPosition(productListPage) - 1;
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("3. Click on View cart.");
+    logger.info("2. Click on View cart.");
     CartPage cartPage = miniCart.clickViewCartButton();
     Assert.assertNotNull(cartPage, "Cart is not displayed");
   }
@@ -326,14 +297,8 @@ public class CartTests extends BaseTest {
       groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_CART},
       description = "11107534")
   public void reviewEmptyCartTest() {
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
-
-    logger.info("2. Add an item to MiniCart > Click on View Cart");
-    int itemAt = testHelper.findInStockItemWithGrindPosition(productListPage) - 1;
-    CartPage cartPage =
-        productListPage.clickOverProductByIndex(itemAt).clickAddToMiniCart().clickViewCartButton();
+    logger.info("1. Navigate to product details page");
+    CartPage cartPage = navigateToPDP(coffeeSelected).clickAddToMiniCart().clickViewCartButton();
 
     logger.info("3. Make Cart empty");
     int firstItem = 0;

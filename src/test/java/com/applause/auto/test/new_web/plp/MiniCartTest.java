@@ -5,10 +5,7 @@ import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.components.QuickViewComponent;
 import com.applause.auto.new_web.components.ShopRunnerComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.CartPage;
-import com.applause.auto.new_web.views.CheckOutPage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
-import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -288,19 +285,15 @@ public class MiniCartTest extends BaseTest {
       description = "11107530")
   public void miniCartCheckoutBypassesCartTest() {
 
-    logger.info("1. Navigate to product list page");
-    ProductListPage plpPage = navigateToPLP();
-    Assert.assertNotNull(plpPage, "Failed to navigate to the product list page.");
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
-    logger.info("2. Find something instock");
-    int itemAt = testHelper.findInStockItemPosition(plpPage) - 1;
-    ProductDetailsPage productDetailsPage = plpPage.clickOverProductByIndex(itemAt);
-
-    logger.info("3. Add something to mini cart");
+    logger.info("2. Add something to mini cart");
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("4. Verify checkout button goes directly to checkout page.");
-    CheckOutPage checkPage = miniCart.clickContinueToCheckOut();
+    logger.info("3. Verify checkout button goes directly to checkout page.");
+    miniCart.clickContinueToCheckOut();
     Assert.assertTrue(
         WebHelper.getCurrentUrl()
             .toLowerCase()
@@ -316,19 +309,15 @@ public class MiniCartTest extends BaseTest {
       description = "11107531")
   public void miniCartViewCartGoesToCartTest() {
 
-    logger.info("1. Navigate to product list page");
-    ProductListPage plpPage = navigateToPLP();
-    Assert.assertNotNull(plpPage, "Failed to navigate to the product list page.");
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
-    logger.info("2. Find something instock");
-    int itemAt = testHelper.findInStockItemPosition(plpPage) - 1;
-    ProductDetailsPage productDetailsPage = plpPage.clickOverProductByIndex(itemAt);
-
-    logger.info("3. Add something to mini cart");
+    logger.info("2. Add something to mini cart");
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("4. Verify mini cart view cart button navigates user to cart");
-    CartPage cartPage = miniCart.clickViewCartButton();
+    logger.info("3. Verify mini cart view cart button navigates user to cart");
+    miniCart.clickViewCartButton();
     Assert.assertTrue(
         WebHelper.getCurrentUrl()
             .toLowerCase()
@@ -343,26 +332,22 @@ public class MiniCartTest extends BaseTest {
       groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
       description = "11107533")
   public void miniCartSubscribeSetupTest() {
-    logger.info("1. Navigate to product list page");
-    ProductListPage plpPage = navigateToPLP();
-    Assert.assertNotNull(plpPage, "Failed to navigate to the product list page.");
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
-    logger.info("2. Find something instock");
-    int itemAt = testHelper.findInStockItemPositionWithOneTime(plpPage);
-    ProductDetailsPage productDetailsPage = plpPage.clickOverProductByIndex(itemAt);
-
-    logger.info("3. Add something as one time purchase to mini cart");
+    logger.info("2. Add something as one time purchase to mini cart");
     productDetailsPage.selectOneTimePurchase();
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("4. Verify one time purchase is default selection");
+    logger.info("3. Verify one time purchase is default selection");
     softAssert.assertTrue(
         miniCart.isOneTimePurchaseButtonEnabled(),
         "One time purchase is not the default selection, and it was expected to be.");
     miniCart.removeItem();
     miniCart.closeMiniCart(ProductDetailsPage.class);
 
-    logger.info("5. Verify subscribe purchase is default selection");
+    logger.info("4. Verify subscribe purchase is default selection");
     productDetailsPage.selectSubscribeType();
     miniCart = productDetailsPage.clickAddToMiniCart();
     softAssert.assertTrue(
@@ -377,18 +362,14 @@ public class MiniCartTest extends BaseTest {
       description = "11107532")
   public void miniCartShopRunner2DayShippingTest() {
 
-    logger.info("1. Navigate to product list page");
-    ProductListPage plpPage = navigateToPLP();
-    Assert.assertNotNull(plpPage, "Failed to navigate to the product list page.");
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
-    logger.info("2. Find something instock");
-    int itemAt = testHelper.findInStockItemPosition(plpPage) - 1;
-    ProductDetailsPage productDetailsPage = plpPage.clickOverProductByIndex(itemAt);
-
-    logger.info("3. Add something to mini cart");
+    logger.info("2. Add something to mini cart");
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("4. Verify 2 day shipping is there");
+    logger.info("3. Verify 2 day shipping is there");
     softAssert.assertTrue(
         miniCart.getShopRunnerMessage().contains(Constants.MiniCartMiscTestData.SHOPRUNNER_MESSAGE),
         "ShopRunner text does not appear to match.  Expected "
@@ -396,14 +377,14 @@ public class MiniCartTest extends BaseTest {
             + " to be a part of "
             + miniCart.getShopRunnerMessage());
 
-    logger.info("5. Verify learn more overlay");
+    logger.info("4. Verify learn more overlay");
     ShopRunnerComponent shopRunnerComponent = miniCart.clickShopRunnerLinks("Learn More");
     softAssert.assertTrue(
         shopRunnerComponent.isLearnMoreModalDisplayed(),
         "Learn more modal was not displayed correctly");
     miniCart = shopRunnerComponent.closeOverlay();
 
-    logger.info("6. Verify sign in overlay");
+    logger.info("5. Verify sign in overlay");
 
     shopRunnerComponent = miniCart.clickShopRunnerLinks("Sign In");
     softAssert.assertTrue(

@@ -91,7 +91,13 @@ public class SearchTest extends BaseTest {
         detailsPage.getProductName().equalsIgnoreCase(productName), "Wrong name is displayed");
     Assert.assertTrue(
         detailsPage.isExpectedImageDisplayed(productImage), "Wrong image is displayed");
-    Assert.assertEquals(detailsPage.getProductPrice(), productPrice, "Wrong price is displayed");
+
+    if (productPrice.contains("-")) {
+      Assert.assertTrue(
+          productPrice.contains(detailsPage.getProductPrice()), "Wrong price is displayed");
+    } else {
+      Assert.assertEquals(detailsPage.getProductPrice(), productPrice, "Wrong price is displayed");
+    }
   }
 
   @Test(

@@ -112,7 +112,9 @@ public class GearTests extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.PRODUCTS},
-      description = "11107477")
+      description = "11107477",
+      enabled = false)
+  // Todo:Disable by request of Bernadette, leaving only 1 case on allCoffee section[21.06.2022]
   public void gearOutOfStockTest() {
     logger.info("1. Navigate to Product list page");
     ProductListPage productListPage = navigateToGearSection();

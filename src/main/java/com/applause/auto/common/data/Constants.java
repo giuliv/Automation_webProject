@@ -107,6 +107,7 @@ public class Constants {
     public static final String SHOP_PEETS_CARD_PAGE_URL = LANDING_PAGE_URL.concat("/peets-card");
     public static final String SHOP_COFFEE_KCUPS_PAGE_URL =
         LANDING_PAGE_URL.concat("/coffee/k-cups");
+    public static final String BARIDI_BLEND_BLUNDE = "baridi-blend-bundle-oos";
     public static final String GIFT_CARDS_PAGE_URL =
         LANDING_PAGE_URL.split("\\?")[0].concat("/pages/gift-cards");
     public static final String SUBSCRIPTION_SO_URL =
@@ -615,7 +616,7 @@ public class Constants {
     ORDER_NOW("peets.app.link"),
     OUR_COFFEE_REVOLUTION("pages/timeline"),
     COMMITMENT_TO_CRAFT("commitment-to-craft"),
-    SOCIAL_RESPONSIBILITY("social-responsibility"),
+    SOURCING_WITH_IMPACT("impact"),
     BREW_GUIDES("brew-guides"),
     THE_CUPPING_ROOM("/blogs/peets");
 
@@ -665,9 +666,7 @@ public class Constants {
   public enum StandardCoffeeInventory {
     Coffee1("french-roast"),
     Coffee2("french-roast-half-caf"),
-    Coffee3("aged-sumatra"),
-    Coffee4("ristretto-espresso-capsules"),
-    Coffee5("baridi-blend-bundle-oos");
+    Coffee3("aged-sumatra");
 
     private final String value;
 

@@ -22,31 +22,28 @@ public class EdgeCaseTests extends BaseTest {
       groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.EDGE_CASES},
       description = "11102585")
   public void userCanReturnToShipping() {
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLPMediumRoast();
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
-    logger.info("2. Add an item");
-    int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("3. Click on Checkout.");
+    logger.info("2. Click on Checkout.");
     CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
 
-    logger.info("4. Enter Contact information and Shipping address.");
+    logger.info("3. Enter Contact information and Shipping address.");
     checkOutPage.setCheckOutData();
 
-    logger.info("5. Click on Continue.");
+    logger.info("4. Click on Continue.");
     ShippingPage shippingPage = checkOutPage.clickContinueToShipping();
 
-    logger.info("6. Click on Continue to payment.");
+    logger.info("5. Click on Continue to payment.");
     PaymentsPage paymentsPage = shippingPage.clickContinueToPayments();
 
     logger.info("Verify that - Payment page is displayed");
     Assert.assertTrue(paymentsPage.isDisplayed(), "Payment page isn't displayed");
 
-    logger.info("7. Click on Return To Shipping");
+    logger.info("6. Click on Return To Shipping");
     shippingPage = paymentsPage.clickOnReturnToShippingButton();
 
     logger.info("Verify that - User Should go back to Shipping.");
@@ -57,31 +54,27 @@ public class EdgeCaseTests extends BaseTest {
       groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.EDGE_CASES},
       description = "11102586")
   public void orderIsNotPlacedWithEmptyData() {
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLPMediumRoast();
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
-
-    logger.info("2. Add an item");
-    int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("3. Click on Checkout.");
+    logger.info("2. Click on Checkout.");
     CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
 
-    logger.info("4. Enter Contact information and Shipping address.");
+    logger.info("3. Enter Contact information and Shipping address.");
     checkOutPage.setCheckOutData();
 
-    logger.info("5. Click on Continue.");
+    logger.info("4. Click on Continue.");
     ShippingPage shippingPage = checkOutPage.clickContinueToShipping();
 
-    logger.info("6. Click on Continue to payment.");
+    logger.info("5. Click on Continue to payment.");
     PaymentsPage paymentsPage = shippingPage.clickContinueToPayments();
 
     logger.info("Verify that - Payment page is displayed");
     Assert.assertTrue(paymentsPage.isDisplayed(), "Payment page isn't displayed");
 
-    logger.info("7. Click on Pay now without entering any data");
+    logger.info("6. Click on Pay now without entering any data");
     paymentsPage = paymentsPage.clickOnPayNowButton(PaymentsPage.class);
 
     logger.info(
@@ -98,31 +91,28 @@ public class EdgeCaseTests extends BaseTest {
       groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.EDGE_CASES},
       description = "11102587")
   public void orderIsNotPlacedWhenEnteringWrongCCdata() {
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLPMediumRoast();
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
-    logger.info("2. Add an item");
-    int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("3. Click on Checkout.");
+    logger.info("2. Click on Checkout.");
     CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
 
-    logger.info("4. Enter Contact information and Shipping address.");
+    logger.info("3. Enter Contact information and Shipping address.");
     checkOutPage.setCheckOutData();
 
-    logger.info("5. Click on Continue.");
+    logger.info("4. Click on Continue.");
     ShippingPage shippingPage = checkOutPage.clickContinueToShipping();
 
-    logger.info("6. Click on Continue to payment.");
+    logger.info("5. Click on Continue to payment.");
     PaymentsPage paymentsPage = shippingPage.clickContinueToPayments();
 
     logger.info("Verify that - Payment page is displayed");
     Assert.assertTrue(paymentsPage.isDisplayed(), "Payment page isn't displayed");
 
-    logger.info("7. Enter an invalid cc number.");
+    logger.info("6. Enter an invalid cc number.");
     CreditCardDto card =
         new CreditCardDto(
             WebTestData.INVALID_CREDIT_CARD,
@@ -145,34 +135,31 @@ public class EdgeCaseTests extends BaseTest {
       groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.EDGE_CASES},
       description = "11102588")
   public void useDifferentBillingAddress() {
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLPMediumRoast();
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
-    logger.info("2. Add an item");
-    int itemAt = testHelper.findInStockItemPosition(productListPage) - 1;
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(itemAt);
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("3. Click on Checkout.");
+    logger.info("2. Click on Checkout.");
     CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
 
-    logger.info("4. Enter Contact information and Shipping address.");
+    logger.info("3. Enter Contact information and Shipping address.");
     checkOutPage.setCheckOutData();
 
-    logger.info("5. Click on Continue.");
+    logger.info("4. Click on Continue.");
     ShippingPage shippingPage = checkOutPage.clickContinueToShipping();
 
-    logger.info("6. Click on Continue to payment.");
+    logger.info("5. Click on Continue to payment.");
     PaymentsPage paymentsPage = shippingPage.clickContinueToPayments();
 
     logger.info("Verify that - Payment page is displayed");
     Assert.assertTrue(paymentsPage.isDisplayed(), "Payment page isn't displayed");
 
-    logger.info("7. Enter payment information.");
+    logger.info("6. Enter payment information.");
     paymentsPage.setPaymentData();
 
-    logger.info("8. Click on Use a different billing address and enter new address");
+    logger.info("7. Click on Use a different billing address and enter new address");
     BillingAddressDto addressDto =
         BillingAddressDto.builder()
             .firstName("Applause")
