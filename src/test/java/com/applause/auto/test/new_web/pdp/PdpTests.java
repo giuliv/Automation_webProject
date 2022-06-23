@@ -3,26 +3,30 @@ package com.applause.auto.test.new_web.pdp;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.PDPTestData;
 import com.applause.auto.common.data.Constants.TestData;
+import com.applause.auto.common.data.Constants.WebTestData;
 import com.applause.auto.common.data.dto.MyReviewDto;
 import com.applause.auto.common.data.enums.GrindDropdown;
 import com.applause.auto.common.data.enums.ShipEveryDropdown;
 import com.applause.auto.common.data.enums.SortOption;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.components.MyReviewModalComponent;
-import com.applause.auto.new_web.components.ProductDetailsCustomerReviewsComponent;
-import com.applause.auto.new_web.components.ProductDetailsViewImageComponent;
 import com.applause.auto.new_web.components.ProductStoryModalComponent;
 import com.applause.auto.new_web.components.QuickViewComponent;
 import com.applause.auto.new_web.components.ReviewItemComponent;
 import com.applause.auto.new_web.components.WriteReviewComponent;
 import com.applause.auto.new_web.components.YourReviewWasSubmittedComponent;
+import com.applause.auto.new_web.components.pdp.PdpStickyNavDetailsComponent;
+import com.applause.auto.new_web.components.pdp.ProductDetailsCustomerReviewsComponent;
+import com.applause.auto.new_web.components.pdp.ProductDetailsViewImageComponent;
 import com.applause.auto.new_web.components.plp.PlpItemComponent;
 import com.applause.auto.new_web.components.plp.PlpLearnMoreOverlappingComponent;
 import com.applause.auto.new_web.components.plp.PlpSignInOverlappingComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.CoffeeFinderPage;
+import com.applause.auto.new_web.views.HomePage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ProductListPage;
+import com.applause.auto.new_web.views.SearchResultsPage;
 import com.applause.auto.new_web.views.SignUpPage;
 import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
@@ -678,5 +682,177 @@ public class PdpTests extends BaseTest {
     logger.info("4. Verify a window with Image is displayed");
     softAssert.assertNotNull(imageComponent, "A window with Image isn't displayed");
     softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      description = "11107459")
+  public void pdpScrollDownPastTest() {
+    logger.info("1. Navigate to PDP");
+    ProductDetailsPage detailsPage = navigateToPDP(coffeeSelected);
+
+    logger.info("2. Scroll past the purchasing area");
+    detailsPage = detailsPage.scrollToFlavorProfile();
+
+    logger.info("3. Once the user scrolls the sticky nav is replaced with this bar.");
+    PdpStickyNavDetailsComponent pdpStickyNavDetailsComponent =
+        detailsPage.getPdpStickyDetailsComponent();
+    Assert.assertTrue(pdpStickyNavDetailsComponent.isDisplayed(), "Sticky nav isn't displayed");
+
+    if (WebHelper.isDesktop()) {
+      // Only 'Add' button is displayed on mobile web
+      logger.info("4. Verify product name, product price and 'Add to Cart' button is displayed");
+      Assert.assertTrue(
+          pdpStickyNavDetailsComponent.isProductNameDisplayed(), "Product name isn't displayed");
+      Assert.assertTrue(
+          pdpStickyNavDetailsComponent.isProductPriceDisplayed(), "Product price isn't displayed");
+    }
+    Assert.assertTrue(
+        pdpStickyNavDetailsComponent.isAddToCartButtonDisplayed(),
+        "'Add to Cart' button isn't displayed");
+
+    logger.info("5. Click on 'ADD to cart'");
+    String productName =
+        WebHelper.isDesktop()
+            ? pdpStickyNavDetailsComponent.getProductName()
+            : detailsPage.getProductName();
+    MiniCart miniCart = pdpStickyNavDetailsComponent.clickAddToCart();
+
+    logger.info("6. Verify product is added to the cart");
+    Assert.assertTrue(
+        miniCart.getProductNameByIndex(0).equalsIgnoreCase(productName),
+        "Wrong product added to the cart");
+
+    logger.info("7. Scroll up");
+    WebHelper.scrollToPageTop();
+
+    logger.info("8. Verify after scroll up, the bar is replaced with the sticky nav");
+    Assert.assertFalse(
+        pdpStickyNavDetailsComponent.isDisplayed(), "Sticky nav is unexpected displayed");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      description = "11107460")
+  public void pdpSpecialtyBlendsTest() {
+    logger.info("1. Navigate to PDP");
+    HomePage homePage = navigateToHome();
+
+    logger.info(
+        "2. Search for the product: {}", WebTestData.SEARCH_COFFEE_YOSEMITE_DOS_SIERRAS_ORGANIC);
+    SearchResultsPage searchResultsPage =
+        homePage
+            .getHeader()
+            .getSearchComponent()
+            .search(WebTestData.SEARCH_COFFEE_YOSEMITE_DOS_SIERRAS_ORGANIC);
+    ProductDetailsPage productDetailsPage = searchResultsPage.clickOverProductByIndex(0);
+
+    logger.info(
+        "3. Verify at the top of the PDP/purchasing area for specialty blends (green packaging) is displayed");
+    Assert.assertEquals(
+        productDetailsPage.getBackgroundColorForTopSection(),
+        WebTestData.PDP_SECTION_GREEN_COLOR,
+        "Background color is wrong");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      description = "11107461")
+  public void pdpAnniversaryCoffeeTest() {
+    logger.info("1. Navigate to PDP");
+    HomePage homePage = navigateToHome();
+
+    logger.info("2. Search for the product: {}", WebTestData.SEARCH_COFFEE_JR_RESERVE_BLEND);
+    SearchResultsPage searchResultsPage =
+        homePage
+            .getHeader()
+            .getSearchComponent()
+            .search(WebTestData.SEARCH_COFFEE_JR_RESERVE_BLEND);
+    ProductDetailsPage productDetailsPage = searchResultsPage.clickOverProductByIndex(0);
+
+    logger.info(
+        "3. Verify at the top of the PDP/purchasing area for Anniversary coffee is displayed");
+    Assert.assertEquals(
+        productDetailsPage.getBackgroundColorForTopSection(),
+        WebTestData.PDP_SECTION_ANNIVERSARY_PRODUCT_COLOR,
+        "Background color is wrong");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      description = "11107462",
+      enabled = false)
+  public void pdpOnlyFewItemsLeftTest() {
+    // TODO We don't have item with only few quantity left
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      description = "11107463",
+      enabled = false)
+  public void pdpDarkBackgroundNavigationTest() {
+    // TODO The Nav doesn't transparent on land
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      description = "11107464")
+  public void pdpTeaItemTest() {
+    logger.info("1. Navigate to PDP");
+    HomePage homePage = navigateToHome();
+
+    logger.info("2. Search for the product: {}", TestData.TEA_NAME);
+    SearchResultsPage searchResultsPage =
+        homePage.getHeader().getSearchComponent().search(TestData.TEA_NAME);
+    ProductDetailsPage productDetailsPage = searchResultsPage.clickOverProductByIndex(0);
+
+    logger.info("3. Verify the Size dropdown is displayed");
+    Assert.assertTrue(
+        productDetailsPage.isSizeDropdownDisplayed(), "Size dropdown isn't displayed");
+
+    logger.info("4. Verify Quantity dropdown is displayed");
+    Assert.assertTrue(
+        productDetailsPage.isIncrementQuantityButtonDisplayed(),
+        "Quantity dropdown isn't displayed");
+
+    logger.info("5. Quantity --> Click on '-'");
+    productDetailsPage = productDetailsPage.clickQuantityMinusButton();
+
+    logger.info("6. Verify '-' symbol will be inactive if the quantity is set to 1");
+    Assert.assertEquals(
+        productDetailsPage.getProductQuantitySelected(),
+        1,
+        "Quantity unexpected changed after click on '-' button");
+
+    logger.info("5. Quantity --> Click on '+'");
+    productDetailsPage = productDetailsPage.clickQuantityPlusButton();
+
+    logger.info("6. Verify qty can be increased with Increase quantity with the '+' button");
+    Assert.assertEquals(
+        productDetailsPage.getProductQuantitySelected(),
+        2,
+        "Quantity isn't changed after click on '+' button");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      description = "11107465")
+  public void pdpEquipmentTest() {
+    logger.info("1. Navigate to PDP");
+    HomePage homePage = navigateToHome();
+
+    logger.info("2. Search for the product: {}", TestData.EQUIPMENT_NAME);
+    SearchResultsPage searchResultsPage =
+        homePage.getHeader().getSearchComponent().search(TestData.EQUIPMENT_NAME);
+    ProductDetailsPage productDetailsPage = searchResultsPage.clickOverProductByIndex(0);
+
+    logger.info(
+        "3. Validate the user has no Grind options but only the traditional quantity selector will be used for all generic PDP pages");
+    Assert.assertTrue(
+        productDetailsPage.isIncrementQuantityButtonDisplayed(),
+        "Increment quantity button isn't displayed");
+    Assert.assertTrue(
+        productDetailsPage.isDecrementQuantityButtonDisplayed(),
+        "Decrement quantity button isn't displayed");
   }
 }

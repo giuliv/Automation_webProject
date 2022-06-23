@@ -1,4 +1,4 @@
-package com.applause.auto.new_web.components;
+package com.applause.auto.new_web.components.pdp;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;

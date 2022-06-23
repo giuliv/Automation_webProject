@@ -1,10 +1,12 @@
-package com.applause.auto.new_web.components;
+package com.applause.auto.new_web.components.pdp;
 
 import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.common.data.enums.SortOption;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.new_web.components.ReviewItemComponent;
+import com.applause.auto.new_web.components.WriteReviewComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;

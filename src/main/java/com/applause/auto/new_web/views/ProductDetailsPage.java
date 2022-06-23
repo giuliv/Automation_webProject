@@ -8,9 +8,10 @@ import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.components.MyReviewModalComponent;
-import com.applause.auto.new_web.components.ProductDetailsCustomerReviewsComponent;
-import com.applause.auto.new_web.components.ProductDetailsViewImageComponent;
 import com.applause.auto.new_web.components.ProductStoryModalComponent;
+import com.applause.auto.new_web.components.pdp.PdpStickyNavDetailsComponent;
+import com.applause.auto.new_web.components.pdp.ProductDetailsCustomerReviewsComponent;
+import com.applause.auto.new_web.components.pdp.ProductDetailsViewImageComponent;
 import com.applause.auto.new_web.components.plp.PlpItemComponent;
 import com.applause.auto.new_web.components.plp.PlpLearnMoreOverlappingComponent;
 import com.applause.auto.new_web.components.plp.PlpSignInOverlappingComponent;
@@ -263,6 +264,9 @@ public class ProductDetailsPage extends Base {
 
   @Locate(css = "div#productFourSixty div[id*= post] > div", on = Platform.WEB)
   protected List<ContainerElement> peetsCoffeeImages;
+
+  @Locate(css = "div.config__group--size", on = Platform.WEB)
+  protected ContainerElement sizeDropdown;
 
   @Override
   public void afterInit() {
@@ -542,13 +546,7 @@ public class ProductDetailsPage extends Base {
 
   @Step("Click on (+) in Quantity")
   public ProductDetailsPage incrementProductQuantity(int quantity) {
-    IntStream.rangeClosed(1, quantity)
-        .forEach(
-            item -> {
-              logger.info("Clicking on (+) in Quantity");
-              incrementQuantityButton.click();
-              logger.info("Current quantity is - [{}]", getProductQuantitySelected());
-            });
+    IntStream.rangeClosed(1, quantity).forEach(item -> clickQuantityPlusButton());
     return this;
   }
 
@@ -566,13 +564,24 @@ public class ProductDetailsPage extends Base {
 
   @Step("Click on (-) in Quantity")
   public ProductDetailsPage decrementProductQuantity(int quantity) {
-    IntStream.rangeClosed(1, quantity)
-        .forEach(
-            item -> {
-              logger.info("Clicking on (-) in Quantity");
-              decrementQuantityButton.click();
-              logger.info("Current quantity is - [{}]", getProductQuantitySelected());
-            });
+    IntStream.rangeClosed(1, quantity).forEach(item -> clickQuantityMinusButton());
+    return this;
+  }
+
+  @Step("Click on (-) in Quantity")
+  public ProductDetailsPage clickQuantityMinusButton() {
+    logger.info("Clicking on (-) in Quantity");
+    decrementQuantityButton.click();
+    logger.info("Current quantity is - [{}]", getProductQuantitySelected());
+    return this;
+  }
+
+  @Step("Click on (+) in Quantity")
+  public ProductDetailsPage clickQuantityPlusButton() {
+    logger.info("Clicking on (+) in Quantity");
+    WebHelper.scrollToElement(incrementQuantityButton);
+    incrementQuantityButton.click();
+    logger.info("Current quantity is - [{}]", getProductQuantitySelected());
     return this;
   }
 
@@ -911,6 +920,40 @@ public class ProductDetailsPage extends Base {
   public void clickCarouselDescriptionNextButton() {
     logger.info("Clicking on the carousel description next button");
     WebHelper.jsClick(carouselDescriptionNextButton.getWebElement());
+  }
+
+  @Step("Scroll to Flavor profile section")
+  public ProductDetailsPage scrollToFlavorProfile() {
+    logger.info("Scrolling to Flavor profile section");
+    WebHelper.scrollToElement(flavorProfileSubtitle);
+    WebHelper.scrollToPageBottom();
+    return this;
+  }
+
+  public PdpStickyNavDetailsComponent getPdpStickyDetailsComponent() {
+    return SdkHelper.create(PdpStickyNavDetailsComponent.class);
+  }
+
+  @Step("Get background color for the top section")
+  public String getBackgroundColorForTopSection() {
+    String color = mainContainer.getWebElement().getCssValue(Attribute.BACKGROUND_COLOR.getValue());
+    logger.info("Background color: {}", color);
+    return color;
+  }
+
+  @Step("Verify Size dropdown isn't displayed")
+  public boolean isSizeDropdownDisplayed() {
+    return WebHelper.isDisplayed(sizeDropdown, 10);
+  }
+
+  @Step("Verify Quantity increment button is displayed")
+  public boolean isIncrementQuantityButtonDisplayed() {
+    return WebHelper.isDisplayed(incrementQuantityButton);
+  }
+
+  @Step("Verify Quantity decrement button is displayed")
+  public boolean isDecrementQuantityButtonDisplayed() {
+    return WebHelper.isDisplayed(decrementQuantityButton);
   }
 
   protected void clickOnThreeProductsButton() {

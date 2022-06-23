@@ -158,10 +158,10 @@ public class Constants {
     public static final String GRIND = "Commercial Brewer";
     public static final String GRIND_2 = "Drip";
 
-    public static final String TEA_NAME = "Organic Turmeric Ginger Tea Bags";
+    public static final String TEA_NAME = "Organic Turmeric Ginger";
     public static final String TEA_COST_OVER_25_NAME = "Green Tea Tropical Tea Bags";
 
-    public static final String EQUIPMENT_NAME = "Fellow Kettle, Silver";
+    public static final String EQUIPMENT_NAME = "Fellow Kettle";
 
     public static final String COFFEE_KCUP_NAME = "Decaf Especial K-Cup® Pack";
     public static final String COFFEE_ARABIAN_MOCHA_JAVA_NAME = "Arabian Mocha-Java";
@@ -477,6 +477,8 @@ public class Constants {
     public static final String SEARCH_COFFEE_JR_RESERVE_BLEND = "JR RESERVE BLEND";
     public static final String SEARCH_COFFEE_BRAZILIAN_K_CUP = "SINGLE ORIGIN BRAZIL K-CUP";
     public static final String NOT_EXIST_SEARCH_TERM = "qwert";
+    public static final String SEARCH_COFFEE_YOSEMITE_DOS_SIERRAS_ORGANIC =
+        "YOSEMITE DOS SIERRAS ORGANIC";
 
     public static final String EMPTY_SEARCH_RESULT_MESSAGE_TEMPLATE =
         "SORRY, WE COULDN’T FIND ANYTHING MATCHING \"%s\".";
@@ -495,6 +497,9 @@ public class Constants {
     public static final String DARK_ROAST_BREADCRUMBS = "ALL COFFEE / DARK ROAST";
     public static final String FAQ_MESSAGE =
         "Estimated ship date based on items in your cart. Ship dates subject to change. Visit our FAQ page to learn more.";
+
+    public static final String PDP_SECTION_GREEN_COLOR = "rgba(31, 59, 39, 1)";
+    public static final String PDP_SECTION_ANNIVERSARY_PRODUCT_COLOR = "rgba(32, 26, 23, 1)";
   }
 
   @AllArgsConstructor
