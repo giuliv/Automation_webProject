@@ -7,6 +7,7 @@ import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.CartPage;
 import com.applause.auto.new_web.views.CheckOutPage;
+import com.applause.auto.new_web.views.CommonWebPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -16,6 +17,7 @@ import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.qameta.allure.Step;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -127,6 +129,27 @@ public class MiniCart extends BaseComponent {
 
   @Locate(xpath = "//table//p[@class='og-shipping']/*", on = Platform.WEB)
   private SelectList shipEveryDropdown;
+
+  @Locate(className = "bag-shipping__text", on = Platform.WEB)
+  private Text shippingAwayMessage;
+
+  @Locate(css = "i.icon--shipped", on = Platform.WEB)
+  private Image truckIcon;
+
+  @Locate(css = ".bag__touts a img ", on = Platform.WEB)
+  private LazyList<Image> shopabbleItems;
+
+  @Locate(css = ".bag__touts a p", on = Platform.WEB)
+  private LazyList<Text> shopabbleTitles;
+
+  @Locate(css = "#bagEstimateShip i", on = Platform.WEB)
+  private Button estimatedToolTip;
+
+  @Locate(css = "#bagEstimateShip p.tooltip__copy", on = Platform.WEB)
+  private Text estimatedToolTipText;
+
+  @Locate(css = "#bagEstimateShip p.tooltip__copy a", on = Platform.WEB)
+  private Link estimatedToolTipFAQLink;
 
   @Override
   public void afterInit() {
@@ -271,22 +294,9 @@ public class MiniCart extends BaseComponent {
 
   @Step("Click continue to checkout")
   public <T extends BaseComponent> T clickOnContinueToCheckOutButton(Class<T> clazz) {
-
     logger.info("Clicking CheckOut");
     SdkHelper.getSyncHelper().wait(Until.uiElement(checkOutButton).visible());
 
-    // Todo:Code moved to homePage, if works there , remove this
-    //    logger.info("-- checking for special offers popup and closing it if necessary");
-    //
-    //    if (SdkHelper.getDriver().findElements(By.cssSelector(specialOfferFrameCSS)).size() > 0) {
-    //      logger.info("-- switching to special offer frame");
-    //      WebHelper.switchToIFrame(specialOfferFrame);
-    //      if (WebHelper.isDisplayed(closeSpecialOfferButton)) {
-    //        WebHelper.jsClick(closeSpecialOfferButton.getWebElement());
-    //        SdkHelper.getSyncHelper().sleep(2000); // Wait for action
-    //      }
-    //      SdkHelper.getDriver().switchTo().defaultContent();
-    //    }
     checkOutButton.click();
     return SdkHelper.create(clazz);
   }
@@ -436,5 +446,70 @@ public class MiniCart extends BaseComponent {
         .map(i -> WebHelper.findShadowElementsBy(i, By.cssSelector("select")).get(0))
         .findFirst()
         .get();
+  }
+
+  public String getShippingAwayMessage() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(shippingAwayMessage).visible());
+    String message = shippingAwayMessage.getText();
+    logger.info("Shipping away message: {}", message);
+
+    return message;
+  }
+
+  public boolean isTruckIconDisplayed() {
+    return truckIcon.isDisplayed();
+  }
+
+  @Step("Get Total shopabble items")
+  public int getTotalShopabbleItems() {
+    int total = shopabbleItems.size();
+    logger.info("Total shopabble items - [{}]", total);
+    return total;
+  }
+
+  public <T extends BaseComponent> T openShopabbleItemsByIndex(Class<T> clazz, int index) {
+    logger.info("Opening shoppable item: " + index);
+    SdkHelper.getSyncHelper().wait(Until.uiElement(shopabbleTitles.get(index)).present());
+    try {
+      shopabbleTitles.get(index).click();
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
+
+    return SdkHelper.create(clazz);
+  }
+
+  public boolean isShopabbleItemDisplayed(int index) {
+    logger.info("Reviewing shopabble items");
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for items
+    SdkHelper.getSyncHelper().wait(Until.uiElement(shopabbleTitles.get(index)).present());
+    return shopabbleTitles.get(index).isDisplayed() && shopabbleItems.get(index).isDisplayed();
+  }
+
+  @Step("Get estimated ship date")
+  public boolean estimatedShipDateIsDisplayed() {
+    return estimatedShipDate.isDisplayed();
+  }
+
+  public void openEstimatedTooltip() {
+    logger.info("Click over estimated date tooltip");
+    estimatedToolTip.click();
+  }
+
+  public String getEstimatedDateTooltipText() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(estimatedToolTipText).visible());
+    String message = estimatedToolTipText.getText();
+    logger.info("Estimated Date Tooltip text {}", message);
+
+    return message;
+  }
+
+  public CommonWebPage openEstimatedFAQLink() {
+    logger.info("Click over estimated FAQ link");
+    String windowHandle = SdkHelper.getDriver().getWindowHandle();
+    estimatedToolTipFAQLink.click();
+    WebHelper.switchToNewTab(windowHandle);
+
+    return SdkHelper.create(CommonWebPage.class);
   }
 }

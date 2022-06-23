@@ -19,7 +19,11 @@ import static com.applause.auto.common.data.Constants.WebTestData.PLP_SHOPABBLE_
 public class CartTests extends BaseTest {
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.SANITY},
+      groups = {
+        Constants.TestNGGroups.WEB_REGRESSION,
+        Constants.TestNGGroups.PLP,
+        Constants.TestNGGroups.SANITY
+      },
       description = "11101745")
   public void cartCanCheckoutFromCartTest() {
 
@@ -40,7 +44,7 @@ public class CartTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
       description = "11101742",
       enabled = false)
   /**
@@ -84,6 +88,7 @@ public class CartTests extends BaseTest {
 
   @Test(
       groups = {
+        Constants.TestNGGroups.WEB_REGRESSION,
         Constants.TestNGGroups.PLP,
         Constants.TestNGGroups.SMOKE,
       },
@@ -127,7 +132,7 @@ public class CartTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
       description = "11101743",
       enabled = false)
   public void cartReviewOneTimePurchase() {
@@ -163,7 +168,7 @@ public class CartTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
       description = "11101744",
       enabled = false)
   /**
@@ -198,7 +203,11 @@ public class CartTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.SANITY},
+      groups = {
+        Constants.TestNGGroups.WEB_REGRESSION,
+        Constants.TestNGGroups.PLP,
+        Constants.TestNGGroups.SANITY
+      },
       description = "11101746",
       enabled = false)
   public void canAddOthersPurchased() {
@@ -229,7 +238,7 @@ public class CartTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
       description = "11101747",
       enabled = false)
   public void canSignUpForNeverMissAnOffer() {
@@ -255,7 +264,11 @@ public class CartTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_CART},
+      groups = {
+        Constants.TestNGGroups.WEB_REGRESSION,
+        Constants.TestNGGroups.PLP,
+        Constants.TestNGGroups.WEB_CART
+      },
       description = "11101748")
   public void canCheckThisIsGift() {
     logger.info("1. Navigate to PDP > Add to miniCart");
@@ -281,7 +294,11 @@ public class CartTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_CART},
+      groups = {
+        Constants.TestNGGroups.WEB_REGRESSION,
+        Constants.TestNGGroups.PLP,
+        Constants.TestNGGroups.WEB_CART
+      },
       description = "11108611")
   public void addItemToCart() {
     logger.info("1. Navigate to product details page");
@@ -294,7 +311,11 @@ public class CartTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_CART},
+      groups = {
+        Constants.TestNGGroups.WEB_REGRESSION,
+        Constants.TestNGGroups.PLP,
+        Constants.TestNGGroups.WEB_CART
+      },
       description = "11107534")
   public void reviewEmptyCartTest() {
     logger.info("1. Navigate to product details page");
@@ -331,7 +352,11 @@ public class CartTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_CART},
+      groups = {
+        Constants.TestNGGroups.WEB_REGRESSION,
+        Constants.TestNGGroups.PLP,
+        Constants.TestNGGroups.WEB_CART
+      },
       description = "11108612")
   public void shippingCartTest() {
     logger.info("1. Navigate to PDP > Add to miniCart");
@@ -356,6 +381,7 @@ public class CartTests extends BaseTest {
 
   @Test(
       groups = {
+        Constants.TestNGGroups.WEB_REGRESSION,
         Constants.TestNGGroups.PLP,
         Constants.TestNGGroups.WEB_CART,
       },
@@ -437,6 +463,7 @@ public class CartTests extends BaseTest {
 
   @Test(
       groups = {
+        Constants.TestNGGroups.WEB_REGRESSION,
         Constants.TestNGGroups.PLP,
         Constants.TestNGGroups.WEB_CART,
       },

@@ -1,19 +1,42 @@
 package com.applause.auto.test.new_web.plp;
 
 import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.enums.FooterOptions;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.components.QuickViewComponent;
 import com.applause.auto.new_web.components.ShopRunnerComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.ProductDetailsPage;
+import com.applause.auto.new_web.views.*;
 import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import static com.applause.auto.common.data.Constants.WebTestData.PLP_SHOPABBLE_ITEMS;
+
 public class MiniCartTest extends BaseTest {
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.SMOKE},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
+      description = "11109579")
+  public void addToMiniCartTest() {
+
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
+
+    logger.info("2. Add item to MiniCart");
+    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
+    Assert.assertNotNull(miniCart, "Item was not added to miniCart");
+
+    logger.info("FINISH");
+  }
+
+  @Test(
+      groups = {
+        Constants.TestNGGroups.WEB_REGRESSION,
+        Constants.TestNGGroups.PLP,
+        Constants.TestNGGroups.SMOKE
+      },
       description = "11101730")
   public void validateMiniCartElementsTest() {
 
@@ -43,7 +66,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
       description = "11101731")
   public void itemsRemovedFromMiniCartTest() {
 
@@ -77,7 +100,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
       description = "11101732")
   public void emptyMiniCartTest() {
 
@@ -101,19 +124,22 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
       description = "11101733")
   public void progressShippingBarTest() {
 
-    logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP();
-    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
+    logger.info("1. Navigate to PDP > Add to miniCart");
+    MiniCart miniCart = navigateToPDP(coffeeSelected).clickAddToMiniCart();
 
-    logger.info("2. Add item to MiniCart");
-    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
-    float progressBar = miniCart.getProgressBarQuantity();
+    logger.info("2. Validate message and icon");
+    String originalShippingAway = miniCart.getShippingAwayMessage();
+    Assert.assertTrue(
+        originalShippingAway.contains("away from free shipping!"),
+        "Shipping away message is not displayed");
+    Assert.assertTrue(miniCart.isTruckIconDisplayed(), "Truck icon is not displayed");
 
     logger.info("3. Increase item and Validate progress bar");
+    float progressBar = miniCart.getProgressBarQuantity();
     miniCart.addOneMoreItem();
     Assert.assertTrue(
         progressBar < miniCart.getProgressBarQuantity(), "Progress bar is not working correctly");
@@ -122,7 +148,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
       description = "11101739")
   public void learnMoreFromMiniCartTest() {
 
@@ -144,7 +170,11 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.SMOKE},
+      groups = {
+        Constants.TestNGGroups.WEB_REGRESSION,
+        Constants.TestNGGroups.PLP,
+        Constants.TestNGGroups.SMOKE
+      },
       description = "11101740")
   public void signInFromMiniCartTest() {
 
@@ -165,24 +195,16 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP},
-      description = "11101734",
-      enabled = false)
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
+      description = "11101734")
   public void recommendedItemsNavigationTest() {
-    /**
-     * TODO
-     *
-     * <p>Disabled this test for now as functionality isn't working on Stage
-     */
+
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP();
-    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
+    MiniCart miniCart = navigateToPDP(coffeeSelected).clickAddToMiniCart();
 
-    logger.info("2. Add item to MiniCart");
-    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
-
-    logger.info("3. Validate Recommended Items Navigation");
+    logger.info("2. Validate Recommended Items Navigation");
     long originValue = miniCart.getRecommendedItemsVisible();
+    Assert.assertTrue(originValue > 1, "Total Recommended items is not correct");
     miniCart.clickNavigationArrow(Constants.NavigationArrow.NEXT);
 
     long newValue = miniCart.getRecommendedItemsVisible();
@@ -196,7 +218,11 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.SANITY},
+      groups = {
+        Constants.TestNGGroups.WEB_REGRESSION,
+        Constants.TestNGGroups.PLP,
+        Constants.TestNGGroups.SANITY
+      },
       description = "11101735",
       enabled = false)
   public void addRemoveRecommendedItemTest() {
@@ -239,16 +265,13 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
       description = "11101737")
   public void oneTimePurchaseMiniCartTest() {
+    // Todo:Do we need to validate also subscriptions?
 
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP();
-    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
-
-    logger.info("2. Add item to MiniCart");
-    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
+    MiniCart miniCart = navigateToPDP(coffeeSelected).clickAddToMiniCart();
 
     logger.info("3. Select One time purchase > One time purchase should be selected");
     miniCart.clickOneTimePurchaseButton();
@@ -260,7 +283,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
       description = "11101738")
   public void subscriptionModeMiniCartTest() {
 
@@ -281,7 +304,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
       description = "11107530")
   public void miniCartCheckoutBypassesCartTest() {
 
@@ -305,7 +328,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
       description = "11107531")
   public void miniCartViewCartGoesToCartTest() {
 
@@ -329,7 +352,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
       description = "11107533")
   public void miniCartSubscribeSetupTest() {
     logger.info("1. Navigate to product details page");
@@ -358,7 +381,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
       description = "11107532")
   public void miniCartShopRunner2DayShippingTest() {
 
@@ -391,5 +414,76 @@ public class MiniCartTest extends BaseTest {
         shopRunnerComponent.isSignInModalDisplayed(), "Sign In modal was not displayed correctly");
 
     softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
+      description = "11109580")
+  public void emptyMiniCart2Test() {
+
+    logger.info("1. Navigate to landing page");
+    HomePage homePage = navigateToHome();
+
+    logger.info("2. Open MiniCart");
+    MiniCart miniCart = homePage.getHeader().clickCartIcon();
+
+    logger.info("3. Validate Empty MiniCart Message");
+    Assert.assertEquals(
+        miniCart.getEmptyMiniCartMessage(),
+        "Your cart is empty. Do you need any beans or tea?",
+        "Empty message is not correct");
+
+    logger.info("4. Validating...");
+    int total = miniCart.getTotalShopabbleItems();
+    Assert.assertEquals(total, 4, "Total Shopabble items does not match");
+    for (int item = 0; item < total; item++) {
+      Assert.assertTrue(miniCart.isShopabbleItemDisplayed(item), "Shopabble item not displayed");
+      if (item == total - 1) {
+        Assert.assertTrue(
+            miniCart
+                .openShopabbleItemsByIndex(FreeHomeDeliveryPage.class, item)
+                .isPageHeadingDisplayed(),
+            "Title does not matches");
+      } else {
+        Assert.assertEquals(
+            miniCart.openShopabbleItemsByIndex(ProductListPage.class, item).getPageHeader(),
+            PLP_SHOPABBLE_ITEMS.get(item),
+            "Title does not matches");
+      }
+
+      homePage = navigateToHome();
+      miniCart = homePage.getHeader().clickCartIcon();
+    }
+
+    logger.info("FINISH");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
+      description = "11109581")
+  public void estimatedShipDateTest() {
+
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
+
+    logger.info("2. Add item to MiniCart");
+    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
+    Assert.assertNotNull(miniCart, "Item was not added to miniCart");
+
+    logger.info("3. Validating Estimated Date Tooltip");
+    Assert.assertTrue(
+        miniCart.estimatedShipDateIsDisplayed(), "Estimated ship date is not displayed");
+    miniCart.openEstimatedTooltip();
+    Assert.assertEquals(
+        miniCart.getEstimatedDateTooltipText(),
+        Constants.WebTestData.FAQ_MESSAGE,
+        "Estimated tooltip text does not matches");
+    miniCart.openEstimatedFAQLink();
+    Assert.assertTrue(
+        WebHelper.getCurrentUrl().contains(FooterOptions.HELP_CENTER.getUrl()),
+        "FAQ URL does not matches");
+
+    logger.info("FINISH");
   }
 }

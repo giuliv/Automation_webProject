@@ -321,6 +321,12 @@ public class Header extends BaseComponent {
     return cartIcon.isDisplayed();
   }
 
+  public MiniCart clickCartIcon() {
+    logger.info("Click over miniCart icon");
+    cartIcon.click();
+    return SdkHelper.create(MiniCart.class);
+  }
+
   @Step("Get Search component")
   public SearchComponent getSearchComponent() {
     logger.info("Get Search Component");
