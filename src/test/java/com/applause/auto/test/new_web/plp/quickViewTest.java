@@ -2,6 +2,7 @@ package com.applause.auto.test.new_web.plp;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestData;
+import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.components.QuickViewComponent;
 import com.applause.auto.new_web.components.plp.PlpLearnMoreOverlappingComponent;
 import com.applause.auto.new_web.components.plp.PlpSignInOverlappingComponent;
@@ -18,7 +19,7 @@ public class quickViewTest extends BaseTest {
   public void reviewQuickViewUITest() {
 
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLP(TestData.COFFEE_BEST_SELLERS_URL);
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Validate UI Elements of QuickView Modal");
@@ -30,8 +31,70 @@ public class quickViewTest extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
+      description = "11110671")
+  public void coffeeItemGrindTest() {
+
+    logger.info("1. Navigate to landing page");
+    ProductListPage productListPage = navigateToPLP(TestData.COFFEE_BEST_SELLERS_URL);
+    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+
+    logger.info("2. Select new Grind > Review Grind element");
+    QuickViewComponent quickViewComponent = productListPage.clickOverFirstQuickViewButton();
+    String originalGrind = quickViewComponent.getGrind();
+
+    quickViewComponent.selectGrindByIndex(3);
+    String newGrind = quickViewComponent.getGrind();
+    Assert.assertNotEquals(originalGrind, newGrind, "Grind element was not updated");
+    Assert.assertEquals(
+        quickViewComponent.getGrindOptions(), 5, "Total Grind options is not correct");
+
+    logger.info("FINISH");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
+      description = "11110672")
+  public void itemQuantityTest() {
+
+    logger.info("1. Navigate to landing page");
+    ProductListPage productListPage = navigateToPLP(TestData.COFFEE_BEST_SELLERS_URL);
+    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+
+    logger.info("2. Select new Quantity > Review Quantity element");
+    QuickViewComponent quickViewComponent = productListPage.clickOverFirstQuickViewButton();
+    quickViewComponent.validateQuantityElements().assertAll();
+
+    logger.info("FINISH");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
+      description = "11110673")
+  public void addToCartTest() {
+
+    logger.info("1. Navigate to landing page");
+    ProductListPage productListPage = navigateToPLP(TestData.COFFEE_BEST_SELLERS_URL);
+    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+
+    logger.info("2. Reviewing adding to cart feature");
+    QuickViewComponent quickViewComponent = productListPage.clickOverFirstQuickViewButton();
+    String productName = quickViewComponent.getProductName();
+
+    MiniCart miniCart = quickViewComponent.clickAddToCart();
+    int firstProduct = 0;
+    Assert.assertNotNull(miniCart, "Product was not added to miniCart");
+    Assert.assertEquals(
+        productName.toLowerCase(),
+        miniCart.getProductNameByIndex(firstProduct),
+        "Product added is not correct");
+
+    logger.info("FINISH");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
       description = "11107487")
-  public void shoprunnerTest() {
+  public void shopRunnerTest() {
 
     logger.info("1. Navigate to landing page");
     ProductListPage productListPage = navigateToPLP(TestData.COFFEE_BEST_SELLERS_URL);
@@ -40,10 +103,10 @@ public class quickViewTest extends BaseTest {
     logger.info("2. Open QuickView Modal");
     QuickViewComponent quickViewComponent = productListPage.clickOverFirstQuickViewButton();
 
-    logger.info("3. Validate Shop Runner UI Elements of ShopRuuner");
+    logger.info("3. Validate Shop Runner UI Elements of ShopRunner");
     quickViewComponent.validatShopRunnerUIElements().assertAll();
 
-    logger.info("4. Click Learnmore and Verify Learnmore overlapping Modal Free shipping Text ");
+    logger.info("4. Click LearnMore and Verify LearnMore overlapping Modal Free shipping Text ");
     PlpLearnMoreOverlappingComponent learMoreOverlapping = quickViewComponent.clickLearnMoreLink();
     softAssert.assertEquals(
         learMoreOverlapping.getShippingText(),
@@ -108,5 +171,23 @@ public class quickViewTest extends BaseTest {
     QuickViewComponent quickViewComponent = productListPage.clickOverFirstQuickViewButton();
 
     logger.info("3. Select the alternate option and verify the selected option");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
+      description = "11107489")
+  public void equipmentTest() {
+
+    logger.info("1. Navigate to Product list page");
+    ProductListPage productListPage = navigateToGearSection();
+    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+
+    logger.info("2. Open QuickView Modal");
+    QuickViewComponent quickViewComponent = productListPage.clickOverFirstQuickViewButton();
+
+    logger.info("3. Review Grind");
+    Assert.assertFalse(
+        quickViewComponent.isGrindDisplayed(),
+        "Grind option should not be available for Gear items");
   }
 }

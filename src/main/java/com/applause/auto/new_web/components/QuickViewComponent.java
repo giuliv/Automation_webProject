@@ -39,8 +39,22 @@ public class QuickViewComponent extends BaseComponent {
   @Locate(css = "div[data-message-id='quickGrind']", on = Platform.WEB)
   private ContainerElement grindSection;
 
+  @Locate(css = "div.open li", on = Platform.WEB)
+  private List<Text> grindOptions;
+
   @Locate(className = "pv-qty", on = Platform.WEB)
   private ContainerElement quantitySection;
+
+  @Locate(id = "productViewQuantityButton%s", on = Platform.WEB)
+  private ContainerElement quantityBox;
+
+  @Locate(css = "#productViewQuantityButton%s.is-selected", on = Platform.WEB)
+  private ContainerElement quantityBoxSelected;
+
+  @Locate(
+      css = "#productViewQuantityButton%s span.pv-qty__button-text--discount",
+      on = Platform.WEB)
+  private Text quantityBoxText;
 
   @Locate(id = "quickBtnAddToBag", on = Platform.WEB)
   private Button addToCartButton;
@@ -98,6 +112,60 @@ public class QuickViewComponent extends BaseComponent {
     return softAssert;
   }
 
+  public SoftAssert validateQuantityElements() {
+    SoftAssert softAssert = new SoftAssert();
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(quantitySection).visible());
+    quantityBoxSelected.format(1).initialize();
+    softAssert.assertTrue(quantityBoxSelected.isDisplayed(), "Quantity 1 is not default value");
+
+    quantityBox.format(2).initialize();
+    quantityBoxText.format(2).initialize();
+    quantityBox.click();
+    quantityBoxSelected.format(2).initialize();
+    softAssert.assertTrue(quantityBoxSelected.isDisplayed(), "Quantity 2 is not default value");
+    softAssert.assertEquals(
+        quantityBoxText.getText().replace("\n", ""),
+        "SUBSCRIBE &GET 5% OFF",
+        "Quantity 2 text does not matches");
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for change
+
+    quantityBox.format(3).initialize();
+    quantityBoxText.format(3).initialize();
+    softAssert.assertEquals(
+        quantityBoxText.getText().replace("\n", ""),
+        "SUBSCRIBE &GET 10% OFF",
+        "Quantity 3 text does not matches");
+    quantityBox.click();
+    softAssert.assertFalse(quantityBoxSelected.isDisplayed(), "Quantity 2 should not be displayed");
+
+    return softAssert;
+  }
+
+  public boolean isGrindDisplayed() {
+    return WebHelper.exists(grindSection, 5);
+  }
+
+  public String getGrind() {
+    logger.info("Grind value: [{}]", grindSection.getText());
+    return grindSection.getText();
+  }
+
+  public QuickViewComponent selectGrindByIndex(int index) {
+    logger.info("Selecting new Grind with index: [{}]", index);
+    grindSection.click();
+    SdkHelper.getSyncHelper().sleep(1000); // Wait to be populated
+
+    grindOptions.get(index).click();
+    return this;
+  }
+
+  public int getGrindOptions() {
+    int total = grindOptions.size();
+    logger.info("Total Grind options: [{}]", total);
+    return total;
+  }
+
   /**
    * Click on the 'Add to cart' button
    *
@@ -111,17 +179,10 @@ public class QuickViewComponent extends BaseComponent {
     return SdkHelper.create(MiniCart.class);
   }
 
-  /**
-   * @return product name
-   */
+  /** @return product name */
   @Step("Get product name")
   public String getProductName() {
     return productName.getText().trim();
-  }
-
-  @Step("Verify Add to cart button is displayed")
-  public boolean isAddToCartButtonDisplayed() {
-    return WebHelper.isDisplayed(addToCartButton);
   }
 
   public void closeQuickView() {
