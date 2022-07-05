@@ -137,6 +137,7 @@ public class Constants {
         LANDING_PAGE_URL.split("\\?")[0] + "/collections/all-tea";
     public static final String TEA_BEST_SELLERS_URL =
         LANDING_PAGE_URL.split("\\?")[0] + "/collections/tea-best-sellers";
+
     /** Test Data for tests */
     public static final String WEB_USERNAME = "peets.automation01@applause.com";
 

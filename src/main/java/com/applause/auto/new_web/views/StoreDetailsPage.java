@@ -5,14 +5,13 @@ import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
-import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
 
 @Implementation(is = StoreDetailsPage.class, on = Platform.WEB)
 @Implementation(is = StoreDetailsPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
-public class StoreDetailsPage extends BaseComponent {
+public class StoreDetailsPage extends Base {
 
   @Locate(xpath = "//span[contains(@class, 'store-detail-type')]", on = Platform.WEB)
   private Text type;
@@ -37,6 +36,15 @@ public class StoreDetailsPage extends BaseComponent {
 
   @Locate(xpath = "//button[contains(@class, 'store-detail-back')]", on = Platform.WEB)
   protected Button backButton;
+
+  @Locate(css = "#storeSubscriptions h2", on = Platform.WEB)
+  protected Text coffeeSubscriptionHeader;
+
+  @Locate(css = "#storeSubscriptions p", on = Platform.WEB)
+  protected Text coffeeSubscriptionDescription;
+
+  @Locate(css = "#storeSubscriptions a", on = Platform.WEB)
+  protected Text coffeeSubscriptionSeeOptionsButton;
 
   @Step("Get Store Type")
   public String getType() {
@@ -114,6 +122,31 @@ public class StoreDetailsPage extends BaseComponent {
     logger.info("Clicking on 'Back to results ' button");
     backButton.click();
     return SdkHelper.create(StoreLocatorPage.class);
+  }
+
+  @Step("Verify Coffee subscription header is displayed")
+  public boolean isCoffeeSubscriptionHeaderDisplayed() {
+    WebHelper.scrollToPageBottom();
+    WebHelper.waitForElementToAppear(coffeeSubscriptionHeader);
+    WebHelper.scrollToElement(coffeeSubscriptionHeader);
+    return WebHelper.isDisplayed(coffeeSubscriptionHeader);
+  }
+
+  @Step("Verify Coffee subscription description is displayed")
+  public boolean isCoffeeSubscriptionDescriptionDisplayed() {
+    return WebHelper.isDisplayed(coffeeSubscriptionDescription);
+  }
+
+  @Step("Verify Coffee subscription 'See Subscription options' button is displayed")
+  public boolean isCoffeeSubscriptionSeeOptionsButtonDisplayed() {
+    return WebHelper.isDisplayed(coffeeSubscriptionSeeOptionsButton);
+  }
+
+  @Step("Click on the 'See Subscription options' button")
+  public SubscriptionsPage clickCoffeeSubscriptionSeeOptionsButton() {
+    logger.info("Clicking on the 'See Subscription options' button");
+    coffeeSubscriptionSeeOptionsButton.click();
+    return SdkHelper.create(SubscriptionsPage.class);
   }
 }
 

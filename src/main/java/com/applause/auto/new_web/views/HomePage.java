@@ -10,8 +10,6 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import org.openqa.selenium.By;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,42 +120,6 @@ public class HomePage extends Base {
   @Locate(css = "#promoTile%s div.menu-category__actions", on = Platform.WEB)
   protected Button promoTileActions;
 
-  /* Coffee Bar */
-  @Locate(css = "a.btn.btn--primary.product-carousel__btn", on = Platform.WEB)
-  protected Button allSeasonalBeveragesButton;
-
-  @Locate(css = "a.product-carousel__secondary-link", on = Platform.WEB)
-  protected Button findCoffeeBarButton;
-
-  @Locate(
-      css = "section#coffeebar button.flickity-button.flickity-prev-next-button.next",
-      on = Platform.WEB)
-  protected Button coffeeBarNextButton;
-
-  @Locate(
-      css = "section#coffeebar button.flickity-button.flickity-prev-next-button.previous",
-      on = Platform.WEB)
-  protected Button coffeeBarPreviousButton;
-
-  @Locate(
-      css = "section#coffeebar .is-selected h3.pi__title.pi__title--no-notes a",
-      on = Platform.WEB)
-  protected List<Button> coffeeBarVisibleProductNames;
-
-  @Locate(css = "section#coffeebar .is-selected .pi__quick-add a", on = Platform.WEB)
-  protected List<Button> coffeeBarVisibleQuickAdd;
-
-  @Locate(
-      css =
-          "section#coffeebar div.product-carousel__actions a.btn.btn--primary.product-carousel__btn",
-      on = Platform.WEB)
-  protected Button coffeeBarSeasonalButton;
-
-  @Locate(
-      css = "section#coffeebar div.product-carousel__actions a.product-carousel__secondary-link",
-      on = Platform.WEB)
-  protected Button coffeeBarFindCoffeeBar;
-
   /* Best Sellers */
   @Locate(
       css = "section#homeBestSellers a[href='/collections/coffee-best-sellers']",
@@ -183,16 +145,6 @@ public class HomePage extends Base {
 
   @Locate(css = "div#modalQuickAdd", on = Platform.WEB)
   protected Button quickAddModalOverlay;
-
-  /* never miss offer */
-  @Locate(css = "h4.footer__newsletter-hdg", on = Platform.WEB)
-  protected Text neverMissOfferHeader;
-
-  @Locate(css = "p.footer__newsletter-copy", on = Platform.WEB)
-  protected Text neverMissOfferDescription;
-
-  @Locate(css = "li.form-item.footer__newsletter-item a", on = Platform.WEB)
-  protected Button neverMissOfferSignUpButton;
 
   /* subscription module section */
   @Locate(
@@ -330,26 +282,6 @@ public class HomePage extends Base {
         .click();
     return SdkHelper.create(CovidPage.class);
   }
-  /* -- Never Miss Offer Actions -- */
-  public String getNeverMissOfferTitle() {
-    logger.info("getting never miss an offer title");
-    SdkHelper.getSyncHelper().wait(Until.uiElement(neverMissOfferHeader).clickable());
-    logger.info("------ got " + neverMissOfferHeader.getText().trim());
-    return neverMissOfferHeader.getText().trim();
-  }
-
-  public String getNeverMissOfferDescription() {
-    logger.info("getting never miss an offer description");
-    SdkHelper.getSyncHelper().wait(Until.uiElement(neverMissOfferDescription).clickable());
-    logger.info("------ got " + neverMissOfferDescription.getText().trim());
-    return neverMissOfferDescription.getText().trim();
-  }
-
-  public SignUpPage clickNeverMissOfferSignup() {
-    logger.info("clicking sign up button in never miss offer section");
-    SdkHelper.getSyncHelper().wait(Until.uiElement(neverMissOfferSignUpButton).clickable()).click();
-    return SdkHelper.create(SignUpPage.class);
-  }
 
   /* -- Freshness Stamp Actions -- */
   public String getFreshnessCoffeeStampTitle() {
@@ -413,64 +345,10 @@ public class HomePage extends Base {
     return freshnessStampSectionDescription.getText().trim();
   }
 
-  /* Coffee Bar Actions */
-  public List<String> getVisibleCoffeeBarItems() {
-    logger.info("Getting the visible coffee bar items");
-    List<String> shownPositions = new ArrayList<>();
-    for (int i = 0; i < coffeeBarVisibleProductNames.size(); i++) {
-      shownPositions.add(getCoffeeBarItemAtPosition(i));
-    }
-    return shownPositions;
-  }
-
-  public String getCoffeeBarItemAtPosition(int position) {
-    logger.info("getting the " + position + " position's item in the coffeebar");
-    coffeeBarVisibleProductNames.get(position).initialize();
-    String text = coffeeBarVisibleProductNames.get(position).getText().trim();
-    for (int i = 0; i < 5; i++) {
-      if (text == "") {
-        coffeeBarVisibleProductNames.get(position).initialize();
-        SdkHelper.getSyncHelper()
-            .wait(Until.uiElement(coffeeBarVisibleProductNames.get(position)).visible());
-        text = coffeeBarVisibleProductNames.get(position).getText().trim();
-      }
-    }
-    logger.info("-- found " + text + " at position " + position);
-    return text;
-  }
-
-  public SeasonalPage clickCoffeeBarSeasonalButton() {
-    logger.info("Clicking the view seasonal items button in the coffee bar");
-    SdkHelper.getSyncHelper().wait(Until.uiElement(coffeeBarSeasonalButton).clickable()).click();
-    return SdkHelper.create(SeasonalPage.class);
-  }
-
-  public StoreLocatorPage clickFindCoffeeBarButton() {
-    logger.info("Clicking the find coffee bar button in coffee bar section");
-    SdkHelper.getSyncHelper().wait(Until.uiElement(coffeeBarFindCoffeeBar).clickable()).click();
-    return SdkHelper.create(StoreLocatorPage.class);
-  }
-
   public ProductDetailsPage clickCarouselButton() {
     logger.info("Clicking carousel shop now button");
     SdkHelper.getSyncHelper().wait(Until.uiElement(carouselButton).clickable()).click();
     return SdkHelper.create(ProductDetailsPage.class);
-  }
-
-  public void clickCoffeeBarNext() {
-    logger.info("clicking next in coffee bar");
-    coffeeBarVisibleProductNames.get(0).initialize();
-    SdkHelper.getSyncHelper().wait(Until.uiElement(coffeeBarNextButton).clickable()).click();
-    SdkHelper.getSyncHelper()
-        .wait(Until.uiElement(coffeeBarVisibleProductNames.get(0)).notVisible());
-  }
-
-  public void clickCoffeeBarPrevious() {
-    logger.info("clicking previous in coffee bar");
-    coffeeBarVisibleProductNames.get(0).initialize();
-    SdkHelper.getSyncHelper().wait(Until.uiElement(coffeeBarPreviousButton).clickable()).click();
-    SdkHelper.getSyncHelper()
-        .wait(Until.uiElement(coffeeBarVisibleProductNames.get(0)).notVisible());
   }
 
   public ProductListPage clickShowAllBestSellersButton() {
@@ -499,19 +377,6 @@ public class HomePage extends Base {
     logger.info("clicking previous in best sellers carousel");
     SdkHelper.getSyncHelper().wait(Until.uiElement(bestSellersPreviousButton).clickable()).click();
     SdkHelper.getSyncHelper().wait(Until.uiElement(bestSellersPositionTitle.get(0)).notVisible());
-  }
-
-  public void hoverCoffeeBarItemAtPosition(int position) {
-    logger.info("hovering over item at position " + position);
-    coffeeBarVisibleProductNames.get(position).initialize();
-    WebHelper.hoverByAction(coffeeBarVisibleProductNames.get(position));
-  }
-
-  public Boolean isCoffeeBarOrderNowDisplayed(int position) {
-    logger.info("checking if the quick add button is displayed at position " + position);
-    SdkHelper.getSyncHelper()
-        .wait(Until.uiElement(coffeeBarVisibleQuickAdd.get(position)).visible());
-    return coffeeBarVisibleQuickAdd.get(position).isDisplayed();
   }
 
   public String getBestSellersPositionTitle(int position) {
@@ -726,14 +591,6 @@ class HomePageMobile extends HomePage {
     SdkHelper.getSyncHelper().wait(Until.uiElement(signInButton).clickable()).click();
 
     return SdkHelper.create(SignInPage.class);
-  }
-
-  @Override
-  public void clickCoffeeBarNext() {
-    logger.info("clicking next in coffee bar");
-    SdkHelper.getSyncHelper().wait(Until.uiElement(coffeeBarNextButton).clickable());
-    WebHelper.scrollToElement(coffeeBarNextButton);
-    WebHelper.jsClick(coffeeBarNextButton.getWebElement());
   }
 
   @Override

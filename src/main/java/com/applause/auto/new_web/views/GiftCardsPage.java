@@ -4,10 +4,13 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.components.CheckYourCardBalanceModal;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Link;
+import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
 import java.time.Duration;
 
@@ -28,6 +31,24 @@ public class GiftCardsPage extends Base {
 
   @Locate(id = "modalCheckBalanceBtn", on = Platform.WEB)
   private Link checkBalanceButton;
+
+  @Locate(css = "h1.page-hero__heading", on = Platform.WEB)
+  private Text headerText;
+
+  @Locate(css = ".page-hero__description-text", on = Platform.WEB)
+  private Text descriptionText;
+
+  @Locate(css = ".page-hero__image .hide-mobile img", on = Platform.WEB)
+  @Locate(css = ".page-hero__image .mobile-only img", on = Platform.WEB_MOBILE_PHONE)
+  private Image bannerImage;
+
+  @Locate(css = "a.page-hero__cta", on = Platform.WEB)
+  private Link sendEGiftCardNowButton;
+
+  @Locate(
+      xpath = "//a[contains(@class,'shop-card--small') and .//h2[normalize-space()='%s']]",
+      on = Platform.WEB)
+  private Link bannerGetStartedLink;
 
   @Override
   public void afterInit() {
@@ -63,5 +84,49 @@ public class GiftCardsPage extends Base {
     logger.info("Clicking Check balance button");
     checkBalanceButton.click();
     return SdkHelper.create(CheckYourCardBalanceModal.class);
+  }
+
+  @Step("Verify page header is displayed")
+  public boolean isPageHeaderDisplayed() {
+    logger.info("Checking page header is displayed");
+    return WebHelper.isDisplayed(headerText) && !headerText.getText().isEmpty();
+  }
+
+  @Step("Verify page description is displayed")
+  public boolean isPageDescriptionDisplayed() {
+    logger.info("Checking page description is displayed");
+    return WebHelper.isDisplayed(descriptionText) && !descriptionText.getText().isEmpty();
+  }
+
+  @Step("Verify page banner image is displayed")
+  public boolean isPageBannerImageDisplayed() {
+    logger.info("Checking page banner image is displayed");
+    return WebHelper.isDisplayed(bannerImage);
+  }
+
+  @Step("Click Send a card by mail")
+  public void clickSendEGiftCardNowButton() {
+    logger.info("Clicking SEND AN E-GIFT CARD NOW button");
+    sendEGiftCardNowButton.click();
+    SdkHelper.getSyncHelper().sleep(3000);
+    // TODO After click on the SEND AN E-GIFT CARD NOW button we get "406 Not Acceptable" page but
+    // with expected URL
+  }
+
+  @Step("Verify banner is displayed")
+  public boolean isBannerDisplayed(String bannerHeader) {
+    logger.info("Checking banner with header '{}' is displayed", bannerHeader);
+    bannerGetStartedLink.format(bannerHeader).initialize();
+    return WebHelper.isDisplayed(bannerGetStartedLink);
+  }
+
+  @Step("Click on the banner")
+  public void clickOnBanner(String bannerHeader) {
+    logger.info("Clicking on the banner: {}", bannerHeader);
+    bannerGetStartedLink.format(bannerHeader).initialize();
+    bannerGetStartedLink.click();
+    SdkHelper.getSyncHelper().sleep(3000);
+    // TODO After click on the SEND AN E-GIFT CARD NOW button we get "406 Not Acceptable" page but
+    // with expected URL
   }
 }

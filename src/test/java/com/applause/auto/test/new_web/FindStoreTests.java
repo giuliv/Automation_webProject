@@ -1,15 +1,22 @@
 package com.applause.auto.test.new_web;
 
+import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.Constants.HomepageCoffeeBar;
+import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.Constants.WebTestData;
 import com.applause.auto.common.data.dto.StoreDetailsDto;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.new_web.components.NeverMissOfferComponent;
 import com.applause.auto.new_web.components.StockResultFilterComponent;
 import com.applause.auto.new_web.components.StockResultItemComponent;
+import com.applause.auto.new_web.components.pdp.CoffeeBarCarouselComponent;
+import com.applause.auto.new_web.components.pdp.CoffeeBarItemComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.GoogleMapPage;
 import com.applause.auto.new_web.views.MenuPage;
 import com.applause.auto.new_web.views.ProductListPage;
+import com.applause.auto.new_web.views.SignUpPage;
 import com.applause.auto.new_web.views.StoreDetailsPage;
 import com.applause.auto.new_web.views.StoreLocatorPage;
 import java.util.List;
@@ -301,5 +308,180 @@ public class FindStoreTests extends BaseTest {
         WebTestData.STORES_NO_RESULTS_MESSAGE,
         "'No results' message is wrong");
     Assert.assertTrue(storeLocatorPage.isShopOnlineDisplayed(), "'Shop Online' isn't displayed");
+  }
+
+  @Test(
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE},
+      description = "11107478")
+  public void storeDetailsPageFromCoffeeBar() {
+    logger.info("1. Navigate to landing page");
+    ProductListPage productListPage = navigateToPLP();
+    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+
+    logger.info("2. Click on location from header.");
+    StoreLocatorPage storeLocatorPage = productListPage.getHeader().clickOnStoreLocator();
+
+    logger.info("3. Type any zip code (95032)");
+    storeLocatorPage = storeLocatorPage.searchByZipCode("95032");
+
+    logger.info("4. Click on a store.");
+    StockResultItemComponent stockResultItemComponent =
+        storeLocatorPage.getStockResultList().get(0);
+    StoreDetailsPage storeDetailsPage = stockResultItemComponent.click();
+
+    logger.info("5. Validate the image, styling and content of this section is correct");
+    CoffeeBarCarouselComponent carouselComponent = storeDetailsPage.getCoffeeBarCarouselComponent();
+    Assert.assertTrue(carouselComponent.isHeaderIsDisplayed(), "Header isn't displayed");
+    Assert.assertTrue(carouselComponent.isSubHeaderIsDisplayed(), "Sub-header isn't displayed");
+    Assert.assertTrue(carouselComponent.isImageIsDisplayed(), "Image isn't displayed");
+    Assert.assertTrue(carouselComponent.isDescriptionIsDisplayed(), "Description isn't displayed");
+
+    logger.info("6. Verify four items are displayed");
+    int visibleItemsNumber = WebHelper.isDesktop() ? 4 : 1;
+    Assert.assertEquals(
+        carouselComponent.getVisibleCoffeeBarItemNames().size(),
+        visibleItemsNumber,
+        String.format("Not %s items are displayed", visibleItemsNumber));
+
+    logger.info(
+        "7. Verify item image, name, description, price per LB and reviews are shown correctly");
+    // TODO Description and price per LB are not displayed
+    Assert.assertTrue(
+        carouselComponent.areItemsDisplayedProperly(),
+        "Not all items are displayed with name and image");
+
+    logger.info("8. Validate the user is shown with different set of four items");
+    Assert.assertTrue(
+        carouselComponent.areUniqueItemsAreDisplayed(), "Not all items are different");
+
+    logger.info(
+        "9. Verify left and right arrow scrolls the bar, and that you can get to initial position after scroll");
+    List<String> initialPositions = carouselComponent.getVisibleCoffeeBarItemNames();
+    carouselComponent.clickCoffeeBarNext();
+    List<String> nextPositions = carouselComponent.getVisibleCoffeeBarItemNames();
+
+    softAssert.assertNotEquals(
+        initialPositions.get(0),
+        nextPositions.get(0),
+        "The coffee bar items did not change when the next arrow was clicked.");
+
+    carouselComponent.clickCoffeeBarPrevious();
+    nextPositions = carouselComponent.getVisibleCoffeeBarItemNames();
+
+    softAssert.assertEquals(
+        initialPositions.get(0),
+        nextPositions.get(0),
+        "The coffee bar did not go back to the original list with previous clicked.");
+
+    logger.info("10. Hover any Coffee item");
+    CoffeeBarItemComponent itemComponent = carouselComponent.getCoffeeBarItemComponent(0);
+    itemComponent.hoverOver();
+
+    logger.info("11. Validate the user is shown with 'Order Now' button immediately");
+    softAssert.assertTrue(itemComponent.isOrderNowDisplayed(), "Order Now is not displayed");
+
+    logger.info("12. Click on 'Order Now'");
+    String currentUrl = WebHelper.getCurrentUrl();
+    itemComponent.clickOrderNowButton();
+
+    logger.info("13. Validate the correct URL is shown");
+    Assert.assertTrue(
+        WebHelper.getCurrentUrl().contains(TestData.ORDER_PEETS_URL), "Wrong URL is shown");
+
+    logger.info("14. Click on 'View all Seasonal Beverages' Button");
+    WebHelper.closeOtherTabs();
+    storeDetailsPage = WebHelper.navigateToUrl(currentUrl, StoreDetailsPage.class);
+    storeDetailsPage.getCoffeeBarCarouselComponent().clickSeeAllSeasonalBeveragesButton();
+
+    logger.info(
+        "15. Validate the user is directed to \"https://peets-coffee-staging.myshopify.com/collections/seasonal\" page");
+    Assert.assertTrue(
+        WebHelper.getCurrentUrl().contains(HomepageCoffeeBar.SEASONAL_URL_PART),
+        "Seasonal page is opened with wrong URL");
+
+    logger.info("16. Click on 'Find a Coffee Bar' Button");
+    // TODO 'Find a Coffee Bar' Button isn't present
+
+    logger.info("17. Click on 'TAKE THE FULL QUIZ' url");
+    // TODO 'TAKE THE FULL QUIZ' url isn't present
+  }
+
+  @Test(
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE},
+      description = "11107479")
+  public void storeDetailsCoffeeSubscriptionsSection() {
+    logger.info("1. Navigate to landing page");
+    ProductListPage productListPage = navigateToPLP();
+    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+
+    logger.info("2. Click on location from header.");
+    StoreLocatorPage storeLocatorPage = productListPage.getHeader().clickOnStoreLocator();
+
+    logger.info("3. Type any zip code (95032)");
+    storeLocatorPage = storeLocatorPage.searchByZipCode("95032");
+
+    logger.info("4. Click on a store.");
+    StockResultItemComponent stockResultItemComponent =
+        storeLocatorPage.getStockResultList().get(0);
+    StoreDetailsPage storeDetailsPage = stockResultItemComponent.click();
+
+    logger.info("5. Validate the image, styling and content of this section is correct");
+    Assert.assertTrue(
+        storeDetailsPage.isCoffeeSubscriptionHeaderDisplayed(),
+        "Coffee subscription header isn't displayed");
+    Assert.assertTrue(
+        storeDetailsPage.isCoffeeSubscriptionDescriptionDisplayed(),
+        "Coffee subscription description isn't displayed");
+    Assert.assertTrue(
+        storeDetailsPage.isCoffeeSubscriptionSeeOptionsButtonDisplayed(),
+        "Coffee subscription 'See Subscription options' isn't displayed");
+
+    logger.info("6. Click on the 'See Subscription options'");
+    storeDetailsPage.clickCoffeeSubscriptionSeeOptionsButton();
+  }
+
+  @Test(
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE},
+      description = "11107480")
+  public void storeDetailsNeverMissOfferSection() {
+    logger.info("1. Navigate to landing page");
+    ProductListPage productListPage = navigateToPLP();
+    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+
+    logger.info("2. Click on location from header.");
+    StoreLocatorPage storeLocatorPage = productListPage.getHeader().clickOnStoreLocator();
+
+    logger.info("3. Verifying offer heading");
+    NeverMissOfferComponent neverMissOfferComponent = storeLocatorPage.getNeverMissOfferComponent();
+    softAssert.assertEquals(
+        Constants.HomepageNeverMissOffer.OFFER_TITLE.toLowerCase(),
+        neverMissOfferComponent.getNeverMissOfferTitle().toLowerCase(),
+        "Never Miss an offer section titles did not match; got: "
+            + neverMissOfferComponent.getNeverMissOfferTitle().toLowerCase()
+            + " expected: "
+            + Constants.HomepageNeverMissOffer.OFFER_TITLE.toLowerCase());
+
+    logger.info("4. Verifying offer description");
+    softAssert.assertEquals(
+        Constants.HomepageNeverMissOffer.OFFER_DESCRIPTION.toLowerCase(),
+        neverMissOfferComponent.getNeverMissOfferDescription().toLowerCase(),
+        "Never Miss an offer section descriptions did not match; got: "
+            + neverMissOfferComponent.getNeverMissOfferDescription().toLowerCase()
+            + " expected: "
+            + Constants.HomepageNeverMissOffer.OFFER_DESCRIPTION.toLowerCase());
+
+    logger.info("5. Verifying sign up button");
+    SignUpPage suPage = neverMissOfferComponent.clickNeverMissOfferSignup();
+    softAssert.assertTrue(
+        suPage
+            .getDriver()
+            .getCurrentUrl()
+            .contains(Constants.HomepageNeverMissOffer.OFFER_URL_PART),
+        "URL did not match;  expected "
+            + Constants.HomepageNeverMissOffer.OFFER_URL_PART
+            + " to be a part of"
+            + suPage.getDriver().getCurrentUrl());
+
+    softAssert.assertAll();
   }
 }

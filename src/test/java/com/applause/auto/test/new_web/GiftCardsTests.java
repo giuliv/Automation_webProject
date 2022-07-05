@@ -5,6 +5,7 @@ import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.Constants.WebTestData;
 import com.applause.auto.new_web.components.CheckYourCardBalanceModal;
 import com.applause.auto.new_web.components.MiniCart;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.GiftCardsPage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.SignInPage;
@@ -113,5 +114,54 @@ public class GiftCardsTests extends BaseTest {
 
     logger.info("Verify Balance is displayed");
     Assert.assertTrue(balanceModal.isBalanceDisplayed(), "Balance isn't displayed");
+  }
+
+  @Test(
+      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.GIFT_CARDS, TestNGGroups.SANITY},
+      description = "11107529",
+      enabled = false)
+  public void giftCardsMainPageTest() {
+    // Gift case, no longer needed
+    logger.info("1. Navigate to GiftCard page");
+    GiftCardsPage giftCardsPage = navigateToGiftCardsPage();
+    Assert.assertNotNull(giftCardsPage, "Failed to navigate to the Gift card page.");
+
+    logger.info("2. Validate header, body copy, and image and should be editable in the CMS");
+    Assert.assertTrue(giftCardsPage.isPageHeaderDisplayed(), "Page header isn't displayed");
+    Assert.assertTrue(
+        giftCardsPage.isPageDescriptionDisplayed(), "Page description isn't displayed");
+    Assert.assertTrue(giftCardsPage.isPageBannerImageDisplayed(), "Page banner isn't displayed");
+
+    logger.info("3. Click Send an E-Gift Card Now Button");
+    giftCardsPage.clickSendEGiftCardNowButton();
+
+    logger.info(
+        "4. Validate the user is directed to https://peets.cashstar.com/store/recipient?locale=en-us");
+    Assert.assertEquals(
+        WebHelper.getCurrentUrl(),
+        "https://peets.cashstar.com/store/recipient?locale=en-us",
+        "The page is opened with a wrong URL");
+
+    logger.info("5. Validate two banners are shown");
+    giftCardsPage = navigateToGiftCardsPage();
+    Assert.assertTrue(
+        giftCardsPage.isBannerDisplayed("Most Popular - $20 EGIFT CARD"),
+        String.format("Banner '%s' isn't displayed", "Most Popular - $20 EGIFT CARD"));
+    Assert.assertTrue(
+        giftCardsPage.isBannerDisplayed("EASY AS 1,2,3"),
+        String.format("Banner '%s' isn't displayed", "EASY AS 1,2,3"));
+
+    logger.info("6. Click on any of the Banner");
+    giftCardsPage.clickOnBanner("Most Popular - $20 EGIFT CARD");
+
+    logger.info(
+        "7. Validate the user is directed to https://peets.cashstar.com/store/recipient?locale=en-us");
+    Assert.assertEquals(
+        WebHelper.getCurrentUrl(),
+        "https://peets.cashstar.com/store/recipient?locale=en-us",
+        "The page is opened with a wrong URL");
+
+    logger.info(
+        "8. Register, Reload & More section. Validate Header, body copy, icon are displayed");
   }
 }

@@ -15,6 +15,9 @@ import com.applause.auto.common.data.enums.VisitUsSubMenu;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.FooterComponent;
 import com.applause.auto.new_web.components.Header;
+import com.applause.auto.new_web.components.NeverMissOfferComponent;
+import com.applause.auto.new_web.components.pdp.CoffeeBarCarouselComponent;
+import com.applause.auto.new_web.components.pdp.CoffeeBarItemComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.BrewGuidesPage;
 import com.applause.auto.new_web.views.CoffeeBarMenuPage;
@@ -377,25 +380,26 @@ public class HomepageTests extends BaseTest {
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
 
     logger.info("2. Verifying offer heading");
+    NeverMissOfferComponent neverMissOfferComponent = homePage.getNeverMissOfferComponent();
     softAssert.assertEquals(
         Constants.HomepageNeverMissOffer.OFFER_TITLE.toLowerCase(),
-        homePage.getNeverMissOfferTitle().toLowerCase(),
+        neverMissOfferComponent.getNeverMissOfferTitle().toLowerCase(),
         "Never Miss an offer section titles did not match; got: "
-            + homePage.getNeverMissOfferTitle().toLowerCase()
+            + neverMissOfferComponent.getNeverMissOfferTitle().toLowerCase()
             + " expected: "
             + Constants.HomepageNeverMissOffer.OFFER_TITLE.toLowerCase());
 
     logger.info("3. Verifying offer description");
     softAssert.assertEquals(
         Constants.HomepageNeverMissOffer.OFFER_DESCRIPTION.toLowerCase(),
-        homePage.getNeverMissOfferDescription().toLowerCase(),
+        neverMissOfferComponent.getNeverMissOfferDescription().toLowerCase(),
         "Never Miss an offer section descriptions did not match; got: "
-            + homePage.getNeverMissOfferDescription().toLowerCase()
+            + neverMissOfferComponent.getNeverMissOfferDescription().toLowerCase()
             + " expected: "
             + Constants.HomepageNeverMissOffer.OFFER_DESCRIPTION.toLowerCase());
 
     logger.info("4. Verifying sign up button");
-    SignUpPage suPage = homePage.clickNeverMissOfferSignup();
+    SignUpPage suPage = neverMissOfferComponent.clickNeverMissOfferSignup();
     softAssert.assertTrue(
         suPage
             .getDriver()
@@ -588,37 +592,33 @@ public class HomepageTests extends BaseTest {
 
     logger.info(
         "2. Verify left and right arrow scrolls the bar, and that you can get to initial position after scroll");
-    List<String> initialPositions = homePage.getVisibleCoffeeBarItems();
+    CoffeeBarCarouselComponent carouselComponent = homePage.getCoffeeBarCarouselComponent();
+    List<String> initialPositions = carouselComponent.getVisibleCoffeeBarItemNames();
     int firstPosition = 0;
-    homePage.clickCoffeeBarNext();
-    List<String> nextPositions = homePage.getVisibleCoffeeBarItems();
+    carouselComponent.clickCoffeeBarNext();
+    List<String> nextPositions = carouselComponent.getVisibleCoffeeBarItemNames();
 
-    for (int i = 0; i < initialPositions.size(); i++) {
-      softAssert.assertNotEquals("", nextPositions.get(i), "The coffee bar item was empty.");
-      softAssert.assertNotEquals(
-          initialPositions.get(i),
-          nextPositions.get(i),
-          "The coffee bar items did not change when the next arrow was clicked.");
-    }
+    softAssert.assertNotEquals(
+        initialPositions.get(0),
+        nextPositions.get(0),
+        "The coffee bar items did not change when the next arrow was clicked.");
 
-    homePage.clickCoffeeBarPrevious();
-    nextPositions = homePage.getVisibleCoffeeBarItems();
+    carouselComponent.clickCoffeeBarPrevious();
+    nextPositions = carouselComponent.getVisibleCoffeeBarItemNames();
 
-    for (int i = 0; i < initialPositions.size(); i++) {
-      softAssert.assertNotEquals("", nextPositions.get(i), "The coffee bar item was empty.");
-      softAssert.assertEquals(
-          initialPositions.get(i),
-          nextPositions.get(i),
-          "The coffee bar did not go back to the original list with previous clicked.");
-    }
+    softAssert.assertEquals(
+        initialPositions.get(0),
+        nextPositions.get(0),
+        "The coffee bar did not go back to the original list with previous clicked.");
 
     logger.info("3. Verify hover shows Order Now");
-    homePage.hoverCoffeeBarItemAtPosition(firstPosition);
-    softAssert.assertTrue(
-        homePage.isCoffeeBarOrderNowDisplayed(firstPosition), "Order Now is not displayed");
+    CoffeeBarItemComponent itemComponent =
+        carouselComponent.getCoffeeBarItemComponent(firstPosition);
+    itemComponent.hoverOver();
+    softAssert.assertTrue(itemComponent.isOrderNowDisplayed(), "Order Now is not displayed");
 
     logger.info("4. Verify links take you places");
-    SeasonalPage seasonPage = homePage.clickCoffeeBarSeasonalButton();
+    SeasonalPage seasonPage = carouselComponent.clickSeeAllSeasonalBeveragesButton();
     softAssert.assertTrue(
         seasonPage
             .getDriver()
@@ -630,7 +630,7 @@ public class HomepageTests extends BaseTest {
             + Constants.HomepageCoffeeBar.SEASONAL_URL_PART);
 
     homePage = navigateToHome();
-    StoreLocatorPage slocPage = homePage.clickFindCoffeeBarButton();
+    StoreLocatorPage slocPage = homePage.getCoffeeBarCarouselComponent().clickFindCoffeeBarButton();
     softAssert.assertTrue(
         slocPage.getDriver().getCurrentUrl().contains(Constants.HomepageCoffeeBar.FIND_COFFEE_BAR),
         "The find coffee bar button brought us to a wrong page, we got "

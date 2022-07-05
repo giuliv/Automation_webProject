@@ -17,8 +17,14 @@ import io.appium.java_client.remote.HideKeyboardStrategy;
 import io.appium.java_client.touch.offset.PointOption;
 import java.lang.invoke.MethodHandles;
 import java.time.Duration;
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Random;
+import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -318,7 +324,16 @@ public class WebHelper {
   }
 
   /**
-   * If element exist wait For Element To Disapear
+   * If element exist wait For Element To Appear
+   *
+   * @param element
+   */
+  public static boolean waitForElementToAppear(BaseElement element) {
+    return waitForElementToAppear(element, 10);
+  }
+
+  /**
+   * If element exist wait For Element To Appear
    *
    * @param element
    * @param timeOut
@@ -687,5 +702,20 @@ public class WebHelper {
     double roundDouble = Math.round(value * scale) / scale;
     logger.info("Rounded double value: {}", roundDouble);
     return roundDouble;
+  }
+
+  /** Closes other tabs */
+  public static void closeOtherTabs() {
+    logger.info("Closing all other tabs.");
+    String currentWindow = SdkHelper.getDriver().getWindowHandle();
+
+    for (String windowHandle : SdkHelper.getDriver().getWindowHandles()) {
+      if (!windowHandle.equals(currentWindow)) {
+        SdkHelper.getDriver().switchTo().window(windowHandle);
+        SdkHelper.getDriver().close();
+      }
+    }
+
+    SdkHelper.getDriver().switchTo().window(currentWindow);
   }
 }

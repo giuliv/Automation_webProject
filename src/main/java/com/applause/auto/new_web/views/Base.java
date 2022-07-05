@@ -5,6 +5,8 @@ import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.FooterComponent;
 import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.MyAccountLeftMenu;
+import com.applause.auto.new_web.components.NeverMissOfferComponent;
+import com.applause.auto.new_web.components.pdp.CoffeeBarCarouselComponent;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import io.qameta.allure.Step;
@@ -28,5 +30,15 @@ public class Base extends BaseComponent {
   @Step("Get Footer component")
   public FooterComponent getFooterComponent() {
     return SdkHelper.create(FooterComponent.class);
+  }
+
+  @Step("Get Coffee Bar Carousel component")
+  public CoffeeBarCarouselComponent getCoffeeBarCarouselComponent() {
+    return SdkHelper.create(CoffeeBarCarouselComponent.class);
+  }
+
+  @Step("Get Never Miss Offer component")
+  public NeverMissOfferComponent getNeverMissOfferComponent() {
+    return SdkHelper.create(NeverMissOfferComponent.class);
   }
 }
