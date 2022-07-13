@@ -85,7 +85,7 @@ public class FooterTests extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
-      description = "11107432")
+      description = "11107433")
   public void homepageFooterOffersTest() {
     logger.info("1. Navigate to Home page");
     HomePage homePage = navigateToHome();
