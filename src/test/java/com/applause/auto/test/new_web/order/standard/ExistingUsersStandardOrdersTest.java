@@ -93,21 +93,22 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
     Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
-    //    if (WebHelper.isDesktop()) {
-    //      // Todo: Only for desktop, until figure out if its a bug
-    //      logger.info("10. Validating Download buttons");
-    //      acceptancePage.clickOverTrackPackageButton();
-    //      Assert.assertEquals(
-    //          acceptancePage.getPhoneFromTrackPackageSection(),
-    //          "+1 " + Constants.WebTestData.PHONE,
-    //          "Phone from Track Package section is NOT correct");
-    //    }
+    if (WebHelper.isDesktop()) {
+      // Todo: Only for desktop, until figure out if its a bug
+      logger.info("10. Validating Download buttons");
+      acceptancePage.clickOverTrackPackageButton();
+      Assert.assertEquals(
+          acceptancePage.getPhoneFromTrackPackageSection(),
+          "+1 " + Constants.WebTestData.PHONE,
+          "Phone from Track Package section is NOT correct");
+    }
 
-    acceptancePage.clickOverShippingUpdatesButton();
-    Assert.assertEquals(
-        acceptancePage.getPhoneFromShippingUpdatesSection(),
-        "+1 " + Constants.WebTestData.PHONE,
-        "Phone from Shipping Updates section is NOT correct");
+    // Todo: Commented on 15.07.2022 due to Peet's change on staging[Talked w/Shilpa and Bernadette]
+    //    acceptancePage.clickOverShippingUpdatesButton();
+    //    Assert.assertEquals(
+    //        acceptancePage.getPhoneFromShippingUpdatesSection(),
+    //        "+1 " + Constants.WebTestData.PHONE,
+    //        "Phone from Shipping Updates section is NOT correct");
 
     // Todo: Optional assertions or assertions missing:
     //  Submit button from trackPackage/shippingUpdates sections
@@ -226,11 +227,13 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
         productName, acceptancePage.getOrderNameByIndex(0), "Product name does NOT matches");
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
     Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
-    acceptancePage.clickOverShippingUpdatesButton();
-    Assert.assertEquals(
-        acceptancePage.getPhoneFromShippingUpdatesSection(),
-        "+1 " + Constants.WebTestData.PHONE,
-        "Phone from Shipping Updates section is NOT correct");
+
+    // Todo: Commented on 15.07.2022 due to Peet's change on staging[Talked w/Shilpa and Bernadette]
+    //    acceptancePage.clickOverShippingUpdatesButton();
+    //    Assert.assertEquals(
+    //        acceptancePage.getPhoneFromShippingUpdatesSection(),
+    //        "+1 " + Constants.WebTestData.PHONE,
+    //        "Phone from Shipping Updates section is NOT correct");
 
     logger.info("11. Validating Customer Information");
     Assert.assertEquals(mail, acceptancePage.getCustomerMail(), "Existing Mail does NOT matches");
@@ -372,21 +375,22 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
     Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
-    //    if (WebHelper.isDesktop()) {
-    //      // Todo: Only for desktop, until figure out if its a bug
-    //      logger.info("13. Validating Download buttons");
-    //      acceptancePage.clickOverTrackPackageButton();
-    //      Assert.assertEquals(
-    //          acceptancePage.getPhoneFromTrackPackageSection(),
-    //          "+1 " + Constants.WebTestData.PHONE,
-    //          "Phone from Track Package section is NOT correct");
-    //    }
+    if (WebHelper.isDesktop()) {
+      // Todo: Only for desktop, until figure out if its a bug
+      logger.info("13. Validating Download buttons");
+      acceptancePage.clickOverTrackPackageButton();
+      Assert.assertEquals(
+          acceptancePage.getPhoneFromTrackPackageSection(),
+          "+1 " + Constants.WebTestData.PHONE,
+          "Phone from Track Package section is NOT correct");
+    }
 
-    acceptancePage.clickOverShippingUpdatesButton();
-    Assert.assertEquals(
-        acceptancePage.getPhoneFromShippingUpdatesSection(),
-        "+1 " + Constants.WebTestData.PHONE,
-        "Phone from Shipping Updates section is NOT correct");
+    // Todo: Commented on 15.07.2022 due to Peet's change on staging[Talked w/Shilpa and Bernadette]
+    //    acceptancePage.clickOverShippingUpdatesButton();
+    //    Assert.assertEquals(
+    //        acceptancePage.getPhoneFromShippingUpdatesSection(),
+    //        "+1 " + Constants.WebTestData.PHONE,
+    //        "Phone from Shipping Updates section is NOT correct");
 
     // Todo: Optional assertions or assertions missing:
     //  Submit button from trackPackage/shippingUpdates sections
@@ -536,21 +540,22 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
     Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
-    //    if (WebHelper.isDesktop()) {
-    //      // Todo: Only for desktop, until figure out if its a bug
-    //      logger.info("13. Validating Download buttons");
-    //      acceptancePage.clickOverTrackPackageButton();
-    //      Assert.assertEquals(
-    //          acceptancePage.getPhoneFromTrackPackageSection(),
-    //          "+1 " + Constants.WebTestData.PHONE,
-    //          "Phone from Track Package section is NOT correct");
-    //    }
+    if (WebHelper.isDesktop()) {
+      // Todo: Only for desktop, until figure out if its a bug
+      logger.info("13. Validating Download buttons");
+      acceptancePage.clickOverTrackPackageButton();
+      Assert.assertEquals(
+          acceptancePage.getPhoneFromTrackPackageSection(),
+          "+1 " + Constants.WebTestData.PHONE,
+          "Phone from Track Package section is NOT correct");
+    }
 
-    acceptancePage.clickOverShippingUpdatesButton();
-    Assert.assertEquals(
-        acceptancePage.getPhoneFromShippingUpdatesSection(),
-        "+1 " + Constants.WebTestData.PHONE,
-        "Phone from Shipping Updates section is NOT correct");
+    // Todo: Commented on 15.07.2022 due to Peet's change on staging[Talked w/Shilpa and Bernadette]
+    //    acceptancePage.clickOverShippingUpdatesButton();
+    //    Assert.assertEquals(
+    //        acceptancePage.getPhoneFromShippingUpdatesSection(),
+    //        "+1 " + Constants.WebTestData.PHONE,
+    //        "Phone from Shipping Updates section is NOT correct");
 
     // Todo: Optional assertions or assertions missing:
     //  Submit button from trackPackage/shippingUpdates sections
@@ -700,21 +705,22 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
         "Discount from promoCode was not applied");
     Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
-    //    if (WebHelper.isDesktop()) {
-    //      // Todo: Only for desktop, until figure out if its a bug
-    //      logger.info("13. Validating Download buttons");
-    //      acceptancePage.clickOverTrackPackageButton();
-    //      Assert.assertEquals(
-    //          acceptancePage.getPhoneFromTrackPackageSection(),
-    //          "+1 " + Constants.WebTestData.PHONE,
-    //          "Phone from Track Package section is NOT correct");
-    //    }
+    if (WebHelper.isDesktop()) {
+      // Todo: Only for desktop, until figure out if its a bug
+      logger.info("13. Validating Download buttons");
+      acceptancePage.clickOverTrackPackageButton();
+      Assert.assertEquals(
+          acceptancePage.getPhoneFromTrackPackageSection(),
+          "+1 " + Constants.WebTestData.PHONE,
+          "Phone from Track Package section is NOT correct");
+    }
 
-    acceptancePage.clickOverShippingUpdatesButton();
-    Assert.assertEquals(
-        acceptancePage.getPhoneFromShippingUpdatesSection(),
-        "+1 " + Constants.WebTestData.PHONE,
-        "Phone from Shipping Updates section is NOT correct");
+    // Todo: Commented on 15.07.2022 due to Peet's change on staging[Talked w/Shilpa and Bernadette]
+    //    acceptancePage.clickOverShippingUpdatesButton();
+    //    Assert.assertEquals(
+    //        acceptancePage.getPhoneFromShippingUpdatesSection(),
+    //        "+1 " + Constants.WebTestData.PHONE,
+    //        "Phone from Shipping Updates section is NOT correct");
 
     // Todo: Optional assertions or assertions missing:
     //  Submit button from trackPackage/shippingUpdates sections
@@ -835,21 +841,22 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
     Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
-    //    if (WebHelper.isDesktop()) {
-    //      // Todo: Only for desktop, until figure out if its a bug
-    //      logger.info("11. Validating Download buttons");
-    //      acceptancePage.clickOverTrackPackageButton();
-    //      Assert.assertEquals(
-    //          acceptancePage.getPhoneFromTrackPackageSection(),
-    //          "+1 " + Constants.WebTestData.PHONE,
-    //          "Phone from Track Package section is NOT correct");
-    //    }
+    if (WebHelper.isDesktop()) {
+      // Todo: Only for desktop, until figure out if its a bug
+      logger.info("11. Validating Download buttons");
+      acceptancePage.clickOverTrackPackageButton();
+      Assert.assertEquals(
+          acceptancePage.getPhoneFromTrackPackageSection(),
+          "+1 " + Constants.WebTestData.PHONE,
+          "Phone from Track Package section is NOT correct");
+    }
 
-    acceptancePage.clickOverShippingUpdatesButton();
-    Assert.assertEquals(
-        acceptancePage.getPhoneFromShippingUpdatesSection(),
-        "+1 " + Constants.WebTestData.PHONE,
-        "Phone from Shipping Updates section is NOT correct");
+    // Todo: Commented on 15.07.2022 due to Peet's change on staging[Talked w/Shilpa and Bernadette]
+    //    acceptancePage.clickOverShippingUpdatesButton();
+    //    Assert.assertEquals(
+    //        acceptancePage.getPhoneFromShippingUpdatesSection(),
+    //        "+1 " + Constants.WebTestData.PHONE,
+    //        "Phone from Shipping Updates section is NOT correct");
 
     // Todo: Optional assertions or assertions missing:
     //  Submit button from trackPackage/shippingUpdates sections
@@ -965,21 +972,22 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
     Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
-    //    if (WebHelper.isDesktop()) {
-    //      // Todo: Only for desktop, until figure out if its a bug
-    //      logger.info("11. Validating Download buttons");
-    //      acceptancePage.clickOverTrackPackageButton();
-    //      Assert.assertEquals(
-    //          acceptancePage.getPhoneFromTrackPackageSection(),
-    //          "+1 " + Constants.WebTestData.PHONE,
-    //          "Phone from Track Package section is NOT correct");
-    //    }
+    if (WebHelper.isDesktop()) {
+      // Todo: Only for desktop, until figure out if its a bug
+      logger.info("11. Validating Download buttons");
+      acceptancePage.clickOverTrackPackageButton();
+      Assert.assertEquals(
+          acceptancePage.getPhoneFromTrackPackageSection(),
+          "+1 " + Constants.WebTestData.PHONE,
+          "Phone from Track Package section is NOT correct");
+    }
 
-    acceptancePage.clickOverShippingUpdatesButton();
-    Assert.assertEquals(
-        acceptancePage.getPhoneFromShippingUpdatesSection(),
-        "+1 " + Constants.WebTestData.PHONE,
-        "Phone from Shipping Updates section is NOT correct");
+    // Todo: Commented on 15.07.2022 due to Peet's change on staging[Talked w/Shilpa and Bernadette]
+    //    acceptancePage.clickOverShippingUpdatesButton();
+    //    Assert.assertEquals(
+    //        acceptancePage.getPhoneFromShippingUpdatesSection(),
+    //        "+1 " + Constants.WebTestData.PHONE,
+    //        "Phone from Shipping Updates section is NOT correct");
 
     // Todo: Optional assertions or assertions missing:
     //  Submit button from trackPackage/shippingUpdates sections

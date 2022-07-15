@@ -471,7 +471,7 @@ class PaymentsPageMobile extends PaymentsPage {
   @Step("Type Credit Card CVV")
   public void typeCvv(String cvvCode) {
     WebHelper.switchToIFrameAndSetData(iFrameCVV, cvv, cvvCode);
-    SdkHelper.getDeviceControl().hideKeyboard();
+//    SdkHelper.getDeviceControl().hideKeyboard();
   }
 
   @Override

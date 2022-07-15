@@ -54,7 +54,7 @@ public enum FooterOptions {
   SHOP_GIFTS_CARDS(
       "Gift cards",
       "Shop Gift Cards",
-      "https://peets-coffee-staging.myshopify.com/pages/giftcards",
+      "https://peets-coffee-staging.myshopify.com/pages/gift-cards",
       CommonWebPage.class),
 
   // OFFERS
