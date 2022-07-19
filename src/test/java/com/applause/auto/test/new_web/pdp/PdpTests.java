@@ -33,6 +33,149 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class PdpTests extends BaseTest {
+  @Test(
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      description = "11113308")
+  public void urlValidationPageTest() {
+    logger.info("1. Navigate to landing page");
+    ProductListPage productListPage = navigateToPLP();
+
+    logger.info("2. Select an item");
+    int firstCoffee = 0;
+    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(firstCoffee);
+
+    logger.info("3. Validating...");
+    Assert.assertNotNull(productDetailsPage, "PDP page is not displayed");
+    Assert.assertTrue(
+        WebHelper.getCurrentUrl().contains("/products"), "PDP URL does not looks right");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      description = "11113309")
+  public void breadCrumbsTest() {
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
+
+    logger.info("2. Verify breadcrumb is displayed");
+    Assert.assertTrue(
+        productDetailsPage.isBreadCrumbDisplayed(Constants.TestData.ALL_COFFEE_HOVER),
+        "All Coffee breadcrumb isn't displayed");
+
+    ProductListPage productListPage =
+        productDetailsPage.clickBreadCrumb(Constants.TestData.ALL_COFFEE_HOVER);
+    Assert.assertNotNull(productListPage, "Breadcrumb link did not work");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      description = "11113310")
+  public void coffeeItemDetailsTest() {
+    logger.info("1. Navigate to PDP");
+    ProductDetailsPage productDetailsPage = navigateToPDP(Constants.TestData.BARIDI_BLEND_BLUNDE);
+
+    logger.info("2. Validating...");
+    Assert.assertTrue(productDetailsPage.isProductNameDisplayed(), "Product name is not displayed");
+    Assert.assertTrue(
+        productDetailsPage.isProductDescDisplayed(), "Product description is not displayed");
+    Assert.assertTrue(
+        productDetailsPage.isProductPriceDisplayed(), "Product price is not displayed");
+    Assert.assertTrue(
+        productDetailsPage.isRatingStartsAndReviewsDisplayed(),
+        "Rating Stars or Reviews are not displayed");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      description = "11113311")
+  public void itemGrindTest() {
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
+
+    logger.info("2. Verify that Grind was selected");
+    Assert.assertEquals(
+        productDetailsPage.getGrindSelected(),
+        Constants.TestData.GRIND_FIRST_TEXT.toLowerCase(),
+        "Default Grind is not displayed");
+
+    logger.info("3. Select Drip Grind");
+    productDetailsPage = productDetailsPage.selectGrind(GrindDropdown.DRIP);
+
+    Assert.assertEquals(
+        productDetailsPage.getGrindSelected().toLowerCase(),
+        GrindDropdown.DRIP.getValue().toLowerCase(),
+        "Grind wasn't selected");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      description = "11113312")
+  public void itemQuantityTest() {
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
+
+    logger.info("2. Select new Quantity > Review Quantity element");
+    productDetailsPage.validateQuantityElements().assertAll();
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      description = "11113313")
+  public void itemTypeTest() {
+    logger.info("1. Navigate to Home");
+    HomePage homePage = navigateToHome();
+
+    logger.info("2. Search for the product: {}", TestData.EQUIPMENT_NAME);
+    SearchResultsPage searchResultsPage =
+        homePage.getHeader().getSearchComponent().search(TestData.EQUIPMENT_NAME);
+    ProductDetailsPage productDetailsPage = searchResultsPage.clickOverProductByIndex(0);
+
+    logger.info("3. Review No Subscription Item");
+    Assert.assertFalse(
+        productDetailsPage.isOneTimePurchaseLinkDisplayed(),
+        "One Time Purchase option should not be visible");
+    Assert.assertFalse(
+        productDetailsPage.isSubscribeTypeDisplayed(), "Subscribe option should not be visible");
+
+    logger.info("4. Navigate to product details page");
+    productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertTrue(
+        productDetailsPage.isOneTimePurchaseLinkDisplayed(),
+        "One Time Purchase option is not displayed");
+    Assert.assertTrue(
+        productDetailsPage.isSubscribeTypeAsDefault(), "Subscribe type is not default value");
+    Assert.assertTrue(
+        productDetailsPage.isSubscribeToolTipDisplayed(), "Subscribe Tooltip is not displayed");
+    Assert.assertEquals(
+        productDetailsPage.getSubscribePromoText(),
+        "plus get up to 10% off",
+        "Subscribe type promo text is not displayed");
+    Assert.assertEquals(
+        productDetailsPage.subscriptionOptionsAvailable(), 6, "Number of options is not correct");
+
+    logger.info("5. Select Ship every 2 weeks");
+    productDetailsPage = productDetailsPage.selectShipEvery(ShipEveryDropdown.TWO_WEEKS);
+
+    logger.info("Verify that 2 weeks should display as selected.");
+    Assert.assertEquals(
+        productDetailsPage.getSelectedShipEvery(),
+        ShipEveryDropdown.TWO_WEEKS.getValue(),
+        "2 weeks wasn't display as selected.");
+
+    logger.info("3. Hover subscribe info icon");
+    String tooltip = productDetailsPage.hoverOverSubscribeInfoIcon();
+
+    logger.info("Verify that tooltip should display.");
+    Assert.assertTrue(
+        tooltip.contains(PDPTestData.SUBSCRIBE_INFO_TOOLTIP), "Tooltip didn't appear");
+
+    // Todo: Missing validation about FAQ, its failing due to a bug, also another case also test it
+
+    logger.info("End");
+  }
 
   @Test(
       groups = {
@@ -41,7 +184,7 @@ public class PdpTests extends BaseTest {
         Constants.TestNGGroups.SMOKE
       },
       description = "11102944")
-  public void PDPElementsTest() {
+  public void uiElementsTest() {
     logger.info("1. Navigate to landing page");
     ProductListPage productListPage = navigateToPLP();
 
@@ -499,7 +642,8 @@ public class PdpTests extends BaseTest {
 
     logger.info("10. Verify equipment pdp is displayed");
     softAssert.assertTrue(
-        detailsPage.isEquipmentDetailsPageDisplayed(), "The equipment page isn't displayed");
+        detailsPage.isBreadCrumbDisplayed(Constants.TestData.ALL_EQUIPMENT),
+        "The equipment page isn't displayed");
     softAssert.assertAll();
   }
 

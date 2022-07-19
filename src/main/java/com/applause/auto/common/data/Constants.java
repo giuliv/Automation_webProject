@@ -288,6 +288,7 @@ public class Constants {
     public static final String END_OF_PAGE_DESCRIPTION =
         "*Nespresso is a registered trademark of Société des Produits Nestlé S.A., and is not affiliated with Peet’s Coffee Inc. Compatible with most Nespresso Original machines.";
     public static final String ALL_COFFEE_HOVER = "All Coffee";
+    public static final String ALL_EQUIPMENT = "All Equipment";
     public static final String ALL_TEA_HOVER = "All Tea";
     public static final String COFFEE_HOVER_BLEND = "anniversary-blend";
     public static final String COFFEE_HOVER_SUMATRA = "sumatra-batak";

@@ -25,6 +25,7 @@ import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.qameta.allure.Step;
 import java.time.Duration;
 import java.util.Iterator;
@@ -35,6 +36,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
+import org.testng.asserts.SoftAssert;
 
 @Implementation(is = ProductDetailsPage.class, on = Platform.WEB)
 @Implementation(is = ProductDetailsPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
@@ -45,6 +47,9 @@ public class ProductDetailsPage extends Base {
 
   @Locate(css = ".pv-title", on = Platform.WEB)
   private Text productName;
+
+  @Locate(css = "section.pv-details", on = Platform.WEB)
+  private Text productDescription;
 
   @Locate(css = "select#grind + div", on = Platform.WEB)
   private Text grindSelected;
@@ -74,6 +79,12 @@ public class ProductDetailsPage extends Base {
 
   @Locate(css = "[test='regularEligible'] button.og-optin-btn", on = Platform.WEB)
   private Button subscribeType;
+
+  @Locate(css = "[test='regularEligible'] button.og-optin-btn span[style]", on = Platform.WEB)
+  private Button subscribeTypePromoText;
+
+  @Locate(css = "og-when[test='regularEligible'] p.og-shipping option", on = Platform.WEB)
+  private LazyList<Text> subscriptionWeeks;
 
   @Locate(css = "button.og-optout-btn", on = Platform.WEB)
   private Button oneTimePurchase;
@@ -140,6 +151,9 @@ public class ProductDetailsPage extends Base {
 
   @Locate(xpath = "//button[@id='ratings-summary']", on = Platform.WEB)
   protected Button ratingsSummaryButton;
+
+  @Locate(className = "bv_numReviews_text", on = Platform.WEB)
+  protected Text ratingsReviewsNumber;
 
   @Locate(
       xpath = "//button[@id='first-to-write' or contains(@class, 'bv-write-review')]",
@@ -254,10 +268,8 @@ public class ProductDetailsPage extends Base {
   @Locate(css = ".pv-brew__partitions.is-open a.pv-brew__link", on = Platform.WEB)
   protected Link activeBrewingMethodShopLink;
 
-  @Locate(
-      xpath = "//a[@class='pv-breadcrumbs__link' and text()='All Equipment']",
-      on = Platform.WEB)
-  protected Link allEquipmentBreadcrumbLink;
+  @Locate(xpath = "//a[@class='pv-breadcrumbs__link' and text()='%s']", on = Platform.WEB)
+  protected Link breadcrumbLink;
 
   @Locate(css = ".footer__newsletter a", on = Platform.WEB)
   protected Link neverMissSignUpButton;
@@ -267,6 +279,17 @@ public class ProductDetailsPage extends Base {
 
   @Locate(css = "div.config__group--size", on = Platform.WEB)
   protected ContainerElement sizeDropdown;
+
+  @Locate(id = "productViewQuantityButton%s", on = Platform.WEB)
+  private ContainerElement quantityBox;
+
+  @Locate(css = "#productViewQuantityButton%s.is-selected", on = Platform.WEB)
+  private ContainerElement quantityBoxSelected;
+
+  @Locate(
+      css = "#productViewQuantityButton%s span.pv-qty__button-text--discount",
+      on = Platform.WEB)
+  private Text quantityBoxText;
 
   @Override
   public void afterInit() {
@@ -283,6 +306,21 @@ public class ProductDetailsPage extends Base {
     logger.info("[PDP] Product Name: " + productName.getText().toLowerCase().trim());
 
     return productName.getText().toLowerCase().trim();
+  }
+
+  public boolean isProductNameDisplayed() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(productName).visible());
+    return productName.isDisplayed();
+  }
+
+  public boolean isProductDescDisplayed() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(productDescription).visible());
+    return productDescription.isDisplayed();
+  }
+
+  public boolean isProductPriceDisplayed() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(itemPrice).visible());
+    return itemPrice.isDisplayed();
   }
 
   @Step("Get item is available")
@@ -368,6 +406,27 @@ public class ProductDetailsPage extends Base {
     logger.info("Selecting Subscribe Order");
     SdkHelper.getSyncHelper().wait(Until.uiElement(subscribeType).visible());
     subscribeType.click();
+  }
+
+  public boolean isSubscribeTypeAsDefault() {
+    logger.info("Review if type, is default value");
+    return subscribeType.getAttributeValue("slot").equalsIgnoreCase("default");
+  }
+
+  public boolean isSubscribeToolTipDisplayed() {
+    logger.info("Review if subscribe tooltip is displayed");
+    return subscribeInfoIcon.isDisplayed();
+  }
+
+  public String getSubscribePromoText() {
+    String text = subscribeTypePromoText.getText().toLowerCase().trim();
+    logger.info("Subscribe promo text: " + text);
+    return text;
+  }
+
+  public int subscriptionOptionsAvailable() {
+    logger.info("Subscription options");
+    return subscriptionWeeks.size();
   }
 
   @Step("Select single purchase only")
@@ -629,6 +688,11 @@ public class ProductDetailsPage extends Base {
     return this;
   }
 
+  public boolean isRatingStartsAndReviewsDisplayed() {
+    logger.info("Validate rating stars and user reviews are displayed");
+    return ratingsSummaryButton.isDisplayed() && ratingsReviewsNumber.isDisplayed();
+  }
+
   @Step("Click on 'Write Review' button")
   public MyReviewModalComponent clickWriteReview() {
     logger.info("Clicking on 'Write Review'");
@@ -859,10 +923,49 @@ public class ProductDetailsPage extends Base {
     return SdkHelper.create(ProductDetailsPage.class);
   }
 
-  @Step("Verify equipment pdp is displayed")
-  public boolean isEquipmentDetailsPageDisplayed() {
-    logger.info("Checking equipment pdp is displayed");
-    return WebHelper.isDisplayed(allEquipmentBreadcrumbLink);
+  @Step("Verify breadCrumb is displayed")
+  public boolean isBreadCrumbDisplayed(String name) {
+    breadcrumbLink.format(name).initialize();
+    logger.info("Checking breadcrumbs is displayed");
+    return WebHelper.isDisplayed(breadcrumbLink);
+  }
+
+  public ProductListPage clickBreadCrumb(String name) {
+    breadcrumbLink.format(name).initialize();
+    logger.info("Clicking over breadcrumb link: [{}]", name);
+    breadcrumbLink.click();
+
+    return SdkHelper.create(ProductListPage.class);
+  }
+
+  public SoftAssert validateQuantityElements() {
+    SoftAssert softAssert = new SoftAssert();
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(productQuantity).visible());
+    quantityBoxSelected.format(1).initialize();
+    softAssert.assertTrue(quantityBoxSelected.isDisplayed(), "Quantity 1 is not default value");
+
+    quantityBox.format(2).initialize();
+    quantityBoxText.format(2).initialize();
+    quantityBox.click();
+    quantityBoxSelected.format(2).initialize();
+    softAssert.assertTrue(quantityBoxSelected.isDisplayed(), "Quantity 2 is not default value");
+    softAssert.assertEquals(
+        quantityBoxText.getText().replace("\n", ""),
+        "SUBSCRIBE &GET 5% OFF",
+        "Quantity 2 text does not matches");
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for change
+
+    quantityBox.format(3).initialize();
+    quantityBoxText.format(3).initialize();
+    softAssert.assertEquals(
+        quantityBoxText.getText().replace("\n", ""),
+        "SUBSCRIBE &GET 10% OFF",
+        "Quantity 3 text does not matches");
+    quantityBox.click();
+    softAssert.assertFalse(quantityBoxSelected.isDisplayed(), "Quantity 2 should not be displayed");
+
+    return softAssert;
   }
 
   public ProductDetailsCustomerReviewsComponent getCustomerReviewsComponent() {
