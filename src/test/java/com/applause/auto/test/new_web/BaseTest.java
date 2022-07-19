@@ -88,20 +88,6 @@ public class BaseTest extends ApplauseSeleniumTest {
     return SdkHelper.create(ProductListPage.class);
   }
 
-  @Step("Navigate to PLP Medium Roast")
-  public ProductListPage navigateToPLPMediumRoast() {
-    navigateToHome();
-    logger.info(String.format("Navigating to PLP page '%s'", TestData.PLP_MEDIUM_ROAST_URL));
-
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      SdkHelper.getDriver().navigate().to(TestData.PLP_MEDIUM_ROAST_URL);
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
-    return SdkHelper.create(ProductListPage.class);
-  }
-
   @Step("Navigate to PDP")
   public ProductDetailsPage navigateToPDP() {
     navigateToHome();

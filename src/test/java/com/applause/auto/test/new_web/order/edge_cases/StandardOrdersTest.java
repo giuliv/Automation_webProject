@@ -282,14 +282,13 @@ public class StandardOrdersTest extends BaseTest {
     Assert.assertTrue(shippingPage.isDisplayed(), "Shipping method page didn't appear");
 
     logger.info("7. Change Shipping Method");
-    String selectedMethod = shippingPage.selectShippingMethodByIndex(2);
+    String selectedMethod = shippingPage.selectShippingMethodByIndex(2).split("\\)")[0];
 
     logger.info("8. Click on Continue to payment.");
     paymentsPage = shippingPage.clickContinueToPayments();
 
     logger.info("Verify that - Method should be updated.");
-    String currentMethod =
-        paymentsPage.getShippingMethod().replaceAll("·", "").replaceAll("  ", " ");
+    String currentMethod = paymentsPage.getShippingMethod().split("\\)")[0];
     Assert.assertTrue(
         currentMethod.contains(selectedMethod),
         String.format(
@@ -305,21 +304,23 @@ public class StandardOrdersTest extends BaseTest {
     ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
+    logger.info("2. Select One Time Purchase > Add to MiniCart");
+    productDetailsPage.selectOneTimePurchase();
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("2. Click on Checkout.");
+    logger.info("3. Click on Checkout.");
     CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
 
-    logger.info("3. Enter Contact information and Shipping address.");
+    logger.info("4. Enter Contact information and Shipping address.");
     checkOutPage.setCheckOutData();
 
-    logger.info("4. Click on Continue.");
+    logger.info("5. Click on Continue.");
     ShippingPage shippingPage = checkOutPage.clickContinueToShipping();
 
-    logger.info("5. Click on Continue to payment.");
+    logger.info("6. Click on Continue to payment.");
     PaymentsPage paymentsPage = shippingPage.clickContinueToPayments();
 
-    logger.info("6. Type wrong gift card");
+    logger.info("7. Type wrong gift card");
     paymentsPage.enterGiftCard("Wrong");
 
     logger.info("Verify that - Apply button should be disabled.");

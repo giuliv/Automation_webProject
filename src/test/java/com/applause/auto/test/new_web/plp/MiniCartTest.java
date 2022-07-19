@@ -128,8 +128,10 @@ public class MiniCartTest extends BaseTest {
       description = "11101733")
   public void progressShippingBarTest() {
 
-    logger.info("1. Navigate to PDP > Add to miniCart");
-    MiniCart miniCart = navigateToPDP(coffeeSelected).clickAddToMiniCart();
+    logger.info("1. Navigate to PDP > Select One Time Purchase > Add to miniCart");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    productDetailsPage.selectOneTimePurchase();
+    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
     logger.info("2. Validate message and icon");
     String originalShippingAway = miniCart.getShippingAwayMessage();

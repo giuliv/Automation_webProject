@@ -370,7 +370,8 @@ public class PaymentsPage extends Base {
 
   @Step("Get Shipping Method")
   public String getShippingMethod() {
-    String method = WebHelper.cleanString(methodType.getText());
+    String method =
+        WebHelper.cleanString(methodType.getText().replaceAll("·", "").replaceAll("  ", " "));
     logger.info("Ship method - [{}]", method);
     return method;
   }
@@ -471,7 +472,7 @@ class PaymentsPageMobile extends PaymentsPage {
   @Step("Type Credit Card CVV")
   public void typeCvv(String cvvCode) {
     WebHelper.switchToIFrameAndSetData(iFrameCVV, cvv, cvvCode);
-//    SdkHelper.getDeviceControl().hideKeyboard();
+    //    SdkHelper.getDeviceControl().hideKeyboard();
   }
 
   @Override
