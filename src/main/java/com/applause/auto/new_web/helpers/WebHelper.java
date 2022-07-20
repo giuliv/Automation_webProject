@@ -241,7 +241,13 @@ public class WebHelper {
 
   public static <V extends BaseComponent> V refreshMe(Class<V> expectedClass) {
     logger.info("Refresh site");
-    SdkHelper.getDriver().navigate().refresh();
+
+    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
+    try {
+      SdkHelper.getDriver().navigate().refresh();
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
     return SdkHelper.create(expectedClass);
   }
 

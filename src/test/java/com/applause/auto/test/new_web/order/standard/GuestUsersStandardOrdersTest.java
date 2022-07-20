@@ -1,6 +1,7 @@
 package com.applause.auto.test.new_web.order.standard;
 
 import com.applause.auto.common.data.Constants;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.helpers.WebHelper;
@@ -35,6 +36,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
     int productSelected;
     if (WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
+      logger.info("DebugMode -> " + SdkHelper.getDriver().getPageSource());
       homePage = WebHelper.refreshMe(HomePage.class);
       productSelected = 0;
     } else {
