@@ -152,8 +152,6 @@ public class Constants {
     public static final String PEETS_PASSWORD = "p@ssword123";
     public static final String COFFEEBAR_MENU = "COFFEEBAR MENU";
     public static final String FEATURED_MENU = "OUR FEATURED MENU";
-    public static final String COFFEEBAR_MENU_DESCRIPTION =
-        "This Spring, our new Hazelnut Oat Latte, Vanilla Almond Latte, and Cold Brew with Vanilla Oat Foam are three tasty ways to go plant-based.";
 
     public static final String COFFEE_BRAND_NAME = "Big Bang";
     public static final String GRIND = "Commercial Brewer";
