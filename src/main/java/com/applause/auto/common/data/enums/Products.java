@@ -9,7 +9,7 @@ public enum Products {
   ICED_CINNAMON_ROLL("Iced Cinnamon Roll"),
   CAFFE_LATTE("Caffe Latte"),
   ICED_ESPRESSO("Iced Espresso"),
-  NEW_SEASONAL_BEVERAGES("New Seasonal Beverages"),
+  NEW_THIS_SEASON("New This Season"),
   HOT_COFFEE("Hot Coffee"),
   HOT_TEA("Hot Tea"),
   COLD_COFFEE("Cold Coffee"),

@@ -86,8 +86,8 @@ public class MenuTest extends BaseTest {
 
     logger.info("XX. Validate each category is on the screen");
     Assert.assertTrue(
-        coffeeBarPage.validateProduct(Products.NEW_SEASONAL_BEVERAGES.getValue()),
-        Products.NEW_SEASONAL_BEVERAGES.getValue() + " section is missing from the screen");
+        coffeeBarPage.validateProduct(Products.NEW_THIS_SEASON.getValue()),
+        Products.NEW_THIS_SEASON.getValue() + " section is missing from the screen");
     Assert.assertTrue(
         coffeeBarPage.validateProduct(Products.HOT_COFFEE.getValue()),
         Products.HOT_COFFEE.getValue() + " section is missing from the screen");
