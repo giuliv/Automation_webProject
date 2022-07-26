@@ -175,7 +175,7 @@ public class Constants {
     public static final String SHIPPING_METHOD_AIR_2ND_DAY =
         "2nd Day Air - Cont. U.S. (2-3 business days)";
     public static final String SHIPPING_METHOD_SHOP_RUNNER = "Shoprunner FREE 2-Day Shipping";
-    public static final String SHOP_RUNNER_FREE_TEXT = "FREE 2-Day Shipping & Free Returns";
+    public static final String SHOP_RUNNER_FREE_TEXT = "Free 2-Day Shipping & Free Returns";
     public static final String SHOP_RUNNER_SIGNIN = "sign in";
     public static final String SHOP_RUNNER_LEARN_MORE = "learn more";
 
