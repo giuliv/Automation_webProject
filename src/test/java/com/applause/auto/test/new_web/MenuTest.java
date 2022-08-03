@@ -86,8 +86,8 @@ public class MenuTest extends BaseTest {
 
     logger.info("XX. Validate each category is on the screen");
     Assert.assertTrue(
-        coffeeBarPage.validateProduct(Products.NEW_SEASONAL_BEVERAGES.getValue()),
-        Products.NEW_SEASONAL_BEVERAGES.getValue() + " section is missing from the screen");
+        coffeeBarPage.validateProduct(Products.NEW_THIS_SEASON.getValue()),
+        Products.NEW_THIS_SEASON.getValue() + " section is missing from the screen");
     Assert.assertTrue(
         coffeeBarPage.validateProduct(Products.HOT_COFFEE.getValue()),
         Products.HOT_COFFEE.getValue() + " section is missing from the screen");
@@ -168,11 +168,10 @@ public class MenuTest extends BaseTest {
         Constants.TestData.COFFEEBAR_MENU,
         Constants.TestData.COFFEEBAR_MENU + "is not on the page");
 
-    logger.info("XX. Validate the Description of coffee bar menu ");
-    Assert.assertEquals(
-        coffeeBarPage.getCoffeeBarDescription(),
-        Constants.TestData.COFFEEBAR_MENU_DESCRIPTION,
-        Constants.TestData.COFFEEBAR_MENU_DESCRIPTION + "is not on the page");
+    logger.info("XX. Validate the Description of coffee bar menu");
+    Assert.assertFalse(
+        coffeeBarPage.getCoffeeBarDescription().isEmpty(),
+        "Description of coffee bar menu isn't displayed");
 
     logger.info("XX. Validate Order Now button");
     Assert.assertTrue(coffeeBarPage.getOrderNowButton(), "Order Now Button is not on the screen");

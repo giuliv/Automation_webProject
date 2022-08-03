@@ -104,9 +104,9 @@ public class quickViewTest extends BaseTest {
     QuickViewComponent quickViewComponent = productListPage.clickOverFirstQuickViewButton();
 
     logger.info("3. Validate Shop Runner UI Elements of ShopRunner");
-    quickViewComponent.validatShopRunnerUIElements().assertAll();
+    quickViewComponent.validateShopRunnerUIElements().assertAll();
 
-    logger.info("4. Click LearnMore and Verify LearnMore overlapping Modal Free shipping Text ");
+    logger.info("4. Click LearnMore and Verify LearnMore overlapping Modal Free shipping Text");
     PlpLearnMoreOverlappingComponent learMoreOverlapping = quickViewComponent.clickLearnMoreLink();
     softAssert.assertEquals(
         learMoreOverlapping.getShippingText(),

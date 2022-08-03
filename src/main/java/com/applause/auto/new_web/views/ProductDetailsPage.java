@@ -728,6 +728,7 @@ public class ProductDetailsPage extends Base {
   @Step("Click Learn More Link")
   public PlpLearnMoreOverlappingComponent clickLearnMoreLink() {
     logger.info("Clicking on the 'Learn More' Link");
+    WebHelper.scrollToElement(learnMoreLink);
     learnMoreLink.click();
     return SdkHelper.create(PlpLearnMoreOverlappingComponent.class);
   }

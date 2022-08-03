@@ -4,9 +4,9 @@ import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.components.plp.PlpLearnMoreOverlappingComponent;
 import com.applause.auto.new_web.components.plp.PlpSignInOverlappingComponent;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -192,7 +192,7 @@ public class QuickViewComponent extends BaseComponent {
   }
 
   @Step("Verify ShopRunner UI elements")
-  public SoftAssert validatShopRunnerUIElements() {
+  public SoftAssert validateShopRunnerUIElements() {
     SoftAssert softAssert = new SoftAssert();
     softAssert.assertEquals(
         freeText.getText().trim(),
@@ -203,13 +203,13 @@ public class QuickViewComponent extends BaseComponent {
     softAssert.assertEquals(
         learnMoreLink.getText().trim(),
         TestData.SHOP_RUNNER_LEARN_MORE,
-        "Learnmore Link is not displayed");
+        "Learn more Link is not displayed");
     return softAssert;
   }
 
-  @Step("Click Learnmore Link")
+  @Step("Click Learn more Link")
   public PlpLearnMoreOverlappingComponent clickLearnMoreLink() {
-    logger.info("Clicking on the 'Learnmore' Link");
+    logger.info("Clicking on the 'Learn more' Link");
     learnMoreLink.click();
     return SdkHelper.create(PlpLearnMoreOverlappingComponent.class);
   }

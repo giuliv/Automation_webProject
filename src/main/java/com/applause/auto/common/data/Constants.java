@@ -152,8 +152,6 @@ public class Constants {
     public static final String PEETS_PASSWORD = "p@ssword123";
     public static final String COFFEEBAR_MENU = "COFFEEBAR MENU";
     public static final String FEATURED_MENU = "OUR FEATURED MENU";
-    public static final String COFFEEBAR_MENU_DESCRIPTION =
-        "This Spring, our new Hazelnut Oat Latte, Vanilla Almond Latte, and Cold Brew with Vanilla Oat Foam are three tasty ways to go plant-based.";
 
     public static final String COFFEE_BRAND_NAME = "Big Bang";
     public static final String GRIND = "Commercial Brewer";
@@ -177,7 +175,7 @@ public class Constants {
     public static final String SHIPPING_METHOD_AIR_2ND_DAY =
         "2nd Day Air - Cont. U.S. (2-3 business days)";
     public static final String SHIPPING_METHOD_SHOP_RUNNER = "Shoprunner FREE 2-Day Shipping";
-    public static final String SHOP_RUNNER_FREE_TEXT = "FREE 2-Day Shipping & Free Returns";
+    public static final String SHOP_RUNNER_FREE_TEXT = "Free 2-Day Shipping & Free Returns";
     public static final String SHOP_RUNNER_SIGNIN = "sign in";
     public static final String SHOP_RUNNER_LEARN_MORE = "learn more";
 
