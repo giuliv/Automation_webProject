@@ -8,10 +8,9 @@ import com.applause.auto.new_web.components.plp.PlpItemComponent;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.test.new_web.BaseTest;
+import java.util.Arrays;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.util.Arrays;
 
 public class GearTests extends BaseTest {
 

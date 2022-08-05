@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Regression Test Suite" verbose="1" parallel="classes"
-       thread-count="8">
+  thread-count="8">
     <test name="Regression" preserve-order="true">
         <groups>
             <run>
@@ -8,7 +8,7 @@
             </run>
         </groups>
         <packages>
-            <package name="com.applause.auto.test.mobile" />
+            <package name="com.applause.auto.test.mobile"/>
         </packages>
     </test>
 </suite>

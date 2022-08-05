@@ -57,17 +57,11 @@ public class ChangePasswordView extends BaseComponent {
   @Locate(xpath = "//*[@text='OKAY']", on = Platform.MOBILE_ANDROID)
   protected Button getMessageOkButton;
 
-  @Locate(
-      xpath =
-          "//XCUIElementTypeOther[1]/XCUIElementTypeSecureTextField|//XCUIElementTypeButton[@name=\"reveal password\"]/preceding-sibling::XCUIElementTypeTextField",
-      on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeOther/*[@*='Current Password']", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/oldPassword", on = Platform.MOBILE_ANDROID)
   protected TextBox getCurrentPasswordTextBox;
 
-  @Locate(
-      xpath =
-          "//XCUIElementTypeButton[@name=\"reveal password\"]/preceding-sibling::XCUIElementTypeTextField",
-      on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeOther/*[@*='New Password']", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/oldPassword", on = Platform.MOBILE_ANDROID)
   protected TextBox getOldPasswordUnhiddenTextBox;
 
@@ -130,6 +124,7 @@ public class ChangePasswordView extends BaseComponent {
   @Step("Show password.")
   public void showPassword() {
     logger.info("Click on Show Password button");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getShowPasswordButton).present());
     getShowPasswordButton.click();
   }
 
@@ -159,7 +154,8 @@ public class ChangePasswordView extends BaseComponent {
 
   @Step("Gets current password unhide.")
   public String getCurrentPasswordUnhide() {
-    return getOldPasswordUnhiddenTextBox.getCurrentText();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getCurrentPasswordTextBox).present());
+    return getCurrentPasswordTextBox.getCurrentText();
   }
 
   @Step("Verify Back arrow button is displayed")

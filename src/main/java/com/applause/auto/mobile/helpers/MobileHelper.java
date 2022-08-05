@@ -2,25 +2,6 @@ package com.applause.auto.mobile.helpers;
 
 import static com.applause.auto.framework.SdkHelper.getDriver;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.lang.invoke.MethodHandles;
-import java.time.Duration;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.IntStream;
-
-import javax.imageio.ImageIO;
-
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.*;
-import org.testng.Assert;
-
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileApp;
 import com.applause.auto.data.enums.SwipeDirection;
@@ -30,7 +11,6 @@ import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.mobile.views.IosSettingsView;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
 import com.applause.auto.pageobjectmodel.elements.Picker;
-
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
@@ -39,6 +19,32 @@ import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.lang.invoke.MethodHandles;
+import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.IntStream;
+import javax.imageio.ImageIO;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.UnsupportedCommandException;
+import org.openqa.selenium.WebDriverException;
+import org.testng.Assert;
 
 public class MobileHelper {
 
@@ -647,28 +653,28 @@ public class MobileHelper {
     new TouchAction(driver).tap(PointOption.point(elemCoord.getX(), elemCoord.getY())).perform();
   }
 
-	public static IosSettingsView openSettings() {
-		String bundleId = getCurrentBundleId();
-		if (!StringUtils.equalsIgnoreCase(bundleId, "com.apple.Preferences")) {
-			((AppiumDriver) SdkHelper.getDriver()).runAppInBackground(Duration.ofSeconds(-1));
-			activateApplication("com.apple.Preferences");
-		}
-		return SdkHelper.create(IosSettingsView.class);
-	}
+  public static IosSettingsView openSettings() {
+    String bundleId = getCurrentBundleId();
+    if (!StringUtils.equalsIgnoreCase(bundleId, "com.apple.Preferences")) {
+      ((AppiumDriver) SdkHelper.getDriver()).runAppInBackground(Duration.ofSeconds(-1));
+      activateApplication("com.apple.Preferences");
+    }
+    return SdkHelper.create(IosSettingsView.class);
+  }
 
-	public static String getCurrentBundleId() {
-		AppiumDriver driver = (AppiumDriver<?>) SdkHelper.getDriver();
-		if (driver.getSessionDetails().get("CFBundleIdentifier") == null) {
-			throw new RuntimeException("Unable to identify running app bundle id");
-		}
-		return driver.getSessionDetails().get("CFBundleIdentifier").toString();
-	}
+  public static String getCurrentBundleId() {
+    AppiumDriver driver = (AppiumDriver<?>) SdkHelper.getDriver();
+    if (driver.getSessionDetails().get("CFBundleIdentifier") == null) {
+      throw new RuntimeException("Unable to identify running app bundle id");
+    }
+    return driver.getSessionDetails().get("CFBundleIdentifier").toString();
+  }
 
-	public static void activateApplication(String bundleId) {
-		JavascriptExecutor js = ((AppiumDriver) SdkHelper.getDriver());
-		Map<String, Object> params = new HashMap<>();
-		params.put("bundleId", bundleId);
-		js.executeScript("mobile: launchApp", params);
-		logger.info("Application activated: " + bundleId);
-	}
+  public static void activateApplication(String bundleId) {
+    JavascriptExecutor js = ((AppiumDriver) SdkHelper.getDriver());
+    Map<String, Object> params = new HashMap<>();
+    params.put("bundleId", bundleId);
+    js.executeScript("mobile: launchApp", params);
+    logger.info("Application activated: " + bundleId);
+  }
 }

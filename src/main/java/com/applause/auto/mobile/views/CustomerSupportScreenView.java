@@ -111,7 +111,9 @@ public class CustomerSupportScreenView extends BaseComponent {
   private void closeDiscountAds() {
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(cookiesAcceptButton).present().setTimeout(Duration.ofSeconds(20)));
-    adsNoThanksButton.click();
+    if (adsNoThanksButton.exists()) {
+      adsNoThanksButton.click();
+    }
   }
 }
 

@@ -26,7 +26,8 @@ import org.openqa.selenium.Dimension;
 public class CreateAccountView extends BaseComponent {
 
   @Locate(
-      iOSClassChain = "**/XCUIElementTypeButton[`label CONTAINS ' password'`]",
+      iOSClassChain =
+          "**/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[5]/XCUIElementTypeButton",
       on = Platform.MOBILE_IOS)
   @Locate(
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/passwordToggle\")",
@@ -569,8 +570,7 @@ public class CreateAccountView extends BaseComponent {
     logger.info("Checking password text displayed");
     passwordTextBox.sendKeys(" ");
     boolean result =
-        getPasswordHintTextBox
-            .stream()
+        getPasswordHintTextBox.stream()
             .map(item -> item.getText())
             .collect(Collectors.joining("\n"))
             .equals(
@@ -751,8 +751,7 @@ class AndroidCreateAccountView extends CreateAccountView {
     passwordTextBox.sendKeys("A");
     SdkHelper.getDeviceControl().hideKeyboard();
     String pHint =
-        getPasswordHintTextBox
-            .stream()
+        getPasswordHintTextBox.stream()
             .map(
                 item -> {
                   String i = item.getText();

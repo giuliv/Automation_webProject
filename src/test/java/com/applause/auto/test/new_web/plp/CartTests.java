@@ -1,11 +1,17 @@
 package com.applause.auto.test.new_web.plp;
 
+import static com.applause.auto.common.data.Constants.WebTestData.PLP_SHOPABBLE_ITEMS;
+
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.enums.FooterOptions;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.components.QuickViewComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.*;
+import com.applause.auto.new_web.views.CartPage;
+import com.applause.auto.new_web.views.CheckOutPage;
+import com.applause.auto.new_web.views.FreeHomeDeliveryPage;
+import com.applause.auto.new_web.views.ProductDetailsPage;
+import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.test.new_web.BaseTest;
 import com.applause.auto.web.components.NeverMissAnOfferChunk;
 import com.applause.auto.web.components.OtherPurchasedItemChunk;
@@ -13,8 +19,6 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-
-import static com.applause.auto.common.data.Constants.WebTestData.PLP_SHOPABBLE_ITEMS;
 
 public class CartTests extends BaseTest {
 

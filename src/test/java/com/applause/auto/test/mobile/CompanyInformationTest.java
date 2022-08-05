@@ -224,7 +224,7 @@ public class CompanyInformationTest extends BaseTest {
         TestHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
     Assert.assertNotNull(homeView, "Home View does not displayed");
 
-    logger.info("Tap Help & Feedback field");
+    logger.info("STEP - Tap Help & Feedback field");
     HelpAndFeedbackView helpAndFeedbackView = homeView.getAccountProfileMenu().helpAndFeedback();
     Assert.assertTrue(
         helpAndFeedbackView.isPageDisplayedCorrectly(), "Help & Feedback view is incorrect");

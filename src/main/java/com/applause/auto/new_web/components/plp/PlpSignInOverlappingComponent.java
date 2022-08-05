@@ -2,7 +2,6 @@ package com.applause.auto.new_web.components.plp;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -19,9 +18,7 @@ public class PlpSignInOverlappingComponent extends BaseComponent {
   @Locate(xpath = "//div[contains(@class,'signin__ContentWrapper')]", on = Platform.WEB)
   private Text signInWrapper;
 
-  @Locate(
-      xpath = "//form[starts-with(@class,'signin__StyledSignInForm')]",
-      on = Platform.WEB)
+  @Locate(xpath = "//form[starts-with(@class,'signin__StyledSignInForm')]", on = Platform.WEB)
   private Text signInForm;
 
   @Locate(xpath = "//div[starts-with(@class,'signin__StyledSocialSignInForm')]", on = Platform.WEB)

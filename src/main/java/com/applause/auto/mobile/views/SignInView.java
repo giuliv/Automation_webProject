@@ -57,8 +57,7 @@ public class SignInView extends BaseComponent {
   protected TextBox passwordTextBox;
 
   @Locate(
-      xpath =
-          "//XCUIElementTypeButton[@name=\"reveal password\"]/preceding-sibling::XCUIElementTypeTextField",
+      iOSClassChain = "**/XCUIElementTypeTextField[`label == \"Password\"`]",
       on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/password", on = Platform.MOBILE_ANDROID)
   protected TextBox getUnEncryptedPasswordTextBox;
@@ -127,8 +126,11 @@ public class SignInView extends BaseComponent {
     passwordTextBox.initialize();
     passwordTextBox.click();
     SdkHelper.getSyncHelper().sleep(1500);
-    passwordTextBox.sendKeys(password);
-    SdkHelper.getSyncHelper().sleep(1500);
+    for (int i = 0; i < password.length(); i++) {
+      passwordTextBox.sendKeys(String.valueOf(password.charAt(i)));
+      SdkHelper.getSyncHelper().sleep(500);
+    }
+    SdkHelper.getSyncHelper().sleep(3000);
   }
 
   /**

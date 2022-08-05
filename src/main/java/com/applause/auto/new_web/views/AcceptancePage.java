@@ -11,10 +11,9 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriverException;
-
 import java.time.Duration;
 import java.util.List;
+import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = AcceptancePage.class, on = Platform.WEB)
 @Implementation(is = AcceptancePage.class, on = Platform.WEB_MOBILE_PHONE)

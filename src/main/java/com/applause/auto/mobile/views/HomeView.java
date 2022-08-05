@@ -71,7 +71,8 @@ public class HomeView extends BaseComponent {
 
   @Override
   public void afterInit() {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(signature).present());
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(signature).present().setTimeout(Duration.ofSeconds(60)));
   }
 
   @Step("Tap on 'More' button")

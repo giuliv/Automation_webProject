@@ -31,6 +31,7 @@ public class PeetnikMainFaqView extends BaseComponent {
   public PeetnikRewardsLandingView tapPeetnikRewardsAndOrderAhead() {
     logger.info("Clicking on 'Peetnik Rewards & Order Ahead' section");
     MobileHelper.scrollDownToElementCloseToMiddle(peetnikRewardsAndOrderAhead, 2);
+    SdkHelper.getSyncHelper().wait(Until.uiElement(peetnikRewardsAndOrderAhead).present());
     MobileHelper.tapByCoordinatesOnElementCenter(peetnikRewardsAndOrderAhead);
     return SdkHelper.create(PeetnikRewardsLandingView.class);
   }
