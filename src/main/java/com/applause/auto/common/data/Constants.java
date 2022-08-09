@@ -110,6 +110,8 @@ public class Constants {
     public static final String BARIDI_BLEND_BLUNDE = "baridi-blend-bundle-oos";
     public static final String GIFT_CARDS_PAGE_URL =
         LANDING_PAGE_URL.split("\\?")[0].concat("/pages/gift-cards");
+    public static final String STORE_LOCATOR_PAGE_URL =
+        LANDING_PAGE_URL.split("\\?")[0].concat("/pages/store-locator");
     public static final String SUBSCRIPTION_SO_URL =
         LANDING_PAGE_URL.split("\\?")[0].concat("/products/single-origin-series-subscription");
     public static final String SUBSCRIPTION_SB_URL =
@@ -500,6 +502,16 @@ public class Constants {
 
     public static final String PDP_SECTION_GREEN_COLOR = "rgba(31, 59, 39, 1)";
     public static final String PDP_SECTION_ANNIVERSARY_PRODUCT_COLOR = "rgba(32, 26, 23, 1)";
+    public static final List<String> AMENITIES_LIST =
+        Arrays.asList(
+            "Contactless Payments",
+            "Accepts Peet's Cards",
+            "Participates in Peetnik Rewards",
+            "Order Ahead",
+            "Warm Breakfast",
+            "Free Wi-Fi",
+            "Pick Up In Store",
+            "Delivery");
   }
 
   @AllArgsConstructor
@@ -717,5 +729,17 @@ public class Constants {
 
     @Getter private String value;
     @Getter private Class clazz;
+  }
+
+  @Getter
+  @AllArgsConstructor
+  public enum Touts {
+    START_AN_ORDER("Start an Order", "Select a location to order online or use the Peet’s app."),
+    PLACE_ORDER_AND_PAY(
+        "Place Order and Pay", "Tap the Order button and select your beverages and food."),
+    PICK_UP_IN_STORE("Pick Up In Store", "Pick up your order at the Order Ahead Pickup area.");
+
+    @Getter private String title;
+    @Getter private String description;
   }
 }

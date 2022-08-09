@@ -4,17 +4,21 @@ import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.HomepageCoffeeBar;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.common.data.Constants.Touts;
 import com.applause.auto.common.data.Constants.WebTestData;
 import com.applause.auto.common.data.dto.StoreDetailsDto;
-import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.NeverMissOfferComponent;
+import com.applause.auto.new_web.components.OneAppManyBenefitsComponent;
+import com.applause.auto.new_web.components.PeetnikRewardsComponent;
 import com.applause.auto.new_web.components.StockResultFilterComponent;
 import com.applause.auto.new_web.components.StockResultItemComponent;
+import com.applause.auto.new_web.components.ToutsSectionComponent;
 import com.applause.auto.new_web.components.pdp.CoffeeBarCarouselComponent;
 import com.applause.auto.new_web.components.pdp.CoffeeBarItemComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.GoogleMapPage;
-import com.applause.auto.new_web.views.MenuPage;
+import com.applause.auto.new_web.views.HomePage;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.new_web.views.SignUpPage;
 import com.applause.auto.new_web.views.StoreDetailsPage;
@@ -30,58 +34,25 @@ public class FindStoreTests extends BaseTest {
       groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE, TestNGGroups.SMOKE},
       description = "11102898")
   public void validateResultsListUiAndLoadMore() {
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+    logger.info("1. Navigate to Store Locator page");
+    StoreLocatorPage storeLocatorPage = navigateToStoreLocatorPage();
 
-    logger.info("2. Click on location from header.");
-    StoreLocatorPage storeLocatorPage = productListPage.getHeader().clickOnStoreLocator();
+    logger.info("Validate next to Peets Logo there is a Person's Icon");
+    Header header = storeLocatorPage.getHeader();
+    Assert.assertTrue(header.isLogoDisplayed(), "Peet's Coffee Logo isn't displayed");
+    Assert.assertTrue(header.isUserLoggedOut(), "Person's Icon isn't displayed");
 
-    logger.info("3. Type any zip code (95032)");
-    storeLocatorPage = storeLocatorPage.searchByZipCode("95032");
-
-    logger.info("4. Click on load more");
-    List<StockResultItemComponent> stockResultListBefore = storeLocatorPage.getStockResultList();
-    storeLocatorPage = storeLocatorPage.loadMoreResults();
-    List<StockResultItemComponent> stockResultListAfter = storeLocatorPage.getStockResultList();
-
-    logger.info("Verify that more stores should display.");
-    Assert.assertTrue(
-        stockResultListAfter.size() > stockResultListBefore.size(), "More Stores isn't displayed");
-
-    logger.info("Verify that Search field is displayed");
-    Assert.assertTrue(
-        storeLocatorPage.isSearchByZipCodeFieldDisplayed(), "Search field isn't displayed");
-
-    logger.info("Verify that Search button is displayed");
-    Assert.assertTrue(storeLocatorPage.isSearchButtonDisplayed(), "Search button isn't displayed");
-
-    logger.info("Verify that 'Filter' button is displayed");
-    Assert.assertTrue(storeLocatorPage.isFilterButtonDisplayed(), "Filter button isn't displayed");
-
-    logger.info("Verify that 'Filter' button is displayed");
-    Assert.assertTrue(storeLocatorPage.isFilterButtonDisplayed(), "Filter button isn't displayed");
-
-    if (WebHelper.isDesktop()) {
-      logger.info("Verify that Filter title is correct");
-      Assert.assertEquals(
-          storeLocatorPage.getFilterTitle().toLowerCase(),
-          "FILTER BY AMENITIES".toLowerCase(),
-          "Filter button isn't displayed");
-    }
-
-    logger.info("Verify that Results (n) quantity matches with list.");
-    int countOfResults = storeLocatorPage.getCountOfItemsFromResultTitle();
-    Assert.assertTrue(
-        countOfResults >= stockResultListAfter.size(),
-        String.format(
-            "Results (n) quantity matches with list. Expected [%s] >= [%s]",
-            countOfResults, stockResultListAfter.size()));
+    logger.info("2. At Store Locator Header --> Click on Peets Logo");
+    HomePage homePage = header.clickLogoButton();
 
     logger.info(
-        "Verify that Stores should display with no., name, store, address schedule and start order button.");
+        "Validate we also have Person Icon, Search logo, Location Icon and Cart logo are displayed");
+    header = homePage.getHeader();
+    Assert.assertTrue(header.isLogoDisplayed(), "Peet's Coffee Logo isn't displayed on Home page");
+    Assert.assertTrue(header.isUserLoggedOut(), "Person's Icon isn't displayed on Home page");
     Assert.assertTrue(
-        storeLocatorPage.checkIfAllStoresFullyDisplayed(), "Not all Stores are fully displayed");
+        header.isLocationIconDisplayed(), "Location Icon isn't displayed on Home page");
+    Assert.assertTrue(header.isCartIconDisplayed(), "Cart Icon isn't displayed on Home page");
   }
 
   @Test(
@@ -116,17 +87,48 @@ public class FindStoreTests extends BaseTest {
       groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE, TestNGGroups.SANITY},
       description = "11102900")
   public void validateStoreDetails() {
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+    logger.info("1. Navigate to Store Locator page");
+    StoreLocatorPage storeLocatorPage = navigateToStoreLocatorPage();
 
-    logger.info("2. Click on location from header.");
-    StoreLocatorPage storeLocatorPage = productListPage.getHeader().clickOnStoreLocator();
-
-    logger.info("3. Type any zip code (95032)");
+    logger.info("3. Enter correct Zipcode anc click on 'SEARCH'");
     storeLocatorPage = storeLocatorPage.searchByZipCode("95032");
 
-    logger.info("4. Click on a store.");
+    logger.info(
+        "Validate the user is shown with Results with all the 5 stores near to this Zipcode");
+    List<StockResultItemComponent> stockResultItems = storeLocatorPage.getStockResultList();
+    Assert.assertEquals(
+        stockResultItems.size(), 5, "Not 5 stores near to this Zipcode are displayed");
+
+    logger.info("Validate Results (25) - 25 is number of stores shown in search");
+    Assert.assertEquals(
+        storeLocatorPage.getCountOfItemsFromResultTitle(), 25, "25 items are not displayed");
+
+    logger.info("Validate FILTER BY AMENITIES - user can filter by Amenities");
+    Assert.assertTrue(
+        storeLocatorPage.isAmenitiesFilterDisplayed(), "FILTER BY AMENITIES is not displayed");
+
+    logger.info("Validate For each store, user is shown with all expected info");
+    Assert.assertTrue(
+        storeLocatorPage.checkIfAllStoresFullyDisplayed(),
+        "Not all stores are displayed with expected info");
+
+    logger.info("Validate user is shown with all expected Amenities options");
+    Assert.assertEquals(
+        storeLocatorPage.getAmenitiesOptions(),
+        WebTestData.AMENITIES_LIST,
+        "Amenities options are not displayed properly");
+
+    logger.info("4. Select any filter option");
+    List<String> itemsBeforeSelectFilter = storeLocatorPage.getListOfStoreNames();
+    storeLocatorPage = storeLocatorPage.selectAmenities("Contactless Payments");
+
+    logger.info("Validate results are shown according to selected filter");
+    Assert.assertNotEquals(
+        storeLocatorPage.getListOfStoreNames(),
+        itemsBeforeSelectFilter,
+        "Result list is not changed");
+
+    logger.info("5. Click on a store");
     StockResultItemComponent stockResultItemComponent =
         storeLocatorPage.getStockResultList().get(0);
     StoreDetailsDto storeDetailsDto = stockResultItemComponent.getStoreDetailsDto();
@@ -158,6 +160,14 @@ public class FindStoreTests extends BaseTest {
         storeDetailsDto.getSchedule().toLowerCase(),
         "Store Schedule isn't correct");
     Assert.assertTrue(storeDetailsPage.isAmenitiesButtonDisplayed(), "'Amenities' isn't displayed");
+
+    logger.info("6. Click on Start Order");
+    storeDetailsPage.startOrder();
+
+    logger.info("Validate user is directed to 'https://order.peets.com/'");
+    Assert.assertTrue(
+        WebHelper.getCurrentUrl().contains("https://order.peets.com/"),
+        "User is not navigated to https://order.peets.com/");
   }
 
   @Test(
@@ -188,35 +198,61 @@ public class FindStoreTests extends BaseTest {
       groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.FIND_STORE},
       description = "11102902")
   public void validateStartOrder() {
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+    logger.info("1. Navigate to Store Locator page");
+    StoreLocatorPage storeLocatorPage = navigateToStoreLocatorPage();
 
-    logger.info("2. Click on location from header.");
-    StoreLocatorPage storeLocatorPage = productListPage.getHeader().clickOnStoreLocator();
-
-    logger.info("3. Type any zip code (95032)");
+    logger.info("2. Enter correct Zipcode anc click on 'SEARCH'");
     storeLocatorPage = storeLocatorPage.searchByZipCode("95032");
 
-    logger.info("4. Click on Start order");
-    String currentWindow = SdkHelper.getDriver().getWindowHandle();
-    MenuPage menuPage = storeLocatorPage.getStockResultList().get(0).startOrder();
-
-    logger.info("Verify that menu page should open.");
-    Assert.assertTrue(menuPage.isDisplayed(), "Menu page wasn't display");
-
-    logger.info("5. Go back to find store.");
-    SdkHelper.getDriver().close();
-    SdkHelper.getDriver().switchTo().window(currentWindow);
-
-    logger.info("6. Click on a store.");
+    logger.info("3. Click on any store name");
     StoreDetailsPage storeDetailsPage = storeLocatorPage.getStockResultList().get(0).click();
 
-    logger.info("7. Click on Start order");
-    menuPage = storeDetailsPage.startOrder();
+    logger.info(
+        "Verify that Stores should display with no., name, store, address schedule and start order button.");
+    Assert.assertTrue(
+        storeDetailsPage.areStoreDetailsDisplayed(), "Not all Stores are fully displayed");
 
-    logger.info("Verify that menu page should open.");
-    Assert.assertTrue(menuPage.isDisplayed(), "Menu page wasn't display");
+    logger.info("Validate user is shown with description and Download APP Button");
+    OneAppManyBenefitsComponent oneAppManyBenefitsComponent =
+        storeDetailsPage.getOneAppManyBenefitsComponent();
+    Assert.assertTrue(
+        oneAppManyBenefitsComponent.isDisplayedProperly(),
+        "One app, many benefits section isn't displayed properly");
+
+    logger.info("5. Click on Download APP Button");
+    String storeLocatorPageUrl = WebHelper.getCurrentUrl();
+    oneAppManyBenefitsComponent.clickDownloadApp();
+    WebHelper.closeOtherTabs();
+
+    logger.info("Verify App store page is displayed");
+    String currentUrl = WebHelper.getCurrentUrl();
+    softAssert.assertTrue(currentUrl.contains("apps.apple.com"), "App store page isn't displayed");
+    softAssert.assertTrue(currentUrl.contains("Peets"), "Peet's App store page isn't displayed");
+
+    logger.info("Verify user is shown with correct touts titles and descriptions");
+    storeDetailsPage = WebHelper.navigateToUrl(storeLocatorPageUrl, StoreDetailsPage.class);
+    ToutsSectionComponent toutsSectionComponent = storeDetailsPage.getToutsSectionComponent();
+    Assert.assertTrue(
+        toutsSectionComponent.isToutDisplayed(Touts.START_AN_ORDER),
+        "Touts isn't displayed properly");
+    Assert.assertTrue(
+        toutsSectionComponent.isToutDisplayed(Touts.PLACE_ORDER_AND_PAY),
+        "Touts isn't displayed properly");
+    Assert.assertTrue(
+        toutsSectionComponent.isToutDisplayed(Touts.PICK_UP_IN_STORE),
+        "Touts isn't displayed properly");
+
+    logger.info("Validate the user is shown with banner, description and Learn more button");
+    PeetnikRewardsComponent peetnikRewardsComponent = storeDetailsPage.getPeetnikRewardsComponent();
+    Assert.assertTrue(
+        peetnikRewardsComponent.isDisplayed(), "Peetnik Rewards section isn't displayed properly");
+
+    logger.info("6. Click on 'Learn more'");
+    peetnikRewardsComponent.clickLearnMore();
+
+    Assert.assertTrue(
+        WebHelper.getCurrentUrl().contains(Constants.TestData.REWARDS_URL),
+        "Not on the correct URL");
   }
 
   @Test(
@@ -250,13 +286,18 @@ public class FindStoreTests extends BaseTest {
       description = "11102904")
   public void byCurrentLocation() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+    StoreLocatorPage storeLocatorPage = navigateToStoreLocatorPage();
 
-    logger.info("2. Click on location from header.");
-    StoreLocatorPage storeLocatorPage = productListPage.getHeader().clickOnStoreLocator();
+    logger.info("Validate FIND A PEET’S NEAR YOU title is displayed");
+    Assert.assertTrue(
+        storeLocatorPage.isPageTitleDisplayed(), "FIND A PEET’S NEAR YOU title isn't displayed");
 
-    logger.info("3. Click on use my current location");
+    logger.info("Validate the user is shown with description");
+    Assert.assertTrue(
+        storeLocatorPage.isPageDescriptionDisplayed(),
+        "FIND A PEET’S NEAR YOU description isn't displayed");
+
+    logger.info("2. Click on 'Use My Current Location'");
     storeLocatorPage = storeLocatorPage.clickUseMyCurrentLocation();
 
     logger.info("Verify that closest store should display.");

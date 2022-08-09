@@ -2,6 +2,9 @@ package com.applause.auto.new_web.views;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.new_web.components.OneAppManyBenefitsComponent;
+import com.applause.auto.new_web.components.PeetnikRewardsComponent;
+import com.applause.auto.new_web.components.ToutsSectionComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -22,6 +25,9 @@ public class StoreDetailsPage extends Base {
   @Locate(xpath = "//span[contains(@class, 'store-detail-address')]", on = Platform.WEB)
   private Text address;
 
+  @Locate(xpath = "//span[contains(@class, 'store-detail-phone')]", on = Platform.WEB)
+  private Text phoneNumber;
+
   @Locate(xpath = "//a[contains(@class, 'store-detail-order')]", on = Platform.WEB)
   private Button startOrderButton;
 
@@ -31,8 +37,18 @@ public class StoreDetailsPage extends Base {
   @Locate(xpath = "//h3[contains(@class, 'detail-hours-title')]", on = Platform.WEB)
   private Text schedule;
 
-  @Locate(xpath = "//div[contains(@class, 'store-amenities')]", on = Platform.WEB)
-  private Text amenities;
+  @Locate(xpath = "//ul[contains(@class, 'store-locator__detail-hours-list')]", on = Platform.WEB)
+  private Text weeklySchedule;
+
+  @Locate(
+      xpath = "//span[contains(@class, 'store-locator__detail-amenities-title')]",
+      on = Platform.WEB)
+  private Text amenitiesTitle;
+
+  @Locate(
+      xpath = "//span[contains(@class, 'store-locator__detail-amenities-text')]",
+      on = Platform.WEB)
+  private Text amenitiesDetails;
 
   @Locate(xpath = "//button[contains(@class, 'store-detail-back')]", on = Platform.WEB)
   protected Button backButton;
@@ -86,7 +102,7 @@ public class StoreDetailsPage extends Base {
 
   @Step("Check if 'Amenities' is Displayed")
   public boolean isAmenitiesButtonDisplayed() {
-    return WebHelper.isDisplayed(amenities);
+    return WebHelper.isDisplayed(amenitiesTitle);
   }
 
   @Step("Check if 'Back' button is Displayed")
@@ -147,6 +163,76 @@ public class StoreDetailsPage extends Base {
     logger.info("Clicking on the 'See Subscription options' button");
     coffeeSubscriptionSeeOptionsButton.click();
     return SdkHelper.create(SubscriptionsPage.class);
+  }
+
+  @Step("Verify store item is displayed with all expected data")
+  public boolean areStoreDetailsDisplayed() {
+    if (!WebHelper.isDisplayed(name)) {
+      logger.error("Store name isn't displayed");
+      return false;
+    }
+
+    if (!WebHelper.isDisplayed(address)) {
+      logger.error("Store address isn't displayed");
+      return false;
+    }
+
+    if (!WebHelper.isDisplayed(phoneNumber)) {
+      logger.error("Store phone number isn't displayed");
+      return false;
+    }
+
+    if (!isStartOrderButtonDisplayed()) {
+      logger.error("Store Start Order button isn't displayed");
+      return false;
+    }
+
+    if (!isGetDirectionsButtonDisplayed()) {
+      logger.error("Store Get Direction button isn't displayed");
+      return false;
+    }
+
+    if (!WebHelper.isDisplayed(schedule)) {
+      logger.error("Store Schedule button isn't displayed");
+      return false;
+    }
+
+    if (!WebHelper.isDisplayed(schedule)) {
+      logger.error("Store Schedule isn't displayed");
+      return false;
+    }
+
+    if (!WebHelper.isDisplayed(weeklySchedule)) {
+      logger.error("Store Weekly Schedule isn't displayed");
+      return false;
+    }
+
+    if (!isAmenitiesButtonDisplayed()) {
+      logger.error("Store Amenities Title isn't displayed");
+      return false;
+    }
+
+    if (!WebHelper.isDisplayed(amenitiesDetails) || amenitiesDetails.getText().isEmpty()) {
+      logger.error("Store Amenities details isn't displayed or is empty");
+      return false;
+    }
+
+    return true;
+  }
+
+  @Step("Get OneAppManyBenefitsComponent")
+  public OneAppManyBenefitsComponent getOneAppManyBenefitsComponent() {
+    return SdkHelper.create(OneAppManyBenefitsComponent.class);
+  }
+
+  @Step("Get ToutsSectionComponent")
+  public ToutsSectionComponent getToutsSectionComponent() {
+    return SdkHelper.create(ToutsSectionComponent.class);
+  }
+
+  @Step("Get PeetnikRewardsComponent")
+  public PeetnikRewardsComponent getPeetnikRewardsComponent() {
+    return SdkHelper.create(PeetnikRewardsComponent.class);
   }
 }
 

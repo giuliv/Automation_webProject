@@ -14,6 +14,7 @@ import com.applause.auto.new_web.views.HomePage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.new_web.views.SignInPage;
+import com.applause.auto.new_web.views.StoreLocatorPage;
 import io.qameta.allure.Step;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
@@ -217,5 +218,20 @@ public class BaseTest extends ApplauseSeleniumTest {
       logger.info("Frame detached issue seen");
     }
     return SdkHelper.create(ProductListPage.class);
+  }
+
+  @Step("Navigate to Store Locator page")
+  public StoreLocatorPage navigateToStoreLocatorPage() {
+    navigateToHome();
+    logger.info(
+        String.format("Navigating to Store Locator page '%s'", TestData.STORE_LOCATOR_PAGE_URL));
+
+    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
+    try {
+      SdkHelper.getDriver().navigate().to(TestData.STORE_LOCATOR_PAGE_URL);
+    } catch (WebDriverException e) {
+      logger.info("Frame detached issue seen");
+    }
+    return SdkHelper.create(StoreLocatorPage.class);
   }
 }

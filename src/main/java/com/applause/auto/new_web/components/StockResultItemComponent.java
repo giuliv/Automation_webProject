@@ -27,7 +27,7 @@ public class StockResultItemComponent extends BaseComponent {
   private Text shopType;
 
   @Locate(xpath = ".//span[contains(@class, 'item-detail-name')]", on = Platform.WEB)
-  private Text shopName;
+  protected Text shopName;
 
   @Locate(xpath = ".//span[contains(@class, 'item-detail-address')]", on = Platform.WEB)
   private Text shopAddress;
@@ -124,7 +124,7 @@ public class StockResultItemComponent extends BaseComponent {
   @Step("Get shop Name")
   public StoreDetailsPage click() {
     logger.info("Clicking on [{}] store", shopName.getText());
-    getParent().click();
+    WebHelper.jsClick(getParent().getWebElement());
     return SdkHelper.create(StoreDetailsPage.class);
   }
 

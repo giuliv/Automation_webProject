@@ -3,6 +3,7 @@ package com.applause.auto.new_web.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.new_web.components.StockResultFilterComponent;
 import com.applause.auto.new_web.components.StockResultItemComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
@@ -13,6 +14,7 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
+import io.appium.java_client.AppiumDriver;
 import io.qameta.allure.Step;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -71,6 +73,18 @@ public class StoreLocatorPage extends Base {
       xpath = "//div[contains(@class, 'is-visible')]/a[contains(@class, 'no-result-link')]",
       on = Platform.WEB)
   protected Button shopOnlineButton;
+
+  @Locate(xpath = "//h2[@class='store-locator__intro-title']", on = Platform.WEB)
+  protected Text findPeetsNearYouTitle;
+
+  @Locate(xpath = "//p[@class='store-locator__intro-subtitle']", on = Platform.WEB)
+  protected Text findPeetsNearYouDescription;
+
+  @Locate(xpath = "//button[contains(@class,'store-locator__filters-button')]", on = Platform.WEB)
+  protected Button amenitiesFilterButton;
+
+  @Locate(xpath = "//label[input[contains(@id,'amenitiesCheckbox')]]", on = Platform.WEB)
+  protected List<Button> amenitiesOptions;
 
   @Override
   public void afterInit() {
@@ -186,9 +200,64 @@ public class StoreLocatorPage extends Base {
   public boolean isShopOnlineDisplayed() {
     return WebHelper.isDisplayed(shopOnlineButton);
   }
+
+  @Step("Verify 'FIND A PEET’S NEAR YOU' is displayed")
+  public boolean isPageTitleDisplayed() {
+    return WebHelper.isDisplayed(findPeetsNearYouTitle)
+        && findPeetsNearYouTitle.getText().trim().equalsIgnoreCase("FIND A PEET’S NEAR YOU");
+  }
+
+  @Step("Verify 'FIND A PEET’S NEAR YOU' description is displayed")
+  public boolean isPageDescriptionDisplayed() {
+    return WebHelper.isDisplayed(findPeetsNearYouDescription)
+        && findPeetsNearYouDescription
+            .getText()
+            .trim()
+            .equalsIgnoreCase(
+                "The freshest coffee is just a click away. Find a location, order ahead, and earn points.");
+  }
+
+  @Step("Verify FILTER BY AMENITIES is displayed")
+  public boolean isAmenitiesFilterDisplayed() {
+    return WebHelper.isDisplayed(amenitiesFilterButton);
+  }
+
+  @Step("Get Amenities options ")
+  public List<String> getAmenitiesOptions() {
+    amenitiesFilterButton.click();
+    SdkHelper.getSyncHelper().sleep(1000); // wait for section with options opens
+    List<String> amenities =
+        amenitiesOptions.stream().map(Button::getText).collect(Collectors.toList());
+    logger.info("Amenities list: {}", amenities);
+    amenitiesFilterButton.click();
+    return amenities;
+  }
+
+  @Step("Select amenities option")
+  public StoreLocatorPage selectAmenities(String option) {
+    logger.info("Clicking on the Amenities dropdown button");
+    amenitiesFilterButton.click();
+    SdkHelper.getSyncHelper().sleep(1000); // wait for section with options opens
+
+    logger.info("Selecting amenities option: {}", option);
+    amenitiesOptions.stream()
+        .filter(item -> item.getText().equalsIgnoreCase(option))
+        .findFirst()
+        .get()
+        .click();
+
+    amenitiesFilterButton.click();
+    return this;
+  }
 }
 
 class StoreLocatorPagePhone extends StoreLocatorPage {
+
+  @Locate(xpath = "//*[@text=\"Allow\"]")
+  protected Button allowLocationButton;
+
+  @Locate(xpath = "//android.widget.Button[@text='Allow only while using the app']")
+  protected Button allowLocationToBrowser;
 
   @Override
   @Step("Type Zip Code and search")
@@ -202,6 +271,32 @@ class StoreLocatorPagePhone extends StoreLocatorPage {
 
     logger.info("Clicking on Search");
     searchButton.click();
+    return this;
+  }
+
+  @Override
+  public StoreLocatorPage clickUseMyCurrentLocation() {
+    logger.info("Clicking on 'Use my current location' button");
+    useMyCurrentLocationButton.click();
+
+    String oldContext = SdkHelper.getDeviceControl().getContext();
+    logger.info("Switching to native context");
+    ((AppiumDriver) SdkHelper.getDriver()).context("NATIVE_APP");
+    SdkHelper.getSyncHelper().sleep(1000); // wait for switch context to native
+
+    if (MobileHelper.isElementDisplayed(allowLocationButton, 10)) {
+      allowLocationButton.click();
+    } else {
+      logger.info("No location popup overlay didn't found");
+    }
+
+    if (MobileHelper.isElementDisplayed(allowLocationToBrowser, 20)) {
+      allowLocationToBrowser.click();
+    } else {
+      logger.info("No location popup 2 overlay didn't  found");
+    }
+
+    SdkHelper.getDeviceControl().changeContext(oldContext);
     return this;
   }
 }
