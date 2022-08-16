@@ -1,7 +1,6 @@
 package com.applause.auto.test.new_web.order.standard;
 
 import com.applause.auto.common.data.Constants;
-import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.helpers.WebHelper;
@@ -36,7 +35,6 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
     int productSelected;
     if (WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
-      logger.info("DebugMode -> " + SdkHelper.getDriver().getPageSource());
       homePage = WebHelper.refreshMe(HomePage.class);
       productSelected = 0;
     } else {
@@ -273,34 +271,22 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
       description = "11052683")
   public void oneCoffeeOneEquipmentCreditCardAsGuestUserTest() {
 
-    logger.info("1. Navigate to landing page");
-    HomePage homePage = navigateToHome();
-    Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
-
-    logger.info("2. Select Best Sellers from Coffee tab");
-    Header header = homePage.getHeader();
-    header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);
-    ProductListPage productListPage =
-        header.clickOverSubCategoryFromMenu(
-            ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEST_SELLERS);
-
-    logger.info("3. Add coffee item to MiniCart");
-    int coffeeSelected = 1;
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(coffeeSelected);
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     String coffeeName = productDetailsPage.getProductName();
     String coffeeGrind = productDetailsPage.getGrindSelected();
     int coffeeQuantity = productDetailsPage.getProductQuantitySelected();
 
+    logger.info("2. Add coffee item to MiniCart");
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("4. Select Equipment from Gear tab");
+    logger.info("3. Select Equipment from Gear tab");
     productDetailsPage = miniCart.closeMiniCart(ProductDetailsPage.class);
-    //    header = productDetailsPage.getHeader();
-    //    productListPage = header.clickCategoryFromMenu(Constants.MenuOptions.GEAR);
-    productListPage = navigateToGearSection();
+    ProductListPage productListPage = navigateToGearSection();
 
-    logger.info("5. Add equipment item to MiniCart");
+    logger.info("4. Add equipment item to MiniCart");
     for (int equipmentSelected = 0; equipmentSelected < 3; equipmentSelected++) {
       productDetailsPage = productListPage.clickOverProductByIndex(equipmentSelected);
       if (!productDetailsPage.isItemAvailable()) {
@@ -316,7 +302,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
     miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("6. Validate items added to Cart");
+    logger.info("5. Validate items added to Cart");
     int coffeeIndex = 1;
     int equipmentIndex = 0;
 
@@ -324,10 +310,9 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
         coffeeName,
         miniCart.getProductNameByIndex(coffeeIndex),
         "Correct Coffee Product was not added to MiniCart");
+    // Use 0 index, since equipment does not have Grind
     Assert.assertEquals(
-        coffeeGrind,
-        miniCart.getGrindByIndex(coffeeIndex),
-        "Correct Coffee Grind was not added to MiniCart");
+        coffeeGrind, miniCart.getGrindByIndex(0), "Correct Coffee Grind was not added to MiniCart");
     Assert.assertEquals(
         coffeeQuantity,
         miniCart.getProductQuantityByIndex(coffeeIndex),
@@ -342,15 +327,15 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
         miniCart.getProductQuantityByIndex(equipmentIndex),
         "Correct Equipment product quantity was not added to MiniCart");
 
-    logger.info("7. Proceed to Checkout page");
+    logger.info("6. Proceed to Checkout page");
     CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
     checkOutPage.setCheckOutData();
 
-    logger.info("8. Proceed to Shipping page");
+    logger.info("7. Proceed to Shipping page");
     ShippingPage shippingPage = checkOutPage.clickContinueToShipping();
     String shippingMethod = shippingPage.selectShippingMethodByIndex(0);
 
-    logger.info("9. Proceed to Payments page");
+    logger.info("8. Proceed to Payments page");
     PaymentsPage paymentsPage = shippingPage.clickContinueToPayments();
     // Todo:Peet's Card is not working, always [11/06.2021]
     //    paymentsPage.setPeetsCardDiscount();
@@ -358,10 +343,10 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
     String totalPrice = paymentsPage.getTotalPrice();
 
-    logger.info("10. Proceed to Acceptance page");
+    logger.info("9. Proceed to Acceptance page");
     AcceptancePage acceptancePage = paymentsPage.clickContinueToPayments();
 
-    logger.info("11. Validating Product Details");
+    logger.info("10. Validating Product Details");
     Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
     Assert.assertTrue(acceptancePage.isSubTotalDisplayed(), "SubTotal is NOT displayed");
     Assert.assertEquals(
@@ -377,7 +362,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
-      logger.info("12. Validating Download buttons");
+      logger.info("11. Validating Download buttons");
       acceptancePage.clickOverTrackPackageButton();
       Assert.assertEquals(
           acceptancePage.getPhoneFromTrackPackageSection(),
@@ -396,7 +381,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     //  Submit button from trackPackage/shippingUpdates sections
     //  [user will receive a text validations]
 
-    logger.info("13. Validating Customer Information");
+    logger.info("12. Validating Customer Information");
     Assert.assertEquals(
         Constants.WebTestData.EMAIL, acceptancePage.getCustomerMail(), "Mail does NOT matches");
 
@@ -430,28 +415,18 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
       description = "11052682")
   public void oneRegularCoffeeOneReserveCoffeePeetsCardAsGuestUserTest() {
 
-    logger.info("1. Navigate to landing page");
-    HomePage homePage = navigateToHome();
-    Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
-
-    logger.info("2. Select Best Sellers from Coffee tab");
-    Header header = homePage.getHeader();
-    header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);
-    ProductListPage productListPage =
-        header.clickOverSubCategoryFromMenu(
-            ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEST_SELLERS);
-
-    logger.info("3. Add coffee item to MiniCart");
-    int coffeeSelected = 3;
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(coffeeSelected);
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     String coffeeName = productDetailsPage.getProductName();
     String coffeeGrind = productDetailsPage.getGrindSelected();
     int coffeeQuantity = productDetailsPage.getProductQuantitySelected();
 
+    logger.info("2. Add coffee item to MiniCart");
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("4. Search for Coffee: " + Constants.WebTestData.SEARCH_COFFEE_JR_RESERVE_BLEND);
+    logger.info("3. Search for Coffee: " + Constants.WebTestData.SEARCH_COFFEE_JR_RESERVE_BLEND);
     productDetailsPage = miniCart.closeMiniCart(ProductDetailsPage.class);
     SearchResultsPage searchResultsPage =
         productDetailsPage
@@ -459,7 +434,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
             .getSearchComponent()
             .search(Constants.WebTestData.SEARCH_COFFEE_JR_RESERVE_BLEND);
 
-    logger.info("5. Add reserve coffee item to MiniCart");
+    logger.info("4. Add reserve coffee item to MiniCart");
     int reserveSelected = 0;
     productDetailsPage = searchResultsPage.clickOverProductByIndex(reserveSelected);
 
@@ -468,7 +443,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
     miniCart = productDetailsPage.clickAddToMiniCart();
 
-    logger.info("6. Validate items added to Cart");
+    logger.info("5. Validate items added to Cart");
     int coffeeIndex = 1;
     int reserveIndex = 0;
 
@@ -494,15 +469,15 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
         miniCart.getProductQuantityByIndex(reserveIndex),
         "Correct Reserve product quantity was not added to MiniCart");
 
-    logger.info("7. Proceed to Checkout page");
+    logger.info("6. Proceed to Checkout page");
     CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
     checkOutPage.setCheckOutData();
 
-    logger.info("8. Proceed to Shipping page");
+    logger.info("7. Proceed to Shipping page");
     ShippingPage shippingPage = checkOutPage.clickContinueToShipping();
     String shippingMethod = shippingPage.selectShippingMethodByIndex(0);
 
-    logger.info("9. Proceed to Payments page");
+    logger.info("8. Proceed to Payments page");
     PaymentsPage paymentsPage = shippingPage.clickContinueToPayments();
     // Todo:Peet's Card is not working, always [11/06.2021]
     //    paymentsPage.setPeetsCardDiscount();
@@ -510,10 +485,10 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
     String totalPrice = paymentsPage.getTotalPrice();
 
-    logger.info("10. Proceed to Acceptance page");
+    logger.info("9. Proceed to Acceptance page");
     AcceptancePage acceptancePage = paymentsPage.clickContinueToPayments();
 
-    logger.info("11. Validating Product Details");
+    logger.info("10. Validating Product Details");
     Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
     Assert.assertTrue(acceptancePage.isSubTotalDisplayed(), "SubTotal is NOT displayed");
     Assert.assertEquals(
@@ -529,7 +504,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
-      logger.info("12. Validating Download buttons");
+      logger.info("11. Validating Download buttons");
       acceptancePage.clickOverTrackPackageButton();
       Assert.assertEquals(
           acceptancePage.getPhoneFromTrackPackageSection(),
@@ -548,7 +523,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     //  Submit button from trackPackage/shippingUpdates sections
     //  [user will receive a text validations]
 
-    logger.info("13. Validating Customer Information");
+    logger.info("12. Validating Customer Information");
     Assert.assertEquals(
         Constants.WebTestData.EMAIL, acceptancePage.getCustomerMail(), "Mail does NOT matches");
 
@@ -734,27 +709,16 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
       description = "11071613")
   public void freeShippingByMultipleCoffeeOrderAsGuestUserTest() {
 
-    logger.info("1. Navigate to landing page");
-    HomePage homePage = navigateToHome();
-    Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
-
-    logger.info("2. Select Best Sellers from Coffee tab");
-    Header header = homePage.getHeader();
-    header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);
-    ProductListPage productListPage =
-        header.clickOverSubCategoryFromMenu(
-            ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEST_SELLERS);
-
-    logger.info("3. Add first item to MiniCart");
-    int productSelected = 3;
-    ProductDetailsPage productDetailsPage =
-        productListPage.clickOverProductByIndex(productSelected);
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     String productName = productDetailsPage.getProductName();
     String grind = productDetailsPage.getGrindSelected();
     int productQuantity = 5;
     int coffeeIndex = 0;
 
+    logger.info("2. Add first item to MiniCart");
     productDetailsPage.addMoreProducts(productQuantity);
     int expectedQuantity = productDetailsPage.getProductQuantityFromBox();
     Assert.assertEquals(
@@ -772,15 +736,15 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
         miniCart.getProductQuantityByIndex(coffeeIndex),
         "Correct product quantity was not added to MiniCart");
 
-    logger.info("4. Proceed to Checkout page");
+    logger.info("3. Proceed to Checkout page");
     CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
     checkOutPage.setCheckOutData();
 
-    logger.info("5. Proceed to Shipping page");
+    logger.info("4. Proceed to Shipping page");
     ShippingPage shippingPage = checkOutPage.clickContinueToShipping();
     String shippingMethod = shippingPage.selectShippingMethodByIndex(0);
 
-    logger.info("6. Proceed to Payments page");
+    logger.info("5. Proceed to Payments page");
     PaymentsPage paymentsPage = shippingPage.clickContinueToPayments();
     paymentsPage.setPaymentData();
     Assert.assertTrue(
@@ -791,10 +755,10 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     Assert.assertTrue(
         price > 50, "Even after adding " + productQuantity + " products, price is not over $50");
 
-    logger.info("7. Proceed to Acceptance page");
+    logger.info("6. Proceed to Acceptance page");
     AcceptancePage acceptancePage = paymentsPage.clickContinueToPayments();
 
-    logger.info("8. Validating Product Details");
+    logger.info("7. Validating Product Details");
     Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
     Assert.assertTrue(acceptancePage.isSubTotalDisplayed(), "SubTotal is NOT displayed");
     Assert.assertEquals(
@@ -808,7 +772,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
-      logger.info("9. Validating Download buttons");
+      logger.info("8. Validating Download buttons");
       acceptancePage.clickOverTrackPackageButton();
       Assert.assertEquals(
           acceptancePage.getPhoneFromTrackPackageSection(),
@@ -827,7 +791,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     //  Submit button from trackPackage/shippingUpdates sections
     //  [user will receive a text validations]
 
-    logger.info("10. Validating Customer Information");
+    logger.info("9. Validating Customer Information");
     Assert.assertEquals(
         Constants.WebTestData.EMAIL, acceptancePage.getCustomerMail(), "Mail does NOT matches");
 

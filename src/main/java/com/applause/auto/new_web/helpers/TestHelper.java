@@ -108,25 +108,4 @@ public class TestHelper {
     }
     return itemAt;
   }
-
-  public int findInStockItemPositionWithOneTime(ProductListPage productListPage) {
-    int itemAt = 0;
-    boolean proceedWithTest = false;
-    while (!proceedWithTest) {
-      itemAt += 1;
-      logger.info(
-          "Checking item at [{}] to determine if we are in stock, and have one time purchase link",
-          itemAt);
-      PlpItemComponent productOnPosition = productListPage.getProductOnPosition(itemAt);
-      ProductDetailsPage productDetailsPage = productOnPosition.clickOnProduct();
-      proceedWithTest =
-          (!productDetailsPage.isItemAvailable()
-                  && productDetailsPage.isOneTimePurchaseLinkDisplayed())
-              ? true
-              : false;
-      logger.info("It is [{}] that we should proceed using this item.", proceedWithTest);
-      productListPage = WebHelper.navigateBack(ProductListPage.class);
-    }
-    return itemAt;
-  }
 }

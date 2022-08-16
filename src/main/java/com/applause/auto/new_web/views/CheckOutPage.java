@@ -146,6 +146,7 @@ public class CheckOutPage extends Base {
     province.select(Constants.WebTestData.PROVINCE);
     SdkHelper.getSyncHelper().sleep(500); // Wait for action
 
+    zip.clearText();
     zip.sendKeys(Constants.WebTestData.ZIP);
     SdkHelper.getSyncHelper().sleep(500); // Wait for action
   }

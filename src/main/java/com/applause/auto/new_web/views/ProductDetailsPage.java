@@ -291,10 +291,17 @@ public class ProductDetailsPage extends Base {
       on = Platform.WEB)
   private Text quantityBoxText;
 
+  @Locate(id = "dismissbutton2header1", on = Platform.WEB)
+  private Button dismissBanner;
+
+  @Locate(id = "attentive_creative", on = Platform.WEB)
+  private ContainerElement newBannerIFrame;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(mainContainer).present().setTimeout(Duration.ofSeconds(40)));
+    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
     logger.info("Product Details Page URL: " + WebHelper.getCurrentUrl());
   }
 

@@ -34,17 +34,9 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
         myAccountPage.getWelcomeMessage().contains("welcome"),
         "User is not signed in or welcome name is wrong");
 
-    logger.info("3. Select Best Sellers from Coffee tab");
-    Header header = homePage.getHeader();
-    header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);
-    ProductListPage productListPage =
-        header.clickOverSubCategoryFromMenu(
-            ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEST_SELLERS);
-
-    logger.info("4. Add first item to MiniCart");
-    int productSelected = testHelper.findInStockItemWithGrindPosition(productListPage) - 1;
-    ProductDetailsPage productDetailsPage =
-        productListPage.clickOverProductByIndex(productSelected);
+    logger.info("3. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     String productName = productDetailsPage.getProductName();
     String grind = productDetailsPage.getGrindSelected();
@@ -63,18 +55,18 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
         miniCart.getProductQuantityByIndex(coffeeIndex),
         "Correct product quantity was not added to MiniCart");
 
-    logger.info("5. Proceed to Checkout page");
+    logger.info("4. Proceed to Checkout page");
     CheckOutPage checkOutPage = miniCart.clickContinueToCheckOut();
     Assert.assertTrue(
         checkOutPage.isExistingUserMailCorrect().contains(mail),
         "Existing user mail is NOT correct");
     checkOutPage.setCheckOutDataAsExistingUser();
 
-    logger.info("6. Proceed to Shipping page");
+    logger.info("5. Proceed to Shipping page");
     ShippingPage shippingPage = checkOutPage.clickContinueToShipping();
     String shippingMethod = shippingPage.selectShippingMethodByIndex(0);
 
-    logger.info("7. Proceed to Payments page");
+    logger.info("6. Proceed to Payments page");
     PaymentsPage paymentsPage = shippingPage.clickContinueToPayments();
     paymentsPage.setPaymentData();
     Assert.assertTrue(
@@ -82,10 +74,10 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
 
     String totalPrice = paymentsPage.getTotalPrice();
 
-    logger.info("8. Proceed to Acceptance page");
+    logger.info("7. Proceed to Acceptance page");
     AcceptancePage acceptancePage = paymentsPage.clickContinueToPayments();
 
-    logger.info("9. Validating Product Details");
+    logger.info("8. Validating Product Details");
     Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
     Assert.assertTrue(acceptancePage.isSubTotalDisplayed(), "SubTotal is NOT displayed");
     Assert.assertEquals(
@@ -95,7 +87,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
 
     if (WebHelper.isDesktop()) {
       // Todo: Only for desktop, until figure out if its a bug
-      logger.info("10. Validating Download buttons");
+      logger.info("9. Validating Download buttons");
       acceptancePage.clickOverTrackPackageButton();
       Assert.assertEquals(
           acceptancePage.getPhoneFromTrackPackageSection(),
@@ -114,7 +106,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     //  Submit button from trackPackage/shippingUpdates sections
     //  [user will receive a text validations]
 
-    logger.info("11. Validating Customer Information");
+    logger.info("10. Validating Customer Information");
     Assert.assertEquals(mail, acceptancePage.getCustomerMail(), "Existing Mail does NOT matches");
 
     Assert.assertTrue(
@@ -163,17 +155,9 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
         myAccountPage.getWelcomeMessage().contains("welcome"),
         "User is not signed in or welcome name is wrong");
 
-    logger.info("3. Select Best Sellers from Coffee tab");
-    Header header = homePage.getHeader();
-    header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);
-    ProductListPage productListPage =
-        header.clickOverSubCategoryFromMenu(
-            ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEST_SELLERS);
-
-    logger.info("4. Add first item to MiniCart");
-    int productSelected = testHelper.findInStockItemWithGrindPosition(productListPage) - 1;
-    ProductDetailsPage productDetailsPage =
-        productListPage.clickOverProductByIndex(productSelected);
+    logger.info("3. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     String productName = productDetailsPage.getProductName();
     String grind = productDetailsPage.getGrindSelected();
@@ -181,6 +165,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     int coffeeIndex = 0;
     productDetailsPage.selectSubscribeType();
 
+    logger.info("4. Add to MiniCart");
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
     Assert.assertEquals(
         productName,
@@ -235,7 +220,7 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     //        "+1 " + Constants.WebTestData.PHONE,
     //        "Phone from Shipping Updates section is NOT correct");
 
-    logger.info("11. Validating Customer Information");
+    logger.info("10. Validating Customer Information");
     Assert.assertEquals(mail, acceptancePage.getCustomerMail(), "Existing Mail does NOT matches");
 
     Assert.assertTrue(
@@ -273,30 +258,21 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
         myAccountPage.getWelcomeMessage().contains("welcome"),
         "User is not signed in or welcome name is wrong");
 
-    logger.info("3. Select Best Sellers from Coffee tab");
-    Header header = homePage.getHeader();
-    header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);
-    ProductListPage productListPage =
-        header.clickOverSubCategoryFromMenu(
-            ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEST_SELLERS);
-
-    logger.info("4. Add coffee item to MiniCart");
-    int coffeeSelected = testHelper.findInStockItemWithGrindPosition(productListPage) - 1;
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(coffeeSelected);
+    logger.info("3. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     String coffeeName = productDetailsPage.getProductName();
     String coffeeGrind = productDetailsPage.getGrindSelected();
     int coffeeQuantity = productDetailsPage.getProductQuantitySelected();
 
+    logger.info("4. Add to MiniCart");
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
     logger.info("5. Select Equipment from Gear tab");
     productDetailsPage = miniCart.closeMiniCart(ProductDetailsPage.class);
 
-    //    header = productDetailsPage.getHeader();
-    //    productListPage = header.clickCategoryFromMenu(Constants.MenuOptions.GEAR);
-    productListPage = navigateToGearSection();
-
+    ProductListPage productListPage = navigateToGearSection();
     logger.info("6. Add equipment item to MiniCart");
     for (int equipmentSelected = 0; equipmentSelected < 3; equipmentSelected++) {
       productDetailsPage = productListPage.clickOverProductByIndex(equipmentSelected);
@@ -444,21 +420,15 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
         myAccountPage.getWelcomeMessage().contains("welcome"),
         "User is not signed in or welcome name is wrong");
 
-    logger.info("3. Select Best Sellers from Coffee tab");
-    Header header = homePage.getHeader();
-    header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);
-    ProductListPage productListPage =
-        header.clickOverSubCategoryFromMenu(
-            ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEST_SELLERS);
-
-    logger.info("4. Add coffee item to MiniCart");
-    int coffeeSelected = testHelper.findInStockItemWithGrindPosition(productListPage) - 1;
-    ProductDetailsPage productDetailsPage = productListPage.clickOverProductByIndex(coffeeSelected);
+    logger.info("3. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     String coffeeName = productDetailsPage.getProductName();
     String coffeeGrind = productDetailsPage.getGrindSelected();
     int coffeeQuantity = productDetailsPage.getProductQuantitySelected();
 
+    logger.info("4. Add to MiniCart");
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
     logger.info("5. Search for Coffee: " + Constants.WebTestData.SEARCH_COFFEE_JR_RESERVE_BLEND);
@@ -775,9 +745,6 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
         "User is not signed in or welcome name is wrong");
 
     logger.info("3. Select Equipment from Gear tab");
-    //    Header header = homePage.getHeader();
-    //    ProductListPage productListPage =
-    // header.clickCategoryFromMenu(Constants.MenuOptions.GEAR);
     ProductListPage productListPage = navigateToGearSection();
 
     logger.info("4. Add equipment item to MiniCart");

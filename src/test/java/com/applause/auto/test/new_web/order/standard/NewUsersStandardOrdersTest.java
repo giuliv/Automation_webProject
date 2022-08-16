@@ -1,7 +1,6 @@
 package com.applause.auto.test.new_web.order.standard;
 
 import com.applause.auto.common.data.Constants;
-import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.AcceptancePage;
@@ -9,7 +8,6 @@ import com.applause.auto.new_web.views.CheckOutPage;
 import com.applause.auto.new_web.views.HomePage;
 import com.applause.auto.new_web.views.PaymentsPage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
-import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.new_web.views.ShippingPage;
 import com.applause.auto.new_web.views.my_account.MyAccountPage;
 import com.applause.auto.test.new_web.BaseTest;
@@ -34,23 +32,16 @@ public class NewUsersStandardOrdersTest extends BaseTest {
     MyAccountPage myAccountPage = testHelper.createAccount(homePage, mail);
     Assert.assertNotNull(myAccountPage, "Account was not created!");
 
-    logger.info("3. Select Best Sellers from Coffee tab");
-    Header header = homePage.getHeader();
-    header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE);
-    ProductListPage productListPage =
-        header.clickOverSubCategoryFromMenu(
-            ProductListPage.class, Constants.MenuSubCategories.COFFEE_BEST_SELLERS);
-
-    logger.info("4. Add first item to MiniCart");
-    int productSelected = 3;
-    ProductDetailsPage productDetailsPage =
-        productListPage.clickOverProductByIndex(productSelected);
+    logger.info("3. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     String productName = productDetailsPage.getProductName();
     String grind = productDetailsPage.getGrindSelected();
     int productQuantity = productDetailsPage.getProductQuantitySelected();
     int coffeeIndex = 0;
 
+    logger.info("4. Add item to MiniCart");
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
     Assert.assertEquals(
         productName,

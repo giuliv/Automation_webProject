@@ -184,12 +184,11 @@ public class HomePage extends Base {
     logger.info("Peet's Home URL: " + SdkHelper.getDriver().getCurrentUrl());
 
     if (!WebHelper.getTestExecution().equals("local")) {
-      // Todo:Commented on 16.08.2022[Remove in a week, if not needed anymore]
-      //      if (closeModal.exists()) {
-      //        logger.info("Close peets.com Modal");
-      //        SdkHelper.getSyncHelper().wait(Until.uiElement(closeModal).clickable());
-      //        closeModal.click();
-      //      }
+      if (closeModal.exists()) {
+        logger.info("Close peets.com Modal");
+        SdkHelper.getSyncHelper().wait(Until.uiElement(closeModal).clickable());
+        closeModal.click();
+      }
 
       if (!WebHelper.isDesktop() && allowCookies.exists()) {
         logger.info("Accept Cookies");
