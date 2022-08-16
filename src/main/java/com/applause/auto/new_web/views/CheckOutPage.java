@@ -41,6 +41,9 @@ public class CheckOutPage extends Base {
   @Locate(id = "checkout_shipping_address_address1", on = Platform.WEB)
   private TextBox address;
 
+  @Locate(id = "checkout_shipping_address_address2", on = Platform.WEB)
+  private TextBox extraDetailsBox;
+
   @Locate(id = "checkout_shipping_address_city", on = Platform.WEB)
   private TextBox city;
 
@@ -128,6 +131,9 @@ public class CheckOutPage extends Base {
 
     typeAddress(Constants.WebTestData.ADDRESS);
 
+    extraDetailsBox.sendKeys(Constants.WebTestData.EXTRA_INFO);
+    SdkHelper.getSyncHelper().sleep(500); // Wait for action
+
     city.sendKeys(Constants.WebTestData.CITY);
     SdkHelper.getSyncHelper().sleep(500); // Wait for action
 
@@ -207,14 +213,6 @@ public class CheckOutPage extends Base {
     logger.info("Clicking Continue to Shipping");
     SdkHelper.getSyncHelper().wait(Until.uiElement(continueToShipping).visible());
     continueToShipping.click();
-
-    if (WebHelper.getTestEnvironment().equalsIgnoreCase("production") && proceedButton.exists()) {
-      try {
-        proceedButton.click();
-      } catch (WebDriverException e) {
-        logger.info("Frame detached issue seen");
-      }
-    }
 
     return SdkHelper.create(ShippingPage.class);
   }

@@ -448,6 +448,7 @@ public class Constants {
     public static final String FIRST_NAME = "Test";
     public static final String LAST_NAME = "Automation";
     public static final String ADDRESS = "133 Water St";
+    public static final String EXTRA_INFO = "Ste 1";
     public static final String CITY = "Brooklyn";
     public static final String PHONE = "646-759-4933";
     public static final String COUNTRY = "United States";
