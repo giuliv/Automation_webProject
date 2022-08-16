@@ -183,7 +183,7 @@ public class HomePage extends Base {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
     logger.info("Peet's Home URL: " + SdkHelper.getDriver().getCurrentUrl());
 
-    if (!WebHelper.getTestExecution().equals("local")) {
+//    if (!WebHelper.getTestExecution().equals("local")) {
       if (closeModal.exists()) {
         logger.info("Close peets.com Modal");
         SdkHelper.getSyncHelper().wait(Until.uiElement(closeModal).clickable());
@@ -197,7 +197,7 @@ public class HomePage extends Base {
 
       WebHelper.clickButtonOverIFrame(specialOfferFrame, closeSpecialOfferButton);
     }
-  }
+//  }
 
   /* -------- Actions -------- */
 

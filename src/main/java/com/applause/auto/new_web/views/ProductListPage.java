@@ -208,12 +208,7 @@ public class ProductListPage extends Base {
       logger.info("Safari Desktop");
       WebHelper.jsClick(productsImageList.get(index).getWebElement());
     } else {
-      // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-      try {
-        productsImageList.get(index).click();
-      } catch (WebDriverException e) {
-        logger.info("Frame detached issue seen");
-      }
+      productsImageList.get(index).click();
     }
 
     return SdkHelper.create(ProductDetailsPage.class);
@@ -314,39 +309,23 @@ public class ProductListPage extends Base {
 
   @Step("Click quick view")
   public QuickViewComponent clickOverFirstQuickViewButton() {
-    try {
-      WebHelper.scrollToElement(quickViewButtonList.get(0));
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    WebHelper.scrollToElement(quickViewButtonList.get(0));
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
 
-    try {
-      WebHelper.hoverByAction(quickViewButtonList.get(0));
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    WebHelper.hoverByAction(quickViewButtonList.get(0));
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
 
     logger.info("Clicking QuickView button");
-    try {
-      quickViewButtonList.get(0).click();
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    quickViewButtonList.get(0).click();
     return SdkHelper.create(QuickViewComponent.class);
   }
 
   public void hoverOutOfStockItemByIndex(int index) {
     logger.info("Hover Out of Stock item in position: " + index);
-    try {
-      WebHelper.scrollToElement(outOfStockItemList.get(index));
-      SdkHelper.getSyncHelper().sleep(1000); // Wait for scroll
+    WebHelper.scrollToElement(outOfStockItemList.get(index));
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for scroll
 
-      WebHelper.hoverByAction(outOfStockItemList.get(index));
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    WebHelper.hoverByAction(outOfStockItemList.get(index));
   }
 
   public boolean isViewProductDisplayed(int index) {

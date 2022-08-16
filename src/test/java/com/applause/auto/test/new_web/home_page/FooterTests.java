@@ -218,14 +218,7 @@ public class FooterTests extends BaseTest {
     FooterComponent footer;
     for (FooterOptions option : options) {
       footer = homePage.getFooterComponent();
-
-      // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-      try {
-        footer.clickOption(option);
-        SdkHelper.getSyncHelper().sleep(3000); // Remove when fixed
-      } catch (WebDriverException e) {
-        logger.info("Frame detached issue seen");
-      }
+      footer.clickOption(option);
 
       logger.info("Verify expected page URL is displayed");
       softAssert.assertEquals(
@@ -291,14 +284,7 @@ public class FooterTests extends BaseTest {
     for (FooterOptions option : options) {
       footer = homePage.getFooterComponent();
       if (!option.getUrl().isEmpty()) {
-
-        // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-        try {
-          footer.clickEndSubLink(option);
-          SdkHelper.getSyncHelper().sleep(3000); // Remove when fixed
-        } catch (WebDriverException e) {
-          logger.info("Frame detached issue seen");
-        }
+        footer.clickEndSubLink(option);
 
         logger.info("Verify expected page URL is displayed");
         String currentUrl = WebHelper.getCurrentUrl();

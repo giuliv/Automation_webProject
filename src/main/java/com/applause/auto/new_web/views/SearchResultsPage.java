@@ -45,12 +45,7 @@ public class SearchResultsPage extends Base {
     SdkHelper.getSyncHelper().wait(Until.uiElement(productsImageList.get(index)).visible());
     WebHelper.scrollToElement(productsImageList.get(index));
 
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      productsImageList.get(index).click();
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    productsImageList.get(index).click();
     return SdkHelper.create(ProductDetailsPage.class);
   }
 

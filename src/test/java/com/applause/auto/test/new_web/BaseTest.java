@@ -20,7 +20,6 @@ import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.WebDriverException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.asserts.SoftAssert;
@@ -65,13 +64,7 @@ public class BaseTest extends ApplauseSeleniumTest {
   public HomePage navigateToHome() {
     logger.info(String.format("Navigating to the home page '%s'", TestData.LANDING_PAGE_URL));
 
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      SdkHelper.getDriver().navigate().to(TestData.LANDING_PAGE_URL);
-      SdkHelper.getSyncHelper().sleep(1000); // Once chromedriver issue fix, remove it
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    SdkHelper.getDriver().navigate().to(TestData.LANDING_PAGE_URL);
     return SdkHelper.create(HomePage.class);
   }
 
@@ -80,12 +73,7 @@ public class BaseTest extends ApplauseSeleniumTest {
     navigateToHome();
     logger.info(String.format("Navigating to PLP page '%s'", TestData.PLP_URL));
 
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      SdkHelper.getDriver().navigate().to(TestData.PLP_URL);
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    SdkHelper.getDriver().navigate().to(TestData.PLP_URL);
     return SdkHelper.create(ProductListPage.class);
   }
 
@@ -94,12 +82,7 @@ public class BaseTest extends ApplauseSeleniumTest {
     navigateToHome();
     logger.info(String.format("Navigating to PDP page '%s'", TestData.PDP_URL));
 
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      SdkHelper.getDriver().navigate().to(TestData.PDP_URL);
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    SdkHelper.getDriver().navigate().to(TestData.PDP_URL);
     return SdkHelper.create(ProductDetailsPage.class);
   }
 
@@ -108,12 +91,7 @@ public class BaseTest extends ApplauseSeleniumTest {
     navigateToHome();
     logger.info(String.format("Navigating to PDP page '%s'", TestData.GENERAL_PDP_URL + product));
 
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      SdkHelper.getDriver().navigate().to(TestData.GENERAL_PDP_URL + product);
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    SdkHelper.getDriver().navigate().to(TestData.GENERAL_PDP_URL + product);
     return SdkHelper.create(ProductDetailsPage.class);
   }
 
@@ -122,12 +100,7 @@ public class BaseTest extends ApplauseSeleniumTest {
     navigateToHome();
     logger.info(String.format("Navigating to the Gear page '%s'", TestData.GEAR_PAGE_URL));
 
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      SdkHelper.getDriver().navigate().to(TestData.GEAR_PAGE_URL);
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    SdkHelper.getDriver().navigate().to(TestData.GEAR_PAGE_URL);
     return SdkHelper.create(ProductListPage.class);
   }
 
@@ -136,24 +109,15 @@ public class BaseTest extends ApplauseSeleniumTest {
     navigateToHome();
     logger.info(String.format("Navigating to the Sign in page '%s'", TestData.LANDING_PAGE_URL));
 
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      SdkHelper.getDriver().navigate().to(TestData.LANDING_PAGE_URL);
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    SdkHelper.getDriver().navigate().to(TestData.LANDING_PAGE_URL);
     return SdkHelper.create(HomePage.class).clickSignInButton();
   }
 
   public CoffeeBarPage navigateToCoffeeBarMenuPage() {
     logger.info(
         String.format("Navigating to the Coffee Bar page '%s'", TestData.COFFEEBAR_MENU_URL));
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      SdkHelper.getDriver().get(TestData.COFFEEBAR_MENU_URL);
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+
+    SdkHelper.getDriver().get(TestData.COFFEEBAR_MENU_URL);
     return SdkHelper.create(CoffeeBarPage.class);
   }
 
@@ -163,12 +127,7 @@ public class BaseTest extends ApplauseSeleniumTest {
     logger.info(
         String.format("Navigating to Subscription page '%s'", TestData.GIFT_CARDS_PAGE_URL));
 
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      SdkHelper.getDriver().navigate().to(TestData.GIFT_CARDS_PAGE_URL);
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    SdkHelper.getDriver().navigate().to(TestData.GIFT_CARDS_PAGE_URL);
     return SdkHelper.create(GiftCardsPage.class);
   }
 
@@ -177,30 +136,15 @@ public class BaseTest extends ApplauseSeleniumTest {
     logger.info(String.format("Navigating to Subscription page '%s'", subscriptionType));
 
     if (subscriptionType.getValue().equalsIgnoreCase(SubscriptionType.SIGNATURE_BLEND.getValue())) {
-      // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-      try {
-        SdkHelper.getDriver().navigate().to(TestData.SUBSCRIPTION_SB_URL);
-      } catch (WebDriverException e) {
-        logger.info("Frame detached issue seen");
-      }
+      SdkHelper.getDriver().navigate().to(TestData.SUBSCRIPTION_SB_URL);
     } else if (subscriptionType
         .getValue()
         .equalsIgnoreCase(SubscriptionType.SINGLE_ORIGIN.getValue())) {
-      // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-      try {
-        SdkHelper.getDriver().navigate().to(TestData.SUBSCRIPTION_SO_URL);
-      } catch (WebDriverException e) {
-        logger.info("Frame detached issue seen");
-      }
+      SdkHelper.getDriver().navigate().to(TestData.SUBSCRIPTION_SO_URL);
     } else if (subscriptionType
         .getValue()
         .equalsIgnoreCase(SubscriptionType.SMALL_BATCHES.getValue())) {
-      // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-      try {
-        SdkHelper.getDriver().navigate().to(TestData.SUBSCRIPTION_SMB_URL);
-      } catch (WebDriverException e) {
-        logger.info("Frame detached issue seen");
-      }
+      SdkHelper.getDriver().navigate().to(TestData.SUBSCRIPTION_SMB_URL);
     }
 
     return SdkHelper.create(ProductDetailsPage.class);
@@ -211,12 +155,7 @@ public class BaseTest extends ApplauseSeleniumTest {
     navigateToHome();
     logger.info(String.format("Navigating to PLP '%s'", url));
 
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      SdkHelper.getDriver().navigate().to(url);
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    SdkHelper.getDriver().navigate().to(url);
     return SdkHelper.create(ProductListPage.class);
   }
 
@@ -226,12 +165,7 @@ public class BaseTest extends ApplauseSeleniumTest {
     logger.info(
         String.format("Navigating to Store Locator page '%s'", TestData.STORE_LOCATOR_PAGE_URL));
 
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      SdkHelper.getDriver().navigate().to(TestData.STORE_LOCATOR_PAGE_URL);
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    SdkHelper.getDriver().navigate().to(TestData.STORE_LOCATOR_PAGE_URL);
     return SdkHelper.create(StoreLocatorPage.class);
   }
 }

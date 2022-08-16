@@ -51,13 +51,8 @@ public class SearchComponent extends BaseComponent {
   @Step("Click Search")
   public SearchResultsPage search(String product) {
     enterSearchTerm(product);
+    searchButton.click();
 
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      searchButton.click();
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
     return SdkHelper.create(SearchResultsPage.class);
   }
 

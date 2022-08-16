@@ -62,12 +62,7 @@ public class PlpItemComponent extends BaseComponent {
       logger.info("Safari Desktop");
       WebHelper.jsClick(clickElement.getWebElement());
     } else {
-      // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-      try {
-        clickElement.click();
-      } catch (WebDriverException e) {
-        logger.info("Frame detached issue seen");
-      }
+      clickElement.click();
     }
 
     return SdkHelper.create(ProductDetailsPage.class);

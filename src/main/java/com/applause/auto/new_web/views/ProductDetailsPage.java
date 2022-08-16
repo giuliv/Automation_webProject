@@ -352,11 +352,8 @@ public class ProductDetailsPage extends Base {
   public String getGrindSelected() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(grindSelected).visible());
     String text = "";
-    try {
-      text = grindSelected.getText().toLowerCase().trim();
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    text = grindSelected.getText().toLowerCase().trim();
+
     logger.info("[PDP] Grind Selected: " + text);
 
     if (WebHelper.isSafari()) {
@@ -452,12 +449,7 @@ public class ProductDetailsPage extends Base {
       SdkHelper.getSyncHelper().sleep(1000); // Wait for action
     }
 
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      addToCartButton.click();
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    addToCartButton.click();
     return SdkHelper.create(MiniCart.class);
   }
 

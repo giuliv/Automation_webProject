@@ -95,12 +95,7 @@ public class CreateAccountPage extends Base {
   public <T extends BaseComponent> T clickCreateAccountButton(Class<T> expectedClass) {
     logger.info("Clicking over Create account button");
 
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      createButton.click();
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    createButton.click();
     SdkHelper.getSyncHelper().sleep(5000); // Wait for action
     return SdkHelper.create(expectedClass);
   }

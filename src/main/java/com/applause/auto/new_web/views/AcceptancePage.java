@@ -260,13 +260,7 @@ public class AcceptancePage extends Base {
   public void clickOverShippingUpdatesButton() {
     logger.info("Clicking shipping updated button... ");
     WebHelper.scrollToElement(shippingUpdates.getWebElement()); // Wait for scroll
-
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      shippingUpdates.click();
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    shippingUpdates.click();
   }
 
   @Step("Get Order Grind")

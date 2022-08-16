@@ -385,11 +385,7 @@ public class CartPage extends BaseComponent {
   public <T extends BaseComponent> T openShopabbleItemsByIndex(Class<T> clazz, int index) {
     logger.info("Opening shoppable item: " + index);
     SdkHelper.getSyncHelper().wait(Until.uiElement(shopabbleTitles.get(index)).present());
-    try {
-      shopabbleTitles.get(index).click();
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    shopabbleTitles.get(index).click();
 
     return SdkHelper.create(clazz);
   }

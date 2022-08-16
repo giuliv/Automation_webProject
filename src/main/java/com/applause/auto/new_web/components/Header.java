@@ -180,26 +180,22 @@ public class Header extends BaseComponent {
   @Step("Hover category from Menu")
   public void hoverCategoryFromMenu(Constants.MenuOptions menuOptions) {
     logger.info("Tab selected: " + menuOptions.name());
-    try {
-      if (menuOptions.equals(Constants.MenuOptions.COFFEE)) {
-        WebHelper.hoverByAction(coffeeCategory);
-      } else if (menuOptions.equals(Constants.MenuOptions.GEAR)) {
-        gearCategory.click();
-      } else if (menuOptions.equals(Constants.MenuOptions.TEA)) {
-        WebHelper.hoverByAction(teaCategory);
-      } else if (menuOptions.equals(Constants.MenuOptions.SUBSCRIPTION)) {
-        WebHelper.hoverByAction(subscriptionTabCategory);
-      } else if (menuOptions.equals(Constants.MenuOptions.VISIT_US)) {
-        WebHelper.hoverByAction(visitUsCategory);
-      } else if (menuOptions.equals(Constants.MenuOptions.LEARN)) {
-        WebHelper.hoverByAction(learnCategory);
-      } else if (menuOptions.equals(MenuOptions.FREE_HOME_DELIVERY)) {
-        WebHelper.hoverByAction(freeHomeDeliveryCategory);
-      } else if (menuOptions.equals(MenuOptions.PEETNIK_REWARDS)) {
-        WebHelper.hoverByAction(peetnikRewardsCategory);
-      }
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
+    if (menuOptions.equals(Constants.MenuOptions.COFFEE)) {
+      WebHelper.hoverByAction(coffeeCategory);
+    } else if (menuOptions.equals(Constants.MenuOptions.GEAR)) {
+      gearCategory.click();
+    } else if (menuOptions.equals(Constants.MenuOptions.TEA)) {
+      WebHelper.hoverByAction(teaCategory);
+    } else if (menuOptions.equals(Constants.MenuOptions.SUBSCRIPTION)) {
+      WebHelper.hoverByAction(subscriptionTabCategory);
+    } else if (menuOptions.equals(Constants.MenuOptions.VISIT_US)) {
+      WebHelper.hoverByAction(visitUsCategory);
+    } else if (menuOptions.equals(Constants.MenuOptions.LEARN)) {
+      WebHelper.hoverByAction(learnCategory);
+    } else if (menuOptions.equals(MenuOptions.FREE_HOME_DELIVERY)) {
+      WebHelper.hoverByAction(freeHomeDeliveryCategory);
+    } else if (menuOptions.equals(MenuOptions.PEETNIK_REWARDS)) {
+      WebHelper.hoverByAction(peetnikRewardsCategory);
     }
   }
 
@@ -224,12 +220,7 @@ public class Header extends BaseComponent {
   public PeetnikRewardsPage clickPeetnikRewardsFromMenu() {
     logger.info("Tab selected: Peetnik Rewards");
 
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      peetnikRewardsCategory.click();
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    peetnikRewardsCategory.click();
     return SdkHelper.create(PeetnikRewardsPage.class);
   }
 
@@ -247,32 +238,17 @@ public class Header extends BaseComponent {
     if (menuSubCategories.name().contains("SUBSCRIPTIONS")) {
       subscriptionCategories.format(menuSubCategories.getMenuSubCategories()).initialize();
       SdkHelper.getSyncHelper().wait(Until.uiElement(subscriptionCategories).visible());
-      try {
-        subscriptionCategories.click();
-      } catch (WebDriverException e) {
-        SdkHelper.getSyncHelper().sleep(2000); // temp
-        logger.info("Frame detached issue seen");
-      }
+      subscriptionCategories.click();
     } else {
       try {
         subCategories.format(menuSubCategories.getMenuSubCategories()).initialize();
         SdkHelper.getSyncHelper().wait(Until.uiElement(subCategories).visible());
-        try {
-          subCategories.click();
-        } catch (WebDriverException e) {
-          SdkHelper.getSyncHelper().sleep(2000); // temp
-          logger.info("Frame detached issue seen");
-        }
+        subCategories.click();
       } catch (Exception e) {
         // use alternative category locator
         subCategoriesAlternative.format(menuSubCategories.getMenuSubCategories()).initialize();
         SdkHelper.getSyncHelper().wait(Until.uiElement(subCategoriesAlternative).visible());
-        try {
-          subCategoriesAlternative.click();
-        } catch (WebDriverException x) {
-          SdkHelper.getSyncHelper().sleep(2000); // temp
-          logger.info("Frame detached issue seen");
-        }
+        subCategoriesAlternative.click();
       }
     }
 

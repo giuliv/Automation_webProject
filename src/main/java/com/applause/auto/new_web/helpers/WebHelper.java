@@ -72,11 +72,7 @@ public class WebHelper {
   }
 
   public static void scrollToElement(BaseElement element) {
-    try {
-      scrollToElement(element.getWebElement());
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    scrollToElement(element.getWebElement());
   }
 
   public static void scrollToElement(WebElement element) {
@@ -243,26 +239,14 @@ public class WebHelper {
   }
 
   public static <T extends BaseComponent> T navigateBack(Class<T> clazz) {
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      SdkHelper.getDriver().navigate().back();
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
-
+    SdkHelper.getDriver().navigate().back();
     SdkHelper.getSyncHelper().sleep(3000); // Wait for action
     return SdkHelper.create(clazz);
   }
 
   public static <V extends BaseComponent> V refreshMe(Class<V> expectedClass) {
     logger.info("Refresh site");
-
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      SdkHelper.getDriver().navigate().refresh();
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    SdkHelper.getDriver().navigate().refresh();
     return SdkHelper.create(expectedClass);
   }
 
@@ -275,13 +259,7 @@ public class WebHelper {
    */
   public static <T extends BaseComponent> T navigateToUrl(String expectedUrl, Class<T> clazz) {
     logger.info("Navigation to [{}]", expectedUrl);
-
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      getDriver().navigate().to(expectedUrl);
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    getDriver().navigate().to(expectedUrl);
     return SdkHelper.create(clazz);
   }
 
@@ -642,16 +620,7 @@ public class WebHelper {
 
   /** Get the Current URL */
   public static String getCurrentUrl() {
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    String url;
-    try {
-      url = SdkHelper.getDriver().getCurrentUrl();
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-      SdkHelper.getSyncHelper().sleep(3000); // Remove when fixed
-      url = SdkHelper.getDriver().getCurrentUrl();
-    }
-
+    String url = SdkHelper.getDriver().getCurrentUrl();
     logger.debug("Current url [{}]", url);
     return url;
   }
@@ -660,13 +629,9 @@ public class WebHelper {
   public static void slowNavigationHelper(String linkHref, int seconds) {
     for (int i = 0; i <= seconds; i++) {
       SdkHelper.getSyncHelper().sleep(1000);
-      try {
-        if (WebHelper.getCurrentUrl().contains(linkHref)) {
-          logger.info("-- Navigation has happened.");
-          break;
-        }
-      } catch (WebDriverException e) {
-        logger.info("Frame detached issue seen");
+      if (WebHelper.getCurrentUrl().contains(linkHref)) {
+        logger.info("-- Navigation has happened.");
+        break;
       }
     }
   }

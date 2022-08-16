@@ -319,13 +319,7 @@ public class MiniCart extends BaseComponent {
   @Step("Click view cart")
   public CartPage clickViewCartButton() {
     logger.info("Clicking 'View Cart' button");
-
-    try {
-      SdkHelper.getBrowserControl().jsClick(viewCartButton);
-      SdkHelper.getSyncHelper().sleep(2000); // temp fix
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    SdkHelper.getBrowserControl().jsClick(viewCartButton);
 
     return SdkHelper.create(CartPage.class);
   }
@@ -470,11 +464,7 @@ public class MiniCart extends BaseComponent {
   public <T extends BaseComponent> T openShopabbleItemsByIndex(Class<T> clazz, int index) {
     logger.info("Opening shoppable item: " + index);
     SdkHelper.getSyncHelper().wait(Until.uiElement(shopabbleTitles.get(index)).present());
-    try {
-      shopabbleTitles.get(index).click();
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    shopabbleTitles.get(index).click();
 
     return SdkHelper.create(clazz);
   }

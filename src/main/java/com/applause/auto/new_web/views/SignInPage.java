@@ -96,12 +96,7 @@ public class SignInPage extends BaseComponent {
   public <T extends BaseComponent> T clickOnSignInButton(Class<T> expectedClass) {
     logger.info("Click on sign in button");
     SdkHelper.getSyncHelper().wait(Until.uiElement(getSignInButton).clickable());
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      getSignInButton.click();
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    getSignInButton.click();
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
 
     return SdkHelper.create(expectedClass);

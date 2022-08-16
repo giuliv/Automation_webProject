@@ -75,13 +75,7 @@ public class FooterComponent extends BaseComponent {
     footerOptionLink.format(option.getCategory(), option.getOption()).initialize();
     WebHelper.scrollToElement(footerOptionLink);
     SdkHelper.getSyncHelper().wait(Until.uiElement(footerOptionLink).clickable());
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      footerOptionLink.click();
-      SdkHelper.getSyncHelper().sleep(2000); // Wait needed until chromedriver issue exists
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    footerOptionLink.click();
     return (T) SdkHelper.create(option.getClazz());
   }
 
@@ -126,13 +120,7 @@ public class FooterComponent extends BaseComponent {
     WebHelper.scrollToElement(socialMediaLink);
     SdkHelper.getSyncHelper().wait(Until.uiElement(socialMediaLink).clickable());
 
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      socialMediaLink.click();
-      SdkHelper.getSyncHelper().sleep(1000); // Remove when fixed
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    socialMediaLink.click();
     return (T) SdkHelper.create(option.getClazz());
   }
 
@@ -155,13 +143,7 @@ public class FooterComponent extends BaseComponent {
     WebHelper.scrollToPageBottom();
     SdkHelper.getSyncHelper().wait(Until.uiElement(endSubLink).clickable());
 
-    // Todo:Try/Catch added to prevent chromedriver issue[Temp fix]
-    try {
-      endSubLink.click();
-      SdkHelper.getSyncHelper().sleep(2000); // Wait until chromedriver issue is fixed
-    } catch (WebDriverException e) {
-      logger.info("Frame detached issue seen");
-    }
+    endSubLink.click();
     return (T) SdkHelper.create(option.getClazz());
   }
 
