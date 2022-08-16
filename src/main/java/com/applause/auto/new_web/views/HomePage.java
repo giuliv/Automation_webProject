@@ -184,29 +184,19 @@ public class HomePage extends Base {
     logger.info("Peet's Home URL: " + SdkHelper.getDriver().getCurrentUrl());
 
     if (!WebHelper.getTestExecution().equals("local")) {
-      if (closeModal.exists()) {
-        logger.info("Close peets.com Modal");
-        SdkHelper.getSyncHelper().wait(Until.uiElement(closeModal).clickable());
-        closeModal.click();
-      }
+      // Todo:Commented on 16.08.2022[Remove in a week, if not needed anymore]
+      //      if (closeModal.exists()) {
+      //        logger.info("Close peets.com Modal");
+      //        SdkHelper.getSyncHelper().wait(Until.uiElement(closeModal).clickable());
+      //        closeModal.click();
+      //      }
 
       if (!WebHelper.isDesktop() && allowCookies.exists()) {
         logger.info("Accept Cookies");
         WebHelper.jsClick(allowCookies.getWebElement());
       }
 
-      if (specialOfferFrame.exists()) {
-        logger.info("Switching to special offer frame...");
-        WebHelper.switchToIFrame(specialOfferFrame);
-
-        if (WebHelper.isDisplayed(closeSpecialOfferButton)) {
-          logger.info("Closing 10% off iFrame");
-          WebHelper.jsClick(closeSpecialOfferButton.getWebElement());
-          SdkHelper.getSyncHelper().sleep(2000); // Wait for action
-        }
-        logger.info("Switching to default content...");
-        SdkHelper.getDriver().switchTo().defaultContent();
-      }
+      WebHelper.clickButtonOverIFrame(specialOfferFrame, closeSpecialOfferButton);
     }
   }
 

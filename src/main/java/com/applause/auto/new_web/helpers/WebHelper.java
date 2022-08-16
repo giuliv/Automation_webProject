@@ -124,6 +124,21 @@ public class WebHelper {
     SdkHelper.getSyncHelper().sleep(3000); // Wait until iFrame is ready
   }
 
+  public static void clickButtonOverIFrame(BaseElement frame, BaseElement button) {
+    if (frame.exists()) {
+      logger.info("Switching to special offer frame...");
+      switchToIFrame(frame);
+
+      if (WebHelper.isDisplayed(button)) {
+        logger.info("Closing 10% off iFrame");
+        jsClick(button.getWebElement());
+        SdkHelper.getSyncHelper().wait(Until.uiElement(button).notVisible());
+      }
+      logger.info("Switching to default content...");
+      SdkHelper.getDriver().switchTo().defaultContent();
+    }
+  }
+
   public static void switchToIFrameAndSetData(BaseElement frame, TextBox element, String data) {
     switchToIFrame(frame);
 
