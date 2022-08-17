@@ -108,6 +108,7 @@ public class Constants {
     public static final String SHOP_COFFEE_KCUPS_PAGE_URL =
         LANDING_PAGE_URL.concat("/coffee/k-cups");
     public static final String BARIDI_BLEND_BLUNDE = "baridi-blend-bundle-oos";
+    public static final String HOODIE = "peets-coffee-hoodie";
     public static final String GIFT_CARDS_PAGE_URL =
         LANDING_PAGE_URL.split("\\?")[0].concat("/pages/gift-cards");
     public static final String STORE_LOCATOR_PAGE_URL =
@@ -404,7 +405,7 @@ public class Constants {
 
   public static final class DashboardTestData {
     public static final String RECENT_ORDERS_HEADER = "Recent Orders";
-    public static final String MY_SUBSCRIPTION_HEADER = "My Subscription";
+    public static final String MY_SUBSCRIPTION_HEADER = "My Subscriptions";
 
     public static final List<String> MY_ORDERS_TABLE_TITLES =
         Arrays.asList("order #", "date ordered", "order status", "total");

@@ -85,11 +85,7 @@ public class PaymentsPage extends Base {
   @Locate(xpath = "//label[contains(., 'PayPal (Subscriptions)')]", on = Platform.WEB)
   protected Button payPalButton;
 
-  @Locate(css = ".order-summary__section--discount button[name='button']", on = Platform.WEB)
-  //  @Locate(
-  //      xpath =
-  // "//input[@id='checkout_reduction_code_mobile']/parent::div/following-sibling::button",
-  //      on = Platform.WEB_MOBILE_PHONE)
+  @Locate(css = "#order-summary  button[name=\"checkout[submit]\"]", on = Platform.WEB)
   private Button promoApplyButton;
 
   @Locate(css = "tr[data-giftcard-success]", on = Platform.WEB)
@@ -101,7 +97,7 @@ public class PaymentsPage extends Base {
   private Text promoCodeSuccessMessage;
 
   @Locate(
-      xpath = "//form//span[@class='reduction-code__text' and text()='NEWSUB30']",
+      xpath = "(//form//span[@class='reduction-code__text' and text()='NEWSUB30'])[2]",
       on = Platform.WEB)
   private Text subPromoCodeSuccessMessage;
 

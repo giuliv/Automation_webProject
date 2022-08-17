@@ -270,19 +270,10 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
     logger.info("5. Select Equipment from Gear tab");
-    productDetailsPage = miniCart.closeMiniCart(ProductDetailsPage.class);
+    miniCart.closeMiniCart(ProductDetailsPage.class);
 
-    ProductListPage productListPage = navigateToGearSection();
     logger.info("6. Add equipment item to MiniCart");
-    for (int equipmentSelected = 0; equipmentSelected < 3; equipmentSelected++) {
-      productDetailsPage = productListPage.clickOverProductByIndex(equipmentSelected);
-      if (!productDetailsPage.isItemAvailable()) {
-        logger.info("Item available");
-        break;
-      }
-      logger.info("Item not available, looking for other item: " + equipmentSelected);
-      productListPage = WebHelper.navigateBack(ProductListPage.class);
-    }
+    productDetailsPage = navigateToPDP(Constants.TestData.HOODIE);
 
     String equipmentName = productDetailsPage.getProductName();
     int equipmentQuantity = productDetailsPage.getProductQuantitySelected();
