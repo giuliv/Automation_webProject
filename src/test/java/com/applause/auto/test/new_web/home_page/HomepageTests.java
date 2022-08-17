@@ -256,11 +256,14 @@ public class HomepageTests extends BaseTest {
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
 
     logger.info("2. Clicking Carousel Link");
-    ProductDetailsPage plpPage = homePage.clickCarouselButton();
+    ProductListPage productListPage = homePage.clickCarouselButton();
     softAssert.assertTrue(
-        plpPage.getDriver().getCurrentUrl().contains(Constants.HomepageCarouselData.CAROUSEL_LINK),
+        productListPage
+            .getDriver()
+            .getCurrentUrl()
+            .contains(Constants.HomepageCarouselData.CAROUSEL_LINK),
         "Carousel button brought us to a page that does not match the location.  Got: "
-            + plpPage.getDriver().getCurrentUrl()
+            + productListPage.getDriver().getCurrentUrl()
             + ", expected: "
             + Constants.HomepageCarouselData.CAROUSEL_LINK);
 

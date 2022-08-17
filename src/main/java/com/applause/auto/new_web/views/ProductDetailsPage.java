@@ -291,12 +291,6 @@ public class ProductDetailsPage extends Base {
       on = Platform.WEB)
   private Text quantityBoxText;
 
-  @Locate(id = "dismissbutton2header1", on = Platform.WEB)
-  private Button dismissBanner;
-
-  @Locate(id = "attentive_creative", on = Platform.WEB)
-  private ContainerElement newBannerIFrame;
-
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper()

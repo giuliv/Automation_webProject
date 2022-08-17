@@ -2,16 +2,19 @@ package com.applause.auto.new_web.views;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.*;
 import com.applause.auto.web.components.AccountMenuChunk;
+
+import java.time.Duration;
 import java.util.List;
 
 @Implementation(is = CoffeeBarPage.class, on = Platform.WEB)
-public class CoffeeBarPage extends BaseComponent {
+public class CoffeeBarPage extends Base {
 
   /* -------- Elements -------- */
 
@@ -79,6 +82,12 @@ public class CoffeeBarPage extends BaseComponent {
 
   @Locate(xpath = "//a[contains(text(),'Sign Up')]", on = Platform.WEB)
   private Link getSignUp;
+
+  @Override
+  public void afterInit() {
+    logger.info("Current URL - [{}]", SdkHelper.getDriver().getCurrentUrl());
+    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
+  }
 
   public AccountMenuChunk getAccountMenu() {
     logger.info("Getting Account Menu");

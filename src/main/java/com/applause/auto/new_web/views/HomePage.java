@@ -178,33 +178,27 @@ public class HomePage extends Base {
   @Locate(id = "attentive_creative", on = Platform.WEB)
   protected ContainerElement specialOfferFrame;
 
-  @Locate(id = "dismissbutton2header1", on = Platform.WEB)
-  private Button dismissBanner;
-
-  @Locate(id = "attentive_creative", on = Platform.WEB)
-  private ContainerElement newBannerIFrame;
-
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
     logger.info("Peet's Home URL: " + SdkHelper.getDriver().getCurrentUrl());
 
-    if (!WebHelper.getTestExecution().equals("local")) {
-      if (closeModal.exists()) {
-        logger.info("Close peets.com Modal");
-        SdkHelper.getSyncHelper().wait(Until.uiElement(closeModal).clickable());
-        closeModal.click();
-      }
-
-      if (!WebHelper.isDesktop() && allowCookies.exists()) {
-        logger.info("Accept Cookies");
-        WebHelper.jsClick(allowCookies.getWebElement());
-      }
-
-      WebHelper.clickButtonOverIFrame(specialOfferFrame, closeSpecialOfferButton);
-      WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
+    //    if (!WebHelper.getTestExecution().equals("local")) {
+    if (closeModal.exists()) {
+      logger.info("Close peets.com Modal");
+      SdkHelper.getSyncHelper().wait(Until.uiElement(closeModal).clickable());
+      closeModal.click();
     }
+
+    if (!WebHelper.isDesktop() && allowCookies.exists()) {
+      logger.info("Accept Cookies");
+      WebHelper.jsClick(allowCookies.getWebElement());
+    }
+
+    WebHelper.clickButtonOverIFrame(specialOfferFrame, closeSpecialOfferButton);
+    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
   }
+  //  }
 
   /* -------- Actions -------- */
 
@@ -341,10 +335,10 @@ public class HomePage extends Base {
     return freshnessStampSectionDescription.getText().trim();
   }
 
-  public ProductDetailsPage clickCarouselButton() {
+  public ProductListPage clickCarouselButton() {
     logger.info("Clicking carousel shop now button");
     SdkHelper.getSyncHelper().wait(Until.uiElement(carouselButton).clickable()).click();
-    return SdkHelper.create(ProductDetailsPage.class);
+    return SdkHelper.create(ProductListPage.class);
   }
 
   public ProductListPage clickShowAllBestSellersButton() {

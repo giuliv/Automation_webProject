@@ -174,12 +174,6 @@ public class ProductListPage extends Base {
       on = Platform.WEB)
   private ContainerElement flavorBodyProgressBar;
 
-  @Locate(id = "dismissbutton2header1", on = Platform.WEB)
-  private Button dismissBanner;
-
-  @Locate(id = "attentive_creative", on = Platform.WEB)
-  private ContainerElement newBannerIFrame;
-
   @Override
   public void afterInit() {
     if (WebHelper.isSafari()) {
