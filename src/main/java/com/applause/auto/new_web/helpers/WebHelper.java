@@ -121,7 +121,7 @@ public class WebHelper {
   }
 
   public static void clickButtonOverIFrame(BaseElement frame, BaseElement button) {
-    if (frame.exists()) {
+    if (exists(frame, 10)) {
       logger.info("Switching to special offer frame...");
       switchToIFrame(frame);
 

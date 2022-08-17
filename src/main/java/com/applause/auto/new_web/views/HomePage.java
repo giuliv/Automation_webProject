@@ -178,12 +178,18 @@ public class HomePage extends Base {
   @Locate(id = "attentive_creative", on = Platform.WEB)
   protected ContainerElement specialOfferFrame;
 
+  @Locate(id = "dismissbutton2header1", on = Platform.WEB)
+  private Button dismissBanner;
+
+  @Locate(id = "attentive_creative", on = Platform.WEB)
+  private ContainerElement newBannerIFrame;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
     logger.info("Peet's Home URL: " + SdkHelper.getDriver().getCurrentUrl());
 
-//    if (!WebHelper.getTestExecution().equals("local")) {
+    if (!WebHelper.getTestExecution().equals("local")) {
       if (closeModal.exists()) {
         logger.info("Close peets.com Modal");
         SdkHelper.getSyncHelper().wait(Until.uiElement(closeModal).clickable());
@@ -196,8 +202,9 @@ public class HomePage extends Base {
       }
 
       WebHelper.clickButtonOverIFrame(specialOfferFrame, closeSpecialOfferButton);
+      WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
     }
-//  }
+  }
 
   /* -------- Actions -------- */
 

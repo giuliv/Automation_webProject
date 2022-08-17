@@ -103,6 +103,12 @@ public class MyAccountPage extends Base {
   @Locate(css = ".my-cards__actions a[href*='gift']", on = Platform.WEB)
   private Button buyNewPeetsCardButton;
 
+  @Locate(id = "dismissbutton2header1", on = Platform.WEB)
+  private Button dismissBanner;
+
+  @Locate(id = "attentive_creative", on = Platform.WEB)
+  private ContainerElement newBannerIFrame;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper()
@@ -114,6 +120,8 @@ public class MyAccountPage extends Base {
     } catch (Exception e) {
       logger.error(e.getMessage());
     }
+
+    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
     logger.info("My Account Page URL: " + getDriver().getCurrentUrl());
   }
 
