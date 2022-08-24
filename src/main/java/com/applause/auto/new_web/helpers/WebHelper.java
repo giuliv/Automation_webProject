@@ -704,4 +704,8 @@ public class WebHelper {
 
     SdkHelper.getDriver().switchTo().window(currentWindow);
   }
+
+  public static boolean useRetry() {
+    return !System.getProperty("useRetry", "yes").toLowerCase().equals("no");
+  }
 }

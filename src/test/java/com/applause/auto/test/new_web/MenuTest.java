@@ -6,7 +6,7 @@ import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.CoffeeBarPage;
 import com.applause.auto.new_web.views.EmailSignUpPage;
-import com.applause.auto.web.components.AccountMenuChunk;
+import com.applause.auto.new_web.components.AccountMenuChunk;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

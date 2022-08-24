@@ -1,4 +1,4 @@
-package com.applause.auto.web.components;
+package com.applause.auto.new_web.components;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.new_web.helpers.WebHelper;
@@ -24,7 +24,7 @@ public class NeverMissAnOfferChunk extends BaseComponent {
   private Text message;
 
   /**
-   * Click on type an emain in Never miss an offer.
+   * Click on type an email in Never miss an offer.
    *
    * @return NeverMissAnOfferChunk
    */

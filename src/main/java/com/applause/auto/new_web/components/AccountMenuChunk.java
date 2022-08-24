@@ -1,13 +1,10 @@
-package com.applause.auto.web.components;
+package com.applause.auto.new_web.components;
 
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
-import com.applause.auto.web.helpers.WebHelper;
-import com.applause.auto.web.views.Landing;
 import lombok.Getter;
 
 @Implementation(is = AccountMenuChunk.class, on = Platform.WEB)
@@ -39,18 +36,4 @@ public class AccountMenuChunk extends BaseComponent {
   @Locate(css = ".header .icon--cart-black", on = Platform.WEB)
   private Button getCartButton;
 
-  /* -------- Actions -------- */
-
-  /**
-   * Click Close Button on explore-dashboard-modal
-   *
-   * @return DashboardPage
-   */
-  public Landing signOut() {
-    logger.info("Expanding menu");
-    WebHelper.jsClick(getExpandMenuButton.getWebElement());
-    logger.info("Click on Sign Out button");
-    WebHelper.jsClick(getSignOutButton.getWebElement());
-    return SdkHelper.create(Landing.class);
-  }
 }

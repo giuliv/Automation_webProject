@@ -10,13 +10,12 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.*;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
-import com.applause.auto.web.components.NeverMissAnOfferChunk;
-import com.applause.auto.web.components.OtherPurchasedItemChunk;
+import com.applause.auto.new_web.components.NeverMissAnOfferChunk;
+import com.applause.auto.new_web.components.OtherPurchasedItemChunk;
 import io.qameta.allure.Step;
 import java.time.Duration;
 import java.util.List;
 import lombok.Getter;
-import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = CartPage.class, on = Platform.WEB)
 @Implementation(is = CartPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
