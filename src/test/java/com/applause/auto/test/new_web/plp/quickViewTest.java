@@ -6,7 +6,9 @@ import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.components.QuickViewComponent;
 import com.applause.auto.new_web.components.plp.PlpLearnMoreOverlappingComponent;
 import com.applause.auto.new_web.components.plp.PlpSignInOverlappingComponent;
+import com.applause.auto.new_web.views.HomePage;
 import com.applause.auto.new_web.views.ProductListPage;
+import com.applause.auto.new_web.views.SearchResultsPage;
 import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -95,18 +97,21 @@ public class quickViewTest extends BaseTest {
       groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
       description = "11107487")
   public void shopRunnerTest() {
+    logger.info("1. Navigate to Home");
+    HomePage homePage = navigateToHome();
 
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP(TestData.COFFEE_BEST_SELLERS_URL);
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+    logger.info("2. Search for the product: {}", coffeeSelected);
+    SearchResultsPage searchResultsPage =
+        homePage.getHeader().getSearchComponent().search(coffeeSelected);
 
-    logger.info("2. Open QuickView Modal");
-    QuickViewComponent quickViewComponent = productListPage.clickOverFirstQuickViewButton();
+    logger.info("3. Open QuickView Modal");
+    QuickViewComponent quickViewComponent =
+        searchResultsPage.clickOverQuickViewByProduct(coffeeSelected);
 
-    logger.info("3. Validate Shop Runner UI Elements of ShopRunner");
+    logger.info("4. Validate Shop Runner UI Elements of ShopRunner");
     quickViewComponent.validateShopRunnerUIElements().assertAll();
 
-    logger.info("4. Click LearnMore and Verify LearnMore overlapping Modal Free shipping Text");
+    logger.info("5. Click LearnMore and Verify LearnMore overlapping Modal Free shipping Text");
     PlpLearnMoreOverlappingComponent learMoreOverlapping = quickViewComponent.clickLearnMoreLink();
     softAssert.assertEquals(
         learMoreOverlapping.getShippingText(),
@@ -114,7 +119,7 @@ public class quickViewTest extends BaseTest {
         "FREE 2-Day Shipping & Free Returns Text is not displayed");
     quickViewComponent = learMoreOverlapping.clickCloseButton(QuickViewComponent.class);
 
-    logger.info("5. Click Sign In Link and Verify SignIn overlapping Modal");
+    logger.info("6. Click Sign In Link and Verify SignIn overlapping Modal");
     PlpSignInOverlappingComponent signInOverlapping = quickViewComponent.clickSignInLink();
     signInOverlapping.validateShopRunnerSignInModalUIElements().assertAll();
   }
@@ -124,23 +129,28 @@ public class quickViewTest extends BaseTest {
       description = "11107488")
   public void teaItemTest() {
 
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+    logger.info("1. Navigate to Home");
+    HomePage homePage = navigateToHome();
 
-    logger.info("2. Open QuickView Modal");
-    QuickViewComponent quickViewComponent = productListPage.clickOverFirstQuickViewButton();
+    logger.info("2. Search for the product: {}", TestData.TEA_JASMINE);
+    SearchResultsPage searchResultsPage =
+        homePage.getHeader().getSearchComponent().search(TestData.TEA_JASMINE);
 
+    logger.info("3. Open QuickView Modal");
+    QuickViewComponent quickViewComponent =
+        searchResultsPage.clickOverQuickViewByProduct(TestData.TEA_JASMINE);
+
+    // Todo:Need to improve this way to validate this things, it sucks
     logger.info("3. Select the alternate option and verify the selected option");
     quickViewComponent.selectOption(1);
     Assert.assertTrue(
         quickViewComponent.selectedOptionText().contains(TestData.GRIND_NEXT_TEXT),
-        "Selected Drop Down Value Mismatches" + quickViewComponent.selectedOptionText());
+        "Selected Drop Down Value Mismatches " + quickViewComponent.selectedOptionText());
 
     quickViewComponent.selectOption(0);
     Assert.assertTrue(
         quickViewComponent.selectedOptionText().contains(TestData.GRIND_FIRST_TEXT),
-        "Selected Drop Down Value Mismatches" + quickViewComponent.selectedOptionText());
+        "Selected Drop Down Value Mismatches " + quickViewComponent.selectedOptionText());
 
     logger.info("4. Decrease the Quantity value using Minus Button and check InActive state");
     int initialQuantity;

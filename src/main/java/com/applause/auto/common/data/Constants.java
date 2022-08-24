@@ -293,6 +293,7 @@ public class Constants {
     public static final String ALL_TEA_HOVER = "All Tea";
     public static final String COFFEE_HOVER_BLEND = "anniversary-blend";
     public static final String COFFEE_HOVER_SUMATRA = "sumatra-batak";
+    public static final String TEA_JASMINE = "jasmine-downy-pearls";
     public static final String COFFEE_HOVER_FINDER = "coffee-finder";
     public static final String TEA_HOVER_FINDER = "tea-finde";
     public static final String TEA_HOVER_MIGHTY_LEAF = "mighty-leaf";
@@ -302,8 +303,8 @@ public class Constants {
     public static final String DARK_ROAST_HEADER = "DARK ROAST";
     public static final String TEA_BEST_SELLERS_HEADER = "Tea Best Sellers";
 
-    public static final String GRIND_FIRST_TEXT = "WHOLE BEAN";
-    public static final String GRIND_NEXT_TEXT = "DRIP";
+    public static final String GRIND_FIRST_TEXT = "4 OZ TIN";
+    public static final String GRIND_NEXT_TEXT = "1 LB";
 
     public static final String PDP_HAND_ROAST_TO_ORDER = "Hand Roasted to Order";
     public static final String PDP_SEALED_FOR_FRESHNESS = "Sealed for Freshness";

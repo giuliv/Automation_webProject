@@ -4,15 +4,16 @@ import com.applause.auto.common.data.Constants.WebTestData;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.new_web.components.QuickViewComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
 import java.util.List;
-import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = SearchResultsPage.class, on = Platform.WEB)
 @Implementation(is = SearchResultsPage.class, on = Platform.WEB_MOBILE_PHONE)
@@ -29,6 +30,12 @@ public class SearchResultsPage extends Base {
 
   @Locate(css = "h2.collection__empty-heading", on = Platform.WEB)
   private Text emptySearchResultMessage;
+
+  @Locate(
+      xpath =
+          "//h3/a[contains(@href, \"/products/%s\")]/ancestor::li//div[@class='pi__quick-add']/button",
+      on = Platform.WEB)
+  private Button quickViewButton;
 
   @Override
   public void afterInit() {
@@ -79,5 +86,19 @@ public class SearchResultsPage extends Base {
     }
 
     return true;
+  }
+
+  @Step("Click quick view")
+  public QuickViewComponent clickOverQuickViewByProduct(String coffeeName) {
+    quickViewButton.format(coffeeName).initialize();
+    WebHelper.scrollToElement(quickViewButton);
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    WebHelper.hoverByAction(quickViewButton);
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    logger.info("Clicking QuickView button");
+    quickViewButton.click();
+    return SdkHelper.create(QuickViewComponent.class);
   }
 }
