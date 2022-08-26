@@ -2,7 +2,6 @@ package com.applause.auto.mobile.components;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -11,7 +10,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 
 /** Order Menu chunk. */
 @Implementation(is = MapView.class, on = Platform.MOBILE_ANDROID)
-@Implementation(is = IosMapView.class, on = Platform.MOBILE_IOS)
+@Implementation(is = MapView.class, on = Platform.MOBILE_IOS)
 public class MapView extends BaseComponent {
 
   /* -------- Elements -------- */
@@ -30,27 +29,5 @@ public class MapView extends BaseComponent {
 
   public void afterInit() {
     SdkHelper.getSyncHelper().waitUntil(condition -> mapSignature.isDisplayed());
-  }
-
-  /**
-   * Return to peets app t.
-   *
-   * @param <T> the type parameter
-   * @param clazz the clazz
-   * @return the t
-   */
-  public <T extends BaseComponent> T returnToPeetsApp(Class<T> clazz) {
-    logger.info("Return back to app");
-    SdkHelper.getDeviceControl().pressAndroidKeyBack();
-    return SdkHelper.create(clazz);
-  }
-}
-
-class IosMapView extends MapView {
-  @Override
-  public <T extends BaseComponent> T returnToPeetsApp(Class<T> clazz) {
-    logger.info("Return back to app");
-    MobileHelper.tap(0.01, 0.01);
-    return SdkHelper.create(clazz);
   }
 }

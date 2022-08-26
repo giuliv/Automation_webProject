@@ -13,8 +13,6 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import java.time.Duration;
-import java.util.stream.IntStream;
-import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = ProductDetailsView.class, on = Platform.MOBILE_IOS)
 @Implementation(is = AndroidProductDetailsView.class, on = Platform.MOBILE_ANDROID)
@@ -187,15 +185,6 @@ public class ProductDetailsView extends BaseComponent {
   /* -------- Actions -------- */
 
   /**
-   * Get the text vaalue of the heading
-   *
-   * @return
-   */
-  public String getHeadingTextValue() {
-    return getHeadingText.getText();
-  }
-
-  /**
    * Select modifiers product details view.
    *
    * @param category the category
@@ -260,39 +249,6 @@ public class ProductDetailsView extends BaseComponent {
     return SdkHelper.create(MilkPrepView.class);
   }
 
-  public ShotOptionsView selectShotOptions() {
-    MobileHelper.scrollElementIntoView(selectShotOptionsButton);
-    SdkHelper.getDeviceControl().tapElementCenter(selectShotOptionsButton);
-    return SdkHelper.create(ShotOptionsView.class);
-  }
-
-  public SweetenersView selectSweeteners() {
-    MobileHelper.scrollElementIntoView(selectSweetenersButton);
-    selectSweetenersButton.click();
-    return SdkHelper.create(SweetenersView.class);
-  }
-
-  public ToppingsView selectToppings() {
-    int attempt = 5;
-    if (selectToppingsButton.exists() && selectToppingsButton.isDisplayed()) {
-      selectToppingsButton.click();
-    } else {
-      IntStream.range(0, attempt)
-          .forEach(
-              i -> {
-                MobileHelper.scrollUpCloseToMiddleAlgorithm();
-              });
-      SdkHelper.getSyncHelper().sleep(1000);
-      while (attempt-- > 0
-          && !(selectToppingsButton.exists() && selectToppingsButton.isDisplayed())) {
-        MobileHelper.scrollDownCloseToMiddleAlgorithm();
-        SdkHelper.getSyncHelper().sleep(1000);
-      }
-      selectToppingsButton.click();
-    }
-    return SdkHelper.create(ToppingsView.class);
-  }
-
   public ProductDetailsView selectQuantity(String quantity) {
     MobileHelper.scrollElementIntoView(increaseQuantityButton);
     int attempts = 5;
@@ -307,28 +263,9 @@ public class ProductDetailsView extends BaseComponent {
     return this;
   }
 
-  public SyrupsAndSaucesView selectSyrups() {
-    MobileHelper.scrollElementIntoView(selectSyrupsAndSaucesButton);
-    SdkHelper.getDeviceControl().tapElementCenter(selectSyrupsAndSaucesButton);
-    return SdkHelper.create(SyrupsAndSaucesView.class);
-  }
-
   public String getCost() {
     String result = costText.getText();
     logger.info("Cost: " + result);
-    return result;
-  }
-
-  public String getModifies(String modifier) {
-    MobileHelper.scrollUpCloseToMiddleAlgorithm();
-    try {
-      modifiersText.format(modifier).initialize();
-    } catch (NoSuchElementException nse) {
-      MobileHelper.scrollDownCloseToMiddleAlgorithm();
-      modifiersText.format(modifier).initialize();
-    }
-    String result = modifiersText.getText();
-    logger.info("Modifiers for " + modifier + " found: " + result);
     return result;
   }
 
@@ -336,30 +273,6 @@ public class ProductDetailsView extends BaseComponent {
     logger.info("Select Warming");
     warmingButton.click();
     return SdkHelper.create(FoodWarmingView.class);
-  }
-
-  public OatmealToppingsView selectOatmealToppings() {
-    logger.info("Select Oatmeal Toppings");
-    oatmealToppingsButton.click();
-    return SdkHelper.create(OatmealToppingsView.class);
-  }
-
-  public AddCreamCheeseView selectAddCreamCheese() {
-    logger.info("Select Add Cream Cheese");
-    addCreamCheeseButton.click();
-    return SdkHelper.create(AddCreamCheeseView.class);
-  }
-
-  public boolean isBackButtonDisplayed() {
-    return getBackButton.isDisplayed();
-  }
-
-  public boolean isGarbageIconDisplayed() {
-    return garbageButton.isDisplayed();
-  }
-
-  public boolean isUpdateOrderButtonDisplayed() {
-    return updateOrderButton.isDisplayed();
   }
 
   public CheckoutView updateOrder() {
@@ -388,44 +301,6 @@ class AndroidProductDetailsView extends ProductDetailsView {
   }
 
   @Override
-  public ToppingsView selectToppings() {
-    int attempt = 5;
-    try {
-      selectToppingsButton.click();
-    } catch (NoSuchElementException nse) {
-      IntStream.range(0, attempt)
-          .forEach(
-              i -> {
-                MobileHelper.scrollUpCloseToMiddleAlgorithm();
-              });
-      SdkHelper.getSyncHelper().sleep(1000);
-      while (attempt-- > 0 && !selectToppingsButton.exists()) {
-        MobileHelper.scrollDownCloseToMiddleAlgorithm();
-        SdkHelper.getSyncHelper().sleep(1000);
-      }
-      selectToppingsButton.click();
-    }
-    return SdkHelper.create(ToppingsView.class);
-  }
-
-  @Override
-  public SweetenersView selectSweeteners() {
-    if (selectSweetenersButton.exists() && selectSweetenersButton.isDisplayed()) {
-      selectSweetenersButton.click();
-    } else {
-      MobileHelper.scrollDownCloseToMiddleAlgorithm();
-      selectSweetenersButton.click();
-    }
-    return SdkHelper.create(SweetenersView.class);
-  }
-
-  @Override
-  public SyrupsAndSaucesView selectSyrups() {
-    selectSyrupsAndSaucesButton.click();
-    return SdkHelper.create(SyrupsAndSaucesView.class);
-  }
-
-  @Override
   public MilkPrepView selectMilkPrep() {
     if (selectMilkPrepButton.exists() && selectMilkPrepButton.isDisplayed()) {
       selectMilkPrepButton.click();
@@ -434,12 +309,6 @@ class AndroidProductDetailsView extends ProductDetailsView {
       selectMilkPrepButton.click();
     }
     return SdkHelper.create(MilkPrepView.class);
-  }
-
-  @Override
-  public ShotOptionsView selectShotOptions() {
-    selectShotOptionsButton.click();
-    return SdkHelper.create(ShotOptionsView.class);
   }
 
   @Override

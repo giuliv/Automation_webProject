@@ -91,17 +91,6 @@ public class LandingView extends BaseComponent {
   }
 
   /**
-   * Swipe left on tutorial view and expect to arrive at next view
-   *
-   * @return
-   */
-  public ExploreOffersView swipeLeftOnScreen() {
-    logger.info("Swiping left to get to next tutorial view");
-    SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
-    return SdkHelper.create(ExploreOffersView.class);
-  }
-
-  /**
    * Create account SdkHelper.create account view.
    *
    * @return the SdkHelper.create account view
@@ -140,17 +129,6 @@ public class LandingView extends BaseComponent {
       logger.info("Skip button was clicked correctly");
     } catch (Exception e) {
       logger.error("Error while skipping the Landing View");
-    }
-  }
-
-  /** Dismiss Try Mobile Order Ahead */
-  public void dismissTryMobileOrderAhead() {
-    logger.info("Looking for Try Mobile Order Ahead popup");
-    if (getTryMobileOrderAheadPopupChunk().isDismissButtonDisplayed()) {
-      logger.info("Popup found. Clicking on dismiss button");
-      getTryMobileOrderAheadPopupChunk().clickDismissButton();
-    } else {
-      logger.info("Popup not found. Moving on");
     }
   }
 

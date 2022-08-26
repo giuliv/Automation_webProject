@@ -75,16 +75,6 @@ public class CoffeeStoreItemChuck extends BaseComponent {
   }
 
   /**
-   * Is coffeebar distance displayed boolean.
-   *
-   * @return the boolean
-   */
-  public boolean isCoffeebarDistanceDisplayed() {
-    logger.info("Verifying if store distance displayed");
-    return getStoreDetailsItem.getText().matches("(?s).*\\d miles away");
-  }
-
-  /**
    * Is coffeebar open hours displayed boolean.
    *
    * @return the boolean
@@ -127,12 +117,6 @@ class AndroidCoffeeStoreItemChuck extends CoffeeStoreItemChuck {
     } catch (WebDriverException e) {
       return null;
     }
-  }
-
-  @Override
-  public boolean isCoffeebarDistanceDisplayed() {
-    logger.info("Verifying if store distance displayed");
-    return getStoreDistanceText.getText().matches("(?s).*\\d miles away");
   }
 
   @Override

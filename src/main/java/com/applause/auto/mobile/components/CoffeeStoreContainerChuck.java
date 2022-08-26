@@ -135,18 +135,6 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
   }
 
   /**
-   * Is coffeebar distance displayed boolean.
-   *
-   * @return the boolean
-   */
-  public boolean isCoffeebarDistanceDisplayed() {
-    logger.info("Verifying if store distance displayed");
-    getStoreDetailsItem.format("miles away");
-    getStoreDetailsItem.initialize();
-    return getStoreDetailsItem.isDisplayed();
-  }
-
-  /**
    * Is coffeebar location displayed boolean.
    *
    * @param address the address

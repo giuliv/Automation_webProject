@@ -100,26 +100,13 @@ public class StoreDetailsView extends BaseComponent {
   /* -------- Actions -------- */
 
   /**
-   * Select search result by index product details view.
-   *
-   * @param index the index
-   * @return the product details view
-   */
-  public ProductDetailsView selectSearchResultByIndex(int index) {
-    logger.info("Select search result");
-    getSearchResultsElements.get(index).click();
-    return SdkHelper.create(ProductDetailsView.class);
-  }
-
-  /**
    * Gets results.
    *
    * @return the results
    */
   public List<String> getResults() {
     logger.info("Looking for results");
-    return getSearchResultsElements
-        .stream()
+    return getSearchResultsElements.stream()
         .map(item -> item.getText())
         .collect(Collectors.toList());
   }

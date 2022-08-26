@@ -18,7 +18,6 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import io.qameta.allure.Step;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.openqa.selenium.Dimension;
 
 @Implementation(is = AndroidCreateAccountView.class, on = Platform.MOBILE_ANDROID)
@@ -377,19 +376,6 @@ public class CreateAccountView extends BaseComponent {
     return this;
   }
 
-  /**
-   * Sets confirmation password.
-   *
-   * @param password the password
-   * @return the confirmation password
-   */
-  public CreateAccountView setConfirmationPassword(String password) {
-    logger.info("Set confirmation password to: " + password);
-    getConfirmPasswordTextBox.clearText();
-    getConfirmPasswordTextBox.sendKeys(password + "\n");
-    return this;
-  }
-
   @Step("Set Promo code")
   public CreateAccountView setPromo(String promo) {
     logger.info("Set promo to: [{}]", promo);
@@ -530,11 +516,6 @@ public class CreateAccountView extends BaseComponent {
     return lastnameTextBox.isDisplayed();
   }
 
-  public boolean isZipCodeDisplayed() {
-    logger.info("Checking zip code field displayed");
-    return getZipCodeTextBox.isDisplayed();
-  }
-
   public boolean isDobTextDisplayed() {
     logger.info("Checking dob text field displayed");
     return getDOBGiftTextBox.getCurrentText().equals(Constants.TestData.BIRTHDAY_MESSAGE_IOS);
@@ -545,39 +526,9 @@ public class CreateAccountView extends BaseComponent {
     return emailAddressTextBox.isDisplayed();
   }
 
-  public boolean isConfirmEmailAddressDisplayed() {
-    logger.info("Checking confirm email field displayed");
-    return getConfirmEmailAddressTextBox.isDisplayed();
-  }
-
-  public boolean isPhoneNumberDisplayed() {
-    logger.info("Checking phone field displayed");
-    return getPhoneNumberTextBox.isDisplayed();
-  }
-
   public boolean isPasswordDisplayed() {
     logger.info("Checking password field displayed");
     return passwordTextBox.isDisplayed();
-  }
-
-  public boolean isConfirmPasswordDisplayed() {
-    logger.info("Checking confirm password field displayed");
-    MobileHelper.scrollDownHalfScreen(1);
-    return getConfirmPasswordTextBox.isDisplayed();
-  }
-
-  public boolean isPasswordTextDisplayed() {
-    logger.info("Checking password text displayed");
-    passwordTextBox.sendKeys(" ");
-    boolean result =
-        getPasswordHintTextBox.stream()
-            .map(item -> item.getText())
-            .collect(Collectors.joining("\n"))
-            .equals(
-                "At least 6 characters\n" + "At least 1 number\n" + "At least 1 lowercase letter");
-    passwordTextBox.clearText();
-    passwordTextBox.sendKeys("\n");
-    return result;
   }
 
   public boolean isPromocodeTextDisplayed() {
@@ -710,14 +661,6 @@ class AndroidCreateAccountView extends CreateAccountView {
     return this;
   }
 
-  public CreateAccountView setConfirmationPassword(String password) {
-    logger.info("Set confirmation password to: " + password);
-    getConfirmPasswordTextBox.clearText();
-    getConfirmPasswordTextBox.sendKeys(password);
-    SdkHelper.getDeviceControl().hideKeyboard();
-    return this;
-  }
-
   public CreateAccountView setPhoneNumber(String phone) {
     logger.info("Set phone number to: " + phone);
     getPhoneNumberTextBox.clearText();
@@ -743,28 +686,6 @@ class AndroidCreateAccountView extends CreateAccountView {
     getConfirmEmailAddressTextBox.sendKeys(emailAddress);
     SdkHelper.getDeviceControl().hideKeyboard();
     return this;
-  }
-
-  public boolean isPasswordTextDisplayed() {
-    logger.info("Checking password text displayed");
-    passwordTextBox.click();
-    passwordTextBox.sendKeys("A");
-    SdkHelper.getDeviceControl().hideKeyboard();
-    String pHint =
-        getPasswordHintTextBox.stream()
-            .map(
-                item -> {
-                  String i = item.getText();
-                  logger.info("Password hint = " + i);
-                  return i;
-                })
-            .collect(Collectors.joining("\n"))
-            .trim();
-    logger.info("pHint: " + pHint);
-    boolean result =
-        pHint.equals(
-            "At least 6 characters\n" + "At least 1 number\n" + "At least 1 lowercase letter");
-    return result;
   }
 
   @Override

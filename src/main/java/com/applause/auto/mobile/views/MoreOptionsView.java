@@ -311,20 +311,6 @@ public class MoreOptionsView extends BaseComponent {
   }
 
   /**
-   * Sign out t.
-   *
-   * @param <T> the type parameter
-   * @param clazz the clazz
-   * @return the t
-   */
-  public <T extends BaseComponent> T signOut(Class<T> clazz) {
-    logger.info("Click on Sign Out button");
-    MobileHelper.swipeWithCount(SwipeDirection.UP, 5);
-    getSignOutButton.click();
-    return SdkHelper.create(clazz);
-  }
-
-  /**
    * Account activity view.
    *
    * @return the account activity view

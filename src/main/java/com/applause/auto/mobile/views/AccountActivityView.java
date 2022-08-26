@@ -70,16 +70,6 @@ public class AccountActivityView extends BaseComponent {
   }
 
   /**
-   * Gets transaction date divider.
-   *
-   * @param index the index
-   * @return the transaction date divider
-   */
-  public String getTransactionDateDivider(int index) {
-    return getTransactionDividersText.get(index).getAttributeValue("name");
-  }
-
-  /**
    * Gets transaction amount.
    *
    * @param index the index

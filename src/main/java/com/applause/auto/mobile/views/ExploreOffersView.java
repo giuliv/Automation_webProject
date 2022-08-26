@@ -1,8 +1,6 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.data.enums.SwipeDirection;
-import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -36,17 +34,6 @@ public class ExploreOffersView extends BaseComponent {
   protected ContainerElement getViewPager;
 
   /* -------- Actions -------- */
-
-  /**
-   * Swipe left on tutorial view and expect to arrive at next view
-   *
-   * @return
-   */
-  public PayFasterView swipeLeftOnScreen() {
-    logger.info("Swiping left to get to next tutorial view");
-    SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
-    return SdkHelper.create(PayFasterView.class);
-  }
 
   /**
    * Get the text vaalue of the heading

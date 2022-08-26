@@ -145,15 +145,6 @@ public class PeetsCardsTransferAmountWarningChunk extends BaseComponent {
   }
 
   /**
-   * Gets valid message could not process.
-   *
-   * @return the valid message could not process
-   */
-  public String getValidMessageCouldNotProcess() {
-    return "We couldn't process your transfer Please check your card number and pin code and try again. If there's no value remaining on the card you are trying to transfer, you won't be able to transfer value. If this issue persist, please contact Peet's customer serviceat cs@peets.com.";
-  }
-
-  /**
    * Is continue button displayed boolean.
    *
    * @return the boolean
@@ -209,9 +200,5 @@ class IOSPeetsCardsTransferAmountWarningChunk extends PeetsCardsTransferAmountWa
 
   public String getValidMessage() {
     return "One last thing When you transfer a card into the app, you will: Not be able to transfer the value back to the original card No longer be able to add funds to your physical card Be able to access the new value with your digital Peet’s Card located in the app.";
-  }
-
-  public String getValidMessageCouldNotProcess() {
-    return "We couldn’t process your transfer. Please check your card number and pin code and try again. If there's no value remaining on the card you are trying to transfer, you won't be able to transfer value. If this issue persists, please contact Peet's customer service at cs@peets.com.";
   }
 }

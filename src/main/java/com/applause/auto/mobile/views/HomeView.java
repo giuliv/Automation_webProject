@@ -90,13 +90,4 @@ public class HomeView extends BaseComponent {
     SdkHelper.getSyncHelper().sleep(5000);
     return SdkHelper.create(MoreOptionsView.class);
   }
-
-  @Step("Pat on the Stores button")
-  public <T extends BaseComponent> T tapOnStoresButton(Class<T> clazz) {
-    logger.info("Click on Location button");
-    SdkHelper.getSyncHelper()
-        .wait(Until.uiElement(storesButton).clickable().setTimeout(Duration.ofSeconds(50)));
-    storesButton.click();
-    return SdkHelper.create(clazz);
-  }
 }

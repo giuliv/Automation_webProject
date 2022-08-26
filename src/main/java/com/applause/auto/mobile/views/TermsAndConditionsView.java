@@ -26,14 +26,6 @@ public class TermsAndConditionsView extends BaseComponent {
 
   /* -------- Actions -------- */
 
-  /**
-   * Get the text value of the heading
-   *
-   * @return
-   */
-  public String getHeadingTextValue() {
-    return getHeadingText.getText();
-  }
 }
 
 class AndroidTermsAndConditionsView extends TermsAndConditionsView {

@@ -96,15 +96,6 @@ public class MobileHelper {
         return;
       } else if (isSamsungBrowserStarted) {
         throw new RuntimeException("Only Samsung browser suggested. Exiting");
-        // ((AppiumDriver) SdkHelper.getDriver())
-        //
-        // .findElementById("com.sec.android.app.sbrowser:id/help_intro_legal_optional_checkbox")
-        // .click();
-        // ((AppiumDriver) SdkHelper.getDriver())
-        //
-        // .findElementById("com.sec.android.app.sbrowser:id/help_intro_legal_agree_button")
-        // .click();
-        // SdkHelper.getSyncHelper().sleep(10000);
       } else if (isChromeBrowserStarted) {
         return;
       }
@@ -197,7 +188,6 @@ public class MobileHelper {
         String.format(
             "Add this offset to click: x = [%f] , y = [%f]", xRelativeOffset, yRelativeOffset));
     logger.info(String.format("Element center is: x = [%d] , y = [%d]", xCenter, yCenter));
-    // Dimension dimension = element.getDimension();
     int xAbsoluteOffset = (int) (xCenter + xRelativeOffset);
     int yAbsoluteOffset = (int) (yCenter + yRelativeOffset);
     logger.info(
@@ -307,27 +297,6 @@ public class MobileHelper {
   }
 
   /**
-   * Is attribtue present boolean.
-   *
-   * @param element the element
-   * @param attribute the attribute
-   * @return the boolean
-   */
-  public static boolean isAttribtuePresent(MobileElement element, String attribute) {
-    SdkHelper.getSyncHelper().sleep(5000);
-    Boolean result = false;
-    try {
-      String value = element.getAttribute(attribute);
-      if (value != null) {
-        result = true;
-      }
-    } catch (Exception e) {
-    }
-
-    return result;
-  }
-
-  /**
    * Sets picker value basic.
    *
    * @param value the value
@@ -387,12 +356,6 @@ public class MobileHelper {
     scrollDownAlgorithm(0.1, 0.6, 0.4);
   }
 
-  public static void scrollUpHalfScreen(int swipeLimit) {
-    refreshDeviceSize();
-    logger.info("Scrolling down half a screen");
-    scrollDownAlgorithm(0.1, 0.4, 0.6);
-  }
-
   public static void swipeAcrossScreenCoordinates(
       double startX, double startY, double endX, double endY, long millis) {
     logger.info(String.format("Swiping from [%s, %s] to [%s, %s].", startX, startY, endX, endY));
@@ -417,65 +380,12 @@ public class MobileHelper {
         .perform();
   }
 
-  /** Scrolling down view until 'element' will be available on the screen */
-  public static void scrollUntilElementSectionWillBeAvailableOnTheScreenInWebView(
-      BaseElement element, String elementName, int maxSwipingAttempts) {
-    int currentSwipingAttempts = 1;
-    SdkHelper.getSyncHelper().sleep(10000);
-    int screenHeight = 0;
-    int screenWidth = 0;
-    logger.info("Scrolling down to element: ", elementName);
-    while (currentSwipingAttempts <= maxSwipingAttempts) {
-      try {
-        SdkHelper.getSyncHelper()
-            .wait(Until.uiElement(element).present().setTimeout(Duration.ofSeconds(5)));
-        logger.info(elementName + " is present");
-        return;
-      } catch (UnsupportedCommandException uce) {
-        logger.info("UnsupportedCommandException catched");
-        ((AppiumDriver) SdkHelper.getDriver()).context("NATIVE_APP");
-        screenHeight = SdkHelper.getDeviceControl().getScreenSize().getHeight();
-        screenWidth = SdkHelper.getDeviceControl().getScreenSize().getWidth();
-        SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
-        SdkHelper.getSyncHelper().sleep(5000);
-        currentSwipingAttempts++;
-        logger.info("XML Dump: ", SdkHelper.getDriver().getPageSource());
-      } catch (WebDriverException e) {
-        logger.info(elementName + " is not present");
-        logger.info("Swipe attempt: " + currentSwipingAttempts);
-        SdkHelper.getDeviceControl()
-            .swipeAcrossScreenCoordinates(
-                screenWidth / 2,
-                (int) (screenHeight * 0.75),
-                screenWidth / 2,
-                (int) (screenHeight * 0.4),
-                1000);
-        SdkHelper.getSyncHelper().sleep(5000);
-        currentSwipingAttempts++;
-        logger.info("XML Dump: ", SdkHelper.getDriver().getPageSource());
-      }
-    }
-  }
-
   public static String getElementTextAttribute(BaseElement baseElement) {
     String textAttribute = "text";
     if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
       textAttribute = "value";
     }
     return baseElement.getAttributeValue(textAttribute);
-  }
-
-  public static BufferedImage getMobileScreenshotBufferedImage() {
-    byte[] screenShot = getMobileDriver().getScreenshotAs(OutputType.BYTES);
-    if (ArrayUtils.isNotEmpty(screenShot)) {
-      ByteArrayInputStream bais = new ByteArrayInputStream(screenShot);
-      try {
-        return ImageIO.read(bais);
-      } catch (IOException e) {
-        logger.info("Error reading input stream for screenshot image");
-        throw new RuntimeException(e);
-      }
-    } else throw new IllegalStateException("Was not able to get mobile screenshot");
   }
 
   public static RGB getMobileElementColour(MobileElement element) {

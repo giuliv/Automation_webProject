@@ -82,15 +82,6 @@ public class PeetsCardsTransferAmountChunk extends BaseComponent {
   public String getCardNumber() {
     return StringUtils.deleteWhitespace(getCardNumberTextBox.getAttributeValue("text"));
   }
-
-  /**
-   * Gets pin number.
-   *
-   * @return the pin number
-   */
-  public String getPinNumber() {
-    return StringUtils.deleteWhitespace(getCardPinTextBox.getAttributeValue("text"));
-  }
 }
 
 class IOSPeetsCardsTransferAmountChunk extends PeetsCardsTransferAmountChunk {
@@ -119,15 +110,6 @@ class IOSPeetsCardsTransferAmountChunk extends PeetsCardsTransferAmountChunk {
   @Override
   public String getCardNumber() {
     return StringUtils.deleteWhitespace(getCardNumberTextBox.getAttributeValue("value"));
-  }
-
-  /**
-   * Gets pin number.
-   *
-   * @return the pin number
-   */
-  public String getPinNumber() {
-    return StringUtils.deleteWhitespace(getCardPinTextBox.getAttributeValue("value"));
   }
 
   /**

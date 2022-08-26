@@ -179,19 +179,6 @@ public class PaymentMethodsView extends BaseComponent {
   }
 
   /**
-   * Click saved payment method 2 t.
-   *
-   * @param <T> the type parameter
-   * @param clazz the clazz
-   * @return the t
-   */
-  public <T extends BaseComponent> T clickSavedPaymentMethod2(Class<T> clazz) {
-    logger.info("Clicking Payment Method");
-    getSavedPaymentMethod2Button.click();
-    return SdkHelper.create(clazz);
-  }
-
-  /**
    * Click Payment Method and Save Changes
    *
    * @return CreditCardDetailsView
@@ -297,13 +284,6 @@ public class PaymentMethodsView extends BaseComponent {
 class AndroidPaymentMethodsView extends PaymentMethodsView {
 
   /* -------- Actions -------- */
-
-  public <T extends BaseComponent> T clickSavedPaymentMethod2(Class<T> clazz) {
-    logger.info("Selecting Saved card");
-    getSavedPaymentMethod2Button.click();
-    getSaveChangesButton.click();
-    return SdkHelper.create(clazz);
-  }
 
   public void clickBackButtonTwiceOnIos() {
     logger.info("Click back button once on android");

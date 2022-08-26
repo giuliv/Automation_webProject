@@ -44,42 +44,6 @@ public class RemoveFromOrderChunk extends BaseComponent {
   }
 
   /**
-   * Is title displayed boolean.
-   *
-   * @return the boolean
-   */
-  public boolean isTitleDisplayed() {
-    return titleText.isDisplayed();
-  }
-
-  /**
-   * Message text string.
-   *
-   * @return the string
-   */
-  public String messageText() {
-    return dialogMessageText.getText();
-  }
-
-  /**
-   * Is cancel button displayed boolean.
-   *
-   * @return the boolean
-   */
-  public boolean isCancelButtonDisplayed() {
-    return cancelButton.isDisplayed();
-  }
-
-  /**
-   * Is remove button displayed boolean.
-   *
-   * @return the boolean
-   */
-  public boolean isRemoveButtonDisplayed() {
-    return removeButton.isDisplayed();
-  }
-
-  /**
    * Remove checkout view.
    *
    * @return the checkout view

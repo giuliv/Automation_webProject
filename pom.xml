@@ -288,11 +288,6 @@
             <artifactId>auto-sdk-java-integrations</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.appium</groupId>
-            <artifactId>java-client</artifactId>
-            <version>7.6.0</version>
-        </dependency>
-        <dependency>
             <groupId>com.epam.reportportal</groupId>
             <artifactId>agent-java-testng</artifactId>
             <version>${report.portal.agent.testng.version}</version>

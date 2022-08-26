@@ -100,9 +100,6 @@ public class FindACoffeeBarView extends BaseComponent {
     return messageText.format(message).isDisplayed();
   }
 
-  /** Start new order. */
-  public void startNewOrder() {}
-
   /**
    * Open favorites tab find a coffee bar view.
    *

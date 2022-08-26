@@ -33,33 +33,6 @@ public class AllowLocationServicesSystemPopupChunk extends BaseComponent {
 
   /* -------- Actions -------- */
 
-  /**
-   * Gets title.
-   *
-   * @return the title
-   */
-  public String getImageAltText() {
-    return getImageAltTextText.getText();
-  }
-
-  /**
-   * Is allow button displayed boolean.
-   *
-   * @return the boolean
-   */
-  public boolean isAllowButtonDisplayed() {
-    return getAllowButton.isDisplayed();
-  }
-
-  /**
-   * Is do not allow button displayed boolean.
-   *
-   * @return the boolean
-   */
-  public boolean isDoNotAllowButtonDisplayed() {
-    return getDoNotAllowButton.isDisplayed();
-  }
-
   /** Allow. */
   public void allow() {
     logger.info("Tap Allow button");

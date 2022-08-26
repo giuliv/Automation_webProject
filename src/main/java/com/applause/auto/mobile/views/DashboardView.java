@@ -1,7 +1,6 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.mobile.components.BottomNavigationMenuChunk;
@@ -10,11 +9,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.TouchAction;
-import io.appium.java_client.touch.offset.PointOption;
 import java.time.Duration;
-import org.openqa.selenium.Point;
 
 @Implementation(is = DashboardView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosDashboardView.class, on = Platform.MOBILE_IOS)
@@ -69,51 +64,12 @@ public class DashboardView extends BaseComponent {
   }
 
   /**
-   * Gets account profile menu.
-   *
-   * @return the account profile menu
-   */
-  public MoreOptionsView getAccountProfileMenu() {
-    logger.info("Open account profile menu");
-    getMoreScreenButton.initialize();
-    Point elemCoord = getMoreScreenButton.getMobileElement().getCenter();
-    AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
-    new TouchAction(driver).tap(PointOption.point(elemCoord.getX(), elemCoord.getY())).perform();
-    SdkHelper.getSyncHelper().sleep(5000);
-    return SdkHelper.create(MoreOptionsView.class);
-  }
-
-  /**
    * Gets bottom navigation menu.
    *
    * @return the bottom navigation menu
    */
   public BottomNavigationMenuChunk getBottomNavigationMenu() {
     return SdkHelper.create(BottomNavigationMenuChunk.class);
-  }
-
-  /**
-   * Look up offer boolean.
-   *
-   * @param offerName the offer name
-   * @return the boolean
-   */
-  public boolean lookUpOffer(String offerName) {
-    int swipeLimit = 10;
-    while ((swipeLimit-- != 0) && (!isOfferDisplayed(offerName))) {
-      SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.LEFT);
-    }
-    return swipeLimit != 0;
-  }
-
-  private boolean isOfferDisplayed(String offerName) {
-    logger.info("Checking if order displayed");
-    try {
-      offerTitleText.format(offerName);
-      return offerTitleText.isDisplayed();
-    } catch (Throwable th) {
-      return false;
-    }
   }
 
   /**
@@ -136,32 +92,6 @@ class IosDashboardView extends DashboardView {
   public void afterInit() {
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
-  }
-
-  @Override
-  public MoreOptionsView getAccountProfileMenu() {
-    logger.info("Open account profile menu");
-    // int x = SdkHelper.getDriver().manage().window().getSize().width;
-    // int y = SdkHelper.getDriver().manage().window().getSize().height;
-
-    // AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
-    // if (!getMoreScreenButton.isDisplayed()) {
-    // logger.info("Clicking settings icon from coordinates");
-    // new TouchAction(driver).tap(PointOption.point((int) (x * 0.9), (int) (y *
-    // 0.05))).perform();
-    // } else {
-    // logger.info("Clicking settings icon");
-    // getMoreScreenButton.click();
-    // }
-
-    SdkHelper.getSyncHelper().sleep(8000);
-    getMoreScreenButton.initialize();
-    SdkHelper.getSyncHelper()
-        .wait(Until.uiElement(getMoreScreenButton).present().setTimeout(Duration.ofSeconds(45)));
-    SdkHelper.getDeviceControl().tapElementCenter(getMoreScreenButton);
-
-    SdkHelper.getSyncHelper().sleep(5000);
-    return SdkHelper.create(MoreOptionsView.class);
   }
 
   @Override

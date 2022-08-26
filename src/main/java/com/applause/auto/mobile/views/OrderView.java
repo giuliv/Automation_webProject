@@ -15,7 +15,6 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import java.time.Duration;
-import java.util.stream.IntStream;
 import lombok.Getter;
 
 @Implementation(is = OrderView.class, on = Platform.MOBILE_ANDROID)
@@ -248,12 +247,6 @@ public class OrderView extends BaseComponent {
     return SdkHelper.create(CheckoutView.class);
   }
 
-  public OrderView checkoutAtom() {
-    logger.info("Tap on Cart button");
-    getCartButton.click();
-    return this;
-  }
-
   /**
    * Checkout atom t.
    *
@@ -265,20 +258,6 @@ public class OrderView extends BaseComponent {
     logger.info("Tap on Cart button");
     getCartButton.click();
     return SdkHelper.create(clazz);
-  }
-
-  public CheckoutView confirmStore() {
-    logger.info("Tapping on 'Confirm Store' button");
-    getConfirmStoreButton.click();
-    return SdkHelper.create(CheckoutView.class);
-  }
-
-  public boolean isConfirmStoreButtonDisplayed() {
-    return getConfirmStoreButton.exists() && getConfirmStoreButton.isDisplayed();
-  }
-
-  public boolean isChangeStoreButtonDisplayed() {
-    return getChangeStoreButton.exists() && getChangeStoreButton.isDisplayed();
   }
 
   /**
@@ -391,22 +370,6 @@ public class OrderView extends BaseComponent {
     addToOrderButton.click();
     SdkHelper.getSyncHelper().sleep(2000);
     return SdkHelper.create(OrderView.class);
-  }
-
-  public String getFabAmount() {
-    String result = fabAmountText.getText();
-    logger.info("Cart items amout: " + result);
-    return result;
-  }
-
-  public ProductDetailsView selectSeasonalFavorites(String name) {
-    IntStream.range(0, 5)
-        .forEach(
-            i -> {
-              MobileHelper.scrollUpCloseToMiddleAlgorithm();
-            });
-    seasonalFavoriteProductItemText.format(name).click();
-    return SdkHelper.create(ProductDetailsView.class);
   }
 
   /**

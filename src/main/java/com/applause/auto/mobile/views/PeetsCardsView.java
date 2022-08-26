@@ -3,7 +3,6 @@ package com.applause.auto.mobile.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.mobile.components.BottomNavigationMenuChunk;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountChunk;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -132,15 +131,6 @@ public class PeetsCardsView extends BaseComponent {
       logger.info("Love peets coffee popup seems not present");
     }
     return SdkHelper.create(PeetsCardsView.class);
-  }
-
-  /**
-   * Gets bottom navigation menu.
-   *
-   * @return the bottom navigation menu
-   */
-  public BottomNavigationMenuChunk getBottomNavigationMenu() {
-    return SdkHelper.create(BottomNavigationMenuChunk.class);
   }
 
   public PeetsCardsTransferAmountChunk transferValue() {

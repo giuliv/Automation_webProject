@@ -96,15 +96,6 @@ public class PersonalSettingsView extends BaseComponent {
   /* -------- Actions -------- */
 
   /**
-   * Get the text vaalue of the heading
-   *
-   * @return
-   */
-  public String getHeadingTextValue() {
-    return getHeadingText.getText();
-  }
-
-  /**
    * Go back t.
    *
    * @param <T> the type parameter
@@ -125,15 +116,6 @@ public class PersonalSettingsView extends BaseComponent {
    */
   public boolean isPromoEmailOptionChecked() {
     return getPromotionalEmailsButton.getAttributeValue("value").equals("1");
-  }
-
-  /**
-   * Is push notification checked boolean.
-   *
-   * @return the boolean
-   */
-  public boolean isPushNotificationChecked() {
-    return getPushNotificationButton.getAttributeValue("value").equals("1");
   }
 
   /**
@@ -286,12 +268,6 @@ class AndroidPersonalSettingsView extends PersonalSettingsView {
   }
 
   @Override
-  public boolean isPushNotificationChecked() {
-    SdkHelper.getSyncHelper().sleep(3000);
-    return getPushNotificationButton.getAttributeValue("checked").equals("true");
-  }
-
-  @Override
   public boolean isLocationServicesChecked() {
     SdkHelper.getSyncHelper().sleep(3000);
     return getLocationServicesButton.getAttributeValue("checked").equals("true");
@@ -338,13 +314,6 @@ class AndroidPersonalSettingsView extends PersonalSettingsView {
   private void allowPeetsToAccessDeviceLocation() {
     logger.info("Accept modal 'Allo Peet's to access this device's location");
     MobileHelper.tapByCoordinatesOnElementCenter(allowPeetsToAccessDeviceLocationButton);
-  }
-
-  private void allowFindNearbyCoffeeBars() {
-    if (MobileHelper.isElementDisplayed(allowFindNearbyCoffeeBarsButton, 5)) {
-      logger.info("Allowing Location Services to help you find nearby Peet's Coffee");
-      allowFindNearbyCoffeeBarsButton.click();
-    }
   }
 
   @Override

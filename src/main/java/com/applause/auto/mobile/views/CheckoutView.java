@@ -200,8 +200,7 @@ public class CheckoutView extends BaseComponent {
     }
 
     if (areAvailableRewardsDisplayed) {
-      availableRewards
-          .stream()
+      availableRewards.stream()
           .filter(item -> getElementTextAttribute(item).startsWith(awardText))
           .findAny()
           .orElseThrow(
@@ -257,36 +256,16 @@ public class CheckoutView extends BaseComponent {
     return orderedItems.size();
   }
 
-  /** unused */
-  private void waitForRewardIsNotValid() {
-    logger.info("Waiting for 'reward not valid' message");
-    try {
-      SdkHelper.getSyncHelper().waitUntil(condition -> selectedRewardIsNotValid.isEnabled());
-      logger.info("'reward not valid' message appeared");
-      SdkHelper.getSyncHelper().sleep(1000);
-      okayPopUpButton.click();
-      SdkHelper.getDeviceControl().tapElementCenter(okayPopUpButton);
-    } catch (Exception e) {
-      logger.info("'reward not valid' message didn't appear");
-    }
-    SdkHelper.getSyncHelper().sleep(1000);
-  }
-
   public ItemOptions getItemOptions(String itemName) {
     ((IOSDriver) SdkHelper.getDriver()).setSetting("snapshotMaxDepth", 99);
     MobileHelper.scrollElementIntoView(itemOptionsText.format(itemName));
     itemOptionsList.format(itemName).initialize();
-    itemOptionsList
-        .stream()
+    itemOptionsList.stream()
         .forEach(
             i -> {
               logger.info("Found options: " + i.getText());
             });
     return new ItemOptions(itemOptionsList);
-  }
-
-  public CheckoutView refreshView() {
-    return SdkHelper.create(CheckoutView.class);
   }
 
   /**
@@ -353,33 +332,6 @@ public class CheckoutView extends BaseComponent {
     } catch (Throwable th) {
       return false;
     }
-  }
-
-  /**
-   * Cost of string.
-   *
-   * @param productName the product name
-   * @return the string
-   */
-  public String costOf(String productName) {
-    int attempt = 2;
-    try {
-      itemCostText.format(productName).initialize();
-    } catch (Throwable th) {
-      IntStream.range(0, attempt)
-          .forEach(
-              i -> {
-                MobileHelper.scrollUpCloseToMiddleAlgorithm();
-              });
-    }
-
-    while (attempt-- > 0 && !itemCostText.exists()) {
-      MobileHelper.scrollDownCloseToMiddleAlgorithm();
-      SdkHelper.getSyncHelper().sleep(1000);
-    }
-
-    itemCostText.format(productName).initialize();
-    return itemCostText.getText();
   }
 
   /**

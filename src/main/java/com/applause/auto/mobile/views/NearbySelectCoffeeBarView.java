@@ -314,16 +314,6 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
     return favoritesTab.isDisplayed();
   }
 
-  /**
-   * Select store.
-   *
-   * @param index the index
-   */
-  public void selectStore(int index) {
-    logger.info("Click on Store's pin: " + index);
-    pinsOnMapButton.get(index).click();
-  }
-
   /** Location. */
   public <T extends BaseComponent> T location(Class<T> clazz) {
     logger.info("Click on store location button");

@@ -40,13 +40,4 @@ public class OrderAheadView extends BaseComponent {
   public String getHeadingTextValue() {
     return getHeadingText.getText();
   }
-
-  /**
-   * Gets sub header text value.
-   *
-   * @return the sub header text value
-   */
-  public String getSubHeaderTextValue() {
-    return getSubHeaderText.getText();
-  }
 }
