@@ -3,7 +3,6 @@ package com.applause.auto.mobile.components;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.mobile.views.CheckInView;
 import com.applause.auto.mobile.views.HomeView;
 import com.applause.auto.mobile.views.PeetsCardsView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -14,7 +13,7 @@ import io.qameta.allure.Step;
 import java.time.Duration;
 
 @Implementation(is = BottomNavigationMenuChunk.class, on = Platform.MOBILE_ANDROID)
-@Implementation(is = IosBottomNavigationMenuChunk.class, on = Platform.MOBILE_IOS)
+@Implementation(is = BottomNavigationMenuChunk.class, on = Platform.MOBILE_IOS)
 public class BottomNavigationMenuChunk extends BaseComponent {
 
   /* -------- Elements -------- */
@@ -85,23 +84,6 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   }
 
   /**
-   * Check in check in view.
-   *
-   * @return the check in view
-   */
-  public CheckInView checkIn() {
-    logger.info("Tap on Check In");
-    getCheckInButton.click();
-
-    if (getDismissButton.exists()) {
-      logger.info("Tap on Dismiss button");
-      getDismissButton.click();
-    }
-
-    return SdkHelper.create(CheckInView.class);
-  }
-
-  /**
    * Home peets cards view.
    *
    * @return the peets cards view
@@ -132,19 +114,5 @@ public class BottomNavigationMenuChunk extends BaseComponent {
     logger.info("Tapping on 'Menu' button");
     menuButton.click();
     return SdkHelper.create(clazz);
-  }
-}
-
-class IosBottomNavigationMenuChunk extends BottomNavigationMenuChunk {
-
-  /**
-   * Check in check in view.
-   *
-   * @return the check in view
-   */
-  public CheckInView checkIn() {
-    logger.info("Tap on Check In");
-    getCheckInButton.click();
-    return SdkHelper.create(CheckInView.class);
   }
 }

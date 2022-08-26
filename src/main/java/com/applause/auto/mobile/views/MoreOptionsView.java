@@ -333,13 +333,6 @@ public class MoreOptionsView extends BaseComponent {
     return SdkHelper.create(HelpAndFeedbackView.class);
   }
 
-  /** Click the Cross Button */
-  public void clickCrossButton() {
-    logger.info("Clicking the cross button");
-    SdkHelper.getSyncHelper().sleep(5000);
-    getCrossButton.click();
-  }
-
   /**
    * Gets title.
    *
@@ -551,15 +544,6 @@ class AndroidMoreOptionsView extends MoreOptionsView {
   public Boolean isOnTwitterPage() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(twitterPage).visible());
     return twitterPage.isDisplayed();
-  }
-
-  @Override
-  public void clickCrossButton() {
-    logger.info("Clicking the cross button");
-    SdkHelper.getSyncHelper().sleep(5000);
-    SdkHelper.getDeviceControl().tapElementCenter(getCrossButton);
-    SdkHelper.getSyncHelper().sleep(5000);
-    SdkHelper.getDeviceControl().tapElementCenter(getCrossButton);
   }
 
   @Override

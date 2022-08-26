@@ -12,7 +12,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import java.time.Duration;
 import org.openqa.selenium.NoSuchElementException;
 
-@Implementation(is = AndroidPeetsCardsView.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = PeetsCardsView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = PeetsCardsView.class, on = Platform.MOBILE_IOS)
 public class PeetsCardsView extends BaseComponent {
 
@@ -104,17 +104,6 @@ public class PeetsCardsView extends BaseComponent {
   }
 
   /**
-   * Is amount selected boolean.
-   *
-   * @param amount the amount
-   * @return the boolean
-   */
-  public boolean isAmountSelected(String amount) {
-    getAmountButton.initializeWithFormat(amount);
-    return getAmountButton.getAttributeValue("value") != null;
-  }
-
-  /**
    * Confirm peets cards view.
    *
    * @return the peets cards view
@@ -143,13 +132,5 @@ public class PeetsCardsView extends BaseComponent {
       logger.info("Love peets coffee popup seems not present");
     }
     return SdkHelper.create(PeetsCardsTransferAmountChunk.class);
-  }
-}
-
-class AndroidPeetsCardsView extends PeetsCardsView {
-  @Override
-  public boolean isAmountSelected(String amount) {
-    getAmountButton.format(amount);
-    return getAmountButton.getMobileElement().isSelected();
   }
 }

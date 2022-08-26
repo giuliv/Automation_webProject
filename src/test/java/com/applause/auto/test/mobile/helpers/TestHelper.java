@@ -9,15 +9,12 @@ import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.CheckoutView;
 import com.applause.auto.mobile.views.CreateAccountView;
-import com.applause.auto.mobile.views.CreditCardDetailsView;
 import com.applause.auto.mobile.views.FindACoffeeBarView;
 import com.applause.auto.mobile.views.HomeView;
 import com.applause.auto.mobile.views.LandingView;
-import com.applause.auto.mobile.views.MoreOptionsView;
 import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
 import com.applause.auto.mobile.views.OnboardingView;
 import com.applause.auto.mobile.views.OrderView;
-import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -62,29 +59,6 @@ public class TestHelper extends BaseComponent {
 
     logger.info("Tap Sign In button");
     return signInView.signIn(clazz);
-  }
-
-  public PaymentMethodsView deletePaymentMethodTestCardIfAdded(
-      PaymentMethodsView paymentMethodsView, String methodName) {
-    if (paymentMethodsView.isPaymentMethodTestCardAdded(methodName)) {
-      logger.info("Deleting previously added payment test card");
-      CreditCardDetailsView creditCardDetailsView =
-          paymentMethodsView.clickSavedPaymentMethod(CreditCardDetailsView.class, methodName);
-      creditCardDetailsView.clickDeleteCard();
-      creditCardDetailsView.clickDeleteYes();
-
-      // need this workaround because payment card doesn't disappear from the view without
-      // refreshing it
-      SdkHelper.getSyncHelper().sleep(15000);
-      paymentMethodsView.clickBackButton();
-      SdkHelper.getSyncHelper().sleep(5000);
-      SdkHelper.create(MoreOptionsView.class).clickPaymentMethods();
-      SdkHelper.getSyncHelper()
-          .waitUntil(condition -> !paymentMethodsView.isPaymentMethodTestCardAdded(methodName));
-    } else {
-      logger.info("There is no test payment card added");
-    }
-    return SdkHelper.create(PaymentMethodsView.class);
   }
 
   public HomeView createNewAccountWithDefaults() {

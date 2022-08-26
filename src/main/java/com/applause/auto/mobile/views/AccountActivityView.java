@@ -1,7 +1,6 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
-import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -57,27 +56,6 @@ public class AccountActivityView extends BaseComponent {
   protected Button backButton;
 
   /* -------- Actions -------- */
-
-  /**
-   * Gets transaction date.
-   *
-   * @param index the index
-   * @return the transaction date
-   */
-  public String getTransactionDate(int index) {
-    logger.info(">>>>>" + SdkHelper.getDriver().getPageSource());
-    return getTransactionDatesText.get(index).getText();
-  }
-
-  /**
-   * Gets transaction amount.
-   *
-   * @param index the index
-   * @return the transaction amount
-   */
-  public String getTransactionAmount(int index) {
-    return getTransactionAmountText.get(index).getText();
-  }
 
   @Step("Verify Back button is displayed")
   public boolean isBackButtonDisplayed() {

@@ -3,7 +3,6 @@ package com.applause.auto.mobile.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.mobile.components.BottomNavigationMenuChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -121,17 +120,6 @@ public class CheckInView extends BaseComponent {
   }
 
   /**
-   * Is amount selected boolean.
-   *
-   * @param amount the amount
-   * @return the boolean
-   */
-  public boolean isAmountSelected(String amount) {
-    getAmountButton.initializeWithFormat(amount);
-    return (getAmountButton.getAttributeValue("value") != null);
-  }
-
-  /**
    * Confirm peets cards view.
    *
    * @return the peets cards view
@@ -147,15 +135,6 @@ public class CheckInView extends BaseComponent {
 
     return SdkHelper.create(CheckInView.class);
   }
-
-  /**
-   * Gets bottom navigation menu.
-   *
-   * @return the bottom navigation menu
-   */
-  public BottomNavigationMenuChunk getBottomNavigationMenu() {
-    return SdkHelper.create(BottomNavigationMenuChunk.class);
-  }
 }
 
 class AndroidCheckInView extends CheckInView {
@@ -165,12 +144,6 @@ class AndroidCheckInView extends CheckInView {
     if (getLovePeetsYesButton.exists()) getLovePeetsYesButton.click();
     if (getReviewNoThanksButton.exists()) getReviewNoThanksButton.click();
     SdkHelper.getSyncHelper().wait(Until.uiElement(getSignature).present());
-  }
-
-  @Override
-  public boolean isAmountSelected(String amount) {
-    getAmountButton.initializeWithFormat(amount);
-    return getAmountButton.getMobileElement().isSelected();
   }
 
   public String getBalance() {

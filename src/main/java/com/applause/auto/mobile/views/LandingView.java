@@ -5,7 +5,6 @@ import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.mobile.components.ReportAProblemPopupChunk;
-import com.applause.auto.mobile.components.TryMobileOrderAheadPopupChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -71,15 +70,6 @@ public class LandingView extends BaseComponent {
    */
   public ReportAProblemPopupChunk getReportAProblemPopupChunk() {
     return SdkHelper.create(ReportAProblemPopupChunk.class);
-  }
-
-  /**
-   * Chunk for try mobile order ahead popup
-   *
-   * @return TryMobileOrderAheadPopupChunk
-   */
-  public TryMobileOrderAheadPopupChunk getTryMobileOrderAheadPopupChunk() {
-    return SdkHelper.create(TryMobileOrderAheadPopupChunk.class);
   }
 
   @Override

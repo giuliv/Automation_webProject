@@ -152,20 +152,6 @@ public class PaymentMethodsView extends BaseComponent {
     return SdkHelper.create(PeetsCardSettingsView.class);
   }
 
-  /** Click the Back Button */
-  public void clickBackButtonTwiceOnIos() {
-    logger.info("Clicking the back button");
-    SdkHelper.getDeviceControl().tapElementCenter(getBackButton);
-    SdkHelper.getDeviceControl().tapElementCenter(getBackButton);
-    SdkHelper.getSyncHelper().sleep(5000);
-  }
-
-  public void clickBackButton() {
-    logger.info("Clicking the back button");
-    SdkHelper.getDeviceControl().tapElementCenter(getBackButton);
-    SdkHelper.getSyncHelper().sleep(5000);
-  }
-
   /**
    * Click Payment Method
    *
@@ -175,17 +161,6 @@ public class PaymentMethodsView extends BaseComponent {
     logger.info("Clicking Payment Method");
     getSavedPaymentMethodButton.format(methodName).initialize();
     getSavedPaymentMethodButton.click();
-    return SdkHelper.create(clazz);
-  }
-
-  /**
-   * Click Payment Method and Save Changes
-   *
-   * @return CreditCardDetailsView
-   */
-  public <T extends BaseComponent> T clickSavedPaymentMethodAndSaveChanges(
-      Class<T> clazz, String methodName) {
-    clickSavedPaymentMethod(clazz, methodName);
     return SdkHelper.create(clazz);
   }
 
@@ -284,28 +259,6 @@ public class PaymentMethodsView extends BaseComponent {
 class AndroidPaymentMethodsView extends PaymentMethodsView {
 
   /* -------- Actions -------- */
-
-  public void clickBackButtonTwiceOnIos() {
-    logger.info("Click back button once on android");
-    getBackButton.click();
-    SdkHelper.getSyncHelper().sleep(5000);
-  }
-
-  public void clickBackButton() {
-    logger.info("Does not click back button on andorid");
-  }
-
-  /**
-   * Click Payment Method and Save Changes
-   *
-   * @return CreditCardDetailsView
-   */
-  public <T extends BaseComponent> T clickSavedPaymentMethodAndSaveChanges(
-      Class<T> clazz, String methodName) {
-    clickSavedPaymentMethod(clazz, methodName);
-    getSaveChangesButton.click();
-    return SdkHelper.create(clazz);
-  }
 
   public AddNewCardView clickAddNewPayment() {
     logger.info("Clicking Add New Payment");
