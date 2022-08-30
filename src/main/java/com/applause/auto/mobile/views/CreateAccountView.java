@@ -471,7 +471,7 @@ public class CreateAccountView extends BaseComponent {
   @Step("Checking if email checkbox checked")
   public boolean isEmailOptInChecked() {
     logger.info("Checking if checkbox checked by color");
-    return MobileHelper.isIosCheckboxChecked(emailsWithOffersCheckBox.getMobileElement());
+    return MobileHelper.isIosCheckboxChecked(emailsWithOffersCheckBox.getWebElement());
   }
 
   @Step("Check is Create Account Button is Enabled")
@@ -494,7 +494,7 @@ public class CreateAccountView extends BaseComponent {
       SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
     }
     return MobileHelper.isIosCheckboxChecked(
-        agreePrivacyPolicyAndTermsAndConditions.getMobileElement());
+        agreePrivacyPolicyAndTermsAndConditions.getWebElement());
   }
 
   /**
@@ -574,7 +574,7 @@ class AndroidCreateAccountView extends CreateAccountView {
     // sometimes this code is throwing exception: Coordinate x =
     // [238572] exceeds the width of element
     MobileHelper.hideKeyboard();
-    Dimension size = getTermsAndConditionsButton.getMobileElement().getSize();
+    Dimension size = getTermsAndConditionsButton.getWebElement().getSize();
     logger.info(String.format("Terms label size: [%s]", size));
     MobileHelper.tapOnElementWithOffset(getTermsAndConditionsButton, size.getWidth() / 3, 0);
     // logger.info("Tap on Terms and Conditions");

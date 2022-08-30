@@ -174,7 +174,7 @@ public class StoreDetailsView extends BaseComponent {
     logger.info("Checking Coffeebar tagged as favorite");
     coffeebarFavoriteIcon.initialize();
     int colourRed =
-        MobileHelper.getMobileElementColour(coffeebarFavoriteIcon.getMobileElement()).getRed();
+        MobileHelper.getMobileElementColour(coffeebarFavoriteIcon.getWebElement()).getRed();
     logger.info("Color: " + colourRed);
     return (colourRed == 199) || (colourRed == 200) || (colourRed == 185);
   }

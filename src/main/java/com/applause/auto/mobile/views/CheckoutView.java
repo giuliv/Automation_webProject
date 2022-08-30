@@ -21,6 +21,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
+
+import io.appium.java_client.remote.SupportsContextSwitching;
 import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = AndroidCheckoutView.class, on = Platform.MOBILE_ANDROID)
@@ -161,9 +163,12 @@ public class CheckoutView extends BaseComponent {
 
   @Override
   public void afterInit() {
-    logger.info(">>>>>>" + ((AppiumDriver) SdkHelper.getDriver()).getContextHandles());
+    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
+    //    logger.info(">>>>>>" + ((AppiumDriver) SdkHelper.getDriver()).getContextHandles());
+    logger.info(">>>>>>" + ((SupportsContextSwitching) SdkHelper.getDriver()).getContextHandles());
     SdkHelper.getSyncHelper().sleep(10000);
-    logger.info(">>>>>>" + ((AppiumDriver) SdkHelper.getDriver()).getContextHandles());
+    //    logger.info(">>>>>>" + ((AppiumDriver) SdkHelper.getDriver()).getContextHandles());
+    logger.info(">>>>>>" + ((SupportsContextSwitching) SdkHelper.getDriver()).getContextHandles());
   }
 
   /* -------- Actions -------- */

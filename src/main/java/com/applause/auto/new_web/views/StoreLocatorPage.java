@@ -15,6 +15,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.remote.SupportsContextSwitching;
 import io.qameta.allure.Step;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -277,12 +278,14 @@ class StoreLocatorPagePhone extends StoreLocatorPage {
 
   @Override
   public StoreLocatorPage clickUseMyCurrentLocation() {
+    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
     logger.info("Clicking on 'Use my current location' button");
     useMyCurrentLocationButton.click();
 
     String oldContext = SdkHelper.getDeviceControl().getContext();
     logger.info("Switching to native context");
-    ((AppiumDriver) SdkHelper.getDriver()).context("NATIVE_APP");
+    //    ((AppiumDriver) SdkHelper.getDriver()).context("NATIVE_APP");
+    ((SupportsContextSwitching) SdkHelper.getDriver()).context("NATIVE_APP");
     SdkHelper.getSyncHelper().sleep(1000); // wait for switch context to native
 
     if (MobileHelper.isElementDisplayed(allowLocationButton, 10)) {

@@ -13,6 +13,8 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import io.appium.java_client.AppiumDriver;
 import java.time.Duration;
 import java.util.List;
+
+import io.appium.java_client.remote.SupportsContextSwitching;
 import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = AndroidPeetnikRewardsLandingView.class, on = Platform.MOBILE_ANDROID)
@@ -113,20 +115,26 @@ public class PeetnikRewardsLandingView extends BaseComponent {
 
   /** Close adv. pop up is present if present */
   public PeetnikRewardsLandingView closeReportAProblemPopUpDisplayed() {
+    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
     logger.info("Waiting for adv. pop up");
     SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
     try {
-      logger.info("Contexts: " + ((AppiumDriver) SdkHelper.getDriver()).getContextHandles());
+      //      logger.info("Contexts: " + ((AppiumDriver)
+      // SdkHelper.getDriver()).getContextHandles());
+      logger.info(
+          "Contexts: " + ((SupportsContextSwitching) SdkHelper.getDriver()).getContextHandles());
       if (SdkHelper.getEnvironmentHelper().isMobileAndroid()) {
         logger.info("Switching to WebContext");
-        ((AppiumDriver) SdkHelper.getDriver()).context("WEBVIEW_chrome");
+        //        ((AppiumDriver) SdkHelper.getDriver()).context("WEBVIEW_chrome");
+        ((SupportsContextSwitching) SdkHelper.getDriver()).context("WEBVIEW_chrome");
       }
       logger.info("Xml: " + SdkHelper.getDriver().getPageSource());
       SdkHelper.getSyncHelper()
           .wait(Until.uiElement(closeAdvPopUpButton).present().setTimeout(Duration.ofSeconds(30)));
       if (SdkHelper.getEnvironmentHelper().isMobileAndroid()) {
         closeAdvPopUpButton.click();
-        ((AppiumDriver) SdkHelper.getDriver()).context("NATIVE_APP");
+        //        ((AppiumDriver) SdkHelper.getDriver()).context("NATIVE_APP");
+        ((SupportsContextSwitching) SdkHelper.getDriver()).context("NATIVE_APP");
       } else {
         // for ios simple click doesn't work on [X] button
         logger.info("Close Download popup");
@@ -159,7 +167,9 @@ class AndroidPeetnikRewardsLandingView extends PeetnikRewardsLandingView {
 
   @Override
   public PeetnikRewardsLandingView clickGetPeetnikRewardsAndOrderAheadQuestion() {
-    ((AppiumDriver) SdkHelper.getDriver()).context("NATIVE_APP");
+    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
+    //    ((AppiumDriver) SdkHelper.getDriver()).context("NATIVE_APP");
+    ((SupportsContextSwitching) SdkHelper.getDriver()).context("NATIVE_APP");
     logger.info("Click 'Peetnik Rewards & Order Ahead'" + SdkHelper.getDriver().getPageSource());
     //    try {
     //      getPeetnikRewardsAndOrderAheadButton.click();

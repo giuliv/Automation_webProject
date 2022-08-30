@@ -102,7 +102,7 @@ public class CoffeeStoreItemChuck extends BaseComponent {
    * @return the xposition
    */
   public int getXposition() {
-    return this.getParent().getMobileElement().getLocation().x;
+    return this.getParent().getWebElement().getLocation().x;
   }
 }
 

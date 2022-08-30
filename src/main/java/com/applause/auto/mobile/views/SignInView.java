@@ -11,11 +11,12 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
 import java.time.Duration;
 import java.util.stream.IntStream;
+
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.TimeoutException;
 
 @Implementation(is = AndroidSignInView.class, on = Platform.MOBILE_ANDROID)
@@ -292,14 +293,22 @@ class AndroidSignInView extends SignInView {
   /* -------- Actions -------- */
 
   @Override
+  // Todo: Commented as part of update on pom to 4.1.2 [REVIEW IF WORKAROUND WORKED]
   public void showPassword() {
-    logger.info("Click on Show Password button");
-    MobileElement element = passwordTextBox.getMobileElement();
-    int x = element.getCenter().getX();
-    int y = element.getCenter().getY();
-    int width = element.getSize().getWidth();
-    AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
-    (new TouchAction(driver)).tap(PointOption.point(x + width / 2 - 5, y)).perform();
+    //        logger.info("Click on Show Password button");
+    //        MobileElement element = passwordTextBox.getMobileElement();
+    //        int x = element.getCenter().getX();
+    //        int y = element.getCenter().getY();
+    //        int width = element.getSize().getWidth();
+    //        AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
+    //        (new TouchAction(driver)).tap(PointOption.point(x + width / 2 - 5, y)).perform();
+
+    // New Code added [Test if works?], I do not have a clue, why the + width / 2 - 5
+    Dimension element = passwordTextBox.getDimension();
+    int x = element.width / 2;
+    int y = element.height / 2;
+    int width = element.getWidth();
+    SdkHelper.getDeviceControl().tapElementCoordinates(passwordTextBox, x + width / 2 - 5, y);
   }
 
   @Override

@@ -19,8 +19,8 @@
   "autoGrantPermissions": true,
   "commandTimeout": "600",
   "deviceName": "(Samsung Galaxy S.*|Google Pixel.*)",
-  "appiumVersion": "1.21.0",
-  "testobject_appium_version": "1.21.0"
+  "appiumVersion": "1.22.0",
+  "testobject_appium_version": "1.22.0"
   <#if testRunId??>
 ,
   "testobject_test_name" : "Test Run ID: ${testRunId?c}, Test Session ID: ${testSessionId?c}",

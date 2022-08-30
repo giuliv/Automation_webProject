@@ -14,6 +14,7 @@ import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.HideKeyboardStrategy;
+import io.appium.java_client.remote.SupportsContextSwitching;
 import io.appium.java_client.touch.offset.PointOption;
 import java.lang.invoke.MethodHandles;
 import java.time.Duration;
@@ -215,13 +216,14 @@ public class WebHelper {
    * @param x coordinate
    * @param y coordinate
    */
-  public static void clickOnCoordinatesWithNativeTap(int x, int y) {
-    logger.info("Clicking element with native tap at (" + x + ", " + y + ").");
-    new TouchAction((AppiumDriver<?>) SdkHelper.getDriver())
-        .tap(PointOption.point(x, y))
-        .release()
-        .perform();
-  }
+  // Todo: Commented as part of update on pom to 4.1.2 [Seems not needed]
+  //  public static void clickOnCoordinatesWithNativeTap(int x, int y) {
+  //    logger.info("Clicking element with native tap at (" + x + ", " + y + ").");
+  //    new TouchAction((AppiumDriver<?>) SdkHelper.getDriver())
+  //        .tap(PointOption.point(x, y))
+  //        .release()
+  //        .perform();
+  //  }
 
   /** @return Y-position of page */
   public static int getPagePositionY() {
@@ -637,8 +639,11 @@ public class WebHelper {
   }
 
   public static void hideKeyboard() {
+    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
     if (isMobile()) {
-      Set<String> contexts = ((AppiumDriver) SdkHelper.getDriver()).getContextHandles();
+      //      Set<String> contexts = ((AppiumDriver) SdkHelper.getDriver()).getContextHandles();
+      Set<String> contexts = ((SupportsContextSwitching) SdkHelper.getDriver()).getContextHandles();
+
       logger.info("Checking native context is shown on UI");
       Optional<String> nativeContext =
           contexts.stream()
@@ -648,7 +653,8 @@ public class WebHelper {
         try {
           logger.info("Test running on mobile device... ");
           logger.info("Switching to native context");
-          ((AppiumDriver) SdkHelper.getDriver()).context(nativeContext.get());
+          //          ((AppiumDriver) SdkHelper.getDriver()).context(nativeContext.get());
+          ((SupportsContextSwitching) SdkHelper.getDriver()).context(nativeContext.get());
           SdkHelper.getSyncHelper().sleep(1000);
           logger.info("Switched to native context");
 
@@ -668,7 +674,8 @@ public class WebHelper {
         } finally {
           logger.info("Switching back to web context");
           contexts.remove(nativeContext.get());
-          ((AppiumDriver) SdkHelper.getDriver()).context(contexts.iterator().next());
+          //          ((AppiumDriver) SdkHelper.getDriver()).context(contexts.iterator().next());
+          ((SupportsContextSwitching) SdkHelper.getDriver()).context(contexts.iterator().next());
         }
       }
       SdkHelper.getSyncHelper().sleep(2000);

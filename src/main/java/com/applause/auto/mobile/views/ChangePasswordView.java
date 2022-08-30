@@ -11,12 +11,13 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.touch.offset.PointOption;
 import io.qameta.allure.Step;
 import java.time.Duration;
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebElement;
 
 @Implementation(is = AndroidChangePasswordView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = ChangePasswordView.class, on = Platform.MOBILE_IOS)
@@ -217,14 +218,23 @@ class AndroidChangePasswordView extends ChangePasswordView {
   }
 
   @Override
+  // Todo: Commented as part of update on pom to 4.1.2 [REVIEW IF WORKAROUND WORKED]
   public void showPassword() {
-    logger.info("Click on Show Password button");
-    MobileElement element = getCurrentPasswordTextBox.getMobileElement();
-    int x = element.getCenter().getX();
-    int y = element.getCenter().getY();
-    int width = element.getSize().getWidth();
-    AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
-    (new TouchAction(driver)).tap(PointOption.point(x + width / 2 - 5, y)).perform();
+    //    logger.info("Click on Show Password button");
+    //    MobileElement element = getCurrentPasswordTextBox.getMobileElement();
+    //    int x = element.getCenter().getX();
+    //    int y = element.getCenter().getY();
+    //    int width = element.getSize().getWidth();
+    //    AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
+    //    (new TouchAction(driver)).tap(PointOption.point(x + width / 2 - 5, y)).perform();
+
+    // New Code added [Test if works?], I do not have a clue, why the + width / 2 - 5
+    Dimension element = getCurrentPasswordTextBox.getDimension();
+    int x = element.width / 2;
+    int y = element.height / 2;
+    int width = element.getWidth();
+    SdkHelper.getDeviceControl()
+        .tapElementCoordinates(getCurrentPasswordTextBox, x + width / 2 - 5, y);
   }
 
   @Override

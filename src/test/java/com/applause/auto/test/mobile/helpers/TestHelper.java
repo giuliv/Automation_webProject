@@ -175,11 +175,13 @@ public class TestHelper extends BaseComponent {
   }
 
   public static void denyLocationServices() {
+    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
     if (MobileHelper.isAndroid()) {
       // toggleLocationServicesCommand is opening Android settings view
       // AndroidMobileCommandHelper.toggleLocationServicesCommand();
       logger.info("Disabling Location permissions for Android");
-      ((AndroidDriver<WebElement>) SdkHelper.getDriver())
+      //      ((AndroidDriver<WebElement>) SdkHelper.getDriver())
+      ((AndroidDriver) SdkHelper.getDriver())
           .executeScript(
               "mobile:changePermissions",
               ImmutableMap.of(
@@ -204,12 +206,16 @@ public class TestHelper extends BaseComponent {
   }
 
   public static ApplicationState getAppState(String appId) {
+    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
     logger.info("Getting app state");
     try {
+      //      ApplicationState applicationState =
+      //          ((AndroidDriver<WebElement>) SdkHelper.getDriver()).queryAppState(appId);
       ApplicationState applicationState =
-          ((AndroidDriver<WebElement>) SdkHelper.getDriver()).queryAppState(appId);
+          ((AndroidDriver) SdkHelper.getDriver()).queryAppState(appId);
       logger.info(String.format("App state is: %s", applicationState.name()));
-      return ((AndroidDriver<WebElement>) SdkHelper.getDriver()).queryAppState(appId);
+      //      return ((AndroidDriver<WebElement>) SdkHelper.getDriver()).queryAppState(appId);
+      return ((AndroidDriver) SdkHelper.getDriver()).queryAppState(appId);
     } catch (Exception e) {
       logger.error("Error getting current app state, probably it is not running");
       return ApplicationState.NOT_RUNNING;

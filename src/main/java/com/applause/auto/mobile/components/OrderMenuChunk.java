@@ -74,7 +74,7 @@ public class OrderMenuChunk extends BaseComponent {
   }
 
   protected boolean isMenuButtonHighlighted(BaseElement element) {
-    int colourRed = MobileHelper.getMobileElementColour(element.getMobileElement()).getRed();
+    int colourRed = MobileHelper.getMobileElementColour(element.getWebElement()).getRed();
     logger.info("Color: " + colourRed);
     return (colourRed == 193) || (colourRed == 194);
   }
@@ -83,7 +83,7 @@ public class OrderMenuChunk extends BaseComponent {
 class OrderMenuChunkIos extends OrderMenuChunk {
 
   protected boolean isMenuButtonHighlighted(BaseElement element) {
-    int colourRed = MobileHelper.getMobileElementColour(element.getMobileElement()).getRed();
+    int colourRed = MobileHelper.getMobileElementColour(element.getWebElement()).getRed();
     logger.info("Color: " + colourRed);
     return MobileTestData.RED_COLORS.stream().allMatch(colour -> colour.equals(colourRed));
   }

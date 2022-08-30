@@ -12,15 +12,14 @@ import com.applause.auto.mobile.views.IosSettingsView;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
 import com.applause.auto.pageobjectmodel.elements.Picker;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.MobileElement;
 import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
+import io.appium.java_client.remote.SupportsContextSwitching;
 import io.appium.java_client.touch.WaitOptions;
 import io.appium.java_client.touch.offset.PointOption;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.lang.invoke.MethodHandles;
@@ -29,21 +28,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.IntStream;
 import javax.imageio.ImageIO;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.Point;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.UnsupportedCommandException;
-import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.*;
 import org.testng.Assert;
 
 public class MobileHelper {
@@ -61,14 +49,17 @@ public class MobileHelper {
 
   /** Activates the app */
   public static void activateApp() {
+    // Todo: Commented as part of update on pom to 4.1.2 [FIX NEEDED]
     logger.info("Activate application");
     if (SdkHelper.getEnvironmentHelper().isMobileAndroid()) {
-      getMobileDriver().activateApp(MobileApp.ANDROID_PACKAGE_ID);
+      //      getMobileDriver().activateApp(MobileApp.ANDROID_PACKAGE_ID);
     }
     if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
       SdkHelper.getSyncHelper().sleep(5000);
       hideKeyboardIOSByPressDone();
-      getMobileDriver().activateApp(MobileApp.IOS_BUNDLE_ID);
+      //      getMobileDriver().activateApp(MobileApp.IOS_BUNDLE_ID); //Commented during update to
+      // sdk 4.1.2, review if it worked
+      activateApplication(MobileApp.IOS_BUNDLE_ID);
     }
     SdkHelper.getSyncHelper().sleep(3000);
   }
@@ -90,9 +81,9 @@ public class MobileHelper {
 
       if (isIntentActionStarted) {
         ((AppiumDriver) SdkHelper.getDriver())
-            .findElementByXPath("//android.widget.TextView[@text='Chrome']")
+            .findElement(By.xpath("//android.widget.TextView[@text='Chrome']"))
             .click();
-        ((AppiumDriver) SdkHelper.getDriver()).findElementById("android:id/button_once").click();
+        ((AppiumDriver) SdkHelper.getDriver()).findElement(By.id("android:id/button_once")).click();
         return;
       } else if (isSamsungBrowserStarted) {
         throw new RuntimeException("Only Samsung browser suggested. Exiting");
@@ -116,7 +107,10 @@ public class MobileHelper {
   public static void hideKeyboard() {
     logger.info("Hide keyboard by standard method");
     try {
-      ((AppiumDriver) getDriver()).hideKeyboard();
+      // Todo: Commented as part of update on pom to 4.1.2 [DO WE NEED IT, REPLACE BY APPLAUSE
+      // METHOD]
+      //            ((AppiumDriver) getDriver()).hideKeyboard();
+      SdkHelper.getDeviceControl().hideKeyboard();
     } catch (Exception e) {
 
     }
@@ -180,10 +174,16 @@ public class MobileHelper {
    * @param yRelativeOffset offset from element center to the top in percents of element height.
    *     Value should be from 0 to 1
    */
+  // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
   public static void tapOnElementWithOffset(
       BaseElement element, double xRelativeOffset, double yRelativeOffset) {
-    int xCenter = element.getMobileElement().getCenter().x;
-    int yCenter = element.getMobileElement().getCenter().y;
+    //        int xCenter = element.getMobileElement().getCenter().x; //Commented due to sdk
+    // migration, look if it worked
+    //        int yCenter = element.getMobileElement().getCenter().y;
+
+    int xCenter = element.getDimension().width / 2;
+    int yCenter = element.getDimension().height / 2;
+
     logger.info(
         String.format(
             "Add this offset to click: x = [%f] , y = [%f]", xRelativeOffset, yRelativeOffset));
@@ -222,19 +222,23 @@ public class MobileHelper {
     scrollDownAlgorithm(0.1, pStartY, pEndY);
   }
 
+  // Todo: Commented as part of update on pom to 4.1.2 [DO WE NEED IT, REPLACE BY APPLAUSE METHOD]
   private static void scrollDownAlgorithm(double startX, double pStartY, double pEndY) {
     Dimension size = deviceSize;
     int startY = (int) (size.getHeight() * pStartY);
     int endY = (int) (size.getHeight() * pEndY);
     startX = (int) (size.getWidth() * startX);
     logger.info("Swiping startX:" + startX + " startY:" + pStartY + " end Y:" + pEndY);
+
     try {
-      new TouchAction(getMobileDriver())
-          .press(PointOption.point((int) startX, startY))
-          .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500)))
-          .moveTo(PointOption.point((int) startX, endY))
-          .release()
-          .perform();
+      //          new TouchAction(getMobileDriver())
+      //              .press(PointOption.point((int) startX, startY))
+      //              .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500)))
+      //              .moveTo(PointOption.point((int) startX, endY))
+      //              .release()
+      //              .perform();
+      SdkHelper.getDeviceControl()
+          .swipeAcrossScreenCoordinates((int) startX, startY, (int) startX, endY, 500);
     } catch (WebDriverException wex) {
       logger.warn("Swipe cause error, probably nothing to swipe: " + wex.getMessage());
     }
@@ -262,7 +266,8 @@ public class MobileHelper {
     }
 
     logger.debug(String.format("Tapping at %s, %s", (int) tapX, (int) tapY));
-    tapByCoordinates((int) tapX, (int) tapY);
+    //    tapByCoordinates((int) tapX, (int) tapY); // Remove if native method works
+    SdkHelper.getDeviceControl().tapScreenCoordinates((int) tapX, (int) tapY);
   }
 
   /**
@@ -273,7 +278,11 @@ public class MobileHelper {
   public static void tapByCoordinatesOnElementCenter(BaseElement element) {
     Point location = element.getLocation();
     Dimension dimension = element.getDimension();
-    tapByCoordinates(location.x + dimension.getWidth() / 2, location.y + dimension.getHeight() / 2);
+    //    tapByCoordinates(location.x + dimension.getWidth() / 2, location.y + dimension.getHeight()
+    // / 2); // Remove if native method works
+    SdkHelper.getDeviceControl()
+        .tapScreenCoordinates(
+            location.x + dimension.getWidth() / 2, location.y + dimension.getHeight() / 2);
   }
 
   /**
@@ -282,9 +291,10 @@ public class MobileHelper {
    * @param tapX
    * @param tapY
    */
-  public static void tapByCoordinates(int tapX, int tapY) {
-    new TouchAction(getMobileDriver()).tap(PointOption.point(tapX, tapY)).perform();
-  }
+  // Todo: Commented as part of update on pom to 4.1.2 [DO WE NEED IT, REPLACE BY APPLAUSE METHOD]
+  //  public static void tapByCoordinates(int tapX, int tapY) {
+  //    new TouchAction(getMobileDriver()).tap(PointOption.point(tapX, tapY)).perform();
+  //  }
 
   /**
    * Sets picker value reverse.
@@ -304,9 +314,10 @@ public class MobileHelper {
    * @param order the order
    */
   public static void setPickerValueBasic(String value, Picker element, String order) {
+    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
     int loopCounter = 0;
-    String pickerWheel = element.getMobileElement().getText();
-    MobileElement elem = element.getMobileElement();
+    String pickerWheel = element.getWebElement().getText();
+    WebElement elem = element.getWebElement();
     logger.debug("Initial picker wheel value: " + pickerWheel);
     logger.debug("Expected value to: " + value);
     while (!pickerWheel.contentEquals(value.trim()) && loopCounter < 30) {
@@ -331,7 +342,10 @@ public class MobileHelper {
         Map<String, Object> params = new HashMap<>();
         params.put("order", order);
         params.put("offset", 0.1);
-        params.put("element", elem.getId());
+        params.put(
+            "element",
+            elem.getCssValue(
+                "id")); // Based on new SDK, this method was changed, review if workaround worked
         try {
           js.executeScript("mobile: selectPickerWheelValue", params);
         } catch (WebDriverException wex) {
@@ -358,6 +372,7 @@ public class MobileHelper {
 
   public static void swipeAcrossScreenCoordinates(
       double startX, double startY, double endX, double endY, long millis) {
+    // Todo: Commented as part of update on pom to 4.1.2 [DO WE NEED IT, REPLACE BY APPLAUSE
     logger.info(String.format("Swiping from [%s, %s] to [%s, %s].", startX, startY, endX, endY));
     Dimension size = getMobileDriver().manage().window().getSize();
 
@@ -368,16 +383,18 @@ public class MobileHelper {
 
     logger.info(
         "Scrolling from: [" + startX_ + " , " + startY_ + "] to [" + endX_ + " , " + endY_ + "]");
-
-    PointOption<?> startPoint = PointOption.point(startX_, startY_);
-    PointOption<?> endPoint = PointOption.point(endX_, endY_);
-    WaitOptions time = WaitOptions.waitOptions(Duration.ofMillis(millis));
-    (new TouchAction(getMobileDriver()))
-        .press(startPoint)
-        .waitAction(time)
-        .moveTo(endPoint)
-        .release()
-        .perform();
+    SdkHelper.getDeviceControl()
+        .swipeAcrossScreenCoordinates(startX_, startY_, endX_, endY_, millis);
+    //
+    //    PointOption<?> startPoint = PointOption.point(startX_, startY_);
+    //    PointOption<?> endPoint = PointOption.point(endX_, endY_);
+    //    WaitOptions time = WaitOptions.waitOptions(Duration.ofMillis(millis));
+    //    (new TouchAction(getMobileDriver()))
+    //        .press(startPoint)
+    //        .waitAction(time)
+    //        .moveTo(endPoint)
+    //        .release()
+    //        .perform();
   }
 
   public static String getElementTextAttribute(BaseElement baseElement) {
@@ -388,9 +405,10 @@ public class MobileHelper {
     return baseElement.getAttributeValue(textAttribute);
   }
 
-  public static RGB getMobileElementColour(MobileElement element) {
+  // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
+  public static RGB getMobileElementColour(WebElement element) {
 
-    org.openqa.selenium.Point point = element.getCenter();
+    org.openqa.selenium.Point point = element.getLocation();
 
     Dimension dimension = SdkHelper.getDriver().manage().window().getSize();
 
@@ -427,7 +445,8 @@ public class MobileHelper {
     return result;
   }
 
-  public static boolean isIosCheckboxChecked(MobileElement element) {
+  //   Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
+  public static boolean isIosCheckboxChecked(WebElement element) {
     logger.info("Checking if checkbox checked by color");
     int blueValue = MobileHelper.getMobileElementColour(element).getBlue();
     logger.info("Checkbox blue color value - [{}]", blueValue);
@@ -546,38 +565,48 @@ public class MobileHelper {
   }
 
   public static void switchToChromeWebView() {
+    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
     logger.info("Switching to WEBVIEW_chrome");
-    ((AppiumDriver) SdkHelper.getDriver()).context("WEBVIEW_chrome");
+    ((SupportsContextSwitching) SdkHelper.getDriver()).context("WEBVIEW_chrome");
     SdkHelper.getSyncHelper().sleep(1000);
   }
 
   public static void switchToNativeContext() {
+    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
     logger.info("Switching to NATIVE_APP");
-    ((AppiumDriver) SdkHelper.getDriver()).context("NATIVE_APP");
+    ((SupportsContextSwitching) SdkHelper.getDriver()).context("NATIVE_APP");
     SdkHelper.getSyncHelper().sleep(1000);
   }
 
   public static void tapOnElementCenter(BaseElement element) {
-    Point elemCoord = element.getMobileElement().getCenter();
-    AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
-    new TouchAction(driver).tap(PointOption.point(elemCoord.getX(), elemCoord.getY())).perform();
+    //     Todo: Commented as part of update on pom to 4.1.2 [DO WE NEED IT, REPLACE BY APPLAUSE
+    SdkHelper.getDeviceControl().tapElementCenter(element);
+    //    Point elemCoord = element.getMobileElement().getCenter();
+    //    AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
+    //    new TouchAction(driver).tap(PointOption.point(elemCoord.getX(),
+    // elemCoord.getY())).perform();
   }
 
   public static IosSettingsView openSettings() {
+    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
     String bundleId = getCurrentBundleId();
     if (!StringUtils.equalsIgnoreCase(bundleId, "com.apple.Preferences")) {
-      ((AppiumDriver) SdkHelper.getDriver()).runAppInBackground(Duration.ofSeconds(-1));
+      //      ((AppiumDriver) SdkHelper.getDriver()).runAppInBackground(Duration.ofSeconds(-1));
+      // //This method was commented on migration
+      SdkHelper.getDeviceControl().runAppInBackground(Duration.ofSeconds(-1).toMillis());
       activateApplication("com.apple.Preferences");
     }
     return SdkHelper.create(IosSettingsView.class);
   }
 
   public static String getCurrentBundleId() {
-    AppiumDriver driver = (AppiumDriver<?>) SdkHelper.getDriver();
-    if (driver.getSessionDetails().get("CFBundleIdentifier") == null) {
-      throw new RuntimeException("Unable to identify running app bundle id");
-    }
-    return driver.getSessionDetails().get("CFBundleIdentifier").toString();
+    // Todo: Commented as part of update on pom to 4.1.2 [FIX NEEDED]
+    //    AppiumDriver driver = (AppiumDriver<?>) SdkHelper.getDriver();
+    //    if (driver.getSessionDetails().get("CFBundleIdentifier") == null) {
+    //      throw new RuntimeException("Unable to identify running app bundle id");
+    //    }
+    //    return driver.getSessionDetails().get("CFBundleIdentifier").toString();
+    return "DELET ONCE FIXED";
   }
 
   public static void activateApplication(String bundleId) {
