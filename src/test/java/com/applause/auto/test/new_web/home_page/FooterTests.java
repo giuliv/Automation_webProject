@@ -150,19 +150,22 @@ public class FooterTests extends BaseTest {
     footer.clickAppStore();
 
     logger.info("Verify App store page is displayed");
-    String currentUrl = WebHelper.getCurrentUrl();
-    softAssert.assertTrue(currentUrl.contains("apps.apple.com"), "App store page isn't displayed");
-    softAssert.assertTrue(currentUrl.contains("Peets"), "Peet's App store page isn't displayed");
+    String currentUrl = WebHelper.getCurrentUrl().toLowerCase();
+    if (!WebHelper.isDesktop()) {
+      softAssert.assertTrue(
+          currentUrl.contains("apps.apple.com"), "App store page isn't displayed");
+      softAssert.assertTrue(currentUrl.contains("peets"), "Peet's App store page isn't displayed");
+    }
 
     logger.info("2. Click on 'Google play'");
     footer = navigateToHome().getFooterComponent();
     footer.clickGooglePlay();
 
     logger.info("Verify Google play page is displayed");
-    currentUrl = WebHelper.getCurrentUrl();
+    currentUrl = WebHelper.getCurrentUrl().toLowerCase();
     softAssert.assertTrue(
         currentUrl.contains("play.google.com"), "Google play page isn't displayed");
-    softAssert.assertTrue(currentUrl.contains("Peets"), "Peet's Google play page isn't displayed");
+    softAssert.assertTrue(currentUrl.contains("peets"), "Peet's Google play page isn't displayed");
 
     softAssert.assertAll();
   }
