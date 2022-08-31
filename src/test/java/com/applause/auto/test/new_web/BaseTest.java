@@ -20,6 +20,7 @@ import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Method;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.WebDriverException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 import org.testng.asserts.SoftAssert;
@@ -64,7 +65,12 @@ public class BaseTest extends ApplauseSeleniumTest {
   public HomePage navigateToHome() {
     logger.info(String.format("Navigating to the home page '%s'", TestData.LANDING_PAGE_URL));
 
-    SdkHelper.getDriver().navigate().to(TestData.LANDING_PAGE_URL);
+    try {
+      // Todo: Remove once new driver 103+ is set on cloud services
+      SdkHelper.getDriver().navigate().to(TestData.LANDING_PAGE_URL);
+    } catch (WebDriverException e) {
+      logger.info("Skipping issue: unknown error: cannot determine loading status");
+    }
     return SdkHelper.create(HomePage.class);
   }
 
@@ -82,7 +88,13 @@ public class BaseTest extends ApplauseSeleniumTest {
     navigateToHome();
     logger.info(String.format("Navigating to PDP page '%s'", TestData.PDP_URL));
 
-    SdkHelper.getDriver().navigate().to(TestData.PDP_URL);
+    try {
+      // Todo: Remove once new driver 103+ is set on cloud services
+      SdkHelper.getDriver().navigate().to(TestData.PDP_URL);
+    } catch (WebDriverException e) {
+      logger.info("Skipping issue: unknown error: cannot determine loading status");
+    }
+
     return SdkHelper.create(ProductDetailsPage.class);
   }
 
@@ -91,7 +103,12 @@ public class BaseTest extends ApplauseSeleniumTest {
     navigateToHome();
     logger.info(String.format("Navigating to PDP page '%s'", TestData.GENERAL_PDP_URL + product));
 
-    SdkHelper.getDriver().navigate().to(TestData.GENERAL_PDP_URL + product);
+    try {
+      // Todo: Remove once new driver 103+ is set on cloud services
+      SdkHelper.getDriver().navigate().to(TestData.GENERAL_PDP_URL + product);
+    } catch (WebDriverException e) {
+      logger.info("Skipping issue: unknown error: cannot determine loading status");
+    }
     return SdkHelper.create(ProductDetailsPage.class);
   }
 

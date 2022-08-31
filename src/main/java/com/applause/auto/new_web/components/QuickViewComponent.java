@@ -195,8 +195,8 @@ public class QuickViewComponent extends BaseComponent {
   public SoftAssert validateShopRunnerUIElements() {
     SoftAssert softAssert = new SoftAssert();
     softAssert.assertEquals(
-        freeText.getText().trim(),
-        TestData.SHOP_RUNNER_FREE_TEXT,
+        freeText.getText().trim().toLowerCase(),
+        TestData.SHOP_RUNNER_FREE_TEXT.toLowerCase(),
         "FREE 2-Day Shipping & Free Returns Text is not displayed");
     softAssert.assertEquals(
         signInLink.getText().trim(), TestData.SHOP_RUNNER_SIGNIN, "Sign in Link is not displayed");

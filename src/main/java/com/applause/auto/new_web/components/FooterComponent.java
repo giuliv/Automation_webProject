@@ -14,7 +14,6 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = FooterComponent.class, on = Platform.WEB)
 @Implementation(is = FooterComponent.class, on = Platform.WEB_MOBILE_PHONE)
@@ -109,7 +108,7 @@ public class FooterComponent extends BaseComponent {
   public CommonWebPage clickGooglePlay() {
     logger.info("Clicking on the 'Google play' link");
     WebHelper.scrollToElement(googlePlayLink);
-    googlePlayLink.click();
+    WebHelper.jsClick(googlePlayLink.getWebElement());
     return SdkHelper.create(CommonWebPage.class);
   }
 

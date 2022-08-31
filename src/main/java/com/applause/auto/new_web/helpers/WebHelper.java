@@ -205,7 +205,7 @@ public class WebHelper {
       scrollPageByCoordinates(yCoordinate - shiftWindow);
       SdkHelper.getSyncHelper().sleep(2000);
       logger.info("Clicking again");
-      element.click();
+      WebHelper.jsClick(element.getWebElement());
     }
   }
 

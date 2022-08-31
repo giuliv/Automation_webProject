@@ -440,7 +440,7 @@ public class ProductDetailsPage extends Base {
     SdkHelper.getSyncHelper().wait(Until.uiElement(addToCartButton).clickable());
     if (!WebHelper.isDesktop()) {
       WebHelper.scrollToElement(addToCartButton);
-      SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+      SdkHelper.getSyncHelper().sleep(2000); // Wait for action
     }
 
     addToCartButton.click();
@@ -453,7 +453,7 @@ public class ProductDetailsPage extends Base {
     SdkHelper.getSyncHelper().wait(Until.uiElement(addToCartButton).clickable());
     if (!WebHelper.isDesktop()) {
       WebHelper.scrollToElement(addToCartButton);
-      SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+      SdkHelper.getSyncHelper().sleep(2000); // Wait for action
     }
 
     addToCartButton.click();
@@ -956,7 +956,8 @@ public class ProductDetailsPage extends Base {
         quantityBoxText.getText().replace("\n", ""),
         "SUBSCRIBE &GET 10% OFF",
         "Quantity 3 text does not matches");
-    quantityBox.click();
+
+    WebHelper.jsClick(quantityBox.getWebElement()); // Due to button being overlapped
     softAssert.assertFalse(quantityBoxSelected.isDisplayed(), "Quantity 2 should not be displayed");
 
     return softAssert;

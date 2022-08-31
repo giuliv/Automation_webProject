@@ -303,6 +303,7 @@ public class Constants {
     public static final String DARK_ROAST_HEADER = "DARK ROAST";
     public static final String TEA_BEST_SELLERS_HEADER = "Tea Best Sellers";
 
+    public static final String GRIND_FIRST_TEXT_COFFEE = "Whole Bean";
     public static final String GRIND_FIRST_TEXT = "4 OZ TIN";
     public static final String GRIND_NEXT_TEXT = "1 LB";
 
@@ -657,7 +658,6 @@ public class Constants {
     Mail1("peets.automation08@applause.com"),
     Mail2("peets.automation09@applause.com"),
     Mail3("peets.automation10@applause.com"),
-    Mail4("peets.automation14@applause.com"),
     Mail5("peets.automation15@applause.com"),
     Mail6("peets.automation16@applause.com"),
     Mail7("peets.automation17@applause.com"),

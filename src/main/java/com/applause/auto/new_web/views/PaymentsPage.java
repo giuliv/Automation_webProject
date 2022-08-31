@@ -18,6 +18,8 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.qameta.allure.Step;
+
+import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -150,7 +152,11 @@ public class PaymentsPage extends Base {
 
   @Override
   public void afterInit() {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(iFrameCardNumber).present());
+    SdkHelper.getSyncHelper()
+        .wait(
+            Until.uiElement(iFrameCardNumber)
+                .present()
+                .setTimeout(Duration.ofSeconds(50))); // Increased time, requested by Bernadette
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
     logger.info("Payments Page URL: " + getDriver().getCurrentUrl());
   }
@@ -452,7 +458,11 @@ class PaymentsPageMobile extends PaymentsPage {
 
   @Override
   public void afterInit() {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(iFrameCardNumber).present());
+    SdkHelper.getSyncHelper()
+        .wait(
+            Until.uiElement(iFrameCardNumber)
+                .present()
+                .setTimeout(Duration.ofSeconds(50))); // Increased time, requested by Bernadette
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
     logger.info("Payments Page URL: " + getDriver().getCurrentUrl());
 

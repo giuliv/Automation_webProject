@@ -97,7 +97,7 @@ public class PdpTests extends BaseTest {
     logger.info("2. Verify that Grind was selected");
     Assert.assertEquals(
         productDetailsPage.getGrindSelected(),
-        Constants.TestData.GRIND_FIRST_TEXT.toLowerCase(),
+        Constants.TestData.GRIND_FIRST_TEXT_COFFEE.toLowerCase(),
         "Default Grind is not displayed");
 
     logger.info("3. Select Drip Grind");

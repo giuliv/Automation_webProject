@@ -101,8 +101,8 @@ public enum FooterOptions {
   // SOCIAL MEDIA
   INSTAGRAM("Social Media", "instagram", "www.instagram.com", CommonWebPage.class),
   TWITTER("Social Media", "twitter", "twitter.com", CommonWebPage.class),
-  FACEBOOK("Social Media", "facebook", "www.facebook.com", CommonWebPage.class),
-  YOUTUBE("Social Media", "youtube", "www.youtube.com", CommonWebPage.class),
+  FACEBOOK("Social Media", "facebook", "facebook.com", CommonWebPage.class),
+  YOUTUBE("Social Media", "youtube", "youtube.com", CommonWebPage.class),
   LINKEDIN("Social Media", "linkedin", "www.linkedin.com", CommonWebPage.class),
 
   // FOOTER END SUB LINKS
