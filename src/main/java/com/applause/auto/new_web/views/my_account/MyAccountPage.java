@@ -110,7 +110,7 @@ public class MyAccountPage extends Base {
     WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
 
     try {
-      if (closeBanner.exists()) {
+      if (WebHelper.exists(closeBanner, 7)) {
         closeBanner.click();
       }
     } catch (Exception e) {

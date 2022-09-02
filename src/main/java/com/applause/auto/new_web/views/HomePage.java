@@ -184,13 +184,13 @@ public class HomePage extends Base {
     logger.info("Peet's Home URL: " + SdkHelper.getDriver().getCurrentUrl());
 
     //    if (!WebHelper.getTestExecution().equals("local")) {
-    if (closeModal.exists()) {
+    if (WebHelper.exists(closeModal, 7)) {
       logger.info("Close peets.com Modal");
       SdkHelper.getSyncHelper().wait(Until.uiElement(closeModal).clickable());
       closeModal.click();
     }
 
-    if (!WebHelper.isDesktop() && allowCookies.exists()) {
+    if (!WebHelper.isDesktop() && WebHelper.exists(allowCookies, 7)) {
       logger.info("Accept Cookies");
       WebHelper.jsClick(allowCookies.getWebElement());
     }

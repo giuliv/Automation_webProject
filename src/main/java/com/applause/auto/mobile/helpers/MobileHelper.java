@@ -49,15 +49,21 @@ public class MobileHelper {
 
   /** Activates the app */
   public static void activateApp() {
-    // Todo: Commented as part of update on pom to 4.1.2 [FIX NEEDED]
+    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
     logger.info("Activate application");
     if (SdkHelper.getEnvironmentHelper().isMobileAndroid()) {
-      //      getMobileDriver().activateApp(MobileApp.ANDROID_PACKAGE_ID);
+      //      activateApplication(MobileApp.ANDROID_PACKAGE_ID);
+      //            getMobileDriver().activateApp(MobileApp.ANDROID_PACKAGE_ID);
+      //      SdkHelper.getDeviceControl().launchApp(); [Best option, until found a better one]
     }
     if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
       SdkHelper.getSyncHelper().sleep(5000);
       hideKeyboardIOSByPressDone();
-      //      getMobileDriver().activateApp(MobileApp.IOS_BUNDLE_ID); //Commented during update to
+
+      //      SdkHelper.getDeviceControl().launchApp();
+
+      //            getMobileDriver().activateApp(MobileApp.IOS_BUNDLE_ID); // Commented during
+      // update to
       // sdk 4.1.2, review if it worked
       activateApplication(MobileApp.IOS_BUNDLE_ID);
     }
@@ -324,13 +330,13 @@ public class MobileHelper {
       logger.debug("Initial picker wheel value: " + pickerWheel);
       logger.debug("Sending value to: " + value);
       logger.debug("Loop #" + loopCounter);
+
       if (!SdkHelper.getEnvironmentHelper().isMobileIOS()) {
         if (value.matches("\\d+")) {
           elem.click();
           elem.sendKeys(Keys.BACK_SPACE + value);
           elem.sendKeys(Keys.BACK_SPACE + value);
           ((AndroidDriver) SdkHelper.getDriver()).pressKey(new KeyEvent(AndroidKey.ENTER));
-
         } else {
           elem.sendKeys(Keys.BACK_SPACE);
           elem.click();
@@ -338,19 +344,20 @@ public class MobileHelper {
           ((AndroidDriver) SdkHelper.getDriver()).pressKey(new KeyEvent(AndroidKey.ENTER));
         }
       } else {
-        JavascriptExecutor js = (JavascriptExecutor) SdkHelper.getDriver();
-        Map<String, Object> params = new HashMap<>();
-        params.put("order", order);
-        params.put("offset", 0.1);
-        params.put(
-            "element",
-            elem.getCssValue(
-                "id")); // Based on new SDK, this method was changed, review if workaround worked
-        try {
-          js.executeScript("mobile: selectPickerWheelValue", params);
-        } catch (WebDriverException wex) {
-          logger.error("Exception thrown during picker wheel scroll");
-        }
+
+        //        JavascriptExecutor js = (JavascriptExecutor) SdkHelper.getDriver();
+        //        Map<String, Object> params = new HashMap<>();
+        //        params.put("order", order);
+        //        params.put("offset", 0.1);
+        //        params.put(
+        //            "element",
+        //            elem.getId()); // Based on new SDK, this method was changed, review if
+        // workaroundworked
+        //        try {
+        //          js.executeScript("mobile: selectPickerWheelValue", params);
+        //        } catch (WebDriverException wex) {
+        //          logger.error("Exception thrown during picker wheel scroll");
+        //        }
       }
       loopCounter++;
       pickerWheel = elem.getText();
@@ -600,8 +607,11 @@ public class MobileHelper {
   }
 
   public static String getCurrentBundleId() {
-    // Todo: Commented as part of update on pom to 4.1.2 [FIX NEEDED]
-    //    AppiumDriver driver = (AppiumDriver<?>) SdkHelper.getDriver();
+    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
+    AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
+    driver.getCapabilities().getCapabilityNames().stream().forEach(x -> logger.info("TEST " + x));
+    logger.info("TEST2 " + SdkHelper.getDeviceControl().getContext());
+
     //    if (driver.getSessionDetails().get("CFBundleIdentifier") == null) {
     //      throw new RuntimeException("Unable to identify running app bundle id");
     //    }

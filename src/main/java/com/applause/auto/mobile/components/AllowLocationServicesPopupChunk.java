@@ -190,20 +190,21 @@ class AndroidAllowLocationServicesPopupChunk extends AllowLocationServicesPopupC
 
   /* -------- Actions -------- */
 
-  // Todo: Commented as part of update on pom to 4.1.2 [FIX NEEDED]
+  // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
   public void notNow() {
-    //    logger.info("Tap Not Now button");
-    //    Point point = getNotNowButton.getMobileElement().getCenter();
-    //    AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
-    //    new TouchAction(driver)
-    //        .tap(PointOption.point(point.x, point.y))
-    //        .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(3)))
-    //        .tap(
-    //            PointOption.point(
-    //                point.x + driver.manage().window().getSize().width / 4,
-    //                point.y + driver.manage().window().getSize().height / 10))
-    //        .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(3)))
-    //        .tap(PointOption.point(point.x, point.y))
-    //        .perform();
+    logger.info("Tap Not Now button");
+    SdkHelper.getDeviceControl().tapElementCenter(getNotNowButton);
+    //        Point point = getNotNowButton.getMobileElement().getCenter();
+    //        AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
+    //        new TouchAction(driver)
+    //            .tap(PointOption.point(point.x, point.y))
+    //            .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(3)))
+    //            .tap(
+    //                PointOption.point(
+    //                    point.x + driver.manage().window().getSize().width / 4,
+    //                    point.y + driver.manage().window().getSize().height / 10))
+    //            .waitAction(WaitOptions.waitOptions(Duration.ofSeconds(3)))
+    //            .tap(PointOption.point(point.x, point.y))
+    //            .perform();
   }
 }

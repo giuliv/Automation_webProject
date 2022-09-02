@@ -592,6 +592,7 @@ class AndroidCreateAccountView extends CreateAccountView {
     // SdkHelper.getSyncHelper().wait(Until.uiElement(getDOBDayPicker).visible());
     logger.info("Day picker exist:" + dayPicker.exists());
     logger.info("Day picker visible:" + dayPicker.isDisplayed());
+
     String dataSource;
     try {
       logger.info("day picker keep: " + dayPicker.getAttributeValue("value"));
@@ -600,6 +601,7 @@ class AndroidCreateAccountView extends CreateAccountView {
       logger.info("day picker keep: " + dayPicker.getAttributeValue("text"));
       dataSource = "text";
     }
+
     try {
       Integer.parseInt(dayPicker.getAttributeValue(dataSource));
     } catch (Throwable throwable) {

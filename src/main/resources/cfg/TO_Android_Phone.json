@@ -16,8 +16,8 @@
 	"region": "US",
 	"phoneOnly": "true",
 	"privateDevicesOnly": "false",
-	"appiumVersion": "1.21.0",
-	"testobject_appium_version": "1.21.0",
+	"appiumVersion": "1.22.0",
+	"testobject_appium_version": "1.22.0",
 	"deviceName": "(Samsung Galaxy S.*|Huawei.*|HTC.*|Google Pixel.*)"
 	<#if testRunId??>
 ,

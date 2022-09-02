@@ -55,7 +55,14 @@ public class WebHelper {
     } catch (Throwable t) {
       SdkHelper.getDriver().setTimeout(previous);
     }
+    logger.info("Default TimeOut " + previous.toString());
+    WebHelper.setDefaultTimeOut();
     return exists;
+  }
+
+  public static void setDefaultTimeOut() {
+    Duration previous = SdkHelper.getDriver().getTimeout();
+    SdkHelper.getDriver().setTimeout(previous);
   }
 
   public static void hoverByAction(BaseElement element) {

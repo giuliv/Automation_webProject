@@ -8,13 +8,14 @@
 		"osName": "iOS",
 		"provider": "SauceLabs RDC US West",
 		"providerThreadType": "Real",
-		"isMobileNative" : "true"
+		"isMobileNative" : "true",
+		"fullContextList" : "true"
 	},
 	"platformName": "iOS",
 	"deviceName": "iPhone.*",
 	"platformVersion": "14",
-	"appiumVersion": "1.21.0",
-	"testobject_appium_version": "1.21.0",
+	"appiumVersion": "1.22.0",
+	"testobject_appium_version": "1.22.0",
 	"orientation": "PORTRAIT",
 	"region": "US",
 	"phoneOnly": "true",
