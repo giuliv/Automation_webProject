@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 public class quickViewTest extends BaseTest {
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11101530")
   public void reviewQuickViewUITest() {
 
@@ -32,7 +32,7 @@ public class quickViewTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11110671")
   public void coffeeItemGrindTest() {
 
@@ -54,7 +54,7 @@ public class quickViewTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11110672")
   public void itemQuantityTest() {
 
@@ -70,7 +70,7 @@ public class quickViewTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11110673")
   public void addToCartTest() {
 
@@ -94,7 +94,7 @@ public class quickViewTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11107487")
   public void shopRunnerTest() {
     logger.info("1. Navigate to Home");
@@ -125,7 +125,7 @@ public class quickViewTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11107488")
   public void teaItemTest() {
 
@@ -169,7 +169,7 @@ public class quickViewTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11107486")
   public void itemTypeTest() {
 
@@ -184,7 +184,7 @@ public class quickViewTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11107489")
   public void equipmentTest() {
 

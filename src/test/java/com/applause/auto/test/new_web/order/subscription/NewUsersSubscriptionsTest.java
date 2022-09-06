@@ -20,7 +20,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
   //  Discount if any
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.SANITY},
+      groups = {Constants.TestNGGroups.TO_BE_RENAMED, Constants.TestNGGroups.SANITY},
       description = "11071740")
   public void subscriptionDiscountAt10AsNewUserTest() {
 
@@ -156,7 +156,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.CHECKOUT},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.CHECKOUT},
       description = "11071741")
   public void subscriptionWithNoDiscountAndCreditCardAsNewUserTest() {
 
@@ -288,7 +288,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.TO_BE_RENAMED},
       description = "11071742")
   public void multipleSubscriptionDiscountAt10AsNewUserTest() {
 
@@ -476,7 +476,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.TO_BE_RENAMED},
       description = "11071743")
   public void multipleItemsSubscriptionDiscountAt5AsNewUserTest() {
 
@@ -658,7 +658,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.TO_BE_RENAMED},
       description = "11071744")
   public void subscriptionAndPurchaseDiscountAt10AsNewUserTest() {
 
@@ -840,7 +840,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.TO_BE_RENAMED},
       description = "11071745")
   public void subscriptionAndPurchaseNoDiscountAsNewUserTest() {
 
@@ -1007,7 +1007,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.TO_BE_RENAMED},
       description = "11071753")
   public void subscriptionDiscountAt5AndPromoCodeAsNewUserTest() {
 
@@ -1144,7 +1144,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.TO_BE_RENAMED},
       description = "11071754")
   public void subscriptionDiscountAt10AndPromoCodeAsNewUserTest() {
 

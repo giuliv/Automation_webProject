@@ -20,7 +20,7 @@ public class NewUsersSingleOriginSubscriptionsTest extends BaseTest {
   //  Discount if any
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.TO_BE_RENAMED},
       description = "11071746")
   public void singleOriginDiscountAt5forNewUserTest() {
 
@@ -152,7 +152,7 @@ public class NewUsersSingleOriginSubscriptionsTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.SANITY},
+      groups = {Constants.TestNGGroups.TO_BE_RENAMED, Constants.TestNGGroups.SANITY},
       description = "11071747")
   public void singleOriginDiscountAt10forNewUserTest() {
 

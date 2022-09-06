@@ -19,7 +19,7 @@ public class NewUsersStandardOrdersTest extends BaseTest {
   //  Discount if any
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.CHECKOUT},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.CHECKOUT},
       description = "11071610")
   public void orderCoffeeCreditCardAsNewUserTest() {
 

@@ -1,18 +1,14 @@
 package com.applause.auto.test.new_web.my_account;
 
-import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.CheckoutUserTestData;
-import com.applause.auto.common.data.Constants.DashboardTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.dto.MyOrderDto;
 import com.applause.auto.new_web.components.my_account.MyOrderItemComponent;
-import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.AcceptancePage;
 import com.applause.auto.new_web.views.CartPage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.SignInPage;
 import com.applause.auto.new_web.views.my_account.MyAccountPage;
-import com.applause.auto.new_web.views.my_account.OrderHistoryPage;
 import com.applause.auto.new_web.views.my_account.ReferralsPage;
 import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
@@ -21,101 +17,7 @@ import org.testng.annotations.Test;
 public class DashboardTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.DASHBOARD, TestNGGroups.DASHBOARD_TEST},
-      description = "11102918")
-  public void dashboardUIelementsTest() {
-    logger.info("1. Navigate to Sign in page");
-    SignInPage signInPage = navigateToSignInPage();
-    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
-
-    logger.info("2. Enter valid credentials.");
-    signInPage.enterEmail(CheckoutUserTestData.USERNAME);
-    signInPage.enterPassword(CheckoutUserTestData.PASSWORD);
-
-    logger.info("3. Click on Sign in");
-    MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
-    softAssert.assertNotNull(myAccountPage, "My account page isn't displayed");
-    softAssert.assertTrue(
-        myAccountPage.getWelcomeMessage().contains("welcome"),
-        "User is not signed in or welcome name is wrong");
-
-    logger.info("Verify table title");
-    softAssert.assertEquals(
-        myAccountPage.getRecentOrdersTitle(),
-        DashboardTestData.RECENT_ORDERS_HEADER.toLowerCase(),
-        "Table title isn't correct");
-
-    softAssert.assertEquals(
-        myAccountPage.getMyOrderItemList().size(), 3, "Total recent orders does not match");
-
-    logger.info("4. Click on Details");
-    MyOrderItemComponent myOrderItemComponent =
-        myAccountPage.viewAllOrders().getMyOrderItemList().get(0);
-    myOrderItemComponent = myOrderItemComponent.clickOnDetails();
-
-    softAssert.assertTrue(
-        myOrderItemComponent.isOrderNumberDisplayed(), "Order number isn't displayed");
-    softAssert.assertTrue(
-        myOrderItemComponent.isOrderPriceDisplayed(), "Order Price isn't displayed");
-
-    logger.info("5. Click in view all orders");
-    OrderHistoryPage orderHistoryPage = myAccountPage.viewAllOrders();
-
-    logger.info("Verify that order history should display");
-    softAssert.assertTrue(orderHistoryPage.isDisplayed(), "Order history page didn't appear");
-
-    logger.info("Verify View all orders URL");
-    softAssert.assertTrue(
-        WebHelper.getCurrentUrl().contains(Constants.TestData.RECENT_ORDERS_URL),
-        "URL does not matches");
-
-    logger.info("Verify that Order #, Date order, Order status and Total should display");
-    if (WebHelper.isDesktop()) {
-      softAssert.assertEquals(
-          orderHistoryPage.getTableTitleList(),
-          DashboardTestData.MY_ORDERS_TABLE_TITLES,
-          "Table titles are not correct");
-    }
-
-    logger.info("Verify that each of orders are fully displayed");
-    softAssert.assertTrue(
-        orderHistoryPage.getMyOrderItemList().size() > 0, "My orders table is empty");
-    softAssert.assertTrue(
-        orderHistoryPage.isMyOrdersTableFullyDisplayed(), "My orders table is n't fully displayed");
-
-    softAssert.assertAll();
-  }
-
-  @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.DASHBOARD, TestNGGroups.DASHBOARD_TEST},
-      description = "11107447")
-  public void dashboardDifferentSectionsTest() {
-    // Todo: Missing sections [Peets card/Peetnik Rewards]
-    logger.info("1. Navigate to Sign in page");
-    SignInPage signInPage = navigateToSignInPage();
-    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
-
-    logger.info("2. Enter valid credentials.");
-    signInPage.enterEmail(mail);
-    signInPage.enterPassword(Constants.TestData.WEB_PASSWORD);
-
-    logger.info("3. Click on Sign in");
-    MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
-
-    logger.info("Validating Dashboard sections");
-    Assert.assertEquals(
-        myAccountPage.getRecentOrdersTitle(),
-        DashboardTestData.RECENT_ORDERS_HEADER.toLowerCase(),
-        "Recent Orders section is not displayed");
-
-    Assert.assertEquals(
-        myAccountPage.getMySubscriptionTitle(),
-        DashboardTestData.MY_SUBSCRIPTION_HEADER.toLowerCase(),
-        "My Subscriptions section is not displayed");
-  }
-
-  @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.DASHBOARD, TestNGGroups.SANITY},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.DASHBOARD, TestNGGroups.SANITY},
       description = "11102919")
   public void dashboardDetailsTest() {
     logger.info("1. Navigate to Sign in page");
@@ -163,7 +65,7 @@ public class DashboardTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.DASHBOARD},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.DASHBOARD},
       description = "11102920")
   public void dashboardViewProductTest() {
     logger.info("1. Navigate to Sign in page");
@@ -206,7 +108,7 @@ public class DashboardTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.DASHBOARD},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.DASHBOARD},
       description = "11102921")
   public void dashboardOrderTrackingTest() {
     logger.info("1. Navigate to Sign in page");
@@ -248,7 +150,7 @@ public class DashboardTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.DASHBOARD},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.DASHBOARD},
       description = "11102922")
   public void dashboardReorderTest() {
     logger.info("1. Navigate to Sign in page");
@@ -290,7 +192,7 @@ public class DashboardTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.DASHBOARD},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.DASHBOARD},
       description = "11102923")
   public void dashboardStartSharingTest() {
     logger.info("1. Navigate to Sign in page");

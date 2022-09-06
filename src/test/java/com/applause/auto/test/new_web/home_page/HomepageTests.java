@@ -31,7 +31,6 @@ import com.applause.auto.new_web.views.FreeHomeDeliveryPage;
 import com.applause.auto.new_web.views.HomePage;
 import com.applause.auto.new_web.views.OrderDeliveryAddressPage;
 import com.applause.auto.new_web.views.PeetnikRewardsPage;
-import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.new_web.views.SeasonalPage;
 import com.applause.auto.new_web.views.SignUpPage;
@@ -47,7 +46,7 @@ import org.testng.annotations.Test;
 public class HomepageTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107418")
   public void peetsLogoAndHeader() {
     logger.info("1. Navigate to landing page");
@@ -95,7 +94,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107419")
   public void headerOptions() {
     logger.info("1. Navigate to landing page");
@@ -172,7 +171,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107424")
   public void freshnessStampVerificationTest() {
     logger.info("1. Navigate to landing page");
@@ -248,7 +247,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107420")
   public void peetsHomepageBannerAndPromoTiles() {
     logger.info("1. Navigate to landing page");
@@ -319,7 +318,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107421")
   public void homepageShopCoffeeShopTea() {
     logger.info("1. Navigate to landing page");
@@ -375,7 +374,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107428")
   public void homepageNeverMissOfferVerificationTest() {
     logger.info("1. Navigate to landing page");
@@ -417,7 +416,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107425")
   public void respondingToCovidVerificationTest() {
     logger.info("1. Navigate to landing page");
@@ -466,7 +465,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107427")
   public void ourCoffeeRevolutionVerificationTest() {
     logger.info("1. Navigate to landing page");
@@ -507,7 +506,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107423")
   public void homepageSubscriptionModuleVerificationTest() {
     logger.info("1. Navigate to landing page");
@@ -586,7 +585,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107426")
   public void homepageCoffeeBarVerificationTest() {
     logger.info("1. Navigate to landing page");
@@ -645,7 +644,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107422")
   public void homepageBestSellers() {
     logger.info("1. Navigate to landing page");
@@ -706,7 +705,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107442")
   public void homepageFreeHomeDelivery() {
     logger.info("1. Navigate to landing page");
@@ -727,7 +726,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107443")
   public void homepageVisitUs() {
     logger.info("1. Navigate to landing page");
@@ -781,7 +780,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107444")
   public void homepageLearn() {
     logger.info("1. Navigate to landing page");
@@ -843,7 +842,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107445")
   public void homepagePeetnikRewards() {
     logger.info("1. Navigate to landing page");
@@ -864,7 +863,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107446")
   public void homepageOffers() {
     logger.info("1. Navigate to landing page");
@@ -883,7 +882,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.HOME_PAGE, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107439")
   public void homepageEndOfPageDescriptionTest() {
     logger.info("1. Navigate to Home page");
@@ -900,7 +899,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107440")
   public void hoverCoffeeOptions() {
     logger.info("1. Navigate to landing page");
@@ -951,7 +950,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107441")
   public void hoverTeaOptions() {
     logger.info("1. Navigate to landing page");

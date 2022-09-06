@@ -17,7 +17,7 @@ import org.testng.asserts.SoftAssert;
 public class GiftCardsTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.GIFT_CARDS},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.GIFT_CARDS},
       description = "11102908",
       enabled = false)
   // Todo:UI seems to have changed
@@ -64,7 +64,7 @@ public class GiftCardsTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.GIFT_CARDS},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.GIFT_CARDS},
       description = "11102909")
   public void manageCardsTest() {
 
@@ -89,7 +89,7 @@ public class GiftCardsTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.GIFT_CARDS, TestNGGroups.SANITY},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.GIFT_CARDS, TestNGGroups.SANITY},
       description = "11102910")
   public void checkCardBalanceTest() {
 
@@ -117,7 +117,7 @@ public class GiftCardsTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.GIFT_CARDS, TestNGGroups.SANITY},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.GIFT_CARDS, TestNGGroups.SANITY},
       description = "11107529",
       enabled = false)
   public void giftCardsMainPageTest() {

@@ -8,21 +8,160 @@ import com.applause.auto.common.data.Constants.WebTestData;
 import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.CheckOutPage;
-import com.applause.auto.new_web.views.CreateAccountPage;
-import com.applause.auto.new_web.views.HomePage;
-import com.applause.auto.new_web.views.ProductDetailsPage;
-import com.applause.auto.new_web.views.SearchResultsPage;
-import com.applause.auto.new_web.views.SignInPage;
+import com.applause.auto.new_web.views.*;
 import com.applause.auto.new_web.views.my_account.MyAccountPage;
 import java.util.List;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
+
+import static com.applause.auto.common.data.Constants.TestData.*;
+import static com.applause.auto.common.data.Constants.TestData.PASSWORD_BAD_FORMAT;
 
 public class IdentityTest extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.IDENTITY, TestNGGroups.WEB_REGRESSION},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.IDENTITY},
+      description = "11102911")
+  public void loginWithInvalidAccountTest() {
+
+    logger.info("1. Navigate to Sign in page");
+    SignInPage signInPage = navigateToSignInPage();
+    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
+
+    logger.info("2. Enter invalid credentials.");
+    signInPage.enterEmail(WebTestData.NOT_EXIST_EMAIL);
+    signInPage.enterPassword(WebTestData.PASSWORD);
+    signInPage = signInPage.clickOnSignInButton(SignInPage.class);
+    Assert.assertTrue(signInPage.errorMessageIsDisplayed(), "Error message isn't displayed");
+  }
+
+  @Test(
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.IDENTITY},
+      description = "11102912")
+  public void forgotPasswordTest() {
+
+    logger.info("1. Navigate to Sign in page");
+    SignInPage signInPage = navigateToSignInPage();
+    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
+
+    logger.info("2. Click on Forgot password?");
+    ResetPasswordPage resetPasswordPage = signInPage.clickForgotPasswordLink();
+    Assert.assertNotNull(resetPasswordPage, "Failed to navigate to the Reset password page.");
+
+    logger.info("3. Enter email.");
+    resetPasswordPage.enterEmail(Constants.Mail.Mail1.getValue());
+
+    logger.info("4. Click on Submit");
+    PasswordRecoveryPage passwordRecoveryPage = resetPasswordPage.clickSubmitButton();
+    Assert.assertTrue(
+        passwordRecoveryPage.isSuccessfulMessageDisplayed(Constants.Mail.Mail1.getValue()),
+        "Successful message isn't displayed");
+  }
+
+  @Test(
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.IDENTITY, TestNGGroups.SMOKE},
+      description = "11102913")
+  public void loginWithValidAccountTest() {
+
+    logger.info("1. Navigate to Sign in page");
+    SignInPage signInPage = navigateToSignInPage();
+    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
+
+    logger.info("2. Enter valid credentials.");
+    signInPage.enterEmail(TestData.PEETS_USERNAME);
+    signInPage.enterPassword(TestData.PEETS_PASSWORD);
+
+    logger.info("3. Click on Sign in");
+    MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
+    Assert.assertNotNull(myAccountPage, "My account page isn't displayed");
+    Assert.assertTrue(
+        myAccountPage.getWelcomeMessage().contains("welcome"),
+        "User is not signed in or welcome name is wrong");
+  }
+
+  @Test(
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.IDENTITY},
+      description = "11102915")
+  public void logoutTest() {
+
+    logger.info("1. Navigate to Sign in page");
+    SignInPage signInPage = navigateToSignInPage();
+    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
+
+    logger.info("2. Enter valid credentials.");
+    signInPage.enterEmail(TestData.PEETS_USERNAME);
+    signInPage.enterPassword(TestData.PEETS_PASSWORD);
+
+    logger.info("3. Click on Sign in");
+    MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
+
+    logger.info("4. Click on LogOut");
+    HomePage homePage = myAccountPage.getLeftMenu().clickLogoutButton();
+    Assert.assertTrue(homePage.getHeader().isSignInButtonDisplayed(), "User isn't logged out");
+  }
+
+  @Test(
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.IDENTITY},
+      description = "11102916")
+  public void invalidSignUpTest() {
+    SoftAssert softAssert = new SoftAssert();
+
+    logger.info("1. Navigate to Sign in page");
+    SignInPage signInPage = navigateToSignInPage();
+    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
+
+    logger.info("2. Click on Create an account");
+    CreateAccountPage createAccountPage = signInPage.clickOnCreateAccountButton();
+    Assert.assertNotNull(createAccountPage, "Failed to navigate to the Create account page.");
+
+    logger.info("3. Click on Create");
+    createAccountPage = createAccountPage.clickCreateAccountButton(CreateAccountPage.class);
+    softAssert.assertTrue(
+        createAccountPage.isFirstNameFieldErrorMessageDisplayed(),
+        "Error message isn't displayed under First name field");
+    softAssert.assertTrue(
+        createAccountPage.isLastNameFieldErrorMessageDisplayed(),
+        "Error message isn't displayed under Last name field");
+    softAssert.assertTrue(
+        createAccountPage.isEmailFieldErrorMessageDisplayed(),
+        "Error message isn't displayed under Email field");
+    softAssert.assertTrue(
+        createAccountPage.isPasswordFieldErrorMessageDisplayed(),
+        "Error message isn't displayed under Password field");
+    softAssert.assertTrue(
+        createAccountPage.isPasswordConfirmationFieldErrorMessageDisplayed(),
+        "Error message isn't displayed under Password confirmation field");
+    softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.IDENTITY, TestNGGroups.SMOKE},
+      description = "11102917")
+  public void validSignUpTest() {
+
+    logger.info("1. Navigate to Sign in page");
+    SignInPage signInPage = navigateToSignInPage();
+    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
+
+    logger.info("2. Click on Create an account");
+    CreateAccountPage createAccountPage = signInPage.clickOnCreateAccountButton();
+    Assert.assertNotNull(createAccountPage, "Failed to navigate to the Create account page.");
+
+    logger.info("3. Click on Create");
+    MyAccountPage myAccountPage =
+        createAccountPage.createAccount(
+            WebTestData.FIRST_NAME,
+            WebTestData.LAST_NAME,
+            WebHelper.getRandomMail(),
+            TestData.WEB_PASSWORD,
+            TestData.WEB_PASSWORD);
+
+    Assert.assertTrue(myAccountPage.getWelcomeMessage().contains("welcome"), "User is not created");
+  }
+
+  @Test(
+      groups = {TestNGGroups.IDENTITY, TestNGGroups.FRONT_END_REGRESSION},
       description = "11108422")
   public void loginExistingAccountCheckoutPageWithStandardItemTest() {
     logger.info("1. Navigate to landing page");
@@ -68,7 +207,7 @@ public class IdentityTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.IDENTITY, TestNGGroups.WEB_REGRESSION},
+      groups = {TestNGGroups.IDENTITY, TestNGGroups.FRONT_END_REGRESSION},
       description = "11107410")
   public void loginExistingAccountCheckoutPageWithSubscriptionItemTest() {
     logger.info("1. Navigate to landing page");
@@ -118,7 +257,7 @@ public class IdentityTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.IDENTITY, TestNGGroups.WEB_REGRESSION},
+      groups = {TestNGGroups.IDENTITY, TestNGGroups.FRONT_END_REGRESSION},
       description = "11108423")
   public void loginCreateNewAccountCheckoutPageWithStandardItemTest() {
     logger.info("1. Navigate to landing page");
@@ -178,7 +317,7 @@ public class IdentityTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.IDENTITY, TestNGGroups.WEB_REGRESSION},
+      groups = {TestNGGroups.IDENTITY, TestNGGroups.FRONT_END_REGRESSION},
       description = "11108424")
   public void loginCreateNewAccountCheckoutPageWithSubscriptionItemTest() {
     logger.info("1. Navigate to landing page");
@@ -245,7 +384,7 @@ public class IdentityTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.IDENTITY, TestNGGroups.WEB_REGRESSION},
+      groups = {TestNGGroups.IDENTITY, TestNGGroups.FRONT_END_REGRESSION},
       description = "11107413")
   public void logoutFromMyCheckoutContactInformationSectionTest() {
     logger.info("1. Navigate to landing page");
@@ -295,5 +434,89 @@ public class IdentityTest extends BaseTest {
 
     logger.info("10. Validate the user is logged out successfully");
     Assert.assertTrue(homePage.getHeader().isUserLoggedOut(), "User isn't logged out");
+  }
+
+  @Test(
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.IDENTITY},
+      description = "11107414")
+  public void myAccountNonExistingEmailTest() {
+    logger.info("1. Navigate to Sign in page");
+    SignInPage signInPage = navigateToSignInPage();
+    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
+
+    logger.info("2. Enter invalid credentials.");
+    signInPage.enterEmail(WebTestData.NOT_EXIST_EMAIL);
+    signInPage.enterPassword(WebTestData.PASSWORD);
+    signInPage = signInPage.clickOnSignInButton(SignInPage.class);
+    Assert.assertEquals(
+        signInPage.getErrorMessage(),
+        UNRECOGNIZED_USERNAME_AND_PASSWORD_MESSAGE,
+        "Wrong message displayed");
+  }
+
+  @Test(
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.IDENTITY},
+      description = "11107416")
+  public void myAccountIncorrectPasswordTest() {
+
+    logger.info("1. Navigate to Sign in page");
+    SignInPage signInPage = navigateToSignInPage();
+    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
+
+    logger.info("2. Enter invalid credentials.");
+    signInPage.enterEmail(TestData.PEETS_USERNAME);
+    signInPage.enterPassword("Incorrectpassword9");
+    signInPage = signInPage.clickOnSignInButton(SignInPage.class);
+    Assert.assertEquals(
+        signInPage.getErrorMessage(),
+        UNRECOGNIZED_USERNAME_AND_PASSWORD_MESSAGE,
+        "Wrong message displayed");
+  }
+
+  @Test(
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.IDENTITY},
+      description = "11107417")
+  public void myAccountInvalidForgotPasswordTest() {
+    logger.info("1. Navigate to Sign in page");
+    SignInPage signInPage = navigateToSignInPage();
+    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
+
+    logger.info("2. Forgot password");
+    ResetPasswordPage resetPasswordPage = signInPage.clickForgotPasswordLink();
+    Assert.assertNotNull(resetPasswordPage, "Failed to navigate to the Reset password page.");
+
+    logger.info("3. Enter email.");
+    resetPasswordPage.enterEmail(PEETS_FORGOT_PASSWORD_USERNAME);
+
+    logger.info("4. Click on Submit");
+    PasswordRecoveryPage passwordRecoveryPage = resetPasswordPage.clickSubmitButton();
+    Assert.assertTrue(
+        passwordRecoveryPage.isSuccessfulMessageDisplayed(PEETS_FORGOT_PASSWORD_USERNAME));
+
+    logger.info("5. Navigate to th Url received in email");
+    PasswordRecoveryResetPage recoveryResetPage = passwordRecoveryPage.navigateRecoveryUrl();
+
+    logger.info(
+        "6. Key in new and repeat password mismatch fields and click on \"Reset Password\" Validate user is shown with password mismatch error");
+    recoveryResetPage =
+        recoveryResetPage
+            .setPassword(PASSWORD)
+            .setConfirmPassword(PASSWORD + PASSWORD)
+            .submit(PasswordRecoveryResetPage.class);
+
+    Assert.assertTrue(
+        recoveryResetPage.isPasswordMismatchErrorDisplayed(),
+        "Password mismatch error does not displayed");
+
+    logger.info(
+        "7. Key in new and repeat password incorrect password format in fields and click on \"Reset Password\"");
+    recoveryResetPage =
+        recoveryResetPage
+            .setPassword(PASSWORD_BAD_FORMAT)
+            .setConfirmPassword(PASSWORD_BAD_FORMAT)
+            .submit(PasswordRecoveryResetPage.class);
+    Assert.assertTrue(
+        recoveryResetPage.isPasswordBadFormatErrorDisplayed(),
+        "Password bad format error does not displayed");
   }
 }

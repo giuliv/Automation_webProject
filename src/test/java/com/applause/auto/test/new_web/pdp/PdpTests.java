@@ -8,13 +8,7 @@ import com.applause.auto.common.data.dto.MyReviewDto;
 import com.applause.auto.common.data.enums.GrindDropdown;
 import com.applause.auto.common.data.enums.ShipEveryDropdown;
 import com.applause.auto.common.data.enums.SortOption;
-import com.applause.auto.new_web.components.MiniCart;
-import com.applause.auto.new_web.components.MyReviewModalComponent;
-import com.applause.auto.new_web.components.ProductStoryModalComponent;
-import com.applause.auto.new_web.components.QuickViewComponent;
-import com.applause.auto.new_web.components.ReviewItemComponent;
-import com.applause.auto.new_web.components.WriteReviewComponent;
-import com.applause.auto.new_web.components.YourReviewWasSubmittedComponent;
+import com.applause.auto.new_web.components.*;
 import com.applause.auto.new_web.components.pdp.PdpStickyNavDetailsComponent;
 import com.applause.auto.new_web.components.pdp.ProductDetailsCustomerReviewsComponent;
 import com.applause.auto.new_web.components.pdp.ProductDetailsViewImageComponent;
@@ -34,7 +28,7 @@ import org.testng.annotations.Test;
 
 public class PdpTests extends BaseTest {
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11113308")
   public void urlValidationPageTest() {
     logger.info("1. Navigate to landing page");
@@ -51,7 +45,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11113309")
   public void breadCrumbsTest() {
     logger.info("1. Navigate to product details page");
@@ -69,7 +63,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11113310")
   public void coffeeItemDetailsTest() {
     logger.info("1. Navigate to PDP");
@@ -87,7 +81,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11113311")
   public void itemGrindTest() {
     logger.info("1. Navigate to product details page");
@@ -110,7 +104,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11113312")
   public void itemQuantityTest() {
     logger.info("1. Navigate to product details page");
@@ -122,7 +116,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11113313")
   public void itemTypeTest() {
     logger.info("1. Navigate to Home");
@@ -179,7 +173,7 @@ public class PdpTests extends BaseTest {
 
   @Test(
       groups = {
-        Constants.TestNGGroups.WEB_REGRESSION,
+        Constants.TestNGGroups.TO_BE_RENAMED,
         Constants.TestNGGroups.PDP,
         Constants.TestNGGroups.SMOKE
       },
@@ -221,7 +215,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.TO_BE_RENAMED, Constants.TestNGGroups.PDP},
       description = "11102945")
   public void grindAndQuantitySelectionTest() {
     logger.info("1. Navigate to landing page");
@@ -313,7 +307,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11102946")
   public void subscribeTest() {
     logger.info("1. Navigate to landing page");
@@ -369,7 +363,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.TO_BE_RENAMED, Constants.TestNGGroups.PDP},
       description = "11102947")
   public void writeReviewTest() {
     logger.info("1. Navigate to landing page");
@@ -414,7 +408,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.TO_BE_RENAMED, Constants.TestNGGroups.PDP},
       description = "11102948")
   public void takeTheCoffeeQuizTest() {
     logger.info("1. Navigate to landing page");
@@ -432,7 +426,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11107450")
   public void pdpShopRunnerTest() {
     logger.info("1. Navigate to PDP");
@@ -462,7 +456,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11107451")
   public void pdpItemRoastDateFreshnessDescriptionTest() {
     logger.info("1. Navigate to PDP");
@@ -506,7 +500,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11107452")
   public void pdpFlavorProfileTest() {
     logger.info("1. Navigate to landing page");
@@ -567,7 +561,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11107453")
   public void pdpStoryTest() {
     logger.info("1. Navigate to PDP");
@@ -590,7 +584,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11107454")
   public void pdpBrewingMethodsTest() {
     logger.info("1. Navigate to PDP");
@@ -648,7 +642,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11107455")
   public void pdpCustomerReviewsTest() {
     logger.info("1. Navigate to PDP");
@@ -736,7 +730,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11107456")
   public void pdpRecommendedForYouSectionTest() {
     logger.info("1. Navigate to PDP");
@@ -789,7 +783,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11107457")
   public void pdpNeverMissOfferTest() {
     logger.info("1. Navigate to PDP");
@@ -808,7 +802,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11107458")
   public void pdpAtPeetsCoffeeOnInstagramTest() {
     logger.info("1. Navigate to PDP");
@@ -829,7 +823,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11107459")
   public void pdpScrollDownPastTest() {
     logger.info("1. Navigate to PDP");
@@ -876,7 +870,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11107460")
   public void pdpSpecialtyBlendsTest() {
     logger.info("1. Navigate to PDP");
@@ -900,7 +894,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11107461")
   public void pdpAnniversaryCoffeeTest() {
     logger.info("1. Navigate to PDP");
@@ -923,7 +917,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11107462",
       enabled = false)
   public void pdpOnlyFewItemsLeftTest() {
@@ -931,7 +925,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11107463",
       enabled = false)
   public void pdpDarkBackgroundNavigationTest() {
@@ -939,7 +933,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11107464")
   public void pdpTeaItemTest() {
     logger.info("1. Navigate to PDP");
@@ -979,7 +973,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11107465")
   public void pdpEquipmentTest() {
     logger.info("1. Navigate to PDP");
@@ -998,5 +992,59 @@ public class PdpTests extends BaseTest {
     Assert.assertTrue(
         productDetailsPage.isDecrementQuantityButtonDisplayed(),
         "Decrement quantity button isn't displayed");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      description = "11107468")
+  public void pdpOutOfStockTest() {
+    logger.info("1. Navigate to PDP");
+    HomePage homePage = navigateToHome();
+
+    logger.info("2. Search for the product: {}", TestData.EQUIPMENT_NAME_OOO);
+    SearchResultsPage searchResultsPage =
+        homePage.getHeader().getSearchComponent().search(TestData.EQUIPMENT_NAME_OOO);
+    ProductDetailsPage productDetailsPage = searchResultsPage.clickOverProductByIndex(0);
+
+    logger.info("3. Validate Out Of Stock message");
+    Assert.assertEquals(
+        productDetailsPage.getOutOfStockMessage(),
+        "SORRY, WE’RE SOLD OUT.",
+        "Out of stock message does not match");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      description = "11107467")
+  public void pdpOutOfStockSoldOutTest() {
+    logger.info("1. Navigate to PDP");
+    HomePage homePage = navigateToHome();
+
+    logger.info("2. Search for the product: {}", TestData.PODS_OOO);
+    SearchResultsPage searchResultsPage =
+        homePage.getHeader().getSearchComponent().search(TestData.PODS_OOO);
+    ProductDetailsPage productDetailsPage = searchResultsPage.clickOverProductByIndex(0);
+
+    logger.info("3. Validate Out Of Stock message");
+    Assert.assertEquals(
+        productDetailsPage.getOutOfStockMessage(),
+        "SORRY, WE’RE SOLD OUT.",
+        "Out of stock message does not match");
+
+    logger.info("4. Validate Notify Me message");
+    Assert.assertEquals(
+        productDetailsPage.getNotifyMeMessage(),
+        "NOTIFY ME",
+        "Out of stock message does not match");
+
+    logger.info("5. Review notify me by mail");
+    NotifyMeComponent notifyMeComponent =
+        productDetailsPage.setMailIntoNotifyMeBox(WebHelper.getRandomMail());
+    Assert.assertEquals(
+        notifyMeComponent.getSuccessMessage(), "THANKS!", "Success message was not correct");
+
+    logger.info("6. Close Modal");
+    notifyMeComponent.closeModal();
+    Assert.assertFalse(notifyMeComponent.isModalDisplayed(), "Modal was not closed");
   }
 }

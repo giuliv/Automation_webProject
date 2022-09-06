@@ -19,7 +19,7 @@ public class SearchTest extends BaseTest {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.SEARCH, TestNGGroups.SMOKE},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.SEARCH, TestNGGroups.SMOKE},
       description = "11102893")
   public void searchWithAutocompleteAndCloseTest() {
     logger.info("1. Navigate to landing page");
@@ -38,7 +38,7 @@ public class SearchTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.SEARCH, TestNGGroups.SANITY},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.SEARCH, TestNGGroups.SANITY},
       description = "11102894")
   public void searchResultsTest() {
     logger.info("1. Navigate to landing page");
@@ -53,7 +53,7 @@ public class SearchTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.SEARCH},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.SEARCH},
       description = "11102895")
   public void validateUiAutocompleteOptionsTest() {
     logger.info("1. Navigate to landing page");
@@ -70,7 +70,7 @@ public class SearchTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.SEARCH},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.SEARCH},
       description = "11102896")
   public void validateAutocompleteSuggestionTest() {
     logger.info("1. Navigate to landing page");
@@ -101,7 +101,7 @@ public class SearchTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.SEARCH},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.SEARCH},
       description = "11102897")
   public void noSearchResultsTest() {
     logger.info("1. Navigate to landing page");

@@ -2,20 +2,19 @@ package com.applause.auto.test.new_web.home_page;
 
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.enums.FooterOptions;
-import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.FooterComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.HomePage;
 import com.applause.auto.test.new_web.BaseTest;
 import java.util.List;
-import org.openqa.selenium.WebDriverException;
+
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class FooterTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107429")
   public void homepageFooterLogoTest() {
     logger.info("1. Navigate to Home page");
@@ -30,7 +29,7 @@ public class FooterTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107430")
   public void homepageFooterHelpCenterTest() {
     logger.info("1. Navigate to Home page");
@@ -48,7 +47,7 @@ public class FooterTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107431")
   public void homepageFooterCompanyTest() {
     logger.info("1. Navigate to Home page");
@@ -66,7 +65,7 @@ public class FooterTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107432")
   public void homepageFooterGiftsCardsTest() {
     logger.info("1. Navigate to Home page");
@@ -84,7 +83,7 @@ public class FooterTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107433")
   public void homepageFooterOffersTest() {
     logger.info("1. Navigate to Home page");
@@ -102,7 +101,7 @@ public class FooterTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107434")
   public void homepageFooterPartnerWithPeetsTest() {
     logger.info("1. Navigate to Home page");
@@ -120,7 +119,7 @@ public class FooterTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107435")
   public void homepageFooterBlogTest() {
     logger.info("1. Navigate to Home page");
@@ -138,7 +137,7 @@ public class FooterTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107436")
   public void homepageFooterPeetsAppTest() {
     logger.info("1. Navigate to Home page");
@@ -171,7 +170,7 @@ public class FooterTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107437")
   public void homepageFooterSocialMediaIconsTest() {
     logger.info("1. Navigate to Home page");
@@ -189,7 +188,7 @@ public class FooterTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107438")
   public void homepageFooterPeetsCoffeeEndTest() {
     logger.info("1. Navigate to Home page");

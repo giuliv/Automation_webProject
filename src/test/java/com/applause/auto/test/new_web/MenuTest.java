@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 public class MenuTest extends BaseTest {
 
   @Test(
-      groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11107482")
   public void featured() {
     logger.info("XX. Navigate to landing page");
@@ -77,7 +77,7 @@ public class MenuTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11107483")
   public void category() {
     logger.info("XX. Navigate to landing page");
@@ -106,7 +106,7 @@ public class MenuTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11107484")
   public void banners() {
     logger.info("XX. Navigate to landing page");
@@ -132,7 +132,7 @@ public class MenuTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11107485")
   public void newsletter() {
     logger.info("XX. Navigate to landing page");
@@ -154,7 +154,7 @@ public class MenuTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.WEB_REGRESSION},
+      groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11107481")
   public void viewMenuAndOptions() {
 

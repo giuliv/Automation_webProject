@@ -19,7 +19,7 @@ import org.testng.annotations.Test;
 public class MiniCartTest extends BaseTest {
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11109579")
   public void addToMiniCartTest() {
 
@@ -35,11 +35,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {
-        Constants.TestNGGroups.WEB_REGRESSION,
-        Constants.TestNGGroups.PLP,
-        Constants.TestNGGroups.SMOKE
-      },
+      groups = {Constants.TestNGGroups.TO_BE_RENAMED, Constants.TestNGGroups.SMOKE},
       description = "11101730")
   public void validateMiniCartElementsTest() {
 
@@ -69,7 +65,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.TO_BE_RENAMED},
       description = "11101731")
   public void itemsRemovedFromMiniCartTest() {
 
@@ -103,7 +99,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.TO_BE_RENAMED},
       description = "11101732")
   public void emptyMiniCartTest() {
 
@@ -127,7 +123,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11101733")
   public void progressShippingBarTest() {
 
@@ -153,7 +149,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.TO_BE_RENAMED},
       description = "11101739")
   public void learnMoreFromMiniCartTest() {
 
@@ -175,11 +171,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {
-        Constants.TestNGGroups.WEB_REGRESSION,
-        Constants.TestNGGroups.PLP,
-        Constants.TestNGGroups.SMOKE
-      },
+      groups = {Constants.TestNGGroups.TO_BE_RENAMED, Constants.TestNGGroups.SMOKE},
       description = "11101740")
   public void signInFromMiniCartTest() {
 
@@ -200,7 +192,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11101734")
   public void recommendedItemsNavigationTest() {
 
@@ -223,11 +215,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {
-        Constants.TestNGGroups.WEB_REGRESSION,
-        Constants.TestNGGroups.PLP,
-        Constants.TestNGGroups.SANITY
-      },
+      groups = {Constants.TestNGGroups.TO_BE_RENAMED, Constants.TestNGGroups.SANITY},
       description = "11101735",
       enabled = false)
   public void addRemoveRecommendedItemTest() {
@@ -270,7 +258,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11101737")
   public void oneTimePurchaseMiniCartTest() {
     // Todo:Do we need to validate also subscriptions?
@@ -288,7 +276,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.TO_BE_RENAMED},
       description = "11101738")
   public void subscriptionModeMiniCartTest() {
 
@@ -309,7 +297,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11107530")
   public void miniCartCheckoutBypassesCartTest() {
 
@@ -333,7 +321,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11107531")
   public void miniCartViewCartGoesToCartTest() {
 
@@ -357,7 +345,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11107533")
   public void miniCartSubscribeSetupTest() {
     logger.info("1. Navigate to product details page");
@@ -386,7 +374,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11107532")
   public void miniCartShopRunner2DayShippingTest() {
 
@@ -422,7 +410,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11109580")
   public void emptyMiniCart2Test() {
 
@@ -464,7 +452,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.PLP},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11109581")
   public void estimatedShipDateTest() {
 

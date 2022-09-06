@@ -1,10 +1,5 @@
 package com.applause.auto.test.new_web.my_account;
 
-import static com.applause.auto.common.data.Constants.TestData.PASSWORD;
-import static com.applause.auto.common.data.Constants.TestData.PASSWORD_BAD_FORMAT;
-import static com.applause.auto.common.data.Constants.TestData.PEETS_FORGOT_PASSWORD_USERNAME;
-import static com.applause.auto.common.data.Constants.TestData.UNRECOGNIZED_USERNAME_AND_PASSWORD_MESSAGE;
-
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MyAccountLeftMenuOption;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
@@ -13,13 +8,10 @@ import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.Constants.WebTestData;
 import com.applause.auto.new_web.components.MyAccountLeftMenu;
 import com.applause.auto.new_web.components.RegisterPeetCardComponent;
+import com.applause.auto.new_web.components.my_account.MyOrderItemComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.*;
-import com.applause.auto.new_web.views.my_account.MyAccountEmailPreferencesPage;
-import com.applause.auto.new_web.views.my_account.MyAccountOrderHistoryPage;
-import com.applause.auto.new_web.views.my_account.MyAccountPage;
-import com.applause.auto.new_web.views.my_account.MyAccountPeetnikRewardsPage;
-import com.applause.auto.new_web.views.my_account.MyAccountSettingsPage;
+import com.applause.auto.new_web.views.my_account.*;
 import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -28,72 +20,7 @@ import org.testng.asserts.SoftAssert;
 public class MyAccountTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.IDENTITY},
-      description = "11102911")
-  public void loginWithInvalidAccountTest() {
-
-    logger.info("1. Navigate to Sign in page");
-    SignInPage signInPage = navigateToSignInPage();
-    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
-
-    logger.info("2. Enter invalid credentials.");
-    signInPage.enterEmail(WebTestData.NOT_EXIST_EMAIL);
-    signInPage.enterPassword(WebTestData.PASSWORD);
-    signInPage = signInPage.clickOnSignInButton(SignInPage.class);
-    Assert.assertTrue(signInPage.errorMessageIsDisplayed(), "Error message isn't displayed");
-  }
-
-  @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.IDENTITY},
-      description = "11102912")
-  public void forgotPasswordTest() {
-
-    logger.info("1. Navigate to Sign in page");
-    SignInPage signInPage = navigateToSignInPage();
-    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
-
-    logger.info("2. Click on Forgot password?");
-    ResetPasswordPage resetPasswordPage = signInPage.clickForgotPasswordLink();
-    Assert.assertNotNull(resetPasswordPage, "Failed to navigate to the Reset password page.");
-
-    logger.info("3. Enter email.");
-    resetPasswordPage.enterEmail(Constants.Mail.Mail1.getValue());
-
-    logger.info("4. Click on Submit");
-    PasswordRecoveryPage passwordRecoveryPage = resetPasswordPage.clickSubmitButton();
-    Assert.assertTrue(
-        passwordRecoveryPage.isSuccessfulMessageDisplayed(Constants.Mail.Mail1.getValue()),
-        "Successful message isn't displayed");
-  }
-
-  @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.IDENTITY, TestNGGroups.SMOKE},
-      description = "11102913")
-  public void loginWithValidAccountTest() {
-
-    logger.info("1. Navigate to Sign in page");
-    SignInPage signInPage = navigateToSignInPage();
-    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
-
-    logger.info("2. Enter valid credentials.");
-    signInPage.enterEmail(TestData.PEETS_USERNAME);
-    signInPage.enterPassword(TestData.PEETS_PASSWORD);
-
-    logger.info("3. Click on Sign in");
-    MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
-    Assert.assertNotNull(myAccountPage, "My account page isn't displayed");
-    Assert.assertTrue(
-        myAccountPage.getWelcomeMessage().contains("welcome"),
-        "User is not signed in or welcome name is wrong");
-  }
-
-  @Test(
-      groups = {
-        TestNGGroups.WEB_REGRESSION,
-        TestNGGroups.MY_ACCOUNT,
-        TestNGGroups.SANITY,
-        TestNGGroups.DASHBOARD_TEST
-      },
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.SANITY},
       description = "11102914")
   public void loginValidMenuTest() {
     SoftAssert softAssert = new SoftAssert();
@@ -115,87 +42,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.IDENTITY},
-      description = "11102915")
-  public void logoutTest() {
-
-    logger.info("1. Navigate to Sign in page");
-    SignInPage signInPage = navigateToSignInPage();
-    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
-
-    logger.info("2. Enter valid credentials.");
-    signInPage.enterEmail(TestData.PEETS_USERNAME);
-    signInPage.enterPassword(TestData.PEETS_PASSWORD);
-
-    logger.info("3. Click on Sign in");
-    MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
-
-    logger.info("4. Click on LogOut");
-    HomePage homePage = myAccountPage.getLeftMenu().clickLogoutButton();
-    Assert.assertTrue(homePage.getHeader().isSignInButtonDisplayed(), "User isn't logged out");
-  }
-
-  @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.IDENTITY},
-      description = "11102916")
-  public void invalidSignUpTest() {
-    SoftAssert softAssert = new SoftAssert();
-
-    logger.info("1. Navigate to Sign in page");
-    SignInPage signInPage = navigateToSignInPage();
-    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
-
-    logger.info("2. Click on Create an account");
-    CreateAccountPage createAccountPage = signInPage.clickOnCreateAccountButton();
-    Assert.assertNotNull(createAccountPage, "Failed to navigate to the Create account page.");
-
-    logger.info("3. Click on Create");
-    createAccountPage = createAccountPage.clickCreateAccountButton(CreateAccountPage.class);
-    softAssert.assertTrue(
-        createAccountPage.isFirstNameFieldErrorMessageDisplayed(),
-        "Error message isn't displayed under First name field");
-    softAssert.assertTrue(
-        createAccountPage.isLastNameFieldErrorMessageDisplayed(),
-        "Error message isn't displayed under Last name field");
-    softAssert.assertTrue(
-        createAccountPage.isEmailFieldErrorMessageDisplayed(),
-        "Error message isn't displayed under Email field");
-    softAssert.assertTrue(
-        createAccountPage.isPasswordFieldErrorMessageDisplayed(),
-        "Error message isn't displayed under Password field");
-    softAssert.assertTrue(
-        createAccountPage.isPasswordConfirmationFieldErrorMessageDisplayed(),
-        "Error message isn't displayed under Password confirmation field");
-    softAssert.assertAll();
-  }
-
-  @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.IDENTITY, TestNGGroups.SMOKE},
-      description = "11102917")
-  public void validSignUpTest() {
-
-    logger.info("1. Navigate to Sign in page");
-    SignInPage signInPage = navigateToSignInPage();
-    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
-
-    logger.info("2. Click on Create an account");
-    CreateAccountPage createAccountPage = signInPage.clickOnCreateAccountButton();
-    Assert.assertNotNull(createAccountPage, "Failed to navigate to the Create account page.");
-
-    logger.info("3. Click on Create");
-    MyAccountPage myAccountPage =
-        createAccountPage.createAccount(
-            WebTestData.FIRST_NAME,
-            WebTestData.LAST_NAME,
-            WebHelper.getRandomMail(),
-            TestData.WEB_PASSWORD,
-            TestData.WEB_PASSWORD);
-
-    Assert.assertTrue(myAccountPage.getWelcomeMessage().contains("welcome"), "User is not created");
-  }
-
-  @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, Constants.TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.TO_BE_RENAMED, Constants.TestNGGroups.MY_ACCOUNT},
       description = "11102938")
   public void myAccountSettingsElementsTest() {
     SoftAssert softAssert = new SoftAssert();
@@ -233,7 +80,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.SANITY},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.MY_ACCOUNT, TestNGGroups.SANITY},
       description = "11102939")
   public void myAccountSettingsEditPasswordTest() {
 
@@ -274,7 +121,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.MY_ACCOUNT},
       description = "11102940")
   public void myAccountSettingsEmailPreferencesTest() {
 
@@ -319,7 +166,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.SANITY},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.MY_ACCOUNT, TestNGGroups.SANITY},
       description = "11102924")
   public void myAccountPeetnikRewardsElementsTest() {
     MyAccountPage myAccountPage =
@@ -346,7 +193,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.MY_ACCOUNT},
       description = "11102925")
   public void myAccountPeetnikRewardsCustomerExperienceTest() {
     MyAccountPage myAccountPage =
@@ -365,7 +212,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.DASHBOARD_TEST},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.MY_ACCOUNT},
       description = "11102926")
   public void myAccountMySubscriptionElementsTest() {
     MyAccountPage myAccountPage =
@@ -429,7 +276,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.DASHBOARD_TEST},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.MY_ACCOUNT},
       description = "11102930")
   public void myAccountPeetsCardTest() {
     // Todo: Missing validations, needs to be able to add peets cards
@@ -460,7 +307,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.MY_ACCOUNT},
       description = "11102927")
   public void myAccountMySubscriptionAddItemTest() {
     MyAccountPage myAccountPage =
@@ -479,7 +326,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.SMOKE},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.MY_ACCOUNT, TestNGGroups.SMOKE},
       description = "11102928")
   public void myAccountMySubscriptionUpdatePaymentTest() {
     MyAccountPage myAccountPage =
@@ -496,7 +343,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.MY_ACCOUNT},
       description = "11102929")
   public void myAccountOrderHistoryElementsTest() {
     MyAccountPage myAccountPage =
@@ -513,86 +360,131 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.IDENTITY},
-      description = "11107414")
-  public void myAccountNonExistingEmailTest() {
+      groups = {TestNGGroups.FRONT_END_REGRESSION},
+      description = "11107447")
+  public void dashboardDifferentSectionsTest() {
+    // Todo: Missing sections [Peets card/Peetnik Rewards]
     logger.info("1. Navigate to Sign in page");
     SignInPage signInPage = navigateToSignInPage();
     Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
 
-    logger.info("2. Enter invalid credentials.");
-    signInPage.enterEmail(WebTestData.NOT_EXIST_EMAIL);
-    signInPage.enterPassword(WebTestData.PASSWORD);
-    signInPage = signInPage.clickOnSignInButton(SignInPage.class);
+    logger.info("2. Enter valid credentials.");
+    signInPage.enterEmail(mail);
+    signInPage.enterPassword(Constants.TestData.WEB_PASSWORD);
+
+    logger.info("3. Click on Sign in");
+    MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
+
+    logger.info("Validating Dashboard sections");
     Assert.assertEquals(
-        signInPage.getErrorMessage(),
-        UNRECOGNIZED_USERNAME_AND_PASSWORD_MESSAGE,
-        "Wrong message displayed");
+        myAccountPage.getRecentOrdersTitle(),
+        Constants.DashboardTestData.RECENT_ORDERS_HEADER.toLowerCase(),
+        "Recent Orders section is not displayed");
+
+    Assert.assertEquals(
+        myAccountPage.getMySubscriptionTitle(),
+        Constants.DashboardTestData.MY_SUBSCRIPTION_HEADER.toLowerCase(),
+        "My Subscriptions section is not displayed");
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.IDENTITY},
-      description = "11107416")
-  public void myAccountIncorrectPasswordTest() {
-
+      groups = {TestNGGroups.FRONT_END_REGRESSION},
+      description = "11102918")
+  public void dashboardUIelementsTest() {
     logger.info("1. Navigate to Sign in page");
     SignInPage signInPage = navigateToSignInPage();
     Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
 
-    logger.info("2. Enter invalid credentials.");
-    signInPage.enterEmail(TestData.PEETS_USERNAME);
-    signInPage.enterPassword("Incorrectpassword9");
-    signInPage = signInPage.clickOnSignInButton(SignInPage.class);
-    Assert.assertEquals(
-        signInPage.getErrorMessage(),
-        UNRECOGNIZED_USERNAME_AND_PASSWORD_MESSAGE,
-        "Wrong message displayed");
+    logger.info("2. Enter valid credentials.");
+    signInPage.enterEmail(Constants.CheckoutUserTestData.USERNAME);
+    signInPage.enterPassword(Constants.CheckoutUserTestData.PASSWORD);
+
+    logger.info("3. Click on Sign in");
+    MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
+    softAssert.assertNotNull(myAccountPage, "My account page isn't displayed");
+    softAssert.assertTrue(
+        myAccountPage.getWelcomeMessage().contains("welcome"),
+        "User is not signed in or welcome name is wrong");
+
+    logger.info("Verify table title");
+    softAssert.assertEquals(
+        myAccountPage.getRecentOrdersTitle(),
+        Constants.DashboardTestData.RECENT_ORDERS_HEADER.toLowerCase(),
+        "Table title isn't correct");
+
+    softAssert.assertEquals(
+        myAccountPage.getMyOrderItemList().size(), 3, "Total recent orders does not match");
+
+    logger.info("4. Click on Details");
+    MyOrderItemComponent myOrderItemComponent =
+        myAccountPage.viewAllOrders().getMyOrderItemList().get(0);
+    myOrderItemComponent = myOrderItemComponent.clickOnDetails();
+
+    softAssert.assertTrue(
+        myOrderItemComponent.isOrderNumberDisplayed(), "Order number isn't displayed");
+    softAssert.assertTrue(
+        myOrderItemComponent.isOrderPriceDisplayed(), "Order Price isn't displayed");
+
+    logger.info("5. Click in view all orders");
+    OrderHistoryPage orderHistoryPage = myAccountPage.viewAllOrders();
+
+    logger.info("Verify that order history should display");
+    softAssert.assertTrue(orderHistoryPage.isDisplayed(), "Order history page didn't appear");
+
+    logger.info("Verify View all orders URL");
+    softAssert.assertTrue(
+        WebHelper.getCurrentUrl().contains(Constants.TestData.RECENT_ORDERS_URL),
+        "URL does not matches");
+
+    logger.info("Verify that Order #, Date order, Order status and Total should display");
+    if (WebHelper.isDesktop()) {
+      softAssert.assertEquals(
+          orderHistoryPage.getTableTitleList(),
+          Constants.DashboardTestData.MY_ORDERS_TABLE_TITLES,
+          "Table titles are not correct");
+    }
+
+    logger.info("Verify that each of orders are fully displayed");
+    softAssert.assertTrue(
+        orderHistoryPage.getMyOrderItemList().size() > 0, "My orders table is empty");
+    softAssert.assertTrue(
+        orderHistoryPage.isMyOrdersTableFullyDisplayed(), "My orders table is n't fully displayed");
+
+    softAssert.assertAll();
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.IDENTITY},
-      description = "11107417")
-  public void myAccountInvalidForgotPasswordTest() {
-    logger.info("1. Navigate to Sign in page");
-    SignInPage signInPage = navigateToSignInPage();
-    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      description = "11102933")
+  public void referralsElementsTest() {
+    if (WebHelper.isDesktop()) {
+      MyAccountPage myAccountPage =
+          MyAccountTestsHelper.navigateToMyAccountPage(
+              navigateToSignInPage(),
+              TestData.USER_EMAIL_WITH_SUBSCRIPTIONS,
+              TestData.WEB_PASSWORD);
 
-    logger.info("2. Forgot password");
-    ResetPasswordPage resetPasswordPage = signInPage.clickForgotPasswordLink();
-    Assert.assertNotNull(resetPasswordPage, "Failed to navigate to the Reset password page.");
+      logger.info("4. Click on Referrals");
+      ReferralsPage referralsPage =
+          myAccountPage.getLeftMenu().clickMenuOption(MyAccountLeftMenuOption.REFERRALS);
 
-    logger.info("3. Enter email.");
-    resetPasswordPage.enterEmail(PEETS_FORGOT_PASSWORD_USERNAME);
+      logger.info(
+          "Verify Referrals title, image, links, Your pin..., Times shared, Friends referrals, Possible rewards and Rewards earned text should display.\n"
+              + "Facebook, email and link icons should display.");
+      softAssert.assertEquals(
+          referralsPage.getTitle().toLowerCase(),
+          MyAccountTestData.REFERRALS_TITLE_HEADER.toLowerCase(),
+          "Title isn't correct");
+      softAssert.assertTrue(referralsPage.isShareButtonDisplayed(), "Share button isn't displayed");
+      softAssert.assertTrue(referralsPage.isEmailButtonDisplayed(), "Email button isn't displayed");
+      softAssert.assertTrue(referralsPage.isCopyButtonDisplayed(), "Copy button isn't displayed");
 
-    logger.info("4. Click on Submit");
-    PasswordRecoveryPage passwordRecoveryPage = resetPasswordPage.clickSubmitButton();
-    Assert.assertTrue(
-        passwordRecoveryPage.isSuccessfulMessageDisplayed(PEETS_FORGOT_PASSWORD_USERNAME));
+      softAssert.assertEquals(
+          referralsPage.getListOfStats(),
+          MyAccountTestData.REFERRALS_STATS,
+          "Not all stats are displayed");
 
-    logger.info("5. Navigate to th Url received in email");
-    PasswordRecoveryResetPage recoveryResetPage = passwordRecoveryPage.navigateRecoveryUrl();
-
-    logger.info(
-        "6. Key in new and repeat password mismatch fields and click on \"Reset Password\" Validate user is shown with password mismatch error");
-    recoveryResetPage =
-        recoveryResetPage
-            .setPassword(PASSWORD)
-            .setConfirmPassword(PASSWORD + PASSWORD)
-            .submit(PasswordRecoveryResetPage.class);
-
-    Assert.assertTrue(
-        recoveryResetPage.isPasswordMismatchErrorDisplayed(),
-        "Password mismatch error does not displayed");
-
-    logger.info(
-        "7. Key in new and repeat password incorrect password format in fields and click on \"Reset Password\"");
-    recoveryResetPage =
-        recoveryResetPage
-            .setPassword(PASSWORD_BAD_FORMAT)
-            .setConfirmPassword(PASSWORD_BAD_FORMAT)
-            .submit(PasswordRecoveryResetPage.class);
-    Assert.assertTrue(
-        recoveryResetPage.isPasswordBadFormatErrorDisplayed(),
-        "Password bad format error does not displayed");
+      softAssert.assertAll();
+    }
   }
 }

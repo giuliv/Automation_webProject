@@ -17,42 +17,7 @@ import org.testng.annotations.Test;
 public class ReferralsTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.DASHBOARD_TEST},
-      description = "11102933")
-  public void referralsElementsTest() {
-    if (WebHelper.isDesktop()) {
-      MyAccountPage myAccountPage =
-          MyAccountTestsHelper.navigateToMyAccountPage(
-              navigateToSignInPage(),
-              TestData.USER_EMAIL_WITH_SUBSCRIPTIONS,
-              TestData.WEB_PASSWORD);
-
-      logger.info("4. Click on Referrals");
-      ReferralsPage referralsPage =
-          myAccountPage.getLeftMenu().clickMenuOption(MyAccountLeftMenuOption.REFERRALS);
-
-      logger.info(
-          "Verify Referrals title, image, links, Your pin..., Times shared, Friends referrals, Possible rewards and Rewards earned text should display.\n"
-              + "Facebook, email and link icons should display.");
-      softAssert.assertEquals(
-          referralsPage.getTitle().toLowerCase(),
-          MyAccountTestData.REFERRALS_TITLE_HEADER.toLowerCase(),
-          "Title isn't correct");
-      softAssert.assertTrue(referralsPage.isShareButtonDisplayed(), "Share button isn't displayed");
-      softAssert.assertTrue(referralsPage.isEmailButtonDisplayed(), "Email button isn't displayed");
-      softAssert.assertTrue(referralsPage.isCopyButtonDisplayed(), "Copy button isn't displayed");
-
-      softAssert.assertEquals(
-          referralsPage.getListOfStats(),
-          MyAccountTestData.REFERRALS_STATS,
-          "Not all stats are displayed");
-
-      softAssert.assertAll();
-    }
-  }
-
-  @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.MY_ACCOUNT},
       description = "11102934")
   public void throughFacebookTest() {
     if (WebHelper.isDesktop()) {
@@ -79,7 +44,7 @@ public class ReferralsTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.MY_ACCOUNT},
       description = "11102935")
   public void throughEmailTest() {
     if (WebHelper.isDesktop()) {
@@ -113,7 +78,7 @@ public class ReferralsTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.SANITY},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.MY_ACCOUNT, TestNGGroups.SANITY},
       description = "11102936")
   public void throughLinkTest() {
     if (WebHelper.isDesktop()) {

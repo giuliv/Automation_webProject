@@ -29,7 +29,9 @@ public class Constants {
 
     // Web
     public static final String DEBUG = "debug";
-    public static final String WEB_REGRESSION = "web_regression";
+    public static final String FRONT_END_REGRESSION = "web_regression";
+    public static final String OLD_SUITE_PHASE1 = "TBD";
+    public static final String TO_BE_RENAMED = "TBD";
     public static final String PLP = "plp";
     public static final String WEB_PROD_MONITORING = "web_prod_monitoring";
     public static final String DEMO_CHECKOUT = "demo-checkout";
@@ -164,6 +166,8 @@ public class Constants {
     public static final String TEA_COST_OVER_25_NAME = "Green Tea Tropical Tea Bags";
 
     public static final String EQUIPMENT_NAME = "Fellow Kettle";
+    public static final String EQUIPMENT_NAME_OOO = "CAFFLANO KLASSIC POUR-OVER COFFEE MAKER";
+    public static final String PODS_OOO = "DECAF HOUSE BLEND K-CUP® PODS";
 
     public static final String COFFEE_KCUP_NAME = "Decaf Especial K-Cup® Pack";
     public static final String COFFEE_ARABIAN_MOCHA_JAVA_NAME = "Arabian Mocha-Java";

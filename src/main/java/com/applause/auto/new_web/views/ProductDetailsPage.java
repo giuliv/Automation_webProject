@@ -8,6 +8,7 @@ import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.components.MyReviewModalComponent;
+import com.applause.auto.new_web.components.NotifyMeComponent;
 import com.applause.auto.new_web.components.ProductStoryModalComponent;
 import com.applause.auto.new_web.components.pdp.PdpStickyNavDetailsComponent;
 import com.applause.auto.new_web.components.pdp.ProductDetailsCustomerReviewsComponent;
@@ -19,12 +20,7 @@ import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.LocatedBy;
-import com.applause.auto.pageobjectmodel.elements.Button;
-import com.applause.auto.pageobjectmodel.elements.ContainerElement;
-import com.applause.auto.pageobjectmodel.elements.Image;
-import com.applause.auto.pageobjectmodel.elements.Link;
-import com.applause.auto.pageobjectmodel.elements.SelectList;
-import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.*;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.qameta.allure.Step;
 import java.time.Duration;
@@ -89,8 +85,17 @@ public class ProductDetailsPage extends Base {
   @Locate(css = "button.og-optout-btn", on = Platform.WEB)
   private Button oneTimePurchase;
 
-  @Locate(css = "form#notifyForm", on = Platform.WEB)
+  @Locate(css = "h3.pv-notify__title", on = Platform.WEB)
   private ContainerElement outOfStockNotifyMeSection;
+
+  @Locate(css = "form#notifyForm", on = Platform.WEB)
+  private Text outOfStockMessage;
+
+  @Locate(id = "notifySubmit", on = Platform.WEB)
+  private Button notifyMeButton;
+
+  @Locate(css = "input[name='notify_email']", on = Platform.WEB)
+  private TextBox notifyMeBox;
 
   @Locate(css = "#pvEssentials #productPrice .pv-price__original", on = Platform.WEB)
   private Text itemPrice;
@@ -328,6 +333,26 @@ public class ProductDetailsPage extends Base {
   public boolean isItemAvailable() {
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
     return outOfStockNotifyMeSection.isDisplayed();
+  }
+
+  public String getOutOfStockMessage() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(outOfStockNotifyMeSection).visible());
+    logger.info("Out of stock message: " + outOfStockNotifyMeSection.getText());
+    return outOfStockNotifyMeSection.getText();
+  }
+
+  public String getNotifyMeMessage() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(notifyMeButton).visible());
+    logger.info("Notify Me message: " + notifyMeButton.getText());
+    return notifyMeButton.getText();
+  }
+
+  public NotifyMeComponent setMailIntoNotifyMeBox(String txt) {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(notifyMeBox).visible());
+    logger.info("Notify Me text:" + txt);
+    notifyMeBox.sendKeys(txt);
+    notifyMeButton.click();
+    return SdkHelper.create(NotifyMeComponent.class);
   }
 
   @Step("Get item is sampler")

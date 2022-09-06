@@ -17,14 +17,14 @@ import org.testng.annotations.Test;
 public class CoffeeDarkRoastTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
       description = "11107505")
   public void coffeeDarkRoastTest() {
     ProductsTestHelper.checkPlp(navigateToPLP(TestData.COFFEE_DARK_ROAST_URL), softAssert);
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
       description = "11107506")
   public void coffeeDarkRoastBannerTest() {
     ProductsTestHelper.checkBestSellersBanner(
@@ -32,7 +32,7 @@ public class CoffeeDarkRoastTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
       description = "11107509")
   public void coffeeDarkRoastSortingTest() {
     ProductsTestHelper.checkSortingOptions(
@@ -40,7 +40,7 @@ public class CoffeeDarkRoastTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
       description = "11107511")
   public void coffeeDarkRoastNewsletterSignUpNeverMissOfferTest() {
     ProductsTestHelper.checkNewsletterSignUpNeverMissOffer(
@@ -48,7 +48,7 @@ public class CoffeeDarkRoastTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
       description = "11107507")
   public void coffeeDarkRoastBreadcrumbsPathTest() {
     logger.info("1. Navigate to Product list page");
@@ -69,7 +69,7 @@ public class CoffeeDarkRoastTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
       description = "11107510")
   public void coffeeDarkRoastItemsTest() {
     logger.info("1. Navigate to Product list page");
@@ -115,7 +115,7 @@ public class CoffeeDarkRoastTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
       description = "11107513")
   public void coffeeDarkRoastJoinClubTest() {
     logger.info("1. Navigate to Product list page");
@@ -136,7 +136,7 @@ public class CoffeeDarkRoastTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
       description = "11107508",
       enabled = false)
   // Todo: Testcase disabled until further notice
@@ -146,7 +146,7 @@ public class CoffeeDarkRoastTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
       description = "11107512",
       enabled = false)
   // Todo:Disable by request of Bernadette, leaving only 1 case on allCoffee section[21.06.2022]

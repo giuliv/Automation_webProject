@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
 public class CoffeeFinderTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.COFFEE_FINDER, TestNGGroups.SMOKE},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.COFFEE_FINDER, TestNGGroups.SMOKE},
       description = "11102941")
   public void coffeeFinderElements() {
     logger.info("1. Navigate to landing page");
@@ -68,7 +68,7 @@ public class CoffeeFinderTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.COFFEE_FINDER},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.COFFEE_FINDER},
       description = "11102942",
       enabled = false)
   // Todo: We need to figure out the issue on mobile view[20/04/2022]
@@ -120,7 +120,7 @@ public class CoffeeFinderTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.WEB_REGRESSION, TestNGGroups.COFFEE_FINDER},
+      groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.COFFEE_FINDER},
       description = "11102943",
       enabled = false)
   // Todo: Shilpa market as not shown in staging[20/04/2022]
