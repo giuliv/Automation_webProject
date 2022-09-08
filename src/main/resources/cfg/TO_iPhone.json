@@ -13,7 +13,7 @@
 	},
 	"platformName": "iOS",
 	"deviceName": "iPhone.*",
-	"platformVersion": "14",
+	"platformVersion": "15",
 	"appiumVersion": "1.22.0",
 	"testobject_appium_version": "1.22.0",
 	"orientation": "PORTRAIT",

@@ -12,15 +12,12 @@
   },
   "sauce:options": {
     "W3C": true,
+    "region": "US",
+    "appiumVersion": "1.22.2",
     "extendedDebugging": true
   },
-  "sauce:options": {
-    "W3C": true,
-    "region": "US",
-    "appiumVersion": "1.22.2"
-  },
   "platformName": "Android",
-  "platformVersion": "10",
+  "platformVersion": "12",
   "browserName": "Chrome",
   "orientation": "PORTRAIT",
   "region": "US",

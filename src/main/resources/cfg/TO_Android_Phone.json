@@ -11,7 +11,7 @@
 		"isMobileNative" : "true"
 	},
 	"platformName": "Android",
-	"platformVersion": "10",
+	"platformVersion": "12",
 	"orientation": "PORTRAIT",
 	"region": "US",
 	"phoneOnly": "true",
