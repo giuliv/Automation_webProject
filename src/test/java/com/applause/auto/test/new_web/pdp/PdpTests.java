@@ -25,6 +25,7 @@ import com.applause.auto.new_web.views.SignUpPage;
 import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class PdpTests extends BaseTest {
   @Test(
@@ -1046,5 +1047,67 @@ public class PdpTests extends BaseTest {
     logger.info("6. Close Modal");
     notifyMeComponent.closeModal();
     Assert.assertFalse(notifyMeComponent.isModalDisplayed(), "Modal was not closed");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      description = "11107469")
+  public void pdpGuestSubscribeSetupNowTest() {
+    SoftAssert softAssert = new SoftAssert();
+
+    logger.info("1. Navigate to PDP");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    softAssert.assertNotNull(productDetailsPage, "PDP page is not displayed");
+
+    logger.info("2. Review Subscribe type/weeks is displayed by default");
+    softAssert.assertTrue(
+        productDetailsPage.isSubscribeTypeAsDefault(), "Subscribe is not selected by default");
+    softAssert.assertTrue(
+        productDetailsPage.isSubscriptionWeeksBoxDisplayed(), "Subscribe weeks is not displayed");
+    softAssert.assertTrue(
+        productDetailsPage.subscriptionOptionsAvailable() > 1, "Weeks cannot be less than 1");
+
+    logger.info("3. Review Subscribe/Add to Cart button");
+    softAssert.assertTrue(
+        productDetailsPage.isAddToCartButtonDisplayed(),
+        "Add to cart/Subscribe button is not displayed");
+    softAssert.assertEquals(
+        productDetailsPage.getAddToCartButtonText(),
+        "SUBSCRIBE & SHIP FREE",
+        "Subscribe button is not named properly");
+    softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      description = "11107470")
+  public void pdpGuestOTPAddToCartTest() {
+    SoftAssert softAssert = new SoftAssert();
+
+    logger.info("1. Navigate to PDP");
+    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    softAssert.assertNotNull(productDetailsPage, "PDP page is not displayed");
+
+    logger.info("2. Review Subscribe/Add to Cart button");
+    softAssert.assertTrue(
+        productDetailsPage.isAddToCartButtonDisplayed(),
+        "Add to cart/Subscribe button is not displayed");
+    softAssert.assertEquals(
+        productDetailsPage.getAddToCartButtonText(),
+        "SUBSCRIBE & SHIP FREE",
+        "Subscribe button is not named properly");
+
+    logger.info("3. Select One Time Purchase");
+    productDetailsPage.selectOneTimePurchase();
+
+    logger.info("2. Review Subscribe/Add to Cart button");
+    softAssert.assertTrue(
+        productDetailsPage.isAddToCartButtonDisplayed(),
+        "Add to cart/Subscribe button is not displayed after the selection of OTP");
+    softAssert.assertEquals(
+        productDetailsPage.getAddToCartButtonText(),
+        "ADD TO CART",
+        "Add to Cart button is not named properly");
+    softAssert.assertAll();
   }
 }

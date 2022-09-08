@@ -298,6 +298,7 @@ public class Constants {
     public static final String COFFEE_HOVER_BLEND = "anniversary-blend";
     public static final String COFFEE_HOVER_SUMATRA = "sumatra-batak";
     public static final String TEA_JASMINE = "jasmine-downy-pearls";
+    public static final String K_CUP = "SINGLE ORIGIN NICARAGUA K-CUP® PODS";
     public static final String COFFEE_HOVER_FINDER = "coffee-finder";
     public static final String TEA_HOVER_FINDER = "tea-finde";
     public static final String TEA_HOVER_MIGHTY_LEAF = "mighty-leaf";

@@ -12,6 +12,7 @@ import com.applause.auto.new_web.views.SearchResultsPage;
 import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 public class quickViewTest extends BaseTest {
 
@@ -199,5 +200,87 @@ public class quickViewTest extends BaseTest {
     Assert.assertFalse(
         quickViewComponent.isGrindDisplayed(),
         "Grind option should not be available for Gear items");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      description = "11107490")
+  public void quickViewKCupTest() {
+    logger.info("1. Navigate to Home");
+    HomePage homePage = navigateToHome();
+
+    logger.info("2. Search for the product: {}", TestData.K_CUP);
+    SearchResultsPage searchResultsPage =
+        homePage.getHeader().getSearchComponent().search(TestData.K_CUP);
+
+    logger.info("3. Open QuickView Modal");
+    QuickViewComponent quickViewComponent = searchResultsPage.clickOverFirstQuickViewButton();
+
+    logger.info("4. Review Grind and Quantity elements");
+    Assert.assertFalse(
+        quickViewComponent.isGrindDisplayed(),
+        "Grind option should not be available for Gear items");
+    Assert.assertTrue(
+        quickViewComponent.isGeneralQuantityBoxDisplayed(), "Quantity Section is not displayed");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      description = "11107491")
+  public void guestSubscribeAndShipTest() {
+    SoftAssert softAssert = new SoftAssert();
+
+    logger.info("1. Navigate to Home");
+    HomePage homePage = navigateToHome();
+
+    logger.info("2. Search for the product: {}", coffeeSelected);
+    SearchResultsPage searchResultsPage =
+        homePage.getHeader().getSearchComponent().search(coffeeSelected);
+
+    logger.info("3. Open QuickView Modal");
+    QuickViewComponent quickViewComponent =
+        searchResultsPage.clickOverQuickViewByProduct(coffeeSelected);
+
+    logger.info("4. Review Subscribe type/weeks is displayed by default");
+    softAssert.assertTrue(
+        quickViewComponent.isSubscribeTypeAsDefault(), "Subscribe is not selected by default");
+    softAssert.assertTrue(
+        quickViewComponent.isSubscriptionWeeksBoxDisplayed(), "Subscribe weeks is not displayed");
+    softAssert.assertTrue(
+        quickViewComponent.subscriptionOptionsAvailable() > 1, "Weeks cannot be less than 1");
+
+    logger.info("5. Review Subscribe/Add to Cart button");
+    softAssert.assertTrue(
+        quickViewComponent.isAddToCartButtonDisplayed(),
+        "Add to cart/Subscribe button is not displayed");
+    softAssert.assertEquals(
+        quickViewComponent.getAddToCartButtonText(),
+        "SUBSCRIBE & SHIP FREE",
+        "Subscribe button is not named properly");
+    softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      description = "11107492")
+  public void otpAddToCartTest() {
+
+    logger.info("1. Navigate to Product list page");
+    ProductListPage productListPage = navigateToGearSection();
+    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+
+    logger.info("2. Open QuickView Modal");
+    QuickViewComponent quickViewComponent = productListPage.clickOverFirstQuickViewButton();
+
+    logger.info("3. Review Add to Cart button");
+    Assert.assertTrue(
+        quickViewComponent.isAddToCartButtonDisplayed(), "Add to cart button is not displayed");
+    Assert.assertEquals(
+        quickViewComponent.getAddToCartButtonText(),
+        "ADD TO CART",
+        "ADD TO CART button is not named properly");
+    Assert.assertFalse(
+        quickViewComponent.areSubscribeOrOneTimePurchaseDisplayed(),
+        "Subscribe/OneTimePurchase should not be visible");
   }
 }

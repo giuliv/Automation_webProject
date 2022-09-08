@@ -70,7 +70,13 @@ public class CartPage extends BaseComponent {
   private RadioButton oneTimePurchaseButton;
 
   @Locate(css = "og-offer > og-when.og-offer button.og-optin-btn", on = Platform.WEB)
-  private Button subscribeButton;
+  private RadioButton subscribeButton;
+
+  @Locate(css = "button.og-optout-btn", on = Platform.WEB)
+  private Button oneTimePurchaseValue;
+
+  @Locate(css = "[test='regularEligible'] button.og-optin-btn", on = Platform.WEB)
+  private Button subscribeButtonValue;
 
   @Locate(css = "#bagNoteInput", on = Platform.WEB)
   private TextBox addPersonalMessageField;
@@ -309,7 +315,17 @@ public class CartPage extends BaseComponent {
   /** @return boolean */
   @Step("Get one time purchase button")
   public boolean isOneTimePurchaseButtonSelected() {
-    return oneTimePurchaseButton.isEnabled();
+    logger.info(
+        "One Time Purchase value: "
+            + oneTimePurchaseButton.getAttributeValue("slot").equalsIgnoreCase("default"));
+    return oneTimePurchaseButton.getAttributeValue("slot").equalsIgnoreCase("default");
+  }
+
+  public boolean isSubscribeButtonSelected() {
+    logger.info(
+        "Subscribe value: "
+            + subscribeButton.getAttributeValue("slot").equalsIgnoreCase("default"));
+    return subscribeButton.getAttributeValue("slot").equalsIgnoreCase("default");
   }
 
   /** @return boolean */

@@ -320,6 +320,7 @@ public class MiniCart extends BaseComponent {
   public CartPage clickViewCartButton() {
     logger.info("Clicking 'View Cart' button");
     SdkHelper.getBrowserControl().jsClick(viewCartButton);
+    SdkHelper.getSyncHelper().sleep(2000); // Wait for item to be added
 
     return SdkHelper.create(CartPage.class);
   }

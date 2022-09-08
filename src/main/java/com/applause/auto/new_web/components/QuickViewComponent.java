@@ -13,6 +13,8 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.qameta.allure.Step;
 import java.util.List;
 import org.testng.asserts.SoftAssert;
@@ -56,7 +58,7 @@ public class QuickViewComponent extends BaseComponent {
       on = Platform.WEB)
   private Text quantityBoxText;
 
-  @Locate(id = "quickBtnAddToBag", on = Platform.WEB)
+  @Locate(css = "#modalQuickAdd #quickBtnAddToBagText", on = Platform.WEB)
   private Button addToCartButton;
 
   @Locate(css = "#modalQuickAdd button.modal__close", on = Platform.WEB)
@@ -92,6 +94,18 @@ public class QuickViewComponent extends BaseComponent {
   @Locate(xpath = "//button[@id='increment']", on = Platform.WEB)
   private Button plusButton;
 
+  @Locate(css = "og-when[test='regularEligible'] p.og-shipping option", on = Platform.WEB)
+  private LazyList<Text> subscriptionWeeks;
+
+  @Locate(css = "og-when[test*='regular'] div.og-frequency-row", on = Platform.WEB)
+  private TextBox subscriptionWeekBox;
+
+  @Locate(css = "[test='regularEligible'] button.og-optin-btn", on = Platform.WEB)
+  private Button subscribeType;
+
+  @Locate(css = "button.og-optout-btn", on = Platform.WEB)
+  private Button oneTimePurchase;
+
   @Override
   public void afterInit() {
     logger.info("QuickView Init method");
@@ -110,6 +124,10 @@ public class QuickViewComponent extends BaseComponent {
     softAssert.assertTrue(addToCartButton.isDisplayed(), "Add to Cart is not displayed");
 
     return softAssert;
+  }
+
+  public boolean isGeneralQuantityBoxDisplayed() {
+    return quantitySection.isDisplayed();
   }
 
   public SoftAssert validateQuantityElements() {
@@ -252,5 +270,36 @@ public class QuickViewComponent extends BaseComponent {
   public void clickPLusButton() {
     logger.info("Clicking on the 'Plus' Button");
     SdkHelper.getSyncHelper().wait(Until.uiElement(plusButton).clickable()).click();
+  }
+
+  public boolean isSubscribeTypeAsDefault() {
+    logger.info("Review if type, is default value");
+    return subscribeType.getAttributeValue("slot").equalsIgnoreCase("default");
+  }
+
+  public boolean isSubscriptionWeeksBoxDisplayed() {
+    WebHelper.scrollToElement(subscriptionWeekBox);
+    return subscriptionWeekBox.isDisplayed();
+  }
+
+  public int subscriptionOptionsAvailable() {
+    logger.info("Subscription options");
+    return subscriptionWeeks.size();
+  }
+
+  @Step("Check if 'Add to Cart' is Displayed")
+  public boolean isAddToCartButtonDisplayed() {
+    boolean isDisplayed = WebHelper.isDisplayed(addToCartButton);
+    logger.info("Add to Cart is displayed - [{}]", isDisplayed);
+    return isDisplayed;
+  }
+
+  public String getAddToCartButtonText() {
+    logger.info("Add to Cart is displayed - [{}]", addToCartButton.getText());
+    return addToCartButton.getText();
+  }
+
+  public boolean areSubscribeOrOneTimePurchaseDisplayed() {
+    return oneTimePurchase.isDisplayed() || subscribeType.isDisplayed();
   }
 }

@@ -13,10 +13,12 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
+
+import java.time.Duration;
 import java.util.List;
 
 @Implementation(is = SearchResultsPage.class, on = Platform.WEB)
-@Implementation(is = SearchResultsPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = SearchResultsPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
 public class SearchResultsPage extends Base {
 
   @Locate(id = "searchOverlay", on = Platform.WEB)
@@ -35,7 +37,10 @@ public class SearchResultsPage extends Base {
       xpath =
           "//h3/a[contains(@href, \"/products/%s\")]/ancestor::li//div[@class='pi__quick-add']/button",
       on = Platform.WEB)
-  private Button quickViewButton;
+  protected Button quickViewButton;
+
+  @Locate(css = ".pi__quick-add button", on = Platform.WEB)
+  private List<Button> quickViewButtonList;
 
   @Override
   public void afterInit() {
@@ -99,6 +104,39 @@ public class SearchResultsPage extends Base {
 
     logger.info("Clicking QuickView button");
     quickViewButton.click();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(quickViewButton).notVisible());
+
+    return SdkHelper.create(QuickViewComponent.class);
+  }
+
+  @Step("Click quick view")
+  public QuickViewComponent clickOverFirstQuickViewButton() {
+    WebHelper.scrollToElement(quickViewButtonList.get(0));
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    WebHelper.hoverByAction(quickViewButtonList.get(0));
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    logger.info("Clicking QuickView button");
+    quickViewButtonList.get(0).click();
+    return SdkHelper.create(QuickViewComponent.class);
+  }
+}
+
+class SearchResultsPageMobile extends SearchResultsPage {
+  @Override
+  public QuickViewComponent clickOverQuickViewByProduct(String coffeeName) {
+    quickViewButton.format(coffeeName).initialize();
+    WebHelper.scrollToElement(quickViewButton);
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    WebHelper.hoverByAction(quickViewButton);
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    logger.info("Clicking QuickView button");
+    quickViewButton.click();
+    SdkHelper.getSyncHelper().sleep(2000); // Need to wait until UI updates
+
     return SdkHelper.create(QuickViewComponent.class);
   }
 }

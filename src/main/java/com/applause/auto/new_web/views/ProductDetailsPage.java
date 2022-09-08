@@ -82,6 +82,9 @@ public class ProductDetailsPage extends Base {
   @Locate(css = "og-when[test='regularEligible'] p.og-shipping option", on = Platform.WEB)
   private LazyList<Text> subscriptionWeeks;
 
+  @Locate(css = "og-when[test*='regular'] div.og-frequency-row", on = Platform.WEB)
+  private TextBox subscriptionWeekBox;
+
   @Locate(css = "button.og-optout-btn", on = Platform.WEB)
   private Button oneTimePurchase;
 
@@ -436,6 +439,11 @@ public class ProductDetailsPage extends Base {
     return subscribeType.getAttributeValue("slot").equalsIgnoreCase("default");
   }
 
+  public boolean isSubscriptionWeeksBoxDisplayed() {
+    WebHelper.scrollToElement(subscriptionWeekBox);
+    return subscriptionWeekBox.isDisplayed();
+  }
+
   public boolean isSubscribeToolTipDisplayed() {
     logger.info("Review if subscribe tooltip is displayed");
     return subscribeInfoIcon.isDisplayed();
@@ -581,6 +589,11 @@ public class ProductDetailsPage extends Base {
     boolean isDisplayed = WebHelper.isDisplayed(addToCartButton);
     logger.info("Add to Cart is displayed - [{}]", isDisplayed);
     return isDisplayed;
+  }
+
+  public String getAddToCartButtonText() {
+    logger.info("Add to Cart is displayed - [{}]", addToCartButton.getText());
+    return addToCartButton.getText();
   }
 
   @Step("Check if 'Recommended For You' is Displayed")
