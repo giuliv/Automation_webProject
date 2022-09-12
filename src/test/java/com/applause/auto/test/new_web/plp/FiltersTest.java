@@ -7,7 +7,7 @@ import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class filtersTest extends BaseTest {
+public class FiltersTest extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.PLP, Constants.TestNGGroups.SMOKE},
@@ -15,7 +15,7 @@ public class filtersTest extends BaseTest {
   public void singleFilterTest() {
 
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Apply Filter");
@@ -41,7 +41,7 @@ public class filtersTest extends BaseTest {
   public void multipleFilterTest() {
 
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Apply Filter number One");
@@ -77,7 +77,7 @@ public class filtersTest extends BaseTest {
   public void clearAllFiltersTest() {
 
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Apply Filter number");
@@ -107,7 +107,7 @@ public class filtersTest extends BaseTest {
   public void removeFiltersTest() {
 
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Apply Filter number");

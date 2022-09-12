@@ -52,6 +52,8 @@ public class HomepageTests extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
+
     Header header = homePage.getHeader();
     header.preopenMenu();
 
@@ -100,6 +102,8 @@ public class HomepageTests extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
+
     Header header = homePage.getHeader();
 
     logger.info("2. Hover and Verify Coffee Menu");
@@ -177,6 +181,7 @@ public class HomepageTests extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Verify freshness stamp is available and descriptions match");
     softAssert.assertEquals(
@@ -253,6 +258,7 @@ public class HomepageTests extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Clicking Carousel Link");
     ProductListPage productListPage = homePage.clickCarouselButton();
@@ -324,6 +330,7 @@ public class HomepageTests extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Clicking shop coffee promo tile to verify link");
     ProductListPage plpPage = homePage.clickCoffeePromoTile();
@@ -380,6 +387,7 @@ public class HomepageTests extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Verifying offer heading");
     NeverMissOfferComponent neverMissOfferComponent = homePage.getNeverMissOfferComponent();
@@ -422,6 +430,7 @@ public class HomepageTests extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Verifying covid heading");
     softAssert.assertEquals(
@@ -471,6 +480,7 @@ public class HomepageTests extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Verifying revolution heading");
     softAssert.assertEquals(
@@ -512,6 +522,7 @@ public class HomepageTests extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Verify section header");
     softAssert.assertEquals(
@@ -591,6 +602,7 @@ public class HomepageTests extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info(
         "2. Verify left and right arrow scrolls the bar, and that you can get to initial position after scroll");
@@ -650,6 +662,8 @@ public class HomepageTests extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
+
     ProductListPage plpPage;
     int firstPosition = 0;
 
@@ -711,6 +725,8 @@ public class HomepageTests extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
+
     Header header = homePage.getHeader();
 
     logger.info("2. Verify the user has No Hover and only a click");
@@ -732,6 +748,8 @@ public class HomepageTests extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
+
     Header header = homePage.getHeader();
 
     logger.info("2. Click on Find a CoffeeBar");
@@ -786,6 +804,8 @@ public class HomepageTests extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
+
     Header header = homePage.getHeader();
 
     logger.info("2. Click on Our Coffee Resolution");
@@ -848,6 +868,8 @@ public class HomepageTests extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
+
     Header header = homePage.getHeader();
 
     logger.info("2. Verify the user has No Hover and only a click");
@@ -869,6 +891,8 @@ public class HomepageTests extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
+
     Header header = homePage.getHeader();
 
     logger.info("2. Verify the user has No Hover and only a click");
@@ -887,7 +911,8 @@ public class HomepageTests extends BaseTest {
   public void homepageEndOfPageDescriptionTest() {
     logger.info("1. Navigate to Home page");
     HomePage homePage = navigateToHome();
-    softAssert.assertNotNull(homePage, "Failed to navigate to the Home page.");
+    Assert.assertNotNull(homePage, "Failed to navigate to the Home page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("Verify End of the page Description");
     FooterComponent footer = homePage.getFooterComponent();
@@ -905,6 +930,8 @@ public class HomepageTests extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
+
     Header header = homePage.getHeader();
 
     logger.info("2. Hover and Verify Coffee Menu and All SubMenu Items");
@@ -956,6 +983,8 @@ public class HomepageTests extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
+
     Header header = homePage.getHeader();
 
     header.hoverCategoryFromMenu(Constants.MenuOptions.TEA);

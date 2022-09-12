@@ -182,25 +182,31 @@ public class HomePage extends Base {
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
     logger.info("Peet's Home URL: " + SdkHelper.getDriver().getCurrentUrl());
-
-    //    if (!WebHelper.getTestExecution().equals("local")) {
-    if (WebHelper.exists(closeModal, 7)) {
-      logger.info("Close peets.com Modal");
-      SdkHelper.getSyncHelper().wait(Until.uiElement(closeModal).clickable());
-      closeModal.click();
-    }
-
-    if (!WebHelper.isDesktop() && WebHelper.exists(allowCookies, 7)) {
-      logger.info("Accept Cookies");
-      WebHelper.jsClick(allowCookies.getWebElement());
-    }
-
-    WebHelper.clickButtonOverIFrame(specialOfferFrame, closeSpecialOfferButton);
-    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
   }
-  //  }
 
   /* -------- Actions -------- */
+
+  public void closeInitialBannersAndModals() {
+    logger.info("Need to close sometimes modals, cookies/offers banners [First Time]");
+    //    if (!WebHelper.getTestExecution().equals("local")) {
+
+    // Todo:Commented: Seems is not needed anymore [09.09.2022]
+    //    if (WebHelper.exists(closeModal, 7)) {
+    //      logger.info("Close peets.com Modal");
+    //      SdkHelper.getSyncHelper().wait(Until.uiElement(closeModal).clickable());
+    //      closeModal.click();
+    //    }
+
+    //    if (!WebHelper.isDesktop() && WebHelper.exists(allowCookies, 7)) {
+    //      logger.info("Accept Cookies");
+    //      WebHelper.jsClick(allowCookies.getWebElement());
+    //    }
+
+    WebHelper.clickButtonOverIFrame(specialOfferFrame, closeSpecialOfferButton);
+    SdkHelper.getDriver().navigate().refresh();
+    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
+    // }
+  }
 
   /**
    * Taps the sign in button.
@@ -209,6 +215,8 @@ public class HomePage extends Base {
    */
   public SignInPage clickSignInButton() {
     logger.info("Tap on SignIn Button");
+    SdkHelper.getSyncHelper().sleep(3000);
+    logger.info("DEBUG DATA -> " + SdkHelper.getDriver().getPageSource());
     SdkHelper.getSyncHelper().wait(Until.uiElement(signInButton).clickable()).click();
 
     return SdkHelper.create(SignInPage.class);

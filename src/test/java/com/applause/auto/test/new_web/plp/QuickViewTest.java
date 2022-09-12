@@ -14,7 +14,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-public class quickViewTest extends BaseTest {
+public class QuickViewTest extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
@@ -22,7 +22,7 @@ public class quickViewTest extends BaseTest {
   public void reviewQuickViewUITest() {
 
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP(TestData.COFFEE_BEST_SELLERS_URL);
+    ProductListPage productListPage = navigateToPLPFromHome(TestData.COFFEE_BEST_SELLERS_URL);
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Validate UI Elements of QuickView Modal");
@@ -38,7 +38,7 @@ public class quickViewTest extends BaseTest {
   public void coffeeItemGrindTest() {
 
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP(TestData.COFFEE_BEST_SELLERS_URL);
+    ProductListPage productListPage = navigateToPLPFromHome(TestData.COFFEE_BEST_SELLERS_URL);
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Select new Grind > Review Grind element");
@@ -60,7 +60,7 @@ public class quickViewTest extends BaseTest {
   public void itemQuantityTest() {
 
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP(TestData.COFFEE_BEST_SELLERS_URL);
+    ProductListPage productListPage = navigateToPLPFromHome(TestData.COFFEE_BEST_SELLERS_URL);
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Select new Quantity > Review Quantity element");
@@ -76,7 +76,7 @@ public class quickViewTest extends BaseTest {
   public void addToCartTest() {
 
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP(TestData.COFFEE_BEST_SELLERS_URL);
+    ProductListPage productListPage = navigateToPLPFromHome(TestData.COFFEE_BEST_SELLERS_URL);
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Reviewing adding to cart feature");
@@ -100,6 +100,7 @@ public class quickViewTest extends BaseTest {
   public void shopRunnerTest() {
     logger.info("1. Navigate to Home");
     HomePage homePage = navigateToHome();
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Search for the product: {}", coffeeSelected);
     SearchResultsPage searchResultsPage =
@@ -132,6 +133,7 @@ public class quickViewTest extends BaseTest {
 
     logger.info("1. Navigate to Home");
     HomePage homePage = navigateToHome();
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Search for the product: {}", TestData.TEA_JASMINE);
     SearchResultsPage searchResultsPage =
@@ -175,7 +177,7 @@ public class quickViewTest extends BaseTest {
   public void itemTypeTest() {
 
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Open QuickView Modal");
@@ -190,7 +192,7 @@ public class quickViewTest extends BaseTest {
   public void equipmentTest() {
 
     logger.info("1. Navigate to Product list page");
-    ProductListPage productListPage = navigateToGearSection();
+    ProductListPage productListPage = navigateToGearSectionFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Open QuickView Modal");
@@ -208,6 +210,7 @@ public class quickViewTest extends BaseTest {
   public void quickViewKCupTest() {
     logger.info("1. Navigate to Home");
     HomePage homePage = navigateToHome();
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Search for the product: {}", TestData.K_CUP);
     SearchResultsPage searchResultsPage =
@@ -232,6 +235,7 @@ public class quickViewTest extends BaseTest {
 
     logger.info("1. Navigate to Home");
     HomePage homePage = navigateToHome();
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Search for the product: {}", coffeeSelected);
     SearchResultsPage searchResultsPage =
@@ -266,7 +270,7 @@ public class quickViewTest extends BaseTest {
   public void otpAddToCartTest() {
 
     logger.info("1. Navigate to Product list page");
-    ProductListPage productListPage = navigateToGearSection();
+    ProductListPage productListPage = navigateToGearSectionFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Open QuickView Modal");

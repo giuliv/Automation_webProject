@@ -75,8 +75,16 @@ public class BaseTest extends ApplauseSeleniumTest {
   }
 
   @Step("Navigate to PLP")
+  public ProductListPage navigateToPLPFromHome() {
+    navigateToHome().closeInitialBannersAndModals();
+    logger.info(String.format("Navigating to PLP page '%s'", TestData.PLP_URL));
+
+    SdkHelper.getDriver().navigate().to(TestData.PLP_URL);
+    return SdkHelper.create(ProductListPage.class);
+  }
+
+  @Step("Navigate to PLP")
   public ProductListPage navigateToPLP() {
-    navigateToHome();
     logger.info(String.format("Navigating to PLP page '%s'", TestData.PLP_URL));
 
     SdkHelper.getDriver().navigate().to(TestData.PLP_URL);
@@ -84,8 +92,8 @@ public class BaseTest extends ApplauseSeleniumTest {
   }
 
   @Step("Navigate to PDP")
-  public ProductDetailsPage navigateToPDP() {
-    navigateToHome();
+  public ProductDetailsPage navigateToPDPFromHome() {
+    navigateToHome().closeInitialBannersAndModals();
     logger.info(String.format("Navigating to PDP page '%s'", TestData.PDP_URL));
 
     try {
@@ -99,8 +107,21 @@ public class BaseTest extends ApplauseSeleniumTest {
   }
 
   @Step("Navigate to PDP")
+  public ProductDetailsPage navigateToPDPFromHome(String product) {
+    navigateToHome().closeInitialBannersAndModals();
+    logger.info(String.format("Navigating to PDP page '%s'", TestData.GENERAL_PDP_URL + product));
+
+    try {
+      // Todo: Remove once new driver 103+ is set on cloud services
+      SdkHelper.getDriver().navigate().to(TestData.GENERAL_PDP_URL + product);
+    } catch (WebDriverException e) {
+      logger.info("Skipping issue: unknown error: cannot determine loading status");
+    }
+    return SdkHelper.create(ProductDetailsPage.class);
+  }
+
+  @Step("Navigate to PDP")
   public ProductDetailsPage navigateToPDP(String product) {
-    navigateToHome();
     logger.info(String.format("Navigating to PDP page '%s'", TestData.GENERAL_PDP_URL + product));
 
     try {
@@ -113,8 +134,16 @@ public class BaseTest extends ApplauseSeleniumTest {
   }
 
   @Step("Navigate to Gear Section")
+  public ProductListPage navigateToGearSectionFromHome() {
+    navigateToHome().closeInitialBannersAndModals();
+    logger.info(String.format("Navigating to the Gear page '%s'", TestData.GEAR_PAGE_URL));
+
+    SdkHelper.getDriver().navigate().to(TestData.GEAR_PAGE_URL);
+    return SdkHelper.create(ProductListPage.class);
+  }
+
+  @Step("Navigate to Gear Section")
   public ProductListPage navigateToGearSection() {
-    navigateToHome();
     logger.info(String.format("Navigating to the Gear page '%s'", TestData.GEAR_PAGE_URL));
 
     SdkHelper.getDriver().navigate().to(TestData.GEAR_PAGE_URL);
@@ -123,14 +152,14 @@ public class BaseTest extends ApplauseSeleniumTest {
 
   @Step("Navigate to Sign in page")
   public SignInPage navigateToSignInPage() {
-    navigateToHome();
-    logger.info(String.format("Navigating to the Sign in page '%s'", TestData.LANDING_PAGE_URL));
+    HomePage homePage = navigateToHome();
+    homePage.closeInitialBannersAndModals();
 
-    SdkHelper.getDriver().navigate().to(TestData.LANDING_PAGE_URL);
-    return SdkHelper.create(HomePage.class).clickSignInButton();
+    return homePage.clickSignInButton();
   }
 
   public CoffeeBarPage navigateToCoffeeBarMenuPage() {
+    navigateToHome().closeInitialBannersAndModals();
     logger.info(
         String.format("Navigating to the Coffee Bar page '%s'", TestData.COFFEEBAR_MENU_URL));
 
@@ -140,7 +169,7 @@ public class BaseTest extends ApplauseSeleniumTest {
 
   @Step("Navigate to Subscription page")
   public GiftCardsPage navigateToGiftCardsPage() {
-    navigateToHome();
+    navigateToHome().closeInitialBannersAndModals();
     logger.info(
         String.format("Navigating to Subscription page '%s'", TestData.GIFT_CARDS_PAGE_URL));
 
@@ -168,8 +197,8 @@ public class BaseTest extends ApplauseSeleniumTest {
   }
 
   @Step("Navigate to Tea Best Sellers page")
-  public ProductListPage navigateToPLP(String url) {
-    navigateToHome();
+  public ProductListPage navigateToPLPFromHome(String url) {
+    navigateToHome().closeInitialBannersAndModals();
     logger.info(String.format("Navigating to PLP '%s'", url));
 
     SdkHelper.getDriver().navigate().to(url);
@@ -178,7 +207,7 @@ public class BaseTest extends ApplauseSeleniumTest {
 
   @Step("Navigate to Store Locator page")
   public StoreLocatorPage navigateToStoreLocatorPage() {
-    navigateToHome();
+    navigateToHome().closeInitialBannersAndModals();
     logger.info(
         String.format("Navigating to Store Locator page '%s'", TestData.STORE_LOCATOR_PAGE_URL));
 

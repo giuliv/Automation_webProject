@@ -28,7 +28,7 @@ public class CartTests extends BaseTest {
   public void cartCanCheckoutFromCartTest() {
 
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
@@ -55,7 +55,7 @@ public class CartTests extends BaseTest {
   public void itemQuantityCanBeIncreasedDecreaseAndRemovedTest() {
 
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
@@ -96,7 +96,7 @@ public class CartTests extends BaseTest {
     SoftAssert softAssert = new SoftAssert();
 
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
 
     String productName = productDetailsPage.getProductName();
     String productGrind = productDetailsPage.getGrindSelected();
@@ -141,7 +141,7 @@ public class CartTests extends BaseTest {
      * <p>Disabled this test for now as functionality isn't working on Stage
      */
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
@@ -177,7 +177,7 @@ public class CartTests extends BaseTest {
    */
   public void reviewSubscription() {
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     int firstProduct = 0;
@@ -212,7 +212,7 @@ public class CartTests extends BaseTest {
      * <p>Disabled this test for now as functionality isn't working on Stage
      */
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
@@ -238,7 +238,7 @@ public class CartTests extends BaseTest {
       enabled = false)
   public void canSignUpForNeverMissAnOffer() {
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
@@ -263,7 +263,7 @@ public class CartTests extends BaseTest {
       description = "11101748")
   public void canCheckThisIsGift() {
     logger.info("1. Navigate to PDP > Add to miniCart");
-    MiniCart miniCart = navigateToPDP(coffeeSelected).clickAddToMiniCart();
+    MiniCart miniCart = navigateToPDPFromHome(coffeeSelected).clickAddToMiniCart();
 
     logger.info("2. Click on View cart.");
     CartPage cartPage = miniCart.clickViewCartButton();
@@ -289,7 +289,7 @@ public class CartTests extends BaseTest {
       description = "11108611")
   public void addItemToCart() {
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
     logger.info("2. Click on View cart.");
@@ -302,7 +302,8 @@ public class CartTests extends BaseTest {
       description = "11107534")
   public void reviewEmptyCartTest() {
     logger.info("1. Navigate to product details page");
-    CartPage cartPage = navigateToPDP(coffeeSelected).clickAddToMiniCart().clickViewCartButton();
+    CartPage cartPage =
+        navigateToPDPFromHome(coffeeSelected).clickAddToMiniCart().clickViewCartButton();
 
     logger.info("3. Make Cart empty");
     int firstItem = 0;
@@ -339,9 +340,10 @@ public class CartTests extends BaseTest {
       description = "11108612")
   public void shippingCartTest() {
     logger.info("1. Navigate to PDP > Add to miniCart");
-    MiniCart miniCart = navigateToPDP(coffeeSelected).clickAddToMiniCart();
+    MiniCart miniCart = navigateToPDPFromHome(coffeeSelected).clickAddToMiniCart();
 
     logger.info("2. Click on View cart.");
+    miniCart.clickOneTimePurchaseButton();
     CartPage cartPage = miniCart.clickViewCartButton();
     String originalShippingAway = cartPage.getShippingAwayMessage();
     Assert.assertTrue(
@@ -370,7 +372,7 @@ public class CartTests extends BaseTest {
     SoftAssert softAssert = new SoftAssert();
 
     logger.info("1. Navigate to PDP > Add to miniCart");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     String productName = productDetailsPage.getProductName();
     String productGrind = productDetailsPage.getGrindSelected();
     String productPrice = productDetailsPage.getProductPrice();
@@ -453,7 +455,7 @@ public class CartTests extends BaseTest {
 
     logger.info("1. Navigate to PDP > Add to miniCart product1");
     ProductDetailsPage productDetailsPage =
-        navigateToPDP(Constants.StandardCoffeeInventory.Coffee1.getValue());
+        navigateToPDPFromHome(Constants.StandardCoffeeInventory.Coffee1.getValue());
     String productName = productDetailsPage.getProductName();
     String productGrind = productDetailsPage.getGrindSelected();
     String productPrice = productDetailsPage.getProductPrice();
@@ -543,7 +545,7 @@ public class CartTests extends BaseTest {
 
     logger.info("1. Navigate to PDP > Add to miniCart product1");
     ProductDetailsPage productDetailsPage =
-        navigateToPDP(Constants.StandardCoffeeInventory.Coffee1.getValue());
+        navigateToPDPFromHome(Constants.StandardCoffeeInventory.Coffee1.getValue());
     String productName = productDetailsPage.getProductName();
     String productGrind = productDetailsPage.getGrindSelected();
     String productPrice = productDetailsPage.getProductPrice();

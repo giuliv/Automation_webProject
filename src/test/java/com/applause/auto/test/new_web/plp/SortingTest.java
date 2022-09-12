@@ -16,7 +16,7 @@ public class SortingTest extends BaseTest {
   public void sortingByPriceTest() {
 
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Validate High To Low Sorting option");
@@ -41,7 +41,7 @@ public class SortingTest extends BaseTest {
   public void filterAndSortingAppliedTest() {
 
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Apply Filter");

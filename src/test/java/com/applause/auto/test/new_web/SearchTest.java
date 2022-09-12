@@ -8,15 +8,10 @@ import com.applause.auto.new_web.components.SearchComponent;
 import com.applause.auto.new_web.views.HomePage;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.SearchResultsPage;
-import java.lang.invoke.MethodHandles;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class SearchTest extends BaseTest {
-
-  private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
   @Test(
       groups = {TestNGGroups.TO_BE_RENAMED, TestNGGroups.SEARCH, TestNGGroups.SMOKE},
@@ -25,6 +20,7 @@ public class SearchTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Click on magnifying glass from header.");
     Header header = homePage.getHeader();
@@ -44,6 +40,7 @@ public class SearchTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Click on magnifying glass from header.");
     SearchResultsPage searchResultsPage =
@@ -59,6 +56,7 @@ public class SearchTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Click on magnifying glass from header.");
     Header header = homePage.getHeader();
@@ -76,6 +74,7 @@ public class SearchTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Click on magnifying glass from header.");
     Header header = homePage.getHeader();
@@ -107,6 +106,7 @@ public class SearchTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Click on magnifying glass from header.");
     SearchComponent searchComponent = homePage.getHeader().getSearchComponent();

@@ -169,10 +169,11 @@ public class Header extends BaseComponent {
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
 
-    if (!WebHelper.isDesktop() && allowCookies.exists()) {
-      logger.info("Accept Cookies");
-      WebHelper.jsClick(allowCookies.getWebElement());
-    }
+    // Todo: Commented on 08.09.2022 [Review if still needed]
+    //    if (!WebHelper.isDesktop() && allowCookies.exists()) {
+    //      logger.info("Accept Cookies");
+    //      WebHelper.jsClick(allowCookies.getWebElement());
+    //    }
   }
 
   /* -------- Actions -------- */

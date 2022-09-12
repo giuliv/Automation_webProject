@@ -24,7 +24,7 @@ public class MiniCartTest extends BaseTest {
   public void addToMiniCartTest() {
 
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     logger.info("2. Add item to MiniCart");
@@ -40,7 +40,7 @@ public class MiniCartTest extends BaseTest {
   public void validateMiniCartElementsTest() {
 
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     logger.info("2. Save PDP data");
@@ -70,7 +70,7 @@ public class MiniCartTest extends BaseTest {
   public void itemsRemovedFromMiniCartTest() {
 
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP();
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome();
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     logger.info("2. Add item to MiniCart");
@@ -104,7 +104,7 @@ public class MiniCartTest extends BaseTest {
   public void emptyMiniCartTest() {
 
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP();
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome();
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     logger.info("2. Add item to MiniCart");
@@ -128,7 +128,7 @@ public class MiniCartTest extends BaseTest {
   public void progressShippingBarTest() {
 
     logger.info("1. Navigate to PDP > Select One Time Purchase > Add to miniCart");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     productDetailsPage.selectOneTimePurchase();
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
@@ -154,7 +154,7 @@ public class MiniCartTest extends BaseTest {
   public void learnMoreFromMiniCartTest() {
 
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP();
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome();
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     logger.info("2. Add item to MiniCart");
@@ -176,7 +176,7 @@ public class MiniCartTest extends BaseTest {
   public void signInFromMiniCartTest() {
 
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     logger.info("2. Add item to MiniCart");
@@ -197,7 +197,7 @@ public class MiniCartTest extends BaseTest {
   public void recommendedItemsNavigationTest() {
 
     logger.info("1. Navigate to product details page");
-    MiniCart miniCart = navigateToPDP(coffeeSelected).clickAddToMiniCart();
+    MiniCart miniCart = navigateToPDPFromHome(coffeeSelected).clickAddToMiniCart();
 
     logger.info("2. Validate Recommended Items Navigation");
     long originValue = miniCart.getRecommendedItemsVisible();
@@ -225,7 +225,7 @@ public class MiniCartTest extends BaseTest {
      * <p>Disabled this test for now as functionality isn't working on Stage
      */
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP();
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome();
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     logger.info("2. Add item to MiniCart");
@@ -264,7 +264,7 @@ public class MiniCartTest extends BaseTest {
     // Todo:Do we need to validate also subscriptions?
 
     logger.info("1. Navigate to product details page");
-    MiniCart miniCart = navigateToPDP(coffeeSelected).clickAddToMiniCart();
+    MiniCart miniCart = navigateToPDPFromHome(coffeeSelected).clickAddToMiniCart();
 
     logger.info("3. Select One time purchase > One time purchase should be selected");
     miniCart.clickOneTimePurchaseButton();
@@ -281,7 +281,7 @@ public class MiniCartTest extends BaseTest {
   public void subscriptionModeMiniCartTest() {
 
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP();
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome();
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     logger.info("2. Add item to MiniCart");
@@ -302,7 +302,7 @@ public class MiniCartTest extends BaseTest {
   public void miniCartCheckoutBypassesCartTest() {
 
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     logger.info("2. Add something to mini cart");
@@ -326,7 +326,7 @@ public class MiniCartTest extends BaseTest {
   public void miniCartViewCartGoesToCartTest() {
 
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     logger.info("2. Add something to mini cart");
@@ -349,7 +349,7 @@ public class MiniCartTest extends BaseTest {
       description = "11107533")
   public void miniCartSubscribeSetupTest() {
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     logger.info("2. Add something as one time purchase to mini cart");
@@ -379,7 +379,7 @@ public class MiniCartTest extends BaseTest {
   public void miniCartShopRunner2DayShippingTest() {
 
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     logger.info("2. Add something to mini cart");
@@ -416,6 +416,7 @@ public class MiniCartTest extends BaseTest {
 
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Open MiniCart");
     MiniCart miniCart = homePage.getHeader().clickCartIcon();
@@ -457,7 +458,7 @@ public class MiniCartTest extends BaseTest {
   public void estimatedShipDateTest() {
 
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     logger.info("2. Add item to MiniCart");

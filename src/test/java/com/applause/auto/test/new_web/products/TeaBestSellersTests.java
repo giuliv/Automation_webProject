@@ -17,7 +17,7 @@ public class TeaBestSellersTests extends BaseTest {
       groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
       description = "11107522")
   public void teaBestSellersTest() {
-    ProductsTestHelper.checkPlp(navigateToPLP(TestData.TEA_BEST_SELLERS_URL), softAssert);
+    ProductsTestHelper.checkPlp(navigateToPLPFromHome(TestData.TEA_BEST_SELLERS_URL), softAssert);
   }
 
   @Test(
@@ -25,7 +25,7 @@ public class TeaBestSellersTests extends BaseTest {
       description = "11107523")
   public void teaBestSellersBannerTest() {
     ProductsTestHelper.checkBestSellersBanner(
-        navigateToPLP(TestData.TEA_BEST_SELLERS_URL), TestData.TEA_BEST_SELLERS_HEADER, softAssert);
+        navigateToPLPFromHome(TestData.TEA_BEST_SELLERS_URL), TestData.TEA_BEST_SELLERS_HEADER, softAssert);
   }
 
   @Test(
@@ -33,7 +33,7 @@ public class TeaBestSellersTests extends BaseTest {
       description = "11107525")
   public void teaBestSellersSortingTest() {
     ProductsTestHelper.checkSortingOptions(
-        navigateToPLP(TestData.TEA_BEST_SELLERS_URL), softAssert);
+        navigateToPLPFromHome(TestData.TEA_BEST_SELLERS_URL), softAssert);
   }
 
   @Test(
@@ -41,7 +41,7 @@ public class TeaBestSellersTests extends BaseTest {
       description = "11107527")
   public void teaBestSellersNewsletterSignUpNeverMissOfferTest() {
     ProductsTestHelper.checkNewsletterSignUpNeverMissOffer(
-        navigateToPLP(TestData.TEA_BEST_SELLERS_URL), softAssert);
+        navigateToPLPFromHome(TestData.TEA_BEST_SELLERS_URL), softAssert);
   }
 
   @Test(
@@ -49,7 +49,7 @@ public class TeaBestSellersTests extends BaseTest {
       description = "11107526")
   public void teaBestSellersItemsTest() {
     logger.info("1. Navigate to Product list page");
-    ProductListPage productListPage = navigateToPLP(TestData.TEA_BEST_SELLERS_URL);
+    ProductListPage productListPage = navigateToPLPFromHome(TestData.TEA_BEST_SELLERS_URL);
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info(
@@ -98,6 +98,6 @@ public class TeaBestSellersTests extends BaseTest {
       enabled = false)
   public void teaBestSellersFiltersTest() {
     ProductsTestHelper.checkFilters(
-        navigateToPLP(TestData.TEA_BEST_SELLERS_URL), Collections.emptyList(), softAssert);
+        navigateToPLPFromHome(TestData.TEA_BEST_SELLERS_URL), Collections.emptyList(), softAssert);
   }
 }

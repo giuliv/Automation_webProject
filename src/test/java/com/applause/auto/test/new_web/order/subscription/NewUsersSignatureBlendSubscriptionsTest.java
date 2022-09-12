@@ -27,6 +27,7 @@ public class NewUsersSignatureBlendSubscriptionsTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Create new User account");
     String mail = WebHelper.getRandomMail();
@@ -101,15 +102,15 @@ public class NewUsersSignatureBlendSubscriptionsTest extends BaseTest {
         acceptancePage.getDiscountMessage().contains("5% OFF"), "5% OFF message is not displayed");
     Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
 
-        if (WebHelper.isDesktop()) {
-          // Todo: Only for desktop, until figure out if its a bug
-          logger.info("10. Validating Download buttons");
-          acceptancePage.clickOverTrackPackageButton();
-          Assert.assertEquals(
-              acceptancePage.getPhoneFromTrackPackageSection(),
-              "+1 " + Constants.WebTestData.PHONE,
-              "Phone from Track Package section is NOT correct");
-        }
+    if (WebHelper.isDesktop()) {
+      // Todo: Only for desktop, until figure out if its a bug
+      logger.info("10. Validating Download buttons");
+      acceptancePage.clickOverTrackPackageButton();
+      Assert.assertEquals(
+          acceptancePage.getPhoneFromTrackPackageSection(),
+          "+1 " + Constants.WebTestData.PHONE,
+          "Phone from Track Package section is NOT correct");
+    }
 
     // Todo: Commented on 15.07.2022 due to Peet's change on staging[Talked w/Shilpa and Bernadette]
     //    acceptancePage.clickOverShippingUpdatesButton();
@@ -159,6 +160,7 @@ public class NewUsersSignatureBlendSubscriptionsTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Create new User account");
     String mail = WebHelper.getRandomMail();

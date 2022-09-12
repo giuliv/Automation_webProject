@@ -303,7 +303,7 @@ public class ProductDetailsPage extends Base {
   public void afterInit() {
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(mainContainer).present().setTimeout(Duration.ofSeconds(40)));
-    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
+    //    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
     logger.info("Product Details Page URL: " + WebHelper.getCurrentUrl());
   }
 

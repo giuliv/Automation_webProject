@@ -20,7 +20,7 @@ public class CoffeeDarkRoastTests extends BaseTest {
       groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
       description = "11107505")
   public void coffeeDarkRoastTest() {
-    ProductsTestHelper.checkPlp(navigateToPLP(TestData.COFFEE_DARK_ROAST_URL), softAssert);
+    ProductsTestHelper.checkPlp(navigateToPLPFromHome(TestData.COFFEE_DARK_ROAST_URL), softAssert);
   }
 
   @Test(
@@ -28,7 +28,7 @@ public class CoffeeDarkRoastTests extends BaseTest {
       description = "11107506")
   public void coffeeDarkRoastBannerTest() {
     ProductsTestHelper.checkBestSellersBanner(
-        navigateToPLP(TestData.COFFEE_DARK_ROAST_URL), TestData.DARK_ROAST_HEADER, softAssert);
+        navigateToPLPFromHome(TestData.COFFEE_DARK_ROAST_URL), TestData.DARK_ROAST_HEADER, softAssert);
   }
 
   @Test(
@@ -36,7 +36,7 @@ public class CoffeeDarkRoastTests extends BaseTest {
       description = "11107509")
   public void coffeeDarkRoastSortingTest() {
     ProductsTestHelper.checkSortingOptions(
-        navigateToPLP(TestData.COFFEE_DARK_ROAST_URL), softAssert);
+        navigateToPLPFromHome(TestData.COFFEE_DARK_ROAST_URL), softAssert);
   }
 
   @Test(
@@ -44,7 +44,7 @@ public class CoffeeDarkRoastTests extends BaseTest {
       description = "11107511")
   public void coffeeDarkRoastNewsletterSignUpNeverMissOfferTest() {
     ProductsTestHelper.checkNewsletterSignUpNeverMissOffer(
-        navigateToPLP(TestData.COFFEE_DARK_ROAST_URL), softAssert);
+        navigateToPLPFromHome(TestData.COFFEE_DARK_ROAST_URL), softAssert);
   }
 
   @Test(
@@ -52,7 +52,7 @@ public class CoffeeDarkRoastTests extends BaseTest {
       description = "11107507")
   public void coffeeDarkRoastBreadcrumbsPathTest() {
     logger.info("1. Navigate to Product list page");
-    ProductListPage productListPage = navigateToPLP(TestData.COFFEE_DARK_ROAST_URL);
+    ProductListPage productListPage = navigateToPLPFromHome(TestData.COFFEE_DARK_ROAST_URL);
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     int originalTotalResults = productListPage.getTotalResults();
@@ -73,7 +73,7 @@ public class CoffeeDarkRoastTests extends BaseTest {
       description = "11107510")
   public void coffeeDarkRoastItemsTest() {
     logger.info("1. Navigate to Product list page");
-    ProductListPage productListPage = navigateToPLP(TestData.COFFEE_DARK_ROAST_URL);
+    ProductListPage productListPage = navigateToPLPFromHome(TestData.COFFEE_DARK_ROAST_URL);
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info(
@@ -119,7 +119,7 @@ public class CoffeeDarkRoastTests extends BaseTest {
       description = "11107513")
   public void coffeeDarkRoastJoinClubTest() {
     logger.info("1. Navigate to Product list page");
-    ProductListPage productListPage = navigateToPLP(TestData.COFFEE_DARK_ROAST_URL);
+    ProductListPage productListPage = navigateToPLPFromHome(TestData.COFFEE_DARK_ROAST_URL);
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Validating Home Delivery...");
@@ -142,7 +142,7 @@ public class CoffeeDarkRoastTests extends BaseTest {
   // Todo: Testcase disabled until further notice
   public void coffeeDarkRoastFiltersTest() {
     ProductsTestHelper.checkFilters(
-        navigateToPLP(TestData.COFFEE_DARK_ROAST_URL), Collections.emptyList(), softAssert);
+        navigateToPLPFromHome(TestData.COFFEE_DARK_ROAST_URL), Collections.emptyList(), softAssert);
   }
 
   @Test(
@@ -152,7 +152,7 @@ public class CoffeeDarkRoastTests extends BaseTest {
   // Todo:Disable by request of Bernadette, leaving only 1 case on allCoffee section[21.06.2022]
   public void coffeeDarkRoastOutOfStockTest() {
     logger.info("1. Navigate to Product list page");
-    ProductListPage productListPage = navigateToPLP(TestData.COFFEE_DARK_ROAST_URL);
+    ProductListPage productListPage = navigateToPLPFromHome(TestData.COFFEE_DARK_ROAST_URL);
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     int firstItem = 0;

@@ -83,7 +83,7 @@ public class CoffeeBarPage extends Base {
   @Override
   public void afterInit() {
     logger.info("Current URL - [{}]", SdkHelper.getDriver().getCurrentUrl());
-    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
+    //    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
   }
 
   public AccountMenuChunk getAccountMenu() {

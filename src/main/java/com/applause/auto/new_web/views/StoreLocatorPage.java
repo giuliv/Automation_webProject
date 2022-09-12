@@ -89,7 +89,7 @@ public class StoreLocatorPage extends Base {
 
   @Override
   public void afterInit() {
-    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
+    //    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
   }
 

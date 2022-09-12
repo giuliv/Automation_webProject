@@ -18,7 +18,7 @@ public class GearTests extends BaseTest {
       groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
       description = "11107471")
   public void gearTest() {
-    ProductsTestHelper.checkPlp(navigateToGearSection(), softAssert);
+    ProductsTestHelper.checkPlp(navigateToGearSectionFromHome(), softAssert);
   }
 
   @Test(
@@ -26,7 +26,7 @@ public class GearTests extends BaseTest {
       description = "11107472")
   public void gearBannerTest() {
     ProductsTestHelper.checkBestSellersBanner(
-        navigateToGearSection(), MyAccountTestData.GEAR_HEADER, softAssert);
+        navigateToGearSectionFromHome(), MyAccountTestData.GEAR_HEADER, softAssert);
   }
 
   @Test(
@@ -36,7 +36,7 @@ public class GearTests extends BaseTest {
   // Todo: Testcase disabled until further notice
   public void gearFiltersTest() {
     ProductsTestHelper.checkFilters(
-        navigateToPLP(),
+        navigateToPLPFromHome(),
         Arrays.asList(
             Filters.ROAST,
             Filters.BREWING_METHOD,
@@ -52,14 +52,14 @@ public class GearTests extends BaseTest {
       description = "11107474")
   public void gearSortingTest() {
     // Todo:Rating sorting missing [not displayed]
-    ProductsTestHelper.checkSortingOptions(navigateToGearSection(), softAssert);
+    ProductsTestHelper.checkSortingOptions(navigateToGearSectionFromHome(), softAssert);
   }
 
   @Test(
       groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
       description = "11107476")
   public void gearNewsletterSignUpNeverMissOfferTest() {
-    ProductsTestHelper.checkNewsletterSignUpNeverMissOffer(navigateToGearSection(), softAssert);
+    ProductsTestHelper.checkNewsletterSignUpNeverMissOffer(navigateToGearSectionFromHome(), softAssert);
   }
 
   @Test(
@@ -67,7 +67,7 @@ public class GearTests extends BaseTest {
       description = "11107475")
   public void gearItemsTest() {
     logger.info("1. Navigate to Product list page");
-    ProductListPage productListPage = navigateToGearSection();
+    ProductListPage productListPage = navigateToGearSectionFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info(
@@ -116,7 +116,7 @@ public class GearTests extends BaseTest {
   // Todo:Disable by request of Bernadette, leaving only 1 case on allCoffee section[21.06.2022]
   public void gearOutOfStockTest() {
     logger.info("1. Navigate to Product list page");
-    ProductListPage productListPage = navigateToGearSection();
+    ProductListPage productListPage = navigateToGearSectionFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     int firstItem = 0;

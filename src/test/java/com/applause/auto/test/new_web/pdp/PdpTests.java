@@ -33,7 +33,7 @@ public class PdpTests extends BaseTest {
       description = "11113308")
   public void urlValidationPageTest() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
 
     logger.info("2. Select an item");
     int firstCoffee = 0;
@@ -50,7 +50,7 @@ public class PdpTests extends BaseTest {
       description = "11113309")
   public void breadCrumbsTest() {
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     logger.info("2. Verify breadcrumb is displayed");
@@ -68,7 +68,8 @@ public class PdpTests extends BaseTest {
       description = "11113310")
   public void coffeeItemDetailsTest() {
     logger.info("1. Navigate to PDP");
-    ProductDetailsPage productDetailsPage = navigateToPDP(Constants.TestData.BARIDI_BLEND_BLUNDE);
+    ProductDetailsPage productDetailsPage =
+        navigateToPDPFromHome(Constants.TestData.BARIDI_BLEND_BLUNDE);
 
     logger.info("2. Validating...");
     Assert.assertTrue(productDetailsPage.isProductNameDisplayed(), "Product name is not displayed");
@@ -86,7 +87,7 @@ public class PdpTests extends BaseTest {
       description = "11113311")
   public void itemGrindTest() {
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     logger.info("2. Verify that Grind was selected");
@@ -109,7 +110,7 @@ public class PdpTests extends BaseTest {
       description = "11113312")
   public void itemQuantityTest() {
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     logger.info("2. Select new Quantity > Review Quantity element");
@@ -122,6 +123,7 @@ public class PdpTests extends BaseTest {
   public void itemTypeTest() {
     logger.info("1. Navigate to Home");
     HomePage homePage = navigateToHome();
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Search for the product: {}", TestData.EQUIPMENT_NAME);
     SearchResultsPage searchResultsPage =
@@ -181,7 +183,7 @@ public class PdpTests extends BaseTest {
       description = "11102944")
   public void uiElementsTest() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
 
     logger.info("2. Select an item");
     int itemAt = testHelper.findInStockSamplerItemPosition(productListPage);
@@ -220,7 +222,7 @@ public class PdpTests extends BaseTest {
       description = "11102945")
   public void grindAndQuantitySelectionTest() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
 
     logger.info("2. Select an item");
     int itemAt =
@@ -312,7 +314,7 @@ public class PdpTests extends BaseTest {
       description = "11102946")
   public void subscribeTest() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
 
     logger.info("2. Select an item");
     int itemAt = testHelper.findInStockItemWithGrindPosition(productListPage);
@@ -368,7 +370,7 @@ public class PdpTests extends BaseTest {
       description = "11102947")
   public void writeReviewTest() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
 
     logger.info("2. Select an item");
     PlpItemComponent productOnPosition = productListPage.getProductOnPosition(2);
@@ -413,7 +415,7 @@ public class PdpTests extends BaseTest {
       description = "11102948")
   public void takeTheCoffeeQuizTest() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
 
     logger.info("2. Select an item");
     PlpItemComponent productOnPosition = productListPage.getProductOnPosition(2);
@@ -431,7 +433,7 @@ public class PdpTests extends BaseTest {
       description = "11107450")
   public void pdpShopRunnerTest() {
     logger.info("1. Navigate to PDP");
-    ProductDetailsPage pdp = navigateToPDP(coffeeSelected);
+    ProductDetailsPage pdp = navigateToPDPFromHome(coffeeSelected);
 
     logger.info("2. Verify FREE 2-Day Shipping & Free Returns is displayed");
     Assert.assertTrue(
@@ -461,7 +463,7 @@ public class PdpTests extends BaseTest {
       description = "11107451")
   public void pdpItemRoastDateFreshnessDescriptionTest() {
     logger.info("1. Navigate to PDP");
-    ProductDetailsPage detailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage detailsPage = navigateToPDPFromHome(coffeeSelected);
 
     logger.info(
         "2. Verify 'Hand Roasted to Order' is shown with message based on the product roasting schedule");
@@ -505,7 +507,7 @@ public class PdpTests extends BaseTest {
       description = "11107452")
   public void pdpFlavorProfileTest() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP(TestData.COFFEE_BEST_SELLERS_URL);
+    ProductListPage productListPage = navigateToPLPFromHome(TestData.COFFEE_BEST_SELLERS_URL);
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Select first product ");
@@ -566,7 +568,7 @@ public class PdpTests extends BaseTest {
       description = "11107453")
   public void pdpStoryTest() {
     logger.info("1. Navigate to PDP");
-    ProductDetailsPage detailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage detailsPage = navigateToPDPFromHome(coffeeSelected);
 
     logger.info("2. Verify Story section is displayed with name, banner and description");
     softAssert.assertTrue(
@@ -590,7 +592,7 @@ public class PdpTests extends BaseTest {
   public void pdpBrewingMethodsTest() {
     logger.info("1. Navigate to PDP");
     ProductDetailsPage detailsPage =
-        navigateToPDP(Constants.StandardCoffeeInventory.Coffee1.getValue());
+        navigateToPDPFromHome(Constants.StandardCoffeeInventory.Coffee1.getValue());
 
     logger.info("2. Verify the user is shown with all different brewing methods");
     softAssert.assertTrue(
@@ -647,7 +649,7 @@ public class PdpTests extends BaseTest {
       description = "11107455")
   public void pdpCustomerReviewsTest() {
     logger.info("1. Navigate to PDP");
-    ProductDetailsPage detailsPage = navigateToPDP(Constants.TestData.BARIDI_BLEND_BLUNDE);
+    ProductDetailsPage detailsPage = navigateToPDPFromHome(Constants.TestData.BARIDI_BLEND_BLUNDE);
 
     logger.info("2. Verify customer reviews are sorted by Most Recent by default");
     ProductDetailsCustomerReviewsComponent customerReviewsComponent =
@@ -735,7 +737,7 @@ public class PdpTests extends BaseTest {
       description = "11107456")
   public void pdpRecommendedForYouSectionTest() {
     logger.info("1. Navigate to PDP");
-    ProductDetailsPage detailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage detailsPage = navigateToPDPFromHome(coffeeSelected);
 
     logger.info("2. Verify 'RECOMMENDED FOR YOU' section is displayed");
     softAssert.assertTrue(
@@ -788,7 +790,7 @@ public class PdpTests extends BaseTest {
       description = "11107457")
   public void pdpNeverMissOfferTest() {
     logger.info("1. Navigate to PDP");
-    ProductDetailsPage detailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage detailsPage = navigateToPDPFromHome(coffeeSelected);
 
     logger.info("2. Verify 'Sign up' button is displayed");
     softAssert.assertTrue(
@@ -807,7 +809,7 @@ public class PdpTests extends BaseTest {
       description = "11107458")
   public void pdpAtPeetsCoffeeOnInstagramTest() {
     logger.info("1. Navigate to PDP");
-    ProductDetailsPage detailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage detailsPage = navigateToPDPFromHome(coffeeSelected);
 
     logger.info("2. Verify there are Images displayed");
     softAssert.assertTrue(
@@ -828,7 +830,7 @@ public class PdpTests extends BaseTest {
       description = "11107459")
   public void pdpScrollDownPastTest() {
     logger.info("1. Navigate to PDP");
-    ProductDetailsPage detailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage detailsPage = navigateToPDPFromHome(coffeeSelected);
 
     logger.info("2. Scroll past the purchasing area");
     detailsPage = detailsPage.scrollToFlavorProfile();
@@ -876,6 +878,7 @@ public class PdpTests extends BaseTest {
   public void pdpSpecialtyBlendsTest() {
     logger.info("1. Navigate to PDP");
     HomePage homePage = navigateToHome();
+    homePage.closeInitialBannersAndModals();
 
     logger.info(
         "2. Search for the product: {}", WebTestData.SEARCH_COFFEE_YOSEMITE_DOS_SIERRAS_ORGANIC);
@@ -900,6 +903,7 @@ public class PdpTests extends BaseTest {
   public void pdpAnniversaryCoffeeTest() {
     logger.info("1. Navigate to PDP");
     HomePage homePage = navigateToHome();
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Search for the product: {}", WebTestData.SEARCH_COFFEE_JR_RESERVE_BLEND);
     SearchResultsPage searchResultsPage =
@@ -939,6 +943,7 @@ public class PdpTests extends BaseTest {
   public void pdpTeaItemTest() {
     logger.info("1. Navigate to PDP");
     HomePage homePage = navigateToHome();
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Search for the product: {}", TestData.TEA_NAME);
     SearchResultsPage searchResultsPage =
@@ -979,6 +984,7 @@ public class PdpTests extends BaseTest {
   public void pdpEquipmentTest() {
     logger.info("1. Navigate to PDP");
     HomePage homePage = navigateToHome();
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Search for the product: {}", TestData.EQUIPMENT_NAME);
     SearchResultsPage searchResultsPage =
@@ -1001,6 +1007,7 @@ public class PdpTests extends BaseTest {
   public void pdpOutOfStockTest() {
     logger.info("1. Navigate to PDP");
     HomePage homePage = navigateToHome();
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Search for the product: {}", TestData.EQUIPMENT_NAME_OOO);
     SearchResultsPage searchResultsPage =
@@ -1020,6 +1027,7 @@ public class PdpTests extends BaseTest {
   public void pdpOutOfStockSoldOutTest() {
     logger.info("1. Navigate to PDP");
     HomePage homePage = navigateToHome();
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Search for the product: {}", TestData.PODS_OOO);
     SearchResultsPage searchResultsPage =
@@ -1056,7 +1064,7 @@ public class PdpTests extends BaseTest {
     SoftAssert softAssert = new SoftAssert();
 
     logger.info("1. Navigate to PDP");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     softAssert.assertNotNull(productDetailsPage, "PDP page is not displayed");
 
     logger.info("2. Review Subscribe type/weeks is displayed by default");
@@ -1085,7 +1093,7 @@ public class PdpTests extends BaseTest {
     SoftAssert softAssert = new SoftAssert();
 
     logger.info("1. Navigate to PDP");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     softAssert.assertNotNull(productDetailsPage, "PDP page is not displayed");
 
     logger.info("2. Review Subscribe/Add to Cart button");

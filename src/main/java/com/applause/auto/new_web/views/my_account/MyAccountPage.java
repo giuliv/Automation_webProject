@@ -107,7 +107,7 @@ public class MyAccountPage extends Base {
   public void afterInit() {
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getViewSignature).visible().setTimeout(Duration.ofSeconds(40)));
-    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
+    //    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
 
     try {
       if (WebHelper.exists(closeBanner, 7)) {

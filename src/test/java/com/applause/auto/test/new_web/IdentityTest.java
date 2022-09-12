@@ -167,6 +167,7 @@ public class IdentityTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Go to Shopify stage --> Add Standard item to cart");
     SearchResultsPage searchResultsPage =
@@ -213,6 +214,7 @@ public class IdentityTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Go to Shopify stage --> Add Subscription item to cart");
     SearchResultsPage searchResultsPage =
@@ -263,6 +265,7 @@ public class IdentityTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Go to Shopify stage --> Add Standard item to cart");
     SearchResultsPage searchResultsPage =
@@ -323,6 +326,7 @@ public class IdentityTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Go to Shopify stage --> Add Subscription item to cart");
     SearchResultsPage searchResultsPage =
@@ -390,6 +394,7 @@ public class IdentityTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Validate the user is shown with Person ICON at Right corner");
     Header header = homePage.getHeader();

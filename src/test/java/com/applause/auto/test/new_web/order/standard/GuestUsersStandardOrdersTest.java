@@ -32,6 +32,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     int productSelected;
     if (WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
@@ -157,7 +158,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
   public void oneCoffeeOneEquipmentCreditCardAsGuestUserTest() {
 
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     String coffeeName = productDetailsPage.getProductName();
@@ -301,7 +302,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
   public void oneRegularCoffeeOneReserveCoffeePeetsCardAsGuestUserTest() {
 
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     String coffeeName = productDetailsPage.getProductName();
@@ -447,6 +448,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Select Best Sellers from Tea tab");
     Header header = homePage.getHeader();
@@ -595,7 +597,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
   public void freeShippingByMultipleCoffeeOrderAsGuestUserTest() {
 
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     String productName = productDetailsPage.getProductName();
@@ -713,6 +715,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Select Limited Releases From Coffee tab");
     Header header = homePage.getHeader();

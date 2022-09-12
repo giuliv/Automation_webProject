@@ -27,6 +27,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Create new User account");
     String mail = WebHelper.getRandomMail();
@@ -163,6 +164,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Create new User account");
     String mail = WebHelper.getRandomMail();
@@ -295,6 +297,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Create new User account");
     String mail = WebHelper.getRandomMail();
@@ -483,6 +486,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Create new User account");
     String mail = WebHelper.getRandomMail();
@@ -665,6 +669,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Create new User account");
     String mail = WebHelper.getRandomMail();
@@ -847,6 +852,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Create new User account");
     String mail = WebHelper.getRandomMail();
@@ -1014,6 +1020,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Create new User account");
     String mail = WebHelper.getRandomMail();
@@ -1151,6 +1158,7 @@ public class NewUsersSubscriptionsTest extends BaseTest {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Create new User account");
     String mail = WebHelper.getRandomMail();

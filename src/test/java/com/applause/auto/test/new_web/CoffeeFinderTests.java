@@ -21,7 +21,7 @@ public class CoffeeFinderTests extends BaseTest {
       description = "11102941")
   public void coffeeFinderElements() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Click on Coffee in header and then Coffee finder.");
@@ -74,7 +74,7 @@ public class CoffeeFinderTests extends BaseTest {
   // Todo: We need to figure out the issue on mobile view[20/04/2022]
   public void selectDeselectFlavors() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Click on Coffee in header and then Coffee finder.");
@@ -126,7 +126,7 @@ public class CoffeeFinderTests extends BaseTest {
   // Todo: Shilpa market as not shown in staging[20/04/2022]
   public void successfulCoffeeSelection() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Click on Coffee in header and then Coffee finder.");

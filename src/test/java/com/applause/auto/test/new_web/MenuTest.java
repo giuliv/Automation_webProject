@@ -16,8 +16,7 @@ public class MenuTest extends BaseTest {
       groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11107482")
   public void featured() {
-    logger.info("XX. Navigate to landing page");
-    navigateToHome();
+    logger.info("XX. Navigate to Coffee Bar");
     CoffeeBarPage coffeeBarPage = navigateToCoffeeBarMenuPage();
 
     logger.info("XX. Validate OUR FEATURED MENU section");
@@ -80,8 +79,7 @@ public class MenuTest extends BaseTest {
       groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11107483")
   public void category() {
-    logger.info("XX. Navigate to landing page");
-    navigateToHome();
+    logger.info("XX. Navigate to Coffee Bar");
     CoffeeBarPage coffeeBarPage = navigateToCoffeeBarMenuPage();
 
     logger.info("XX. Validate each category is on the screen");
@@ -109,8 +107,7 @@ public class MenuTest extends BaseTest {
       groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11107484")
   public void banners() {
-    logger.info("XX. Navigate to landing page");
-    navigateToHome();
+    logger.info("XX. Navigate to Coffee Bar");
     CoffeeBarPage coffeeBarPage = navigateToCoffeeBarMenuPage();
 
     logger.info("XX. open find a coffee");
@@ -135,8 +132,7 @@ public class MenuTest extends BaseTest {
       groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11107485")
   public void newsletter() {
-    logger.info("XX. Navigate to landing page");
-    navigateToHome();
+    logger.info("XX. Navigate to Coffee Bar");
     CoffeeBarPage coffeeBarPage = navigateToCoffeeBarMenuPage();
 
     logger.info("XX. Navigate to Email sign up page");
@@ -157,9 +153,7 @@ public class MenuTest extends BaseTest {
       groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11107481")
   public void viewMenuAndOptions() {
-
-    logger.info("XX. Navigate to landing page");
-    navigateToHome();
+    logger.info("XX. Navigate to Coffee Bar");
     CoffeeBarPage coffeeBarPage = navigateToCoffeeBarMenuPage();
 
     logger.info("XX. Validate the user is directed to CoffeeBar Menu");

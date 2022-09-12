@@ -60,7 +60,7 @@ public class FindStoreTests extends BaseTest {
       description = "11102899")
   public void validateFilterTest() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Click on location from header.");
@@ -175,7 +175,7 @@ public class FindStoreTests extends BaseTest {
       description = "11102901")
   public void validateGetDirections() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Click on location from header.");
@@ -260,7 +260,7 @@ public class FindStoreTests extends BaseTest {
       description = "11102903")
   public void backToResults() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Click on location from header.");
@@ -309,7 +309,7 @@ public class FindStoreTests extends BaseTest {
       description = "11102905")
   public void zoomMapTest() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Click on location from header.");
@@ -327,7 +327,7 @@ public class FindStoreTests extends BaseTest {
       description = "11102906")
   public void thereAreNoStoresNearby() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Click on location from header.");
@@ -356,7 +356,7 @@ public class FindStoreTests extends BaseTest {
       description = "11107478")
   public void storeDetailsPageFromCoffeeBar() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Click on location from header.");
@@ -452,7 +452,7 @@ public class FindStoreTests extends BaseTest {
       description = "11107479")
   public void storeDetailsCoffeeSubscriptionsSection() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Click on location from header.");
@@ -486,7 +486,7 @@ public class FindStoreTests extends BaseTest {
       description = "11107480")
   public void storeDetailsNeverMissOfferSection() {
     logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Click on location from header.");

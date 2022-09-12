@@ -20,6 +20,7 @@ public class FooterTests extends BaseTest {
     logger.info("1. Navigate to Home page");
     HomePage homePage = navigateToHome();
     softAssert.assertNotNull(homePage, "Failed to navigate to the Home page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("Verify company logo is displayed");
     FooterComponent footer = homePage.getFooterComponent();
@@ -35,6 +36,7 @@ public class FooterTests extends BaseTest {
     logger.info("1. Navigate to Home page");
     HomePage homePage = navigateToHome();
     softAssert.assertNotNull(homePage, "Failed to navigate to the Home page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("Verify the user is shown with al expected options under HELP CENTER");
     FooterComponent footer = homePage.getFooterComponent();
@@ -53,6 +55,7 @@ public class FooterTests extends BaseTest {
     logger.info("1. Navigate to Home page");
     HomePage homePage = navigateToHome();
     softAssert.assertNotNull(homePage, "Failed to navigate to the Home page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("Verify the user is shown with al expected options under COMPANY");
     FooterComponent footer = homePage.getFooterComponent();
@@ -71,6 +74,7 @@ public class FooterTests extends BaseTest {
     logger.info("1. Navigate to Home page");
     HomePage homePage = navigateToHome();
     softAssert.assertNotNull(homePage, "Failed to navigate to the Home page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("Verify the user is shown with al expected options under GIFTS");
     FooterComponent footer = homePage.getFooterComponent();
@@ -89,6 +93,7 @@ public class FooterTests extends BaseTest {
     logger.info("1. Navigate to Home page");
     HomePage homePage = navigateToHome();
     softAssert.assertNotNull(homePage, "Failed to navigate to the Home page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("Verify the user is shown with al expected options under Offers");
     FooterComponent footer = homePage.getFooterComponent();
@@ -107,6 +112,7 @@ public class FooterTests extends BaseTest {
     logger.info("1. Navigate to Home page");
     HomePage homePage = navigateToHome();
     softAssert.assertNotNull(homePage, "Failed to navigate to the Home page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("Verify the user is shown with al expected options under Partner with peet's");
     FooterComponent footer = homePage.getFooterComponent();
@@ -125,6 +131,7 @@ public class FooterTests extends BaseTest {
     logger.info("1. Navigate to Home page");
     HomePage homePage = navigateToHome();
     softAssert.assertNotNull(homePage, "Failed to navigate to the Home page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("Verify the user is shown with al expected options under Blog");
     FooterComponent footer = homePage.getFooterComponent();
@@ -143,6 +150,7 @@ public class FooterTests extends BaseTest {
     logger.info("1. Navigate to Home page");
     HomePage homePage = navigateToHome();
     softAssert.assertNotNull(homePage, "Failed to navigate to the Home page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("2. Click on 'APP Store'");
     FooterComponent footer = homePage.getFooterComponent();
@@ -176,6 +184,7 @@ public class FooterTests extends BaseTest {
     logger.info("1. Navigate to Home page");
     HomePage homePage = navigateToHome();
     softAssert.assertNotNull(homePage, "Failed to navigate to the Home page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("Verify the user is shown with al expected social media options");
     FooterComponent footer = homePage.getFooterComponent();
@@ -194,6 +203,7 @@ public class FooterTests extends BaseTest {
     logger.info("1. Navigate to Home page");
     HomePage homePage = navigateToHome();
     softAssert.assertNotNull(homePage, "Failed to navigate to the Home page.");
+    homePage.closeInitialBannersAndModals();
 
     logger.info("Verify the user is shown with al expected footer end sub options");
     FooterComponent footer = homePage.getFooterComponent();

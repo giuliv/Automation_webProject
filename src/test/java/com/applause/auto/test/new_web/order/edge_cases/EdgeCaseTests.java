@@ -21,7 +21,7 @@ public class EdgeCaseTests extends BaseTest {
       description = "11102585")
   public void userCanReturnToShipping() {
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
@@ -53,7 +53,7 @@ public class EdgeCaseTests extends BaseTest {
       description = "11102586")
   public void orderIsNotPlacedWithEmptyData() {
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
 
@@ -90,7 +90,7 @@ public class EdgeCaseTests extends BaseTest {
       description = "11102587")
   public void orderIsNotPlacedWhenEnteringWrongCCdata() {
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
@@ -134,7 +134,7 @@ public class EdgeCaseTests extends BaseTest {
       description = "11102588")
   public void useDifferentBillingAddress() {
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
@@ -181,7 +181,7 @@ public class EdgeCaseTests extends BaseTest {
       description = "11102575")
   public void userCantContinueWithoutData() {
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
@@ -205,7 +205,7 @@ public class EdgeCaseTests extends BaseTest {
       description = "11102576")
   public void userCanReturnToCart() {
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
@@ -225,7 +225,7 @@ public class EdgeCaseTests extends BaseTest {
       description = "11102577")
   public void invalidPromoCode() {
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
@@ -249,7 +249,7 @@ public class EdgeCaseTests extends BaseTest {
       description = "11102578")
   public void userInformationIsSavedForNextTime() {
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
@@ -279,7 +279,7 @@ public class EdgeCaseTests extends BaseTest {
       description = "11102579")
   public void userUpdatesAddress() {
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
@@ -305,7 +305,7 @@ public class EdgeCaseTests extends BaseTest {
       description = "11102580")
   public void userIsAbleToChangeContactShipTo() {
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
@@ -359,7 +359,7 @@ public class EdgeCaseTests extends BaseTest {
       description = "11102581")
   public void userCanReturnToInformation() {
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
@@ -385,7 +385,7 @@ public class EdgeCaseTests extends BaseTest {
       description = "11102582")
   public void userCanVisitFAQPageFromShipping() {
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
@@ -414,7 +414,7 @@ public class EdgeCaseTests extends BaseTest {
       description = "11102583")
   public void userCanChangeMethod() {
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
@@ -460,7 +460,7 @@ public class EdgeCaseTests extends BaseTest {
       description = "11102584")
   public void wrongGiftCard() {
     logger.info("1. Navigate to product details page");
-    ProductDetailsPage productDetailsPage = navigateToPDP(coffeeSelected);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     logger.info("2. Select One Time Purchase > Add to MiniCart");

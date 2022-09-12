@@ -45,7 +45,7 @@ public class SearchResultsPage extends Base {
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
-    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
+    //    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
     logger.info("Search Results List Page URL: " + getDriver().getCurrentUrl());
   }
 

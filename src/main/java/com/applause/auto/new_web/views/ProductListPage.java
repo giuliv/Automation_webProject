@@ -182,7 +182,7 @@ public class ProductListPage extends Base {
       SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
     }
 
-    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
+    //    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
     logger.info("Products List Page URL: " + getDriver().getCurrentUrl());
   }
 

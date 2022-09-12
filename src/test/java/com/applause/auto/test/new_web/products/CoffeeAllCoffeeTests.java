@@ -20,7 +20,7 @@ public class CoffeeAllCoffeeTests extends BaseTest {
       groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
       description = "11107493")
   public void coffeeAllCoffeeTest() {
-    ProductsTestHelper.checkPlp(navigateToPLP(), softAssert);
+    ProductsTestHelper.checkPlp(navigateToPLPFromHome(), softAssert);
   }
 
   @Test(
@@ -28,7 +28,7 @@ public class CoffeeAllCoffeeTests extends BaseTest {
       description = "11107494")
   public void allCoffeeBannerTest() {
     ProductsTestHelper.checkBestSellersBanner(
-        navigateToPLP(), MyAccountTestData.ALL_COFFEE_HEADER, softAssert);
+        navigateToPLPFromHome(), MyAccountTestData.ALL_COFFEE_HEADER, softAssert);
   }
 
   @Test(
@@ -38,7 +38,7 @@ public class CoffeeAllCoffeeTests extends BaseTest {
   // Todo: Testcase disabled until further notice
   public void allCoffeeFiltersTest() {
     ProductsTestHelper.checkFilters(
-        navigateToPLP(),
+        navigateToPLPFromHome(),
         Arrays.asList(
             Filters.ROAST,
             Filters.BREWING_METHOD,
@@ -53,14 +53,14 @@ public class CoffeeAllCoffeeTests extends BaseTest {
       groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
       description = "11108848")
   public void allCoffeeSortingTest() {
-    ProductsTestHelper.checkSortingOptions(navigateToPLP(), softAssert);
+    ProductsTestHelper.checkSortingOptions(navigateToPLPFromHome(), softAssert);
   }
 
   @Test(
       groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
       description = "11107495")
   public void allCoffeeNewsletterSignUpNeverMissOfferTest() {
-    ProductsTestHelper.checkNewsletterSignUpNeverMissOffer(navigateToPLP(), softAssert);
+    ProductsTestHelper.checkNewsletterSignUpNeverMissOffer(navigateToPLPFromHome(), softAssert);
   }
 
   @Test(
@@ -68,7 +68,7 @@ public class CoffeeAllCoffeeTests extends BaseTest {
       description = "11108849")
   public void allCoffeeItemsTest() {
     logger.info("1. Navigate to Product list page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info(
@@ -115,7 +115,7 @@ public class CoffeeAllCoffeeTests extends BaseTest {
       description = "11107497")
   public void allCoffeeJoinClubTest() {
     logger.info("1. Navigate to Product list page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Validating Home Delivery...");
@@ -136,7 +136,7 @@ public class CoffeeAllCoffeeTests extends BaseTest {
       description = "11107496")
   public void allCoffeeOutOfStockTest() {
     logger.info("1. Navigate to Product list page");
-    ProductListPage productListPage = navigateToPLP();
+    ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     int firstItem = 0;

@@ -54,7 +54,7 @@ public class GiftCardsPage extends Base {
   public void afterInit() {
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(mainContainer).visible().setTimeout(Duration.ofSeconds(40)));
-    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
+    //    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
   }
 
   /* -------- Actions -------- */
