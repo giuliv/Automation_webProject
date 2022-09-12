@@ -197,10 +197,10 @@ public class HomePage extends Base {
     //      closeModal.click();
     //    }
 
-    //    if (!WebHelper.isDesktop() && WebHelper.exists(allowCookies, 7)) {
-    //      logger.info("Accept Cookies");
-    //      WebHelper.jsClick(allowCookies.getWebElement());
-    //    }
+    if (!WebHelper.isDesktop() && WebHelper.exists(allowCookies, 7)) {
+      logger.info("Accept Cookies");
+      WebHelper.jsClick(allowCookies.getWebElement());
+    }
 
     WebHelper.clickButtonOverIFrame(specialOfferFrame, closeSpecialOfferButton);
     SdkHelper.getDriver().navigate().refresh();
