@@ -236,18 +236,18 @@ public class PaymentsPage extends Base {
   }
 
   @Step("Click continue to payments")
-  public AcceptancePage clickContinueToPayments() {
+  public AcceptancePage clickPayNow() {
     return clickOnPayNowButton(AcceptancePage.class);
   }
 
-  @Step("Click continue to payments using paypal")
+  @Step("Click continue to payments using payPal")
   public PayPalPage clickContinueToPaymentsPayPal() {
     return clickOnPayNowButton(PayPalPage.class);
   }
 
-  @Step("Click paypal option")
+  @Step("Click payPal option")
   public void clickPayPal() {
-    logger.info("Clicking to choose paypal as payment option");
+    logger.info("Clicking to choose payPal as payment option");
     SdkHelper.getSyncHelper().wait(Until.uiElement(iFrameCardNumber).present());
     SdkHelper.getSyncHelper().wait(Until.uiElement(payPalButton).clickable()).click();
   }
@@ -264,7 +264,7 @@ public class PaymentsPage extends Base {
     return SdkHelper.create(clazz);
   }
 
-  @Step("Review same addres is selected")
+  @Step("Review same address is selected")
   public boolean isSameAddressSelected() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(sameAddress).present());
     return sameAddress.isSelected();

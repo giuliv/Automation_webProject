@@ -169,11 +169,15 @@ public class EdgeCaseTests extends BaseTest {
             .state("New York")
             .zipCode("11202")
             .build();
-    AcceptancePage acceptancePage =
-        paymentsPage.typeBillingAddress(addressDto).clickContinueToPayments();
 
-    logger.info("Verify that - Order should be placed.");
-    Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
+    paymentsPage = paymentsPage.typeBillingAddress(addressDto);
+
+    if (!WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
+      AcceptancePage acceptancePage = paymentsPage.clickPayNow();
+
+      logger.info("Verify that - Order should be placed.");
+      Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
+    }
   }
 
   @Test(

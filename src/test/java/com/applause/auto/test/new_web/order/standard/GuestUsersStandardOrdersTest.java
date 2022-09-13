@@ -37,7 +37,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     int productSelected;
     if (WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
       homePage = WebHelper.refreshMe(HomePage.class);
-      productSelected = 0;
+      productSelected = 1;
     } else {
       productSelected = 1;
     }
@@ -90,7 +90,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
       String totalPrice = paymentsPage.getTotalPrice();
 
       logger.info("7. Proceed to Acceptance page");
-      AcceptancePage acceptancePage = paymentsPage.clickContinueToPayments();
+      AcceptancePage acceptancePage = paymentsPage.clickPayNow();
 
       logger.info("8. Validating Product Details");
       Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
@@ -227,73 +227,78 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     //    paymentsPage.setPeetsCardDiscount();
     paymentsPage.setPaymentData();
 
-    String totalPrice = paymentsPage.getTotalPrice();
+    if (WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
+      logger.info("Testcase needs to stop, running on prod");
+    } else {
+      String totalPrice = paymentsPage.getTotalPrice();
 
-    logger.info("9. Proceed to Acceptance page");
-    AcceptancePage acceptancePage = paymentsPage.clickContinueToPayments();
+      logger.info("9. Proceed to Acceptance page");
+      AcceptancePage acceptancePage = paymentsPage.clickPayNow();
 
-    logger.info("10. Validating Product Details");
-    Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
-    Assert.assertTrue(acceptancePage.isSubTotalDisplayed(), "SubTotal is NOT displayed");
-    Assert.assertEquals(
-        coffeeName,
-        acceptancePage.getOrderNameByIndex(coffeeIndex),
-        "Coffee Product name does NOT matches");
-    Assert.assertEquals(
-        equipmentName,
-        acceptancePage.getOrderNameByIndex(equipmentIndex),
-        "Equipment Product name does NOT matches");
-    Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
-    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
-
-    if (WebHelper.isDesktop()) {
-      // Todo: Only for desktop, until figure out if its a bug
-      logger.info("11. Validating Download buttons");
-      acceptancePage.clickOverTrackPackageButton();
+      logger.info("10. Validating Product Details");
+      Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
+      Assert.assertTrue(acceptancePage.isSubTotalDisplayed(), "SubTotal is NOT displayed");
       Assert.assertEquals(
-          acceptancePage.getPhoneFromTrackPackageSection(),
-          "+1 " + Constants.WebTestData.PHONE,
-          "Phone from Track Package section is NOT correct");
+          coffeeName,
+          acceptancePage.getOrderNameByIndex(coffeeIndex),
+          "Coffee Product name does NOT matches");
+      Assert.assertEquals(
+          equipmentName,
+          acceptancePage.getOrderNameByIndex(equipmentIndex),
+          "Equipment Product name does NOT matches");
+      Assert.assertEquals(
+          totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
+      Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
+
+      if (WebHelper.isDesktop()) {
+        // Todo: Only for desktop, until figure out if its a bug
+        logger.info("11. Validating Download buttons");
+        acceptancePage.clickOverTrackPackageButton();
+        Assert.assertEquals(
+            acceptancePage.getPhoneFromTrackPackageSection(),
+            "+1 " + Constants.WebTestData.PHONE,
+            "Phone from Track Package section is NOT correct");
+      }
+
+      // Todo: Commented due to Peet's change on staging[Talked w/Shilpa and Bernadette]
+      //    acceptancePage.clickOverShippingUpdatesButton();
+      //    Assert.assertEquals(
+      //        acceptancePage.getPhoneFromShippingUpdatesSection(),
+      //        "+1 " + Constants.WebTestData.PHONE,
+      //        "Phone from Shipping Updates section is NOT correct");
+
+      // Todo: Optional assertions or assertions missing:
+      //  Submit button from trackPackage/shippingUpdates sections
+      //  [user will receive a text validations]
+
+      logger.info("12. Validating Customer Information");
+      Assert.assertEquals(
+          Constants.WebTestData.EMAIL, acceptancePage.getCustomerMail(), "Mail does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
+          "Shipping Address does NOT matches");
+
+      Assert.assertTrue(
+          shippingMethod.contains(acceptancePage.getShippingMethod()),
+          "Shipping Method does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage
+              .getPaymentMethod()
+              .contains("ending with " + Constants.WebTestData.CREDIT_CARD_NUMBER_4),
+          "Payment Method does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage.getBillingAddressData().contains(Constants.WebTestData.ADDRESS),
+          "Billing Address does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage.isContinueShoppingDisplayed(),
+          "Continue to Shopping button is not displayed");
+
+      logger.info("FINISH");
     }
-
-    // Todo: Commented due to Peet's change on staging[Talked w/Shilpa and Bernadette]
-    //    acceptancePage.clickOverShippingUpdatesButton();
-    //    Assert.assertEquals(
-    //        acceptancePage.getPhoneFromShippingUpdatesSection(),
-    //        "+1 " + Constants.WebTestData.PHONE,
-    //        "Phone from Shipping Updates section is NOT correct");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Submit button from trackPackage/shippingUpdates sections
-    //  [user will receive a text validations]
-
-    logger.info("12. Validating Customer Information");
-    Assert.assertEquals(
-        Constants.WebTestData.EMAIL, acceptancePage.getCustomerMail(), "Mail does NOT matches");
-
-    Assert.assertTrue(
-        acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
-        "Shipping Address does NOT matches");
-
-    Assert.assertTrue(
-        shippingMethod.contains(acceptancePage.getShippingMethod()),
-        "Shipping Method does NOT matches");
-
-    Assert.assertTrue(
-        acceptancePage
-            .getPaymentMethod()
-            .contains("ending with " + Constants.WebTestData.CREDIT_CARD_NUMBER_4),
-        "Payment Method does NOT matches");
-
-    Assert.assertTrue(
-        acceptancePage.getBillingAddressData().contains(Constants.WebTestData.ADDRESS),
-        "Billing Address does NOT matches");
-
-    Assert.assertTrue(
-        acceptancePage.isContinueShoppingDisplayed(),
-        "Continue to Shopping button is not displayed");
-
-    logger.info("FINISH");
   }
 
   @Test(
@@ -369,73 +374,79 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     //    paymentsPage.setPeetsCardDiscount();
     paymentsPage.setPaymentData();
 
-    String totalPrice = paymentsPage.getTotalPrice();
+    if (WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
+      logger.info("Testcase needs to stop, running on prod");
+    } else {
+      String totalPrice = paymentsPage.getTotalPrice();
 
-    logger.info("9. Proceed to Acceptance page");
-    AcceptancePage acceptancePage = paymentsPage.clickContinueToPayments();
+      logger.info("9. Proceed to Acceptance page");
+      AcceptancePage acceptancePage = paymentsPage.clickPayNow();
 
-    logger.info("10. Validating Product Details");
-    Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
-    Assert.assertTrue(acceptancePage.isSubTotalDisplayed(), "SubTotal is NOT displayed");
-    Assert.assertEquals(
-        coffeeName,
-        acceptancePage.getOrderNameByIndex(coffeeIndex),
-        "Coffee Product name does NOT matches");
-    Assert.assertEquals(
-        reserveName,
-        acceptancePage.getOrderNameByIndex(reserveIndex),
-        "Reserve Product name does NOT matches");
-    Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
-    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
-
-    if (WebHelper.isDesktop()) {
-      // Todo: Only for desktop, until figure out if its a bug
-      logger.info("11. Validating Download buttons");
-      acceptancePage.clickOverTrackPackageButton();
+      logger.info("10. Validating Product Details");
+      Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
+      Assert.assertTrue(acceptancePage.isSubTotalDisplayed(), "SubTotal is NOT displayed");
       Assert.assertEquals(
-          acceptancePage.getPhoneFromTrackPackageSection(),
-          "+1 " + Constants.WebTestData.PHONE,
-          "Phone from Track Package section is NOT correct");
+          coffeeName,
+          acceptancePage.getOrderNameByIndex(coffeeIndex),
+          "Coffee Product name does NOT matches");
+      Assert.assertEquals(
+          reserveName,
+          acceptancePage.getOrderNameByIndex(reserveIndex),
+          "Reserve Product name does NOT matches");
+      Assert.assertEquals(
+          totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
+      Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
+
+      if (WebHelper.isDesktop()) {
+        // Todo: Only for desktop, until figure out if its a bug
+        logger.info("11. Validating Download buttons");
+        acceptancePage.clickOverTrackPackageButton();
+        Assert.assertEquals(
+            acceptancePage.getPhoneFromTrackPackageSection(),
+            "+1 " + Constants.WebTestData.PHONE,
+            "Phone from Track Package section is NOT correct");
+      }
+
+      // Todo: Commented on 15.07.2022 due to Peet's change on staging[Talked w/Shilpa and
+      // Bernadette]
+      //    acceptancePage.clickOverShippingUpdatesButton();
+      //    Assert.assertEquals(
+      //        acceptancePage.getPhoneFromShippingUpdatesSection(),
+      //        "+1 " + Constants.WebTestData.PHONE,
+      //        "Phone from Shipping Updates section is NOT correct");
+
+      // Todo: Optional assertions or assertions missing:
+      //  Submit button from trackPackage/shippingUpdates sections
+      //  [user will receive a text validations]
+
+      logger.info("12. Validating Customer Information");
+      Assert.assertEquals(
+          Constants.WebTestData.EMAIL, acceptancePage.getCustomerMail(), "Mail does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
+          "Shipping Address does NOT matches");
+
+      Assert.assertTrue(
+          shippingMethod.contains(acceptancePage.getShippingMethod()),
+          "Shipping Method does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage
+              .getPaymentMethod()
+              .contains("ending with " + Constants.WebTestData.CREDIT_CARD_NUMBER_4),
+          "Payment Method does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage.getBillingAddressData().contains(Constants.WebTestData.ADDRESS),
+          "Billing Address does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage.isContinueShoppingDisplayed(),
+          "Continue to Shopping button is not displayed");
+
+      logger.info("FINISH");
     }
-
-    // Todo: Commented on 15.07.2022 due to Peet's change on staging[Talked w/Shilpa and Bernadette]
-    //    acceptancePage.clickOverShippingUpdatesButton();
-    //    Assert.assertEquals(
-    //        acceptancePage.getPhoneFromShippingUpdatesSection(),
-    //        "+1 " + Constants.WebTestData.PHONE,
-    //        "Phone from Shipping Updates section is NOT correct");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Submit button from trackPackage/shippingUpdates sections
-    //  [user will receive a text validations]
-
-    logger.info("12. Validating Customer Information");
-    Assert.assertEquals(
-        Constants.WebTestData.EMAIL, acceptancePage.getCustomerMail(), "Mail does NOT matches");
-
-    Assert.assertTrue(
-        acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
-        "Shipping Address does NOT matches");
-
-    Assert.assertTrue(
-        shippingMethod.contains(acceptancePage.getShippingMethod()),
-        "Shipping Method does NOT matches");
-
-    Assert.assertTrue(
-        acceptancePage
-            .getPaymentMethod()
-            .contains("ending with " + Constants.WebTestData.CREDIT_CARD_NUMBER_4),
-        "Payment Method does NOT matches");
-
-    Assert.assertTrue(
-        acceptancePage.getBillingAddressData().contains(Constants.WebTestData.ADDRESS),
-        "Billing Address does NOT matches");
-
-    Assert.assertTrue(
-        acceptancePage.isContinueShoppingDisplayed(),
-        "Continue to Shopping button is not displayed");
-
-    logger.info("FINISH");
   }
 
   @Test(
@@ -520,75 +531,82 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     paymentsPage.setFreeShippingPromoCodeDiscount();
     paymentsPage.setPaymentData();
 
-    String totalPrice = paymentsPage.getTotalPrice();
+    if (WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
+      logger.info("Testcase needs to stop, running on prod");
+    } else {
+      String totalPrice = paymentsPage.getTotalPrice();
 
-    logger.info("10. Proceed to Acceptance page");
-    AcceptancePage acceptancePage = paymentsPage.clickContinueToPayments();
+      logger.info("10. Proceed to Acceptance page");
+      AcceptancePage acceptancePage = paymentsPage.clickPayNow();
 
-    logger.info("11. Validating Product Details");
-    Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
-    Assert.assertTrue(acceptancePage.isSubTotalDisplayed(), "SubTotal is NOT displayed");
-    Assert.assertEquals(
-        teaName, acceptancePage.getOrderNameByIndex(teaIndex), "Tea Product name does NOT matches");
-    Assert.assertEquals(
-        cupsName,
-        acceptancePage.getOrderNameByIndex(cupsIndex),
-        "Reserve Product name does NOT matches");
-    Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
-    Assert.assertEquals(
-        acceptancePage.getDiscountText(),
-        "Free shipping",
-        "Discount from promoCode was not applied");
-    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
-
-    if (WebHelper.isDesktop()) {
-      // Todo: Only for desktop, until figure out if its a bug
-      logger.info("12. Validating Download buttons");
-      acceptancePage.clickOverTrackPackageButton();
+      logger.info("11. Validating Product Details");
+      Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
+      Assert.assertTrue(acceptancePage.isSubTotalDisplayed(), "SubTotal is NOT displayed");
       Assert.assertEquals(
-          acceptancePage.getPhoneFromTrackPackageSection(),
-          "+1 " + Constants.WebTestData.PHONE,
-          "Phone from Track Package section is NOT correct");
+          teaName,
+          acceptancePage.getOrderNameByIndex(teaIndex),
+          "Tea Product name does NOT matches");
+      Assert.assertEquals(
+          cupsName,
+          acceptancePage.getOrderNameByIndex(cupsIndex),
+          "Reserve Product name does NOT matches");
+      Assert.assertEquals(
+          totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
+      Assert.assertEquals(
+          acceptancePage.getDiscountText(),
+          "Free shipping",
+          "Discount from promoCode was not applied");
+      Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
+
+      if (WebHelper.isDesktop()) {
+        // Todo: Only for desktop, until figure out if its a bug
+        logger.info("12. Validating Download buttons");
+        acceptancePage.clickOverTrackPackageButton();
+        Assert.assertEquals(
+            acceptancePage.getPhoneFromTrackPackageSection(),
+            "+1 " + Constants.WebTestData.PHONE,
+            "Phone from Track Package section is NOT correct");
+      }
+
+      // Todo: Commented due to Peet's change on staging[Talked w/Shilpa and Bernadette]
+      //    acceptancePage.clickOverShippingUpdatesButton();
+      //    Assert.assertEquals(
+      //        acceptancePage.getPhoneFromShippingUpdatesSection(),
+      //        "+1 " + Constants.WebTestData.PHONE,
+      //        "Phone from Shipping Updates section is NOT correct");
+
+      // Todo: Optional assertions or assertions missing:
+      //  Submit button from trackPackage/shippingUpdates sections
+      //  [user will receive a text validations]
+
+      logger.info("13. Validating Customer Information");
+      Assert.assertEquals(
+          Constants.WebTestData.EMAIL, acceptancePage.getCustomerMail(), "Mail does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
+          "Shipping Address does NOT matches");
+
+      Assert.assertTrue(
+          shippingMethod.contains(acceptancePage.getShippingMethod()),
+          "Shipping Method does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage
+              .getPaymentMethod()
+              .contains("ending with " + Constants.WebTestData.CREDIT_CARD_NUMBER_4),
+          "Payment Method does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage.getBillingAddressData().contains(Constants.WebTestData.ADDRESS),
+          "Billing Address does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage.isContinueShoppingDisplayed(),
+          "Continue to Shopping button is not displayed");
+
+      logger.info("FINISH");
     }
-
-    // Todo: Commented due to Peet's change on staging[Talked w/Shilpa and Bernadette]
-    //    acceptancePage.clickOverShippingUpdatesButton();
-    //    Assert.assertEquals(
-    //        acceptancePage.getPhoneFromShippingUpdatesSection(),
-    //        "+1 " + Constants.WebTestData.PHONE,
-    //        "Phone from Shipping Updates section is NOT correct");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Submit button from trackPackage/shippingUpdates sections
-    //  [user will receive a text validations]
-
-    logger.info("13. Validating Customer Information");
-    Assert.assertEquals(
-        Constants.WebTestData.EMAIL, acceptancePage.getCustomerMail(), "Mail does NOT matches");
-
-    Assert.assertTrue(
-        acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
-        "Shipping Address does NOT matches");
-
-    Assert.assertTrue(
-        shippingMethod.contains(acceptancePage.getShippingMethod()),
-        "Shipping Method does NOT matches");
-
-    Assert.assertTrue(
-        acceptancePage
-            .getPaymentMethod()
-            .contains("ending with " + Constants.WebTestData.CREDIT_CARD_NUMBER_4),
-        "Payment Method does NOT matches");
-
-    Assert.assertTrue(
-        acceptancePage.getBillingAddressData().contains(Constants.WebTestData.ADDRESS),
-        "Billing Address does NOT matches");
-
-    Assert.assertTrue(
-        acceptancePage.isContinueShoppingDisplayed(),
-        "Continue to Shopping button is not displayed");
-
-    logger.info("FINISH");
   }
 
   @Test(
@@ -642,69 +660,74 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     Assert.assertTrue(
         price > 50, "Even after adding " + productQuantity + " products, price is not over $50");
 
-    logger.info("6. Proceed to Acceptance page");
-    AcceptancePage acceptancePage = paymentsPage.clickContinueToPayments();
+    if (WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
+      logger.info("Testcase needs to stop, running on prod");
+    } else {
+      logger.info("6. Proceed to Acceptance page");
+      AcceptancePage acceptancePage = paymentsPage.clickPayNow();
 
-    logger.info("7. Validating Product Details");
-    Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
-    Assert.assertTrue(acceptancePage.isSubTotalDisplayed(), "SubTotal is NOT displayed");
-    Assert.assertEquals(
-        productName, acceptancePage.getOrderNameByIndex(0), "Product name does NOT matches");
-    Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
-    Assert.assertEquals(
-        acceptancePage.getShippingPrice(),
-        "Free",
-        "Free Shipping for ORDERS above $50USD was not set!");
-    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
-
-    if (WebHelper.isDesktop()) {
-      // Todo: Only for desktop, until figure out if its a bug
-      logger.info("8. Validating Download buttons");
-      acceptancePage.clickOverTrackPackageButton();
+      logger.info("7. Validating Product Details");
+      Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
+      Assert.assertTrue(acceptancePage.isSubTotalDisplayed(), "SubTotal is NOT displayed");
       Assert.assertEquals(
-          acceptancePage.getPhoneFromTrackPackageSection(),
-          "+1 " + Constants.WebTestData.PHONE,
-          "Phone from Track Package section is NOT correct");
+          productName, acceptancePage.getOrderNameByIndex(0), "Product name does NOT matches");
+      Assert.assertEquals(
+          totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
+      Assert.assertEquals(
+          acceptancePage.getShippingPrice(),
+          "Free",
+          "Free Shipping for ORDERS above $50USD was not set!");
+      Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
+
+      if (WebHelper.isDesktop()) {
+        // Todo: Only for desktop, until figure out if its a bug
+        logger.info("8. Validating Download buttons");
+        acceptancePage.clickOverTrackPackageButton();
+        Assert.assertEquals(
+            acceptancePage.getPhoneFromTrackPackageSection(),
+            "+1 " + Constants.WebTestData.PHONE,
+            "Phone from Track Package section is NOT correct");
+      }
+
+      // Todo: Commented due to Peet's change on staging[Talked w/Shilpa and Bernadette]
+      //    acceptancePage.clickOverShippingUpdatesButton();
+      //    Assert.assertEquals(
+      //        acceptancePage.getPhoneFromShippingUpdatesSection(),
+      //        "+1 " + Constants.WebTestData.PHONE,
+      //        "Phone from Shipping Updates section is NOT correct");
+
+      // Todo: Optional assertions or assertions missing:
+      //  Submit button from trackPackage/shippingUpdates sections
+      //  [user will receive a text validations]
+
+      logger.info("9. Validating Customer Information");
+      Assert.assertEquals(
+          Constants.WebTestData.EMAIL, acceptancePage.getCustomerMail(), "Mail does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
+          "Shipping Address does NOT matches");
+
+      Assert.assertTrue(
+          shippingMethod.contains(acceptancePage.getShippingMethod()),
+          "Shipping Method does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage
+              .getPaymentMethod()
+              .contains("ending with " + Constants.WebTestData.CREDIT_CARD_NUMBER_4),
+          "Payment Method does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage.getBillingAddressData().contains(Constants.WebTestData.ADDRESS),
+          "Billing Address does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage.isContinueShoppingDisplayed(),
+          "Continue to Shopping button is not displayed");
+
+      logger.info("FINISH");
     }
-
-    // Todo: Commented due to Peet's change on staging[Talked w/Shilpa and Bernadette]
-    //    acceptancePage.clickOverShippingUpdatesButton();
-    //    Assert.assertEquals(
-    //        acceptancePage.getPhoneFromShippingUpdatesSection(),
-    //        "+1 " + Constants.WebTestData.PHONE,
-    //        "Phone from Shipping Updates section is NOT correct");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Submit button from trackPackage/shippingUpdates sections
-    //  [user will receive a text validations]
-
-    logger.info("9. Validating Customer Information");
-    Assert.assertEquals(
-        Constants.WebTestData.EMAIL, acceptancePage.getCustomerMail(), "Mail does NOT matches");
-
-    Assert.assertTrue(
-        acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
-        "Shipping Address does NOT matches");
-
-    Assert.assertTrue(
-        shippingMethod.contains(acceptancePage.getShippingMethod()),
-        "Shipping Method does NOT matches");
-
-    Assert.assertTrue(
-        acceptancePage
-            .getPaymentMethod()
-            .contains("ending with " + Constants.WebTestData.CREDIT_CARD_NUMBER_4),
-        "Payment Method does NOT matches");
-
-    Assert.assertTrue(
-        acceptancePage.getBillingAddressData().contains(Constants.WebTestData.ADDRESS),
-        "Billing Address does NOT matches");
-
-    Assert.assertTrue(
-        acceptancePage.isContinueShoppingDisplayed(),
-        "Continue to Shopping button is not displayed");
-
-    logger.info("FINISH");
   }
 
   @Test(
@@ -795,73 +818,78 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     Assert.assertTrue(
         price > 29, "Even after adding limited release coffee, price is not over $29");
 
-    logger.info("10. Proceed to Acceptance page");
-    AcceptancePage acceptancePage = paymentsPage.clickContinueToPayments();
+    if (WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
+      logger.info("Testcase needs to stop, running on prod");
+    } else {
+      logger.info("10. Proceed to Acceptance page");
+      AcceptancePage acceptancePage = paymentsPage.clickPayNow();
 
-    logger.info("11. Validating Product Details");
-    Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
-    Assert.assertTrue(acceptancePage.isSubTotalDisplayed(), "SubTotal is NOT displayed");
-    Assert.assertEquals(
-        limitedCoffeeName,
-        acceptancePage.getOrderNameByIndex(limitedCoffeeIndex),
-        "Limited Coffee name does NOT matches");
-
-    Assert.assertEquals(
-        cupsName, acceptancePage.getOrderNameByIndex(cupsIndex), "Product name does NOT matches");
-    Assert.assertEquals(totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
-    Assert.assertEquals(
-        acceptancePage.getShippingPrice(),
-        "Free",
-        "Free Shipping for ORDERS above $29USD[Limited Releases] was not set!");
-    Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
-
-    if (WebHelper.isDesktop()) {
-      // Todo: Only for desktop, until figure out if its a bug
-      logger.info("12. Validating Download buttons");
-      acceptancePage.clickOverTrackPackageButton();
+      logger.info("11. Validating Product Details");
+      Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order number is NOT displayed");
+      Assert.assertTrue(acceptancePage.isSubTotalDisplayed(), "SubTotal is NOT displayed");
       Assert.assertEquals(
-          acceptancePage.getPhoneFromTrackPackageSection(),
-          "+1 " + Constants.WebTestData.PHONE,
-          "Phone from Track Package section is NOT correct");
+          limitedCoffeeName,
+          acceptancePage.getOrderNameByIndex(limitedCoffeeIndex),
+          "Limited Coffee name does NOT matches");
+
+      Assert.assertEquals(
+          cupsName, acceptancePage.getOrderNameByIndex(cupsIndex), "Product name does NOT matches");
+      Assert.assertEquals(
+          totalPrice, acceptancePage.getTotalPrice(), "Total price does NOT matches");
+      Assert.assertEquals(
+          acceptancePage.getShippingPrice(),
+          "Free",
+          "Free Shipping for ORDERS above $29USD[Limited Releases] was not set!");
+      Assert.assertTrue(acceptancePage.isMapDisplayed(), "Map is not displayed");
+
+      if (WebHelper.isDesktop()) {
+        // Todo: Only for desktop, until figure out if its a bug
+        logger.info("12. Validating Download buttons");
+        acceptancePage.clickOverTrackPackageButton();
+        Assert.assertEquals(
+            acceptancePage.getPhoneFromTrackPackageSection(),
+            "+1 " + Constants.WebTestData.PHONE,
+            "Phone from Track Package section is NOT correct");
+      }
+
+      // Todo: Commented due to Peet's change on staging[Talked w/Shilpa and Bernadette]
+      //    acceptancePage.clickOverShippingUpdatesButton();
+      //    Assert.assertEquals(
+      //        acceptancePage.getPhoneFromShippingUpdatesSection(),
+      //        "+1 " + Constants.WebTestData.PHONE,
+      //        "Phone from Shipping Updates section is NOT correct");
+
+      // Todo: Optional assertions or assertions missing:
+      //  Submit button from trackPackage/shippingUpdates sections
+      //  [user will receive a text validations]
+
+      logger.info("13. Validating Customer Information");
+      Assert.assertEquals(
+          Constants.WebTestData.EMAIL, acceptancePage.getCustomerMail(), "Mail does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
+          "Shipping Address does NOT matches");
+
+      Assert.assertTrue(
+          shippingMethod.contains(acceptancePage.getShippingMethod()),
+          "Shipping Method does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage
+              .getPaymentMethod()
+              .contains("ending with " + Constants.WebTestData.CREDIT_CARD_NUMBER_4),
+          "Payment Method does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage.getBillingAddressData().contains(Constants.WebTestData.ADDRESS),
+          "Billing Address does NOT matches");
+
+      Assert.assertTrue(
+          acceptancePage.isContinueShoppingDisplayed(),
+          "Continue to Shopping button is not displayed");
+
+      logger.info("FINISH");
     }
-
-    // Todo: Commented due to Peet's change on staging[Talked w/Shilpa and Bernadette]
-    //    acceptancePage.clickOverShippingUpdatesButton();
-    //    Assert.assertEquals(
-    //        acceptancePage.getPhoneFromShippingUpdatesSection(),
-    //        "+1 " + Constants.WebTestData.PHONE,
-    //        "Phone from Shipping Updates section is NOT correct");
-
-    // Todo: Optional assertions or assertions missing:
-    //  Submit button from trackPackage/shippingUpdates sections
-    //  [user will receive a text validations]
-
-    logger.info("13. Validating Customer Information");
-    Assert.assertEquals(
-        Constants.WebTestData.EMAIL, acceptancePage.getCustomerMail(), "Mail does NOT matches");
-
-    Assert.assertTrue(
-        acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
-        "Shipping Address does NOT matches");
-
-    Assert.assertTrue(
-        shippingMethod.contains(acceptancePage.getShippingMethod()),
-        "Shipping Method does NOT matches");
-
-    Assert.assertTrue(
-        acceptancePage
-            .getPaymentMethod()
-            .contains("ending with " + Constants.WebTestData.CREDIT_CARD_NUMBER_4),
-        "Payment Method does NOT matches");
-
-    Assert.assertTrue(
-        acceptancePage.getBillingAddressData().contains(Constants.WebTestData.ADDRESS),
-        "Billing Address does NOT matches");
-
-    Assert.assertTrue(
-        acceptancePage.isContinueShoppingDisplayed(),
-        "Continue to Shopping button is not displayed");
-
-    logger.info("FINISH");
   }
 }
