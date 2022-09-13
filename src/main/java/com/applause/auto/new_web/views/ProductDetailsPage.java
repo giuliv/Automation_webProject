@@ -154,7 +154,8 @@ public class ProductDetailsPage extends Base {
       on = Platform.WEB)
   protected Text subscribeInfoTooltip;
 
-  @Locate(xpath = "//p[@class='og-shipping']/*", on = Platform.WEB)
+  //  @Locate(xpath = "//p[@class='og-shipping']/*", on = Platform.WEB) //Commented for now
+  @Locate(xpath = "//p[@class='og-shipping']/*", shadowRoot = true)
   private SelectList shipEveryDropdown;
 
   @Locate(xpath = "//button[@id='ratings-summary']", on = Platform.WEB)
@@ -699,14 +700,30 @@ public class ProductDetailsPage extends Base {
   public ProductDetailsPage selectShipEvery(ShipEveryDropdown option) {
     logger.info("Selecting Ship Every [{}]", option.getValue());
 
-    Select dropdown = new Select(getShipEveryDropdown());
+    Select dropdown =
+        new Select(
+            shipEveryDropdown
+                .getWebElement()
+                .getShadowRoot()
+                .findElement(By.cssSelector("og-select"))
+                .getShadowRoot()
+                .findElement(By.cssSelector("select")));
+
     dropdown.selectByVisibleText(option.getValue());
     return this;
   }
 
   @Step("Get Selected Ship Every")
   public String getSelectedShipEvery() {
-    Select dropdown = new Select(getShipEveryDropdown());
+    Select dropdown =
+        new Select(
+            shipEveryDropdown
+                .getWebElement()
+                .getShadowRoot()
+                .findElement(By.cssSelector("og-select"))
+                .getShadowRoot()
+                .findElement(By.cssSelector("select")));
+
     String selected = WebHelper.cleanString(dropdown.getFirstSelectedOption().getText());
     logger.info("Selected Ship Every - [{}]", selected);
     return selected;

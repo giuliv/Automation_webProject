@@ -21,7 +21,6 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import io.qameta.allure.Step;
 import org.apache.commons.lang3.NotImplementedException;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 @Implementation(is = Header.class, on = Platform.WEB)
@@ -50,15 +49,15 @@ public class Header extends BaseComponent {
   @Locate(css = "button[data-id='join-the-club-nav']", on = Platform.WEB_MOBILE_PHONE)
   protected Button subscriptionTabCategory;
 
-  @Locate(css = "a[data-id='free-home-delivery-nav']", on = Platform.WEB)
+  @Locate(css = "a[data-id='free-shipping-nav']", on = Platform.WEB)
   @Locate(
-      xpath = "//li[@class='nav__mobile-main-link']/a[contains(., 'Delivery')]",
+      xpath = "//li[@class='nav__mobile-main-link']/a[contains(., 'Free')]",
       on = Platform.WEB_MOBILE_PHONE)
-  protected Button freeHomeDeliveryCategory;
+  protected Button freeShippingCategory;
 
-  @Locate(css = "a[data-id='visit-us-nav']", on = Platform.WEB)
-  @Locate(css = "button[data-id='visit-us-nav']", on = Platform.WEB_MOBILE_PHONE)
-  protected Button visitUsCategory;
+  @Locate(css = "a[data-id='coffeebars-nav']", on = Platform.WEB)
+  @Locate(css = "button[data-id='coffeebars-nav']", on = Platform.WEB_MOBILE_PHONE)
+  protected Button coffeeBarsCategory;
 
   @Locate(css = "a[data-id='learn-nav']", on = Platform.WEB)
   @Locate(css = "button[data-id='learn-nav']", on = Platform.WEB_MOBILE_PHONE)
@@ -71,9 +70,7 @@ public class Header extends BaseComponent {
   protected Button peetnikRewardsCategory;
 
   @Locate(css = "a[data-id='offers-nav']", on = Platform.WEB)
-  @Locate(
-      xpath = "//li[@class='nav__mobile-main-link']/a[contains(., 'Offers')]",
-      on = Platform.WEB_MOBILE_PHONE)
+  @Locate(css = "button[data-id='offers-nav']", on = Platform.WEB_MOBILE_PHONE)
   protected Button offersCategory;
 
   @Locate(css = ".nav__columns a[href*='%s']", on = Platform.WEB)
@@ -189,12 +186,12 @@ public class Header extends BaseComponent {
       WebHelper.hoverByAction(teaCategory);
     } else if (menuOptions.equals(Constants.MenuOptions.SUBSCRIPTION)) {
       WebHelper.hoverByAction(subscriptionTabCategory);
-    } else if (menuOptions.equals(Constants.MenuOptions.VISIT_US)) {
-      WebHelper.hoverByAction(visitUsCategory);
+    } else if (menuOptions.equals(Constants.MenuOptions.COFFEE_BARS)) {
+      WebHelper.hoverByAction(coffeeBarsCategory);
     } else if (menuOptions.equals(Constants.MenuOptions.LEARN)) {
       WebHelper.hoverByAction(learnCategory);
     } else if (menuOptions.equals(MenuOptions.FREE_HOME_DELIVERY)) {
-      WebHelper.hoverByAction(freeHomeDeliveryCategory);
+      WebHelper.hoverByAction(freeShippingCategory);
     } else if (menuOptions.equals(MenuOptions.PEETNIK_REWARDS)) {
       WebHelper.hoverByAction(peetnikRewardsCategory);
     }
@@ -213,7 +210,7 @@ public class Header extends BaseComponent {
   @Step("Select Free Home Delivery from Menu")
   public FreeHomeDeliveryPage clickFreeHomeDeliveryFromMenu() {
     logger.info("Tab selected: Free Home Delivery");
-    freeHomeDeliveryCategory.click();
+    freeShippingCategory.click();
     return SdkHelper.create(FreeHomeDeliveryPage.class);
   }
 
@@ -345,12 +342,12 @@ public class Header extends BaseComponent {
 
   @Step("Verify visit us menu item is displayed")
   public boolean isVisitUsMenuItemDisplayed() {
-    return visitUsCategory.isDisplayed();
+    return coffeeBarsCategory.isDisplayed();
   }
 
-  @Step("Verify free home delivery menu item is displayed")
-  public boolean isFreeHomeDeliveryMenuItemDisplayed() {
-    return freeHomeDeliveryCategory.isDisplayed();
+  @Step("Verify free shipping menu item is displayed")
+  public boolean isFreeShippingItemDisplayed() {
+    return freeShippingCategory.isDisplayed();
   }
 
   @Step("Verify learn menu item is displayed")
@@ -481,8 +478,8 @@ class HeaderMobile extends Header {
       teaCategory.click();
     } else if (menuOptions.equals(Constants.MenuOptions.SUBSCRIPTION)) {
       subscriptionTabCategory.click();
-    } else if (menuOptions.equals(Constants.MenuOptions.VISIT_US)) {
-      visitUsCategory.click();
+    } else if (menuOptions.equals(Constants.MenuOptions.COFFEE_BARS)) {
+      coffeeBarsCategory.click();
     } else if (menuOptions.equals(Constants.MenuOptions.LEARN)) {
       learnCategory.click();
     }
@@ -530,7 +527,7 @@ class HeaderMobile extends Header {
     openHamburgerMenu();
 
     logger.info("Tab selected: Free Home Delivery");
-    SdkHelper.getSyncHelper().wait(Until.uiElement(freeHomeDeliveryCategory).clickable()).click();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(freeShippingCategory).clickable()).click();
 
     return SdkHelper.create(FreeHomeDeliveryPage.class);
   }

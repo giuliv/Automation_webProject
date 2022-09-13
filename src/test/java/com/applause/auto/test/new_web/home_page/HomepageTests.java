@@ -60,22 +60,20 @@ public class HomepageTests extends BaseTest {
     logger.info("2. Verify links are present");
     logger.info("-- Coffee");
     softAssert.assertTrue(header.isCoffeeMenuItemDisplayed(), "Coffee menu item is not displayed.");
-    logger.info("-- Tea");
-    softAssert.assertTrue(header.isTeaMenuItemDisplayed(), "Tea menu item is not displayed.");
+
     logger.info("-- Visit Us");
     softAssert.assertTrue(
         header.isVisitUsMenuItemDisplayed(), "Visit Us menu item is not displayed.");
-    logger.info("-- Free Home Delivery");
+
+    logger.info("-- Free Shipping");
     softAssert.assertTrue(
-        header.isFreeHomeDeliveryMenuItemDisplayed(),
-        "Free Home Delivery menu item is not displayed.");
+        header.isFreeShippingItemDisplayed(), "Free Shipping menu item is not displayed.");
+
     logger.info("-- Learn");
     softAssert.assertTrue(header.isLearnMenuItemDisplayed(), "Learn menu item is not displayed.");
+
     logger.info("-- Offers");
     softAssert.assertTrue(header.isOffersMenuItemDisplayed(), "Offers menu item is not displayed.");
-    logger.info("-- Peetnik Rewards");
-    softAssert.assertTrue(
-        header.isPeetnikRewardsMenuItemDisplayed(), "Peetnik Rewards menu item is not displayed.");
 
     logger.info("3. Verify logo present");
     softAssert.assertTrue(header.isLogoDisplayed(), "Logo did not display.");
@@ -129,7 +127,7 @@ public class HomepageTests extends BaseTest {
     logger.info("4. Hover and Verify Visit Us Menu");
     homePage = navigateToHome();
     header = homePage.getHeader();
-    header.hoverCategoryFromMenu(Constants.MenuOptions.VISIT_US);
+    header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE_BARS);
     for (VisitUsSubMenu menuItem : VisitUsSubMenu.values()) {
       logger.info("Verifying: " + menuItem.getText());
       softAssert.assertTrue(
@@ -733,12 +731,12 @@ public class HomepageTests extends BaseTest {
     header.hoverCategoryFromMenu(MenuOptions.FREE_HOME_DELIVERY);
     Assert.assertFalse(header.isMenuSectionExpanded(), "Menu section is unexpected expanded");
 
-    logger.info("3. Click on FREE HOME DELIVERY");
+    logger.info("3. Click on Free Shipping");
     FreeHomeDeliveryPage freeHomePage =
         navigateToHome().getHeader().clickFreeHomeDeliveryFromMenu();
     Assert.assertTrue(
         freeHomePage.isPageHeadingDisplayed(),
-        "Free Home Delivery did not bring us to the correct page");
+        "Free Shipping did not bring us to the correct page");
   }
 
   @Test(
@@ -751,9 +749,19 @@ public class HomepageTests extends BaseTest {
     homePage.closeInitialBannersAndModals();
 
     Header header = homePage.getHeader();
+    logger.info("8. Click on Order From a Coffee Bar");
+    header.hoverCategoryFromMenu(MenuOptions.COFFEE_BARS);
+    header.clickOverSubCategoryFromMenu(
+        OrderDeliveryAddressPage.class, MenuSubCategories.ORDER_FROM_A_COFFEE_BAR);
 
+    logger.info("9. Verify page is opened with expected page");
+    softAssert.assertTrue(
+        SdkHelper.getDriver().getCurrentUrl().contains(TestData.ORDER_PEETS_URL),
+        "Order delivery address page is opened with a wrong URL");
+
+    header = WebHelper.navigateBack(HomePage.class).getHeader();
     logger.info("2. Click on Find a CoffeeBar");
-    header.hoverCategoryFromMenu(MenuOptions.VISIT_US);
+    header.hoverCategoryFromMenu(MenuOptions.COFFEE_BARS);
     FindACoffeeBarPage findACoffeeBarPage =
         header.clickOverSubCategoryFromMenu(
             FindACoffeeBarPage.class, MenuSubCategories.FIND_COFFEEBAR);
@@ -763,36 +771,25 @@ public class HomepageTests extends BaseTest {
         findACoffeeBarPage, "The user isn't directed to correct Find a coffeeBar");
 
     header = findACoffeeBarPage.getHeader();
-    logger.info("4. Click on View Menu and Order");
-    header.hoverCategoryFromMenu(MenuOptions.VISIT_US);
+    logger.info("4. Click on View Menu");
+    header.hoverCategoryFromMenu(MenuOptions.COFFEE_BARS);
     CoffeeBarMenuPage coffeeBarMenuPage =
-        header.clickOverSubCategoryFromMenu(
-            CoffeeBarMenuPage.class, MenuSubCategories.VIEW_MENU_AND_ORDER);
+        header.clickOverSubCategoryFromMenu(CoffeeBarMenuPage.class, MenuSubCategories.VIEW_MENU);
 
     logger.info("5. Verify the user is directed to correct CoffeeBar Menu");
     softAssert.assertNotNull(
         coffeeBarMenuPage, "The user isn't directed to correct CoffeeBar Menu");
 
     header = coffeeBarMenuPage.getHeader();
-    logger.info("6. Click on The Peet's APP");
-    header.hoverCategoryFromMenu(MenuOptions.VISIT_US);
+    logger.info("6. Click on Peetnik Rewards");
+    header.hoverCategoryFromMenu(MenuOptions.COFFEE_BARS);
     PeetnikRewardsPage peetnikRewardsPage =
-        header.clickOverSubCategoryFromMenu(PeetnikRewardsPage.class, MenuSubCategories.PEET_APP);
+        header.clickOverSubCategoryFromMenu(
+            PeetnikRewardsPage.class, MenuSubCategories.PEETNIK_REWARDS);
 
     logger.info("7. Verify the user is directed to correct Peetnik Rewards App");
     softAssert.assertNotNull(
         peetnikRewardsPage, "The user isn't directed to correct Peetnik Rewards App");
-
-    header = peetnikRewardsPage.getHeader();
-    logger.info("8. Click on Order Now");
-    header.hoverCategoryFromMenu(MenuOptions.VISIT_US);
-    header.clickOverSubCategoryFromMenu(
-        OrderDeliveryAddressPage.class, MenuSubCategories.ORDER_NOW);
-
-    logger.info("9. Verify page is opened with expected page");
-    softAssert.assertTrue(
-        SdkHelper.getDriver().getCurrentUrl().contains(TestData.ORDER_PEETS_URL),
-        "Order delivery address page is opened with a wrong URL");
 
     softAssert.assertAll();
   }
@@ -863,7 +860,9 @@ public class HomepageTests extends BaseTest {
 
   @Test(
       groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
-      description = "11107445")
+      description = "11107445",
+      enabled = false)
+  // Todo: Marked as disabled by Tony, seems feature removed, double check with B
   public void homepagePeetnikRewards() {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();

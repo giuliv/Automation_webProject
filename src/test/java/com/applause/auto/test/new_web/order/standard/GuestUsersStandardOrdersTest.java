@@ -34,12 +34,9 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
     homePage.closeInitialBannersAndModals();
 
-    int productSelected;
+    int productSelected = 1;
     if (WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
       homePage = WebHelper.refreshMe(HomePage.class);
-      productSelected = 1;
-    } else {
-      productSelected = 1;
     }
 
     logger.info("2. Select Best Sellers from Coffee tab");
