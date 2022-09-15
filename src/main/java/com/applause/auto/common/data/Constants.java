@@ -691,7 +691,7 @@ public class Constants {
   }
 
   public enum StandardCoffeeInventory {
-    Coffee1("new-french-roast"),
+    Coffee1("french-roast"),
     Coffee2("french-roast-half-caf"),
     Coffee3("aged-sumatra");
 
