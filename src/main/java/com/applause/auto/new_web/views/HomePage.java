@@ -197,7 +197,7 @@ public class HomePage extends Base {
     //      closeModal.click();
     //    }
 
-    if (!WebHelper.isDesktop() && WebHelper.exists(allowCookies, 7)) {
+    if (!WebHelper.isDesktop() && WebHelper.exists(allowCookies, 10)) {
       logger.info("Accept Cookies");
       WebHelper.jsClick(allowCookies.getWebElement());
     }

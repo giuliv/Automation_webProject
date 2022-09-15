@@ -144,7 +144,8 @@ public class Constants {
         LANDING_PAGE_URL.split("\\?")[0] + "/collections/tea-best-sellers";
 
     /** Test Data for tests */
-    public static final String WEB_USERNAME = "peets.automation01@applause.com";
+    public static final String WEB_USERNAME_SUBSCRIPTION =
+        "peets.subscribe.automation@applause.com";
 
     public static final String WEB_PASSWORD = "Pa55word!";
     public static final String USERNAME = "appautosvc+peetscoffeealternate@applause.com";
@@ -166,6 +167,7 @@ public class Constants {
     public static final String TEA_COST_OVER_25_NAME = "Green Tea Tropical Tea Bags";
 
     public static final String EQUIPMENT_NAME = "Fellow Kettle";
+    public static final String TEST_EQUIPMENT = "TEST PEET’S PAPER FILTERS #4";
     public static final String EQUIPMENT_NAME_OOO = "CAFFLANO KLASSIC POUR-OVER COFFEE MAKER";
     public static final String PODS_OOO = "DECAF HOUSE BLEND K-CUP® PODS";
 
@@ -689,7 +691,7 @@ public class Constants {
   }
 
   public enum StandardCoffeeInventory {
-    Coffee1("french-roast"),
+    Coffee1("new-french-roast"),
     Coffee2("french-roast-half-caf"),
     Coffee3("aged-sumatra");
 

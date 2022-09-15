@@ -38,6 +38,12 @@ public class QuickViewComponent extends BaseComponent {
   @Locate(id = "ratings-summary", on = Platform.WEB)
   private ContainerElement starRatings;
 
+  @Locate(css = "#ratings-summary .bv_numReviews_component_container meta", on = Platform.WEB)
+  private Text reviewCount;
+
+  @Locate(css = "button.bv_button_buttonFull", on = Platform.WEB)
+  private Button readReviewBox;
+
   @Locate(css = "div[data-message-id='quickGrind']", on = Platform.WEB)
   private ContainerElement grindSection;
 
@@ -122,6 +128,19 @@ public class QuickViewComponent extends BaseComponent {
     softAssert.assertTrue(grindSection.isDisplayed(), "Grind Section is not displayed");
     softAssert.assertTrue(quantitySection.isDisplayed(), "Quantity Section is not displayed");
     softAssert.assertTrue(addToCartButton.isDisplayed(), "Add to Cart is not displayed");
+
+    return softAssert;
+  }
+
+  public SoftAssert validateMainAndSecondaryUIElements() {
+    SoftAssert softAssert = validateMainUIElements();
+    softAssert.assertTrue(
+        Integer.parseInt(reviewCount.getAttributeValue("content")) >= 1,
+        "Review count is not correct");
+    WebHelper.hoverByAction(starRatings);
+    softAssert.assertTrue(
+        readReviewBox.getAttributeValue("aria-expanded").equals("true"),
+        "AutoDropDown Review module is not displayed");
 
     return softAssert;
   }

@@ -300,6 +300,12 @@ public class ProductDetailsPage extends Base {
       on = Platform.WEB)
   private Text quantityBoxText;
 
+  @Locate(css = "button[id*='productViewQuantityButton']", on = Platform.WEB)
+  private List<Button> quantityBoxes;
+
+  @Locate(css = "button.upsell-btn", on = Platform.WEB)
+  private Text addToSubscribeOrderButton;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper()
@@ -316,6 +322,15 @@ public class ProductDetailsPage extends Base {
     logger.info("[PDP] Product Name: " + productName.getText().toLowerCase().trim());
 
     return productName.getText().toLowerCase().trim();
+  }
+
+  public String getAddToExistingSubscriptionButtonText() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(addToSubscribeOrderButton).visible());
+    logger.info(
+        "[PDP] Add to Existing Subscription: "
+            + addToSubscribeOrderButton.getText().toLowerCase().trim());
+
+    return addToSubscribeOrderButton.getText().toLowerCase().trim();
   }
 
   public boolean isProductNameDisplayed() {
@@ -949,6 +964,17 @@ public class ProductDetailsPage extends Base {
     logger.info("Clicking on Pause button on Banner");
     activeBrewingMethodVideoPauseButton.click();
     return this;
+  }
+
+  public SoftAssert areQuantityBoxesDisplayed() {
+    SoftAssert softAssert = new SoftAssert();
+    logger.info("Review Quantity Boxes: " + quantityBoxes.size());
+    softAssert.assertEquals(quantityBoxes.size(), 3, "Not all Quantity boxes are displayed");
+    softAssert.assertTrue(quantityBoxes.get(0).isDisplayed(), "Quantity box 1 is not displayed");
+    softAssert.assertTrue(quantityBoxes.get(1).isDisplayed(), "Quantity box 2 is not displayed");
+    softAssert.assertTrue(quantityBoxes.get(2).isDisplayed(), "Quantity box 3 is not displayed");
+
+    return softAssert;
   }
 
   @Step("Verify Brewing Method video is played")

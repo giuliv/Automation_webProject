@@ -8,6 +8,7 @@ import com.applause.auto.common.data.dto.MyReviewDto;
 import com.applause.auto.common.data.enums.GrindDropdown;
 import com.applause.auto.common.data.enums.ShipEveryDropdown;
 import com.applause.auto.common.data.enums.SortOption;
+import com.applause.auto.common.data.enums.SubscriptionType;
 import com.applause.auto.new_web.components.*;
 import com.applause.auto.new_web.components.pdp.PdpStickyNavDetailsComponent;
 import com.applause.auto.new_web.components.pdp.ProductDetailsCustomerReviewsComponent;
@@ -16,12 +17,8 @@ import com.applause.auto.new_web.components.plp.PlpItemComponent;
 import com.applause.auto.new_web.components.plp.PlpLearnMoreOverlappingComponent;
 import com.applause.auto.new_web.components.plp.PlpSignInOverlappingComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.CoffeeFinderPage;
-import com.applause.auto.new_web.views.HomePage;
-import com.applause.auto.new_web.views.ProductDetailsPage;
-import com.applause.auto.new_web.views.ProductListPage;
-import com.applause.auto.new_web.views.SearchResultsPage;
-import com.applause.auto.new_web.views.SignUpPage;
+import com.applause.auto.new_web.views.*;
+import com.applause.auto.new_web.views.my_account.MyAccountPage;
 import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -115,6 +112,21 @@ public class PdpTests extends BaseTest {
 
     logger.info("2. Select new Quantity > Review Quantity element");
     productDetailsPage.validateQuantityElements().assertAll();
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      description = "11118049")
+  public void addToCartTest() {
+    logger.info("1. Navigate to product details page");
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
+
+    logger.info("2. Add to Cart and Validate");
+    productDetailsPage.selectOneTimePurchase();
+    Assert.assertTrue(
+        productDetailsPage.clickAddToMiniCart().isProductNameDisplayedIndex(),
+        "Product was not added properly");
   }
 
   @Test(
@@ -310,7 +322,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {Constants.TestNGGroups.TO_BE_RENAMED, Constants.TestNGGroups.PDP},
       description = "11102946")
   public void subscribeTest() {
     logger.info("1. Navigate to landing page");
@@ -1117,5 +1129,75 @@ public class PdpTests extends BaseTest {
         "ADD TO CART",
         "Add to Cart button is not named properly");
     softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      description = "11118047")
+  public void smallBatchSubscribeTest() {
+    logger.info("1. Navigate to PDP");
+    ProductDetailsPage productDetailsPage =
+        navigateToSubscriptionPage(SubscriptionType.SMALL_BATCHES);
+
+    logger.info("2. Validating Subscribe PDP Page");
+    Assert.assertTrue(productDetailsPage.isGrindDisplayed(), "Grind is not displayed");
+    Assert.assertEquals(
+        productDetailsPage.getAddToCartButtonText(),
+        "ADD SUBSCRIPTION TO CART",
+        "Add subscription text does not match");
+    productDetailsPage.areQuantityBoxesDisplayed().assertAll();
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      description = "11118048")
+  public void itemTypeVersion2Test() {
+    logger.info("1. Navigate to landing page");
+    HomePage homePage = navigateToHome();
+    Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
+
+    logger.info("2. Sign In user");
+    SignInPage signInPage = homePage.getHeader().clickAccountButton();
+
+    signInPage.enterEmail(Constants.TestData.WEB_USERNAME_SUBSCRIPTION);
+    signInPage.enterPassword(Constants.TestData.WEB_PASSWORD);
+    MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
+
+    Assert.assertTrue(
+        myAccountPage.getWelcomeMessage().contains("welcome"),
+        "User is not signed in or welcome name is wrong");
+
+    logger.info("3. Search for the product: {}", TestData.TEST_EQUIPMENT);
+    SearchResultsPage searchResultsPage =
+        homePage.getHeader().getSearchComponent().search(TestData.TEST_EQUIPMENT);
+    ProductDetailsPage productDetailsPage = searchResultsPage.clickOverProductByIndex(0);
+
+    logger.info("4. Validating...");
+    Assert.assertFalse(
+        productDetailsPage.isOneTimePurchaseLinkDisplayed(),
+        "One Time Purchase option should not be visible");
+    Assert.assertFalse(
+        productDetailsPage.isSubscribeTypeDisplayed(), "Subscribe option should not be visible");
+
+    logger.info("5. Navigate to PDP again");
+    productDetailsPage = navigateToPDP(Constants.StandardCoffeeInventory.Coffee1.getValue());
+
+    logger.info("6. Validating...");
+    Assert.assertTrue(
+        productDetailsPage
+            .getAddToExistingSubscriptionButtonText()
+            .contains("Add this to my order scheduled"),
+        "Add to Existing subscription text does not matches");
+
+    Assert.assertEquals(
+        productDetailsPage.getAddToCartButtonText(),
+        "SUBSCRIBE & SHIP FREE",
+        "Subscribe button is not named properly");
+
+    logger.info("7. Add to MiniCart");
+    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
+    Assert.assertNotNull(miniCart, "MiniCart is not displayed");
+    Assert.assertTrue(miniCart.isProductNameDisplayedIndex(), "Product was not added");
   }
 }

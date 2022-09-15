@@ -33,6 +33,9 @@ public class SearchResultsPage extends Base {
   @Locate(css = "h2.collection__empty-heading", on = Platform.WEB)
   private Text emptySearchResultMessage;
 
+  @Locate(xpath = ".//a[normalize-space()='View Product']", on = Platform.WEB)
+  private Button viewProductButton;
+
   @Locate(
       xpath =
           "//h3/a[contains(@href, \"/products/%s\")]/ancestor::li//div[@class='pi__quick-add']/button",
@@ -120,6 +123,15 @@ public class SearchResultsPage extends Base {
     logger.info("Clicking QuickView button");
     quickViewButtonList.get(0).click();
     return SdkHelper.create(QuickViewComponent.class);
+  }
+
+  @Step("Click on the View product button")
+  public ProductDetailsPage clickViewProduct() {
+    logger.info("Clicking on the 'View product' button");
+    WebHelper.hoverByAction(viewProductButton);
+    SdkHelper.getSyncHelper().sleep(500);
+    viewProductButton.click();
+    return SdkHelper.create(ProductDetailsPage.class);
   }
 }
 

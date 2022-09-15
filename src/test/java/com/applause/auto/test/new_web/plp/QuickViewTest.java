@@ -7,6 +7,7 @@ import com.applause.auto.new_web.components.QuickViewComponent;
 import com.applause.auto.new_web.components.plp.PlpLearnMoreOverlappingComponent;
 import com.applause.auto.new_web.components.plp.PlpSignInOverlappingComponent;
 import com.applause.auto.new_web.views.HomePage;
+import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.new_web.views.SearchResultsPage;
 import com.applause.auto.test.new_web.BaseTest;
@@ -17,7 +18,7 @@ import org.testng.asserts.SoftAssert;
 public class QuickViewTest extends BaseTest {
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.TO_BE_RENAMED},
       description = "11101530")
   public void reviewQuickViewUITest() {
 
@@ -286,5 +287,69 @@ public class QuickViewTest extends BaseTest {
     Assert.assertFalse(
         quickViewComponent.areSubscribeOrOneTimePurchaseDisplayed(),
         "Subscribe/OneTimePurchase should not be visible");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      description = "11118050")
+  public void coffeePCPPageTest() {
+    logger.info("1. Navigate to Home");
+    HomePage homePage = navigateToHome();
+    homePage.closeInitialBannersAndModals();
+
+    logger.info("2. Search for the product: {}", coffeeSelected);
+    SearchResultsPage searchResultsPage =
+        homePage.getHeader().getSearchComponent().search(coffeeSelected);
+
+    logger.info("3. Open QuickView Modal");
+    QuickViewComponent quickViewComponent =
+        searchResultsPage.clickOverQuickViewByProduct(coffeeSelected);
+    Assert.assertNotNull(quickViewComponent, "QuickView is not displayed");
+
+    logger.info("FINISH");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      description = "11118051")
+  public void coffeeItemDetailsTest() {
+    logger.info("1. Navigate to Home");
+    HomePage homePage = navigateToHome();
+    homePage.closeInitialBannersAndModals();
+
+    logger.info(
+        "2. Search for the product: {}", Constants.StandardCoffeeInventory.Coffee1.getValue());
+    SearchResultsPage searchResultsPage =
+        homePage
+            .getHeader()
+            .getSearchComponent()
+            .search(Constants.StandardCoffeeInventory.Coffee1.getValue());
+
+    logger.info("3. Open QuickView Modal");
+    QuickViewComponent quickViewComponent =
+        searchResultsPage.clickOverQuickViewByProduct(
+            Constants.StandardCoffeeInventory.Coffee1.getValue());
+    quickViewComponent.validateMainAndSecondaryUIElements().assertAll();
+
+    logger.info("FINISH");
+  }
+
+  @Test(
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      description = "11118052")
+  public void viewProductTest() {
+    logger.info("1. Navigate to PDP");
+    HomePage homePage = navigateToHome();
+    homePage.closeInitialBannersAndModals();
+
+    logger.info("2. Search for the product: {}", TestData.EQUIPMENT_NAME_OOO);
+    SearchResultsPage searchResultsPage =
+        homePage.getHeader().getSearchComponent().search(TestData.EQUIPMENT_NAME_OOO);
+    ProductDetailsPage productDetailsPage = searchResultsPage.clickViewProduct();
+
+    logger.info("3. Validating...");
+    Assert.assertNotNull(productDetailsPage, "PDP was not opened");
+    Assert.assertTrue(productDetailsPage.isProductNameDisplayed(), "Product name is not displayed");
+    logger.info("FINISH");
   }
 }

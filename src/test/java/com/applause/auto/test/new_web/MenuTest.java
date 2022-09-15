@@ -38,7 +38,7 @@ public class MenuTest extends BaseTest {
           title[loopCounter], "Title[" + loopCounter + "] was missing from featured item");
       softAssert.assertNotNull(
           coffeeBarPage.getFeaturedDescription(loopCounter),
-          "escription[" + loopCounter + "] was missing from featured item");
+          "description[" + loopCounter + "] was missing from featured item");
       loopCounter++;
     }
     logger.info("XX. Click next arrow and Validate items rotate");

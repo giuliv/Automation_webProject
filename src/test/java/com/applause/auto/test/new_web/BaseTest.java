@@ -179,6 +179,8 @@ public class BaseTest extends ApplauseSeleniumTest {
 
   @Step("Navigate to Subscription page")
   public ProductDetailsPage navigateToSubscriptionPage(SubscriptionType subscriptionType) {
+    navigateToHome().closeInitialBannersAndModals();
+
     logger.info(String.format("Navigating to Subscription page '%s'", subscriptionType));
 
     if (subscriptionType.getValue().equalsIgnoreCase(SubscriptionType.SIGNATURE_BLEND.getValue())) {
