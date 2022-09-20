@@ -542,6 +542,7 @@ public class HomePage extends Base {
             Until.uiElement(subscriptionModuleSubHeader.get(menuItem.getPosition()))
                 .present()
                 .setTimeout(Duration.ofSeconds(60)));
+    subscriptionModuleSubHeader.get(menuItem.getPosition()).scrollToElement();
     logger.info("MenuItem: {}", menuItem.getHeader());
     Text element = subscriptionModuleSubHeader.get(menuItem.getPosition());
     element.initialize();
@@ -560,8 +561,11 @@ public class HomePage extends Base {
             Until.uiElement(subscriptionModuleSubDescription.get(menuItem.getPosition()))
                 .visible()
                 .setTimeout(Duration.ofSeconds(60)));
+    subscriptionModuleSubDescription.get(menuItem.getPosition()).scrollToElement();
+
     Text element = subscriptionModuleSubDescription.get(menuItem.getPosition());
     element.initialize();
+    element.scrollToElement();
     SdkHelper.getSyncHelper().wait(Until.uiElement(element).visible());
     logger.info("---- found " + element.getText().trim());
     return element.getText().trim().toLowerCase();
