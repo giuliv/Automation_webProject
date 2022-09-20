@@ -2,6 +2,7 @@ package com.applause.auto.test.new_web.home_page;
 
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.enums.FooterOptions;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.FooterComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.HomePage;
@@ -159,9 +160,13 @@ public class FooterTests extends BaseTest {
     logger.info("Verify App store page is displayed");
     String currentUrl = WebHelper.getCurrentUrl().toLowerCase();
     if (!WebHelper.isDesktop()) {
-      softAssert.assertTrue(
-          currentUrl.contains("apps.apple.com"), "App store page isn't displayed");
-      softAssert.assertTrue(currentUrl.contains("peets"), "Peet's App store page isn't displayed");
+      if (SdkHelper.getEnvironmentHelper().isIOSMobileWeb()) {
+        softAssert.assertTrue(
+            currentUrl.contains("apps.apple.com"), "App store page isn't displayed");
+      } else {
+        softAssert.assertTrue(
+            currentUrl.contains("peets"), "Peet's App store page isn't displayed");
+      }
     }
 
     logger.info("2. Click on 'Google play'");

@@ -5,11 +5,12 @@ import lombok.Getter;
 
 @AllArgsConstructor
 public enum LearnSubMenu {
-  COFFEE_REVOLUTION("Our Coffee Revolution", "/pages/timeline"),
-  COMMITMENT_CRAFT("Commitment to Craft", "/pages/commitment-to-craft"),
-  SOCIAL_RESPONSIBILITY("Social Responsibility", "/pages/social-responsibility"),
+  SOURCES_WITH_IMPACT("Sourcing with Impact","/pages/impact"),
+  RECIPES_BLOG("Recipes + Blog", "/blogs/peets"),
+  WHY_PEETS("Why Peet’s?", "/pages/commitment-to-craft"),
   BREW_GUIDES("Brew Guides", "/pages/brew-guides"),
-  CUPPING_ROOM("The Cupping Room", "/blogs/peets");
+  PEETS_HISTORY("Peet’s History", "/pages/timeline");
+  //SOCIAL_RESPONSIBILITY("Social Responsibility", "/pages/social-responsibility");
 
   @Getter private String text;
   @Getter private String link;

@@ -10,6 +10,8 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
+
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -519,9 +521,10 @@ public class HomePage extends Base {
 
   public void clickSubscriptionModuleCopyButton() {
     logger.info("Clicking the copy button in the subscription module");
-    SdkHelper.getSyncHelper()
-        .wait(Until.uiElement(subscriptionModuleCopyButton).clickable())
-        .click();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(subscriptionModuleCopyButton).clickable());
+    WebHelper.scrollToElement(subscriptionModuleCopyButton.getWebElement());
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    subscriptionModuleCopyButton.click();
   }
 
   public String getSubscriptionModuleCopyButtonText() {
@@ -534,9 +537,17 @@ public class HomePage extends Base {
 
   public String getSubscriptionModuleSubHeader(HomepageSubscriptionsModuleMenu menuItem) {
     logger.info("Getting the subscription module sub header at position " + menuItem.getPosition());
+    SdkHelper.getSyncHelper()
+        .wait(
+            Until.uiElement(subscriptionModuleSubHeader.get(menuItem.getPosition()))
+                .present()
+                .setTimeout(Duration.ofSeconds(60)));
+    logger.info("MenuItem: {}", menuItem.getHeader());
     Text element = subscriptionModuleSubHeader.get(menuItem.getPosition());
     element.initialize();
-    SdkHelper.getSyncHelper().wait(Until.uiElement(element).visible());
+    element.scrollToElement();
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(element).visible().setTimeout(Duration.ofSeconds(60)));
     logger.info("---- found " + element.getText().trim());
     return element.getText().trim().toLowerCase();
   }
@@ -544,6 +555,11 @@ public class HomePage extends Base {
   public String getSubscriptionModuleSubDescription(HomepageSubscriptionsModuleMenu menuItem) {
     logger.info(
         "Getting the subscription module sub description at position " + menuItem.getPosition());
+    SdkHelper.getSyncHelper()
+        .wait(
+            Until.uiElement(subscriptionModuleSubDescription.get(menuItem.getPosition()))
+                .visible()
+                .setTimeout(Duration.ofSeconds(60)));
     Text element = subscriptionModuleSubDescription.get(menuItem.getPosition());
     element.initialize();
     SdkHelper.getSyncHelper().wait(Until.uiElement(element).visible());
@@ -556,7 +572,9 @@ public class HomePage extends Base {
     Button element = subscriptionModuleMenuLinks.get(menuItem.getPosition());
     ContainerElement pageLoadHelper = subscriptionModuleLinkHelper;
     element.initialize();
-    SdkHelper.getSyncHelper().wait(Until.uiElement(element).clickable()).click();
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(element).clickable().setTimeout(Duration.ofSeconds(60)))
+        .click();
     pageLoadHelper.format(menuItem.getID());
     pageLoadHelper.initialize();
     SdkHelper.getSyncHelper().wait(Until.uiElement(pageLoadHelper).present());
@@ -568,6 +586,7 @@ public class HomePage extends Base {
         "Verifying the subscription module sub description at position "
             + menuItem.getPosition()
             + " is hidden.");
+    SdkHelper.getSyncHelper().sleep(2000); // Wait for action
     Text element = subscriptionModuleSubDescription.get(menuItem.getPosition());
     element.initialize();
     SdkHelper.getSyncHelper().wait(Until.uiElement(element).notVisible());
@@ -704,14 +723,25 @@ class HomePageMobile extends HomePage {
   @Override
   public void clickSubscriptionModuleMenuLink(HomepageSubscriptionsModuleMenu menuItem) {
     logger.info("Clicking the link in the menu for " + menuItem.getHeader());
+    subscriptionModuleMenuLinks.get(menuItem.getPosition()).scrollToElement();
+    SdkHelper.getSyncHelper()
+        .wait(
+            Until.uiElement(subscriptionModuleMenuLinks.get(menuItem.getPosition()))
+                .present()
+                .setTimeout(Duration.ofSeconds(40)));
     Button element = subscriptionModuleMenuLinks.get(menuItem.getPosition());
     ContainerElement pageLoadHelper = subscriptionModuleLinkHelper;
     element.initialize();
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(element).visible().setTimeout(Duration.ofSeconds(40)));
     SdkHelper.getSyncHelper().wait(Until.uiElement(element).clickable());
     WebHelper.scrollToElement(element);
     WebHelper.jsClick(element.getWebElement());
     pageLoadHelper.format(menuItem.getID());
     pageLoadHelper.initialize();
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(pageLoadHelper).present().setTimeout(Duration.ofSeconds(40)));
+
     SdkHelper.getSyncHelper().wait(Until.uiElement(pageLoadHelper).present());
   }
 }

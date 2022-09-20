@@ -41,6 +41,7 @@ import com.applause.auto.test.new_web.BaseTest;
 import java.util.List;
 import java.util.Locale;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 public class HomepageTests extends BaseTest {
@@ -113,18 +114,7 @@ public class HomepageTests extends BaseTest {
           menuItem.getText() + " did not display.");
     }
 
-    logger.info("3. Hover and Verify Tea Menu");
-    homePage = navigateToHome();
-    header = homePage.getHeader();
-    header.hoverCategoryFromMenu(Constants.MenuOptions.TEA);
-    for (TeaSubMenu menuItem : TeaSubMenu.values()) {
-      logger.info("Verifying: " + menuItem.getText());
-      softAssert.assertTrue(
-          header.isSubMenuItemDisplayed(menuItem.getLink()),
-          menuItem.getText() + " did not display.");
-    }
-
-    logger.info("4. Hover and Verify Visit Us Menu");
+    logger.info("3. Hover and Verify Visit Us Menu");
     homePage = navigateToHome();
     header = homePage.getHeader();
     header.hoverCategoryFromMenu(Constants.MenuOptions.COFFEE_BARS);
@@ -135,7 +125,7 @@ public class HomepageTests extends BaseTest {
           menuItem.getText() + " did not display.");
     }
 
-    logger.info("5. Hover and Verify Learn Menu");
+    logger.info("4. Hover and Verify Learn Menu");
     homePage = navigateToHome();
     header = homePage.getHeader();
     header.hoverCategoryFromMenu(Constants.MenuOptions.LEARN);
@@ -146,7 +136,7 @@ public class HomepageTests extends BaseTest {
           menuItem.getText() + " did not display.");
     }
 
-    logger.info("6.  Click and Verify Free Home Delivery");
+    logger.info("5.  Click and Verify Free Home Delivery");
     homePage = navigateToHome();
     header = homePage.getHeader();
     FreeHomeDeliveryPage freeHomePage = header.clickFreeHomeDeliveryFromMenu();
@@ -154,15 +144,7 @@ public class HomepageTests extends BaseTest {
         freeHomePage.isPageHeadingDisplayed(),
         "Free Home Delivery did not bring us to the correct page");
 
-    logger.info("7.  Click and Verify Peetnik Rewards");
-    homePage = navigateToHome();
-    header = homePage.getHeader();
-    PeetnikRewardsPage peetnikRewardsPage = header.clickPeetnikRewardsFromMenu();
-    softAssert.assertTrue(
-        peetnikRewardsPage.isPageHeadingDisplayed(),
-        "Peetnik Rewards did not bring us to the correct page");
-
-    logger.info("8.  Click and Verify Offers");
+    logger.info("6.  Click and Verify Offers");
     homePage = navigateToHome();
     header = homePage.getHeader();
     CurrentOffersPage currentOffersPage = header.clickOffersFromMenu();
@@ -200,19 +182,19 @@ public class HomepageTests extends BaseTest {
 
     softAssert.assertEquals(
         homePage.getFreshnessCoffeeStampTitle().toLowerCase(),
-        HomepageFreshnessStamp.COFFEE_STAMP.getTitle().toLowerCase(),
+        HomepageFreshnessStamp.COMMITTED_TO_CRAFT.getTitle().toLowerCase(),
         "Coffee Stamp Section Title did not match, got: "
             + homePage.getFreshnessCoffeeStampTitle().toLowerCase()
             + ", expected: "
-            + HomepageFreshnessStamp.COFFEE_STAMP.getTitle().toLowerCase());
+            + HomepageFreshnessStamp.COMMITTED_TO_CRAFT.getTitle().toLowerCase());
 
     softAssert.assertEquals(
         homePage.getFreshnessCoffeeStampDescription().toLowerCase(),
-        HomepageFreshnessStamp.COFFEE_STAMP.getDescription().toLowerCase(),
+        HomepageFreshnessStamp.COMMITTED_TO_CRAFT.getDescription().toLowerCase(),
         "Coffee Stamp Section Description did not match, got: "
             + homePage.getFreshnessCoffeeStampDescription().toLowerCase()
             + ", expected: "
-            + HomepageFreshnessStamp.COFFEE_STAMP.getDescription().toLowerCase());
+            + HomepageFreshnessStamp.COMMITTED_TO_CRAFT.getDescription().toLowerCase());
 
     softAssert.assertEquals(
         homePage.getFreshnessSealedStampTitle().toLowerCase(),
@@ -258,25 +240,13 @@ public class HomepageTests extends BaseTest {
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
     homePage.closeInitialBannersAndModals();
 
-    logger.info("2. Clicking Carousel Link");
-    ProductListPage productListPage = homePage.clickCarouselButton();
-    softAssert.assertTrue(
-        productListPage
-            .getDriver()
-            .getCurrentUrl()
-            .contains(Constants.HomepageCarouselData.CAROUSEL_LINK),
-        "Carousel button brought us to a page that does not match the location.  Got: "
-            + productListPage.getDriver().getCurrentUrl()
-            + ", expected: "
-            + Constants.HomepageCarouselData.CAROUSEL_LINK);
-
     logger.info("-- navigating back to home");
     homePage = navigateToHome();
 
     // logger.info("3. Clicking scroll side arrow");
     // This currently is not available, so can't automate it yet.
 
-    logger.info("4. Verifying promo tiles are displayed and Verifying promo tile text");
+    logger.info("2. Verifying promo tiles are displayed and Verifying promo tile text");
     for (int tile = 1; tile <= 8; tile++) {
       softAssert.assertTrue(
           homePage.isPromoTileActionsVisible(tile),
@@ -288,8 +258,8 @@ public class HomepageTests extends BaseTest {
           homePage.isPromoTileDescriptionVisible(tile),
           "Promo description at position " + tile + " was not visible.");
       softAssert.assertEquals(
-          PromoTiles.values()[tile - 1].getTitle().toLowerCase(),
           homePage.getPromoTileTitleText(tile).toLowerCase(),
+          PromoTiles.values()[tile - 1].getTitle().toLowerCase(),
           "Promo title at position "
               + tile
               + " did not match expectation.  Got "
@@ -297,8 +267,8 @@ public class HomepageTests extends BaseTest {
               + ", expected "
               + PromoTiles.values()[tile - 1].getTitle().toLowerCase());
       softAssert.assertEquals(
-          PromoTiles.values()[tile - 1].getDescription().toLowerCase(),
           homePage.getPromoTileDescriptionText(tile).toLowerCase(),
+          PromoTiles.values()[tile - 1].getDescription().toLowerCase(),
           "Promo description at position "
               + tile
               + " did not match expectation.  Got "
@@ -306,14 +276,14 @@ public class HomepageTests extends BaseTest {
               + ", expected "
               + PromoTiles.values()[tile - 1].getDescription().toLowerCase());
       softAssert.assertEquals(
-          PromoTiles.values()[tile - 1].getActions().toLowerCase(),
           homePage.getPromoTileActionsText(tile).toLowerCase(),
+          PromoTiles.values()[tile - 1].getActions().toLowerCase(),
           "Promo title at position "
               + tile
               + " did not match expectation.  Got "
-              + homePage.getPromoTileActionsText(tile).toLowerCase()
+              + homePage.getPromoTileActionsText(tile).toLowerCase().trim()
               + ", expected "
-              + PromoTiles.values()[tile - 1].getActions().toLowerCase());
+              + PromoTiles.values()[tile - 1].getActions().toLowerCase().trim());
     }
 
     // A warning to the maintainer, your most common failure might be the promo tile
@@ -542,7 +512,6 @@ public class HomepageTests extends BaseTest {
     logger.info("4. Verify timed subsection headers and descriptions");
     for (HomepageSubscriptionsModuleMenu menuItem : HomepageSubscriptionsModuleMenu.values()) {
       String menuHeader = homePage.getSubscriptionModuleSubHeader(menuItem);
-
       softAssert.assertEquals(
           menuHeader,
           menuItem.getHeader(),
@@ -974,10 +943,9 @@ public class HomepageTests extends BaseTest {
     }
     softAssert.assertAll();
   }
-
   @Test(
       groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
-      description = "11107441")
+      description = "11107441", enabled = false)
   public void hoverTeaOptions() {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();

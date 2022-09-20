@@ -5,13 +5,11 @@ import lombok.Getter;
 
 @AllArgsConstructor
 public enum CoffeeSubMenu {
+  SUBSCRIPTIONS("Curated Subscriptions", "Featured", "subscriptions"),
   BEST_SELLERS("Best Sellers", "Featured", "coffee-best-sellers"),
-  LIMITED_RELEASES("Limited Releases", "Featured", "limited-releases"),
+  EXCLUSIVES("Limited Releases", "Featured", "limited-releases"),
   DECAF("Decaf", "Featured", "decaf-coffee"),
-  CURATED_SUBSCRIPTIONS("Curated Subscriptions", "Featured", "subscriptions"),
-  COFFEE_FINDER("Coffee Finder", "Featured", "coffee-finder"),
-  EGIFT_CARDS("E-Gift Cards", "Featured", "gift-cards"),
-  FOODSERVICE("Foodservice", "Featured", "foodservice-program"),
+  COFFEE_FINDER("Coold Brew", "Featured", "cold-brew"),
 
   DARK_ROAST("Dark Roast", "Roast", "dark-roast"),
   MEDIUM_ROAST("Medium Roast", "Roast", "medium-roast"),
@@ -20,8 +18,6 @@ public enum CoffeeSubMenu {
   COFFEE_BEANS("Coffee Beans", "Format", "coffee-beans"),
   KCUP_PODS("K-Cup Pods", "Format", "k-cup-pods"),
   ESPRESSO_CAPSULES("Espresso Capsules", "Format", "espresso-capsules"),
-  BLENDED_COFFEE("Blended Coffee", "Format", "blended-coffee"),
-  ICED_ESPRESSO("Iced Espresso", "Format", "iced-espresso"),
 
   ALL_COFFEE("All Coffee", "None", "all-coffee");
   @Getter private String text;

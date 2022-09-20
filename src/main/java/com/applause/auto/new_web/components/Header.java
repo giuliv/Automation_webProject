@@ -63,9 +63,9 @@ public class Header extends BaseComponent {
   @Locate(css = "button[data-id='learn-nav']", on = Platform.WEB_MOBILE_PHONE)
   protected Button learnCategory;
 
-  @Locate(css = "a[data-id='peetnik-rewards-nav']", on = Platform.WEB)
+  @Locate(css = "#promoTile2 .menu-category__link", on = Platform.WEB)
   @Locate(
-      xpath = "//li[@class='nav__mobile-main-link']/a[contains(., 'Peetnik')]",
+      css = "#promoTile2 .menu-category__link",
       on = Platform.WEB_MOBILE_PHONE)
   protected Button peetnikRewardsCategory;
 
@@ -79,8 +79,8 @@ public class Header extends BaseComponent {
   @Locate(css = ".nav__secondary-item a[href*='%s']", on = Platform.WEB)
   protected Button subCategoriesAllLinks;
 
-  @Locate(css = ".desktop-only .nav__touts-wrapper a[href*='%s']", on = Platform.WEB)
-  @Locate(css = ".nav__touts-wrapper a[href*='%s']", on = Platform.WEB_MOBILE_PHONE)
+  @Locate(css = ".nav__column-item a[href*='%s']", on = Platform.WEB)
+  @Locate(css = ".nav__column-item a[href*='%s']", on = Platform.WEB_MOBILE_PHONE)
   private Button subCategoriesAlternative;
 
   @Locate(css = ".desktop-only a[href*='%s']", on = Platform.WEB)
@@ -535,11 +535,10 @@ class HeaderMobile extends Header {
   @Override
   @Step("Select Peetnik Rewards from Menu")
   public PeetnikRewardsPage clickPeetnikRewardsFromMenu() {
-    openHamburgerMenu();
-
     logger.info("Tab selected: Peetnik Rewards");
-    SdkHelper.getSyncHelper().wait(Until.uiElement(peetnikRewardsCategory).clickable()).click();
-
+    peetnikRewardsCategory.scrollToElement();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(peetnikRewardsCategory).clickable());
+    WebHelper.jsClick(peetnikRewardsCategory.getWebElement());
     return SdkHelper.create(PeetnikRewardsPage.class);
   }
 

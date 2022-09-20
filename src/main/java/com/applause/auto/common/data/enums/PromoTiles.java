@@ -6,33 +6,33 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum PromoTiles {
   promoTile1(
-      "PLANTS FIRST, FOR BREAKFAST",
-      "Savor the flavors of Spring. Try our new plant-based beverages and Mediterranean Flatbread.",
+      "NOW DROPPING",
+      "It's never too early to enjoy the autumnal sweetness of caramel apples layered with Espresso Forte®—try our NEW Caramel Apple Latte, available iced or hot.",
       "ORDER NOW"),
   promoTile2(
       "ONE OF AMERICA'S BEST LOYALTY PROGRAMS",
       "Newsweek named Peetnik Rewards as one of America's Best Loyalty Programs. Join today to find out why",
       "GET THE APP"),
   promoTile3(
-      "Anniversary Blend 2022",
-      "Colombia’s cherry & chocolate meet Rwanda’s red fruits in this limited release coffee that’s lush and 100% women-produced. Plus, $1 from each pound sold goes to women farmers at origin.",
-      "SHOP NOW"),
+      "HOLIDAY BLEND PREVIEW ROAST",
+      "an entire year in the making, 2022 holiday blend is brimming with velvety chocolate, candied zest & holiday spice. early access for any peet’s subscriber (and a great excuse to subscribe if you haven’t already).",
+      "SUBSCRIBE TO BUY"),
   promoTile4(
+      "VINE & WALNUT AUTUMN 2022",
+      "Taste the artful blend that’s inspired by the flavors of the season, an ode to the 1st Peet’s at the corner of Vine & Walnut in Berkeley.",
+      "SHOP NOW"),
+  promoTile5(
       "BE ON THE CUTTING EDGE",
       "Every month experience a different limited release, rare microlot coffee from smallholder farms in the world’s best coffee-growing regions.",
       "CUSTOMIZE MY SUBSCRIPTION"),
-  promoTile5(
-      "DECAF DONE DIFFERENT",
-      "All Peet’s beans and K-Cup® pods are decaffeinated by water process. Peet’s uses the same high-quality beans we use in our regular coffees to ensure a decaf with so much richness and depth, it tastes as good as the real thing.",
-      "SHOP NOW"),
   promoTile6(
-      "MAY’S ONLINE EXCLUSIVE COFFEE",
-      "Like liquid sunshine, a honey-sweet coffee with floral aromatics and notes of ripe stone fruit.",
+      "GROUND CONTROL TO MAJOR DICKASON’S",
+      "Elevate your coffee experience with this bold blend, a bestseller since 1969.",
       "SHOP NOW"),
   promoTile7(
-      "Shop Coffee", "Hand roasted on demand and delivered fresh to your door.", "All Coffee"),
+      "Shop Coffee", "Hand roasted on demand and delivered fresh to your door.", "ALL COFFEE"),
   promoTile8(
-      "Shop Tea", "Savor Mighty Leaf’s tea collection: Different from the start.", "All Tea");
+      "Shop Tea", "Savor Mighty Leaf’s tea collection: Different from the start.", "ALL TEA");
 
   @Getter private String Title;
   @Getter private String Description;
