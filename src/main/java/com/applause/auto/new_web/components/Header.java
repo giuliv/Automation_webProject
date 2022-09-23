@@ -64,9 +64,7 @@ public class Header extends BaseComponent {
   protected Button learnCategory;
 
   @Locate(css = "#promoTile2 .menu-category__link", on = Platform.WEB)
-  @Locate(
-      css = "#promoTile2 .menu-category__link",
-      on = Platform.WEB_MOBILE_PHONE)
+  @Locate(css = "#promoTile2 .menu-category__link", on = Platform.WEB_MOBILE_PHONE)
   protected Button peetnikRewardsCategory;
 
   @Locate(css = "a[data-id='offers-nav']", on = Platform.WEB)
@@ -161,6 +159,9 @@ public class Header extends BaseComponent {
 
   @Locate(css = "nav[aria-label='main'] > .is-visible", on = Platform.WEB)
   protected ContainerElement expandedSection;
+
+  @Locate(css = "#coffeebars-nav .nav-mobile-header__back-text", on = Platform.WEB_MOBILE_PHONE)
+  protected Button backButton;
 
   @Override
   public void afterInit() {
@@ -460,6 +461,16 @@ public class Header extends BaseComponent {
     SdkHelper.getSyncHelper().sleep(1000); // Sometimes, it takes time to change
 
     return SdkHelper.create(HomePage.class);
+  }
+
+  @Step("Click back button")
+  public void clickBackButton() {
+    try {
+      if (backButton.isDisplayed()) logger.info("Click on back button");
+      backButton.click();
+    } catch (Exception e) {
+      logger.info("No back button is displayed");
+    }
   }
 }
 

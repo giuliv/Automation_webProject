@@ -1,5 +1,6 @@
 package com.applause.auto.new_web.views;
 
+import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.common.data.enums.HomepageSubscriptionsModuleMenu;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
@@ -540,17 +541,27 @@ public class HomePage extends Base {
     SdkHelper.getSyncHelper()
         .wait(
             Until.uiElement(subscriptionModuleSubHeader.get(menuItem.getPosition()))
-                .present()
+                .visible()
                 .setTimeout(Duration.ofSeconds(60)));
-    subscriptionModuleSubHeader.get(menuItem.getPosition()).scrollToElement();
     logger.info("MenuItem: {}", menuItem.getHeader());
     Text element = subscriptionModuleSubHeader.get(menuItem.getPosition());
     element.initialize();
-    element.scrollToElement();
+    WebHelper.scrollToElement(element);
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(element).visible().setTimeout(Duration.ofSeconds(60)));
-    logger.info("---- found " + element.getText().trim());
-    return element.getText().trim().toLowerCase();
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    String value = WebHelper.getInnerHtml(element.getWebElement()).trim().toLowerCase();
+    logger.info("---- found title: " + value);
+    if (value == " ") {
+      logger.info("Value was empty due the transition");
+      SdkHelper.getSyncHelper()
+          .wait(Until.uiElement(element).visible().setTimeout(Duration.ofSeconds(60)));
+      SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+      WebHelper.scrollToElement(element);
+      value = element.getText().trim().toLowerCase();
+      ;
+    }
+    return value;
   }
 
   public String getSubscriptionModuleSubDescription(HomepageSubscriptionsModuleMenu menuItem) {
@@ -559,26 +570,33 @@ public class HomePage extends Base {
     SdkHelper.getSyncHelper()
         .wait(
             Until.uiElement(subscriptionModuleSubDescription.get(menuItem.getPosition()))
-                .visible()
+                .present()
                 .setTimeout(Duration.ofSeconds(60)));
-    subscriptionModuleSubDescription.get(menuItem.getPosition()).scrollToElement();
-
+    logger.info("MenuItem: {}", menuItem.getHeader());
     Text element = subscriptionModuleSubDescription.get(menuItem.getPosition());
     element.initialize();
-    element.scrollToElement();
-    SdkHelper.getSyncHelper().wait(Until.uiElement(element).visible());
+    WebHelper.scrollToElement(element);
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(element).visible().setTimeout(Duration.ofSeconds(60)));
     logger.info("---- found " + element.getText().trim());
     return element.getText().trim().toLowerCase();
   }
 
   public void clickSubscriptionModuleMenuLink(HomepageSubscriptionsModuleMenu menuItem) {
     logger.info("Clicking the link in the menu for " + menuItem.getHeader());
+    logger.info("MenuItem: {}", menuItem.getHeader());
+    SdkHelper.getSyncHelper()
+        .wait(
+            Until.uiElement(subscriptionModuleMenuLinks.get(menuItem.getPosition()))
+                .visible()
+                .setTimeout(Duration.ofSeconds(60)));
     Button element = subscriptionModuleMenuLinks.get(menuItem.getPosition());
     ContainerElement pageLoadHelper = subscriptionModuleLinkHelper;
     element.initialize();
     SdkHelper.getSyncHelper()
-        .wait(Until.uiElement(element).clickable().setTimeout(Duration.ofSeconds(60)))
-        .click();
+        .wait(Until.uiElement(element).visible().setTimeout(Duration.ofSeconds(60)));
+    WebHelper.scrollToElement(element);
+    WebHelper.jsClick(element.getWebElement());
     pageLoadHelper.format(menuItem.getID());
     pageLoadHelper.initialize();
     SdkHelper.getSyncHelper().wait(Until.uiElement(pageLoadHelper).present());

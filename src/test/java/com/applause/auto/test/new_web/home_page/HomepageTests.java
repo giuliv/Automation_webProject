@@ -718,6 +718,7 @@ public class HomepageTests extends BaseTest {
     homePage.closeInitialBannersAndModals();
 
     Header header = homePage.getHeader();
+    header.clickBackButton();
     logger.info("8. Click on Order From a Coffee Bar");
     header.hoverCategoryFromMenu(MenuOptions.COFFEE_BARS);
     header.clickOverSubCategoryFromMenu(
@@ -730,6 +731,8 @@ public class HomepageTests extends BaseTest {
 
     header = WebHelper.navigateBack(HomePage.class).getHeader();
     logger.info("2. Click on Find a CoffeeBar");
+    header.clickBackButton();
+    header.closeHamburgerMenu();
     header.hoverCategoryFromMenu(MenuOptions.COFFEE_BARS);
     FindACoffeeBarPage findACoffeeBarPage =
         header.clickOverSubCategoryFromMenu(
@@ -741,6 +744,7 @@ public class HomepageTests extends BaseTest {
 
     header = findACoffeeBarPage.getHeader();
     logger.info("4. Click on View Menu");
+    header.clickBackButton();
     header.hoverCategoryFromMenu(MenuOptions.COFFEE_BARS);
     CoffeeBarMenuPage coffeeBarMenuPage =
         header.clickOverSubCategoryFromMenu(CoffeeBarMenuPage.class, MenuSubCategories.VIEW_MENU);
@@ -751,6 +755,7 @@ public class HomepageTests extends BaseTest {
 
     header = coffeeBarMenuPage.getHeader();
     logger.info("6. Click on Peetnik Rewards");
+    header.clickBackButton();
     header.hoverCategoryFromMenu(MenuOptions.COFFEE_BARS);
     PeetnikRewardsPage peetnikRewardsPage =
         header.clickOverSubCategoryFromMenu(
@@ -943,9 +948,11 @@ public class HomepageTests extends BaseTest {
     }
     softAssert.assertAll();
   }
+
   @Test(
       groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
-      description = "11107441", enabled = false)
+      description = "11107441",
+      enabled = false)
   public void hoverTeaOptions() {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();

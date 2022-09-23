@@ -232,7 +232,9 @@ public class WebHelper {
   //        .perform();
   //  }
 
-  /** @return Y-position of page */
+  /**
+   * @return Y-position of page
+   */
   public static int getPagePositionY() {
     String javascript = "return window.scrollY;";
     return (int)
@@ -721,5 +723,13 @@ public class WebHelper {
 
   public static boolean useRetry() {
     return !System.getProperty("useRetry", "yes").toLowerCase().equals("no");
+  }
+
+  public static String getInnerHtml(WebElement element) {
+    String value =
+        (String)
+            ((JavascriptExecutor) SdkHelper.getDriver())
+                .executeScript("return arguments[0].innerHTML;", element);
+    return value;
   }
 }
