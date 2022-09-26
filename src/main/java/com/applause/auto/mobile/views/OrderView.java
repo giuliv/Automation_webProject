@@ -23,7 +23,7 @@ public class OrderView extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(xpath = "//XCUIElementTypeNavigationBar[@name=\"Order\"]", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeNavigationBar[@name=\"ORDER\"]", on = Platform.MOBILE_IOS)
   @Locate(xpath = "//android.widget.TextView[@text='ORDER']", on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
@@ -202,6 +202,7 @@ public class OrderView extends BaseComponent {
    * @return
    */
   public String getHeadingTextValue() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getHeadingText).present());
     String heading = getHeadingText.getText();
     logger.info("Heading Text  - [{}]", heading);
     return heading;

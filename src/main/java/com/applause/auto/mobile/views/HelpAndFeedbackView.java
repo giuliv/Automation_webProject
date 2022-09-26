@@ -61,7 +61,7 @@ public class HelpAndFeedbackView extends BaseComponent {
    */
   public boolean isPageDisplayedCorrectly() {
     logger.info("Checking Help & Feedback view");
-    if (!backArrow.isEnabled()) {
+    if (!MobileHelper.isElementDisplayed(backArrow, 30)) {
       logger.info("Back arrow element is not present");
       return false;
     }

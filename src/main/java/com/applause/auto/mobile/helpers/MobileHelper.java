@@ -1,7 +1,5 @@
 package com.applause.auto.mobile.helpers;
 
-import static com.applause.auto.framework.SdkHelper.getDriver;
-
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MobileApp;
 import com.applause.auto.data.enums.SwipeDirection;
@@ -12,13 +10,12 @@ import com.applause.auto.mobile.views.IosSettingsView;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
 import com.applause.auto.pageobjectmodel.elements.Picker;
 import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.android.nativekey.KeyEvent;
+import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.SupportsContextSwitching;
-import io.appium.java_client.touch.WaitOptions;
-import io.appium.java_client.touch.offset.PointOption;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -31,7 +28,17 @@ import javax.imageio.ImageIO;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.Point;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebDriverException;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 public class MobileHelper {
@@ -47,25 +54,23 @@ public class MobileHelper {
     return (AppiumDriver) SdkHelper.getDriver();
   }
 
+  private static IOSDriver getIosDriver() {
+    return (IOSDriver) SdkHelper.getDriver();
+  }
+
+  private static AndroidDriver getAndroidDriver() {
+    return (AndroidDriver) SdkHelper.getDriver();
+  }
+
   /** Activates the app */
   public static void activateApp() {
-    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
     logger.info("Activate application");
     if (SdkHelper.getEnvironmentHelper().isMobileAndroid()) {
-      //      activateApplication(MobileApp.ANDROID_PACKAGE_ID);
-      //            getMobileDriver().activateApp(MobileApp.ANDROID_PACKAGE_ID);
-      //      SdkHelper.getDeviceControl().launchApp(); [Best option, until found a better one]
-    }
-    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      getAndroidDriver().activateApp(MobileApp.ANDROID_PACKAGE_ID);
+    } else if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
       SdkHelper.getSyncHelper().sleep(5000);
       hideKeyboardIOSByPressDone();
-
-      //      SdkHelper.getDeviceControl().launchApp();
-
-      //            getMobileDriver().activateApp(MobileApp.IOS_BUNDLE_ID); // Commented during
-      // update to
-      // sdk 4.1.2, review if it worked
-      activateApplication(MobileApp.IOS_BUNDLE_ID);
+      getIosDriver().activateApp(MobileApp.IOS_BUNDLE_ID);
     }
     SdkHelper.getSyncHelper().sleep(3000);
   }
@@ -86,10 +91,10 @@ public class MobileHelper {
       logger.info("Current activity: " + currentActivity);
 
       if (isIntentActionStarted) {
-        ((AppiumDriver) SdkHelper.getDriver())
+        getAndroidDriver()
             .findElement(By.xpath("//android.widget.TextView[@text='Chrome']"))
             .click();
-        ((AppiumDriver) SdkHelper.getDriver()).findElement(By.id("android:id/button_once")).click();
+        getAndroidDriver().findElement(By.id("android:id/button_once")).click();
         return;
       } else if (isSamsungBrowserStarted) {
         throw new RuntimeException("Only Samsung browser suggested. Exiting");
@@ -104,7 +109,7 @@ public class MobileHelper {
   public static void hideKeyboardIOSByPressDone() {
     logger.info("Hiding keyboard.");
     try {
-      getMobileDriver().findElement(By.xpath("//*[@name='Done']")).click();
+      getIosDriver().findElement(By.xpath("//*[@name='Done']")).click();
     } catch (Throwable throwable) {
 
     }
@@ -113,24 +118,22 @@ public class MobileHelper {
   public static void hideKeyboard() {
     logger.info("Hide keyboard by standard method");
     try {
-      // Todo: Commented as part of update on pom to 4.1.2 [DO WE NEED IT, REPLACE BY APPLAUSE
-      // METHOD]
-      //            ((AppiumDriver) getDriver()).hideKeyboard();
-      SdkHelper.getDeviceControl().hideKeyboard();
+      getAndroidDriver().hideKeyboard();
     } catch (Exception e) {
-
+      logger.error(e.getMessage());
     }
+
     if (!isAndroid()) {
       try {
         logger.info("Hide keyboard by clicking done");
-        getDriver().findElement(By.id("Done")).click();
+        getIosDriver().findElement(By.id("Done")).click();
       } catch (NoSuchElementException ex) {
         logger.info("No done button found");
       }
 
       try {
         logger.info("Hide keyboard by clicking done");
-        getDriver().findElement(By.id("Toolbar Done Button")).click();
+        getIosDriver().findElement(By.id("Toolbar Done Button")).click();
       } catch (NoSuchElementException ex) {
         logger.info("No Toolbar Done Button button found");
       }
@@ -203,29 +206,11 @@ public class MobileHelper {
   }
 
   public static void scrollDownCloseToMiddleAlgorithm() {
-    double pStartY = 0;
-    double pEndY = 0;
-    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
-      pStartY = 0.5;
-      pEndY = 0.3;
-    } else { // Android scrolls faster so the start and end must be gentler
-      pStartY = 0.50;
-      pEndY = 0.30;
-    }
-    scrollDownAlgorithm(0.1, pStartY, pEndY);
+    scrollDownAlgorithm(0.1, 0.5, 0.3);
   }
 
   public static void scrollUpCloseToMiddleAlgorithm() {
-    double pStartY = 0;
-    double pEndY = 0;
-    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
-      pStartY = 0.5;
-      pEndY = 0.7;
-    } else { // Android scrolls faster so the start and end must be gentler
-      pStartY = 0.50;
-      pEndY = 0.70;
-    }
-    scrollDownAlgorithm(0.1, pStartY, pEndY);
+    scrollDownAlgorithm(0.1, 0.5, 0.7);
   }
 
   // Todo: Commented as part of update on pom to 4.1.2 [DO WE NEED IT, REPLACE BY APPLAUSE METHOD]
@@ -349,10 +334,7 @@ public class MobileHelper {
         //        Map<String, Object> params = new HashMap<>();
         //        params.put("order", order);
         //        params.put("offset", 0.1);
-        //        params.put(
-        //            "element",
-        //            elem.getId()); // Based on new SDK, this method was changed, review if
-        // workaroundworked
+        //        params.put("element", element);
         //        try {
         //          js.executeScript("mobile: selectPickerWheelValue", params);
         //        } catch (WebDriverException wex) {
@@ -367,8 +349,7 @@ public class MobileHelper {
 
   public static void tapAndroidDeviceBackButton() {
     logger.info("Tapping on device back button");
-    AndroidDriver androidDriver = (AndroidDriver) getMobileDriver();
-    androidDriver.pressKey(new KeyEvent().withKey(AndroidKey.BACK));
+    getAndroidDriver().pressKey(new KeyEvent().withKey(AndroidKey.BACK));
   }
 
   public static void scrollDownHalfScreen(int swipeLimit) {
@@ -413,8 +394,7 @@ public class MobileHelper {
   }
 
   // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
-  public static RGB getMobileElementColour(WebElement element) {
-
+  public static RGB getMobileElementColour(BaseElement element) {
     org.openqa.selenium.Point point = element.getLocation();
 
     Dimension dimension = SdkHelper.getDriver().manage().window().getSize();
@@ -432,14 +412,14 @@ public class MobileHelper {
     int screenShotHeight = image.getHeight();
     logger.debug("Screen height = " + screenHeight);
     logger.debug("Screenshot height = " + screenShotHeight);
+
     double centerY0 =
         (double) point.getY()
             / (SdkHelper.getEnvironmentHelper().isMobileIOS()
                 ? (double) dimension.height
                 : ((double) dimension.height
                     + screenShotHeight
-                    - screenHeight)); // correction due to top nav
-    // bar
+                    - screenHeight)); // correction due to top navbar
 
     // Getting pixel color by position x and y
     int clr =
@@ -452,12 +432,23 @@ public class MobileHelper {
     return result;
   }
 
-  //   Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
-  public static boolean isIosCheckboxChecked(WebElement element) {
-    logger.info("Checking if checkbox checked by color");
-    int blueValue = MobileHelper.getMobileElementColour(element).getBlue();
-    logger.info("Checkbox blue color value - [{}]", blueValue);
-    return blueValue != 255;
+  public static boolean isIosCheckboxChecked(BaseElement element) {
+    try {
+      BufferedImage rgbImg = ImageIO.read(element.getWebElement().getScreenshotAs(OutputType.FILE));
+      BufferedImage blackAndWhiteImg =
+          new BufferedImage(rgbImg.getWidth(), rgbImg.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
+
+      Graphics2D graphics = blackAndWhiteImg.createGraphics();
+      graphics.drawImage(rgbImg, 0, 0, null);
+
+      int width = blackAndWhiteImg.getWidth();
+      int height = blackAndWhiteImg.getHeight();
+      int baseColor = blackAndWhiteImg.getRGB(width / 2, (int) (height * 0.85));
+      return !IntStream.rangeClosed((int) (height * 0.15), (int) (height * 0.85))
+          .allMatch(index -> blackAndWhiteImg.getRGB(width / 2, index) == baseColor);
+    } catch (IOException e) {
+      throw new RuntimeException("Exception during checkbox value visual evaluation");
+    }
   }
 
   /**

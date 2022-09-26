@@ -3,7 +3,6 @@ package com.applause.auto.mobile.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.mobile.components.MapView;
-import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -14,7 +13,7 @@ import com.applause.auto.pageobjectmodel.elements.TextBox;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Implementation(is = StoreDetailsView.class, on = Platform.MOBILE_ANDROID)
+@Implementation(is = AndroidStoreDetailsView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = StoreDetailsView.class, on = Platform.MOBILE_IOS)
 public class StoreDetailsView extends BaseComponent {
 
@@ -172,11 +171,12 @@ public class StoreDetailsView extends BaseComponent {
    */
   public boolean isCoffeebarFavorite() {
     logger.info("Checking Coffeebar tagged as favorite");
+    /*
+    Need to wait till the content-desc attribute changes. Usually, it takes about 3-5 seconds after clicking on the heart icon
+     */
+    SdkHelper.getSyncHelper().sleep(5000);
     coffeebarFavoriteIcon.initialize();
-    int colourRed =
-        MobileHelper.getMobileElementColour(coffeebarFavoriteIcon.getWebElement()).getRed();
-    logger.info("Color: " + colourRed);
-    return (colourRed == 199) || (colourRed == 200) || (colourRed == 185);
+    return coffeebarFavoriteIcon.getAttributeValue("name").contains("Unmark");
   }
 
   /**
@@ -272,5 +272,19 @@ public class StoreDetailsView extends BaseComponent {
     coffeebarFavoriteIcon.click();
     SdkHelper.getSyncHelper().sleep(5000);
     return this;
+  }
+}
+
+class AndroidStoreDetailsView extends StoreDetailsView {
+
+  @Override
+  public boolean isCoffeebarFavorite() {
+    logger.info("Checking Coffeebar tagged as favorite");
+    /*
+    Need to wait till the content-desc attribute changes. Usually, it takes about 3-5 seconds after clicking on the heart icon
+     */
+    SdkHelper.getSyncHelper().sleep(5000);
+    coffeebarFavoriteIcon.initialize();
+    return coffeebarFavoriteIcon.getAttributeValue("content-desc").contains("Remove");
   }
 }

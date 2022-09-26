@@ -27,21 +27,28 @@ public class PersonalSettingsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button backButton;
 
-  @Locate(id = "Promotional Emails, Receive offers, news, and more", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//XCUIElementTypeStaticText[@value=\"Receive offers, news, and more\"]/../XCUIElementTypeSwitch",
+      on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/emailSubscription",
       on = Platform.MOBILE_ANDROID)
   protected Button getPromotionalEmailsButton;
 
   @Locate(
-      id = "Push Notifications, Receive alerts about offers, news, and more",
+      xpath =
+          "//XCUIElementTypeStaticText[@value=\"Receive alerts about offers, news, and more\"]/../XCUIElementTypeSwitch",
       on = Platform.MOBILE_IOS)
   @Locate(
       id = "com.wearehathway.peets.development:id/pushNotifications",
       on = Platform.MOBILE_ANDROID)
   protected Button getPushNotificationButton;
 
-  @Locate(id = "Location Services, Helps us locate your nearest Peet’s", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//XCUIElementTypeStaticText[@value=\"Helps us locate your nearest Peet’s\"]/../XCUIElementTypeSwitch",
+      on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/enableLocation", on = Platform.MOBILE_ANDROID)
   protected Button getLocationServicesButton;
 
@@ -115,6 +122,7 @@ public class PersonalSettingsView extends BaseComponent {
    * @return the boolean
    */
   public boolean isPromoEmailOptionChecked() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getPromotionalEmailsButton).present());
     return getPromotionalEmailsButton.getAttributeValue("value").equals("1");
   }
 
@@ -252,7 +260,7 @@ class AndroidPersonalSettingsView extends PersonalSettingsView {
 
   @Locate(
       xpath =
-          "//*[@text=\"Allow only while using the app\" or @text=\"ALLOW ONLY WHILE USING THE APP\"]",
+          "//*[@text=\"Allow only while using the app\" or @text=\"ALLOW ONLY WHILE USING THE APP\" or @text=\"While using the app\"]",
       on = Platform.MOBILE_ANDROID)
   protected Button allowPeetsToAccessDeviceLocationButton;
 
@@ -313,6 +321,8 @@ class AndroidPersonalSettingsView extends PersonalSettingsView {
 
   private void allowPeetsToAccessDeviceLocation() {
     logger.info("Accept modal 'Allo Peet's to access this device's location");
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(allowPeetsToAccessDeviceLocationButton).present());
     MobileHelper.tapByCoordinatesOnElementCenter(allowPeetsToAccessDeviceLocationButton);
   }
 

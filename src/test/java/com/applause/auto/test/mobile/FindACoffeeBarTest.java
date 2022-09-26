@@ -68,6 +68,11 @@ public class FindACoffeeBarTest extends BaseTest {
         storeDetails.getCoffeebarSubHeaderName().length() > 0,
         "Sub header: [Coffeebar Name] does not displayed");
 
+    if (storeDetails.isCoffeebarFavorite()) {
+      logger.info("Add store to favorites");
+      storeDetails.tapFavorite();
+    }
+
     logger.info("Add store to favorites");
     storeDetails.tapFavorite();
 
@@ -231,6 +236,7 @@ public class FindACoffeeBarTest extends BaseTest {
 
     logger.info("STEP - Tap on the gold outline heart icon to the right of the coffeeBar name");
     storeDetailsView.tapFavorite();
+
     logger.info(
         "VERIFY - User sees a loading dial and then the gold heart icon changes to a red filled in heart icon");
     logger.info("VERIFY - The brown pin on the map also changes to a red and white heart pin");

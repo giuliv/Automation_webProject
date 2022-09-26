@@ -15,14 +15,12 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
-import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.ios.IOSDriver;
+import io.appium.java_client.remote.SupportsContextSwitching;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.IntStream;
-
-import io.appium.java_client.remote.SupportsContextSwitching;
 import org.openqa.selenium.NoSuchElementException;
 
 @Implementation(is = AndroidCheckoutView.class, on = Platform.MOBILE_ANDROID)
@@ -410,7 +408,7 @@ class AndroidCheckoutView extends CheckoutView {
 
   public <T extends BaseComponent> T placeOrder(Class<T> clazz) {
     logger.info("Tap place order");
-    MobileHelper.swipeWithCount(SwipeDirection.UP, 4);
+    MobileHelper.swipeWithCount(SwipeDirection.UP, 7);
     getPlaceOrderButton.click();
     return SdkHelper.create(clazz);
   }
@@ -421,7 +419,7 @@ class AndroidCheckoutView extends CheckoutView {
    * @return order total value in $
    */
   public String getOrderTotal() {
-    MobileHelper.swipeWithCount(SwipeDirection.UP, 2);
+    MobileHelper.swipeWithCount(SwipeDirection.UP, 5);
     return orderTotal.getText();
   }
 

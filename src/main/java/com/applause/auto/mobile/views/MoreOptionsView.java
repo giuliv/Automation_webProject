@@ -205,7 +205,7 @@ public class MoreOptionsView extends BaseComponent {
   @Step("Sign out authentication view.")
   public LandingView signOut() {
     logger.info("Click on Sign Out button");
-    MobileHelper.swipeWithCount(SwipeDirection.UP, 5);
+    MobileHelper.swipeWithCount(SwipeDirection.UP, 7);
     getSignOutButton.click();
     try {
       getDriver().switchTo().alert().accept();
@@ -237,7 +237,7 @@ public class MoreOptionsView extends BaseComponent {
    */
   public MoreOptionsView clickFacebookIcon() {
     logger.info("Click Facebook");
-    MobileHelper.swipeWithCount(SwipeDirection.UP, 1);
+    MobileHelper.swipeWithCount(SwipeDirection.UP, 3);
     getFacebookIcon.click();
     SdkHelper.getSyncHelper().sleep(3000);
     return SdkHelper.create(MoreOptionsView.class);
@@ -273,7 +273,7 @@ public class MoreOptionsView extends BaseComponent {
    * @return the boolean
    */
   public Boolean isOnFacebookPage() {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(facebookPage).visible());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(facebookPage).present());
     return facebookPage.isDisplayed();
   }
 
@@ -521,7 +521,7 @@ class AndroidMoreOptionsView extends MoreOptionsView {
    */
   public <T extends BaseComponent> T signOut(Class<T> clazz) {
     logger.info("Click on Sign Out button");
-    MobileHelper.swipeWithCount(SwipeDirection.UP, 5);
+    MobileHelper.swipeWithCount(SwipeDirection.UP, 7);
     getSignOutButton.click();
     getLogOutButton.click();
     return SdkHelper.create(clazz);
@@ -549,7 +549,7 @@ class AndroidMoreOptionsView extends MoreOptionsView {
   @Override
   public MoreOptionsView clickFacebookIcon() {
     logger.info("Click Facebook");
-    MobileHelper.swipeWithCount(SwipeDirection.UP, 1);
+    MobileHelper.swipeWithCount(SwipeDirection.UP, 3);
     getFacebookIcon.click();
     SdkHelper.getSyncHelper().sleep(3000);
     if (MobileHelper.isElementDisplayed(getFacebookContinueButton, 10)) {

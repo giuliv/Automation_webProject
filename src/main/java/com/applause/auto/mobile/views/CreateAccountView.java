@@ -18,7 +18,6 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import io.qameta.allure.Step;
 import java.util.List;
-import org.openqa.selenium.Dimension;
 
 @Implementation(is = AndroidCreateAccountView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CreateAccountView.class, on = Platform.MOBILE_IOS)
@@ -147,7 +146,7 @@ public class CreateAccountView extends BaseComponent {
           "**/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[5]/*[1]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/password\")",
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/password_edit_text\")",
       on = Platform.MOBILE_ANDROID)
   protected TextBox passwordTextBox;
 
@@ -218,7 +217,7 @@ public class CreateAccountView extends BaseComponent {
   protected Button createAccountButton;
 
   @Locate(id = "Terms & Conditions", on = Platform.MOBILE_IOS)
-  @Locate(xpath = "//*[contains(@text,'Terms')]", on = Platform.MOBILE_ANDROID)
+  @Locate(id = "termsTextButton", on = Platform.MOBILE_ANDROID)
   protected Button getTermsAndConditionsButton;
 
   @Locate(
@@ -268,7 +267,6 @@ public class CreateAccountView extends BaseComponent {
   public TermsAndConditionsView termsAndConditions() {
     logger.info("Tap on Terms and Conditions");
     getTermsAndConditionsButton.click();
-    SdkHelper.getSyncHelper().sleep(10000);
     return SdkHelper.create(TermsAndConditionsView.class);
   }
 
@@ -320,25 +318,12 @@ public class CreateAccountView extends BaseComponent {
   public CreateAccountView setDOB(String day, String month, String year) {
     logger.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
     getDOBValueTextBox.click();
-    Picker dayPicker = getDOBDayPicker;
-    Picker monthPicker = getDOBMonthPicker;
-    logger.info("Day picker exist:" + dayPicker.exists());
-    logger.info("Day picker visible:" + dayPicker.isDisplayed());
-    // SdkHelper.getSyncHelper().wait(Until.uiElement(getDOBDayPicker).visible());
 
-    logger.info("day picker keep: " + dayPicker.getAttributeValue("value"));
-    try {
-      Integer.parseInt(dayPicker.getAttributeValue("value"));
-    } catch (Throwable throwable) {
-      logger.info("swapping pickers....");
-      dayPicker = getDOBMonthPicker;
-      monthPicker = getDOBDayPicker;
-    }
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getDOBValueTextBox).present());
+    String value = month + " " + day + ", " + year;
+    getDOBValueTextBox.sendKeys(value);
 
-    SdkHelper.getSyncHelper().sleep(500);
-    MobileHelper.setPickerValueBasic(month, monthPicker, "next");
-    MobileHelper.setPickerValueBasic(day, dayPicker, "next");
-    MobileHelper.setPickerValueReverse(year, getDOBYearPicker);
+    SdkHelper.getSyncHelper().sleep(2000);
     getDOBDoneBtn.click();
     return this;
   }
@@ -395,7 +380,7 @@ public class CreateAccountView extends BaseComponent {
   @Step("Check privacy policy and terms and conditions.")
   public void checkPrivacyPolicyAndTermsAndConditions() {
     logger.info("Tapping on Privacy Policy button");
-    MobileHelper.swipeWithCount(SwipeDirection.UP, 2);
+    MobileHelper.swipeWithCount(SwipeDirection.UP, 5);
     agreePrivacyPolicyAndTermsAndConditions.click();
   }
 
@@ -471,7 +456,7 @@ public class CreateAccountView extends BaseComponent {
   @Step("Checking if email checkbox checked")
   public boolean isEmailOptInChecked() {
     logger.info("Checking if checkbox checked by color");
-    return MobileHelper.isIosCheckboxChecked(emailsWithOffersCheckBox.getWebElement());
+    return MobileHelper.isIosCheckboxChecked(emailsWithOffersCheckBox);
   }
 
   @Step("Check is Create Account Button is Enabled")
@@ -493,8 +478,7 @@ public class CreateAccountView extends BaseComponent {
     if (!MobileHelper.isElementDisplayed(agreePrivacyPolicyAndTermsAndConditions, 5)) {
       SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
     }
-    return MobileHelper.isIosCheckboxChecked(
-        agreePrivacyPolicyAndTermsAndConditions.getWebElement());
+    return MobileHelper.isIosCheckboxChecked(agreePrivacyPolicyAndTermsAndConditions);
   }
 
   /**
@@ -508,12 +492,12 @@ public class CreateAccountView extends BaseComponent {
 
   public boolean isFirstnameDisplayed() {
     logger.info("Checking firstname field displayed");
-    return firstnameTextBox.isDisplayed();
+    return MobileHelper.isDisplayed(firstnameTextBox);
   }
 
   public boolean isLastDisplayed() {
     logger.info("Checking lastname field displayed");
-    return lastnameTextBox.isDisplayed();
+    return MobileHelper.isDisplayed(lastnameTextBox);
   }
 
   public boolean isDobTextDisplayed() {
@@ -523,17 +507,17 @@ public class CreateAccountView extends BaseComponent {
 
   public boolean isEmailAddressDisplayed() {
     logger.info("Checking email address field displayed");
-    return emailAddressTextBox.isDisplayed();
+    return MobileHelper.isDisplayed(emailAddressTextBox);
   }
 
   public boolean isPasswordDisplayed() {
     logger.info("Checking password field displayed");
-    return passwordTextBox.isDisplayed();
+    return MobileHelper.isDisplayed(passwordTextBox);
   }
 
   public boolean isPromocodeTextDisplayed() {
     logger.info("Checking promo code text displayed");
-    return getPromoCodeHintTextBox.isDisplayed();
+    return MobileHelper.isDisplayed(getPromoCodeHintTextBox);
   }
 
   @Step("Get Page title")
@@ -569,57 +553,6 @@ class AndroidCreateAccountView extends CreateAccountView {
   }
 
   @Override
-  public AndroidTermsAndConditionsView termsAndConditions() {
-    logger.info("Tap on Terms and Conditions");
-    // sometimes this code is throwing exception: Coordinate x =
-    // [238572] exceeds the width of element
-    MobileHelper.hideKeyboard();
-    Dimension size = getTermsAndConditionsButton.getWebElement().getSize();
-    logger.info(String.format("Terms label size: [%s]", size));
-    MobileHelper.tapOnElementWithOffset(getTermsAndConditionsButton, size.getWidth() / 3, 0);
-    // logger.info("Tap on Terms and Conditions");
-    // getTermsAndConditionsButton.click();
-    return SdkHelper.create(AndroidTermsAndConditionsView.class);
-  }
-
-  @Override
-  @Step("Set Date of Birth")
-  public CreateAccountView setDOB(String day, String month, String year) {
-    logger.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
-    getDOBValueTextBox.click();
-    Picker dayPicker = getDOBDayPicker;
-    Picker monthPicker = getDOBMonthPicker;
-    // SdkHelper.getSyncHelper().wait(Until.uiElement(getDOBDayPicker).visible());
-    logger.info("Day picker exist:" + dayPicker.exists());
-    logger.info("Day picker visible:" + dayPicker.isDisplayed());
-
-    String dataSource;
-    try {
-      logger.info("day picker keep: " + dayPicker.getAttributeValue("value"));
-      dataSource = "value";
-    } catch (Throwable throwable) {
-      logger.info("day picker keep: " + dayPicker.getAttributeValue("text"));
-      dataSource = "text";
-    }
-
-    try {
-      Integer.parseInt(dayPicker.getAttributeValue(dataSource));
-    } catch (Throwable throwable) {
-      logger.info("swapping pickers....");
-      dayPicker = getDOBMonthPicker;
-      monthPicker = getDOBDayPicker;
-    }
-
-    MobileHelper.setPickerValueBasic(day, dayPicker, "next");
-    MobileHelper.setPickerValueBasic(month.substring(0, 3), monthPicker, "next");
-    MobileHelper.setPickerValueReverse(year, getDOBYearPicker);
-    // SdkHelper.getDeviceControl().hideKeyboard();
-    getDOBOkButton.click();
-
-    return SdkHelper.create(CreateAccountView.class);
-  }
-
-  @Override
   @Step("Checking if email checkbox checked")
   public boolean isEmailOptInChecked() {
     return emailsWithOffersCheckBox.getAttributeValue("checked").equals("true");
@@ -629,7 +562,7 @@ class AndroidCreateAccountView extends CreateAccountView {
   @Step("Check Is privacy policy and terms and conditions checked boolean.")
   public boolean isPrivacyPolicyAndTermsAndConditionsChecked() {
     if (!MobileHelper.isElementDisplayed(agreePrivacyPolicyAndTermsAndConditions, 5)) {
-      MobileHelper.swipeWithCount(SwipeDirection.UP, 2);
+      MobileHelper.swipeWithCount(SwipeDirection.UP, 5);
     }
     return agreePrivacyPolicyAndTermsAndConditions.getAttributeValue("checked").equals("true");
   }
@@ -702,5 +635,42 @@ class AndroidCreateAccountView extends CreateAccountView {
     SdkHelper.getSyncHelper().wait(Until.uiElement(closeButton).visible());
     closeButton.click();
     return SdkHelper.create(LandingView.class);
+  }
+
+  @Override
+  @Step("Set Date of Birth")
+  public CreateAccountView setDOB(String day, String month, String year) {
+    logger.info(String.format("Set DOB number to: %s / %s / %s", day, month, year));
+    getDOBValueTextBox.click();
+    Picker dayPicker = getDOBDayPicker;
+    Picker monthPicker = getDOBMonthPicker;
+    // SdkHelper.getSyncHelper().wait(Until.uiElement(getDOBDayPicker).visible());
+    logger.info("Day picker exist:" + dayPicker.exists());
+    logger.info("Day picker visible:" + dayPicker.isDisplayed());
+
+    String dataSource;
+    try {
+      logger.info("day picker keep: " + dayPicker.getAttributeValue("value"));
+      dataSource = "value";
+    } catch (Throwable throwable) {
+      logger.info("day picker keep: " + dayPicker.getAttributeValue("text"));
+      dataSource = "text";
+    }
+
+    try {
+      Integer.parseInt(dayPicker.getAttributeValue(dataSource));
+    } catch (Throwable throwable) {
+      logger.info("swapping pickers....");
+      dayPicker = getDOBMonthPicker;
+      monthPicker = getDOBDayPicker;
+    }
+
+    MobileHelper.setPickerValueBasic(day, dayPicker, "next");
+    MobileHelper.setPickerValueBasic(month.substring(0, 3), monthPicker, "next");
+    MobileHelper.setPickerValueReverse(year, getDOBYearPicker);
+    // SdkHelper.getDeviceControl().hideKeyboard();
+    getDOBOkButton.click();
+
+    return SdkHelper.create(CreateAccountView.class);
   }
 }

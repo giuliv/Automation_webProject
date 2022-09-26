@@ -6,6 +6,7 @@ import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.dto.SignUpUserDto;
 import com.applause.auto.data.enums.SwipeDirection;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.mobile.components.ConfirmationPopup;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.AccountActivityView;
@@ -44,10 +45,10 @@ public class CreateAccountTest extends BaseTest {
     CreateAccountView createAccountView = landingView.createAccount();
 
     logger.info("Scroll down and check the footer links");
-    MobileHelper.swipeWithCount(SwipeDirection.UP, 3);
+    MobileHelper.swipeWithCount(SwipeDirection.UP, 7);
 
     logger.info(
-        "Make sure above the SdkHelper.create account button is the copy and check-box: I agree to the Privacy Policy and Terms & Conditions");
+        "Make sure above the create account button is the copy and check-box: I agree to the Privacy Policy and Terms & Conditions");
 
     logger.info("Tap on Privacy Policy link");
     PrivacyPolicyView privacyPolicyView = createAccountView.privacyPolicy();
@@ -63,7 +64,7 @@ public class CreateAccountTest extends BaseTest {
     landingView.createAccountNavigation();
 
     logger.info("Scroll down and check the footer links");
-    MobileHelper.swipeWithCount(SwipeDirection.UP, 3);
+    MobileHelper.swipeWithCount(SwipeDirection.UP, 7);
 
     logger.info("Tap on the Terms and Conditions link");
     TermsAndConditionsView termsAndConditionsView = createAccountView.termsAndConditions();
@@ -399,6 +400,10 @@ public class CreateAccountTest extends BaseTest {
 
     logger.info("STEP - Tap back arrow");
     accountMenuMobileChunk = changePasswordView.goBack(MoreOptionsView.class);
+    if (!accountMenuMobileChunk.isProfileDetailsMenuItemDisplayed()) {
+      accountMenuMobileChunk =
+          SdkHelper.create(ProfileDetailsView.class).goBack(MoreOptionsView.class);
+    }
 
     logger.info("VERIFY - User is directed to more screen");
     softAssert.assertNotNull(accountMenuMobileChunk, "User does not directed to more screen");
@@ -440,7 +445,11 @@ public class CreateAccountTest extends BaseTest {
     // cleanup
     if (isCleanUp) {
       logger.info("STEP - Tap on ... at top right of home screen to view more screen");
-      accountMenuMobileChunk = homeView.getAccountProfileMenu();
+      accountMenuMobileChunk =
+          homeView
+              .getReorderTooltipComponent()
+              .closeReorderTooltipIfDisplayed(HomeView.class)
+              .getAccountProfileMenu();
 
       logger.info("STEP - Tap on Profile Details field/row");
       profileDetailsView = accountMenuMobileChunk.profileDetails();
@@ -704,7 +713,7 @@ public class CreateAccountTest extends BaseTest {
     Assert.assertTrue(
         createAccountView.isEmailAddressDisplayed(), "Email address field does not displayed");
     Assert.assertTrue(createAccountView.isPasswordDisplayed(), "Password field does not displayed");
-    MobileHelper.swipeWithCount(SwipeDirection.UP, 5);
+    MobileHelper.swipeWithCount(SwipeDirection.UP, 8);
 
     Assert.assertTrue(
         createAccountView.isPromocodeTextDisplayed(),
@@ -803,7 +812,7 @@ public class CreateAccountTest extends BaseTest {
     createAccountView.checkPrivacyPolicyAndTermsAndConditions();
 
     logger.info(
-        "Make sure checkbox is marked and SdkHelper.create account button should be activated and turn gold");
+        "Make sure checkbox is marked and create account button should be activated and turn gold");
     Assert.assertTrue(
         createAccountView.isPrivacyPolicyAndTermsAndConditionsChecked(),
         "Privacy Policy opt in checkbox does not marked");
