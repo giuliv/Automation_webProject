@@ -330,8 +330,8 @@ public class CartTests extends BaseTest {
             PLP_SHOPABBLE_ITEMS.get(item),
             "Title does not matches");
       }
-
       cartPage = WebHelper.navigateBack(CartPage.class);
+      cartPage.closeBannerButton(CartPage.class);
     }
   }
 
@@ -505,10 +505,10 @@ public class CartTests extends BaseTest {
         "Product grind[2nd] doesn't match");
 
     softAssert.assertTrue(
-        cartPage.getProductPriceByIndex(firstProduct).contains(productPrice2),
+        cartPage.getProductTotalPriceByIndex(firstProduct).contains(productPrice2),
         "Product price doesn't match");
     softAssert.assertTrue(
-        cartPage.getProductPriceByIndex(secondProduct).contains(productPrice),
+        cartPage.getProductTotalPriceByIndex(secondProduct).contains(productPrice),
         "Product price[2nd] doesn't match");
 
     softAssert.assertTrue(cartPage.subTotalIsDisplayed(), "Subtotal displays is not displayed");
@@ -596,10 +596,10 @@ public class CartTests extends BaseTest {
         "Product grind[2nd] doesn't match");
 
     softAssert.assertTrue(
-        cartPage.getProductPriceByIndex(firstProduct).contains(productPrice2),
+        cartPage.getProductTotalPriceByIndex(firstProduct).contains(productPrice2),
         "Product price doesn't match");
     softAssert.assertTrue(
-        cartPage.getProductPriceByIndex(secondProduct).contains(productPrice),
+        cartPage.getProductTotalPriceByIndex(secondProduct).contains(productPrice),
         "Product price[2nd] doesn't match");
 
     softAssert.assertTrue(cartPage.subTotalIsDisplayed(), "Subtotal displays is not displayed");

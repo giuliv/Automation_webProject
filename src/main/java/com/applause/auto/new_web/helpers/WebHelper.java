@@ -732,4 +732,12 @@ public class WebHelper {
                 .executeScript("return arguments[0].innerHTML;", element);
     return value;
   }
+
+  public static Boolean getVisibility(WebElement element) {
+    Boolean value =
+            (Boolean) ((JavascriptExecutor) SdkHelper.getDriver())
+            .executeScript(
+                "return arguments[0].checkVisibility();", element);
+    return value;
+  }
 }

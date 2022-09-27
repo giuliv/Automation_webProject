@@ -73,6 +73,12 @@ public class ProductListPage extends Base {
   @Locate(css = ".pi__quick-add button", on = Platform.WEB)
   private List<Button> quickViewButtonList;
 
+  @Locate(
+      xpath =
+          "//div[@class=\"pi__essentials\"]//a[contains(text(),\"%s\")]/ancestor::div[@class=\"pi__desc\"]//button",
+      on = Platform.WEB)
+  private Button quickViewPaperFiltersButton;
+
   @Locate(css = ".pi__quick-add a", on = Platform.WEB)
   private List<Button> viewProductButtonList;
 
@@ -311,6 +317,19 @@ public class ProductListPage extends Base {
 
     logger.info("Clicking QuickView button");
     quickViewButtonList.get(0).click();
+    return SdkHelper.create(QuickViewComponent.class);
+  }
+
+  @Step("Click quick view")
+  public QuickViewComponent clickOverPaperFiltersProductQuickViewButton(String product) {
+    WebHelper.scrollToElement(quickViewPaperFiltersButton.format(product));
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    WebHelper.hoverByAction(quickViewPaperFiltersButton.format(product));
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    logger.info("Clicking QuickView button");
+    quickViewPaperFiltersButton.format(product).click();
     return SdkHelper.create(QuickViewComponent.class);
   }
 

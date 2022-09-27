@@ -2,6 +2,7 @@ package com.applause.auto.test.new_web.plp;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestData;
+import com.applause.auto.common.data.enums.Products;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.components.QuickViewComponent;
 import com.applause.auto.new_web.components.plp.PlpLearnMoreOverlappingComponent;
@@ -275,7 +276,9 @@ public class QuickViewTest extends BaseTest {
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
     logger.info("2. Open QuickView Modal");
-    QuickViewComponent quickViewComponent = productListPage.clickOverFirstQuickViewButton();
+    QuickViewComponent quickViewComponent =
+        productListPage.clickOverPaperFiltersProductQuickViewButton(
+            Products.PAPER_FILTERS.getValue());
 
     logger.info("3. Review Add to Cart button");
     Assert.assertTrue(

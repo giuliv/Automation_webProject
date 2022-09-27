@@ -216,7 +216,9 @@ public class QuickViewComponent extends BaseComponent {
     return SdkHelper.create(MiniCart.class);
   }
 
-  /** @return product name */
+  /**
+   * @return product name
+   */
   @Step("Get product name")
   public String getProductName() {
     return productName.getText().trim();
@@ -319,6 +321,9 @@ public class QuickViewComponent extends BaseComponent {
   }
 
   public boolean areSubscribeOrOneTimePurchaseDisplayed() {
-    return oneTimePurchase.isDisplayed() || subscribeType.isDisplayed();
+    logger.info("Is one time purchase button displayed: {}", WebHelper.getVisibility(oneTimePurchase.getWebElement()));
+    logger.info("Is it subscribe button displayed: {}", WebHelper.getVisibility(subscribeType.getWebElement()));
+
+    return WebHelper.getVisibility(oneTimePurchase.getWebElement()) || WebHelper.getVisibility(subscribeType.getWebElement());
   }
 }

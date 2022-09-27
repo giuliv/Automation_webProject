@@ -36,6 +36,13 @@ public class CartPage extends BaseComponent {
   @Locate(css = ".bag-item__price--original, .bag-item__price--discounted", on = Platform.WEB)
   private List<Text> productPrice;
 
+  @Locate(css = "[class='bag-item__action bag-item__action--total-price']>span", on = Platform.WEB)
+  @Locate(
+      css =
+          "[class=\"bag-item__action bag-item__action--price js-bag-item-price\"]>span[class='bag-item__price'],[class=\"bag-item__price bag-item__price--original js-unit-price\"]",
+      on = Platform.WEB_MOBILE_PHONE)
+  private List<Text> productTotalPrice;
+
   @Locate(css = ".bag-item__photo img", on = Platform.WEB)
   private List<Image> productImage;
 
@@ -117,6 +124,9 @@ public class CartPage extends BaseComponent {
   @Locate(css = "p.tooltip__copy a", on = Platform.WEB)
   private Link estimatedToolTipFAQLink;
 
+  @Locate(css = "#usi_display #usi_close", on = Platform.WEB)
+  private Button closeBannerButton;
+
   @Getter @Locate public NeverMissAnOfferChunk neverMissAnOfferChunk;
 
   @Override
@@ -176,11 +186,27 @@ public class CartPage extends BaseComponent {
   }
 
   @Step("Get product price")
+  public String getProductTotalPriceByIndex(int index) {
+    logger.info("Product total size elements: " + productTotalPrice.size());
+    SdkHelper.getSyncHelper().waitUntil(driver -> !getProductTotalPrice(index).isEmpty());
+    return getProductTotalPrice(index);
+  }
+
+  @Step("Get product price")
   private String getProductPrice(int index) {
     ((LazyList<?>) productPrice).initialize();
     SdkHelper.getSyncHelper().wait(Until.uiElement(productPrice.get(index - 1)).visible());
     String price = productPrice.get(index - 1).getText().toLowerCase().split(" ")[0].trim();
     logger.info("[Cart] Price: " + price);
+    return price;
+  }
+
+  @Step("Get product total price")
+  private String getProductTotalPrice(int index) {
+    ((LazyList<?>) productTotalPrice).initialize();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(productTotalPrice.get(index - 1)).visible());
+    String price = productTotalPrice.get(index - 1).getText().toLowerCase().split(" ")[0].trim();
+    logger.info("[Cart] Total price: " + price);
     return price;
   }
 
@@ -312,7 +338,9 @@ public class CartPage extends BaseComponent {
     return this;
   }
 
-  /** @return boolean */
+  /**
+   * @return boolean
+   */
   @Step("Get one time purchase button")
   public boolean isOneTimePurchaseButtonSelected() {
     logger.info(
@@ -328,19 +356,25 @@ public class CartPage extends BaseComponent {
     return subscribeButton.getAttributeValue("slot").equalsIgnoreCase("default");
   }
 
-  /** @return boolean */
+  /**
+   * @return boolean
+   */
   @Step("Get subscribe button")
   public boolean isSubscribeButtonEnabled() {
     return subscribeButton.isEnabled();
   }
 
-  /** @return boolean */
+  /**
+   * @return boolean
+   */
   @Step("Get Add personal message field")
   public boolean isAddPersonalMessageFieldDisplayed() {
     return WebHelper.isDisplayed(addPersonalMessageField);
   }
 
-  /** @return String */
+  /**
+   * @return String
+   */
   @Step("Get Add personal message")
   public String getAddPersonalMessageFieldText() {
     String message = addPersonalMessageField.getCurrentText();
@@ -464,6 +498,21 @@ public class CartPage extends BaseComponent {
     estimatedToolTipFAQLink.click();
 
     return SdkHelper.create(CommonWebPage.class);
+  }
+
+  public <T extends BaseComponent> T closeBannerButton(Class<T> clazz) {
+    if (closeBannerButton.isDisplayed()) {
+      try {
+        logger.info("Closing the banner");
+        closeBannerButton.click();
+        return WebHelper.navigateBack(clazz);
+      } catch (Exception e) {
+        logger.info("Banner is not displayed");
+        return SdkHelper.create(clazz);
+      }
+    } else {
+      return SdkHelper.create(clazz);
+    }
   }
 }
 
