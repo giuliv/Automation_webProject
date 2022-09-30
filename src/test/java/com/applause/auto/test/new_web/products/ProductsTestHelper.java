@@ -117,6 +117,26 @@ public class ProductsTestHelper extends BaseTest {
     softAssert.assertAll();
   }
 
+  public static void checkNewSortingOptions(
+      ProductListPage productListPage, SoftAssert softAssert) {
+    logger.info("1. Navigate to Product list page");
+    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+
+    logger.info("2. Validate the user is shown with items Sort by recommended on default");
+    softAssert.assertTrue(
+        productListPage
+            .getSelectedSortingType()
+            .equalsIgnoreCase(SortType.RECOMMENDED.getOptionName()),
+        "Recommended sorting type isn't selected");
+
+    selectSortingTypeAndCheckResultList(productListPage, SortType.PRICE_LOW_TO_HIGH, softAssert);
+    selectSortingTypeAndCheckResultList(productListPage, SortType.NEWEST, softAssert);
+    selectSortingTypeAndCheckResultList(productListPage, SortType.NAME_A_Z, softAssert);
+    selectSortingTypeAndCheckResultList(productListPage, SortType.NAME_Z_A, softAssert);
+
+    softAssert.assertAll();
+  }
+
   public static void checkNewsletterSignUpNeverMissOffer(
       ProductListPage productListPage, SoftAssert softAssert) {
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");

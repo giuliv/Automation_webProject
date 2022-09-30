@@ -193,7 +193,9 @@ public class MiniCartTest extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
-      description = "11101734")
+      description = "11101734",
+      enabled = false)
+  // TC marked as deprecated by Shilpa/Vaibab [27.11.22]
   public void recommendedItemsNavigationTest() {
 
     logger.info("1. Navigate to product details page");

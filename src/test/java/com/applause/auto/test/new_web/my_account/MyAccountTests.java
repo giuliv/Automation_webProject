@@ -388,7 +388,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION},
+      groups = {TestNGGroups.TO_BE_RENAMED},
       description = "11102918")
   public void dashboardUIelementsTest() {
     logger.info("1. Navigate to Sign in page");
@@ -449,6 +449,57 @@ public class MyAccountTests extends BaseTest {
         orderHistoryPage.getMyOrderItemList().size() > 0, "My orders table is empty");
     softAssert.assertTrue(
         orderHistoryPage.isMyOrdersTableFullyDisplayed(), "My orders table is n't fully displayed");
+
+    softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {TestNGGroups.FRONT_END_REGRESSION},
+      description = "11118664")
+  public void dashboardRecentOrdersTest() {
+    logger.info("1. Navigate to Sign in page");
+    SignInPage signInPage = navigateToSignInPage();
+    Assert.assertNotNull(signInPage, "Failed to navigate to the Sign in page.");
+
+    logger.info("2. Enter valid credentials.");
+    signInPage.enterEmail(Constants.TestData.USER_EMAIL_WITH_SUBSCRIPTIONS);
+    signInPage.enterPassword(TestData.WEB_PASSWORD);
+
+    logger.info("3. Click on Sign in");
+    MyAccountPage myAccountPage = signInPage.clickOnSignInButton();
+    softAssert.assertNotNull(myAccountPage, "My account page isn't displayed");
+    softAssert.assertTrue(
+        myAccountPage.getWelcomeMessage().contains("welcome"),
+        "User is not signed in or welcome name is wrong");
+
+    logger.info("Verify table title");
+    softAssert.assertEquals(
+        myAccountPage.getRecentOrdersTitle(),
+        Constants.DashboardTestData.RECENT_ORDERS_HEADER.toLowerCase(),
+        "Table title isn't correct");
+
+    softAssert.assertEquals(
+        myAccountPage.getMyOrderItemList().size(), 3, "Total recent orders does not match");
+
+    logger.info("4. Click on Details");
+    MyOrderItemComponent myOrderItemComponent = myAccountPage.getMyOrderItemList().get(0);
+    myOrderItemComponent = myOrderItemComponent.clickOnDetails();
+
+    softAssert.assertTrue(
+        myOrderItemComponent.isOrderNumberDisplayed(), "Order number isn't displayed");
+    softAssert.assertTrue(
+        myOrderItemComponent.isOrderPriceDisplayed(), "Order Price isn't displayed");
+
+    logger.info("5. Click in view all orders");
+    OrderHistoryPage orderHistoryPage = myAccountPage.viewAllOrders();
+
+    logger.info("Verify that order history should display");
+    softAssert.assertTrue(orderHistoryPage.isDisplayed(), "Order history page didn't appear");
+
+    logger.info("Verify View all orders URL");
+    softAssert.assertTrue(
+        WebHelper.getCurrentUrl().contains(Constants.TestData.RECENT_ORDERS_URL),
+        "URL does not matches");
 
     softAssert.assertAll();
   }

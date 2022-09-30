@@ -10,7 +10,7 @@
     "driverType": "Android",
     "factoryKey": "MOBILE_ANDROID"
   },
-  "app": "/Users/jgarcia/Desktop/Android_UAT_22.0.2_2643.apk",
+  "app": "/Users/jgarcia/Desktop/peets.apk",
   "appWaitActivity": "com.wearehathway.apps.stock.views.onboarding.OnBoardingActivity",
   "appWaitPackage": "com.wearehathway.peets.development",
   "autoGrantPermissions": true,

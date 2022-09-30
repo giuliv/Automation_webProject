@@ -28,14 +28,16 @@ public class CoffeeDarkRoastTests extends BaseTest {
       description = "11107506")
   public void coffeeDarkRoastBannerTest() {
     ProductsTestHelper.checkBestSellersBanner(
-        navigateToPLPFromHome(TestData.COFFEE_DARK_ROAST_URL), TestData.DARK_ROAST_HEADER, softAssert);
+        navigateToPLPFromHome(TestData.COFFEE_DARK_ROAST_URL),
+        TestData.DARK_ROAST_HEADER,
+        softAssert);
   }
 
   @Test(
       groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
       description = "11107509")
   public void coffeeDarkRoastSortingTest() {
-    ProductsTestHelper.checkSortingOptions(
+    ProductsTestHelper.checkNewSortingOptions(
         navigateToPLPFromHome(TestData.COFFEE_DARK_ROAST_URL), softAssert);
   }
 

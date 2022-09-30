@@ -19,7 +19,8 @@ public class CoffeeBestSellersTests extends BaseTest {
       groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
       description = "11107498")
   public void coffeeBestSellersTest() {
-    ProductsTestHelper.checkPlp(navigateToPLPFromHome(TestData.COFFEE_BEST_SELLERS_URL), softAssert);
+    ProductsTestHelper.checkPlp(
+        navigateToPLPFromHome(TestData.COFFEE_BEST_SELLERS_URL), softAssert);
   }
 
   @Test(
@@ -54,7 +55,7 @@ public class CoffeeBestSellersTests extends BaseTest {
       groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
       description = "11107501")
   public void coffeeBestSellersSortingTest() {
-    ProductsTestHelper.checkSortingOptions(
+    ProductsTestHelper.checkNewSortingOptions(
         navigateToPLPFromHome(TestData.COFFEE_BEST_SELLERS_URL), softAssert);
   }
 

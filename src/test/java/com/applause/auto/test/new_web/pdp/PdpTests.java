@@ -661,7 +661,8 @@ public class PdpTests extends BaseTest {
       description = "11107455")
   public void pdpCustomerReviewsTest() {
     logger.info("1. Navigate to PDP");
-    ProductDetailsPage detailsPage = navigateToPDPFromHome(Constants.TestData.BARIDI_BLEND_BLUNDE);
+    ProductDetailsPage detailsPage =
+        navigateToPDPFromHome(Constants.StandardCoffeeInventory.Coffee1.getValue());
 
     logger.info("2. Verify customer reviews are sorted by Most Recent by default");
     ProductDetailsCustomerReviewsComponent customerReviewsComponent =
