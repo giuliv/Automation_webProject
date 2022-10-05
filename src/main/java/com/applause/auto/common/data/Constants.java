@@ -115,6 +115,8 @@ public class Constants {
         LANDING_PAGE_URL.split("\\?")[0].concat("/pages/gift-cards");
     public static final String STORE_LOCATOR_PAGE_URL =
         LANDING_PAGE_URL.split("\\?")[0].concat("/pages/store-locator");
+    public static final String SUBSCRIPTIONS_URL =
+        LANDING_PAGE_URL.split("\\?")[0].concat("pages/subscriptions");
     public static final String SUBSCRIPTION_SO_URL =
         LANDING_PAGE_URL.split("\\?")[0].concat("/products/single-origin-series-subscription");
     public static final String SUBSCRIPTION_SB_URL =
@@ -265,6 +267,8 @@ public class Constants {
         "Thanks for subscribing!Your unique promo code will be sent shortly.";
     public static final String PERSONAL_MESSAGE = "Add a personal message";
 
+    public static final String SIGN_UP_SUCCESS_MESSAGE = "Check your texts";
+
     public static final List<String> CHECKOUT_PAGE_VALIDATION_ERRORS =
         Arrays.asList(
             "Enter a valid email",
@@ -322,6 +326,7 @@ public class Constants {
     public static final String PDP_DELIVERED_FRESH_TO_YOU_DESCRIPTION =
         "Roasts and ships the same day";
     public static final String REPORTED_BUTTON = "Reported";
+    public static final String MOBILE_NUMBER = "202-555-0196";
   }
 
   public static final class TestMainMenu {
@@ -743,12 +748,13 @@ public class Constants {
   @Getter
   @AllArgsConstructor
   public enum Touts {
-    START_AN_ORDER("Start an Order", "Select a location to order online or use the Peet’s app."),
+    START_AN_ORDER("Start an Order", 1, "Select a location to order online or use the Peet’s app."),
     PLACE_ORDER_AND_PAY(
-        "Place Order and Pay", "Tap the Order button and select your beverages and food."),
-    PICK_UP_IN_STORE("Pick Up In Store", "Pick up your order at the Order Ahead Pickup area.");
+        "Place Order and Pay", 2, "Tap the Order button and select your beverages and food."),
+    PICK_UP_IN_STORE("Pick Up In Store", 3, "Pick up your order at the Order Ahead Pickup area.");
 
     @Getter private String title;
+    @Getter private int sequenceNumber;
     @Getter private String description;
   }
 }

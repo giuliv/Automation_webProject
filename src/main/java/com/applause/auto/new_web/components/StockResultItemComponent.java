@@ -43,16 +43,6 @@ public class StockResultItemComponent extends BaseComponent {
 
   @Step("Check If Shop Item is Fully Displayed")
   public boolean checkIfShopItemIsFullyDisplayed() {
-    if (WebHelper.isTextDisplayedAndNotEmpty(licensedPartner)) {
-      logger.info("Skipping, because we are a licensed partner");
-      return true;
-    }
-
-    if (!WebHelper.isTextDisplayedAndNotEmpty(shopNumber)) {
-      logger.info("Number isn't displayed for [{}] shop", shopName.getText());
-      return false;
-    }
-
     if (!WebHelper.isTextDisplayedAndNotEmpty(shopName)) {
       logger.info("Shop name isn't displayed for [{}] shop", shopNumber.getText());
       return false;

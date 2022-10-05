@@ -9,13 +9,12 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.nativekey.AndroidKey;
+import io.appium.java_client.android.nativekey.KeyEvent;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.HideKeyboardStrategy;
 import io.appium.java_client.remote.SupportsContextSwitching;
-import io.appium.java_client.touch.offset.PointOption;
 import java.lang.invoke.MethodHandles;
 import java.time.Duration;
 import java.util.ArrayList;
@@ -33,7 +32,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -232,9 +230,7 @@ public class WebHelper {
   //        .perform();
   //  }
 
-  /**
-   * @return Y-position of page
-   */
+  /** @return Y-position of page */
   public static int getPagePositionY() {
     String javascript = "return window.scrollY;";
     return (int)
@@ -735,9 +731,19 @@ public class WebHelper {
 
   public static Boolean getVisibility(WebElement element) {
     Boolean value =
-            (Boolean) ((JavascriptExecutor) SdkHelper.getDriver())
-            .executeScript(
-                "return arguments[0].checkVisibility();", element);
+        (Boolean)
+            ((JavascriptExecutor) SdkHelper.getDriver())
+                .executeScript("return arguments[0].checkVisibility();", element);
     return value;
+  }
+
+  public static void clickAndroidBackButton() {
+    logger.info("Clicking on the Android back button");
+    ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.HOME));
+  }
+
+  public static boolean nativeContextIsPresent() {
+    logger.info("Verify two or more contexts are present");
+    return ((SupportsContextSwitching) SdkHelper.getDriver()).getContextHandles().size() >= 2;
   }
 }

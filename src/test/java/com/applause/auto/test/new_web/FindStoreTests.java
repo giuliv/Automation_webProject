@@ -128,6 +128,17 @@ public class FindStoreTests extends BaseTest {
         itemsBeforeSelectFilter,
         "Result list is not changed");
 
+    logger.info("6. Click on Start Order");
+    storeLocatorPage.getStockResultList().get(0).startOrder();
+
+    logger.info("Validate user is directed to 'https://order.peets.com/'");
+    Assert.assertTrue(
+        WebHelper.getCurrentUrl().contains("https://order.peets.com/"),
+        "User is not navigated to https://order.peets.com/");
+
+    logger.info("Navigate back to Store locator page");
+    storeLocatorPage = navigateToStoreLocatorPage().searchByZipCode("95032");
+
     logger.info("5. Click on a store");
     StockResultItemComponent stockResultItemComponent =
         storeLocatorPage.getStockResultList().get(0);
@@ -160,14 +171,6 @@ public class FindStoreTests extends BaseTest {
         storeDetailsDto.getSchedule().toLowerCase(),
         "Store Schedule isn't correct");
     Assert.assertTrue(storeDetailsPage.isAmenitiesButtonDisplayed(), "'Amenities' isn't displayed");
-
-    logger.info("6. Click on Start Order");
-    storeDetailsPage.startOrder();
-
-    logger.info("Validate user is directed to 'https://order.peets.com/'");
-    Assert.assertTrue(
-        WebHelper.getCurrentUrl().contains("https://order.peets.com/"),
-        "User is not navigated to https://order.peets.com/");
   }
 
   @Test(
@@ -219,18 +222,20 @@ public class FindStoreTests extends BaseTest {
         oneAppManyBenefitsComponent.isDisplayedProperly(),
         "One app, many benefits section isn't displayed properly");
 
-    logger.info("5. Click on Download APP Button");
-    String storeLocatorPageUrl = WebHelper.getCurrentUrl();
-    oneAppManyBenefitsComponent.clickDownloadApp();
-    WebHelper.closeOtherTabs();
+    if (!WebHelper.isMobile()) {
+      logger.info("5. Click on Download APP Button");
+      oneAppManyBenefitsComponent.clickDownloadApp();
 
-    logger.info("Verify App store page is displayed");
-    String currentUrl = WebHelper.getCurrentUrl();
-    softAssert.assertTrue(currentUrl.contains("apps.apple.com"), "App store page isn't displayed");
-    softAssert.assertTrue(currentUrl.contains("Peets"), "Peet's App store page isn't displayed");
+      logger.info("Verify App store page is displayed");
+      String currentUrl = WebHelper.getCurrentUrl();
+      Assert.assertTrue(currentUrl.contains("apps.apple.com"), "App store page isn't displayed");
+      Assert.assertTrue(currentUrl.contains("Peets"), "Peet's App store page isn't displayed");
 
-    logger.info("Verify user is shown with correct touts titles and descriptions");
-    storeDetailsPage = WebHelper.navigateToUrl(storeLocatorPageUrl, StoreDetailsPage.class);
+      logger.info("Verify user is shown with correct touts titles and descriptions");
+      storeDetailsPage =
+          navigateToStoreLocatorPage().searchByZipCode("95032").getStockResultList().get(0).click();
+    }
+
     ToutsSectionComponent toutsSectionComponent = storeDetailsPage.getToutsSectionComponent();
     Assert.assertTrue(
         toutsSectionComponent.isToutDisplayed(Touts.START_AN_ORDER),
@@ -253,6 +258,20 @@ public class FindStoreTests extends BaseTest {
     Assert.assertTrue(
         WebHelper.getCurrentUrl().contains(Constants.TestData.REWARDS_URL),
         "Not on the correct URL");
+
+    if (WebHelper.isMobile()) {
+      /*
+       When we click on Download APP Button for android phone, we switch to App store native view
+       and when we try to navigate back(with Android back button) the Chrome browser and native
+       App store view close, so it makes tests not stable. Moved this step to the end for mobile.
+      */
+      logger.info("5. Click on Download APP Button");
+      storeDetailsPage = WebHelper.navigateBack(StoreDetailsPage.class);
+      storeDetailsPage.getOneAppManyBenefitsComponent().clickDownloadApp();
+
+      logger.info("Verify App store page is displayed");
+      Assert.assertTrue(WebHelper.nativeContextIsPresent(), "App store page isn't displayed");
+    }
   }
 
   @Test(
@@ -422,7 +441,6 @@ public class FindStoreTests extends BaseTest {
     softAssert.assertTrue(itemComponent.isOrderNowDisplayed(), "Order Now is not displayed");
 
     logger.info("12. Click on 'Order Now'");
-    String currentUrl = WebHelper.getCurrentUrl();
     itemComponent.clickOrderNowButton();
 
     logger.info("13. Validate the correct URL is shown");
@@ -431,7 +449,8 @@ public class FindStoreTests extends BaseTest {
 
     logger.info("14. Click on 'View all Seasonal Beverages' Button");
     WebHelper.closeOtherTabs();
-    storeDetailsPage = WebHelper.navigateToUrl(currentUrl, StoreDetailsPage.class);
+    storeDetailsPage =
+        navigateToStoreLocatorPage().searchByZipCode("95032").getStockResultList().get(0).click();
     storeDetailsPage.getCoffeeBarCarouselComponent().clickSeeAllSeasonalBeveragesButton();
 
     logger.info(
@@ -439,12 +458,6 @@ public class FindStoreTests extends BaseTest {
     Assert.assertTrue(
         WebHelper.getCurrentUrl().contains(HomepageCoffeeBar.SEASONAL_URL_PART),
         "Seasonal page is opened with wrong URL");
-
-    logger.info("16. Click on 'Find a Coffee Bar' Button");
-    // TODO 'Find a Coffee Bar' Button isn't present
-
-    logger.info("17. Click on 'TAKE THE FULL QUIZ' url");
-    // TODO 'TAKE THE FULL QUIZ' url isn't present
   }
 
   @Test(
@@ -479,6 +492,12 @@ public class FindStoreTests extends BaseTest {
 
     logger.info("6. Click on the 'See Subscription options'");
     storeDetailsPage.clickCoffeeSubscriptionSeeOptionsButton();
+
+    logger.info("7. Validate the user is redirected to the Subscription page");
+    Assert.assertTrue(
+        WebHelper.getCurrentUrl().contains(TestData.SUBSCRIPTIONS_URL),
+        String.format(
+            "Subscription page is displayed. Expected URL: %s", TestData.SUBSCRIPTIONS_URL));
   }
 
   @Test(
@@ -512,16 +531,31 @@ public class FindStoreTests extends BaseTest {
             + Constants.HomepageNeverMissOffer.OFFER_DESCRIPTION.toLowerCase());
 
     logger.info("5. Verifying sign up button");
-    SignUpPage suPage = neverMissOfferComponent.clickNeverMissOfferSignup();
+    SignUpPage signUpPage = neverMissOfferComponent.clickNeverMissOfferSignup();
     softAssert.assertTrue(
-        suPage
-            .getDriver()
-            .getCurrentUrl()
-            .contains(Constants.HomepageNeverMissOffer.OFFER_URL_PART),
+        WebHelper.getCurrentUrl().contains(Constants.HomepageNeverMissOffer.OFFER_URL_PART),
         "URL did not match;  expected "
             + Constants.HomepageNeverMissOffer.OFFER_URL_PART
             + " to be a part of"
-            + suPage.getDriver().getCurrentUrl());
+            + signUpPage.getDriver().getCurrentUrl());
+
+    logger.info("6. Validate upgrade to 10% section is displayed");
+    softAssert.assertTrue(
+        signUpPage.isTenPercentSectionDisplayed(), "First upgrade to 10% section is not displayed");
+
+    logger.info("7. Enter valid Email id and click on 'Continue'");
+    signUpPage = signUpPage.enterEmailAndClickContinue(WebHelper.getRandomMail());
+
+    logger.info("8. Validate upgrade to 15% section is displayed");
+    softAssert.assertTrue(
+        signUpPage.isFifteenPercentSectionDisplayed(),
+        "First upgrade to 15% section is not displayed");
+
+    logger.info("9. Enter valid Mobile Number and click on 'Get 15% off'");
+    signUpPage = signUpPage.enterMobileNumberAndSubmit(TestData.MOBILE_NUMBER);
+
+    logger.info("10. Validate the user is shown with 'Check your Texts' message");
+    softAssert.assertTrue(signUpPage.isSuccessPageHeaderDisplayed(), "Message isn't displayed");
 
     softAssert.assertAll();
   }

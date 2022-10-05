@@ -52,9 +52,13 @@ public class OneAppManyBenefitsComponent extends BaseComponent {
   @Step("Click on the 'Download the app' button")
   public CommonWebPage clickDownloadApp() {
     logger.info("Clicking on the 'Download the app' button");
+    int handlesNumber = SdkHelper.getDriver().getWindowHandles().size();
     String windowHandle = SdkHelper.getDriver().getWindowHandle();
     downloadAppButton.click();
-    WebHelper.switchToNewTab(windowHandle);
+
+    if (SdkHelper.getDriver().getWindowHandles().size() > handlesNumber) {
+      WebHelper.switchToNewTab(windowHandle);
+    }
     return SdkHelper.create(CommonWebPage.class);
   }
 }

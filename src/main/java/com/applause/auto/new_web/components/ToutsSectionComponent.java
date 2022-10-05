@@ -8,11 +8,13 @@ import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
 
 @Implementation(is = ToutsSectionComponent.class, on = Platform.WEB)
+@Implementation(is = MobileToutsSectionComponent.class, on = Platform.WEB_MOBILE)
 public class ToutsSectionComponent extends BaseComponent {
 
   @Locate(xpath = "//div[@id='iconTouts']", on = Platform.WEB)
@@ -41,14 +43,62 @@ public class ToutsSectionComponent extends BaseComponent {
         "Checking touts with title - [{}] and description - [{}] is displayed", title, description);
     toutsTitle.format(title).initialize();
     if (!WebHelper.isDisplayed(toutsTitle)) {
-      logger.info(String.format("Touts with title [{}] isn't displayed", title));
+      logger.info(String.format("Touts with title [%s] isn't displayed", title));
       return false;
     }
 
     toutsDescription.format(title).initialize();
     if (!toutsDescription.getText().equalsIgnoreCase(description)) {
       logger.info(
-          String.format("Touts with title [{}] is displayed with wrong description", title));
+          String.format("Touts with title [%s] is displayed with wrong description", title));
+      return false;
+    }
+
+    return true;
+  }
+}
+
+class MobileToutsSectionComponent extends ToutsSectionComponent {
+
+  @Locate(
+      xpath = "//div[contains(@class,'icon-touts__carousel')]//span[@class='js-index-label']",
+      on = Platform.WEB)
+  protected Text sequenceNumberText;
+
+  @Locate(
+      xpath =
+          "//div[contains(@class,'icon-touts__carousel')]//button[contains(@class,'flickity-prev-next-button next')]",
+      on = Platform.WEB)
+  protected Button carouselNextButton;
+
+  private int getActiveSequenceNumber() {
+    sequenceNumberText.initialize();
+    return Integer.parseInt(sequenceNumberText.getText().trim());
+  }
+
+  @Step("Verify touts with expected title and description is displayed")
+  public boolean isToutDisplayed(Touts touts) {
+    String title = touts.getTitle();
+    String description = touts.getDescription();
+    int sequenceNumber = touts.getSequenceNumber();
+
+    if (sequenceNumber > getActiveSequenceNumber()) {
+      logger.info("Clicking on the carousel next button");
+      carouselNextButton.click();
+    }
+
+    logger.info(
+        "Checking touts with title - [{}] and description - [{}] is displayed", title, description);
+    toutsTitle.format(title).initialize();
+    if (!WebHelper.isDisplayed(toutsTitle)) {
+      logger.info(String.format("Touts with title [%s] isn't displayed", title));
+      return false;
+    }
+
+    toutsDescription.format(title).initialize();
+    if (!toutsDescription.getText().equalsIgnoreCase(description)) {
+      logger.info(
+          String.format("Touts with title [%s] is displayed with wrong description", title));
       return false;
     }
 
