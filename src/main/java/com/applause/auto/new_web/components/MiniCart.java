@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.asserts.SoftAssert;
