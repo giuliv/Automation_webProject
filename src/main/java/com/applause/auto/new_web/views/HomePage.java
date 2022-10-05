@@ -1,6 +1,5 @@
 package com.applause.auto.new_web.views;
 
-import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.common.data.enums.HomepageSubscriptionsModuleMenu;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
@@ -193,21 +192,14 @@ public class HomePage extends Base {
     logger.info("Need to close sometimes modals, cookies/offers banners [First Time]");
     //    if (!WebHelper.getTestExecution().equals("local")) {
 
-    // Todo:Commented: Seems is not needed anymore [09.09.2022]
-    //    if (WebHelper.exists(closeModal, 7)) {
-    //      logger.info("Close peets.com Modal");
-    //      SdkHelper.getSyncHelper().wait(Until.uiElement(closeModal).clickable());
-    //      closeModal.click();
-    //    }
+    WebHelper.clickButtonOverIFrame(specialOfferFrame, closeSpecialOfferButton);
+    SdkHelper.getDriver().navigate().refresh();
+    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
 
     if (!WebHelper.isDesktop() && WebHelper.exists(allowCookies, 10)) {
       logger.info("Accept Cookies");
       WebHelper.jsClick(allowCookies.getWebElement());
     }
-
-    WebHelper.clickButtonOverIFrame(specialOfferFrame, closeSpecialOfferButton);
-    SdkHelper.getDriver().navigate().refresh();
-    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
     // }
   }
 
