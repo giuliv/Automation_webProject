@@ -59,6 +59,9 @@ public class MiniCart extends BaseComponent {
   @Locate(css = "a[href*='checkout']", on = Platform.WEB)
   private Button checkOutButton;
 
+  @Locate(css = ".cookieconsent-wrapper .cc-allow", on = Platform.WEB)
+  private Button allowCookies;
+
   @Locate(id = "bagContinue", on = Platform.WEB)
   private Button closeButton;
 
@@ -294,6 +297,12 @@ public class MiniCart extends BaseComponent {
 
   @Step("Click continue to checkout")
   public <T extends BaseComponent> T clickOnContinueToCheckOutButton(Class<T> clazz) {
+
+    if (!WebHelper.isDesktop() && WebHelper.exists(allowCookies, 7)) {
+      logger.info("Accept Cookies");
+      WebHelper.jsClick(allowCookies.getWebElement());
+    }
+
     logger.info("Clicking CheckOut");
     SdkHelper.getSyncHelper().wait(Until.uiElement(checkOutButton).visible());
 
@@ -301,7 +310,7 @@ public class MiniCart extends BaseComponent {
     return SdkHelper.create(clazz);
   }
 
-  @Step("Close minicart")
+  @Step("Close miniCart")
   public <V extends BaseComponent> V closeMiniCart(Class<V> expectedClass) {
     logger.info("Closing miniCart");
     SdkHelper.getSyncHelper().wait(Until.uiElement(closeButton).visible());
