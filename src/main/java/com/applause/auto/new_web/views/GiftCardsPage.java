@@ -7,10 +7,8 @@ import com.applause.auto.new_web.components.CheckYourCardBalanceModal;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
-import com.applause.auto.pageobjectmodel.elements.ContainerElement;
-import com.applause.auto.pageobjectmodel.elements.Image;
-import com.applause.auto.pageobjectmodel.elements.Link;
-import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
+import com.applause.auto.pageobjectmodel.elements.*;
 import io.qameta.allure.Step;
 import java.time.Duration;
 
@@ -49,6 +47,9 @@ public class GiftCardsPage extends Base {
       xpath = "//a[contains(@class,'shop-card--small') and .//h2[normalize-space()='%s']]",
       on = Platform.WEB)
   private Link bannerGetStartedLink;
+
+  @Locate(css = "#usi_close", on = Platform.WEB)
+  private Button closeBannerButton;
 
   @Override
   public void afterInit() {
@@ -129,5 +130,23 @@ public class GiftCardsPage extends Base {
     SdkHelper.getSyncHelper().sleep(3000);
     // TODO After click on the SEND AN E-GIFT CARD NOW button we get "406 Not Acceptable" page but
     // with expected URL
+  }
+
+  public <T extends BaseComponent> T closeBannerButton(Class<T> clazz) {
+
+    if (closeBannerButton.isDisplayed()) {
+      try {
+        logger.info("Closing the banner");
+        SdkHelper.getSyncHelper()
+            .wait(Until.uiElement(closeBannerButton).visible().setTimeout(Duration.ofSeconds(40)));
+        closeBannerButton.click();
+        return WebHelper.navigateBack(clazz);
+      } catch (Exception e) {
+        logger.info("Banner is not displayed");
+        return SdkHelper.create(clazz);
+      }
+    } else {
+      return SdkHelper.create(clazz);
+    }
   }
 }

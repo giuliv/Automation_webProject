@@ -6,9 +6,12 @@ import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.Constants.WebTestData;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.MyAccountLeftMenu;
 import com.applause.auto.new_web.components.RegisterPeetCardComponent;
+import com.applause.auto.new_web.components.ReloadComponent;
 import com.applause.auto.new_web.components.my_account.MyOrderItemComponent;
+import com.applause.auto.new_web.helpers.TestHelper;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.*;
 import com.applause.auto.new_web.views.my_account.*;
@@ -16,6 +19,9 @@ import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import static com.applause.auto.common.data.Constants.MyAccountTestData.VALID_PEETS_CARD;
+import static com.applause.auto.common.data.Constants.MyAccountTestData.VALID_PEETS_CARD_PIN;
 
 public class MyAccountTests extends BaseTest {
 
@@ -285,25 +291,46 @@ public class MyAccountTests extends BaseTest {
             navigateToSignInPage(), TestData.USER_EMAIL_WITH_SUBSCRIPTIONS, TestData.WEB_PASSWORD);
 
     logger.info("4. Click in Peet's Card");
-    myAccountPage =
+    MyCardsPage myCardsPage =
         myAccountPage.getLeftMenu().clickMenuOption(MyAccountLeftMenuOption.PEETS_CARDS);
 
+    logger.info("5. Validate Peet's Card section");
+    Assert.assertFalse(myCardsPage.getCardNumber().isEmpty(), "Card number is not displayed");
+    Assert.assertFalse(myCardsPage.getCardBalance().isEmpty(), "Card balance is not displayed");
+    Assert.assertTrue(myCardsPage.isReloadButtonDisplayed(), "Reload button is not displayed");
+    Assert.assertTrue(myCardsPage.isRemoveButtonDisplayed(), "Remove button is not displayed");
+
     logger.info("5. Click in Register Peet's Card");
-    RegisterPeetCardComponent registerPeetCardComponent = myAccountPage.clickRegisterPeetsCard();
+    RegisterPeetCardComponent registerPeetCardComponent = myCardsPage.clickRegisterPeetsCard();
     Assert.assertNotNull(registerPeetCardComponent, "Register New Card View is not displayed");
     Assert.assertTrue(
         WebHelper.getCurrentUrl().contains(Constants.TestData.REGISTER_CARD_URL),
         "Register New Card URL is not correct");
 
-    logger.info("6. Press Browser back button");
-    myAccountPage = WebHelper.navigateBack(MyAccountPage.class);
+    logger.info("7. Press Browser back button");
+    WebHelper.navigateBack(MyAccountPage.class);
 
-    logger.info("5. Click in Buy Peet's Card");
-    GiftCardsPage giftCardsPage = myAccountPage.clickBuyPeetsCard();
+    logger.info("8. Click in Buy Peet's Card");
+    GiftCardsPage giftCardsPage = myCardsPage.clickBuyPeetsCard();
     Assert.assertNotNull(giftCardsPage, "Buy New Card View is not displayed");
     Assert.assertTrue(
         WebHelper.getCurrentUrl().contains(Constants.TestData.BUY_CARD_URL),
         "Buy New Card URL is not correct");
+
+    logger.info("9. Press Browser back button");
+    if (WebHelper.isDesktop()) {
+      WebHelper.navigateBack(MyCardsPage.class);
+    } else {
+      WebHelper.navigateBack(GiftCardsPage.class);
+      giftCardsPage.closeBannerButton(MyAccountPage.class);
+    }
+
+    logger.info("10. Open reload view");
+    ReloadComponent reloadComponent = myCardsPage.clickReloadButton();
+    Assert.assertNotNull(reloadComponent, "Reload modal is not displayed");
+
+    logger.info("11. Close Modal");
+    reloadComponent.closeReloadModal();
   }
 
   @Test(
@@ -521,19 +548,28 @@ public class MyAccountTests extends BaseTest {
 
       logger.info(
           "Verify Referrals title, image, links, Your pin..., Times shared, Friends referrals, Possible rewards and Rewards earned text should display.\n"
-              + "Facebook, email and link icons should display.");
+              + " email and link icons should display.");
       softAssert.assertEquals(
           referralsPage.getTitle().toLowerCase(),
           MyAccountTestData.REFERRALS_TITLE_HEADER.toLowerCase(),
           "Title isn't correct");
-      softAssert.assertTrue(referralsPage.isShareButtonDisplayed(), "Share button isn't displayed");
       softAssert.assertTrue(referralsPage.isEmailButtonDisplayed(), "Email button isn't displayed");
       softAssert.assertTrue(referralsPage.isCopyButtonDisplayed(), "Copy button isn't displayed");
 
+      logger.info("5. Validate stats");
       softAssert.assertEquals(
           referralsPage.getListOfStats(),
           MyAccountTestData.REFERRALS_STATS,
           "Not all stats are displayed");
+
+      referralsPage
+          .getListOfStatsValues()
+          .forEach(x -> softAssert.assertFalse(x.isEmpty(), "Stats value is empty in index: " + x));
+
+      softAssert.assertTrue(referralsPage.isTrackTableDisplayed(), "Track table is not displayed");
+
+      softAssert.assertTrue(
+          referralsPage.isStartSharingButtonDisplayed(), "Start sharing button is not displayed");
 
       softAssert.assertAll();
     }

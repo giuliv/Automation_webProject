@@ -3,6 +3,7 @@ package com.applause.auto.new_web.helpers;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.enums.GrindDropdown;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.new_web.components.RegisterPeetCardComponent;
 import com.applause.auto.new_web.components.plp.PlpItemComponent;
 import com.applause.auto.new_web.views.CreateAccountPage;
 import com.applause.auto.new_web.views.HomePage;
@@ -107,5 +108,12 @@ public class TestHelper {
       productListPage = WebHelper.navigateBack(ProductListPage.class);
     }
     return itemAt;
+  }
+
+  public static RegisterPeetCardComponent registerPeetsCard(String cardNumber, String pinNumber) {
+    RegisterPeetCardComponent registerPeetCardComponent =
+        SdkHelper.create(RegisterPeetCardComponent.class);
+    registerPeetCardComponent.registerCard(cardNumber, pinNumber);
+    return registerPeetCardComponent;
   }
 }

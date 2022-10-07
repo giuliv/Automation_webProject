@@ -2,12 +2,10 @@ package com.applause.auto.common.data;
 
 import com.applause.auto.common.data.dto.ShareViaEmailDto;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.new_web.components.RegisterPeetCardComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.my_account.MyAccountOrderHistoryPage;
-import com.applause.auto.new_web.views.my_account.MyAccountPage;
-import com.applause.auto.new_web.views.my_account.MyAccountPeetnikRewardsPage;
-import com.applause.auto.new_web.views.my_account.MyAccountSettingsPage;
-import com.applause.auto.new_web.views.my_account.ReferralsPage;
+import com.applause.auto.new_web.views.my_account.*;
+
 import java.lang.invoke.MethodHandles;
 import java.util.Arrays;
 import java.util.List;
@@ -131,7 +129,7 @@ public class Constants {
     public static final String REWARDS_URL = "pages/peetnik-rewards";
     public static final String RECENT_ORDERS_URL = "/account#/orders";
     public static final String REGISTER_CARD_URL = "/account#/peets-cards/register";
-    public static final String BUY_CARD_URL = "/peets-cards";
+    public static final String BUY_CARD_URL = "/gift-cards";
     public static final String EMAIL_SIGNUP_URL = "pages/email-signup";
     public static final String QA_LOGIN_PAGE_URL = "https://account-qa.peets.com/login";
     public static final String QA_REGISTRATION_PAGE_URL =
@@ -389,6 +387,9 @@ public class Constants {
             .subject("Applause Subject")
             .note("Applause automation note")
             .build();
+
+    public static final String VALID_PEETS_CARD = "81001000002684";
+    public static final String VALID_PEETS_CARD_PIN = "150912";
   }
 
   public static class CheckoutUserTestData {
@@ -737,7 +738,7 @@ public class Constants {
     PEETNIK_REWARDS("Peetnik Rewards", MyAccountPeetnikRewardsPage.class),
     MY_SUBSCRIPTIONS("My Subscriptions", MyAccountPage.class),
     ORDER_HISTORY("Order History", MyAccountOrderHistoryPage.class),
-    PEETS_CARDS("Peet's Cards", null),
+    PEETS_CARDS("Peet's Cards", MyCardsPage.class),
     REFERRALS("Referrals", ReferralsPage.class),
     SETTINGS("Settings", MyAccountSettingsPage.class);
 

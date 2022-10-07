@@ -10,6 +10,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.qameta.allure.Step;
@@ -43,6 +44,14 @@ public class ReferralsPage extends BaseComponent {
 
   @Locate(xpath = "//div[@id='talkable-offer']/iframe", on = Platform.WEB)
   private Button mainIframe;
+
+  @Locate(css = ".track-table", on = Platform.WEB)
+  private ContainerElement trackTable;
+
+  @Locate(
+      css = "[class=\"ac-tout__cta btn-link router-link-exact-active router-link-active\"]",
+      on = Platform.WEB)
+  private Button starSharingButton;
 
   @Override
   public void afterInit() {
@@ -93,13 +102,26 @@ public class ReferralsPage extends BaseComponent {
   public List<String> getListOfStats() {
     SdkHelper.getDriver().switchTo().frame(mainIframe.getWebElement());
     List<String> list =
-        statsList
-            .stream()
+        statsList.stream()
             .map(
                 item ->
                     WebHelper.cleanString(
                         item.getText().replaceAll("\n", " ").replaceAll("\t", " ").toLowerCase()))
             .collect(Collectors.toList());
+    SdkHelper.getDriver().switchTo().defaultContent();
+    return list;
+  }
+
+  public List<String> getListOfStatsValues() {
+    SdkHelper.getDriver().switchTo().frame(mainIframe.getWebElement());
+    List<String> list =
+        statsList.stream()
+            .map(
+                item ->
+                    WebHelper.cleanString(
+                        item.getText().replaceAll("\n", " ").replaceAll("\t", " ").toLowerCase()))
+            .collect(Collectors.toList());
+    list.forEach(x -> logger.info("Stats values: " + x.trim()));
     SdkHelper.getDriver().switchTo().defaultContent();
     return list;
   }
@@ -130,5 +152,23 @@ public class ReferralsPage extends BaseComponent {
     copyButton.click();
     SdkHelper.getDriver().switchTo().defaultContent();
     return SdkHelper.create(ShareLinkComponent.class);
+  }
+
+  @Step("Check if 'Track' table is Displayed")
+  public boolean isTrackTableDisplayed() {
+    SdkHelper.getDriver().switchTo().frame(mainIframe.getWebElement());
+    boolean isDisplayed = WebHelper.isDisplayed(trackTable);
+    SdkHelper.getDriver().switchTo().defaultContent();
+    logger.info("'Track' table is Displayed - [{}]", isDisplayed);
+    return isDisplayed;
+  }
+
+  @Step("Check if 'Start sharing' button is Displayed")
+  public boolean isStartSharingButtonDisplayed() {
+    WebHelper.scrollToPageBottom();
+    WebHelper.scrollToElement(starSharingButton.getWebElement());
+    boolean isDisplayed = WebHelper.isDisplayed(starSharingButton);
+    logger.info("'Start sharing' table is Displayed - [{}]", isDisplayed);
+    return isDisplayed;
   }
 }
