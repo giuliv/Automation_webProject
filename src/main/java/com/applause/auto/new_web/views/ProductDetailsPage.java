@@ -20,7 +20,13 @@ import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.LocatedBy;
-import com.applause.auto.pageobjectmodel.elements.*;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.Image;
+import com.applause.auto.pageobjectmodel.elements.Link;
+import com.applause.auto.pageobjectmodel.elements.SelectList;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.qameta.allure.Step;
 import java.time.Duration;
@@ -29,9 +35,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.asserts.SoftAssert;
 
 @Implementation(is = ProductDetailsPage.class, on = Platform.WEB)
@@ -73,7 +77,7 @@ public class ProductDetailsPage extends Base {
   @Locate(css = "button.plus", on = Platform.WEB)
   private Button addOneMore;
 
-  @Locate(css = "[test='regularEligible'] button.og-optin-btn", on = Platform.WEB)
+  @Locate(xpath = "//div[@class='og-optin-row']//button[@class='og-optin-btn']", on = Platform.WEB)
   private Button subscribeType;
 
   @Locate(css = "[test='regularEligible'] button.og-optin-btn span[style]", on = Platform.WEB)
@@ -85,7 +89,9 @@ public class ProductDetailsPage extends Base {
   @Locate(css = "og-when[test*='regular'] div.og-frequency-row", on = Platform.WEB)
   private TextBox subscriptionWeekBox;
 
-  @Locate(css = "button.og-optout-btn", on = Platform.WEB)
+  @Locate(
+      xpath = "//div[@class='og-default-row']//button[@class='og-optout-btn']",
+      on = Platform.WEB)
   private Button oneTimePurchase;
 
   @Locate(css = "h3.pv-notify__title", on = Platform.WEB)
@@ -155,7 +161,10 @@ public class ProductDetailsPage extends Base {
   protected Text subscribeInfoTooltip;
 
   //  @Locate(xpath = "//p[@class='og-shipping']/*", on = Platform.WEB) //Commented for now
-  @Locate(xpath = "//p[@class='og-shipping']/*", shadowRoot = true)
+  @Locate(
+      javaScript =
+          "return document.querySelector(\"p.og-shipping og-select-frequency\").shadowRoot.querySelector(\"og-select\").shadowRoot.querySelector(\"select\")",
+      on = Platform.WEB)
   private SelectList shipEveryDropdown;
 
   @Locate(xpath = "//button[@id='ratings-summary']", on = Platform.WEB)
@@ -383,7 +392,7 @@ public class ProductDetailsPage extends Base {
   @Step("Get one time purchase link is available")
   public boolean isOneTimePurchaseLinkDisplayed() {
     logger.info("checking if one time purchase link is available");
-    return oneTimePurchase.isDisplayed();
+    return WebHelper.getVisibility(oneTimePurchase.getWebElement());
   }
 
   @Step("Get grind selected")
@@ -595,7 +604,7 @@ public class ProductDetailsPage extends Base {
 
   @Step("Check if Subscribe Type is Displayed")
   public boolean isSubscribeTypeDisplayed() {
-    boolean isDisplayed = WebHelper.isDisplayed(subscribeType);
+    boolean isDisplayed = WebHelper.getVisibility(subscribeType.getWebElement());
     logger.info("Subscribe Type is displayed - [{}]", isDisplayed);
     return isDisplayed;
   }
@@ -714,32 +723,13 @@ public class ProductDetailsPage extends Base {
   @Step("Select Ship Every")
   public ProductDetailsPage selectShipEvery(ShipEveryDropdown option) {
     logger.info("Selecting Ship Every [{}]", option.getValue());
-
-    Select dropdown =
-        new Select(
-            shipEveryDropdown
-                .getWebElement()
-                .getShadowRoot()
-                .findElement(By.cssSelector("og-select"))
-                .getShadowRoot()
-                .findElement(By.cssSelector("select")));
-
-    dropdown.selectByVisibleText(option.getValue());
+    shipEveryDropdown.select(option.getValue());
     return this;
   }
 
   @Step("Get Selected Ship Every")
   public String getSelectedShipEvery() {
-    Select dropdown =
-        new Select(
-            shipEveryDropdown
-                .getWebElement()
-                .getShadowRoot()
-                .findElement(By.cssSelector("og-select"))
-                .getShadowRoot()
-                .findElement(By.cssSelector("select")));
-
-    String selected = WebHelper.cleanString(dropdown.getFirstSelectedOption().getText());
+    String selected = WebHelper.cleanString(shipEveryDropdown.getSelectedOption().getText());
     logger.info("Selected Ship Every - [{}]", selected);
     return selected;
   }

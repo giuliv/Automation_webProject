@@ -739,11 +739,23 @@ public class WebHelper {
 
   public static void clickAndroidBackButton() {
     logger.info("Clicking on the Android back button");
-    ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.HOME));
+    ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
   }
 
   public static boolean nativeContextIsPresent() {
     logger.info("Verify two or more contexts are present");
     return ((SupportsContextSwitching) SdkHelper.getDriver()).getContextHandles().size() >= 2;
+  }
+
+  public static void switchToNativeContext() {
+    logger.info("Switching to native context");
+    Set<String> contexts = ((SupportsContextSwitching) SdkHelper.getDriver()).getContextHandles();
+    Optional<String> nativeContext =
+        contexts.stream()
+            .filter(context -> StringUtils.containsIgnoreCase(context, "native"))
+            .findAny();
+    ((SupportsContextSwitching) SdkHelper.getDriver()).context(nativeContext.get());
+    SdkHelper.getSyncHelper().sleep(1000);
+    logger.info("Switched to native context");
   }
 }

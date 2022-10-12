@@ -2,10 +2,13 @@ package com.applause.auto.common.data;
 
 import com.applause.auto.common.data.dto.ShareViaEmailDto;
 import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.new_web.components.RegisterPeetCardComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.my_account.*;
-
+import com.applause.auto.new_web.views.my_account.MyAccountOrderHistoryPage;
+import com.applause.auto.new_web.views.my_account.MyAccountPage;
+import com.applause.auto.new_web.views.my_account.MyAccountPeetnikRewardsPage;
+import com.applause.auto.new_web.views.my_account.MyAccountSettingsPage;
+import com.applause.auto.new_web.views.my_account.MyCardsPage;
+import com.applause.auto.new_web.views.my_account.ReferralsPage;
 import java.lang.invoke.MethodHandles;
 import java.util.Arrays;
 import java.util.List;

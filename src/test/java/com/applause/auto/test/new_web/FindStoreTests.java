@@ -7,6 +7,7 @@ import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.Constants.Touts;
 import com.applause.auto.common.data.Constants.WebTestData;
 import com.applause.auto.common.data.dto.StoreDetailsDto;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.NeverMissOfferComponent;
 import com.applause.auto.new_web.components.OneAppManyBenefitsComponent;
@@ -266,8 +267,8 @@ public class FindStoreTests extends BaseTest {
        App store view close, so it makes tests not stable. Moved this step to the end for mobile.
       */
       logger.info("5. Click on Download APP Button");
-      storeDetailsPage = WebHelper.navigateBack(StoreDetailsPage.class);
-      storeDetailsPage.getOneAppManyBenefitsComponent().clickDownloadApp();
+      WebHelper.clickAndroidBackButton();
+      SdkHelper.create(StoreDetailsPage.class).getOneAppManyBenefitsComponent().clickDownloadApp();
 
       logger.info("Verify App store page is displayed");
       Assert.assertTrue(WebHelper.nativeContextIsPresent(), "App store page isn't displayed");

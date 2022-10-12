@@ -3,10 +3,11 @@ package com.applause.auto.test.new_web;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.enums.Products;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.new_web.components.AccountMenuChunk;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.CoffeeBarPage;
 import com.applause.auto.new_web.views.EmailSignUpPage;
-import com.applause.auto.new_web.components.AccountMenuChunk;
+import com.applause.auto.new_web.views.GetAppPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -122,10 +123,8 @@ public class MenuTest extends BaseTest {
     coffeeBarPage = navigateToCoffeeBarMenuPage();
 
     logger.info("XX. open get the app page");
-    coffeeBarPage.openAppBanner();
-    Assert.assertTrue(
-        SdkHelper.getDriver().getCurrentUrl().contains(Constants.TestData.REWARDS_URL),
-        "Not on the correct URL");
+    GetAppPage appPage = coffeeBarPage.openAppBanner();
+    Assert.assertTrue(appPage.isGetAppPageDisplayed(), "Not on the correct URL");
   }
 
   @Test(

@@ -2,15 +2,19 @@ package com.applause.auto.new_web.views;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.new_web.components.AccountMenuChunk;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
-import com.applause.auto.pageobjectmodel.elements.*;
-import com.applause.auto.new_web.components.AccountMenuChunk;
-
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.Image;
+import com.applause.auto.pageobjectmodel.elements.Link;
+import com.applause.auto.pageobjectmodel.elements.Text;
 import java.util.List;
 
 @Implementation(is = CoffeeBarPage.class, on = Platform.WEB)
+@Implementation(is = CoffeeBarPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
 public class CoffeeBarPage extends Base {
 
   /* -------- Elements -------- */
@@ -75,7 +79,7 @@ public class CoffeeBarPage extends Base {
   private Link getACoffeebar;
 
   @Locate(xpath = "//a[contains(text(),'Get The App')]", on = Platform.WEB)
-  private Link getTheApp;
+  protected Link getTheApp;
 
   @Locate(xpath = "//a[contains(text(),'Sign Up')]", on = Platform.WEB)
   private Link getSignUp;
@@ -241,5 +245,16 @@ public class CoffeeBarPage extends Base {
   public Boolean getCoffeeBarBanner() {
     logger.info("Check if correct image is on the screen");
     return getBannerImage.exists();
+  }
+}
+
+class CoffeeBarPageMobile extends CoffeeBarPage {
+
+  @Override
+  public GetAppPage openAppBanner() {
+    logger.info(String.format("Open App Banner"));
+    WebHelper.scrollToElement(getTheApp);
+    getTheApp.click();
+    return SdkHelper.create(GetAppPage.class);
   }
 }
