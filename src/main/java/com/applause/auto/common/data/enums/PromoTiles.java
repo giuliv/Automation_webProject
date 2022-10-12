@@ -14,20 +14,20 @@ public enum PromoTiles {
       "Newsweek named Peetnik Rewards as one of America's Best Loyalty Programs. Join today to find out why",
       "GET THE APP"),
   promoTile3(
-      "HOLIDAY BLEND PREVIEW ROAST",
-      "an entire year in the making, 2022 holiday blend is brimming with velvety chocolate, candied zest & holiday spice. early access for any peet’s subscriber (and a great excuse to subscribe if you haven’t already).",
-      "SUBSCRIBE TO BUY"),
+      "FOR THOSE WHO CAN’T WAIT",
+      "We look forward to each year’s Holiday Blend, and 2022 is no different. All the comfort, warmth, and spice that the season evokes, all in one of extraordinary cup. Who’s ready?",
+      "SHOP NOW"),
   promoTile4(
+      "LIMITED RELEASE COFFEES SUBSCRIPTION",
+      "Subscribe today and experience Peet’s iconic, seasonal coffees—without marking your calendar. For 30% Off your first shipment, use code NEWSUB30",
+      "SIGN UP NOW"),
+  promoTile5(
+      "Free Home Delivery",
+      "Why go to the store? Enjoy our freshest coffee delivered directly to your door, exactly when you want it. A Peet's subscription gives you free shipping and access to discounts on all of your coffee purchases. Plus, new subscribers get 30% off their first order using code NEWSUB30.",
+      "Learn More"),
+  promoTile6(
       "VINE & WALNUT AUTUMN 2022",
       "Taste the artful blend that’s inspired by the flavors of the season, an ode to the 1st Peet’s at the corner of Vine & Walnut in Berkeley.",
-      "SHOP NOW"),
-  promoTile5(
-      "BE ON THE CUTTING EDGE",
-      "Every month experience a different limited release, rare microlot coffee from smallholder farms in the world’s best coffee-growing regions.",
-      "CUSTOMIZE MY SUBSCRIPTION"),
-  promoTile6(
-      "GROUND CONTROL TO MAJOR DICKASON’S",
-      "Elevate your coffee experience with this bold blend, a bestseller since 1969.",
       "SHOP NOW"),
   promoTile7(
       "Shop Coffee", "Hand roasted on demand and delivered fresh to your door.", "ALL COFFEE"),

@@ -73,6 +73,20 @@ public class BaseTest extends ApplauseSeleniumTest {
     }
     return SdkHelper.create(HomePage.class);
   }
+  /*
+   * WARNING: DO NOT USE THIS METHOD, IT WAS CREATED FOR A SPECIFIC REQUEST
+   */
+  @Step("Navigate to Prod")
+  public HomePage navigateToProd() {
+    logger.info(String.format("Navigating to the home page '%s'", TestData.PROD_URL));
+
+    try {
+      SdkHelper.getDriver().navigate().to(TestData.PROD_URL);
+    } catch (WebDriverException e) {
+      logger.info("Skipping issue: unknown error: cannot determine loading status");
+    }
+    return SdkHelper.create(HomePage.class);
+  }
 
   @Step("Navigate to PLP")
   public ProductListPage navigateToPLPFromHome() {

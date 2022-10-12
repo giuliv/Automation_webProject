@@ -4,6 +4,7 @@ import com.applause.auto.common.data.enums.HomepageSubscriptionsModuleMenu;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.common.data.dto.TilesDto;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -112,6 +113,9 @@ public class HomePage extends Base {
       css = "[id*='promoTile'] a[href*='/collections/all-tea'] p.menu-category__description",
       on = Platform.WEB)
   protected Text shopTeaPromoTileDescription;
+
+  @Locate(css = "ul[class=\"menu-categories__inner list-reset\"]>li", on = Platform.WEB)
+  protected List<ContainerElement> promoTileList;
 
   @Locate(css = "#promoTile%s h3.menu-category__title", on = Platform.WEB)
   protected Button promoTileTitle;
@@ -490,6 +494,20 @@ public class HomePage extends Base {
     SdkHelper.getSyncHelper().wait(Until.uiElement(element).visible());
     logger.info("---- found " + element.getText().trim());
     return element.getText().trim();
+  }
+
+  public List<TilesDto> getTalesInfo() {
+    int totalTiles = promoTileList.size();
+    List<TilesDto> tilesDtoInfo = new ArrayList<>();
+    for (int i = 1; i <= totalTiles; ++i) {
+      tilesDtoInfo.add(
+          new TilesDto(
+              getPromoTileTitleText(i),
+              getPromoTileDescriptionText(i),
+              getPromoTileActionsText(i)));
+    }
+
+    return tilesDtoInfo;
   }
 
   /*-- Subscription Module actions --*/

@@ -325,6 +325,9 @@ public class Constants {
         "Roasts and ships the same day";
     public static final String REPORTED_BUTTON = "Reported";
     public static final String MOBILE_NUMBER = "202-555-0196";
+
+    public static final String PROD_URL =
+            "http://www.peets.com";
   }
 
   public static final class TestMainMenu {

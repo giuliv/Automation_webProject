@@ -9,7 +9,6 @@ import com.applause.auto.common.data.enums.CoffeeSubMenu;
 import com.applause.auto.common.data.enums.HomepageFreshnessStamp;
 import com.applause.auto.common.data.enums.HomepageSubscriptionsModuleMenu;
 import com.applause.auto.common.data.enums.LearnSubMenu;
-import com.applause.auto.common.data.enums.PromoTiles;
 import com.applause.auto.common.data.enums.TeaSubMenu;
 import com.applause.auto.common.data.enums.VisitUsSubMenu;
 import com.applause.auto.framework.SdkHelper;
@@ -18,30 +17,13 @@ import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.NeverMissOfferComponent;
 import com.applause.auto.new_web.components.pdp.CoffeeBarCarouselComponent;
 import com.applause.auto.new_web.components.pdp.CoffeeBarItemComponent;
+import com.applause.auto.common.data.dto.TilesDto;
 import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.BrewGuidesPage;
-import com.applause.auto.new_web.views.CoffeeBarMenuPage;
-import com.applause.auto.new_web.views.CoffeeRevolutionPage;
-import com.applause.auto.new_web.views.CommitmentToCraftPage;
-import com.applause.auto.new_web.views.CovidPage;
-import com.applause.auto.new_web.views.CuppingRoomPage;
-import com.applause.auto.new_web.views.CurrentOffersPage;
-import com.applause.auto.new_web.views.FindACoffeeBarPage;
-import com.applause.auto.new_web.views.FreeHomeDeliveryPage;
-import com.applause.auto.new_web.views.HomePage;
-import com.applause.auto.new_web.views.OrderDeliveryAddressPage;
-import com.applause.auto.new_web.views.PeetnikRewardsPage;
-import com.applause.auto.new_web.views.ProductListPage;
-import com.applause.auto.new_web.views.SeasonalPage;
-import com.applause.auto.new_web.views.SignUpPage;
-import com.applause.auto.new_web.views.SourcingWithImpactPage;
-import com.applause.auto.new_web.views.StoreLocatorPage;
-import com.applause.auto.new_web.views.TimelinePage;
+import com.applause.auto.new_web.views.*;
 import com.applause.auto.test.new_web.BaseTest;
 import java.util.List;
 import java.util.Locale;
 import org.testng.Assert;
-import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 public class HomepageTests extends BaseTest {
@@ -236,12 +218,18 @@ public class HomepageTests extends BaseTest {
       description = "11107420")
   public void peetsHomepageBannerAndPromoTiles() {
     logger.info("1. Navigate to landing page");
-    HomePage homePage = navigateToHome();
+    HomePage homePage = navigateToProd();
+
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
     homePage.closeInitialBannersAndModals();
 
+    List<TilesDto> tilesDtoInfoFromProd = homePage.getTalesInfo();
+
     logger.info("-- navigating back to home");
     homePage = navigateToHome();
+
+    Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
+    homePage.closeInitialBannersAndModals();
 
     // logger.info("3. Clicking scroll side arrow");
     // This currently is not available, so can't automate it yet.
@@ -259,31 +247,31 @@ public class HomepageTests extends BaseTest {
           "Promo description at position " + tile + " was not visible.");
       softAssert.assertEquals(
           homePage.getPromoTileTitleText(tile).toLowerCase(),
-          PromoTiles.values()[tile - 1].getTitle().toLowerCase(),
+          tilesDtoInfoFromProd.get(tile - 1).getTitle().toLowerCase(),
           "Promo title at position "
               + tile
               + " did not match expectation.  Got "
               + homePage.getPromoTileTitleText(tile).toLowerCase()
               + ", expected "
-              + PromoTiles.values()[tile - 1].getTitle().toLowerCase());
+              + tilesDtoInfoFromProd.get(tile - 1).getTitle().toLowerCase());
       softAssert.assertEquals(
           homePage.getPromoTileDescriptionText(tile).toLowerCase(),
-          PromoTiles.values()[tile - 1].getDescription().toLowerCase(),
+          tilesDtoInfoFromProd.get(tile - 1).getDescription().toLowerCase(),
           "Promo description at position "
               + tile
               + " did not match expectation.  Got "
               + homePage.getPromoTileDescriptionText(tile).toLowerCase()
               + ", expected "
-              + PromoTiles.values()[tile - 1].getDescription().toLowerCase());
+              + tilesDtoInfoFromProd.get(tile - 1).getDescription().toLowerCase());
       softAssert.assertEquals(
           homePage.getPromoTileActionsText(tile).toLowerCase(),
-          PromoTiles.values()[tile - 1].getActions().toLowerCase(),
+          tilesDtoInfoFromProd.get(tile - 1).getAction().toLowerCase(),
           "Promo title at position "
               + tile
               + " did not match expectation.  Got "
               + homePage.getPromoTileActionsText(tile).toLowerCase().trim()
               + ", expected "
-              + PromoTiles.values()[tile - 1].getActions().toLowerCase().trim());
+              + tilesDtoInfoFromProd.get(tile - 1).getAction().toLowerCase().trim());
     }
 
     // A warning to the maintainer, your most common failure might be the promo tile
