@@ -37,7 +37,8 @@ public class SearchResultsPage extends Base {
   private Button viewProductButton;
 
   @Locate(
-      xpath = "//h3/a[(@href=\"/products/%s\")]/ancestor::li//div[@class='pi__quick-add']/button",
+      xpath =
+          "//h3/a[contains(@href,\"/products/%s\")]/ancestor::li//div[@class='pi__quick-add']/button",
       on = Platform.WEB)
   protected Button quickViewButton;
 

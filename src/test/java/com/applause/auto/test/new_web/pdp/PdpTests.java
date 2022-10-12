@@ -65,8 +65,8 @@ public class PdpTests extends BaseTest {
       description = "11113310")
   public void coffeeItemDetailsTest() {
     logger.info("1. Navigate to PDP");
-    ProductDetailsPage productDetailsPage =
-        navigateToPDPFromHome(Constants.TestData.BARIDI_BLEND_BLUNDE);
+    ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
+    Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
     logger.info("2. Validating...");
     Assert.assertTrue(productDetailsPage.isProductNameDisplayed(), "Product name is not displayed");

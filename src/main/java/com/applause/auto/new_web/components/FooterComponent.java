@@ -120,6 +120,9 @@ public class FooterComponent extends BaseComponent {
     SdkHelper.getSyncHelper().wait(Until.uiElement(socialMediaLink).clickable());
 
     socialMediaLink.click();
+    if (option.equals(option.getOption().contains("youtube"))) {
+      SdkHelper.getSyncHelper().sleep(3000); // Extra wait
+    }
     return (T) SdkHelper.create(option.getClazz());
   }
 
