@@ -171,7 +171,7 @@ public class Constants {
 
     public static final String EQUIPMENT_NAME = "Fellow Kettle";
     public static final String TEST_EQUIPMENT = "TEST PEET’S PAPER FILTERS #4";
-    public static final String EQUIPMENT_NAME_OOO = "CAFFLANO KLASSIC POUR-OVER COFFEE MAKER";
+    public static final String EQUIPMENT_NAME_OOO = "T-SAC TEA FILTERS";
     public static final String PODS_OOO = "DECAF HOUSE BLEND K-CUP® PODS";
 
     public static final String COFFEE_KCUP_NAME = "Decaf Especial K-Cup® Pack";
@@ -329,8 +329,7 @@ public class Constants {
     public static final String REPORTED_BUTTON = "Reported";
     public static final String MOBILE_NUMBER = "202-555-0196";
 
-    public static final String PROD_URL =
-            "http://www.peets.com";
+    public static final String PROD_URL = "http://www.peets.com";
   }
 
   public static final class TestMainMenu {
