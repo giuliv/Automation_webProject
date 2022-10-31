@@ -50,8 +50,8 @@ public class QuickViewTest extends BaseTest {
     quickViewComponent.selectGrindByIndex(3);
     String newGrind = quickViewComponent.getGrind();
     Assert.assertNotEquals(originalGrind, newGrind, "Grind element was not updated");
-    Assert.assertEquals(
-        quickViewComponent.getGrindOptions(), 5, "Total Grind options is not correct");
+    Assert.assertTrue(
+        quickViewComponent.getGrindOptions() > 1, "Grind options are less than expected");
 
     logger.info("FINISH");
   }

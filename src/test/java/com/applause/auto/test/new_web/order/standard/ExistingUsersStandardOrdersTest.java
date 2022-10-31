@@ -4,7 +4,16 @@ import com.applause.auto.common.data.Constants;
 import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.*;
+import com.applause.auto.new_web.views.AcceptancePage;
+import com.applause.auto.new_web.views.CheckOutPage;
+import com.applause.auto.new_web.views.HomePage;
+import com.applause.auto.new_web.views.PayPalPage;
+import com.applause.auto.new_web.views.PaymentsPage;
+import com.applause.auto.new_web.views.ProductDetailsPage;
+import com.applause.auto.new_web.views.ProductListPage;
+import com.applause.auto.new_web.views.SearchResultsPage;
+import com.applause.auto.new_web.views.ShippingPage;
+import com.applause.auto.new_web.views.SignInPage;
 import com.applause.auto.new_web.views.my_account.MyAccountPage;
 import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
@@ -116,7 +125,9 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
       Assert.assertEquals(mail, acceptancePage.getCustomerMail(), "Existing Mail does NOT matches");
 
       Assert.assertTrue(
-          acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
+          acceptancePage
+              .getShippingAddressData()
+              .contains(Constants.WebTestData.ADDRESS.toLowerCase()),
           "Shipping Address does NOT matches");
 
       Assert.assertTrue(
@@ -130,7 +141,9 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
           "Payment Method does NOT matches");
 
       Assert.assertTrue(
-          acceptancePage.getBillingAddressData().contains(Constants.WebTestData.ADDRESS),
+          acceptancePage
+              .getBillingAddressData()
+              .contains(Constants.WebTestData.ADDRESS.toLowerCase()),
           "Billing Address does NOT matches");
 
       Assert.assertTrue(
@@ -298,7 +311,8 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
     String grind = productDetailsPage.getGrindSelected();
     int productQuantity = productDetailsPage.getProductQuantitySelected();
     int coffeeIndex = 0;
-    productDetailsPage.selectSubscribeType();
+    //    productDetailsPage.selectSubscribeType(); //Commented due to new flow on continue with
+    // this susbcription? [Double check with Vaivhab/Shilpa]
 
     logger.info("4. Add to MiniCart");
     MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
@@ -365,7 +379,9 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
       Assert.assertEquals(mail, acceptancePage.getCustomerMail(), "Existing Mail does NOT matches");
 
       Assert.assertTrue(
-          acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
+          acceptancePage
+              .getShippingAddressData()
+              .contains(Constants.WebTestData.ADDRESS.toLowerCase()),
           "Shipping Address does NOT matches");
 
       Assert.assertTrue(
@@ -373,7 +389,9 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
           "Shipping Method does NOT matches");
 
       Assert.assertTrue(
-          acceptancePage.getBillingAddressData().contains(Constants.WebTestData.ADDRESS),
+          acceptancePage
+              .getBillingAddressData()
+              .contains(Constants.WebTestData.ADDRESS.toLowerCase()),
           "Billing Address does NOT matches");
 
       logger.info("FINISH");
@@ -995,7 +1013,9 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
       Assert.assertEquals(mail, acceptancePage.getCustomerMail(), "Existing Mail does NOT matches");
 
       Assert.assertTrue(
-          acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
+          acceptancePage
+              .getShippingAddressData()
+              .contains(Constants.WebTestData.ADDRESS.toLowerCase()),
           "Shipping Address does NOT matches");
 
       Assert.assertTrue(
@@ -1009,7 +1029,9 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
           "Payment Method does NOT matches");
 
       Assert.assertTrue(
-          acceptancePage.getBillingAddressData().contains(Constants.WebTestData.ADDRESS),
+          acceptancePage
+              .getBillingAddressData()
+              .contains(Constants.WebTestData.ADDRESS.toLowerCase()),
           "Billing Address does NOT matches");
 
       Assert.assertTrue(

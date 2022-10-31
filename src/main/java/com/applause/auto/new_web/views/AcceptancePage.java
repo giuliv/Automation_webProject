@@ -13,7 +13,6 @@ import com.applause.auto.pageobjectmodel.elements.TextBox;
 import io.qameta.allure.Step;
 import java.time.Duration;
 import java.util.List;
-import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = AcceptancePage.class, on = Platform.WEB)
 @Implementation(is = AcceptancePage.class, on = Platform.WEB_MOBILE_PHONE)
@@ -197,9 +196,9 @@ public class AcceptancePage extends Base {
   @Step("Get shipping address")
   public String getShippingAddressData() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(shippingAddress).visible());
-    logger.info("Shipping Address: " + shippingAddress.getText());
+    logger.info("Shipping Address: " + shippingAddress.getText().toLowerCase());
 
-    return shippingAddress.getText();
+    return shippingAddress.getText().toLowerCase();
   }
 
   @Step("Get shipping method")
@@ -221,9 +220,9 @@ public class AcceptancePage extends Base {
   @Step("Get billing address")
   public String getBillingAddressData() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(billingAddress).visible());
-    logger.info("Billing Address: " + billingAddress.getText());
+    logger.info("Billing Address: " + billingAddress.getText().toLowerCase());
 
-    return billingAddress.getText();
+    return billingAddress.getText().toLowerCase();
   }
 
   @Step("Click track package")
