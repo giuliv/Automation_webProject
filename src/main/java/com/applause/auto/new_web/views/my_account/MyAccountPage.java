@@ -105,18 +105,18 @@ public class MyAccountPage extends Base {
 
   @Locate(css = "div.og-desktop div.og-billing", on = Platform.WEB)
   @Locate(css = "details.og-mobile div.og-billing", on = Platform.WEB_MOBILE_PHONE)
-  private ContainerElement subscriptionBillingSection;
+  protected ContainerElement subscriptionBillingSection;
 
   @Locate(css = "div.og-desktop div.og-shipping", on = Platform.WEB)
   @Locate(css = "details.og-mobile div.og-shipping", on = Platform.WEB_MOBILE_PHONE)
-  private ContainerElement subscriptionShippingSection;
+  protected ContainerElement subscriptionShippingSection;
 
   @Locate(css = "div.og-desktop div.og-total-table", on = Platform.WEB)
   @Locate(css = "details.og-mobile div.og-total-table", on = Platform.WEB_MOBILE_PHONE)
-  private ContainerElement subscriptionTotalSection;
+  protected ContainerElement subscriptionTotalSection;
 
   @Locate(css = ".my-cards__actions a[href*='register']", on = Platform.WEB)
-  private Button registerNewPeetsCardButton;
+  protected Button registerNewPeetsCardButton;
 
   @Locate(css = ".my-cards__actions a[href*='gift']", on = Platform.WEB)
   private Button buyNewPeetsCardButton;
@@ -312,5 +312,23 @@ class MyAccountPageMobile extends MyAccountPage {
     logger.info("Checking subscription product image is displayed");
     WebHelper.scrollToElement(subscriptionItemImage);
     return subscriptionItemImage.exists();
+  }
+
+  @Override
+  public boolean isSubscriptionBillingSectionDisplayed() {
+    logger.info("Checking subscription Billing section is displayed");
+    return subscriptionBillingSection.exists();
+  }
+
+  @Override
+  public boolean isSubscriptionShippingSectionDisplayed() {
+    logger.info("Checking subscription Shipping section is displayed");
+    return subscriptionShippingSection.exists();
+  }
+
+  @Override
+  public boolean isSubscriptionTotalSectionDisplayed() {
+    logger.info("Checking subscription Total section is displayed");
+    return subscriptionTotalSection.exists();
   }
 }
