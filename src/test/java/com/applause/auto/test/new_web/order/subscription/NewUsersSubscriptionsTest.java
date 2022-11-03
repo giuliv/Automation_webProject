@@ -12,6 +12,7 @@ import com.applause.auto.new_web.views.SearchResultsPage;
 import com.applause.auto.new_web.views.ShippingPage;
 import com.applause.auto.new_web.views.my_account.MyAccountPage;
 import com.applause.auto.test.new_web.BaseTest;
+import org.apache.commons.lang3.StringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -280,11 +281,12 @@ public class NewUsersSubscriptionsTest extends BaseTest {
           mail, acceptancePage.getCustomerMail(), "Recently created user mail does NOT matches");
 
       Assert.assertTrue(
-          acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS),
+          StringUtils.containsIgnoreCase(
+              acceptancePage.getShippingAddressData(), Constants.WebTestData.ADDRESS),
           "Shipping Address does NOT matches");
 
       Assert.assertTrue(
-          shippingMethod.contains(acceptancePage.getShippingMethod()),
+          StringUtils.containsIgnoreCase(shippingMethod, acceptancePage.getShippingMethod()),
           "Shipping Method does NOT matches");
 
       Assert.assertTrue(
@@ -294,7 +296,8 @@ public class NewUsersSubscriptionsTest extends BaseTest {
           "Payment Method does NOT matches");
 
       Assert.assertTrue(
-          acceptancePage.getBillingAddressData().contains(Constants.WebTestData.ADDRESS),
+          StringUtils.containsIgnoreCase(
+              acceptancePage.getBillingAddressData(), Constants.WebTestData.ADDRESS),
           "Billing Address does NOT matches");
 
       Assert.assertTrue(

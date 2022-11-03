@@ -13,7 +13,6 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = PlpItemComponent.class, on = Platform.WEB)
 @Implementation(is = PlpItemComponent.class, on = Platform.WEB_MOBILE_PHONE)
@@ -151,6 +150,7 @@ public class PlpItemComponent extends BaseComponent {
   @Step("Verify 'Quick view' button is displayed")
   public boolean isQuickViewButtonDisplayed() {
     logger.info("Checking 'Quick view' button is displayed for the product [{}]", getProductName());
+    WebHelper.scrollToElement(quickViewButton);
     WebHelper.hoverByAction(quickViewButton);
     return WebHelper.isDisplayed(quickViewButton);
   }
@@ -181,6 +181,7 @@ public class PlpItemComponent extends BaseComponent {
   public boolean isAddToCartButtonDisplayed() {
     logger.info(
         "Checking 'Add to cart' button is displayed for the product [{}]", getProductName());
+    WebHelper.scrollToElement(addToCartButton);
     WebHelper.hoverByAction(addToCartButton);
     return WebHelper.isDisplayed(addToCartButton);
   }
