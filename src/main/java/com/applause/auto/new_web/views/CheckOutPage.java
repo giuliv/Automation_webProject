@@ -129,12 +129,12 @@ public class CheckOutPage extends Base {
     lastName.sendKeys(Constants.WebTestData.LAST_NAME);
     SdkHelper.getSyncHelper().sleep(500); // Wait for action
 
-    typeAddress(Constants.WebTestData.ADDRESS);
+    typeAddress(Constants.WebTestData.ADDRESS.toUpperCase());
 
-    extraDetailsBox.sendKeys(Constants.WebTestData.EXTRA_INFO);
+    extraDetailsBox.sendKeys(Constants.WebTestData.EXTRA_INFO.toUpperCase());
     SdkHelper.getSyncHelper().sleep(500); // Wait for action
 
-    city.sendKeys(Constants.WebTestData.CITY);
+    city.sendKeys(Constants.WebTestData.CITY.toUpperCase());
     SdkHelper.getSyncHelper().sleep(500); // Wait for action
 
     phone.sendKeys(Constants.WebTestData.PHONE);
