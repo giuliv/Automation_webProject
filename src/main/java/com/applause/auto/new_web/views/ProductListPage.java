@@ -19,9 +19,10 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import com.google.common.collect.Ordering;
 import io.qameta.allure.Step;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = ProductListPage.class, on = Platform.WEB)
 @Implementation(is = ProductListPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
@@ -387,10 +388,14 @@ public class ProductListPage extends Base {
     boolean isSortedProperly = true;
     switch (sortType) {
       case PRICE_HIGH_TO_LOW:
-        isSortedProperly = Ordering.natural().reverse().isOrdered(getProductListPrices());
+        isSortedProperly =
+            Ordering.natural()
+                .reverse()
+                .isOrdered(getProductListPrices(SortType.PRICE_HIGH_TO_LOW));
         break;
       case PRICE_LOW_TO_HIGH:
-        isSortedProperly = Ordering.natural().isOrdered(getProductListPrices());
+        isSortedProperly =
+            Ordering.natural().isOrdered(getProductListPrices(SortType.PRICE_LOW_TO_HIGH));
         break;
       case NAME_A_Z:
         isSortedProperly = Ordering.natural().isOrdered(getProductListNames());
@@ -404,8 +409,24 @@ public class ProductListPage extends Base {
     }
 
     if (!isSortedProperly) {
-      logger.info("Names: {}", getProductListNames());
-      logger.info("Prices: {}", getProductListPrices());
+      List<String> sortedList = new ArrayList(getProductListNames());
+      List<Boolean> sortedPricesList = new ArrayList(getProductListPrices(sortType));
+
+      if (sortType.equals(SortType.NAME_A_Z)) {
+        Collections.sort(sortedList);
+      } else if (sortType.equals(SortType.NAME_Z_A)) {
+        Collections.reverse(sortedList);
+      } else if (sortType.equals(SortType.PRICE_LOW_TO_HIGH)) {
+        Collections.sort(sortedPricesList);
+      } else if (sortType.equals(SortType.PRICE_HIGH_TO_LOW)) {
+        Collections.sort(sortedPricesList);
+      }
+
+      logger.info("Expected Names: {}; Actual Names: {};", sortedList, getProductListNames());
+      logger.info(
+          "Expected Prices: {}; Actual Prices: {};",
+          sortedPricesList,
+          getProductListPrices(sortType));
     }
 
     return isSortedProperly;
@@ -423,9 +444,9 @@ public class ProductListPage extends Base {
   }
 
   @Step("Get product prices")
-  public List<Double> getProductListPrices() {
+  public List<Double> getProductListPrices(SortType sortType) {
     return productsList().stream()
-        .map(PlpItemComponent::getProductDoublePrice)
+        .map(product -> product.getProductDoublePrice(sortType))
         .collect(Collectors.toList());
   }
 

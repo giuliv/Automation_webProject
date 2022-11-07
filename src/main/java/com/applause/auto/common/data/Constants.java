@@ -319,7 +319,7 @@ public class Constants {
     public static final String GRIND_FIRST_TEXT = "4 OZ TIN";
     public static final String GRIND_NEXT_TEXT = "1 LB";
 
-    public static final String PDP_HAND_ROAST_TO_ORDER = "Hand Roasted to Order";
+    public static final String PDP_HAND_ROAST_TO_ORDER = "Hand Roasted";
     public static final String PDP_SEALED_FOR_FRESHNESS = "Sealed for Freshness";
     public static final String PDP_SEALED_FOR_FRESHNESS_DESCRIPTION =
         "Sealed immediately after roast";

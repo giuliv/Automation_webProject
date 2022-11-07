@@ -1,5 +1,6 @@
 package com.applause.auto.new_web.components.plp;
 
+import com.applause.auto.common.data.Constants.SortType;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
@@ -87,15 +88,24 @@ public class PlpItemComponent extends BaseComponent {
   }
 
   @Step("Get Product double Price")
-  public Double getProductDoublePrice() {
+  public Double getProductDoublePrice(SortType sortType) {
     String price;
     if (WebHelper.isDisplayed(productSalePrice)) {
       price = WebHelper.cleanString(productSalePrice.getText());
     } else if (WebHelper.isDisplayed(productPrice)) {
       price = WebHelper.cleanString(productPrice.getText());
+
+      // For such prices: $26.97 - $107.88
+      if (price.contains("-") && sortType.equals(SortType.PRICE_HIGH_TO_LOW)) {
+        price = price.split("-")[0];
+      } else if (price.contains("-") && sortType.equals(SortType.PRICE_LOW_TO_HIGH)) {
+        price = price.split("-")[1];
+      }
+
     } else {
       price = "0";
     }
+
     double doublePrice =
         Double.parseDouble(price.split(" ")[0].replace(",", ".").replace("$", "").trim());
     logger.info("Product price [{}]", doublePrice);

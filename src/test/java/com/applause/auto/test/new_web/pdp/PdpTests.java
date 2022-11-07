@@ -520,9 +520,8 @@ public class PdpTests extends BaseTest {
     softAssert.assertTrue(
         detailsPage.isCarouselDescriptionTitleDisplayed(TestData.PDP_DELIVERED_FRESH_TO_YOU),
         "Delivered Fresh To You title isn't displayed");
-    softAssert.assertEquals(
-        detailsPage.getCarouselDescription(TestData.PDP_DELIVERED_FRESH_TO_YOU),
-        TestData.PDP_DELIVERED_FRESH_TO_YOU_DESCRIPTION,
+    softAssert.assertFalse(
+        detailsPage.getCarouselDescription(TestData.PDP_DELIVERED_FRESH_TO_YOU).isEmpty(),
         "Delivered Fresh To You description isn't displayed");
     softAssert.assertAll();
   }

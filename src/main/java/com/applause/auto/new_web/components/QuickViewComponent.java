@@ -38,7 +38,9 @@ public class QuickViewComponent extends BaseComponent {
   @Locate(id = "ratings-summary", on = Platform.WEB)
   private ContainerElement starRatings;
 
-  @Locate(css = "#ratings-summary .bv_numReviews_component_container meta", on = Platform.WEB)
+  @Locate(
+      css = "#ratings-summary .bv_numReviews_component_container .bv_numReviews_text",
+      on = Platform.WEB)
   private Text reviewCount;
 
   @Locate(css = "button.bv_button_buttonFull", on = Platform.WEB)
@@ -135,7 +137,7 @@ public class QuickViewComponent extends BaseComponent {
   public SoftAssert validateMainAndSecondaryUIElements() {
     SoftAssert softAssert = validateMainUIElements();
     softAssert.assertTrue(
-        Integer.parseInt(reviewCount.getAttributeValue("content")) >= 1,
+        Integer.parseInt(reviewCount.getText().replaceAll("[^\\d.]", "")) >= 1,
         "Review count is not correct");
     WebHelper.hoverByAction(starRatings);
     softAssert.assertTrue(
@@ -216,9 +218,7 @@ public class QuickViewComponent extends BaseComponent {
     return SdkHelper.create(MiniCart.class);
   }
 
-  /**
-   * @return product name
-   */
+  /** @return product name */
   @Step("Get product name")
   public String getProductName() {
     return productName.getText().trim();
@@ -321,9 +321,14 @@ public class QuickViewComponent extends BaseComponent {
   }
 
   public boolean areSubscribeOrOneTimePurchaseDisplayed() {
-    logger.info("Is one time purchase button displayed: {}", WebHelper.getVisibility(oneTimePurchase.getWebElement()));
-    logger.info("Is it subscribe button displayed: {}", WebHelper.getVisibility(subscribeType.getWebElement()));
+    logger.info(
+        "Is one time purchase button displayed: {}",
+        WebHelper.getVisibility(oneTimePurchase.getWebElement()));
+    logger.info(
+        "Is it subscribe button displayed: {}",
+        WebHelper.getVisibility(subscribeType.getWebElement()));
 
-    return WebHelper.getVisibility(oneTimePurchase.getWebElement()) || WebHelper.getVisibility(subscribeType.getWebElement());
+    return WebHelper.getVisibility(oneTimePurchase.getWebElement())
+        || WebHelper.getVisibility(subscribeType.getWebElement());
   }
 }
