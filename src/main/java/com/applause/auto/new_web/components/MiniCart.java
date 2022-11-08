@@ -21,6 +21,7 @@ import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.qameta.allure.Step;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.time.Duration;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -294,8 +295,8 @@ public class MiniCart extends BaseComponent {
   @Step("Click continue to checkout")
   public <T extends BaseComponent> T clickOnContinueToCheckOutButton(Class<T> clazz) {
     logger.info("Clicking CheckOut");
-    SdkHelper.getSyncHelper().wait(Until.uiElement(checkOutButton).visible());
-
+    SdkHelper.getSyncHelper()
+            .wait(Until.uiElement(checkOutButton).visible().setTimeout(Duration.ofSeconds(40)));
     checkOutButton.click();
     return SdkHelper.create(clazz);
   }
