@@ -108,11 +108,13 @@ public class ProductsTestHelper extends BaseTest {
             .equalsIgnoreCase(SortType.RECOMMENDED.getOptionName()),
         "Recommended sorting type isn't selected");
 
-    selectSortingTypeAndCheckResultList(productListPage, SortType.PRICE_LOW_TO_HIGH, softAssert);
-    selectSortingTypeAndCheckResultList(productListPage, SortType.PRICE_HIGH_TO_LOW, softAssert);
+    //    selectSortingTypeAndCheckResultList(productListPage, SortType.PRICE_LOW_TO_HIGH,
+    // softAssert);
+    //    selectSortingTypeAndCheckResultList(productListPage, SortType.PRICE_HIGH_TO_LOW,
+    // softAssert);
     //    selectSortingTypeAndCheckResultList(productListPage, SortType.NEWEST, softAssert);
-    //    selectSortingTypeAndCheckResultList(productListPage, SortType.NAME_A_Z, softAssert);
-    //    selectSortingTypeAndCheckResultList(productListPage, SortType.NAME_Z_A, softAssert);
+    selectSortingTypeAndCheckResultList(productListPage, SortType.NAME_A_Z, softAssert);
+    selectSortingTypeAndCheckResultList(productListPage, SortType.NAME_Z_A, softAssert);
 
     softAssert.assertAll();
   }
