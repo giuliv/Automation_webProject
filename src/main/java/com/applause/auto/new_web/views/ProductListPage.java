@@ -398,10 +398,20 @@ public class ProductListPage extends Base {
             Ordering.natural().isOrdered(getProductListPrices(SortType.PRICE_LOW_TO_HIGH));
         break;
       case NAME_A_Z:
-        isSortedProperly = Ordering.natural().isOrdered(getProductListNames());
+        List<String> namesListBeforeSortAz = getProductListNames();
+        List<String> sortedListAz = new ArrayList(namesListBeforeSortAz);
+        Collections.sort(sortedListAz);
+        isSortedProperly =
+            Ordering.natural().isOrdered(getProductListNames())
+                || namesListBeforeSortAz.equals(sortedListAz);
         break;
       case NAME_Z_A:
-        isSortedProperly = Ordering.natural().reverse().isOrdered(getProductListNames());
+        List<String> namesListBeforeSortZa = getProductListNames();
+        List<String> sortedListZa = new ArrayList(namesListBeforeSortZa);
+        Collections.reverse(sortedListZa);
+        isSortedProperly =
+            Ordering.natural().reverse().isOrdered(getProductListNames())
+                || namesListBeforeSortZa.equals(sortedListZa);
         break;
       case NEWEST:
         // TODO There are no ways to check if the list of the products is sorted by NEWEST option
@@ -409,27 +419,13 @@ public class ProductListPage extends Base {
     }
 
     if (!isSortedProperly) {
-      List<String> list = getProductListNames();
-      List<String> sortedList = new ArrayList(getProductListNames());
-      List<Boolean> sortedPricesList = new ArrayList(getProductListPrices(sortType));
-      System.out.println("SORTED LIST: " + sortedList);
-      System.out.println("LIST: " + list);
 
-      if (sortType.equals(SortType.NAME_A_Z)) {
-        Collections.sort(sortedList);
-      } else if (sortType.equals(SortType.NAME_Z_A)) {
-        Collections.reverse(sortedList);
-      } else if (sortType.equals(SortType.PRICE_LOW_TO_HIGH)) {
-        Collections.sort(sortedPricesList);
-      } else if (sortType.equals(SortType.PRICE_HIGH_TO_LOW)) {
-        Collections.sort(sortedPricesList);
+      if (sortType.equals(SortType.PRICE_LOW_TO_HIGH)
+          || sortType.equals(SortType.PRICE_HIGH_TO_LOW)) {
+        logger.info("Prices: {}", getProductListPrices(sortType));
+      } else {
+        logger.info("Names: {}", getProductListNames());
       }
-
-      logger.info("Expected Names: {}; Actual Names: {};", sortedList, getProductListNames());
-      logger.info(
-          "Expected Prices: {}; Actual Prices: {};",
-          sortedPricesList,
-          getProductListPrices(sortType));
     }
 
     return isSortedProperly;
