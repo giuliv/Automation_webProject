@@ -472,6 +472,14 @@ public class ProductListPage extends Base {
         .get();
   }
 
+  @Step("Get Product With View Product button")
+  public PlpItemComponent getProductWithViewProductButton() {
+    return productsList.stream()
+        .filter(PlpItemComponent::isViewProductButtonDisplayed)
+        .findFirst()
+        .get();
+  }
+
   public List<PlpItemComponent> productsList() {
     ((LazyList<?>) productsList).initialize();
     return productsList;
