@@ -97,21 +97,24 @@ public class PlpItemComponent extends BaseComponent {
       price = WebHelper.cleanString(productPrice.getText());
 
       // For such prices: $26.97 - $107.88
-      if (price.contains("-") && sortType.equals(SortType.PRICE_HIGH_TO_LOW)) {
-        price = price.split("-")[0].trim();
-      } else if (price.contains("-") && sortType.equals(SortType.PRICE_LOW_TO_HIGH)) {
-        price = price.split("-")[1].trim();
+      //      if (price.contains("-") && sortType.equals(SortType.PRICE_HIGH_TO_LOW)) {
+      //        price = price.split("-")[0].trim();
+      //      } else if (price.contains("-") && sortType.equals(SortType.PRICE_LOW_TO_HIGH)) {
+      //        price = price.split("-")[1].trim();
+      //      }
+
+      if (price.contains("-")) {
+        price = null;
       }
 
     } else {
       price = "0";
     }
-
-    if (!price.contains(" ")) {
-      doublePrice = Double.parseDouble(price.replace(",", ".").replace("$", "").trim());
-    } else {
+    if (price != null) {
       doublePrice =
           Double.parseDouble(price.split(" ")[0].replace(",", ".").replace("$", "").trim());
+    } else {
+      doublePrice = -1;
     }
 
     logger.info("Product price [{}]", doublePrice);

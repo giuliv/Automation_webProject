@@ -450,6 +450,7 @@ public class ProductListPage extends Base {
   public List<Double> getProductListPrices(SortType sortType) {
     return productsList().stream()
         .map(product -> product.getProductDoublePrice(sortType))
+        .filter(product -> product >= 0)
         .collect(Collectors.toList());
   }
 
