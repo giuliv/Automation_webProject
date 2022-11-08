@@ -90,29 +90,30 @@ public class PlpItemComponent extends BaseComponent {
   @Step("Get Product double Price")
   public Double getProductDoublePrice(SortType sortType) {
     String price;
+    double doublePrice;
     if (WebHelper.isDisplayed(productSalePrice)) {
       price = WebHelper.cleanString(productSalePrice.getText());
     } else if (WebHelper.isDisplayed(productPrice)) {
       price = WebHelper.cleanString(productPrice.getText());
 
       // For such prices: $26.97 - $107.88
-      System.out.println("Product price contains '-': " + price.contains("-"));
       if (price.contains("-") && sortType.equals(SortType.PRICE_HIGH_TO_LOW)) {
-        System.out.println("PRICE: " + price);
-        System.out.println("PRICE SPLIT: " + price.split("-")[0]);
-        price = price.split("-")[0];
+        price = price.split("-")[0].trim();
       } else if (price.contains("-") && sortType.equals(SortType.PRICE_LOW_TO_HIGH)) {
-        System.out.println("low to high PRICE: " + price);
-        System.out.println("low to highPRICE SPLIT: " + price.split("-")[1]);
-        price = price.split("-")[1];
+        price = price.split("-")[1].trim();
       }
 
     } else {
       price = "0";
     }
 
-    double doublePrice =
-        Double.parseDouble(price.split(" ")[0].replace(",", ".").replace("$", "").trim());
+    if (!price.contains(" ")) {
+      doublePrice = Double.parseDouble(price.replace(",", ".").replace("$", "").trim());
+    } else {
+      doublePrice =
+          Double.parseDouble(price.split(" ")[0].replace(",", ".").replace("$", "").trim());
+    }
+
     logger.info("Product price [{}]", doublePrice);
     return doublePrice;
   }
