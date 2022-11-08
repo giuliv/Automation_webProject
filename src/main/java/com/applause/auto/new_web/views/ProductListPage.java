@@ -386,45 +386,49 @@ public class ProductListPage extends Base {
   public boolean validateSortingOptionResults(SortType sortType) {
     logger.info("Validating sorting: {}", sortType.getName());
     boolean isSortedProperly = true;
-    switch (sortType) {
-      case PRICE_HIGH_TO_LOW:
-        isSortedProperly =
-            Ordering.natural()
-                .reverse()
-                .isOrdered(getProductListPrices(SortType.PRICE_HIGH_TO_LOW));
-        break;
-      case PRICE_LOW_TO_HIGH:
-        isSortedProperly =
-            Ordering.natural().isOrdered(getProductListPrices(SortType.PRICE_LOW_TO_HIGH));
-        break;
-      case NAME_A_Z:
-        List<String> namesListBeforeSortAz = getProductListNames();
-        List<String> sortedListAz = new ArrayList(namesListBeforeSortAz);
-        Collections.sort(sortedListAz);
-        isSortedProperly =
-            Ordering.natural().isOrdered(getProductListNames())
-                || namesListBeforeSortAz.equals(sortedListAz);
-        break;
-      case NAME_Z_A:
-        List<String> namesListBeforeSortZa = getProductListNames();
-        List<String> sortedListZa = new ArrayList(namesListBeforeSortZa);
-        Collections.reverse(sortedListZa);
-        isSortedProperly =
-            Ordering.natural().reverse().isOrdered(getProductListNames())
-                || namesListBeforeSortZa.equals(sortedListZa);
-        break;
-      case NEWEST:
-        // TODO There are no ways to check if the list of the products is sorted by NEWEST option
-        break;
-    }
+    if (sortType.equals(SortType.NAME_A_Z) || sortType.equals(SortType.NAME_A_Z)) {
+      List<String> currentNamesList = getProductListNames();
+      List<String> sortedList = new ArrayList();
+      switch (sortType) {
+        case NAME_A_Z:
+          sortedList = new ArrayList(currentNamesList);
+          Collections.sort(sortedList);
+          isSortedProperly =
+              Ordering.natural().isOrdered(getProductListNames())
+                  || currentNamesList.equals(sortedList);
+          break;
+        case NAME_Z_A:
+          List<String> namesListBeforeSortZa = getProductListNames();
+          sortedList = new ArrayList(namesListBeforeSortZa);
+          Collections.reverse(sortedList);
+          isSortedProperly =
+              Ordering.natural().reverse().isOrdered(getProductListNames())
+                  || namesListBeforeSortZa.equals(sortedList);
+          break;
+      }
 
-    if (!isSortedProperly) {
+      if (!isSortedProperly) {
+        logger.error("List is not sorted properly by [{}]", sortType.getName());
+        logger.error("Expected list [{}]. Actual list [{}]", sortedList, currentNamesList);
+      }
 
-      if (sortType.equals(SortType.PRICE_LOW_TO_HIGH)
-          || sortType.equals(SortType.PRICE_HIGH_TO_LOW)) {
-        logger.info("Prices: {}", getProductListPrices(sortType));
-      } else {
-        logger.info("Names: {}", getProductListNames());
+    } else {
+      List<Double> currentPriceList = getProductListPrices(sortType);
+      switch (sortType) {
+        case PRICE_HIGH_TO_LOW:
+          isSortedProperly = Ordering.natural().reverse().isOrdered(currentPriceList);
+          break;
+        case PRICE_LOW_TO_HIGH:
+          isSortedProperly = Ordering.natural().isOrdered(currentPriceList);
+          break;
+        case NEWEST:
+          // TODO There are no ways to check if the list of the products is sorted by NEWEST option
+          break;
+      }
+
+      if (!isSortedProperly) {
+        logger.error("List is not sorted properly by [{}]", sortType.getName());
+        logger.error("Price list [{}]", currentPriceList);
       }
     }
 
