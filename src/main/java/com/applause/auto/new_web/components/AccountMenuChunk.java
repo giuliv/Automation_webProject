@@ -35,5 +35,4 @@ public class AccountMenuChunk extends BaseComponent {
   @Getter
   @Locate(css = ".header .icon--cart-black", on = Platform.WEB)
   private Button getCartButton;
-
 }

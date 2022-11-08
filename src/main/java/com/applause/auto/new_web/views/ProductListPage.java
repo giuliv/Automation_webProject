@@ -411,6 +411,8 @@ public class ProductListPage extends Base {
     if (!isSortedProperly) {
       List<String> sortedList = new ArrayList(getProductListNames());
       List<Boolean> sortedPricesList = new ArrayList(getProductListPrices(sortType));
+      System.out.println("SORTED LIST: " + sortedPricesList);
+      System.out.println("SORTED LIST: " + getProductListPrices(sortType));
 
       if (sortType.equals(SortType.NAME_A_Z)) {
         Collections.sort(sortedList);

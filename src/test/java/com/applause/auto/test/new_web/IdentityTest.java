@@ -1,5 +1,10 @@
 package com.applause.auto.test.new_web;
 
+import static com.applause.auto.common.data.Constants.TestData.PASSWORD;
+import static com.applause.auto.common.data.Constants.TestData.PASSWORD_BAD_FORMAT;
+import static com.applause.auto.common.data.Constants.TestData.PEETS_FORGOT_PASSWORD_USERNAME;
+import static com.applause.auto.common.data.Constants.TestData.UNRECOGNIZED_USERNAME_AND_PASSWORD_MESSAGE;
+
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.CheckoutUserTestData;
 import com.applause.auto.common.data.Constants.TestData;
@@ -8,15 +13,20 @@ import com.applause.auto.common.data.Constants.WebTestData;
 import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.*;
+import com.applause.auto.new_web.views.CheckOutPage;
+import com.applause.auto.new_web.views.CreateAccountPage;
+import com.applause.auto.new_web.views.HomePage;
+import com.applause.auto.new_web.views.PasswordRecoveryPage;
+import com.applause.auto.new_web.views.PasswordRecoveryResetPage;
+import com.applause.auto.new_web.views.ProductDetailsPage;
+import com.applause.auto.new_web.views.ResetPasswordPage;
+import com.applause.auto.new_web.views.SearchResultsPage;
+import com.applause.auto.new_web.views.SignInPage;
 import com.applause.auto.new_web.views.my_account.MyAccountPage;
 import java.util.List;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-
-import static com.applause.auto.common.data.Constants.TestData.*;
-import static com.applause.auto.common.data.Constants.TestData.PASSWORD_BAD_FORMAT;
 
 public class IdentityTest extends BaseTest {
 

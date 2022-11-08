@@ -10,14 +10,10 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.TouchAction;
-import io.appium.java_client.touch.offset.PointOption;
 import io.qameta.allure.Step;
 import java.time.Duration;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebElement;
 
 @Implementation(is = AndroidChangePasswordView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = ChangePasswordView.class, on = Platform.MOBILE_IOS)

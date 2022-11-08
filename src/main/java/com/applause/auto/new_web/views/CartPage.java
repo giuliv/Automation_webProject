@@ -4,14 +4,20 @@ import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.new_web.components.NeverMissAnOfferChunk;
+import com.applause.auto.new_web.components.OtherPurchasedItemChunk;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
-import com.applause.auto.pageobjectmodel.elements.*;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.Image;
+import com.applause.auto.pageobjectmodel.elements.Link;
+import com.applause.auto.pageobjectmodel.elements.RadioButton;
+import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
-import com.applause.auto.new_web.components.NeverMissAnOfferChunk;
-import com.applause.auto.new_web.components.OtherPurchasedItemChunk;
 import io.qameta.allure.Step;
 import java.time.Duration;
 import java.util.List;
@@ -338,9 +344,7 @@ public class CartPage extends BaseComponent {
     return this;
   }
 
-  /**
-   * @return boolean
-   */
+  /** @return boolean */
   @Step("Get one time purchase button")
   public boolean isOneTimePurchaseButtonSelected() {
     logger.info(
@@ -356,25 +360,19 @@ public class CartPage extends BaseComponent {
     return subscribeButton.getAttributeValue("slot").equalsIgnoreCase("default");
   }
 
-  /**
-   * @return boolean
-   */
+  /** @return boolean */
   @Step("Get subscribe button")
   public boolean isSubscribeButtonEnabled() {
     return subscribeButton.isEnabled();
   }
 
-  /**
-   * @return boolean
-   */
+  /** @return boolean */
   @Step("Get Add personal message field")
   public boolean isAddPersonalMessageFieldDisplayed() {
     return WebHelper.isDisplayed(addPersonalMessageField);
   }
 
-  /**
-   * @return String
-   */
+  /** @return String */
   @Step("Get Add personal message")
   public String getAddPersonalMessageFieldText() {
     String message = addPersonalMessageField.getCurrentText();

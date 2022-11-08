@@ -14,7 +14,6 @@ import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.qameta.allure.Step;
 import java.util.List;
-import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = SearchComponent.class, on = Platform.WEB)
 @Implementation(is = SearchComponentMobile.class, on = Platform.WEB_MOBILE_PHONE)

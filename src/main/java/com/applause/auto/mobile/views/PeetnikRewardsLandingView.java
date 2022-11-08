@@ -10,11 +10,9 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.remote.SupportsContextSwitching;
 import java.time.Duration;
 import java.util.List;
-
-import io.appium.java_client.remote.SupportsContextSwitching;
 import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = AndroidPeetnikRewardsLandingView.class, on = Platform.MOBILE_ANDROID)

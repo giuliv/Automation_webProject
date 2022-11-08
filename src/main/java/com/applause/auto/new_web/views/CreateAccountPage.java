@@ -14,7 +14,6 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = CreateAccountPage.class, on = Platform.WEB)
 public class CreateAccountPage extends Base {
