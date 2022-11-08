@@ -196,13 +196,13 @@ public class ProductDetailsPage extends Base {
 
   @Locate(
       xpath =
-          "//section[@class='pv-description']//span[@class='pv-description-icon__title' and text()='%s']",
+          "//section[@class='pv-description']//span[@class='pv-description-icon__title' and contains(text(),'%s')]",
       on = Platform.WEB)
   protected Text carouselDescriptionTitleText;
 
   @Locate(
       xpath =
-          "//section[@class='pv-description']//span[@class='pv-description-icon__title' and text()='%s']/../span[2]",
+          "//section[@class='pv-description']//span[@class='pv-description-icon__title' and contains(text(),'%s')]/../span[2]",
       on = Platform.WEB)
   protected Text carouselDescriptionDescriptionText;
 
