@@ -153,6 +153,10 @@ public class PlpItemComponent extends BaseComponent {
   public boolean isViewProductButtonDisplayed() {
     logger.info(
         "Checking 'View product' button is displayed for the product [{}]", getProductName());
+    if (!WebHelper.isDisplayed(viewProductButton)) {
+      return false;
+    }
+
     WebHelper.hoverByAction(viewProductButton);
     return WebHelper.isDisplayed(viewProductButton);
   }
@@ -169,6 +173,10 @@ public class PlpItemComponent extends BaseComponent {
   @Step("Verify 'Quick view' button is displayed")
   public boolean isQuickViewButtonDisplayed() {
     logger.info("Checking 'Quick view' button is displayed for the product [{}]", getProductName());
+    if (!WebHelper.isDisplayed(quickViewButton)) {
+      return false;
+    }
+
     WebHelper.scrollToElement(quickViewButton);
     WebHelper.hoverByAction(quickViewButton);
     return WebHelper.isDisplayed(quickViewButton);
