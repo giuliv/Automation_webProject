@@ -72,7 +72,6 @@ public class Header extends BaseComponent {
   protected Button offersCategory;
 
   @Locate(css = ".is-visible .nav__columns a[href*='%s']", on = Platform.WEB)
-  @Locate(css = ".nav__columns a[href*='%s']", on = Platform.WEB_MOBILE_PHONE)
   protected Button subCategories;
 
   @Locate(css = ".nav__secondary-item a[href*='%s']", on = Platform.WEB)
