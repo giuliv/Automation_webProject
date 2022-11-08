@@ -466,16 +466,13 @@ public class ProductListPage extends Base {
 
   @Step("Get Product With Quick view button")
   public PlpItemComponent getProductWithQuickViewButton() {
-    return productsList.stream()
-        .filter(PlpItemComponent::isQuickViewButtonDisplayed)
-        .findFirst()
-        .get();
+    return productsList.stream().filter(PlpItemComponent::isQuickViewButtonExist).findFirst().get();
   }
 
   @Step("Get Product With View Product button")
   public PlpItemComponent getProductWithViewProductButton() {
     return productsList.stream()
-        .filter(PlpItemComponent::isViewProductButtonDisplayed)
+        .filter(PlpItemComponent::isViewProductButtonExist)
         .findFirst()
         .get();
   }

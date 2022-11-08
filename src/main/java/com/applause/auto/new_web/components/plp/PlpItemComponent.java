@@ -227,4 +227,14 @@ public class PlpItemComponent extends BaseComponent {
 
     return SdkHelper.create(QuickViewComponent.class);
   }
+
+  @Step("Verify 'Quick view' button exist")
+  public boolean isQuickViewButtonExist() {
+    return quickViewButton.exists();
+  }
+
+  @Step("Verify 'View Product' button exist")
+  public boolean isViewProductButtonExist() {
+    return viewProductButton.exists();
+  }
 }
