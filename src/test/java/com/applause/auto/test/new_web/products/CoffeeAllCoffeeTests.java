@@ -93,7 +93,7 @@ public class CoffeeAllCoffeeTests extends BaseTest {
     }
 
     logger.info("4. At Homepage --> Hover any Coffee item");
-    PlpItemComponent itemComponent = productListPage.getProductOnPosition(1);
+    PlpItemComponent itemComponent = productListPage.getProductWithQuickViewButton();
     softAssert.assertTrue(
         itemComponent.isQuickViewButtonDisplayed(), "Quick view button isn't displayed");
 
