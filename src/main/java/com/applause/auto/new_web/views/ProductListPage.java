@@ -464,6 +464,14 @@ public class ProductListPage extends Base {
     return productsList.get(position - 1);
   }
 
+  @Step("Get Product With Quick view button")
+  public PlpItemComponent getProductWithQuickViewButton() {
+    return productsList.stream()
+        .filter(PlpItemComponent::isQuickViewButtonDisplayed)
+        .findFirst()
+        .get();
+  }
+
   public List<PlpItemComponent> productsList() {
     ((LazyList<?>) productsList).initialize();
     return productsList;
