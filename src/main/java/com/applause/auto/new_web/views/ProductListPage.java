@@ -409,10 +409,11 @@ public class ProductListPage extends Base {
     }
 
     if (!isSortedProperly) {
+      List<String> list = getProductListNames();
       List<String> sortedList = new ArrayList(getProductListNames());
       List<Boolean> sortedPricesList = new ArrayList(getProductListPrices(sortType));
-      System.out.println("SORTED LIST: " + sortedPricesList);
-      System.out.println("SORTED LIST: " + getProductListPrices(sortType));
+      System.out.println("SORTED LIST: " + sortedList);
+      System.out.println("LIST: " + list);
 
       if (sortType.equals(SortType.NAME_A_Z)) {
         Collections.sort(sortedList);
