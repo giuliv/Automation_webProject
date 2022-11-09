@@ -703,7 +703,8 @@ public class Constants {
   public enum StandardCoffeeInventory {
     Coffee1("french-roast"),
     Coffee2("french-roast-half-caf"),
-    Coffee3("aged-sumatra");
+    Coffee3("aged-sumatra"),
+    Coffee4("major-dickasons-blend-kcup-pods"); // Coffee with reviews. Delivered by customer
 
     private final String value;
 

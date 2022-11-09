@@ -674,7 +674,7 @@ public class PdpTests extends BaseTest {
   public void pdpCustomerReviewsTest() {
     logger.info("1. Navigate to PDP");
     ProductDetailsPage detailsPage =
-        navigateToPDPFromHome(Constants.StandardCoffeeInventory.Coffee1.getValue());
+        navigateToPDPFromHome(Constants.StandardCoffeeInventory.Coffee4.getValue());
 
     logger.info("2. Verify customer reviews are sorted by Most Recent by default");
     ProductDetailsCustomerReviewsComponent customerReviewsComponent =
