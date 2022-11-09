@@ -488,6 +488,8 @@ public class ProductDetailsPage extends Base {
   @Step("Select single purchase only")
   public void selectOneTimePurchase() {
     logger.info("Selecting one-time purchase");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(oneTimePurchase).present());
+    WebHelper.scrollToElement(oneTimePurchase);
     SdkHelper.getSyncHelper().wait(Until.uiElement(oneTimePurchase).visible());
     oneTimePurchase.click();
   }
