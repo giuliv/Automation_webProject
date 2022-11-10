@@ -20,7 +20,6 @@ import io.qameta.allure.Step;
 import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = CheckOutPage.class, on = Platform.WEB)
 @Implementation(is = CheckOutPageMobile.class, on = Platform.WEB_MOBILE_PHONE)

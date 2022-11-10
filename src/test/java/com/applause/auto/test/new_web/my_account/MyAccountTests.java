@@ -6,22 +6,30 @@ import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.Constants.WebTestData;
-import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.MyAccountLeftMenu;
 import com.applause.auto.new_web.components.RegisterPeetCardComponent;
 import com.applause.auto.new_web.components.ReloadComponent;
 import com.applause.auto.new_web.components.my_account.MyOrderItemComponent;
-import com.applause.auto.new_web.helpers.TestHelper;
 import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.*;
-import com.applause.auto.new_web.views.my_account.*;
+import com.applause.auto.new_web.views.ContactUsPage;
+import com.applause.auto.new_web.views.CreateAccountPage;
+import com.applause.auto.new_web.views.GiftCardsPage;
+import com.applause.auto.new_web.views.PasswordRecoveryPage;
+import com.applause.auto.new_web.views.ProductListPage;
+import com.applause.auto.new_web.views.ResetPasswordPage;
+import com.applause.auto.new_web.views.SignInPage;
+import com.applause.auto.new_web.views.my_account.MyAccountEmailPreferencesPage;
+import com.applause.auto.new_web.views.my_account.MyAccountOrderHistoryPage;
+import com.applause.auto.new_web.views.my_account.MyAccountPage;
+import com.applause.auto.new_web.views.my_account.MyAccountPeetnikRewardsPage;
+import com.applause.auto.new_web.views.my_account.MyAccountSettingsPage;
+import com.applause.auto.new_web.views.my_account.MyCardsPage;
+import com.applause.auto.new_web.views.my_account.OrderHistoryPage;
+import com.applause.auto.new_web.views.my_account.ReferralsPage;
 import com.applause.auto.test.new_web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-
-import static com.applause.auto.common.data.Constants.MyAccountTestData.VALID_PEETS_CARD;
-import static com.applause.auto.common.data.Constants.MyAccountTestData.VALID_PEETS_CARD_PIN;
 
 public class MyAccountTests extends BaseTest {
 

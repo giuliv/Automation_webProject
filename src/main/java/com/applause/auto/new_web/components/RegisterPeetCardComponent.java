@@ -10,9 +10,6 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Implementation(is = RegisterPeetCardComponent.class, on = Platform.WEB)
 @Implementation(is = RegisterPeetCardComponent.class, on = Platform.WEB_MOBILE_PHONE)
 public class RegisterPeetCardComponent extends BaseComponent {

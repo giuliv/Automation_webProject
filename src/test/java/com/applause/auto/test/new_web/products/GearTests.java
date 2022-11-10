@@ -59,7 +59,8 @@ public class GearTests extends BaseTest {
       groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
       description = "11107476")
   public void gearNewsletterSignUpNeverMissOfferTest() {
-    ProductsTestHelper.checkNewsletterSignUpNeverMissOffer(navigateToGearSectionFromHome(), softAssert);
+    ProductsTestHelper.checkNewsletterSignUpNeverMissOffer(
+        navigateToGearSectionFromHome(), softAssert);
   }
 
   @Test(

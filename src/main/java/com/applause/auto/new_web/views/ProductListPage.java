@@ -19,9 +19,10 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import com.google.common.collect.Ordering;
 import io.qameta.allure.Step;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = ProductListPage.class, on = Platform.WEB)
 @Implementation(is = ProductListPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
@@ -385,27 +386,50 @@ public class ProductListPage extends Base {
   public boolean validateSortingOptionResults(SortType sortType) {
     logger.info("Validating sorting: {}", sortType.getName());
     boolean isSortedProperly = true;
-    switch (sortType) {
-      case PRICE_HIGH_TO_LOW:
-        isSortedProperly = Ordering.natural().reverse().isOrdered(getProductListPrices());
-        break;
-      case PRICE_LOW_TO_HIGH:
-        isSortedProperly = Ordering.natural().isOrdered(getProductListPrices());
-        break;
-      case NAME_A_Z:
-        isSortedProperly = Ordering.natural().isOrdered(getProductListNames());
-        break;
-      case NAME_Z_A:
-        isSortedProperly = Ordering.natural().reverse().isOrdered(getProductListNames());
-        break;
-      case NEWEST:
-        // TODO There are no ways to check if the list of the products is sorted by NEWEST option
-        break;
-    }
+    if (sortType.equals(SortType.NAME_A_Z) || sortType.equals(SortType.NAME_A_Z)) {
+      List<String> currentNamesList = getProductListNames();
+      List<String> sortedList = new ArrayList();
+      switch (sortType) {
+        case NAME_A_Z:
+          sortedList = new ArrayList(currentNamesList);
+          Collections.sort(sortedList);
+          isSortedProperly =
+              Ordering.natural().isOrdered(getProductListNames())
+                  || currentNamesList.equals(sortedList);
+          break;
+        case NAME_Z_A:
+          List<String> namesListBeforeSortZa = getProductListNames();
+          sortedList = new ArrayList(namesListBeforeSortZa);
+          Collections.reverse(sortedList);
+          isSortedProperly =
+              Ordering.natural().reverse().isOrdered(getProductListNames())
+                  || namesListBeforeSortZa.equals(sortedList);
+          break;
+      }
 
-    if (!isSortedProperly) {
-      logger.info("Names: {}", getProductListNames());
-      logger.info("Prices: {}", getProductListPrices());
+      if (!isSortedProperly) {
+        logger.error("List is not sorted properly by [{}]", sortType.getName());
+        logger.error("Expected list [{}]. Actual list [{}]", sortedList, currentNamesList);
+      }
+
+    } else {
+      List<Double> currentPriceList = getProductListPrices(sortType);
+      switch (sortType) {
+        case PRICE_HIGH_TO_LOW:
+          isSortedProperly = Ordering.natural().reverse().isOrdered(currentPriceList);
+          break;
+        case PRICE_LOW_TO_HIGH:
+          isSortedProperly = Ordering.natural().isOrdered(currentPriceList);
+          break;
+        case NEWEST:
+          // TODO There are no ways to check if the list of the products is sorted by NEWEST option
+          break;
+      }
+
+      if (!isSortedProperly) {
+        logger.error("List is not sorted properly by [{}]", sortType.getName());
+        logger.error("Price list [{}]", currentPriceList);
+      }
     }
 
     return isSortedProperly;
@@ -423,9 +447,10 @@ public class ProductListPage extends Base {
   }
 
   @Step("Get product prices")
-  public List<Double> getProductListPrices() {
+  public List<Double> getProductListPrices(SortType sortType) {
     return productsList().stream()
-        .map(PlpItemComponent::getProductDoublePrice)
+        .map(product -> product.getProductDoublePrice(sortType))
+        .filter(product -> product >= 0)
         .collect(Collectors.toList());
   }
 
@@ -437,6 +462,19 @@ public class ProductListPage extends Base {
   @Step("Get Product On Position")
   public PlpItemComponent getProductOnPosition(int position) {
     return productsList.get(position - 1);
+  }
+
+  @Step("Get Product With Quick view button")
+  public PlpItemComponent getProductWithQuickViewButton() {
+    return productsList.stream().filter(PlpItemComponent::isQuickViewButtonExist).findFirst().get();
+  }
+
+  @Step("Get Product With View Product button")
+  public PlpItemComponent getProductWithViewProductButton() {
+    return productsList.stream()
+        .filter(PlpItemComponent::isViewProductButtonExist)
+        .findFirst()
+        .get();
   }
 
   public List<PlpItemComponent> productsList() {

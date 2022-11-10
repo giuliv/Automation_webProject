@@ -93,7 +93,7 @@ public class CoffeeAllCoffeeTests extends BaseTest {
     }
 
     logger.info("4. At Homepage --> Hover any Coffee item");
-    PlpItemComponent itemComponent = productListPage.getProductOnPosition(1);
+    PlpItemComponent itemComponent = productListPage.getProductWithQuickViewButton();
     softAssert.assertTrue(
         itemComponent.isQuickViewButtonDisplayed(), "Quick view button isn't displayed");
 
@@ -139,11 +139,10 @@ public class CoffeeAllCoffeeTests extends BaseTest {
     ProductListPage productListPage = navigateToPLPFromHome();
     Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
 
-    int firstItem = 0;
     logger.info("2. Review Out of Stock items");
-    Assert.assertTrue(
-        productListPage.isViewProductDisplayed(firstItem), "View product is not displayed");
-    ProductDetailsPage productDetailsPage = productListPage.clickViewProductButton(firstItem);
+    PlpItemComponent productItem = productListPage.getProductWithViewProductButton();
+    Assert.assertTrue(productItem.isViewProductButtonDisplayed(), "View product is not displayed");
+    ProductDetailsPage productDetailsPage = productItem.clickViewProduct();
     Assert.assertNotNull(productDetailsPage, "Product Details page is not displayed");
   }
 }

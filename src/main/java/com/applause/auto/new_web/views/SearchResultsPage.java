@@ -13,8 +13,6 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
-
-import java.time.Duration;
 import java.util.List;
 
 @Implementation(is = SearchResultsPage.class, on = Platform.WEB)

@@ -16,7 +16,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
 
 @Implementation(is = FooterComponent.class, on = Platform.WEB)
-@Implementation(is = FooterComponent.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = FooterComponentMobile.class, on = Platform.WEB_MOBILE_PHONE)
 public class FooterComponent extends BaseComponent {
 
   @Locate(id = "footer", on = Platform.WEB)
@@ -31,7 +31,7 @@ public class FooterComponent extends BaseComponent {
   @Locate(
       xpath = "//div[h4[normalize-space()=\"%s\"]]//a[normalize-space()=\"%s\"]",
       on = Platform.WEB)
-  private ContainerElement footerOptionLink;
+  protected ContainerElement footerOptionLink;
 
   @Locate(xpath = "//a[.//img[contains(@srcset,'app-store')]]", on = Platform.WEB)
   private Link appStoreLink;
@@ -177,7 +177,29 @@ public class FooterComponent extends BaseComponent {
   public String getEndOfThePageDescription() {
     WebHelper.scrollToElement(endPageDescrption);
     SdkHelper.getSyncHelper().wait(Until.uiElement(endPageDescrption).visible());
-    logger.info("End Of the Page Descrption [{}] is displayed", endPageDescrption.getText().trim());
+    logger.info(
+        "End Of the Page Description [{}] is displayed", endPageDescrption.getText().trim());
     return endPageDescrption.getText().trim();
+  }
+}
+
+class FooterComponentMobile extends FooterComponent {
+
+  @Override
+  @Step("Click on the footer option")
+  public <T extends Base> T clickOption(FooterOptions option) {
+    logger.info("Clicking on the footer option [{}]", option.getOption());
+    footerOptionLink.format(option.getCategory(), option.getOption()).initialize();
+    WebHelper.scrollToElement(footerOptionLink);
+
+    try {
+      // Footer links might be covered by Help popup
+      SdkHelper.getSyncHelper().wait(Until.uiElement(footerOptionLink).clickable());
+      footerOptionLink.click();
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+      WebHelper.jsClick(footerOptionLink.getWebElement());
+    }
+    return (T) SdkHelper.create(option.getClazz());
   }
 }

@@ -31,7 +31,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.ScreenOrientation;
-import org.openqa.selenium.WebElement;
 
 @Implementation(is = TestHelper.class, on = Platform.MOBILE)
 public class TestHelper extends BaseComponent {

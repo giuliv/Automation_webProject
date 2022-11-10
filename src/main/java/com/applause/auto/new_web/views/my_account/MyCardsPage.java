@@ -5,18 +5,12 @@ import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.components.RegisterPeetCardComponent;
 import com.applause.auto.new_web.components.ReloadComponent;
-import com.applause.auto.new_web.components.my_account.ShareLinkComponent;
-import com.applause.auto.new_web.components.my_account.ShareViaEmailComponent;
-import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.GiftCardsPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.factory.LazyList;
-import io.qameta.allure.Step;
-
 import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;

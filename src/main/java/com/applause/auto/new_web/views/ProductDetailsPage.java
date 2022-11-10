@@ -196,13 +196,13 @@ public class ProductDetailsPage extends Base {
 
   @Locate(
       xpath =
-          "//section[@class='pv-description']//span[@class='pv-description-icon__title' and text()='%s']",
+          "//section[@class='pv-description']//span[@class='pv-description-icon__title' and contains(text(),'%s')]",
       on = Platform.WEB)
   protected Text carouselDescriptionTitleText;
 
   @Locate(
       xpath =
-          "//section[@class='pv-description']//span[@class='pv-description-icon__title' and text()='%s']/../span[2]",
+          "//section[@class='pv-description']//span[@class='pv-description-icon__title' and contains(text(),'%s')]/../span[2]",
       on = Platform.WEB)
   protected Text carouselDescriptionDescriptionText;
 
@@ -488,6 +488,8 @@ public class ProductDetailsPage extends Base {
   @Step("Select single purchase only")
   public void selectOneTimePurchase() {
     logger.info("Selecting one-time purchase");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(oneTimePurchase).present());
+    WebHelper.scrollToElement(oneTimePurchase);
     SdkHelper.getSyncHelper().wait(Until.uiElement(oneTimePurchase).visible());
     oneTimePurchase.click();
   }

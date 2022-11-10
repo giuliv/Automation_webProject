@@ -56,7 +56,7 @@ public class MyAccountPage extends Base {
   protected Button startSharingButton;
 
   @Locate(css = "#subscriptions .og-product-image", on = Platform.WEB)
-  private Image subscriptionItemImage;
+  protected Image subscriptionItemImage;
 
   @Locate(css = "#subscriptions .og-product-name a", on = Platform.WEB)
   private Text subscriptionItemName;
@@ -70,35 +70,53 @@ public class MyAccountPage extends Base {
   @Locate(css = ".ac-subscriptions__actions > button", on = Platform.WEB)
   private Button updatePaymentInformationButton;
 
-  @Locate(css = "h2.og-shipment-place", on = Platform.WEB)
+  @Locate(css = "div.og-shipment-info strong", on = Platform.WEB)
   private Text subscriptionScheduleDate;
 
-  @Locate(css = "button[ng-click*='Now']", on = Platform.WEB)
+  @Locate(
+      css = "div.og-shipment-header-controls > div.og-send-shipment-now-button > button",
+      on = Platform.WEB)
+  @Locate(
+      css = "div.og-mobile > div.og-send-shipment-now-button > button.og-button",
+      on = Platform.WEB_MOBILE_PHONE)
   private Button subscriptionSendNowButton;
 
-  @Locate(css = "button[ng-click*='openDate']", on = Platform.WEB)
+  @Locate(
+      css = "div.og-shipment-header-controls > div.og-change-shipment-date-button > button",
+      on = Platform.WEB)
+  @Locate(
+      css = "div.og-mobile > div.og-change-shipment-date-button > button.og-button",
+      on = Platform.WEB_MOBILE_PHONE)
   private Button subscriptionChangeDateButton;
 
-  @Locate(css = "button[ng-click*='skip']", on = Platform.WEB)
+  @Locate(
+      css = "div.og-shipment-header-controls > div.og-skip-shipment-button > button",
+      on = Platform.WEB)
+  @Locate(
+      css = "div.og-mobile > div.og-skip-shipment-button > button.og-button",
+      on = Platform.WEB_MOBILE_PHONE)
   private Button subscriptionSkipOrderButton;
 
-  @Locate(css = "select[ng-model*='quantity']", on = Platform.WEB)
+  @Locate(css = "select[name=quantity]", on = Platform.WEB)
   private ContainerElement subscriptionQuantityBox;
 
-  @Locate(css = "select[ng-model*='frequency']", on = Platform.WEB)
+  @Locate(css = "select[name=frequency]", on = Platform.WEB)
   private ContainerElement subscriptionFrequencyBox;
 
-  @Locate(css = "div.og-billing", on = Platform.WEB)
-  private ContainerElement subscriptionBillingSection;
+  @Locate(css = "div.og-desktop div.og-billing", on = Platform.WEB)
+  @Locate(css = "details.og-mobile div.og-billing", on = Platform.WEB_MOBILE_PHONE)
+  protected ContainerElement subscriptionBillingSection;
 
-  @Locate(css = "div.og-shipping", on = Platform.WEB)
-  private ContainerElement subscriptionShippingSection;
+  @Locate(css = "div.og-desktop div.og-shipping", on = Platform.WEB)
+  @Locate(css = "details.og-mobile div.og-shipping", on = Platform.WEB_MOBILE_PHONE)
+  protected ContainerElement subscriptionShippingSection;
 
-  @Locate(xpath = "//og-shipment-pricing[2]", on = Platform.WEB)
-  private ContainerElement subscriptionTotalSection;
+  @Locate(css = "div.og-desktop div.og-total-table", on = Platform.WEB)
+  @Locate(css = "details.og-mobile div.og-total-table", on = Platform.WEB_MOBILE_PHONE)
+  protected ContainerElement subscriptionTotalSection;
 
   @Locate(css = ".my-cards__actions a[href*='register']", on = Platform.WEB)
-  private Button registerNewPeetsCardButton;
+  protected Button registerNewPeetsCardButton;
 
   @Locate(css = ".my-cards__actions a[href*='gift']", on = Platform.WEB)
   private Button buyNewPeetsCardButton;
@@ -174,7 +192,7 @@ public class MyAccountPage extends Base {
   @Step("Verify subscription product image is displayed")
   public boolean isSubscriptionImageDisplayed() {
     logger.info("Checking subscription product image is displayed");
-    return subscriptionItemImage.isDisplayed();
+    return WebHelper.isDisplayed(subscriptionItemImage);
   }
 
   @Step("Verify subscription product name is displayed")
@@ -286,5 +304,31 @@ class MyAccountPageMobile extends MyAccountPage {
     logger.info("Clicking in 'Start sharing' button");
     WebHelper.clickOnElementAndScrollUpIfNeeded(startSharingButton, -110);
     return SdkHelper.create(ReferralsPage.class);
+  }
+
+  @Override
+  @Step("Verify subscription product image is displayed")
+  public boolean isSubscriptionImageDisplayed() {
+    logger.info("Checking subscription product image is displayed");
+    WebHelper.scrollToElement(subscriptionItemImage);
+    return subscriptionItemImage.exists();
+  }
+
+  @Override
+  public boolean isSubscriptionBillingSectionDisplayed() {
+    logger.info("Checking subscription Billing section is displayed");
+    return subscriptionBillingSection.exists();
+  }
+
+  @Override
+  public boolean isSubscriptionShippingSectionDisplayed() {
+    logger.info("Checking subscription Shipping section is displayed");
+    return subscriptionShippingSection.exists();
+  }
+
+  @Override
+  public boolean isSubscriptionTotalSectionDisplayed() {
+    logger.info("Checking subscription Total section is displayed");
+    return subscriptionTotalSection.exists();
   }
 }

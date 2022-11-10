@@ -1,5 +1,6 @@
 package com.applause.auto.new_web.components.plp;
 
+import com.applause.auto.common.data.Constants.SortType;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
@@ -13,7 +14,6 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
-import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = PlpItemComponent.class, on = Platform.WEB)
 @Implementation(is = PlpItemComponent.class, on = Platform.WEB_MOBILE_PHONE)
@@ -88,17 +88,35 @@ public class PlpItemComponent extends BaseComponent {
   }
 
   @Step("Get Product double Price")
-  public Double getProductDoublePrice() {
+  public Double getProductDoublePrice(SortType sortType) {
     String price;
+    double doublePrice;
     if (WebHelper.isDisplayed(productSalePrice)) {
       price = WebHelper.cleanString(productSalePrice.getText());
     } else if (WebHelper.isDisplayed(productPrice)) {
       price = WebHelper.cleanString(productPrice.getText());
+
+      // For such prices: $26.97 - $107.88
+      //      if (price.contains("-") && sortType.equals(SortType.PRICE_HIGH_TO_LOW)) {
+      //        price = price.split("-")[0].trim();
+      //      } else if (price.contains("-") && sortType.equals(SortType.PRICE_LOW_TO_HIGH)) {
+      //        price = price.split("-")[1].trim();
+      //      }
+
+      if (price.contains("-")) {
+        price = null;
+      }
+
     } else {
       price = "0";
     }
-    double doublePrice =
-        Double.parseDouble(price.split(" ")[0].replace(",", ".").replace("$", "").trim());
+    if (price != null) {
+      doublePrice =
+          Double.parseDouble(price.split(" ")[0].replace(",", ".").replace("$", "").trim());
+    } else {
+      doublePrice = -1;
+    }
+
     logger.info("Product price [{}]", doublePrice);
     return doublePrice;
   }
@@ -135,6 +153,10 @@ public class PlpItemComponent extends BaseComponent {
   public boolean isViewProductButtonDisplayed() {
     logger.info(
         "Checking 'View product' button is displayed for the product [{}]", getProductName());
+    if (!viewProductButton.exists()) {
+      return false;
+    }
+
     WebHelper.hoverByAction(viewProductButton);
     return WebHelper.isDisplayed(viewProductButton);
   }
@@ -151,6 +173,11 @@ public class PlpItemComponent extends BaseComponent {
   @Step("Verify 'Quick view' button is displayed")
   public boolean isQuickViewButtonDisplayed() {
     logger.info("Checking 'Quick view' button is displayed for the product [{}]", getProductName());
+    if (!quickViewButton.exists()) {
+      return false;
+    }
+
+    WebHelper.scrollToElement(quickViewButton);
     WebHelper.hoverByAction(quickViewButton);
     return WebHelper.isDisplayed(quickViewButton);
   }
@@ -181,6 +208,7 @@ public class PlpItemComponent extends BaseComponent {
   public boolean isAddToCartButtonDisplayed() {
     logger.info(
         "Checking 'Add to cart' button is displayed for the product [{}]", getProductName());
+    WebHelper.scrollToElement(addToCartButton);
     WebHelper.hoverByAction(addToCartButton);
     return WebHelper.isDisplayed(addToCartButton);
   }
@@ -198,5 +226,15 @@ public class PlpItemComponent extends BaseComponent {
     }
 
     return SdkHelper.create(QuickViewComponent.class);
+  }
+
+  @Step("Verify 'Quick view' button exist")
+  public boolean isQuickViewButtonExist() {
+    return quickViewButton.exists();
+  }
+
+  @Step("Verify 'View Product' button exist")
+  public boolean isViewProductButtonExist() {
+    return viewProductButton.exists();
   }
 }

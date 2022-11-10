@@ -11,7 +11,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 public class CoffeeBarMenuPage extends Base {
 
   @Locate(
-      xpath = "//h1[@class='page-hero__heading' and normalize-space()='Coffeebar Menu']",
+      xpath = "//h1[@class='page-hero__heading' and normalize-space()='From The Coffeebar']",
       on = Platform.WEB)
   protected Text pageHeading;
 

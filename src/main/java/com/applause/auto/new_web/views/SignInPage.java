@@ -13,7 +13,6 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import io.qameta.allure.Step;
 import java.time.Duration;
-import org.openqa.selenium.WebDriverException;
 
 @Implementation(is = SignInPage.class, on = Platform.WEB)
 @Implementation(is = IosSignInPage.class, on = Platform.WEB_IOS_PHONE)

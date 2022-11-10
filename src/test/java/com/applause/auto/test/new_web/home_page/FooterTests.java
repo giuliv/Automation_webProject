@@ -8,7 +8,6 @@ import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.HomePage;
 import com.applause.auto.test.new_web.BaseTest;
 import java.util.List;
-
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 

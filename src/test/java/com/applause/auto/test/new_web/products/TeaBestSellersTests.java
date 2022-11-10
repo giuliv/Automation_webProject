@@ -25,7 +25,9 @@ public class TeaBestSellersTests extends BaseTest {
       description = "11107523")
   public void teaBestSellersBannerTest() {
     ProductsTestHelper.checkBestSellersBanner(
-        navigateToPLPFromHome(TestData.TEA_BEST_SELLERS_URL), TestData.TEA_BEST_SELLERS_HEADER, softAssert);
+        navigateToPLPFromHome(TestData.TEA_BEST_SELLERS_URL),
+        TestData.TEA_BEST_SELLERS_HEADER,
+        softAssert);
   }
 
   @Test(
