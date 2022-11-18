@@ -1,0 +1,26 @@
+{
+  "applause:options": {
+    "isW3C": "true",
+    "isStrict": "false",
+    "driverName": "Chrome",
+    "driverType": "Chrome",
+    "factoryKey": "WebMobilePhone"
+  },
+  "device_name": "Local Chrome",
+  "driver_type": "Chrome",
+  "factory_key": "WEB_MOBILE_PHONE",
+  "manufacturer": "OSX",
+  "goog:chromeOptions": {
+    "mobileEmulation": {
+      "deviceMetrics": {
+        "width": 640,
+        "height": 360,
+        "pixelRatio": 3.0
+      }
+    }
+  },
+  "caps": {
+    "browserName": "chrome",
+    "acceptSSLAlerts": "true"
+  }
+}

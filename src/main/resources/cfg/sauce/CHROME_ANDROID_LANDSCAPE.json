@@ -1,0 +1,36 @@
+{
+  "applause:options": {
+    "isW3C": "true",
+    "isStrict": "false",
+    "driverName": "Android",
+    "driverType": "MobileWeb",
+    "factoryKey": "WEB_ANDROID_PHONE",
+    "osName": "Android",
+    "provider": "SauceLabs RDC US West",
+    "providerThreadType": "Real",
+    "extendedDebugging": true
+  },
+  "sauce:options": {
+    "W3C": true,
+    "region": "US",
+    "appiumVersion": "1.22.2",
+    "extendedDebugging": true
+  },
+  "platformName": "Android",
+  "platformVersion": "12",
+  "browserName": "Chrome",
+  "orientation": "LANDSCAPE",
+  "region": "US",
+  "phoneOnly": "true",
+  "privateDevicesOnly": "false",
+  "autoGrantPermissions": true,
+  "commandTimeout": "600",
+  "deviceName": "(Samsung Galaxy S.*|Google Pixel.*)",
+  "appiumVersion": "1.22.2",
+  "testobject_appium_version": "1.22.2"
+  <#if testRunId??>
+,
+  "testobject_test_name" : "Test Run ID: ${testRunId?c}, Test Session ID: ${testSessionId?c}",
+  "testobject_suite_name" : "Test Run ID: ${testRunId?c}, Test Session ID: ${testSessionId?c}"
+  </#if>
+}

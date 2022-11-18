@@ -677,14 +677,13 @@ public class Constants {
   public enum Mail {
     // We have created following accounts, if not displayed below, that means are corrupted
     // [peets.automation01 - peets.automation20]
-    Mail1("peets.automation09@applause.com"),
-    Mail2("peets.automation10@applause.com"),
-    Mail3("peets.automation15@applause.com"),
-    Mail4("peets.automation16@applause.com"),
-    Mail5("peets.automation17@applause.com"),
-    Mail6("peets.automation18@applause.com"),
-    Mail7("peets.automation19@applause.com"),
-    Mail8("peets.automation20@applause.com");
+    Mail1("peets.automation10@applause.com"),
+    Mail2("peets.automation15@applause.com"),
+    Mail3("peets.automation16@applause.com"),
+    Mail4("peets.automation17@applause.com"),
+    Mail5("peets.automation18@applause.com"),
+    Mail6("peets.automation19@applause.com"),
+    Mail7("peets.automation20@applause.com");
 
     private final String value;
 

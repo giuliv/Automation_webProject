@@ -3,6 +3,7 @@ package com.applause.auto.new_web.components;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.SearchResultsPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -97,6 +98,7 @@ class SearchComponentMobile extends SearchComponent {
     logger.info("Searching for: " + product);
     searchBox.sendKeys(product);
     SdkHelper.getSyncHelper().sleep(1000);
+    WebHelper.hideKeyboard(); // This is only required in landscape mode
 
     SdkHelper.getSyncHelper().wait(Until.uiElement(searchLabel).present());
     SdkHelper.getBrowserControl().jsClick(searchLabel);
