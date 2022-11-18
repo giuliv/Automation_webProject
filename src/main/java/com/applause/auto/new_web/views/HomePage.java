@@ -198,10 +198,18 @@ public class HomePage extends Base {
     WebHelper.clickButtonOverIFrame(specialOfferFrame, closeSpecialOfferButton);
     SdkHelper.getDriver().navigate().refresh();
     WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
+    SdkHelper.getSyncHelper().sleep(500);
 
-    if (WebHelper.exists(allowCookies, 10)) {
-      logger.info("Accept Cookies");
-      WebHelper.jsClick(allowCookies.getWebElement());
+    logger.info("Review if 'Accept Cookies' banner is displayed");
+    for (int i = 0; i < 3; i++) {
+      if (WebHelper.exists(allowCookies, 5)) {
+        logger.info("Click over Accept Cookies");
+        WebHelper.jsClick(allowCookies.getWebElement());
+        SdkHelper.getSyncHelper().wait(Until.uiElement(allowCookies).notVisible());
+        break;
+      }
+      logger.info("Accept cookies banner was not closed, properly");
+      SdkHelper.getDriver().navigate().refresh();
     }
     // }
   }
