@@ -5,6 +5,7 @@ import com.applause.auto.common.data.enums.OrderMenuSubCategory;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.mobile.components.FreeDeliveryModalChunk;
 import com.applause.auto.mobile.components.OrderMenuChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -409,6 +410,12 @@ public class OrderView extends BaseComponent {
 }
 
 class IosOrderView extends OrderView {
+  @Override
+  public void afterInit() {
+    super.afterInit();
+    SdkHelper.create(FreeDeliveryModalChunk.class).dismissFreeDelivery();
+  }
+
   @Override
   public <T extends BaseComponent> T checkoutAtom(Class<T> clazz) {
     logger.info("Tap on Cart button");

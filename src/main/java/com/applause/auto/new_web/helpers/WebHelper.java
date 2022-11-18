@@ -230,7 +230,9 @@ public class WebHelper {
   //        .perform();
   //  }
 
-  /** @return Y-position of page */
+  /**
+   * @return Y-position of page
+   */
   public static int getPagePositionY() {
     String javascript = "return window.scrollY;";
     return (int)
@@ -757,5 +759,15 @@ public class WebHelper {
     ((SupportsContextSwitching) SdkHelper.getDriver()).context(nativeContext.get());
     SdkHelper.getSyncHelper().sleep(1000);
     logger.info("Switched to native context");
+  }
+
+  public static void closeCurrentTab() {
+    logger.info("Closing current tab.");
+    String currentWindow = SdkHelper.getDriver().getWindowHandle();
+    SdkHelper.getDriver().close();
+
+    SdkHelper.getDriver()
+        .switchTo()
+        .window((String) SdkHelper.getDriver().getWindowHandles().toArray()[0]);
   }
 }

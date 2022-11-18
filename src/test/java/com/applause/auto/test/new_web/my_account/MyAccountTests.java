@@ -6,6 +6,7 @@ import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.Constants.WebTestData;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.MyAccountLeftMenu;
 import com.applause.auto.new_web.components.RegisterPeetCardComponent;
 import com.applause.auto.new_web.components.ReloadComponent;
@@ -329,7 +330,7 @@ public class MyAccountTests extends BaseTest {
     if (WebHelper.isDesktop()) {
       WebHelper.navigateBack(MyCardsPage.class);
     } else {
-      WebHelper.navigateBack(GiftCardsPage.class);
+      SdkHelper.getDriver().navigate().back();
       giftCardsPage.closeBannerButton(MyAccountPage.class);
     }
 

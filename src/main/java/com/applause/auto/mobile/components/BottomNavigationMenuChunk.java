@@ -113,6 +113,9 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   public <T extends BaseComponent> T tapMenu(Class<T> clazz) {
     logger.info("Tapping on 'Menu' button");
     menuButton.click();
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      SdkHelper.create(FreeDeliveryModalChunk.class).dismissFreeDelivery();
+    }
     return SdkHelper.create(clazz);
   }
 }

@@ -11,6 +11,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.remote.SupportsContextSwitching;
 import java.time.Duration;
 import org.openqa.selenium.ScreenOrientation;
 
@@ -22,7 +23,7 @@ public class PrivacyPolicyView extends BaseComponent {
   @Locate(
       xpath = "//XCUIElementTypeOther[contains(@name,\"PRIVACY POLICY\")][1]",
       on = Platform.MOBILE_IOS)
-  @Locate(xpath = "//*[contains(@text, \"PRIVACY POLICY\")]", on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "//*[contains(@text, \"Privacy Policy\")]", on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
   @Locate(xpath = "//*[text()='Close & Continue']", on = Platform.MOBILE_ANDROID)
@@ -73,8 +74,19 @@ class AndroidPrivacyPolicyView extends PrivacyPolicyView {
     } else {
       logger.info("No close and Continue button found");
     }
-    SdkHelper.getSyncHelper()
-        .wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(30)));
+
+    try {
+      SdkHelper.getSyncHelper()
+          .wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(30)));
+    } catch (Exception e) {
+      logger.info(
+          "Contexts: " + ((SupportsContextSwitching) SdkHelper.getDriver()).getContextHandles());
+      logger.info("Switching to WebContext");
+      ((SupportsContextSwitching) SdkHelper.getDriver()).context("WEBVIEW_chrome");
+      SdkHelper.getSyncHelper()
+          .wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(30)));
+      ((SupportsContextSwitching) SdkHelper.getDriver()).context("NATIVE_APP");
+    }
   }
 
   /* -------- Lifecycle Methods -------- */

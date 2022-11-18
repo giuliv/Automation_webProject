@@ -36,9 +36,15 @@ public class SearchResultsPage extends Base {
 
   @Locate(
       xpath =
-          "//h3/a[contains(@href,\"/products/%s\")]/ancestor::li//div[@class='pi__quick-add']/button",
+          "(//h3/a[contains(@href,\"/products/%s\")]/ancestor::li//div[@class='pi__quick-add']/button | //h3/a[contains(@href,\"/products/%s\")]/ancestor::section//div[@class='pi__quick-add']/button)",
       on = Platform.WEB)
   protected Button quickViewButton;
+
+  @Locate(
+      xpath =
+          "(//h3/a[@href=\"/products/%s\"]/ancestor::li//div[@class='pi__quick-add']/button | //h3/a[@href=\"/products/%s\"]/ancestor::section//div[@class='pi__quick-add']/button)",
+      on = Platform.WEB)
+  protected Button quickViewButtonByName;
 
   @Locate(css = ".pi__quick-add button", on = Platform.WEB)
   private List<Button> quickViewButtonList;
@@ -96,7 +102,7 @@ public class SearchResultsPage extends Base {
 
   @Step("Click quick view")
   public QuickViewComponent clickOverQuickViewByProduct(String coffeeName) {
-    quickViewButton.format(coffeeName).initialize();
+    quickViewButton.format(coffeeName, coffeeName).initialize();
     WebHelper.scrollToElement(quickViewButton);
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
 
@@ -106,6 +112,22 @@ public class SearchResultsPage extends Base {
     logger.info("Clicking QuickView button");
     quickViewButton.click();
     SdkHelper.getSyncHelper().wait(Until.uiElement(quickViewButton).notVisible());
+
+    return SdkHelper.create(QuickViewComponent.class);
+  }
+
+  @Step("Click quick view")
+  public QuickViewComponent clickOverQuickViewByEqualsProduct(String coffeeName) {
+    quickViewButtonByName.format(coffeeName).initialize();
+    WebHelper.scrollToElement(quickViewButtonByName);
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    WebHelper.hoverByAction(quickViewButtonByName);
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    logger.info("Clicking QuickView button");
+    quickViewButtonByName.click();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(quickViewButtonByName).notVisible());
 
     return SdkHelper.create(QuickViewComponent.class);
   }
@@ -136,7 +158,7 @@ public class SearchResultsPage extends Base {
 class SearchResultsPageMobile extends SearchResultsPage {
   @Override
   public QuickViewComponent clickOverQuickViewByProduct(String coffeeName) {
-    quickViewButton.format(coffeeName).initialize();
+    quickViewButton.format(coffeeName, coffeeName).initialize();
     WebHelper.scrollToElement(quickViewButton);
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
 

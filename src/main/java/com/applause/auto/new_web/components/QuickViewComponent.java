@@ -218,7 +218,9 @@ public class QuickViewComponent extends BaseComponent {
     return SdkHelper.create(MiniCart.class);
   }
 
-  /** @return product name */
+  /**
+   * @return product name
+   */
   @Step("Get product name")
   public String getProductName() {
     return productName.getText().trim();
@@ -262,14 +264,14 @@ public class QuickViewComponent extends BaseComponent {
 
   @Step("Select the option from GrindDropDown")
   public void selectOption(int index) {
-    logger.info("Select the 'DropwDown Grind' Option");
+    logger.info("Select the 'DropDown Grind' Option");
     grindDropDown.click();
     SdkHelper.getSyncHelper().wait(Until.uiElement(grindList.get(index)).clickable()).click();
   }
 
   @Step("Return GrindDropDown Text")
   public String selectedOptionText() {
-    logger.info("Select the 'DropwDownGrind' Option Text");
+    logger.info("Select the 'DropDownGrind' Option Text");
     SdkHelper.getSyncHelper().wait(Until.uiElement(grindDropDown).clickable());
     return grindDropDown.getText().trim();
   }

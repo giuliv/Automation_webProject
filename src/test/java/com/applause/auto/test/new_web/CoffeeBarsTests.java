@@ -11,7 +11,7 @@ import com.applause.auto.new_web.views.GetAppPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class MenuTest extends BaseTest {
+public class CoffeeBarsTests extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.FRONT_END_REGRESSION},
@@ -25,10 +25,13 @@ public class MenuTest extends BaseTest {
         coffeeBarPage.getFeaturedMenuTitle(),
         Constants.TestData.FEATURED_MENU,
         Constants.TestData.FEATURED_MENU + " was not found in section");
+    int totalProducts = coffeeBarPage.getGetSelectedArticles().size();
+    logger.info("Total products in the carrousel: {}", totalProducts);
 
     int loopCounter = 0;
-    String title[] = null;
-    while (loopCounter > 4) {
+    String title[] = new String[totalProducts];
+    String titleSecondCarrousel[] = new String[totalProducts];
+    while (loopCounter < totalProducts) {
 
       logger.info("XX. Validate featured item" + loopCounter);
       title[loopCounter] = coffeeBarPage.getFeaturedTitle(loopCounter);
@@ -46,32 +49,36 @@ public class MenuTest extends BaseTest {
     coffeeBarPage = coffeeBarPage.clickNextArrow();
 
     loopCounter = 0;
-    while (loopCounter > 4) {
+    while (loopCounter < totalProducts) {
+
+      String secondCarrouselProduct = coffeeBarPage.getFeaturedTitle(loopCounter + 1);
+      logger.info("Second carrousel product: {}", secondCarrouselProduct);
+      titleSecondCarrousel[loopCounter] = secondCarrouselProduct;
+
       softAssert.assertNotEquals(
-          title[loopCounter],
-          coffeeBarPage.getFeaturedTitle(loopCounter),
-          "items did not rotate to the next items");
+          title[loopCounter], secondCarrouselProduct, "items did not rotate to the next items");
       loopCounter++;
     }
 
     logger.info("XX. Click previous arrow and Validate items rotate back");
     coffeeBarPage = coffeeBarPage.clickPreviousArrow();
     loopCounter = 0;
-    while (loopCounter > 4) {
+    while (loopCounter < totalProducts) {
       softAssert.assertNotEquals(
-          title[loopCounter],
+          titleSecondCarrousel[loopCounter],
           coffeeBarPage.getFeaturedTitle(loopCounter),
           "items did not rotate back with previous arrow");
+
+      logger.info("XX. click order now on first item");
+      coffeeBarPage.clickFeaturedItemOrderNowButton(loopCounter);
+      logger.info("XX. Validate order page URL");
+      softAssert.assertTrue(
+          SdkHelper.getDriver().getCurrentUrl().contains(Constants.TestData.ORDER_PEETS_URL),
+          "Not on the order URL");
+
+      WebHelper.closeCurrentTab();
       loopCounter++;
     }
-
-    logger.info("XX. click order now on first item");
-    coffeeBarPage.clickFeaturedItemOrderNowButton();
-
-    logger.info("XX. Validate order page URL");
-    softAssert.assertTrue(
-        SdkHelper.getDriver().getCurrentUrl().contains(Constants.TestData.ORDER_PEETS_URL),
-        "Not on the order URL");
 
     softAssert.assertAll();
   }

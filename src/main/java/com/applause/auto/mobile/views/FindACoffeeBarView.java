@@ -85,8 +85,8 @@ public class FindACoffeeBarView extends BaseComponent {
    * @return the boolean
    */
   public boolean isTitleNoFavoriteCoffeebarsDisplayed() {
-    logger.info("Checking if No Favorite coffeebars displayed");
-    return titleNoFavoriteCoffeebars.isDisplayed();
+    logger.info("Checking if No Favorite coffee bars displayed");
+    return MobileHelper.isDisplayed(titleNoFavoriteCoffeebars);
   }
 
   /**

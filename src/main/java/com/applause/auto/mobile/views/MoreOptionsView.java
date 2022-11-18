@@ -4,6 +4,7 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.mobile.components.FreeDeliveryModalChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -150,7 +151,7 @@ public class MoreOptionsView extends BaseComponent {
       xpath = "//XCUIElementTypeStaticText[@name=\"Account Settings\"]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/nomNomTextView\")",
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/account_header\")",
       on = Platform.MOBILE_ANDROID)
   protected Text accountSettingsSubHeaderText;
 
@@ -185,6 +186,12 @@ public class MoreOptionsView extends BaseComponent {
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/sendAGift\")",
       on = Platform.MOBILE_ANDROID)
   protected Button getSendGiftButton;
+
+  @Override
+  public void afterInit() {
+    super.afterInit();
+    SdkHelper.create(FreeDeliveryModalChunk.class).dismissFreeDelivery();
+  }
 
   /* -------- Actions -------- */
 

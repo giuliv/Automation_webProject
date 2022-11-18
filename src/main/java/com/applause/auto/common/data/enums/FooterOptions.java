@@ -1,5 +1,7 @@
 package com.applause.auto.common.data.enums;
 
+import com.applause.auto.common.data.Constants;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.CommonWebPage;
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +16,8 @@ public enum FooterOptions {
   CONTACT_US(
       "Help center",
       "Contact Us",
-      "https://peets-coffee-staging.myshopify.com/pages/contact-us",
+      Constants.TestEnvironment.valueOf(WebHelper.getTestEnvironment()).getEnvironment()
+          + "/pages/contact-us",
       CommonWebPage.class),
   HELP_CENTER("Help center", "Help Center", "https://faq.peets.com/hc/en-us", CommonWebPage.class),
   SHIPPING_AND_RETURNS(
@@ -27,58 +30,68 @@ public enum FooterOptions {
   CAREERS(
       "Company",
       "Careers",
-      "https://peets-coffee-staging.myshopify.com/pages/careers",
+      Constants.TestEnvironment.valueOf(WebHelper.getTestEnvironment()).getEnvironment()
+          + "/pages/careers",
       CommonWebPage.class),
   OUR_PEOPLE(
       "Company",
       "Our People",
-      "https://peets-coffee-staging.myshopify.com/pages/our-people",
+      Constants.TestEnvironment.valueOf(WebHelper.getTestEnvironment()).getEnvironment()
+          + "/pages/our-people",
       CommonWebPage.class),
   NEWSROOM(
       "Company",
       "Newsroom",
-      "https://peets-coffee-staging.myshopify.com/pages/newsroom",
+      Constants.TestEnvironment.valueOf(WebHelper.getTestEnvironment()).getEnvironment()
+          + "/pages/newsroom",
       CommonWebPage.class),
   CODE_OF_ETHICS(
       "Company",
       "Code of Ethics",
-      "https://peets-coffee-staging.myshopify.com/pages/code-of-ethics",
+      Constants.TestEnvironment.valueOf(WebHelper.getTestEnvironment()).getEnvironment()
+          + "/pages/code-of-ethics",
       CommonWebPage.class),
   SUPPLY_CHAIN_TRANSPARENCY(
       "Company",
       "Supply Chain Transparency",
-      "https://peets-coffee-staging.myshopify.com/pages/supply-chain-transparency",
+      Constants.TestEnvironment.valueOf(WebHelper.getTestEnvironment()).getEnvironment()
+          + "/pages/supply-chain-transparency",
       CommonWebPage.class),
 
   // Gift cards
   SHOP_GIFTS_CARDS(
       "Gift cards",
       "Shop Gift Cards",
-      "https://peets-coffee-staging.myshopify.com/pages/gift-cards",
+      Constants.TestEnvironment.valueOf(WebHelper.getTestEnvironment()).getEnvironment()
+          + "/pages/gift-cards",
       CommonWebPage.class),
 
   // OFFERS
   CURRENT_OFFERS(
       "Offers",
       "Current Offers",
-      "https://peets-coffee-staging.myshopify.com/pages/current-offers",
+      Constants.TestEnvironment.valueOf(WebHelper.getTestEnvironment()).getEnvironment()
+          + "/pages/current-offers",
       CommonWebPage.class),
   GET_FREE_COFFEE(
       "Offers",
       "GET FREE COFFEE",
-      "https://peets-coffee-staging.myshopify.com/pages/refer?traffic_source=site_footer",
+      Constants.TestEnvironment.valueOf(WebHelper.getTestEnvironment()).getEnvironment()
+          + "/pages/refer?traffic_source=site_footer",
       CommonWebPage.class),
 
   // PARTNER WITH PEET's
   CORPORATE_GIFTS(
       "Partner with peet's",
       "Corporate Gifts",
-      "https://peets-coffee-staging.myshopify.com/pages/corporate",
+      Constants.TestEnvironment.valueOf(WebHelper.getTestEnvironment()).getEnvironment()
+          + "/pages/corporate",
       CommonWebPage.class),
   WHOLESALE_PROGRAM(
       "Partner with peet's",
       "Foodservice Program",
-      "https://peets-coffee-staging.myshopify.com/pages/foodservice-program",
+      Constants.TestEnvironment.valueOf(WebHelper.getTestEnvironment()).getEnvironment()
+          + "/pages/foodservice-program",
       CommonWebPage.class),
   BECOME_AFFILIATE(
       "Partner with peet's",
@@ -95,7 +108,8 @@ public enum FooterOptions {
   CUPPING_ROOM(
       "Blog",
       "The Cupping Room",
-      "https://peets-coffee-staging.myshopify.com/blogs/peets",
+      Constants.TestEnvironment.valueOf(WebHelper.getTestEnvironment()).getEnvironment()
+          + "/blogs/peets",
       CommonWebPage.class),
 
   // SOCIAL MEDIA

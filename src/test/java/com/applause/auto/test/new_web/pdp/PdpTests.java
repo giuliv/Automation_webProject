@@ -530,19 +530,14 @@ public class PdpTests extends BaseTest {
       groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11107452")
   public void pdpFlavorProfileTest() {
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLPFromHome(TestData.COFFEE_BEST_SELLERS_URL);
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
-
-    logger.info("2. Select first product ");
-    PlpItemComponent itemComponent = productListPage.getProductOnPosition(1);
-    String productDescription = itemComponent.getProductDescription();
-    ProductDetailsPage detailsPage = itemComponent.clickOnProduct();
+    logger.info("1. Navigate to PDP");
+    ProductDetailsPage detailsPage =
+        navigateToPDPFromHome(Constants.StandardCoffeeInventory.Coffee1.getValue());
 
     logger.info("3. Verify flavor notes match the flavor notes on the corresponding PCP shop card");
     softAssert.assertEquals(
         detailsPage.getFlavorProfileSubtitle(),
-        productDescription,
+        "Dark Chocolate, Smoke, Burnt Sugar",
         "Flavor notes doesn't match the flavor notes on the corresponding PCP shop card");
 
     logger.info("4. Verify Roast Details with Custom scales for each product correctly");

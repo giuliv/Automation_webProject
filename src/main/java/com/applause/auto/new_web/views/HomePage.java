@@ -199,7 +199,7 @@ public class HomePage extends Base {
     SdkHelper.getDriver().navigate().refresh();
     WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
 
-    if (!WebHelper.isDesktop() && WebHelper.exists(allowCookies, 10)) {
+    if (WebHelper.exists(allowCookies, 10)) {
       logger.info("Accept Cookies");
       WebHelper.jsClick(allowCookies.getWebElement());
     }

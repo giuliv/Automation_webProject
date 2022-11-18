@@ -22,13 +22,13 @@ public class OnboardingLastView extends BaseComponent {
       iOSClassChain = "**/XCUIElementTypeButton[`name='Create Account'`]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/createAccountButton\")",
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/signup_button\")",
       on = Platform.MOBILE_ANDROID)
   protected Button createAccountButton;
 
   @Locate(iOSClassChain = "**/XCUIElementTypeButton[`name='Sign In'`]", on = Platform.MOBILE_IOS)
   @Locate(
-      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/signInButton\")",
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/login_button\")",
       on = Platform.MOBILE_ANDROID)
   protected Button signInButton;
 
@@ -36,7 +36,7 @@ public class OnboardingLastView extends BaseComponent {
       iOSClassChain = "**/XCUIElementTypeScrollView/**/XCUIElementTypeStaticText[1]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/textView24\")",
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/authentication_title_text\")",
       on = Platform.MOBILE_ANDROID)
   protected Text title;
 
@@ -68,6 +68,6 @@ public class OnboardingLastView extends BaseComponent {
     title.initialize();
     String titleText = title.getText();
     logger.info("Heading text: [{}]", titleText);
-    return WebHelper.cleanString(titleText);
+    return titleText.trim();
   }
 }

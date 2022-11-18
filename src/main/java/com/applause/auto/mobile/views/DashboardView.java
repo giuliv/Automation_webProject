@@ -4,6 +4,7 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.mobile.components.BottomNavigationMenuChunk;
+import com.applause.auto.mobile.components.FreeDeliveryModalChunk;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -35,12 +36,6 @@ public class DashboardView extends BaseComponent {
   @Locate(xpath = "//android.widget.TextView[@text='%s']", on = Platform.MOBILE_ANDROID)
   protected Button offerTitleText;
 
-  @Locate(accessibilityId = "NO THANKS", on = Platform.MOBILE_ANDROID)
-  protected Button dismissFreeDeliveryButton;
-
-  // @Locate(
-  // iOSClassChain = "**/XCUIElementTypeButton[`label == \"Store locator\"`]",
-  // on = Platform.MOBILE_IOS)
   @Locate(accessibilityId = "Store locator", on = Platform.MOBILE_IOS)
   @Locate(accessibilityId = "Stores button", on = Platform.MOBILE_ANDROID)
   protected Button locationButton;
@@ -48,16 +43,7 @@ public class DashboardView extends BaseComponent {
   /* -------- Actions -------- */
 
   public void afterInit() {
-    try {
-      SdkHelper.getSyncHelper()
-          .wait(
-              Until.uiElement(dismissFreeDeliveryButton)
-                  .present()
-                  .setTimeout(Duration.ofSeconds(10)));
-      dismissFreeDeliveryButton.click();
-    } catch (Throwable throwable) {
-      logger.info("No free delivery popup found");
-    }
+    SdkHelper.create(FreeDeliveryModalChunk.class).dismissFreeDelivery();
     logger.info(">>>>>" + SdkHelper.getDriver().getPageSource());
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));

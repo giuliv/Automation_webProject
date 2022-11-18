@@ -186,10 +186,6 @@ public class MobileHelper {
   // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
   public static void tapOnElementWithOffset(
       BaseElement element, double xRelativeOffset, double yRelativeOffset) {
-    //        int xCenter = element.getMobileElement().getCenter().x; //Commented due to sdk
-    // migration, look if it worked
-    //        int yCenter = element.getMobileElement().getCenter().y;
-
     int xCenter = element.getDimension().width / 2;
     int yCenter = element.getDimension().height / 2;
 
@@ -222,12 +218,6 @@ public class MobileHelper {
     logger.info("Swiping startX:" + startX + " startY:" + pStartY + " end Y:" + pEndY);
 
     try {
-      //          new TouchAction(getMobileDriver())
-      //              .press(PointOption.point((int) startX, startY))
-      //              .waitAction(WaitOptions.waitOptions(Duration.ofMillis(500)))
-      //              .moveTo(PointOption.point((int) startX, endY))
-      //              .release()
-      //              .perform();
       SdkHelper.getDeviceControl()
           .swipeAcrossScreenCoordinates((int) startX, startY, (int) startX, endY, 500);
     } catch (WebDriverException wex) {
@@ -257,7 +247,6 @@ public class MobileHelper {
     }
 
     logger.debug(String.format("Tapping at %s, %s", (int) tapX, (int) tapY));
-    //    tapByCoordinates((int) tapX, (int) tapY); // Remove if native method works
     SdkHelper.getDeviceControl().tapScreenCoordinates((int) tapX, (int) tapY);
   }
 
@@ -269,23 +258,10 @@ public class MobileHelper {
   public static void tapByCoordinatesOnElementCenter(BaseElement element) {
     Point location = element.getLocation();
     Dimension dimension = element.getDimension();
-    //    tapByCoordinates(location.x + dimension.getWidth() / 2, location.y + dimension.getHeight()
-    // / 2); // Remove if native method works
     SdkHelper.getDeviceControl()
         .tapScreenCoordinates(
             location.x + dimension.getWidth() / 2, location.y + dimension.getHeight() / 2);
   }
-
-  /**
-   * Tapping by coordinates on mobile screen
-   *
-   * @param tapX
-   * @param tapY
-   */
-  // Todo: Commented as part of update on pom to 4.1.2 [DO WE NEED IT, REPLACE BY APPLAUSE METHOD]
-  //  public static void tapByCoordinates(int tapX, int tapY) {
-  //    new TouchAction(getMobileDriver()).tap(PointOption.point(tapX, tapY)).perform();
-  //  }
 
   /**
    * Sets picker value reverse.
@@ -461,6 +437,7 @@ public class MobileHelper {
     try {
       return SdkHelper.getQueryHelper().findElement(element.getLocator()).isDisplayed();
     } catch (Exception ex) {
+      logger.info(getMobileDriver().getPageSource());
       return false;
     }
   }

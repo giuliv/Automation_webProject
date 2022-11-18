@@ -32,7 +32,7 @@ public class OnboardingSlidesTest extends BaseTest {
             .position(1)
             .title("BEST DECISION YOU’VE MADE ALL DAY")
             .description(
-                "Welcome to the Peet’s app: the only place to tap into all things Peetnik Rewards. Think of it as the home for all your rewards, order ahead, and exclusive offers (aka the good stuff).")
+                "Welcome to the Peet’s app: the only place to tap into all things Peetnik Rewards.  It's home to all your rewards. Earn free food and drinks, get exclusive offers (aka the good stuff), and order ahead too!")
             .helpfulMessage("swipe left to continue")
             .isPageIndicatorDisplayed(true)
             .isSkipButtonDisplayed(true)
@@ -47,7 +47,7 @@ public class OnboardingSlidesTest extends BaseTest {
             .position(2)
             .title("HERE’S THE GIST")
             .description(
-                "You’ll get 1 point for every $1 you spend. Then, pick out free drinks, espresso shots, breakfast sandwiches, and more—whatever sounds good to you.")
+                "Get 1 point for every $1 you spend, including 125 after your first purchase. Turn points into free drinks, espresso shots, breakfast sandwiches, and more!")
             .isPageIndicatorDisplayed(true)
             .isSkipButtonDisplayed(true)
             .build();
@@ -61,7 +61,7 @@ public class OnboardingSlidesTest extends BaseTest {
             .position(3)
             .title("NO PICKUP LINES NECESSARY")
             .description(
-                "Now you can order ahead for pickup or delivery to hop to the front—no sweet talk needed.")
+                "Why wait? Order ahead for pickup or delivery and hop to the front of the line.")
             .isPageIndicatorDisplayed(true)
             .isSkipButtonDisplayed(true)
             .build();
@@ -77,8 +77,8 @@ public class OnboardingSlidesTest extends BaseTest {
         onboardingLastView.isCreateAccountButtonDisplayed(),
         "Create Account button isn't displayed on last slider");
     softAssert.assertEquals(
-        onboardingLastView.getTitle(),
-        "LET’S MAKE IT OFFICIAL",
+        onboardingLastView.getTitle().replaceAll("[\\W\\s]", "").trim(),
+        "LETS MAKE IT OFFICIAL",
         "Landing view title isn't correct");
 
     logger.info("Swipe right and verify third screen");

@@ -238,7 +238,7 @@ public class FooterTests extends BaseTest {
 
       logger.info("Verify expected page URL is displayed");
       softAssert.assertEquals(
-          WebHelper.getCurrentUrl(),
+          WebHelper.getCurrentUrl().replace("www.", ""),
           option.getUrl(),
           String.format("Wrong URL is displayed for option [%s]", option.getOption()));
 

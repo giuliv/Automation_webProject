@@ -25,7 +25,9 @@ public class LandingView extends BaseComponent {
   @Locate(
       iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Peetnik Rewards\"`]",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/rewardTitle", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/authentication_title_text\")",
+      on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
   @Locate(xpath = "//XCUIElementTypeButton[contains(@label,'Allow')]", on = Platform.MOBILE_IOS)
@@ -42,13 +44,13 @@ public class LandingView extends BaseComponent {
 
   @Locate(iOSNsPredicate = "name='Create Account'", on = Platform.MOBILE_IOS)
   @Locate(
-      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/signUp\")",
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/signup_button\")",
       on = Platform.MOBILE_ANDROID)
   protected Button getCreateAccountButton;
 
   @Locate(iOSClassChain = "**/XCUIElementTypeButton[`name= 'Sign In'`]", on = Platform.MOBILE_IOS)
   @Locate(
-      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/logIn\")",
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/login_button\")",
       on = Platform.MOBILE_ANDROID)
   protected Button getSignInButton;
 

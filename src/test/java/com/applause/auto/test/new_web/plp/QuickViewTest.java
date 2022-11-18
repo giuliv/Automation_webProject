@@ -330,7 +330,7 @@ public class QuickViewTest extends BaseTest {
 
     logger.info("3. Open QuickView Modal");
     QuickViewComponent quickViewComponent =
-        searchResultsPage.clickOverQuickViewByProduct(
+        searchResultsPage.clickOverQuickViewByEqualsProduct(
             Constants.StandardCoffeeInventory.Coffee1.getValue());
     quickViewComponent.validateMainAndSecondaryUIElements().assertAll();
 

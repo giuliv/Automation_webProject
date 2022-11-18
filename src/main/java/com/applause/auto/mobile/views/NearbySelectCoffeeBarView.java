@@ -5,6 +5,7 @@ import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
 import com.applause.auto.mobile.components.CoffeeStoreItemChuck;
+import com.applause.auto.mobile.components.FreeDeliveryModalChunk;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -95,9 +96,6 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   @Locate(iOSClassChain = "**/*[`label == 'Cancel'`]", on = Platform.MOBILE_IOS)
   protected Button cancelSearchButton;
 
-  @Locate(accessibilityId = "No Thanks", on = Platform.MOBILE_IOS)
-  protected Button dismissFreeDeliveryButton;
-
   @Locate(
       iOSClassChain = "**/XCUIElementTypeNavigationBar/XCUIElementTypeStaticText",
       on = Platform.MOBILE_IOS)
@@ -144,28 +142,22 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   /* -------- Actions -------- */
 
   public void afterInit() {
-    try {
-      logger.info("Click 'No Thanks' popUp, if displayed");
-      SdkHelper.getSyncHelper()
-          .wait(
-              Until.uiElement(dismissFreeDeliveryButton)
-                  .present()
-                  .setTimeout(Duration.ofSeconds(10)));
-      dismissFreeDeliveryButton.click();
-    } catch (Throwable throwable) {
-      logger.info("No free delivery popup found");
-    }
+    SdkHelper.create(FreeDeliveryModalChunk.class).dismissFreeDelivery();
 
     try {
       SdkHelper.getSyncHelper()
           .wait(Until.uiElement(getSignature).present().setTimeout(Duration.ofSeconds(45)));
     } catch (Throwable throwable) {
-      SdkHelper.getSyncHelper()
-          .wait(
-              Until.uiElement(getSignatureForFindCoffee)
-                  .present()
-                  .setTimeout(Duration.ofSeconds(45)));
-      logger.info("You are on Find CoffeeBar Section");
+      try {
+        SdkHelper.getSyncHelper()
+            .wait(
+                Until.uiElement(getSignatureForFindCoffee)
+                    .present()
+                    .setTimeout(Duration.ofSeconds(45)));
+        logger.info("You are on Find CoffeeBar Section");
+      } catch (Throwable thr) {
+        logger.error(thr.getMessage());
+      }
     }
   }
 

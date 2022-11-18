@@ -3,13 +3,13 @@ package com.applause.auto.mobile.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.mobile.components.FreeDeliveryModalChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import java.time.Duration;
 
 @Implementation(is = AndroidCheckInView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CheckInView.class, on = Platform.MOBILE_IOS)
@@ -58,23 +58,10 @@ public class CheckInView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getAmountButton;
 
-  @Locate(accessibilityId = "No Thanks", on = Platform.MOBILE_IOS)
-  protected Button dismissFreeDeliveryButton;
-
   /* -------- Actions -------- */
 
   public void afterInit() {
-    try {
-      logger.info("Click 'No Thanks' popUp, if displayed");
-      SdkHelper.getSyncHelper()
-          .wait(
-              Until.uiElement(dismissFreeDeliveryButton)
-                  .present()
-                  .setTimeout(Duration.ofSeconds(10)));
-      dismissFreeDeliveryButton.click();
-    } catch (Throwable throwable) {
-      logger.info("No popup found");
-    }
+    SdkHelper.create(FreeDeliveryModalChunk.class).dismissFreeDelivery();
     SdkHelper.getSyncHelper().wait(Until.uiElement(getSignature).present());
   }
 

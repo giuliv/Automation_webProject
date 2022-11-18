@@ -76,7 +76,9 @@ public class OrderMenuChunk extends BaseComponent {
   protected boolean isMenuButtonHighlighted(BaseElement element) {
     int colourRed = MobileHelper.getMobileElementColour(element).getRed();
     logger.info("Color: " + colourRed);
-    return (colourRed == 193) || (colourRed == 194);
+    return (colourRed == 193)
+        || (colourRed == 194)
+        || element.getAttributeValue("selected").equals("true");
   }
 }
 

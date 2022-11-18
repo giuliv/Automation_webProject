@@ -449,6 +449,10 @@ public class CreateAccountTest extends BaseTest {
           homeView
               .getReorderTooltipComponent()
               .closeReorderTooltipIfDisplayed(HomeView.class)
+              .getCheckInTooltipComponent()
+              .closeCheckInTooltipIfDisplayed(HomeView.class)
+              .getPointsTurnIntoRewardsTooltipComponent()
+              .closeTooltipIfDisplayed(HomeView.class)
               .getAccountProfileMenu();
 
       logger.info("STEP - Tap on Profile Details field/row");
