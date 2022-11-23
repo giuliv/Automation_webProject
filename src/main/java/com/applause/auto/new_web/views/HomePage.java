@@ -148,7 +148,7 @@ public class HomePage extends Base {
   @Locate(css = "section#homeBestSellers button.js-quick-add", on = Platform.WEB)
   protected Button bestSellersQuickAddButton;
 
-  @Locate(css = "div#modalQuickAdd", on = Platform.WEB)
+  @Locate(css = "div#modalQuickAdd, aside#modalQuickAdd", on = Platform.WEB)
   protected Button quickAddModalOverlay;
 
   /* subscription module section */

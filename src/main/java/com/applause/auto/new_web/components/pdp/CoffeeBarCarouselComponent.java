@@ -23,17 +23,13 @@ import java.util.stream.Collectors;
 @Implementation(is = CoffeeBarCarouselComponentMobile.class, on = Platform.WEB_MOBILE_PHONE)
 public class CoffeeBarCarouselComponent extends BaseComponent {
 
-  @Locate(
-      css = "section#coffeebar button.flickity-button.flickity-prev-next-button.next",
-      on = Platform.WEB)
+  @Locate(css = "button.flickity-button.flickity-prev-next-button.next", on = Platform.WEB)
   protected Button nextButton;
 
-  @Locate(
-      css = "section#coffeebar button.flickity-button.flickity-prev-next-button.previous",
-      on = Platform.WEB)
+  @Locate(css = "button.flickity-button.flickity-prev-next-button.previous", on = Platform.WEB)
   protected Button previousButton;
 
-  @Locate(css = "#coffeebarCarousel article", on = Platform.WEB)
+  @Locate(css = "#homeBestSellers article", on = Platform.WEB)
   protected List<CoffeeBarItemComponent> coffeeBarItemComponents;
 
   @Locate(
@@ -126,6 +122,7 @@ public class CoffeeBarCarouselComponent extends BaseComponent {
   @Step("Click next in coffee bar")
   public void clickCoffeeBarNext() {
     logger.info("Clicking next in coffee bar");
+    WebHelper.scrollToElement(nextButton);
     SdkHelper.getSyncHelper().wait(Until.uiElement(nextButton).clickable()).click();
   }
 

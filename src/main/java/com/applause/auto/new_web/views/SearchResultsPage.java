@@ -22,7 +22,9 @@ public class SearchResultsPage extends Base {
   @Locate(id = "searchOverlay", on = Platform.WEB)
   private ContainerElement mainContainer;
 
-  @Locate(css = ".collection__grid li a.pi__link", on = Platform.WEB)
+  @Locate(
+      css = ".collection__grid li a.pi__link, .collection__grid article a.pi__link",
+      on = Platform.WEB)
   private List<Image> productsImageList;
 
   @Locate(css = "h1.collection-search__hero-heading", on = Platform.WEB)
