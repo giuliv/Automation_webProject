@@ -126,9 +126,14 @@ public class Constants {
     public static final String REGISTER_CARD_URL = "/account#/peets-cards/register";
     public static final String BUY_CARD_URL = "/gift-cards";
     public static final String EMAIL_SIGNUP_URL = "pages/email-signup";
-    public static final String QA_LOGIN_PAGE_URL = "https://account-qa.peets.com/login";
-    public static final String QA_REGISTRATION_PAGE_URL =
-        "https://account-qa.peets.com/Registration";
+    public static final String LOGIN_PAGE_URL =
+        WebHelper.isProdEnv()
+            ? "https://account.peets.com/login"
+            : "https://account-qa.peets.com/login";
+    public static final String REGISTRATION_PAGE_URL =
+        WebHelper.isProdEnv()
+            ? "https://account.peets.com/Registration?target=home"
+            : "https://account-qa.peets.com/Registration";
     public static final String COFFEE_BEST_SELLERS_URL =
         BASE_URL + "/collections/coffee-best-sellers";
     public static final String COFFEE_DARK_ROAST_URL = BASE_URL + "/collections/dark-roast";

@@ -202,7 +202,7 @@ public class IdentityTest extends BaseTest {
 
     logger.info("6. Validate the user is directed to https://account-qa.peets.com/login");
     Assert.assertTrue(
-        WebHelper.getCurrentUrl().contains(TestData.QA_LOGIN_PAGE_URL), "Wrong URL is displayed");
+        WebHelper.getCurrentUrl().contains(TestData.LOGIN_PAGE_URL), "Wrong URL is displayed");
 
     logger.info("7. Enter Email & Password and click on 'Sign in'");
     signInPage.enterEmail(CheckoutUserTestData.USERNAME);
@@ -253,7 +253,7 @@ public class IdentityTest extends BaseTest {
 
     logger.info("6. Validate the user is directed to https://account-qa.peets.com/login");
     Assert.assertTrue(
-        WebHelper.getCurrentUrl().contains(TestData.QA_LOGIN_PAGE_URL), "Wrong URL is displayed");
+        WebHelper.getCurrentUrl().contains(TestData.LOGIN_PAGE_URL), "Wrong URL is displayed");
 
     logger.info("7. Enter Email & Password and click on 'Sign in'");
     signInPage.enterEmail(CheckoutUserTestData.USERNAME);
@@ -300,7 +300,7 @@ public class IdentityTest extends BaseTest {
 
     logger.info("6. Validate the user is directed to https://account-qa.peets.com/login");
     Assert.assertTrue(
-        WebHelper.getCurrentUrl().contains(TestData.QA_LOGIN_PAGE_URL), "Wrong URL is displayed");
+        WebHelper.getCurrentUrl().contains(TestData.LOGIN_PAGE_URL), "Wrong URL is displayed");
 
     logger.info("7. At Login Page page --> Click on 'Create Account'");
     CreateAccountPage createAccountPage = signInPage.clickOnCreateAccountButton();
@@ -308,7 +308,7 @@ public class IdentityTest extends BaseTest {
     logger.info("8. Validate the user is directed to https://account-qa.peets.com/Registration");
     Assert.assertNotNull(createAccountPage, "Failed to navigate to the Create account page.");
     Assert.assertTrue(
-        WebHelper.getCurrentUrl().contains(TestData.QA_REGISTRATION_PAGE_URL),
+        WebHelper.getCurrentUrl().contains(TestData.REGISTRATION_PAGE_URL),
         "Wrong Registration URL is displayed");
 
     logger.info("9. At Create Account Page --> Key in fields with valid data and Click on Create");
@@ -368,7 +368,7 @@ public class IdentityTest extends BaseTest {
 
     logger.info("6. Validate the user is directed to https://account-qa.peets.com/login");
     Assert.assertTrue(
-        WebHelper.getCurrentUrl().contains(TestData.QA_LOGIN_PAGE_URL), "Wrong URL is displayed");
+        WebHelper.getCurrentUrl().contains(TestData.LOGIN_PAGE_URL), "Wrong URL is displayed");
 
     logger.info("7. At Login Page page --> Click on 'Create Account'");
     CreateAccountPage createAccountPage = signInPage.clickOnCreateAccountButton();
@@ -376,7 +376,7 @@ public class IdentityTest extends BaseTest {
     logger.info("8. Validate the user is directed to https://account-qa.peets.com/Registration");
     Assert.assertNotNull(createAccountPage, "Failed to navigate to the Create account page.");
     Assert.assertTrue(
-        WebHelper.getCurrentUrl().contains(TestData.QA_REGISTRATION_PAGE_URL),
+        WebHelper.getCurrentUrl().contains(TestData.REGISTRATION_PAGE_URL),
         "Wrong Registration URL is displayed");
 
     logger.info("9. At Create Account Page --> Key in fields with valid data and Click on Create");
@@ -415,7 +415,7 @@ public class IdentityTest extends BaseTest {
 
     logger.info("4. Validate the user is directed to https://account-qa.peets.com/login");
     Assert.assertTrue(
-        WebHelper.getCurrentUrl().contains(TestData.QA_LOGIN_PAGE_URL), "Wrong URL is displayed");
+        WebHelper.getCurrentUrl().contains(TestData.LOGIN_PAGE_URL), "Wrong URL is displayed");
 
     logger.info("5. At Login Page page -->Key in Valid Email & Password and click on 'Sign in'");
     signInPage.enterEmail(CheckoutUserTestData.USERNAME);
