@@ -98,7 +98,13 @@ class SearchComponentMobile extends SearchComponent {
     logger.info("Searching for: " + product);
     searchBox.sendKeys(product);
     SdkHelper.getSyncHelper().sleep(1000);
-    WebHelper.hideKeyboard(); // This is only required in landscape mode
+    if (WebHelper.getDriverConfig().toLowerCase().contains("landscape")
+        && SdkHelper.getEnvironmentHelper().isAndroid()) {
+      logger.info("Android Landscape hide keyboard");
+      SdkHelper.getDeviceControl().pressAndroidKeyBack();
+      SdkHelper.getSyncHelper().sleep(500); // Wait for keyboard to be hidden
+      //      WebHelper.hideKeyboard(); // This is only required in landscape mode
+    }
 
     SdkHelper.getSyncHelper().wait(Until.uiElement(searchLabel).present());
     SdkHelper.getBrowserControl().jsClick(searchLabel);

@@ -79,8 +79,7 @@ public class Constants {
   public enum TestEnvironment {
     uat("https://uat.aws.peets.com"),
     production("https://peets.com"),
-    staging(
-        "https://peets-coffee-staging.myshopify.com/?ab=0&_fd=0&_sc=1&key=032a0c34f50a8e6cd446cc43177f45f6bd829fb6ea48ef59fa7533c49306e7f9");
+    staging("https://peets-coffee-staging.myshopify.com");
 
     private final String environment;
 
@@ -95,40 +94,32 @@ public class Constants {
 
   /** Test Data for tests */
   public static final class TestData {
-    public static final String LANDING_PAGE_URL =
+    public static final String STAGING_KEY_URL_PARAMETER =
+        "/?ab=0&_fd=0&_sc=1&key=032a0c34f50a8e6cd446cc43177f45f6bd829fb6ea48ef59fa7533c49306e7f9";
+    public static final String BASE_URL =
         TestEnvironment.valueOf(WebHelper.getTestEnvironment()).getEnvironment();
-    public static final String GEAR_PAGE_URL =
-        LANDING_PAGE_URL.split("\\?")[0] + "/collections/all-equipment";
-    public static final String PLP_URL =
-        LANDING_PAGE_URL.split("\\?")[0] + "/collections/all-coffee";
-    public static final String PLP_MEDIUM_ROAST_URL =
-        LANDING_PAGE_URL.split("\\?")[0] + "/collections/medium-roast";
-    public static final String PDP_URL =
-        LANDING_PAGE_URL.split("\\?")[0] + "/products/major-dickasons-blend";
-    public static final String GENERAL_PDP_URL = LANDING_PAGE_URL.split("\\?")[0] + "/products/";
-    public static final String SHOP_TEA_PAGE_URL = LANDING_PAGE_URL.concat("/mighty-leaf-tea");
-    public static final String SHOP_EQUIPMENT_PAGE_URL = LANDING_PAGE_URL.concat("/equipment");
-    public static final String SHOP_PEETS_CARD_PAGE_URL = LANDING_PAGE_URL.concat("/peets-card");
-    public static final String SHOP_COFFEE_KCUPS_PAGE_URL =
-        LANDING_PAGE_URL.concat("/coffee/k-cups");
-    public static final String BARIDI_BLEND_BLUNDE = "baridi-blend-bundle-oos";
+
+    public static final String LANDING_PAGE_URL =
+        WebHelper.isProdEnv() ? BASE_URL : BASE_URL + STAGING_KEY_URL_PARAMETER;
+    public static final String GEAR_PAGE_URL = BASE_URL + "/collections/all-equipment";
+    public static final String PLP_URL = BASE_URL + "/collections/all-coffee";
+
+    public static final String PDP_URL = BASE_URL + "/products/major-dickasons-blend";
+    public static final String GENERAL_PDP_URL = BASE_URL + "/products/";
+
     public static final String HOODIE = "peets-coffee-hoodie";
-    public static final String GIFT_CARDS_PAGE_URL =
-        LANDING_PAGE_URL.split("\\?")[0].concat("/pages/gift-cards");
-    public static final String STORE_LOCATOR_PAGE_URL =
-        LANDING_PAGE_URL.split("\\?")[0].concat("/pages/store-locator");
-    public static final String SUBSCRIPTIONS_URL =
-        LANDING_PAGE_URL.split("\\?")[0].concat("pages/subscriptions");
+    public static final String GIFT_CARDS_PAGE_URL = BASE_URL.concat("/pages/gift-cards");
+    public static final String STORE_LOCATOR_PAGE_URL = BASE_URL.concat("/pages/store-locator");
+    public static final String SUBSCRIPTIONS_URL = BASE_URL.concat("pages/subscriptions");
     public static final String SUBSCRIPTION_SO_URL =
-        LANDING_PAGE_URL.split("\\?")[0].concat("/products/single-origin-series-subscription");
+        BASE_URL.concat("/products/single-origin-series-subscription");
     public static final String SUBSCRIPTION_SB_URL =
-        LANDING_PAGE_URL.split("\\?")[0].concat("/products/signature-blend-series-subscription");
+        BASE_URL.concat("/products/signature-blend-series-subscription");
     public static final String SUBSCRIPTION_SMB_URL =
-        LANDING_PAGE_URL.split("\\?")[0].concat("/products/small-batch-series-subscription");
+        BASE_URL.concat("/products/small-batch-series-subscription");
     public static final String ORDER_PEETS_URL = "order.peets.com";
     public static final String BLOG_PEETS_URL_PARAMETER = "/blogs/peets";
-    public static final String COFFEEBAR_MENU_URL =
-        LANDING_PAGE_URL.split("\\?")[0].concat("/pages/menu");
+    public static final String COFFEEBAR_MENU_URL = BASE_URL.concat("/pages/menu");
     public static final String STORE_LOCATOR_URL = "pages/store-locator";
     public static final String REWARDS_URL = "pages/peetnik-rewards";
     public static final String RECENT_ORDERS_URL = "/account#/orders";
@@ -139,13 +130,10 @@ public class Constants {
     public static final String QA_REGISTRATION_PAGE_URL =
         "https://account-qa.peets.com/Registration";
     public static final String COFFEE_BEST_SELLERS_URL =
-        LANDING_PAGE_URL.split("\\?")[0] + "/collections/coffee-best-sellers";
-    public static final String COFFEE_DARK_ROAST_URL =
-        LANDING_PAGE_URL.split("\\?")[0] + "/collections/dark-roast";
-    public static final String TEA_PLP_URL =
-        LANDING_PAGE_URL.split("\\?")[0] + "/collections/all-tea";
-    public static final String TEA_BEST_SELLERS_URL =
-        LANDING_PAGE_URL.split("\\?")[0] + "/collections/tea-best-sellers";
+        BASE_URL + "/collections/coffee-best-sellers";
+    public static final String COFFEE_DARK_ROAST_URL = BASE_URL + "/collections/dark-roast";
+    public static final String TEA_PLP_URL = BASE_URL + "/collections/all-tea";
+    public static final String TEA_BEST_SELLERS_URL = BASE_URL + "/collections/tea-best-sellers";
 
     /** Test Data for tests */
     public static final String WEB_USERNAME_SUBSCRIPTION =

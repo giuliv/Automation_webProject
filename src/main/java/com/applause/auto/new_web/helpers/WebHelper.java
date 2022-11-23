@@ -3,6 +3,7 @@ package com.applause.auto.new_web.helpers;
 import static com.applause.auto.framework.SdkHelper.getDriver;
 import static io.appium.java_client.Setting.NATIVE_WEB_TAP;
 
+import com.applause.auto.framework.ContextManager;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -59,8 +60,8 @@ public class WebHelper {
   }
 
   public static void setDefaultTimeOut() {
-    Duration previous = SdkHelper.getDriver().getTimeout();
-    SdkHelper.getDriver().setTimeout(previous);
+    // Set the default wait time on elements to 20 seconds
+    SdkHelper.getDriver().setTimeout(20);
   }
 
   public static void hoverByAction(BaseElement element) {
@@ -162,6 +163,10 @@ public class WebHelper {
 
   public static String getTestEnvironment() {
     return System.getProperty("environment", "uat").toLowerCase();
+  }
+
+  public static boolean isProdEnv() {
+    return getTestEnvironment().toLowerCase().contains("production");
   }
 
   public static Float cleanPrice(String price) {

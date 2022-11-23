@@ -36,13 +36,13 @@ public class SearchResultsPage extends Base {
 
   @Locate(
       xpath =
-          "(//h3/a[contains(@href,\"/products/%s\")]/ancestor::li//div[@class='pi__quick-add']/button | //h3/a[contains(@href,\"/products/%s\")]/ancestor::section//div[@class='pi__quick-add']/button)",
+          "(//h3/a[contains(@href,\"/products/%s\")]/ancestor::li//div[@class='pi__quick-add']/button | //h3/a[contains(@href,\"/products/%s\")]/ancestor::article//div[@class='pi__quick-add']/button)",
       on = Platform.WEB)
   protected Button quickViewButton;
 
   @Locate(
       xpath =
-          "(//h3/a[@href=\"/products/%s\"]/ancestor::li//div[@class='pi__quick-add']/button | //h3/a[@href=\"/products/%s\"]/ancestor::section//div[@class='pi__quick-add']/button)",
+          "(//h3/a[@href=\"/products/%s\"]/ancestor::li//div[@class='pi__quick-add']/button | //h3/a[@href=\"/products/%s\"]/ancestor::article//div[@class='pi__quick-add']/button)",
       on = Platform.WEB)
   protected Button quickViewButtonByName;
 
@@ -111,14 +111,14 @@ public class SearchResultsPage extends Base {
 
     logger.info("Clicking QuickView button");
     quickViewButton.click();
-    SdkHelper.getSyncHelper().wait(Until.uiElement(quickViewButton).notVisible());
+    //    SdkHelper.getSyncHelper().wait(Until.uiElement(quickViewButton).notVisible());
 
     return SdkHelper.create(QuickViewComponent.class);
   }
 
   @Step("Click quick view")
   public QuickViewComponent clickOverQuickViewByEqualsProduct(String coffeeName) {
-    quickViewButtonByName.format(coffeeName).initialize();
+    quickViewButtonByName.format(coffeeName, coffeeName).initialize();
     WebHelper.scrollToElement(quickViewButtonByName);
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
 
@@ -127,7 +127,7 @@ public class SearchResultsPage extends Base {
 
     logger.info("Clicking QuickView button");
     quickViewButtonByName.click();
-    SdkHelper.getSyncHelper().wait(Until.uiElement(quickViewButtonByName).notVisible());
+    //    SdkHelper.getSyncHelper().wait(Until.uiElement(quickViewButtonByName).notVisible());
 
     return SdkHelper.create(QuickViewComponent.class);
   }
