@@ -20,7 +20,7 @@ public class Base extends BaseComponent {
   @Locate(id = "dismissbutton2header1", on = Platform.WEB)
   protected Button dismissBanner;
 
-  @Locate(id = "attentive_creative", on = Platform.WEB)
+  @Locate(css = "#attentive_creative", on = Platform.WEB)
   protected ContainerElement newBannerIFrame;
 
   @Step("Get header")

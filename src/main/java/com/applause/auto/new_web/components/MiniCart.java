@@ -130,7 +130,7 @@ public class MiniCart extends BaseComponent {
   @Locate(xpath = "//table//p[@class='og-shipping']/*", on = Platform.WEB)
   private SelectList shipEveryDropdown;
 
-  @Locate(className = "bag-shipping__text", on = Platform.WEB)
+  @Locate(css = ".bag-shipping__text", on = Platform.WEB)
   private Text shippingAwayMessage;
 
   @Locate(css = "i.icon--shipped", on = Platform.WEB)
@@ -296,7 +296,7 @@ public class MiniCart extends BaseComponent {
   public <T extends BaseComponent> T clickOnContinueToCheckOutButton(Class<T> clazz) {
     logger.info("Clicking CheckOut");
     SdkHelper.getSyncHelper()
-            .wait(Until.uiElement(checkOutButton).visible().setTimeout(Duration.ofSeconds(40)));
+        .wait(Until.uiElement(checkOutButton).visible().setTimeout(Duration.ofSeconds(40)));
     checkOutButton.click();
     return SdkHelper.create(clazz);
   }
@@ -414,13 +414,17 @@ public class MiniCart extends BaseComponent {
     return this;
   }
 
-  /** @return boolean */
+  /**
+   * @return boolean
+   */
   @Step("Get one time purchase")
   public boolean isOneTimePurchaseButtonEnabled() {
     return oneTimePurchaseButton.isEnabled();
   }
 
-  /** @return boolean */
+  /**
+   * @return boolean
+   */
   @Step("Get subscribe")
   public boolean isSubscribeButtonEnabled() {
     return subscribeButton.isEnabled();

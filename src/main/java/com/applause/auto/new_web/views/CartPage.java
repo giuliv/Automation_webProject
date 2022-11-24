@@ -58,7 +58,7 @@ public class CartPage extends BaseComponent {
   @Locate(id = "bagContinue", on = Platform.WEB)
   private Button closeButton;
 
-  @Locate(className = "bag-shipping__bar", on = Platform.WEB)
+  @Locate(css = ".bag-shipping__bar", on = Platform.WEB)
   private ContainerElement progressShippingBarElement;
 
   @Locate(id = "bagNoteBtn", on = Platform.WEB)
@@ -73,10 +73,10 @@ public class CartPage extends BaseComponent {
   @Locate(id = "bagRecommendations", on = Platform.WEB)
   private ContainerElement otherPurchasedContainer;
 
-  @Locate(className = "increment__add", on = Platform.WEB)
+  @Locate(css = ".increment__add", on = Platform.WEB)
   private List<Button> increaseQuantityButton;
 
-  @Locate(className = "increment__subtr", on = Platform.WEB)
+  @Locate(css = ".increment__subtr", on = Platform.WEB)
   private List<Button> decreaseQuantityButton;
 
   @Locate(css = "og-offer > og-when.og-offer button.og-optout-btn", on = Platform.WEB)
@@ -94,13 +94,13 @@ public class CartPage extends BaseComponent {
   @Locate(css = "#bagNoteInput", on = Platform.WEB)
   private TextBox addPersonalMessageField;
 
-  @Locate(className = "bag-note__form-label", on = Platform.WEB)
+  @Locate(css = ".bag-note__form-label", on = Platform.WEB)
   private Text personalMessageTitle;
 
   @Locate(xpath = "//*[@id='bagRecommendationsWrapper']//article", on = Platform.WEB)
   private List<OtherPurchasedItemChunk> listOfOtherPurchased;
 
-  @Locate(className = "bag__empty-heading", on = Platform.WEB)
+  @Locate(css = ".bag__empty-heading", on = Platform.WEB)
   private Text emptyMessage;
 
   @Locate(css = ".bag__touts a img ", on = Platform.WEB)
@@ -109,7 +109,7 @@ public class CartPage extends BaseComponent {
   @Locate(css = ".bag__touts a p", on = Platform.WEB)
   private LazyList<Text> shopabbleTitles;
 
-  @Locate(className = "bag-shipping__text", on = Platform.WEB)
+  @Locate(css = ".bag-shipping__text", on = Platform.WEB)
   private Text shippingAwayMessage;
 
   @Locate(css = "h1.bag__title", on = Platform.WEB)
@@ -344,7 +344,9 @@ public class CartPage extends BaseComponent {
     return this;
   }
 
-  /** @return boolean */
+  /**
+   * @return boolean
+   */
   @Step("Get one time purchase button")
   public boolean isOneTimePurchaseButtonSelected() {
     logger.info(
@@ -360,19 +362,25 @@ public class CartPage extends BaseComponent {
     return subscribeButton.getAttributeValue("slot").equalsIgnoreCase("default");
   }
 
-  /** @return boolean */
+  /**
+   * @return boolean
+   */
   @Step("Get subscribe button")
   public boolean isSubscribeButtonEnabled() {
     return subscribeButton.isEnabled();
   }
 
-  /** @return boolean */
+  /**
+   * @return boolean
+   */
   @Step("Get Add personal message field")
   public boolean isAddPersonalMessageFieldDisplayed() {
     return WebHelper.isDisplayed(addPersonalMessageField);
   }
 
-  /** @return String */
+  /**
+   * @return String
+   */
   @Step("Get Add personal message")
   public String getAddPersonalMessageFieldText() {
     String message = addPersonalMessageField.getCurrentText();

@@ -26,7 +26,7 @@ public class SearchComponent extends BaseComponent {
   @Locate(id = "searchInput", on = Platform.WEB)
   protected TextBox searchBox;
 
-  @Locate(className = "search__label-text", on = Platform.WEB)
+  @Locate(css = ".search__label-text", on = Platform.WEB)
   protected Text searchLabel;
 
   @Locate(id = "searchMenuBtn", on = Platform.WEB)

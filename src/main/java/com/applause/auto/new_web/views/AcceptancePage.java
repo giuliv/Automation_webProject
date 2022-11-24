@@ -21,7 +21,7 @@ public class AcceptancePage extends Base {
   @Locate(css = "div[data-order-update-options],.os-order-number", on = Platform.WEB)
   private ContainerElement mainContainer;
 
-  @Locate(className = "os-order-number", on = Platform.WEB)
+  @Locate(css = ".os-order-number", on = Platform.WEB)
   private Text orderNumber;
 
   @Locate(css = ".product__description__name", on = Platform.WEB)

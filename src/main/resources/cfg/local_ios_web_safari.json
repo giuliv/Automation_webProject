@@ -1,0 +1,25 @@
+{
+  "applause:options": {
+    "isW3C": "true",
+    "isStrict": "false",
+    "driverName": "iOS",
+    "driverType": "iOS",
+    "factoryKey": "WEB_MOBILE",
+    "osName": "iOS"
+  },
+  "platformName": "iOS",
+  "browserName": "Safari",
+  "noReset": false,
+  "platformVersion": "16.0",
+  "orientation": "PORTRAIT",
+  "deviceName": "SpikeMax",
+  "udid": "00008030-000C30460A53402E",
+  "automationName": "XCUITest",
+  "appiumVersion": "1.22.3",
+  "fixImageTemplateScale": true,
+  "newCommandTimeout": 3600,
+  "snapshotMaxDepth": 99,
+  "autoGrantPermissions": true,
+  "appPushTimeout": 240000
+}
+

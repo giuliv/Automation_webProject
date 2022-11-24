@@ -170,7 +170,7 @@ public class ProductDetailsPage extends Base {
   @Locate(xpath = "//button[@id='ratings-summary']", on = Platform.WEB)
   protected Button ratingsSummaryButton;
 
-  @Locate(className = "bv_numReviews_text", on = Platform.WEB)
+  @Locate(css = ".bv_numReviews_text", on = Platform.WEB)
   protected Text ratingsReviewsNumber;
 
   @Locate(

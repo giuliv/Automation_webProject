@@ -106,6 +106,17 @@ public class WebHelper {
         .executeScript("window.scrollTo(0,document.body.scrollHeight);");
   }
 
+  public static void removeElement(BaseElement element) {
+    if (exists(element, 5))
+      try {
+        ((JavascriptExecutor) SdkHelper.getDriver())
+            .executeScript(
+                "return document.querySelector('" + getLocatorString(element) + "').remove();");
+      } catch (Exception e) {
+        logger.info("Unable to remove element");
+      }
+  }
+
   public static boolean isDesktop() {
     return !SdkHelper.getEnvironmentHelper().isMobileAndroid()
         && !SdkHelper.getEnvironmentHelper().isMobileIOS()
@@ -137,9 +148,18 @@ public class WebHelper {
         jsClick(button.getWebElement());
         SdkHelper.getSyncHelper().wait(Until.uiElement(button).notVisible());
       }
+
       logger.info("Switching to default content...");
       SdkHelper.getDriver().switchTo().defaultContent();
     }
+  }
+
+  public static void clickButtonOverIframeBySwitchingContextIOS(BaseElement button) {
+    String oldContext = WebHelper.getCurrentContext();
+    WebHelper.switchToNativeContext();
+    button.click();
+    WebHelper.switchToWeb(oldContext);
+    SdkHelper.getSyncHelper().sleep(3000); // Extra wait due to context change
   }
 
   public static void switchToIFrameAndSetData(BaseElement frame, TextBox element, String data) {
@@ -177,7 +197,8 @@ public class WebHelper {
   }
 
   public static boolean isSafari() {
-    return getDriverConfig().contains("SAFARI_MAC") || SdkHelper.getEnvironmentHelper().isSafari();
+    return getDriverConfig().toLowerCase().contains("safari")
+        || SdkHelper.getEnvironmentHelper().isSafari();
   }
 
   public static void nativeIOSClick(BaseElement element) {
@@ -316,6 +337,14 @@ public class WebHelper {
       return isDisplayed(element);
     } catch (Exception e) {
       return isDisplayed(element);
+    }
+  }
+
+  public static void waitForVisibleOrPresent(BaseElement element) {
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      SdkHelper.getSyncHelper().wait(Until.uiElement(element).present());
+    } else {
+      SdkHelper.getSyncHelper().wait(Until.uiElement(element).visible());
     }
   }
 
@@ -639,6 +668,11 @@ public class WebHelper {
     return url;
   }
 
+  public static String getLocatorString(BaseElement element) {
+    String locatorString = element.getLocator().getLocatorStringMap().entrySet().toString();
+    return locatorString.substring(0, locatorString.length() - 1).split("=")[1];
+  }
+
   /** A slow navigation helper for when you need to wait for url change. * */
   public static void slowNavigationHelper(String linkHref, int seconds) {
     for (int i = 0; i <= seconds; i++) {
@@ -774,5 +808,24 @@ public class WebHelper {
     SdkHelper.getDriver()
         .switchTo()
         .window((String) SdkHelper.getDriver().getWindowHandles().toArray()[0]);
+  }
+
+  public static String getCurrentContext() {
+    String oldContext = ((SupportsContextSwitching) SdkHelper.getDriver()).getContext();
+    logger.info("Current context: {}", oldContext);
+    return oldContext;
+  }
+
+  public static void switchToWeb(String webContext) {
+    try {
+      logger.info("Switching to context: {}", webContext);
+      logger.info(
+          "Available contexts: "
+              + ((SupportsContextSwitching) SdkHelper.getDriver()).getContextHandles());
+      ((SupportsContextSwitching) SdkHelper.getDriver()).context(webContext);
+      SdkHelper.getSyncHelper().sleep(1000);
+    } catch (Exception e) {
+      logger.error(e.getMessage());
+    }
   }
 }

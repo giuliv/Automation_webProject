@@ -52,7 +52,7 @@ public class QuickViewComponent extends BaseComponent {
   @Locate(css = "div.open li", on = Platform.WEB)
   private List<Text> grindOptions;
 
-  @Locate(className = "pv-qty", on = Platform.WEB)
+  @Locate(css = ".pv-qty", on = Platform.WEB)
   private ContainerElement quantitySection;
 
   @Locate(id = "productViewQuantityButton%s", on = Platform.WEB)
@@ -154,7 +154,7 @@ public class QuickViewComponent extends BaseComponent {
   public SoftAssert validateQuantityElements() {
     SoftAssert softAssert = new SoftAssert();
 
-    SdkHelper.getSyncHelper().wait(Until.uiElement(quantitySection).visible());
+    WebHelper.waitForVisibleOrPresent(quantitySection);
     quantityBoxSelected.format(1).initialize();
     softAssert.assertTrue(quantityBoxSelected.isDisplayed(), "Quantity 1 is not default value");
 

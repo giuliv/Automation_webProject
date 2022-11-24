@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 @Implementation(is = ProductListPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
 public class ProductListPage extends Base {
 
-  @Locate(className = "collection__app", on = Platform.WEB)
+  @Locate(css = ".collection__grid, .collection__app", on = Platform.WEB)
   private ContainerElement mainContainer;
 
   @Locate(
@@ -62,17 +62,17 @@ public class ProductListPage extends Base {
   @Locate(css = "button.applied-filters__button", on = Platform.WEB)
   private Button clearAllFilters;
 
-  @Locate(className = "collection-filters__results-count", on = Platform.WEB)
+  @Locate(css = ".collection-filters__results-count", on = Platform.WEB)
   private Text totalResults;
 
-  @Locate(className = "collection-facets__mobile-btn", on = Platform.WEB)
+  @Locate(css = ".collection-facets__mobile-btn", on = Platform.WEB)
   protected Button filtersSectionMobile;
 
-  @Locate(className = "collection-facets__apply", on = Platform.WEB)
+  @Locate(css = ".collection-facets__apply", on = Platform.WEB)
   protected Button applyFilter;
 
   @Locate(css = ".pi__quick-add button", on = Platform.WEB)
-  private List<Button> quickViewButtonList;
+  protected List<Button> quickViewButtonList;
 
   @Locate(
       xpath =
@@ -83,7 +83,7 @@ public class ProductListPage extends Base {
   @Locate(css = ".pi__quick-add a", on = Platform.WEB)
   private List<Button> viewProductButtonList;
 
-  @Locate(className = "collection-sort__select", on = Platform.WEB)
+  @Locate(css = ".collection-sort__select", on = Platform.WEB)
   protected Button sortingBox;
 
   @Locate(css = "#listOptions #ss_price_asc", on = Platform.WEB)
@@ -101,7 +101,7 @@ public class ProductListPage extends Base {
   @Locate(css = "#listOptions #title_desc", on = Platform.WEB)
   protected Button titleDescSortType;
 
-  @Locate(className = "pi__price", on = Platform.WEB)
+  @Locate(css = ".pi__price", on = Platform.WEB)
   private List<Text> priceList;
 
   @Locate(css = "h1.page-hero__heading", on = Platform.WEB)
@@ -128,7 +128,7 @@ public class ProductListPage extends Base {
   @Locate(css = ".page-hero__description-text", on = Platform.WEB)
   private Text bannerContent;
 
-  @Locate(className = "ankle-tout__items", on = Platform.WEB)
+  @Locate(css = ".ankle-tout__items", on = Platform.WEB)
   private ContainerElement homeDeliveryContainer;
 
   @Locate(css = ".ankle-tout__items img", on = Platform.WEB)
@@ -140,7 +140,7 @@ public class ProductListPage extends Base {
   @Locate(css = ".ankle-tout__items a", on = Platform.WEB)
   private Image getStartedHomeDeliveryButton;
 
-  @Locate(className = "collection-filters__breadcrumbs", on = Platform.WEB)
+  @Locate(css = ".collection-filters__breadcrumbs", on = Platform.WEB)
   private Text fullBreadCrumbs;
 
   @Locate(css = ".collection-filters__breadcrumbs a", on = Platform.WEB)
@@ -189,7 +189,6 @@ public class ProductListPage extends Base {
       SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
     }
 
-    //    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
     logger.info("Products List Page URL: " + getDriver().getCurrentUrl());
   }
 
@@ -313,8 +312,10 @@ public class ProductListPage extends Base {
     WebHelper.scrollToElement(quickViewButtonList.get(0));
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
 
-    WebHelper.hoverByAction(quickViewButtonList.get(0));
-    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    if (!SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      WebHelper.hoverByAction(quickViewButtonList.get(0));
+      SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    }
 
     logger.info("Clicking QuickView button");
     quickViewButtonList.get(0).click();

@@ -18,13 +18,13 @@ public class MyAccountPeetnikRewardsPage extends Base {
 
   /* -------- Elements -------- */
 
-  @Locate(className = "ac-rewards", on = Platform.WEB)
+  @Locate(css = ".ac-rewards", on = Platform.WEB)
   private Text getViewSignature;
 
-  @Locate(className = "ac-dashboard__section-heading", on = Platform.WEB)
+  @Locate(css = ".ac-dashboard__section-heading", on = Platform.WEB)
   private Button titleText;
 
-  @Locate(className = "ac-dashboard__section-header", on = Platform.WEB)
+  @Locate(css = ".ac-dashboard__section-header", on = Platform.WEB)
   private Button subtitleText;
 
   @Locate(css = ".rewards-settings ul > li:nth-child(1)", on = Platform.WEB)

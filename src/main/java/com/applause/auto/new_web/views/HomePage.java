@@ -11,6 +11,7 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import io.appium.java_client.remote.SupportsContextSwitching;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -180,8 +181,11 @@ public class HomePage extends Base {
   @Locate(id = "closeIconContainer", on = Platform.WEB)
   protected Button closeSpecialOfferButton;
 
-  @Locate(id = "attentive_creative", on = Platform.WEB)
+  @Locate(css = "#attentive_creative", on = Platform.WEB)
   protected ContainerElement specialOfferFrame;
+
+  @Locate(css = "XCUIElementTypeButton[name='close']", on = Platform.WEB)
+  protected ContainerElement closeSpecialOfferButtonIOS;
 
   @Override
   public void afterInit() {
@@ -195,9 +199,20 @@ public class HomePage extends Base {
     logger.info("Need to close sometimes modals, cookies/offers banners [First Time]");
     //    if (!WebHelper.getTestExecution().equals("local")) {
 
-    WebHelper.clickButtonOverIFrame(specialOfferFrame, closeSpecialOfferButton);
-    SdkHelper.getDriver().navigate().refresh();
-    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      logger.info("Running cases on Mobile iOS");
+      if (WebHelper.exists(specialOfferFrame, 5)) {
+        WebHelper.clickButtonOverIframeBySwitchingContextIOS(closeSpecialOfferButtonIOS);
+      }
+      SdkHelper.getDriver().navigate().refresh();
+      if (WebHelper.exists(newBannerIFrame, 5)) {
+        WebHelper.clickButtonOverIframeBySwitchingContextIOS(dismissBanner);
+      }
+    } else {
+      WebHelper.clickButtonOverIFrame(specialOfferFrame, closeSpecialOfferButton);
+      SdkHelper.getDriver().navigate().refresh();
+      WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
+    }
     SdkHelper.getSyncHelper().sleep(500);
 
     logger.info("Review if 'Accept Cookies' banner is displayed");

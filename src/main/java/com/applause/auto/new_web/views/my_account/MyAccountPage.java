@@ -33,7 +33,7 @@ public class MyAccountPage extends Base {
   @Locate(css = ".ac-section-header", on = Platform.WEB_MOBILE_PHONE)
   private Text getViewSignature;
 
-  @Locate(className = "dashboard-rewards__modal--close", on = Platform.WEB)
+  @Locate(css = ".dashboard-rewards__modal--close", on = Platform.WEB)
   private Button closeBanner;
 
   @Locate(
