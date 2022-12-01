@@ -16,7 +16,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
 
 @Implementation(is = PlpItemComponent.class, on = Platform.WEB)
-@Implementation(is = PlpItemComponent.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = MobilePlpItemComponent.class, on = Platform.WEB_MOBILE_PHONE)
 public class PlpItemComponent extends BaseComponent {
 
   @Locate(xpath = ".//a[contains(@href, '/products')]/div[1]", on = Platform.WEB)
@@ -43,13 +43,13 @@ public class PlpItemComponent extends BaseComponent {
   private Text outOfScopeText;
 
   @Locate(xpath = ".//a[normalize-space()='View Product']", on = Platform.WEB)
-  private Button viewProductButton;
+  protected Button viewProductButton;
 
   @Locate(xpath = ".//div[@class='pi__quick-add']/button", on = Platform.WEB)
-  private Button quickViewButton;
+  protected Button quickViewButton;
 
   @Locate(xpath = ".//div[@class='pi__quick-add']/button", on = Platform.WEB)
-  private Button addToCartButton;
+  protected Button addToCartButton;
 
   @Step("Click On Product")
   public ProductDetailsPage clickOnProduct() {
@@ -187,13 +187,7 @@ public class PlpItemComponent extends BaseComponent {
     logger.info("Clicking on the 'Quick view' button");
     WebHelper.hoverByAction(quickViewButton);
     SdkHelper.getSyncHelper().sleep(500);
-
-    if (WebHelper.isMobile()) {
-      WebHelper.jsClick(quickViewButton.getWebElement());
-    } else {
-      quickViewButton.click();
-    }
-
+    quickViewButton.click();
     return SdkHelper.create(QuickViewComponent.class);
   }
 
@@ -218,13 +212,7 @@ public class PlpItemComponent extends BaseComponent {
     logger.info("Clicking on the 'Add to cart' button");
     WebHelper.hoverByAction(addToCartButton);
     SdkHelper.getSyncHelper().sleep(500);
-
-    if (WebHelper.isMobile()) {
-      WebHelper.jsClick(addToCartButton.getWebElement());
-    } else {
-      addToCartButton.click();
-    }
-
+    addToCartButton.click();
     return SdkHelper.create(QuickViewComponent.class);
   }
 
@@ -236,5 +224,58 @@ public class PlpItemComponent extends BaseComponent {
   @Step("Verify 'View Product' button exist")
   public boolean isViewProductButtonExist() {
     return viewProductButton.exists();
+  }
+}
+
+class MobilePlpItemComponent extends PlpItemComponent {
+
+  @Override
+  @Step("Verify 'Quick view' button is displayed")
+  public boolean isQuickViewButtonDisplayed() {
+    logger.info("Checking 'Quick view' button is displayed for the product [{}]", getProductName());
+    WebHelper.scrollToElement(quickViewButton);
+    return WebHelper.isDisplayed(quickViewButton);
+  }
+
+  @Override
+  @Step("Click on the Quick view button")
+  public QuickViewComponent clickQuickView() {
+    logger.info("Clicking on the 'Quick view' button");
+    WebHelper.jsClick(quickViewButton.getWebElement());
+    return SdkHelper.create(QuickViewComponent.class);
+  }
+
+  @Override
+  @Step("Verify 'View product' button is displayed")
+  public boolean isViewProductButtonDisplayed() {
+    logger.info(
+        "Checking 'View product' button is displayed for the product [{}]", getProductName());
+    return WebHelper.isDisplayed(viewProductButton);
+  }
+
+  @Override
+  @Step("Click on the View product button")
+  public ProductDetailsPage clickViewProduct() {
+    logger.info("Clicking on the 'View product' button");
+    WebHelper.scrollToElement(viewProductButton);
+    viewProductButton.click();
+    return SdkHelper.create(ProductDetailsPage.class);
+  }
+
+  @Override
+  @Step("Verify 'Add to cart' button is displayed")
+  public boolean isAddToCartButtonDisplayed() {
+    logger.info(
+        "Checking 'Add to cart' button is displayed for the product [{}]", getProductName());
+    WebHelper.scrollToElement(addToCartButton);
+    return WebHelper.isDisplayed(addToCartButton);
+  }
+
+  @Override
+  @Step("Click on the Add to cart button")
+  public QuickViewComponent clickAddToCart() {
+    logger.info("Clicking on the 'Add to cart' button");
+    WebHelper.jsClick(addToCartButton.getWebElement());
+    return SdkHelper.create(QuickViewComponent.class);
   }
 }

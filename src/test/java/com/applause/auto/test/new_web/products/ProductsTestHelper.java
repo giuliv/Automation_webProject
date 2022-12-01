@@ -10,6 +10,7 @@ import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.new_web.views.SignUpPage;
 import com.applause.auto.test.new_web.BaseTest;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 
@@ -103,9 +104,8 @@ public class ProductsTestHelper extends BaseTest {
 
     logger.info("2. Validate the user is shown with items Sort by recommended on default");
     softAssert.assertTrue(
-        productListPage
-            .getSelectedSortingType()
-            .equalsIgnoreCase(SortType.RECOMMENDED.getOptionName()),
+        StringUtils.containsIgnoreCase(
+            productListPage.getSelectedSortingType(), SortType.RECOMMENDED.getOptionName()),
         "Recommended sorting type isn't selected");
 
     selectSortingTypeAndCheckResultList(productListPage, SortType.PRICE_LOW_TO_HIGH, softAssert);
@@ -124,9 +124,8 @@ public class ProductsTestHelper extends BaseTest {
 
     logger.info("2. Validate the user is shown with items Sort by recommended on default");
     softAssert.assertTrue(
-        productListPage
-            .getSelectedSortingType()
-            .equalsIgnoreCase(SortType.RECOMMENDED.getOptionName()),
+        StringUtils.containsIgnoreCase(
+            productListPage.getSelectedSortingType(), SortType.RECOMMENDED.getOptionName()),
         "Recommended sorting type isn't selected");
 
     selectSortingTypeAndCheckResultList(productListPage, SortType.PRICE_LOW_TO_HIGH, softAssert);

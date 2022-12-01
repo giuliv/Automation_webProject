@@ -3,7 +3,6 @@ package com.applause.auto.new_web.helpers;
 import static com.applause.auto.framework.SdkHelper.getDriver;
 import static io.appium.java_client.Setting.NATIVE_WEB_TAP;
 
-import com.applause.auto.framework.ContextManager;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -256,9 +255,7 @@ public class WebHelper {
   //        .perform();
   //  }
 
-  /**
-   * @return Y-position of page
-   */
+  /** @return Y-position of page */
   public static int getPagePositionY() {
     String javascript = "return window.scrollY;";
     return (int)
@@ -827,5 +824,16 @@ public class WebHelper {
     } catch (Exception e) {
       logger.error(e.getMessage());
     }
+  }
+
+  /**
+   * Wait 1 minutes for page URL contains expected parameter
+   *
+   * @param urlParameter
+   * @return boolean
+   */
+  public static boolean doesPageUrlContainExpectedParameter(String urlParameter) {
+    return new WebDriverWait(getDriver(), Duration.ofMinutes(1))
+        .until(driver -> WebHelper.getCurrentUrl().contains(urlParameter));
   }
 }

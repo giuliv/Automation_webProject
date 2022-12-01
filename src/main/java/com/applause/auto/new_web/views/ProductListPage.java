@@ -78,7 +78,7 @@ public class ProductListPage extends Base {
       xpath =
           "//div[@class=\"pi__essentials\"]//a[contains(text(),\"%s\")]/ancestor::div[@class=\"pi__desc\"]//button",
       on = Platform.WEB)
-  private Button quickViewPaperFiltersButton;
+  protected Button quickViewPaperFiltersButton;
 
   @Locate(css = ".pi__quick-add a", on = Platform.WEB)
   private List<Button> viewProductButtonList;
@@ -112,7 +112,7 @@ public class ProductListPage extends Base {
 
   @Locate(
       xpath =
-          "//*[@class='product-list']/*[not(.//div[contains(@class, 'pi__badge')]) and not(@class='collection__load-more') and not(@class='collection-tout')]",
+          "//*[@class='product-list']/*[not(.//div[contains(@class, 'pi__badge')]) and not(@class='collection__load-more') and not(contains(@class,'collection-tout'))]",
       on = Platform.WEB)
   private List<PlpItemComponent> productsList;
 
@@ -758,5 +758,16 @@ class ProductListPageMobile extends ProductListPage {
     String selectedSortingType = sortingDropdown.getSelectedOption().getText();
     logger.info("Selected sorting type: {}", selectedSortingType);
     return selectedSortingType;
+  }
+
+  @Override
+  @Step("Click quick view")
+  public QuickViewComponent clickOverPaperFiltersProductQuickViewButton(String product) {
+    WebHelper.scrollToElement(quickViewPaperFiltersButton.format(product));
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    logger.info("Clicking QuickView button");
+    quickViewPaperFiltersButton.format(product).click();
+    return SdkHelper.create(QuickViewComponent.class);
   }
 }

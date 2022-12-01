@@ -6,6 +6,7 @@ import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.enums.Filters;
 import com.applause.auto.new_web.components.QuickViewComponent;
 import com.applause.auto.new_web.components.plp.PlpItemComponent;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.test.new_web.BaseTest;
@@ -75,6 +76,7 @@ public class TeaAllTeaTests extends BaseTest {
     }
 
     logger.info("4. At Homepage --> Hover any Tea item");
+    WebHelper.scrollToPageTop();
     PlpItemComponent itemComponent = productListPage.getProductOnPosition(1);
     softAssert.assertTrue(
         itemComponent.isQuickViewButtonDisplayed(), "Quick view button isn't displayed");

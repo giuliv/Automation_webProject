@@ -187,12 +187,14 @@ public class PdpTests extends BaseTest {
         ShipEveryDropdown.TWO_WEEKS.getValue(),
         "2 weeks wasn't display as selected.");
 
-    logger.info("3. Hover subscribe info icon");
-    String tooltip = productDetailsPage.hoverOverSubscribeInfoIcon();
+    if (WebHelper.isDesktop()) {
+      logger.info("3. Hover subscribe info icon");
+      String tooltip = productDetailsPage.hoverOverSubscribeInfoIcon();
 
-    logger.info("Verify that tooltip should display.");
-    Assert.assertTrue(
-        tooltip.contains(PDPTestData.SUBSCRIBE_INFO_TOOLTIP), "Tooltip didn't appear");
+      logger.info("Verify that tooltip should display.");
+      Assert.assertTrue(
+          tooltip.contains(PDPTestData.SUBSCRIBE_INFO_TOOLTIP), "Tooltip didn't appear");
+    }
 
     // Todo: Missing validation about FAQ, its failing due to a bug, also another case also test it
 
@@ -669,7 +671,7 @@ public class PdpTests extends BaseTest {
   public void pdpCustomerReviewsTest() {
     logger.info("1. Navigate to PDP");
     ProductDetailsPage detailsPage =
-        navigateToPDPFromHome(Constants.StandardCoffeeInventory.Coffee4.getValue());
+        navigateToPDPFromHome(TestData.COFFEE_WITH_REVIEWS_URL_PARAMETER);
 
     logger.info("2. Verify customer reviews are sorted by Most Recent by default");
     ProductDetailsCustomerReviewsComponent customerReviewsComponent =

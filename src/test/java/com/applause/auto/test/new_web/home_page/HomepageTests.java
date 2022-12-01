@@ -597,11 +597,13 @@ public class HomepageTests extends BaseTest {
         nextPositions.get(0),
         "The coffee bar did not go back to the original list with previous clicked.");
 
-    logger.info("3. Verify hover shows Order Now");
-    CoffeeBarItemComponent itemComponent =
-        carouselComponent.getCoffeeBarItemComponent(firstPosition);
-    itemComponent.hoverOver();
-    softAssert.assertTrue(itemComponent.isOrderNowDisplayed(), "Order Now is not displayed");
+    if (WebHelper.isDesktop()) {
+      logger.info("3. Verify hover shows Order Now");
+      CoffeeBarItemComponent itemComponent =
+          carouselComponent.getCoffeeBarItemComponent(firstPosition);
+      itemComponent.hoverOver();
+      softAssert.assertTrue(itemComponent.isOrderNowDisplayed(), "Order Now is not displayed");
+    }
 
     logger.info("4. Verify links take you places");
     SeasonalPage seasonPage = carouselComponent.clickSeeAllSeasonalBeveragesButton();
@@ -676,16 +678,19 @@ public class HomepageTests extends BaseTest {
           "Best Sellers did not go back to the original list with previous clicked.");
     }
 
-    logger.info("5. Verifying hover over best seller item shows add to cart button");
-    homePage.hoverBestSellersPosition(firstPosition);
-    softAssert.assertTrue(
-        homePage.isBestSellersQuickAddDisplayedOnHover(), "Quick Add is not displaying on hover.");
+    if (WebHelper.isDesktop()) {
+      logger.info("5. Verifying hover over best seller item shows add to cart button");
+      homePage.hoverBestSellersPosition(firstPosition);
+      softAssert.assertTrue(
+          homePage.isBestSellersQuickAddDisplayedOnHover(),
+          "Quick Add is not displaying on hover.");
 
-    logger.info("6. Verifying quick add overlay happens on quickadd click");
-    homePage.hoverBestSellersPosition(firstPosition);
-    homePage.clickBestSellersQuickAddButton();
-    softAssert.assertTrue(
-        homePage.isQuickAddOverlayDisplayed(), "Quick Add Overlay is not displaying.");
+      logger.info("6. Verifying quick add overlay happens on quick add click");
+      homePage.hoverBestSellersPosition(firstPosition);
+      homePage.clickBestSellersQuickAddButton();
+      softAssert.assertTrue(
+          homePage.isQuickAddOverlayDisplayed(), "Quick Add Overlay is not displaying.");
+    }
 
     softAssert.assertAll();
   }

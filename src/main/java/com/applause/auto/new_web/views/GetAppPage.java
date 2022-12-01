@@ -28,7 +28,7 @@ public class GetAppPage extends Base {
   @Step("verify Get App page is displayed")
   public boolean isGetAppPageDisplayed() {
     logger.info("Checking Get App page is displayed");
-    return SdkHelper.getDriver().getCurrentUrl().contains(Constants.TestData.REWARDS_URL);
+    return WebHelper.doesPageUrlContainExpectedParameter(Constants.TestData.REWARDS_URL);
   }
 }
 

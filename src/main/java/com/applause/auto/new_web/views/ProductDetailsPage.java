@@ -78,7 +78,7 @@ public class ProductDetailsPage extends Base {
   private Button addOneMore;
 
   @Locate(xpath = "//div[@class='og-optin-row']//button[@class='og-optin-btn']", on = Platform.WEB)
-  private Button subscribeType;
+  protected Button subscribeType;
 
   @Locate(css = "[test='regularEligible'] button.og-optin-btn span[style]", on = Platform.WEB)
   private Button subscribeTypePromoText;
@@ -92,7 +92,7 @@ public class ProductDetailsPage extends Base {
   @Locate(
       xpath = "//div[@class='og-default-row']//button[@class='og-optout-btn']",
       on = Platform.WEB)
-  private Button oneTimePurchase;
+  protected Button oneTimePurchase;
 
   @Locate(css = "h3.pv-notify__title", on = Platform.WEB)
   private ContainerElement outOfStockNotifyMeSection;
@@ -313,7 +313,7 @@ public class ProductDetailsPage extends Base {
   private List<Button> quantityBoxes;
 
   @Locate(css = "button.upsell-btn", on = Platform.WEB)
-  private Text addToSubscribeOrderButton;
+  protected Text addToSubscribeOrderButton;
 
   @Override
   public void afterInit() {
@@ -403,7 +403,7 @@ public class ProductDetailsPage extends Base {
 
     logger.info("[PDP] Grind Selected: " + text);
 
-    if (WebHelper.isSafari()) {
+    if (WebHelper.isDesktop() && WebHelper.isSafari()) {
       text =
           grindListSelected.stream()
               .filter(x -> x.getWebElement().isSelected())
@@ -1188,5 +1188,37 @@ class ProductDetailsPageMobile extends ProductDetailsPage {
   @Step("Get Number of displayed items")
   public int getDisplayedRecommendedForYouItemNumber() {
     return Integer.parseInt(recommendedForYouItemsNumber.getText().trim());
+  }
+
+  @Override
+  @Step("Get one time purchase link is available")
+  public boolean isOneTimePurchaseLinkDisplayed() {
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      logger.info("Checking if one time purchase link is available on iOS");
+      return oneTimePurchase.isDisplayed();
+    } else {
+      return super.isOneTimePurchaseLinkDisplayed();
+    }
+  }
+
+  @Override
+  @Step("Check if Subscribe Type is Displayed")
+  public boolean isSubscribeTypeDisplayed() {
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      logger.info("Checking if Subscribe Type is displayed on iOS");
+      boolean isDisplayed = WebHelper.isDisplayed(subscribeType);
+      logger.info("Subscribe Type is displayed - [{}]", isDisplayed);
+      return isDisplayed;
+    } else {
+      return super.isOneTimePurchaseLinkDisplayed();
+    }
+  }
+
+  @Override
+  public String getAddToExistingSubscriptionButtonText() {
+    SdkHelper.getSyncHelper().wait(Until.uiElement(addToSubscribeOrderButton).present());
+    String addToSubscribeOrderText = addToSubscribeOrderButton.getText().toLowerCase().trim();
+    logger.info("[PDP] Add to Existing Subscription: " + addToSubscribeOrderText);
+    return addToSubscribeOrderText;
   }
 }

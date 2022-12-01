@@ -34,7 +34,7 @@ public class SearchResultsPage extends Base {
   private Text emptySearchResultMessage;
 
   @Locate(xpath = ".//a[normalize-space()='View Product']", on = Platform.WEB)
-  private Button viewProductButton;
+  protected Button viewProductButton;
 
   @Locate(
       xpath =
@@ -49,7 +49,7 @@ public class SearchResultsPage extends Base {
   protected Button quickViewButtonByName;
 
   @Locate(css = ".pi__quick-add button", on = Platform.WEB)
-  private List<Button> quickViewButtonList;
+  public List<Button> quickViewButtonList;
 
   @Override
   public void afterInit() {
@@ -158,19 +158,47 @@ public class SearchResultsPage extends Base {
 }
 
 class SearchResultsPageMobile extends SearchResultsPage {
+
   @Override
   public QuickViewComponent clickOverQuickViewByProduct(String coffeeName) {
     quickViewButton.format(coffeeName, coffeeName).initialize();
     WebHelper.scrollToElement(quickViewButton);
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
 
-    WebHelper.hoverByAction(quickViewButton);
-    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
-
     logger.info("Clicking QuickView button");
     quickViewButton.click();
     SdkHelper.getSyncHelper().sleep(2000); // Need to wait until UI updates
 
+    return SdkHelper.create(QuickViewComponent.class);
+  }
+
+  @Step("Click quick view")
+  public QuickViewComponent clickOverQuickViewByEqualsProduct(String coffeeName) {
+    quickViewButtonByName.format(coffeeName, coffeeName).initialize();
+    WebHelper.scrollToElement(quickViewButtonByName);
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    logger.info("Clicking QuickView button");
+    quickViewButtonByName.click();
+    return SdkHelper.create(QuickViewComponent.class);
+  }
+
+  @Override
+  @Step("Click on the View product button")
+  public ProductDetailsPage clickViewProduct() {
+    logger.info("Clicking on the 'View product' button");
+    viewProductButton.click();
+    return SdkHelper.create(ProductDetailsPage.class);
+  }
+
+  @Override
+  @Step("Click quick view")
+  public QuickViewComponent clickOverFirstQuickViewButton() {
+    WebHelper.scrollToElement(quickViewButtonList.get(0));
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    logger.info("Clicking QuickView button");
+    quickViewButtonList.get(0).click();
     return SdkHelper.create(QuickViewComponent.class);
   }
 }

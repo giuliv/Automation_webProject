@@ -5,9 +5,11 @@ import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.new_web.components.QuickViewComponent;
 import com.applause.auto.new_web.components.plp.PlpItemComponent;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.ProductListPage;
 import com.applause.auto.test.new_web.BaseTest;
 import java.util.Collections;
+import java.util.stream.Collectors;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -63,7 +65,8 @@ public class TeaBestSellersTests extends BaseTest {
 
     int totalProducts = productListPage.getTotalResults();
     logger.info("3. Validate item image, name, description, price and reviews are shown correctly");
-    for (PlpItemComponent item : productListPage.productsList()) {
+    for (PlpItemComponent item :
+        productListPage.productsList().stream().limit(10).collect(Collectors.toList())) {
       softAssert.assertTrue(item.isNameDisplayed(), "Product name isn't displayed");
       String productName = item.getProductName();
       softAssert.assertTrue(
@@ -75,6 +78,7 @@ public class TeaBestSellersTests extends BaseTest {
     }
 
     logger.info("4. At Homepage --> Hover any Tea item");
+    WebHelper.scrollToPageTop();
     PlpItemComponent itemComponent = productListPage.getProductOnPosition(1);
     softAssert.assertTrue(
         itemComponent.isQuickViewButtonDisplayed(), "Quick view button isn't displayed");

@@ -110,7 +110,7 @@ public class Constants {
     public static final String HOODIE = "peets-coffee-hoodie";
     public static final String GIFT_CARDS_PAGE_URL = BASE_URL.concat("/pages/gift-cards");
     public static final String STORE_LOCATOR_PAGE_URL = BASE_URL.concat("/pages/store-locator");
-    public static final String SUBSCRIPTIONS_URL = BASE_URL.concat("pages/subscriptions");
+    public static final String SUBSCRIPTIONS_URL = BASE_URL.concat("/pages/subscriptions");
     public static final String SUBSCRIPTION_SO_URL =
         BASE_URL.concat("/products/single-origin-series-subscription");
     public static final String SUBSCRIPTION_SB_URL =
@@ -139,6 +139,8 @@ public class Constants {
     public static final String COFFEE_DARK_ROAST_URL = BASE_URL + "/collections/dark-roast";
     public static final String TEA_PLP_URL = BASE_URL + "/collections/all-tea";
     public static final String TEA_BEST_SELLERS_URL = BASE_URL + "/collections/tea-best-sellers";
+    public static final String COFFEE_WITH_REVIEWS_URL_PARAMETER =
+        "major-dickasons-blend-kcup-pods";
 
     /** Test Data for tests */
     public static final String WEB_USERNAME_SUBSCRIPTION =
@@ -699,8 +701,8 @@ public class Constants {
   public enum StandardCoffeeInventory {
     Coffee1("french-roast"),
     Coffee2("french-roast-half-caf"),
-    Coffee3("aged-sumatra"),
-    Coffee4("major-dickasons-blend-kcup-pods"); // Coffee with reviews. Delivered by customer
+    Coffee3("aged-sumatra");
+    //    Coffee4("major-dickasons-blend-kcup-pods"); // Coffee with reviews. Delivered by customer
 
     private final String value;
 

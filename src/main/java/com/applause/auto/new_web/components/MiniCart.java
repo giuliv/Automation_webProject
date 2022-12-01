@@ -180,10 +180,9 @@ public class MiniCart extends BaseComponent {
   @Step("Get grind")
   public String getGrindByIndex(int index) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(grindSelected.get(index)).visible());
-    logger.info(
-        "[MiniCart] Grind Selected: " + grindSelected.get(index).getText().toLowerCase().trim());
-
-    return grindSelected.get(index).getText().toLowerCase().trim();
+    String grind = grindSelected.get(index).getText().toLowerCase().trim();
+    logger.info("[MiniCart] Grind Selected: " + grind);
+    return grind;
   }
 
   @Step("Get price")
@@ -414,17 +413,13 @@ public class MiniCart extends BaseComponent {
     return this;
   }
 
-  /**
-   * @return boolean
-   */
+  /** @return boolean */
   @Step("Get one time purchase")
   public boolean isOneTimePurchaseButtonEnabled() {
     return oneTimePurchaseButton.isEnabled();
   }
 
-  /**
-   * @return boolean
-   */
+  /** @return boolean */
   @Step("Get subscribe")
   public boolean isSubscribeButtonEnabled() {
     return subscribeButton.isEnabled();
@@ -502,7 +497,11 @@ public class MiniCart extends BaseComponent {
   public CommonWebPage openEstimatedFAQLink() {
     logger.info("Click over estimated FAQ link");
     String windowHandle = SdkHelper.getDriver().getWindowHandle();
-    estimatedToolTipFAQLink.click();
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      WebHelper.nativeIOSClick(estimatedToolTipFAQLink);
+    } else {
+      estimatedToolTipFAQLink.click();
+    }
     WebHelper.switchToNewTab(windowHandle);
 
     return SdkHelper.create(CommonWebPage.class);

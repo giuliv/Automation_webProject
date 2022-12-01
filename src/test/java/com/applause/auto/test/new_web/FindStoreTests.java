@@ -267,7 +267,11 @@ public class FindStoreTests extends BaseTest {
        App store view close, so it makes tests not stable. Moved this step to the end for mobile.
       */
       logger.info("5. Click on Download APP Button");
-      WebHelper.clickAndroidBackButton();
+      if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+        WebHelper.navigateBack(StoreDetailsPage.class);
+      } else {
+        WebHelper.clickAndroidBackButton();
+      }
       SdkHelper.create(StoreDetailsPage.class).getOneAppManyBenefitsComponent().clickDownloadApp();
 
       logger.info("Verify App store page is displayed");
