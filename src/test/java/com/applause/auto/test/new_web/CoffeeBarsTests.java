@@ -165,8 +165,8 @@ public class CoffeeBarsTests extends BaseTest {
     logger.info("XX. Validate the user is directed to CoffeeBar Menu");
     Assert.assertEquals(
         coffeeBarPage.getCoffeeBarTitle(),
-        Constants.TestData.COFFEEBAR_MENU,
-        Constants.TestData.COFFEEBAR_MENU + "is not on the page");
+        Constants.TestData.FROM_THE_COFFEEBAR,
+        Constants.TestData.FROM_THE_COFFEEBAR + "is not on the page");
 
     logger.info("XX. Validate the Description of coffee bar menu");
     Assert.assertFalse(

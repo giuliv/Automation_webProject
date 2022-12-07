@@ -206,7 +206,7 @@ public class HomePage extends Base {
       }
       SdkHelper.getDriver().navigate().refresh();
       if (WebHelper.exists(newBannerIFrame, 5)) {
-        WebHelper.clickButtonOverIframeBySwitchingContextIOS(dismissBanner);
+        WebHelper.clickButtonOverIframeBySwitchingContextIOS(dismissBannerIOS);
       }
     } else {
       WebHelper.clickButtonOverIFrame(specialOfferFrame, closeSpecialOfferButton);

@@ -20,6 +20,9 @@ public class Base extends BaseComponent {
   @Locate(id = "dismissbutton2header1", on = Platform.WEB)
   protected Button dismissBanner;
 
+  @Locate(xpath = "//XCUIElementTypeButton[@name=\"close\"]", on = Platform.WEB)
+  protected Button dismissBannerIOS;
+
   @Locate(css = "#attentive_creative", on = Platform.WEB)
   protected ContainerElement newBannerIFrame;
 

@@ -155,7 +155,7 @@ public class Constants {
     public static final String PEETS_FORGOT_PASSWORD_USERNAME = "peetfp01.awkv01hh@mailosaur.io";
     public static final String PEETS_USERNAME = "adavis@applausemail.com";
     public static final String PEETS_PASSWORD = "p@ssword123";
-    public static final String COFFEEBAR_MENU = "COFFEEBAR MENU";
+    public static final String FROM_THE_COFFEEBAR = "FROM THE COFFEEBAR";
     public static final String FEATURED_MENU = "OUR FEATURED MENU";
 
     public static final String COFFEE_BRAND_NAME = "Big Bang";
