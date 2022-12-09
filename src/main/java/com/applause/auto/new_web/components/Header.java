@@ -591,9 +591,14 @@ class HeaderMobile extends Header {
 
   @Override
   public void closeHamburgerMenu() {
-    logger.info("Close Hamburger Menu [Mobile]");
-    SdkHelper.getSyncHelper().wait(Until.uiElement(closeHamburgerMenuButton).clickable());
-    closeHamburgerMenuButton.click();
+
+    try {
+      if (WebHelper.isDisplayed(closeHamburgerMenuButton, 3))
+        logger.info("Close Hamburger Menu [Mobile]");
+      closeHamburgerMenuButton.click();
+    } catch (Exception e) {
+      logger.info("No back Close is displayed");
+    }
   }
 
   @Override

@@ -124,8 +124,10 @@ public class MyAccountPage extends Base {
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper()
-        .wait(Until.uiElement(getViewSignature).visible().setTimeout(Duration.ofSeconds(40)));
-    //    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
+        .wait(
+            Until.oneOf(getViewSignature, closeBanner)
+                .visible()
+                .setTimeout(Duration.ofSeconds(40)));
 
     try {
       if (WebHelper.exists(closeBanner, 7)) {

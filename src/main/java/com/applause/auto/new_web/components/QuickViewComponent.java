@@ -175,6 +175,10 @@ public class QuickViewComponent extends BaseComponent {
         quantityBoxText.getText().replace("\n", ""),
         "SUBSCRIBE &GET 10% OFF",
         "Quantity 3 text does not matches");
+    if (WebHelper.isMobile()) {
+      WebHelper.scrollToElement(quantityBox);
+    }
+
     quantityBox.click();
     softAssert.assertFalse(quantityBoxSelected.isDisplayed(), "Quantity 2 should not be displayed");
 

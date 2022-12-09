@@ -3,6 +3,7 @@ package com.applause.auto.new_web.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.my_account.MyAccountPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -63,6 +64,13 @@ public class SignInPage extends BaseComponent {
     logger.info("Enter Password : " + text);
     getPasswordTextBox.sendKeys(text);
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    if (WebHelper.getDriverConfig().toLowerCase().contains("landscape")
+        && SdkHelper.getEnvironmentHelper().isAndroid()) {
+      logger.info("Android Landscape hide keyboard");
+      SdkHelper.getDeviceControl().pressAndroidKeyBack();
+      SdkHelper.getSyncHelper().sleep(500); // Wait for keyboard to be hidden
+    }
   }
 
   /**

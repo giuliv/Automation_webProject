@@ -14,6 +14,7 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
+import io.appium.java_client.android.nativekey.AndroidKey;
 import io.appium.java_client.remote.SupportsContextSwitching;
 import io.qameta.allure.Step;
 import java.util.List;
@@ -268,7 +269,14 @@ class StoreLocatorPagePhone extends StoreLocatorPage {
     searchByZipCodeField.sendKeys(zipCode);
 
     logger.info("Clicking on main header to hide suggestions");
-    mainHeader.click();
+    if (WebHelper.getDriverConfig().toLowerCase().contains("landscape")
+        && SdkHelper.getEnvironmentHelper().isAndroid()) {
+      logger.info("Android Landscape hide keyboard");
+      SdkHelper.getDeviceControl().pressAndroidKey(AndroidKey.ESCAPE);
+      SdkHelper.getSyncHelper().sleep(500); // Wait for keyboard to be hidden
+    } else {
+      mainHeader.click();
+    }
 
     logger.info("Clicking on Search");
     searchButton.click();

@@ -189,7 +189,8 @@ public class HomePage extends Base {
 
   @Override
   public void afterInit() {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(mainContainer).present().setTimeout(Duration.ofSeconds(30)));
     logger.info("Peet's Home URL: " + SdkHelper.getDriver().getCurrentUrl());
   }
 
