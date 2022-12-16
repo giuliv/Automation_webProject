@@ -92,8 +92,14 @@ public class CreateAccountPage extends Base {
 
   @Step("Click Create account button")
   public <T extends BaseComponent> T clickCreateAccountButton(Class<T> expectedClass) {
-    logger.info("Clicking over Create account button");
+    if (WebHelper.getDriverConfig().toLowerCase().contains("landscape")
+        && SdkHelper.getEnvironmentHelper().isAndroid()) {
+      logger.info("Android Landscape hide keyboard");
+      SdkHelper.getDeviceControl().pressAndroidKeyBack();
+      SdkHelper.getSyncHelper().sleep(500); // Wait for keyboard to be hidden
+    }
 
+    logger.info("Clicking over Create account button");
     createButton.click();
     SdkHelper.getSyncHelper().sleep(5000); // Wait for action
     return SdkHelper.create(expectedClass);

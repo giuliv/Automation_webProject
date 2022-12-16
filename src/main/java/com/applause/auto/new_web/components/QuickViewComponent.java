@@ -296,7 +296,15 @@ public class QuickViewComponent extends BaseComponent {
   @Step("Click Plus Button")
   public void clickPLusButton() {
     logger.info("Clicking on the 'Plus' Button");
-    SdkHelper.getSyncHelper().wait(Until.uiElement(plusButton).clickable()).click();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(plusButton).clickable());
+
+    if (WebHelper.getDriverConfig().toLowerCase().contains("landscape")
+        && SdkHelper.getEnvironmentHelper().isAndroid()) {
+      logger.info("Android Landscape Click on Plus button");
+      WebHelper.jsClick(plusButton.getWebElement());
+    } else {
+      plusButton.click();
+    }
   }
 
   public boolean isSubscribeTypeAsDefault() {

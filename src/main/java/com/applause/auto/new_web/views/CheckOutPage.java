@@ -134,7 +134,7 @@ public class CheckOutPage extends Base {
     SdkHelper.getSyncHelper().sleep(500); // Wait for action
 
     city.sendKeys(Constants.WebTestData.CITY.toUpperCase());
-    SdkHelper.getSyncHelper().sleep(500); // Wait for action
+    SdkHelper.getSyncHelper().sleep(1500); // Wait for action
 
     phone.sendKeys(Constants.WebTestData.PHONE);
     SdkHelper.getSyncHelper().sleep(500); // Wait for action
@@ -224,7 +224,9 @@ public class CheckOutPage extends Base {
     return SdkHelper.create(clazz);
   }
 
-  /** @return List<String> */
+  /**
+   * @return List<String>
+   */
   @Step("Get list of error messages")
   public List<String> getListOfErrorMessages() {
     ((LazyList<?>) errorMessagesList).initialize();
@@ -287,7 +289,9 @@ public class CheckOutPage extends Base {
   }
 
   @Step("Get container")
-  /** @return boolean */
+  /**
+   * @return boolean
+   */
   public boolean isDisplayed() {
     return WebHelper.isDisplayed(mainContainer);
   }
@@ -335,7 +339,9 @@ public class CheckOutPage extends Base {
     return SdkHelper.create(HomePage.class);
   }
 
-  /** @return products names */
+  /**
+   * @return products names
+   */
   public List<String> getProductsNames() {
     WebHelper.waitForElementToAppear(orderSummarySection, 10);
     productsNames.initialize();
