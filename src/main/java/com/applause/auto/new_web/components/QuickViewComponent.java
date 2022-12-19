@@ -7,6 +7,7 @@ import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.components.plp.PlpLearnMoreOverlappingComponent;
 import com.applause.auto.new_web.components.plp.PlpSignInOverlappingComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
+import com.applause.auto.new_web.views.CheckOutPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -113,6 +114,9 @@ public class QuickViewComponent extends BaseComponent {
 
   @Locate(css = "button.og-optout-btn", on = Platform.WEB)
   private Button oneTimePurchase;
+
+  @Locate(css = "a.quick-add__cta", on = Platform.WEB)
+  private Button viewProductButton;
 
   @Override
   public void afterInit() {
@@ -222,9 +226,7 @@ public class QuickViewComponent extends BaseComponent {
     return SdkHelper.create(MiniCart.class);
   }
 
-  /**
-   * @return product name
-   */
+  /** @return product name */
   @Step("Get product name")
   public String getProductName() {
     return productName.getText().trim();
@@ -344,5 +346,13 @@ public class QuickViewComponent extends BaseComponent {
 
     return WebHelper.getVisibility(oneTimePurchase.getWebElement())
         || WebHelper.getVisibility(subscribeType.getWebElement());
+  }
+
+  @Step("Click Buy now")
+  public CheckOutPage clickBuyNow() {
+    logger.info("Clicking on the 'Buy Now' button");
+    addToCartButton.click();
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    return SdkHelper.create(CheckOutPage.class);
   }
 }

@@ -20,7 +20,9 @@ public enum Attribute {
   BACKGROUND_COLOR("background-color"),
   SRCSET("srcset"),
   ID("id"),
-  TITLE("title");
+  TITLE("title"),
+  DISABLED("disabled"),
+  ;
 
   @Getter private String value;
 }

@@ -1,6 +1,8 @@
 package com.applause.auto.new_web.views;
 
+import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.enums.Attribute;
+import com.applause.auto.common.data.enums.GiftDuration;
 import com.applause.auto.common.data.enums.GrindDropdown;
 import com.applause.auto.common.data.enums.ShipEveryDropdown;
 import com.applause.auto.data.enums.Platform;
@@ -65,13 +67,19 @@ public class ProductDetailsPage extends Base {
   @Locate(id = "quantityText", on = Platform.WEB)
   private Text productQuantityBox;
 
-  @Locate(id = "btnAddToBag", on = Platform.WEB)
-  private Button addToCartButton;
+  @Locate(css = "button#btnAddToBag", on = Platform.WEB)
+  protected Button addToCartButton;
 
-  @Locate(id = "productViewQuantityButton3", on = Platform.WEB)
+  @Locate(xpath = "//button[@id='btnAddToBag' and span[text()='Buy Now']]", on = Platform.WEB)
+  protected Button buyNowButton;
+
+  @Locate(id = "btnAddToBagText", on = Platform.WEB)
+  private Button addToCartButtonText;
+
+  @Locate(css = "button#productViewQuantityButton3", on = Platform.WEB)
   protected Button threeProductsButton;
 
-  @Locate(id = "productViewQuantityButton2", on = Platform.WEB)
+  @Locate(css = "button#productViewQuantityButton2", on = Platform.WEB)
   private Button twoProductsButton;
 
   @Locate(css = "button.plus", on = Platform.WEB)
@@ -314,6 +322,12 @@ public class ProductDetailsPage extends Base {
 
   @Locate(css = "button.upsell-btn", on = Platform.WEB)
   protected Text addToSubscribeOrderButton;
+
+  @Locate(css = "select#gift-duration", on = Platform.WEB)
+  private SelectList giftDurationDropdown;
+
+  @Locate(css = ".pv-actions .og-sub-info", on = Platform.WEB)
+  private Text coffeeShipsOncePerMonthText;
 
   @Override
   public void afterInit() {
@@ -1140,6 +1154,62 @@ public class ProductDetailsPage extends Base {
         .findFirst()
         .get();
   }
+
+  @Step("Select Gift Duration value")
+  public ProductDetailsPage selectGiftDuration(GiftDuration giftDuration) {
+    logger.info("Selecting Gift Duration [{}]", giftDuration.getOption());
+    giftDurationDropdown.getOptions().stream()
+        .filter(
+            option ->
+                option
+                    .getAttributeValue(Attribute.VALUE.getValue())
+                    .startsWith(giftDuration.getOption()))
+        .findFirst()
+        .orElseThrow(
+            () ->
+                new RuntimeException(
+                    "Unable to find Gift Duration [" + giftDuration.getOption() + "]"))
+        .click();
+    return this;
+  }
+
+  @Step("Check if 'Buy Now' is Displayed")
+  public boolean isBuyNowButtonDisplayed() {
+    boolean isDisplayed =
+        WebHelper.isDisplayed(addToCartButton)
+            && addToCartButtonText.getText().equalsIgnoreCase("Buy Now");
+    logger.info("Buy Now is displayed - [{}]", isDisplayed);
+    return isDisplayed;
+  }
+
+  @Step("Click Buy now")
+  public CheckOutPage clickBuyNow() {
+    logger.info("Clicking on the 'Buy Now' button");
+    WebHelper.scrollToElement(buyNowButton);
+    buyNowButton.click();
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    return SdkHelper.create(CheckOutPage.class);
+  }
+
+  @Step("Verify Coffee ships once per month text is displayed")
+  public boolean isCoffeeShipsOncePerMonthTextDisplayed() {
+    if (!WebHelper.isDisplayed(coffeeShipsOncePerMonthText)) {
+      logger.debug("Coffee ships once per month text is not displayed");
+      return false;
+    }
+
+    if (!coffeeShipsOncePerMonthText
+        .getText()
+        .equalsIgnoreCase(TestData.COFFEE_SHIPS_ONCE_PER_MONTH_MESSAGE)) {
+      logger.debug(
+          "Coffee ships once per month text is not correct. Expected [{}]. Actual [{}]",
+          TestData.COFFEE_SHIPS_ONCE_PER_MONTH_MESSAGE,
+          coffeeShipsOncePerMonthText.getText());
+      return false;
+    }
+
+    return true;
+  }
 }
 
 class ProductDetailsPageMobile extends ProductDetailsPage {
@@ -1220,5 +1290,18 @@ class ProductDetailsPageMobile extends ProductDetailsPage {
     String addToSubscribeOrderText = addToSubscribeOrderButton.getText().toLowerCase().trim();
     logger.info("[PDP] Add to Existing Subscription: " + addToSubscribeOrderText);
     return addToSubscribeOrderText;
+  }
+
+  @Step("Click Buy now")
+  public CheckOutPage clickBuyNow() {
+    if (!SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      return super.clickBuyNow();
+    }
+
+    logger.info("Clicking on the 'Buy Now' button iOS");
+    WebHelper.scrollToElement(buyNowButton);
+    WebHelper.jsClick(buyNowButton.getWebElement());
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    return SdkHelper.create(CheckOutPage.class);
   }
 }

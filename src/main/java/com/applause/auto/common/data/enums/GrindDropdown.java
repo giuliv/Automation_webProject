@@ -5,7 +5,8 @@ import lombok.Getter;
 
 @AllArgsConstructor
 public enum GrindDropdown {
-  DRIP("Drip");
+  DRIP("Drip"),
+  WHOLE_BEAN("Whole Bean");
 
   @Getter private String value;
 }

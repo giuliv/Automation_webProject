@@ -1,6 +1,7 @@
 package com.applause.auto.new_web.views;
 
 import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
@@ -20,6 +21,7 @@ import io.qameta.allure.Step;
 import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.testng.asserts.SoftAssert;
 
 @Implementation(is = CheckOutPage.class, on = Platform.WEB)
 @Implementation(is = CheckOutPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
@@ -108,6 +110,18 @@ public class CheckOutPage extends Base {
       on = Platform.WEB)
   private Text customerEmailAddress;
 
+  @Locate(id = "checkout_recipient_first_name", on = Platform.WEB)
+  private TextBox recipientFirstNameField;
+
+  @Locate(id = "checkout_recipient_email", on = Platform.WEB)
+  private TextBox recipientEmailField;
+
+  @Locate(id = "checkout_recipient_message", on = Platform.WEB)
+  private TextBox recipientMessageField;
+
+  @Locate(css = ".total-line__price span[data-checkout-discount-amount-target]", on = Platform.WEB)
+  protected Text discountValue;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper()
@@ -128,6 +142,7 @@ public class CheckOutPage extends Base {
     lastName.sendKeys(Constants.WebTestData.LAST_NAME);
     SdkHelper.getSyncHelper().sleep(500); // Wait for action
 
+    WebHelper.scrollToElement(lastName);
     typeAddress(Constants.WebTestData.ADDRESS.toUpperCase());
 
     extraDetailsBox.sendKeys(Constants.WebTestData.EXTRA_INFO.toUpperCase());
@@ -356,6 +371,53 @@ public class CheckOutPage extends Base {
   public boolean isUserLoggedIn() {
     logger.info("Checking user is logged in");
     return WebHelper.isDisplayed(logOutLink, 10);
+  }
+
+  @Step("Verify all recipient fields are not populated")
+  public SoftAssert validateRecipientFieldsAreNotPopulated() {
+    SoftAssert softAssert = new SoftAssert();
+    softAssert.assertTrue(
+        recipientFirstNameField.getCurrentText().isEmpty(), "First name field is populated");
+    softAssert.assertTrue(
+        recipientEmailField.getCurrentText().isEmpty(), "Email field is populated");
+    softAssert.assertTrue(
+        recipientMessageField.getCurrentText().isEmpty(), "Message field is populated");
+
+    return softAssert;
+  }
+
+  @Step("Verify Continue to shipping button is enabled")
+  public boolean isContinueToShippingButtonEnable() {
+    WebHelper.scrollToPageBottom();
+    try {
+      String disabledValue = continueToShipping.getAttributeValue(Attribute.DISABLED.getValue());
+      logger.info("Continue to shopping button is enabled: {}", disabledValue);
+      return disabledValue == null;
+    } catch (Exception e) {
+      return true;
+    }
+  }
+
+  @Step("Enter the recipient name and email on checkout step")
+  public void enterRecipientInformation(String firstName, String email) {
+    logger.info("Entering the recipient name on checkout step");
+    recipientFirstNameField.clearText();
+    recipientFirstNameField.sendKeys(firstName);
+
+    logger.info("Entering the recipient email on checkout step");
+    recipientEmailField.clearText();
+    recipientEmailField.sendKeys(email);
+  }
+
+  @Step("Enter the recipient message on checkout step")
+  public void enterRecipientMessage(String messageText) {
+    logger.info("Entering the recipient message on checkout step");
+    recipientMessageField.sendKeys(messageText);
+  }
+
+  @Step("Verify discount value is displayed")
+  public boolean isDiscountDisplayed() {
+    return WebHelper.isDisplayed(discountValue);
   }
 }
 

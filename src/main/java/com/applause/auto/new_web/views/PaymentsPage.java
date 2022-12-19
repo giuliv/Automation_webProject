@@ -86,6 +86,9 @@ public class PaymentsPage extends Base {
   @Locate(xpath = "//label[contains(., 'PayPal (Subscriptions)')]", on = Platform.WEB)
   protected Button payPalButton;
 
+  @Locate(css = "div[data-gateway-name=credit_card]", on = Platform.WEB)
+  protected Button creditCardContained;
+
   @Locate(css = "#order-summary  button[name=\"checkout[submit]\"]", on = Platform.WEB)
   private Button promoApplyButton;
 
@@ -450,6 +453,16 @@ public class PaymentsPage extends Base {
   @Step("Type Credit Card CVV")
   public void typeCvv(String cvvCode) {
     WebHelper.switchToIFrameAndSetData(iFrameCVV, cvv, cvvCode);
+  }
+
+  @Step("Verify PayPal method is displayed")
+  public boolean isPayPalMethodDisplayed() {
+    return WebHelper.isDisplayed(payPalButton);
+  }
+
+  @Step("Verify CC method is displayed")
+  public boolean isCreditCardMethodDisplayed() {
+    return WebHelper.isDisplayed(creditCardContained);
   }
 }
 

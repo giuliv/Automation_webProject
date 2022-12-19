@@ -1,5 +1,6 @@
 package com.applause.auto.new_web.views;
 
+import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
@@ -132,6 +133,9 @@ public class CartPage extends BaseComponent {
 
   @Locate(css = "#usi_display #usi_close", on = Platform.WEB)
   private Button closeBannerButton;
+
+  @Locate(css = ".bag__has-prepaid--cart-page", on = Platform.WEB)
+  private Text giftExistsInYourCartTextMessage;
 
   @Getter @Locate public NeverMissAnOfferChunk neverMissAnOfferChunk;
 
@@ -344,9 +348,7 @@ public class CartPage extends BaseComponent {
     return this;
   }
 
-  /**
-   * @return boolean
-   */
+  /** @return boolean */
   @Step("Get one time purchase button")
   public boolean isOneTimePurchaseButtonSelected() {
     logger.info(
@@ -362,25 +364,19 @@ public class CartPage extends BaseComponent {
     return subscribeButton.getAttributeValue("slot").equalsIgnoreCase("default");
   }
 
-  /**
-   * @return boolean
-   */
+  /** @return boolean */
   @Step("Get subscribe button")
   public boolean isSubscribeButtonEnabled() {
     return subscribeButton.isEnabled();
   }
 
-  /**
-   * @return boolean
-   */
+  /** @return boolean */
   @Step("Get Add personal message field")
   public boolean isAddPersonalMessageFieldDisplayed() {
     return WebHelper.isDisplayed(addPersonalMessageField);
   }
 
-  /**
-   * @return String
-   */
+  /** @return String */
   @Step("Get Add personal message")
   public String getAddPersonalMessageFieldText() {
     String message = addPersonalMessageField.getCurrentText();
@@ -519,6 +515,26 @@ public class CartPage extends BaseComponent {
     } else {
       return SdkHelper.create(clazz);
     }
+  }
+
+  @Step("Verify A gift exists in your cart message is displayed")
+  public boolean isGiftExistsInYourCartMessageDisplayed() {
+    if (!WebHelper.isDisplayed(giftExistsInYourCartTextMessage)) {
+      logger.debug("A gift exists in your cart message is not displayed");
+      return false;
+    }
+
+    if (!giftExistsInYourCartTextMessage
+        .getText()
+        .equalsIgnoreCase(TestData.GIFT_EXIST_IN_YOUR_CART_MESSAGE)) {
+      logger.debug(
+          "A gift exists in your cart message is wrong. Expected [{}]. Actual [{}]",
+          TestData.GIFT_EXIST_IN_YOUR_CART_MESSAGE,
+          giftExistsInYourCartTextMessage.getText());
+      return false;
+    }
+
+    return true;
   }
 }
 

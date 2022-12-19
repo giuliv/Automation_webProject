@@ -124,7 +124,9 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
           Constants.WebTestData.EMAIL, acceptancePage.getCustomerMail(), "Mail does NOT matches");
 
       Assert.assertTrue(
-          acceptancePage.getShippingAddressData().contains(Constants.WebTestData.ADDRESS.toLowerCase()),
+          acceptancePage
+              .getShippingAddressData()
+              .contains(Constants.WebTestData.ADDRESS.toLowerCase()),
           "Shipping Address does NOT matches");
 
       Assert.assertTrue(
@@ -138,7 +140,9 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
           "Payment Method does NOT matches");
 
       Assert.assertTrue(
-          acceptancePage.getBillingAddressData().contains(Constants.WebTestData.ADDRESS.toLowerCase()),
+          acceptancePage
+              .getBillingAddressData()
+              .contains(Constants.WebTestData.ADDRESS.toLowerCase()),
           "Billing Address does NOT matches");
 
       Assert.assertTrue(

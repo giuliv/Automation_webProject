@@ -11,7 +11,6 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import io.appium.java_client.remote.SupportsContextSwitching;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;

@@ -64,6 +64,7 @@ public class Constants {
     public static final String HOME_PAGE = "home-page";
     public static final String WEB_CART = "cart";
     public static final String PRODUCTS = "products";
+    public static final String PPD = "ppd";
 
     // Mobile
     public static final String ONBOARDING = "onboarding";
@@ -186,6 +187,14 @@ public class Constants {
     public static final String SHOP_RUNNER_FREE_TEXT = "Free 2-Day Shipping & Free Returns";
     public static final String SHOP_RUNNER_SIGNIN = "sign in";
     public static final String SHOP_RUNNER_LEARN_MORE = "learn more";
+    public static final String PRODUCT_LUMINOSA_BREAKFAST_BLEND_GIFT_SUBSCRIPTION =
+        "luminosa-breakfast-blend-gift-subscription";
+    public static final String PRODUCT_LUMINOSA_BREAKFAST_BLEND_K_CUP_PODS_GIFT_SUBSCRIPTION =
+        "luminosa-breakfast-k-cup-gift-subscription";
+    public static final String GIFT_EXIST_IN_YOUR_CART_MESSAGE =
+        "A gift exists in your cart. Please proceed to checkout now.";
+    public static final String COFFEE_SHIPS_ONCE_PER_MONTH_MESSAGE = "Coffee ships once per month";
+    public static final String PROMO_CODE_NEW_SUB_30 = "NewSub30";
 
     public static final String FIRST_NAME = "Applause";
     public static final String LAST_NAME = "QA Test";
@@ -533,6 +542,9 @@ public class Constants {
             "Free Wi-Fi",
             "Pick Up In Store",
             "Delivery");
+
+    public static final String INVALID_EMAIL = "webautomation01";
+    public static final String PERSONALIZED_MESSAGE = "Test message";
   }
 
   @AllArgsConstructor
