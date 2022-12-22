@@ -24,7 +24,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Implementation(is = PaymentsPage.class, on = Platform.WEB)
-@Implementation(is = PaymentsPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = PaymentsPageAndroid.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = PaymentsPageIOS.class, on = Platform.WEB_IOS_PHONE)
 public class PaymentsPage extends Base {
 
   @Locate(xpath = "(//button[@id='continue_button'])[1]", on = Platform.WEB)
@@ -34,25 +35,48 @@ public class PaymentsPage extends Base {
   protected ContainerElement iFrameCardNumber;
 
   @Locate(css = "input[name='number']", on = Platform.WEB)
-  private TextBox cardNumber;
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeTextField[`value == \"Card number\"`]",
+      on = Platform.WEB_IOS_PHONE)
+  protected TextBox cardNumber;
 
   @Locate(css = "iframe[id*='card-fields-name']", on = Platform.WEB)
   private ContainerElement iFrameCardName;
 
   @Locate(css = "input[name='name']", on = Platform.WEB)
-  private TextBox cardName;
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeTextField[`value == \"Name on card\"`]",
+      on = Platform.WEB_IOS_PHONE)
+  protected TextBox cardName;
 
   @Locate(css = "iframe[id*='card-fields-expiry']", on = Platform.WEB)
   private ContainerElement iFrameCardExpiration;
 
   @Locate(css = "input[name='expiry']", on = Platform.WEB)
-  private TextBox cardExpiration;
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeTextField[`value == \"Expiration date (MM / YY)\"`]",
+      on = Platform.WEB_IOS_PHONE)
+  protected TextBox cardExpiration;
 
   @Locate(css = "iframe[id*='card-fields-verification']", on = Platform.WEB)
   protected ContainerElement iFrameCVV;
 
   @Locate(css = "input[name*='verification']", on = Platform.WEB)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeTextField[`value == \"Security code\"`]",
+      on = Platform.WEB_IOS_PHONE)
   protected TextBox cvv;
+
+  @Locate(
+      iOSClassChain =
+          "**/XCUIElementTypeOther[`label == \"Field container for: Security code\"`][1]",
+      on = Platform.WEB_IOS_PHONE)
+  protected TextBox cvv2;
+
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeOther[`label == \"Security code\"`][1]",
+      on = Platform.WEB_IOS_PHONE)
+  protected TextBox cvv3;
 
   @Locate(css = "fieldset div[data-same-billing-address] input", on = Platform.WEB)
   private RadioButton sameAddress;
@@ -172,6 +196,13 @@ public class PaymentsPage extends Base {
   public void setPaymentData() {
     logger.info("Setting payments data...");
     SdkHelper.getSyncHelper().wait(Until.uiElement(iFrameCardNumber).present());
+
+    logger.info("DEBUG MODE");
+    String oldContext = WebHelper.getCurrentContext();
+    WebHelper.switchToNativeContext();
+    SdkHelper.getSyncHelper().sleep(3000);
+    logger.info(SdkHelper.getDriver().getPageSource());
+    logger.info("END");
 
     WebHelper.switchToIFrame(iFrameCardNumber);
     SdkHelper.getSyncHelper().wait(Until.uiElement(cardNumber).clickable());
@@ -324,11 +355,11 @@ public class PaymentsPage extends Base {
   @Step("Enter Gift Card")
   public void enterGiftCard(String giftCard) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(peetsCardCode).clickable());
-    logger.info("Typing [{}] into the Gift cvard field");
+    logger.info("Typing [{}] into the Gift card field");
     peetsCardCode.sendKeys(giftCard);
   }
 
-  @Step("Set free shipping promocode")
+  @Step("Set free shipping promoCode")
   public void setFreeShippingPromoCodeDiscount() {
     logger.info("Setting up PromoCode data");
     SdkHelper.getSyncHelper().sleep(10000); // Wait for peet's card are ready
@@ -342,7 +373,7 @@ public class PaymentsPage extends Base {
     SdkHelper.getSyncHelper().wait(Until.uiElement(promoCodeSuccessMessage).present());
   }
 
-  @Step("Set subscription promocode")
+  @Step("Set subscription promoCode")
   public void setSubscriptionPromoCodeDiscount() {
     logger.info("Setting up PromoCode data");
     SdkHelper.getSyncHelper().sleep(10000); // Wait for peet's card are ready
@@ -476,7 +507,7 @@ public class PaymentsPage extends Base {
   }
 }
 
-class PaymentsPageMobile extends PaymentsPage {
+class PaymentsPageAndroid extends PaymentsPage {
 
   @Override
   public void afterInit() {
@@ -500,7 +531,6 @@ class PaymentsPageMobile extends PaymentsPage {
   @Step("Type Credit Card CVV")
   public void typeCvv(String cvvCode) {
     WebHelper.switchToIFrameAndSetData(iFrameCVV, cvv, cvvCode);
-    //    SdkHelper.getDeviceControl().hideKeyboard();
   }
 
   @Override
@@ -515,5 +545,42 @@ class PaymentsPageMobile extends PaymentsPage {
       WebHelper.jsClick(payNowButton.getWebElement());
     }
     return SdkHelper.create(clazz);
+  }
+}
+
+class PaymentsPageIOS extends PaymentsPage {
+  @Override
+  @Step("Set payment data")
+  public void setPaymentData() {
+    logger.info("Setting payments data...");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(iFrameCardNumber).present());
+    WebHelper.scrollToElement(iFrameCardNumber);
+
+    String oldContext = WebHelper.getCurrentContext();
+    WebHelper.switchToNativeContext();
+    SdkHelper.getSyncHelper().sleep(3000); // Extra wait due to context change
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(cardNumber).clickable());
+    cardNumber.sendKeys(
+        Constants.WebTestData.CREDIT_CARD_NUMBER_1
+            + Constants.WebTestData.CREDIT_CARD_NUMBER_2
+            + Constants.WebTestData.CREDIT_CARD_NUMBER_3
+            + Constants.WebTestData.CREDIT_CARD_NUMBER_4);
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(cardName).clickable());
+    cardName.sendKeys(Constants.WebTestData.CREDIT_CARD_NAME);
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(cardExpiration).clickable());
+    cardExpiration.sendKeys(
+        Constants.WebTestData.CREDIT_CARD_EXPIRATION_MONTH
+            + Constants.WebTestData.CREDIT_CARD_EXPIRATION_YEAR);
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(cvv).clickable());
+    SdkHelper.getDeviceControl().tapElementCenter(cvv);
+    cvv.sendKeys(Constants.WebTestData.CREDIT_CARD_CVV);
+
+    WebHelper.switchToWeb(oldContext);
+    SdkHelper.getSyncHelper().sleep(3000); // Extra wait due to context change
+    WebHelper.hideKeyboard();
   }
 }

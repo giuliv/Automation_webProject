@@ -13,7 +13,7 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
 
 @Implementation(is = PlpLearnMoreOverlappingComponent.class, on = Platform.WEB)
-@Implementation(is = PlpLearnMoreOverlappingComponent.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = PlpLearnMoreOverlappingComponentMobile.class, on = Platform.WEB_MOBILE_PHONE)
 public class PlpLearnMoreOverlappingComponent extends BaseComponent {
 
   @Locate(xpath = "//button[@class='sr-modal__footer-close-button']", on = Platform.WEB)
@@ -23,13 +23,19 @@ public class PlpLearnMoreOverlappingComponent extends BaseComponent {
       xpath =
           "//div[starts-with(@class,'GradientBackground-')]/div/p/span[contains(@class,'signup__BenefitsMessage-')]",
       on = Platform.WEB)
-  private Text shippingText;
+  protected Text shippingText;
+
+  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Free 2-Day Shipping\"]", on = Platform.WEB)
+  protected Text shippingTextIOS;
+
+  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"& Free Returns\"]", on = Platform.WEB)
+  protected Text shippingTextPart2IOS;
 
   @Locate(xpath = "//iframe[@title='ShopRunner Modal Container']", on = Platform.WEB)
-  private ContainerElement frame;
+  protected ContainerElement frame;
 
   @Locate(css = "iframe.zoid-component-frame", on = Platform.WEB)
-  private ContainerElement innerFrame;
+  protected ContainerElement innerFrame;
 
   @Override
   public void afterInit() {
@@ -57,13 +63,45 @@ public class PlpLearnMoreOverlappingComponent extends BaseComponent {
 
   @Step("Get Free Shipping Text")
   public String getShippingText() {
-    logger.info("Switching to innerframe");
+    logger.info("Switching to innerFrame");
     WebHelper.switchToIFrame(innerFrame);
     String name = WebHelper.cleanString(shippingText.getText());
     logger.info("Product name [{}]", name);
     logger.info("switching back to the ShoppRunner Modal frame");
     SdkHelper.getDriver().switchTo().defaultContent();
     WebHelper.switchToIFrame(frame);
+    return name;
+  }
+}
+
+class PlpLearnMoreOverlappingComponentMobile extends PlpLearnMoreOverlappingComponent {
+  public String getShippingText() {
+    String name;
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      logger.info("Running cases on Mobile iOS");
+      String oldContext = WebHelper.getCurrentContext();
+      WebHelper.switchToNativeContext();
+      SdkHelper.getSyncHelper().sleep(3000); // Extra wait due to context change
+      if (shippingTextIOS.isDisplayed() & shippingTextPart2IOS.isDisplayed()) {
+        name = "true";
+      }
+      logger.info(
+          "Shipping text [{}] [{}]", shippingTextIOS.getText(), shippingTextPart2IOS.getText());
+
+      logger.info("switching back to the ShoppRunner Modal");
+      WebHelper.switchToWeb(oldContext);
+      SdkHelper.getSyncHelper().sleep(3000); // Extra wait due to context change
+      return "Shipping text is not correct";
+    } else {
+      logger.info("Switching to innerFrame");
+      WebHelper.switchToIFrame(innerFrame);
+      name = WebHelper.cleanString(shippingText.getText());
+      logger.info("Shipping text [{}]", name);
+      logger.info("switching back to the ShoppRunner Modal frame");
+      SdkHelper.getDriver().switchTo().defaultContent();
+      WebHelper.switchToIFrame(frame);
+    }
+
     return name;
   }
 }

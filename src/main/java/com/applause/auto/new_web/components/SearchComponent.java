@@ -43,7 +43,11 @@ public class SearchComponent extends BaseComponent {
 
   @Override
   public void afterInit() {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
+    } else {
+      SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
+    }
   }
 
   /* -------- Actions -------- */

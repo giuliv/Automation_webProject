@@ -30,7 +30,7 @@ public class MyAccountPage extends Base {
   /* -------- Elements -------- */
 
   @Locate(css = "#acDashboard h1", on = Platform.WEB)
-  @Locate(css = ".ac-section-header, #acDashboard h1", on = Platform.WEB_MOBILE_PHONE)
+  @Locate(css = "ac-section-header, header.ac-section-header h2", on = Platform.WEB_MOBILE_PHONE)
   private Text getViewSignature;
 
   @Locate(css = "header.ac-section-header h2", on = Platform.WEB)
@@ -161,7 +161,6 @@ public class MyAccountPage extends Base {
       return getViewSignature2.getText().toLowerCase();
     }
 
-    logger.info("PageSource: " + SdkHelper.getDriver().getPageSource());
     return getViewSignature.getText().toLowerCase();
   }
 

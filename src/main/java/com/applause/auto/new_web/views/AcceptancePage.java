@@ -92,9 +92,6 @@ public class AcceptancePage extends Base {
 
   @Override
   public void afterInit() {
-    // Todo: Added for debugging reasons, random issue happens here
-    logger.info("Debug Mode" + SdkHelper.getDriver().getPageSource());
-
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(mainContainer).visible().setTimeout(Duration.ofSeconds(30)));
     logger.info("Acceptance Page URL: " + getDriver().getCurrentUrl());

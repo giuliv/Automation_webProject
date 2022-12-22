@@ -32,32 +32,22 @@ public class Constants {
     // Web
     public static final String DEBUG = "debug";
     public static final String FRONT_END_REGRESSION = "web_regression";
-    public static final String OLD_SUITE_PHASE1 = "TBD";
     public static final String TO_BE_RENAMED = "TBD";
     public static final String PLP = "plp";
     public static final String WEB_PROD_MONITORING = "web_prod_monitoring";
-    public static final String DEMO_CHECKOUT = "demo-checkout";
-    public static final String LOGIN = "login";
-    public static final String GUEST_CHECKOUT = "guest-checkout";
-    public static final String MINI_CART = "mini-cart";
     public static final String CART = "shopping-cart";
     public static final String MY_ACCOUNT = "my-account";
-    public static final String SETTINGS = "settings";
-    public static final String EXISTING_USER_CHECKOUT = "existing-user-c@heckout";
     public static final String SUBSCRIPTIONS = "subscriptions";
     public static final String ACCOUNT_SETTINGS = "account-settings";
-    public static final String STANDARD = "standard";
     public static final String EDGE_CASES = "EdgeCases";
     public static final String SEARCH = "search";
     public static final String FIND_STORE = "find-store";
     public static final String GIFT_CARDS = "gift-cards";
     public static final String COFFEE_FINDER = "coffee-finder";
     public static final String DASHBOARD = "dashboard";
-    public static final String DASHBOARD_TEST = "dashboardTest";
     public static final String PDP = "pdp";
     public static final String SMOKE = "smoke";
     public static final String SANITY = "sanity";
-    public static final String HOME_PAGE_FOOTER = "home-page-footer";
     public static final String MENU = "menu";
     public static final String IDENTITY = "identity";
     public static final String CHECKOUT = "checkout";
@@ -158,32 +148,14 @@ public class Constants {
     public static final String PEETS_PASSWORD = "p@ssword123";
     public static final String FROM_THE_COFFEEBAR = "FROM THE COFFEEBAR";
     public static final String FEATURED_MENU = "OUR FEATURED MENU";
-
-    public static final String COFFEE_BRAND_NAME = "Big Bang";
-    public static final String GRIND = "Commercial Brewer";
-    public static final String GRIND_2 = "Drip";
-
     public static final String TEA_NAME = "Organic Turmeric Ginger";
-    public static final String TEA_COST_OVER_25_NAME = "Green Tea Tropical Tea Bags";
-
     public static final String EQUIPMENT_NAME = "Fellow Kettle";
     public static final String TEST_EQUIPMENT = "TEST PEET’S PAPER FILTERS #4";
     public static final String EQUIPMENT_NAME_OOO = "T-SAC TEA FILTERS";
     public static final String PODS_OOO = "DECAF HOUSE BLEND K-CUP® PODS";
 
-    public static final String COFFEE_KCUP_NAME = "Decaf Especial K-Cup® Pack";
-    public static final String COFFEE_ARABIAN_MOCHA_JAVA_NAME = "Arabian Mocha-Java";
-    public static final String COFFEE_KCUP_COUNT = "10 count";
-
-    public static final String GIFT_MESSAGE = "This is a test message for the gift-message field";
-
     public static final String UNRECOGNIZED_USERNAME_AND_PASSWORD_MESSAGE =
         "Unrecognized username and password combination";
-
-    public static final String SHIPPING_METHOD_GROUND = "Ground";
-    public static final String SHIPPING_METHOD_AIR_2ND_DAY =
-        "2nd Day Air - Cont. U.S. (2-3 business days)";
-    public static final String SHIPPING_METHOD_SHOP_RUNNER = "Shoprunner FREE 2-Day Shipping";
     public static final String SHOP_RUNNER_FREE_TEXT = "Free 2-Day Shipping & Free Returns";
     public static final String SHOP_RUNNER_SIGNIN = "sign in";
     public static final String SHOP_RUNNER_LEARN_MORE = "learn more";
@@ -215,65 +187,18 @@ public class Constants {
     public static final String STATE = "New York";
     public static final String EMAIL = "peets+%s@qa.utest.com";
 
-    public static final String PEETS_CARD_LOWEST_AMOUNT = "1";
-    public static final String PEETS_CARD_BUY_AMOUNT = "Card +$10.00";
-
-    public static final String PEETS_CARD_NUMBER_CHROME = "81001000000748";
-    public static final String PEETS_CARD_PIN_CHROME = "1342";
-
-    public static final String PEETS_CARD_NUMBER_SAFARI = "81001000000747";
-    public static final String PEETS_CARD_PIN_SAFARI = "3396";
-
     public static final String VISA_CC_NUMBER = "4788250000028291";
     public static final String VISA_CC_SECURITY_CODE = "111";
-    public static final String VISA_CC_MONTH = "12";
-    public static final String VISA_CC_YEAR = "2020";
     public static final String VISA_CC_NAME = "QA Test Applause Auto";
     public static final String VISA_CC_ZIP = "66666";
     public static final String VISA_CC_EXP_DATE = "12/28";
-
-    public static final String MASTER_NUMBER = "5454545454545454";
-    public static final String MASTER_SECURITY_CODE = "111";
-    public static final String MASTER_ZIP = "66666";
-    public static final String MASTER_NAME = "Master Card";
-
     public static final String VISA_NUMBER = "4111111111111111";
     public static final String VISA_SECURITY_CODE = "111";
     public static final String VISA_ZIP = "66666";
     public static final String VISA_EXP_DATE = "12/26";
     public static final String VISA_NAME = "Visa Card";
-
-    public static final String AMEX_CC_NUM = "378282246310005";
-    public static final String AMEX_CC_CODE = "2222";
-    public static final String AMEX_CC_MONTH = "12";
-    public static final String AMEX_CC_YEAR = "2020";
-
-    public static final String DISCOVERY_CC_NUM = "6011000995500000";
-    public static final String DISCOVERY_CC_EXP_DATE = "12/26";
-    public static final String DISCOVERY_CC_CODE = "111";
-    public static final String DISCOVERY_CC_MONTH = "12";
-    public static final String DISCOVERY_CC_YEAR = "2020";
-    public static final String DISCOVERY_CC_ZIP = "11111";
-    public static final String DISCOVERY_CC_NAME = "Disco Name";
-
-    public static final String MASTER_CC_NUM = "5454545454545454";
-    public static final String MASTER_CC_CODE = "111";
-    public static final String MASTER_CC_MONTH = "12";
-    public static final String MASTER_CC_YEAR = "2020";
-
-    public static final String TOUR_SEARCH_TERMS = "Tour";
-    public static final String WEDNES_ROAST_SEARCH = "Kona";
-
-    public static final String PURCHASE_CONFIRMATION_TEXT = "Thank you for your purchase!";
-
-    public static final String PAYPAL_EMAIL = "sraju@peets.com";
-    public static final String PAYPAL_PASSWORD = "123456789";
-
     public static final String SECONDARY_PAYPAL_EMAIL = "omstest@peets.com";
     public static final String SECONDARY_PAYPAL_PASSWORD = "Peets1966!";
-
-    public static final String BIRTHDAY_MESSAGE_ANDROID =
-        "Your birthday drink is on us text does not displayed";
     public static final String BIRTHDAY_MESSAGE_IOS =
         "Intended for users 13+ years old. Plus, get 25 bonus points on your birthday.";
 
@@ -315,8 +240,6 @@ public class Constants {
     public static final String ALL_COFFEE_HOVER = "All Coffee";
     public static final String ALL_EQUIPMENT = "All Equipment";
     public static final String ALL_TEA_HOVER = "All Tea";
-    public static final String COFFEE_HOVER_BLEND = "anniversary-blend";
-    public static final String COFFEE_HOVER_SUMATRA = "sumatra-batak";
     public static final String TEA_JASMINE = "jasmine-downy-pearls";
     public static final String K_CUP = "SINGLE ORIGIN NICARAGUA K-CUP® PODS";
     public static final String COFFEE_HOVER_FINDER = "coffee-finder";
@@ -345,17 +268,6 @@ public class Constants {
     public static final String PROD_URL = "http://www.peets.com";
   }
 
-  public static final class TestMainMenu {
-    public static final String NAV_CATEGORY_SHOP = "Shop";
-
-    public static final String NAV_SUBMENU_COFFEE = "Coffee";
-    public static final String NAV_SUBMENU_TEA = "Tea";
-    public static final String NAV_SUBMENU_EQUIPMENT = "Equipment";
-    public static final String NAV_SUBMENU_GIFT_SUBSCRIPTIONS = "Gift Subscriptions";
-
-    public static final String NAV_OPTION_CARDS_BY_MAIL = "Gift Cards by Mail";
-  }
-
   public static final class MobileApp {
     public static final String IOS_BUNDLE_ID = "com.peets.loyalty.uat";
     public static final String IOS_SETTINGS = "com.apple.Preferences";
@@ -375,18 +287,7 @@ public class Constants {
         MobileHelper.isAndroid()
             ? "appautosvc+peetscoffee2@applause.com"
             : "appautosvc+peetscoffee2ios@applause.com";
-    public static final String EMAIL_PEETS_REWARDS = "peets+rewards@gmail.com";
-    public static final String EMAIL_EDIT_PROFILE = "peets+testeditprofile@gmail.com";
-    public static final String EMAIL_ORDERING = "peets2+testaccount@gmail.com";
-    public static final String SAFARI_SHIPPING_EMAIL = "peets+safarishipping@qa.utest.com";
-    public static final String SAFARI_BILLING_EMAIL = "peets+safaribilling@qa.utest.com";
-    public static final String SAFARI_ACCOUNT_EMAIL = "peets+safariaccountsettings@qa.utest.com";
-    public static final String MODIFY_ACCOUNT_EMAIL = "peets+modifyaccount1@qa.utest.com";
-    public static final String UNUSED_EMAIL = "peets+unused@qa.utest.com";
     public static final String PASSWORD = "abcde1";
-    public static final String ADDRESS_LINE_2 = "APT. 123";
-    public static final String FIRST_NAME = "UTest";
-    public static final String LAST_NAME = "QA Test";
     public static final String EDIT_EMAIL = "peets.auto01@gmail.com";
     public static final String EDIT_EMAIL_PWD = "p4ssword!";
     public static final String ALL_COFFEE_HEADER = "ALL COFFEE";
@@ -408,9 +309,6 @@ public class Constants {
             .subject("Applause Subject")
             .note("Applause automation note")
             .build();
-
-    public static final String VALID_PEETS_CARD = "81001000002684";
-    public static final String VALID_PEETS_CARD_PIN = "150912";
   }
 
   public static class CheckoutUserTestData {
@@ -450,17 +348,6 @@ public class Constants {
   public static final class MobileTestData {
     public static final String PEETS_CARD_HEADER = "Your Peet's Card";
     public static final String SAVED_PAYMENT_HEADER = "payment methods";
-    public static final String SAVED_CC_NAME = "Applause Test";
-    public static final String CC_NUM = "5105105105105100";
-    public static final String CC_EXP_DATE = "12/21";
-    public static final String CC_MODIFIED_EXP_DATE = "12/22";
-    public static final String CC_CVV = "111";
-    public static final String CC_ZIP = "66666";
-    public static final String CC_VISA_NAME = "VISA TEST";
-    public static final String CC_AMEX_NAME = "AMEX TEST";
-    public static final String CC_MASTER_NAME = "MASTER TEST";
-    public static final String CC_DISCO_NAME = "DISCO TEST";
-    public static final String TRANSFER_ERROR = "One last thing";
     public static final String TRANSFER_PROCESS_ERROR =
         "Please check your card number and pin code and try again";
 
@@ -482,6 +369,7 @@ public class Constants {
 
   public static final class WebTestData {
     public static final String EMAIL = "peets.webautomation01@gmail.com";
+    public static final String RECOVER_EMAIL = "peets.automation16@applause.com";
     public static final String FIRST_NAME = "Test";
     public static final String LAST_NAME = "Automation";
     public static final String ADDRESS = "133 Water St";
@@ -691,14 +579,26 @@ public class Constants {
 
   public enum Mail {
     // We have created following accounts, if not displayed below, that means are corrupted
-    // [peets.automation01 - peets.automation20]
-    Mail1("peets.automation10@applause.com"),
-    Mail2("peets.automation15@applause.com"),
-    Mail3("peets.automation16@applause.com"),
-    Mail4("peets.automation17@applause.com"),
-    Mail5("peets.automation18@applause.com"),
-    Mail6("peets.automation19@applause.com"),
-    Mail7("peets.automation20@applause.com");
+    // [peets.automation01 - peets.automation35
+    Mail1("peets.automation17@applause.com"),
+    Mail2("peets.automation18@applause.com"),
+    Mail3("peets.automation19@applause.com"),
+    Mail4("peets.automation20@applause.com"),
+    Mail5("peets.automation21@applause.com"),
+    Mail6("peets.automation22@applause.com"),
+    Mail7("peets.automation23@applause.com"),
+    Mail8("peets.automation24@applause.com"),
+    Mail9("peets.automation25@applause.com"),
+    Mail10("peets.automation26@applause.com"),
+    Mail11("peets.automation27@applause.com"),
+    Mail12("peets.automation28@applause.com"),
+    Mail13("peets.automation29@applause.com"),
+    Mail14("peets.automation30@applause.com"),
+    Mail15("peets.automation31@applause.com"),
+    Mail16("peets.automation32@applause.com"),
+    Mail17("peets.automation33@applause.com"),
+    Mail18("peets.automation34@applause.com"),
+    Mail19("peets.automation35@applause.com");
 
     private final String value;
 

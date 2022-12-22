@@ -49,8 +49,11 @@ public class CheckOutPage extends Base {
   @Locate(id = "checkout_shipping_address_city", on = Platform.WEB)
   private TextBox city;
 
-  @Locate(id = "checkout_shipping_address_phone", on = Platform.WEB)
+  @Locate(css = "div[data-address-field] #checkout_shipping_address_phone", on = Platform.WEB)
   private TextBox phone;
+
+  @Locate(xpath = "//XCUIElementTypeTextField[@value=\"Phone\"]", on = Platform.WEB)
+  private TextBox phoneIOS;
 
   @Locate(css = "select#checkout_shipping_address_country", on = Platform.WEB)
   private SelectList country;
@@ -165,9 +168,6 @@ public class CheckOutPage extends Base {
     SdkHelper.getSyncHelper().sleep(500); // Wait for action
 
     city.sendKeys(Constants.WebTestData.CITY.toUpperCase());
-    SdkHelper.getSyncHelper().sleep(1500); // Wait for action
-
-    phone.sendKeys(Constants.WebTestData.PHONE);
     SdkHelper.getSyncHelper().sleep(500); // Wait for action
 
     country.select(Constants.WebTestData.COUNTRY);
@@ -178,7 +178,14 @@ public class CheckOutPage extends Base {
 
     zip.clearText();
     zip.sendKeys(Constants.WebTestData.ZIP);
-    SdkHelper.getSyncHelper().sleep(500); // Wait for action
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      WebHelper.sendKeysOverIframeBySwitchingContextIOS(phoneIOS, Constants.WebTestData.PHONE);
+    } else {
+      phone.sendKeys(Constants.WebTestData.PHONE);
+      SdkHelper.getSyncHelper().sleep(500); // Wait for action
+    }
   }
 
   @Step("Set checkout data")
@@ -231,9 +238,6 @@ public class CheckOutPage extends Base {
       city.sendKeys(Constants.WebTestData.CITY);
       SdkHelper.getSyncHelper().sleep(500); // Wait for action
 
-      phone.sendKeys(Constants.WebTestData.PHONE);
-      SdkHelper.getSyncHelper().sleep(500); // Wait for action
-
       country.select(Constants.WebTestData.COUNTRY);
       SdkHelper.getSyncHelper().sleep(500); // Wait for action
 
@@ -242,6 +246,13 @@ public class CheckOutPage extends Base {
 
       zip.sendKeys(Constants.WebTestData.ZIP);
       SdkHelper.getSyncHelper().sleep(500); // Wait for action
+
+      if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+        WebHelper.sendKeysOverIframeBySwitchingContextIOS(phoneIOS, Constants.WebTestData.PHONE);
+      } else {
+        phone.sendKeys(Constants.WebTestData.PHONE);
+        SdkHelper.getSyncHelper().sleep(500); // Wait for action
+      }
     }
   }
 

@@ -161,6 +161,14 @@ public class WebHelper {
     SdkHelper.getSyncHelper().sleep(3000); // Extra wait due to context change
   }
 
+  public static void sendKeysOverIframeBySwitchingContextIOS(BaseElement button, String text) {
+    String oldContext = WebHelper.getCurrentContext();
+    WebHelper.switchToNativeContext();
+    button.getWebElement().sendKeys(text);
+    WebHelper.switchToWeb(oldContext);
+    SdkHelper.getSyncHelper().sleep(3000); // Extra wait due to context change
+  }
+
   public static void switchToIFrameAndSetData(BaseElement frame, TextBox element, String data) {
     switchToIFrame(frame);
 
@@ -255,7 +263,9 @@ public class WebHelper {
   //        .perform();
   //  }
 
-  /** @return Y-position of page */
+  /**
+   * @return Y-position of page
+   */
   public static int getPagePositionY() {
     String javascript = "return window.scrollY;";
     return (int)

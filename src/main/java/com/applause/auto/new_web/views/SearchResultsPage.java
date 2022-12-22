@@ -113,7 +113,6 @@ public class SearchResultsPage extends Base {
 
     logger.info("Clicking QuickView button");
     quickViewButton.click();
-    //    SdkHelper.getSyncHelper().wait(Until.uiElement(quickViewButton).notVisible());
 
     return SdkHelper.create(QuickViewComponent.class);
   }

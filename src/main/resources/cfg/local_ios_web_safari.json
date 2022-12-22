@@ -4,7 +4,7 @@
     "isStrict": "false",
     "driverName": "iOS",
     "driverType": "iOS",
-    "factoryKey": "WEB_MOBILE",
+    "factoryKey": "WEB_IOS_PHONE",
     "osName": "iOS"
   },
   "platformName": "iOS",
