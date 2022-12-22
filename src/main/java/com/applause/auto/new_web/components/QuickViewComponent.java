@@ -1,6 +1,8 @@
 package com.applause.auto.new_web.components;
 
 import com.applause.auto.common.data.Constants.TestData;
+import com.applause.auto.common.data.enums.Attribute;
+import com.applause.auto.common.data.enums.GrindDropdown;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
@@ -8,11 +10,13 @@ import com.applause.auto.new_web.components.plp.PlpLearnMoreOverlappingComponent
 import com.applause.auto.new_web.components.plp.PlpSignInOverlappingComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.CheckOutPage;
+import com.applause.auto.new_web.views.ProductDetailsPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
@@ -94,6 +98,12 @@ public class QuickViewComponent extends BaseComponent {
   @Locate(xpath = "//div[@class='form-item']//div[@aria-label='Select grind']", on = Platform.WEB)
   private ContainerElement grindDropDown;
 
+  @Locate(
+      xpath =
+          "//div[@class='form-item']//div[@aria-label='Select grind']/../ul/li[@data-value='%s']",
+      on = Platform.WEB)
+  private Button grindOptionButton;
+
   @Locate(xpath = "//span[@id='quantityText']", on = Platform.WEB)
   private Text quantity;
 
@@ -115,8 +125,22 @@ public class QuickViewComponent extends BaseComponent {
   @Locate(css = "button.og-optout-btn", on = Platform.WEB)
   private Button oneTimePurchase;
 
+  @Locate(id = "gift-duration", on = Platform.WEB)
+  private SelectList giftDurationDropdown;
+
   @Locate(css = "a.quick-add__cta", on = Platform.WEB)
   private Button viewProductButton;
+
+  @Locate(
+      css = "button[id*='productViewQuantityButton'].is-selected,#quantityText",
+      on = Platform.WEB)
+  private Text productQuantity;
+
+  @Locate(id = "increment", on = Platform.WEB)
+  protected Button incrementQuantityButton;
+
+  @Locate(id = "decrement", on = Platform.WEB)
+  private Button decrementQuantityButton;
 
   @Override
   public void afterInit() {
@@ -189,6 +213,45 @@ public class QuickViewComponent extends BaseComponent {
     return softAssert;
   }
 
+  public SoftAssert validateGiftQuantityElements() {
+    SoftAssert softAssert = new SoftAssert();
+
+    WebHelper.waitForVisibleOrPresent(quantitySection);
+    quantityBoxSelected.format(1).initialize();
+    softAssert.assertTrue(quantityBoxSelected.isDisplayed(), "Quantity 1 is not default value");
+
+    quantityBox.format(2).initialize();
+    quantityBox.click();
+    quantityBoxSelected.format(2).initialize();
+    softAssert.assertTrue(quantityBoxSelected.isDisplayed(), "Quantity 2 is not default value");
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for change
+
+    quantityBox.format(3).initialize();
+    quantityBox.click();
+    quantityBoxSelected.format(3).initialize();
+    softAssert.assertFalse(quantityBoxSelected.isDisplayed(), "Quantity 3 is not selected");
+
+    return softAssert;
+  }
+
+  public SoftAssert validateQuantityBoxSectionElements() {
+    SoftAssert softAssert = new SoftAssert();
+
+    WebHelper.waitForVisibleOrPresent(quantitySection);
+    softAssert.assertEquals(getProductQuantitySelected(), 3, "Quantity 3 is not default value");
+
+    clickQuantityPlusButton();
+
+    WebHelper.waitForVisibleOrPresent(quantitySection);
+    softAssert.assertEquals(getProductQuantitySelected(), 6, "Quantity 6 is not selected");
+
+    clickQuantityPlusButton();
+
+    WebHelper.waitForVisibleOrPresent(quantitySection);
+    softAssert.assertEquals(getProductQuantitySelected(), 9, "Quantity 9 is not selected");
+    return softAssert;
+  }
+
   public boolean isGrindDisplayed() {
     return WebHelper.exists(grindSection, 5);
   }
@@ -205,6 +268,26 @@ public class QuickViewComponent extends BaseComponent {
 
     grindOptions.get(index).click();
     return this;
+  }
+
+  public QuickViewComponent selectGrind(GrindDropdown grind) {
+    logger.info("Selecting new Grind with name: [{}]", grind.getValue());
+    if (getSelectGrind().equals(grind.getValue())) {
+      logger.info("The Grind [{}] is already selected.", grind.getValue());
+      return this;
+    }
+
+    grindDropDown.click();
+    grindOptionButton.format(grind.getValue());
+    WebHelper.jsClick(grindOptionButton.getWebElement());
+    SdkHelper.getSyncHelper().sleep(1000); // Wait to be populated
+    return this;
+  }
+
+  public String getSelectGrind() {
+    String selectedGrind = grindDropDown.getAttributeValue(Attribute.DATA_VALUE.getValue());
+    logger.info("Selected Grind: {}", selectedGrind);
+    return selectedGrind;
   }
 
   public int getGrindOptions() {
@@ -354,5 +437,73 @@ public class QuickViewComponent extends BaseComponent {
     addToCartButton.click();
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
     return SdkHelper.create(CheckOutPage.class);
+  }
+
+  @Step("Verify Gift duration is displayed")
+  public boolean isGiftDurationDisplayed() {
+    return WebHelper.exists(giftDurationDropdown, 5);
+  }
+
+  @Step("Get Grind option")
+  public String getGrindOption(int index) {
+    if (grindOptions.size() <= index) {
+      throw new IndexOutOfBoundsException(
+          "Grind options doesn't contains element with index: " + index);
+    }
+
+    return grindOptions.get(index).getText();
+  }
+
+  @Step("Select quantity by index")
+  public void selectQuantityByIndex(int index) {
+    logger.info("Selecting quantity by index: {}", index);
+    quantityBox.format(index).initialize();
+    quantityBox.click();
+  }
+
+  @Step("Verify quantity is selected")
+  public boolean isQuantitySelected(int index) {
+    logger.info("Checking quantity with index {} is selected", index);
+    quantityBoxSelected.format(index).initialize();
+    return quantityBoxSelected.isDisplayed();
+  }
+
+  @Step("Click view product details button")
+  public ProductDetailsPage clickViewProduct() {
+    viewProductButton.click();
+    return SdkHelper.create(ProductDetailsPage.class);
+  }
+
+  @Step("Click on (+) in Quantity")
+  public QuickViewComponent clickQuantityPlusButton() {
+    logger.info("Clicking on (+) in Quantity");
+    WebHelper.scrollToElement(incrementQuantityButton);
+    incrementQuantityButton.click();
+    logger.info("Current quantity is - [{}]", getProductQuantitySelected());
+    return this;
+  }
+
+  @Step("Get product quantity")
+  public int getProductQuantitySelected() {
+    productQuantity.initialize();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(productQuantity).visible());
+
+    String quantity = "";
+    if (productQuantity.getAttributeValue("data-quantity") != null) {
+      quantity = productQuantity.getAttributeValue("data-quantity");
+    } else {
+      quantity = productQuantity.getText();
+    }
+
+    logger.info("[PDP] Product Quantity: " + quantity);
+    return Integer.parseInt(quantity);
+  }
+
+  @Step("Click on (-) in Quantity")
+  public QuickViewComponent clickQuantityMinusButton() {
+    logger.info("Clicking on (-) in Quantity");
+    decrementQuantityButton.click();
+    logger.info("Current quantity is - [{}]", getProductQuantitySelected());
+    return this;
   }
 }

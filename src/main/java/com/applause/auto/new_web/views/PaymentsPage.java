@@ -152,6 +152,9 @@ public class PaymentsPage extends Base {
   @Locate(id = "checkout_billing_address_zip", on = Platform.WEB)
   private TextBox zip;
 
+  @Locate(id = "checkout_billing_address_zip", on = Platform.WEB)
+  private Button useBillingAddressSameAsShippingButton;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper()
@@ -463,6 +466,13 @@ public class PaymentsPage extends Base {
   @Step("Verify CC method is displayed")
   public boolean isCreditCardMethodDisplayed() {
     return WebHelper.isDisplayed(creditCardContained);
+  }
+
+  @Step("Set Same as shipping address for billing address")
+  public PaymentsPage setUseBillingAddressSameAsShippingButton() {
+    WebHelper.scrollToElement(useBillingAddressSameAsShippingButton);
+    useBillingAddressSameAsShippingButton.click();
+    return this;
   }
 }
 

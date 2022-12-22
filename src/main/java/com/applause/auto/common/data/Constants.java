@@ -43,7 +43,7 @@ public class Constants {
     public static final String CART = "shopping-cart";
     public static final String MY_ACCOUNT = "my-account";
     public static final String SETTINGS = "settings";
-    public static final String EXISTING_USER_CHECKOUT = "existing-user-checkout";
+    public static final String EXISTING_USER_CHECKOUT = "existing-user-c@heckout";
     public static final String SUBSCRIPTIONS = "subscriptions";
     public static final String ACCOUNT_SETTINGS = "account-settings";
     public static final String STANDARD = "standard";
@@ -195,6 +195,14 @@ public class Constants {
         "A gift exists in your cart. Please proceed to checkout now.";
     public static final String COFFEE_SHIPS_ONCE_PER_MONTH_MESSAGE = "Coffee ships once per month";
     public static final String PROMO_CODE_NEW_SUB_30 = "NewSub30";
+    public static final String PRODUCT_LUMINOSA_BREAKFAST_BLEND_GIFT_SUBSCRIPTION_NAME =
+        "luminosa breakfast blend gift subscription";
+    public static final String PRODUCT_LUMINOSA_BREAKFAST_BLEND_K_CUP_PODS_GIFT_SUBSCRIPTION_NAME =
+        "luminosa breakfast blend k-cup® pods gift subscription";
+    public static final String BUY_NOW_BUTTON = "BUY NOW";
+    public static final String ADD_TO_CART_BUTTON = "ADD TO CART";
+    public static final String RECIPIENT_MESSAGE = "Applause Recipient Message";
+    public static final String FIRSTSUB_DISCOUNT_CODE = "FIRSTSUB";
 
     public static final String FIRST_NAME = "Applause";
     public static final String LAST_NAME = "QA Test";
@@ -483,6 +491,7 @@ public class Constants {
     public static final String COUNTRY = "United States";
     public static final String PROVINCE = "New York";
     public static final String ZIP = "11201";
+    public static final String PERSONALIZED_MESSAGE = "Test message";
 
     public static final String CREDIT_CARD_NUMBER_1 = "5333";
     public static final String CREDIT_CARD_NUMBER_2 = "8663";
@@ -544,7 +553,6 @@ public class Constants {
             "Delivery");
 
     public static final String INVALID_EMAIL = "webautomation01";
-    public static final String PERSONALIZED_MESSAGE = "Test message";
   }
 
   @AllArgsConstructor
@@ -625,7 +633,7 @@ public class Constants {
     public static String DESCRIPTION =
         "A Peet's subscription gives you free shipping and access to discounts on all of your coffee purchases. Plus, new subscribers get 30% off their first order using code NEWSUB30.";
     public static String COPY_BUTTON_CLICKED_TEXT = "copied";
-    public static String COPY_CODE = "NEWSUB30";
+    public static String DISCOUNT_CODE = "NEWSUB30";
   }
 
   public static class HomepageCoffeeBar {

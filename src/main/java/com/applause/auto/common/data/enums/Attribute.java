@@ -22,7 +22,8 @@ public enum Attribute {
   ID("id"),
   TITLE("title"),
   DISABLED("disabled"),
-  ;
+  ARIA_LABEL("aria-label"),
+  DATA_VALUE("data-value");
 
   @Getter private String value;
 }

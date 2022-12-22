@@ -1,6 +1,7 @@
 package com.applause.auto.new_web.views;
 
 import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.dto.RecipientAddress;
 import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
@@ -119,6 +120,21 @@ public class CheckOutPage extends Base {
   @Locate(id = "checkout_recipient_message", on = Platform.WEB)
   private TextBox recipientMessageField;
 
+  @Locate(
+      css = ".field__recipient-personalized-message-label button.checkout-tooltip__toggle",
+      on = Platform.WEB)
+  protected Button recipientMessageInfoIcon;
+
+  @Locate(
+      css = ".field__recipient-personalized-message-label .checkout-tooltip__copy",
+      on = Platform.WEB)
+  protected Text recipientMessageInfoModalText;
+
+  @Locate(
+      css = ".field__recipient-personalized-message-label button.checkout-tooltip__close",
+      on = Platform.WEB)
+  protected Button recipientMessageInfoCloseIcon;
+
   @Locate(css = ".total-line__price span[data-checkout-discount-amount-target]", on = Platform.WEB)
   protected Text discountValue;
 
@@ -162,6 +178,38 @@ public class CheckOutPage extends Base {
 
     zip.clearText();
     zip.sendKeys(Constants.WebTestData.ZIP);
+    SdkHelper.getSyncHelper().sleep(500); // Wait for action
+  }
+
+  @Step("Set checkout data")
+  public void setCheckOutData(RecipientAddress recipientAddress) {
+    country.select(recipientAddress.getCountry());
+    SdkHelper.getSyncHelper().sleep(500); // Wait for action
+
+    firstName.clearText();
+    firstName.sendKeys(recipientAddress.getFirstName());
+    SdkHelper.getSyncHelper().sleep(500); // Wait for action
+
+    lastName.clearText();
+    lastName.sendKeys(recipientAddress.getLastName());
+    SdkHelper.getSyncHelper().sleep(500); // Wait for action
+
+    WebHelper.scrollToElement(lastName);
+    typeAddress(recipientAddress.getAddress().toUpperCase());
+
+    city.clearText();
+    city.sendKeys(recipientAddress.getCity().toUpperCase());
+    SdkHelper.getSyncHelper().sleep(1500); // Wait for action
+
+    phone.clearText();
+    phone.sendKeys(recipientAddress.getPhoneNumber());
+    SdkHelper.getSyncHelper().sleep(500); // Wait for action
+
+    province.select(recipientAddress.getState());
+    SdkHelper.getSyncHelper().sleep(500); // Wait for action
+
+    zip.clearText();
+    zip.sendKeys(recipientAddress.getZipCode());
     SdkHelper.getSyncHelper().sleep(500); // Wait for action
   }
 
@@ -239,9 +287,7 @@ public class CheckOutPage extends Base {
     return SdkHelper.create(clazz);
   }
 
-  /**
-   * @return List<String>
-   */
+  /** @return List<String> */
   @Step("Get list of error messages")
   public List<String> getListOfErrorMessages() {
     ((LazyList<?>) errorMessagesList).initialize();
@@ -304,9 +350,7 @@ public class CheckOutPage extends Base {
   }
 
   @Step("Get container")
-  /**
-   * @return boolean
-   */
+  /** @return boolean */
   public boolean isDisplayed() {
     return WebHelper.isDisplayed(mainContainer);
   }
@@ -354,9 +398,7 @@ public class CheckOutPage extends Base {
     return SdkHelper.create(HomePage.class);
   }
 
-  /**
-   * @return products names
-   */
+  /** @return products names */
   public List<String> getProductsNames() {
     WebHelper.waitForElementToAppear(orderSummarySection, 10);
     productsNames.initialize();
@@ -419,6 +461,22 @@ public class CheckOutPage extends Base {
   public boolean isDiscountDisplayed() {
     return WebHelper.isDisplayed(discountValue);
   }
+
+  @Step("Verify Recipient Message Tip Text is displayed")
+  public boolean isRecipientMessageTipTextDisplayed() {
+    logger.info("Clicking on the Recipient Message info icon");
+    recipientMessageInfoIcon.click();
+    if (!WebHelper.isDisplayed(recipientMessageInfoModalText, 15)
+        || recipientMessageInfoModalText.getText().isEmpty()) {
+      logger.debug("Recipient Message text is not displayed or is empty");
+      return false;
+    }
+
+    logger.info("Closing Recipient Message modal");
+    recipientMessageInfoCloseIcon.click();
+
+    return true;
+  }
 }
 
 class CheckOutPageMobile extends CheckOutPage {
@@ -440,5 +498,22 @@ class CheckOutPageMobile extends CheckOutPage {
     logger.info("Clicking on 'Apply' button");
     applyCodeButton.click();
     return SdkHelper.create(CheckOutPage.class);
+  }
+
+  @Step("Verify Recipient Message Tip Text is displayed")
+  public boolean isRecipientMessageTipTextDisplayed() {
+    logger.info("Clicking on the Recipient Message info icon");
+    WebHelper.waitForElementToAppear(recipientMessageInfoIcon);
+    WebHelper.jsClick(recipientMessageInfoIcon.getWebElement());
+    if (!WebHelper.isDisplayed(recipientMessageInfoModalText, 5)
+        || recipientMessageInfoModalText.getText().isEmpty()) {
+      logger.debug("Recipient Message text is not displayed or is empty");
+      return false;
+    }
+
+    logger.info("Closing Recipient Message modal");
+    WebHelper.jsClick(recipientMessageInfoCloseIcon.getWebElement());
+
+    return true;
   }
 }

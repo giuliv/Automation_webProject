@@ -117,6 +117,9 @@ public class ProductDetailsPage extends Base {
   @Locate(css = "#pvEssentials #productPrice .pv-price__original", on = Platform.WEB)
   private Text itemPrice;
 
+  @Locate(css = "#pvEssentials #productPrice .js-price-original", on = Platform.WEB)
+  private Text startingAtItemPrice;
+
   @Locate(css = "h1.pv-title", on = Platform.WEB)
   private Text itemTitle;
 
@@ -143,6 +146,12 @@ public class ProductDetailsPage extends Base {
 
   @Locate(xpath = "//select[@id='grind']", on = Platform.WEB)
   private SelectList grindDropdown;
+
+  @Locate(
+      xpath =
+          "//div[@class='form-item']//div[@aria-label='Select grind']/../ul/li[@data-value='%s']",
+      on = Platform.WEB)
+  private Button grindOptionButton;
 
   @Locate(id = "increment", on = Platform.WEB)
   protected Button incrementQuantityButton;
@@ -329,6 +338,9 @@ public class ProductDetailsPage extends Base {
   @Locate(css = ".pv-actions .og-sub-info", on = Platform.WEB)
   private Text coffeeShipsOncePerMonthText;
 
+  @Locate(css = ".pv-qty", on = Platform.WEB)
+  private ContainerElement quantitySection;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper()
@@ -369,6 +381,12 @@ public class ProductDetailsPage extends Base {
   public boolean isProductPriceDisplayed() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(itemPrice).visible());
     return itemPrice.isDisplayed();
+  }
+
+  public boolean isProductStartAtPriceDisplayed() {
+    return SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(startingAtItemPrice).visible())
+        .isDisplayed();
   }
 
   @Step("Get item is available")
@@ -534,6 +552,19 @@ public class ProductDetailsPage extends Base {
     return SdkHelper.create(CartPage.class);
   }
 
+  @Step("Click on the Buy Now")
+  public CheckOutPage clickAddBuyNow() {
+    logger.info("Clicking on the Buy Now");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(addToCartButton).clickable());
+    if (!WebHelper.isDesktop()) {
+      WebHelper.scrollToElement(addToCartButton);
+      SdkHelper.getSyncHelper().sleep(2000); // Wait for action
+    }
+
+    addToCartButton.click();
+    return SdkHelper.create(CheckOutPage.class);
+  }
+
   @Step("Click Add more products")
   public void addMoreProducts(int totalProducts) {
     logger.info("[PDP] Total products: " + totalProducts);
@@ -649,13 +680,14 @@ public class ProductDetailsPage extends Base {
     logger.info("Selecting [{}] grind option", option.getValue());
     grindSelected.click();
     boolean valueFound = false;
-    Iterator var3 = grindDropdown.getChildren(LocatedBy.xpath("//li")).iterator();
+    Iterator var3 = grindDropdown.getChildren(LocatedBy.xpath("/../div//li")).iterator();
 
     while (var3.hasNext()) {
       ContainerElement optionElement = (ContainerElement) var3.next();
       if (option
           .getValue()
-          .equalsIgnoreCase(optionElement.getAttributeValue(Attribute.ID.getValue()).trim())) {
+          .equalsIgnoreCase(
+              optionElement.getAttributeValue(Attribute.DATA_VALUE.getValue()).trim())) {
         WebHelper.jsClick(optionElement.getWebElement());
         valueFound = true;
         break;
@@ -665,6 +697,16 @@ public class ProductDetailsPage extends Base {
     if (!valueFound) {
       throw new IllegalStateException("Couldn't find option with name " + option.getValue());
     }
+    return this;
+  }
+
+  @Step("Select Gift Subscription Grind")
+  public ProductDetailsPage selectGiftSubscriptionGrind(GrindDropdown option) {
+    logger.info("Selecting [{}] Gift Subscription grind option", option.getValue());
+    grindSelected.click();
+    grindOptionButton.format(option.getValue()).initialize();
+    WebHelper.jsClick(grindOptionButton.getWebElement());
+    SdkHelper.getSyncHelper().sleep(1000); // Wait to be populated
     return this;
   }
 
@@ -1050,6 +1092,45 @@ public class ProductDetailsPage extends Base {
     return softAssert;
   }
 
+  public SoftAssert validateGiftQuantityElements() {
+    SoftAssert softAssert = new SoftAssert();
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(productQuantity).visible());
+    quantityBoxSelected.format(1).initialize();
+    softAssert.assertTrue(quantityBoxSelected.isDisplayed(), "Quantity 1 is not default value");
+
+    quantityBox.format(2).initialize();
+    quantityBox.click();
+    quantityBoxSelected.format(2).initialize();
+    softAssert.assertTrue(quantityBoxSelected.isDisplayed(), "Quantity 2 is not default value");
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for change
+
+    quantityBox.format(3).initialize();
+    quantityBox.click();
+    quantityBoxSelected.format(3).initialize();
+    softAssert.assertFalse(quantityBoxSelected.isDisplayed(), "Quantity 2 is not selected");
+
+    return softAssert;
+  }
+
+  public SoftAssert validateQuantityBoxSectionElements() {
+    SoftAssert softAssert = new SoftAssert();
+
+    WebHelper.waitForVisibleOrPresent(quantitySection);
+    softAssert.assertEquals(getProductQuantitySelected(), 3, "Quantity 3 is not default value");
+
+    clickQuantityPlusButton();
+
+    WebHelper.waitForVisibleOrPresent(quantitySection);
+    softAssert.assertEquals(getProductQuantitySelected(), 6, "Quantity 6 is not selected");
+
+    clickQuantityPlusButton();
+
+    WebHelper.waitForVisibleOrPresent(quantitySection);
+    softAssert.assertEquals(getProductQuantitySelected(), 9, "Quantity 9 is not selected");
+    return softAssert;
+  }
+
   public ProductDetailsCustomerReviewsComponent getCustomerReviewsComponent() {
     return SdkHelper.create(ProductDetailsCustomerReviewsComponent.class);
   }
@@ -1141,6 +1222,18 @@ public class ProductDetailsPage extends Base {
     return WebHelper.isDisplayed(decrementQuantityButton);
   }
 
+  public void selectQuantityByIndex(int index) {
+    logger.info("Selecting quantity by index: {}", index);
+    quantityBox.format(index).initialize();
+    quantityBox.click();
+  }
+
+  public boolean isQuantitySelected(int index) {
+    logger.info("Checking quantity with index {} is selected", index);
+    quantityBoxSelected.format(index).initialize();
+    return quantityBoxSelected.isDisplayed();
+  }
+
   protected void clickOnThreeProductsButton() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(threeProductsButton).clickable());
     threeProductsButton.click();
@@ -1185,6 +1278,7 @@ public class ProductDetailsPage extends Base {
   @Step("Click Buy now")
   public CheckOutPage clickBuyNow() {
     logger.info("Clicking on the 'Buy Now' button");
+    WebHelper.waitForElementToAppear(buyNowButton);
     WebHelper.scrollToElement(buyNowButton);
     buyNowButton.click();
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action

@@ -5,6 +5,7 @@ import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.NeverMissAnOfferChunk;
 import com.applause.auto.new_web.components.OtherPurchasedItemChunk;
 import com.applause.auto.new_web.helpers.WebHelper;
@@ -535,6 +536,20 @@ public class CartPage extends BaseComponent {
     }
 
     return true;
+  }
+
+  @Step("Verify increase quantity button is displayed for the product by index")
+  public boolean isIncreaseQuantityButtonDisplayed(int productIndex) {
+    logger.info(
+        "Checking increase quantity button is displayed for the product by index: {}",
+        productIndex);
+    return WebHelper.isDisplayed(increaseQuantityButton.get(productIndex - 1));
+  }
+
+  @Step("Get header")
+  public Header getHeader() {
+    logger.info("Getting the header");
+    return SdkHelper.create(Header.class);
   }
 }
 

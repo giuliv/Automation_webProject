@@ -20,6 +20,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import io.qameta.allure.Step;
+import java.time.Duration;
 import org.apache.commons.lang3.NotImplementedException;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -102,7 +103,7 @@ public class Header extends BaseComponent {
   @Locate(css = "#header button[class*='search']", on = Platform.WEB)
   protected Button searchIcon;
 
-  @Locate(css = "i.icon.icon--cart-black", on = Platform.WEB)
+  @Locate(id = "cartButton", on = Platform.WEB)
   protected Button cartIcon;
 
   @Locate(css = "i.icon.icon--store-locator", on = Platform.WEB)
@@ -298,6 +299,9 @@ public class Header extends BaseComponent {
 
   public MiniCart clickCartIcon() {
     logger.info("Click over miniCart icon");
+    WebHelper.waitForElementToAppear(cartIcon);
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(cartIcon).clickable().setTimeout(Duration.ofSeconds(60)));
     cartIcon.click();
     return SdkHelper.create(MiniCart.class);
   }
