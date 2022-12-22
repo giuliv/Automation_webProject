@@ -197,13 +197,6 @@ public class PaymentsPage extends Base {
     logger.info("Setting payments data...");
     SdkHelper.getSyncHelper().wait(Until.uiElement(iFrameCardNumber).present());
 
-    logger.info("DEBUG MODE");
-    String oldContext = WebHelper.getCurrentContext();
-    WebHelper.switchToNativeContext();
-    SdkHelper.getSyncHelper().sleep(3000);
-    logger.info(SdkHelper.getDriver().getPageSource());
-    logger.info("END");
-
     WebHelper.switchToIFrame(iFrameCardNumber);
     SdkHelper.getSyncHelper().wait(Until.uiElement(cardNumber).clickable());
     cardNumber.sendKeys(Constants.WebTestData.CREDIT_CARD_NUMBER_1);
