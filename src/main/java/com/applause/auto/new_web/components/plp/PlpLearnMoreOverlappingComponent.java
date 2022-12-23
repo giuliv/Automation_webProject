@@ -83,15 +83,15 @@ class PlpLearnMoreOverlappingComponentMobile extends PlpLearnMoreOverlappingComp
       WebHelper.switchToNativeContext();
       SdkHelper.getSyncHelper().sleep(3000); // Extra wait due to context change
       if (shippingTextIOS.isDisplayed() & shippingTextPart2IOS.isDisplayed()) {
-        name = "true";
+        name = "Free 2-Day Shipping & Free Returns";
+      } else {
+        logger.info(
+            "Shipping text [{}] [{}]", shippingTextIOS.getText(), shippingTextPart2IOS.getText());
+        name = "Shipping text is not correct";
       }
-      logger.info(
-          "Shipping text [{}] [{}]", shippingTextIOS.getText(), shippingTextPart2IOS.getText());
-
       logger.info("switching back to the ShoppRunner Modal");
       WebHelper.switchToWeb(oldContext);
       SdkHelper.getSyncHelper().sleep(3000); // Extra wait due to context change
-      return "Shipping text is not correct";
     } else {
       logger.info("Switching to innerFrame");
       WebHelper.switchToIFrame(innerFrame);

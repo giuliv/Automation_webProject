@@ -3,10 +3,13 @@ package com.applause.auto.test.new_web.plp;
 import static com.applause.auto.common.data.Constants.WebTestData.PLP_SHOPABBLE_ITEMS;
 
 import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.enums.FooterOptions;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.components.QuickViewComponent;
 import com.applause.auto.new_web.components.ShopRunnerComponent;
+import com.applause.auto.new_web.components.plp.PlpLearnMoreOverlappingComponent;
+import com.applause.auto.new_web.components.plp.PlpSignInOverlappingComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.FreeHomeDeliveryPage;
 import com.applause.auto.new_web.views.HomePage;
@@ -395,18 +398,17 @@ public class MiniCartTest extends BaseTest {
             + " to be a part of "
             + miniCart.getShopRunnerMessage());
 
-    logger.info("4. Verify learn more overlay");
-    ShopRunnerComponent shopRunnerComponent = miniCart.clickShopRunnerLinks("Learn More");
-    softAssert.assertTrue(
-        shopRunnerComponent.isLearnMoreModalDisplayed(),
-        "Learn more modal was not displayed correctly");
-    miniCart = shopRunnerComponent.closeOverlay();
+    logger.info("4. Click Learn More and Verify Learn More overlapping Modal Free shipping Text ");
+    PlpLearnMoreOverlappingComponent learMoreOverlapping = miniCart.clickLearnMoreLink();
+    Assert.assertEquals(
+        learMoreOverlapping.getShippingText(),
+        TestData.SHOP_RUNNER_FREE_TEXT,
+        "FREE 2-Day Shipping & Free Returns Text is not displayed");
+    miniCart = learMoreOverlapping.clickCloseButton(MiniCart.class);
 
-    logger.info("5. Verify sign in overlay");
-
-    shopRunnerComponent = miniCart.clickShopRunnerLinks("Sign In");
-    softAssert.assertTrue(
-        shopRunnerComponent.isSignInModalDisplayed(), "Sign In modal was not displayed correctly");
+    logger.info("5. Click Sign In Link and Verify Sign In overlapping modal");
+    PlpSignInOverlappingComponent signInOverlapping = miniCart.clickSignInLink();
+    signInOverlapping.validateShopRunnerSignInModalUIElements().assertAll();
 
     softAssert.assertAll();
   }

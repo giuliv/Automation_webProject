@@ -55,7 +55,7 @@ public class HomepageTests extends BaseTest {
     homePage.closeInitialBannersAndModals();
 
     Header header = homePage.getHeader();
-    header.preopenMenu();
+    header.preOpenMenu();
 
     logger.info("2. Verify links are present");
     logger.info("-- Coffee");

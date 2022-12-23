@@ -167,7 +167,12 @@ public class QuickViewComponent extends BaseComponent {
     softAssert.assertTrue(
         Integer.parseInt(reviewCount.getText().replaceAll("[^\\d.]", "")) >= 1,
         "Review count is not correct");
-    WebHelper.hoverByAction(starRatings);
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      starRatings.click();
+    } else {
+      WebHelper.hoverByAction(starRatings);
+    }
+
     softAssert.assertTrue(
         readReviewBox.getAttributeValue("aria-expanded").equals("true"),
         "AutoDropDown Review module is not displayed");
@@ -309,7 +314,9 @@ public class QuickViewComponent extends BaseComponent {
     return SdkHelper.create(MiniCart.class);
   }
 
-  /** @return product name */
+  /**
+   * @return product name
+   */
   @Step("Get product name")
   public String getProductName() {
     return productName.getText().trim();
@@ -348,6 +355,11 @@ public class QuickViewComponent extends BaseComponent {
   public PlpSignInOverlappingComponent clickSignInLink() {
     logger.info("Clicking on the 'Sign In' Link");
     signInLink.click();
+
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      SdkHelper.getSyncHelper().sleep(5000); // Extra wait needed on iOS
+    }
+
     return SdkHelper.create(PlpSignInOverlappingComponent.class);
   }
 
@@ -420,15 +432,7 @@ public class QuickViewComponent extends BaseComponent {
   }
 
   public boolean areSubscribeOrOneTimePurchaseDisplayed() {
-    logger.info(
-        "Is one time purchase button displayed: {}",
-        WebHelper.getVisibility(oneTimePurchase.getWebElement()));
-    logger.info(
-        "Is it subscribe button displayed: {}",
-        WebHelper.getVisibility(subscribeType.getWebElement()));
-
-    return WebHelper.getVisibility(oneTimePurchase.getWebElement())
-        || WebHelper.getVisibility(subscribeType.getWebElement());
+    return WebHelper.isDisplayed(oneTimePurchase) || WebHelper.isDisplayed(subscribeType);
   }
 
   @Step("Click Buy now")

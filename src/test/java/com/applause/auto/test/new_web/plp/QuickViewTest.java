@@ -117,7 +117,7 @@ public class QuickViewTest extends BaseTest {
 
     logger.info("5. Click LearnMore and Verify LearnMore overlapping Modal Free shipping Text");
     PlpLearnMoreOverlappingComponent learMoreOverlapping = quickViewComponent.clickLearnMoreLink();
-    softAssert.assertEquals(
+    Assert.assertEquals(
         learMoreOverlapping.getShippingText(),
         TestData.SHOP_RUNNER_FREE_TEXT,
         "FREE 2-Day Shipping & Free Returns Text is not displayed");

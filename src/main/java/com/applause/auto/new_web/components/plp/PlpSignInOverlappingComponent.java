@@ -2,6 +2,7 @@ package com.applause.auto.new_web.components.plp;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -65,6 +66,7 @@ class PlpSignInOverlappingComponentIOS extends PlpSignInOverlappingComponent {
   public SoftAssert validateShopRunnerSignInModalUIElements() {
     logger.info("Switching to inner frame");
     WebHelper.switchToIFrame(frame);
+    WebHelper.scrollToPageBottom();
 
     String oldContext = WebHelper.getCurrentContext();
     WebHelper.switchToNativeContext();
@@ -75,7 +77,7 @@ class PlpSignInOverlappingComponentIOS extends PlpSignInOverlappingComponent {
     softAssert.assertTrue(signInForm.exists(), "Sign In Form is not displayed");
     softAssert.assertTrue(
         signInSocialMedia.isDisplayed(), "Sign In Social Media Section is not displayed");
-    softAssert.assertTrue(signUpBanner.isDisplayed(), "SignUp Banner is not displayed");
+    softAssert.assertTrue(signUpBanner.exists(), "SignUp Banner is not displayed");
 
     logger.info("switching back to default content");
     WebHelper.switchToWeb(oldContext);

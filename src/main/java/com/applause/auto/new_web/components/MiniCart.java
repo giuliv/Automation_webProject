@@ -5,6 +5,8 @@ import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.new_web.components.plp.PlpLearnMoreOverlappingComponent;
+import com.applause.auto.new_web.components.plp.PlpSignInOverlappingComponent;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.CartPage;
 import com.applause.auto.new_web.views.CheckOutPage;
@@ -422,13 +424,17 @@ public class MiniCart extends BaseComponent {
     return this;
   }
 
-  /** @return boolean */
+  /**
+   * @return boolean
+   */
   @Step("Get one time purchase")
   public boolean isOneTimePurchaseButtonEnabled() {
     return oneTimePurchaseButton.isEnabled();
   }
 
-  /** @return boolean */
+  /**
+   * @return boolean
+   */
   @Step("Get subscribe")
   public boolean isSubscribeButtonEnabled() {
     return subscribeButton.isEnabled();
@@ -544,5 +550,20 @@ public class MiniCart extends BaseComponent {
   @Step("Verify Checkout item button is displayed")
   public boolean isCheckoutButtonDisplayed() {
     return WebHelper.isDisplayed(checkOutButton);
+  }
+
+  @Step("Click Learn More Link")
+  public PlpLearnMoreOverlappingComponent clickLearnMoreLink() {
+    logger.info("Clicking on the 'Learn More' Link");
+    WebHelper.scrollToElement(learnMoreLink);
+    learnMoreLink.click();
+    return SdkHelper.create(PlpLearnMoreOverlappingComponent.class);
+  }
+
+  @Step("Click Sign In Link")
+  public PlpSignInOverlappingComponent clickSignInLink() {
+    logger.info("Clicking on the 'Sign In' Link");
+    signInLink.click();
+    return SdkHelper.create(PlpSignInOverlappingComponent.class);
   }
 }

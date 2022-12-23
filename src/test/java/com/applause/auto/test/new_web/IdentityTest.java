@@ -10,6 +10,7 @@ import com.applause.auto.common.data.Constants.CheckoutUserTestData;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.Constants.WebTestData;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.new_web.components.Header;
 import com.applause.auto.new_web.components.MiniCart;
 import com.applause.auto.new_web.helpers.WebHelper;
@@ -416,6 +417,10 @@ public class IdentityTest extends BaseTest {
 
     logger.info("3. Click on 'Person' Icon");
     SignInPage signInPage = header.clickAccountButton();
+
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      SdkHelper.getSyncHelper().sleep(5000); // Extra wait needed on iOS
+    }
 
     logger.info("4. Validate the user is directed to https://account-qa.peets.com/login");
     Assert.assertTrue(

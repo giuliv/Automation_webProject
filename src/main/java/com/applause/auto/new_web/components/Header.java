@@ -380,7 +380,7 @@ public class Header extends BaseComponent {
     logger.info("Hamburger Menu isn't present on desktop");
   }
 
-  public void preopenMenu() {
+  public void preOpenMenu() {
     logger.info("Opening Hamburger Menu -> Do nothing, on desktop.");
   }
 
@@ -522,7 +522,7 @@ class HeaderMobile extends Header {
   }
 
   @Override
-  public void preopenMenu() {
+  public void preOpenMenu() {
     openHamburgerMenu();
   }
 
