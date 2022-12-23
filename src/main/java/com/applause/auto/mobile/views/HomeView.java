@@ -29,22 +29,6 @@ public class HomeView extends BaseComponent {
   @Getter @Locate BottomNavigationMenuChunk bottomNavigationMenuChunk;
 
   @Locate(
-      iOSClassChain = "**/XCUIElementTypeStaticText[`label == 'Home'`]",
-      on = Platform.MOBILE_IOS)
-  @Locate(
-      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/homeButton\")",
-      on = Platform.MOBILE_ANDROID)
-  protected Button homeButton;
-
-  @Locate(
-      iOSClassChain = "**/XCUIElementTypeStaticText[`label == 'Menu'`]",
-      on = Platform.MOBILE_IOS)
-  @Locate(
-      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/menuButton\")",
-      on = Platform.MOBILE_ANDROID)
-  protected Button menuButton;
-
-  @Locate(
       iOSClassChain = "**/XCUIElementTypeStaticText[`label == 'More'`]",
       on = Platform.MOBILE_IOS)
   @Locate(
@@ -64,10 +48,6 @@ public class HomeView extends BaseComponent {
   @Locate(accessibilityId = "More", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/moreButton", on = Platform.MOBILE_ANDROID)
   protected Button getMoreScreenButton;
-
-  @Locate(accessibilityId = "Store locator", on = Platform.MOBILE_IOS)
-  @Locate(accessibilityId = "Stores button", on = Platform.MOBILE_ANDROID)
-  protected Button storesButton;
 
   @Override
   public void afterInit() {

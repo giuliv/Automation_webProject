@@ -10,7 +10,6 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
-import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.util.RetryTestException;
 import io.qameta.allure.Step;
@@ -29,9 +28,6 @@ public class LandingView extends BaseComponent {
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/authentication_title_text\")",
       on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
-
-  @Locate(xpath = "//XCUIElementTypeButton[contains(@label,'Allow')]", on = Platform.MOBILE_IOS)
-  protected Text allowButton;
 
   @Locate(id = "Skip", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/skipTextView", on = Platform.MOBILE_ANDROID)
@@ -53,15 +49,6 @@ public class LandingView extends BaseComponent {
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/login_button\")",
       on = Platform.MOBILE_ANDROID)
   protected Button getSignInButton;
-
-  @Locate(
-      xpath =
-          "//XCUIElementTypeOther[1]/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther",
-      on = Platform.MOBILE_IOS)
-  @Locate(
-      id = "com.wearehathway.peets.development:id/onBoardingViewPager",
-      on = Platform.MOBILE_ANDROID)
-  protected ContainerElement getViewPager;
 
   /* -------- Actions -------- */
 
@@ -107,21 +94,6 @@ public class LandingView extends BaseComponent {
     getSignInButton.initialize();
     getSignInButton.click();
     return SdkHelper.create(SignInView.class);
-  }
-
-  /** Skip onboarding. */
-  public void skipOnboarding() {
-    logger.info("Skipping Onboarding");
-    // this try catch is needed for iOS, since sometimes iOS test is starting on sign in/sign up
-    // view
-    try {
-      SdkHelper.getSyncHelper()
-          .wait(Until.uiElement(getSkipButton).clickable().setTimeout(Duration.ofSeconds(20)));
-      getSkipButton.click();
-      logger.info("Skip button was clicked correctly");
-    } catch (Exception e) {
-      logger.error("Error while skipping the Landing View");
-    }
   }
 
   /**

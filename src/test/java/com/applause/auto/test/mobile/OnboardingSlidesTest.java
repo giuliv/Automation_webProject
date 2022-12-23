@@ -6,21 +6,13 @@ import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.OnboardingLastView;
 import com.applause.auto.mobile.views.OnboardingView;
-import java.lang.invoke.MethodHandles;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-/**
- * This is a sample test that verifies the project is setup correctly and can execute a simple test.
- */
 public class OnboardingSlidesTest extends BaseTest {
 
-  private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
-
   @Test(
-      groups = {TestNGGroups.DEBUG, TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.REGRESSION},
       description = "625878")
   public void onboardingSlidesTest() {
     SoftAssert softAssert = new SoftAssert();

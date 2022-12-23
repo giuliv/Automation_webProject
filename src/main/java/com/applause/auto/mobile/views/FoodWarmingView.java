@@ -13,12 +13,6 @@ public class FoodWarmingView extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(
-      iOSClassChain = "**/XCUIElementTypeNavigationBar/XCUIElementTypeButton",
-      on = Platform.MOBILE_IOS)
-  @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
-  protected Button navigateBackButton;
-
   @Locate(xpath = "//android.widget.TextView[@text='Warm']", on = Platform.MOBILE_ANDROID)
   @Locate(
       iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Warm\"`]",

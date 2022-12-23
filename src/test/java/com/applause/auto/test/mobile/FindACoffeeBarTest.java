@@ -9,19 +9,14 @@ import com.applause.auto.mobile.views.HomeView;
 import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
 import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.StoreDetailsView;
-import java.lang.invoke.MethodHandles;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class FindACoffeeBarTest extends BaseTest {
 
-  private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
-
   @Test(
-      groups = {TestNGGroups.ORDER, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.REGRESSION},
       description = "1687260")
   public void findACoffeeBarTest() {
     HomeView homeView =
@@ -148,7 +143,7 @@ public class FindACoffeeBarTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ORDER, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.REGRESSION},
       description = "1687261")
   public void recentCoffeeBarTest() {
     HomeView homeView =
@@ -202,7 +197,7 @@ public class FindACoffeeBarTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ORDER, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.REGRESSION},
       description = "1687262")
   public void favoriteCoffeeBarsTest() {
     logger.info("PRECONDITION - User is on find a coffeeBar screen");

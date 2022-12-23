@@ -10,7 +10,6 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.factory.LazyList;
 import java.time.Duration;
 import java.util.stream.IntStream;
 import org.openqa.selenium.NoSuchElementException;
@@ -35,12 +34,6 @@ public class SubCategoryView extends BaseComponent {
       androidUIAutomator = "new UiSelector().text(\"Tap Here to Select Delivery\")",
       on = Platform.MOBILE_ANDROID)
   protected Button tapHereToSelectDeliveryButton;
-
-  @Locate(iOSClassChain = "**/XCUIElementTypeTable/XCUIElementTypeCell", on = Platform.MOBILE_IOS)
-  @Locate(
-      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/productContainer\")",
-      on = Platform.MOBILE_ANDROID)
-  protected LazyList<Button> productsList;
 
   @Locate(
       iOSClassChain = "**/XCUIElementTypeButton[`name == 'button back'`]",
@@ -75,12 +68,6 @@ public class SubCategoryView extends BaseComponent {
     String titleText = title.getText();
     logger.info("Title - [{}]", titleText);
     return titleText;
-  }
-
-  public ProductDetailsView selectProduct(int position) {
-    logger.info("Tapping on [{}] product", position);
-    productsList.get(position - 1).click();
-    return SdkHelper.create(ProductDetailsView.class);
   }
 
   public <T extends BaseComponent> T navigateBack(Class<T> clazz) {

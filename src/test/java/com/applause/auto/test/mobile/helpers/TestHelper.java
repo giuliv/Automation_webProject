@@ -1,32 +1,21 @@
 package com.applause.auto.test.mobile.helpers;
 
-import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.dto.SignUpUserDto;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
-import com.applause.auto.mobile.helpers.MobileHelper;
-import com.applause.auto.mobile.views.CheckoutView;
 import com.applause.auto.mobile.views.CreateAccountView;
-import com.applause.auto.mobile.views.FindACoffeeBarView;
 import com.applause.auto.mobile.views.HomeView;
 import com.applause.auto.mobile.views.LandingView;
-import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
 import com.applause.auto.mobile.views.OnboardingView;
-import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.test.mobile.BaseTest;
-import com.google.common.collect.ImmutableMap;
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.appmanagement.ApplicationState;
 import java.lang.invoke.MethodHandles;
-import java.util.List;
-import org.aeonbits.owner.util.Collections;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.NoSuchElementException;
@@ -35,30 +24,6 @@ import org.openqa.selenium.ScreenOrientation;
 @Implementation(is = TestHelper.class, on = Platform.MOBILE)
 public class TestHelper extends BaseComponent {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
-
-  /**
-   * Sign in t.
-   *
-   * @param <T> the type parameter
-   * @param landingView the landing view
-   * @param clazz the clazz
-   * @return the t
-   */
-  public <T extends BaseComponent> T signIn(
-      LandingView landingView, String username, String password, Class<T> clazz) {
-    landingView.skipOnboarding();
-    logger.info("Tap Sign In");
-    SignInView signInView = landingView.signIn();
-
-    logger.info("Tap on Email Address field and enter valid email address");
-    signInView.setEmail(username);
-
-    logger.info("Enter valid password");
-    signInView.setPassword(password);
-
-    logger.info("Tap Sign In button");
-    return signInView.signIn(clazz);
-  }
 
   public HomeView createNewAccountWithDefaults() {
     logger.info("Creating account");
@@ -173,73 +138,6 @@ public class TestHelper extends BaseComponent {
         .closeTooltipIfDisplayed(HomeView.class);
   }
 
-  public static void denyLocationServices() {
-    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
-    if (MobileHelper.isAndroid()) {
-      // toggleLocationServicesCommand is opening Android settings view
-      // AndroidMobileCommandHelper.toggleLocationServicesCommand();
-      logger.info("Disabling Location permissions for Android");
-      //      ((AndroidDriver<WebElement>) SdkHelper.getDriver())
-      ((AndroidDriver) SdkHelper.getDriver())
-          .executeScript(
-              "mobile:changePermissions",
-              ImmutableMap.of(
-                  "action",
-                  "revoke",
-                  "appPackage",
-                  Constants.MobileApp.ANDROID_PACKAGE_ID,
-                  "permissions",
-                  Collections.list(
-                      "android.permission.ACCESS_COARSE_LOCATION",
-                      "android.permission.ACCESS_FINE_LOCATION")));
-      SdkHelper.getSyncHelper().sleep(4000);
-
-      if (notRunningAppStates().contains(getAppState(Constants.MobileApp.ANDROID_PACKAGE_ID))) {
-        try {
-          MobileHelper.activateApp();
-        } catch (Exception e) {
-          logger.error("Error activating app");
-        }
-      }
-    }
-  }
-
-  public static ApplicationState getAppState(String appId) {
-    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
-    logger.info("Getting app state");
-    try {
-      //      ApplicationState applicationState =
-      //          ((AndroidDriver<WebElement>) SdkHelper.getDriver()).queryAppState(appId);
-      ApplicationState applicationState =
-          ((AndroidDriver) SdkHelper.getDriver()).queryAppState(appId);
-      logger.info(String.format("App state is: %s", applicationState.name()));
-      //      return ((AndroidDriver<WebElement>) SdkHelper.getDriver()).queryAppState(appId);
-      return ((AndroidDriver) SdkHelper.getDriver()).queryAppState(appId);
-    } catch (Exception e) {
-      logger.error("Error getting current app state, probably it is not running");
-      return ApplicationState.NOT_RUNNING;
-    }
-  }
-
-  public static OrderView openOrderMenuForRecentCoffeeBar(HomeView homeView) {
-    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
-      AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
-          homeView.getBottomNavigationMenuChunk().order(AllowLocationServicesPopupChunk.class);
-      NearbySelectCoffeeBarView nearbySelectCoffeeBarView = allowLocationServicesPopupChunk.allow();
-      FindACoffeeBarView findACoffeeBarView = nearbySelectCoffeeBarView.openRecentTab();
-      return findACoffeeBarView.selectFirstRecentCoffeeBar();
-    }
-    return homeView.getBottomNavigationMenuChunk().order(OrderView.class);
-  }
-
-  public static CheckoutView checkoutOnItemsYouMightLike(OrderView orderView) {
-    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
-      return SdkHelper.create(CheckoutView.class);
-    } else {
-      return orderView.checkout();
-    }
-  }
-
   /**
    * Open the app and login
    *
@@ -295,13 +193,6 @@ public class TestHelper extends BaseComponent {
 
     logger.info("Tap Sign In");
     return landingView.signIn();
-  }
-
-  private static List<ApplicationState> notRunningAppStates() {
-    return Collections.list(
-        ApplicationState.NOT_RUNNING,
-        ApplicationState.RUNNING_IN_BACKGROUND,
-        ApplicationState.RUNNING_IN_BACKGROUND_SUSPENDED);
   }
 
   public void setupChrome() {

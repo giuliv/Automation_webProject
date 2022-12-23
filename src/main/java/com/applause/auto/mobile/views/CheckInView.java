@@ -44,20 +44,6 @@ public class CheckInView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getConfirmButton;
 
-  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Edit\"]", on = Platform.MOBILE_IOS)
-  @Locate(
-      id = "com.wearehathway.peets.development:id/editCreditCardBtn",
-      on = Platform.MOBILE_ANDROID)
-  protected Button getPencilIconButton;
-
-  @Locate(
-      xpath = "//XCUIElementTypeOther/XCUIElementTypeButton[@name='%s']",
-      on = Platform.MOBILE_IOS)
-  @Locate(
-      xpath = "//android.widget.LinearLayout/android.widget.Button[@text='%s']",
-      on = Platform.MOBILE_ANDROID)
-  protected Button getAmountButton;
-
   /* -------- Actions -------- */
 
   public void afterInit() {
@@ -75,24 +61,6 @@ public class CheckInView extends BaseComponent {
       MobileHelper.tapByCoordinatesOnElementCenter(getAddValueButton);
       SdkHelper.getSyncHelper().sleep(5000);
     }
-  }
-
-  public <T extends BaseComponent> T addValue(Class<T> clazz) {
-    logger.info("Tap on Add Value");
-    addValue();
-    return SdkHelper.create(clazz);
-  }
-
-  /**
-   * Edit payment methods view.
-   *
-   * @return the payment methods view
-   */
-  public PaymentMethodsView edit() {
-    logger.info("Tap pencil icon");
-    getPencilIconButton.initialize();
-    getPencilIconButton.click();
-    return SdkHelper.create(PaymentMethodsView.class);
   }
 
   /**

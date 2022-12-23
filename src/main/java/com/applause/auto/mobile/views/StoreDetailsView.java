@@ -29,12 +29,6 @@ public class StoreDetailsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected List<Text> getSearchResultsElements;
 
-  @Locate(xpath = "//XCUIElementTypeSearchField[@name=\"Search Menu\"]", on = Platform.MOBILE_IOS)
-  @Locate(
-      id = "com.wearehathway.peets.development:id/search_src_text",
-      on = Platform.MOBILE_ANDROID)
-  protected TextBox getSearchMenuTextBox;
-
   @Locate(
       iOSClassChain = "**/XCUIElementTypeNavigationBar/XCUIElementTypeButton",
       on = Platform.MOBILE_IOS)

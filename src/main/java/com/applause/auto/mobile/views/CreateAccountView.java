@@ -17,7 +17,6 @@ import com.applause.auto.pageobjectmodel.elements.Picker;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import io.qameta.allure.Step;
-import java.util.List;
 
 @Implementation(is = AndroidCreateAccountView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CreateAccountView.class, on = Platform.MOBILE_IOS)
@@ -31,16 +30,6 @@ public class CreateAccountView extends BaseComponent {
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/passwordToggle\")",
       on = Platform.MOBILE_ANDROID)
   protected Button showPasswordButton;
-
-  @Locate(xpath = "(//XCUIElementTypeButton[@name=\"hide password\"])[2]", on = Platform.MOBILE_IOS)
-  @Locate(id = "", on = Platform.MOBILE_ANDROID)
-  protected Button getShowConfirmationPasswordButton;
-
-  @Locate(
-      xpath = "(//XCUIElementTypeButton[@name=\"reveal password\"])[2]",
-      on = Platform.MOBILE_IOS)
-  @Locate(id = "", on = Platform.MOBILE_ANDROID)
-  protected Button getHideConfirmationPasswordButton;
 
   @Locate(
       iOSClassChain =
@@ -133,15 +122,6 @@ public class CreateAccountView extends BaseComponent {
   protected TextBox getDOBDoneBtn;
 
   @Locate(
-      xpath =
-          "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[7]/XCUIElementTypeTextField",
-      on = Platform.MOBILE_IOS)
-  @Locate(
-      id = "com.wearehathway.peets.development:id/confirmEmailAddress",
-      on = Platform.MOBILE_ANDROID)
-  protected TextBox getConfirmEmailAddressTextBox;
-
-  @Locate(
       iOSClassChain =
           "**/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[5]/*[1]",
       on = Platform.MOBILE_IOS)
@@ -149,24 +129,6 @@ public class CreateAccountView extends BaseComponent {
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/password_edit_text\")",
       on = Platform.MOBILE_ANDROID)
   protected TextBox passwordTextBox;
-
-  @Locate(
-      xpath =
-          "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[9]/XCUIElementTypeSecureTextField",
-      on = Platform.MOBILE_IOS)
-  @Locate(
-      id = "com.wearehathway.peets.development:id/confirmPassword",
-      on = Platform.MOBILE_ANDROID)
-  protected TextBox getConfirmPasswordTextBox;
-
-  @Locate(
-      xpath =
-          "//XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[8]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeImage/following-sibling::XCUIElementTypeStaticText",
-      on = Platform.MOBILE_IOS)
-  @Locate(
-      xpath = "//android.widget.TextView[contains(@resource-id,'id/passwordRule')]",
-      on = Platform.MOBILE_ANDROID)
-  protected List<Text> getPasswordHintTextBox;
 
   @Locate(
       xpath = "//XCUIElementTypeStaticText[@name='Enter your promo code here for special offers.']",
@@ -337,20 +299,6 @@ public class CreateAccountView extends BaseComponent {
     return this;
   }
 
-  /**
-   * Sets confirm email address.
-   *
-   * @param emailAddress the email address
-   * @return the confirm email address
-   */
-  public CreateAccountView setConfirmEmailAddress(String emailAddress) {
-    logger.info("Set email address to: " + emailAddress);
-    SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
-    getConfirmEmailAddressTextBox.clearText();
-    getConfirmEmailAddressTextBox.sendKeys(emailAddress + "\n");
-    return this;
-  }
-
   @Step("Set password")
   public CreateAccountView setPassword(String password) {
     logger.info("Set password to: " + password);
@@ -434,15 +382,6 @@ public class CreateAccountView extends BaseComponent {
    */
   public String getLastname() {
     return lastnameTextBox.getCurrentText();
-  }
-
-  /**
-   * Gets dob.
-   *
-   * @return the dob
-   */
-  public String getDOB() {
-    return getDOBValueTextBox.getCurrentText();
   }
 
   @Step("Gets password text")
@@ -614,15 +553,6 @@ class AndroidCreateAccountView extends CreateAccountView {
     return this;
   }
 
-  public CreateAccountView setConfirmEmailAddress(String emailAddress) {
-    logger.info("Set email address to: " + emailAddress);
-    SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
-    getConfirmEmailAddressTextBox.clearText();
-    getConfirmEmailAddressTextBox.sendKeys(emailAddress);
-    SdkHelper.getDeviceControl().hideKeyboard();
-    return this;
-  }
-
   @Override
   public boolean isDobTextDisplayed() {
     logger.info("Checking dob text field displayed");
@@ -668,7 +598,6 @@ class AndroidCreateAccountView extends CreateAccountView {
     MobileHelper.setPickerValueBasic(day, dayPicker, "next");
     MobileHelper.setPickerValueBasic(month.substring(0, 3), monthPicker, "next");
     MobileHelper.setPickerValueReverse(year, getDOBYearPicker);
-    // SdkHelper.getDeviceControl().hideKeyboard();
     getDOBOkButton.click();
 
     return SdkHelper.create(CreateAccountView.class);

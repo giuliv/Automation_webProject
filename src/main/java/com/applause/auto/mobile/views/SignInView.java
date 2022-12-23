@@ -289,17 +289,8 @@ class AndroidSignInView extends SignInView {
   /* -------- Actions -------- */
 
   @Override
-  // Todo: Commented as part of update on pom to 4.1.2 [REVIEW IF WORKAROUND WORKED]
   public void showPassword() {
-    //        logger.info("Click on Show Password button");
-    //        MobileElement element = passwordTextBox.getMobileElement();
-    //        int x = element.getCenter().getX();
-    //        int y = element.getCenter().getY();
-    //        int width = element.getSize().getWidth();
-    //        AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
-    //        (new TouchAction(driver)).tap(PointOption.point(x + width / 2 - 5, y)).perform();
-
-    // New Code added [Test if works?], I do not have a clue, why the + width / 2 - 5
+    logger.info("Click on Show Password button");
     Dimension element = passwordTextBox.getDimension();
     int x = element.width / 2;
     int y = element.height / 2;
@@ -310,11 +301,6 @@ class AndroidSignInView extends SignInView {
   @Override
   public void setPassword(String password) {
     logger.info("Set password: " + password);
-    // TODO: figure out why this code block is causing an exception on Android
-    // while (getPasswordTextBox.getCurrentText().length() != 0) {
-    // getPasswordTextBox.clearText();
-    // }
-
     passwordTextBox.sendKeys(password);
   }
 

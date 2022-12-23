@@ -77,9 +77,6 @@ public class CreditCardDetailsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getBackButton;
 
-  @Locate(id = "Done", on = Platform.MOBILE_IOS)
-  protected Button getKeyboardDoneButton;
-
   @Locate(xpath = "//XCUIElementTypeImage[@value=\"Logo image\"]", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/cardImage", on = Platform.MOBILE_ANDROID)
   protected Image getCCLogoImage;
@@ -173,8 +170,6 @@ public class CreditCardDetailsView extends BaseComponent {
     logger.info("Confirming Deletion of Card");
     getDeleteYesButton.click();
     SdkHelper.getSyncHelper().sleep(15000);
-    // SdkHelper.getSyncHelper().wait(
-    // Until.uiElement(getDeleteYesButton).present().setTimeout(Duration.ofSeconds(10)));
     return SdkHelper.create(PaymentMethodsView.class);
   }
 

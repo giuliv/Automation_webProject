@@ -12,9 +12,7 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
-import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.elements.TextBox;
 import java.time.Duration;
 import lombok.Getter;
 
@@ -29,30 +27,6 @@ public class OrderView extends BaseComponent {
   protected Text getHeadingText;
 
   @Locate(
-      xpath =
-          "//XCUIElementTypeButton[@name=\"%s\"]/following-sibling::XCUIElementTypeButton[@name='%s']",
-      on = Platform.MOBILE_IOS)
-  @Locate(
-      xpath =
-          "//android.widget.TextView[@text=\"%s\"]//parent::*/following-sibling::*[contains(@resource-id, 'subcategories')]//*[contains(@text, '%s')]",
-      on = Platform.MOBILE_ANDROID)
-  protected ContainerElement getCategorySubItem;
-
-  @Locate(
-      iOSClassChain = "**/XCUIElementTypeButton[`name == 'white search'`]",
-      on = Platform.MOBILE_IOS)
-  @Locate(
-      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/search\")",
-      on = Platform.MOBILE_ANDROID)
-  protected Button searchButton;
-
-  @Locate(xpath = "//XCUIElementTypeSearchField[@name=\"Search Menu\"]", on = Platform.MOBILE_IOS)
-  @Locate(
-      id = "com.wearehathway.peets.development:id/search_src_text",
-      on = Platform.MOBILE_ANDROID)
-  protected TextBox getSearchMenuEditField;
-
-  @Locate(
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/basketFABContainer\")",
       on = Platform.MOBILE_ANDROID)
   @Locate(
@@ -64,11 +38,6 @@ public class OrderView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/confirmButton", on = Platform.MOBILE_ANDROID)
   @Locate(id = "Menu", on = Platform.MOBILE_IOS)
   protected Button getConfirmStoreButton;
-
-  @Locate(
-      id = "com.wearehathway.peets.development:id/changeLocationButton",
-      on = Platform.MOBILE_ANDROID)
-  protected Button getChangeStoreButton;
 
   @Locate(xpath = "//android.widget.TextView[@text='Recents']", on = Platform.MOBILE_ANDROID)
   @Locate(
@@ -133,23 +102,6 @@ public class OrderView extends BaseComponent {
       iOSClassChain = "**/XCUIElementTypeButton[`label == \"Add to Order\"`]",
       on = Platform.MOBILE_IOS)
   protected Button addToOrderButton;
-
-  @Locate(id = "com.wearehathway.peets.development:id/basketFABText", on = Platform.MOBILE_ANDROID)
-  @Locate(
-      xpath =
-          "//XCUIElementTypeNavigationBar/following-sibling::XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeStaticText",
-      on = Platform.MOBILE_IOS)
-  protected Text fabAmountText;
-
-  @Locate(
-      xpath =
-          "//XCUIElementTypeStaticText[@name=\"Seasonal Favorites\"]/preceding-sibling::XCUIElementTypeOther/XCUIElementTypeCollectionView/XCUIElementTypeCell[@name=\"%s\"]",
-      on = Platform.MOBILE_IOS)
-  @Locate(
-      xpath =
-          "//androidx.appcompat.widget.LinearLayoutCompat[@resource-id='com.wearehathway.peets.development:id/seasonalProductContainer']/android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productNameTextView' and @text='%s']",
-      on = Platform.MOBILE_ANDROID)
-  protected Text seasonalFavoriteProductItemText;
 
   @Locate(
       iOSClassChain = "**/XCUIElementTypeOther[$name == 'Pickup'$][-1]",
@@ -222,12 +174,6 @@ public class OrderView extends BaseComponent {
     menuSubCategoryButton.format(subCategory.getSubCategory());
     menuSubCategoryButton.click();
     return SdkHelper.create(SubCategoryView.class);
-  }
-
-  public SearchResultsView tapOnSearchButton() {
-    logger.info("Tapping on 'Search' button");
-    searchButton.click();
-    return SdkHelper.create(SearchResultsView.class);
   }
 
   /**
@@ -372,15 +318,6 @@ public class OrderView extends BaseComponent {
     addToOrderButton.click();
     SdkHelper.getSyncHelper().sleep(2000);
     return SdkHelper.create(OrderView.class);
-  }
-
-  /**
-   * Is participating coffeebars displayed boolean.
-   *
-   * @return the boolean
-   */
-  public boolean isLocateCoffeeBarsDisplayed() {
-    return getLocateCoffeeBars.isDisplayed();
   }
 
   /**

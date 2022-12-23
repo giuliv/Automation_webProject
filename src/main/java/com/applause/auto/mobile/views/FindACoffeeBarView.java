@@ -16,9 +16,6 @@ public class FindACoffeeBarView extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(iOSClassChain = "**/*[`label == 'Order'`]", on = Platform.MOBILE_IOS)
-  protected TextBox orderButton;
-
   @Locate(
       iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"No recent coffeebars.\"`]",
       on = Platform.MOBILE_IOS)
@@ -48,17 +45,6 @@ public class FindACoffeeBarView extends BaseComponent {
   protected TextBox favoritesTab;
 
   /* -------- Actions -------- */
-
-  /**
-   * Open new Order view.
-   *
-   * @return new order view
-   */
-  public OrderView selectFirstRecentCoffeeBar() {
-    logger.info("Select First Recent Coffee Bar");
-    orderButton.click();
-    return SdkHelper.create(OrderView.class);
-  }
 
   /**
    * Gets coffee store container chuck.

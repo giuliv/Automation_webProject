@@ -14,18 +14,13 @@ import com.applause.auto.mobile.views.PeetnikRewardsLandingView;
 import com.applause.auto.mobile.views.PeetnikRewardsTermsAndConditionsView;
 import com.applause.auto.mobile.views.PrivacyPolicyView;
 import com.applause.auto.test.mobile.helpers.TestHelper;
-import java.lang.invoke.MethodHandles;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class CompanyInformationTest extends BaseTest {
 
-  private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
-
   @Test(
-      groups = {TestNGGroups.COMPANY_INFORMATION, TestNGGroups.REGRESSION, TestNGGroups.WEB_UI},
+      groups = {TestNGGroups.REGRESSION},
       description = "625936")
   public void faqsTest() {
     logger.info("Launch the app and log in");
@@ -54,13 +49,10 @@ public class CompanyInformationTest extends BaseTest {
     Assert.assertTrue(
         peetnikRewardsLandingView.isQuestionAnswerDisplayed(),
         "Peetnik Rewards question answer is not displayed");
-
-    //    logger.info("Navigate back on device");
-    //    MobileHelper.activateApp();
   }
 
   @Test(
-      groups = {TestNGGroups.COMPANY_INFORMATION, TestNGGroups.REGRESSION, TestNGGroups.WEB_UI},
+      groups = {TestNGGroups.REGRESSION},
       description = "625938")
   public void termsAndPrivacyPolicyTest() {
     HomeView homeView =
@@ -126,7 +118,7 @@ public class CompanyInformationTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.COMPANY_INFORMATION, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.REGRESSION},
       description = "625933")
   public void moreScreenTest() {
     HomeView homeView =
@@ -217,7 +209,7 @@ public class CompanyInformationTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.COMPANY_INFORMATION, TestNGGroups.REGRESSION, TestNGGroups.WEB_UI},
+      groups = {TestNGGroups.REGRESSION},
       description = "625937")
   public void contactCustomerServiceTest() {
     HomeView homeView =

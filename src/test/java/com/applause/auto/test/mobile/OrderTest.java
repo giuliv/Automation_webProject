@@ -1,323 +1,33 @@
 package com.applause.auto.test.mobile;
 
-import static com.applause.auto.test.mobile.helpers.TestHelper.openOrderMenuForRecentCoffeeBar;
-
 import com.applause.auto.common.data.Constants;
-import com.applause.auto.common.data.Constants.MobileTestData;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.enums.OrderMenuCategory;
 import com.applause.auto.common.data.enums.OrderMenuSubCategory;
 import com.applause.auto.common.data.enums.Products;
-import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
-import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
 import com.applause.auto.mobile.components.CoffeeStoreItemChuck;
 import com.applause.auto.mobile.helpers.ItemOptions;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.CheckoutView;
 import com.applause.auto.mobile.views.FindACoffeeBarView;
 import com.applause.auto.mobile.views.HomeView;
-import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
-import com.applause.auto.mobile.views.OnboardingView;
-import com.applause.auto.mobile.views.OrderConfirmationView;
 import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.ProductDetailsView;
-import com.applause.auto.mobile.views.SearchResultsView;
 import com.applause.auto.mobile.views.SubCategoryView;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
-import com.applause.auto.test.mobile.helpers.TestHelper;
-import java.lang.invoke.MethodHandles;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class OrderTest extends BaseTest {
 
-  private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
-
   @Test(
-      groups = {TestNGGroups.ORDER},
-      description = "625889")
-  public void locationServicesNotEnabled() {
-    logger.info("Launch the app and arrive at the first onboarding screen view");
-    OnboardingView onboardingView = openApp();
-
-    // since autoGrantPermissions are set to true in capabilities, we have to deny location in this
-    // test method to get Allow location pop up
-    TestHelper.denyLocationServices();
-
-    LandingView landingView = onboardingView.skipOnboarding();
-    HomeView homeView =
-        testHelper.login(landingView, MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
-
-    logger.info("Tap Order icon on the bottom nav bar");
-    OrderView orderView = homeView.getBottomNavigationMenuChunk().tapMenu(OrderView.class);
-
-    logger.info("Header: Order");
-    Assert.assertEquals(
-        orderView.getHeadingTextValue().toLowerCase().toUpperCase(), "ORDER", "Incorrect header");
-
-    logger.info("[Pin] Locate Coffeebars");
-    Assert.assertTrue(
-        orderView.isLocateCoffeeBarsDisplayed(), "Locate Coffeebars pin does not displayed");
-
-    logger.info("Tap Locate Coffeebars");
-    AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
-        orderView.locateCoffeebars(AllowLocationServicesPopupChunk.class);
-
-    logger.info("Make sure Peet's branded Location Services alert appears:");
-    logger.info("Title: Allow Location Services to help you find nearby Peet's Coffeebars.");
-    Assert.assertEquals(
-        allowLocationServicesPopupChunk.getTitle(),
-        MobileTestData.ALLOW_LOCATION_SERVICE_MESSAGE,
-        "'Allow Location' title does not found");
-
-    logger.info(
-        "Text: Location Services will:\n"
-            + "\n"
-            + "* Only use your location while using the app\n"
-            + "\n"
-            + "* Not share your locations or information\n"
-            + "\n"
-            + "* Pinpoint the coffeebars closest to you");
-    String formattedMessage = allowLocationServicesPopupChunk.getFormattedMessage();
-    Assert.assertEquals(
-        formattedMessage,
-        MobileTestData.ALLOW_LOCATION_SERVICE_MESSAGE
-            + " Location Services will: Only use your location while using the app.",
-        "Unexpected text");
-    logger.info("[Button] Not Now [Button] Allow");
-    Assert.assertTrue(
-        allowLocationServicesPopupChunk.isAllowButtonDisplayed(),
-        "Allow button does not displayed");
-    Assert.assertTrue(
-        allowLocationServicesPopupChunk.isNotNowButtonDisplayed(),
-        "Not Now button does not displayed");
-
-    logger.info("Tap Allow and complete");
-    NearbySelectCoffeeBarView nearbySelectCoffeeBarView = allowLocationServicesPopupChunk.allow();
-    CoffeeStoreContainerChuck coffeeStoreContainerChuck =
-        nearbySelectCoffeeBarView.getCoffeeStoreContainerChuck();
-
-    logger.info(
-        "User should see loading dial, nearby stores should appear under nearby stores tab and user should be able to select a store");
-    Assert.assertTrue(coffeeStoreContainerChuck.isStorePresent(), "No near stores returned");
-
-    String currentCoffeeStoreContainerName1 = coffeeStoreContainerChuck.getStoreName();
-    Assert.assertNotNull(currentCoffeeStoreContainerName1, "Store name was not fetch");
-
-    String currentCoffeeStoreContainerName2 = coffeeStoreContainerChuck.getStoreName();
-    Assert.assertNotNull(currentCoffeeStoreContainerName2, "Store name was not fetch");
-
-    orderView = coffeeStoreContainerChuck.clickOrderButton();
-    logger.info("Header: Order");
-    Assert.assertEquals(
-        orderView.getHeadingTextValue().toLowerCase().toUpperCase(), "ORDER", "Incorrect header");
-  }
-
-  @Test(
-      groups = {TestNGGroups.ORDER},
-      description = "625890")
-  public void browseTheMenu() {
-    logger.info("Launch the app and arrive at the first on boarding screen view");
-    HomeView homeView =
-        testHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
-
-    logger.info("Tap Order icon on the bottom nav bar");
-    OrderView orderView =
-        homeView
-            .getBottomNavigationMenuChunk()
-            .tapMenu(AllowLocationServicesPopupChunk.class)
-            .allowIfRequestDisplayed(OrderView.class);
-
-    logger.info("Checking if Allow Location Services Popup is displayed");
-    AllowLocationServicesPopupChunk allowLocationServicesPopupChunk =
-        SdkHelper.create(AllowLocationServicesPopupChunk.class);
-    if (allowLocationServicesPopupChunk.isNotNowButtonDisplayed()) {
-      logger.info("Allow Location Services Popup displayed");
-      // TODO: allowing location services is not working for iOS, so skipping for now
-      allowLocationServicesPopupChunk.notNow();
-      allowLocationServicesPopupChunk.clickCancelButton();
-
-      logger.info("Tap Order icon on the bottom nav bar");
-      orderView =
-          homeView
-              .getBottomNavigationMenuChunk()
-              .tapMenu(AllowLocationServicesPopupChunk.class)
-              .allow(OrderView.class);
-    }
-
-    logger.info("Header: Order");
-    Assert.assertEquals(orderView.getHeadingTextValue().toUpperCase(), "ORDER", "Incorrect header");
-
-    logger.info("[Pin] Locate Coffeebars");
-    Assert.assertTrue(
-        orderView.isLocateCoffeeBarsDisplayed(), "Locate Coffeebars pin does not displayed");
-
-    logger.info("Sub-header: Seasonal Favorites");
-    Assert.assertEquals(
-        orderView.getOrderMenuChunk().getFavoritesSubHeaderTextValue(),
-        "Favorites",
-        "Incorrect Favorites sub-header");
-
-    logger.info("Sub-header: Menu");
-    Assert.assertEquals(
-        orderView.getOrderMenuChunk().getMenuSubheaderTextValue(),
-        "Menu",
-        "Incorrect Menu sub-header");
-
-    logger.info("Tap a category nd then Select a sub-category");
-    SubCategoryView subCategoryView =
-        orderView
-            .selectCategory(OrderMenuCategory.FOOD)
-            .selectSubCategory(OrderMenuSubCategory.WARM_BREAKFAST);
-    Assert.assertEquals(
-        subCategoryView.getTitle().toLowerCase().trim(),
-        OrderMenuSubCategory.WARM_BREAKFAST.getSubCategory().toLowerCase(),
-        "Page title is wrong");
-
-    logger.info("Select a product");
-    ProductDetailsView productDetailsView = subCategoryView.selectProduct(1);
-
-    logger.info("Verify that 'Add to Order' button is displayed");
-    Assert.assertTrue(
-        productDetailsView.isAddToOrderButtonDisplayed(), "Add to order button isn't displayed");
-
-    logger.info("Tap back arrow until back on main order screen");
-    orderView =
-        productDetailsView.navigateBack(SubCategoryView.class).navigateBack(OrderView.class);
-
-    logger.info("Tap on search icon at top right corner of order screen");
-    SearchResultsView searchResultsView = orderView.tapOnSearchButton();
-
-    logger.info("Tap into search field and manually enter a search term (i.e. mocha)");
-    productDetailsView = searchResultsView.search("mocha").selectSearchResultByIndex(1);
-
-    logger.info("Verify that 'Add to Order' button is displayed");
-    Assert.assertTrue(
-        productDetailsView.isAddToOrderButtonDisplayed(), "Add to order button isn't displayed");
-
-    logger.info("Tap back arrow on PDP");
-    searchResultsView = productDetailsView.navigateBack(SearchResultsView.class);
-
-    logger.info("Tap cancel link next to search menu field");
-    orderView = searchResultsView.cancel(OrderView.class);
-
-    logger.info("Verify that User returns to main order screen");
-    Assert.assertNotNull(orderView, "Order view didn't appear");
-  }
-
-  @Test(
-      groups = {TestNGGroups.ORDER},
-      description = "625897",
-      enabled = false)
-  public void checkoutTest() {
-    logger.info("Launch the app and arrive at the first on boarding screen view");
-    HomeView homeView =
-        testHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
-
-    logger.info("Tap Order icon on the bottom nav bar");
-    OrderView orderView =
-        homeView
-            .getBottomNavigationMenuChunk()
-            .tapMenu(AllowLocationServicesPopupChunk.class)
-            .allowIfRequestDisplayed(OrderView.class);
-
-    logger.info("Tap a category and subcategory");
-    SubCategoryView subCategoryView =
-        orderView
-            .selectCategory(OrderMenuCategory.HOT_COFFEE)
-            .selectSubCategory(OrderMenuSubCategory.ESPRESSO);
-
-    logger.info("Select a product");
-    ProductDetailsView productDetail = subCategoryView.selectProduct(1);
-
-    logger.info("User should be taken to product details page");
-    Assert.assertNotNull(productDetail, "User des not taken to product detail page");
-
-    logger.info("Scroll down PDP and select a modifiers");
-    productDetail = productDetail.selectModifiers("Add Milk", "Splash of Half & Half", "None");
-
-    logger.info("Add to Order");
-    orderView = productDetail.addToOrder(OrderView.class);
-
-    logger.info("Proceed to Checkout");
-    CheckoutView checkout = orderView.checkout();
-
-    logger.info("Navigate to Available Rewards");
-    checkout = checkout.clickOnAwardItem("Free Beverage");
-
-    logger.info("Verify - Order Summary is '$0.00'");
-    Assert.assertEquals(checkout.getOrderTotal(), "$0.00", "Order total was not changed by reward");
-
-    logger.info("Place Order");
-    OrderConfirmationView orderConfirmationView = checkout.placeOrder(OrderConfirmationView.class);
-
-    logger.info("Verify - Order Confirmation displayed");
-    Assert.assertNotNull(orderConfirmationView, "Something happened during order placement");
-  }
-
-  @Test(
-      groups = {TestNGGroups.ORDER},
-      description = "2879930",
-      enabled = false)
-  public void orderAhead() {
-    logger.info("Launch the app and arrive at the first on boarding screen view");
-    HomeView homeView =
-        testHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
-
-    OrderView orderView = openOrderMenuForRecentCoffeeBar(homeView);
-
-    logger.info("Tap a category and subcategory");
-    SubCategoryView subCategoryView =
-        orderView
-            .selectCategory(OrderMenuCategory.HOT_COFFEE)
-            .selectSubCategory(OrderMenuSubCategory.ESPRESSO);
-
-    logger.info("Select a product");
-    ProductDetailsView productDetail =
-        subCategoryView.selectProduct(Products.ICED_ESPRESSO.getValue());
-
-    logger.info("User should be taken to product details page");
-    Assert.assertNotNull(productDetail, "User des not taken to product detail page");
-
-    logger.info("Scroll down PDP and select a modifiers");
-    productDetail = productDetail.selectModifiers("Ice", "Light Ice", "None");
-
-    logger.info("Add to Order");
-    orderView = productDetail.addToOrder(OrderView.class);
-
-    logger.info("Proceed to Checkout");
-    CheckoutView checkout = orderView.checkout();
-
-    logger.info("Navigate to You might also like section. Tap on a product.");
-    productDetail = checkout.clickYouMightAlsoLikeItem();
-    Assert.assertNotNull(productDetail, "User does not taken to product detail page");
-
-    logger.info("Add to Order");
-    orderView = productDetail.addToOrder(OrderView.class);
-
-    logger.info("Proceed to Checkout");
-    checkout = TestHelper.checkoutOnItemsYouMightLike(orderView);
-
-    logger.info("Checking total order items count");
-    Assert.assertEquals(checkout.getOrderedItemsCount(), 2, "Ordered items count is incorrect");
-
-    logger.info("Place Order");
-    OrderConfirmationView orderConfirmationView = checkout.placeOrder(OrderConfirmationView.class);
-
-    logger.info("Verify - Order Confirmation displayed");
-    Assert.assertNotNull(orderConfirmationView, "Something happened during order placement");
-  }
-
-  @Test(
-      groups = {TestNGGroups.ORDER, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.REGRESSION},
       description = "1687255")
-  public void recentsFavoriteOrdersEmptyStateTest() {
+  public void recentFavoriteOrdersEmptyStateTest() {
     logger.info(
         "Precondition: User is already signed in to app\n"
             + "User is on main order screen and menu tab is highlighted\n"
@@ -391,9 +101,9 @@ public class OrderTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ORDER, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.REGRESSION},
       description = "625930")
-  public void recentsFavoriteCoffeebarsEmptyStateTest() {
+  public void recentFavoriteCoffeeBarsEmptyStateTest() {
     logger.info(
         "Precondition: User is already signed in to app\n"
             + "User is on main order screen and menu tab is highlighted\n"
@@ -540,7 +250,7 @@ public class OrderTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ORDER, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.REGRESSION},
       description = "11051164")
   public void customizeOrderBeveragesTest() {
     logger.info(
@@ -628,7 +338,7 @@ public class OrderTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ORDER, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.REGRESSION},
       description = "11051165")
   public void customizeOrderFoodTest() {
     logger.info(
@@ -701,7 +411,7 @@ public class OrderTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ORDER, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.REGRESSION},
       description = "11051166")
   public void editOrderTest() {
     logger.info(

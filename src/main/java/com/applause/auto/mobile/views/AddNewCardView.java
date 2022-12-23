@@ -6,7 +6,6 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
-import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 
 @Implementation(is = AddNewCardView.class, on = Platform.MOBILE_ANDROID)
@@ -14,10 +13,6 @@ import com.applause.auto.pageobjectmodel.elements.TextBox;
 public class AddNewCardView extends BaseComponent {
 
   /* -------- Elements -------- */
-
-  @Locate(xpath = "//XCUIElementTypeOther[@name=\"Add New Card\"]", on = Platform.MOBILE_IOS)
-  @Locate(xpath = "//android.widget.TextView[@text='Add New Card']", on = Platform.MOBILE_ANDROID)
-  protected Text getViewSignature;
 
   @Locate(
       iOSClassChain = "**/XCUIElementTypeTextField[`value == 'Card Number'`]",

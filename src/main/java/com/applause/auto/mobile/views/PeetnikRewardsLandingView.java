@@ -28,13 +28,6 @@ public class PeetnikRewardsLandingView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button closeAdvPopUpButton;
 
-  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Close banner\"]", on = Platform.MOBILE_IOS)
-  protected Button closeDownloadPopUpButton;
-
-  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"GET ANSWERS\"]", on = Platform.MOBILE_IOS)
-  @Locate(xpath = "//*[text()='Get answers']", on = Platform.MOBILE_ANDROID)
-  protected Button getAnswersButton;
-
   @Locate(
       xpath = "//XCUIElementTypeStaticText[@name=\"Peetnik Rewards & Order Ahead\"]",
       on = Platform.MOBILE_IOS)
@@ -113,17 +106,13 @@ public class PeetnikRewardsLandingView extends BaseComponent {
 
   /** Close adv. pop up is present if present */
   public PeetnikRewardsLandingView closeReportAProblemPopUpDisplayed() {
-    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
     logger.info("Waiting for adv. pop up");
     SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
     try {
-      //      logger.info("Contexts: " + ((AppiumDriver)
-      // SdkHelper.getDriver()).getContextHandles());
       logger.info(
           "Contexts: " + ((SupportsContextSwitching) SdkHelper.getDriver()).getContextHandles());
       if (SdkHelper.getEnvironmentHelper().isMobileAndroid()) {
         logger.info("Switching to WebContext");
-        //        ((AppiumDriver) SdkHelper.getDriver()).context("WEBVIEW_chrome");
         ((SupportsContextSwitching) SdkHelper.getDriver()).context("WEBVIEW_chrome");
       }
       logger.info("Xml: " + SdkHelper.getDriver().getPageSource());
@@ -131,14 +120,10 @@ public class PeetnikRewardsLandingView extends BaseComponent {
           .wait(Until.uiElement(closeAdvPopUpButton).present().setTimeout(Duration.ofSeconds(30)));
       if (SdkHelper.getEnvironmentHelper().isMobileAndroid()) {
         closeAdvPopUpButton.click();
-        //        ((AppiumDriver) SdkHelper.getDriver()).context("NATIVE_APP");
         ((SupportsContextSwitching) SdkHelper.getDriver()).context("NATIVE_APP");
       } else {
         // for ios simple click doesn't work on [X] button
         logger.info("Close Download popup");
-        //        closeDownloadPopUpButton.initialize();
-        //        closeDownloadPopUpButton.click();
-        //        logger.info(">>>" + SdkHelper.getDriver().getPageSource());
         closeAdvPopUpButton.initialize();
         MobileHelper.tapByCoordinatesOnElementCenter(closeAdvPopUpButton);
       }
@@ -165,16 +150,8 @@ class AndroidPeetnikRewardsLandingView extends PeetnikRewardsLandingView {
 
   @Override
   public PeetnikRewardsLandingView clickGetPeetnikRewardsAndOrderAheadQuestion() {
-    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
-    //    ((AppiumDriver) SdkHelper.getDriver()).context("NATIVE_APP");
     ((SupportsContextSwitching) SdkHelper.getDriver()).context("NATIVE_APP");
     logger.info("Click 'Peetnik Rewards & Order Ahead'" + SdkHelper.getDriver().getPageSource());
-    //    try {
-    //      getPeetnikRewardsAndOrderAheadButton.click();
-    //    } catch (Throwable th) {
-    //      MobileHelper.scrollDownToElementCloseToMiddle(getPeetnikRewardsAndOrderAheadButton, 2);
-    //      getPeetnikRewardsAndOrderAheadButton.click();
-    //    }
     SdkHelper.getSyncHelper().sleep(10000);
     logger.info("Checking list of questions is loaded'");
     SdkHelper.getSyncHelper().waitUntil(condition -> !getQuestions.isEmpty());

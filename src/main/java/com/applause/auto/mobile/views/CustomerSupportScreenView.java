@@ -38,13 +38,6 @@ public class CustomerSupportScreenView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Text allowLocationToBrowser2;
 
-  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Close\"]", on = Platform.MOBILE_IOS)
-  @Locate(
-      xpath =
-          "(//android.webkit.WebView//android.widget.Button[@text='Close'])[1] | //*[@resource-id='svg-close-button'] | //span[@class='close-button']",
-      on = Platform.MOBILE_ANDROID)
-  protected Button closeAdvPopUpButton;
-
   @Locate(
       xpath = "(//XCUIElementTypeStaticText[@label='HELP CENTER'])[2]",
       on = Platform.MOBILE_IOS)
@@ -137,8 +130,7 @@ class AndroidCustomerSupportScreenView extends CustomerSupportScreenView {
     } catch (Throwable th) {
       logger.info("No location popup overlay found");
     }
-    //    logger.info("Close popup");
-    //    closeAdvPopUpButton.click();
+
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(12)));
   }

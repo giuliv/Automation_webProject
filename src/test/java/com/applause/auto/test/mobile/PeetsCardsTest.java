@@ -8,18 +8,13 @@ import com.applause.auto.mobile.components.PeetsCardsTransferAmountChunk;
 import com.applause.auto.mobile.components.PeetsCardsTransferAmountWarningChunk;
 import com.applause.auto.mobile.views.HomeView;
 import com.applause.auto.mobile.views.PeetsCardsView;
-import java.lang.invoke.MethodHandles;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class PeetsCardsTest extends BaseTest {
 
-  private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
-
   @Test(
-      groups = {TestNGGroups.PEETS_CARDS, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.REGRESSION},
       description = "1959019",
       enabled = false)
   // Todo:Needs cards, already requested

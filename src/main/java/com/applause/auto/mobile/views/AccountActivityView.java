@@ -8,7 +8,6 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
-import java.util.List;
 
 @Implementation(is = AccountActivityView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = AccountActivityView.class, on = Platform.MOBILE_IOS)
@@ -23,30 +22,6 @@ public class AccountActivityView extends BaseComponent {
       xpath = "//android.widget.TextView[@text='ACCOUNT ACTIVITY']",
       on = Platform.MOBILE_ANDROID)
   protected Text getSignatureText;
-
-  @Locate(xpath = "//XCUIElementTypeTable/XCUIElementTypeOther", on = Platform.MOBILE_IOS)
-  @Locate(
-      id = "com.wearehathway.peets.development:id/sectionHeaderText",
-      on = Platform.MOBILE_ANDROID)
-  protected List<Text> getTransactionDividersText;
-
-  @Locate(
-      iOSClassChain =
-          "**/XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[`name MATCHES[c] '.*[\\$].*'`]",
-      on = Platform.MOBILE_IOS)
-  @Locate(
-      id = "com.wearehathway.peets.development:id/transactionAmount",
-      on = Platform.MOBILE_ANDROID)
-  protected List<Text> getTransactionAmountText;
-
-  @Locate(
-      iOSClassChain =
-          "**/XCUIElementTypeTable/XCUIElementTypeCell/XCUIElementTypeStaticText[`name MATCHES[c] '.*[,][ ].*'`]",
-      on = Platform.MOBILE_IOS)
-  @Locate(
-      id = "com.wearehathway.peets.development:id/transactionDate",
-      on = Platform.MOBILE_ANDROID)
-  protected List<Text> getTransactionDatesText;
 
   @Locate(
       iOSClassChain =

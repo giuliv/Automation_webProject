@@ -23,19 +23,14 @@ import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.mobile.views.TermsAndConditionsView;
 import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.test.mobile.helpers.TestHelper;
-import java.lang.invoke.MethodHandles;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class CreateAccountTest extends BaseTest {
 
-  private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
-
   @Test(
-      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION, TestNGGroups.WEB_UI},
+      groups = {TestNGGroups.REGRESSION},
       description = "625879")
   public void footerLinksTest() {
     logger.info("Launch the app and arrive at the first onboarding screen view");
@@ -74,7 +69,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION, TestNGGroups.MONITORING},
+      groups = {TestNGGroups.REGRESSION},
       description = "625883")
   public void signInEmailPasswordTest() {
     logger.info("Launch the app and arrive at the first onboarding screen view");
@@ -153,7 +148,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.REGRESSION},
       description = "625925")
   public void accountSettingsEditProfileTest() {
     SoftAssert softAssert = new SoftAssert();
@@ -244,7 +239,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.REGRESSION},
       description = "625927")
   public void accountSettingsGeneralSettingsTest() {
     SoftAssert softAssert = new SoftAssert();
@@ -290,7 +285,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.REGRESSION},
       description = "625926")
   public void accountSettingsChangePasswordTest() {
     SoftAssert softAssert = new SoftAssert();
@@ -475,7 +470,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION, TestNGGroups.MONITORING},
+      groups = {TestNGGroups.REGRESSION},
       description = "625880")
   public void createAccountEmailPassword() {
     logger.info("Launch the app and arrive at the first onboarding screen view");
@@ -661,7 +656,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.REGRESSION},
       description = "2980586")
   public void createAccountFieldValidation() {
     logger.info("Launch the app and arrive at the first onboarding screen view");
@@ -882,7 +877,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.REGRESSION},
       description = "625882")
   public void createAccountExistingWebUserTest() {
     logger.info("Launch the app and arrive at the first onboarding screen view");
@@ -953,7 +948,7 @@ public class CreateAccountTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ONBOARDING, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.REGRESSION},
       description = "625929")
   public void accountSettingsAccountHistoryTest() {
     SoftAssert softAssert = new SoftAssert();

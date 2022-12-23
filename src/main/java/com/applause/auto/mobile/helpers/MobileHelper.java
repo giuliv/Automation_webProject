@@ -209,7 +209,6 @@ public class MobileHelper {
     scrollDownAlgorithm(0.1, 0.5, 0.7);
   }
 
-  // Todo: Commented as part of update on pom to 4.1.2 [DO WE NEED IT, REPLACE BY APPLAUSE METHOD]
   private static void scrollDownAlgorithm(double startX, double pStartY, double pEndY) {
     Dimension size = deviceSize;
     int startY = (int) (size.getHeight() * pStartY);
@@ -336,7 +335,6 @@ public class MobileHelper {
 
   public static void swipeAcrossScreenCoordinates(
       double startX, double startY, double endX, double endY, long millis) {
-    // Todo: Commented as part of update on pom to 4.1.2 [DO WE NEED IT, REPLACE BY APPLAUSE
     logger.info(String.format("Swiping from [%s, %s] to [%s, %s].", startX, startY, endX, endY));
     Dimension size = getMobileDriver().manage().window().getSize();
 
@@ -349,16 +347,6 @@ public class MobileHelper {
         "Scrolling from: [" + startX_ + " , " + startY_ + "] to [" + endX_ + " , " + endY_ + "]");
     SdkHelper.getDeviceControl()
         .swipeAcrossScreenCoordinates(startX_, startY_, endX_, endY_, millis);
-    //
-    //    PointOption<?> startPoint = PointOption.point(startX_, startY_);
-    //    PointOption<?> endPoint = PointOption.point(endX_, endY_);
-    //    WaitOptions time = WaitOptions.waitOptions(Duration.ofMillis(millis));
-    //    (new TouchAction(getMobileDriver()))
-    //        .press(startPoint)
-    //        .waitAction(time)
-    //        .moveTo(endPoint)
-    //        .release()
-    //        .perform();
   }
 
   public static String getElementTextAttribute(BaseElement baseElement) {
@@ -369,7 +357,6 @@ public class MobileHelper {
     return baseElement.getAttributeValue(textAttribute);
   }
 
-  // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
   public static RGB getMobileElementColour(BaseElement element) {
     org.openqa.selenium.Point point = element.getLocation();
 
@@ -540,34 +527,24 @@ public class MobileHelper {
   }
 
   public static void switchToChromeWebView() {
-    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
     logger.info("Switching to WEBVIEW_chrome");
     ((SupportsContextSwitching) SdkHelper.getDriver()).context("WEBVIEW_chrome");
     SdkHelper.getSyncHelper().sleep(1000);
   }
 
   public static void switchToNativeContext() {
-    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
     logger.info("Switching to NATIVE_APP");
     ((SupportsContextSwitching) SdkHelper.getDriver()).context("NATIVE_APP");
     SdkHelper.getSyncHelper().sleep(1000);
   }
 
   public static void tapOnElementCenter(BaseElement element) {
-    //     Todo: Commented as part of update on pom to 4.1.2 [DO WE NEED IT, REPLACE BY APPLAUSE
     SdkHelper.getDeviceControl().tapElementCenter(element);
-    //    Point elemCoord = element.getMobileElement().getCenter();
-    //    AppiumDriver driver = (AppiumDriver) SdkHelper.getDriver();
-    //    new TouchAction(driver).tap(PointOption.point(elemCoord.getX(),
-    // elemCoord.getY())).perform();
   }
 
   public static IosSettingsView openSettings() {
-    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
     String bundleId = getCurrentBundleId();
     if (!StringUtils.equalsIgnoreCase(bundleId, "com.apple.Preferences")) {
-      //      ((AppiumDriver) SdkHelper.getDriver()).runAppInBackground(Duration.ofSeconds(-1));
-      // //This method was commented on migration
       SdkHelper.getDeviceControl().runAppInBackground(Duration.ofSeconds(-1).toMillis());
       activateApplication("com.apple.Preferences");
     }

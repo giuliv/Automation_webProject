@@ -39,24 +39,6 @@ public class BottomNavigationMenuChunk extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getOrdersButton;
 
-  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Check In\"]", on = Platform.MOBILE_IOS)
-  @Locate(
-      xpath =
-          "//android.widget.RelativeLayout[@resource-id=\"com.wearehathway.peets.development:id/bottom_navigation_container\"]/android.widget.TextView[contains(@text,\"Check In\") or contains(@content-desc,\"Check In\")]/..",
-      on = Platform.MOBILE_ANDROID)
-  protected Button getCheckInButton;
-
-  @Locate(xpath = "//android.widget.Button[@text=\"DISMISS\"]", on = Platform.MOBILE_ANDROID)
-  protected Button getDismissButton;
-
-  @Locate(id = "com.wearehathway.peets.development:id/changeTextView", on = Platform.MOBILE_ANDROID)
-  @Locate(id = "todo", on = Platform.MOBILE_IOS)
-  protected Button getChangeStoreButton;
-
-  @Locate(id = "Allow", on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/allowButton", on = Platform.MOBILE_ANDROID)
-  protected Button getAllowButton;
-
   @Locate(
       iOSClassChain = "**/XCUIElementTypeStaticText[`name == 'Menu'`]",
       on = Platform.MOBILE_IOS)

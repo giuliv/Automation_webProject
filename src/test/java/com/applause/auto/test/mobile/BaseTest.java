@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
 
 public class BaseTest extends ApplauseSeleniumTest {
 
-  private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
+  protected static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
   protected static TestHelper testHelper;
 
   /** Get a new Appium driver at the start of each test. */

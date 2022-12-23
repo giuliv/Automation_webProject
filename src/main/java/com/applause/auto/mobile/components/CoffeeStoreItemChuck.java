@@ -37,9 +37,6 @@ public class CoffeeStoreItemChuck extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/storeName", on = Platform.MOBILE_ANDROID)
   protected Text getStoreNameText;
 
-  @Locate(id = "com.wearehathway.peets.development:id/distance", on = Platform.MOBILE_ANDROID)
-  protected Text getStoreDistanceText;
-
   @Locate(id = "com.wearehathway.peets.development:id/orderType", on = Platform.MOBILE_ANDROID)
   protected Text getStoreOpenHoursText;
 

@@ -57,12 +57,6 @@ public class PaymentMethodsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Text getSavedPaymentMethodHeaderText;
 
-  @Locate(xpath = "//XCUIElementTypeTable/XCUIElementTypeCell[1]", on = Platform.MOBILE_IOS)
-  @Locate(
-      xpath = "//*[contains(@resource-id, 'id/creditCardView')][1]",
-      on = Platform.MOBILE_ANDROID)
-  protected Button getSavedPaymentMethod2Button;
-
   @Locate(xpath = "//*[contains(@name,'%s')]", on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
@@ -70,15 +64,6 @@ public class PaymentMethodsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button getSavedPaymentMethodButton;
 
-  @Locate(id = "", on = Platform.MOBILE_IOS)
-  @Locate(
-      id = "com.wearehathway.peets.development:id/saveChangesButton",
-      on = Platform.MOBILE_ANDROID)
-  protected Button getSaveChangesButton;
-
-  // @Locate(
-  // xpath = "(//XCUIElementTypeStaticText[@name=\"Add New Payment\"])[last()]",
-  // on = Platform.MOBILE_IOS) //Commented[15.01.2021]
   @Locate(
       iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Add New Payment\"`][-1]",
       on = Platform.MOBILE_IOS)

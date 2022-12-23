@@ -32,7 +32,6 @@ public class LegalInfoView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/title", on = Platform.MOBILE_ANDROID)
   protected Text headingText;
 
-  // @Locate(accessibilityId = "button back", on = Platform.MOBILE_IOS) //Commented [15.01.2021]
   @Locate(
       iOSClassChain =
           "**/XCUIElementTypeNavigationBar[`name == \"LEGAL INFO\"`]/XCUIElementTypeButton",

@@ -71,15 +71,6 @@ public class ProfileDetailsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected TextBox getEmailAddressTextBox;
 
-  @Locate(
-      xpath =
-          "//XCUIElementTypeButton/../XCUIElementTypeOther[.//XCUIElementTypeOther[5]]//XCUIElementTypeOther[7]/XCUIElementTypeTextField",
-      on = Platform.MOBILE_IOS)
-  @Locate(
-      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/confirmEmailAddress\")",
-      on = Platform.MOBILE_ANDROID)
-  protected TextBox getConfirmEmailAddressTextBox;
-
   @Locate(id = "Save", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/saveButton", on = Platform.MOBILE_ANDROID)
   protected Button getSaveButton;
@@ -88,7 +79,6 @@ public class ProfileDetailsView extends BaseComponent {
   @Locate(id = "com.wearehathway.peets.development:id/changePassword", on = Platform.MOBILE_ANDROID)
   protected Button getChangePasswordButton;
 
-  //  @Locate(id = "button back", on = Platform.MOBILE_IOS) //Review if changed indeed [15.01.2021]
   @Locate(
       iOSClassChain =
           "**/XCUIElementTypeNavigationBar[`name == 'PROFILE DETAILS'`]/XCUIElementTypeButton",
@@ -184,21 +174,6 @@ public class ProfileDetailsView extends BaseComponent {
     logger.info("Set email address to: " + emailAddress);
     getEmailAddressTextBox.clearText();
     getEmailAddressTextBox.sendKeys(emailAddress);
-    return this;
-  }
-
-  /**
-   * Sets confirm email address.
-   *
-   * @param emailAddress the email address
-   * @return the confirm email address
-   */
-  public ProfileDetailsView setConfirmEmailAddress(String emailAddress) {
-    logger.info("Set email address to: " + emailAddress);
-    SdkHelper.getDeviceControl().hideKeyboard();
-    SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.DOWN);
-    getConfirmEmailAddressTextBox.clearText();
-    getConfirmEmailAddressTextBox.sendKeys(emailAddress);
     return this;
   }
 
@@ -413,14 +388,6 @@ class IosProfileDetailsView extends ProfileDetailsView {
   @Override
   public String getDOB() {
     return getDOBTextBox.getAttributeValue("value");
-  }
-
-  public ProfileDetailsView setConfirmEmailAddress(String emailAddress) {
-    logger.info("Set email address to: " + emailAddress);
-    getDoneButton.click();
-    getConfirmEmailAddressTextBox.clearText();
-    getConfirmEmailAddressTextBox.sendKeys(emailAddress);
-    return this;
   }
 
   public ProfileDetailsView setZipCode(String zipCode) {

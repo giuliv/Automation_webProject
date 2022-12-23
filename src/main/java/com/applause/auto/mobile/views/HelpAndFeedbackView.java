@@ -45,13 +45,6 @@ public class HelpAndFeedbackView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Text allowLocationToBrowser2;
 
-  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Close\"]", on = Platform.MOBILE_IOS)
-  @Locate(
-      xpath =
-          "(//android.webkit.WebView//android.widget.Button[@text='Close'])[1] | //*[@resource-id='svg-close-button'] | //span[@class='close-button']",
-      on = Platform.MOBILE_ANDROID)
-  protected Button closeAdvPopUpButton;
-
   /* -------- Actions -------- */
 
   /**
@@ -132,8 +125,6 @@ class AndroidHelpAndFeedbackView extends HelpAndFeedbackView {
     } catch (Throwable th) {
       logger.info("No location popup overlay found");
     }
-    //    logger.info("Close popup");
-    //    closeAdvPopUpButton.click();
 
     MobileHelper.initMobileBrowser();
     // wait till the page load, before it ios is not switched back to app

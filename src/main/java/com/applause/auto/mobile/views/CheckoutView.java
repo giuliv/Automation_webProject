@@ -1,7 +1,5 @@
 package com.applause.auto.mobile.views;
 
-import static com.applause.auto.mobile.helpers.MobileHelper.getElementTextAttribute;
-
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.framework.SdkHelper;
@@ -12,7 +10,6 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
-import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.appium.java_client.ios.IOSDriver;
@@ -33,10 +30,6 @@ public class CheckoutView extends BaseComponent {
   @Locate(xpath = "//XCUIElementTypeNavigationBar[@name=\"CHECKOUT\"]", on = Platform.MOBILE_IOS)
   protected Text getHeadingText;
 
-  @Locate(id = "com.wearehathway.peets.development:id/checkoutButton", on = Platform.MOBILE_ANDROID)
-  @Locate(id = "Place Order", on = Platform.MOBILE_IOS)
-  protected Button getPlaceOrderButton;
-
   @Locate(
       xpath = "//android.widget.ImageButton[@content-desc=\"Navigate up\"]",
       on = Platform.MOBILE_ANDROID)
@@ -45,58 +38,9 @@ public class CheckoutView extends BaseComponent {
       on = Platform.MOBILE_IOS)
   protected Button closeButton;
 
-  @Locate(
-      xpath =
-          "//*[contains(@resource-id, 'productRecyclerView')]//*[contains(@resource-id, 'productImage')]",
-      on = Platform.MOBILE_ANDROID)
-  @Locate(
-      xpath =
-          "//XCUIElementTypeOther[@name='Your Order']/following-sibling::*[child::*[contains(@name,'$')]"
-              + " and following-sibling::*[@name='Available Rewards']]",
-      on = Platform.MOBILE_IOS)
-  protected List<ContainerElement> orderedItems;
-
-  @Locate(
-      xpath =
-          "//*[@text='Available Rewards']/following-sibling::*[contains(@resource-id, 'rewardRecyclerView')]"
-              + "//*[contains(@resource-id, 'rewardTitle')]",
-      on = Platform.MOBILE_ANDROID)
-  @Locate(
-      xpath =
-          "//XCUIElementTypeOther[@name='Available Rewards']/following-sibling::*[1]"
-              + "//XCUIElementTypeStaticText",
-      on = Platform.MOBILE_IOS)
-  protected List<ContainerElement> availableRewards;
-
-  @Locate(
-      xpath =
-          "//*[@text='You might also like']/following-sibling::*//*[contains(@resource-id, 'image')]",
-      on = Platform.MOBILE_ANDROID)
-  @Locate(
-      xpath =
-          "//*[@name='You might also like']/following-sibling::*[contains(@type, 'XCUIElementTypeCell') and following-sibling::*[contains(@name, 'Available Rewards')]]/*[last()]",
-      on = Platform.MOBILE_IOS)
-  protected List<ContainerElement> youMightAlsoLikeProducts;
-
-  @Locate(id = "detailButton", on = Platform.MOBILE_ANDROID)
-  @Locate(xpath = "//*[@name='Redeem']", on = Platform.MOBILE_IOS)
-  protected Button radeemButton;
-
-  @Locate(
-      xpath = "//*[contains(@text, 'Selected reward is not valid')]",
-      on = Platform.MOBILE_ANDROID)
-  @Locate(xpath = "//*[contains(@label, 'Selected reward is not valid')]", on = Platform.MOBILE_IOS)
-  protected Button selectedRewardIsNotValid;
-
   @Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
   @Locate(xpath = "//XCUIElementTypeButton[@name='Ok']", on = Platform.MOBILE_IOS)
   protected Button okayPopUpButton;
-
-  @Locate(
-      xpath = "//*[contains(@resource-id, 'totalLabel')]/following-sibling::*[1]",
-      on = Platform.MOBILE_ANDROID)
-  @Locate(xpath = "//*[@name='Order Total']/following-sibling::*[1]", on = Platform.MOBILE_IOS)
-  protected Text orderTotal;
 
   @Locate(
       xpath =
@@ -153,111 +97,14 @@ public class CheckoutView extends BaseComponent {
       on = Platform.MOBILE_IOS)
   protected Text itemQtyText;
 
-  @Locate(
-      xpath =
-          "//android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productName' and @text='%s']/../..//android.widget.TextView[@resource-id='com.wearehathway.peets.development:id/productCost']",
-      on = Platform.MOBILE_ANDROID)
-  protected Text itemCostText;
-
   @Override
   public void afterInit() {
-    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
-    //    logger.info(">>>>>>" + ((AppiumDriver) SdkHelper.getDriver()).getContextHandles());
     logger.info(">>>>>>" + ((SupportsContextSwitching) SdkHelper.getDriver()).getContextHandles());
     SdkHelper.getSyncHelper().sleep(10000);
-    //    logger.info(">>>>>>" + ((AppiumDriver) SdkHelper.getDriver()).getContextHandles());
     logger.info(">>>>>>" + ((SupportsContextSwitching) SdkHelper.getDriver()).getContextHandles());
   }
 
   /* -------- Actions -------- */
-
-  /**
-   * Place order t.
-   *
-   * @param <T> the type parameter
-   * @param clazz the clazz
-   * @return the t
-   */
-  public <T extends BaseComponent> T placeOrder(Class<T> clazz) {
-    logger.info("Tap place order");
-    MobileHelper.scrollDownHalfScreen(2);
-    getPlaceOrderButton.click();
-    return SdkHelper.create(clazz);
-  }
-
-  /**
-   * Click on reward item.
-   *
-   * @param awardText the reward
-   */
-  public CheckoutView clickOnAwardItem(String awardText) {
-    logger.info("Selecting reward: " + awardText);
-    SdkHelper.getSyncHelper().sleep(3000);
-    MobileHelper.swipeAcrossScreenCoordinates(0.5, 0.8, 0.5, 0.5, 100);
-
-    boolean areAvailableRewardsDisplayed;
-    try {
-      areAvailableRewardsDisplayed = !availableRewards.isEmpty();
-    } catch (Exception e) {
-      areAvailableRewardsDisplayed = false;
-    }
-
-    if (areAvailableRewardsDisplayed) {
-      availableRewards.stream()
-          .filter(item -> getElementTextAttribute(item).startsWith(awardText))
-          .findAny()
-          .orElseThrow(
-              () ->
-                  new IllegalStateException(
-                      String.format("Award starting with %s was not found", awardText)))
-          .click();
-      SdkHelper.getSyncHelper().waitUntil(condition -> radeemButton.isEnabled());
-      radeemButton.click();
-      SdkHelper.getSyncHelper().sleep(5000);
-    }
-
-    return SdkHelper.create(CheckoutView.class);
-  }
-
-  /** Click on you might also like item. */
-  public ProductDetailsView clickYouMightAlsoLikeItem() {
-    logger.info("Clicking on you might also like item");
-    if (youMightAlsoLikeProducts.isEmpty()) {
-      throw new IllegalStateException("No 'You Might Also Like' items were found");
-    }
-    youMightAlsoLikeProducts.get(0).click();
-
-    return SdkHelper.create(ProductDetailsView.class);
-  }
-
-  /**
-   * Get total order value
-   *
-   * @return order total value in $
-   */
-  public String getOrderTotal() {
-    int attempt = 5;
-    try {
-      orderTotal.initialize();
-    } catch (Throwable th) {
-      IntStream.range(0, attempt)
-          .forEach(
-              i -> {
-                MobileHelper.scrollUpCloseToMiddleAlgorithm();
-              });
-    }
-    while (attempt-- > 0 && !orderTotal.exists()) {
-      MobileHelper.scrollDownCloseToMiddleAlgorithm();
-    }
-    String result = orderTotal.getAttributeValue("value");
-    IntStream.range(0, 5).forEach((i) -> MobileHelper.scrollUpCloseToMiddleAlgorithm());
-    return result;
-  }
-
-  /** Get total ordered items count */
-  public int getOrderedItemsCount() {
-    return orderedItems.size();
-  }
 
   public ItemOptions getItemOptions(String itemName) {
     ((IOSDriver) SdkHelper.getDriver()).setSetting("snapshotMaxDepth", 99);
@@ -404,23 +251,6 @@ class AndroidCheckoutView extends CheckoutView {
     } catch (NoSuchElementException nse) {
 
     }
-  }
-
-  public <T extends BaseComponent> T placeOrder(Class<T> clazz) {
-    logger.info("Tap place order");
-    MobileHelper.swipeWithCount(SwipeDirection.UP, 7);
-    getPlaceOrderButton.click();
-    return SdkHelper.create(clazz);
-  }
-
-  /**
-   * Get total order value
-   *
-   * @return order total value in $
-   */
-  public String getOrderTotal() {
-    MobileHelper.swipeWithCount(SwipeDirection.UP, 5);
-    return orderTotal.getText();
   }
 
   public ItemOptions getItemOptions(String itemName) {

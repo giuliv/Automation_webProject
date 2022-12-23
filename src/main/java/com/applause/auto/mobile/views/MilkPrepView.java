@@ -13,12 +13,6 @@ public class MilkPrepView extends BaseComponent {
 
   /* -------- Elements -------- */
 
-  @Locate(
-      iOSClassChain = "**/XCUIElementTypeNavigationBar/XCUIElementTypeButton",
-      on = Platform.MOBILE_IOS)
-  @Locate(accessibilityId = "Navigate up", on = Platform.MOBILE_ANDROID)
-  protected Button navigateBackButton;
-
   @Locate(xpath = "//android.widget.TextView[@text='Choose Milk']", on = Platform.MOBILE_ANDROID)
   @Locate(accessibilityId = "Choose Milk", on = Platform.MOBILE_IOS)
   protected Button chooseMilkMenuItemButton;

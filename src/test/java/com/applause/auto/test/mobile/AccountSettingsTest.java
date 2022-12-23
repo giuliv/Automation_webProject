@@ -11,18 +11,14 @@ import com.applause.auto.mobile.views.MoreOptionsView;
 import com.applause.auto.mobile.views.PaymentMethodsView;
 import com.applause.auto.mobile.views.PeetsCardSettingsView;
 import com.applause.auto.test.mobile.helpers.TestHelper;
-import java.lang.invoke.MethodHandles;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class AccountSettingsTest extends BaseTest {
-  private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
   @Test(
-      groups = {TestNGGroups.ACCOUNT_SETTINGS, TestNGGroups.REGRESSION},
+      groups = {TestNGGroups.REGRESSION},
       description = "625928")
   public void paymentMethodsTest() {
     SoftAssert softAssert = new SoftAssert();
@@ -177,7 +173,7 @@ public class AccountSettingsTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.ACCOUNT_SETTINGS, TestNGGroups.REGRESSION, TestNGGroups.WEB_UI},
+      groups = {TestNGGroups.REGRESSION},
       description = "625939")
   public void socialEngagementTest() {
     HomeView homeView =

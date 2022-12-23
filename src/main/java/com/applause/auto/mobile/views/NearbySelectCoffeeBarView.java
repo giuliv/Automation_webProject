@@ -28,7 +28,6 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
   @Locate(
       xpath = "//XCUIElementTypeButton[(@name='ORDER' or @name='Order') and @visible='true']",
       on = Platform.MOBILE_IOS)
-  // @Locate(xpath = "//XCUIElementTypeNavigationBar[@name=\"ORDER\"]", on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/storeContainer", on = Platform.MOBILE_ANDROID)
   protected ContainerElement getSignature;
 
@@ -60,13 +59,6 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*searchField\")",
       on = Platform.MOBILE_ANDROID)
   protected TextBox getSearchTextBoxEdit;
-
-  @Locate(id = "com.wearehathway.peets.development:id/changeTextView", on = Platform.MOBILE_ANDROID)
-  @Locate(id = "todo", on = Platform.MOBILE_IOS)
-  protected Button getChangeStoreButton;
-
-  @Locate(iOSNsPredicate = "name=Not Now", on = Platform.MOBILE_IOS)
-  protected Button getLocationServicesNotAllowBtn;
 
   @Locate(iOSNsPredicate = "name='Allow'", on = Platform.MOBILE_IOS)
   protected Button getLocationServicesAllowBtn;

@@ -10,7 +10,6 @@ import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
-import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import java.time.Duration;
 
@@ -27,16 +26,6 @@ public class ProductDetailsView extends BaseComponent {
       id = "com.wearehathway.peets.development:id/productCalories",
       on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
-
-  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]", on = Platform.MOBILE_IOS)
-  @Locate(xpath = "//android.widget.TextView[@text=\"%s\"]", on = Platform.MOBILE_ANDROID)
-  protected ContainerElement getCategoryItem;
-
-  @Locate(id = "Save Changes", on = Platform.MOBILE_IOS)
-  @Locate(
-      id = "com.wearehathway.peets.development:id/saveChangesButton",
-      on = Platform.MOBILE_ANDROID)
-  protected Button getSaveChangesButton;
 
   @Locate(
       iOSClassChain = "**/XCUIElementTypeButton[`name == 'button back'`]",
@@ -84,14 +73,6 @@ public class ProductDetailsView extends BaseComponent {
   protected Button selectMilkPrepButton;
 
   @Locate(
-      xpath = "//android.widget.TextView[starts-with(@text,'Syrups & Sauces')]",
-      on = Platform.MOBILE_ANDROID)
-  @Locate(
-      iOSClassChain = "**/XCUIElementTypeStaticText[`label CONTAINS \"Syrups & Sauces\"`]",
-      on = Platform.MOBILE_IOS)
-  protected Button selectSyrupsAndSaucesButton;
-
-  @Locate(
       id = "com.wearehathway.peets.development:id/productCostTextView",
       on = Platform.MOBILE_ANDROID)
   @Locate(
@@ -102,53 +83,12 @@ public class ProductDetailsView extends BaseComponent {
   protected Text costText;
 
   @Locate(
-      xpath = "//android.widget.TextView[starts-with(@text,'Shot Options')]",
-      on = Platform.MOBILE_ANDROID)
-  @Locate(
-      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Shot Options\"`]",
-      on = Platform.MOBILE_IOS)
-  protected Button selectShotOptionsButton;
-
-  @Locate(
       xpath = "//android.widget.TextView[starts-with(@text,'Warming')]",
       on = Platform.MOBILE_ANDROID)
   @Locate(
       iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Warming\"`]",
       on = Platform.MOBILE_IOS)
   protected Button warmingButton;
-
-  @Locate(
-      xpath = "//android.widget.TextView[starts-with(@text,'Oatmeal Toppings')]",
-      on = Platform.MOBILE_ANDROID)
-  @Locate(
-      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Oatmeal Toppings\"`]",
-      on = Platform.MOBILE_IOS)
-  protected Button oatmealToppingsButton;
-
-  @Locate(
-      xpath = "//android.widget.TextView[starts-with(@text,'Add Cream Cheese')]",
-      on = Platform.MOBILE_ANDROID)
-  @Locate(
-      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Add Cream Cheese\"`]",
-      on = Platform.MOBILE_IOS)
-  protected Button addCreamCheeseButton;
-
-  @Locate(
-      xpath =
-          "//android.widget.TextView[starts-with(@text,'Add Toppings') or starts-with(@text,'Toppings')]",
-      on = Platform.MOBILE_ANDROID)
-  @Locate(
-      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Add Toppings\"`]",
-      on = Platform.MOBILE_IOS)
-  protected Button selectToppingsButton;
-
-  @Locate(
-      xpath = "//android.widget.TextView[starts-with(@text,'Sweeteners')]",
-      on = Platform.MOBILE_ANDROID)
-  @Locate(
-      iOSClassChain = "**/XCUIElementTypeStaticText[`label CONTAINS \"Sweeteners\"`]",
-      on = Platform.MOBILE_IOS)
-  protected Button selectSweetenersButton;
 
   @Locate(
       xpath =
@@ -183,29 +123,6 @@ public class ProductDetailsView extends BaseComponent {
   protected Text modifiersText;
 
   /* -------- Actions -------- */
-
-  /**
-   * Select modifiers product details view.
-   *
-   * @param category the category
-   * @param subCategory the sub category
-   * @return the product details view
-   */
-  public ProductDetailsView selectModifiers(String category, String subCategory, String option) {
-    logger.info("Select category: " + category + " | " + subCategory);
-    getCategoryItem.format(category);
-    SdkHelper.getDeviceControl().tapElementCenter(getCategoryItem);
-    getCategoryItem.format(subCategory);
-    SdkHelper.getDeviceControl().tapElementCenter(getCategoryItem);
-
-    if (!option.isEmpty()) {
-      logger.info("Selecting [{}] option", option);
-      getCategoryItem.format(option);
-      getCategoryItem.click();
-    }
-    getSaveChangesButton.click();
-    return SdkHelper.create(ProductDetailsView.class);
-  }
 
   /**
    * Navigate back t.
@@ -283,10 +200,6 @@ public class ProductDetailsView extends BaseComponent {
   public RemoveFromOrderChunk delete() {
     garbageButton.click();
     return SdkHelper.create(RemoveFromOrderChunk.class);
-  }
-
-  public boolean isAddToOrderButtonDisplayed() {
-    return MobileHelper.isElementDisplayed(getAddToOrderButton, 5);
   }
 }
 

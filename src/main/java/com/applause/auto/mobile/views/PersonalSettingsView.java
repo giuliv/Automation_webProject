@@ -9,7 +9,6 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
-import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
 import java.time.Duration;
 
@@ -38,15 +37,6 @@ public class PersonalSettingsView extends BaseComponent {
 
   @Locate(
       xpath =
-          "//XCUIElementTypeStaticText[@value=\"Receive alerts about offers, news, and more\"]/../XCUIElementTypeSwitch",
-      on = Platform.MOBILE_IOS)
-  @Locate(
-      id = "com.wearehathway.peets.development:id/pushNotifications",
-      on = Platform.MOBILE_ANDROID)
-  protected Button getPushNotificationButton;
-
-  @Locate(
-      xpath =
           "//XCUIElementTypeStaticText[@value=\"Helps us locate your nearest Peet’s\"]/../XCUIElementTypeSwitch",
       on = Platform.MOBILE_IOS)
   @Locate(id = "com.wearehathway.peets.development:id/enableLocation", on = Platform.MOBILE_ANDROID)
@@ -55,12 +45,6 @@ public class PersonalSettingsView extends BaseComponent {
   @Locate(accessibilityId = "Allow Once", on = Platform.MOBILE_IOS)
   @Locate(id = "android:id/button1", on = Platform.MOBILE_ANDROID)
   protected Button getAllowLocationServicesButton;
-
-  @Locate(id = "GENERAL SETTINGS", on = Platform.MOBILE_IOS)
-  @Locate(
-      xpath = "//android.widget.TextView[@text='GENERAL SETTINGS']",
-      on = Platform.MOBILE_ANDROID)
-  protected Text getHeadingText;
 
   @Locate(
       xpath =

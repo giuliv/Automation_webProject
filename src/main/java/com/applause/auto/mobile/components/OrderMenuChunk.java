@@ -23,33 +23,11 @@ public class OrderMenuChunk extends BaseComponent {
   @Locate(xpath = "//*[@text='Favorites']", on = Platform.MOBILE_ANDROID)
   protected Text favoritesSubHeader;
 
-  @Locate(xpath = "(//XCUIElementTypeStaticText[@name=\"Menu\"])[2]", on = Platform.MOBILE_IOS)
-  @Locate(xpath = "//*[@text='Menu']", on = Platform.MOBILE_ANDROID)
-  protected Text menuSubHeader;
-
   @Locate(id = "Recents", on = Platform.MOBILE_IOS)
   @Locate(xpath = "//*[@text='Recents']", on = Platform.MOBILE_ANDROID)
   protected Text recentsSubHeader;
 
   /* -------- Actions -------- */
-
-  /**
-   * Get the text value of the seasonal Favorites Sub Header
-   *
-   * @return
-   */
-  public String getFavoritesSubHeaderTextValue() {
-    return favoritesSubHeader.getText();
-  }
-
-  /**
-   * Get the text value of the Menu Sub Header
-   *
-   * @return
-   */
-  public String getMenuSubheaderTextValue() {
-    return menuSubHeader.getText();
-  }
 
   @Step("Tap On Recents")
   public void tapOnRecents() {
