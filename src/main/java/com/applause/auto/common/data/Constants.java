@@ -37,6 +37,8 @@ public class Constants {
     public static final String WEB_PROD_MONITORING = "web_prod_monitoring";
     public static final String CART = "shopping-cart";
     public static final String MY_ACCOUNT = "my-account";
+    public static final String SETTINGS = "settings";
+    public static final String EXISTING_USER_CHECKOUT = "existing-user-checkout";
     public static final String SUBSCRIPTIONS = "subscriptions";
     public static final String ACCOUNT_SETTINGS = "account-settings";
     public static final String EDGE_CASES = "EdgeCases";
@@ -175,6 +177,18 @@ public class Constants {
     public static final String ADD_TO_CART_BUTTON = "ADD TO CART";
     public static final String RECIPIENT_MESSAGE = "Applause Recipient Message";
     public static final String FIRSTSUB_DISCOUNT_CODE = "FIRSTSUB";
+    public static final String USER_EMAIL_WITH_PREPAID_SUBSCRIPTIONS =
+        "peets.applause.ppd.subscription@gmail.com";
+    public static final String USER_EMAIL_WITH_PREPAID_AND_REGULAR_SUBSCRIPTIONS =
+        "peets.applause.ppd.and.regular.subscription@gmail.com";
+    public static final String USER_PASSWORD_WITH_PREPAID_SUBSCRIPTIONS = "Applause123@";
+    public static final String COLLECTION_ALL_PART_URL = "collections/all";
+    public static final List<String> SUBSCRIPTION_QUANTITY_OPTIONS =
+        Arrays.asList(
+            "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
+            "17", "18", "19", "20");
+    public static final List<String> SUBSCRIPTION_FREQUENCY_OPTIONS =
+        Arrays.asList("1 week", "2 weeks", "3 weeks", "4 weeks", "5 weeks", "6 weeks", "8 weeks");
 
     public static final String FIRST_NAME = "Applause";
     public static final String LAST_NAME = "QA Test";

@@ -846,4 +846,25 @@ public class WebHelper {
     return new WebDriverWait(getDriver(), Duration.ofMinutes(1))
         .until(driver -> WebHelper.getCurrentUrl().contains(urlParameter));
   }
+
+  /** @return JavaScript window width */
+  public static int getJavascriptWindowWidth() {
+    int windowWidth =
+        ((Long)
+                getJavascriptExecutor()
+                    .executeScript("return window.innerWidth || document.body.clientWidth"))
+            .intValue();
+    logger.info("Current window width is: " + windowWidth);
+    return windowWidth;
+  }
+
+  private static JavascriptExecutor getJavascriptExecutor() {
+    return (JavascriptExecutor) getDriver();
+  }
+
+  public static boolean isDesktopSiteVersion() {
+    // The site with windows width more than 767 is shown in desktop version even on mobile browser
+    // with landscape orientation
+    return getJavascriptWindowWidth() > 767;
+  }
 }

@@ -4,6 +4,7 @@ import com.applause.auto.common.data.Constants.MyAccountLeftMenuOption;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.new_web.helpers.WebHelper;
 import com.applause.auto.new_web.views.HomePage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -73,9 +74,13 @@ class PhoneMyAccountLeftMenu extends MyAccountLeftMenu {
 
   @Step("Click left menu option")
   public <T extends BaseComponent> T clickMenuOption(MyAccountLeftMenuOption option) {
-    logger.info("Clicking menu option [{}]", option.getValue());
-    getAccountDropdown.select(option.getValue());
-    return (T) SdkHelper.create(option.getClazz());
+    if (WebHelper.isDesktopSiteVersion()) {
+      return super.clickMenuOption(option);
+    } else {
+      logger.info("Clicking menu option [{}] on mobile", option.getValue());
+      getAccountDropdown.select(option.getValue());
+      return (T) SdkHelper.create(option.getClazz());
+    }
   }
 
   @Locate(id = "accountDropdown", on = Platform.WEB)

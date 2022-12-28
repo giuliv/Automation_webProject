@@ -1,5 +1,6 @@
 package com.applause.auto.new_web.views.my_account;
 
+import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
@@ -16,11 +17,14 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
+import com.applause.auto.pageobjectmodel.elements.Link;
+import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import io.qameta.allure.Step;
 import java.time.Duration;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.Getter;
 
 @Implementation(is = MyAccountPage.class, on = Platform.WEB)
@@ -68,7 +72,7 @@ public class MyAccountPage extends Base {
   private Text subscriptionItemPrice;
 
   @Locate(css = ".og-item-controls-container > a", on = Platform.WEB)
-  private Button addItemButton;
+  private Link addItemButton;
 
   @Locate(css = ".ac-subscriptions__actions > button", on = Platform.WEB)
   private Button updatePaymentInformationButton;
@@ -79,32 +83,23 @@ public class MyAccountPage extends Base {
   @Locate(
       css = "div.og-shipment-header-controls > div.og-send-shipment-now-button > button",
       on = Platform.WEB)
-  @Locate(
-      css = "div.og-mobile > div.og-send-shipment-now-button > button.og-button",
-      on = Platform.WEB_MOBILE_PHONE)
   private Button subscriptionSendNowButton;
 
   @Locate(
       css = "div.og-shipment-header-controls > div.og-change-shipment-date-button > button",
       on = Platform.WEB)
-  @Locate(
-      css = "div.og-mobile > div.og-change-shipment-date-button > button.og-button",
-      on = Platform.WEB_MOBILE_PHONE)
   private Button subscriptionChangeDateButton;
 
   @Locate(
       css = "div.og-shipment-header-controls > div.og-skip-shipment-button > button",
       on = Platform.WEB)
-  @Locate(
-      css = "div.og-mobile > div.og-skip-shipment-button > button.og-button",
-      on = Platform.WEB_MOBILE_PHONE)
   private Button subscriptionSkipOrderButton;
 
   @Locate(css = "select[name=quantity]", on = Platform.WEB)
-  private ContainerElement subscriptionQuantityBox;
+  private SelectList subscriptionQuantityBox;
 
   @Locate(css = "select[name=frequency]", on = Platform.WEB)
-  private ContainerElement subscriptionFrequencyBox;
+  private SelectList subscriptionFrequencyBox;
 
   @Locate(css = "div.og-desktop div.og-billing", on = Platform.WEB)
   @Locate(css = "details.og-mobile div.og-billing", on = Platform.WEB_MOBILE_PHONE)
@@ -123,6 +118,38 @@ public class MyAccountPage extends Base {
 
   @Locate(css = ".my-cards__actions a[href*='gift']", on = Platform.WEB)
   private Button buyNewPeetsCardButton;
+
+  @Locate(css = "h4.og-product-display-name", on = Platform.WEB)
+  private Text mySubscriptionGrind;
+
+  @Locate(
+      css = ".og-payment-shipping.og-desktop tr.og-shipment-total td.og-total-value",
+      on = Platform.WEB)
+  private Text mySubscriptionTotalAmount;
+
+  @Locate(
+      css = ".og-mobile-payment-shipping tr.og-shipment-total td.og-total-value",
+      on = Platform.WEB)
+  private Text mySubscriptionTotalAmountMobile;
+
+  @Locate(
+      css = ".og-payment-shipping.og-desktop .og-change-shipment-address-button > a",
+      on = Platform.WEB)
+  private Link editShippingAddressLink;
+
+  @Locate(
+      css = ".og-mobile-payment-shipping .og-change-shipment-address-button > a",
+      on = Platform.WEB)
+  protected Link editShippingAddressLinkMobile;
+
+  @Locate(css = "dialog[open]>form[data-og-action-key=change_shipping_address]", on = Platform.WEB)
+  protected ContainerElement editShippingAddressModalContainer;
+
+  @Locate(css = "summary > div", on = Platform.WEB)
+  protected Button expandDetailsSection;
+
+  @Locate(css = ".og-cancel-subscription-button > a", on = Platform.WEB)
+  protected Button cancelSubscriptionButton;
 
   @Override
   public void afterInit() {
@@ -224,9 +251,35 @@ public class MyAccountPage extends Base {
     return subscriptionQuantityBox.isDisplayed();
   }
 
+  public boolean isSubscriptionQuantityEnabled() {
+    logger.info("Checking subscription product quantity is enabled");
+    return subscriptionQuantityBox.isEnabled();
+  }
+
+  @Step("Verify Sending dropdown shows qty values from 1-20 and able to update to desired qty")
+  public boolean areSendingQuantityDropdownValuesDisplayed() {
+    return subscriptionQuantityBox.getOptions().stream()
+        .map(option -> Integer.parseInt(option.getText().trim()))
+        .collect(Collectors.toList())
+        .equals(TestData.SUBSCRIPTION_QUANTITY_OPTIONS);
+  }
+
   public boolean isSubscriptionFrequencyDisplayed() {
     logger.info("Checking subscription product frequency is displayed");
     return subscriptionFrequencyBox.isDisplayed();
+  }
+
+  public boolean isSubscriptionFrequencyEnabled() {
+    logger.info("Checking subscription product frequency is enabled");
+    return subscriptionFrequencyBox.isEnabled();
+  }
+
+  @Step("Verify Sending dropdown shows qty values from 1-20 and able to update to desired qty")
+  public boolean areSubscriptionFrequencyDropdownValuesDisplayed() {
+    return subscriptionFrequencyBox.getOptions().stream()
+        .map(option -> option.getText().trim())
+        .collect(Collectors.toList())
+        .equals(TestData.SUBSCRIPTION_FREQUENCY_OPTIONS);
   }
 
   public boolean isSubscriptionScheduleDateDisplayed() {
@@ -273,6 +326,22 @@ public class MyAccountPage extends Base {
     return updatePaymentInformationButton.isDisplayed();
   }
 
+  @Step("Verify subscription Add Item is displayed")
+  public boolean isAddItemButtonDisplayed() {
+    WebHelper.scrollToElement(addItemButton);
+    if (!WebHelper.isDisplayed(addItemButton)) {
+      logger.info("Subscription Add Item is not displayed");
+      return false;
+    }
+
+    if (!addItemButton.getLinkURL().contains(TestData.COLLECTION_ALL_PART_URL)) {
+      logger.info("Subscription Add Item link doesn't contain expected URL");
+      return false;
+    }
+
+    return true;
+  }
+
   @Step("Click on the 'Add item' button")
   public ProductListPage clickAddItem() {
     logger.info("Clicking on the 'Add item' button");
@@ -298,14 +367,82 @@ public class MyAccountPage extends Base {
     buyNewPeetsCardButton.click();
     return SdkHelper.create(GiftCardsPage.class);
   }
+
+  @Step("Get my subscription product grind value")
+  public String getMySubscriptionGrind() {
+    return mySubscriptionGrind.getText().trim();
+  }
+
+  @Step("Get My Subscription total amount")
+  public String getMySubscriptionTotalAmount() {
+    if (WebHelper.isDisplayed(mySubscriptionTotalAmount)) {
+      SdkHelper.getSyncHelper().waitUntil(text -> !mySubscriptionTotalAmount.getText().isEmpty());
+      return mySubscriptionTotalAmount.getText().trim();
+    } else {
+      SdkHelper.getSyncHelper()
+          .waitUntil(text -> !mySubscriptionTotalAmountMobile.getText().isEmpty());
+      return mySubscriptionTotalAmountMobile.getText().trim();
+    }
+  }
+
+  @Step("Verify Edit Shipping modal is displayed after click Edit link")
+  public boolean isEditShippingAddressModalDisplayed() {
+    if (WebHelper.isDisplayed(editShippingAddressLink)) {
+      WebHelper.scrollToElement(editShippingAddressLink);
+      editShippingAddressLink.click();
+    } else {
+      WebHelper.scrollToElement(editShippingAddressLinkMobile);
+      editShippingAddressLinkMobile.click();
+    }
+
+    return WebHelper.isDisplayed(editShippingAddressModalContainer, 10);
+  }
+
+  @Step("Expand details section for mobile")
+  public MyAccountPage expandDetailsSectionOnMobile() {
+    if (!WebHelper.isDesktopSiteVersion()) {
+      logger.info("Expanding subscription details section");
+      WebHelper.scrollToElement(expandDetailsSection);
+      WebHelper.jsClick(expandDetailsSection.getWebElement());
+      return this;
+    }
+    return this;
+  }
+
+  @Step("Verify Cancel Subscription button is displayed")
+  public boolean isCancelSubscriptionDisplayed() {
+    return WebHelper.isDisplayed(cancelSubscriptionButton);
+  }
 }
 
 class MyAccountPageMobile extends MyAccountPage {
 
+  /*
+  We have a bit different locators for mobile devices with width less 768.
+  These are locators for Mobile devices with screen width less 768.
+  */
+
+  @Locate(
+      css = ".og-mobile-payment-shipping tr.og-shipment-total td.og-total-value",
+      on = Platform.WEB)
+  private Text mySubscriptionTotalAmount;
+
+  @Locate(css = "div.og-mobile > div.og-skip-shipment-button > button.og-button", on = Platform.WEB)
+  private Button subscriptionSkipOrderButtonMobile;
+
+  @Locate(
+      css = "div.og-mobile > div.og-send-shipment-now-button > button.og-button",
+      on = Platform.WEB_MOBILE_PHONE)
+  private Button subscriptionSendNowButtonMobile;
+
+  @Locate(
+      css = "div.og-mobile > div.og-change-shipment-date-button > button.og-button",
+      on = Platform.WEB_MOBILE_PHONE)
+  private Button subscriptionChangeDateButtonMobile;
+
   @Override
   @Step("Click in view all orders")
   public OrderHistoryPage viewAllOrders() {
-    logger.info("Clicking in 'View all orders' button");
     WebHelper.clickOnElementAndScrollUpIfNeeded(viewAllOrdersButton, -110);
     return SdkHelper.create(OrderHistoryPage.class);
   }
@@ -313,7 +450,6 @@ class MyAccountPageMobile extends MyAccountPage {
   @Override
   @Step("Click Start sharing")
   public ReferralsPage clickOnStartSharingButton() {
-    logger.info("Clicking in 'Start sharing' button");
     WebHelper.clickOnElementAndScrollUpIfNeeded(startSharingButton, -110);
     return SdkHelper.create(ReferralsPage.class);
   }
@@ -321,26 +457,58 @@ class MyAccountPageMobile extends MyAccountPage {
   @Override
   @Step("Verify subscription product image is displayed")
   public boolean isSubscriptionImageDisplayed() {
-    logger.info("Checking subscription product image is displayed");
     WebHelper.scrollToElement(subscriptionItemImage);
     return subscriptionItemImage.exists();
   }
 
   @Override
+  @Step("Verify subscription Billing section is displayed")
   public boolean isSubscriptionBillingSectionDisplayed() {
-    logger.info("Checking subscription Billing section is displayed");
     return subscriptionBillingSection.exists();
   }
 
   @Override
+  @Step("Verify subscription Shipping section is displayed")
   public boolean isSubscriptionShippingSectionDisplayed() {
-    logger.info("Checking subscription Shipping section is displayed");
     return subscriptionShippingSection.exists();
   }
 
   @Override
+  @Step("Verify subscription Total section is displayed")
   public boolean isSubscriptionTotalSectionDisplayed() {
-    logger.info("Checking subscription Total section is displayed");
     return subscriptionTotalSection.exists();
+  }
+
+  @Override
+  @Step("Verify subscription Skip Order is displayed")
+  public boolean isSubscriptionSkipOrderDisplayed() {
+    if (super.isSubscriptionSkipOrderDisplayed()) {
+      return true;
+    }
+
+    return subscriptionSkipOrderButtonMobile.isDisplayed()
+        && !subscriptionSkipOrderButtonMobile.getText().isEmpty();
+  }
+
+  @Override
+  @Step("Verify subscription Send Now is displayed")
+  public boolean isSubscriptionSendNowButtonDisplayed() {
+    if (super.isSubscriptionSendNowButtonDisplayed()) {
+      return true;
+    }
+
+    return subscriptionSendNowButtonMobile.isDisplayed()
+        && !subscriptionSendNowButtonMobile.getText().isEmpty();
+  }
+
+  @Override
+  @Step("Verify subscription Change Date is displayed")
+  public boolean isSubscriptionChangeDateDisplayed() {
+    if (super.isSubscriptionChangeDateDisplayed()) {
+      return true;
+    }
+
+    return subscriptionChangeDateButtonMobile.isDisplayed()
+        && !subscriptionChangeDateButtonMobile.getText().isEmpty();
   }
 }
