@@ -7,7 +7,7 @@ import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.mobile.components.ReportAProblemPopupChunk;
 import com.applause.auto.mobile.components.TrackingPopup;
 import com.applause.auto.mobile.helpers.MobileHelper;
-import com.applause.auto.new_web.helpers.WebHelper;
+import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;

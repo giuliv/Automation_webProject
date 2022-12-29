@@ -1,6 +1,6 @@
 package com.applause.auto.common.data.dto;
 
-import com.applause.auto.new_web.helpers.WebHelper;
+import com.applause.auto.web.helpers.WebHelper;
 import lombok.Builder;
 import lombok.Builder.Default;
 import lombok.EqualsAndHashCode;

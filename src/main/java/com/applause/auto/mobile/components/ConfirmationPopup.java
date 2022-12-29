@@ -2,7 +2,7 @@ package com.applause.auto.mobile.components;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.new_web.helpers.WebHelper;
+import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;

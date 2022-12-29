@@ -1,8 +1,8 @@
 package com.applause.auto.common.data.enums;
 
 import com.applause.auto.common.data.Constants;
-import com.applause.auto.new_web.helpers.WebHelper;
-import com.applause.auto.new_web.views.CommonWebPage;
+import com.applause.auto.web.helpers.WebHelper;
+import com.applause.auto.web.views.CommonWebPage;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;

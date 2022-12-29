@@ -1,6 +1,6 @@
 package com.applause.auto.common.data.dto;
 
-import static com.applause.auto.new_web.helpers.WebHelper.getRandomMail;
+import static com.applause.auto.web.helpers.WebHelper.getRandomMail;
 
 import com.applause.auto.common.data.TestDataUtils;
 import lombok.Builder;

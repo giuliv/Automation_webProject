@@ -21,7 +21,7 @@ import com.applause.auto.mobile.views.PrivacyPolicyView;
 import com.applause.auto.mobile.views.ProfileDetailsView;
 import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.mobile.views.TermsAndConditionsView;
-import com.applause.auto.new_web.helpers.WebHelper;
+import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.test.mobile.helpers.TestHelper;
 import org.testng.Assert;
 import org.testng.annotations.Test;

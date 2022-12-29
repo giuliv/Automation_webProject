@@ -1,6 +1,6 @@
 package com.applause.auto.util;
 
-import com.applause.auto.new_web.helpers.WebHelper;
+import com.applause.auto.web.helpers.WebHelper;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
