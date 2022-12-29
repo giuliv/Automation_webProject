@@ -3,6 +3,7 @@ package com.applause.auto.test.web.pdp;
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.PDPTestData;
 import com.applause.auto.common.data.Constants.TestData;
+import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.Constants.WebTestData;
 import com.applause.auto.common.data.dto.MyReviewDto;
 import com.applause.auto.common.data.enums.GrindDropdown;
@@ -39,7 +40,11 @@ import org.testng.asserts.SoftAssert;
 
 public class PdpTests extends BaseTest {
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11113308")
   public void urlValidationPageTest() {
     logger.info("1. Navigate to landing page");
@@ -56,7 +61,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11113309")
   public void breadCrumbsTest() {
     logger.info("1. Navigate to product details page");
@@ -74,7 +83,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11113310")
   public void coffeeItemDetailsTest() {
     logger.info("1. Navigate to PDP");
@@ -93,7 +106,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11113311")
   public void itemGrindTest() {
     logger.info("1. Navigate to product details page");
@@ -116,7 +133,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11113312")
   public void itemQuantityTest() {
     logger.info("1. Navigate to product details page");
@@ -128,7 +149,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11118049")
   public void addToCartTest() {
     logger.info("1. Navigate to product details page");
@@ -143,7 +168,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11113313")
   public void itemTypeTest() {
     logger.info("1. Navigate to Home");
@@ -456,7 +485,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107450")
   public void pdpShopRunnerTest() {
     logger.info("1. Navigate to PDP");
@@ -486,7 +519,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107451")
   public void pdpItemRoastDateFreshnessDescriptionTest() {
     logger.info("1. Navigate to PDP");
@@ -529,7 +566,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107452")
   public void pdpFlavorProfileTest() {
     logger.info("1. Navigate to PDP");
@@ -585,7 +626,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107453")
   public void pdpStoryTest() {
     logger.info("1. Navigate to PDP");
@@ -608,7 +653,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107454")
   public void pdpBrewingMethodsTest() {
     logger.info("1. Navigate to PDP");
@@ -666,7 +715,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107455")
   public void pdpCustomerReviewsTest() {
     logger.info("1. Navigate to PDP");
@@ -755,7 +808,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107456")
   public void pdpRecommendedForYouSectionTest() {
     logger.info("1. Navigate to PDP");
@@ -808,7 +865,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107457")
   public void pdpNeverMissOfferTest() {
     logger.info("1. Navigate to PDP");
@@ -827,7 +888,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107458")
   public void pdpAtPeetsCoffeeOnInstagramTest() {
     logger.info("1. Navigate to PDP");
@@ -848,7 +913,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107459")
   public void pdpScrollDownPastTest() {
     logger.info("1. Navigate to PDP");
@@ -895,7 +964,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107460")
   public void pdpSpecialtyBlendsTest() {
     logger.info("1. Navigate to PDP");
@@ -920,7 +993,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107461")
   public void pdpAnniversaryCoffeeTest() {
     logger.info("1. Navigate to PDP");
@@ -944,7 +1021,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107462",
       enabled = false)
   public void pdpOnlyFewItemsLeftTest() {
@@ -952,7 +1033,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107463",
       enabled = false)
   public void pdpDarkBackgroundNavigationTest() {
@@ -960,7 +1045,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107464")
   public void pdpTeaItemTest() {
     logger.info("1. Navigate to PDP");
@@ -1001,7 +1090,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107465")
   public void pdpEquipmentTest() {
     logger.info("1. Navigate to PDP");
@@ -1024,7 +1117,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107468")
   public void pdpOutOfStockTest() {
     logger.info("1. Navigate to PDP");
@@ -1044,7 +1141,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107467")
   public void pdpOutOfStockSoldOutTest() {
     logger.info("1. Navigate to PDP");
@@ -1080,7 +1181,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107469")
   public void pdpGuestSubscribeSetupNowTest() {
     SoftAssert softAssert = new SoftAssert();
@@ -1109,7 +1214,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107470")
   public void pdpGuestOTPAddToCartTest() {
     SoftAssert softAssert = new SoftAssert();
@@ -1142,7 +1251,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11118047")
   public void smallBatchSubscribeTest() {
     logger.info("1. Navigate to PDP");
@@ -1159,7 +1272,11 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.PDP,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11118048")
   public void itemTypeVersion2Test() {
     logger.info("1. Navigate to landing page");

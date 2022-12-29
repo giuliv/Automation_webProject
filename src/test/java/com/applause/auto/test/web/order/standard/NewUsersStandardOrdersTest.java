@@ -1,6 +1,7 @@
 package com.applause.auto.test.web.order.standard;
 
 import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.web.components.MiniCart;
 import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.web.views.AcceptancePage;
@@ -20,7 +21,11 @@ public class NewUsersStandardOrdersTest extends BaseTest {
   //  Discount if any
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.CHECKOUT},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.CHECKOUT,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11071610")
   public void orderCoffeeCreditCardAsNewUserTest() {
 

@@ -16,7 +16,11 @@ import org.testng.annotations.Test;
 public class CoffeeBestSellersTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107498")
   public void coffeeBestSellersTest() {
     ProductsTestHelper.checkPlp(
@@ -24,7 +28,11 @@ public class CoffeeBestSellersTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107499")
   public void coffeeBestSellersBannerTest() {
     ProductsTestHelper.checkBestSellersBanner(
@@ -34,7 +42,11 @@ public class CoffeeBestSellersTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107500",
       enabled = false)
   // Todo: Testcase disabled until further notice
@@ -52,7 +64,11 @@ public class CoffeeBestSellersTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107501")
   public void coffeeBestSellersSortingTest() {
     ProductsTestHelper.checkNewSortingOptions(
@@ -60,7 +76,11 @@ public class CoffeeBestSellersTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107503")
   public void coffeeBestSellersNewsletterSignUpNeverMissOfferTest() {
     ProductsTestHelper.checkNewsletterSignUpNeverMissOffer(
@@ -68,7 +88,11 @@ public class CoffeeBestSellersTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107502")
   public void coffeeBestSellersItemsTest() {
     logger.info("1. Navigate to Product list page");
@@ -116,7 +140,11 @@ public class CoffeeBestSellersTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107504",
       enabled = false)
   // Todo:Disable by request of Bernadette, leaving only 1 case on allCoffee section[21.06.2022]

@@ -32,7 +32,11 @@ import org.testng.asserts.SoftAssert;
 public class IdentityTest extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.IDENTITY},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.IDENTITY,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11102911")
   public void loginWithInvalidAccountTest() {
 
@@ -48,7 +52,11 @@ public class IdentityTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.IDENTITY},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.IDENTITY,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11102912")
   public void forgotPasswordTest() {
 
@@ -71,7 +79,12 @@ public class IdentityTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.IDENTITY, TestNGGroups.SMOKE},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.IDENTITY,
+        TestNGGroups.SMOKE,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11102913")
   public void loginWithValidAccountTest() {
 
@@ -92,7 +105,11 @@ public class IdentityTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.IDENTITY},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.IDENTITY,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11102915")
   public void logoutTest() {
 
@@ -113,7 +130,11 @@ public class IdentityTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.IDENTITY},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.IDENTITY,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11102916")
   public void invalidSignUpTest() {
     SoftAssert softAssert = new SoftAssert();
@@ -147,7 +168,12 @@ public class IdentityTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.IDENTITY, TestNGGroups.SMOKE},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.IDENTITY,
+        TestNGGroups.SMOKE,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11102917")
   public void validSignUpTest() {
 
@@ -172,7 +198,11 @@ public class IdentityTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.IDENTITY, TestNGGroups.FRONT_END_REGRESSION},
+      groups = {
+        TestNGGroups.IDENTITY,
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11108422")
   public void loginExistingAccountCheckoutPageWithStandardItemTest() {
     logger.info("1. Navigate to landing page");
@@ -220,7 +250,11 @@ public class IdentityTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.IDENTITY, TestNGGroups.FRONT_END_REGRESSION},
+      groups = {
+        TestNGGroups.IDENTITY,
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107410")
   public void loginExistingAccountCheckoutPageWithSubscriptionItemTest() {
     logger.info("1. Navigate to landing page");
@@ -272,7 +306,11 @@ public class IdentityTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.IDENTITY, TestNGGroups.FRONT_END_REGRESSION},
+      groups = {
+        TestNGGroups.IDENTITY,
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11108423")
   public void loginCreateNewAccountCheckoutPageWithStandardItemTest() {
     logger.info("1. Navigate to landing page");
@@ -334,7 +372,11 @@ public class IdentityTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.IDENTITY, TestNGGroups.FRONT_END_REGRESSION},
+      groups = {
+        TestNGGroups.IDENTITY,
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11108424")
   public void loginCreateNewAccountCheckoutPageWithSubscriptionItemTest() {
     logger.info("1. Navigate to landing page");
@@ -403,7 +445,11 @@ public class IdentityTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.IDENTITY, TestNGGroups.FRONT_END_REGRESSION},
+      groups = {
+        TestNGGroups.IDENTITY,
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107413")
   public void logoutFromMyCheckoutContactInformationSectionTest() {
     logger.info("1. Navigate to landing page");
@@ -461,7 +507,11 @@ public class IdentityTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.IDENTITY},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.IDENTITY,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107414")
   public void myAccountNonExistingEmailTest() {
     logger.info("1. Navigate to Sign in page");
@@ -479,7 +529,11 @@ public class IdentityTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.IDENTITY},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.IDENTITY,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107416")
   public void myAccountIncorrectPasswordTest() {
 
@@ -498,7 +552,11 @@ public class IdentityTest extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.IDENTITY},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.IDENTITY,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107417")
   public void myAccountInvalidForgotPasswordTest() {
     logger.info("1. Navigate to Sign in page");

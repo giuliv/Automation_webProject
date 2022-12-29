@@ -1,6 +1,7 @@
 package com.applause.auto.test.web;
 
 import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.enums.Products;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.web.components.AccountMenuChunk;
@@ -14,7 +15,11 @@ import org.testng.annotations.Test;
 public class CoffeeBarsTests extends BaseTest {
 
   @Test(
-      groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {
+        Constants.TestNGGroups.MENU,
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107482")
   public void featured() {
     logger.info("XX. Navigate to Coffee Bar");
@@ -84,7 +89,11 @@ public class CoffeeBarsTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {
+        Constants.TestNGGroups.MENU,
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107483")
   public void category() {
     logger.info("XX. Navigate to Coffee Bar");
@@ -112,7 +121,11 @@ public class CoffeeBarsTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {
+        Constants.TestNGGroups.MENU,
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107484")
   public void banners() {
     logger.info("XX. Navigate to Coffee Bar");
@@ -135,7 +148,11 @@ public class CoffeeBarsTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {
+        Constants.TestNGGroups.MENU,
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107485")
   public void newsletter() {
     logger.info("XX. Navigate to Coffee Bar");
@@ -156,7 +173,11 @@ public class CoffeeBarsTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.MENU, Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {
+        Constants.TestNGGroups.MENU,
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107481")
   public void viewMenuAndOptions() {
     logger.info("XX. Navigate to Coffee Bar");

@@ -3,6 +3,7 @@ package com.applause.auto.test.web.plp;
 import static com.applause.auto.common.data.Constants.WebTestData.PLP_SHOPABBLE_ITEMS;
 
 import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.enums.FooterOptions;
 import com.applause.auto.web.components.MiniCart;
 import com.applause.auto.web.components.NeverMissAnOfferChunk;
@@ -259,7 +260,11 @@ public class CartTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.WEB_CART},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.WEB_CART,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11101748")
   public void canCheckThisIsGift() {
     logger.info("1. Navigate to PDP > Add to miniCart");
@@ -285,7 +290,11 @@ public class CartTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.WEB_CART},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.WEB_CART,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11108611")
   public void addItemToCart() {
     logger.info("1. Navigate to product details page");
@@ -298,7 +307,11 @@ public class CartTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.WEB_CART},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.WEB_CART,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107534")
   public void reviewEmptyCartTest() {
     logger.info("1. Navigate to product details page");
@@ -336,7 +349,11 @@ public class CartTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.WEB_CART},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.WEB_CART,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11108612")
   public void shippingCartTest() {
     logger.info("1. Navigate to PDP > Add to miniCart");
@@ -364,6 +381,7 @@ public class CartTests extends BaseTest {
       groups = {
         Constants.TestNGGroups.FRONT_END_REGRESSION,
         Constants.TestNGGroups.WEB_CART,
+        TestNGGroups.FE_PROD_REGRESSION
       },
       description = "11109098")
   public void singeStandardItemTest() {
@@ -445,6 +463,7 @@ public class CartTests extends BaseTest {
       groups = {
         Constants.TestNGGroups.FRONT_END_REGRESSION,
         Constants.TestNGGroups.WEB_CART,
+        TestNGGroups.FE_PROD_REGRESSION
       },
       description = "11109099")
   public void multipleStandardItemTest() {
@@ -535,6 +554,7 @@ public class CartTests extends BaseTest {
       groups = {
         Constants.TestNGGroups.FRONT_END_REGRESSION,
         Constants.TestNGGroups.WEB_CART,
+        TestNGGroups.FE_PROD_REGRESSION
       },
       description = "11109100")
   public void oneSubscriptionOneStandardItemTest() {

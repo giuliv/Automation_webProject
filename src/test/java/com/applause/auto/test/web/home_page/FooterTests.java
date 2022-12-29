@@ -14,7 +14,11 @@ import org.testng.asserts.SoftAssert;
 public class FooterTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.HOME_PAGE,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107429")
   public void homepageFooterLogoTest() {
     logger.info("1. Navigate to Home page");
@@ -30,7 +34,11 @@ public class FooterTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.HOME_PAGE,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107430")
   public void homepageFooterHelpCenterTest() {
     logger.info("1. Navigate to Home page");
@@ -49,7 +57,11 @@ public class FooterTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.HOME_PAGE,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107431")
   public void homepageFooterCompanyTest() {
     logger.info("1. Navigate to Home page");
@@ -68,7 +80,11 @@ public class FooterTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.HOME_PAGE,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107432")
   public void homepageFooterGiftsCardsTest() {
     logger.info("1. Navigate to Home page");
@@ -87,7 +103,11 @@ public class FooterTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.HOME_PAGE,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107433")
   public void homepageFooterOffersTest() {
     logger.info("1. Navigate to Home page");
@@ -106,7 +126,11 @@ public class FooterTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.HOME_PAGE,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107434")
   public void homepageFooterPartnerWithPeetsTest() {
     logger.info("1. Navigate to Home page");
@@ -125,7 +149,11 @@ public class FooterTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.HOME_PAGE,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107435")
   public void homepageFooterBlogTest() {
     logger.info("1. Navigate to Home page");
@@ -144,7 +172,11 @@ public class FooterTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.HOME_PAGE,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107436")
   public void homepageFooterPeetsAppTest() {
     logger.info("1. Navigate to Home page");
@@ -182,7 +214,11 @@ public class FooterTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.HOME_PAGE,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107437")
   public void homepageFooterSocialMediaIconsTest() {
     logger.info("1. Navigate to Home page");
@@ -201,7 +237,11 @@ public class FooterTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.HOME_PAGE,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107438")
   public void homepageFooterPeetsCoffeeEndTest() {
     logger.info("1. Navigate to Home page");

@@ -35,7 +35,12 @@ import org.testng.asserts.SoftAssert;
 public class MyAccountTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.MY_ACCOUNT, TestNGGroups.SANITY},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.MY_ACCOUNT,
+        TestNGGroups.SANITY,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11102914")
   public void loginValidMenuTest() {
     SoftAssert softAssert = new SoftAssert();
@@ -227,7 +232,11 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.MY_ACCOUNT,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11102926")
   public void myAccountMySubscriptionElementsTest() {
     MyAccountPage myAccountPage =
@@ -291,7 +300,11 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.MY_ACCOUNT,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11102930")
   public void myAccountPeetsCardTest() {
     // Todo: Missing validations, needs to be able to add peets cards
@@ -396,7 +409,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11107447")
   public void dashboardDifferentSectionsTest() {
     // Todo: Missing sections [Peets card/Peetnik Rewards]
@@ -490,7 +503,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION},
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11118664")
   public void dashboardRecentOrdersTest() {
     logger.info("1. Navigate to Sign in page");
@@ -541,7 +554,11 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.MY_ACCOUNT},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.MY_ACCOUNT,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11102933")
   public void referralsElementsTest() {
     if (WebHelper.isDesktop()) {

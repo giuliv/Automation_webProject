@@ -1,6 +1,7 @@
 package com.applause.auto.test.web.order.standard;
 
 import com.applause.auto.common.data.Constants;
+import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.web.components.Header;
 import com.applause.auto.web.components.MiniCart;
 import com.applause.auto.web.helpers.WebHelper;
@@ -24,7 +25,11 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
   //  Discount if any
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.CHECKOUT},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.CHECKOUT,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107535")
   public void orderCoffeeCreditCardAsExistingUserCheckOutTest() {
 
@@ -282,7 +287,11 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.CHECKOUT},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.CHECKOUT,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107536")
   // Todo:Ask Rich, is this correct?
   public void orderCoffeePayPalSubscriptionAsExistingUserTest() {
@@ -899,7 +908,11 @@ public class ExistingUsersStandardOrdersTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.CHECKOUT},
+      groups = {
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        Constants.TestNGGroups.CHECKOUT,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11071611")
   public void oneEquipmentWithPeetsCardAsExistingUserTest() {
 

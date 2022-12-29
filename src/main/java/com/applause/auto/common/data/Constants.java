@@ -32,6 +32,7 @@ public class Constants {
     // Web
     public static final String DEBUG = "debug";
     public static final String FRONT_END_REGRESSION = "web_regression";
+    public static final String FE_PROD_REGRESSION = "fe_prod_regression";
     public static final String TO_BE_RENAMED = "TBD";
     public static final String PLP = "plp";
     public static final String WEB_PROD_MONITORING = "web_prod_monitoring";

@@ -2,6 +2,7 @@ package com.applause.auto.test.web.plp;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestData;
+import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.enums.Products;
 import com.applause.auto.web.components.MiniCart;
 import com.applause.auto.web.components.QuickViewComponent;
@@ -35,7 +36,7 @@ public class QuickViewTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11110671")
   public void coffeeItemGrindTest() {
 
@@ -57,7 +58,7 @@ public class QuickViewTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11110672")
   public void itemQuantityTest() {
 
@@ -73,7 +74,7 @@ public class QuickViewTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11110673")
   public void addToCartTest() {
 
@@ -97,7 +98,7 @@ public class QuickViewTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11107487")
   public void shopRunnerTest() {
     logger.info("1. Navigate to Home");
@@ -129,7 +130,7 @@ public class QuickViewTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11107488")
   public void teaItemTest() {
 
@@ -174,7 +175,7 @@ public class QuickViewTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11107486")
   public void itemTypeTest() {
 
@@ -189,7 +190,7 @@ public class QuickViewTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11107489")
   public void equipmentTest() {
 
@@ -207,7 +208,7 @@ public class QuickViewTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11107490")
   public void quickViewKCupTest() {
     logger.info("1. Navigate to Home");
@@ -230,7 +231,7 @@ public class QuickViewTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11107491")
   public void guestSubscribeAndShipTest() {
     SoftAssert softAssert = new SoftAssert();
@@ -267,7 +268,7 @@ public class QuickViewTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11107492")
   public void otpAddToCartTest() {
 
@@ -293,7 +294,7 @@ public class QuickViewTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11118050")
   public void coffeePCPPageTest() {
     logger.info("1. Navigate to Home");
@@ -313,7 +314,7 @@ public class QuickViewTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11118051")
   public void coffeeItemDetailsTest() {
     logger.info("1. Navigate to Home");
@@ -338,7 +339,7 @@ public class QuickViewTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11118052")
   public void viewProductTest() {
     logger.info("1. Navigate to PDP");

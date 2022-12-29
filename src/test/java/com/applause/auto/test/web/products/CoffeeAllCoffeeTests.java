@@ -17,14 +17,22 @@ import org.testng.annotations.Test;
 public class CoffeeAllCoffeeTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107493")
   public void coffeeAllCoffeeTest() {
     ProductsTestHelper.checkPlp(navigateToPLPFromHome(), softAssert);
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107494")
   public void allCoffeeBannerTest() {
     ProductsTestHelper.checkBestSellersBanner(
@@ -32,7 +40,11 @@ public class CoffeeAllCoffeeTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11108847",
       enabled = false)
   // Todo: Testcase disabled until further notice
@@ -50,21 +62,33 @@ public class CoffeeAllCoffeeTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11108848")
   public void allCoffeeSortingTest() {
     ProductsTestHelper.checkSortingOptions(navigateToPLPFromHome(), softAssert);
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107495")
   public void allCoffeeNewsletterSignUpNeverMissOfferTest() {
     ProductsTestHelper.checkNewsletterSignUpNeverMissOffer(navigateToPLPFromHome(), softAssert);
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11108849")
   public void allCoffeeItemsTest() {
     logger.info("1. Navigate to Product list page");
@@ -111,7 +135,11 @@ public class CoffeeAllCoffeeTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107497")
   public void allCoffeeJoinClubTest() {
     logger.info("1. Navigate to Product list page");
@@ -132,7 +160,11 @@ public class CoffeeAllCoffeeTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107496")
   public void allCoffeeOutOfStockTest() {
     logger.info("1. Navigate to Product list page");

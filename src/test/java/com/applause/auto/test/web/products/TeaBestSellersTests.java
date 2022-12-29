@@ -16,14 +16,22 @@ import org.testng.annotations.Test;
 public class TeaBestSellersTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107522")
   public void teaBestSellersTest() {
     ProductsTestHelper.checkPlp(navigateToPLPFromHome(TestData.TEA_BEST_SELLERS_URL), softAssert);
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107523")
   public void teaBestSellersBannerTest() {
     ProductsTestHelper.checkBestSellersBanner(
@@ -33,7 +41,11 @@ public class TeaBestSellersTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107525")
   public void teaBestSellersSortingTest() {
     ProductsTestHelper.checkSortingOptions(
@@ -41,7 +53,11 @@ public class TeaBestSellersTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107527")
   public void teaBestSellersNewsletterSignUpNeverMissOfferTest() {
     ProductsTestHelper.checkNewsletterSignUpNeverMissOffer(
@@ -49,7 +65,11 @@ public class TeaBestSellersTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107526")
   public void teaBestSellersItemsTest() {
     logger.info("1. Navigate to Product list page");
@@ -99,7 +119,11 @@ public class TeaBestSellersTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107524",
       enabled = false)
   public void teaBestSellersFiltersTest() {

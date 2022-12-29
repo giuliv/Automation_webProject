@@ -17,7 +17,11 @@ import org.testng.annotations.Test;
 public class NegativePPDTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.PPD, Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {
+        TestNGGroups.PPD,
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11124763")
   public void onlyCcPaymentMethodTest() {
     logger.info("1. Add a PPD subscription item");
@@ -38,7 +42,11 @@ public class NegativePPDTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.PPD, Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {
+        TestNGGroups.PPD,
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11124764")
   public void notAutoPopulateRecipientDetailsTest() {
     CheckOutPage checkOutPage =
@@ -49,7 +57,11 @@ public class NegativePPDTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.PPD, Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {
+        TestNGGroups.PPD,
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11124765")
   public void alwaysGoToInformationStepTest() {
     CheckOutPage checkOutPage =
@@ -62,7 +74,11 @@ public class NegativePPDTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.PPD, Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {
+        TestNGGroups.PPD,
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11124766")
   public void requireRecipientNameAndEmailStepTest() {
     logger.info("1. Navigate to the Checkout page");
@@ -95,7 +111,11 @@ public class NegativePPDTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.PPD, Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {
+        TestNGGroups.PPD,
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11124767")
   public void personalizedMessageIsOptionalTest() {
     logger.info("1. Navigate to the Checkout page");
@@ -121,7 +141,11 @@ public class NegativePPDTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.PPD, Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {
+        TestNGGroups.PPD,
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11124768")
   public void noTieredDiscountAppliedTest() {
     logger.info("1. Add two PPD subscription items");
@@ -136,7 +160,11 @@ public class NegativePPDTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.PPD, Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {
+        TestNGGroups.PPD,
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11124769")
   public void noPromoCodesAppliedTest() {
     logger.info("1. Add a PPD subscription item");
@@ -152,7 +180,11 @@ public class NegativePPDTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.PPD, Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {
+        TestNGGroups.PPD,
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11124770",
       enabled = false)
   public void holidayDiscountsSetupShouldBeAppliedTest() {
@@ -165,7 +197,11 @@ public class NegativePPDTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.PPD, Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {
+        TestNGGroups.PPD,
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11124771")
   public void buyNowCtaValidationTest() {
     logger.info("1. Navigate to PPD details page");
@@ -186,7 +222,11 @@ public class NegativePPDTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.PPD, Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {
+        TestNGGroups.PPD,
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11124772")
   public void invalidCartMessageOnMiniCartAndCartTest() {
     logger.info("1. Add a PPD subscription item");
@@ -204,7 +244,11 @@ public class NegativePPDTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.PPD, Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {
+        TestNGGroups.PPD,
+        Constants.TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11124773")
   public void isThisGiftCheckboxIsHiddenTest() {
     logger.info("1. Add a PPD subscription item");

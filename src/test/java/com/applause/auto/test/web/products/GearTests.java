@@ -15,14 +15,22 @@ import org.testng.annotations.Test;
 public class GearTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107471")
   public void gearTest() {
     ProductsTestHelper.checkPlp(navigateToGearSectionFromHome(), softAssert);
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107472")
   public void gearBannerTest() {
     ProductsTestHelper.checkBestSellersBanner(
@@ -30,7 +38,11 @@ public class GearTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107473",
       enabled = false)
   // Todo: Testcase disabled until further notice
@@ -48,7 +60,11 @@ public class GearTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107474")
   public void gearSortingTest() {
     // Todo:Rating sorting missing [not displayed]
@@ -56,7 +72,11 @@ public class GearTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107476")
   public void gearNewsletterSignUpNeverMissOfferTest() {
     ProductsTestHelper.checkNewsletterSignUpNeverMissOffer(
@@ -64,7 +84,11 @@ public class GearTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107475")
   public void gearItemsTest() {
     logger.info("1. Navigate to Product list page");
@@ -111,7 +135,11 @@ public class GearTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107477",
       enabled = false)
   // Todo:Disable by request of Bernadette, leaving only 1 case on allCoffee section[21.06.2022]

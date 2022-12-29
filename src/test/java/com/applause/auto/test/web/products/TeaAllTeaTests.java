@@ -17,7 +17,11 @@ import org.testng.annotations.Test;
 public class TeaAllTeaTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107514")
   public void teaAllTeaTest() {
     logger.info("1. Navigate to Product list page");
@@ -25,7 +29,11 @@ public class TeaAllTeaTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107515")
   public void teaBannerTest() {
     ProductsTestHelper.checkBestSellersBanner(
@@ -33,14 +41,22 @@ public class TeaAllTeaTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107518")
   public void teaSortingTest() {
     ProductsTestHelper.checkSortingOptions(navigateToPLPFromHome(TestData.TEA_PLP_URL), softAssert);
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107520")
   public void teaNewsletterSignUpNeverMissOfferTest() {
     ProductsTestHelper.checkNewsletterSignUpNeverMissOffer(
@@ -48,7 +64,11 @@ public class TeaAllTeaTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107519")
   public void teaItemsTest() {
     logger.info("1. Navigate to Product list page");
@@ -97,7 +117,11 @@ public class TeaAllTeaTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107517",
       enabled = false)
   // Todo: Testcase disabled until further notice
@@ -110,7 +134,11 @@ public class TeaAllTeaTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.PRODUCTS,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107521",
       enabled = false)
   // Todo:Disable by request of Bernadette, leaving only 1 case on allCoffee section[21.06.2022]

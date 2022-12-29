@@ -4,6 +4,7 @@ import static com.applause.auto.common.data.Constants.WebTestData.PLP_SHOPABBLE_
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestData;
+import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.enums.FooterOptions;
 import com.applause.auto.web.components.MiniCart;
 import com.applause.auto.web.components.QuickViewComponent;
@@ -22,7 +23,7 @@ import org.testng.annotations.Test;
 public class MiniCartTest extends BaseTest {
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11109579")
   public void addToMiniCartTest() {
 
@@ -126,7 +127,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11101733")
   public void progressShippingBarTest() {
 
@@ -195,7 +196,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11101734",
       enabled = false)
   // TC marked as deprecated by Shilpa/Vaibab [27.11.22]
@@ -263,7 +264,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11101737")
   public void oneTimePurchaseMiniCartTest() {
     // Todo:Do we need to validate also subscriptions?
@@ -302,7 +303,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11107530")
   public void miniCartCheckoutBypassesCartTest() {
 
@@ -326,7 +327,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11107531")
   public void miniCartViewCartGoesToCartTest() {
 
@@ -350,7 +351,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11107533")
   public void miniCartSubscribeSetupTest() {
     logger.info("1. Navigate to product details page");
@@ -379,7 +380,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11107532")
   public void miniCartShopRunner2DayShippingTest() {
 
@@ -414,7 +415,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11109580")
   public void emptyMiniCart2Test() {
 
@@ -457,7 +458,7 @@ public class MiniCartTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11109581")
   public void estimatedShipDateTest() {
 

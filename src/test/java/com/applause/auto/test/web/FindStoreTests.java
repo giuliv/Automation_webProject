@@ -32,7 +32,12 @@ import org.testng.annotations.Test;
 public class FindStoreTests extends BaseTest {
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FIND_STORE, TestNGGroups.SMOKE},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FIND_STORE,
+        TestNGGroups.SMOKE,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11102898")
   public void validateResultsListUiAndLoadMore() {
     logger.info("1. Navigate to Store Locator page");
@@ -85,7 +90,12 @@ public class FindStoreTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FIND_STORE, TestNGGroups.SANITY},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FIND_STORE,
+        TestNGGroups.SANITY,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11102900")
   public void validateStoreDetails() {
     logger.info("1. Navigate to Store Locator page");
@@ -199,7 +209,11 @@ public class FindStoreTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FIND_STORE},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FIND_STORE,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11102902")
   public void validateStartOrder() {
     logger.info("1. Navigate to Store Locator page");
@@ -306,7 +320,11 @@ public class FindStoreTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FIND_STORE},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FIND_STORE,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11102904")
   public void byCurrentLocation() {
     logger.info("1. Navigate to landing page");
@@ -376,7 +394,11 @@ public class FindStoreTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FIND_STORE},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FIND_STORE,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107478")
   public void storeDetailsPageFromCoffeeBar() {
     logger.info("1. Navigate to landing page");
@@ -466,7 +488,11 @@ public class FindStoreTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FIND_STORE},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FIND_STORE,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107479")
   public void storeDetailsCoffeeSubscriptionsSection() {
     logger.info("1. Navigate to landing page");
@@ -506,7 +532,11 @@ public class FindStoreTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FIND_STORE},
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.FIND_STORE,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
       description = "11107480")
   public void storeDetailsNeverMissOfferSection() {
     logger.info("1. Navigate to landing page");
