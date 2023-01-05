@@ -34,7 +34,7 @@ public class GuestUsersStandardOrdersTest extends BaseTest {
     Assert.assertNotNull(homePage, "Failed to navigate to the landing page.");
     homePage.closeInitialBannersAndModals();
 
-    int productSelected = 0;
+    int productSelected = 2;
     if (WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
       homePage = WebHelper.refreshMe(HomePage.class);
     }
