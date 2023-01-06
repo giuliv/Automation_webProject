@@ -441,6 +441,7 @@ public class Constants {
     public static final String DARK_ROAST_BREADCRUMBS = "ALL COFFEE / DARK ROAST";
     public static final String FAQ_MESSAGE =
         "Estimated ship date based on items in your cart. Ship dates subject to change. Visit our FAQ page to learn more.";
+    public static final String SHIP_ON_MESSAGE = "Ships on or before";
 
     public static final String PDP_SECTION_GREEN_COLOR = "rgba(31, 59, 39, 1)";
     public static final String PDP_SECTION_ANNIVERSARY_PRODUCT_COLOR = "rgba(32, 26, 23, 1)";

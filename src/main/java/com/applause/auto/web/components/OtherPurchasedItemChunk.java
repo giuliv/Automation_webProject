@@ -36,6 +36,7 @@ public class OtherPurchasedItemChunk extends BaseComponent {
    */
   public QuickViewComponent clickAddToCartButton() {
     logger.info("Clicking on 'Add to cart' button");
+    WebHelper.hoverByAction(addToCartButton);
     addToCartButton.click();
     return SdkHelper.create(QuickViewComponent.class);
   }

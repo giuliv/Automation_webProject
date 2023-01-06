@@ -197,9 +197,7 @@ public class MiniCartTest extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
-      description = "11101734",
-      enabled = false)
-  // TC marked as deprecated by Shilpa/Vaibab [27.11.22]
+      description = "11101734")
   public void recommendedItemsNavigationTest() {
 
     logger.info("1. Navigate to product details page");
@@ -216,6 +214,13 @@ public class MiniCartTest extends BaseTest {
     miniCart.clickNavigationArrow(Constants.NavigationArrow.PREV);
     Assert.assertEquals(
         originValue, miniCart.getRecommendedItemsVisible(), "Prev arrow does not work correctly");
+
+    logger.info("3. Click recommended item > Validate");
+    int firstProduct = 0;
+    miniCart.getRecommendedItemNameByIndex(firstProduct);
+    QuickViewComponent quickViewComponent =
+        miniCart.clickOnRecommendedForYouAddButtonByIndex(firstProduct);
+    Assert.assertNotNull(quickViewComponent, "Failed to open to QuickView popup");
 
     logger.info("FINISH");
   }
@@ -267,16 +272,20 @@ public class MiniCartTest extends BaseTest {
       groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
       description = "11101737")
   public void oneTimePurchaseMiniCartTest() {
-    // Todo:Do we need to validate also subscriptions?
 
     logger.info("1. Navigate to product details page");
     MiniCart miniCart = navigateToPDPFromHome(coffeeSelected).clickAddToMiniCart();
+    Assert.assertTrue(
+        miniCart.isSubscribeButtonEnabled(), "Subscription should be enable by default");
 
-    logger.info("3. Select One time purchase > One time purchase should be selected");
+    logger.info("2. Select One time purchase > One time purchase should be selected");
     miniCart.clickOneTimePurchaseButton();
+    // Todo: Add to cart validation does not apply, we are already on the miniCart
 
     logger.info("Verify that One time purchase should be selected");
     Assert.assertTrue(miniCart.isOneTimePurchaseButtonEnabled(), "One time purchase isn't enabled");
+    Assert.assertFalse(
+        miniCart.isShipEveryDropdownDisplayed(), "Ship every dropdown should not be displayed");
 
     logger.info("FINISH");
   }
@@ -473,6 +482,11 @@ public class MiniCartTest extends BaseTest {
     logger.info("3. Validating Estimated Date Tooltip");
     Assert.assertTrue(
         miniCart.estimatedShipDateIsDisplayed(), "Estimated ship date is not displayed");
+    Assert.assertTrue(
+        miniCart.getEstimatedShipDate().contains(Constants.WebTestData.SHIP_ON_MESSAGE),
+        "Ship on or before text does not match");
+    // Todo:What is the logic of the message and value, we need some clarifications here [Ask]
+
     miniCart.openEstimatedTooltip();
     Assert.assertEquals(
         miniCart.getEstimatedDateTooltipText(),

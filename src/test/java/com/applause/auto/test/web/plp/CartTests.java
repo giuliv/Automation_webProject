@@ -203,23 +203,19 @@ public class CartTests extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.TO_BE_RENAMED, Constants.TestNGGroups.SANITY},
-      description = "11101746",
-      enabled = false)
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
+      description = "11101746")
   public void canAddOthersPurchased() {
-    /**
-     * TODO
-     *
-     * <p>Disabled this test for now as functionality isn't working on Stage
-     */
+
     logger.info("1. Navigate to product details page");
     ProductDetailsPage productDetailsPage = navigateToPDPFromHome(coffeeSelected);
     Assert.assertNotNull(productDetailsPage, "Failed to navigate to Product Details Page");
 
-    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
-
     logger.info("2. Click on View cart.");
+    MiniCart miniCart = productDetailsPage.clickAddToMiniCart();
     CartPage cartPage = miniCart.clickViewCartButton();
+    Assert.assertEquals(
+        cartPage.getTotalPurchasedItems(), 4, "Default Total Other purchased items does not match");
 
     logger.info("3. Click on Add Others purchased");
     OtherPurchasedItemChunk purchasedItemOnPosition = cartPage.getPurchasedItemOnPosition(1);

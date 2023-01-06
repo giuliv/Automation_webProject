@@ -457,6 +457,10 @@ public class MiniCart extends BaseComponent {
         .get();
   }
 
+  public boolean isShipEveryDropdownDisplayed() {
+    return WebHelper.isDisplayed(shipEveryDropdown, 5);
+  }
+
   public String getShippingAwayMessage() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(shippingAwayMessage).visible());
     String message = shippingAwayMessage.getText();
@@ -494,6 +498,12 @@ public class MiniCart extends BaseComponent {
   @Step("Get estimated ship date")
   public boolean estimatedShipDateIsDisplayed() {
     return estimatedShipDate.isDisplayed();
+  }
+
+  @Step("Get estimated ship date")
+  public String getEstimatedShipDate() {
+    logger.info("Estimated Ship Text: " + estimatedShipDate.getText());
+    return estimatedShipDate.getText();
   }
 
   public void openEstimatedTooltip() {

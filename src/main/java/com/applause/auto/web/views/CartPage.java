@@ -349,7 +349,9 @@ public class CartPage extends BaseComponent {
     return this;
   }
 
-  /** @return boolean */
+  /**
+   * @return boolean
+   */
   @Step("Get one time purchase button")
   public boolean isOneTimePurchaseButtonSelected() {
     logger.info(
@@ -365,19 +367,25 @@ public class CartPage extends BaseComponent {
     return subscribeButton.getAttributeValue("slot").equalsIgnoreCase("default");
   }
 
-  /** @return boolean */
+  /**
+   * @return boolean
+   */
   @Step("Get subscribe button")
   public boolean isSubscribeButtonEnabled() {
     return subscribeButton.isEnabled();
   }
 
-  /** @return boolean */
+  /**
+   * @return boolean
+   */
   @Step("Get Add personal message field")
   public boolean isAddPersonalMessageFieldDisplayed() {
     return WebHelper.isDisplayed(addPersonalMessageField);
   }
 
-  /** @return String */
+  /**
+   * @return String
+   */
   @Step("Get Add personal message")
   public String getAddPersonalMessageFieldText() {
     String message = addPersonalMessageField.getCurrentText();
@@ -406,7 +414,13 @@ public class CartPage extends BaseComponent {
   @Step("Get list of other purchased")
   public OtherPurchasedItemChunk getPurchasedItemOnPosition(int position) {
     ((LazyList<?>) listOfOtherPurchased).initialize();
+    WebHelper.scrollToElement(listOfOtherPurchased.get(0).getParent());
     return listOfOtherPurchased.get(position - 1);
+  }
+
+  public int getTotalPurchasedItems() {
+    ((LazyList<?>) listOfOtherPurchased).initialize();
+    return listOfOtherPurchased.size();
   }
 
   /**
