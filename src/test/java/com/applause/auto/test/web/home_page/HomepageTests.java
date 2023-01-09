@@ -39,7 +39,6 @@ import com.applause.auto.web.views.StoreLocatorPage;
 import com.applause.auto.web.views.TimelinePage;
 import com.applause.auto.test.web.BaseTest;
 import java.util.List;
-import java.util.Locale;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -65,9 +64,9 @@ public class HomepageTests extends BaseTest {
     logger.info("-- Coffee");
     softAssert.assertTrue(header.isCoffeeMenuItemDisplayed(), "Coffee menu item is not displayed.");
 
-    logger.info("-- Visit Us");
+    logger.info("-- CoffeeBars");
     softAssert.assertTrue(
-        header.isVisitUsMenuItemDisplayed(), "Visit Us menu item is not displayed.");
+        header.isCoffeeBarsMenuItemDisplayed(), "CoffeeBars menu item is not displayed.");
 
     logger.info("-- Free Shipping");
     softAssert.assertTrue(
@@ -75,6 +74,9 @@ public class HomepageTests extends BaseTest {
 
     logger.info("-- Learn");
     softAssert.assertTrue(header.isLearnMenuItemDisplayed(), "Learn menu item is not displayed.");
+
+    logger.info("-- Shop");
+    softAssert.assertTrue(header.isShopMenuItemDisplayed(), "Shop menu item is not displayed.");
 
     logger.info("-- Offers");
     softAssert.assertTrue(header.isOffersMenuItemDisplayed(), "Offers menu item is not displayed.");
@@ -158,6 +160,14 @@ public class HomepageTests extends BaseTest {
     softAssert.assertTrue(
         currentOffersPage.isPageHeadingDisplayed(), "Offers did not bring us to the correct page");
 
+    logger.info("7.  Verify Free Shipping");
+    homePage = navigateToHome();
+    header = homePage.getHeader();
+    header.hoverCategoryFromMenu(MenuOptions.FREE_HOME_DELIVERY);
+    softAssert.assertFalse(
+        header.isSubMenuContainerDisplayed(),
+        "SubMenu container should not be displayed under Free Shipping");
+
     softAssert.assertAll();
   }
 
@@ -176,68 +186,68 @@ public class HomepageTests extends BaseTest {
 
     logger.info("2. Verify freshness stamp is available and descriptions match");
     softAssert.assertEquals(
-        homePage.getFreshnessStampSectionTitle().toLowerCase(),
-        HomepageFreshnessStamp.FRESHNESS_STAMP_HEADER.getTitle().toLowerCase(),
+        homePage.getFreshnessStampSectionTitle(),
+        HomepageFreshnessStamp.FRESHNESS_STAMP_HEADER.getTitle(),
         "Freshness Stamp Section Title did not match, got: "
-            + homePage.getFreshnessStampSectionTitle().toLowerCase()
+            + homePage.getFreshnessStampSectionTitle()
             + ", expected: "
-            + HomepageFreshnessStamp.FRESHNESS_STAMP_HEADER.getTitle().toLowerCase(Locale.ROOT));
+            + HomepageFreshnessStamp.FRESHNESS_STAMP_HEADER.getTitle());
 
     softAssert.assertEquals(
-        homePage.getFreshnessStampSectionDescription().toLowerCase(),
-        HomepageFreshnessStamp.FRESHNESS_STAMP_HEADER.getDescription().toLowerCase(),
+        homePage.getFreshnessStampSectionDescription(),
+        HomepageFreshnessStamp.FRESHNESS_STAMP_HEADER.getDescription(),
         "Freshness Stamp Section Description did not match, got: "
-            + homePage.getFreshnessStampSectionDescription().toLowerCase()
+            + homePage.getFreshnessStampSectionDescription()
             + ", expected: "
-            + HomepageFreshnessStamp.FRESHNESS_STAMP_HEADER.getDescription().toLowerCase());
+            + HomepageFreshnessStamp.FRESHNESS_STAMP_HEADER.getDescription());
 
     softAssert.assertEquals(
-        homePage.getFreshnessCoffeeStampTitle().toLowerCase(),
-        HomepageFreshnessStamp.COMMITTED_TO_CRAFT.getTitle().toLowerCase(),
+        homePage.getFreshnessCoffeeStampTitle(),
+        HomepageFreshnessStamp.COMMITTED_TO_CRAFT.getTitle(),
         "Coffee Stamp Section Title did not match, got: "
-            + homePage.getFreshnessCoffeeStampTitle().toLowerCase()
+            + homePage.getFreshnessCoffeeStampTitle()
             + ", expected: "
-            + HomepageFreshnessStamp.COMMITTED_TO_CRAFT.getTitle().toLowerCase());
+            + HomepageFreshnessStamp.COMMITTED_TO_CRAFT.getTitle());
 
     softAssert.assertEquals(
-        homePage.getFreshnessCoffeeStampDescription().toLowerCase(),
-        HomepageFreshnessStamp.COMMITTED_TO_CRAFT.getDescription().toLowerCase(),
+        homePage.getFreshnessCoffeeStampDescription(),
+        HomepageFreshnessStamp.COMMITTED_TO_CRAFT.getDescription(),
         "Coffee Stamp Section Description did not match, got: "
-            + homePage.getFreshnessCoffeeStampDescription().toLowerCase()
+            + homePage.getFreshnessCoffeeStampDescription()
             + ", expected: "
-            + HomepageFreshnessStamp.COMMITTED_TO_CRAFT.getDescription().toLowerCase());
+            + HomepageFreshnessStamp.COMMITTED_TO_CRAFT.getDescription());
 
     softAssert.assertEquals(
-        homePage.getFreshnessSealedStampTitle().toLowerCase(),
-        HomepageFreshnessStamp.SEALED_FOR_FRESHNESS.getTitle().toLowerCase(),
+        homePage.getFreshnessSealedStampTitle(),
+        HomepageFreshnessStamp.SEALED_FOR_FRESHNESS.getTitle(),
         "Sealed For Freshness Section Title did not match, got: "
-            + homePage.getFreshnessSealedStampTitle().toLowerCase()
+            + homePage.getFreshnessSealedStampTitle()
             + ", expected: "
-            + HomepageFreshnessStamp.SEALED_FOR_FRESHNESS.getTitle().toLowerCase());
+            + HomepageFreshnessStamp.SEALED_FOR_FRESHNESS.getTitle());
 
     softAssert.assertEquals(
-        homePage.getFreshnessSealedStampDescription().toLowerCase(),
-        HomepageFreshnessStamp.SEALED_FOR_FRESHNESS.getDescription().toLowerCase(),
+        homePage.getFreshnessSealedStampDescription(),
+        HomepageFreshnessStamp.SEALED_FOR_FRESHNESS.getDescription(),
         "Sealed For Freshness Stamp Section Description did not match, got: "
-            + homePage.getFreshnessSealedStampDescription().toLowerCase()
+            + homePage.getFreshnessSealedStampDescription()
             + ", expected: "
-            + HomepageFreshnessStamp.SEALED_FOR_FRESHNESS.getDescription().toLowerCase());
+            + HomepageFreshnessStamp.SEALED_FOR_FRESHNESS.getDescription());
 
     softAssert.assertEquals(
-        homePage.getFreshnessDeliverStampTitle().toLowerCase(),
-        HomepageFreshnessStamp.DELIVERED_TO_YOU.getTitle().toLowerCase(),
+        homePage.getFreshnessDeliverStampTitle(),
+        HomepageFreshnessStamp.DELIVERED_TO_YOU.getTitle(),
         "Deliver to you Section Title did not match, got: "
-            + homePage.getFreshnessDeliverStampTitle().toLowerCase()
+            + homePage.getFreshnessDeliverStampTitle()
             + ", expected: "
-            + HomepageFreshnessStamp.DELIVERED_TO_YOU.getTitle().toLowerCase());
+            + HomepageFreshnessStamp.DELIVERED_TO_YOU.getTitle());
 
     softAssert.assertEquals(
-        homePage.getFreshnessDeliverStampDescription().toLowerCase(),
-        HomepageFreshnessStamp.DELIVERED_TO_YOU.getDescription().toLowerCase(),
+        homePage.getFreshnessDeliverStampDescription(),
+        HomepageFreshnessStamp.DELIVERED_TO_YOU.getDescription(),
         "Deliver to you Stamp Section Description did not match, got: "
-            + homePage.getFreshnessDeliverStampDescription().toLowerCase()
+            + homePage.getFreshnessDeliverStampDescription()
             + ", expected: "
-            + HomepageFreshnessStamp.DELIVERED_TO_YOU.getDescription().toLowerCase());
+            + HomepageFreshnessStamp.DELIVERED_TO_YOU.getDescription());
 
     softAssert.assertAll();
   }

@@ -306,61 +306,62 @@ public class HomePage extends Base {
     int coffeeIndex = 0;
     logger.info(
         "-- coffee's freshness stamp title is: "
-            + freshnessStampTitles.get(coffeeIndex).getText().trim());
-    return freshnessStampTitles.get(coffeeIndex).getText().trim();
+            + freshnessStampTitles.get(coffeeIndex).getText().trim().toLowerCase());
+    return freshnessStampTitles.get(coffeeIndex).getText().trim().toLowerCase();
   }
 
   public String getFreshnessCoffeeStampDescription() {
     int coffeeIndex = 0;
     logger.info(
         "-- coffee's freshness stamp description is: "
-            + freshnessStampDescriptions.get(coffeeIndex).getText().trim());
-    return freshnessStampDescriptions.get(coffeeIndex).getText().trim();
+            + freshnessStampDescriptions.get(coffeeIndex).getText().trim().toLowerCase());
+    return freshnessStampDescriptions.get(coffeeIndex).getText().trim().toLowerCase();
   }
 
   public String getFreshnessSealedStampTitle() {
     int sealedLocation = 1;
     logger.info(
         "-- sealed to order's freshness stamp title is: "
-            + freshnessStampTitles.get(sealedLocation).getText().trim());
-    return freshnessStampTitles.get(sealedLocation).getText().trim();
+            + freshnessStampTitles.get(sealedLocation).getText().trim().toLowerCase());
+    return freshnessStampTitles.get(sealedLocation).getText().trim().toLowerCase();
   }
 
   public String getFreshnessSealedStampDescription() {
     int sealedLocation = 1;
     logger.info(
         "-- sealed to order's freshness stamp description is: "
-            + freshnessStampDescriptions.get(sealedLocation).getText().trim());
-    return freshnessStampDescriptions.get(sealedLocation).getText().trim();
+            + freshnessStampDescriptions.get(sealedLocation).getText().trim().toLowerCase());
+    return freshnessStampDescriptions.get(sealedLocation).getText().trim().toLowerCase();
   }
 
   public String getFreshnessDeliverStampTitle() {
     int deliverLocation = 2;
     logger.info(
         "-- deliver's freshness stamp title is: "
-            + freshnessStampTitles.get(deliverLocation).getText().trim());
-    return freshnessStampTitles.get(deliverLocation).getText().trim();
+            + freshnessStampTitles.get(deliverLocation).getText().trim().toLowerCase());
+    return freshnessStampTitles.get(deliverLocation).getText().trim().toLowerCase();
   }
 
   public String getFreshnessDeliverStampDescription() {
     int deliverLocation = 2;
     logger.info(
         "-- deliver's freshness stamp description is: "
-            + freshnessStampDescriptions.get(deliverLocation).getText().trim());
-    return freshnessStampDescriptions.get(deliverLocation).getText().trim();
+            + freshnessStampDescriptions.get(deliverLocation).getText().trim().toLowerCase());
+    return freshnessStampDescriptions.get(deliverLocation).getText().trim().toLowerCase();
   }
 
   public String getFreshnessStampSectionTitle() {
     logger.info(
-        "Getting Freshness Stamp Section Title: " + freshnessStampSectionTitle.getText().trim());
-    return freshnessStampSectionTitle.getText().trim();
+        "Getting Freshness Stamp Section Title: "
+            + freshnessStampSectionTitle.getText().trim().toLowerCase());
+    return freshnessStampSectionTitle.getText().trim().toLowerCase();
   }
 
   public String getFreshnessStampSectionDescription() {
     logger.info(
         "Getting freshness stamp section description: "
-            + freshnessStampSectionDescription.getText().trim());
-    return freshnessStampSectionDescription.getText().trim();
+            + freshnessStampSectionDescription.getText().trim().toLowerCase());
+    return freshnessStampSectionDescription.getText().trim().toLowerCase();
   }
 
   public ProductListPage clickCarouselButton() {

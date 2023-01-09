@@ -64,6 +64,10 @@ public class Header extends BaseComponent {
   @Locate(css = "button[data-id='learn-nav']", on = Platform.WEB_MOBILE_PHONE)
   protected Button learnCategory;
 
+  @Locate(css = "a[data-id='shop-nav']", on = Platform.WEB)
+  @Locate(css = "button[data-id='shop-nav']", on = Platform.WEB_MOBILE_PHONE)
+  protected Button shopCategory;
+
   @Locate(css = "#promoTile2 .menu-category__link", on = Platform.WEB)
   @Locate(css = "#promoTile2 .menu-category__link", on = Platform.WEB_MOBILE_PHONE)
   protected Button peetnikRewardsCategory;
@@ -74,6 +78,9 @@ public class Header extends BaseComponent {
 
   @Locate(css = ".is-visible .nav__columns a[href*='%s']", on = Platform.WEB)
   protected Button subCategories;
+
+  @Locate(css = "div.js-mega-menu.is-visible", on = Platform.WEB)
+  protected ContainerElement subCategoriesContainer;
 
   @Locate(css = ".nav__secondary-item a[href*='%s']", on = Platform.WEB)
   protected Button subCategoriesAllLinks;
@@ -263,6 +270,11 @@ public class Header extends BaseComponent {
     return SdkHelper.create(SignInPage.class);
   }
 
+  @Step("Verify submenu container displays")
+  public boolean isSubMenuContainerDisplayed() {
+    return WebHelper.exists(subCategoriesContainer, 5);
+  }
+
   @Step("Verify submenu item displays")
   public boolean isSubMenuItemDisplayed(String linkHref) {
     SdkHelper.getSyncHelper().wait(Until.uiElement(subCategories.format(linkHref)).visible());
@@ -345,8 +357,8 @@ public class Header extends BaseComponent {
     return teaCategory.isDisplayed();
   }
 
-  @Step("Verify visit us menu item is displayed")
-  public boolean isVisitUsMenuItemDisplayed() {
+  @Step("Verify coffee bars menu item is displayed")
+  public boolean isCoffeeBarsMenuItemDisplayed() {
     return coffeeBarsCategory.isDisplayed();
   }
 
@@ -358,6 +370,11 @@ public class Header extends BaseComponent {
   @Step("Verify learn menu item is displayed")
   public boolean isLearnMenuItemDisplayed() {
     return learnCategory.isDisplayed();
+  }
+
+  @Step("Verify shop menu item is displayed")
+  public boolean isShopMenuItemDisplayed() {
+    return shopCategory.isDisplayed();
   }
 
   @Step("Verify peetnik menu item is displayed")

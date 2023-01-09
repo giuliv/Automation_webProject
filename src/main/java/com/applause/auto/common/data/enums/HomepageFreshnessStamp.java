@@ -21,10 +21,10 @@ public enum HomepageFreshnessStamp {
   @Getter private String description;
 
   public String getTitle() {
-    return title;
+    return title.toLowerCase();
   }
 
   public String getDescription() {
-    return description;
+    return description.toLowerCase();
   }
 }
