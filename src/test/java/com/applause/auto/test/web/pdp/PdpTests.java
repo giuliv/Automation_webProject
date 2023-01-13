@@ -1117,11 +1117,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {
-        Constants.TestNGGroups.FRONT_END_REGRESSION,
-        Constants.TestNGGroups.PDP,
-        TestNGGroups.FE_PROD_REGRESSION
-      },
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11107468")
   public void pdpOutOfStockTest() {
     logger.info("1. Navigate to PDP");
@@ -1141,11 +1137,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {
-        Constants.TestNGGroups.FRONT_END_REGRESSION,
-        Constants.TestNGGroups.PDP,
-        TestNGGroups.FE_PROD_REGRESSION
-      },
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11107467")
   public void pdpOutOfStockSoldOutTest() {
     logger.info("1. Navigate to PDP");

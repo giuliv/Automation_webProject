@@ -288,6 +288,10 @@ public class CheckOutPage extends Base {
     SdkHelper.getSyncHelper().wait(Until.uiElement(continueToShipping).visible());
     continueToShipping.click();
 
+    if (WebHelper.exists(proceedButton, 5)) {
+      proceedButton.click();
+    }
+
     return SdkHelper.create(ShippingPage.class);
   }
 
@@ -298,7 +302,9 @@ public class CheckOutPage extends Base {
     return SdkHelper.create(clazz);
   }
 
-  /** @return List<String> */
+  /**
+   * @return List<String>
+   */
   @Step("Get list of error messages")
   public List<String> getListOfErrorMessages() {
     ((LazyList<?>) errorMessagesList).initialize();
@@ -361,7 +367,9 @@ public class CheckOutPage extends Base {
   }
 
   @Step("Get container")
-  /** @return boolean */
+  /**
+   * @return boolean
+   */
   public boolean isDisplayed() {
     return WebHelper.isDisplayed(mainContainer);
   }
@@ -409,7 +417,9 @@ public class CheckOutPage extends Base {
     return SdkHelper.create(HomePage.class);
   }
 
-  /** @return products names */
+  /**
+   * @return products names
+   */
   public List<String> getProductsNames() {
     WebHelper.waitForElementToAppear(orderSummarySection, 10);
     productsNames.initialize();

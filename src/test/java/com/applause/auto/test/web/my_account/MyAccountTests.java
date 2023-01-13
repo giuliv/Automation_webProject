@@ -232,11 +232,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {
-        TestNGGroups.FRONT_END_REGRESSION,
-        TestNGGroups.MY_ACCOUNT,
-        TestNGGroups.FE_PROD_REGRESSION
-      },
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.MY_ACCOUNT},
       description = "11102926")
   public void myAccountMySubscriptionElementsTest() {
     MyAccountPage myAccountPage =
@@ -503,7 +499,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
+      groups = {TestNGGroups.FRONT_END_REGRESSION},
       description = "11118664")
   public void dashboardRecentOrdersTest() {
     logger.info("1. Navigate to Sign in page");

@@ -160,11 +160,7 @@ public class CoffeeAllCoffeeTests extends BaseTest {
   }
 
   @Test(
-      groups = {
-        TestNGGroups.FRONT_END_REGRESSION,
-        TestNGGroups.PRODUCTS,
-        TestNGGroups.FE_PROD_REGRESSION
-      },
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.PRODUCTS},
       description = "11107496")
   public void allCoffeeOutOfStockTest() {
     logger.info("1. Navigate to Product list page");

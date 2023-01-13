@@ -123,11 +123,7 @@ public class PpdTests extends BaseTest {
   }
 
   @Test(
-      groups = {
-        TestNGGroups.PPD,
-        TestNGGroups.FRONT_END_REGRESSION,
-        TestNGGroups.FE_PROD_REGRESSION
-      },
+      groups = {TestNGGroups.PPD, TestNGGroups.FRONT_END_REGRESSION},
       description = "11124775")
   public void prePaidSubscriptionMyAccountMySubscriptionValidationTest() {
     MyAccountPage myAccountPage =
@@ -215,11 +211,7 @@ public class PpdTests extends BaseTest {
   }
 
   @Test(
-      groups = {
-        TestNGGroups.PPD,
-        TestNGGroups.FRONT_END_REGRESSION,
-        TestNGGroups.FE_PROD_REGRESSION
-      },
+      groups = {TestNGGroups.PPD, TestNGGroups.FRONT_END_REGRESSION},
       description = "11124774")
   public void regularSubscriptionMyAccountMySubscriptionValidationTest() {
     MyAccountPage myAccountPage =

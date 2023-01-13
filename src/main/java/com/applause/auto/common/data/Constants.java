@@ -402,7 +402,7 @@ public class Constants {
     public static final String CREDIT_CARD_NUMBER_4 = "6031";
     public static final String CREDIT_CARD_NAME = "Test Automation";
     public static final String CREDIT_CARD_EXPIRATION_MONTH = "12";
-    public static final String CREDIT_CARD_EXPIRATION_YEAR = "2022";
+    public static final String CREDIT_CARD_EXPIRATION_YEAR = "2024";
     public static final String CREDIT_CARD_CVV = "010";
 
     public static final String CREDIT_CARD =
