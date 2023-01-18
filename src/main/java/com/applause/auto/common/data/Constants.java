@@ -302,6 +302,8 @@ public class Constants {
         MobileHelper.isAndroid()
             ? "appautosvc+peetscoffee2@applause.com"
             : "appautosvc+peetscoffee2ios@applause.com";
+    public static final String USER_WITH_PEETNIK_REWARDS = "peets_order_beverages_ios@gmail.com";
+    public static final String PASSWORD_FOR_USER__WITH_PEETNIK_REWARDS = "P@ssword1!";
     public static final String PASSWORD = "abcde1";
     public static final String EDIT_EMAIL = "peets.auto01@gmail.com";
     public static final String EDIT_EMAIL_PWD = "p4ssword!";

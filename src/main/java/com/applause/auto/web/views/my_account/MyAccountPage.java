@@ -4,14 +4,6 @@ import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.web.components.MyAccountLeftMenu;
-import com.applause.auto.web.components.RegisterPeetCardComponent;
-import com.applause.auto.web.components.UpdateSubscriptionPaymentChunk;
-import com.applause.auto.web.components.my_account.MyOrderItemComponent;
-import com.applause.auto.web.helpers.WebHelper;
-import com.applause.auto.web.views.Base;
-import com.applause.auto.web.views.GiftCardsPage;
-import com.applause.auto.web.views.ProductListPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
@@ -21,6 +13,15 @@ import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
+import com.applause.auto.web.components.MyAccountLeftMenu;
+import com.applause.auto.web.components.RegisterPeetCardComponent;
+import com.applause.auto.web.components.ReloadComponent;
+import com.applause.auto.web.components.UpdateSubscriptionPaymentChunk;
+import com.applause.auto.web.components.my_account.MyOrderItemComponent;
+import com.applause.auto.web.helpers.WebHelper;
+import com.applause.auto.web.views.Base;
+import com.applause.auto.web.views.GiftCardsPage;
+import com.applause.auto.web.views.ProductListPage;
 import io.qameta.allure.Step;
 import java.time.Duration;
 import java.util.List;
@@ -145,11 +146,25 @@ public class MyAccountPage extends Base {
   @Locate(css = "dialog[open]>form[data-og-action-key=change_shipping_address]", on = Platform.WEB)
   protected ContainerElement editShippingAddressModalContainer;
 
+  @Locate(css = "dialog[open] button.og-button-close", on = Platform.WEB)
+  protected Link closeShippingAddressLinkMobile;
+
   @Locate(css = "summary > div", on = Platform.WEB)
   protected Button expandDetailsSection;
 
   @Locate(css = ".og-cancel-subscription-button > a", on = Platform.WEB)
   protected Button cancelSubscriptionButton;
+
+  // PEET'S CARDS section
+
+  @Locate(css = "span.ac-cards__price", on = Platform.WEB)
+  protected Text cardsBalanceText;
+
+  @Locate(css = ".ac-cards__reload label", on = Platform.WEB)
+  protected SelectList cardsAutoReloadCheckbox;
+
+  @Locate(css = ".ac-cards__actions button", on = Platform.WEB)
+  protected Button cardsReloadCardButton;
 
   @Override
   public void afterInit() {
@@ -352,6 +367,7 @@ public class MyAccountPage extends Base {
   @Step("Click 'Update Payment Information' button")
   public UpdateSubscriptionPaymentChunk clickUpdatePaymentInformation() {
     logger.info("Clicking 'Update Payment Information' button");
+    WebHelper.scrollToElement(updatePaymentInformationButton);
     updatePaymentInformationButton.click();
     return SdkHelper.create(UpdateSubscriptionPaymentChunk.class);
   }
@@ -398,6 +414,13 @@ public class MyAccountPage extends Base {
     return WebHelper.isDisplayed(editShippingAddressModalContainer, 10);
   }
 
+  @Step("Click on the close icon for Edit shipping address modal")
+  public MyAccountPage closeEditShippingAddressModal() {
+    logger.info("Clicking on the close icon for Edit shipping address modal");
+    closeShippingAddressLinkMobile.click();
+    return this;
+  }
+
   @Step("Expand details section for mobile")
   public MyAccountPage expandDetailsSectionOnMobile() {
     if (!WebHelper.isDesktopSiteVersion()) {
@@ -412,6 +435,37 @@ public class MyAccountPage extends Base {
   @Step("Verify Cancel Subscription button is displayed")
   public boolean isCancelSubscriptionDisplayed() {
     return WebHelper.isDisplayed(cancelSubscriptionButton);
+  }
+
+  @Step("Verify Peets Gift card balance is displayed and is not empty")
+  public boolean isPeetsGiftCardBalanceDisplayed() {
+    return WebHelper.isDisplayed(cardsBalanceText) && !cardsBalanceText.getText().isEmpty();
+  }
+
+  @Step("Verify Auto Reload ON/OFF button is displayed")
+  public boolean isAutoReloadOnOffDisplayed() {
+    WebHelper.scrollToPageBottom();
+    WebHelper.scrollToElement(cardsAutoReloadCheckbox);
+    return WebHelper.isDisplayed(cardsAutoReloadCheckbox);
+  }
+
+  @Step("Verify Auto Reload ON/OFF button is displayed")
+  public boolean isReloadButtonDisplayed() {
+    return WebHelper.isDisplayed(cardsReloadCardButton);
+  }
+
+  @Step("Click Reload button")
+  public ReloadComponent clickReloadButton() {
+    WebHelper.scrollToElement(cardsReloadCardButton);
+    cardsReloadCardButton.click();
+    return SdkHelper.create(ReloadComponent.class);
+  }
+
+  @Step("Click 'View all orders' button")
+  public OrderHistoryPage clickViewAllOrders() {
+    WebHelper.scrollToElement(viewAllOrdersButton);
+    viewAllOrdersButton.click();
+    return SdkHelper.create(OrderHistoryPage.class);
   }
 }
 

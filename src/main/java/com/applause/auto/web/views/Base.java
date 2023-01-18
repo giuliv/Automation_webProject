@@ -2,17 +2,19 @@ package com.applause.auto.web.views;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.web.components.FooterComponent;
-import com.applause.auto.web.components.Header;
-import com.applause.auto.web.components.MyAccountLeftMenu;
-import com.applause.auto.web.components.NeverMissOfferComponent;
-import com.applause.auto.web.components.pdp.CoffeeBarCarouselComponent;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.web.components.FooterComponent;
+import com.applause.auto.web.components.Header;
+import com.applause.auto.web.components.MyAccountLeftMenu;
+import com.applause.auto.web.components.NeverMissOfferComponent;
+import com.applause.auto.web.components.WelcomeBackDialogComponent;
+import com.applause.auto.web.components.pdp.CoffeeBarCarouselComponent;
 import io.qameta.allure.Step;
+import lombok.Getter;
 
 @Implementation(is = Base.class, on = Platform.WEB)
 @Implementation(is = Base.class, on = Platform.WEB_MOBILE_PHONE)
@@ -25,6 +27,8 @@ public class Base extends BaseComponent {
 
   @Locate(css = "#attentive_creative", on = Platform.WEB)
   protected ContainerElement newBannerIFrame;
+
+  @Getter @Locate public WelcomeBackDialogComponent welcomeBackDialogComponent;
 
   @Step("Get header")
   public Header getHeader() {

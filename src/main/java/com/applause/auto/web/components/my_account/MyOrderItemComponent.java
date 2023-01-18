@@ -4,15 +4,15 @@ import com.applause.auto.common.data.dto.MyOrderDto;
 import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.web.helpers.WebHelper;
-import com.applause.auto.web.views.AcceptancePage;
-import com.applause.auto.web.views.CartPage;
-import com.applause.auto.web.views.ProductDetailsPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.web.helpers.WebHelper;
+import com.applause.auto.web.views.AcceptancePage;
+import com.applause.auto.web.views.CartPage;
+import com.applause.auto.web.views.ProductDetailsPage;
 import io.qameta.allure.Step;
 
 @Implementation(is = MyOrderItemComponent.class, on = Platform.WEB)
@@ -30,7 +30,7 @@ public class MyOrderItemComponent extends BaseComponent {
   @Locate(xpath = ".//h4[@aria-label='Order Status']", on = Platform.WEB)
   private Text total;
 
-  @Locate(xpath = ".//button", on = Platform.WEB)
+  @Locate(xpath = ".//button[contains(text(),'Details')]", on = Platform.WEB)
   private Button detailsButton;
 
   @Locate(xpath = ".//div[contains(@class, 'animations')]", on = Platform.WEB)
@@ -98,6 +98,7 @@ public class MyOrderItemComponent extends BaseComponent {
   @Step("Click on 'Details' button")
   public MyOrderItemComponent clickOnDetails() {
     logger.info("Clicking on 'Details' button");
+    WebHelper.waitForElementToAppear(detailsButton, 10);
     detailsButton.click();
     WebHelper.waitForElementToDisappear(animation, 10);
     return this;
@@ -220,6 +221,22 @@ public class MyOrderItemComponent extends BaseComponent {
   public CartPage clickOnReorderButton() {
     logger.info("Clicking on 'Reorder' button");
     reorderButton.click();
+    waitForReorderButtonLoadingComplete();
     return SdkHelper.create(CartPage.class);
+  }
+
+  private void waitForReorderButtonLoadingComplete() {
+    SdkHelper.getSyncHelper().sleep(1000); // wait for loading to start
+    try {
+      SdkHelper.getSyncHelper()
+          .waitUntil(
+              loading ->
+                  !reorderButton
+                      .getAttributeValue(
+                          reorderButton.getAttributeValue(Attribute.CLASS.getValue()))
+                      .contains("is-loading"));
+    } catch (Exception e) {
+      throw new RuntimeException("Reorder button loading did not complete");
+    }
   }
 }

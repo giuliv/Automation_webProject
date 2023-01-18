@@ -3,14 +3,16 @@ package com.applause.auto.web.views.my_account;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.web.components.RegisterPeetCardComponent;
-import com.applause.auto.web.components.ReloadComponent;
-import com.applause.auto.web.views.GiftCardsPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.web.components.RegisterPeetCardComponent;
+import com.applause.auto.web.components.ReloadComponent;
+import com.applause.auto.web.helpers.WebHelper;
+import com.applause.auto.web.views.GiftCardsPage;
+import io.qameta.allure.Step;
 import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -91,5 +93,15 @@ public class MyCardsPage extends BaseComponent {
     logger.info("Clicking 'Buy Peet's Card' button");
     buyNewPeetsCardButton.click();
     return SdkHelper.create(GiftCardsPage.class);
+  }
+
+  @Step("Verify REGISTER NEW PEET'S CARDS Button is displayed")
+  public Boolean isRegisterNewPeetsCardsDisplayed() {
+    return WebHelper.isDisplayed(registerNewPeetsCardButton);
+  }
+
+  @Step("Verify Buy a Peet's Card Button is displayed")
+  public Boolean isBuyPeetsCardDisplayed() {
+    return WebHelper.isDisplayed(buyNewPeetsCardButton);
   }
 }

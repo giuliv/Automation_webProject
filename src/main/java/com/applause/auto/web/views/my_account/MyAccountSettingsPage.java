@@ -3,11 +3,13 @@ package com.applause.auto.web.views.my_account;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.web.views.Base;
-import com.applause.auto.web.views.ResetPasswordPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.web.helpers.WebHelper;
+import com.applause.auto.web.views.Base;
+import com.applause.auto.web.views.ResetPasswordPage;
 import io.qameta.allure.Step;
 import java.time.Duration;
 
@@ -39,6 +41,12 @@ public class MyAccountSettingsPage extends Base {
 
   @Locate(css = "a[href*=email-preferences]", on = Platform.WEB)
   private Text getEditEmailPreferencesLink;
+
+  @Locate(css = "a.ac-settings__btn--address[href*='address-book']", on = Platform.WEB)
+  private Link getEditStandardOrderAddressBookLink;
+
+  @Locate(css = "a.ac-settings__btn--address[href*='subscriptions']", on = Platform.WEB)
+  private Link getUpdateSubscriptionShippingAddressLink;
 
   @Override
   public void afterInit() {
@@ -90,5 +98,25 @@ public class MyAccountSettingsPage extends Base {
     logger.info("Clicking 'Edit Email Preferences' link");
     getEditEmailPreferencesLink.click();
     return SdkHelper.create(MyAccountEmailPreferencesPage.class);
+  }
+
+  @Step("Verify 'Edit password' link is displayed")
+  public boolean isEditPasswordLinkDisplayed() {
+    return WebHelper.isDisplayed(getEditPasswordLink);
+  }
+
+  @Step("Verify 'Edit Email Preferences' link is displayed")
+  public boolean isEditEmailPreferencesLinkDisplayed() {
+    return WebHelper.isDisplayed(getEditEmailPreferencesLink);
+  }
+
+  @Step("Verify 'UPDATE SUBSCRIPTION SHIPPING ADDRESS' link is displayed")
+  public boolean isUpdateSubscriptionShippingAddressLinkDisplayed() {
+    return WebHelper.isDisplayed(getUpdateSubscriptionShippingAddressLink);
+  }
+
+  @Step("Verify 'DIT STANDARD ORDER ADDRESS BOOK' link is displayed")
+  public boolean isEditStandardOrderAddressBookLinkDisplayed() {
+    return WebHelper.isDisplayed(getEditStandardOrderAddressBookLink);
   }
 }

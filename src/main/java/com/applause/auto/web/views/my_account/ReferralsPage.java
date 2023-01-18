@@ -3,9 +3,6 @@ package com.applause.auto.web.views.my_account;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.web.components.my_account.ShareLinkComponent;
-import com.applause.auto.web.components.my_account.ShareViaEmailComponent;
-import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -13,6 +10,9 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
+import com.applause.auto.web.components.my_account.ShareLinkComponent;
+import com.applause.auto.web.components.my_account.ShareViaEmailComponent;
+import com.applause.auto.web.helpers.WebHelper;
 import io.qameta.allure.Step;
 import java.time.Duration;
 import java.util.List;
@@ -52,6 +52,9 @@ public class ReferralsPage extends BaseComponent {
       css = "[class=\"ac-tout__cta btn-link router-link-exact-active router-link-active\"]",
       on = Platform.WEB)
   private Button starSharingButton;
+
+  @Locate(css = "div.dashboard-header", on = Platform.WEB)
+  private ContainerElement referFriendBannerContainer;
 
   @Override
   public void afterInit() {
@@ -170,5 +173,10 @@ public class ReferralsPage extends BaseComponent {
     boolean isDisplayed = WebHelper.isDisplayed(starSharingButton);
     logger.info("'Start sharing' table is Displayed - [{}]", isDisplayed);
     return isDisplayed;
+  }
+
+  @Step("Check if 'Refer a Friend' banner is displayed")
+  public boolean isReferFriendBannerDisplayed() {
+    return WebHelper.isDisplayed(referFriendBannerContainer);
   }
 }
