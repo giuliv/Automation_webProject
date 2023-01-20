@@ -473,12 +473,12 @@ public class CreateAccountTest extends BaseTest {
       groups = {TestNGGroups.REGRESSION},
       description = "625880")
   public void createAccountEmailPassword() {
-    logger.info("Launch the app and arrive at the first onboarding screen view");
+    logger.info("Launch the app");
     OnboardingView onboardingView = openApp();
 
-    logger.info("Skip Onboarding");
+    logger.info("Skip OnBoarding");
     LandingView landingView = onboardingView.skipOnboarding();
-    long uniq = System.currentTimeMillis();
+    long id = System.currentTimeMillis();
 
     logger.info("Tap Create Account");
     CreateAccountView createAccountView = landingView.createAccount();
@@ -501,7 +501,7 @@ public class CreateAccountTest extends BaseTest {
     createAccountView.setDOB(dobDay, dobMonth, dobYear);
 
     logger.info("Enter valid email address");
-    String email = String.format("a+%s@gmail.com", uniq);
+    String email = String.format("a+%s@gmail.com", id);
     createAccountView.setEmailAddress(email);
 
     logger.info("Enter valid password");
@@ -512,8 +512,7 @@ public class CreateAccountTest extends BaseTest {
     createAccountView.tapOnShowHidePassword();
 
     logger.info("Make sure password entered is displayed to user");
-    Assert.assertEquals(
-        createAccountView.getPassword().trim(), password, "Password does not displayed");
+    Assert.assertEquals(createAccountView.getPassword(), password, "Password does not displayed");
 
     logger.info("Tap on hide password icon");
     createAccountView.tapOnShowHidePassword();
@@ -659,15 +658,18 @@ public class CreateAccountTest extends BaseTest {
       groups = {TestNGGroups.REGRESSION},
       description = "2980586")
   public void createAccountFieldValidation() {
-    logger.info("Launch the app and arrive at the first onboarding screen view");
-    LandingView landingView = testHelper.navigateToLandingView();
+    logger.info("Launch the app");
+    OnboardingView onboardingView = openApp();
+
+    logger.info("Skip OnBoarding");
+    LandingView landingView = onboardingView.skipOnboarding();
 
     Assert.assertEquals(
         landingView.getHeadingTextValue(),
-        "Peetnik Rewards",
+        "LET’S MAKE IT OFFICIAL",
         "First screen text value is not correct");
-    long uniq = System.currentTimeMillis();
 
+    long id = System.currentTimeMillis();
     logger.info("Tap Create Account");
     CreateAccountView createAccountView = landingView.createAccount();
 
@@ -741,7 +743,7 @@ public class CreateAccountTest extends BaseTest {
     createAccountView.setDOB(dobDay, dobMonth, dobYear);
 
     logger.info("Enter valid email address");
-    String email = String.format("a+%s@gmail.com", uniq);
+    String email = String.format("a+%s@gmail.com", id);
     createAccountView.setEmailAddress(email);
 
     logger.info("Enter valid password");

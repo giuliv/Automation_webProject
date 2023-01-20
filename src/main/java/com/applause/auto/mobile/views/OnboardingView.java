@@ -22,7 +22,7 @@ import org.openqa.selenium.TimeoutException;
 @Implementation(is = OnboardingViewIos.class, on = Platform.MOBILE_IOS)
 public class OnboardingView extends BaseComponent {
 
-  @Locate(id = "SKIP", on = Platform.MOBILE_IOS)
+  @Locate(iOSClassChain = "**/XCUIElementTypeButton[`label == \"SKIP\"`]", on = Platform.MOBILE_IOS)
   @Locate(
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/skipTextView\")",
       on = Platform.MOBILE_ANDROID)
@@ -55,8 +55,7 @@ public class OnboardingView extends BaseComponent {
   protected Text helpfulMessage;
 
   @Locate(
-      iOSClassChain =
-          "**/XCUIElementTypeOther[$type == 'XCUIElementTypeButton' and name == 'SKIP'$][-1]",
+      xpath = "//XCUIElementTypeButton[@name=\"SKIP\"]/preceding-sibling::XCUIElementTypeOther",
       on = Platform.MOBILE_IOS)
   @Locate(
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/linePageIndicator\")",
@@ -88,7 +87,8 @@ public class OnboardingView extends BaseComponent {
 
   @Step("Check if 'Skip' Button is Displayed")
   public boolean isSkipButtonDisplayed() {
-    return MobileHelper.isDisplayed(skipButton);
+    //    return MobileHelper.isDisplayed(skipButton);
+    return skipButton.getAttributeValue("accessible").equalsIgnoreCase("true");
   }
 
   @Step("Get Onboarding description")
@@ -112,7 +112,7 @@ public class OnboardingView extends BaseComponent {
 
   @Step("Check if 'Page Indicator' is Displayed")
   public boolean isPageIndicatorDisplayed() {
-    return MobileHelper.isDisplayed(pageIndicator);
+    return pageIndicator.isEnabled();
   }
 
   @Step("Swipe to get to next tutorial view")
@@ -126,12 +126,8 @@ public class OnboardingView extends BaseComponent {
   @Step("Tap on 'Skip' button")
   public LandingView skipOnboarding() {
     logger.info("Tapping on 'Skip' button");
-    try {
-      SdkHelper.getSyncHelper()
-          .wait(Until.uiElement(skipButton).visible().setTimeout(Duration.ofSeconds(30)));
-    } catch (TimeoutException t) {
-      logger.info("For some reason, skip button seems not visible");
-    }
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(skipButton).visible().setTimeout(Duration.ofSeconds(40)));
 
     if (skipButton.isClickable()) {
       skipButton.click();
@@ -157,6 +153,6 @@ class OnboardingViewIos extends OnboardingView {
       logger.info("Tracking Popup was already Accepted");
     }
     SdkHelper.getSyncHelper()
-        .wait(Until.uiElement(skipButton).visible().setTimeout(Duration.ofSeconds(40)));
+        .wait(Until.uiElement(skipButton).present().setTimeout(Duration.ofSeconds(40)));
   }
 }

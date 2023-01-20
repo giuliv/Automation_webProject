@@ -62,13 +62,15 @@ public class BaseTest extends ApplauseSeleniumTest {
 
   public static OnboardingView openApp() {
     OnboardingView onboardingView = SdkHelper.create(OnboardingView.class);
-    onboardingView.getGetReportAProblemPopupChunk().waitForPopUpToDisappear();
+    //    onboardingView.getGetReportAProblemPopupChunk().waitForPopUpToDisappear();
+    //    [20.01.23:Seems not needed anymore]
     return onboardingView;
   }
 
   public static LandingView openAppAndSkipOnboarding() {
     OnboardingView onboardingView = SdkHelper.create(OnboardingView.class);
-    onboardingView.getGetReportAProblemPopupChunk().waitForPopUpToDisappear();
+    //    onboardingView.getGetReportAProblemPopupChunk().waitForPopUpToDisappear(); [20.01.23:Seems
+    //    [20.01.23:Seems not needed anymore]
     return onboardingView.skipOnboarding();
   }
 }

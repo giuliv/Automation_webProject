@@ -1,0 +1,22 @@
+{
+  "applause:options": {
+    "isW3C": "true",
+    "isStrict": "false",
+    "driverName": "iOS",
+    "driverType": "iOS",
+    "factoryKey": "MOBILE_IOS",
+    "osName": "iOS"
+  },
+  "platformName": "iOS",
+  "noReset": false,
+  "platformVersion": "16.0",
+  "deviceName": "SpikeMax",
+  "udid": "00008030-000C30460A53402E",
+  "app": "/Users/jgarcia/Desktop/peets.ipa",
+  "automationName": "XCUITest",
+  "fixImageTemplateScale": true,
+  "newCommandTimeout": 3600,
+  "snapshotMaxDepth": 99,
+  "autoGrantPermissions": true,
+  "appPushTimeout": 240000
+}

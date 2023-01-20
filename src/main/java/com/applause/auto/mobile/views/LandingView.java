@@ -22,7 +22,7 @@ public class LandingView extends BaseComponent {
   /* -------- Elements -------- */
 
   @Locate(
-      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Peetnik Rewards\"`]",
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"LET’S MAKE IT OFFICIAL\"`]",
       on = Platform.MOBILE_IOS)
   @Locate(
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/authentication_title_text\")",
@@ -66,7 +66,7 @@ public class LandingView extends BaseComponent {
     logger.info("Landing View init");
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getSignInButton).visible().setTimeout(Duration.ofSeconds(40)));
-    getReportAProblemPopupChunk().waitForPopUpToDisappear();
+    //    getReportAProblemPopupChunk().waitForPopUpToDisappear(); [20.01.23:Seems not needed]
   }
 
   /**
@@ -102,7 +102,6 @@ public class LandingView extends BaseComponent {
    * @return
    */
   public String getHeadingTextValue() {
-    logger.info(">>>>>>>>." + SdkHelper.getDriver().getPageSource());
     logger.info("Waiting for header text");
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(60)));

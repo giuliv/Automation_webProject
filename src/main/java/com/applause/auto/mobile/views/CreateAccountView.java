@@ -23,8 +23,8 @@ import io.qameta.allure.Step;
 public class CreateAccountView extends BaseComponent {
 
   @Locate(
-      iOSClassChain =
-          "**/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[5]/XCUIElementTypeButton",
+      xpath =
+          "//XCUIElementTypeTextField[@name=\"Email Address\"]/parent::XCUIElementTypeOther/following-sibling::XCUIElementTypeOther[1]/XCUIElementTypeButton",
       on = Platform.MOBILE_IOS)
   @Locate(
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/passwordToggle\")",
@@ -59,8 +59,7 @@ public class CreateAccountView extends BaseComponent {
   protected Picker getDOBYearPicker;
 
   @Locate(
-      iOSClassChain =
-          "**/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeTextField",
+      iOSClassChain = "**/XCUIElementTypeTextField[`value == \"First Name\"`]",
       on = Platform.MOBILE_IOS)
   @Locate(
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/firstName\")",
@@ -68,8 +67,7 @@ public class CreateAccountView extends BaseComponent {
   protected TextBox firstnameTextBox;
 
   @Locate(
-      iOSClassChain =
-          "**/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeTextField",
+      iOSClassChain = "**/XCUIElementTypeTextField[`value == \"Last Name\"`]",
       on = Platform.MOBILE_IOS)
   @Locate(
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/lastName\")",
@@ -86,8 +84,7 @@ public class CreateAccountView extends BaseComponent {
   protected TextBox getZipCodeTextBox;
 
   @Locate(
-      iOSClassChain =
-          "**/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[3]/XCUIElementTypeTextField",
+      iOSClassChain = "**/XCUIElementTypeTextField[`value == \"Date of Birth\"`]",
       on = Platform.MOBILE_IOS)
   @Locate(
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/birthday\")",
@@ -110,8 +107,7 @@ public class CreateAccountView extends BaseComponent {
   protected TextBox getPhoneNumberTextBox;
 
   @Locate(
-      iOSClassChain =
-          "**/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[4]/XCUIElementTypeTextField",
+      iOSClassChain = "**/XCUIElementTypeTextField[`value == \"Email Address\"`]",
       on = Platform.MOBILE_IOS)
   @Locate(
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/emailAddress\")",
@@ -122,13 +118,15 @@ public class CreateAccountView extends BaseComponent {
   protected TextBox getDOBDoneBtn;
 
   @Locate(
-      iOSClassChain =
-          "**/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[5]/*[1]",
+      iOSClassChain = "**/XCUIElementTypeSecureTextField[`value == \"Password\"`]",
       on = Platform.MOBILE_IOS)
   @Locate(
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/password_edit_text\")",
       on = Platform.MOBILE_ANDROID)
   protected TextBox passwordTextBox;
+
+  @Locate(xpath = "//*[@name=\"Password\"]", on = Platform.MOBILE_IOS)
+  protected TextBox visiblePasswordTextBox;
 
   @Locate(
       xpath = "//XCUIElementTypeStaticText[@name='Enter your promo code here for special offers.']",
@@ -139,8 +137,7 @@ public class CreateAccountView extends BaseComponent {
   protected Text getPromoCodeHintTextBox;
 
   @Locate(
-      iOSClassChain =
-          "**/XCUIElementTypeScrollView/XCUIElementTypeOther/XCUIElementTypeOther[6]/XCUIElementTypeTextField",
+      iOSClassChain = "**/XCUIElementTypeTextField[`value == \"Promo Code (Optional)\"`]",
       on = Platform.MOBILE_IOS)
   @Locate(
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/promoCode\")",
@@ -314,6 +311,7 @@ public class CreateAccountView extends BaseComponent {
     logger.info("Set promo to: [{}]", promo);
     promoCodeTextBox.clearText();
     promoCodeTextBox.sendKeys(promo + "\n");
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for promoCode
     MobileHelper.hideKeyboard();
     return this;
   }
@@ -386,8 +384,13 @@ public class CreateAccountView extends BaseComponent {
 
   @Step("Gets password text")
   public String getPassword() {
-    passwordTextBox.initialize();
-    String password = passwordTextBox.getAttributeValue(Attribute.VALUE.getValue());
+    String password;
+    if (visiblePasswordTextBox.exists()) {
+      password = visiblePasswordTextBox.getAttributeValue(Attribute.VALUE.getValue().trim());
+    } else {
+      password = passwordTextBox.getAttributeValue(Attribute.VALUE.getValue().trim());
+    }
+
     logger.info("Current password - [{}]", password);
     return password;
   }
@@ -510,7 +513,10 @@ class AndroidCreateAccountView extends CreateAccountView {
   @Step("Gets password text")
   public String getPassword() {
     String password =
-        passwordTextBox.getAttributeValue(Attribute.TEXT.getValue()).replace("Password ", "");
+        passwordTextBox
+            .getAttributeValue(Attribute.TEXT.getValue())
+            .replace("Password ", "")
+            .trim();
     logger.info("Password: [{}]", password);
     return password;
   }

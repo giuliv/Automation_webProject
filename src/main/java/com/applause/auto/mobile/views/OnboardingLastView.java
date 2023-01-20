@@ -32,7 +32,7 @@ public class OnboardingLastView extends BaseComponent {
   protected Button signInButton;
 
   @Locate(
-      iOSClassChain = "**/XCUIElementTypeScrollView/**/XCUIElementTypeStaticText[1]",
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"LET’S MAKE IT OFFICIAL\"`]",
       on = Platform.MOBILE_IOS)
   @Locate(
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/authentication_title_text\")",
@@ -65,8 +65,9 @@ public class OnboardingLastView extends BaseComponent {
   @Step("Get Title")
   public String getTitle() {
     title.initialize();
-    String titleText = title.getText();
+    String titleText = title.getText().trim();
+
     logger.info("Heading text: [{}]", titleText);
-    return titleText.trim();
+    return titleText;
   }
 }
