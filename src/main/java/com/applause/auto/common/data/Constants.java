@@ -267,7 +267,7 @@ public class Constants {
     public static final String TEA_BEST_SELLERS_HEADER = "Tea Best Sellers";
 
     public static final String GRIND_FIRST_TEXT_COFFEE = "Whole Bean";
-    public static final String GRIND_FIRST_TEXT = "4 OZ TIN";
+    public static final String GRIND_FIRST_TEXT = "4OZ LOOSE LEAF";
     public static final String GRIND_NEXT_TEXT = "1 LB";
 
     public static final String PDP_HAND_ROAST_TO_ORDER = "Hand Roasted";

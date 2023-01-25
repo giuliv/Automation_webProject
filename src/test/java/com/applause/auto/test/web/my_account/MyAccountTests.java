@@ -672,7 +672,7 @@ public class MyAccountTests extends BaseTest {
 
     logger.info("Validate a Welcome back window is shown just below the Navigation");
     WelcomeBackDialogComponent welcomeBackDialogComponent =
-        myAccountPage.welcomeBackDialogComponent;
+        myAccountPage.getWelcomeBackDialogComponent();
     softAssert.assertTrue(
         welcomeBackDialogComponent.isDisplayed(), "Welcome back window is not shown");
 
@@ -780,7 +780,7 @@ public class MyAccountTests extends BaseTest {
     WelcomeBackDialogComponent welcomeBackDialogComponent =
         myAccountPage.getWelcomeBackDialogComponent();
     WelcomeBackDialogRecommendedForYouComponent firstSection =
-        myAccountPage.welcomeBackDialogComponent.getFirstRecommendedForYouSection();
+        myAccountPage.getWelcomeBackDialogComponent().getFirstRecommendedForYouSection();
     softAssert.assertTrue(
         firstSection.isSectionContainsAllDetails(),
         "Not all expected details are displayed for the first section");

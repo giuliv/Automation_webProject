@@ -472,14 +472,11 @@ public class HomepageTests extends BaseTest {
     logger.info("5. Verifying learn more button");
     CovidPage cPage = homePage.clickCovidResponseLearnMoreButton();
     softAssert.assertTrue(
-        cPage
-            .getDriver()
-            .getCurrentUrl()
-            .contains(Constants.HomepageCovidResponse.LEARN_MORE_URL_PART),
+        WebHelper.getCurrentUrl().contains(Constants.HomepageCovidResponse.LEARN_MORE_URL_PART),
         "Covid Response Learn More page URL is incorrect - expected "
             + Constants.HomepageCovidResponse.LEARN_MORE_URL_PART
             + " to be inside "
-            + cPage.getDriver().getCurrentUrl());
+            + WebHelper.getCurrentUrl());
 
     softAssert.assertAll();
   }
@@ -656,23 +653,21 @@ public class HomepageTests extends BaseTest {
     }
 
     logger.info("4. Verify links take you places");
-    SeasonalPage seasonPage = carouselComponent.clickSeeAllSeasonalBeveragesButton();
+    carouselComponent.clickSeeAllSeasonalBeveragesButton();
     softAssert.assertTrue(
-        seasonPage
-            .getDriver()
-            .getCurrentUrl()
-            .contains(Constants.HomepageCoffeeBar.SEASONAL_URL_PART),
+        WebHelper.getCurrentUrl().contains(Constants.HomepageCoffeeBar.SEASONAL_URL_PART),
         "The  seasonal button brought us to a wrong location.  Got "
-            + seasonPage.getDriver().getCurrentUrl()
+            + WebHelper.getCurrentUrl()
             + " and we expected "
             + Constants.HomepageCoffeeBar.SEASONAL_URL_PART);
 
     homePage = navigateToHome();
-    StoreLocatorPage slocPage = homePage.getCoffeeBarCarouselComponent().clickFindCoffeeBarButton();
+    StoreLocatorPage storeLocatorPage =
+        homePage.getCoffeeBarCarouselComponent().clickFindCoffeeBarButton();
     softAssert.assertTrue(
-        slocPage.getDriver().getCurrentUrl().contains(Constants.HomepageCoffeeBar.FIND_COFFEE_BAR),
+        WebHelper.getCurrentUrl().contains(Constants.HomepageCoffeeBar.FIND_COFFEE_BAR),
         "The find coffee bar button brought us to a wrong page, we got "
-            + slocPage.getDriver().getCurrentUrl()
+            + storeLocatorPage.getDriver().getCurrentUrl()
             + " and we expected "
             + Constants.HomepageCoffeeBar.FIND_COFFEE_BAR);
 

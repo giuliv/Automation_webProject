@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.testng.Assert;
 
 @Implementation(is = CoffeeBarCarouselComponent.class, on = Platform.WEB)
 @Implementation(is = CoffeeBarCarouselComponentMobile.class, on = Platform.WEB_MOBILE_PHONE)
@@ -29,7 +30,9 @@ public class CoffeeBarCarouselComponent extends BaseComponent {
   @Locate(css = "button.flickity-button.flickity-prev-next-button.previous", on = Platform.WEB)
   protected Button previousButton;
 
-  @Locate(css = "#homeBestSellers article", on = Platform.WEB)
+  //  @Locate(css = "#homeBestSellers article", on = Platform.WEB) //This is not the correct
+  // carousel
+  @Locate(css = "#coffeebarCarousel article", on = Platform.WEB)
   protected List<CoffeeBarItemComponent> coffeeBarItemComponents;
 
   @Locate(
@@ -139,7 +142,12 @@ public class CoffeeBarCarouselComponent extends BaseComponent {
 
   @Step("Click all coffee bar item components")
   public List<CoffeeBarItemComponent> getCoffeeBarItemComponents() {
-    ((LazyList<?>) coffeeBarItemComponents).initialize();
+    try {
+      ((LazyList<?>) coffeeBarItemComponents).initialize();
+    } catch (Exception e) {
+      Assert.fail("Coffee Bar Carousel is not displayed");
+    }
+
     return coffeeBarItemComponents;
   }
 

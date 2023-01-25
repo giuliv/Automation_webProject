@@ -113,7 +113,9 @@ public class HomePage extends Base {
       on = Platform.WEB)
   protected Text shopTeaPromoTileDescription;
 
-  @Locate(css = "ul[class=\"menu-categories__inner list-reset\"]>li", on = Platform.WEB)
+  @Locate(
+      css = "ul[class=\"menu-categories__inner list-reset\"] > li:not(.hide)",
+      on = Platform.WEB)
   protected List<ContainerElement> promoTileList;
 
   @Locate(css = "#promoTile%s h3.menu-category__title", on = Platform.WEB)
@@ -705,8 +707,8 @@ class HomePageMobile extends HomePage {
     freshnessStampTitles.get(onlyItem).initialize();
     logger.info(
         "-- coffee's freshness stamp title is: "
-            + freshnessStampTitles.get(onlyItem).getText().trim());
-    return freshnessStampTitles.get(onlyItem).getText().trim();
+            + freshnessStampTitles.get(onlyItem).getText().trim().toLowerCase());
+    return freshnessStampTitles.get(onlyItem).getText().trim().toLowerCase();
   }
 
   @Override
@@ -718,8 +720,8 @@ class HomePageMobile extends HomePage {
     freshnessStampDescriptions.get(onlyItem).initialize();
     logger.info(
         "-- coffee's freshness stamp description is: "
-            + freshnessStampDescriptions.get(onlyItem).getText().trim());
-    return freshnessStampDescriptions.get(onlyItem).getText().trim();
+            + freshnessStampDescriptions.get(onlyItem).getText().trim().toLowerCase());
+    return freshnessStampDescriptions.get(onlyItem).getText().trim().toLowerCase();
   }
 
   @Override
@@ -731,8 +733,8 @@ class HomePageMobile extends HomePage {
     freshnessStampTitles.get(onlyItem).initialize();
     logger.info(
         "-- sealed to order's freshness stamp title is: "
-            + freshnessStampTitles.get(onlyItem).getText().trim());
-    return freshnessStampTitles.get(onlyItem).getText().trim();
+            + freshnessStampTitles.get(onlyItem).getText().trim().toLowerCase());
+    return freshnessStampTitles.get(onlyItem).getText().trim().toLowerCase();
   }
 
   @Override
@@ -744,8 +746,8 @@ class HomePageMobile extends HomePage {
     freshnessStampDescriptions.get(onlyItem).initialize();
     logger.info(
         "-- sealed to order's freshness stamp description is: "
-            + freshnessStampDescriptions.get(onlyItem).getText().trim());
-    return freshnessStampDescriptions.get(onlyItem).getText().trim();
+            + freshnessStampDescriptions.get(onlyItem).getText().trim().toLowerCase());
+    return freshnessStampDescriptions.get(onlyItem).getText().trim().toLowerCase();
   }
 
   @Override
@@ -757,8 +759,8 @@ class HomePageMobile extends HomePage {
     freshnessStampTitles.get(onlyItem).initialize();
     logger.info(
         "-- deliver's freshness stamp title is: "
-            + freshnessStampTitles.get(onlyItem).getText().trim());
-    return freshnessStampTitles.get(onlyItem).getText().trim();
+            + freshnessStampTitles.get(onlyItem).getText().trim().toLowerCase());
+    return freshnessStampTitles.get(onlyItem).getText().trim().toLowerCase();
   }
 
   @Override
@@ -770,8 +772,8 @@ class HomePageMobile extends HomePage {
     freshnessStampDescriptions.get(onlyItem).initialize();
     logger.info(
         "-- deliver's freshness stamp description is: "
-            + freshnessStampDescriptions.get(onlyItem).getText().trim());
-    return freshnessStampDescriptions.get(onlyItem).getText().trim();
+            + freshnessStampDescriptions.get(onlyItem).getText().trim().toLowerCase());
+    return freshnessStampDescriptions.get(onlyItem).getText().trim().toLowerCase();
   }
 
   @Override

@@ -28,7 +28,7 @@ public class Base extends BaseComponent {
   @Locate(css = "#attentive_creative", on = Platform.WEB)
   protected ContainerElement newBannerIFrame;
 
-  @Getter @Locate public WelcomeBackDialogComponent welcomeBackDialogComponent;
+  //  @Getter @Locate public WelcomeBackDialogComponent welcomeBackDialogComponent;
 
   @Step("Get header")
   public Header getHeader() {
@@ -40,6 +40,12 @@ public class Base extends BaseComponent {
   public MyAccountLeftMenu getLeftMenu() {
     logger.info("Getting the left menu");
     return SdkHelper.create(MyAccountLeftMenu.class);
+  }
+
+  @Step("Get Welcome Back Dialog")
+  public WelcomeBackDialogComponent getWelcomeBackDialogComponent() {
+    logger.info("Getting the Welcome Back Dialog");
+    return SdkHelper.create(WelcomeBackDialogComponent.class);
   }
 
   @Step("Get Footer component")

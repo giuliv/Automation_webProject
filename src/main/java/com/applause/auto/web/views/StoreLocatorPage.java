@@ -87,9 +87,17 @@ public class StoreLocatorPage extends Base {
   @Locate(xpath = "//label[input[contains(@id,'amenitiesCheckbox')]]", on = Platform.WEB)
   protected List<Button> amenitiesOptions;
 
+  @Locate(css = ".dwmodal-box .dwmodal-close-button", on = Platform.WEB)
+  protected Button closePopUp;
+
   @Override
   public void afterInit() {
-    //    WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
+    if (WebHelper.exists(closePopUp, 5)) {
+      if (closePopUp.isDisplayed()) {
+        closePopUp.click();
+      }
+    }
+
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
   }
 

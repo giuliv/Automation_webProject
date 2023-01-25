@@ -40,12 +40,10 @@ public class QuickViewComponent extends BaseComponent {
   @Locate(css = ".modal__inner--quick-add .pv-details", on = Platform.WEB)
   private Text productDetails;
 
-  @Locate(id = "ratings-summary", on = Platform.WEB)
+  @Locate(css = ".pv-header__reviews", on = Platform.WEB)
   private ContainerElement starRatings;
 
-  @Locate(
-      css = "#ratings-summary .bv_numReviews_component_container .bv_numReviews_text",
-      on = Platform.WEB)
+  @Locate(css = ".bv_numReviews_component_container .bv_numReviews_text", on = Platform.WEB)
   private Text reviewCount;
 
   @Locate(css = "button.bv_button_buttonFull", on = Platform.WEB)
@@ -374,6 +372,7 @@ public class QuickViewComponent extends BaseComponent {
   public String selectedOptionText() {
     logger.info("Select the 'DropDownGrind' Option Text");
     SdkHelper.getSyncHelper().wait(Until.uiElement(grindDropDown).clickable());
+    logger.info("Selected Dropdown option " + grindDropDown.getText().trim());
     return grindDropDown.getText().trim();
   }
 
