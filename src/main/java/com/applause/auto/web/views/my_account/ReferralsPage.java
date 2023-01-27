@@ -53,7 +53,7 @@ public class ReferralsPage extends BaseComponent {
       on = Platform.WEB)
   private Button starSharingButton;
 
-  @Locate(css = "div.dashboard-header", on = Platform.WEB)
+  @Locate(css = "p.ac-tout__heading", on = Platform.WEB)
   private ContainerElement referFriendBannerContainer;
 
   @Override
@@ -177,6 +177,9 @@ public class ReferralsPage extends BaseComponent {
 
   @Step("Check if 'Refer a Friend' banner is displayed")
   public boolean isReferFriendBannerDisplayed() {
+    if (WebHelper.exists(referFriendBannerContainer, 5)) {
+      WebHelper.scrollToElement(referFriendBannerContainer);
+    }
     return WebHelper.isDisplayed(referFriendBannerContainer);
   }
 }

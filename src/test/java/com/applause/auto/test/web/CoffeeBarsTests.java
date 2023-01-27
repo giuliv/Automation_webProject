@@ -30,7 +30,7 @@ public class CoffeeBarsTests extends BaseTest {
         coffeeBarPage.getFeaturedMenuTitle(),
         Constants.TestData.FEATURED_MENU,
         Constants.TestData.FEATURED_MENU + " was not found in section");
-    int totalProducts = coffeeBarPage.getGetSelectedArticles().size();
+    int totalProducts = coffeeBarPage.getGetSelectedArticles();
     logger.info("Total products in the carrousel: {}", totalProducts);
 
     int loopCounter = 0;
@@ -78,7 +78,7 @@ public class CoffeeBarsTests extends BaseTest {
       coffeeBarPage.clickFeaturedItemOrderNowButton(loopCounter);
       logger.info("XX. Validate order page URL");
       softAssert.assertTrue(
-          SdkHelper.getDriver().getCurrentUrl().contains(Constants.TestData.ORDER_PEETS_URL),
+          WebHelper.getCurrentUrl().contains(Constants.TestData.ORDER_PEETS_URL),
           "Not on the order URL");
 
       WebHelper.closeCurrentTab();
@@ -134,10 +134,8 @@ public class CoffeeBarsTests extends BaseTest {
     logger.info("XX. open find a coffee");
     coffeeBarPage.openCoffeeBanner();
     Assert.assertTrue(
-        SdkHelper.getDriver().getCurrentUrl().contains(Constants.TestData.STORE_LOCATOR_URL),
-        SdkHelper.getDriver().getCurrentUrl()
-            + " did not contain "
-            + Constants.TestData.STORE_LOCATOR_URL);
+        WebHelper.getCurrentUrl().contains(Constants.TestData.STORE_LOCATOR_URL),
+        WebHelper.getCurrentUrl() + " did not contain " + Constants.TestData.STORE_LOCATOR_URL);
 
     logger.info("XX. Navigate to landing page");
     coffeeBarPage = navigateToCoffeeBarMenuPage();
@@ -166,10 +164,8 @@ public class CoffeeBarsTests extends BaseTest {
     Assert.assertTrue(
         emailSignUpPage.validateContinueButton(), "Continue button was not on the screen");
     Assert.assertTrue(
-        SdkHelper.getDriver().getCurrentUrl().contains(Constants.TestData.EMAIL_SIGNUP_URL),
-        SdkHelper.getDriver().getCurrentUrl()
-            + " did not contain "
-            + Constants.TestData.EMAIL_SIGNUP_URL);
+        WebHelper.getCurrentUrl().contains(Constants.TestData.EMAIL_SIGNUP_URL),
+        WebHelper.getCurrentUrl() + " did not contain " + Constants.TestData.EMAIL_SIGNUP_URL);
   }
 
   @Test(
@@ -203,7 +199,7 @@ public class CoffeeBarsTests extends BaseTest {
     logger.info("XX. Validate Order Now URL and switch back to main page");
     WebHelper.switchToNewTabThatContainsUrl(Constants.TestData.ORDER_PEETS_URL);
     Assert.assertTrue(
-        SdkHelper.getDriver().getCurrentUrl().contains(Constants.TestData.ORDER_PEETS_URL),
+        WebHelper.getCurrentUrl().contains(Constants.TestData.ORDER_PEETS_URL),
         "Not on the correct URL");
 
     SdkHelper.getDriver().switchTo().window(WebHelper.previousTab);

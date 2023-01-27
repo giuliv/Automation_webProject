@@ -144,8 +144,9 @@ public class ProductDetailsPage extends Base {
       on = Platform.WEB_MOBILE)
   protected Link recommendedForYouQuizLink;
 
-  @Locate(xpath = "//select[@id='grind']", on = Platform.WEB)
-  private SelectList grindDropdown;
+  @Locate(xpath = "//div[@data-option-name='Grind']//div//li", on = Platform.WEB)
+  //  @Locate(css = "select#grind", on = Platform.WEB)
+  private LazyList<ContainerElement> grindDropdown;
 
   @Locate(
       xpath =
@@ -184,7 +185,7 @@ public class ProductDetailsPage extends Base {
       on = Platform.WEB)
   private SelectList shipEveryDropdown;
 
-  @Locate(xpath = "//button[@id='ratings-summary']", on = Platform.WEB)
+  @Locate(css = ".pv-header__reviews", on = Platform.WEB)
   protected Button ratingsSummaryButton;
 
   @Locate(css = ".bv_numReviews_text", on = Platform.WEB)
@@ -680,7 +681,7 @@ public class ProductDetailsPage extends Base {
     logger.info("Selecting [{}] grind option", option.getValue());
     grindSelected.click();
     boolean valueFound = false;
-    Iterator var3 = grindDropdown.getChildren(LocatedBy.xpath("/../div//li")).iterator();
+    Iterator var3 = grindDropdown.stream().iterator();
 
     while (var3.hasNext()) {
       ContainerElement optionElement = (ContainerElement) var3.next();
