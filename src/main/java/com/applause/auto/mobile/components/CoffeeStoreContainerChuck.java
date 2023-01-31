@@ -11,7 +11,12 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.LazyList;
 import org.openqa.selenium.WebDriverException;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /** The coffee store container chunk. */
 @Implementation(is = AndroidCoffeeStoreContainerChuck.class, on = Platform.MOBILE_ANDROID)
@@ -41,6 +46,17 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
   protected Text getStoreName;
 
   @Locate(
+      xpath =
+          "(//XCUIElementTypeButton[contains(@name, 'pen') and @visible=\"true\"])[1]/../XCUIElementTypeButton[1]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//*[contains(@resource-id, 'id/storeDetail') and descendant::*[contains(@resource-id,'storeDetailContainer')]]"
+              + "//*[contains(@resource-id, 'storeName')]",
+      on = Platform.MOBILE_ANDROID)
+  protected LazyList<Button> storeNamesList;
+
+  @Locate(
       xpath = "//*[contains(normalize-space(@name),'%s') and @visible='true']",
       on = Platform.MOBILE_IOS)
   @Locate(
@@ -56,6 +72,15 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/order_button\")",
       on = Platform.MOBILE_ANDROID)
   protected Button getOrderButton;
+
+  @Locate(
+      xpath = "//XCUIElementTypeButton[@name=\"Order\" and @visible=\"true\"]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//*[contains(@resource-id, 'id/storeDetail') and descendant::*[contains(@resource-id,'storeDetailContainer')]]//*[contains(@resource-id, 'storeName')][contains(@text,'%s')]/parent::*/parent::*//*[contains(@resource-id, 'order_button')]",
+      on = Platform.MOBILE_ANDROID)
+  protected Button orderButtonByStoreName;
 
   @Locate(
       xpath =
@@ -97,6 +122,23 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
   }
 
   /**
+   * Get visible coffee shops container name
+   *
+   * @return List<String></String>
+   */
+  public List<String> getStoreNameList() {
+    try {
+      storeNamesList.initialize();
+      List<String> storeNameList =
+          storeNamesList.stream().map(x -> x.getText()).collect(Collectors.toList());
+      logger.info(String.format("Store names are: %s", storeNameList));
+      return storeNameList;
+    } catch (WebDriverException e) {
+      return null;
+    }
+  }
+
+  /**
    * click on enabled order button
    *
    * @return OrderView
@@ -104,6 +146,21 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
   public OrderView clickOrderButton() {
     if (getOrderButton.isEnabled()) {
       getOrderButton.click();
+      return SdkHelper.create(OrderView.class);
+    }
+    throw new IllegalStateException("Order button is not enabled for click");
+  }
+
+  /**
+   * Click order button.
+   *
+   * @param storeName
+   * @return the order view
+   */
+  public OrderView clickOrderButton(String storeName) {
+    logger.info("Tap on store name: " + storeName);
+    if (orderButtonByStoreName.format(storeName).isEnabled()) {
+      orderButtonByStoreName.format(storeName).click();
       return SdkHelper.create(OrderView.class);
     }
     throw new IllegalStateException("Order button is not enabled for click");
@@ -118,6 +175,21 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
     logger.info("Tap on store name");
     getStoreName.initialize();
     getStoreName.click();
+    return SdkHelper.create(StoreDetailsView.class);
+  }
+
+  /**
+   * Open store details  view.
+   *
+   * @param storeName
+   * @return the store details view
+   */
+  public StoreDetailsView openStoreDetails(String storeName) {
+    logger.info("Tap on store name: " + storeName);
+    storeNamesList.initialize();
+    Button storeNameButton =
+        storeNamesList.stream().filter(x -> x.getText().equals(storeName)).findFirst().get();
+    storeNameButton.click();
     return SdkHelper.create(StoreDetailsView.class);
   }
 

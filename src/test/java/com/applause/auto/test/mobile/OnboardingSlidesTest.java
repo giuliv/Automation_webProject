@@ -3,6 +3,7 @@ package com.applause.auto.test.mobile;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.dto.OnboardingDto;
 import com.applause.auto.data.enums.SwipeDirection;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.LandingView;
 import com.applause.auto.mobile.views.OnboardingLastView;
@@ -20,12 +21,19 @@ public class OnboardingSlidesTest extends BaseTest {
     logger.info("Launch the app");
     OnboardingView onboardingView = openApp();
 
+    String description;
+    if (SdkHelper.getEnvironmentHelper().isAndroid()){
+      description = "Welcome to the Peet’s app: the only place to tap into all things Peetnik Rewards.  It's home to all your rewards. Earn free food and drinks, get exclusive offers (aka the good stuff), and order ahead too!";
+
+    }else{
+      description = "Welcome to the Peet’s app: the only place to tap into all things Peetnik Rewards. It's home to all your rewards. Earn free food and drinks, get exclusive offers (aka the good stuff), and order ahead too!";
+    }
     OnboardingDto firstOnboardingDto =
         OnboardingDto.builder()
             .position(1)
             .title("BEST DECISION YOU’VE MADE ALL DAY")
             .description(
-                "Welcome to the Peet’s app: the only place to tap into all things Peetnik Rewards. It's home to all your rewards. Earn free food and drinks, get exclusive offers (aka the good stuff), and order ahead too!")
+                    description)
             .helpfulMessage("swipe left to continue")
             .isPageIndicatorDisplayed(true)
             .isSkipButtonDisplayed(true)
@@ -35,10 +43,18 @@ public class OnboardingSlidesTest extends BaseTest {
     logger.info("Swipe left and verify second screen has correct title");
     onboardingView = onboardingView.swipeOnScreen(SwipeDirection.LEFT, OnboardingView.class);
 
+    String title;
+    if (SdkHelper.getEnvironmentHelper().isAndroid()){
+      title = "WHAT’S IN IT FOR YOU?";
+
+    }else{
+      title = "WHAT'S IN IT FOR YOU?";
+    }
+
     OnboardingDto secondOnboardingDto =
         OnboardingDto.builder()
             .position(2)
-            .title("WHAT'S IN IT FOR YOU?")
+            .title(title)
             .description(
                 "Get 1 point for every $1 you spend, including 125 after your first purchase. Turn points into free drinks, espresso shots, breakfast sandwiches, and more!")
             .isPageIndicatorDisplayed(true)
@@ -69,10 +85,16 @@ public class OnboardingSlidesTest extends BaseTest {
     softAssert.assertTrue(
         onboardingLastView.isCreateAccountButtonDisplayed(),
         "Create Account button isn't displayed on last slider");
+    if (SdkHelper.getEnvironmentHelper().isAndroid()){
+      title = "LET'S MAKE IT OFFICIAL";
+
+    }else{
+      title = "LET’S MAKE IT OFFICIAL";
+    }
     softAssert.assertEquals(
-        onboardingLastView.getTitle(),
-        "LET’S MAKE IT OFFICIAL",
-        "Landing view title isn't correct");
+            onboardingLastView.getTitle(),
+            title,
+            "Landing view title isn't correct");
 
     // Todo: Ask if we can go back to onboarding on iOS [20.01.2023]
     if (MobileHelper.isAndroid()) {

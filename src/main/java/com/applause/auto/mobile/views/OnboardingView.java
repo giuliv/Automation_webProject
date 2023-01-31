@@ -88,7 +88,14 @@ public class OnboardingView extends BaseComponent {
   @Step("Check if 'Skip' Button is Displayed")
   public boolean isSkipButtonDisplayed() {
     //    return MobileHelper.isDisplayed(skipButton);
-    return skipButton.getAttributeValue("accessible").equalsIgnoreCase("true");
+    Boolean skipButtonDisplayed;
+    if (SdkHelper.getEnvironmentHelper().isAndroid()){
+      skipButtonDisplayed = skipButton.getAttributeValue("enabled").equalsIgnoreCase("true");
+    }else{
+      skipButtonDisplayed = skipButton.getAttributeValue("accessible").equalsIgnoreCase("true");
+
+    }
+      return skipButtonDisplayed;
   }
 
   @Step("Get Onboarding description")

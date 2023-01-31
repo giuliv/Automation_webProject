@@ -80,7 +80,7 @@ public class LandingView extends BaseComponent {
         .wait(
             Until.uiElement(getCreateAccountButton).clickable().setTimeout(Duration.ofSeconds(20)));
     SdkHelper.getSyncHelper().sleep(3000);
-    getCreateAccountButton.click();
+    MobileHelper.tapOnElementCenter(getCreateAccountButton);
     return SdkHelper.create(CreateAccountView.class);
   }
 

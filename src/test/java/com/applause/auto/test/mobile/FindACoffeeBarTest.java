@@ -2,6 +2,7 @@ package com.applause.auto.test.mobile;
 
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
 import com.applause.auto.mobile.views.FindACoffeeBarView;
@@ -12,6 +13,8 @@ import com.applause.auto.mobile.views.StoreDetailsView;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+
+import java.util.List;
 
 public class FindACoffeeBarTest extends BaseTest {
 
@@ -158,6 +161,12 @@ public class FindACoffeeBarTest extends BaseTest {
             .locateCoffeebars(AllowLocationServicesPopupChunk.class);
     NearbySelectCoffeeBarView nearbySelectCoffeeBarView =
         allowLocationServicesPopupChunk.allowIfRequestDisplayed();
+
+    String storeName;
+    String storeAddress;
+    storeName = "Lab 3979";
+    storeAddress = "1402 Park Avenue\nEmeryville, CA 94608";
+
     FindACoffeeBarView findACoffeeBarView = nearbySelectCoffeeBarView.openRecentTab();
 
     logger.info(
@@ -170,11 +179,11 @@ public class FindACoffeeBarTest extends BaseTest {
     logger.info("VERIFY - Coffeebar location Details:");
     logger.info("VERIFY - Store name");
     Assert.assertTrue(
-        recent.isCoffeebarStoreNameDisplayed("AppInt Sandbox 1"), "Store name does not displayed");
+        recent.isCoffeebarStoreNameDisplayed(storeName), "Store name does not displayed");
 
     logger.info("VERIFY - Store Address");
     Assert.assertTrue(
-        recent.isCoffeebarLocationDisplayed("10900 Lakeline Mall Drive\nAustin, TX 78717"),
+        recent.isCoffeebarLocationDisplayed(storeAddress),
         "Address does not displayed");
 
     logger.info("VERIFY - Open Untill xx.xx AM /Pm");
@@ -183,17 +192,23 @@ public class FindACoffeeBarTest extends BaseTest {
     logger.info("VERIFY - [Button] Order");
     Assert.assertTrue(recent.isCoffeebarOrderButtonDisplayed(), "Order button does not displayed");
 
+    //storeName = "AppInt Sandbox 2";
     logger.info("STEP - Tap Order");
-    OrderView order = recent.clickOrderButton();
+    OrderView order;
+    if(SdkHelper.getEnvironmentHelper().isAndroid()){
+      order = recent.clickOrderButton(storeName);
+    }else{
+      order = recent.clickOrderButton();
+    }
 
     logger.info("VERIFY - User will navigate to main order screen");
-    Assert.assertNotNull(order, "Order vies does not displayed");
+    Assert.assertNotNull(order, "Order view does not displayed");
 
-    logger.info("VERIFY - Make sure coffeebar name is correct on location field of order screen");
+    logger.info("VERIFY - Make sure coffee bar name is correct on location field of order screen");
     Assert.assertEquals(
         order.getStoreName().toUpperCase(),
-        "AppInt Sandbox 1".toUpperCase(),
-        "Wrong storename displayed");
+            storeName.toUpperCase(),
+        "Wrong store name displayed");
   }
 
   @Test(
@@ -250,16 +265,22 @@ public class FindACoffeeBarTest extends BaseTest {
     CoffeeStoreContainerChuck favStore = findACoffeeBarView.getCoffeeStoreContainerChuck();
 
     String currentName = favStore.getStoreName();
-    Assert.assertTrue(
-        currentName.toLowerCase().contains(storeName.toLowerCase()),
-        "Wrong store shown under favorites tab: Expected: "
+    List<String> storeNames = favStore.getStoreNameList();
+
+    Assert.assertTrue(storeNames.contains(storeName), "Wrong store shown under favorites tab: Expected: "
             + storeName
             + " but found: "
-            + currentName);
+            + currentName) ;
+
     SoftAssert softAssert = new SoftAssert();
 
     logger.info("STEP - Select the same store just favorited to view store details screen");
-    storeDetailsView = favStore.openStoreDetails();
+    if (SdkHelper.getEnvironmentHelper().isAndroid()){
+      storeDetailsView = favStore.openStoreDetails(storeName);
+
+    }else{
+      storeDetailsView = favStore.openStoreDetails();
+    }
 
     logger.info("VERIFY - Heart icon should still be filled in red since it's been favorited");
     softAssert.assertTrue(

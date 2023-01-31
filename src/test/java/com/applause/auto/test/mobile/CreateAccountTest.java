@@ -666,7 +666,7 @@ public class CreateAccountTest extends BaseTest {
 
     Assert.assertEquals(
         landingView.getHeadingTextValue(),
-        "LET’S MAKE IT OFFICIAL",
+        "LET'S MAKE IT OFFICIAL",
         "First screen text value is not correct");
 
     long id = System.currentTimeMillis();

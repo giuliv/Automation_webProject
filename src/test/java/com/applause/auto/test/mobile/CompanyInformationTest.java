@@ -130,8 +130,8 @@ public class CompanyInformationTest extends BaseTest {
 
     logger.info("VERIFY - Header: Hi, \"FIRST NAME\"");
     Assert.assertTrue(
-        accountMenuMobileChunk.getTitle().matches("HI, TEST"),
-        "Header: Hi, \"TEST\" does not displayed");
+        accountMenuMobileChunk.getTitle().matches("HI, JYOTHIUPDATE"),
+        "Header: Hi, \"JYOTHIUPDATE\" does not displayed");
 
     logger.info("VERIFY - X at top left to close screen");
     Assert.assertTrue(

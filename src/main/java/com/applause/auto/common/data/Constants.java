@@ -295,7 +295,7 @@ public class Constants {
         SdkHelper.getEnvironmentHelper().isMobileIOS()
             ? new UserTestData("peets_order_beverages_ios@gmail.com", "P@ssword1!")
             : new UserTestData("peets.auto01@gmail.com", "p4ssword!");
-    public static final String EMAIL = "mp+20@peets.com";
+    public static final String EMAIL = "jyothipeets+97@gmail.com";
     public static final String EMAIL_HAS_FAVORITES = "peets+testhasfavorites3@gmail.com";
     // public static final String EMAIL_FAVORITES = "peets+testfavorites@gmail.com";
     public static final String EMAIL_CHANGE_PWD =
@@ -304,7 +304,7 @@ public class Constants {
             : "appautosvc+peetscoffee2ios@applause.com";
     public static final String USER_WITH_PEETNIK_REWARDS = "peets_order_beverages_ios@gmail.com";
     public static final String PASSWORD_FOR_USER__WITH_PEETNIK_REWARDS = "P@ssword1!";
-    public static final String PASSWORD = "abcde1";
+    public static final String PASSWORD = "peets123";
     public static final String EDIT_EMAIL = "peets.auto01@gmail.com";
     public static final String EDIT_EMAIL_PWD = "p4ssword!";
     public static final String ALL_COFFEE_HEADER = "ALL COFFEE";

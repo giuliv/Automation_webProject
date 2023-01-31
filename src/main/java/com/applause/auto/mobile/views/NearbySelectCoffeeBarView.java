@@ -131,6 +131,12 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button mapLocationButton;
 
+  @Locate(id = "com.wearehathway.peets.development:id/storeName", on = Platform.MOBILE_ANDROID)
+  protected Button nearbyStoreName;
+
+  @Locate(id = "com.wearehathway.peets.development:id/storeAddress", on = Platform.MOBILE_ANDROID)
+  protected Button nearbyStoreAddress;
+
   /* -------- Actions -------- */
 
   public void afterInit() {
@@ -333,6 +339,16 @@ public class NearbySelectCoffeeBarView extends BaseComponent {
     SdkHelper.getSyncHelper().wait(Until.uiElement(orderButton).clickable());
     orderButton.click();
     return SdkHelper.create(OrderView.class);
+  }
+
+  public String getStoreName() {
+    logger.info("Getting nearby store name: " + nearbyStoreName.getText());
+    return nearbyStoreName.getText();
+  }
+
+  public String getStoreAddress() {
+    logger.info("Getting nearby store address: " + nearbyStoreAddress.getText());
+    return nearbyStoreAddress.getText();
   }
 }
 

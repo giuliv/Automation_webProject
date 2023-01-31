@@ -67,7 +67,9 @@ public class PaymentMethodsView extends BaseComponent {
   @Locate(
       iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Add New Payment\"`][-1]",
       on = Platform.MOBILE_IOS)
-  @Locate(id = "com.wearehathway.peets.development:id/addPaymentView", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath = "//android.widget.RelativeLayout[@content-desc=\"Add New Payment Button\"]",
+      on = Platform.MOBILE_ANDROID)
   protected Button getAddNewPaymentButton;
 
   @Locate(

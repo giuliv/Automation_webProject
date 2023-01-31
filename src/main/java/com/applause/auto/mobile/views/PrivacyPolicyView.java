@@ -23,7 +23,10 @@ public class PrivacyPolicyView extends BaseComponent {
   @Locate(
       xpath = "//XCUIElementTypeOther[contains(@name,\"PRIVACY POLICY\")][1]",
       on = Platform.MOBILE_IOS)
-  @Locate(xpath = "//*[contains(@text, \"Privacy Policy\")]", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//*[@resource-id=\"page_privacy_policy\"]/android.widget.TextView[@text= \"PEET'S COFFEE, INC. PRIVACY POLICY\"]",
+      on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
   @Locate(xpath = "//*[text()='Close & Continue']", on = Platform.MOBILE_ANDROID)
