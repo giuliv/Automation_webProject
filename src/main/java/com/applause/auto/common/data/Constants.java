@@ -104,7 +104,7 @@ public class Constants {
     public static final String HOODIE = "peets-coffee-hoodie";
     public static final String GIFT_CARDS_PAGE_URL = BASE_URL.concat("/pages/gift-cards");
     public static final String STORE_LOCATOR_PAGE_URL = BASE_URL.concat("/pages/store-locator");
-    public static final String SUBSCRIPTIONS_URL = BASE_URL.concat("/pages/subscriptions");
+    public static final String SUBSCRIPTIONS_URL = "/pages/subscriptions";
     public static final String SUBSCRIPTION_SO_URL =
         BASE_URL.concat("/products/single-origin-series-subscription");
     public static final String SUBSCRIPTION_SB_URL =

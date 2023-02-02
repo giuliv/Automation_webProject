@@ -339,7 +339,7 @@ public class QuickViewTest extends BaseTest {
   }
 
   @Test(
-      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION},
       description = "11118052")
   public void viewProductTest() {
     logger.info("1. Navigate to PDP");

@@ -142,7 +142,7 @@ public class WebHelper {
       logger.info("Switching to special offer frame...");
       switchToIFrame(frame);
 
-      if (WebHelper.isDisplayed(button)) {
+      if (button.isClickable()) {
         logger.info("Closing 10% off iFrame");
         jsClick(button.getWebElement());
         SdkHelper.getSyncHelper().wait(Until.uiElement(button).notVisible());
@@ -847,7 +847,9 @@ public class WebHelper {
         .until(driver -> WebHelper.getCurrentUrl().contains(urlParameter));
   }
 
-  /** @return JavaScript window width */
+  /**
+   * @return JavaScript window width
+   */
   public static int getJavascriptWindowWidth() {
     int windowWidth =
         ((Long)

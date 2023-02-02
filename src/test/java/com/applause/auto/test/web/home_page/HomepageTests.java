@@ -253,11 +253,7 @@ public class HomepageTests extends BaseTest {
   }
 
   @Test(
-      groups = {
-        TestNGGroups.FRONT_END_REGRESSION,
-        TestNGGroups.HOME_PAGE,
-        TestNGGroups.FE_PROD_REGRESSION
-      },
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.HOME_PAGE},
       description = "11107420")
   public void peetsHomepageBannerAndPromoTiles() {
     logger.info("1. Navigate to landing page");

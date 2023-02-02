@@ -19,7 +19,7 @@ import lombok.Getter;
 @Implementation(is = Base.class, on = Platform.WEB)
 @Implementation(is = Base.class, on = Platform.WEB_MOBILE_PHONE)
 public class Base extends BaseComponent {
-  @Locate(id = "dismissbutton2header1", on = Platform.WEB)
+  @Locate(css = "#dismissbutton2header1", on = Platform.WEB)
   protected Button dismissBanner;
 
   @Locate(xpath = "//XCUIElementTypeButton[@name=\"close\"]", on = Platform.WEB)

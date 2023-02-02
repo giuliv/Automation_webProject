@@ -179,7 +179,7 @@ public class HomePage extends Base {
   @Locate(css = "#%s", on = Platform.WEB)
   protected ContainerElement subscriptionModuleLinkHelper;
 
-  @Locate(id = "closeIconContainer", on = Platform.WEB)
+  @Locate(css = "#closeIconContainer", on = Platform.WEB)
   protected Button closeSpecialOfferButton;
 
   @Locate(css = "#attentive_creative", on = Platform.WEB)
@@ -199,36 +199,36 @@ public class HomePage extends Base {
 
   public void closeInitialBannersAndModals() {
     logger.info("Need to close sometimes modals, cookies/offers banners [First Time]");
-    if (!WebHelper.getTestExecution().equals("local")) {
+    //    if (!WebHelper.getTestExecution().equals("local")) {
 
-      if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
-        logger.info("Running cases on Mobile iOS");
-        if (WebHelper.exists(specialOfferFrame, 5)) {
-          WebHelper.clickButtonOverIframeBySwitchingContextIOS(closeSpecialOfferButtonIOS);
-        }
-        SdkHelper.getDriver().navigate().refresh();
-        if (WebHelper.exists(newBannerIFrame, 5)) {
-          WebHelper.clickButtonOverIframeBySwitchingContextIOS(dismissBannerIOS);
-        }
-      } else {
-        WebHelper.clickButtonOverIFrame(specialOfferFrame, closeSpecialOfferButton);
-        SdkHelper.getDriver().navigate().refresh();
-        WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      logger.info("Running cases on Mobile iOS");
+      if (WebHelper.exists(specialOfferFrame, 5)) {
+        WebHelper.clickButtonOverIframeBySwitchingContextIOS(closeSpecialOfferButtonIOS);
       }
-      SdkHelper.getSyncHelper().sleep(500);
-
-      logger.info("Review if 'Accept Cookies' banner is displayed");
-      for (int i = 0; i < 3; i++) {
-        if (WebHelper.exists(allowCookies, 5)) {
-          logger.info("Click over Accept Cookies");
-          WebHelper.jsClick(allowCookies.getWebElement());
-          SdkHelper.getSyncHelper().wait(Until.uiElement(allowCookies).notVisible());
-          break;
-        }
-        logger.info("Accept cookies banner was not closed, properly");
-        SdkHelper.getDriver().navigate().refresh();
+      SdkHelper.getDriver().navigate().refresh();
+      if (WebHelper.exists(newBannerIFrame, 5)) {
+        WebHelper.clickButtonOverIframeBySwitchingContextIOS(dismissBannerIOS);
       }
+    } else {
+      WebHelper.clickButtonOverIFrame(specialOfferFrame, closeSpecialOfferButton);
+      SdkHelper.getDriver().navigate().refresh();
+      WebHelper.clickButtonOverIFrame(newBannerIFrame, dismissBanner);
     }
+    SdkHelper.getSyncHelper().sleep(500);
+
+    logger.info("Review if 'Accept Cookies' banner is displayed");
+    for (int i = 0; i < 3; i++) {
+      if (WebHelper.exists(allowCookies, 5)) {
+        logger.info("Click over Accept Cookies");
+        WebHelper.jsClick(allowCookies.getWebElement());
+        SdkHelper.getSyncHelper().wait(Until.uiElement(allowCookies).notVisible());
+        break;
+      }
+      logger.info("Accept cookies banner was not closed, properly");
+      SdkHelper.getDriver().navigate().refresh();
+    }
+    //    }
   }
 
   /**

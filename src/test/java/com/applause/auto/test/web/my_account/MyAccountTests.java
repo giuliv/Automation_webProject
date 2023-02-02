@@ -738,11 +738,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {
-        TestNGGroups.FRONT_END_REGRESSION,
-        TestNGGroups.MY_ACCOUNT,
-        TestNGGroups.FE_PROD_REGRESSION
-      },
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.MY_ACCOUNT},
       description = "11127065")
   public void myAccountWelcomeBackWindowReorderButtonTest() {
     MyAccountPage myAccountPage =
@@ -887,11 +883,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {
-        TestNGGroups.FRONT_END_REGRESSION,
-        TestNGGroups.MY_ACCOUNT,
-        TestNGGroups.FE_PROD_REGRESSION
-      },
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.MY_ACCOUNT},
       description = "11127068")
   public void myAccountMySubscriptionValidationTest() {
     MyAccountPage myAccountPage =
