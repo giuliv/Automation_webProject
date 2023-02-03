@@ -4,15 +4,15 @@ import com.applause.auto.common.data.Constants.SortType;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.web.components.QuickViewComponent;
-import com.applause.auto.web.helpers.WebHelper;
-import com.applause.auto.web.views.ProductDetailsPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.web.components.QuickViewComponent;
+import com.applause.auto.web.helpers.WebHelper;
+import com.applause.auto.web.views.ProductDetailsPage;
 import io.qameta.allure.Step;
 
 @Implementation(is = PlpItemComponent.class, on = Platform.WEB)
@@ -32,6 +32,11 @@ public class PlpItemComponent extends BaseComponent {
       xpath = ".//p[contains(@class, 'price')]/span[contains(@class,'pi__price--sale')]",
       on = Platform.WEB)
   private Text productSalePrice;
+
+  @Locate(
+      xpath = ".//p[contains(@class, 'price')]/span[contains(@class,'pi__price--compare')]",
+      on = Platform.WEB)
+  private Text productPreSalePrice;
 
   @Locate(xpath = ".//div[@class='pi__img-default']/div[1]/img", on = Platform.WEB)
   private Image productImage;
@@ -116,6 +121,16 @@ public class PlpItemComponent extends BaseComponent {
     } else {
       doublePrice = -1;
     }
+
+    logger.info("Product price [{}]", doublePrice);
+    return doublePrice;
+  }
+
+  @Step("Get Product double Price")
+  public Double getProductDoublePrice() {
+    String price = WebHelper.cleanString(productSalePrice.getText());
+    double doublePrice =
+        Double.parseDouble(price.split(" ")[0].replace(",", ".").replace("$", "").trim());
 
     logger.info("Product price [{}]", doublePrice);
     return doublePrice;
@@ -224,6 +239,20 @@ public class PlpItemComponent extends BaseComponent {
   @Step("Verify 'View Product' button exist")
   public boolean isViewProductButtonExist() {
     return viewProductButton.exists();
+  }
+
+  @Step("GEt presales price value in double")
+  public double getPreSalePrice() {
+    if (!WebHelper.isDisplayed(productPreSalePrice)) {
+      throw new RuntimeException(
+          "Presale price is not displayed for the product: " + getProductName());
+    }
+
+    double presalePrice =
+        Double.parseDouble(productPreSalePrice.getText().replaceAll("[^\\d.]", "").trim());
+
+    logger.info("Presale price [{}] for the produce [{}]", presalePrice, getProductName());
+    return presalePrice;
   }
 }
 

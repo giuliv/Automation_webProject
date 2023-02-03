@@ -2,13 +2,13 @@ package com.applause.auto.web.components;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.web.helpers.WebHelper;
-import com.applause.auto.web.views.StoreLocatorPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
+import com.applause.auto.web.helpers.WebHelper;
+import com.applause.auto.web.views.StoreLocatorPage;
 import io.qameta.allure.Step;
 import java.util.List;
 

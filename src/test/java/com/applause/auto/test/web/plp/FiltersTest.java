@@ -2,8 +2,8 @@ package com.applause.auto.test.web.plp;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.web.views.ProductListPage;
 import com.applause.auto.test.web.BaseTest;
+import com.applause.auto.web.views.ProductListPage;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

@@ -3,6 +3,7 @@ package com.applause.auto.test.web.my_account;
 import com.applause.auto.common.data.Constants.CheckoutUserTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.dto.MyOrderDto;
+import com.applause.auto.test.web.BaseTest;
 import com.applause.auto.web.components.my_account.MyOrderItemComponent;
 import com.applause.auto.web.views.AcceptancePage;
 import com.applause.auto.web.views.CartPage;
@@ -10,7 +11,6 @@ import com.applause.auto.web.views.ProductDetailsPage;
 import com.applause.auto.web.views.SignInPage;
 import com.applause.auto.web.views.my_account.MyAccountPage;
 import com.applause.auto.web.views.my_account.ReferralsPage;
-import com.applause.auto.test.web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

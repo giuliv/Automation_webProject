@@ -7,16 +7,15 @@ import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.mobile.components.ReportAProblemPopupChunk;
 import com.applause.auto.mobile.components.TrackingPopup;
 import com.applause.auto.mobile.helpers.MobileHelper;
-import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.web.helpers.WebHelper;
 import io.qameta.allure.Step;
 import java.time.Duration;
 import lombok.Getter;
-import org.openqa.selenium.TimeoutException;
 
 @Implementation(is = OnboardingView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = OnboardingViewIos.class, on = Platform.MOBILE_IOS)

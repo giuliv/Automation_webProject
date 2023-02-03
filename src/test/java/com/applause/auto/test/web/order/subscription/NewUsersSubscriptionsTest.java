@@ -2,6 +2,7 @@ package com.applause.auto.test.web.order.subscription;
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestNGGroups;
+import com.applause.auto.test.web.BaseTest;
 import com.applause.auto.web.components.MiniCart;
 import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.web.views.AcceptancePage;
@@ -12,7 +13,6 @@ import com.applause.auto.web.views.ProductDetailsPage;
 import com.applause.auto.web.views.SearchResultsPage;
 import com.applause.auto.web.views.ShippingPage;
 import com.applause.auto.web.views.my_account.MyAccountPage;
-import com.applause.auto.test.web.BaseTest;
 import org.apache.commons.lang3.StringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;

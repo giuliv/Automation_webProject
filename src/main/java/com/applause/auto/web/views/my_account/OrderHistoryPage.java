@@ -3,13 +3,13 @@ package com.applause.auto.web.views.my_account;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.web.components.my_account.MyOrderItemComponent;
-import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
+import com.applause.auto.web.components.my_account.MyOrderItemComponent;
+import com.applause.auto.web.helpers.WebHelper;
 import io.qameta.allure.Step;
 import java.time.Duration;
 import java.util.List;
@@ -47,8 +47,7 @@ public class OrderHistoryPage extends BaseComponent {
   @Step("Get list of Table Titles")
   public List<String> getTableTitleList() {
     ((LazyList<?>) tableTitleList).initialize();
-    return tableTitleList
-        .stream()
+    return tableTitleList.stream()
         .map(item -> WebHelper.cleanString(item.getText().toLowerCase()))
         .collect(Collectors.toList());
   }

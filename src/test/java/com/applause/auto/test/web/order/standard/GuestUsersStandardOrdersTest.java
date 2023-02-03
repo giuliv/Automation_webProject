@@ -1,6 +1,7 @@
 package com.applause.auto.test.web.order.standard;
 
 import com.applause.auto.common.data.Constants;
+import com.applause.auto.test.web.BaseTest;
 import com.applause.auto.web.components.Header;
 import com.applause.auto.web.components.MiniCart;
 import com.applause.auto.web.helpers.WebHelper;
@@ -12,7 +13,6 @@ import com.applause.auto.web.views.ProductDetailsPage;
 import com.applause.auto.web.views.ProductListPage;
 import com.applause.auto.web.views.SearchResultsPage;
 import com.applause.auto.web.views.ShippingPage;
-import com.applause.auto.test.web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

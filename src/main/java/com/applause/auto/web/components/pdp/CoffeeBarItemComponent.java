@@ -3,13 +3,13 @@ package com.applause.auto.web.components.pdp;
 import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.web.helpers.WebHelper;
-import com.applause.auto.web.views.OrderPage;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.web.helpers.WebHelper;
+import com.applause.auto.web.views.OrderPage;
 import io.qameta.allure.Step;
 
 public class CoffeeBarItemComponent extends BaseComponent {

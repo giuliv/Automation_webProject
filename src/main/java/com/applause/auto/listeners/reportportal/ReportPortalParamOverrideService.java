@@ -56,8 +56,7 @@ public class ReportPortalParamOverrideService extends TestNGService {
     }
     final Map<String, String> env = readReportPortalEnvVars(parameters);
     final Map<String, String> props = readSystemProperties();
-    if (env.entrySet()
-        .stream()
+    if (env.entrySet().stream()
         .allMatch(stringStringEntry -> StringUtils.isEmpty(stringStringEntry.getKey()))) {
       env.put(RP_LAUNCH_NAME, parameters.getLaunchName());
     }
@@ -81,9 +80,7 @@ public class ReportPortalParamOverrideService extends TestNGService {
     itemAttributes.addAll(buildAdditionalAttributes(env.get(RP_ATTRIBUTES)));
     itemAttributes.addAll(
         buildAdditionalAttributes(
-            props
-                .entrySet()
-                .stream()
+            props.entrySet().stream()
                 .map(
                     stringStringEntry ->
                         stringStringEntry.getKey() + ":" + stringStringEntry.getValue())
@@ -120,8 +117,7 @@ public class ReportPortalParamOverrideService extends TestNGService {
 
   private static Map<String, String> readSystemProperties() {
     Map<String, String> result = new HashMap<>();
-    RP_LIST_ATTRIBUTES
-        .stream()
+    RP_LIST_ATTRIBUTES.stream()
         .forEach(
             attr -> {
               if (StringUtils.isNotEmpty(System.getProperty(attr))) {

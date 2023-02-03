@@ -4,13 +4,13 @@ import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.Constants.WebTestData;
+import com.applause.auto.test.web.BaseTest;
 import com.applause.auto.web.views.CartPage;
 import com.applause.auto.web.views.CheckOutPage;
 import com.applause.auto.web.views.HomePage;
 import com.applause.auto.web.views.PaymentsPage;
 import com.applause.auto.web.views.ProductDetailsPage;
 import com.applause.auto.web.views.SignInPage;
-import com.applause.auto.test.web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

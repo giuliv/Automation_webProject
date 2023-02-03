@@ -5,10 +5,6 @@ import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.web.components.Header;
-import com.applause.auto.web.components.NeverMissAnOfferChunk;
-import com.applause.auto.web.components.OtherPurchasedItemChunk;
-import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -20,9 +16,15 @@ import com.applause.auto.pageobjectmodel.elements.RadioButton;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
+import com.applause.auto.web.components.Header;
+import com.applause.auto.web.components.NeverMissAnOfferChunk;
+import com.applause.auto.web.components.OtherPurchasedItemChunk;
+import com.applause.auto.web.helpers.WebHelper;
 import io.qameta.allure.Step;
 import java.time.Duration;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.Getter;
 
 @Implementation(is = CartPage.class, on = Platform.WEB)
@@ -35,8 +37,16 @@ public class CartPage extends BaseComponent {
   @Locate(css = "h4.bag-item__title", on = Platform.WEB)
   private List<Text> productName;
 
+  @Locate(css = "h4.bag-item__title > a", on = Platform.WEB)
+  private List<Link> productLinks;
+
   @Locate(css = "span.bag-item__option-name", on = Platform.WEB)
   private List<Text> grindSelected;
+
+  @Locate(
+      xpath = "//span[@class='bag-item__option-name' and starts-with(text(),'Bundle:')]",
+      on = Platform.WEB)
+  private List<Text> bundlesList;
 
   @Locate(css = "input[name='quantity']", on = Platform.WEB)
   private List<Text> productQuantity;
@@ -138,6 +148,10 @@ public class CartPage extends BaseComponent {
   @Locate(css = ".bag__has-prepaid--cart-page", on = Platform.WEB)
   private Text giftExistsInYourCartTextMessage;
 
+  @Locate(css = ".bag-item__action--total-price .bag-item__price--discounted", on = Platform.WEB)
+  @Locate(css = "span.bag-item__price.bag-item__price--discounted", on = Platform.WEB_MOBILE)
+  private List<Text> discountValues;
+
   @Getter @Locate public NeverMissAnOfferChunk neverMissAnOfferChunk;
 
   @Override
@@ -203,6 +217,16 @@ public class CartPage extends BaseComponent {
     return getProductTotalPrice(index);
   }
 
+  @Step("Get product double price")
+  public double getProductTotalDoublePrice(int index) {
+    logger.info("Product total size elements: " + productTotalPrice.size());
+    SdkHelper.getSyncHelper().waitUntil(driver -> !getProductTotalPrice(index).isEmpty());
+    double priceValue =
+        Double.parseDouble(getProductTotalPrice(index).replaceAll("[^\\d.]", "").trim());
+    logger.info("[Cart] Double price: {}", priceValue);
+    return priceValue;
+  }
+
   @Step("Get product price")
   private String getProductPrice(int index) {
     ((LazyList<?>) productPrice).initialize();
@@ -265,8 +289,16 @@ public class CartPage extends BaseComponent {
     return subTotalValue.isDisplayed();
   }
 
+  @Step("Get subtotal")
   public String getSubTotal() {
     return subTotalValue.getText();
+  }
+
+  @Step("Get double subtotal")
+  public double getDoubleSubTotal() {
+    double subtotal = Double.parseDouble(getSubTotal().replaceAll("[^\\d.]", "").trim());
+    logger.info("[Cart] double subtotal: " + subtotal);
+    return subtotal;
   }
 
   @Step("Get estimated ship date")
@@ -564,6 +596,37 @@ public class CartPage extends BaseComponent {
   public Header getHeader() {
     logger.info("Getting the header");
     return SdkHelper.create(Header.class);
+  }
+
+  @Step("Get all bundles")
+  public List<String> getBundles() {
+    logger.info("Bundles product number: " + bundlesList.size());
+    ((LazyList<?>) bundlesList).initialize();
+    return bundlesList.stream()
+        .map(item -> item.getText().replace("Bundle:", "").trim())
+        .collect(Collectors.toList());
+  }
+
+  @Step("Get products names")
+  public List<String> getProductNames() {
+    return productName.stream().map(item -> item.getText().trim()).collect(Collectors.toList());
+  }
+
+  @Step("Get products links")
+  public List<String> getProductLinks() {
+    return productLinks.stream().map(item -> item.getLinkURL()).collect(Collectors.toList());
+  }
+
+  @Step("Get discount values")
+  public List<String> getDiscountValues() {
+    try {
+      return discountValues.stream()
+          .map(item -> item.getText().trim())
+          .collect(Collectors.toList());
+    } catch (Exception e) {
+      logger.info("There are no discounts");
+      return Collections.EMPTY_LIST;
+    }
   }
 }
 

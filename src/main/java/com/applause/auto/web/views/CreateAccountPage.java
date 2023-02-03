@@ -4,8 +4,6 @@ import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.Strategy;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.web.helpers.WebHelper;
-import com.applause.auto.web.views.my_account.MyAccountPage;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -13,6 +11,8 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.web.helpers.WebHelper;
+import com.applause.auto.web.views.my_account.MyAccountPage;
 import io.qameta.allure.Step;
 
 @Implementation(is = CreateAccountPage.class, on = Platform.WEB)

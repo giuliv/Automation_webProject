@@ -3,16 +3,17 @@ package com.applause.auto.web.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.web.helpers.WebHelper;
 import io.qameta.allure.Step;
 import java.time.Duration;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Implementation(is = AcceptancePage.class, on = Platform.WEB)
 @Implementation(is = AcceptancePage.class, on = Platform.WEB_MOBILE_PHONE)
@@ -90,6 +91,9 @@ public class AcceptancePage extends Base {
       on = Platform.WEB)
   private Text orderGrind;
 
+  @Locate(css = ".reduction-code span", on = Platform.WEB)
+  private List<Text> bundleDiscounts;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper()
@@ -164,6 +168,13 @@ public class AcceptancePage extends Base {
     logger.info("Total Price: " + total.getText());
 
     return total.getText();
+  }
+
+  @Step("Get double total price")
+  public double getDoubleTotalPrice() {
+    double totalPrice = Double.parseDouble(getTotalPrice().replaceAll("[^\\d.]", "").trim());
+    logger.info("Total Price: " + totalPrice);
+    return totalPrice;
   }
 
   @Step("Get phone number from track package")
@@ -264,5 +275,10 @@ public class AcceptancePage extends Base {
     String grind = WebHelper.cleanString(orderGrind.getText());
     logger.info("Order Grind - [{}]", grind);
     return grind;
+  }
+
+  @Step("Get bundles discounts")
+  public List<String> getBundlesDiscounts() {
+    return bundleDiscounts.stream().map(item -> item.getText().trim()).collect(Collectors.toList());
   }
 }

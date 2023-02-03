@@ -6,6 +6,7 @@ import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.enums.FooterOptions;
+import com.applause.auto.test.web.BaseTest;
 import com.applause.auto.web.components.MiniCart;
 import com.applause.auto.web.components.QuickViewComponent;
 import com.applause.auto.web.components.ShopRunnerComponent;
@@ -16,7 +17,6 @@ import com.applause.auto.web.views.FreeHomeDeliveryPage;
 import com.applause.auto.web.views.HomePage;
 import com.applause.auto.web.views.ProductDetailsPage;
 import com.applause.auto.web.views.ProductListPage;
-import com.applause.auto.test.web.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

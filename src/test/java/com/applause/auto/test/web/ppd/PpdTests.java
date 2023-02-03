@@ -4,13 +4,13 @@ import com.applause.auto.common.data.Constants.MyAccountLeftMenuOption;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.enums.GrindDropdown;
+import com.applause.auto.test.web.BaseTest;
+import com.applause.auto.test.web.my_account.MyAccountTestsHelper;
 import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.web.views.CheckOutPage;
 import com.applause.auto.web.views.HomePage;
 import com.applause.auto.web.views.ProductDetailsPage;
 import com.applause.auto.web.views.my_account.MyAccountPage;
-import com.applause.auto.test.web.BaseTest;
-import com.applause.auto.test.web.my_account.MyAccountTestsHelper;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

@@ -2,9 +2,9 @@ package com.applause.auto.test.web.my_account;
 
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.test.web.BaseTest;
 import com.applause.auto.web.views.SignInPage;
 import com.applause.auto.web.views.my_account.MyAccountPage;
-import com.applause.auto.test.web.BaseTest;
 import io.qameta.allure.Step;
 import org.testng.Assert;
 

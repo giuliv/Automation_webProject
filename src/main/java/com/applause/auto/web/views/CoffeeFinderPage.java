@@ -4,8 +4,6 @@ import com.applause.auto.common.data.enums.CoffeeFinderAnswers;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.web.components.AnswerItemComponent;
-import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -13,6 +11,8 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
+import com.applause.auto.web.components.AnswerItemComponent;
+import com.applause.auto.web.helpers.WebHelper;
 import io.qameta.allure.Step;
 import java.util.List;
 import org.apache.commons.lang3.StringUtils;
@@ -153,8 +153,7 @@ public class CoffeeFinderPage extends Base {
    */
   @Step("Select specific Answer")
   public <T extends BaseComponent> T selectAnswer(CoffeeFinderAnswers answer, Class<T> clazz) {
-    return getTypeOfCoffeeList()
-        .stream()
+    return getTypeOfCoffeeList().stream()
         .filter(item -> StringUtils.equalsIgnoreCase(item.getName(), answer.getValue()))
         .findFirst()
         .orElseThrow(

@@ -3,14 +3,14 @@ package com.applause.auto.web.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.web.components.ShipDateInfoComponent;
-import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.web.components.ShipDateInfoComponent;
+import com.applause.auto.web.helpers.WebHelper;
 import io.qameta.allure.Step;
 import java.util.List;
 
@@ -154,7 +154,9 @@ public class ShippingPage extends Base {
   }
 
   @Step("Apply discount code")
-  /** @return ShippingPage */
+  /**
+   * @return ShippingPage
+   */
   public ShippingPage applyDiscountCode(String discountCode) {
     logger.info("Applying discount code: {}", discountCode);
     SdkHelper.getSyncHelper().sleep(10000); // Wait for peet's card are ready
@@ -219,7 +221,9 @@ class ShippingPageMobile extends ShippingPage {
 
   @Override
   @Step("Apply discount code")
-  /** @return ShippingPage */
+  /**
+   * @return ShippingPage
+   */
   public ShippingPage applyDiscountCode(String discountCode) {
     expandOrderSummarySectionIfNotExpanded();
     return super.applyDiscountCode(discountCode);

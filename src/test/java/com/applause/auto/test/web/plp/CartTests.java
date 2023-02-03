@@ -5,6 +5,7 @@ import static com.applause.auto.common.data.Constants.WebTestData.PLP_SHOPABBLE_
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.enums.FooterOptions;
+import com.applause.auto.test.web.BaseTest;
 import com.applause.auto.web.components.MiniCart;
 import com.applause.auto.web.components.NeverMissAnOfferChunk;
 import com.applause.auto.web.components.OtherPurchasedItemChunk;
@@ -15,7 +16,6 @@ import com.applause.auto.web.views.CheckOutPage;
 import com.applause.auto.web.views.FreeHomeDeliveryPage;
 import com.applause.auto.web.views.ProductDetailsPage;
 import com.applause.auto.web.views.ProductListPage;
-import com.applause.auto.test.web.BaseTest;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;

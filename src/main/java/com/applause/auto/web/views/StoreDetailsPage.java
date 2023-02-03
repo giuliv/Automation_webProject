@@ -2,14 +2,14 @@ package com.applause.auto.web.views;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.web.components.OneAppManyBenefitsComponent;
-import com.applause.auto.web.components.PeetnikRewardsComponent;
-import com.applause.auto.web.components.ToutsSectionComponent;
-import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.web.components.OneAppManyBenefitsComponent;
+import com.applause.auto.web.components.PeetnikRewardsComponent;
+import com.applause.auto.web.components.ToutsSectionComponent;
+import com.applause.auto.web.helpers.WebHelper;
 import io.qameta.allure.Step;
 
 @Implementation(is = StoreDetailsPage.class, on = Platform.WEB)

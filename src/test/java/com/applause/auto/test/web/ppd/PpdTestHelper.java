@@ -6,6 +6,7 @@ import com.applause.auto.common.data.Constants.WebTestData;
 import com.applause.auto.common.data.dto.RecipientAddress;
 import com.applause.auto.common.data.enums.GrindDropdown;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.test.web.BaseTest;
 import com.applause.auto.web.components.MiniCart;
 import com.applause.auto.web.components.QuickViewComponent;
 import com.applause.auto.web.helpers.WebHelper;
@@ -16,7 +17,6 @@ import com.applause.auto.web.views.PaymentsPage;
 import com.applause.auto.web.views.ProductDetailsPage;
 import com.applause.auto.web.views.SearchResultsPage;
 import com.applause.auto.web.views.ShippingPage;
-import com.applause.auto.test.web.BaseTest;
 import org.testng.Assert;
 import org.testng.asserts.SoftAssert;
 

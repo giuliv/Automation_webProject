@@ -1,5 +1,6 @@
 package com.applause.auto.common.data;
 
+import com.applause.auto.common.data.dto.CreditCardDto;
 import com.applause.auto.common.data.dto.ShareViaEmailDto;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.mobile.helpers.MobileHelper;
@@ -58,6 +59,7 @@ public class Constants {
     public static final String WEB_CART = "cart";
     public static final String PRODUCTS = "products";
     public static final String PPD = "ppd";
+    public static final String VIRTUAL_BUNDLE = "virtual-bundle";
 
     // Mobile
     public static final String ONBOARDING = "onboarding";
@@ -135,6 +137,8 @@ public class Constants {
     public static final String TEA_BEST_SELLERS_URL = BASE_URL + "/collections/tea-best-sellers";
     public static final String COFFEE_WITH_REVIEWS_URL_PARAMETER =
         "major-dickasons-blend-kcup-pods";
+    public static final String BUNDLE_PRODUCT_URL_PARAMETER = "morning-kickstart-bundle";
+    public static final String NEW_FRENCH_ROAST_URL_PARAMETER = "new-french-roast";
 
     /** Test Data for tests */
     public static final String WEB_USERNAME_SUBSCRIPTION =
@@ -156,6 +160,7 @@ public class Constants {
     public static final String TEST_EQUIPMENT = "TEST PEET’S PAPER FILTERS #4";
     public static final String EQUIPMENT_NAME_OOO = "T-SAC TEA FILTERS";
     public static final String PODS_OOO = "DECAF HOUSE BLEND K-CUP® PODS";
+    public static final String BUNDLE_PRODUCT_NAME = "MORNING KICKSTART BUNDLE";
 
     public static final String UNRECOGNIZED_USERNAME_AND_PASSWORD_MESSAGE =
         "Unrecognized username and password combination";
@@ -201,6 +206,14 @@ public class Constants {
     public static final String CITY = "Brooklyn";
     public static final String STATE = "New York";
     public static final String EMAIL = "peets+%s@qa.utest.com";
+
+    public static final CreditCardDto VISA_CC =
+        new CreditCardDto(
+            TestData.VISA_CC_NUMBER,
+            TestData.VISA_CC_NAME,
+            TestData.VISA_CC_EXP_DATE.split("/")[0],
+            TestData.VISA_CC_EXP_DATE.split("/")[1],
+            TestData.VISA_SECURITY_CODE);
 
     public static final String VISA_CC_NUMBER = "4788250000028291";
     public static final String VISA_CC_SECURITY_CODE = "111";

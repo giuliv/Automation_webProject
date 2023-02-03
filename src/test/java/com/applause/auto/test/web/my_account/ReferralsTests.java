@@ -5,13 +5,13 @@ import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.test.web.BaseTest;
 import com.applause.auto.web.components.my_account.ShareLinkComponent;
 import com.applause.auto.web.components.my_account.ShareViaEmailComponent;
 import com.applause.auto.web.components.my_account.UnlockMyDiscountComponent;
 import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.web.views.my_account.MyAccountPage;
 import com.applause.auto.web.views.my_account.ReferralsPage;
-import com.applause.auto.test.web.BaseTest;
 import org.testng.annotations.Test;
 
 public class ReferralsTests extends BaseTest {

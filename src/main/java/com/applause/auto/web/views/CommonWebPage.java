@@ -2,9 +2,9 @@ package com.applause.auto.web.views;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.web.components.FooterComponent;
 import com.applause.auto.web.helpers.WebHelper;
-import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import io.qameta.allure.Step;
 
 @Implementation(is = CommonWebPage.class, on = Platform.WEB)

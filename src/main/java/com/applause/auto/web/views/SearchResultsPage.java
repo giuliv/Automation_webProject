@@ -4,14 +4,16 @@ import com.applause.auto.common.data.Constants.WebTestData;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.web.components.QuickViewComponent;
-import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.factory.LazyList;
+import com.applause.auto.web.components.QuickViewComponent;
+import com.applause.auto.web.components.plp.PlpItemComponent;
+import com.applause.auto.web.helpers.WebHelper;
 import io.qameta.allure.Step;
 import java.util.List;
 
@@ -50,6 +52,12 @@ public class SearchResultsPage extends Base {
 
   @Locate(css = ".pi__quick-add button", on = Platform.WEB)
   public List<Button> quickViewButtonList;
+
+  @Locate(
+      xpath =
+          "//*[@class='product-list']/*[not(.//div[contains(@class, 'pi__badge')]) and not(@class='collection__load-more') and not(contains(@class,'collection-tout'))]",
+      on = Platform.WEB)
+  private List<PlpItemComponent> productsList;
 
   @Override
   public void afterInit() {
@@ -153,6 +161,11 @@ public class SearchResultsPage extends Base {
     SdkHelper.getSyncHelper().sleep(500);
     viewProductButton.click();
     return SdkHelper.create(ProductDetailsPage.class);
+  }
+
+  public List<PlpItemComponent> productsList() {
+    ((LazyList<?>) productsList).initialize();
+    return productsList;
   }
 }
 
