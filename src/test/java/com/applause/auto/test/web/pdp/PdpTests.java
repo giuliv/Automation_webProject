@@ -1264,11 +1264,7 @@ public class PdpTests extends BaseTest {
   }
 
   @Test(
-      groups = {
-        Constants.TestNGGroups.FRONT_END_REGRESSION,
-        Constants.TestNGGroups.PDP,
-        TestNGGroups.FE_PROD_REGRESSION
-      },
+      groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, Constants.TestNGGroups.PDP},
       description = "11118048")
   public void itemTypeVersion2Test() {
     logger.info("1. Navigate to landing page");

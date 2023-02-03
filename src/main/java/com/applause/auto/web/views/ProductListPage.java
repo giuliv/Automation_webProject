@@ -746,7 +746,14 @@ class ProductListPageMobile extends ProductListPage {
   public ProductListPage selectSortingByType(SortType type) {
     logger.info("Click over sorting box");
     WebHelper.scrollToElement(sortingDropdown);
-    sortingDropdown.select(type.getMobileName());
+
+    // Todo: if condition added due to mismatch between prod/staging
+    if (WebHelper.getTestEnvironment().equalsIgnoreCase("production") && !WebHelper.isDesktop()) {
+      sortingDropdown.select(type.getProdMobileName());
+    } else {
+      sortingDropdown.select(type.getMobileName());
+    }
+
     SdkHelper.getSyncHelper().sleep(2000); // Wait for action
     return SdkHelper.create(ProductListPage.class);
   }

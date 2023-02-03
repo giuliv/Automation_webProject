@@ -126,7 +126,7 @@ public class Constants {
             : "https://account-qa.peets.com/login";
     public static final String REGISTRATION_PAGE_URL =
         WebHelper.isProdEnv()
-            ? "https://account.peets.com/Registration?target=home"
+            ? "https://account.peets.com/Registration?target=checkout"
             : "https://account-qa.peets.com/Registration";
     public static final String COFFEE_BEST_SELLERS_URL =
         BASE_URL + "/collections/coffee-best-sellers";
@@ -463,16 +463,20 @@ public class Constants {
 
   @AllArgsConstructor
   public enum SortType {
-    RECOMMENDED("Recommended", "Sort: Recommended"),
-    PRICE_LOW_TO_HIGH("Price: Low to High", "Price: Low to High"),
-    PRICE_HIGH_TO_LOW("Price: High to Low", "Price: High to Low"),
-    NAME_A_Z("Name (A - Z)", "Name: A - Z"),
-    NAME_Z_A("Name (Z - A)", "Name: Z - A"),
-    NEWEST("Newest", "Newest");
+    RECOMMENDED("Recommended", "Sort: Recommended", "Sort: Recommended"),
+    PRICE_LOW_TO_HIGH("Price: Low to High", "Price: Low to High", "Price: Low to High"),
+    PRICE_HIGH_TO_LOW("Price: High to Low", "Price: High to Low", "Price: High to Low"),
+    NAME_A_Z("Name (A - Z)", "Name: A - Z", "Name (A - Z)"),
+    NAME_Z_A("Name (Z - A)", "Name: Z - A", "Name (A - Z)"),
+    NEWEST("Newest", "Newest", "Newest");
     @Getter String name;
     @Getter String mobileName;
+    @Getter String prodMobileName;
 
     public String getOptionName() {
+      if (WebHelper.getTestEnvironment().equalsIgnoreCase("production") && !WebHelper.isDesktop()) {
+        return getProdMobileName();
+      }
       return WebHelper.isMobile() ? getMobileName() : getName();
     }
   }
