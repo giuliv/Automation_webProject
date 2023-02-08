@@ -33,7 +33,6 @@ import com.applause.auto.web.views.HomePage;
 import com.applause.auto.web.views.OrderDeliveryAddressPage;
 import com.applause.auto.web.views.PeetnikRewardsPage;
 import com.applause.auto.web.views.ProductListPage;
-import com.applause.auto.web.views.SeasonalPage;
 import com.applause.auto.web.views.SignUpPage;
 import com.applause.auto.web.views.SourcingWithImpactPage;
 import com.applause.auto.web.views.StoreLocatorPage;

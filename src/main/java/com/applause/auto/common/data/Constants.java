@@ -60,6 +60,7 @@ public class Constants {
     public static final String PRODUCTS = "products";
     public static final String PPD = "ppd";
     public static final String VIRTUAL_BUNDLE = "virtual-bundle";
+    public static final String SHIPPING_DISCOUNT = "shipping-discount";
 
     // Mobile
     public static final String ONBOARDING = "onboarding";
@@ -139,6 +140,13 @@ public class Constants {
         "major-dickasons-blend-kcup-pods";
     public static final String BUNDLE_PRODUCT_URL_PARAMETER = "morning-kickstart-bundle";
     public static final String NEW_FRENCH_ROAST_URL_PARAMETER = "new-french-roast";
+    public static final String MAJOR_DICKASONS_BLEND_KCUP_PODS = "major-dickasons-blend-kcup-pods";
+    public static final String RISTRETTO_ESPRESSO_CAPSULES_URL_PARAMETER =
+        "ristretto-espresso-capsules";
+    public static final String DECAF_SUMATRA_URL_PARAMETER = "decaf-sumatra";
+    public static final String SHIPPING_METHOD_GROUND = "Ground";
+    public static final String SHIPPING_METHOD_GROUND_SUREPOST = "Ground-Surepost";
+    public static final String SHIPPING_METHOD_THREE_DAY_SELECT = "3 Day Select";
 
     /** Test Data for tests */
     public static final String WEB_USERNAME_SUBSCRIPTION =

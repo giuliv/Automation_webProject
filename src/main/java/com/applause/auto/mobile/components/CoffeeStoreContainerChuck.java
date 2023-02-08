@@ -12,11 +12,9 @@ import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
-import org.openqa.selenium.WebDriverException;
-
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
+import org.openqa.selenium.WebDriverException;
 
 /** The coffee store container chunk. */
 @Implementation(is = AndroidCoffeeStoreContainerChuck.class, on = Platform.MOBILE_ANDROID)
@@ -179,7 +177,7 @@ public class CoffeeStoreContainerChuck extends BaseComponent {
   }
 
   /**
-   * Open store details  view.
+   * Open store details view.
    *
    * @param storeName
    * @return the store details view

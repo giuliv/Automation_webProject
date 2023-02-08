@@ -70,6 +70,9 @@ public class ShippingPage extends Base {
   @Locate(css = ".total-line__price span[data-checkout-total-shipping-target]", on = Platform.WEB)
   protected Text shippingPrice;
 
+  @Locate(xpath = "//span[contains(@data-shipping-method-label-title,\"%s\")]", on = Platform.WEB)
+  protected Text shippingMethod;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
@@ -187,6 +190,13 @@ public class ShippingPage extends Base {
     }
 
     return Double.parseDouble(shippingPrice.getText().replaceAll("[^\\d.]", "").trim());
+  }
+
+  @Step("Verify shipping method is displayed")
+  public boolean isShippingMethodDisplayed(String methodName) {
+    logger.info("Checking shipping method: [{}] is displayed", methodName);
+    shippingMethod.format(methodName);
+    return WebHelper.isDisplayed(shippingMethod, 30);
   }
 }
 

@@ -14,7 +14,6 @@ import com.applause.auto.web.components.NeverMissOfferComponent;
 import com.applause.auto.web.components.WelcomeBackDialogComponent;
 import com.applause.auto.web.components.pdp.CoffeeBarCarouselComponent;
 import io.qameta.allure.Step;
-import lombok.Getter;
 
 @Implementation(is = Base.class, on = Platform.WEB)
 @Implementation(is = Base.class, on = Platform.WEB_MOBILE_PHONE)

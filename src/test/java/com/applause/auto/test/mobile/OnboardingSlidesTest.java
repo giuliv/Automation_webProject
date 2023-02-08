@@ -22,18 +22,19 @@ public class OnboardingSlidesTest extends BaseTest {
     OnboardingView onboardingView = openApp();
 
     String description;
-    if (SdkHelper.getEnvironmentHelper().isAndroid()){
-      description = "Welcome to the Peet’s app: the only place to tap into all things Peetnik Rewards.  It's home to all your rewards. Earn free food and drinks, get exclusive offers (aka the good stuff), and order ahead too!";
+    if (SdkHelper.getEnvironmentHelper().isAndroid()) {
+      description =
+          "Welcome to the Peet’s app: the only place to tap into all things Peetnik Rewards.  It's home to all your rewards. Earn free food and drinks, get exclusive offers (aka the good stuff), and order ahead too!";
 
-    }else{
-      description = "Welcome to the Peet’s app: the only place to tap into all things Peetnik Rewards. It's home to all your rewards. Earn free food and drinks, get exclusive offers (aka the good stuff), and order ahead too!";
+    } else {
+      description =
+          "Welcome to the Peet’s app: the only place to tap into all things Peetnik Rewards. It's home to all your rewards. Earn free food and drinks, get exclusive offers (aka the good stuff), and order ahead too!";
     }
     OnboardingDto firstOnboardingDto =
         OnboardingDto.builder()
             .position(1)
             .title("BEST DECISION YOU’VE MADE ALL DAY")
-            .description(
-                    description)
+            .description(description)
             .helpfulMessage("swipe left to continue")
             .isPageIndicatorDisplayed(true)
             .isSkipButtonDisplayed(true)
@@ -44,10 +45,10 @@ public class OnboardingSlidesTest extends BaseTest {
     onboardingView = onboardingView.swipeOnScreen(SwipeDirection.LEFT, OnboardingView.class);
 
     String title;
-    if (SdkHelper.getEnvironmentHelper().isAndroid()){
+    if (SdkHelper.getEnvironmentHelper().isAndroid()) {
       title = "WHAT’S IN IT FOR YOU?";
 
-    }else{
+    } else {
       title = "WHAT'S IN IT FOR YOU?";
     }
 
@@ -85,16 +86,14 @@ public class OnboardingSlidesTest extends BaseTest {
     softAssert.assertTrue(
         onboardingLastView.isCreateAccountButtonDisplayed(),
         "Create Account button isn't displayed on last slider");
-    if (SdkHelper.getEnvironmentHelper().isAndroid()){
+    if (SdkHelper.getEnvironmentHelper().isAndroid()) {
       title = "LET'S MAKE IT OFFICIAL";
 
-    }else{
+    } else {
       title = "LET’S MAKE IT OFFICIAL";
     }
     softAssert.assertEquals(
-            onboardingLastView.getTitle(),
-            title,
-            "Landing view title isn't correct");
+        onboardingLastView.getTitle(), title, "Landing view title isn't correct");
 
     // Todo: Ask if we can go back to onboarding on iOS [20.01.2023]
     if (MobileHelper.isAndroid()) {

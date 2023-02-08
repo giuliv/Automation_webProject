@@ -35,8 +35,18 @@ public class MyAccountPage extends Base {
   /* -------- Elements -------- */
 
   @Locate(css = "#acDashboard h1", on = Platform.WEB)
-  @Locate(css = "ac-section-header, header.ac-section-header h2", on = Platform.WEB_MOBILE_PHONE)
   private Text getViewSignature;
+
+  @Locate(css = "ac-section-header, header.ac-section-header h2", on = Platform.WEB_MOBILE_PHONE)
+  private Text getViewSignatureMobile;
+
+  private Text getViewSignature() {
+    if (WebHelper.isDesktopSiteVersion()) {
+      return getViewSignature;
+    } else {
+      return getViewSignatureMobile;
+    }
+  }
 
   @Locate(css = "header.ac-section-header h2", on = Platform.WEB)
   private Text getViewSignature2;
@@ -170,7 +180,7 @@ public class MyAccountPage extends Base {
   public void afterInit() {
     SdkHelper.getSyncHelper()
         .wait(
-            Until.oneOf(getViewSignature, closeBanner)
+            Until.oneOf(getViewSignature(), closeBanner)
                 .visible()
                 .setTimeout(Duration.ofSeconds(40)));
 
@@ -194,16 +204,16 @@ public class MyAccountPage extends Base {
    */
   @Step("Get welcome message")
   public String getWelcomeMessage() {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(getViewSignature).visible());
-    logger.info("Welcome message: " + getViewSignature.getText().toLowerCase());
+    SdkHelper.getSyncHelper().wait(Until.uiElement(getViewSignature()).visible());
+    logger.info("Welcome message: " + getViewSignature().getText().toLowerCase());
 
-    if (WebHelper.getDriverConfig().toLowerCase().contains("landscape")
-        && SdkHelper.getEnvironmentHelper().isAndroid()) {
-      logger.info("Welcome message2: " + getViewSignature2.getText().toLowerCase());
-      return getViewSignature2.getText().toLowerCase();
-    }
+    //    if (WebHelper.getDriverConfig().toLowerCase().contains("landscape")
+    //        && SdkHelper.getEnvironmentHelper().isAndroid()) {
+    //      logger.info("Welcome message2: " + getViewSignature().getText().toLowerCase());
+    //      return getViewSignature().getText().toLowerCase();
+    //    }
 
-    return getViewSignature.getText().toLowerCase();
+    return getViewSignature().getText().toLowerCase();
   }
 
   @Step("Get Recent Orders Title")

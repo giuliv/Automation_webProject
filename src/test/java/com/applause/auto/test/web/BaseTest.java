@@ -135,7 +135,7 @@ public class BaseTest extends ApplauseSeleniumTest {
   }
 
   @Step("Navigate to PDP")
-  public ProductDetailsPage navigateToPDP(String product) {
+  public static ProductDetailsPage navigateToPDP(String product) {
     logger.info(String.format("Navigating to PDP page '%s'", TestData.GENERAL_PDP_URL + product));
 
     try {

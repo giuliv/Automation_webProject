@@ -29,9 +29,7 @@ public class PeetnikRewardsTermsAndConditionsView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
-  @Locate(
-          xpath = "(//*[contains(@text, \"NO THANKS\")])",
-          on = Platform.MOBILE_ANDROID)
+  @Locate(xpath = "(//*[contains(@text, \"NO THANKS\")])", on = Platform.MOBILE_ANDROID)
   protected Button noThanksButton;
 
   @Locate(xpath = "//XCUIElementTypeButton[@name=\"Done\"]", on = Platform.MOBILE_IOS)
@@ -59,7 +57,7 @@ public class PeetnikRewardsTermsAndConditionsView extends BaseComponent {
       } catch (Exception e) {
         logger.info("Promotional popup did not appear");
       }
-      }
+    }
     logger.info("Waiting for privacy page to appear");
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getHeadingText).present().setTimeout(Duration.ofSeconds(60)));

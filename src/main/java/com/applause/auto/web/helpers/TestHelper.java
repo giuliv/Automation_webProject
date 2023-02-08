@@ -18,7 +18,7 @@ import org.testng.Assert;
 public class TestHelper {
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
 
-  public MyAccountPage createAccount(HomePage homePage, String mail) {
+  public static MyAccountPage createAccount(HomePage homePage, String mail) {
     CreateAccountPage createAccountPage =
         homePage.getHeader().clickAccountButton().clickOnCreateAccountButton();
     Assert.assertTrue(

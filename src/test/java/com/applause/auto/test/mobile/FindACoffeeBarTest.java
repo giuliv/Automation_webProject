@@ -10,11 +10,10 @@ import com.applause.auto.mobile.views.HomeView;
 import com.applause.auto.mobile.views.NearbySelectCoffeeBarView;
 import com.applause.auto.mobile.views.OrderView;
 import com.applause.auto.mobile.views.StoreDetailsView;
+import java.util.List;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-
-import java.util.List;
 
 public class FindACoffeeBarTest extends BaseTest {
 
@@ -183,8 +182,7 @@ public class FindACoffeeBarTest extends BaseTest {
 
     logger.info("VERIFY - Store Address");
     Assert.assertTrue(
-        recent.isCoffeebarLocationDisplayed(storeAddress),
-        "Address does not displayed");
+        recent.isCoffeebarLocationDisplayed(storeAddress), "Address does not displayed");
 
     logger.info("VERIFY - Open Untill xx.xx AM /Pm");
     Assert.assertTrue(recent.isCoffeebarOpenHoursDisplayed(), "Open hours does not displayed");
@@ -192,12 +190,12 @@ public class FindACoffeeBarTest extends BaseTest {
     logger.info("VERIFY - [Button] Order");
     Assert.assertTrue(recent.isCoffeebarOrderButtonDisplayed(), "Order button does not displayed");
 
-    //storeName = "AppInt Sandbox 2";
+    // storeName = "AppInt Sandbox 2";
     logger.info("STEP - Tap Order");
     OrderView order;
-    if(SdkHelper.getEnvironmentHelper().isAndroid()){
+    if (SdkHelper.getEnvironmentHelper().isAndroid()) {
       order = recent.clickOrderButton(storeName);
-    }else{
+    } else {
       order = recent.clickOrderButton();
     }
 
@@ -206,9 +204,7 @@ public class FindACoffeeBarTest extends BaseTest {
 
     logger.info("VERIFY - Make sure coffee bar name is correct on location field of order screen");
     Assert.assertEquals(
-        order.getStoreName().toUpperCase(),
-            storeName.toUpperCase(),
-        "Wrong store name displayed");
+        order.getStoreName().toUpperCase(), storeName.toUpperCase(), "Wrong store name displayed");
   }
 
   @Test(
@@ -267,18 +263,20 @@ public class FindACoffeeBarTest extends BaseTest {
     String currentName = favStore.getStoreName();
     List<String> storeNames = favStore.getStoreNameList();
 
-    Assert.assertTrue(storeNames.contains(storeName), "Wrong store shown under favorites tab: Expected: "
+    Assert.assertTrue(
+        storeNames.contains(storeName),
+        "Wrong store shown under favorites tab: Expected: "
             + storeName
             + " but found: "
-            + currentName) ;
+            + currentName);
 
     SoftAssert softAssert = new SoftAssert();
 
     logger.info("STEP - Select the same store just favorited to view store details screen");
-    if (SdkHelper.getEnvironmentHelper().isAndroid()){
+    if (SdkHelper.getEnvironmentHelper().isAndroid()) {
       storeDetailsView = favStore.openStoreDetails(storeName);
 
-    }else{
+    } else {
       storeDetailsView = favStore.openStoreDetails();
     }
 
