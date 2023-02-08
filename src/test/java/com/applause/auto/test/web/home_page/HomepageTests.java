@@ -432,7 +432,9 @@ public class HomepageTests extends BaseTest {
         TestNGGroups.HOME_PAGE,
         TestNGGroups.FE_PROD_REGRESSION
       },
-      description = "11107425")
+      description = "11107425",
+      enabled = false)
+  // Feature no longer valid [08.02.2023]
   public void respondingToCovidVerificationTest() {
     logger.info("1. Navigate to landing page");
     HomePage homePage = navigateToHome();
