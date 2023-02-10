@@ -161,10 +161,21 @@ public class WebHelper {
     SdkHelper.getSyncHelper().sleep(3000); // Extra wait due to context change
   }
 
+  /**
+   * Fix created for phone input on iOS devices
+   *
+   * @param button
+   * @param text
+   */
   public static void sendKeysOverIframeBySwitchingContextIOS(BaseElement button, String text) {
     String oldContext = WebHelper.getCurrentContext();
     WebHelper.switchToNativeContext();
-    button.getWebElement().sendKeys(text);
+    SdkHelper.getSyncHelper().sleep(3000); // Extra wait due to context change
+
+    if (button.getWebElement().getAttribute("value").equalsIgnoreCase("phone")) {
+      button.getWebElement().sendKeys(text);
+    }
+
     WebHelper.switchToWeb(oldContext);
     SdkHelper.getSyncHelper().sleep(3000); // Extra wait due to context change
   }

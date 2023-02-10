@@ -41,7 +41,7 @@ public class PaymentsPage extends Base {
   protected TextBox cardNumber;
 
   @Locate(css = "iframe[id*='card-fields-name']", on = Platform.WEB)
-  private ContainerElement iFrameCardName;
+  protected ContainerElement iFrameCardName;
 
   @Locate(css = "input[name='name']", on = Platform.WEB)
   @Locate(
@@ -50,7 +50,7 @@ public class PaymentsPage extends Base {
   protected TextBox cardName;
 
   @Locate(css = "iframe[id*='card-fields-expiry']", on = Platform.WEB)
-  private ContainerElement iFrameCardExpiration;
+  protected ContainerElement iFrameCardExpiration;
 
   @Locate(css = "input[name='expiry']", on = Platform.WEB)
   @Locate(
@@ -575,5 +575,49 @@ class PaymentsPageIOS extends PaymentsPage {
     WebHelper.switchToWeb(oldContext);
     SdkHelper.getSyncHelper().sleep(3000); // Extra wait due to context change
     WebHelper.hideKeyboard();
+  }
+
+  @Override
+  @Step("Set payment data")
+  public PaymentsPage setPaymentData(CreditCardDto card) {
+    logger.info("Setting payments data...");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(iFrameCardNumber).present());
+    WebHelper.scrollToElement(iFrameCardNumber);
+
+    String oldContext = WebHelper.getCurrentContext();
+    WebHelper.switchToNativeContext();
+    SdkHelper.getSyncHelper().sleep(3000); // Extra wait due to context change
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(cardNumber).clickable());
+
+    String cardNumberText =
+        IntStream.iterate(0, i -> i + 4)
+            .limit((int) Math.ceil(card.getCardNumber().length() / 4.0))
+            .mapToObj(
+                i ->
+                    card.getCardNumber()
+                        .substring(i, Math.min(i + 4, card.getCardNumber().length())))
+            .collect(Collectors.joining())
+            .trim();
+    cardNumber.sendKeys(cardNumberText);
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(cardName).clickable());
+    cardName.sendKeys(card.getNameOnCard());
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(cardExpiration).clickable());
+    SdkHelper.getDeviceControl().tapElementCenter(cardExpiration);
+    cardExpiration.sendKeys(card.getExpirationMonth() + card.getExpirationYear());
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(cvv).clickable());
+    SdkHelper.getDeviceControl().tapElementCenter(cvv);
+    cvv.sendKeys(card.getSecurityCode());
+
+    WebHelper.switchToWeb(oldContext);
+    SdkHelper.getSyncHelper().sleep(3000); // Extra wait due to context change
+    WebHelper.hideKeyboard();
+    return SdkHelper.create(PaymentsPage.class);
   }
 }

@@ -52,7 +52,10 @@ public class CheckOutPage extends Base {
   @Locate(css = "div[data-address-field] #checkout_shipping_address_phone", on = Platform.WEB)
   private TextBox phone;
 
-  @Locate(xpath = "//XCUIElementTypeTextField[@value=\"Phone\"]", on = Platform.WEB)
+  @Locate(
+      xpath =
+          "//XCUIElementTypeTextField[@value=\"Phone\"] | //XCUIElementTypeTextField[@value=\"(646) 759-4933\"]",
+      on = Platform.WEB)
   private TextBox phoneIOS;
 
   @Locate(css = "select#checkout_shipping_address_country", on = Platform.WEB)
@@ -178,9 +181,10 @@ public class CheckOutPage extends Base {
 
     zip.clearText();
     zip.sendKeys(Constants.WebTestData.ZIP);
-    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    SdkHelper.getSyncHelper().sleep(2000); // Wait for action
 
     if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      logger.info("Setting up phone value on iOS");
       WebHelper.sendKeysOverIframeBySwitchingContextIOS(phoneIOS, Constants.WebTestData.PHONE);
     } else {
       phone.sendKeys(Constants.WebTestData.PHONE);
@@ -208,16 +212,21 @@ public class CheckOutPage extends Base {
     city.sendKeys(recipientAddress.getCity().toUpperCase());
     SdkHelper.getSyncHelper().sleep(1500); // Wait for action
 
-    phone.clearText();
-    phone.sendKeys(recipientAddress.getPhoneNumber());
-    SdkHelper.getSyncHelper().sleep(500); // Wait for action
-
     province.select(recipientAddress.getState());
     SdkHelper.getSyncHelper().sleep(500); // Wait for action
 
     zip.clearText();
     zip.sendKeys(recipientAddress.getZipCode());
-    SdkHelper.getSyncHelper().sleep(500); // Wait for action
+    SdkHelper.getSyncHelper().sleep(2000); // Wait for action
+
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      logger.info("Setting up phone value on iOS");
+      WebHelper.sendKeysOverIframeBySwitchingContextIOS(phoneIOS, Constants.WebTestData.PHONE);
+    } else {
+      phone.clearText();
+      phone.sendKeys(Constants.WebTestData.PHONE);
+      SdkHelper.getSyncHelper().sleep(500); // Wait for action
+    }
   }
 
   @Step("Set checkout data as existing user")

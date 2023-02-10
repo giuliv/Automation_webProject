@@ -217,11 +217,14 @@ public class Constants {
 
     public static final CreditCardDto VISA_CC =
         new CreditCardDto(
-            TestData.VISA_CC_NUMBER,
-            TestData.VISA_CC_NAME,
-            TestData.VISA_CC_EXP_DATE.split("/")[0],
-            TestData.VISA_CC_EXP_DATE.split("/")[1],
-            TestData.VISA_SECURITY_CODE);
+            WebTestData.CREDIT_CARD_NUMBER_1
+                + WebTestData.CREDIT_CARD_NUMBER_2
+                + WebTestData.CREDIT_CARD_NUMBER_3
+                + WebTestData.CREDIT_CARD_NUMBER_4,
+            WebTestData.CREDIT_CARD_NAME,
+            WebTestData.CREDIT_CARD_EXPIRATION_MONTH,
+            WebTestData.CREDIT_CARD_EXPIRATION_YEAR,
+            WebTestData.CREDIT_CARD_CVV);
 
     public static final String VISA_CC_NUMBER = "4788250000028291";
     public static final String VISA_CC_SECURITY_CODE = "111";
