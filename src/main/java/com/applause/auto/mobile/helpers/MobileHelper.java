@@ -26,6 +26,7 @@ import java.util.Map;
 import java.util.stream.IntStream;
 import javax.imageio.ImageIO;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
@@ -570,5 +571,35 @@ public class MobileHelper {
     params.put("bundleId", bundleId);
     js.executeScript("mobile: launchApp", params);
     logger.info("Application activated: " + bundleId);
+  }
+
+  /**
+   * Swipe rapidly with count.
+   *
+   * @param swipeDirection the swipe direction
+   * @param swipeCount the swipe count
+   */
+  public static void swipeRapidlyWithCount(
+      SwipeDirectionCloseToMiddle swipeDirection, int swipeCount) {
+    logger.info("Scrolling to bottom of page");
+    for (int i = 0; i < swipeCount; i++) {
+      swipeRapidlyAcrossScreenWithDirection(swipeDirection);
+    }
+  }
+
+  /**
+   * Swipe rapidly across screen with direction.
+   *
+   * @param swipeDirection the swipe direction
+   */
+  public static void swipeRapidlyAcrossScreenWithDirection(
+      SwipeDirectionCloseToMiddle swipeDirection) {
+    Dimension size = ((AppiumDriver) SdkHelper.getDriver()).manage().window().getSize();
+    logger.debug(String.format("Screen size is [%d x %d].", size.width, size.height));
+    Pair<Point, Point> vector = swipeDirection.getSwipeVector(size.width, size.height);
+    Point start = (Point) vector.getKey();
+    Point end = (Point) vector.getValue();
+    SdkHelper.getDeviceControl().swipeAcrossScreenCoordinates(start.x, start.y, end.x, end.y, 200L);
+    SdkHelper.getSyncHelper().sleep(300);
   }
 }

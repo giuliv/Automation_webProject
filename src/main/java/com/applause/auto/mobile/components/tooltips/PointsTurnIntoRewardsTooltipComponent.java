@@ -31,4 +31,14 @@ public class PointsTurnIntoRewardsTooltipComponent extends BaseTooltipComponent 
     }
     return SdkHelper.create(clazz);
   }
+
+  @Step("Close Points Turn Into Rewards Tooltip")
+  public void closeTooltipIfDisplayed() {
+    if (MobileHelper.isElementDisplayed(closeButton, 10)) {
+      logger.info("Closing Points Turn Into Rewards Tooltip");
+      closeButton.click();
+    } else {
+      logger.info("Points Turn Into Rewards Tooltip didn't appear");
+    }
+  }
 }

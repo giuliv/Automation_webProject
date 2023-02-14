@@ -31,4 +31,15 @@ public class ReorderTooltipComponent extends BaseTooltipComponent {
     }
     return SdkHelper.create(clazz);
   }
+
+  @Step("Close Reorder Tooltip")
+  public ReorderTooltipComponent closeReorderTooltipIfDisplayed() {
+    if (MobileHelper.isElementDisplayed(closeButton, 15)) {
+      logger.info("Closing Reorder Tooltip");
+      closeButton.click();
+    } else {
+      logger.info("Reorder Tooltip didn't appear");
+    }
+    return this;
+  }
 }

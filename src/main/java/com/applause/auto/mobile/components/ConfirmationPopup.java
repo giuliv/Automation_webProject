@@ -2,6 +2,7 @@ package com.applause.auto.mobile.components;
 
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -31,6 +32,12 @@ public class ConfirmationPopup extends BaseComponent {
       on = Platform.MOBILE_IOS)
   protected Button okayButton;
 
+  @Locate(id = "com.wearehathway.peets.development:id/confirmButton", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`label == \"Confirm\"`]",
+      on = Platform.MOBILE_IOS)
+  protected Button confirmStoreButton;
+
   @Step("Get Popup message")
   public String getPopupMessage() {
     String text = WebHelper.cleanString(message.getText());
@@ -42,6 +49,17 @@ public class ConfirmationPopup extends BaseComponent {
   public <T extends BaseComponent> T tapOnOkay(Class<T> clazz) {
     logger.info("Taping Okay to dismiss error message");
     okayButton.click();
+    return SdkHelper.create(clazz);
+  }
+
+  @Step("Confirm coffee bar")
+  public <T extends BaseComponent> T confirmCoffeeBar(Class<T> clazz) {
+    if (MobileHelper.isElementDisplayed(confirmStoreButton, 10)) {
+      logger.info("Confirm coffee bar");
+      confirmStoreButton.click();
+    } else {
+      logger.info("Confirm coffee bar didn't appear");
+    }
     return SdkHelper.create(clazz);
   }
 }

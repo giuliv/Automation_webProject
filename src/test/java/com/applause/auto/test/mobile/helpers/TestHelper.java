@@ -4,6 +4,7 @@ import com.applause.auto.common.data.dto.SignUpUserDto;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.mobile.components.tooltips.PointsTurnIntoRewardsTooltipComponent;
 import com.applause.auto.mobile.views.CreateAccountView;
 import com.applause.auto.mobile.views.HomeView;
 import com.applause.auto.mobile.views.LandingView;
@@ -156,14 +157,27 @@ public class TestHelper extends BaseComponent {
     logger.info("Log in to the app");
     signInView.setEmail(userName);
     signInView.setPassword(password);
-    return signInView
-        .signIn(HomeView.class)
-        .getReorderTooltipComponent()
-        .closeReorderTooltipIfDisplayed(HomeView.class)
-        .getCheckInTooltipComponent()
-        .closeCheckInTooltipIfDisplayed(HomeView.class)
-        .getPointsTurnIntoRewardsTooltipComponent()
-        .closeTooltipIfDisplayed(HomeView.class);
+    HomeView homeView;
+    if (SdkHelper.getEnvironmentHelper().isiOS()) {
+      homeView =
+          signInView
+              .signIn(HomeView.class)
+              .getReorderTooltipComponent()
+              .closeAnyTooltipIfDisplayed(4, HomeView.class);
+    } else {
+      homeView =
+          signInView
+              .signIn(HomeView.class)
+              .getReorderTooltipComponent()
+              .closeReorderTooltipIfDisplayed(HomeView.class)
+              .getCheckInTooltipComponent()
+              .closeCheckInTooltipIfDisplayed(HomeView.class)
+              .getPointsTurnIntoRewardsTooltipComponent()
+              .closeTooltipIfDisplayed(PointsTurnIntoRewardsTooltipComponent.class)
+              .closeTooltipIfDisplayed(HomeView.class);
+    }
+
+    return homeView;
   }
 
   public static HomeView closeHomeViewTooltipIfDisplayed(HomeView homeView) {

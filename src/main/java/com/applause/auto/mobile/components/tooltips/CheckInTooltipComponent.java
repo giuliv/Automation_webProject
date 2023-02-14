@@ -31,4 +31,13 @@ public class CheckInTooltipComponent extends BaseTooltipComponent {
     }
     return SdkHelper.create(clazz);
   }
+
+  public void closeCheckInTooltipIfDisplayed() {
+    if (MobileHelper.isElementDisplayed(closeButton, 10)) {
+      logger.info("Closing CheckIn Tooltip");
+      closeButton.click();
+    } else {
+      logger.info("CheckIn Tooltip didn't appear");
+    }
+  }
 }

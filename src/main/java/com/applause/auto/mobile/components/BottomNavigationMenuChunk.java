@@ -3,6 +3,8 @@ package com.applause.auto.mobile.components;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.mobile.components.tooltips.CheckInTooltipComponent;
+import com.applause.auto.mobile.components.tooltips.PointsTurnIntoRewardsTooltipComponent;
 import com.applause.auto.mobile.views.HomeView;
 import com.applause.auto.mobile.views.PeetsCardsView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -10,11 +12,16 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import io.qameta.allure.Step;
+import lombok.Getter;
+
 import java.time.Duration;
 
 @Implementation(is = BottomNavigationMenuChunk.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = BottomNavigationMenuChunk.class, on = Platform.MOBILE_IOS)
 public class BottomNavigationMenuChunk extends BaseComponent {
+
+  @Getter @Locate PointsTurnIntoRewardsTooltipComponent pointsTurnIntoRewardsTooltipComponent;
+  @Getter @Locate ConfirmationPopup confirmationPopup;
 
   /* -------- Elements -------- */
 
@@ -46,6 +53,38 @@ public class BottomNavigationMenuChunk extends BaseComponent {
       androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/menuButton\")",
       on = Platform.MOBILE_ANDROID)
   protected Button menuButton;
+
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Rewards\"`]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/rewardButton\")",
+      on = Platform.MOBILE_ANDROID)
+  protected Button rewardsButton;
+
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`label == \"Reorder\"`]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/orderButtonContainer\")",
+      on = Platform.MOBILE_ANDROID)
+  protected Button reorderButton;
+
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Scan\"`]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/scanQRButton\")",
+      on = Platform.MOBILE_ANDROID)
+  protected Button scanButton;
+
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"More\"`]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/moreButton\")",
+      on = Platform.MOBILE_ANDROID)
+  protected Button moreButton;
 
   /* -------- Actions -------- */
 
@@ -95,6 +134,50 @@ public class BottomNavigationMenuChunk extends BaseComponent {
   public <T extends BaseComponent> T tapMenu(Class<T> clazz) {
     logger.info("Tapping on 'Menu' button");
     menuButton.click();
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      SdkHelper.create(FreeDeliveryModalChunk.class).dismissFreeDelivery();
+    }
+    return SdkHelper.create(clazz);
+  }
+
+  @Step("Tap on 'Rewards' button")
+  public <T extends BaseComponent> T tapRewards(Class<T> clazz) {
+    logger.info("Tapping on 'Rewards' button");
+    rewardsButton.click();
+    getPointsTurnIntoRewardsTooltipComponent().closeTooltipIfDisplayed(clazz);
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      SdkHelper.create(FreeDeliveryModalChunk.class).dismissFreeDelivery();
+    }
+    return SdkHelper.create(clazz);
+  }
+
+  @Step("Tap on 'Reorder' button")
+  public <T extends BaseComponent> T tapReorderButton(Class<T> clazz) {
+    logger.info("Tapping on 'Reorder' button");
+    reorderButton.click();
+    getConfirmationPopup().confirmCoffeeBar(clazz);
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      SdkHelper.create(FreeDeliveryModalChunk.class).dismissFreeDelivery();
+    }
+    return SdkHelper.create(clazz);
+  }
+
+  @Step("Tap on 'Scan' button")
+  public <T extends BaseComponent> T tapScanButton(Class<T> clazz) {
+    logger.info("Tapping on 'Scan' button");
+    getPointsTurnIntoRewardsTooltipComponent().closeTooltipIfDisplayed();
+    scanButton.click();
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      SdkHelper.create(FreeDeliveryModalChunk.class).dismissFreeDelivery();
+    }
+    return SdkHelper.create(clazz);
+  }
+
+  @Step("Tap on 'More' button")
+  public <T extends BaseComponent> T tapMoreButton(Class<T> clazz) {
+    logger.info("Tapping on 'More' button");
+    moreButton.click();
+    getConfirmationPopup().confirmCoffeeBar(clazz);
     if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
       SdkHelper.create(FreeDeliveryModalChunk.class).dismissFreeDelivery();
     }

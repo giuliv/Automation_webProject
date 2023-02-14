@@ -72,8 +72,12 @@ public class OnboardingView extends BaseComponent {
 
   @Override
   public void afterInit() {
-    SdkHelper.getSyncHelper()
-        .wait(Until.uiElement(skipButton).visible().setTimeout(Duration.ofSeconds(40)));
+    try {
+      SdkHelper.getSyncHelper()
+          .wait(Until.uiElement(skipButton).visible().setTimeout(Duration.ofSeconds(40)));
+    } catch (Exception e) {
+      logger.info("Skip button didn't appear");
+    }
   }
 
   @Step("Get Onboarding Title")
@@ -131,14 +135,19 @@ public class OnboardingView extends BaseComponent {
   @Step("Tap on 'Skip' button")
   public LandingView skipOnboarding() {
     logger.info("Tapping on 'Skip' button");
-    SdkHelper.getSyncHelper()
-        .wait(Until.uiElement(skipButton).visible().setTimeout(Duration.ofSeconds(40)));
+    try {
+      SdkHelper.getSyncHelper()
+          .wait(Until.uiElement(skipButton).present().setTimeout(Duration.ofSeconds(40)));
 
-    if (skipButton.isClickable()) {
-      skipButton.click();
-    } else {
-      logger.info("For some reason, skip button seems not clickable");
-      SdkHelper.getDeviceControl().tapElementCenter(skipButton);
+      if (skipButton.isClickable()) {
+        MobileHelper.tapOnElementCenter(skipButton);
+
+      } else {
+        logger.info("For some reason, skip button seems not clickable");
+        SdkHelper.getDeviceControl().tapElementCenter(skipButton);
+      }
+    } catch (Exception e) {
+      logger.info("Skip button didn't appear");
     }
 
     return SdkHelper.create(LandingView.class);
@@ -157,7 +166,11 @@ class OnboardingViewIos extends OnboardingView {
     } else {
       logger.info("Tracking Popup was already Accepted");
     }
-    SdkHelper.getSyncHelper()
-        .wait(Until.uiElement(skipButton).present().setTimeout(Duration.ofSeconds(40)));
+    try {
+      SdkHelper.getSyncHelper()
+          .wait(Until.uiElement(skipButton).present().setTimeout(Duration.ofSeconds(40)));
+    } catch (Exception e) {
+      logger.info("Skip button didn't appear");
+    }
   }
 }

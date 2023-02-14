@@ -18,7 +18,7 @@ import lombok.Getter;
 
 @Implementation(is = OrderView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = IosOrderView.class, on = Platform.MOBILE_IOS)
-public class OrderView extends BaseComponent {
+public class OrderView extends BaseView {
 
   /* -------- Elements -------- */
 
