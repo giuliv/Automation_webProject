@@ -18,7 +18,10 @@ public class HelpAndFeedbackView extends BaseComponent {
   /* -------- Elements -------- */
 
   @Locate(accessibilityId = "button back", on = Platform.MOBILE_IOS)
-  @Locate(xpath = "//*[contains(@content-desc, 'Navigate up')]", on = Platform.MOBILE_ANDROID)
+  @Locate(
+      xpath =
+          "//*[contains(@content-desc, 'Navigate up') or contains(@content-desc, 'Revenir en arrière')]",
+      on = Platform.MOBILE_ANDROID)
   protected Button backArrow;
 
   @Locate(

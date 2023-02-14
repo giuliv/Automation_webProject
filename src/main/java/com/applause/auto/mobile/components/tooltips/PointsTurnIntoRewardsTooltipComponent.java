@@ -17,7 +17,8 @@ public class PointsTurnIntoRewardsTooltipComponent extends BaseTooltipComponent 
       iOSClassChain = "**/XCUIElementTypeButton[`label == 'button cross'`]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/closeRewardsTooltipButton\")",
+      xpath =
+          "//*[contains(@resource-id,'closeRewardsTooltipButton') or contains(@resource-id,'cross_button')]",
       on = Platform.MOBILE_ANDROID)
   protected Button closeButton;
 

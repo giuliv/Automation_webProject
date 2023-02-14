@@ -33,4 +33,15 @@ public class BaseTooltipComponent extends BaseComponent {
     }
     return SdkHelper.create(clazz);
   }
+
+  @Step("Close Tooltip")
+  public void closeAnyTooltipIfDisplayed(int countOfTooltips) {
+    for (int i = 0; i < countOfTooltips; i++) {
+      if (MobileHelper.isElementDisplayed(closeButton, 5)) {
+        closeButton.click();
+      } else {
+        logger.info("Tooltip didn't appear");
+      }
+    }
+  }
 }

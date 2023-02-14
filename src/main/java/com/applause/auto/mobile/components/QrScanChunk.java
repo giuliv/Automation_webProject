@@ -6,6 +6,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import io.qameta.allure.Step;
 
+/** Order Menu chunk. */
 public class QrScanChunk extends BaseComponent {
 
   /* -------- Elements -------- */

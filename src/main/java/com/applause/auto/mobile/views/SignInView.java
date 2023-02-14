@@ -3,6 +3,7 @@ package com.applause.auto.mobile.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.mobile.components.tooltips.BaseTooltipComponent;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -10,10 +11,9 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import java.time.Duration;
-import java.util.stream.IntStream;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.TimeoutException;
+
+import java.time.Duration;
 
 @Implementation(is = AndroidSignInView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = SignInView.class, on = Platform.MOBILE_IOS)
@@ -200,6 +200,7 @@ public class SignInView extends BaseComponent {
     logger.info("Click on Sign In button");
     signInButton.initialize();
     signInButton.click();
+    SdkHelper.create(BaseTooltipComponent.class).closeAnyTooltipIfDisplayed(5);
     return SdkHelper.create(clazz);
   }
 
@@ -339,27 +340,13 @@ class AndroidSignInView extends SignInView {
   public <T extends BaseComponent> T signIn(Class<T> clazz) {
     logger.info("Click on Sign In button");
     MobileHelper.hideKeyboard();
-    IntStream.range(0, 3)
-        .filter(
-            i -> {
-              signInButton.click();
-              if (getLoader.exists()) {
-                SdkHelper.getSyncHelper()
+	signInButton.click();
+	SdkHelper.getSyncHelper()
                     .wait(
                         Until.uiElement(getLoader)
                             .notPresent()
                             .setTimeout(Duration.ofSeconds(120)));
-              }
-              try {
-                SdkHelper.create(clazz);
-                return true;
-              } catch (TimeoutException tex) {
-                // click Ok button
-                okButton.click();
-                return false;
-              }
-            })
-        .findAny();
+    SdkHelper.create(BaseTooltipComponent.class).closeAnyTooltipIfDisplayed(5);
     return SdkHelper.create(clazz);
   }
 }

@@ -6,12 +6,7 @@ import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
-import com.applause.auto.pageobjectmodel.elements.Button;
-import com.applause.auto.pageobjectmodel.elements.ContainerElement;
-import com.applause.auto.pageobjectmodel.elements.Image;
-import com.applause.auto.pageobjectmodel.elements.Link;
-import com.applause.auto.pageobjectmodel.elements.SelectList;
-import com.applause.auto.pageobjectmodel.elements.Text;
+import com.applause.auto.pageobjectmodel.elements.*;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import com.applause.auto.web.components.MyAccountLeftMenu;
 import com.applause.auto.web.components.RegisterPeetCardComponent;
@@ -23,10 +18,11 @@ import com.applause.auto.web.views.Base;
 import com.applause.auto.web.views.GiftCardsPage;
 import com.applause.auto.web.views.ProductListPage;
 import io.qameta.allure.Step;
+import lombok.Getter;
+
 import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
-import lombok.Getter;
 
 @Implementation(is = MyAccountPage.class, on = Platform.WEB)
 @Implementation(is = MyAccountPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
@@ -206,13 +202,6 @@ public class MyAccountPage extends Base {
   public String getWelcomeMessage() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(getViewSignature()).visible());
     logger.info("Welcome message: " + getViewSignature().getText().toLowerCase());
-
-    //    if (WebHelper.getDriverConfig().toLowerCase().contains("landscape")
-    //        && SdkHelper.getEnvironmentHelper().isAndroid()) {
-    //      logger.info("Welcome message2: " + getViewSignature().getText().toLowerCase());
-    //      return getViewSignature().getText().toLowerCase();
-    //    }
-
     return getViewSignature().getText().toLowerCase();
   }
 

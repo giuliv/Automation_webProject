@@ -3,14 +3,16 @@ package com.applause.auto.mobile.views;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.mobile.components.tooltips.BaseTooltipComponent;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.appium.java_client.android.AndroidDriver;
-import java.time.Duration;
 import org.openqa.selenium.ScreenOrientation;
+
+import java.time.Duration;
 
 @Implementation(is = AndroidLegalInfoView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = LegalInfoView.class, on = Platform.MOBILE_IOS)
@@ -45,6 +47,7 @@ public class LegalInfoView extends BaseComponent {
   /* -------- Actions -------- */
 
   public void afterInit() {
+    SdkHelper.create(BaseTooltipComponent.class).closeAnyTooltipIfDisplayed(1);
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(60)));
   }
@@ -66,7 +69,7 @@ public class LegalInfoView extends BaseComponent {
    * @return the privacy policy view
    */
   public PrivacyPolicyView privacyPolicy() {
-    logger.info("Click on PPrivacy Policy");
+    logger.info("Click on Privacy Policy");
     privacyPolicyButton.click();
     return SdkHelper.create(PrivacyPolicyView.class);
   }

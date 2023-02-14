@@ -15,7 +15,7 @@
 
         <com.applause.sdk.java.version>4.1.2</com.applause.sdk.java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <surefire.version>2.19</surefire.version>
+        <surefire.version>3.0.0-M6</surefire.version>
         <surefire.suiteXmlFiles>${suiteFile}</surefire.suiteXmlFiles>
         <aspectj.version>1.9.5</aspectj.version>
         <report.portal.log4j.version>5.1.1</report.portal.log4j.version>

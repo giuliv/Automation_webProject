@@ -1,8 +1,10 @@
 package com.applause.auto.mobile.views;
 
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.mobile.components.tooltips.BaseTooltipComponent;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
@@ -10,8 +12,9 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.appium.java_client.android.AndroidDriver;
-import java.time.Duration;
 import org.openqa.selenium.ScreenOrientation;
+
+import java.time.Duration;
 
 @Implementation(is = AndroidCustomerSupportScreenView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CustomerSupportScreenView.class, on = Platform.MOBILE_IOS)
@@ -39,7 +42,7 @@ public class CustomerSupportScreenView extends BaseComponent {
   protected Text allowLocationToBrowser2;
 
   @Locate(
-      xpath = "(//XCUIElementTypeStaticText[@label='HELP CENTER'])[2]",
+      xpath = "//XCUIElementTypeLink/XCUIElementTypeStaticText[@label='HELP CENTER']",
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath = "//a[@class='footer__nav-link' and normalize-space()='Help Center']",
@@ -55,10 +58,12 @@ public class CustomerSupportScreenView extends BaseComponent {
   /* -------- Actions -------- */
 
   public void afterInit() {
+    closeDiscountAds();
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(headingText).present().setTimeout(Duration.ofSeconds(12)));
-    closeDiscountAds();
     acceptCookies();
+    MobileHelper.swipeWithCount(SwipeDirection.UP, 4);
+    closeDiscountAds();
   }
 
   /**
@@ -88,7 +93,8 @@ public class CustomerSupportScreenView extends BaseComponent {
    */
   public PeetnikMainFaqView clickHelpCenterFooterButton() {
     logger.info("Taping on the 'Help Center'");
-    MobileHelper.scrollDownToElementCloseToMiddle(helpCenterFooterButton, 30);
+    MobileHelper.scrollDownToElementCloseToMiddle(helpCenterFooterButton, 20);
+    SdkHelper.getSyncHelper().sleep(2000); // wait for animation is done
     MobileHelper.tapByCoordinatesOnElementCenter(helpCenterFooterButton);
     return SdkHelper.create(PeetnikMainFaqView.class);
   }
@@ -102,11 +108,7 @@ public class CustomerSupportScreenView extends BaseComponent {
 
   /** Close discount ads */
   private void closeDiscountAds() {
-    SdkHelper.getSyncHelper()
-        .wait(Until.uiElement(cookiesAcceptButton).present().setTimeout(Duration.ofSeconds(20)));
-    if (adsNoThanksButton.exists()) {
-      adsNoThanksButton.click();
-    }
+    SdkHelper.create(BaseTooltipComponent.class).closeAnyTooltipIfDisplayed(2);
   }
 }
 
