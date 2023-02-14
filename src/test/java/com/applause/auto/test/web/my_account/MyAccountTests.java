@@ -319,7 +319,7 @@ public class MyAccountTests extends BaseTest {
     // Todo: Missing validations, needs to be able to add peets cards
     MyAccountPage myAccountPage =
         MyAccountTestsHelper.navigateToMyAccountPage(
-            navigateToSignInPage(), TestData.USER_EMAIL_WITH_SUBSCRIPTIONS, TestData.WEB_PASSWORD);
+            navigateToSignInPage(), MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
 
     logger.info("4. Click in Peet's Card");
     MyCardsPage myCardsPage =
