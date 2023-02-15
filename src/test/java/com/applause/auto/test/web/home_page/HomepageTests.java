@@ -157,7 +157,7 @@ public class HomepageTests extends BaseTest {
     header = homePage.getHeader();
     CurrentOffersPage currentOffersPage = header.clickOffersFromMenu();
     softAssert.assertTrue(
-        currentOffersPage.isPageHeadingDisplayed(), "Offers did not bring us to the correct page");
+        currentOffersPage.areMainOffersDisplayed(), "Offers did not bring us to the correct page");
 
     logger.info("7.  Verify Free Shipping");
     homePage = navigateToHome();
@@ -951,7 +951,7 @@ public class HomepageTests extends BaseTest {
     logger.info("3. Click on Offers");
     CurrentOffersPage currentOffersPage = navigateToHome().getHeader().clickOffersFromMenu();
     Assert.assertTrue(
-        currentOffersPage.isPageHeadingDisplayed(), "Offers did not bring us to the correct page");
+        currentOffersPage.areMainOffersDisplayed(), "Offers did not bring us to the correct page");
   }
 
   @Test(

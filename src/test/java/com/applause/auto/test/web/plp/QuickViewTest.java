@@ -62,12 +62,19 @@ public class QuickViewTest extends BaseTest {
       description = "11110672")
   public void itemQuantityTest() {
 
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLPFromHome(TestData.COFFEE_BEST_SELLERS_URL);
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+    logger.info("1. Navigate to Home");
+    HomePage homePage = navigateToHome();
+    homePage.closeInitialBannersAndModals();
 
-    logger.info("2. Select new Quantity > Review Quantity element");
-    QuickViewComponent quickViewComponent = productListPage.clickOverFirstQuickViewButton();
+    logger.info("2. Search for the product: {}", coffeeSelected);
+    SearchResultsPage searchResultsPage =
+        homePage.getHeader().getSearchComponent().search(coffeeSelected);
+
+    logger.info("3. Open QuickView Modal");
+    QuickViewComponent quickViewComponent =
+        searchResultsPage.clickOverQuickViewByProduct(coffeeSelected);
+
+    logger.info("2. Review Quantity element");
     quickViewComponent.validateQuantityElements().assertAll();
 
     logger.info("FINISH");

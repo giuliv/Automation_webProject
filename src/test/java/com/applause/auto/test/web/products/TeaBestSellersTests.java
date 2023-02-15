@@ -110,7 +110,7 @@ public class TeaBestSellersTests extends BaseTest {
 
     logger.info("6. Load More Results");
     if (productListPage.isLoadButtonDisplayed()) {
-      productListPage.loadMore();
+      productListPage.clickLoadMore();
       Assert.assertTrue(
           totalProducts < productListPage.getTotalResults(), "Load more results does not work");
     }

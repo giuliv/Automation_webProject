@@ -81,13 +81,7 @@ public enum FooterOptions {
       CommonWebPage.class),
 
   // PARTNER WITH PEET's
-  CORPORATE_GIFTS(
-      "Partner with peet's",
-      "Corporate Gifts",
-      Constants.TestEnvironment.valueOf(WebHelper.getTestEnvironment()).getEnvironment()
-          + "/pages/corporate",
-      CommonWebPage.class),
-  WHOLESALE_PROGRAM(
+  FOODSERVICE_PROGRAM(
       "Partner with peet's",
       "Foodservice Program",
       Constants.TestEnvironment.valueOf(WebHelper.getTestEnvironment()).getEnvironment()
@@ -121,11 +115,6 @@ public enum FooterOptions {
 
   // FOOTER END SUB LINKS
   PRIVACY_POLICY("End Sub link", "Privacy Policy", "/pages/privacy-policy", CommonWebPage.class),
-  CALIFORNIA_PRIVACY_RIGHTS(
-      "End Sub link",
-      "California Privacy Rights",
-      "/pages/privacy-policy#california-residents",
-      CommonWebPage.class),
   TERMS_OF_SERVICE(
       "End Sub link", "Terms of Service", "/pages/terms-and-conditions", CommonWebPage.class),
   DISCLAIMER_TEXT(
@@ -133,7 +122,7 @@ public enum FooterOptions {
       "Nespresso is a registered trademark of Société des Produits Nestlé S.A., and is not affiliated with Peet’s Coffee Inc. Compatible with most Nespresso Original machines.",
       "",
       CommonWebPage.class),
-  COLOPHON_TEXT("End Sub link", "© 2022. PEET'S COFFEE", "", CommonWebPage.class);
+  COLOPHON_TEXT("End Sub link", "© 2023. PEET'S COFFEE", "", CommonWebPage.class);
 
   @Getter private String category;
   @Getter private String option;

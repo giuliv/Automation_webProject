@@ -549,7 +549,7 @@ public class ProductListPage extends Base {
   }
 
   @Step("Click Load more button")
-  public ProductListPage loadMore() {
+  public ProductListPage clickLoadMore() {
     logger.info("Clicking on the Load more button");
     int currentNumberOfItems = getTotalResults();
     WebHelper.scrollToPageBottom();
@@ -559,10 +559,16 @@ public class ProductListPage extends Base {
     return this;
   }
 
+  @Step("Review Load more button is displayed")
+  public boolean isLoadMoreButtonDisplayed() {
+    WebHelper.scrollToPageBottom();
+    return WebHelper.exists(loadMoreButton, 10);
+  }
+
   @Step("Get out of scope item")
   public PlpItemComponent getOutOfScopePlpItemComponent() {
     logger.info("Getting out of scope item");
-    loadMore();
+    clickLoadMore();
     return productsList().stream()
         .filter(PlpItemComponent::isOutOfScope)
         .findFirst()

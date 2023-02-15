@@ -127,7 +127,7 @@ public class CoffeeAllCoffeeTests extends BaseTest {
     quickViewComponent.closeQuickView();
 
     logger.info("6. Load More Results");
-    productListPage.loadMore();
+    productListPage.clickLoadMore();
     Assert.assertTrue(
         totalProducts < productListPage.getTotalResults(), "Load more results does not work");
 

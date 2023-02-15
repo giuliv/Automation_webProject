@@ -174,12 +174,6 @@ public class Header extends BaseComponent {
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).present());
-
-    // Todo: Commented on 08.09.2022 [Review if still needed]
-    //    if (!WebHelper.isDesktop() && allowCookies.exists()) {
-    //      logger.info("Accept Cookies");
-    //      WebHelper.jsClick(allowCookies.getWebElement());
-    //    }
   }
 
   /* -------- Actions -------- */
@@ -415,7 +409,7 @@ public class Header extends BaseComponent {
     WebHelper.slowNavigationHelper(linkHref, 5);
   }
 
-  @Step("Click submenu Alllinks")
+  @Step("Click submenu All links")
   public void clickSubMenuItemAllLinks(String linkHref) {
     logger.info("Click SubMenu AllLinks Link");
     subCategoriesAllLinks.format(linkHref).initialize();
@@ -496,6 +490,10 @@ public class Header extends BaseComponent {
 }
 
 class HeaderMobile extends Header {
+  @Locate(
+      css = "ul.hide-desktop a[href='/pages/current-offers'] span",
+      on = Platform.WEB_MOBILE_PHONE)
+  protected Button allOffersButton;
 
   @Override
   public void hoverCategoryFromMenu(Constants.MenuOptions menuOptions) {
@@ -581,6 +579,7 @@ class HeaderMobile extends Header {
 
     logger.info("Tab selected: Offers");
     SdkHelper.getSyncHelper().wait(Until.uiElement(offersCategory).clickable()).click();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(allOffersButton).clickable()).click();
     return SdkHelper.create(CurrentOffersPage.class);
   }
 
@@ -600,7 +599,7 @@ class HeaderMobile extends Header {
   }
 
   @Override
-  @Step("Click submenu Alllinks")
+  @Step("Click submenu All links")
   public void clickSubMenuItemAllLinks(String linkHref) {
     logger.info("Click SubMenu AllLinks Link");
     subCategoriesAllLinks.format(linkHref).initialize();
