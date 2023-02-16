@@ -309,11 +309,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {
-        TestNGGroups.FRONT_END_REGRESSION,
-        TestNGGroups.MY_ACCOUNT,
-        TestNGGroups.FE_PROD_REGRESSION
-      },
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.MY_ACCOUNT},
       description = "11102930")
   public void myAccountPeetsCardTest() {
     // Todo: Missing validations, needs to be able to add peets cards
@@ -616,11 +612,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {
-        TestNGGroups.FRONT_END_REGRESSION,
-        TestNGGroups.MY_ACCOUNT,
-        TestNGGroups.FE_PROD_REGRESSION
-      },
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.MY_ACCOUNT},
       description = "11107448")
   public void myAccountDashboardPeetsCardTest() {
     MyAccountPage myAccountPage =
@@ -659,11 +651,7 @@ public class MyAccountTests extends BaseTest {
   }
 
   @Test(
-      groups = {
-        TestNGGroups.FRONT_END_REGRESSION,
-        TestNGGroups.MY_ACCOUNT,
-        TestNGGroups.FE_PROD_REGRESSION
-      },
+      groups = {TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.MY_ACCOUNT},
       description = "11127066")
   public void myAccountWelcomeBackWindowAddButtonTest() {
     MyAccountPage myAccountPage =
