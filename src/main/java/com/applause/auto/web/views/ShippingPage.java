@@ -13,6 +13,7 @@ import com.applause.auto.web.components.ShipDateInfoComponent;
 import com.applause.auto.web.helpers.WebHelper;
 import io.qameta.allure.Step;
 import java.util.List;
+import org.openqa.selenium.By;
 
 @Implementation(is = ShippingPage.class, on = Platform.WEB)
 @Implementation(is = ShippingPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
@@ -72,6 +73,21 @@ public class ShippingPage extends Base {
 
   @Locate(xpath = "//span[contains(@data-shipping-method-label-title,\"%s\")]", on = Platform.WEB)
   protected Text shippingMethod;
+
+  @Locate(css = ".total-line__price > span.payment-due__price", on = Platform.WEB)
+  protected Text totalPriceText;
+
+  @Locate(css = "button span.order-summary__emphasis", on = Platform.WEB)
+  protected Text totalPriceTextMobile;
+
+  protected Text getTotalPriceText() {
+    // The UI is changed when the window width is more than 999
+    if (WebHelper.getJavascriptWindowWidth() > 999) {
+      return totalPriceText;
+    } else {
+      return totalPriceTextMobile;
+    }
+  }
 
   @Override
   public void afterInit() {
@@ -197,6 +213,34 @@ public class ShippingPage extends Base {
     logger.info("Checking shipping method: [{}] is displayed", methodName);
     shippingMethod.format(methodName);
     return WebHelper.isDisplayed(shippingMethod, 30);
+  }
+
+  @Step("Verify shipping method is displayed with Free Shipping")
+  public boolean isFreeShippingDisplayed(String methodName) {
+    logger.info("Checking shipping method: [{}] is displayed with Free Shipping", methodName);
+    shippingMethod.format(methodName);
+    if (!WebHelper.isDisplayed(
+        shippingMethod.getChild(By.xpath("./span[text()='Free Shipping']")))) {
+      logger.error("Free Shipping text is not displayed under shipping method {}", methodName);
+      return false;
+    }
+
+    if (!WebHelper.isDisplayed(
+        shippingMethod.getChild(
+            By.xpath(
+                "./../span[@class='radio__label__accessory']/span[normalize-space()='Free']")))) {
+      logger.error("Free text is not displayed for shipping method {} under the price", methodName);
+      return false;
+    }
+
+    return true;
+  }
+
+  @Step("Get total price value")
+  public double getTotal() {
+    double totalValue = Double.parseDouble(getTotalPriceText().getText().replaceAll("[^\\d.]", ""));
+    logger.info("Total value: {}", totalValue);
+    return totalValue;
   }
 }
 

@@ -144,6 +144,7 @@ public class Constants {
     public static final String RISTRETTO_ESPRESSO_CAPSULES_URL_PARAMETER =
         "ristretto-espresso-capsules";
     public static final String DECAF_SUMATRA_URL_PARAMETER = "decaf-sumatra";
+    public static final String AGED_SUMATRA_URL_PARAMETER = "aged-sumatra";
     public static final String SHIPPING_METHOD_GROUND = "Ground";
     public static final String SHIPPING_METHOD_GROUND_SUREPOST = "Ground-Surepost";
     public static final String SHIPPING_METHOD_THREE_DAY_SELECT = "3 Day Select";

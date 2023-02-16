@@ -78,4 +78,34 @@ public class ShippingDiscountsTests extends BaseTest {
         1,
         TestData.SHIPPING_METHOD_THREE_DAY_SELECT);
   }
+
+  @Test(
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.SHIPPING_DISCOUNT,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
+      description = "11127079")
+  public void freeShippingItemCheckoutFlow() {
+    ShippingTestHelper.checkoutProcess(
+        navigateToHome(),
+        TestData.AGED_SUMATRA_URL_PARAMETER,
+        3,
+        TestData.SHIPPING_METHOD_GROUND_SUREPOST);
+  }
+
+  @Test(
+      groups = {
+        TestNGGroups.FRONT_END_REGRESSION,
+        TestNGGroups.SHIPPING_DISCOUNT,
+        TestNGGroups.FE_PROD_REGRESSION
+      },
+      description = "11127080")
+  public void notFreeShippingItemCheckoutFlow() {
+    ShippingTestHelper.checkoutProcess(
+        navigateToHome(),
+        TestData.AGED_SUMATRA_URL_PARAMETER,
+        1,
+        TestData.SHIPPING_METHOD_GROUND_SUREPOST);
+  }
 }
