@@ -89,8 +89,7 @@ public class HomeView extends BaseComponent {
       on = Platform.MOBILE_IOS)
   @Locate(
       xpath =
-          "//android.widget.LinearLayout[@content-desc=\"Ready to Use\n"
-              + "Rewards & Offers\"]/android.widget.TextView",
+          "//android.widget.TextView[contains(@text,\"Ready to Use\")][contains(@text,\"Rewards & Offers\")]",
       on = Platform.MOBILE_ANDROID)
   protected Text readyToUseRewardsAndOffersTab;
 
@@ -98,7 +97,7 @@ public class HomeView extends BaseComponent {
       iOSClassChain = "**/XCUIElementTypeStaticText[`label == \"Rewards Store\"`]",
       on = Platform.MOBILE_IOS)
   @Locate(
-      xpath = "//android.widget.LinearLayout[@content-desc=\"Rewards Store\"]",
+      xpath = "//android.widget.TextView[@text=\"Rewards Store\"]",
       on = Platform.MOBILE_ANDROID)
   protected Button rewardsStoreTab;
 
