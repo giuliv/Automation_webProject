@@ -183,4 +183,10 @@ public class BottomNavigationMenuChunk extends BaseComponent {
     }
     return SdkHelper.create(clazz);
   }
+
+  @Step("Order button is displayed")
+  public Boolean isOrderButtonDisplayed() {
+    logger.info("Order button displayed?");
+    return menuButton.isDisplayed();
+  }
 }

@@ -232,4 +232,52 @@ public class DashboardTest extends BaseTest {
         homeView.getRewardName().contains(points),
         "New reward name containing: " + points + " points should be displayed ");
   }
+
+  @Test(
+      groups = {TestNGGroups.REGRESSION},
+      description = "11131081")
+  public void orderAndMoodMessageTest() {
+    logger.info("STEP #1 - Launch the app and create an account");
+    HomeView homeView = testHelper.createNewAccountWithDefaults();
+
+    /** TODO: for iPhone this message does not appear. */
+    if (SdkHelper.getEnvironmentHelper().isAndroid()) {
+      logger.info("VERIFY 'What are you in the mood for?' is displayed");
+      Assert.assertNotNull(
+          homeView.getWhatAreYouInTheMoodForMessage(),
+          "'What are you in the mood for?' message should be displayed");
+    }
+    
+    logger.info("VERIFY Order button is displayed on the bottom menu");
+    Assert.assertTrue(
+        homeView.getBottomNavigationMenuChunk().isOrderButtonDisplayed(),
+        "Order button should be displayed");
+
+    logger.info("STEP #2 - Tap order button");
+    FindACoffeeBarView findACoffeeBarView =
+        homeView.getBottomNavigationMenuChunk().tapMenu(FindACoffeeBarView.class);
+
+    logger.info("VERIFY if Find a coffee bar view is displayed");
+    Assert.assertNotNull(findACoffeeBarView, "Find a coffee bar view should be displayed");
+  }
+
+  @Test(
+      groups = {TestNGGroups.REGRESSION},
+      description = "11131084")
+  public void onboardingSignOutTest() {
+    logger.info("STEP #1 - Launch the app and arrive at the first on boarding screen view");
+    HomeView homeView =
+        testHelper.skipOnboardingAndLogin(
+            Constants.MyAccountTestData.EMAIL, Constants.MyAccountTestData.PASSWORD);
+
+    logger.info("STEP #2 - Open more options view");
+    MoreOptionsView moreOptionsView =
+        homeView.getBottomNavigationMenuChunk().tapMoreButton(MoreOptionsView.class);
+
+    logger.info("STEP #3 - Tap sign out button");
+    LandingView landingView = moreOptionsView.signOut();
+
+    logger.info("VERIFY User should be signed out successfully");
+    Assert.assertTrue(landingView.isSignInButtonDisplayed(), "User does not signed out");
+  }
 }

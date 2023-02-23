@@ -222,6 +222,13 @@ public class HomeView extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button pointMenuOption;
 
+  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"%s\"]", on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath =
+          "//android.widget.FrameLayout[@resource-id='com.wearehathway.peets.development:id/promotions_offers_no_feed_container']//android.widget.TextView[1]",
+      on = Platform.MOBILE_ANDROID)
+  protected Button whatAreYouInTheMoodForMessageText;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper()
@@ -418,5 +425,11 @@ public class HomeView extends BaseComponent {
   public void clickPointMenuOption(String option) {
     logger.info("Select option: {} from point menu", option);
     pointMenuOption.format(option).click();
+  }
+
+  @Step("What are you in the mood for get message")
+  public String getWhatAreYouInTheMoodForMessage() {
+    logger.info("Details description text: " + whatAreYouInTheMoodForMessageText.getText());
+    return whatAreYouInTheMoodForMessageText.getText();
   }
 }
