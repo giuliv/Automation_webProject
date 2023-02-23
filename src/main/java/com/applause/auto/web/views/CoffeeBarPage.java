@@ -88,6 +88,12 @@ public class CoffeeBarPage extends Base {
   @Locate(css = ".dwmodal-box .dwmodal-close-button", on = Platform.WEB)
   protected Button closePopUp;
 
+  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Allow Once\"]", on = Platform.WEB)
+  protected Button allowOnceButton;
+
+  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Allow\"]", on = Platform.WEB)
+  protected Button allowButton;
+
   @Override
   public void afterInit() {
     if (WebHelper.exists(closePopUp, 5)) {
@@ -112,7 +118,12 @@ public class CoffeeBarPage extends Base {
    */
   public OrderPage clickOrderNow() {
     logger.info("Click Order Now");
-    getOrderNowButton.click();
+    WebHelper.click(getOrderNowButton);
+
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      WebHelper.allowLocationOnceIOS(allowOnceButton, allowButton);
+    }
+
     WebHelper.getNewTab();
     return SdkHelper.create(OrderPage.class);
   }
@@ -304,9 +315,14 @@ class CoffeeBarPageMobile extends CoffeeBarPage {
 
   @Override
   public GetAppPage openAppBanner() {
-    logger.info(String.format("Open App Banner"));
+    logger.info("Open App Banner");
     WebHelper.scrollToElement(getTheApp);
-    getTheApp.click();
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    WebHelper.click(getTheApp);
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      logger.info("Extra iOS wait needed");
+      SdkHelper.getSyncHelper().sleep(5000); // Extra wait needed
+    }
     return SdkHelper.create(GetAppPage.class);
   }
 }

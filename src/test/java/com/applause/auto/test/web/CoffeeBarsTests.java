@@ -23,7 +23,7 @@ public class CoffeeBarsTests extends BaseTest {
       description = "11107482")
   public void featured() {
     logger.info("XX. Navigate to Coffee Bar");
-    CoffeeBarPage coffeeBarPage = navigateToCoffeeBarMenuPage();
+    CoffeeBarPage coffeeBarPage = navigateToCoffeeBarMenuPage(true);
 
     logger.info("XX. Validate OUR FEATURED MENU section");
     softAssert.assertEquals(
@@ -97,7 +97,7 @@ public class CoffeeBarsTests extends BaseTest {
       description = "11107483")
   public void category() {
     logger.info("XX. Navigate to Coffee Bar");
-    CoffeeBarPage coffeeBarPage = navigateToCoffeeBarMenuPage();
+    CoffeeBarPage coffeeBarPage = navigateToCoffeeBarMenuPage(true);
 
     logger.info("XX. Validate each category is on the screen");
     Assert.assertTrue(
@@ -129,7 +129,7 @@ public class CoffeeBarsTests extends BaseTest {
       description = "11107484")
   public void banners() {
     logger.info("XX. Navigate to Coffee Bar");
-    CoffeeBarPage coffeeBarPage = navigateToCoffeeBarMenuPage();
+    CoffeeBarPage coffeeBarPage = navigateToCoffeeBarMenuPage(true);
 
     logger.info("XX. open find a coffee");
     coffeeBarPage.openCoffeeBanner();
@@ -138,11 +138,16 @@ public class CoffeeBarsTests extends BaseTest {
         WebHelper.getCurrentUrl() + " did not contain " + Constants.TestData.STORE_LOCATOR_URL);
 
     logger.info("XX. Navigate to landing page");
-    coffeeBarPage = navigateToCoffeeBarMenuPage();
+    coffeeBarPage = navigateToCoffeeBarMenuPage(false);
 
     logger.info("XX. open get the app page");
     GetAppPage appPage = coffeeBarPage.openAppBanner();
-    Assert.assertTrue(appPage.isGetAppPageDisplayed(), "Not on the correct URL");
+
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      Assert.assertTrue(WebHelper.isAppleStoreDisplayed(), "App store page isn't displayed");
+    } else {
+      Assert.assertTrue(appPage.isGetAppPageDisplayed(), "Not on the correct URL");
+    }
   }
 
   @Test(
@@ -154,7 +159,7 @@ public class CoffeeBarsTests extends BaseTest {
       description = "11107485")
   public void newsletter() {
     logger.info("XX. Navigate to Coffee Bar");
-    CoffeeBarPage coffeeBarPage = navigateToCoffeeBarMenuPage();
+    CoffeeBarPage coffeeBarPage = navigateToCoffeeBarMenuPage(true);
 
     logger.info("XX. Navigate to Email sign up page");
     EmailSignUpPage emailSignUpPage = coffeeBarPage.openSignUp();
@@ -177,7 +182,7 @@ public class CoffeeBarsTests extends BaseTest {
       description = "11107481")
   public void viewMenuAndOptions() {
     logger.info("XX. Navigate to Coffee Bar");
-    CoffeeBarPage coffeeBarPage = navigateToCoffeeBarMenuPage();
+    CoffeeBarPage coffeeBarPage = navigateToCoffeeBarMenuPage(true);
 
     logger.info("XX. Validate the user is directed to CoffeeBar Menu");
     Assert.assertEquals(
@@ -194,6 +199,7 @@ public class CoffeeBarsTests extends BaseTest {
     Assert.assertTrue(coffeeBarPage.getOrderNowButton(), "Order Now Button is not on the screen");
 
     logger.info("XX. Click Order Now and switch to new tab");
+    String previousTab = SdkHelper.getDriver().getWindowHandle();
     coffeeBarPage.clickOrderNow();
 
     logger.info("XX. Validate Order Now URL and switch back to main page");
@@ -202,8 +208,7 @@ public class CoffeeBarsTests extends BaseTest {
         WebHelper.getCurrentUrl().contains(Constants.TestData.ORDER_PEETS_URL),
         "Not on the correct URL");
 
-    SdkHelper.getDriver().switchTo().window(WebHelper.previousTab);
-
+    SdkHelper.getDriver().switchTo().window(previousTab);
     AccountMenuChunk accountMenu = coffeeBarPage.getAccountMenu();
 
     logger.info("XX. Validate Account Icon");

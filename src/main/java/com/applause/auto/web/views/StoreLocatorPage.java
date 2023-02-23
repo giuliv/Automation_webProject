@@ -22,7 +22,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 @Implementation(is = StoreLocatorPage.class, on = Platform.WEB)
-@Implementation(is = StoreLocatorPagePhone.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = StoreLocatorAndroidPage.class, on = Platform.WEB_MOBILE_PHONE)
+@Implementation(is = StoreLocatorIOSPage.class, on = Platform.WEB_IOS_PHONE)
 public class StoreLocatorPage extends Base {
 
   @Locate(id = "storeLocator", on = Platform.WEB)
@@ -261,7 +262,7 @@ public class StoreLocatorPage extends Base {
   }
 }
 
-class StoreLocatorPagePhone extends StoreLocatorPage {
+class StoreLocatorAndroidPage extends StoreLocatorPage {
 
   @Locate(xpath = "//*[@text=\"Allow\"]")
   protected Button allowLocationButton;
@@ -293,13 +294,11 @@ class StoreLocatorPagePhone extends StoreLocatorPage {
 
   @Override
   public StoreLocatorPage clickUseMyCurrentLocation() {
-    // Todo: Commented as part of update on pom to 4.1.2 [REVIEW AGAIN!!!]
     logger.info("Clicking on 'Use my current location' button");
     useMyCurrentLocationButton.click();
 
     String oldContext = SdkHelper.getDeviceControl().getContext();
     logger.info("Switching to native context");
-    //    ((AppiumDriver) SdkHelper.getDriver()).context("NATIVE_APP");
     ((SupportsContextSwitching) SdkHelper.getDriver()).context("NATIVE_APP");
     SdkHelper.getSyncHelper().sleep(1000); // wait for switch context to native
 
@@ -316,6 +315,37 @@ class StoreLocatorPagePhone extends StoreLocatorPage {
     }
 
     SdkHelper.getDeviceControl().changeContext(oldContext);
+    return this;
+  }
+}
+
+class StoreLocatorIOSPage extends StoreLocatorPage {
+  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Allow Once\"]", on = Platform.WEB)
+  protected Button allowOnceButton;
+
+  @Locate(xpath = "//XCUIElementTypeButton[@name=\"Allow\"]", on = Platform.WEB)
+  protected Button allowButton;
+
+  @Override
+  @Step("Type Zip Code and search")
+  public StoreLocatorPage searchByZipCode(String zipCode) {
+    logger.info("Typing [{}] zip code", zipCode);
+    searchByZipCodeField.clearText();
+    searchByZipCodeField.sendKeys(zipCode);
+
+    logger.info("Clicking on main header to hide suggestions");
+    mainHeader.click();
+
+    logger.info("Clicking on Search");
+    searchButton.click();
+    return this;
+  }
+
+  @Override
+  public StoreLocatorPage clickUseMyCurrentLocation() {
+    logger.info("Clicking on 'Use my current location' button");
+    useMyCurrentLocationButton.click();
+    WebHelper.allowLocationOnceIOS(allowOnceButton, allowButton);
     return this;
   }
 }

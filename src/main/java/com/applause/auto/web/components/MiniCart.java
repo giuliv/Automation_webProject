@@ -522,12 +522,13 @@ public class MiniCart extends BaseComponent {
   public CommonWebPage openEstimatedFAQLink() {
     logger.info("Click over estimated FAQ link");
     String windowHandle = SdkHelper.getDriver().getWindowHandle();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(estimatedToolTipFAQLink).clickable());
     if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
-      WebHelper.nativeIOSClick(estimatedToolTipFAQLink);
+      estimatedToolTipFAQLink.goToURL(); // Workaround, since click was not working on element
     } else {
       estimatedToolTipFAQLink.click();
+      WebHelper.switchToNewTab(windowHandle);
     }
-    WebHelper.switchToNewTab(windowHandle);
 
     return SdkHelper.create(CommonWebPage.class);
   }

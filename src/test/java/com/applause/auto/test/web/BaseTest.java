@@ -172,8 +172,11 @@ public class BaseTest extends ApplauseSeleniumTest {
     return homePage.clickSignInButton();
   }
 
-  public CoffeeBarPage navigateToCoffeeBarMenuPage() {
-    navigateToHome().closeInitialBannersAndModals();
+  public CoffeeBarPage navigateToCoffeeBarMenuPage(boolean closeBanners) {
+    if (closeBanners) {
+      navigateToHome().closeInitialBannersAndModals();
+    }
+
     logger.info(
         String.format("Navigating to the Coffee Bar page '%s'", TestData.COFFEEBAR_MENU_URL));
 

@@ -64,6 +64,10 @@ public class PeetnikRewardsComponent extends BaseComponent {
   @Step("Click on the Learn More button")
   public void clickLearnMore() {
     logger.info("Clicking on the Learn More button");
+    WebHelper.scrollToElement(learnMoreButton);
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+
     learnMoreButton.click();
+    SdkHelper.getSyncHelper().wait(Until.uiElement(learnMoreButton).notPresent());
   }
 }

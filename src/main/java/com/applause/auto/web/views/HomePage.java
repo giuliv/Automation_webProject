@@ -204,11 +204,11 @@ public class HomePage extends Base {
     if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
       logger.info("Running cases on Mobile iOS");
       if (WebHelper.exists(specialOfferFrame, 5)) {
-        WebHelper.clickButtonOverIframeBySwitchingContextIOS(closeSpecialOfferButtonIOS);
+        WebHelper.clickButtonAfterSwitchingContextIOS(closeSpecialOfferButtonIOS);
       }
       SdkHelper.getDriver().navigate().refresh();
       if (WebHelper.exists(newBannerIFrame, 5)) {
-        WebHelper.clickButtonOverIframeBySwitchingContextIOS(dismissBannerIOS);
+        WebHelper.clickButtonAfterSwitchingContextIOS(dismissBannerIOS);
       }
     } else {
       WebHelper.clickButtonOverIFrame(specialOfferFrame, closeSpecialOfferButton);

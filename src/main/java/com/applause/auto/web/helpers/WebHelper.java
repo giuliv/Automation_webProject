@@ -3,10 +3,13 @@ package com.applause.auto.web.helpers;
 import static com.applause.auto.framework.SdkHelper.getDriver;
 import static io.appium.java_client.Setting.NATIVE_WEB_TAP;
 
+import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
+import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import io.appium.java_client.android.AndroidDriver;
@@ -42,7 +45,6 @@ import org.testng.Assert;
 public class WebHelper {
 
   private static final Logger logger = LogManager.getLogger(MethodHandles.lookup().getClass());
-  public static String previousTab = null;
 
   public static boolean exists(BaseElement element, int timeoutInSeconds) {
     boolean exists = false;
@@ -153,10 +155,29 @@ public class WebHelper {
     }
   }
 
-  public static void clickButtonOverIframeBySwitchingContextIOS(BaseElement button) {
+  public static void clickButtonAfterSwitchingContextIOS(BaseElement button) {
     String oldContext = WebHelper.getCurrentContext();
     WebHelper.switchToNativeContext();
     button.click();
+    WebHelper.switchToWeb(oldContext);
+    SdkHelper.getSyncHelper().sleep(3000); // Extra wait due to context change
+  }
+
+  public static void allowLocationOnceIOS(BaseElement mainButton, BaseElement confirmButton) {
+    logger.info("Allow Location on iOS devices");
+    String oldContext = WebHelper.getCurrentContext();
+    WebHelper.switchToNativeContext();
+
+    if (exists(mainButton, 5)) {
+      logger.info("Allow Once, If location popUp displayed");
+      mainButton.click();
+    }
+
+    if (exists(confirmButton, 5)) {
+      logger.info("Allow, If confirm location popUp displayed");
+      confirmButton.click();
+    }
+
     WebHelper.switchToWeb(oldContext);
     SdkHelper.getSyncHelper().sleep(3000); // Extra wait due to context change
   }
@@ -293,6 +314,12 @@ public class WebHelper {
 
   public static <T extends BaseComponent> T navigateBack(Class<T> clazz) {
     SdkHelper.getDriver().navigate().back();
+    SdkHelper.getSyncHelper().sleep(3000); // Wait for action
+    return SdkHelper.create(clazz);
+  }
+
+  public static <T extends BaseComponent> T navigateTo(Class<T> clazz, String url) {
+    SdkHelper.getDriver().navigate().to(url);
     SdkHelper.getSyncHelper().sleep(3000); // Wait for action
     return SdkHelper.create(clazz);
   }
@@ -661,9 +688,8 @@ public class WebHelper {
     return "8" + getRandomValueWithinRange(100000000, 999999999);
   }
 
-  /** return old tab so test can swich back if need be */
+  /** return old tab so test can switch back if need be */
   public static void getNewTab() {
-    previousTab = SdkHelper.getDriver().getWindowHandle();
     ArrayList<String> tabs = new ArrayList(SdkHelper.getDriver().getWindowHandles());
     SdkHelper.getDriver().switchTo().window(tabs.get(tabs.size() - 1));
   }
@@ -804,6 +830,18 @@ public class WebHelper {
   public static boolean nativeContextIsPresent() {
     logger.info("Verify two or more contexts are present");
     return ((SupportsContextSwitching) SdkHelper.getDriver()).getContextHandles().size() >= 2;
+  }
+
+  public static boolean isAppleStoreDisplayed() {
+    logger.info("Review if apple store is displayed");
+    String oldContext = WebHelper.getCurrentContext();
+    WebHelper.switchToNativeContext();
+    logger.info("Page Source [Debug] " + SdkHelper.getDriver().getPageSource());
+    int total =
+        SdkHelper.getDriver().findElements(By.xpath("//*[contains(@name,\"AppStore\")]")).size();
+    WebHelper.switchToWeb(oldContext);
+    SdkHelper.getSyncHelper().sleep(3000); // Extra wait due to context change
+    return total > 1;
   }
 
   public static void switchToNativeContext() {

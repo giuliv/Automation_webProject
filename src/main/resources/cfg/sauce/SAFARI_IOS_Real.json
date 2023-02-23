@@ -16,6 +16,10 @@
   "orientation": "PORTRAIT",
   "region": "US",
   "phoneOnly": "true",
+  "sauce:options": {
+    "W3C": true,
+    "enablePopups": true
+  },
   "privateDevicesOnly": "false"
   <#if testRunId??>
 ,

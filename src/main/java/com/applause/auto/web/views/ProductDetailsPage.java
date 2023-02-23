@@ -6,6 +6,7 @@ import com.applause.auto.common.data.enums.GiftDuration;
 import com.applause.auto.common.data.enums.GrindDropdown;
 import com.applause.auto.common.data.enums.ShipEveryDropdown;
 import com.applause.auto.data.enums.Platform;
+import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -1191,8 +1192,15 @@ public class ProductDetailsPage extends Base {
   @Step("Scroll to Flavor profile section")
   public ProductDetailsPage scrollToFlavorProfile() {
     logger.info("Scrolling to Flavor profile section");
-    WebHelper.scrollToElement(flavorProfileSubtitle);
-    WebHelper.scrollToPageBottom();
+    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+      for (int i = 0; i < 4; i++) {
+        SdkHelper.getDeviceControl().swipeAcrossScreenWithDirection(SwipeDirection.UP);
+      }
+    } else {
+      WebHelper.scrollToElement(flavorProfileSubtitle);
+      WebHelper.scrollToPageBottom();
+    }
+
     return this;
   }
 

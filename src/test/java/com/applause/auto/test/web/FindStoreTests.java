@@ -268,6 +268,7 @@ public class FindStoreTests extends BaseTest {
         peetnikRewardsComponent.isDisplayed(), "Peetnik Rewards section isn't displayed properly");
 
     logger.info("6. Click on 'Learn more'");
+    String backSite = WebHelper.getCurrentUrl();
     peetnikRewardsComponent.clickLearnMore();
 
     Assert.assertTrue(
@@ -282,14 +283,21 @@ public class FindStoreTests extends BaseTest {
       */
       logger.info("5. Click on Download APP Button");
       if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
-        WebHelper.navigateBack(StoreDetailsPage.class);
+        // WebHelper.navigateBack(StoreDetailsPage.class);
+        // Workaround: Navigate to back,since back method is not working properly
+        WebHelper.navigateTo(StoreDetailsPage.class, backSite);
       } else {
         WebHelper.clickAndroidBackButton();
       }
       SdkHelper.create(StoreDetailsPage.class).getOneAppManyBenefitsComponent().clickDownloadApp();
 
       logger.info("Verify App store page is displayed");
-      Assert.assertTrue(WebHelper.nativeContextIsPresent(), "App store page isn't displayed");
+      if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
+        Assert.assertTrue(WebHelper.isAppleStoreDisplayed(), "App store page isn't displayed");
+      } else {
+        // Todo: Review if this method actually works
+        Assert.assertTrue(WebHelper.nativeContextIsPresent(), "App store page isn't displayed");
+      }
     }
   }
 
