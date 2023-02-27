@@ -3,6 +3,7 @@ package com.applause.auto.test.web;
 import static com.applause.auto.common.data.Constants.TestData.PASSWORD;
 import static com.applause.auto.common.data.Constants.TestData.PASSWORD_BAD_FORMAT;
 import static com.applause.auto.common.data.Constants.TestData.PEETS_FORGOT_PASSWORD_USERNAME;
+import static com.applause.auto.common.data.Constants.TestData.PEETS_FORGOT_PASSWORD_USERNAME_PROD;
 import static com.applause.auto.common.data.Constants.TestData.UNRECOGNIZED_USERNAME_AND_PASSWORD_MESSAGE;
 
 import com.applause.auto.common.data.Constants;
@@ -568,12 +569,17 @@ public class IdentityTest extends BaseTest {
     Assert.assertNotNull(resetPasswordPage, "Failed to navigate to the Reset password page.");
 
     logger.info("3. Enter email.");
-    resetPasswordPage.enterEmail(PEETS_FORGOT_PASSWORD_USERNAME);
+    String userName =
+        WebHelper.getTestEnvironment().equalsIgnoreCase("production")
+            ? PEETS_FORGOT_PASSWORD_USERNAME_PROD
+            : PEETS_FORGOT_PASSWORD_USERNAME;
+    resetPasswordPage.enterEmail(userName);
 
     logger.info("4. Click on Submit");
     PasswordRecoveryPage passwordRecoveryPage = resetPasswordPage.clickSubmitButton();
     Assert.assertTrue(
-        passwordRecoveryPage.isSuccessfulMessageDisplayed(PEETS_FORGOT_PASSWORD_USERNAME));
+        passwordRecoveryPage.isSuccessfulMessageDisplayed(userName),
+        "Successful message isn't displayed");
 
     logger.info("5. Navigate to th Url received in email");
     PasswordRecoveryResetPage recoveryResetPage = passwordRecoveryPage.navigateRecoveryUrl();

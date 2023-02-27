@@ -160,6 +160,8 @@ public class Constants {
     public static final String PASSWORD = "password123";
     public static final String PASSWORD_BAD_FORMAT = "pass";
     public static final String PEETS_FORGOT_PASSWORD_USERNAME = "peetfp01.awkv01hh@mailosaur.io";
+    public static final String PEETS_FORGOT_PASSWORD_USERNAME_PROD =
+        "production.peetfp01.awkv01hh@mailosaur.io";
     public static final String PEETS_USERNAME = "adavis@applausemail.com";
     public static final String PEETS_PASSWORD = "p@ssword123";
     public static final String FROM_THE_COFFEEBAR = "FROM THE COFFEEBAR";
@@ -327,8 +329,8 @@ public class Constants {
         MobileHelper.isAndroid()
             ? "appautosvc+peetscoffee2@applause.com"
             : "appautosvc+peetscoffee2ios@applause.com";
-    public static final String USER_WITH_PEETNIK_REWARDS = "peets_order_beverages_ios@gmail.com";
-    public static final String PASSWORD_FOR_USER__WITH_PEETNIK_REWARDS = "P@ssword1!";
+    public static final String USER_WITH_PEETNIK_REWARDS = "vaibhavk8999+400@gmail.com";
+    public static final String PASSWORD_FOR_USER__WITH_PEETNIK_REWARDS = "peets123";
     public static final String PASSWORD = "peets123";
     public static final String EDIT_EMAIL = "peets.auto01@gmail.com";
     public static final String EDIT_EMAIL_PWD = "p4ssword!";
@@ -351,6 +353,9 @@ public class Constants {
             .subject("Applause Subject")
             .note("Applause automation note")
             .build();
+
+    public static final String PROD_ACCOUNT_EMAIL = "applause.test.peets.prod_1@applausemail.com";
+    public static final String PROD_ACCOUNT_PASSWORD = "Applause123@";
   }
 
   public static class CheckoutUserTestData {

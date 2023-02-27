@@ -6,7 +6,12 @@ import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
-import com.applause.auto.pageobjectmodel.elements.*;
+import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.ContainerElement;
+import com.applause.auto.pageobjectmodel.elements.Image;
+import com.applause.auto.pageobjectmodel.elements.Link;
+import com.applause.auto.pageobjectmodel.elements.SelectList;
+import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import com.applause.auto.web.components.MyAccountLeftMenu;
 import com.applause.auto.web.components.RegisterPeetCardComponent;
@@ -18,11 +23,10 @@ import com.applause.auto.web.views.Base;
 import com.applause.auto.web.views.GiftCardsPage;
 import com.applause.auto.web.views.ProductListPage;
 import io.qameta.allure.Step;
-import lombok.Getter;
-
 import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
+import lombok.Getter;
 
 @Implementation(is = MyAccountPage.class, on = Platform.WEB)
 @Implementation(is = MyAccountPageMobile.class, on = Platform.WEB_MOBILE_PHONE)
@@ -272,7 +276,9 @@ public class MyAccountPage extends Base {
 
   @Step("Verify Sending dropdown shows qty values from 1-20 and able to update to desired qty")
   public boolean areSendingQuantityDropdownValuesDisplayed() {
-    return subscriptionQuantityBox.getOptions().stream()
+    return subscriptionQuantityBox
+        .getOptions()
+        .stream()
         .map(option -> Integer.parseInt(option.getText().trim()))
         .collect(Collectors.toList())
         .equals(TestData.SUBSCRIPTION_QUANTITY_OPTIONS);
@@ -290,7 +296,9 @@ public class MyAccountPage extends Base {
 
   @Step("Verify Sending dropdown shows qty values from 1-20 and able to update to desired qty")
   public boolean areSubscriptionFrequencyDropdownValuesDisplayed() {
-    return subscriptionFrequencyBox.getOptions().stream()
+    return subscriptionFrequencyBox
+        .getOptions()
+        .stream()
         .map(option -> option.getText().trim())
         .collect(Collectors.toList())
         .equals(TestData.SUBSCRIPTION_FREQUENCY_OPTIONS);

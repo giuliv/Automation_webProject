@@ -1,26 +1,26 @@
 package com.applause.auto.test.mobile.helpers;
 
-import java.lang.invoke.MethodHandles;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.ScreenOrientation;
-
 import com.applause.auto.common.data.dto.SignUpUserDto;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.data.enums.SwipeDirection;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.mobile.components.tooltips.PointsTurnIntoRewardsTooltipComponent;
-import com.applause.auto.mobile.components.tooltips.PointsTurnIntoRewardsTooltipComponent;
-import com.applause.auto.mobile.views.*;
+import com.applause.auto.mobile.views.CreateAccountView;
+import com.applause.auto.mobile.views.HomeView;
+import com.applause.auto.mobile.views.LandingView;
+import com.applause.auto.mobile.views.OnboardingView;
+import com.applause.auto.mobile.views.SignInView;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.test.mobile.BaseTest;
-
 import io.appium.java_client.MobileBy;
 import io.appium.java_client.android.Activity;
 import io.appium.java_client.android.AndroidDriver;
+import java.lang.invoke.MethodHandles;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.ScreenOrientation;
 
 @Implementation(is = TestHelper.class, on = Platform.MOBILE)
 public class TestHelper extends BaseComponent {

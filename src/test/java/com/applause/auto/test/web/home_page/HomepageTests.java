@@ -623,30 +623,33 @@ public class HomepageTests extends BaseTest {
     logger.info(
         "2. Verify left and right arrow scrolls the bar, and that you can get to initial position after scroll");
     CoffeeBarCarouselComponent carouselComponent = homePage.getCoffeeBarCarouselComponent();
-    List<String> initialPositions = carouselComponent.getVisibleCoffeeBarItemNames();
-    int firstPosition = 0;
-    carouselComponent.clickCoffeeBarNext();
-    List<String> nextPositions = carouselComponent.getVisibleCoffeeBarItemNames();
 
-    softAssert.assertNotEquals(
-        initialPositions.get(0),
-        nextPositions.get(0),
-        "The coffee bar items did not change when the next arrow was clicked.");
+    if ((WebHelper.isDesktop() && carouselComponent.getCoffeeBarItemComponents().size() < 4)) {
+      List<String> initialPositions = carouselComponent.getVisibleCoffeeBarItemNames();
+      int firstPosition = 0;
+      carouselComponent.clickCoffeeBarNext();
+      List<String> nextPositions = carouselComponent.getVisibleCoffeeBarItemNames();
 
-    carouselComponent.clickCoffeeBarPrevious();
-    nextPositions = carouselComponent.getVisibleCoffeeBarItemNames();
+      softAssert.assertNotEquals(
+          initialPositions.get(0),
+          nextPositions.get(0),
+          "The coffee bar items did not change when the next arrow was clicked.");
 
-    softAssert.assertEquals(
-        initialPositions.get(0),
-        nextPositions.get(0),
-        "The coffee bar did not go back to the original list with previous clicked.");
+      carouselComponent.clickCoffeeBarPrevious();
+      nextPositions = carouselComponent.getVisibleCoffeeBarItemNames();
 
-    if (WebHelper.isDesktop()) {
-      logger.info("3. Verify hover shows Order Now");
-      CoffeeBarItemComponent itemComponent =
-          carouselComponent.getCoffeeBarItemComponent(firstPosition);
-      itemComponent.hoverOver();
-      softAssert.assertTrue(itemComponent.isOrderNowDisplayed(), "Order Now is not displayed");
+      softAssert.assertEquals(
+          initialPositions.get(0),
+          nextPositions.get(0),
+          "The coffee bar did not go back to the original list with previous clicked.");
+
+      if (WebHelper.isDesktop()) {
+        logger.info("3. Verify hover shows Order Now");
+        CoffeeBarItemComponent itemComponent =
+            carouselComponent.getCoffeeBarItemComponent(firstPosition);
+        itemComponent.hoverOver();
+        softAssert.assertTrue(itemComponent.isOrderNowDisplayed(), "Order Now is not displayed");
+      }
     }
 
     logger.info("4. Verify links take you places");

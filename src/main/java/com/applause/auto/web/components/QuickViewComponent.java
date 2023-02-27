@@ -312,9 +312,7 @@ public class QuickViewComponent extends BaseComponent {
     return SdkHelper.create(MiniCart.class);
   }
 
-  /**
-   * @return product name
-   */
+  /** @return product name */
   @Step("Get product name")
   public String getProductName() {
     return productName.getText().trim();

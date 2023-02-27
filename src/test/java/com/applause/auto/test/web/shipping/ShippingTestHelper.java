@@ -30,7 +30,9 @@ public class ShippingTestHelper extends BaseTest {
     Assert.assertNotNull(productDetailsPage, "PDP page is not displayed");
 
     if (quantity > 1) {
-      if (productDetailsPage.isItemBagQuantityType()) {
+      if (quantity == 9) {
+        productDetailsPage.selectQuantityByIndex(quantity);
+      } else if (productDetailsPage.isItemBagQuantityType()) {
         productDetailsPage.addMoreProducts(quantity);
       } else {
         productDetailsPage.incrementProductQuantity(quantity);

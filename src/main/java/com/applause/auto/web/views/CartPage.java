@@ -381,9 +381,7 @@ public class CartPage extends BaseComponent {
     return this;
   }
 
-  /**
-   * @return boolean
-   */
+  /** @return boolean */
   @Step("Get one time purchase button")
   public boolean isOneTimePurchaseButtonSelected() {
     logger.info(
@@ -399,25 +397,19 @@ public class CartPage extends BaseComponent {
     return subscribeButton.getAttributeValue("slot").equalsIgnoreCase("default");
   }
 
-  /**
-   * @return boolean
-   */
+  /** @return boolean */
   @Step("Get subscribe button")
   public boolean isSubscribeButtonEnabled() {
     return subscribeButton.isEnabled();
   }
 
-  /**
-   * @return boolean
-   */
+  /** @return boolean */
   @Step("Get Add personal message field")
   public boolean isAddPersonalMessageFieldDisplayed() {
     return WebHelper.isDisplayed(addPersonalMessageField);
   }
 
-  /**
-   * @return String
-   */
+  /** @return String */
   @Step("Get Add personal message")
   public String getAddPersonalMessageFieldText() {
     String message = addPersonalMessageField.getCurrentText();
@@ -602,7 +594,8 @@ public class CartPage extends BaseComponent {
   public List<String> getBundles() {
     logger.info("Bundles product number: " + bundlesList.size());
     ((LazyList<?>) bundlesList).initialize();
-    return bundlesList.stream()
+    return bundlesList
+        .stream()
         .map(item -> item.getText().replace("Bundle:", "").trim())
         .collect(Collectors.toList());
   }
@@ -620,7 +613,8 @@ public class CartPage extends BaseComponent {
   @Step("Get discount values")
   public List<String> getDiscountValues() {
     try {
-      return discountValues.stream()
+      return discountValues
+          .stream()
           .map(item -> item.getText().trim())
           .collect(Collectors.toList());
     } catch (Exception e) {

@@ -83,7 +83,8 @@ public class SearchComponent extends BaseComponent {
   public boolean areAllSearchBoxItemsDisplayedCorrectly() {
     SdkHelper.getSyncHelper().wait(Until.uiElement(searchResultsContainer).present());
     ((LazyList<?>) searchBoxItemComponents).initialize();
-    return searchBoxItemComponents.stream()
+    return searchBoxItemComponents
+        .stream()
         .allMatch(SearchBoxItemComponent::isAutocompleteResultDisplayedCorrectly);
   }
 

@@ -6,6 +6,8 @@ import com.applause.auto.test.web.BaseTest;
 import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.web.views.AcceptancePage;
 import com.applause.auto.web.views.CartPage;
+import com.applause.auto.web.views.CheckOutPage;
+import com.applause.auto.web.views.PaymentsPage;
 import org.testng.annotations.Test;
 
 public class VirtualBundleTest extends BaseTest {
@@ -24,13 +26,30 @@ public class VirtualBundleTest extends BaseTest {
 
     logger.info("5. Place order");
     int itemsNumber = cartPage.getBundles().size();
-    AcceptancePage acceptancePage = BundleTestHelper.checkoutProcess(cartPage, softAssert);
+    if (!WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
+      AcceptancePage acceptancePage = BundleTestHelper.checkoutProcess(cartPage, softAssert);
 
-    logger.info("6. Validate bundle items are displayed");
-    softAssert.assertEquals(
-        acceptancePage.getBundlesDiscounts().size(),
-        itemsNumber,
-        "Not correct number of bundles is displayed");
+      logger.info("6. Validate bundle items are displayed");
+      softAssert.assertEquals(
+          acceptancePage.getBundlesDiscounts().size(),
+          itemsNumber,
+          "Not correct number of bundles is displayed");
+    } else {
+      logger.info("Click checkout button");
+      CheckOutPage checkOutPage = cartPage.clickContinueToCheckOut();
+
+      logger.info("Enter Contact information and Shipping address.");
+      checkOutPage.setCheckOutData();
+
+      logger.info("Click on Continue.");
+      PaymentsPage paymentsPage = checkOutPage.clickContinueToShipping().clickContinueToPayments();
+
+      logger.info("6. Validate bundle items are displayed");
+      softAssert.assertEquals(
+          paymentsPage.getBundlesDiscounts().size(),
+          itemsNumber,
+          "Not correct number of bundles is displayed");
+    }
     softAssert.assertAll();
   }
 

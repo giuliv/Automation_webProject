@@ -7,7 +7,6 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import io.qameta.allure.Step;
-
 import java.time.Duration;
 
 public class BaseView extends BaseComponent {

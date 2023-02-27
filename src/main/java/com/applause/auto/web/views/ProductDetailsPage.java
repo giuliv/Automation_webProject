@@ -1233,6 +1233,7 @@ public class ProductDetailsPage extends Base {
   public void selectQuantityByIndex(int index) {
     logger.info("Selecting quantity by index: {}", index);
     quantityBox.format(index).initialize();
+    WebHelper.scrollToElement(quantityBox);
     quantityBox.click();
   }
 

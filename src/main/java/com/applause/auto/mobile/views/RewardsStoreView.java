@@ -7,9 +7,8 @@ import com.applause.auto.mobile.components.QrScanChunk;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
-import lombok.Getter;
-
 import java.time.Duration;
+import lombok.Getter;
 
 public class RewardsStoreView extends BaseComponent {
 

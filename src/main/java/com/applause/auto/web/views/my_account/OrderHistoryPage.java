@@ -47,7 +47,8 @@ public class OrderHistoryPage extends BaseComponent {
   @Step("Get list of Table Titles")
   public List<String> getTableTitleList() {
     ((LazyList<?>) tableTitleList).initialize();
-    return tableTitleList.stream()
+    return tableTitleList
+        .stream()
         .map(item -> WebHelper.cleanString(item.getText().toLowerCase()))
         .collect(Collectors.toList());
   }

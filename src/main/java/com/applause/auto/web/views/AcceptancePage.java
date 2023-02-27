@@ -91,7 +91,7 @@ public class AcceptancePage extends Base {
       on = Platform.WEB)
   private Text orderGrind;
 
-  @Locate(css = ".reduction-code span", on = Platform.WEB)
+  @Locate(xpath = "//li[@class='reduction-code']//span", on = Platform.WEB)
   private List<Text> bundleDiscounts;
 
   @Override
@@ -279,6 +279,8 @@ public class AcceptancePage extends Base {
 
   @Step("Get bundles discounts")
   public List<String> getBundlesDiscounts() {
+    logger.info("Getting bundles");
+    logger.info("Bundles size: {}", bundleDiscounts.size());
     return bundleDiscounts.stream().map(item -> item.getText().trim()).collect(Collectors.toList());
   }
 }

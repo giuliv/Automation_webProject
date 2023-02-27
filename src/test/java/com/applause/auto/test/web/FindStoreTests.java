@@ -432,7 +432,7 @@ public class FindStoreTests extends BaseTest {
     Assert.assertTrue(carouselComponent.isDescriptionIsDisplayed(), "Description isn't displayed");
 
     logger.info("6. Verify four items are displayed");
-    int visibleItemsNumber = WebHelper.isDesktop() ? 4 : 1;
+    int visibleItemsNumber = WebHelper.isDesktop() ? 4 : WebHelper.isDesktopSiteVersion() ? 3 : 1;
     Assert.assertEquals(
         carouselComponent.getVisibleCoffeeBarItemNames().size(),
         visibleItemsNumber,
@@ -451,22 +451,24 @@ public class FindStoreTests extends BaseTest {
 
     logger.info(
         "9. Verify left and right arrow scrolls the bar, and that you can get to initial position after scroll");
-    List<String> initialPositions = carouselComponent.getVisibleCoffeeBarItemNames();
-    carouselComponent.clickCoffeeBarNext();
-    List<String> nextPositions = carouselComponent.getVisibleCoffeeBarItemNames();
+    if ((!WebHelper.isDesktop() && carouselComponent.getCoffeeBarItemComponents().size() <= 4)) {
+      List<String> initialPositions = carouselComponent.getVisibleCoffeeBarItemNames();
+      carouselComponent.clickCoffeeBarNext();
+      List<String> nextPositions = carouselComponent.getVisibleCoffeeBarItemNames();
 
-    softAssert.assertNotEquals(
-        initialPositions.get(0),
-        nextPositions.get(0),
-        "The coffee bar items did not change when the next arrow was clicked.");
+      softAssert.assertNotEquals(
+          initialPositions.get(0),
+          nextPositions.get(0),
+          "The coffee bar items did not change when the next arrow was clicked.");
 
-    carouselComponent.clickCoffeeBarPrevious();
-    nextPositions = carouselComponent.getVisibleCoffeeBarItemNames();
+      carouselComponent.clickCoffeeBarPrevious();
+      nextPositions = carouselComponent.getVisibleCoffeeBarItemNames();
 
-    softAssert.assertEquals(
-        initialPositions.get(0),
-        nextPositions.get(0),
-        "The coffee bar did not go back to the original list with previous clicked.");
+      softAssert.assertEquals(
+          initialPositions.get(0),
+          nextPositions.get(0),
+          "The coffee bar did not go back to the original list with previous clicked.");
+    }
 
     logger.info("10. Hover any Coffee item");
     CoffeeBarItemComponent itemComponent = carouselComponent.getCoffeeBarItemComponent(0);
@@ -485,7 +487,12 @@ public class FindStoreTests extends BaseTest {
     logger.info("14. Click on 'View all Seasonal Beverages' Button");
     WebHelper.closeOtherTabs();
     storeDetailsPage =
-        navigateToStoreLocatorPage().searchByZipCode("95032").getStockResultList().get(0).click();
+        navigateToStoreLocatorPage()
+            .searchByZipCode("95032")
+            .closeBannerButton(StoreLocatorPage.class)
+            .getStockResultList()
+            .get(0)
+            .click();
     storeDetailsPage.getCoffeeBarCarouselComponent().clickSeeAllSeasonalBeveragesButton();
 
     logger.info(

@@ -8,6 +8,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
+import com.applause.auto.web.helpers.WebHelper;
 
 @Implementation(is = PasswordRecoveryResetPage.class, on = Platform.WEB)
 public class PasswordRecoveryResetPage extends BaseComponent {
@@ -66,6 +67,7 @@ public class PasswordRecoveryResetPage extends BaseComponent {
    */
   public <T extends BaseComponent> T submit(Class<T> clazz) {
     logger.info("Click submit button");
+    WebHelper.scrollToElement(resetPasswordButton);
     resetPasswordButton.click();
     return SdkHelper.create(clazz);
   }

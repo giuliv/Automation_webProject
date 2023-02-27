@@ -3,6 +3,7 @@ package com.applause.auto.web.components.pdp;
 import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
@@ -12,6 +13,8 @@ import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.web.views.OrderPage;
 import io.qameta.allure.Step;
 
+@Implementation(is = CoffeeBarItemComponent.class, on = Platform.WEB)
+@Implementation(is = CoffeeBarItemComponentMobile.class, on = Platform.WEB_MOBILE_PHONE)
 public class CoffeeBarItemComponent extends BaseComponent {
 
   @Locate(css = "h3.pi__title", on = Platform.WEB)
@@ -37,7 +40,7 @@ public class CoffeeBarItemComponent extends BaseComponent {
   @Step("Verify product image is displayed")
   public boolean isProductImageDisplayed() {
     logger.info("Checking product image is displayed for the item: {}", getName());
-    return WebHelper.isDisplayed(productImage);
+    return WebHelper.isDisplayed(productImage, 10);
   }
 
   @Step("Hover over item")
@@ -66,5 +69,15 @@ public class CoffeeBarItemComponent extends BaseComponent {
         .getWebElement()
         .getAttribute(Attribute.CLASS.getValue())
         .contains("is-selected");
+  }
+}
+
+class CoffeeBarItemComponentMobile extends CoffeeBarItemComponent {
+
+  @Override
+  @Step("Verify product image is displayed")
+  public boolean isProductImageDisplayed() {
+    logger.info("Checking product image is displayed for the item: {}", getName());
+    return productImage.exists();
   }
 }

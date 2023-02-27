@@ -21,7 +21,7 @@ public class PlpLearnMoreOverlappingComponent extends BaseComponent {
 
   @Locate(
       xpath =
-          "//div[starts-with(@class,'GradientBackground-')]/div/p/span[contains(@class,'signup__BenefitsMessage-')]",
+          "//div[contains(@class,'BrandedLayout__Content-')]/div/p/span[contains(@class,'signup__StyledTagLine-')]",
       on = Platform.WEB)
   protected Text shippingText;
 

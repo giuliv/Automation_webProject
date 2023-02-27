@@ -9,9 +9,8 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import io.qameta.allure.Step;
-import lombok.Getter;
-
 import java.time.Duration;
+import lombok.Getter;
 
 public class PeetnikRewardsHelpView extends BaseView {
 

@@ -1,5 +1,6 @@
 package com.applause.auto.web.views;
 
+import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
@@ -12,6 +13,8 @@ import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.web.components.AccountMenuChunk;
 import com.applause.auto.web.helpers.WebHelper;
 import java.util.List;
+import java.util.stream.Collectors;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 
 @Implementation(is = CoffeeBarPage.class, on = Platform.WEB)
@@ -35,22 +38,11 @@ public class CoffeeBarPage extends Base {
   @Locate(css = "#menuFeatured h2", on = Platform.WEB)
   private Button getFeaturedMenu;
 
-  @Locate(css = "#menuFeaturedCarousel article.is-selected", on = Platform.WEB)
-  private List<ContainerElement> getSelectedArticles;
+  @Locate(css = "#menuFeaturedCarousel article", on = Platform.WEB)
+  private List<ContainerElement> getAllArticles;
 
   @Locate(css = "#menuFeaturedCarousel article.js-carousel-item h3 a", on = Platform.WEB)
   private List<Link> getTitles;
-
-  @Locate(
-      css = "#menuFeaturedCarousel article.is-selected .pi__img-wrapper a img",
-      on = Platform.WEB)
-  private List<Image> getImages;
-
-  @Locate(css = "#menuFeaturedCarousel article.is-selected .pi__desc h3", on = Platform.WEB)
-  private List<Text> getDesc;
-
-  @Locate(css = "#menuFeaturedCarousel article.is-selected .pi__quick-add a", on = Platform.WEB)
-  private List<Button> featuredOrderNowHover;
 
   @Locate(css = "#menuFeaturedCarousel .next", on = Platform.WEB)
   private Button getNextButton;
@@ -176,7 +168,7 @@ public class CoffeeBarPage extends Base {
    * @return src value of image
    */
   public String getFeaturedImage(int i) {
-    String text = getImages.get(i).getAttributeValue("srcset");
+    String text = getImagesList().get(i).getAttributeValue("srcset");
     logger.info("href found: " + i + ":" + text);
     return text;
   }
@@ -194,7 +186,7 @@ public class CoffeeBarPage extends Base {
    * @return Description
    */
   public String getFeaturedDescription(int index) {
-    String text = getDesc.get(index).getText();
+    String text = getDescList().get(index).getText();
     logger.info("Description found: " + index + ":" + text);
     return text;
   }
@@ -231,10 +223,10 @@ public class CoffeeBarPage extends Base {
    */
   public OrderPage clickFeaturedItemOrderNowButton(int index) {
     logger.info("click Featured Item Order Now Button");
-    WebHelper.hoverByAction(getSelectedArticles.get(index));
-    WebHelper.scrollToElement(featuredOrderNowHover.get(index));
-    WebHelper.hoverByAction(featuredOrderNowHover.get(index));
-    featuredOrderNowHover.get(index).click();
+    WebHelper.hoverByAction(getSelectedArticlesList().get(index));
+    WebHelper.scrollToElement(getFeaturedOrderNowHoverList().get(index));
+    WebHelper.hoverByAction(getFeaturedOrderNowHoverList().get(index));
+    getFeaturedOrderNowHoverList().get(index).click();
     WebHelper.getNewTab();
     return SdkHelper.create(OrderPage.class);
   }
@@ -300,14 +292,65 @@ public class CoffeeBarPage extends Base {
     return getBannerImage.exists();
   }
 
-  public int getGetSelectedArticles() {
+  public int getAllArticles() {
     int size = 0;
     try {
-      size = getSelectedArticles.size();
+      size = getAllArticles.size();
     } catch (Exception e) {
       Assert.fail("Coffee Bar Carousel is not displayed");
     }
     return size;
+  }
+
+  public int getSelectedArticles() {
+    int size = 0;
+    try {
+      size = getSelectedArticlesList().size();
+    } catch (Exception e) {
+      Assert.fail("Coffee Bar Carousel is not displayed");
+    }
+    return size;
+  }
+
+  private List<ContainerElement> getSelectedArticlesList() {
+    if (!WebHelper.isDisplayed(getNextButton)) {
+      return getAllArticles;
+    } else {
+      logger.info("Getting selected articles");
+      return getAllArticles.stream()
+          .filter(
+              article ->
+                  article.getAttributeValue(Attribute.CLASS.getValue()).contains("is-selected"))
+          .collect(Collectors.toList());
+    }
+  }
+
+  protected List<Image> getImagesList() {
+    logger.info("Article size: " + getSelectedArticlesList().size());
+    logger.info(
+        "Image size: "
+            + getSelectedArticlesList().stream()
+                .map(
+                    element ->
+                        element.getChild(By.cssSelector(" .pi__img-default img"), Image.class))
+                .collect(Collectors.toList())
+                .size());
+
+    return getSelectedArticlesList().stream()
+        .map(element -> element.getChild(By.cssSelector(" .pi__img-default img"), Image.class))
+        .collect(Collectors.toList());
+  }
+
+  private List<Text> getDescList() {
+    return getSelectedArticlesList().stream()
+        .map(element -> element.getChild(By.cssSelector(" .pi__desc h3"), Text.class))
+        .collect(Collectors.toList());
+  }
+
+  private List<Button> getFeaturedOrderNowHoverList() {
+    return getSelectedArticlesList().stream()
+        .map(element -> element.getChild(By.cssSelector(" .pi__quick-add a"), Button.class))
+        .collect(Collectors.toList());
   }
 }
 
@@ -324,5 +367,13 @@ class CoffeeBarPageMobile extends CoffeeBarPage {
       SdkHelper.getSyncHelper().sleep(5000); // Extra wait needed
     }
     return SdkHelper.create(GetAppPage.class);
+  }
+
+  @Override
+  public String getFeaturedImage(int i) {
+    // We are not able to get image link (src, data-srcset, srcset) for mobile
+    String text = getImagesList().get(i).getAttributeValue("class");
+    logger.info("href found: " + i + ":" + text);
+    return text;
   }
 }

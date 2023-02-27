@@ -11,9 +11,8 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
-import org.openqa.selenium.Dimension;
-
 import java.time.Duration;
+import org.openqa.selenium.Dimension;
 
 @Implementation(is = AndroidSignInView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = SignInView.class, on = Platform.MOBILE_IOS)
@@ -340,12 +339,9 @@ class AndroidSignInView extends SignInView {
   public <T extends BaseComponent> T signIn(Class<T> clazz) {
     logger.info("Click on Sign In button");
     MobileHelper.hideKeyboard();
-	signInButton.click();
-	SdkHelper.getSyncHelper()
-                    .wait(
-                        Until.uiElement(getLoader)
-                            .notPresent()
-                            .setTimeout(Duration.ofSeconds(120)));
+    signInButton.click();
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(getLoader).notPresent().setTimeout(Duration.ofSeconds(120)));
     SdkHelper.create(BaseTooltipComponent.class).closeAnyTooltipIfDisplayed(5);
     return SdkHelper.create(clazz);
   }

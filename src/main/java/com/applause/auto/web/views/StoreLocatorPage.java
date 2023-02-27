@@ -6,6 +6,7 @@ import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
+import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
@@ -90,6 +91,9 @@ public class StoreLocatorPage extends Base {
 
   @Locate(css = ".dwmodal-box .dwmodal-close-button", on = Platform.WEB)
   protected Button closePopUp;
+
+  @Locate(css = "#usi_display #usi_close", on = Platform.WEB)
+  private Button closeBannerButton;
 
   @Override
   public void afterInit() {
@@ -260,6 +264,21 @@ public class StoreLocatorPage extends Base {
     amenitiesFilterButton.click();
     return this;
   }
+
+  public <T extends BaseComponent> T closeBannerButton(Class<T> clazz) {
+    if (closeBannerButton.isDisplayed()) {
+      try {
+        logger.info("Closing the banner");
+        closeBannerButton.click();
+        return WebHelper.navigateBack(clazz);
+      } catch (Exception e) {
+        logger.info("Banner is not displayed");
+        return SdkHelper.create(clazz);
+      }
+    } else {
+      return SdkHelper.create(clazz);
+    }
+  }
 }
 
 class StoreLocatorAndroidPage extends StoreLocatorPage {
@@ -283,12 +302,16 @@ class StoreLocatorAndroidPage extends StoreLocatorPage {
       logger.info("Android Landscape hide keyboard");
       SdkHelper.getDeviceControl().pressAndroidKey(AndroidKey.ESCAPE);
       SdkHelper.getSyncHelper().sleep(500); // Wait for keyboard to be hidden
+
+      logger.info("Clicking on Search");
+      SdkHelper.getBrowserControl().jsClick(searchButton);
     } else {
       mainHeader.click();
+
+      logger.info("Clicking on Search");
+      searchButton.click();
     }
 
-    logger.info("Clicking on Search");
-    searchButton.click();
     return this;
   }
 

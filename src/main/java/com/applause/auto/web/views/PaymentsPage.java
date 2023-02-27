@@ -179,6 +179,9 @@ public class PaymentsPage extends Base {
   @Locate(id = "checkout_billing_address_zip", on = Platform.WEB)
   private Button useBillingAddressSameAsShippingButton;
 
+  @Locate(xpath = "//li[@class='reduction-code']//span", on = Platform.WEB)
+  private List<Text> bundleDiscounts;
+
   @Override
   public void afterInit() {
     SdkHelper.getSyncHelper()
@@ -497,6 +500,13 @@ public class PaymentsPage extends Base {
     WebHelper.scrollToElement(useBillingAddressSameAsShippingButton);
     useBillingAddressSameAsShippingButton.click();
     return this;
+  }
+
+  @Step("Get bundles discounts")
+  public List<String> getBundlesDiscounts() {
+    logger.info("Getting bundles");
+    logger.info("Bundles size: {}", bundleDiscounts.size());
+    return bundleDiscounts.stream().map(item -> item.getText().trim()).collect(Collectors.toList());
   }
 }
 

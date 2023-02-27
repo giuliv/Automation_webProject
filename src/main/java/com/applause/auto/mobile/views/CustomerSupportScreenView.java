@@ -12,9 +12,8 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.appium.java_client.android.AndroidDriver;
-import org.openqa.selenium.ScreenOrientation;
-
 import java.time.Duration;
+import org.openqa.selenium.ScreenOrientation;
 
 @Implementation(is = AndroidCustomerSupportScreenView.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = CustomerSupportScreenView.class, on = Platform.MOBILE_IOS)

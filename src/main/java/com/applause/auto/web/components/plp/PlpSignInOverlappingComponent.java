@@ -20,17 +20,19 @@ public class PlpSignInOverlappingComponent extends BaseComponent {
   @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Sign In\"]", on = Platform.WEB_IOS_PHONE)
   protected Text signInWrapper;
 
-  @Locate(xpath = "//form[starts-with(@class,'signin__StyledSignInForm')]", on = Platform.WEB)
+  @Locate(xpath = "//div[contains(@class,'signin__FormWrapper')]//form", on = Platform.WEB)
   @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Email\"]", on = Platform.WEB_IOS_PHONE)
   protected Text signInForm;
 
-  @Locate(xpath = "//div[starts-with(@class,'signin__StyledSocialSignInForm')]", on = Platform.WEB)
+  @Locate(
+      xpath = "//button[contains(@class,'SocialButton__StyledSecondaryButton')]",
+      on = Platform.WEB)
   @Locate(
       xpath = "//XCUIElementTypeButton[@name=\"Sign in with Google\"]",
       on = Platform.WEB_IOS_PHONE)
   protected Text signInSocialMedia;
 
-  @Locate(xpath = "//div[starts-with(@class, 'GradientBackground-')]/p/a", on = Platform.WEB)
+  @Locate(xpath = "//a[text()='Sign Up']", on = Platform.WEB)
   @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"SIGN UP\"]", on = Platform.WEB_IOS_PHONE)
   protected Text signUpBanner;
 

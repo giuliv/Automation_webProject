@@ -424,17 +424,13 @@ public class MiniCart extends BaseComponent {
     return this;
   }
 
-  /**
-   * @return boolean
-   */
+  /** @return boolean */
   @Step("Get one time purchase")
   public boolean isOneTimePurchaseButtonEnabled() {
     return oneTimePurchaseButton.isEnabled();
   }
 
-  /**
-   * @return boolean
-   */
+  /** @return boolean */
   @Step("Get subscribe")
   public boolean isSubscribeButtonEnabled() {
     return subscribeButton.isEnabled();

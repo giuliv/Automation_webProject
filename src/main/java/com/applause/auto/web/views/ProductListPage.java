@@ -645,7 +645,7 @@ public class ProductListPage extends Base {
   public ProductListPage clickOverAllCoffeeFromBreadCrumbs() {
     logger.info("Click over All Coffee from BreadCrumb");
     linkBreadCrumbs.click();
-
+    WebHelper.waitForElementToDisappear(linkBreadCrumbs, 20);
     return this;
   }
 }

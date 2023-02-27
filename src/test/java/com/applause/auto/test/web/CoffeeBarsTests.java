@@ -30,7 +30,7 @@ public class CoffeeBarsTests extends BaseTest {
         coffeeBarPage.getFeaturedMenuTitle(),
         Constants.TestData.FEATURED_MENU,
         Constants.TestData.FEATURED_MENU + " was not found in section");
-    int totalProducts = coffeeBarPage.getGetSelectedArticles();
+    int totalProducts = coffeeBarPage.getSelectedArticles();
     logger.info("Total products in the carrousel: {}", totalProducts);
 
     int loopCounter = 0;
@@ -50,39 +50,42 @@ public class CoffeeBarsTests extends BaseTest {
           "description[" + loopCounter + "] was missing from featured item");
       loopCounter++;
     }
-    logger.info("XX. Click next arrow and Validate items rotate");
-    coffeeBarPage = coffeeBarPage.clickNextArrow();
 
-    loopCounter = 0;
-    while (loopCounter < totalProducts) {
+    if (!(WebHelper.isDesktop() && coffeeBarPage.getAllArticles() <= 4)) {
+      logger.info("XX. Click next arrow and Validate items rotate");
+      coffeeBarPage = coffeeBarPage.clickNextArrow();
 
-      String secondCarrouselProduct = coffeeBarPage.getFeaturedTitle(loopCounter + 1);
-      logger.info("Second carrousel product: {}", secondCarrouselProduct);
-      titleSecondCarrousel[loopCounter] = secondCarrouselProduct;
+      loopCounter = 0;
+      while (loopCounter < totalProducts) {
 
-      softAssert.assertNotEquals(
-          title[loopCounter], secondCarrouselProduct, "items did not rotate to the next items");
-      loopCounter++;
-    }
+        String secondCarrouselProduct = coffeeBarPage.getFeaturedTitle(loopCounter + 1);
+        logger.info("Second carrousel product: {}", secondCarrouselProduct);
+        titleSecondCarrousel[loopCounter] = secondCarrouselProduct;
 
-    logger.info("XX. Click previous arrow and Validate items rotate back");
-    coffeeBarPage = coffeeBarPage.clickPreviousArrow();
-    loopCounter = 0;
-    while (loopCounter < totalProducts) {
-      softAssert.assertNotEquals(
-          titleSecondCarrousel[loopCounter],
-          coffeeBarPage.getFeaturedTitle(loopCounter),
-          "items did not rotate back with previous arrow");
+        softAssert.assertNotEquals(
+            title[loopCounter], secondCarrouselProduct, "items did not rotate to the next items");
+        loopCounter++;
+      }
 
-      logger.info("XX. click order now on first item");
-      coffeeBarPage.clickFeaturedItemOrderNowButton(loopCounter);
-      logger.info("XX. Validate order page URL");
-      softAssert.assertTrue(
-          WebHelper.getCurrentUrl().contains(Constants.TestData.ORDER_PEETS_URL),
-          "Not on the order URL");
+      logger.info("XX. Click previous arrow and Validate items rotate back");
+      coffeeBarPage = coffeeBarPage.clickPreviousArrow();
+      loopCounter = 0;
+      while (loopCounter < totalProducts) {
+        softAssert.assertNotEquals(
+            titleSecondCarrousel[loopCounter],
+            coffeeBarPage.getFeaturedTitle(loopCounter),
+            "items did not rotate back with previous arrow");
 
-      WebHelper.closeCurrentTab();
-      loopCounter++;
+        logger.info("XX. click order now on first item");
+        coffeeBarPage.clickFeaturedItemOrderNowButton(loopCounter);
+        logger.info("XX. Validate order page URL");
+        softAssert.assertTrue(
+            WebHelper.getCurrentUrl().contains(Constants.TestData.ORDER_PEETS_URL),
+            "Not on the order URL");
+
+        WebHelper.closeCurrentTab();
+        loopCounter++;
+      }
     }
 
     softAssert.assertAll();

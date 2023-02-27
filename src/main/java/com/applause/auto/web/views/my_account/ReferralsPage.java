@@ -105,7 +105,8 @@ public class ReferralsPage extends BaseComponent {
   public List<String> getListOfStats() {
     SdkHelper.getDriver().switchTo().frame(mainIframe.getWebElement());
     List<String> list =
-        statsList.stream()
+        statsList
+            .stream()
             .map(
                 item ->
                     WebHelper.cleanString(
@@ -118,7 +119,8 @@ public class ReferralsPage extends BaseComponent {
   public List<String> getListOfStatsValues() {
     SdkHelper.getDriver().switchTo().frame(mainIframe.getWebElement());
     List<String> list =
-        statsList.stream()
+        statsList
+            .stream()
             .map(
                 item ->
                     WebHelper.cleanString(

@@ -295,9 +295,7 @@ public class WebHelper {
   //        .perform();
   //  }
 
-  /**
-   * @return Y-position of page
-   */
+  /** @return Y-position of page */
   public static int getPagePositionY() {
     String javascript = "return window.scrollY;";
     return (int)
@@ -563,7 +561,8 @@ public class WebHelper {
       // Search root
       Set<WebElement> result = new LinkedHashSet(SdkHelper.getDriver().findElements(by));
       if (result.size() == 0) {
-        getShadowElementsFromRoot().stream()
+        getShadowElementsFromRoot()
+            .stream()
             .forEach(elem -> result.addAll(findShadowElementsBy(elem, by)));
       }
       return new ArrayList<>(result);
@@ -581,7 +580,8 @@ public class WebHelper {
         } else {
           List<WebElement> shadowNodes = getShadowElementsFromParent(parent);
           logger.info("Found shadow nodes on level: " + shadowNodes.size());
-          shadowNodes.stream()
+          shadowNodes
+              .stream()
               .forEach(
                   elem -> {
                     logger.info("Searching for element in shadow node...");
@@ -656,7 +656,8 @@ public class WebHelper {
   public static ArrayList<WebElement> findShadowElementsBy(Set<WebElement> parents, By by) {
     // Important: xpath search does not working
     Set<WebElement> result = new LinkedHashSet<>();
-    parents.stream()
+    parents
+        .stream()
         .forEach(
             parent -> {
               WebElement shadow = getWebElementFromShadowRoot(parent);
@@ -736,7 +737,8 @@ public class WebHelper {
 
       logger.info("Checking native context is shown on UI");
       Optional<String> nativeContext =
-          contexts.stream()
+          contexts
+              .stream()
               .filter(context -> StringUtils.containsIgnoreCase(context, "native"))
               .findAny();
       if (nativeContext.isPresent()) {
@@ -848,7 +850,8 @@ public class WebHelper {
     logger.info("Switching to native context");
     Set<String> contexts = ((SupportsContextSwitching) SdkHelper.getDriver()).getContextHandles();
     Optional<String> nativeContext =
-        contexts.stream()
+        contexts
+            .stream()
             .filter(context -> StringUtils.containsIgnoreCase(context, "native"))
             .findAny();
     ((SupportsContextSwitching) SdkHelper.getDriver()).context(nativeContext.get());
@@ -896,9 +899,7 @@ public class WebHelper {
         .until(driver -> WebHelper.getCurrentUrl().contains(urlParameter));
   }
 
-  /**
-   * @return JavaScript window width
-   */
+  /** @return JavaScript window width */
   public static int getJavascriptWindowWidth() {
     int windowWidth =
         ((Long)

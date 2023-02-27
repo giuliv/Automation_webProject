@@ -3,7 +3,6 @@ package com.applause.auto.mobile.components;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.mobile.components.tooltips.CheckInTooltipComponent;
 import com.applause.auto.mobile.components.tooltips.PointsTurnIntoRewardsTooltipComponent;
 import com.applause.auto.mobile.views.HomeView;
 import com.applause.auto.mobile.views.PeetsCardsView;
@@ -12,9 +11,8 @@ import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
 import io.qameta.allure.Step;
-import lombok.Getter;
-
 import java.time.Duration;
+import lombok.Getter;
 
 @Implementation(is = BottomNavigationMenuChunk.class, on = Platform.MOBILE_ANDROID)
 @Implementation(is = BottomNavigationMenuChunk.class, on = Platform.MOBILE_IOS)

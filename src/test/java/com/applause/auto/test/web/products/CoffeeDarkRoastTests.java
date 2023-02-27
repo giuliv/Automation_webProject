@@ -86,7 +86,7 @@ public class CoffeeDarkRoastTests extends BaseTest {
     logger.info("2. Review breadcrumbs feature");
     productListPage = productListPage.clickOverAllCoffeeFromBreadCrumbs();
     Assert.assertTrue(
-        productListPage.getTotalResults() <= originalTotalResults,
+        productListPage.getTotalResults() >= originalTotalResults,
         "BreadCrumbs link does not work");
   }
 

@@ -567,11 +567,14 @@ public class MyAccountTests extends BaseTest {
       description = "11102933")
   public void referralsElementsTest() {
     if (WebHelper.isDesktop()) {
+      String email =
+          WebHelper.isProdEnv()
+              ? MyAccountTestData.PROD_ACCOUNT_EMAIL
+              : TestData.USER_EMAIL_WITH_SUBSCRIPTIONS;
+      String password =
+          WebHelper.isProdEnv() ? MyAccountTestData.PROD_ACCOUNT_PASSWORD : TestData.WEB_PASSWORD;
       MyAccountPage myAccountPage =
-          MyAccountTestsHelper.navigateToMyAccountPage(
-              navigateToSignInPage(),
-              TestData.USER_EMAIL_WITH_SUBSCRIPTIONS,
-              TestData.WEB_PASSWORD);
+          MyAccountTestsHelper.navigateToMyAccountPage(navigateToSignInPage(), email, password);
 
       logger.info("4. Click on Referrals");
       ReferralsPage referralsPage =

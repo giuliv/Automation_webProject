@@ -52,13 +52,13 @@ public class CoffeeBarCarouselComponent extends BaseComponent {
   @Locate(css = "a.btn.btn--primary.product-carousel__btn", on = Platform.WEB)
   protected Button allSeasonalBeveragesButton;
 
-  @Locate(css = "h3.product-carousel__heading", on = Platform.WEB)
+  @Locate(css = "#coffeebar .product-carousel__heading", on = Platform.WEB)
   protected Text headerText;
 
-  @Locate(css = "h2.product-carousel__sub-heading", on = Platform.WEB)
+  @Locate(css = "#coffeebar h2.product-carousel__sub-heading", on = Platform.WEB)
   protected Text subHeaderText;
 
-  @Locate(css = "p.product-carousel__description", on = Platform.WEB)
+  @Locate(css = "#coffeebar p.product-carousel__description", on = Platform.WEB)
   protected Text descriptionText;
 
   @Locate(css = ".product-carousel__banner-wrap .desktop-only img", on = Platform.WEB)
@@ -74,6 +74,12 @@ public class CoffeeBarCarouselComponent extends BaseComponent {
 
   @Step("Get only visible items")
   public List<CoffeeBarItemComponent> getVisibleCoffeeBarItems() {
+    if (!WebHelper.isDisplayed(nextButton)) {
+      // On desktop if we have only 4 items, these items don't have is-selected attribute
+      // (isVisible() method)
+      return getCoffeeBarItemComponents();
+    }
+
     return getCoffeeBarItemComponents().stream()
         .filter(item -> item.isVisible())
         .collect(Collectors.toList());
@@ -154,6 +160,7 @@ public class CoffeeBarCarouselComponent extends BaseComponent {
   @Step("Verify all products are displayed with name and image")
   public boolean areItemsDisplayedProperly() {
     for (CoffeeBarItemComponent item : getVisibleCoffeeBarItems()) {
+      WebHelper.scrollToElement(item.getParent());
       if (!item.isProductNameDisplayed()) {
         logger.error("Product name isn't displayed");
         return false;
@@ -175,7 +182,7 @@ public class CoffeeBarCarouselComponent extends BaseComponent {
 
   @Step("Verify section image is displayed")
   public boolean isImageIsDisplayed() {
-    return WebHelper.isDisplayed(image);
+    return WebHelper.isDisplayed(image, 10);
   }
 
   @Step("Verify section header is displayed")
