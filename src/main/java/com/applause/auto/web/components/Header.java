@@ -52,7 +52,7 @@ public class Header extends BaseComponent {
 
   @Locate(css = "a[data-id='free-shipping-nav']", on = Platform.WEB)
   @Locate(
-      xpath = "//li[@class='nav__mobile-main-link']/a[contains(., 'Free')]",
+      xpath = "//li[contains(@class,'nav__mobile-main-link')]/a[contains(., 'Free')]",
       on = Platform.WEB_MOBILE_PHONE)
   protected Button freeShippingCategory;
 

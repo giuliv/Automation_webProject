@@ -12,6 +12,7 @@ import com.applause.auto.pageobjectmodel.elements.TextBox;
 import com.applause.auto.web.components.ShipDateInfoComponent;
 import com.applause.auto.web.helpers.WebHelper;
 import io.qameta.allure.Step;
+import java.time.Duration;
 import java.util.List;
 import org.openqa.selenium.By;
 
@@ -91,7 +92,8 @@ public class ShippingPage extends Base {
 
   @Override
   public void afterInit() {
-    SdkHelper.getSyncHelper().wait(Until.uiElement(mainContainer).visible());
+    SdkHelper.getSyncHelper()
+        .wait(Until.uiElement(mainContainer).visible().setTimeout(Duration.ofSeconds(40)));
     logger.info("Shipping Page URL: " + getDriver().getCurrentUrl());
   }
 
@@ -173,7 +175,9 @@ public class ShippingPage extends Base {
   }
 
   @Step("Apply discount code")
-  /** @return ShippingPage */
+  /**
+   * @return ShippingPage
+   */
   public ShippingPage applyDiscountCode(String discountCode) {
     logger.info("Applying discount code: {}", discountCode);
     SdkHelper.getSyncHelper().sleep(10000); // Wait for peet's card are ready
@@ -273,7 +277,9 @@ class ShippingPageMobile extends ShippingPage {
 
   @Override
   @Step("Apply discount code")
-  /** @return ShippingPage */
+  /**
+   * @return ShippingPage
+   */
   public ShippingPage applyDiscountCode(String discountCode) {
     expandOrderSummarySectionIfNotExpanded();
     return super.applyDiscountCode(discountCode);
