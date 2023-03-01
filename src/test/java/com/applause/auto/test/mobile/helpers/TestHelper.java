@@ -147,10 +147,22 @@ public class TestHelper extends BaseComponent {
    * @return HomeView
    */
   public static HomeView skipOnboardingAndLogin(String userName, String password) {
-    return login(navigateToLandingView(), userName, password);
+    return loginAndCloseTooltips(navigateToLandingView(), userName, password);
   }
 
   public static HomeView login(LandingView landingView, String userName, String password) {
+    logger.info("Tap Sign In");
+    SignInView signInView = landingView.signIn();
+
+    logger.info("Log in to the app");
+    signInView.setEmail(userName);
+    signInView.setPassword(password);
+
+    return signInView.signIn(HomeView.class, false);
+  }
+
+  public static HomeView loginAndCloseTooltips(
+      LandingView landingView, String userName, String password) {
     logger.info("Tap Sign In");
     SignInView signInView = landingView.signIn();
 

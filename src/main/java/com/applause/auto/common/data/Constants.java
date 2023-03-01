@@ -68,6 +68,7 @@ public class Constants {
     public static final String ORDER = "order";
     public static final String COMPANY_INFORMATION = "company-information";
     public static final String REGRESSION = "regression";
+    public static final String REWARDS_BANNER = "rewards_banner";
     public static final String PROD_MONITORING = "prod_monitoring";
     public static final String MONITORING = "monitoring";
     public static final String WEB_UI = "web-ui";
@@ -325,6 +326,10 @@ public class Constants {
     public static final String EMAIL = "jyothipeets+97@gmail.com";
     public static final String EMAIL_HAS_FAVORITES = "peets+testhasfavorites3@gmail.com";
     // public static final String EMAIL_FAVORITES = "peets+testfavorites@gmail.com";
+    public static final String EMAIL_REWARDS_197_POINTS = "Jyothipeets+101@gmail.com";
+    public static final String EMAIL_REWARDS_47_POINTS = "Jyothipeets+99@gmail.com";
+    public static final String EMAIL_REWARDS_288_POINTS = "Jyothipeets+80@gmail.com";
+
     public static final String EMAIL_CHANGE_PWD =
         MobileHelper.isAndroid()
             ? "appautosvc+peetscoffee2@applause.com"

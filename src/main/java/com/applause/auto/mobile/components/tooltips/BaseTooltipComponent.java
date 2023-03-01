@@ -21,6 +21,14 @@ public class BaseTooltipComponent extends BaseComponent {
       on = Platform.MOBILE_ANDROID)
   protected Button closeButton;
 
+  @Locate(
+      iOSClassChain = "**/XCUIElementTypeButton[`label == \"View Reward\"`]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/close.*\")",
+      on = Platform.MOBILE_ANDROID)
+  protected Button viewRewardsButton;
+
   @Step("Close Tooltip")
   public <T extends BaseComponent> T closeAnyTooltipIfDisplayed(
       int countOfTooltips, Class<T> clazz) {
@@ -43,5 +51,10 @@ public class BaseTooltipComponent extends BaseComponent {
         logger.info("Tooltip didn't appear");
       }
     }
+  }
+
+  @Step("Review if view rewards banner is displayed")
+  public boolean isViewRewardsBannerDisplayed() {
+    return MobileHelper.isElementDisplayed(viewRewardsButton, 8);
   }
 }

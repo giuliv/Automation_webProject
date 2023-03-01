@@ -203,6 +203,18 @@ public class SignInView extends BaseComponent {
     return SdkHelper.create(clazz);
   }
 
+  public <T extends BaseComponent> T signIn(Class<T> clazz, boolean closeTooltips) {
+    logger.info("Click on Sign In button");
+    signInButton.initialize();
+    signInButton.click();
+
+    if (closeTooltips) {
+      SdkHelper.create(BaseTooltipComponent.class).closeAnyTooltipIfDisplayed(5);
+    }
+
+    return SdkHelper.create(clazz);
+  }
+
   /** Show password. */
   public void showPassword() {
     logger.info("Click on Show Password button");
