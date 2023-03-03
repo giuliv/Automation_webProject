@@ -6,6 +6,7 @@ import com.applause.auto.helpers.sync.Until;
 import com.applause.auto.mobile.components.CoffeeStoreContainerChuck;
 import com.applause.auto.mobile.components.CoffeeStoreItemChuck;
 import com.applause.auto.mobile.components.FreeDeliveryModalChunk;
+import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
@@ -366,6 +367,9 @@ class AndroidNearbySelectCoffeeBarView extends NearbySelectCoffeeBarView {
   @Override
   public NearbySelectCoffeeBarView search(String searchTxt) {
     logger.info("Searching for store: " + searchTxt);
+    if (!MobileHelper.isDisplayed(getSearchTextBox)) {
+      getSearchButton.click();
+    }
     getSearchTextBox.click();
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(getSearchTextBoxEdit).present().setTimeout(Duration.ofSeconds(3)));

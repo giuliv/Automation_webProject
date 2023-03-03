@@ -5,15 +5,19 @@ import com.applause.auto.common.data.enums.OrderMenuSubCategory;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.mobile.components.FavoriteOrderCardChunk;
 import com.applause.auto.mobile.components.FreeDeliveryModalChunk;
 import com.applause.auto.mobile.components.OrderMenuChunk;
+import com.applause.auto.mobile.components.RecentOrderCardChunk;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.Button;
+import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import java.time.Duration;
+import java.util.List;
 import lombok.Getter;
 
 @Implementation(is = OrderView.class, on = Platform.MOBILE_ANDROID)
@@ -22,7 +26,7 @@ public class OrderView extends BaseView {
 
   /* -------- Elements -------- */
 
-  @Locate(xpath = "//XCUIElementTypeNavigationBar[@name=\"ORDER\"]", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"ORDER\"]", on = Platform.MOBILE_IOS)
   @Locate(xpath = "//android.widget.TextView[@text='ORDER']", on = Platform.MOBILE_ANDROID)
   protected Text getHeadingText;
 
@@ -141,6 +145,38 @@ public class OrderView extends BaseView {
       on = Platform.MOBILE_ANDROID)
   protected Text storeName;
 
+  @Locate(xpath = "//XCUIElementTypeButton[@name='white search']", on = Platform.MOBILE_IOS)
+  @Locate(
+      androidUIAutomator = "new UiSelector().resourceIdMatches(\".*id/search\")",
+      on = Platform.MOBILE_ANDROID)
+  protected Image searchIconImage;
+
+  @Locate(xpath = "//XCUIElementTypeStaticText[@name=\"Pickup\"]", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//android.widget.TextView[@text='Pickup']", on = Platform.MOBILE_ANDROID)
+  protected Text pickUpText;
+
+  @Locate(
+      xpath = "//XCUIElementTypeButton[@name=\"Tap Here to Select Delivery\"]",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      xpath = "//android.widget.TextView[@text='Tap Here to Select Delivery']",
+      on = Platform.MOBILE_ANDROID)
+  protected Text tapHereToSelectDelivery;
+
+  @Locate(
+      xpath = "//XCUIElementTypeCollectionView[@visible=\"true\"]/XCUIElementTypeCell",
+      on = Platform.MOBILE_IOS)
+  @Locate(id = "com.wearehathway.peets.development:id/feedCardView", on = Platform.MOBILE_ANDROID)
+  protected List<RecentOrderCardChunk> recentCards;
+
+  @Locate(
+      xpath = "//XCUIElementTypeCollectionView[@visible=\"true\"]/XCUIElementTypeCell",
+      on = Platform.MOBILE_IOS)
+  @Locate(
+      id = "com.wearehathway.peets.development:id/favorites_recycler_view",
+      on = Platform.MOBILE_ANDROID)
+  protected List<FavoriteOrderCardChunk> favoriteCards;
+
   @Getter @Locate OrderMenuChunk orderMenuChunk;
 
   /* -------- Actions -------- */
@@ -215,7 +251,7 @@ public class OrderView extends BaseView {
    */
   public OrderView recents() {
     logger.info("Click on recents tab");
-    recentsTabButton.click();
+    SdkHelper.getDeviceControl().tapElementCenter(recentsTabButton);
     return SdkHelper.create(OrderView.class);
   }
 
@@ -343,6 +379,38 @@ public class OrderView extends BaseView {
    */
   public String getStoreName() {
     return storeName.getText();
+  }
+
+  public boolean isSearchIconDisplayed() {
+    return MobileHelper.isDisplayed(searchIconImage);
+  }
+
+  public boolean isStoreNameDisplayed() {
+    return MobileHelper.isDisplayed(storeName);
+  }
+
+  public boolean isPickUpTextDisplayed() {
+    return MobileHelper.isDisplayed(pickUpText);
+  }
+
+  public boolean isTapHereToSelectDeliveryDisplayed() {
+    return MobileHelper.isDisplayed(tapHereToSelectDelivery);
+  }
+
+  public boolean isFavoritiesTabDisplayed() {
+    return MobileHelper.isDisplayed(favoritesTabButton);
+  }
+
+  public boolean isRecentsTabDisplayed() {
+    return MobileHelper.isDisplayed(recentsTabButton);
+  }
+
+  public List<RecentOrderCardChunk> getRecents() {
+    return recentCards;
+  }
+
+  public List<FavoriteOrderCardChunk> getFavorites() {
+    return favoriteCards;
   }
 }
 

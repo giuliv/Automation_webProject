@@ -1,5 +1,7 @@
 package com.applause.auto.test.mobile;
 
+import static com.applause.auto.common.data.Constants.TestData.QA_LAB_ZIP;
+
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
@@ -8,6 +10,8 @@ import com.applause.auto.common.data.enums.OrderMenuSubCategory;
 import com.applause.auto.common.data.enums.Products;
 import com.applause.auto.mobile.components.AllowLocationServicesPopupChunk;
 import com.applause.auto.mobile.components.CoffeeStoreItemChuck;
+import com.applause.auto.mobile.components.FavoriteOrderCardChunk;
+import com.applause.auto.mobile.components.RecentOrderCardChunk;
 import com.applause.auto.mobile.helpers.ItemOptions;
 import com.applause.auto.mobile.helpers.MobileHelper;
 import com.applause.auto.mobile.views.CheckoutView;
@@ -43,7 +47,7 @@ public class OrderTest extends BaseTest {
             .getBottomNavigationMenuChunk()
             .tapMenu(AllowLocationServicesPopupChunk.class)
             .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class)
-            .search("78717")
+            .search(QA_LAB_ZIP)
             .openDefault();
 
     logger.info("STEP 1. Tap on Recents tab");
@@ -155,7 +159,7 @@ public class OrderTest extends BaseTest {
         nearbySelectCoffeeBarView.isFavoritesTabDisplayed(), "Favorites does not displayed");
 
     logger.info("STEP 2 - Search for any store either by nearby, recent tabs, or by zip code");
-    nearbySelectCoffeeBarView.search("78717");
+    nearbySelectCoffeeBarView.search(QA_LAB_ZIP);
 
     CoffeeStoreItemChuck store = nearbySelectCoffeeBarView.getCoffeeStoreContainerChucks().get(0);
     String storeName = store.getStoreName();
@@ -268,7 +272,7 @@ public class OrderTest extends BaseTest {
             .getBottomNavigationMenuChunk()
             .tapMenu(AllowLocationServicesPopupChunk.class)
             .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class)
-            .search("78717")
+            .search(QA_LAB_ZIP)
             .openDefault();
 
     logger.info("Step 1. Tap on Hot Coffee category to expand");
@@ -355,7 +359,7 @@ public class OrderTest extends BaseTest {
             .getBottomNavigationMenuChunk()
             .tapMenu(AllowLocationServicesPopupChunk.class)
             .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class)
-            .search("78717")
+            .search(QA_LAB_ZIP)
             .openDefault();
 
     logger.info("STEP 1. Tap on Food category to expand");
@@ -428,7 +432,7 @@ public class OrderTest extends BaseTest {
             .getBottomNavigationMenuChunk()
             .tapMenu(AllowLocationServicesPopupChunk.class)
             .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class)
-            .search("78717")
+            .search(QA_LAB_ZIP)
             .openDefault();
 
     logger.info("STEP 1. Tap on Food category to expand");
@@ -514,5 +518,108 @@ public class OrderTest extends BaseTest {
     Assert.assertFalse(
         checkoutView.isProductDisplayed(productName3),
         "Product Oatmeal remains in the cart and not deleted");
+  }
+
+  @Test(
+      groups = {TestNGGroups.REGRESSION},
+      description = "11131085")
+  public void peetsM08OrdersSignedUsersMenuUITest() {
+    logger.info(
+        "Open app\n"
+            + "Sign in > Home page will be displayed\n"
+            + "Tap Menu > Order view is displayed");
+    Constants.UserTestData account = MyAccountTestData.CHECKOUT_ACCOUNT;
+    HomeView homeView =
+        testHelper.skipOnboardingAndLogin(account.getUsername(), account.getPassword());
+
+    OrderView orderView =
+        homeView
+            .getBottomNavigationMenuChunk()
+            .tapMenu(AllowLocationServicesPopupChunk.class)
+            .allowIfRequestDisplayed(NearbySelectCoffeeBarView.class)
+            .search(QA_LAB_ZIP)
+            .openDefault();
+
+    SoftAssert softAssert = new SoftAssert();
+    softAssert.assertTrue(!orderView.getHeadingTextValue().isEmpty(), "Heading text not displayed");
+    softAssert.assertTrue(orderView.isSearchIconDisplayed(), "Search icon not displayed");
+    softAssert.assertTrue(orderView.isStoreNameDisplayed(), "Store name not displayed");
+    softAssert.assertTrue(orderView.isPickUpTextDisplayed(), "Pickup text not displayed");
+    softAssert.assertTrue(
+        orderView.isTapHereToSelectDeliveryDisplayed(), "Tap here to select delivery options");
+    softAssert.assertTrue(
+        orderView.getOrderMenuChunk().isMenuHighlighted(), "Menu is not hghtlighted");
+    softAssert.assertTrue(orderView.isRecentsTabDisplayed(), "Recent tab is not displayed");
+    softAssert.assertTrue(orderView.isFavoritiesTabDisplayed(), "Favorites tab is not displayed");
+    softAssert.assertTrue(
+        orderView.isMenuCategoriesDisplayed(), "Menu categories is not displayed");
+    softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {TestNGGroups.REGRESSION},
+      description = "11131086")
+  public void peetsM09OrdersSignedUsersRecentsUITest() {
+    logger.info(
+        "Open app\n"
+            + "Sign in > Home page will be displayed"
+            + "Tap Recents tab > Recents tab is highlighted\n"
+            + "Validate at least 1order card is displayed");
+    HomeView homeView =
+        testHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+
+    OrderView orderView =
+        homeView
+            .getBottomNavigationMenuChunk()
+            .tapMenu(AllowLocationServicesPopupChunk.class)
+            .allowIfRequestDisplayed(OrderView.class);
+
+    orderView = orderView.recents();
+
+    RecentOrderCardChunk recentOrderCard = orderView.getRecents().get(0);
+    SoftAssert softAssert = new SoftAssert();
+    softAssert.assertTrue(
+        recentOrderCard.isDateHeaderDisplayed(), "Date header text not displayed");
+    softAssert.assertTrue(
+        recentOrderCard.isOrderCompletedTextDisplayed(), "'Order Completed' text not displayed");
+    softAssert.assertTrue(
+        recentOrderCard.isPickupAtTextDisplayed(), "'PickUp At' text not displayed");
+    softAssert.assertTrue(recentOrderCard.isOrderTextDisplayed(), "'Order' text not displayed");
+    softAssert.assertTrue(recentOrderCard.isFavIconDisabled(), "'Fav icon' not disabled");
+    softAssert.assertTrue(
+        recentOrderCard.isReorderButtonDisplayed(), "Reorder button not displayed");
+    softAssert.assertAll();
+  }
+
+  @Test(
+      groups = {TestNGGroups.REGRESSION},
+      description = "11131087")
+  public void peetsM10OrdersSignedUsersFavsUITest() {
+    logger.info(
+        "Open app\n"
+            + "Sign in > Home page will be displayed"
+            + "Tap Favorites tab > Favorites tab is highlighted\n"
+            + "Validate at least 1 order card is displayed");
+    HomeView homeView =
+        testHelper.skipOnboardingAndLogin(MyAccountTestData.EMAIL, MyAccountTestData.PASSWORD);
+
+    OrderView orderView =
+        homeView
+            .getBottomNavigationMenuChunk()
+            .tapMenu(AllowLocationServicesPopupChunk.class)
+            .allowIfRequestDisplayed(OrderView.class);
+
+    orderView = orderView.favorites();
+
+    FavoriteOrderCardChunk favoriteOrderCard = orderView.getFavorites().get(0);
+    SoftAssert softAssert = new SoftAssert();
+    softAssert.assertTrue(favoriteOrderCard.isMyFAVHeaderDisplayed(), "My FAV text not displayed");
+    softAssert.assertTrue(
+        favoriteOrderCard.isCoffeeBarDisplayed(), "'Coffee bar' text not displayed");
+    softAssert.assertTrue(favoriteOrderCard.isOrderTextDisplayed(), "'Order' text not displayed");
+    softAssert.assertTrue(favoriteOrderCard.isFavIconDisabled(), "'Fav icon' disabled");
+    softAssert.assertTrue(
+        favoriteOrderCard.isReorderButtonDisplayed(), "Reorder button not displayed");
+    softAssert.assertAll();
   }
 }

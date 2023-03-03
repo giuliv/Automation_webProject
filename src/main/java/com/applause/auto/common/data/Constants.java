@@ -215,6 +215,7 @@ public class Constants {
     public static final String ADDRESS_2 = "2266 Bath Ave";
     public static final String ZIP_CODE = "11201";
     public static final String ZIP_CODE_2 = "11214";
+    public static final String QA_LAB_ZIP = "78717";
     public static final String CITY = "Brooklyn";
     public static final String STATE = "New York";
     public static final String EMAIL = "peets+%s@qa.utest.com";

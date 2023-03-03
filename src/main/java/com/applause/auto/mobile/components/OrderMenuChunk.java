@@ -11,6 +11,7 @@ import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import io.qameta.allure.Step;
+import java.util.Objects;
 
 /** Order Menu chunk. */
 @Implementation(is = OrderMenuChunk.class, on = Platform.MOBILE_ANDROID)
@@ -26,6 +27,10 @@ public class OrderMenuChunk extends BaseComponent {
   @Locate(id = "Recents", on = Platform.MOBILE_IOS)
   @Locate(xpath = "//*[@text='Recents']", on = Platform.MOBILE_ANDROID)
   protected Text recentsSubHeader;
+
+  @Locate(id = "Menu", on = Platform.MOBILE_IOS)
+  @Locate(xpath = "//*[@text='Menu']", on = Platform.MOBILE_ANDROID)
+  protected Text menuSubHeader;
 
   /* -------- Actions -------- */
 
@@ -46,6 +51,11 @@ public class OrderMenuChunk extends BaseComponent {
     return isMenuButtonHighlighted(recentsSubHeader);
   }
 
+  @Step("Check if Menu tab is Highlighted")
+  public boolean isMenuHighlighted() {
+    return isMenuButtonHighlighted(menuSubHeader);
+  }
+
   @Step("Check if Favorites tab is Highlighted")
   public boolean isFavoritesHighlighted() {
     return isMenuButtonHighlighted(favoritesSubHeader);
@@ -56,7 +66,8 @@ public class OrderMenuChunk extends BaseComponent {
     logger.info("Color: " + colourRed);
     return (colourRed == 193)
         || (colourRed == 194)
-        || element.getAttributeValue("selected").equals("true");
+        || element.getAttributeValue("selected").equals("true")
+        || !Objects.isNull(element.getAttributeValue("value"));
   }
 }
 
