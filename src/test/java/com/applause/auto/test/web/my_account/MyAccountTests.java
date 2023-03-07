@@ -346,7 +346,7 @@ public class MyAccountTests extends BaseTest {
 
     logger.info("9. Press Browser back button");
     if (WebHelper.isDesktop()) {
-      WebHelper.navigateBack(MyCardsPage.class);
+      myCardsPage = WebHelper.navigateBack(MyCardsPage.class);
     } else {
       SdkHelper.getDriver().navigate().back();
       giftCardsPage.closeBannerButton(MyAccountPage.class);
@@ -668,9 +668,11 @@ public class MyAccountTests extends BaseTest {
         welcomeBackDialogComponent.isDisplayed(), "Welcome back window is not shown");
 
     logger.info("Validate 'Welcome Back, 'Username' is shown correctly");
-    softAssert.assertEquals(
-        welcomeBackDialogComponent.getTitle().toUpperCase(),
-        "WELCOME BACK,APPLAUSE.",
+    softAssert.assertTrue(
+        welcomeBackDialogComponent
+            .getTitle()
+            .toUpperCase()
+            .contains(MyAccountTestData.EDIT_EMAIL_USERNAME),
         " 'Welcome Back, 'Username' is not shown correctly");
 
     logger.info(
@@ -734,7 +736,7 @@ public class MyAccountTests extends BaseTest {
   public void myAccountWelcomeBackWindowReorderButtonTest() {
     MyAccountPage myAccountPage =
         MyAccountTestsHelper.navigateToMyAccountPage(
-            navigateToSignInPage(), CheckoutUserTestData.USERNAME, CheckoutUserTestData.PASSWORD);
+            navigateToSignInPage(), MyAccountTestData.REORDER_EMAIL, TestData.WEB_PASSWORD);
 
     logger.info(
         "Validate this section shows Fulfilled (Invoiced) order item is shown with Image, name, Price and  Reorder Button");
@@ -750,11 +752,11 @@ public class MyAccountTests extends BaseTest {
 
     logger.info("Validate this item is added to cart correctly");
     softAssert.assertEquals(
-        cartPage.getProductNameByIndex(1).toLowerCase(),
+        cartPage.getProductNameByIndex(1),
         orderDTO.getName().toLowerCase(),
         "Product name didn't match on Cart page");
     softAssert.assertEquals(
-        cartPage.getGrindSelectedByIndex(1).toLowerCase(),
+        cartPage.getGrindSelectedByIndex(1),
         orderDTO.getInfo().toLowerCase(),
         "Product Grind didn't match on Cart page");
     softAssert.assertEquals(

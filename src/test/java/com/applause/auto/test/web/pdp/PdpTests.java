@@ -767,9 +767,7 @@ public class PdpTests extends BaseTest {
 
     logger.info("11. Verify the reviews of that star are only displayed");
     softAssert.assertTrue(
-        customerReviewsComponent
-            .getReviewsRatings()
-            .stream()
+        customerReviewsComponent.getReviewsRatings().stream()
             .allMatch(rating -> (rating == 4 | rating == 2)),
         "Not all reviews have selected ratings");
 

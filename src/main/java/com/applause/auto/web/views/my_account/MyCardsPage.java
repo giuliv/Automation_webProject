@@ -79,6 +79,7 @@ public class MyCardsPage extends BaseComponent {
 
   public ReloadComponent clickReloadButton() {
     logger.info("Clicking reload button");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(reloadButton).present());
     WebHelper.scrollToElement(reloadButton);
     reloadButton.click();
     return SdkHelper.create(ReloadComponent.class);

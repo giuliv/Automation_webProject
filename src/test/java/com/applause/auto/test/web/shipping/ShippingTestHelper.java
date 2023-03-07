@@ -31,7 +31,11 @@ public class ShippingTestHelper extends BaseTest {
 
     if (quantity > 1) {
       if (quantity == 9) {
-        productDetailsPage.selectQuantityByIndex(quantity);
+        if (WebHelper.isProdEnv()) {
+          productDetailsPage.selectQuantityByIndex(quantity);
+        } else {
+          productDetailsPage.incrementProductQuantity(quantity);
+        }
       } else if (productDetailsPage.isItemBagQuantityType()) {
         productDetailsPage.addMoreProducts(quantity);
       } else {

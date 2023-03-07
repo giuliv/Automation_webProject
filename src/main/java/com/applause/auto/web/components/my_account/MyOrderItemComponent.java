@@ -221,7 +221,7 @@ public class MyOrderItemComponent extends BaseComponent {
   public CartPage clickOnReorderButton() {
     logger.info("Clicking on 'Reorder' button");
     reorderButton.click();
-    waitForReorderButtonLoadingComplete();
+    //    waitForReorderButtonLoadingComplete();
     return SdkHelper.create(CartPage.class);
   }
 
