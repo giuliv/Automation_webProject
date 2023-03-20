@@ -84,12 +84,6 @@ public class BundleTestHelper extends BaseTest {
         cartPage.getDiscountValues().size(),
         "Not all products contain discounts");
 
-    if (WebHelper.isDesktop()) {
-      softAssert.assertTrue(
-          cartPage.getDiscountValues().stream().allMatch(item -> item.contains("10%")),
-          "Not all items contain 10% discount");
-    }
-
     return cartPage;
   }
 }

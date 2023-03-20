@@ -13,7 +13,10 @@
   "goog:chromeOptions": {
     "mobileEmulation": {
       "deviceName": "Pixel 2"
-    }
+    },
+    "args": [
+      "--remote-allow-origins=*"
+    ]
   },
   "caps": {
     "browserName": "chrome",

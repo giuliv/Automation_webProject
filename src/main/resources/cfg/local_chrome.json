@@ -13,5 +13,10 @@
   "caps": {
     "browserName": "chrome",
     "acceptSSLAlerts": "true"
+  },
+  "goog:chromeOptions": {
+    "args": [
+      "--remote-allow-origins=*"
+    ]
   }
 }

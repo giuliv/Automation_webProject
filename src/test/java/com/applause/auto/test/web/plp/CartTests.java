@@ -122,8 +122,9 @@ public class CartTests extends BaseTest {
         cartPage.progressShippingBarIsDisplayed(), "Progress shipping bar is not displayed");
     softAssert.assertTrue(cartPage.thisIsGiftIsDisplayed(), "This is a gift is not displayed");
     softAssert.assertTrue(cartPage.subTotalIsDisplayed(), "Subtotal displays is not displayed");
-    softAssert.assertTrue(
-        cartPage.estimatedShipDateIsDisplayed(), "Estimated ship date is not displayed");
+    // Todo: Estimated message has been removed[20.03.2023]
+    //    softAssert.assertTrue(
+    //        cartPage.estimatedShipDateIsDisplayed(), "Estimated ship date is not displayed");
     softAssert.assertTrue(cartPage.checkOutButtonIsDisplayed(), "Checkout button is not displayed");
     softAssert.assertTrue(
         cartPage.otherPurchasedIsDisplayed(), "Others purchased is not displayed");
@@ -435,18 +436,19 @@ public class CartTests extends BaseTest {
         productQuantity,
         "Quantity does not decrease -1");
 
-    logger.info("5. Validating Estimated Date Tooltip");
-    softAssert.assertTrue(
-        cartPage.estimatedShipDateIsDisplayed(), "Estimated ship date is not displayed");
-    cartPage.openEstimatedTooltip();
-    softAssert.assertEquals(
-        cartPage.getEstimatedDateTooltipText(),
-        Constants.WebTestData.FAQ_MESSAGE,
-        "Estimated tooltip text does not matches");
-    cartPage.openEstimatedFAQLink();
-    softAssert.assertTrue(
-        WebHelper.getCurrentUrl().contains(FooterOptions.HELP_CENTER.getUrl()),
-        "FAQ URL does not matches");
+    // Todo:Commented, no longer needed estimated date has been removed[20.03.2023]
+    //    logger.info("5. Validating Estimated Date Tooltip");
+    //    softAssert.assertTrue(
+    //        cartPage.estimatedShipDateIsDisplayed(), "Estimated ship date is not displayed");
+    //    cartPage.openEstimatedTooltip();
+    //    softAssert.assertEquals(
+    //        cartPage.getEstimatedDateTooltipText(),
+    //        Constants.WebTestData.FAQ_MESSAGE,
+    //        "Estimated tooltip text does not matches");
+    //    cartPage.openEstimatedFAQLink();
+    //    softAssert.assertTrue(
+    //        WebHelper.getCurrentUrl().contains(FooterOptions.HELP_CENTER.getUrl()),
+    //        "FAQ URL does not matches");
     // Todo:Ask if the FAQ, should be opened on a new tab
 
     softAssert.assertAll();

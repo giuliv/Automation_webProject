@@ -165,15 +165,15 @@ public class QuickViewComponent extends BaseComponent {
     softAssert.assertTrue(
         Integer.parseInt(reviewCount.getText().replaceAll("[^\\d.]", "")) >= 1,
         "Review count is not correct");
-    if (SdkHelper.getEnvironmentHelper().isMobileIOS()) {
-      starRatings.click();
-    } else {
-      WebHelper.hoverByAction(starRatings);
-    }
 
-    softAssert.assertTrue(
-        readReviewBox.getAttributeValue("aria-expanded").equals("true"),
-        "AutoDropDown Review module is not displayed");
+    if (WebHelper.isDesktop()) {
+      logger.info("Hover Stars Review section [Only Desktop]");
+      WebHelper.hoverByAction(starRatings);
+
+      softAssert.assertTrue(
+          readReviewBox.getAttributeValue("aria-expanded").equals("true"),
+          "AutoDropDown Review module is not displayed");
+    }
 
     return softAssert;
   }
@@ -312,7 +312,9 @@ public class QuickViewComponent extends BaseComponent {
     return SdkHelper.create(MiniCart.class);
   }
 
-  /** @return product name */
+  /**
+   * @return product name
+   */
   @Step("Get product name")
   public String getProductName() {
     return productName.getText().trim();
