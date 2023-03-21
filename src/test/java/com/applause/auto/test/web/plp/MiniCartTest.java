@@ -468,7 +468,9 @@ public class MiniCartTest extends BaseTest {
 
   @Test(
       groups = {Constants.TestNGGroups.FRONT_END_REGRESSION, TestNGGroups.FE_PROD_REGRESSION},
-      description = "11109581")
+      description = "11109581",
+      enabled = false)
+  // Todo:EstimatedShipDate not longer displayed[21.03.2023]
   public void estimatedShipDateTest() {
 
     logger.info("1. Navigate to product details page");

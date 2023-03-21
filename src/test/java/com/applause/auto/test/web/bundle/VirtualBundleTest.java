@@ -65,7 +65,7 @@ public class VirtualBundleTest extends BaseTest {
         BundleTestHelper.addBundleToCartAndValidateDiscount(
             navigateToPDPFromHome(TestData.BUNDLE_PRODUCT_URL_PARAMETER), softAssert);
 
-    logger.info("5. Remove 1 item from Minicart/cart");
+    logger.info("5. Remove 1 item from MiniCart/cart");
     double totalPriceBeforeRemove = cartPage.getDoubleSubTotal();
     cartPage.decreaseQuantity(1);
     cartPage = WebHelper.refreshMe(CartPage.class);
@@ -97,13 +97,13 @@ public class VirtualBundleTest extends BaseTest {
         "5. Search regular item (french Roast),  add to cart and continue to checkout  with CC");
     int itemsCount = cartPage.getProductNames().size();
     cartPage =
-        navigateToPDPFromHome(TestData.NEW_FRENCH_ROAST_URL_PARAMETER)
+        navigateToPDPFromHome(TestData.FRENCH_ROAST_URL_PARAMETER)
             .clickAddToMiniCart()
             .clickViewCartButton();
 
     logger.info("6. Validate regular item and Bundle item is added to cart ");
     softAssert.assertTrue(
-        cartPage.getProductLinks().get(0).contains(TestData.NEW_FRENCH_ROAST_URL_PARAMETER),
+        cartPage.getProductLinks().get(0).contains(TestData.FRENCH_ROAST_URL_PARAMETER),
         "Regular item is not added to the cart");
     softAssert.assertTrue(
         itemsCount < cartPage.getProductNames().size(), "Bundle item is not displayed in the cart");

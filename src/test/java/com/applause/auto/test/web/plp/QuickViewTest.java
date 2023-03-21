@@ -40,12 +40,17 @@ public class QuickViewTest extends BaseTest {
       description = "11110671")
   public void coffeeItemGrindTest() {
 
-    logger.info("1. Navigate to landing page");
-    ProductListPage productListPage = navigateToPLPFromHome(TestData.COFFEE_BEST_SELLERS_URL);
-    Assert.assertNotNull(productListPage, "Failed to navigate to Product Listing Page");
+    logger.info("1. Navigate to Home");
+    HomePage homePage = navigateToHome();
+    homePage.closeInitialBannersAndModals();
 
-    logger.info("2. Select new Grind > Review Grind element");
-    QuickViewComponent quickViewComponent = productListPage.clickOverFirstQuickViewButton();
+    logger.info("2. Search for the product: {}", coffeeSelected);
+    SearchResultsPage searchResultsPage =
+        homePage.getHeader().getSearchComponent().search(coffeeSelected);
+
+    logger.info("3. Open QuickView Modal");
+    QuickViewComponent quickViewComponent =
+        searchResultsPage.clickOverQuickViewByProduct(coffeeSelected);
     String originalGrind = quickViewComponent.getGrind();
 
     quickViewComponent.selectGrindByIndex(3);

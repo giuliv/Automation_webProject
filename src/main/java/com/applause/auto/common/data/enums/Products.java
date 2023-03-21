@@ -16,6 +16,6 @@ public enum Products {
   ICED_TEA("Iced Tea"),
   ARTINSANAL_FOOD("Artisanal Food"),
 
-  PAPER_FILTERS("Test Peet’s Paper Filters #4");
+  PAPER_FILTERS("Peet’s Paper Filters #4");
   @Getter private String value;
 }

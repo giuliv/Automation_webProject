@@ -140,8 +140,9 @@ public class Constants {
     public static final String COFFEE_WITH_REVIEWS_URL_PARAMETER =
         "major-dickasons-blend-kcup-pods";
     public static final String BUNDLE_PRODUCT_URL_PARAMETER = "morning-kickstart-bundle";
-    public static final String NEW_FRENCH_ROAST_URL_PARAMETER = "new-french-roast";
+    public static final String FRENCH_ROAST_URL_PARAMETER = "french-roast";
     public static final String MAJOR_DICKASONS_BLEND_KCUP_PODS = "major-dickasons-blend-kcup-pods";
+    public static final String DECAF_SPECIAL_KCUP_PODS = "decaf-especial-kcup-pods";
     public static final String RISTRETTO_ESPRESSO_CAPSULES_URL_PARAMETER =
         "ristretto-espresso-capsules";
     public static final String DECAF_SUMATRA_URL_PARAMETER = "decaf-sumatra";
@@ -686,7 +687,6 @@ public class Constants {
     Coffee1("french-roast"),
     Coffee2("french-roast-half-caf"),
     Coffee3("aged-sumatra");
-    //    Coffee4("major-dickasons-blend-kcup-pods"); // Coffee with reviews. Delivered by customer
 
     private final String value;
 

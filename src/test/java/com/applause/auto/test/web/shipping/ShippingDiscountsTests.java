@@ -16,10 +16,7 @@ public class ShippingDiscountsTests extends BaseTest {
       description = "11127074")
   public void oneLbKCupItemCheckoutFlow() {
     ShippingTestHelper.checkoutProcess(
-        navigateToHome(),
-        TestData.MAJOR_DICKASONS_BLEND_KCUP_PODS,
-        1,
-        TestData.SHIPPING_METHOD_GROUND);
+        navigateToHome(), TestData.DECAF_SPECIAL_KCUP_PODS, 1, TestData.SHIPPING_METHOD_GROUND);
   }
 
   @Test(
@@ -58,10 +55,7 @@ public class ShippingDiscountsTests extends BaseTest {
       description = "11127077")
   public void moreThanNineLbKCupItemCheckoutFlow() {
     ShippingTestHelper.checkoutProcess(
-        navigateToHome(),
-        TestData.MAJOR_DICKASONS_BLEND_KCUP_PODS,
-        9,
-        TestData.SHIPPING_METHOD_GROUND);
+        navigateToHome(), TestData.DECAF_SPECIAL_KCUP_PODS, 9, TestData.SHIPPING_METHOD_GROUND);
   }
 
   @Test(

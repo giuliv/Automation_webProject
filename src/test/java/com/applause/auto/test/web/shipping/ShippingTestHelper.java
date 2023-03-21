@@ -82,11 +82,10 @@ public class ShippingTestHelper extends BaseTest {
 
     logger.info("9. Place order");
     if (!WebHelper.getTestEnvironment().equalsIgnoreCase("production")) {
-      paymentsPage = paymentsPage.setPaymentData(TestData.VISA_CC);
-      AcceptancePage acceptancePage = paymentsPage.clickPayNow();
+      paymentsPage.setPaymentData(TestData.VISA_CC);
 
-      logger.info("10. Validate the order id is displayed");
-      Assert.assertTrue(acceptancePage.isOrderNumberDisplayed(), "Order id is not displayed");
+      // Todo: No need to payNow, according to Shilpa[21.03.2023]
+      // AcceptancePage acceptancePage = paymentsPage.clickPayNow();
     }
   }
 }
