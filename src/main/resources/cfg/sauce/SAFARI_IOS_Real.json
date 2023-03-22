@@ -9,6 +9,7 @@
     "provider": "SauceLabs RDC US West",
     "providerThreadType": "Real"
   },
+  "safariAllowPopups": "true",
   "platformName": "iOS",
   "deviceName": "iPhone.*",
   "appiumVersion": "1.22.2",

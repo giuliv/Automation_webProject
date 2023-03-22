@@ -74,7 +74,9 @@ public class BundleTestHelper extends BaseTest {
 
     logger.info("3. Validate Bundle Items is added to cart");
     softAssert.assertTrue(
-        cartPage.getBundles().stream()
+        cartPage
+            .getBundles()
+            .stream()
             .allMatch(item -> StringUtils.containsIgnoreCase(item, productName)),
         "Wrong bundle item is added to the cart");
 

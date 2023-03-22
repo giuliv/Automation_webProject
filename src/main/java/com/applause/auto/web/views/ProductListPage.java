@@ -250,7 +250,8 @@ public class ProductListPage extends Base {
   @Step("Click on filter")
   public ProductListPage applyFilterByName(Filters filter, String filterOption) {
     logger.info("Selecting filter option [{}] under filter [{}]", filterOption, filter.getName());
-    filtersList.stream()
+    filtersList
+        .stream()
         .filter(f -> f.getText().trim().equals(filter.getName()))
         .findFirst()
         .get()
@@ -258,7 +259,8 @@ public class ProductListPage extends Base {
 
     SdkHelper.getSyncHelper().wait(Until.uiElement(filterOptions.get(0)).visible());
     logger.info("Selecting option: [{}]", filterOption);
-    filterOptions.stream()
+    filterOptions
+        .stream()
         .filter(opt -> opt.getText().trim().equals(filterOption))
         .findFirst()
         .get()
@@ -437,7 +439,8 @@ public class ProductListPage extends Base {
   }
 
   public List<String> getProductListNames() {
-    return productsList().stream()
+    return productsList()
+        .stream()
         .map(
             item -> {
               String name = item.getProductName();
@@ -449,7 +452,8 @@ public class ProductListPage extends Base {
 
   @Step("Get product prices")
   public List<Double> getProductListPrices(SortType sortType) {
-    return productsList().stream()
+    return productsList()
+        .stream()
         .map(product -> product.getProductDoublePrice(sortType))
         .filter(product -> product >= 0)
         .collect(Collectors.toList());
@@ -472,7 +476,8 @@ public class ProductListPage extends Base {
 
   @Step("Get Product With View Product button")
   public PlpItemComponent getProductWithViewProductButton() {
-    return productsList.stream()
+    return productsList
+        .stream()
         .filter(PlpItemComponent::isViewProductButtonExist)
         .findFirst()
         .get();
@@ -502,7 +507,8 @@ public class ProductListPage extends Base {
   public boolean areFilterOptionsDisplayed(Filters filter) {
     logger.info("Checking all filter options are displayed for [{}]", filter.getName());
     logger.info("Clicking on filter: [{}]", filter.getName());
-    filtersList.stream()
+    filtersList
+        .stream()
         .filter(f -> f.getText().equals(filter.getName()))
         .findFirst()
         .get()
@@ -569,7 +575,8 @@ public class ProductListPage extends Base {
   public PlpItemComponent getOutOfScopePlpItemComponent() {
     logger.info("Getting out of scope item");
     clickLoadMore();
-    return productsList().stream()
+    return productsList()
+        .stream()
         .filter(PlpItemComponent::isOutOfScope)
         .findFirst()
         .orElseThrow(() -> new RuntimeException("There are no items in out of scope"));
@@ -685,7 +692,8 @@ class ProductListPageMobile extends ProductListPage {
     for (Filters filter : filters) {
       logger.info("Checking filter [{}] is displayed", filter.getName());
 
-      if (filtersList.stream()
+      if (filtersList
+          .stream()
           .noneMatch(option -> option.getText().trim().equals(filter.getName()))) {
         logger.error("Filter [{}] isn't displayed", filter.getName());
         allFiltersAreDisplayed = false;
@@ -703,7 +711,8 @@ class ProductListPageMobile extends ProductListPage {
     filtersSectionMobile.click();
 
     logger.info("Clicking on filter: [{}]", filter.getName());
-    filtersList.stream()
+    filtersList
+        .stream()
         .filter(f -> f.getText().trim().equals(filter.getName()))
         .findFirst()
         .get()
@@ -730,7 +739,8 @@ class ProductListPageMobile extends ProductListPage {
     SdkHelper.getSyncHelper().wait(Until.uiElement(filtersSectionMobile).visible());
     filtersSectionMobile.click();
 
-    filtersList.stream()
+    filtersList
+        .stream()
         .filter(f -> f.getText().trim().equals(filter.getName()))
         .findFirst()
         .get()
@@ -738,7 +748,8 @@ class ProductListPageMobile extends ProductListPage {
 
     SdkHelper.getSyncHelper().wait(Until.uiElement(filterOptions.get(0)).visible());
     logger.info("Selecting option: [{}]", filterOption);
-    filterOptions.stream()
+    filterOptions
+        .stream()
         .filter(opt -> opt.getText().trim().equals(filterOption))
         .findFirst()
         .get()

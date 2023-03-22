@@ -255,7 +255,8 @@ public class StoreLocatorPage extends Base {
     SdkHelper.getSyncHelper().sleep(1000); // wait for section with options opens
 
     logger.info("Selecting amenities option: {}", option);
-    amenitiesOptions.stream()
+    amenitiesOptions
+        .stream()
         .filter(item -> item.getText().equalsIgnoreCase(option))
         .findFirst()
         .get()
