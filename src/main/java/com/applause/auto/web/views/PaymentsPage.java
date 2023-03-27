@@ -244,8 +244,7 @@ public class PaymentsPage extends Base {
                     card.getCardNumber()
                         .substring(i, Math.min(i + 4, card.getCardNumber().length())))
             .collect(Collectors.toList());
-    cardNumberList
-        .stream()
+    cardNumberList.stream()
         .forEach(
             number -> {
               cardNumber.sendKeys(number);
@@ -428,8 +427,7 @@ public class PaymentsPage extends Base {
   @Step("Get list of error messages")
   public List<String> getListOfErrorMessageForMandatoryFields() {
     ((LazyList<?>) errorMessagesList).initialize();
-    return errorMessagesList
-        .stream()
+    return errorMessagesList.stream()
         .map(error -> WebHelper.cleanString(error.getText()))
         .collect(Collectors.toList());
   }

@@ -559,12 +559,7 @@ public class HomePage extends Base {
     SdkHelper.getSyncHelper().wait(Until.uiElement(subscriptionModuleCopyButton).clickable());
     WebHelper.scrollToElement(subscriptionModuleCopyButton.getWebElement());
     SdkHelper.getSyncHelper().sleep(1000); // Wait for action
-    if (SdkHelper.getEnvironmentHelper().isIOSMobileWeb()) {
-      WebHelper.clickIosWithNativeTap(subscriptionModuleCopyButton);
-    } else {
-      subscriptionModuleCopyButton.click();
-    }
-    SdkHelper.getSyncHelper().sleep(1000); // Wait for action
+    subscriptionModuleCopyButton.click();
   }
 
   public String getSubscriptionModuleCopyButtonText() {
@@ -618,7 +613,7 @@ public class HomePage extends Base {
     SdkHelper.getSyncHelper()
         .wait(Until.uiElement(element).visible().setTimeout(Duration.ofSeconds(60)));
     logger.info("---- found " + element.getText().trim());
-    return element.getWebElement().getAttribute("innerText").trim().toLowerCase();
+    return element.getText().trim().toLowerCase();
   }
 
   public void clickSubscriptionModuleMenuLink(HomepageSubscriptionsModuleMenu menuItem) {
@@ -650,11 +645,9 @@ public class HomePage extends Base {
     SdkHelper.getSyncHelper().sleep(2000); // Wait for action
     Text element = subscriptionModuleSubDescription.get(menuItem.getPosition());
     element.initialize();
-
-    SdkHelper.getSyncHelper()
-        .waitUntil(wait -> WebHelper.getVisibilityAlter(element.getWebElement()) == false);
+    SdkHelper.getSyncHelper().wait(Until.uiElement(element).notVisible());
     logger.info("---- found that element is hidden: " + !element.isDisplayed());
-    return !WebHelper.getVisibilityAlter(element.getWebElement());
+    return !element.isDisplayed();
   }
 }
 

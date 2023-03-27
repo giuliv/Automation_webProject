@@ -438,8 +438,7 @@ public class ProductDetailsPage extends Base {
 
     if (WebHelper.isDesktop() && WebHelper.isSafari()) {
       text =
-          grindListSelected
-              .stream()
+          grindListSelected.stream()
               .filter(x -> x.getWebElement().isSelected())
               .findFirst()
               .get()
@@ -956,8 +955,7 @@ public class ProductDetailsPage extends Base {
 
   @Step("Get active brewing method")
   public String getActiveBrewingMethod() {
-    return brewingMethods
-        .stream()
+    return brewingMethods.stream()
         .filter(method -> method.getAttributeValue(Attribute.CLASS.getValue()).contains("active"))
         .findFirst()
         .orElseThrow(() -> new RuntimeException("There are no active brewing methods"))
@@ -1262,9 +1260,7 @@ public class ProductDetailsPage extends Base {
   @Step("Select Gift Duration value")
   public ProductDetailsPage selectGiftDuration(GiftDuration giftDuration) {
     logger.info("Selecting Gift Duration [{}]", giftDuration.getOption());
-    giftDurationDropdown
-        .getOptions()
-        .stream()
+    giftDurationDropdown.getOptions().stream()
         .filter(
             option ->
                 option

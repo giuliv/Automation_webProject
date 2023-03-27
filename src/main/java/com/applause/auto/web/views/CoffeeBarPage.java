@@ -10,7 +10,6 @@ import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Image;
 import com.applause.auto.pageobjectmodel.elements.Link;
 import com.applause.auto.pageobjectmodel.elements.Text;
-import com.applause.auto.pageobjectmodel.factory.LazyList;
 import com.applause.auto.web.components.AccountMenuChunk;
 import com.applause.auto.web.helpers.WebHelper;
 import java.util.List;
@@ -224,12 +223,10 @@ public class CoffeeBarPage extends Base {
    */
   public OrderPage clickFeaturedItemOrderNowButton(int index) {
     logger.info("click Featured Item Order Now Button");
-    if (SdkHelper.getEnvironmentHelper().isIOSMobileWeb()) {
-      WebHelper.clickIosWithNativeTap(getFeaturedOrderNowHoverList().get(index));
-    } else {
-      getFeaturedOrderNowHoverList().get(index).click();
-    }
-
+    WebHelper.hoverByAction(getSelectedArticlesList().get(index));
+    WebHelper.scrollToElement(getFeaturedOrderNowHoverList().get(index));
+    WebHelper.hoverByAction(getFeaturedOrderNowHoverList().get(index));
+    getFeaturedOrderNowHoverList().get(index).click();
     WebHelper.getNewTab();
     return SdkHelper.create(OrderPage.class);
   }
@@ -316,7 +313,6 @@ public class CoffeeBarPage extends Base {
   }
 
   private List<ContainerElement> getSelectedArticlesList() {
-    ((LazyList) getAllArticles).initialize();
     if (!WebHelper.isDisplayed(getNextButton)) {
       return getAllArticles;
     } else {

@@ -1,8 +1,5 @@
 package com.applause.auto.test.web.home_page;
 
-import static com.applause.auto.common.data.Constants.BundleIds.APP_STORE;
-import static com.applause.auto.common.data.Constants.BundleIds.SAFARI;
-
 import com.applause.auto.common.data.Constants.TestNGGroups;
 import com.applause.auto.common.data.enums.FooterOptions;
 import com.applause.auto.framework.SdkHelper;
@@ -10,11 +7,7 @@ import com.applause.auto.test.web.BaseTest;
 import com.applause.auto.web.components.FooterComponent;
 import com.applause.auto.web.helpers.WebHelper;
 import com.applause.auto.web.views.HomePage;
-import io.appium.java_client.AppiumDriver;
-import io.appium.java_client.ios.IOSDriver;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -199,22 +192,12 @@ public class FooterTests extends BaseTest {
     String currentUrl = WebHelper.getCurrentUrl().toLowerCase();
     if (!WebHelper.isDesktop()) {
       if (SdkHelper.getEnvironmentHelper().isIOSMobileWeb()) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("bundleId", APP_STORE);
-        final long state =
-            (Long)
-                ((AppiumDriver) SdkHelper.getDriver())
-                    .executeScript("mobile: queryAppState", params);
-        ((IOSDriver) SdkHelper.getDriver()).activateApp(SAFARI);
-
-        softAssert.assertTrue(state == 4, "App store app does not loaded");
+        softAssert.assertTrue(
+            currentUrl.contains("apps.apple.com"), "App store page isn't displayed");
       } else {
         softAssert.assertTrue(
             currentUrl.contains("peets"), "Peet's App store page isn't displayed");
       }
-    } else {
-      softAssert.assertTrue(
-          currentUrl.contains("apps.apple.com"), "App store page isn't displayed");
     }
 
     logger.info("2. Click on 'Google play'");
@@ -222,29 +205,10 @@ public class FooterTests extends BaseTest {
     footer.clickGooglePlay();
 
     logger.info("Verify Google play page is displayed");
-    if (!WebHelper.isDesktop()) {
-      if (SdkHelper.getEnvironmentHelper().isIOSMobileWeb()) {
-        WebHelper.isAppleStoreDisplayed();
-        Map<String, Object> params = new HashMap<>();
-        params.put("bundleId", APP_STORE);
-        final long state =
-            (Long)
-                ((AppiumDriver) SdkHelper.getDriver())
-                    .executeScript("mobile: queryAppState", params);
-        ((IOSDriver) SdkHelper.getDriver()).activateApp(SAFARI);
-
-        softAssert.assertTrue(state == 4, "App store app does not loaded");
-      } else {
-        softAssert.assertTrue(
-            currentUrl.contains("peets"), "Peet's App store page isn't displayed");
-      }
-    } else {
-      currentUrl = WebHelper.getCurrentUrl().toLowerCase();
-      softAssert.assertTrue(
-          currentUrl.contains("play.google.com"), "Google play page isn't displayed");
-      softAssert.assertTrue(
-          currentUrl.contains("peets"), "Peet's Google play page isn't displayed");
-    }
+    currentUrl = WebHelper.getCurrentUrl().toLowerCase();
+    softAssert.assertTrue(
+        currentUrl.contains("play.google.com"), "Google play page isn't displayed");
+    softAssert.assertTrue(currentUrl.contains("peets"), "Peet's Google play page isn't displayed");
 
     softAssert.assertAll();
   }

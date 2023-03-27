@@ -581,11 +581,6 @@ public class Constants {
     public static String LEARN_MORE_URL_PART = "/pages/timeline";
   }
 
-  public static class BundleIds {
-    public static String SAFARI = "com.apple.mobilesafari";
-    public static String APP_STORE = "com.apple.AppStore";
-  }
-
   public static class HomepageSubscriptionsModule {
     public static String HEADER = "30% OFF FOR NEW SUBSCRIBERS";
     public static String DESCRIPTION =

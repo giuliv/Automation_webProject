@@ -175,7 +175,9 @@ public class ShippingPage extends Base {
   }
 
   @Step("Apply discount code")
-  /** @return ShippingPage */
+  /**
+   * @return ShippingPage
+   */
   public ShippingPage applyDiscountCode(String discountCode) {
     logger.info("Applying discount code: {}", discountCode);
     SdkHelper.getSyncHelper().sleep(10000); // Wait for peet's card are ready
@@ -275,7 +277,9 @@ class ShippingPageMobile extends ShippingPage {
 
   @Override
   @Step("Apply discount code")
-  /** @return ShippingPage */
+  /**
+   * @return ShippingPage
+   */
   public ShippingPage applyDiscountCode(String discountCode) {
     expandOrderSummarySectionIfNotExpanded();
     return super.applyDiscountCode(discountCode);

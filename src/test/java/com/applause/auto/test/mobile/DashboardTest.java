@@ -247,7 +247,7 @@ public class DashboardTest extends BaseTest {
           homeView.getWhatAreYouInTheMoodForMessage(),
           "'What are you in the mood for?' message should be displayed");
     }
-
+    
     logger.info("VERIFY Order button is displayed on the bottom menu");
     Assert.assertTrue(
         homeView.getBottomNavigationMenuChunk().isOrderButtonDisplayed(),
