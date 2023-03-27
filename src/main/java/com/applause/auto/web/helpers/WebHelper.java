@@ -3,13 +3,10 @@ package com.applause.auto.web.helpers;
 import static com.applause.auto.framework.SdkHelper.getDriver;
 import static io.appium.java_client.Setting.NATIVE_WEB_TAP;
 
-import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
-import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.BaseElement;
-import com.applause.auto.pageobjectmodel.elements.Button;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.elements.TextBox;
 import io.appium.java_client.android.AndroidDriver;
@@ -824,6 +821,14 @@ public class WebHelper {
     return value;
   }
 
+  public static Boolean getVisibilityAlter(WebElement element) {
+    Boolean value =
+        (Boolean)
+            ((JavascriptExecutor) SdkHelper.getDriver())
+                .executeScript("return (arguments[0].offsetParent === null);", element);
+    return value;
+  }
+
   public static void clickAndroidBackButton() {
     logger.info("Clicking on the Android back button");
     ((AndroidDriver) getDriver()).pressKey(new KeyEvent(AndroidKey.BACK));
@@ -918,5 +923,12 @@ public class WebHelper {
     // The site with windows width more than 767 is shown in desktop version even on mobile browser
     // with landscape orientation
     return getJavascriptWindowWidth() > 767;
+  }
+
+  public static void clickIosWithNativeTap(BaseElement element) {
+    logger.info("Clicking with Native Tap");
+    ((IOSDriver) SdkHelper.getDriver()).nativeWebTap(true);
+    element.click();
+    ((IOSDriver) SdkHelper.getDriver()).nativeWebTap(false);
   }
 }

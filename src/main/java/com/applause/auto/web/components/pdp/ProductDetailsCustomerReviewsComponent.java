@@ -84,7 +84,9 @@ public class ProductDetailsCustomerReviewsComponent extends BaseComponent {
     logger.info("Checking Sort by dropdown contains all expected options: {}", expectedOptions);
     WebHelper.scrollToElement(sortByDropdown);
     List<String> options =
-        sortByDropdown.getOptions().stream()
+        sortByDropdown
+            .getOptions()
+            .stream()
             .map(ContainerElement::getText)
             .collect(Collectors.toList());
     logger.info("Current options: {}", options);
@@ -97,7 +99,9 @@ public class ProductDetailsCustomerReviewsComponent extends BaseComponent {
     switch (option) {
       case LOWEST_TO_HIGHEST_RATING:
         ContainerElement element =
-            sortByDropdown.getOptions().stream()
+            sortByDropdown
+                .getOptions()
+                .stream()
                 .filter(
                     opt ->
                         opt.getAttributeValue(Attribute.VALUE.getValue()).equals(option.getValue()))
@@ -132,7 +136,8 @@ public class ProductDetailsCustomerReviewsComponent extends BaseComponent {
 
   @Step("Get reviews ratings")
   public List<Integer> getReviewsRatings() {
-    return getReviewItemComponent().stream()
+    return getReviewItemComponent()
+        .stream()
         .map(ReviewItemComponent::getRating)
         .collect(Collectors.toList());
   }

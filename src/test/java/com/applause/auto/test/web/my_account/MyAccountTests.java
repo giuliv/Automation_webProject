@@ -1,7 +1,6 @@
 package com.applause.auto.test.web.my_account;
 
 import com.applause.auto.common.data.Constants;
-import com.applause.auto.common.data.Constants.CheckoutUserTestData;
 import com.applause.auto.common.data.Constants.MyAccountLeftMenuOption;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestData;

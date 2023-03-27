@@ -5,17 +5,7 @@ import static com.applause.auto.test.mobile.helpers.TestHelper.navigateToLanding
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.MyAccountTestData;
 import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.framework.SdkHelper;
-import com.applause.auto.mobile.helpers.MobileHelper;
-import com.applause.auto.mobile.helpers.SwipeDirectionCloseToMiddle;
-import com.applause.auto.mobile.views.CartView;
-import com.applause.auto.mobile.views.FindACoffeeBarView;
 import com.applause.auto.mobile.views.HomeView;
-import com.applause.auto.mobile.views.LandingView;
-import com.applause.auto.mobile.views.MoreOptionsView;
-import com.applause.auto.mobile.views.OrderView;
-import com.applause.auto.mobile.views.PeetnikRewardsHelpView;
-import com.applause.auto.mobile.views.RewardsStoreView;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 

@@ -80,7 +80,8 @@ public class CoffeeBarCarouselComponent extends BaseComponent {
       return getCoffeeBarItemComponents();
     }
 
-    return getCoffeeBarItemComponents().stream()
+    return getCoffeeBarItemComponents()
+        .stream()
         .filter(item -> item.isVisible())
         .collect(Collectors.toList());
   }
