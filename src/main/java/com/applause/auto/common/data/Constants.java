@@ -342,7 +342,7 @@ public class Constants {
             : "peets_order_beverages_ios@gmail.com";
     public static final String PASSWORD_FOR_USER__WITH_PEETNIK_REWARDS =
         WebHelper.isProdEnv() ? "peets123" : "P@ssword1!";
-    public static final String PASSWORD = "peets123";
+    public static final String PASSWORD = "Peets123";
     public static final String REORDER_EMAIL = "peets.automation.reorder@applause.com";
     public static final String EDIT_EMAIL = "peets.auto01@gmail.com";
     public static final String EDIT_EMAIL_PWD = "p4ssword!";
