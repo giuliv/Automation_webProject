@@ -15,6 +15,7 @@ import com.applause.auto.pageobjectmodel.elements.SelectList;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.pageobjectmodel.factory.LazyList;
 import com.applause.auto.web.components.QuickViewComponent;
+import com.applause.auto.web.components.pdp.PdpStickyNavDetailsComponent;
 import com.applause.auto.web.components.plp.PlpItemComponent;
 import com.applause.auto.web.helpers.WebHelper;
 import com.google.common.collect.Ordering;
@@ -36,6 +37,22 @@ public class ProductListPage extends Base {
           ".collection__grid li a.pi__link > div:nth-child(2):not(.pi__badge), .collection__grid article",
       on = Platform.WEB)
   private List<Image> productsImageList;
+
+  //ONBOARDING-----------------------
+  @Locate(
+          css =
+                  ".collection__grid li a.pi__link > div.pi__img-wrapper",
+          on = Platform.WEB)
+  private List<Image> productsImageWrapper;
+
+  @Locate(css = ".sticky-atc__inner container container--small", on = Platform.WEB)
+  private ContainerElement newNavBar;
+
+  @Locate(id = "stickyBtnAddToBag",on = Platform.WEB)
+  private Button stickyBtnAddToBag;
+
+
+
 
   @Locate(
       css = ".collection__grid li a.pi__link[href*='reserve'] > div:nth-child(2):not(.pi__badge)",
@@ -193,6 +210,42 @@ public class ProductListPage extends Base {
   }
 
   /* -------- Actions -------- */
+
+  //ONBOARDING ------------------------------------------
+  @Step("Select product")
+  public ProductDetailsPage clickProductWrapperByIndex(int index){
+    logger.info("Click over product image with index: "+ index);
+    WebHelper.scrollToElement(productsImageWrapper.get(index));
+    SdkHelper.getSyncHelper().sleep(1000); //wait for scroll
+
+    SdkHelper.getSyncHelper().wait(Until.uiElement(productsImageWrapper.get(index)).visible());
+    WebHelper.scrollToElement(productsImageWrapper.get(index));
+    SdkHelper.getSyncHelper().sleep(1000); // Wait for scroll
+
+    if (WebHelper.isSafari() && !WebHelper.isMobile()) {
+      logger.info("Safari Desktop");
+      WebHelper.jsClick(productsImageWrapper.get(index).getWebElement());
+    } else {
+      productsImageWrapper.get(index).click();
+    }
+    return SdkHelper.create(ProductDetailsPage.class);
+  }
+
+  @Step("Scroll down to see the header displayed at the top")
+  public PdpStickyNavDetailsComponent scrollDownToSeeNewHeaderOnTop(){
+    WebHelper.scrollToPageBottom();
+    SdkHelper.getSyncHelper().sleep(2000); // Wait for scroll
+    SdkHelper.getSyncHelper().wait(Until.uiElement(stickyBtnAddToBag).visible());
+    SdkHelper.getSyncHelper().sleep(2000); //Wait to see element
+
+    return SdkHelper.create(PdpStickyNavDetailsComponent.class);
+
+  }
+
+  @Step("Verify product name is displayed")
+  public boolean isStickyBtnDisplayed() {
+    return WebHelper.isDisplayed(stickyBtnAddToBag);
+  }
 
   @Step("Select product")
   public ProductDetailsPage clickOverProductByIndex(int index) {

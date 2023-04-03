@@ -4,14 +4,17 @@ import com.applause.auto.common.data.enums.Attribute;
 import com.applause.auto.data.enums.Platform;
 import com.applause.auto.framework.SdkHelper;
 import com.applause.auto.helpers.sync.Until;
+import com.applause.auto.pageobjectmodel.annotation.Implementation;
 import com.applause.auto.pageobjectmodel.annotation.Locate;
 import com.applause.auto.pageobjectmodel.base.BaseComponent;
 import com.applause.auto.pageobjectmodel.elements.ContainerElement;
 import com.applause.auto.pageobjectmodel.elements.Text;
 import com.applause.auto.web.components.MiniCart;
 import com.applause.auto.web.helpers.WebHelper;
+import com.applause.auto.web.views.ProductListPage;
 import io.qameta.allure.Step;
 
+@Implementation(is = PdpStickyNavDetailsComponent.class, on = Platform.WEB)
 public class PdpStickyNavDetailsComponent extends BaseComponent {
 
   @Locate(css = "#pvStickyAtc", on = Platform.WEB)
@@ -64,4 +67,38 @@ public class PdpStickyNavDetailsComponent extends BaseComponent {
   public String getProductName() {
     return nameText.getText().trim();
   }
+
+
+  //Onboarding-------------------------------
+  @Step("Get product price")
+  public String getProductPrice(){ return priceText.getText().trim();}
+
+  @Step("Check Nav details")
+  public PdpStickyNavDetailsComponent navigateToStickyNavDetails(){
+    logger.info("Check name and price inside the nav bar");
+    SdkHelper.getSyncHelper().wait(Until.uiElement(nameText).visible());
+    WebHelper.scrollToElement(nameText);
+    SdkHelper.getSyncHelper().sleep(1000);
+
+    return SdkHelper.create(PdpStickyNavDetailsComponent.class);
+
+  }
+
+  @Step("Check Names if they match")
+  public boolean areNamesEqual(String element1, String element2){
+    if (element1 != element2){
+      return true;
+    }
+    return false;
+  }
+
+  @Step("Check Prices if the match")
+  public boolean arePricesEqual(String price1, String price2){
+    if (price1 != price2){
+      return true;
+    }
+    return false;
+  }
 }
+
+

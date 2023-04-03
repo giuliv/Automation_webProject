@@ -25,6 +25,10 @@ public class PlpItemComponent extends BaseComponent {
   @Locate(xpath = ".//h3/a", on = Platform.WEB)
   private Text productName;
 
+  // locate product name onboarding
+  @Locate(xpath = ".//h3[contains(@class, 'pi__title')]", on = Platform.WEB)
+  private Text productName2;
+
   @Locate(xpath = ".//p[contains(@class, 'price')]", on = Platform.WEB)
   private Text productPrice;
 
@@ -76,6 +80,14 @@ public class PlpItemComponent extends BaseComponent {
   @Step("Get Product Name")
   public String getProductName() {
     String name = WebHelper.cleanString(productName.getText());
+    logger.info("Product name [{}]", name);
+    return name;
+  }
+
+  // onboarding
+  @Step("Get product name")
+  public String getProductName2() {
+    String name = WebHelper.cleanString(productName2.getText());
     logger.info("Product name [{}]", name);
     return name;
   }
@@ -146,6 +158,16 @@ public class PlpItemComponent extends BaseComponent {
   @Step("Verify product name is displayed")
   public boolean isNameDisplayed() {
     return WebHelper.isDisplayed(productName);
+  }
+
+  // onboarding
+  @Step("Verify product name is displayed")
+  public boolean isNameDisplayed2() {
+    return WebHelper.isDisplayed(productName2);
+  }
+
+  public Button getClickElement() {
+    return clickElement;
   }
 
   @Step("Verify product price is displayed")

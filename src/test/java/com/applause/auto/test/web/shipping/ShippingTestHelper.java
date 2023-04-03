@@ -4,7 +4,6 @@ import com.applause.auto.common.data.Constants.TestData;
 import com.applause.auto.test.web.BaseTest;
 import com.applause.auto.web.components.MiniCart;
 import com.applause.auto.web.helpers.WebHelper;
-import com.applause.auto.web.views.AcceptancePage;
 import com.applause.auto.web.views.CheckOutPage;
 import com.applause.auto.web.views.HomePage;
 import com.applause.auto.web.views.PaymentsPage;

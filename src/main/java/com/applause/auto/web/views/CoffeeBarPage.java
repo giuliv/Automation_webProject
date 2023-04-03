@@ -132,18 +132,14 @@ public class CoffeeBarPage extends Base {
     return SdkHelper.create(EmailSignUpPage.class);
   }
 
-  /**
-   * @return if item is on the screen
-   */
+  /** @return if item is on the screen */
   public Boolean validateProduct(String product) {
     logger.info(String.format("Check if " + product + " is on the screen"));
     getProduct.format(product).initialize();
     return getProduct.exists();
   }
 
-  /**
-   * @return section title
-   */
+  /** @return section title */
   public String getFeaturedMenuTitle() {
     logger.info(String.format("Get Featured Menu Title"));
     return getFeaturedMenu.getText().toUpperCase();
@@ -165,63 +161,49 @@ public class CoffeeBarPage extends Base {
     return SdkHelper.create(GetAppPage.class);
   }
 
-  /**
-   * @return src value of image
-   */
+  /** @return src value of image */
   public String getFeaturedImage(int i) {
     String text = getImagesList().get(i).getAttributeValue("srcset");
     logger.info("href found: " + i + ":" + text);
     return text;
   }
 
-  /**
-   * @return title
-   */
+  /** @return title */
   public String getFeaturedTitle(int index) {
     String text = getTitles.get(index).getText().trim();
     logger.info("Title found: " + index + ":" + text);
     return text.toUpperCase();
   }
 
-  /**
-   * @return Description
-   */
+  /** @return Description */
   public String getFeaturedDescription(int index) {
     String text = getDescList().get(index).getText();
     logger.info("Description found: " + index + ":" + text);
     return text;
   }
 
-  /**
-   * @return image href
-   */
+  /** @return image href */
   public String getCategoryImage(int index) {
     String text = getCategoryImages.get(index).getAttributeValue("href");
     logger.info("href found: " + index + ":" + text);
     return text;
   }
 
-  /**
-   * @return section title
-   */
+  /** @return section title */
   public String getCategoryTitle(int index) {
     String text = getCategoryTitles.get(index).getText();
     logger.info("Title found: " + index + ":" + text);
     return text;
   }
 
-  /**
-   * @return Description
-   */
+  /** @return Description */
   public String getCategoryDescription(int i) {
     String text = getCategoryDescriptions.get(i).getText();
     logger.info("Description found: " + i + ":" + text);
     return text;
   }
 
-  /**
-   * @return Order page
-   */
+  /** @return Order page */
   public OrderPage clickFeaturedItemOrderNowButton(int index) {
     logger.info("click Featured Item Order Now Button");
     if (SdkHelper.getEnvironmentHelper().isIOSMobileWeb()) {
@@ -234,9 +216,7 @@ public class CoffeeBarPage extends Base {
     return SdkHelper.create(OrderPage.class);
   }
 
-  /**
-   * @return Coffee Bar Page
-   */
+  /** @return Coffee Bar Page */
   public CoffeeBarPage clickNextArrow() {
     logger.info("click Next Arrow");
     if (WebHelper.isMobile()) {
@@ -251,9 +231,7 @@ public class CoffeeBarPage extends Base {
     return SdkHelper.create(CoffeeBarPage.class);
   }
 
-  /**
-   * @return Coffee Bar Page
-   */
+  /** @return Coffee Bar Page */
   public CoffeeBarPage clickPreviousArrow() {
     logger.info("click Previous Arrow");
     WebHelper.scrollToElement(getPreviousButton);
@@ -263,33 +241,25 @@ public class CoffeeBarPage extends Base {
     return SdkHelper.create(CoffeeBarPage.class);
   }
 
-  /**
-   * @return if button is on the page
-   */
+  /** @return if button is on the page */
   public Boolean getOrderNowButton() {
     logger.info("Check if Order Now Button is on the screen");
     return getOrderNowButton.exists();
   }
 
-  /**
-   * @return page description
-   */
+  /** @return page description */
   public String getCoffeeBarDescription() {
     logger.info("Getting page Description");
     return getDescriptionText.getText();
   }
 
-  /**
-   * @return page title
-   */
+  /** @return page title */
   public String getCoffeeBarTitle() {
     logger.info("Getting page Title");
     return getTitleText.getText().toUpperCase();
   }
 
-  /**
-   * @return if banner image is on the page
-   */
+  /** @return if banner image is on the page */
   public Boolean getCoffeeBarBanner() {
     logger.info("Check if correct image is on the screen");
     return getBannerImage.exists();
@@ -321,7 +291,8 @@ public class CoffeeBarPage extends Base {
       return getAllArticles;
     } else {
       logger.info("Getting selected articles");
-      return getAllArticles.stream()
+      return getAllArticles
+          .stream()
           .filter(
               article ->
                   article.getAttributeValue(Attribute.CLASS.getValue()).contains("is-selected"))
@@ -333,26 +304,30 @@ public class CoffeeBarPage extends Base {
     logger.info("Article size: " + getSelectedArticlesList().size());
     logger.info(
         "Image size: "
-            + getSelectedArticlesList().stream()
+            + getSelectedArticlesList()
+                .stream()
                 .map(
                     element ->
                         element.getChild(By.cssSelector(" .pi__img-default img"), Image.class))
                 .collect(Collectors.toList())
                 .size());
 
-    return getSelectedArticlesList().stream()
+    return getSelectedArticlesList()
+        .stream()
         .map(element -> element.getChild(By.cssSelector(" .pi__img-default img"), Image.class))
         .collect(Collectors.toList());
   }
 
   private List<Text> getDescList() {
-    return getSelectedArticlesList().stream()
+    return getSelectedArticlesList()
+        .stream()
         .map(element -> element.getChild(By.cssSelector(" .pi__desc h3"), Text.class))
         .collect(Collectors.toList());
   }
 
   private List<Button> getFeaturedOrderNowHoverList() {
-    return getSelectedArticlesList().stream()
+    return getSelectedArticlesList()
+        .stream()
         .map(element -> element.getChild(By.cssSelector(" .pi__quick-add a"), Button.class))
         .collect(Collectors.toList());
   }

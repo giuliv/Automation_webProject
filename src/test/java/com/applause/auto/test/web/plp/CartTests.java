@@ -4,7 +4,6 @@ import static com.applause.auto.common.data.Constants.WebTestData.PLP_SHOPABBLE_
 
 import com.applause.auto.common.data.Constants;
 import com.applause.auto.common.data.Constants.TestNGGroups;
-import com.applause.auto.common.data.enums.FooterOptions;
 import com.applause.auto.test.web.BaseTest;
 import com.applause.auto.web.components.MiniCart;
 import com.applause.auto.web.components.NeverMissAnOfferChunk;

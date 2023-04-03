@@ -132,6 +132,10 @@ public class ProductDetailsPage extends Base {
   @Locate(id = "productRecommendations", on = Platform.WEB)
   private Button recommendedForYou;
 
+  //ONBOARDING ------------------------------------------
+  @Locate(css = "li.form-item footer__newsletter-item", on = Platform.WEB)
+  private Button newsletterButton;
+
   @Locate(xpath = "//div[@id='productRecommendationsWrapper']//article", on = Platform.WEB)
   @Locate(
       xpath = "//div[@id='productRecommendationsWrapper']//article[contains(@class,'selected')]",
@@ -1000,6 +1004,21 @@ public class ProductDetailsPage extends Base {
     WebHelper.scrollToElement(brewingMethods.get(index - 1));
     brewingMethods.get(index - 1).click();
     return this;
+  }
+
+  @Step("Scroll to Recommended For You Quiz Link")
+  public boolean scrollDowntoRecommendedForYou(){
+    WebHelper.scrollToPageBottom();
+    WebHelper.scrollToElement(recommendedForYouQuizLink);
+    return WebHelper.isDisplayed(recommendedForYouQuizLink);
+
+  }
+
+  //ONBOARDING ---------------------------------------------------
+  @Step("Scroll to Newsletter button")
+  public boolean scrollDownToNewsletterButton(){
+    WebHelper.scrollToElement(newsletterButton);
+    return WebHelper.isDisplayed(newsletterButton);
   }
 
   @Step("Click on Play button on Banner")
