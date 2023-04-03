@@ -31,7 +31,6 @@ public class Onboardingv2 extends BaseTest{
         String coffee_price = productListPage.getProductOnPosition(1).getProductPrice();
         productListPage.clickProductWrapperByIndex(1);
 
-
         logger.info("4. The coffe name is " + coffee_name + " and the price is "+coffee_price);
 
         logger.info("5. Scroll down to see the header displayed at the top");
