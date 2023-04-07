@@ -76,7 +76,7 @@ public class PdpStickyNavDetailsComponent extends BaseComponent {
   logger.info("The product price is: "+ priceText.getText().trim())
   return priceText.getText().trim();}
 
-  @Step("Check Nav details")
+  @Step("Scroll to product name in Nav details")
   public PdpStickyNavDetailsComponent navigateToStickyNavDetails(){
     logger.info("Check name and price inside the nav bar");
     SdkHelper.getSyncHelper().wait(Until.uiElement(nameText).visible());
