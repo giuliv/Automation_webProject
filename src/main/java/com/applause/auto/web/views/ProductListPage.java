@@ -242,7 +242,7 @@ public class ProductListPage extends Base {
 
   }
 
-  @Step("Verify product name is displayed")
+  @Step("Verify Sticky Button is displayed")
   public boolean isStickyBtnDisplayed() {
     return WebHelper.isDisplayed(stickyBtnAddToBag);
   }
