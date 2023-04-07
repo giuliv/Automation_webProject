@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 public class Onboardingv2 extends BaseTest{
     @Test(
             groups = {
-                    Constants.TestNGGroups.TO_BE_RENAMED,
                     Constants.TestNGGroups.SEARCH,
                     Constants.TestNGGroups.SMOKE
             },
