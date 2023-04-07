@@ -363,15 +363,7 @@ public class WebHelper {
     return element.exists() && element.isDisplayed();
   }
 
-  //ONBOARDING --------------------------------------------------
-  //Check if Strings are equal
-/*  public static boolean isStringEqual(String element1, String element2){
-    if (element1 != element2){
-      return true;
-    }
-    return false;
-  }*/
-
+  
   /**
    * Check if element exist and then if isDisplayed
    *
