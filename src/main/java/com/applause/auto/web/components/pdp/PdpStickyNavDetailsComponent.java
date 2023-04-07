@@ -71,7 +71,10 @@ public class PdpStickyNavDetailsComponent extends BaseComponent {
 
   //Onboarding-------------------------------
   @Step("Get product price")
-  public String getProductPrice(){ return priceText.getText().trim();}
+  public String getProductPrice(){ 
+  
+  logger.info("The product price is: "+ priceText.getText().trim())
+  return priceText.getText().trim();}
 
   @Step("Check Nav details")
   public PdpStickyNavDetailsComponent navigateToStickyNavDetails(){
